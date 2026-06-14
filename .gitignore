@@ -1,0 +1,17 @@
+node_modules
+
+/.cache
+/build
+/dist
+/public/build
+/.mf
+
+.env
+.env.*
+!.env.example
+
+.shopify
+
+*.local
+*.log
+.DS_Store
