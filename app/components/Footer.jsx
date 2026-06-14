@@ -1,4 +1,4 @@
-import {Link} from 'react-router';
+import {Link, useFetcher} from 'react-router';
 import {
   IconInstagram,
   IconFacebook,
@@ -50,17 +50,7 @@ export function Footer({header}) {
           <Link to="/search">Search</Link>
         </div>
 
-        <div className="pk-footer__col pk-footer__newsletter">
-          <h4>Join our newsletter</h4>
-          <p>Exclusive offers and new arrivals, straight to your inbox.</p>
-          <form
-            className="pk-footer__form"
-            onSubmit={(e) => e.preventDefault()}
-          >
-            <input type="email" placeholder="Enter your email" aria-label="Email" />
-            <button type="submit" aria-label="Subscribe">→</button>
-          </form>
-        </div>
+        <Newsletter />
       </div>
 
       <div className="pk-footer__bar">
@@ -72,6 +62,39 @@ export function Footer({header}) {
         </nav>
       </div>
     </footer>
+  );
+}
+
+function Newsletter() {
+  const fetcher = useFetcher();
+  const ok = fetcher.data?.ok;
+  const error = fetcher.data?.error;
+  const submitting = fetcher.state !== 'idle';
+
+  return (
+    <div className="pk-footer__col pk-footer__newsletter">
+      <h4>Join our newsletter</h4>
+      {ok ? (
+        <p className="pk-footer__ok">Thanks — you&apos;re on the list.</p>
+      ) : (
+        <>
+          <p>Exclusive offers and new arrivals, straight to your inbox.</p>
+          <fetcher.Form method="post" action="/newsletter" className="pk-footer__form">
+            <input
+              type="email"
+              name="email"
+              required
+              placeholder="Enter your email"
+              aria-label="Email"
+            />
+            <button type="submit" disabled={submitting} aria-label="Subscribe">
+              {submitting ? '…' : '→'}
+            </button>
+          </fetcher.Form>
+          {error ? <p className="pk-footer__err">{error}</p> : null}
+        </>
+      )}
+    </div>
   );
 }
 

@@ -51,11 +51,6 @@ export function HeaderMenu({menu, primaryDomainUrl, viewport, publicStoreDomain}
 
   return (
     <nav className={className} role="navigation">
-      {viewport === 'mobile' && (
-        <NavLink end onClick={close} prefetch="intent" className="pk-nav__link" to="/">
-          Home
-        </NavLink>
-      )}
       {(menu || FALLBACK_HEADER_MENU).items.map((item) => {
         if (!item.url) return null;
         const url =
