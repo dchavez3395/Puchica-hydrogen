@@ -1,6 +1,7 @@
 import {Link} from 'react-router';
 import {Image, Money} from '@shopify/hydrogen';
 import {useVariantUrl} from '~/lib/variants';
+import {AddToCartButton} from '~/components/AddToCartButton';
 
 /**
  * @param {{
@@ -14,14 +15,21 @@ import {useVariantUrl} from '~/lib/variants';
 export function ProductItem({product, loading}) {
   const variantUrl = useVariantUrl(product.handle);
   const image = product.featuredImage;
+  // For products with options (size/color/etc.) we don't have a single
+  // variant ID we can add to cart without going to the PDP — the
+  // CollectionItemFragment only asks for `variants(first: 1)` as a probe.
+  // If the product has any variant, we use its id; otherwise we send the
+  // user to the PDP to pick options.
+  const variant = product.variants?.nodes?.[0];
+
   return (
-    <Link
-      className="pk-card pk-card--link"
-      key={product.id}
-      prefetch="intent"
-      to={variantUrl}
-    >
-      <div className="pk-card__media">
+    <div className="pk-card pk-card--link">
+      <Link
+        className="pk-card__media"
+        to={variantUrl}
+        prefetch="intent"
+        aria-label={product.title}
+      >
         {image && (
           <Image
             alt={image.altText || product.title}
@@ -31,21 +39,34 @@ export function ProductItem({product, loading}) {
             sizes="(min-width: 45em) 25vw, 50vw"
           />
         )}
-      </div>
+      </Link>
       <div className="pk-card__body">
-        <span className="pk-card__title">{product.title}</span>
+        <Link to={variantUrl} className="pk-card__title" prefetch="intent">
+          {product.title}
+        </Link>
+        {product.productType ? (
+          <span className="pk-card__vendor">{product.productType}</span>
+        ) : null}
         <div className="pk-card__price">
           <Money data={product.priceRange.minVariantPrice} />
         </div>
-        <div className="pk-card__rating" aria-label="Rated 4.5 of 5">
-          <span className="pk-stars">★★★★½</span>
-          <span className="pk-card__reviews">(120)</span>
-        </div>
+        {variant ? (
+          <div className="pk-card__cart">
+            <AddToCartButton
+              lines={[{merchandiseId: variant.id, quantity: 1}]}
+              disabled={!variant.availableForSale}
+            >
+              {variant.availableForSale ? 'Add to Cart' : 'Sold out'}
+            </AddToCartButton>
+          </div>
+        ) : (
+          <Link to={variantUrl} className="pk-card__viewbtn" prefetch="intent">
+            View details
+          </Link>
+        )}
       </div>
-    </Link>
+    </div>
   );
 }
 
 /** @typedef {import('storefrontapi.generated').ProductItemFragment} ProductItemFragment */
-/** @typedef {import('storefrontapi.generated').CollectionItemFragment} CollectionItemFragment */
-/** @typedef {import('storefrontapi.generated').RecommendedProductFragment} RecommendedProductFragment */

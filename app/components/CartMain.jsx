@@ -3,6 +3,7 @@ import {Link} from 'react-router';
 import {useAside} from '~/components/Aside';
 import {CartLineItem} from '~/components/CartLineItem';
 import {CartSummary} from './CartSummary';
+import {IconBag, IconSparkles, IconTruck, IconReturn} from '~/components/Icons';
 /**
  * Returns a map of all line items and their children.
  * @param {CartLine[]} lines
@@ -90,16 +91,58 @@ export function CartMain({layout, cart: originalCart}) {
 function CartEmpty({hidden = false}) {
   const {close} = useAside();
   return (
-    <div hidden={hidden}>
-      <br />
-      <p>
-        Looks like you haven&rsquo;t added anything yet, let&rsquo;s get you
-        started!
-      </p>
-      <br />
-      <Link to="/collections" onClick={close} prefetch="viewport">
-        Continue shopping →
-      </Link>
+    <div className="pk-empty-cart" hidden={hidden}>
+      <div className="pk-empty-cart__art" aria-hidden>
+        <span className="pk-empty-cart__circle pk-empty-cart__circle--a" />
+        <span className="pk-empty-cart__circle pk-empty-cart__circle--b" />
+        <span className="pk-empty-cart__icon">
+          <IconBag size={32} />
+        </span>
+        <span className="pk-empty-cart__sparkle pk-empty-cart__sparkle--1">
+          <IconSparkles size={14} />
+        </span>
+        <span className="pk-empty-cart__sparkle pk-empty-cart__sparkle--2">
+          <IconSparkles size={11} />
+        </span>
+        <span className="pk-empty-cart__sparkle pk-empty-cart__sparkle--3">
+          <IconSparkles size={9} />
+        </span>
+      </div>
+      <div className="pk-empty-cart__copy">
+        <h3 className="pk-empty-cart__title">Your cart is empty</h3>
+        <p className="pk-empty-cart__body">
+          Nothing here yet — let&apos;s find something you&apos;ll love. Our
+          curated picks change often, so it&apos;s worth a look.
+        </p>
+        <div className="pk-empty-cart__actions">
+          <Link
+            to="/collections"
+            onClick={close}
+            prefetch="viewport"
+            className="pk-btn pk-btn--primary pk-btn--lg"
+          >
+            Shop the catalog <span aria-hidden>→</span>
+          </Link>
+          <Link
+            to="/collections/best-sellers"
+            onClick={close}
+            prefetch="intent"
+            className="pk-btn pk-btn--ghost pk-btn--lg"
+          >
+            See best sellers
+          </Link>
+        </div>
+        <ul className="pk-empty-cart__perks" aria-label="Why shop with us">
+          <li>
+            <span aria-hidden><IconTruck size={16} /></span>
+            Free shipping over $50
+          </li>
+          <li>
+            <span aria-hidden><IconReturn size={16} /></span>
+            30-day easy returns
+          </li>
+        </ul>
+      </div>
     </div>
   );
 }

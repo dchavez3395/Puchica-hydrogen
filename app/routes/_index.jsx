@@ -10,6 +10,8 @@ import {
   IconShield,
   IconSparkles,
   IconHeart,
+  IconLeaf,
+  IconBag,
 } from '~/components/Icons';
 
 /**
@@ -60,7 +62,25 @@ function loadDeferredData({context}) {
       return null;
     });
 
-  return {bestPicks, trending};
+  // For the promo split — we want a real product image from the best-sellers
+  // collection, not the (often missing) smart-collection cover image.
+  const promoFeature = context.storefront
+    .query(PROMO_FEATURE_QUERY)
+    .catch((error) => {
+      console.error(error);
+      return null;
+    });
+
+  // For the editorial mosaic — we want up to 6 more collection images
+  // (smart collections without admin-set covers are skipped automatically).
+  const mosaicCollections = context.storefront
+    .query(MOSAIC_COLLECTIONS_QUERY)
+    .catch((error) => {
+      console.error(error);
+      return null;
+    });
+
+  return {bestPicks, trending, promoFeature, mosaicCollections};
 }
 
 export default function Homepage() {
@@ -72,11 +92,14 @@ export default function Homepage() {
       <Hero categories={data.categories} bestPicks={data.bestPicks} />
       <Marquee />
       <ShopByCategory categories={data.categories} />
-      <PromoSplit categories={data.categories} />
+      <BrandStory />
+      <PromoSplit promoFeature={data.promoFeature} categories={data.categories} />
+      <EditorialMosaic collections={data.mosaicCollections} />
       <BestPicks products={data.bestPicks} />
+      <TrendingCategories categories={data.categories} />
       <TrendingRail products={data.trending} />
       <ValueProps />
-      <Testimonials />
+      <BrandPromise />
       <NewsletterBand />
     </div>
   );
@@ -113,12 +136,12 @@ function Hero({bestPicks}) {
         </div>
         <ul className="pk-hero__stats" aria-label="Store highlights">
           <li>
-            <strong>10k+</strong>
-            <span>Happy customers</span>
+            <strong>Curated</strong>
+            <span>Handpicked picks</span>
           </li>
           <li>
-            <strong>4.8★</strong>
-            <span>Average rating</span>
+            <strong>30 days</strong>
+            <span>Easy returns</span>
           </li>
           <li>
             <strong>Free</strong>
@@ -230,40 +253,190 @@ function ShopByCategory({categories}) {
   );
 }
 
+/* -------------------------------------------------- Brand story -------------------------------------------------- */
+
+function BrandStory() {
+  return (
+    <section className="pk-story">
+      <div className="pk-story__media" aria-hidden>
+        <div className="pk-story__gradient" />
+        <div className="pk-story__icons">
+          <span className="pk-story__chip pk-story__chip--1"><IconLeaf size={22} /></span>
+          <span className="pk-story__chip pk-story__chip--2"><IconBag size={22} /></span>
+          <span className="pk-story__chip pk-story__chip--3"><IconSparkles size={22} /></span>
+          <span className="pk-story__chip pk-story__chip--4"><IconHeart size={22} /></span>
+        </div>
+      </div>
+      <div className="pk-story__copy">
+        <span className="pk-eyebrow">Why Puchica</span>
+        <h2 className="pk-story__title">
+          Real people, picking real products — not an algorithm.
+        </h2>
+        <p className="pk-story__body">
+          Every item in the shop has been looked at by a human on the Puchica
+          team. We check the build quality, read the reviews, and only add
+          things we&apos;d actually use ourselves. The result: a small, honest
+          catalog of things that are worth your money.
+        </p>
+        <ul className="pk-story__list">
+          <li>
+            <IconCheckInline /> A short quality checklist before anything goes live
+          </li>
+          <li>
+            <IconCheckInline /> Honest shipping times — never oversold
+          </li>
+          <li>
+            <IconCheckInline /> 30-day returns with a pre-paid label, every order
+          </li>
+        </ul>
+        <Link to="/pages/about" className="pk-btn pk-btn--primary pk-btn--lg">
+          About Puchica <span aria-hidden>→</span>
+        </Link>
+      </div>
+    </section>
+  );
+}
+
+function IconCheckInline() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M5 12l4 4L19 6" />
+    </svg>
+  );
+}
+
 /* -------------------------------------------------- Promo split banner -------------------------------------------------- */
 
-function PromoSplit({categories}) {
-  const list = categories ?? [];
-  const feature =
-    list.find((c, i) => i >= 4 && c.image) ||
-    list.find((c) => c.image) ||
-    list[0];
-  if (!feature) return null;
+function PromoSplit({promoFeature, categories}) {
+  // We want to feature a real product photo. Use the first best-sellers
+  // product image. If the deferred load hasn't arrived yet, fall back to
+  // a gradient panel — never the lavender square.
   return (
     <section className="pk-promo">
       <div className="pk-promo__panel">
         <span className="pk-pill pk-pill--glass">Featured collection</span>
         <h2 className="pk-promo__title">
-          Upgrade your everyday with {feature.title}
+          Upgrade your everyday with our best sellers
         </h2>
         <p className="pk-promo__sub">
-          Thoughtfully curated pieces that blend function and style — the
-          essentials your space has been missing.
+          A handful of products our team comes back to again and again. If
+          you&apos;re new to Puchica, this is the place to start.
         </p>
         <Link
-          to={`/collections/${feature.handle}`}
+          to="/collections/best-sellers"
           className="pk-btn pk-btn--light pk-btn--lg"
         >
-          Shop {feature.title} <span aria-hidden>→</span>
+          Shop best sellers <span aria-hidden>→</span>
         </Link>
       </div>
       <div className="pk-promo__media">
-        {feature.image ? (
-          <Image data={feature.image} sizes="(min-width: 60em) 520px, 100vw" />
-        ) : (
-          <div className="pk-promo__media-fallback" />
-        )}
+        <Suspense fallback={<div className="pk-promo__media-fallback" aria-hidden />}>
+          <Await resolve={promoFeature}>
+            {(resp) => {
+              const product = resp?.collection?.products?.nodes?.find(
+                (p) => p?.featuredImage,
+              );
+              const collection = resp?.collection;
+              const title = collection?.title || 'Best Sellers';
+              if (product) {
+                return (
+                  <Link
+                    to={`/products/${product.handle}`}
+                    className="pk-promo__media-link"
+                    aria-label={`Shop ${product.title} on ${title}`}
+                  >
+                    <Image
+                      data={product.featuredImage}
+                      sizes="(min-width: 60em) 520px, 100vw"
+                      loading="eager"
+                    />
+                    <div className="pk-promo__media-tag">
+                      <span>{title}</span>
+                      <strong>{product.title}</strong>
+                    </div>
+                  </Link>
+                );
+              }
+              return <div className="pk-promo__media-fallback" aria-hidden />;
+            }}
+          </Await>
+        </Suspense>
       </div>
+    </section>
+  );
+}
+
+/* -------------------------------------------------- Editorial mosaic -------------------------------------------------- */
+
+function EditorialMosaic({collections}) {
+  return (
+    <section className="pk-section">
+      <div className="pk-section__head">
+        <div>
+          <span className="pk-eyebrow">Curated edits</span>
+          <h2>Collections, handpicked</h2>
+        </div>
+        <Link to="/collections" className="pk-section__link">
+          All collections →
+        </Link>
+      </div>
+      <Suspense fallback={<div className="pk-mosaic pk-mosaic--loading" />}>
+        <Await resolve={collections}>
+          {(resp) => {
+            const nodes = (resp?.collections?.nodes ?? []).filter(
+              (c) => c && c.image,
+            );
+            if (nodes.length === 0) {
+              return (
+                <div className="pk-empty">
+                  <p className="pk-empty__title">No collections to show</p>
+                </div>
+              );
+            }
+            // Layout: 1 large + 3 small (or fewer if we don't have 4).
+            const [hero, ...rest] = nodes;
+            return (
+              <div className="pk-mosaic">
+                <Link
+                  key={hero.id}
+                  to={`/collections/${hero.handle}`}
+                  className="pk-mosaic__cell pk-mosaic__cell--lg"
+                  prefetch="intent"
+                >
+                  <Image
+                    data={hero.image}
+                    sizes="(min-width: 60em) 600px, 100vw"
+                    loading="eager"
+                  />
+                  <div className="pk-mosaic__overlay">
+                    <h3>{hero.title}</h3>
+                    <span>Shop the collection →</span>
+                  </div>
+                </Link>
+                <div className="pk-mosaic__stack">
+                  {rest.slice(0, 3).map((c) => (
+                    <Link
+                      key={c.id}
+                      to={`/collections/${c.handle}`}
+                      className="pk-mosaic__cell pk-mosaic__cell--sm"
+                      prefetch="intent"
+                    >
+                      <Image
+                        data={c.image}
+                        sizes="(min-width: 60em) 300px, 50vw"
+                      />
+                      <div className="pk-mosaic__overlay">
+                        <h3>{c.title}</h3>
+                        <span>Shop →</span>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            );
+          }}
+        </Await>
+      </Suspense>
     </section>
   );
 }
@@ -278,7 +451,7 @@ function BestPicks({products}) {
           <span className="pk-eyebrow">Most loved</span>
           <h2>Best Picks</h2>
         </div>
-        <Link to="/collections/all" className="pk-section__link">
+        <Link to="/collections/best-sellers" className="pk-section__link">
           View all →
         </Link>
       </div>
@@ -310,9 +483,6 @@ function ProductCard({product, featured}) {
             sizes="(min-width: 45em) 25vw, 50vw"
           />
         )}
-        <button className="pk-card__heart" aria-label="Save" type="button">
-          <IconHeart size={16} />
-        </button>
       </Link>
       <div className="pk-card__body">
         <Link to={`/products/${product.handle}`} className="pk-card__title">
@@ -321,10 +491,6 @@ function ProductCard({product, featured}) {
         {product.vendor && <p className="pk-card__vendor">{product.vendor}</p>}
         <div className="pk-card__price">
           <Money data={product.priceRange.minVariantPrice} />
-        </div>
-        <div className="pk-card__rating" aria-label="Rated 4.5 of 5">
-          <span className="pk-stars">★★★★½</span>
-          <span className="pk-card__reviews">(120)</span>
         </div>
         {variant ? (
           <div className="pk-card__cart">
@@ -342,6 +508,43 @@ function ProductCard({product, featured}) {
         )}
       </div>
     </div>
+  );
+}
+
+/* -------------------------------------------------- Trending categories (pills) -------------------------------------------------- */
+
+function TrendingCategories({categories}) {
+  // Filter out very short / empty titles, dedupe by handle, and cap at 12.
+  const items = (categories ?? [])
+    .filter((c) => c && c.title && c.title.length < 40)
+    .slice(0, 12);
+  if (items.length === 0) return null;
+  return (
+    <section className="pk-pills-section">
+      <div className="pk-section__head">
+        <div>
+          <span className="pk-eyebrow">Quick jump</span>
+          <h2>Find what you&apos;re looking for</h2>
+        </div>
+        <Link to="/collections" className="pk-section__link">
+          See all →
+        </Link>
+      </div>
+      <div className="pk-pills" role="list">
+        {items.map((c) => (
+          <Link
+            key={c.id}
+            to={`/collections/${c.handle}`}
+            className="pk-pill-link"
+            prefetch="intent"
+            role="listitem"
+          >
+            <span className="pk-pill-link__icon">{categoryIcon(c.title, {size: 18})}</span>
+            <span className="pk-pill-link__label">{c.title}</span>
+          </Link>
+        ))}
+      </div>
+    </section>
   );
 }
 
@@ -422,54 +625,48 @@ function ValueProps() {
   );
 }
 
-/* -------------------------------------------------- Testimonials -------------------------------------------------- */
+/* -------------------------------------------------- Brand promise -------------------------------------------------- */
 
-function Testimonials() {
-  const reviews = [
+function BrandPromise() {
+  // Honest placeholder — until we have a real verified-buyer review source,
+  // we don't show fake names or quotes. This block is intentionally a brand
+  // promise / what to expect, not invented social proof.
+  const promises = [
     {
-      quote:
-        'Genuinely impressed by the quality for the price. Shipping was quick and everything arrived perfectly packaged.',
-      name: 'Sofia R.',
-      role: 'Verified buyer',
+      title: 'Picked by people, not an algorithm',
+      body:
+        'Every product in the shop is reviewed against a short quality checklist before it goes live. We skip the rest.',
     },
     {
-      quote:
-        'Puchica has become my go-to for little upgrades around the house. The curation is on point every single time.',
-      name: 'Marcus L.',
-      role: 'Verified buyer',
+      title: 'Honest shipping times',
+      body:
+        'Most orders ship within 1–2 business days from our warehouse. Delivery typically takes 5–10 business days across Canada and the US — we will never quote a faster window than that.',
     },
     {
-      quote:
-        'Easy returns made me comfortable trying something new — but I ended up keeping all of it. Highly recommend.',
-      name: 'Aisha K.',
-      role: 'Verified buyer',
+      title: 'Returns that don’t drag on',
+      body:
+        'If something isn’t right, you have 30 days to send it back. Full refund, no restocking fees, no runaround.',
     },
   ];
   return (
     <section className="pk-section">
       <div className="pk-section__head pk-section__head--center">
-        <span className="pk-eyebrow">Loved by shoppers</span>
-        <h2>What customers are saying</h2>
+        <span className="pk-eyebrow">The Puchica promise</span>
+        <h2>What you can expect from us</h2>
       </div>
       <div className="pk-reviews">
-        {reviews.map((r) => (
-          <figure className="pk-review" key={r.name}>
-            <div className="pk-review__stars" aria-label="Rated 5 of 5">
-              ★★★★★
-            </div>
-            <blockquote className="pk-review__quote">“{r.quote}”</blockquote>
-            <figcaption className="pk-review__by">
-              <span className="pk-review__avatar" aria-hidden>
-                {r.name.charAt(0)}
-              </span>
-              <span>
-                <strong>{r.name}</strong>
-                <em>{r.role}</em>
-              </span>
-            </figcaption>
-          </figure>
+        {promises.map((p) => (
+          <div className="pk-review" key={p.title}>
+            <h3 className="pk-review__title">{p.title}</h3>
+            <p className="pk-review__body">{p.body}</p>
+          </div>
         ))}
       </div>
+      <p className="pk-reviews__note">
+        Verified buyer reviews are on the way. In the meantime, every order
+        ships with a pre-paid return label — your satisfaction is the only
+        review we need to earn.
+      </p>
     </section>
   );
 }
@@ -504,7 +701,7 @@ function NewsletterBand() {
 
         {done ? (
           <p className="pk-news__success">
-            🎉 You’re in! Check your inbox for a welcome note.
+            You&apos;re in! Check your inbox for a welcome note.
           </p>
         ) : (
           <fetcher.Form
@@ -555,7 +752,7 @@ const HOME_COLLECTIONS_QUERY = `#graphql
   }
   query HomeCollections($country: CountryCode, $language: LanguageCode)
     @inContext(country: $country, language: $language) {
-    collections(first: 6, sortKey: UPDATED_AT, reverse: true) {
+    collections(first: 12, sortKey: UPDATED_AT, reverse: true) {
       nodes {
         ...HomeCollection
       }
@@ -623,6 +820,57 @@ const TRENDING_QUERY = `#graphql
     products(first: 10, sortKey: CREATED_AT, reverse: true) {
       nodes {
         ...TrendingProduct
+      }
+    }
+  }
+`;
+
+// Pull a few real product images from the best-sellers collection so the
+// promo split has a real photo (smart-collection cover images are usually
+// null because Shopify doesn't auto-generate them).
+const PROMO_FEATURE_QUERY = `#graphql
+  query PromoFeature($country: CountryCode, $language: LanguageCode)
+    @inContext(country: $country, language: $language) {
+    collection(handle: "best-sellers") {
+      id
+      title
+      handle
+      products(first: 6, sortKey: BEST_SELLING) {
+        nodes {
+          id
+          title
+          handle
+          featuredImage {
+            id
+            url
+            altText
+            width
+            height
+          }
+        }
+      }
+    }
+  }
+`;
+
+// Editorial mosaic: pull more collections than the home grid uses, with
+// only those that have a real image. The component filters out
+// image-less collections so we never show a blank tile.
+const MOSAIC_COLLECTIONS_QUERY = `#graphql
+  query MosaicCollections($country: CountryCode, $language: LanguageCode)
+    @inContext(country: $country, language: $language) {
+    collections(first: 8, sortKey: UPDATED_AT, reverse: true) {
+      nodes {
+        id
+        title
+        handle
+        image {
+          id
+          url
+          altText
+          width
+          height
+        }
       }
     }
   }

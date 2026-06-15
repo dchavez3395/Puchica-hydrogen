@@ -1,12 +1,16 @@
-import {Suspense} from 'react';
-import {Await, NavLink, useAsyncValue} from 'react-router';
+import {Suspense, useEffect, useState} from 'react';
+import {Await, Link, NavLink, useAsyncValue} from 'react-router';
 import {useAnalytics, useOptimisticCart} from '@shopify/hydrogen';
 import {useAside} from '~/components/Aside';
 
-// Puchica logo from Shopify Files (theme logo: shopify://shop_images/Puchica_logo.png).
-// Used unless a Settings > Brand logo is set (which takes precedence below).
+// Puchica logo. Update this URL after uploading a new logo to Shopify
+// (Settings > Files). The HeaderGraphQL query prefers
+// `shop.brand.logo.image.url` if set under Settings > Brand, otherwise
+// it falls back to this hardcoded URL.
 const STORE_LOGO_URL =
   'https://cdn.shopify.com/s/files/1/0842/2644/1466/files/Puchica_logo.png?v=1781275908';
+
+const ANNOUNCEMENT_KEY = 'pk-ann-dismissed-v1';
 
 /**
  * @param {HeaderProps}
@@ -14,36 +18,81 @@ const STORE_LOGO_URL =
 export function Header({header, isLoggedIn, cart, publicStoreDomain}) {
   const {shop, menu} = header;
   return (
-    <header className="pk-header">
-      <div className="pk-header__inner">
-        <HeaderMenuMobileToggle />
-        <NavLink prefetch="intent" to="/" className="pk-logo" end>
-          <img
-            className="pk-logo__img"
-            src={shop.brand?.logo?.image?.url || STORE_LOGO_URL}
-            alt={shop.name}
+    <>
+      <AnnouncementBar />
+      <header className="pk-header" id="pk-header">
+        <div className="pk-header__inner">
+          <HeaderMenuMobileToggle />
+          <NavLink prefetch="intent" to="/" className="pk-logo" end>
+            <img
+              className="pk-logo__img"
+              src={shop.brand?.logo?.image?.url || STORE_LOGO_URL}
+              alt={shop.name}
+            />
+          </NavLink>
+          <HeaderMenu
+            menu={menu}
+            viewport="desktop"
+            primaryDomainUrl={header.shop.primaryDomain.url}
+            publicStoreDomain={publicStoreDomain}
           />
-        </NavLink>
-        <HeaderMenu
-          menu={menu}
-          viewport="desktop"
-          primaryDomainUrl={header.shop.primaryDomain.url}
-          publicStoreDomain={publicStoreDomain}
-        />
-        <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />
-      </div>
-    </header>
+          <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />
+        </div>
+      </header>
+    </>
   );
 }
 
 /**
- * @param {{
- *   menu: HeaderProps['header']['menu'];
- *   primaryDomainUrl: HeaderProps['header']['shop']['primaryDomain']['url'];
- *   viewport: Viewport;
- *   publicStoreDomain: HeaderProps['publicStoreDomain'];
- * }}
+ * Single-line announcement bar above the header. Dismissible, with the
+ * dismissed state stored in localStorage so it stays away for the visitor.
  */
+function AnnouncementBar() {
+  // SSR-safe: render the bar always, but only hide it client-side after we
+  // read the localStorage flag (and on subsequent renders).
+  const [hidden, setHidden] = useState(false);
+
+  useEffect(() => {
+    try {
+      if (window.localStorage.getItem(ANNOUNCEMENT_KEY) === '1') {
+        setHidden(true);
+      }
+    } catch {
+      /* localStorage blocked, ignore */
+    }
+  }, []);
+
+  return (
+    <div className="pk-ann" data-hidden={hidden ? 'true' : 'false'} role="region" aria-label="Site announcement">
+      <div className="pk-ann__inner">
+        <span>
+          Free shipping on orders over $50 ✦ Easy 30-day returns ✦
+          <Link to="/collections/new" prefetch="intent" style={{marginLeft: 6}}>
+            Shop new arrivals
+          </Link>
+        </span>
+      </div>
+      <button
+        type="button"
+        className="pk-ann__close"
+        aria-label="Dismiss announcement"
+        onClick={() => {
+          setHidden(true);
+          try {
+            window.localStorage.setItem(ANNOUNCEMENT_KEY, '1');
+          } catch {
+            /* ignore */
+          }
+        }}
+      >
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
+          <path d="M6 6l12 12M18 6 6 18" />
+        </svg>
+      </button>
+    </div>
+  );
+}
+
 export function HeaderMenu({menu, primaryDomainUrl, viewport, publicStoreDomain}) {
   const className =
     viewport === 'desktop' ? 'pk-nav' : 'pk-nav pk-nav--mobile';
@@ -77,9 +126,35 @@ export function HeaderMenu({menu, primaryDomainUrl, viewport, publicStoreDomain}
 }
 
 /**
+ * Sticky-header shrink-on-scroll behavior, wired as a single delegated
+ * effect on the header root to avoid per-component listeners.
+ */
+function useHeaderShrink() {
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const header = document.getElementById('pk-header');
+    if (!header) return;
+
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(() => {
+        header.classList.toggle('is-scrolled', window.scrollY > 12);
+        ticking = false;
+      });
+    };
+    window.addEventListener('scroll', onScroll, {passive: true});
+    onScroll();
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+}
+
+/**
  * @param {Pick<HeaderProps, 'isLoggedIn' | 'cart'>}
  */
 function HeaderCtas({isLoggedIn, cart}) {
+  useHeaderShrink();
   return (
     <div className="pk-header__ctas">
       <SearchToggle />
@@ -96,12 +171,16 @@ function HeaderCtas({isLoggedIn, cart}) {
 }
 
 function HeaderMenuMobileToggle() {
-  const {open} = useAside();
+  const {open, type} = useAside();
+  const isOpen = type === 'mobile';
   return (
     <button
-      className="pk-icon-btn pk-header__burger"
-      aria-label="Open menu"
-      onClick={() => open('mobile')}
+      className={
+        'pk-icon-btn pk-header__burger' + (isOpen ? ' is-active' : '')
+      }
+      aria-label={isOpen ? 'Close menu' : 'Open menu'}
+      aria-expanded={isOpen ? 'true' : 'false'}
+      onClick={() => open(isOpen ? 'closed' : 'mobile')}
     >
       <IconMenu />
     </button>
@@ -109,9 +188,15 @@ function HeaderMenuMobileToggle() {
 }
 
 function SearchToggle() {
-  const {open} = useAside();
+  const {open, type} = useAside();
+  const isOpen = type === 'search';
   return (
-    <button className="pk-icon-btn" aria-label="Search" onClick={() => open('search')}>
+    <button
+      className={'pk-icon-btn' + (isOpen ? ' is-active' : '')}
+      aria-label={isOpen ? 'Close search' : 'Open search'}
+      aria-expanded={isOpen ? 'true' : 'false'}
+      onClick={() => open(isOpen ? 'closed' : 'search')}
+    >
       <IconSearch />
     </button>
   );
@@ -121,23 +206,27 @@ function SearchToggle() {
  * @param {{count: number | null}}
  */
 function CartBadge({count}) {
-  const {open} = useAside();
+  const {open, type} = useAside();
+  const isOpen = type === 'cart';
   const {publish, shop, cart, prevCart} = useAnalytics();
 
   return (
     <a
       href="/cart"
-      className="pk-icon-btn pk-cart-btn"
-      aria-label="Cart"
+      className={'pk-icon-btn pk-cart-btn' + (isOpen ? ' is-active' : '')}
+      aria-label={isOpen ? 'Close cart' : 'Open cart'}
+      aria-expanded={isOpen ? 'true' : 'false'}
       onClick={(e) => {
         e.preventDefault();
-        open('cart');
-        publish('cart_viewed', {
-          cart,
-          prevCart,
-          shop,
-          url: window.location.href || '',
-        });
+        open(isOpen ? 'closed' : 'cart');
+        if (!isOpen) {
+          publish('cart_viewed', {
+            cart,
+            prevCart,
+            shop,
+            url: window.location.href || '',
+          });
+        }
       }}
     >
       <IconCart />

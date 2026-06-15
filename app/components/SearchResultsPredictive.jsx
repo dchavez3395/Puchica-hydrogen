@@ -230,15 +230,51 @@ function SearchResultsPredictiveQueries({queries, queriesDatalistId}) {
  *   term: React.MutableRefObject<string>;
  * }}
  */
-function SearchResultsPredictiveEmpty({term}) {
+function SearchResultsPredictiveEmpty({term, closeSearch}) {
   if (!term.current) {
-    return null;
+    return (
+      <div className="pk-search__hint">
+        <p className="pk-search__hint-title">Start typing to search</p>
+        <p className="pk-search__hint-body">
+          Try categories like &ldquo;best sellers&rdquo;, &ldquo;home&rdquo;,
+          or specific product names.
+        </p>
+        <div className="pk-search__suggestions">
+          <Link
+            to="/collections/best-sellers"
+            onClick={closeSearch}
+            className="pk-pill-link"
+          >
+            Best sellers
+          </Link>
+          <Link
+            to="/collections"
+            onClick={closeSearch}
+            className="pk-pill-link"
+          >
+            All categories
+          </Link>
+          <Link
+            to="/collections/new"
+            onClick={closeSearch}
+            className="pk-pill-link"
+          >
+            New arrivals
+          </Link>
+        </div>
+      </div>
+    );
   }
 
   return (
-    <p>
-      No results found for <q>{term.current}</q>
-    </p>
+    <div className="pk-search__empty">
+      <p className="pk-search__empty-title">
+        No results for &ldquo;{term.current}&rdquo;
+      </p>
+      <p className="pk-search__empty-body">
+        Try a different keyword or browse the most-loved picks.
+      </p>
+    </div>
   );
 }
 

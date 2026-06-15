@@ -127,6 +127,42 @@ export const IconTiktok = (p) => (
   </Svg>
 );
 
+export const IconShare = (p) => (
+  <Svg {...p}>
+    <circle cx="18" cy="5" r="3" />
+    <circle cx="6" cy="12" r="3" />
+    <circle cx="18" cy="19" r="3" />
+    <path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4" />
+  </Svg>
+);
+
+export const IconCheck = (p) => (
+  <Svg {...p}>
+    <path d="M5 12l4 4L19 6" />
+  </Svg>
+);
+
+export const IconChevronLeft = (p) => (
+  <Svg {...p}>
+    <path d="M15 6l-6 6 6 6" />
+  </Svg>
+);
+
+export const IconChevronRight = (p) => (
+  <Svg {...p}>
+    <path d="M9 6l6 6-6 6" />
+  </Svg>
+);
+
+export const IconPackage = (p) => (
+  <Svg {...p}>
+    <path d="M16.5 9.4 12 12 7.5 9.4" />
+    <path d="M21 16V8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" />
+    <path d="M3.3 7 12 12l8.7-5" />
+    <path d="M12 22V12" />
+  </Svg>
+);
+
 /** Map a collection/category title to an icon component. */
 export function categoryIcon(title = '', props) {
   const t = title.toLowerCase();

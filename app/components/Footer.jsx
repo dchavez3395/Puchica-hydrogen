@@ -4,10 +4,35 @@ import {
   IconFacebook,
   IconX,
   IconTiktok,
+  IconShield,
 } from '~/components/Icons';
 
+// Puchica logo. Update this URL after uploading a new logo to Shopify
+// (Settings > Files). The Footer loader prefers `shop.brand.logo.image.url`
+// if set under Settings > Brand, otherwise it falls back to this URL.
 const STORE_LOGO_URL =
   'https://cdn.shopify.com/s/files/1/0842/2644/1466/files/Puchica_logo.png?v=1781275908';
+
+// Social handles — placeholders. The user can update these to real brand
+// accounts without touching the rest of the layout. Until then the icons
+// are visual only.
+const SOCIAL = [
+  {Icon: IconInstagram, label: 'Instagram', href: 'https://instagram.com/puchica', handle: 'puchica'},
+  {Icon: IconFacebook,  label: 'Facebook',  href: 'https://facebook.com/puchica',  handle: 'puchica'},
+  {Icon: IconX,         label: 'X',         href: 'https://x.com/puchica',         handle: '@puchica'},
+  {Icon: IconTiktok,    label: 'TikTok',    href: 'https://tiktok.com/@puchica',   handle: '@puchica'},
+];
+
+// Payment marks as styled text "chips" — no third-party brand assets, no
+// real integration here. Real checkout is still handled by Shopify (PCI).
+const PAYMENTS = [
+  {label: 'Visa', style: {fontStyle: 'italic'}},
+  {label: 'Mastercard', style: {fontStyle: 'italic'}},
+  {label: 'Amex'},
+  {label: 'PayPal'},
+  {label: 'Apple Pay'},
+  {label: 'Shop Pay'},
+];
 
 /**
  * @param {FooterProps}
@@ -27,11 +52,26 @@ export function Footer({header}) {
             Puchica.
           </p>
           <div className="pk-footer__social" aria-label="Social links">
-            <a href="https://instagram.com" aria-label="Instagram"><IconInstagram size={18} /></a>
-            <a href="https://facebook.com" aria-label="Facebook"><IconFacebook size={18} /></a>
-            <a href="https://twitter.com" aria-label="X"><IconX size={18} /></a>
-            <a href="https://tiktok.com" aria-label="TikTok"><IconTiktok size={18} /></a>
+            {SOCIAL.map(({Icon, label, href, handle}) => (
+              <a key={label} href={href} aria-label={`${label} (${handle})`} target="_blank" rel="noopener noreferrer">
+                <Icon size={18} />
+              </a>
+            ))}
           </div>
+
+          <div className="pk-footer__pay" aria-label="Accepted payment methods">
+            <span className="pk-footer__pay-label">Accepted payments</span>
+            {PAYMENTS.map((p) => (
+              <span key={p.label} className="pk-footer__pay-mark" style={p.style}>
+                {p.label}
+              </span>
+            ))}
+          </div>
+
+          <span className="pk-footer__secure">
+            <span aria-hidden><IconShield size={14} /></span>
+            Secure checkout by Shopify — encrypted, PCI-compliant
+          </span>
         </div>
 
         <div className="pk-footer__col">
@@ -55,7 +95,7 @@ export function Footer({header}) {
 
       <div className="pk-footer__bar">
         <span>© {year} Puchica. All rights reserved.</span>
-        <nav className="pk-footer__legal">
+        <nav className="pk-footer__legal" aria-label="Legal">
           <Link to="/policies/privacy-policy">Privacy Policy</Link>
           <Link to="/policies/terms-of-service">Terms of Service</Link>
           <Link to="/policies">Policies</Link>

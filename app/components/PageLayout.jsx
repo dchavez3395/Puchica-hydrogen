@@ -65,79 +65,111 @@ function SearchAside() {
   const queriesDatalistId = useId();
   return (
     <Aside type="search" heading="SEARCH">
-      <div className="predictive-search">
-        <br />
+      <div className="pk-search">
         <SearchFormPredictive>
           {({fetchResults, goToSearch, inputRef}) => (
-            <>
+            <form
+              className="pk-search__form"
+              onSubmit={(e) => {
+                e.preventDefault();
+                goToSearch();
+              }}
+            >
+              <span className="pk-search__icon" aria-hidden>
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <circle cx="11" cy="11" r="7" />
+                  <path d="m21 21-4.3-4.3" />
+                </svg>
+              </span>
               <input
+                className="pk-search__input"
                 name="q"
                 onChange={fetchResults}
                 onFocus={fetchResults}
-                placeholder="Search"
+                placeholder="Search products, collections, articles…"
                 ref={inputRef}
                 type="search"
                 list={queriesDatalistId}
+                autoComplete="off"
               />
-              &nbsp;
-              <button onClick={goToSearch}>Search</button>
-            </>
+              <button
+                type="submit"
+                className="pk-search__submit"
+                aria-label="Search"
+              >
+                Search
+              </button>
+            </form>
           )}
         </SearchFormPredictive>
 
-        <SearchResultsPredictive>
-          {({items, total, term, state, closeSearch}) => {
-            const {articles, collections, pages, products, queries} = items;
+        <div className="pk-search__body">
+          <SearchResultsPredictive>
+            {({items, total, term, state, closeSearch}) => {
+              const {articles, collections, pages, products, queries} = items;
 
-            if (state === 'loading' && term.current) {
-              return <div>Loading...</div>;
-            }
+              if (state === 'loading' && term.current) {
+                return (
+                  <div className="pk-search__loading">
+                    <span className="pk-search__spinner" aria-hidden />
+                    Searching for &ldquo;{term.current}&rdquo;…
+                  </div>
+                );
+              }
 
-            if (!total) {
-              return <SearchResultsPredictive.Empty term={term} />;
-            }
+              if (!total) {
+                return <SearchResultsPredictive.Empty term={term} closeSearch={closeSearch} />;
+              }
 
-            return (
-              <>
-                <SearchResultsPredictive.Queries
-                  queries={queries}
-                  queriesDatalistId={queriesDatalistId}
-                />
-                <SearchResultsPredictive.Products
-                  products={products}
-                  closeSearch={closeSearch}
-                  term={term}
-                />
-                <SearchResultsPredictive.Collections
-                  collections={collections}
-                  closeSearch={closeSearch}
-                  term={term}
-                />
-                <SearchResultsPredictive.Pages
-                  pages={pages}
-                  closeSearch={closeSearch}
-                  term={term}
-                />
-                <SearchResultsPredictive.Articles
-                  articles={articles}
-                  closeSearch={closeSearch}
-                  term={term}
-                />
-                {term.current && total ? (
-                  <Link
-                    onClick={closeSearch}
-                    to={`${SEARCH_ENDPOINT}?q=${term.current}`}
-                  >
-                    <p>
-                      View all results for <q>{term.current}</q>
-                      &nbsp; →
-                    </p>
-                  </Link>
-                ) : null}
-              </>
-            );
-          }}
-        </SearchResultsPredictive>
+              return (
+                <>
+                  <SearchResultsPredictive.Queries
+                    queries={queries}
+                    queriesDatalistId={queriesDatalistId}
+                  />
+                  <SearchResultsPredictive.Products
+                    products={products}
+                    closeSearch={closeSearch}
+                    term={term}
+                  />
+                  <SearchResultsPredictive.Collections
+                    collections={collections}
+                    closeSearch={closeSearch}
+                    term={term}
+                  />
+                  <SearchResultsPredictive.Pages
+                    pages={pages}
+                    closeSearch={closeSearch}
+                    term={term}
+                  />
+                  <SearchResultsPredictive.Articles
+                    articles={articles}
+                    closeSearch={closeSearch}
+                    term={term}
+                  />
+                  {term.current && total ? (
+                    <Link
+                      onClick={closeSearch}
+                      to={`${SEARCH_ENDPOINT}?q=${term.current}`}
+                      className="pk-search__more"
+                    >
+                      View all results for &ldquo;{term.current}&rdquo; →
+                    </Link>
+                  ) : null}
+                </>
+              );
+            }}
+          </SearchResultsPredictive>
+        </div>
       </div>
     </Aside>
   );
@@ -154,12 +186,43 @@ function MobileMenuAside({header, publicStoreDomain}) {
     header.menu &&
     header.shop.primaryDomain?.url && (
       <Aside type="mobile" heading="MENU">
-        <HeaderMenu
-          menu={header.menu}
-          viewport="mobile"
-          primaryDomainUrl={header.shop.primaryDomain.url}
-          publicStoreDomain={publicStoreDomain}
-        />
+        <div className="pk-mmenu">
+          <HeaderMenu
+            menu={header.menu}
+            viewport="mobile"
+            primaryDomainUrl={header.shop.primaryDomain.url}
+            publicStoreDomain={publicStoreDomain}
+          />
+          <div className="pk-mmenu__group">
+            <p className="pk-mmenu__label">Account</p>
+            <Link to="/account" className="pk-mmenu__row" onClick={() => {}}>
+              <span>Sign in / Create account</span>
+              <span aria-hidden>→</span>
+            </Link>
+            <Link to="/cart" className="pk-mmenu__row">
+              <span>View cart</span>
+              <span aria-hidden>→</span>
+            </Link>
+          </div>
+          <div className="pk-mmenu__group">
+            <p className="pk-mmenu__label">Customer Care</p>
+            <Link to="/pages/contact" className="pk-mmenu__row">
+              <span>Contact us</span>
+              <span aria-hidden>→</span>
+            </Link>
+            <Link to="/policies/shipping-policy" className="pk-mmenu__row">
+              <span>Shipping &amp; returns</span>
+              <span aria-hidden>→</span>
+            </Link>
+            <Link to="/policies" className="pk-mmenu__row">
+              <span>All policies</span>
+              <span aria-hidden>→</span>
+            </Link>
+          </div>
+          <p className="pk-mmenu__foot">
+            Free shipping on orders over $50 ✦ 30-day easy returns
+          </p>
+        </div>
       </Aside>
     )
   );
