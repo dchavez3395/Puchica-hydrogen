@@ -1337,7 +1337,12 @@ body {
   background: var(--pk-surface);
   border: 1px solid var(--pk-border);
 }
-.pk-product__media img { width: 100%; height: auto; display: block; border-radius: 0; }
+/* Image rules are scoped below (.pk-thumbs__item img, .pk-product__hero img)
+ * — the earlier `height: auto` here was conflicting with Hydrogen's
+ * inline `aspect-ratio: 1/1` and making the image render at its
+ * intrinsic height, which is huge for a 1000px source. The hero and
+ * thumbs each own their sizing now. */
+.pk-product__media img { display: block; }
 
 .pk-product__vendor { color: var(--pk-violet-500); font-weight: 600; font-size: 14px; margin: 0 0 6px; }
 .pk-product__title { font-size: 34px; font-weight: 700; line-height: 1.15; margin: 0 0 12px; }
@@ -2406,6 +2411,12 @@ body {
   color: var(--pk-ink);
 }
 @media (max-width: 700px) { .pk-product__title { font-size: 26px; } }
+@media (max-width: 700px) {
+  .pk-tabs__panel { padding: 20px 18px; max-width: 100%; }
+  .pk-tabs__panel img,
+  .pk-tabs__panel iframe,
+  .pk-tabs__panel video { margin: 16px auto; }
+}
 .pk-product__price { font-size: 22px; font-weight: 800; color: var(--pk-ink); }
 .pk-product__desc {
   color: var(--pk-muted);
@@ -2511,10 +2522,23 @@ body {
   background: #fff;
 }
 .pk-tabs__panel {
-  padding: 24px 26px;
+  /* Center the description in a comfortable reading column. Supplier
+   * description HTML is full of 800-1000px images and long paragraph
+   * blocks; without a max-width the panel feels like it "explodes"
+   * out of the narrower product columns above. 760px ≈ 65 chars/line,
+   * which is the standard for product copy. */
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 32px 36px;
   color: var(--pk-ink);
   font-size: 15px;
-  line-height: 1.6;
+  line-height: 1.65;
+  /* Description HTML from Shopify can include arbitrary <img>, <iframe>,
+   * <table>, <video> elements. Without `min-width: 0` the panel expands
+   * to fit the image's natural width and breaks the surrounding grid
+   * (the image then bleeds out of the tab card and over the right column). */
+  min-width: 0;
+  overflow: hidden;
 }
 .pk-tabs__panel h3 {
   font-size: 16px;
@@ -2523,11 +2547,41 @@ body {
   letter-spacing: 0.08em;
   margin: 0 0 10px;
 }
-.pk-tabs__panel p { margin: 0 0 12px; }
-.pk-tabs__panel ul { margin: 0 0 12px 1.2em; padding: 0; }
+.pk-tabs__panel p { margin: 0 0 14px; }
+.pk-tabs__panel ul { margin: 0 0 14px 1.2em; padding: 0; }
 .pk-tabs__panel table { width: 100%; border-collapse: collapse; }
 .pk-tabs__panel th, .pk-tabs__panel td { padding: 8px 0; border-bottom: 1px solid var(--pk-border); text-align: left; font-size: 14px; }
 .pk-tabs__panel th { color: var(--pk-muted); font-weight: 600; width: 38%; }
+/* Shopify description HTML: constrain inline images, iframes, and video
+ * so a 1200px GIF doesn't blow out the layout. Match the hero card
+ * style so inline images feel like part of the product.
+ *
+ * Many supplier descriptions ship 800-1000px raw images with NO
+ * `width=` attribute. `max-width: 100%` keeps them in the column, but
+ * we also set an explicit `height: auto` because some old Shopify
+ * description HTML includes a literal `width` HTML attribute which
+ * Chrome treats as intrinsic size. Pairing the two means the browser
+ * always resolves to the panel width. */
+.pk-tabs__panel img,
+.pk-tabs__panel iframe,
+.pk-tabs__panel video {
+  display: block;
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+  margin: 22px auto;
+  border-radius: var(--r-lg);
+  border: 1px solid var(--pk-border);
+  background: var(--pk-surface);
+  box-shadow: 0 1px 2px rgba(22, 15, 58, 0.04);
+}
+.pk-tabs__panel iframe { aspect-ratio: 16 / 9; }
+/* The first paragraph after the tabs nav usually has extra top spacing
+ * (Shopify editors leave a leading empty <p>) — pull it up. */
+.pk-tabs__panel > div > p:first-child { margin-top: 0; }
+/* Bold runs inside paragraphs (supplier copy uses <strong> for
+ * section labels) should breathe more above them. */
+.pk-tabs__panel > div > p > strong:first-child { display: inline-block; margin-top: 8px; }
 
 /* Share row */
 .pk-share {
