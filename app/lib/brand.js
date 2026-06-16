@@ -35,8 +35,8 @@ export const BRAND_DESCRIPTION =
  * import from this list to stay in sync.
  */
 export const SOCIAL_PROFILES = [
-  'https://instagram.com/puchica',
-  'https://facebook.com/puchica',
+  'https://instagram.com/puchica.canada',
+  'https://www.facebook.com/share/1HXPSqGprD/',
   'https://x.com/puchica',
   'https://tiktok.com/@puchica',
 ];

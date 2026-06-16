@@ -43,6 +43,24 @@ function socialUrl(matcher) {
   return profile || null;
 }
 
+/**
+ * Derive a human-readable handle from a profile URL — what's shown
+ * inside the channel card CTA. For most networks that's the last path
+ * segment (e.g. `instagram.com/puchica.canada` → `@puchica.canada`).
+ * Facebook share links are an exception: the path is a share id, not a
+ * page slug, so we just show "Puchica" for those.
+ */
+function handleFromUrl(url, {facebook = false} = {}) {
+  if (!url) return null;
+  if (facebook) return 'Puchica';
+  try {
+    const last = new URL(url).pathname.split('/').filter(Boolean).pop();
+    return last ? `@${last.replace(/^@/, '')}` : null;
+  } catch {
+    return null;
+  }
+}
+
 const FAQ = [
   {
     q: 'Where is my order?',
@@ -99,6 +117,11 @@ export function ContactPage() {
   const instagram = socialUrl(/instagram\.com/);
   const facebook = socialUrl(/facebook\.com/);
   const x = socialUrl(/(^|\.)x\.com/);
+  const tiktok = socialUrl(/tiktok\.com/);
+  const igHandle = handleFromUrl(instagram);
+  const fbHandle = handleFromUrl(facebook, {facebook: true});
+  const xHandle = handleFromUrl(x);
+  const tiktokHandle = handleFromUrl(tiktok);
 
   return (
     <div className="pk-contact">
@@ -151,7 +174,7 @@ export function ContactPage() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              @puchica
+              {igHandle || 'Instagram'}
               <IconArrowRight />
             </a>
           </article>
@@ -172,7 +195,7 @@ export function ContactPage() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              /puchica
+              {fbHandle || 'Facebook'}
               <IconArrowRight />
             </a>
           </article>
@@ -195,7 +218,7 @@ export function ContactPage() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              @puchica
+              {xHandle || 'X'}
               <IconArrowRight />
             </a>
           </article>
@@ -204,15 +227,15 @@ export function ContactPage() {
 
       {/* TikTok — same pattern, but only if the brand has set a handle.
        * Hidden when not configured. */}
-      {socialUrl(/tiktok\.com/) ? (
+      {tiktok ? (
         <p className="pk-contact__tiktok">
           We&apos;re also on TikTok{' '}
           <a
-            href={socialUrl(/tiktok\.com/)}
+            href={tiktok}
             target="_blank"
             rel="noopener noreferrer"
           >
-            @puchica
+            {tiktokHandle || 'TikTok'}
           </a>
           .
         </p>
