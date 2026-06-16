@@ -2,7 +2,6 @@ import {Link, useFetcher} from 'react-router';
 import {
   IconInstagram,
   IconFacebook,
-  IconX,
   IconTiktok,
   IconShield,
 } from '~/components/Icons';
@@ -19,26 +18,20 @@ const SOCIAL = [
   {
     Icon: IconInstagram,
     label: 'Instagram',
-    urlKey: 'https://instagram.com/puchica',
-    handle: 'puchica',
+    urlKey: 'https://instagram.com/puchica.canada',
+    handle: 'puchica.canada',
   },
   {
     Icon: IconFacebook,
     label: 'Facebook',
-    urlKey: 'https://facebook.com/puchica',
-    handle: 'puchica',
-  },
-  {
-    Icon: IconX,
-    label: 'X',
-    urlKey: 'https://x.com/puchica',
-    handle: '@puchica',
+    urlKey: 'https://www.facebook.com/share/1HXPSqGprD/',
+    handle: 'Puchica',
   },
   {
     Icon: IconTiktok,
     label: 'TikTok',
-    urlKey: 'https://tiktok.com/@puchica',
-    handle: '@puchica',
+    urlKey: 'https://tiktok.com/@puchica_canada',
+    handle: '@puchica_canada',
   },
 ].filter((s) => SOCIAL_PROFILES.includes(s.urlKey));
 

@@ -18,7 +18,6 @@ import {
   IconCheck,
   IconInstagram,
   IconFacebook,
-  IconX,
   IconPackage,
 } from '~/components/Icons';
 import {SOCIAL_PROFILES} from '~/lib/brand';
@@ -116,11 +115,9 @@ function IconArrowRight(props) {
 export function ContactPage() {
   const instagram = socialUrl(/instagram\.com/);
   const facebook = socialUrl(/facebook\.com/);
-  const x = socialUrl(/(^|\.)x\.com/);
   const tiktok = socialUrl(/tiktok\.com/);
   const igHandle = handleFromUrl(instagram);
   const fbHandle = handleFromUrl(facebook, {facebook: true});
-  const xHandle = handleFromUrl(x);
   const tiktokHandle = handleFromUrl(tiktok);
 
   return (
@@ -201,28 +198,8 @@ export function ContactPage() {
           </article>
         ) : null}
 
-        {/* Always show X card if configured (third-party sites don't
-         * always have IG/FB but might have X). */}
-        {x ? (
-          <article className="pk-contact-card">
-            <div className="pk-contact-card__icon" aria-hidden="true">
-              <IconX size={22} />
-            </div>
-            <h2 className="pk-contact-card__title">Send a message on X</h2>
-            <p className="pk-contact-card__body">
-              Tag or DM us and we&apos;ll get back to you there.
-            </p>
-            <a
-              className="pk-contact-card__cta"
-              href={x}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {xHandle || 'X'}
-              <IconArrowRight />
-            </a>
-          </article>
-        ) : null}
+        {/* X card removed: no X profile. If we add one later, the
+         * pattern is identical to Instagram/Facebook. */}
       </section>
 
       {/* TikTok — same pattern, but only if the brand has set a handle.

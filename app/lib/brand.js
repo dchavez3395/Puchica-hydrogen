@@ -37,6 +37,5 @@ export const BRAND_DESCRIPTION =
 export const SOCIAL_PROFILES = [
   'https://instagram.com/puchica.canada',
   'https://www.facebook.com/share/1HXPSqGprD/',
-  'https://x.com/puchica',
   'https://tiktok.com/@puchica_canada',
 ];
