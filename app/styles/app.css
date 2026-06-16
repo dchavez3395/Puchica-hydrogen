@@ -2088,15 +2088,6 @@ body {
 }
 @media (max-width: 900px) {
   .pk-col-body { grid-template-columns: 1fr; gap: 20px; }
-  /* Filter rail stops being a sticky desktop rail on mobile — it
-   * becomes a compact, scrolled-with-the-page card so it doesn't
-   * overlap the product grid when the viewport is narrow. */
-  .pk-filters {
-    position: static;
-    padding: 14px 14px 16px;
-  }
-  .pk-filters__group + .pk-filters__group { margin-top: 14px; padding-top: 14px; }
-  .pk-filters__list button { padding: 4px 6px; font-size: 13px; }
 }
 
 /* Tablet-ish: keep the desktop 2-column body, but loosen the card padding
@@ -2163,6 +2154,19 @@ body {
   color: var(--pk-muted);
   margin: 8px 0 0;
   line-height: 1.4;
+}
+
+/* Mobile filter rail: not sticky, more compact. Sits above the grid
+ * as a regular card so it scrolls with the page and never overlaps
+ * the products. This MUST come after the desktop .pk-filters rule
+ * below to win on CSS source order (specificity is equal). */
+@media (max-width: 900px) {
+  .pk-filters {
+    position: static;
+    padding: 14px 14px 16px;
+  }
+  .pk-filters__group + .pk-filters__group { margin-top: 14px; padding-top: 14px; }
+  .pk-filters__list button { padding: 4px 6px; font-size: 13px; }
 }
 
 /* Catalog grid wrapper (toolbar + grid) */
