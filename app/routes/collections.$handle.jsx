@@ -2,20 +2,28 @@ import {redirect, useLoaderData, Link} from 'react-router';
 import {getPaginationVariables, Analytics} from '@shopify/hydrogen';
 import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
+import {puchicaMeta} from '~/lib/seo';
 import {ProductItem} from '~/components/ProductItem';
 
 /**
  * @type {Route.MetaFunction}
  */
 export const meta = ({data}) => {
-  const t = data?.collection?.title ?? 'Collection';
-  const d = data?.collection?.description ?? '';
-  return [
-    {title: `${t} – Puchica`},
-    {name: 'description', content: d},
-    {property: 'og:title', content: `${t} – Puchica`},
-    {property: 'og:description', content: d},
-  ];
+  const collection = data?.collection;
+  const t = collection?.seo?.title || collection?.title || 'Collection';
+  const d =
+    collection?.seo?.description ||
+    collection?.description ||
+    `Shop ${t} at Puchica — curated picks with free shipping over $50 and easy 30-day returns.`;
+  const image = collection?.image?.url;
+  const pathname = `/collections/${collection?.handle || ''}`;
+  return puchicaMeta({
+    title: `${t} – Puchica`,
+    description: d,
+    image,
+    type: 'website',
+    pathname,
+  });
 };
 
 /**
@@ -251,6 +259,10 @@ const COLLECTION_QUERY = `#graphql
       handle
       title
       description
+      seo {
+        title
+        description
+      }
       products(
         first: $first
         last: $last

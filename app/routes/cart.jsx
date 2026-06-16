@@ -1,12 +1,23 @@
 import {useLoaderData, data} from 'react-router';
 import {CartForm} from '@shopify/hydrogen';
 import {CartMain} from '~/components/CartMain';
+import {puchicaMeta} from '~/lib/seo';
 
 /**
  * @type {Route.MetaFunction}
+ *
+ * Cart is private to the shopper, never useful in search results.
+ * noindex,follow lets Google still follow the links inside the cart
+ * (e.g. product links) but tells it not to surface the cart page itself.
  */
 export const meta = () => {
-  return [{title: `Hydrogen | Cart`}];
+  return puchicaMeta({
+    title: 'Cart – Puchica',
+    description:
+      'Your Puchica shopping cart. Free shipping over $50, easy 30-day returns, secure checkout.',
+    noindex: true,
+    pathname: '/cart',
+  });
 };
 
 /**

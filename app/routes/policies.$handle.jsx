@@ -1,10 +1,26 @@
 import {Link, useLoaderData} from 'react-router';
+import {puchicaMeta} from '~/lib/seo';
 
 /**
  * @type {Route.MetaFunction}
  */
 export const meta = ({data}) => {
-  return [{title: `Hydrogen | ${data?.policy.title ?? ''}`}];
+  const policy = data?.policy;
+  const title = policy?.title || 'Policy';
+  // Strip HTML to ~160 chars for the description; fall back to a
+  // generic policy blurb if the body is empty.
+  const plain = (policy?.body || '')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  const description = plain
+    ? plain.slice(0, 160)
+    : `Read the ${title} from Puchica.`;
+  return puchicaMeta({
+    title: `${title} – Puchica`,
+    description,
+    pathname: `/policies/${policy?.handle || ''}`,
+  });
 };
 
 /**

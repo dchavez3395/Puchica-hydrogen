@@ -21,6 +21,7 @@ import {
   IconCheck,
 } from '~/components/Icons';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
+import {puchicaMeta, canonical, SITE_URL, breadcrumbJsonLd, JsonLdScript} from '~/lib/seo';
 
 /**
  * @type {Route.MetaFunction}
@@ -34,15 +35,14 @@ export const meta = ({data}) => {
     (data.product.description || '').slice(0, 160) ||
     `Shop ${data.product.title} from Puchica.`;
   const image = data.product.featuredImage?.url;
-  return [
-    {title},
-    {name: 'description', content: description},
-    {property: 'og:title', content: title},
-    {property: 'og:description', content: description},
-    {property: 'og:type', content: 'product'},
-    ...(image ? [{property: 'og:image', content: image}] : []),
-    {tagName: 'link', rel: 'canonical', href: `/products/${data.product.handle}`},
-  ];
+  const pathname = `/products/${data.product.handle}`;
+  return puchicaMeta({
+    title,
+    description,
+    image,
+    type: 'product',
+    pathname,
+  });
 };
 
 /**
@@ -116,6 +116,9 @@ export default function Product() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{__html: JSON.stringify(jsonLd)}}
       />
+      <JsonLdScript
+        data={breadcrumbJsonLd(buildBreadcrumbItems(product, title))}
+      />
 
       <nav className="pk-breadcrumbs pk-product__crumbs" aria-label="Breadcrumb">
         <Link to="/">Home</Link>
@@ -124,20 +127,18 @@ export default function Product() {
         {product.productType ? (
           <>
             <span className="pk-breadcrumbs__sep">/</span>
-            <Link
-              to={`/collections/all`}
-              prefetch="intent"
-              className="pk-breadcrumbs__current"
-            >
-              {product.productType}
-            </Link>
+            <Link to={`/collections/all`}>{product.productType}</Link>
           </>
         ) : null}
         <span className="pk-breadcrumbs__sep">/</span>
         <span className="pk-breadcrumbs__current">{title}</span>
       </nav>
 
-      <ProductImage images={galleryImages} initialIndex={0} />
+      <ProductImage
+        images={galleryImages}
+        initialIndex={0}
+        productTitle={title}
+      />
 
       <div className="pk-product__info">
         {product.vendor ? (
@@ -442,11 +443,28 @@ function buildGallery(product, selectedVariant) {
   return list;
 }
 
+/**
+ * Build the breadcrumb items for a product, mirroring the on-page nav
+ * exactly: Home → Shop → productType? → title. Used to build the
+ * BreadcrumbList JSON-LD so search engines can render rich breadcrumb
+ * crumbs in the SERP. Order MUST match the rendered <nav>.
+ */
+function buildBreadcrumbItems(product, title) {
+  const items = [
+    {name: 'Home', url: '/'},
+    {name: 'Shop', url: '/collections/all'},
+  ];
+  if (product.productType) {
+    items.push({name: product.productType, url: '/collections/all'});
+  }
+  items.push({name: title, url: `/products/${product.handle}`});
+  return items;
+}
+
 function buildJsonLd(product, selectedVariant) {
+  const productUrl = canonical(`/products/${product.handle}`);
   const url =
-    typeof window !== 'undefined'
-      ? window.location.href
-      : `https://shop.puchica.ca/products/${product.handle}`;
+    typeof window !== 'undefined' ? window.location.href : productUrl;
   const price = selectedVariant?.price;
   const availability = selectedVariant?.availableForSale
     ? 'https://schema.org/InStock'
@@ -454,16 +472,26 @@ function buildJsonLd(product, selectedVariant) {
   return {
     '@context': 'https://schema.org',
     '@type': 'Product',
+    '@id': `${productUrl}#product`,
     name: product.title,
     description: (product.description || '').slice(0, 5000),
     image: product.featuredImage?.url
       ? [product.featuredImage.url]
       : undefined,
     sku: selectedVariant?.sku || product.handle,
-    brand: product.vendor ? {'@type': 'Brand', name: product.vendor} : undefined,
+    // Puchica is a dropshipper — `product.vendor` is the *supplier*,
+    // not the brand. Always attribute the product to Puchica so Google
+    // associates the listing with the storefront, not the manufacturer.
+    brand: {'@type': 'Brand', name: 'Puchica'},
+    seller: {
+      '@type': 'Organization',
+      name: 'Puchica',
+      url: SITE_URL,
+    },
     offers: price
       ? {
           '@type': 'Offer',
+          '@id': `${productUrl}#offer`,
           url,
           priceCurrency: price.currencyCode,
           price: price.amount,

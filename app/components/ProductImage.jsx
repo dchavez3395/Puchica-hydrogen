@@ -10,9 +10,15 @@ import {IconChevronLeft, IconChevronRight} from '~/components/Icons';
  * @param {{
  *   images: ProductVariantFragment['image'][];
  *   initialIndex?: number;
+ *   productTitle?: string;  // used as a meaningful alt fallback for
+ *                            // merchants who didn't set altText in
+ *                            // Shopify admin. Without this the alt
+ *                            // would either be empty (which Google
+ *                            // treats as missing) or the literal
+ *                            // "Product image" (low-quality alt).
  * }}
  */
-export function ProductImage({images, initialIndex = 0}) {
+export function ProductImage({images, initialIndex = 0, productTitle}) {
   const list = (images || []).filter(Boolean);
   const [index, setIndex] = useState(
     Math.min(Math.max(0, initialIndex), Math.max(0, list.length - 1)),
@@ -54,7 +60,7 @@ export function ProductImage({images, initialIndex = 0}) {
                   onClick={() => setIndex(i)}
                 >
                   <Image
-                    alt={img.altText || ''}
+                    alt={img.altText || productTitle || 'Product image'}
                     data={img}
                     aspectRatio="1/1"
                     sizes="80px"
@@ -68,7 +74,7 @@ export function ProductImage({images, initialIndex = 0}) {
 
         <div className="pk-product__hero">
           <Image
-            alt={current.altText || 'Product image'}
+            alt={current.altText || productTitle || 'Product image'}
             data={current}
             aspectRatio="1/1"
             sizes="(min-width: 60em) 600px, 100vw"

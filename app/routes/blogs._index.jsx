@@ -1,12 +1,22 @@
 import {Link, useLoaderData} from 'react-router';
 import {getPaginationVariables} from '@shopify/hydrogen';
 import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
+import {puchicaMeta} from '~/lib/seo';
 
 /**
  * @type {Route.MetaFunction}
+ *
+ * Puchica doesn't currently publish a blog, but the route exists for
+ * Shopify compatibility. We noindex it so it doesn't show up as thin
+ * content if a stray blog appears in the future.
  */
 export const meta = () => {
-  return [{title: `Hydrogen | Blogs`}];
+  return puchicaMeta({
+    title: 'Blog – Puchica',
+    description: 'Stories, guides, and picks from the Puchica team.',
+    noindex: true,
+    pathname: '/blogs',
+  });
 };
 
 /**

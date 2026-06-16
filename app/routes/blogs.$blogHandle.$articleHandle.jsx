@@ -1,12 +1,27 @@
 import {useLoaderData} from 'react-router';
 import {Image} from '@shopify/hydrogen';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
+import {puchicaMeta} from '~/lib/seo';
 
 /**
  * @type {Route.MetaFunction}
  */
 export const meta = ({data}) => {
-  return [{title: `Hydrogen | ${data?.article.title ?? ''} article`}];
+  const article = data?.article;
+  const title = article?.seo?.title || article?.title || 'Article';
+  return puchicaMeta({
+    title: `${title} – Puchica Blog`,
+    description:
+      article?.seo?.description ||
+      (article?.excerpt || article?.contentHtml || '')
+        .replace(/<[^>]+>/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim()
+        .slice(0, 160) ||
+      `Read ${title} on the Puchica blog.`,
+    noindex: true,
+    pathname: `/blogs/${article?.blogHandle || ''}/${article?.handle || ''}`,
+  });
 };
 
 /**

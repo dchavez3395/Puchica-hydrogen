@@ -1,4 +1,17 @@
 import {useLoaderData, Link} from 'react-router';
+import {puchicaMeta} from '~/lib/seo';
+
+/**
+ * @type {Route.MetaFunction}
+ */
+export const meta = () => {
+  return puchicaMeta({
+    title: 'Policies – Puchica',
+    description:
+      'Puchica policies: shipping, returns, privacy, and terms. Free shipping over $50. Easy 30-day returns.',
+    pathname: '/policies',
+  });
+};
 
 /**
  * @param {Route.LoaderArgs}

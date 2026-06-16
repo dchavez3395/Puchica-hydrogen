@@ -2,13 +2,11 @@ import {Suspense, useEffect, useState} from 'react';
 import {Await, Link, NavLink, useAsyncValue} from 'react-router';
 import {useAnalytics, useOptimisticCart} from '@shopify/hydrogen';
 import {useAside} from '~/components/Aside';
+import {STORE_LOGO_URL} from '~/lib/brand';
 
-// Puchica logo. Update this URL after uploading a new logo to Shopify
-// (Settings > Files). The HeaderGraphQL query prefers
+// Puchica logo. The HeaderGraphQL query prefers
 // `shop.brand.logo.image.url` if set under Settings > Brand, otherwise
-// it falls back to this hardcoded URL.
-const STORE_LOGO_URL =
-  'https://cdn.shopify.com/s/files/1/0842/2644/1466/files/Puchica_logo.png?v=1781275908';
+// it falls back to STORE_LOGO_URL from app/lib/brand.js.
 
 const ANNOUNCEMENT_KEY = 'pk-ann-dismissed-v1';
 

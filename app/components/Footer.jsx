@@ -6,12 +6,11 @@ import {
   IconTiktok,
   IconShield,
 } from '~/components/Icons';
+import {STORE_LOGO_URL} from '~/lib/brand';
 
-// Puchica logo. Update this URL after uploading a new logo to Shopify
-// (Settings > Files). The Footer loader prefers `shop.brand.logo.image.url`
-// if set under Settings > Brand, otherwise it falls back to this URL.
-const STORE_LOGO_URL =
-  'https://cdn.shopify.com/s/files/1/0842/2644/1466/files/Puchica_logo.png?v=1781275908';
+// Footer loader prefers `shop.brand.logo.image.url` from the Storefront
+// API when set under Settings > Brand, otherwise falls back to
+// STORE_LOGO_URL from app/lib/brand.js.
 
 // Social handles — placeholders. The user can update these to real brand
 // accounts without touching the rest of the layout. Until then the icons

@@ -1,25 +1,21 @@
 import {useLoaderData, Link} from 'react-router';
 import {getPaginationVariables} from '@shopify/hydrogen';
 import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
+import {puchicaMeta} from '~/lib/seo';
 import {ProductItem} from '~/components/ProductItem';
 
 /**
  * @type {Route.MetaFunction}
  */
-export const meta = () => [
-  {title: 'All Products – Puchica'},
-  {
-    name: 'description',
-    content:
-      'Browse the full Puchica catalog — curated picks across home, beauty, tech, pet, and more.',
-  },
-  {property: 'og:title', content: 'All Products – Puchica'},
-  {
-    property: 'og:description',
-    content:
-      'Browse the full Puchica catalog — curated picks across home, beauty, tech, pet, and more.',
-  },
-];
+export const meta = () => {
+  return puchicaMeta({
+    title: 'All Products – Puchica',
+    description:
+      'Browse the full Puchica catalog — curated picks across home, beauty, tech, pet, and more. Free shipping over $50, easy 30-day returns.',
+    type: 'website',
+    pathname: '/collections/all',
+  });
+};
 
 /**
  * @param {Route.LoaderArgs} args

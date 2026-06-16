@@ -1,11 +1,26 @@
 import {useLoaderData} from 'react-router';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
+import {puchicaMeta} from '~/lib/seo';
 
 /**
  * @type {Route.MetaFunction}
  */
 export const meta = ({data}) => {
-  return [{title: `Hydrogen | ${data?.page.title ?? ''}`}];
+  const page = data?.page;
+  // Prefer the merchant-set seo fields (already in the query). Fall back
+  // to the page title and a 160-char slice of the body.
+  const title = page?.seo?.title || page?.title || 'Page';
+  const plain = (page?.body || page?.seo?.description || '')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  const description = (page?.seo?.description || plain.slice(0, 160)) ||
+    `Read ${title} on Puchica.`;
+  return puchicaMeta({
+    title: `${title} – Puchica`,
+    description,
+    pathname: `/pages/${page?.handle || ''}`,
+  });
 };
 
 /**

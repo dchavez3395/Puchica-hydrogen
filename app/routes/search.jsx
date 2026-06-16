@@ -3,12 +3,25 @@ import {getPaginationVariables, Analytics} from '@shopify/hydrogen';
 import {SearchForm} from '~/components/SearchForm';
 import {SearchResults} from '~/components/SearchResults';
 import {getEmptyPredictiveSearchResult} from '~/lib/search';
+import {puchicaMeta} from '~/lib/seo';
 
 /**
  * @type {Route.MetaFunction}
+ *
+ * Search result pages are thin, ephemeral, and query-specific. They
+ * would dilute the site's index if Google indexed every
+ * `/search?q=wheelbarrow` page that got crawled, so we noindex them.
  */
-export const meta = () => {
-  return [{title: `Hydrogen | Search`}];
+export const meta = ({data}) => {
+  const term = (data?.term || '').trim();
+  return puchicaMeta({
+    title: term ? `Search: ${term} – Puchica` : 'Search – Puchica',
+    description: term
+      ? `Search results for "${term}" across the Puchica catalog.`
+      : 'Search the Puchica catalog for curated picks across home, kitchen, beauty, tech, pet, and more.',
+    noindex: true,
+    pathname: '/search',
+  });
 };
 
 /**

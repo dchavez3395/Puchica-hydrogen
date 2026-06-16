@@ -2,12 +2,22 @@ import {Link, useLoaderData} from 'react-router';
 import {Image, getPaginationVariables} from '@shopify/hydrogen';
 import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
+import {puchicaMeta} from '~/lib/seo';
 
 /**
  * @type {Route.MetaFunction}
  */
 export const meta = ({data}) => {
-  return [{title: `Hydrogen | ${data?.blog.title ?? ''} blog`}];
+  const blog = data?.blog;
+  const title = blog?.seo?.title || blog?.title || 'Blog';
+  return puchicaMeta({
+    title: `${title} – Puchica Blog`,
+    description:
+      blog?.seo?.description ||
+      `The ${title} blog from Puchica.`,
+    noindex: true,
+    pathname: `/blogs/${blog?.handle || ''}`,
+  });
 };
 
 /**

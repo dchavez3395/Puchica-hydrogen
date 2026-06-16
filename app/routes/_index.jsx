@@ -13,12 +13,23 @@ import {
   IconLeaf,
   IconBag,
 } from '~/components/Icons';
+import {
+  puchicaMeta,
+  organizationJsonLd,
+  websiteJsonLd,
+  JsonLdScript,
+} from '~/lib/seo';
 
 /**
  * @type {Route.MetaFunction}
  */
 export const meta = () => {
-  return [{title: 'Puchica – Shop Smart. Shop Puchica.'}];
+  return puchicaMeta({
+    title: 'Puchica – Shop Smart. Shop Puchica.',
+    description:
+      'Curated picks across home, kitchen, beauty, tech, pet, and more. Free shipping over $50, easy 30-day returns, secure checkout. Ships from Canada.',
+    pathname: '/',
+  });
 };
 
 /**
@@ -88,6 +99,14 @@ export default function Homepage() {
   const data = useLoaderData();
   return (
     <div className="pk-home">
+      {/* Schema.org JSON-LD: anchor the brand (Organization) and the
+       * site (WebSite with SearchAction — generates the Google
+       * Sitelinks Searchbox). Placed in SSR HTML so crawlers see it
+       * before hydration. sameAs is empty until the user fills in
+       * real social handles in Footer.jsx — leaving it empty is fine,
+       * Google's docs allow it. */}
+      <JsonLdScript data={organizationJsonLd({})} />
+      <JsonLdScript data={websiteJsonLd({})} />
       {data.isShopLinked ? null : <MockShopNotice />}
       <Hero categories={data.categories} bestPicks={data.bestPicks} />
       <Marquee />
