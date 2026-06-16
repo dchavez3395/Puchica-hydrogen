@@ -19,7 +19,7 @@ import {BRAND_DESCRIPTION, SOCIAL_PROFILES, STORE_LOGO_URL} from '~/lib/brand';
  * (`env.PUBLIC_STORE_DOMAIN`) — that one is the *.myshopify.com URL
  * Shopify uses internally and would point Google at the wrong place.
  */
-export const SITE_URL = 'https://shop.puchica.ca';
+export const SITE_URL = 'https://puchica.ca';
 
 /** Default OG image — the brand logo, served from the Shopify CDN. */
 export const DEFAULT_OG_IMAGE = STORE_LOGO_URL;
