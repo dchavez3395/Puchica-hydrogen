@@ -1,12 +1,31 @@
 import {useLoaderData} from 'react-router';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 import {puchicaMeta} from '~/lib/seo';
+import {ContactPage} from '~/components/ContactPage';
 
 /**
  * @type {Route.MetaFunction}
+ *
+ * Special-case the `/pages/contact` handle: it has its own rich layout
+ * (`<ContactPage />`) and a real meta description, so we override the
+ * generic page-derived meta here. All other CMS pages fall through to
+ * the standard `seo`-then-body-derived title/description.
  */
+const CONTACT_DESCRIPTION =
+  'Get in touch with the Puchica team. Email, Instagram DM, or Facebook — a real person replies within one business day, often within a few hours.';
+
 export const meta = ({data}) => {
   const page = data?.page;
+  // Special case: the contact page renders its own layout, so give it
+  // a real description instead of the empty body the merchant has set
+  // on the Shopify page.
+  if (page?.handle === 'contact') {
+    return puchicaMeta({
+      title: 'Contact us – Puchica',
+      description: CONTACT_DESCRIPTION,
+      pathname: '/pages/contact',
+    });
+  }
   // Prefer the merchant-set seo fields (already in the query). Fall back
   // to the page title and a 160-char slice of the body.
   const title = page?.seo?.title || page?.title || 'Page';
@@ -79,6 +98,14 @@ function loadDeferredData({context}) {
 export default function Page() {
   /** @type {LoaderReturnData} */
   const {page} = useLoaderData();
+
+  // Special case: the contact page has its own rich layout. The
+  // merchant's Shopify "Contact Us" page exists (so it shows up in
+  // navigation and the sitemap) but its body is empty, so we render
+  // our own component instead of the generic title+body layout.
+  if (page.handle === 'contact') {
+    return <ContactPage />;
+  }
 
   return (
     <div className="page">

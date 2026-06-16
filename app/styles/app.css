@@ -3221,6 +3221,340 @@ body {
   color: var(--pk-violet-500);
 }
 
+/*
+* ==================================================
+* Puchica — Contact page
+* ==================================================
+*/
+.pk-contact {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 28px 20px 80px;
+  font-family: var(--pk-font);
+  color: var(--pk-ink);
+}
+
+/* Hero: reuses the .pk-col-hero language (gradient + glow) for
+ * site-wide consistency. The hero is already styled above; we only
+ * need a tiny tweak for the contact copy. */
+.pk-contact__hero { margin-top: 4px; }
+.pk-contact__hero .pk-col-hero__title { font-size: 44px; }
+@media (max-width: 700px) {
+  .pk-contact__hero .pk-col-hero__title { font-size: 30px; }
+}
+
+/* Section header pattern shared by "what to expect" + FAQ */
+.pk-contact__section-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+  margin: 0 0 28px;
+  font-weight: 800;
+  color: var(--pk-indigo-900);
+  letter-spacing: -0.01em;
+}
+.pk-contact__eyebrow {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--pk-violet-700);
+  margin: 0 0 4px;
+}
+.pk-contact__title {
+  display: block;
+  font-size: 30px;
+  font-weight: 800;
+  margin: 0;
+  color: var(--pk-indigo-900);
+  letter-spacing: -0.01em;
+}
+@media (max-width: 60em) {
+  .pk-contact__title { font-size: 24px; }
+}
+
+/* Contact channel cards */
+.pk-contact__channels {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin: 0 0 24px;
+}
+@media (max-width: 900px) {
+  .pk-contact__channels { grid-template-columns: 1fr; }
+}
+
+.pk-contact-card {
+  background: #fff;
+  border: 1px solid var(--pk-border);
+  border-radius: var(--r-xl);
+  padding: 26px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+.pk-contact-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(22, 15, 58, 0.08);
+  border-color: var(--pk-violet-200, #DDD0FF);
+}
+/* The email card uses the brand gradient — it's the primary action. */
+.pk-contact-card--email {
+  background: linear-gradient(135deg, #1B1147 0%, #3A2CCF 55%, #6D4CFF 100%);
+  border-color: transparent;
+  color: #fff;
+}
+.pk-contact-card--email .pk-contact-card__icon {
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
+}
+.pk-contact-card--email .pk-contact-card__title { color: #fff; }
+.pk-contact-card--email .pk-contact-card__body { color: rgba(255, 255, 255, 0.85); }
+.pk-contact-card--email .pk-contact-card__cta {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+}
+.pk-contact-card--email .pk-contact-card__cta:hover {
+  background: rgba(255, 255, 255, 0.24);
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+.pk-contact-card__icon {
+  display: grid;
+  place-items: center;
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  background: var(--pk-grad-lavender);
+  color: var(--pk-violet-700);
+  flex: none;
+}
+.pk-contact-card__title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.005em;
+  color: var(--pk-ink);
+}
+.pk-contact-card__body {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--pk-muted);
+  flex: 1;
+}
+.pk-contact-card__cta {
+  margin-top: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 11px 16px;
+  border-radius: 999px;
+  background: var(--pk-violet-50);
+  color: var(--pk-violet-700);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  border: 1px solid var(--pk-card-border);
+  transition: background 0.12s ease, color 0.12s ease, transform 0.12s ease;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pk-contact-card__cta:hover {
+  text-decoration: none;
+  background: var(--pk-violet-100, #ECE6FF);
+  transform: translateY(-1px);
+}
+.pk-contact-card__cta svg { flex: none; transition: transform 0.12s ease; }
+.pk-contact-card__cta:hover svg { transform: translateX(2px); }
+
+/* TikTok callout line, only when the brand has a TikTok handle */
+.pk-contact__tiktok {
+  text-align: center;
+  margin: 0 0 56px;
+  color: var(--pk-muted);
+  font-size: 14.5px;
+}
+.pk-contact__tiktok a {
+  color: var(--pk-violet-700);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* "What to expect" — three promise rows in a flex column */
+.pk-contact__promises { margin: 56px 0; }
+.pk-contact__promises-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+@media (max-width: 900px) {
+  .pk-contact__promises-list { grid-template-columns: 1fr; }
+}
+.pk-contact__promises-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: #fff;
+  border: 1px solid var(--pk-border);
+  border-radius: var(--r-xl);
+  padding: 20px;
+}
+.pk-contact__promises-list li > div { min-width: 0; }
+.pk-contact__promises-list strong {
+  display: block;
+  font-size: 15.5px;
+  font-weight: 800;
+  color: var(--pk-ink);
+  margin: 0 0 4px;
+  letter-spacing: -0.005em;
+}
+.pk-contact__promises-list p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--pk-muted);
+}
+.pk-contact__promise-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 40px; height: 40px;
+  border-radius: 12px;
+  background: var(--pk-grad-lavender);
+  color: var(--pk-violet-700);
+}
+
+/* FAQ */
+.pk-contact__faq { margin: 56px 0; }
+.pk-contact__faq-list {
+  max-width: 760px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.pk-contact__faq-item {
+  background: #fff;
+  border: 1px solid var(--pk-border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  transition: border-color 0.12s ease, box-shadow 0.12s ease;
+}
+.pk-contact__faq-item[open] {
+  border-color: var(--pk-violet-200, #DDD0FF);
+  box-shadow: 0 6px 18px rgba(22, 15, 58, 0.06);
+}
+/* Hide the default disclosure marker — we render our own chev. */
+.pk-contact__faq-item > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  font-size: 15.5px;
+  font-weight: 700;
+  color: var(--pk-ink);
+  letter-spacing: -0.005em;
+  user-select: none;
+}
+.pk-contact__faq-item > summary::-webkit-details-marker { display: none; }
+.pk-contact__faq-item > summary:hover { color: var(--pk-violet-700); }
+.pk-contact__faq-chev {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--pk-violet-50);
+  color: var(--pk-violet-700);
+  transition: transform 0.18s ease, background 0.12s ease;
+}
+.pk-contact__faq-item[open] .pk-contact__faq-chev {
+  transform: rotate(90deg);
+  background: var(--pk-violet-700);
+  color: #fff;
+}
+.pk-contact__faq-item > p {
+  margin: 0;
+  padding: 0 20px 18px;
+  color: var(--pk-muted);
+  font-size: 14.5px;
+  line-height: 1.65;
+}
+.pk-contact__faq-foot {
+  text-align: center;
+  margin: 22px 0 0;
+  color: var(--pk-muted);
+  font-size: 14.5px;
+}
+.pk-contact__faq-foot a {
+  color: var(--pk-violet-700);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Bottom CTA panel — mirrors the hero's brand gradient as a closer */
+.pk-contact__cta {
+  margin: 56px 0 0;
+  padding: 44px 32px;
+  text-align: center;
+  background: linear-gradient(135deg, #1B1147 0%, #3A2CCF 55%, #6D4CFF 100%);
+  color: #fff;
+  border-radius: var(--r-2xl);
+  box-shadow: var(--pk-sh-md);
+}
+.pk-contact__cta h2 {
+  margin: 0 0 8px;
+  font-size: 28px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.01em;
+}
+.pk-contact__cta p {
+  margin: 0 auto 22px;
+  max-width: 460px;
+  font-size: 15.5px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.85);
+}
+.pk-contact__cta .pk-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff;
+  color: var(--pk-violet-700);
+  padding: 14px 26px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18);
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+.pk-contact__cta .pk-btn:hover {
+  transform: translateY(-2px);
+  text-decoration: none;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
+}
+@media (max-width: 700px) {
+  .pk-contact__cta { padding: 32px 22px; }
+  .pk-contact__cta h2 { font-size: 22px; }
+}
+
 @media (prefers-color-scheme: dark) {
   /* Puchica is light-only for now; dark mode is a future pass. */
 }
