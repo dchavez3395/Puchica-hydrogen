@@ -134,58 +134,66 @@ export default function Product() {
         <span className="pk-breadcrumbs__current">{title}</span>
       </nav>
 
-      <ProductImage
-        images={galleryImages}
-        initialIndex={0}
-        productTitle={title}
-      />
-
-      <div className="pk-product__info">
-        {product.vendor ? (
-          <p className="pk-product__vendor">{product.vendor}</p>
-        ) : null}
-        <h1 className="pk-product__title">{title}</h1>
-        <div className="pk-product__price">
-          <ProductPrice
-            price={selectedVariant?.price}
-            compareAtPrice={selectedVariant?.compareAtPrice}
-          />
-        </div>
-
-        <div className="pk-trust-strip" aria-label="Service highlights">
-          <span className="pk-trust-strip__item">
-            <span aria-hidden><IconTruck size={14} /></span>
-            Free shipping over $50
-          </span>
-          <span className="pk-trust-strip__item">
-            <span aria-hidden><IconReturn size={14} /></span>
-            30-day returns
-          </span>
-          <span className="pk-trust-strip__item">
-            <span aria-hidden><IconShield size={14} /></span>
-            Secure checkout
-          </span>
-        </div>
-
-        <ProductForm
-          productOptions={productOptions}
-          selectedVariant={selectedVariant}
+      {/* Two-column image + info row. Wrapped so the sticky info column
+       * sticks only WITHIN this row, not the whole page. Without the
+       * wrapper, the parent grid extends past the image to fit the
+       * tabs + recommendations below, and the sticky info column never
+       * un-sticks — it pins to the top of the viewport and paints
+       * over the tabs/recommendations. */}
+      <div className="pk-product__top">
+        <ProductImage
+          images={galleryImages}
+          initialIndex={0}
+          productTitle={title}
         />
 
-        <ul className="pk-product__perks" aria-label="What's included">
-          <li>
-            <span aria-hidden><IconPackage size={16} /></span>
-            <span>Carefully packed and shipped within 1–2 business days</span>
-          </li>
-          <li>
-            <span aria-hidden><IconReturn size={16} /></span>
-            <span>Pre-paid return label included with every order</span>
-          </li>
-          <li>
-            <span aria-hidden><IconCheck size={16} /></span>
-            <span>Curated by the Puchica team — never random</span>
-          </li>
-        </ul>
+        <div className="pk-product__info">
+          {product.vendor ? (
+            <p className="pk-product__vendor">{product.vendor}</p>
+          ) : null}
+          <h1 className="pk-product__title">{title}</h1>
+          <div className="pk-product__price">
+            <ProductPrice
+              price={selectedVariant?.price}
+              compareAtPrice={selectedVariant?.compareAtPrice}
+            />
+          </div>
+
+          <div className="pk-trust-strip" aria-label="Service highlights">
+            <span className="pk-trust-strip__item">
+              <span aria-hidden><IconTruck size={14} /></span>
+              Free shipping over $50
+            </span>
+            <span className="pk-trust-strip__item">
+              <span aria-hidden><IconReturn size={14} /></span>
+              30-day returns
+            </span>
+            <span className="pk-trust-strip__item">
+              <span aria-hidden><IconShield size={14} /></span>
+              Secure checkout
+            </span>
+          </div>
+
+          <ProductForm
+            productOptions={productOptions}
+            selectedVariant={selectedVariant}
+          />
+
+          <ul className="pk-product__perks" aria-label="What's included">
+            <li>
+              <span aria-hidden><IconPackage size={16} /></span>
+              <span>Carefully packed and shipped within 1–2 business days</span>
+            </li>
+            <li>
+              <span aria-hidden><IconReturn size={16} /></span>
+              <span>Pre-paid return label included with every order</span>
+            </li>
+            <li>
+              <span aria-hidden><IconCheck size={16} /></span>
+              <span>Curated by the Puchica team — never random</span>
+            </li>
+          </ul>
+        </div>
       </div>
 
       <section className="pk-tabs" aria-label="Product details">

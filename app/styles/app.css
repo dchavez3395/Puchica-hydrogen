@@ -1314,41 +1314,11 @@ body {
 
 /*
 * ==================================================
-* Puchica product page
+* Puchica product page — shared rules (color, typography, options form)
+* Layout rules for `.pk-product` and the image/info grid live in the
+* later "Product page (PDP)" section below.
 * ==================================================
 */
-.pk-product {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 36px 20px 80px;
-  display: grid;
-  grid-template-columns: 0.8fr 1fr;
-  gap: 56px;
-  align-items: start;
-  font-family: var(--pk-font);
-  color: var(--pk-indigo-900);
-}
-.pk-product__media {
-  position: sticky;
-  top: 96px;
-  max-width: 440px;
-  border-radius: var(--r-2xl);
-  overflow: hidden;
-  background: var(--pk-surface);
-  border: 1px solid var(--pk-border);
-}
-/* Image rules are scoped below (.pk-thumbs__item img, .pk-product__hero img)
- * — the earlier `height: auto` here was conflicting with Hydrogen's
- * inline `aspect-ratio: 1/1` and making the image render at its
- * intrinsic height, which is huge for a 1000px source. The hero and
- * thumbs each own their sizing now. */
-.pk-product__media img { display: block; }
-
-.pk-product__vendor { color: var(--pk-violet-500); font-weight: 600; font-size: 14px; margin: 0 0 6px; }
-.pk-product__title { font-size: 34px; font-weight: 700; line-height: 1.15; margin: 0 0 12px; }
-.pk-product__rating { display: flex; align-items: center; gap: 8px; font-size: 13px; margin-bottom: 16px; }
-.pk-product__price { font-size: 26px; font-weight: 800; margin-bottom: 24px; }
-.pk-product__price .product-price { font-size: 26px; }
 
 /* options */
 .pk-product .product-options { margin-bottom: 18px; }
@@ -1444,11 +1414,10 @@ body {
 }
 .pk-product__perks li svg { color: var(--pk-violet-500); flex: none; }
 
-@media (max-width: 860px) {
-  .pk-product { grid-template-columns: 1fr; gap: 28px; }
-  .pk-product__media { position: static; }
-  .pk-product__title { font-size: 26px; }
-}
+/* (Removed the leftover `@media (max-width: 860px) { .pk-product { grid-template-columns: 1fr } }`
+ * from the old grid layout — `.pk-product` is no longer a grid, so the
+ * rule was a no-op. The mobile layout for `.pk-product__top` lives in
+ * the PDP section below.) */
 
 /*
 * ==================================================
@@ -2287,16 +2256,29 @@ body {
   padding: 28px 20px 72px;
   font-family: var(--pk-font);
   color: var(--pk-ink);
+  /* Block container — children flow vertically. The two-column image +
+   * info row lives inside `.pk-product__top` so the sticky info column
+   * sticks ONLY within that row, not the whole page (which extends past
+   * the row to fit tabs + recommendations). Previously this was a grid
+   * with `grid-column: 1 / -1` on the full-width children, and the
+   * sticky info column's containing block was the whole grid — it
+   * pinned to viewport top and painted over the tabs/recommendations. */
+}
+@media (max-width: 900px) {
+  .pk-product { padding: 16px 20px 96px; }
+}
+
+.pk-product__top {
   display: grid;
   grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
   gap: 56px;
   align-items: start;
 }
 @media (max-width: 900px) {
-  .pk-product { grid-template-columns: 1fr; gap: 24px; padding: 16px 20px 96px; }
+  .pk-product__top { grid-template-columns: 1fr; gap: 24px; }
 }
 
-.pk-product__crumbs { grid-column: 1 / -1; margin: 0; }
+.pk-product__crumbs { margin: 0 0 18px; }
 .pk-product__media {
   position: relative;
   display: grid;
@@ -2491,7 +2473,6 @@ body {
 
 /* Tabs (Description / Specs / Shipping) */
 .pk-tabs {
-  grid-column: 1 / -1;
   margin-top: 24px;
   border: 1px solid var(--pk-border);
   border-radius: var(--r-xl);
@@ -2585,7 +2566,6 @@ body {
 
 /* Share row */
 .pk-share {
-  grid-column: 1 / -1;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -2612,7 +2592,6 @@ body {
 
 /* Recommendations */
 .pk-reco {
-  grid-column: 1 / -1;
   margin-top: 40px;
 }
 .pk-reco__title { font-size: 22px; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 16px; }
