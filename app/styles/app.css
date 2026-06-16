@@ -1012,8 +1012,16 @@ body {
   transition: transform .15s ease, box-shadow .15s ease;
 }
 .pk-card:hover { transform: translateY(-3px); box-shadow: 0 16px 36px rgba(40,20,90,.12); }
-.pk-card__media { position: relative; display: block; background: var(--pk-bg-soft); }
-.pk-card__media img { width: 100%; height: 100%; object-fit: cover; }
+.pk-card__media {
+  position: relative; display: block; background: var(--pk-bg-soft);
+  /* Pin the image to a 1:1 box so the card can't grow vertically with
+   * wide / tall source images. The Hydrogen <Image> sets `aspect-ratio`
+   * inline, but if that ever drops (older SSR, image without data) this
+   * is the safety net. */
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+}
+.pk-card__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
 /* Heart removed — wishlist isn't a real feature yet, the button was misleading. */
 /* Card body fills remaining height so the Add to Cart button (and the
  * "View details" fallback) line up across cards in a row, even when
@@ -1513,7 +1521,8 @@ body {
   .pk-collist-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 560px) {
-  .pk-prod-grid { grid-template-columns: 1fr; }
+  /* Stay 2-up on phones — the home grid and collection grid are tuned
+   * for 2 columns at this width (see the 700px breakpoint block). */
   .pk-collist-grid { grid-template-columns: 1fr; }
 }
 
@@ -2079,6 +2088,30 @@ body {
 }
 @media (max-width: 900px) {
   .pk-col-body { grid-template-columns: 1fr; gap: 20px; }
+  /* Filter rail stops being a sticky desktop rail on mobile — it
+   * becomes a compact, scrolled-with-the-page card so it doesn't
+   * overlap the product grid when the viewport is narrow. */
+  .pk-filters {
+    position: static;
+    padding: 14px 14px 16px;
+  }
+  .pk-filters__group + .pk-filters__group { margin-top: 14px; padding-top: 14px; }
+  .pk-filters__list button { padding: 4px 6px; font-size: 13px; }
+}
+
+/* Tablet-ish: keep the desktop 2-column body, but loosen the card padding
+ * so the filter doesn't crowd the grid. */
+@media (max-width: 700px) {
+  .pk-col-body { gap: 18px; }
+  /* 2-up product grid on phones, 4:3 image ratio so cards aren't
+   * dominated by giant square images. */
+  .pk-prod-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .pk-card__media { aspect-ratio: 4 / 3; }
+  .pk-card__body { padding: 10px 12px 12px; gap: 3px; }
+  .pk-card__title { font-size: 13px; min-height: calc(2 * 1.3em); }
+  .pk-card__price { font-size: 15px; }
+  .pk-card__cart button[type="submit"],
+  .pk-card__viewbtn { padding: 9px 8px; font-size: 13px; }
 }
 
 /* Filter rail */
@@ -2089,8 +2122,7 @@ body {
   border: 1px solid var(--pk-border);
   border-radius: var(--r-lg);
   padding: 18px 18px 20px;
-}
-.pk-filters__group + .pk-filters__group { margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--pk-border); }
+}.pk-filters__group + .pk-filters__group { margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--pk-border); }
 .pk-filters__title {
   font-size: 13px;
   text-transform: uppercase;
