@@ -12,7 +12,7 @@
  *   small and the explicit form is easier to audit.
  */
 
-import {STORE_LOGO_URL} from '~/lib/brand';
+import {BRAND_DESCRIPTION, SOCIAL_PROFILES, STORE_LOGO_URL} from '~/lib/brand';
 
 /**
  * The public-facing canonical domain. NOT the Shopify domain
@@ -134,17 +134,23 @@ export function breadcrumbJsonLd(items) {
  * Build an Organization JSON-LD object. Used on the homepage to anchor
  * Google's brand knowledge panel.
  *
+ * The defaults pull from `~/lib/brand` so the SEO schema and the
+ * Footer's social links stay in lockstep. Pass overrides for tests or
+ * for a one-off variant of the schema.
+ *
  * @param {object} opts
- * @param {string} opts.name
- * @param {string} [opts.url]      - defaults to SITE_URL
- * @param {string} [opts.logo]     - absolute URL of brand logo
- * @param {string[]} [opts.sameAs] - social profile URLs
+ * @param {string} [opts.name]        - defaults to SITE_NAME
+ * @param {string} [opts.url]         - defaults to SITE_URL
+ * @param {string} [opts.logo]        - absolute URL of brand logo
+ * @param {string} [opts.description] - one-line "what is Puchica"
+ * @param {string[]} [opts.sameAs]    - social profile URLs
  */
 export function organizationJsonLd({
   name = SITE_NAME,
   url = SITE_URL,
   logo = DEFAULT_OG_IMAGE,
-  sameAs = [],
+  description = BRAND_DESCRIPTION,
+  sameAs = SOCIAL_PROFILES,
 } = {}) {
   return {
     '@context': 'https://schema.org',
@@ -152,6 +158,7 @@ export function organizationJsonLd({
     '@id': canonical('/#organization'),
     name,
     url,
+    description,
     logo: {
       '@type': 'ImageObject',
       url: logo,

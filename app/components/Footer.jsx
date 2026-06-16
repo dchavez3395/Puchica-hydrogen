@@ -6,21 +6,41 @@ import {
   IconTiktok,
   IconShield,
 } from '~/components/Icons';
-import {STORE_LOGO_URL} from '~/lib/brand';
+import {SOCIAL_PROFILES, STORE_LOGO_URL} from '~/lib/brand';
 
 // Footer loader prefers `shop.brand.logo.image.url` from the Storefront
 // API when set under Settings > Brand, otherwise falls back to
 // STORE_LOGO_URL from app/lib/brand.js.
 
-// Social handles — placeholders. The user can update these to real brand
-// accounts without touching the rest of the layout. Until then the icons
-// are visual only.
+// The social URLs come from `SOCIAL_PROFILES` in app/lib/brand.js so the
+// Footer and the Organization JSON-LD schema stay in sync — if you add
+// a profile there, also add a matching entry below with its icon + label.
 const SOCIAL = [
-  {Icon: IconInstagram, label: 'Instagram', href: 'https://instagram.com/puchica', handle: 'puchica'},
-  {Icon: IconFacebook,  label: 'Facebook',  href: 'https://facebook.com/puchica',  handle: 'puchica'},
-  {Icon: IconX,         label: 'X',         href: 'https://x.com/puchica',         handle: '@puchica'},
-  {Icon: IconTiktok,    label: 'TikTok',    href: 'https://tiktok.com/@puchica',   handle: '@puchica'},
-];
+  {
+    Icon: IconInstagram,
+    label: 'Instagram',
+    urlKey: 'https://instagram.com/puchica',
+    handle: 'puchica',
+  },
+  {
+    Icon: IconFacebook,
+    label: 'Facebook',
+    urlKey: 'https://facebook.com/puchica',
+    handle: 'puchica',
+  },
+  {
+    Icon: IconX,
+    label: 'X',
+    urlKey: 'https://x.com/puchica',
+    handle: '@puchica',
+  },
+  {
+    Icon: IconTiktok,
+    label: 'TikTok',
+    urlKey: 'https://tiktok.com/@puchica',
+    handle: '@puchica',
+  },
+].filter((s) => SOCIAL_PROFILES.includes(s.urlKey));
 
 // Payment marks as styled text "chips" — no third-party brand assets, no
 // real integration here. Real checkout is still handled by Shopify (PCI).
@@ -51,8 +71,8 @@ export function Footer({header}) {
             Puchica.
           </p>
           <div className="pk-footer__social" aria-label="Social links">
-            {SOCIAL.map(({Icon, label, href, handle}) => (
-              <a key={label} href={href} aria-label={`${label} (${handle})`} target="_blank" rel="noopener noreferrer">
+            {SOCIAL.map(({Icon, label, urlKey, handle}) => (
+              <a key={label} href={urlKey} aria-label={`${label} (${handle})`} target="_blank" rel="noopener noreferrer">
                 <Icon size={18} />
               </a>
             ))}
