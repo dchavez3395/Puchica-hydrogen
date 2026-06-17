@@ -89,7 +89,6 @@ export async function loader({params, context}) {
       termsOfService: false,
       refundPolicy: false,
       [policyName]: true,
-      language: context.storefront.i18n?.language,
     },
   });
 
@@ -130,13 +129,10 @@ const POLICY_CONTENT_QUERY = `#graphql
     url
   }
   query Policy(
-    $country: CountryCode
-    $language: LanguageCode
     $privacyPolicy: Boolean!
     $refundPolicy: Boolean!
     $shippingPolicy: Boolean!
-    $termsOfService: Boolean!
-  ) @inContext(language: $language, country: $country) {
+    $termsOfService: Boolean!) {
     shop {
       privacyPolicy @include(if: $privacyPolicy) {
         ...Policy

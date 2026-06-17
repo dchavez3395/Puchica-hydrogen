@@ -2,8 +2,7 @@
 export const CUSTOMER_UPDATE_MUTATION = `#graphql
   mutation customerUpdate(
     $customer: CustomerUpdateInput!
-    $language: LanguageCode
-  ) @inContext(language: $language) {
+    $language: LanguageCode) {
     customerUpdate(input: $customer) {
       customer {
         firstName

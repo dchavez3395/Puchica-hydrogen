@@ -135,13 +135,11 @@ function ArticleItem({article, loading}) {
 // NOTE: https://shopify.dev/docs/api/storefront/latest/objects/blog
 const BLOGS_QUERY = `#graphql
   query Blog(
-    $language: LanguageCode
     $blogHandle: String!
     $first: Int
     $last: Int
     $startCursor: String
-    $endCursor: String
-  ) @inContext(language: $language) {
+    $endCursor: String) {
     blog(handle: $blogHandle) {
       title
       handle

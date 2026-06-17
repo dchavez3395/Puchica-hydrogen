@@ -1,11 +1,21 @@
 :root {
   --aside-width: 400px;
-  --cart-aside-summary-height-with-discount: 300px;
-  --cart-aside-summary-height: 250px;
+  --cart-aside-summary-height-with-discount: 340px;
+  --cart-aside-summary-height: 300px;
   --grid-item-width: 355px;
   --header-height: 64px;
   --color-dark: #000;
   --color-light: #fff;
+  --page-max: 1200px;
+  --page-gutter: 20px;
+}
+
+main {
+  display: block;
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 0 var(--page-gutter);
+  box-sizing: border-box;
 }
 
 img {
@@ -332,57 +342,446 @@ button.reset:hover:not(:has(> *)) {
   max-height: calc(100vh - var(--cart-aside-summary-height));
   overflow-y: auto;
   width: auto;
+  /* Hide the scrollbar visually so the cart doesn't look like it has a
+     chunky scroll gutter when content fits. The content is still
+     scrollable (touch, shift-wheel, drag) — only the visual chrome is
+     removed. WebKit/Blink + Firefox covered below. */
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+.cart-main:hover,
+.cart-main:focus-within {
+  scrollbar-color: rgba(109, 76, 255, 0.35) transparent;
+}
+.cart-main::-webkit-scrollbar {
+  width: 6px;
+}
+.cart-main::-webkit-scrollbar-track {
+  background: transparent;
+}
+.cart-main::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 999px;
+}
+.cart-main:hover::-webkit-scrollbar-thumb,
+.cart-main:focus-within::-webkit-scrollbar-thumb {
+  background: rgba(109, 76, 255, 0.35);
 }
 
 .cart-main.with-discount {
   max-height: calc(100vh - var(--cart-aside-summary-height-with-discount));
 }
 
+.cart-main > .cart-details {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Brand banner at the top of the cart drawer. Repeats the site logo
+   and a one-line "free shipping over $50" reminder so the drawer
+   always carries a clear anchor back to the brand. The logo image
+   already contains the wordmark, so we just render the icon. */
+.cart-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 20px 10px;
+  border-bottom: 1px solid var(--pk-border, #E5E0F0);
+  background: linear-gradient(180deg, #fafaff 0%, #fff 100%);
+}
+.cart-brand__logo {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  line-height: 0;
+}
+.cart-brand__logo img {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  object-fit: cover;
+  display: block;
+}
+.cart-brand__line {
+  margin: 0;
+  font-size: 12px;
+  color: var(--pk-indigo-700, #4a3f7a);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.cart-brand__line span {
+  color: var(--pk-violet-500, #6D4CFF);
+  font-weight: 700;
+}
+
+/* A running list of line items with hairline dividers between them.
+   Reset <ul> defaults so it lays out as a clean stack. */
+.cart-main ul[aria-labelledby="cart-lines"] {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
 .cart-line {
-  padding: 0.75rem 0;
+  padding: 16px 4px;
+  border-bottom: 1px solid var(--pk-border, #E5E0F0);
+}
+.cart-line:last-child {
+  border-bottom: none;
+}
+/* A line whose quantity has been decremented to 0. Still rendered so
+   the user can recover it (click +) or remove it (trash button), but
+   slightly dimmed so it doesn't read as "in the cart" alongside real
+   items. No stripes — the goal is a subtle "needs attention" state,
+   not an "unavailable" warning. */
+.cart-line.is-zero {
+  opacity: 0.6;
+}
+/* Highlight the + button on a qty-0 line so the recovery action is
+   obvious — the count goes violet, the + button is filled violet. */
+.cart-line.is-zero .cart-line-qty__count {
+  color: var(--pk-violet-700, #4a2fd6);
+}
+.cart-line.is-zero .cart-line-qty__btn--plus {
+  background: var(--pk-violet-500, #6D4CFF);
+  color: #fff;
+}
+/* Unrecoverable qty-0 lines: the qty-0 was imposed by the server
+   (the variant isn't available in the buyer's region), not by a
+   user decrement. Clicking + would just trigger another rejected
+   update, so the violet "recover" highlight is misleading — undo
+   it and let the disabled state of the + button communicate that.
+   The line itself stays dimmed (inheriting is-zero) so the user
+   still sees it and can remove it with the trash button. */
+.cart-line.is-unrecoverable .cart-line-qty__btn--plus {
+  background: transparent;
+  color: var(--pk-indigo-900, #160F3A);
+  box-shadow: none;
+}
+.cart-line.is-unrecoverable .cart-line-qty__btn--plus:hover:not(:disabled) {
+  background: #fff;
+  color: var(--pk-indigo-900, #160F3A);
+  box-shadow: none;
+}
+
+/* Inline notice shown in the drawer when every line is a qty-0
+   ghost — explains the empty-looking cart and points to the trash
+   button. */
+.cart-ghost-notice {
+  margin: 16px 0 0;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: #FFF7E6;
+  border: 1px solid #F4D78F;
+  color: #5A4310;
+  font-size: 13px;
+  line-height: 1.4;
+}
+.cart-ghost-notice p {
+  margin: 0;
 }
 
 .cart-line-inner {
   display: flex;
+  gap: 14px;
+  align-items: flex-start;
 }
 
-.cart-line img {
-  height: 100%;
+/* Hydrogen's <Image> renders a bare <img> directly, sized via inline
+   aspectRatio/width/height. Constrain it to a fixed 84px square so the
+   row stays tidy. */
+.cart-line-inner > img {
+  flex: 0 0 84px;
+  width: 84px;
+  height: 84px;
+  border-radius: 10px;
+  object-fit: cover;
   display: block;
-  margin-right: 0.75rem;
+  background: #F6F4FB;
+}
+
+/* The right column inside a line: title, price, options, quantity. */
+.cart-line-inner > div {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.cart-line-inner p {
+  margin: 0;
+}
+.cart-line-inner p strong {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--pk-indigo-900, #160F3A);
+}
+.cart-line-inner ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  color: var(--pk-indigo-700, #4a3f7a);
+  font-size: 12.5px;
 }
 
 .cart-summary-page {
   position: relative;
+  margin-top: 28px;
+  padding: 20px 0;
+  border-top: 1px solid var(--pk-border, #E5E0F0);
 }
 
 .cart-summary-aside {
-  background: white;
-  border-top: 1px solid var(--color-dark);
+  background: #fff;
+  border-top: 1px solid var(--pk-border, #E5E0F0);
   bottom: 0;
-  padding-top: 0.75rem;
+  left: 0;
+  right: 0;
+  padding: 18px 20px 22px;
   position: absolute;
-  width: calc(var(--aside-width) - 40px);
+  width: 100%;
+  box-shadow: 0 -8px 24px rgba(80, 60, 160, 0.06);
+}
+.cart-summary-aside h4 {
+  margin: 0 0 12px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--pk-indigo-900, #160F3A);
 }
 
-.cart-line-quantity {
+/* Quantity stepper: a single pill container holding - qty +, with a
+   small "Remove" link beside it. The pill is the primary control, the
+   trash link is a secondary action. */
+.cart-line-qty {
   display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 4px;
+  flex-wrap: wrap;
+}
+.cart-line-qty form {
+  margin: 0;
+  display: inline-flex;
+}
+.cart-line-qty__stepper {
+  display: inline-flex;
+  align-items: center;
+  background: #F6F4FB;
+  border: 1px solid var(--pk-border, #E5E0F0);
+  border-radius: 999px;
+  height: 36px;
+  padding: 0 4px;
+  gap: 0;
+  box-shadow: 0 1px 0 rgba(80, 60, 160, 0.04);
+}
+.cart-line-qty__btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  border: 0;
+  background: transparent;
+  color: var(--pk-indigo-900, #160F3A);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.12s ease, color 0.12s ease;
+  font: inherit;
+}
+.cart-line-qty__btn:hover:not(:disabled) {
+  background: #fff;
+  color: var(--pk-violet-700, #4a2fd6);
+  box-shadow: 0 1px 3px rgba(80, 60, 160, 0.18);
+}
+.cart-line-qty__btn:active:not(:disabled) {
+  transform: scale(0.94);
+}
+.cart-line-qty__btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+.cart-line-qty__count {
+  min-width: 22px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--pk-indigo-900, #160F3A);
+  font-variant-numeric: tabular-nums;
+  user-select: none;
+}
+.cart-line-remove {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: transparent;
+  border: 0;
+  padding: 6px 8px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--pk-violet-700, #4a2fd6);
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+.cart-line-remove:hover {
+  background: #F6F4FB;
+  color: var(--pk-violet-900, #2a1a8a);
+}
+.cart-line-remove:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 
 /* Child line components (warranties, gift wrapping, etc.) */
 .cart-line-children {
   padding-left: 2rem;
+  list-style: none;
+  margin: 8px 0 0;
 }
 
 .cart-discount {
   align-items: center;
   display: flex;
+  gap: 8px;
   margin-top: 0.25rem;
+  font-size: 13px;
+  color: var(--pk-indigo-700, #4a3f7a);
 }
 
 .cart-subtotal {
-  align-items: center;
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 0 14px;
+  padding: 0;
+  font-size: 14px;
+  color: var(--pk-indigo-900, #160F3A);
+}
+.cart-subtotal dt { font-weight: 600; }
+.cart-subtotal dd { margin: 0; font-weight: 700; }
+
+/* Discount code input + gift card input. They are inline form rows
+   sitting just below the subtotal — no heavy boxed backgrounds, just
+   a single 1px border around the input + button cluster. */
+.cart-summary-aside section {
+  margin: 14px 0 0;
+  padding: 0;
+  background: transparent;
+  border-radius: 0;
+}
+.cart-summary-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.cart-summary-field label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--pk-indigo-700, #4a3f7a);
+}
+.cart-summary-field__row {
+  display: flex;
+  gap: 0;
+  align-items: stretch;
+  border: 1px solid var(--pk-border, #E5E0F0);
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.cart-summary-field__row:focus-within {
+  border-color: var(--pk-violet-500, #6D4CFF);
+  box-shadow: 0 0 0 3px rgba(109, 76, 255, 0.14);
+}
+.cart-summary-field__row input[type="text"] {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 40px;
+  border: 0;
+  border-radius: 0;
+  padding: 0 12px;
+  font: inherit;
+  font-size: 13px;
+  background: #fff;
+  color: var(--pk-indigo-900, #160F3A);
+}
+.cart-summary-field__row input[type="text"]:focus {
+  outline: none;
+}
+.cart-summary-field__row button[type="submit"] {
+  height: 40px;
+  flex-shrink: 0;
+  border: 0;
+  border-left: 1px solid var(--pk-border, #E5E0F0);
+  border-radius: 0;
+  padding: 0 16px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  background: #F6F4FB;
+  color: var(--pk-violet-700, #4a2fd6);
+  cursor: pointer;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+.cart-summary-field__row button[type="submit"]:hover {
+  background: var(--pk-violet-500, #6D4CFF);
+  color: #fff;
+  border-left-color: var(--pk-violet-500, #6D4CFF);
+}
+.cart-summary-aside section code {
+  font-family: var(--pk-font-mono, ui-monospace, SFMono-Regular, monospace);
+  font-size: 13px;
+  color: var(--pk-indigo-900, #160F3A);
+}
+
+/* The "Continue to Checkout" button is the most important one in the
+   entire UI. Style it boldly. */
+.cart-summary-checkout {
+  margin-top: 14px;
+}
+.cart-summary-checkout a {
+  display: block;
+  padding: 14px 16px;
+  background: var(--pk-violet-500, #6D4CFF);
+  color: #fff;
+  text-align: center;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 8px 20px rgba(109, 76, 255, 0.28);
+}
+.cart-summary-checkout a:hover {
+  background: var(--pk-violet-700, #4a2fd6);
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px rgba(74, 47, 214, 0.34);
+}
+.cart-summary-checkout a.is-disabled {
+  background: #DCD7EA;
+  color: #fff;
+  cursor: not-allowed;
+  box-shadow: none;
+  pointer-events: auto;
+}
+.cart-summary-checkout a.is-disabled:hover {
+  background: #DCD7EA;
+  transform: none;
+  box-shadow: none;
 }
 /*
 * --------------------------------------------------
@@ -870,7 +1269,7 @@ body {
 .pk-home {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px 64px;
+  padding: 0 0 64px;
   color: var(--pk-ink);
   font-family: var(--pk-font);
 }
@@ -1077,6 +1476,30 @@ body {
   background: var(--pk-violet-100);
   color: var(--pk-violet-300);
   cursor: not-allowed;
+}
+/* AddToCartButton state machine. `.pk-atc` is added to every cart-submit
+   button; the `--loading`, `--added`, and `--error` modifiers are driven
+   by the component's fetcher state and short post-event timers. The
+   visual difference gives the shopper a clear "yes, it worked" (or
+   "no, it didn't") signal even if the cart drawer doesn't open in time.
+   --error is the silent-rejection case: the cart action returned 200
+   but the line is at qty 0, so we have to surface that here because no
+   other UI tells the user. */
+.pk-atc--loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+.pk-atc--added {
+  background: #16a34a !important; /* green-600 */
+  color: #fff !important;
+  box-shadow: 0 0 0 4px rgba(22, 163, 74, 0.18) !important;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+.pk-atc--error {
+  background: #DC2626 !important; /* red-600 */
+  color: #fff !important;
+  box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.18) !important;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
 }
 
 /* ---------- Trust bar ---------- */
@@ -1443,7 +1866,7 @@ body {
 .pk-collection {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 36px 20px 72px;
+  padding: 36px 0 72px !important;
   font-family: var(--pk-font);
   color: var(--pk-indigo-900);
 }
@@ -1576,9 +1999,10 @@ body {
 .pk-footer__form { display: flex; gap: 8px; max-width: 320px; }
 .pk-footer__form input {
   flex: 1;
+  height: 44px;
   border: 1px solid var(--pk-border);
   border-radius: var(--r-md);
-  padding: 11px 14px;
+  padding: 0 14px;
   font-family: var(--pk-font);
   font-size: 14px;
   background: #fff;
@@ -1587,11 +2011,13 @@ body {
 .pk-footer__form button {
   flex: none;
   width: 44px;
+  height: 44px;
   border: none;
   border-radius: var(--r-md);
   background: var(--pk-violet-500);
   color: #fff;
   font-size: 18px;
+  line-height: 1;
   cursor: pointer;
 }
 .pk-footer__form button:hover { background: var(--pk-violet-700); }
@@ -2013,7 +2439,7 @@ body {
 .pk-collection {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 28px 20px 72px;
+  padding: 28px 0 72px;
   font-family: var(--pk-font);
   color: var(--pk-ink);
 }
@@ -2304,7 +2730,7 @@ body {
 .pk-product {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 28px 20px 72px;
+  padding: 28px 0 72px;
   font-family: var(--pk-font);
   color: var(--pk-ink);
   /* Block container — children flow vertically. The two-column image +
@@ -2369,14 +2795,18 @@ body {
 .pk-thumbs__item:hover { transform: translateY(-1px); }
 .pk-thumbs__item[aria-current="true"] { border-color: var(--pk-violet-700); }
 
-/* Main image */
+/* Main image — aspect ratio is set inline based on the source image
+ * so portrait product shots (e.g. sweaters on a model) don't get
+ * cropped to a square. The CSS leaves the ratio unset by default and
+ * supplies reasonable fallbacks below. */
 .pk-product__hero {
   background: var(--pk-surface);
   border: 1px solid var(--pk-border);
   border-radius: var(--r-xl);
   overflow: hidden;
-  aspect-ratio: 1 / 1;
   position: relative;
+  width: 100%;
+  max-height: min(calc(100vh - 120px), 760px);
 }
 .pk-product__hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .pk-product__hero-nav {
@@ -2529,6 +2959,7 @@ body {
   border-radius: var(--r-xl);
   background: #fff;
   overflow: hidden;
+  padding-top: 0;
 }
 .pk-tabs__nav {
   display: flex;
@@ -3180,6 +3611,13 @@ body {
   min-height: 100%;
   justify-content: center;
   background: #fff;
+}
+/* The HTML `hidden` attribute sets `display: none` via the user-agent
+   stylesheet, but any explicit `display` on the element wins. The cart
+   component uses `hidden` to toggle the empty state, so we need to
+   re-assert it. */
+.pk-empty-cart[hidden] {
+  display: none;
 }
 .pk-empty-cart__art {
   position: relative;

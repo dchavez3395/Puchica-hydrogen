@@ -4,6 +4,8 @@ import {useAside} from '~/components/Aside';
 import {CartLineItem} from '~/components/CartLineItem';
 import {CartSummary} from './CartSummary';
 import {IconBag, IconSparkles, IconTruck, IconReturn} from '~/components/Icons';
+import {STORE_LOGO_URL} from '~/lib/brand';
+import {SITE_NAME} from '~/lib/seo';
 /**
  * Returns a map of all line items and their children.
  * @param {CartLine[]} lines
@@ -37,12 +39,32 @@ export function CartMain({layout, cart: originalCart}) {
   // so the user immediately sees feedback when they modify the cart.
   const cart = useOptimisticCart(originalCart);
 
-  const linesCount = Boolean(cart?.lines?.nodes?.length || 0);
+  // Lines are filtered only to drop child components (warranties, gift
+  // wrapping) at the root. We intentionally keep qty-0 lines visible
+  // (in is-unrecoverable form) so the user can see them, understand
+  // why the cart looks empty, and remove them with the trash button.
+  const visibleLines = (cart?.lines?.nodes ?? []).filter((line) => {
+    if ('parentRelationship' in line && line.parentRelationship?.parent) {
+      return false;
+    }
+    return true;
+  });
+  // "Has items" and "checkoutable" are the same predicate: at least
+  // one line with qty >= 1. A cart of only qty-0 ghost lines is
+  // functionally empty — don't render the brand banner, the summary,
+  // or the checkout button, since the subtotal would be a fake $0
+  // and "Continue to Checkout" would lead nowhere. The ghost lines
+  // themselves still render (under a separate `hasAnyLines` flag)
+  // so the user can remove them with the trash button.
+  const hasCheckoutableItems = visibleLines.some(
+    (line) => typeof line?.quantity === 'number' && line.quantity >= 1,
+  );
+  const cartHasItems = hasCheckoutableItems;
+  const hasAnyLines = visibleLines.length > 0;
   const withDiscount =
     cart &&
     Boolean(cart?.discountCodes?.filter((code) => code.applicable)?.length);
   const className = `cart-main ${withDiscount ? 'with-discount' : ''}`;
-  const cartHasItems = cart?.totalQuantity ? cart.totalQuantity > 0 : false;
   const childrenMap = getLineItemChildrenMap(cart?.lines?.nodes ?? []);
 
   return (
@@ -50,21 +72,15 @@ export function CartMain({layout, cart: originalCart}) {
       className={className}
       aria-label={layout === 'page' ? 'Cart page' : 'Cart drawer'}
     >
-      <CartEmpty hidden={linesCount} layout={layout} />
+      {layout === 'aside' && cartHasItems ? <CartBrandHeader /> : null}
+      <CartEmpty hidden={cartHasItems} layout={layout} />
       <div className="cart-details">
         <p id="cart-lines" className="sr-only">
           Line items
         </p>
         <div>
           <ul aria-labelledby="cart-lines">
-            {(cart?.lines?.nodes ?? []).map((line) => {
-              // we do not render non-parent lines at the root of the cart
-              if (
-                'parentRelationship' in line &&
-                line.parentRelationship?.parent
-              ) {
-                return null;
-              }
+            {visibleLines.map((line) => {
               return (
                 <CartLineItem
                   key={line.id}
@@ -76,9 +92,59 @@ export function CartMain({layout, cart: originalCart}) {
             })}
           </ul>
         </div>
-        {cartHasItems && <CartSummary cart={cart} layout={layout} />}
+        {hasAnyLines && !cartHasItems ? <GhostCartNotice /> : null}
+        {cartHasItems && (
+          <CartSummary
+            cart={cart}
+            layout={layout}
+            hasCheckoutableItems={hasCheckoutableItems}
+          />
+        )}
       </div>
     </section>
+  );
+}
+
+/**
+ * Shown inside the drawer when every line in the cart is at qty 0
+ * (a "ghost" cart from a server-side rejection). The user can
+ * already remove the lines via each line's trash button, but the
+ * notice explains *why* the cart looks empty even though it isn't.
+ */
+function GhostCartNotice() {
+  return (
+    <div className="cart-ghost-notice" role="status">
+      <p>
+        These items aren&apos;t available in your region right now. Remove
+        them to clear your cart.
+      </p>
+    </div>
+  );
+}
+
+/**
+ * A small brand banner rendered at the top of the cart drawer. Repeats
+ * the site logo + name so the shopper has a clear anchor when the
+ * drawer slides over the page. Hidden on the /cart page itself — the
+ * page already has the full header above it.
+ */
+function CartBrandHeader() {
+  const {close} = useAside();
+  return (
+    <div className="cart-brand">
+      <Link
+        to="/"
+        prefetch="intent"
+        onClick={close}
+        className="cart-brand__logo"
+        aria-label={`${SITE_NAME} home`}
+      >
+        <img src={STORE_LOGO_URL} alt={SITE_NAME} width={40} height={40} />
+      </Link>
+      <p className="cart-brand__line">
+        <span aria-hidden>✦</span> Free shipping over $50
+      </p>
+    </div>
   );
 }
 

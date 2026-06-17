@@ -168,13 +168,10 @@ const COLLECTION_ITEM_FRAGMENT = `#graphql
 
 const CATALOG_QUERY = `#graphql
   query Catalog(
-    $country: CountryCode
-    $language: LanguageCode
     $first: Int
     $last: Int
     $startCursor: String
-    $endCursor: String
-  ) @inContext(country: $country, language: $language) {
+    $endCursor: String) {
     products(first: $first, last: $last, before: $startCursor, after: $endCursor) {
       nodes { ...CollectionItem }
       pageInfo {

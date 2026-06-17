@@ -5,7 +5,7 @@ import {useFetcher} from 'react-router';
 /**
  * @param {CartSummaryProps}
  */
-export function CartSummary({cart, layout}) {
+export function CartSummary({cart, layout, hasCheckoutableItems = true}) {
   const className =
     layout === 'page' ? 'cart-summary-page' : 'cart-summary-aside';
   const summaryId = useId();
@@ -37,23 +37,39 @@ export function CartSummary({cart, layout}) {
         giftCardHeadingId={giftCardHeadingId}
         giftCardInputId={giftCardInputId}
       />
-      <CartCheckoutActions checkoutUrl={cart?.checkoutUrl} />
+      <CartCheckoutActions
+        checkoutUrl={cart?.checkoutUrl}
+        disabled={!hasCheckoutableItems}
+      />
     </div>
   );
 }
 
 /**
- * @param {{checkoutUrl?: string}}
+ * @param {{checkoutUrl?: string; disabled?: boolean}}
  */
-function CartCheckoutActions({checkoutUrl}) {
+function CartCheckoutActions({checkoutUrl, disabled = false}) {
   if (!checkoutUrl) return null;
 
   return (
-    <div>
-      <a href={checkoutUrl} target="_self">
-        <p>Continue to Checkout &rarr;</p>
+    <div className="cart-summary-checkout">
+      <a
+        href={checkoutUrl}
+        target="_self"
+        aria-disabled={disabled || undefined}
+        className={disabled ? 'is-disabled' : undefined}
+        onClick={(e) => {
+          if (disabled) e.preventDefault();
+        }}
+      >
+        {disabled
+          ? 'Add an item to check out'
+          : (
+            <>
+              Continue to Checkout <span aria-hidden>&rarr;</span>
+            </>
+          )}
       </a>
-      <br />
     </div>
   );
 }
@@ -99,20 +115,19 @@ function CartDiscounts({
 
       {/* Show an input to apply a discount */}
       <UpdateDiscountForm discountCodes={codes}>
-        <div>
-          <label htmlFor={discountCodeInputId} className="sr-only">
-            Discount code
-          </label>
-          <input
-            id={discountCodeInputId}
-            type="text"
-            name="discountCode"
-            placeholder="Discount code"
-          />
-          &nbsp;
-          <button type="submit" aria-label="Apply discount code">
-            Apply
-          </button>
+        <div className="cart-summary-field">
+          <label htmlFor={discountCodeInputId}>Promo code</label>
+          <div className="cart-summary-field__row">
+            <input
+              id={discountCodeInputId}
+              type="text"
+              name="discountCode"
+              placeholder="Enter code"
+            />
+            <button type="submit" aria-label="Apply discount code">
+              Apply
+            </button>
+          </div>
         </div>
       </UpdateDiscountForm>
     </section>
@@ -222,25 +237,24 @@ function CartGiftCard({giftCardCodes, giftCardHeadingId, giftCardInputId}) {
       )}
 
       <AddGiftCardForm fetcherKey="gift-card-add">
-        <div>
-          <label htmlFor={giftCardInputId} className="sr-only">
-            Gift card code
-          </label>
-          <input
-            id={giftCardInputId}
-            type="text"
-            name="giftCardCode"
-            placeholder="Gift card code"
-            ref={giftCardCodeInput}
-          />
-          &nbsp;
-          <button
-            type="submit"
-            disabled={giftCardAddFetcher.state !== 'idle'}
-            aria-label="Apply gift card code"
-          >
-            Apply
-          </button>
+        <div className="cart-summary-field">
+          <label htmlFor={giftCardInputId}>Gift card</label>
+          <div className="cart-summary-field__row">
+            <input
+              id={giftCardInputId}
+              type="text"
+              name="giftCardCode"
+              placeholder="Enter gift card code"
+              ref={giftCardCodeInput}
+            />
+            <button
+              type="submit"
+              disabled={giftCardAddFetcher.state !== 'idle'}
+              aria-label="Apply gift card code"
+            >
+              Apply
+            </button>
+          </div>
         </div>
       </AddGiftCardForm>
     </section>
@@ -307,6 +321,7 @@ function RemoveGiftCardForm({
  * @typedef {{
  *   cart: OptimisticCart<CartApiQueryFragment | null>;
  *   layout: CartLayout;
+ *   hasCheckoutableItems?: boolean;
  * }} CartSummaryProps
  */
 

@@ -62,8 +62,22 @@ async function loadCriticalData({context, params, request}) {
 
   if (!handle) throw new Error('Expected product handle to be defined');
 
+  // The buyer's region (country + language) is the source of truth for
+  // availableForSale on every variant. Hydrogen always sends this
+  // context on cart mutations, so the product page must use the same
+  // context or the storefront and the cart will disagree — and the
+  // cart action will silently turn a "in stock" variant into a qty-0
+  // ghost line on add. (See the @inContext directive on
+  // PRODUCT_QUERY below.)
+  const {country, language} = storefront.i18n;
+
   const productResp = await storefront.query(PRODUCT_QUERY, {
-    variables: {handle, selectedOptions: getSelectedProductOptions(request)},
+    variables: {
+      country,
+      handle,
+      language,
+      selectedOptions: getSelectedProductOptions(request),
+    },
   });
 
   const product = productResp.product;
@@ -76,7 +90,11 @@ async function loadCriticalData({context, params, request}) {
   let recs = null;
   try {
     recs = await storefront.query(PRODUCT_RECOMMENDATIONS_QUERY, {
-      variables: {productId: product.id},
+      variables: {
+        country,
+        language,
+        productId: product.id,
+      },
     });
   } catch (err) {
     console.error('productRecommendations failed:', err);
@@ -471,8 +489,13 @@ function buildBreadcrumbItems(product, title) {
 
 function buildJsonLd(product, selectedVariant) {
   const productUrl = canonical(`/products/${product.handle}`);
-  const url =
-    typeof window !== 'undefined' ? window.location.href : productUrl;
+  // Always use the canonical product URL for the offer. Never use
+  // `window.location.href` here — that varies by query string (e.g. when
+  // the user picks a Size, the URL is /products/foo?Size=XS) and it
+  // also diverges between SSR and CSR (localhost in dev, puchica.ca in
+  // prod), which breaks React hydration. The canonical product URL is
+  // the right thing for Google either way.
+  const url = productUrl;
   const price = selectedVariant?.price;
   const availability = selectedVariant?.availableForSale
     ? 'https://schema.org/InStock'
@@ -583,11 +606,11 @@ const PRODUCT_FRAGMENT = `#graphql
 
 const PRODUCT_QUERY = `#graphql
   query Product(
-    $country: CountryCode
+    $country: CountryCode!
     $handle: String!
-    $language: LanguageCode
-    $selectedOptions: [SelectedOptionInput!]!
-  ) @inContext(country: $country, language: $language) {
+    $language: LanguageCode!
+    $selectedOptions: [SelectedOptionInput!]!)
+  @inContext(country: $country, language: $language) {
     product(handle: $handle) {
       ...Product
     }
@@ -624,10 +647,10 @@ const RECOMMENDED_ITEM_FRAGMENT = `#graphql
 const PRODUCT_RECOMMENDATIONS_QUERY = `#graphql
   ${RECOMMENDED_ITEM_FRAGMENT}
   query ProductRecommendations(
-    $country: CountryCode
-    $language: LanguageCode
-    $productId: ID!
-  ) @inContext(country: $country, language: $language) {
+    $country: CountryCode!
+    $language: LanguageCode!
+    $productId: ID!)
+  @inContext(country: $country, language: $language) {
     productRecommendations(productId: $productId) {
       ...RecommendedProduct
     }

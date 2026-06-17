@@ -2,6 +2,7 @@ import {Link} from 'react-router';
 import {Image, Money} from '@shopify/hydrogen';
 import {useVariantUrl} from '~/lib/variants';
 import {AddToCartButton} from '~/components/AddToCartButton';
+import {useAside} from '~/components/Aside';
 
 /**
  * @param {{
@@ -21,6 +22,10 @@ export function ProductItem({product, loading}) {
   // If the product has any variant, we use its id; otherwise we send the
   // user to the PDP to pick options.
   const variant = product.variants?.nodes?.[0];
+  // Open the cart drawer when adding from a collection card so the
+  // shopper gets immediate visual feedback. (The PDP already does this
+  // in ProductForm — this closes the gap for collection/grid adds.)
+  const {open} = useAside();
 
   return (
     <div className="pk-card pk-card--link">
@@ -55,6 +60,7 @@ export function ProductItem({product, loading}) {
             <AddToCartButton
               lines={[{merchandiseId: variant.id, quantity: 1}]}
               disabled={!variant.availableForSale}
+              onClick={() => open('cart')}
             >
               {variant.availableForSale ? 'Add to Cart' : 'Sold out'}
             </AddToCartButton>

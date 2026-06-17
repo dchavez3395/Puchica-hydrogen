@@ -1,0 +1,44 @@
+<svg width="1200" height="360" viewBox="0 0 1200 360" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Puchica Logo</title>
+  <desc id="desc">Puchica ecommerce logo with purple shopping bag P icon and dark indigo wordmark.</desc>
+
+  <defs>
+    <linearGradient id="puchica-violet" x1="80" y1="42" x2="258" y2="282" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#8A78FA"/>
+      <stop offset="0.42" stop-color="#6D4CFF"/>
+      <stop offset="1" stop-color="#3A2CCF"/>
+    </linearGradient>
+
+    <linearGradient id="puchica-fold" x1="97" y1="250" x2="198" y2="300" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#241B9B"/>
+      <stop offset="1" stop-color="#6D4CFF"/>
+    </linearGradient>
+
+    <filter id="soft-shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#160F3A" flood-opacity="0.16"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#soft-shadow)">
+    <path d="M118 104V82C118 43.9 148.9 13 187 13C225.1 13 256 43.9 256 82V104"
+      stroke="#6D4CFF" stroke-width="18" stroke-linecap="round"/>
+
+    <path d="M72 103C72 91.95 80.95 83 92 83H238C301.5 83 353 134.5 353 198C353 261.5 301.5 313 238 313H163V336C163 350.9 146.7 360.1 133.9 352.4L81.7 321.1C75.7 317.5 72 311 72 304V103Z"
+      fill="url(#puchica-violet)"/>
+
+    <path d="M72 304C111 278 134 270 163 269V336C163 350.9 146.7 360.1 133.9 352.4L81.7 321.1C75.7 317.5 72 311 72 304Z"
+      fill="url(#puchica-fold)" opacity="0.95"/>
+
+    <path d="M139 174C139 227 169 255 207 255C245 255 275 227 275 174"
+      stroke="white" stroke-width="18" stroke-linecap="round"/>
+    <circle cx="139" cy="174" r="14" fill="white"/>
+    <circle cx="275" cy="174" r="14" fill="white"/>
+  </g>
+
+  <text x="410" y="244"
+    fill="#160F3A"
+    font-family="Outfit, Poppins, Inter, Arial, sans-serif"
+    font-size="150"
+    font-weight="800"
+    letter-spacing="-6">Puchica</text>
+</svg>

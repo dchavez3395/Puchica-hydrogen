@@ -4,8 +4,7 @@ export const UPDATE_ADDRESS_MUTATION = `#graphql
     $address: CustomerAddressInput!
     $addressId: ID!
     $defaultAddress: Boolean
-    $language: LanguageCode
- ) @inContext(language: $language) {
+    $language: LanguageCode) {
     customerAddressUpdate(
       address: $address
       addressId: $addressId
@@ -27,8 +26,7 @@ export const UPDATE_ADDRESS_MUTATION = `#graphql
 export const DELETE_ADDRESS_MUTATION = `#graphql
   mutation customerAddressDelete(
     $addressId: ID!
-    $language: LanguageCode
-  ) @inContext(language: $language) {
+    $language: LanguageCode) {
     customerAddressDelete(addressId: $addressId) {
       deletedAddressId
       userErrors {
@@ -45,8 +43,7 @@ export const CREATE_ADDRESS_MUTATION = `#graphql
   mutation customerAddressCreate(
     $address: CustomerAddressInput!
     $defaultAddress: Boolean
-    $language: LanguageCode
-  ) @inContext(language: $language) {
+    $language: LanguageCode) {
     customerAddressCreate(
       address: $address
       defaultAddress: $defaultAddress

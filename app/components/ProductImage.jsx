@@ -7,6 +7,12 @@ import {IconChevronLeft, IconChevronRight} from '~/components/Icons';
  * single-image carousel on mobile. If only one image is available,
  * falls back to a single full-bleed image.
  *
+ * The main hero uses the source image's natural aspect ratio (capped at
+ * 1:1 square) so portrait photos don't get cropped / letterboxed into
+ * a square. This matches what most apparel shoppers expect: a sweater
+ * on a model should look like a sweater on a model, not a 1:1 zoom-in
+ * on the torso. Thumbnails stay 1:1 so the strip keeps a uniform look.
+ *
  * @param {{
  *   images: ProductVariantFragment['image'][];
  *   initialIndex?: number;
@@ -45,6 +51,33 @@ export function ProductImage({images, initialIndex = 0, productTitle}) {
     setIndex((i) => (i + delta + list.length) % list.length);
   };
 
+  // Derive the hero's aspect ratio from the source image so portrait
+  // shots aren't cropped. Cap at 1:1 — super-wide banners would dwarf
+  // the info column otherwise. Force 4:5 (portrait) on square sources
+  // because supplier photos often come in square format with white
+  // border padding around the actual product, which looks like blank
+  // top/bottom space in the gallery.
+  const nW = current.width;
+  const nH = current.height;
+  let heroRatio;
+  if (nW && nH) {
+    const sourceRatio = nW / nH;
+    if (sourceRatio < 0.95) {
+      // Genuinely portrait source — honor it.
+      heroRatio = sourceRatio;
+    } else if (sourceRatio > 1.05) {
+      // Landscape source — cap at 1:1.
+      heroRatio = 1;
+    } else {
+      // Square source — assume supplier-padded product shot, force
+      // 4:5 portrait to crop out the typical white border padding.
+      heroRatio = 4 / 5;
+    }
+  } else {
+    heroRatio = 1;
+  }
+  const heroStyle = {aspectRatio: heroRatio.toFixed(4)};
+
   return (
     <>
       <div className="pk-product__media">
@@ -72,11 +105,12 @@ export function ProductImage({images, initialIndex = 0, productTitle}) {
           </ul>
         )}
 
-        <div className="pk-product__hero">
+        <div className="pk-product__hero" style={heroStyle}>
           <Image
             alt={current.altText || productTitle || 'Product image'}
             data={current}
-            aspectRatio="1/1"
+            aspectRatio={`${heroRatio.toFixed(4)}`.replace(/(\.\d*?)0+$/, '$1').replace(/\.$/, '')}
+            crop="top"
             sizes="(min-width: 60em) 600px, 100vw"
             loading={index === 0 ? 'eager' : 'lazy'}
           />

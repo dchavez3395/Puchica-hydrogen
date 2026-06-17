@@ -5,27 +5,17 @@ import {useAside} from './Aside';
 export const SEARCH_ENDPOINT = '/search';
 
 /**
- *  Search form component that sends search requests to the `/search` route
+ *  Search form component that sends search requests to the `/search` route.
+ *  This is a render-prop helper — it provides fetcher state and helpers, but
+ *  the consumer owns the <form> element so we never end up with a nested
+ *  form-in-form (which is invalid HTML and produces a React hydration warning).
  * @param {SearchFormPredictiveProps}
  */
-export function SearchFormPredictive({
-  children,
-  className = 'predictive-search-form',
-  ...props
-}) {
+export function SearchFormPredictive({children}) {
   const fetcher = useFetcher({key: 'search'});
   const inputRef = useRef(null);
   const navigate = useNavigate();
   const aside = useAside();
-
-  /** Reset the input value and blur the input */
-  function resetInput(event) {
-    event.preventDefault();
-    event.stopPropagation();
-    if (inputRef?.current?.value) {
-      inputRef.current.blur();
-    }
-  }
 
   /** Navigate to the search page with the current input value */
   function goToSearch() {
@@ -52,11 +42,12 @@ export function SearchFormPredictive({
     return null;
   }
 
-  return (
-    <fetcher.Form {...props} className={className} onSubmit={resetInput}>
-      {children({inputRef, fetcher, fetchResults, goToSearch})}
-    </fetcher.Form>
-  );
+  return children({
+    inputRef,
+    fetcher,
+    fetchResults,
+    goToSearch,
+  });
 }
 
 /**
@@ -68,7 +59,7 @@ export function SearchFormPredictive({
  * }) => React.ReactNode} SearchFormPredictiveChildren
  */
 /**
- * @typedef {Omit<FormProps, 'children'> & {
+ * @typedef {{
  *   children: SearchFormPredictiveChildren | null;
  * }} SearchFormPredictiveProps
  */

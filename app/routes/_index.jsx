@@ -2,6 +2,7 @@ import {Await, useLoaderData, useFetcher, Link} from 'react-router';
 import {Suspense, useEffect, useRef, useState} from 'react';
 import {Image, Money} from '@shopify/hydrogen';
 import {AddToCartButton} from '~/components/AddToCartButton';
+import {useAside} from '~/components/Aside';
 import {MockShopNotice} from '~/components/MockShopNotice';
 import {
   categoryIcon,
@@ -402,8 +403,10 @@ function EditorialMosaic({collections}) {
       <Suspense fallback={<div className="pk-mosaic pk-mosaic--loading" />}>
         <Await resolve={collections}>
           {(resp) => {
+            // Smart collections don't auto-generate cover images, so fall
+            // back to the first product's featured image when needed.
             const nodes = (resp?.collections?.nodes ?? []).filter(
-              (c) => c && c.image,
+              (c) => c && (c.image || c.products?.nodes?.[0]?.featuredImage),
             );
             if (nodes.length === 0) {
               return (
@@ -412,6 +415,8 @@ function EditorialMosaic({collections}) {
                 </div>
               );
             }
+            const pickImage = (c) =>
+              c.image || c.products?.nodes?.[0]?.featuredImage;
             // Layout: 1 large + 3 small (or fewer if we don't have 4).
             const [hero, ...rest] = nodes;
             return (
@@ -423,7 +428,7 @@ function EditorialMosaic({collections}) {
                   prefetch="intent"
                 >
                   <Image
-                    data={hero.image}
+                    data={pickImage(hero)}
                     sizes="(min-width: 60em) 600px, 100vw"
                     loading="eager"
                   />
@@ -441,7 +446,7 @@ function EditorialMosaic({collections}) {
                       prefetch="intent"
                     >
                       <Image
-                        data={c.image}
+                        data={pickImage(c)}
                         sizes="(min-width: 60em) 300px, 50vw"
                       />
                       <div className="pk-mosaic__overlay">
@@ -491,6 +496,9 @@ function BestPicks({products}) {
 
 function ProductCard({product, featured}) {
   const variant = product.variants?.nodes?.[0];
+  // Open the cart drawer on add from the homepage grid so shoppers
+  // get immediate visual feedback (same as collection cards / PDP).
+  const {open} = useAside();
   return (
     <div className="pk-card">
       <Link to={`/products/${product.handle}`} className="pk-card__media">
@@ -516,6 +524,7 @@ function ProductCard({product, featured}) {
             <AddToCartButton
               lines={[{merchandiseId: variant.id, quantity: 1}]}
               disabled={!variant.availableForSale}
+              onClick={() => open('cart')}
             >
               Add to Cart
             </AddToCartButton>
@@ -769,8 +778,7 @@ const HOME_COLLECTIONS_QUERY = `#graphql
       height
     }
   }
-  query HomeCollections($country: CountryCode, $language: LanguageCode)
-    @inContext(country: $country, language: $language) {
+  query HomeCollections {
     collections(first: 12, sortKey: UPDATED_AT, reverse: true) {
       nodes {
         ...HomeCollection
@@ -805,8 +813,7 @@ const BEST_PICKS_QUERY = `#graphql
       }
     }
   }
-  query BestPicks($country: CountryCode, $language: LanguageCode)
-    @inContext(country: $country, language: $language) {
+  query BestPicks {
     products(first: 4, sortKey: BEST_SELLING) {
       nodes {
         ...BestPick
@@ -834,8 +841,7 @@ const TRENDING_QUERY = `#graphql
       height
     }
   }
-  query Trending($country: CountryCode, $language: LanguageCode)
-    @inContext(country: $country, language: $language) {
+  query Trending {
     products(first: 10, sortKey: CREATED_AT, reverse: true) {
       nodes {
         ...TrendingProduct
@@ -848,8 +854,7 @@ const TRENDING_QUERY = `#graphql
 // promo split has a real photo (smart-collection cover images are usually
 // null because Shopify doesn't auto-generate them).
 const PROMO_FEATURE_QUERY = `#graphql
-  query PromoFeature($country: CountryCode, $language: LanguageCode)
-    @inContext(country: $country, language: $language) {
+  query PromoFeature {
     collection(handle: "best-sellers") {
       id
       title
@@ -872,12 +877,12 @@ const PROMO_FEATURE_QUERY = `#graphql
   }
 `;
 
-// Editorial mosaic: pull more collections than the home grid uses, with
-// only those that have a real image. The component filters out
-// image-less collections so we never show a blank tile.
+// Editorial mosaic: pull more collections than the home grid uses. The
+// component falls back to each collection's first product image when
+// the collection itself has no admin-set cover (Shopify smart collections
+// don't auto-generate cover images).
 const MOSAIC_COLLECTIONS_QUERY = `#graphql
-  query MosaicCollections($country: CountryCode, $language: LanguageCode)
-    @inContext(country: $country, language: $language) {
+  query MosaicCollections {
     collections(first: 8, sortKey: UPDATED_AT, reverse: true) {
       nodes {
         id
@@ -889,6 +894,17 @@ const MOSAIC_COLLECTIONS_QUERY = `#graphql
           altText
           width
           height
+        }
+        products(first: 1) {
+          nodes {
+            featuredImage {
+              id
+              url
+              altText
+              width
+              height
+            }
+          }
         }
       }
     }

@@ -16,15 +16,31 @@ import {useAside} from './Aside';
  * }}
  */
 export function CartLineItem({layout, line, childrenMap}) {
-  const {id, merchandise} = line;
+  const {id, merchandise, quantity} = line;
   const {product, title, image, selectedOptions} = merchandise;
   const lineItemUrl = useVariantUrl(product.handle, selectedOptions);
   const {close} = useAside();
   const lineItemChildren = childrenMap[id];
   const childrenLabelId = `cart-line-children-${id}`;
+  const isZero = typeof quantity === 'number' && quantity < 1;
+  // Today the cart has no user-facing decrement-past-1 path (the −
+  // button is disabled at qty <= 1), so any qty-0 line we see is, in
+  // practice, a server-side rejection of a LinesAdd — the variant
+  // wasn't actually available in the buyer's region, so the cart
+  // action silently returned quantity 0. We tag these lines as
+  // is-unrecoverable so the + button isn't styled as an inviting
+  // affordance; clicking it would just trigger another rejected
+  // update. If a real user-decrement flow is added later, gate this
+  // class on "the line's last mutation was a server-rejected add."
+  const isUnrecoverable = isZero;
+
+  const lineClassName =
+    'cart-line' +
+    (isZero ? ' is-zero' : '') +
+    (isUnrecoverable ? ' is-unrecoverable' : '');
 
   return (
-    <li key={id} className="cart-line">
+    <li key={id} className={lineClassName}>
       <div className="cart-line-inner">
         {image && (
           <Image
@@ -53,15 +69,24 @@ export function CartLineItem({layout, line, childrenMap}) {
           </Link>
           <ProductPrice price={line?.cost?.totalAmount} />
           <ul>
-            {selectedOptions.map((option) => (
-              <li key={option.name}>
-                <small>
-                  {option.name}: {option.value}
-                </small>
-              </li>
-            ))}
+            {selectedOptions
+              // Shopify uses a placeholder "Default Title" option for
+              // products with no real options. Don't render it — it just
+              // adds visual noise ("Title: Default Title") under the
+              // product name.
+              .filter(
+                (option) =>
+                  !(option.name === 'Title' && option.value === 'Default Title'),
+              )
+              .map((option) => (
+                <li key={option.name}>
+                  <small>
+                    {option.name}: {option.value}
+                  </small>
+                </li>
+              ))}
           </ul>
-          <CartLineQuantity line={line} />
+          <CartLineQuantity line={line} isUnrecoverable={isUnrecoverable} />
         </div>
       </div>
 
@@ -90,39 +115,53 @@ export function CartLineItem({layout, line, childrenMap}) {
  * Provides the controls to update the quantity of a line item in the cart.
  * These controls are disabled when the line item is new, and the server
  * hasn't yet responded that it was successfully added to the cart.
- * @param {{line: CartLine}}
+ * @param {{line: CartLine; isUnrecoverable?: boolean}}
  */
-function CartLineQuantity({line}) {
+function CartLineQuantity({line, isUnrecoverable = false}) {
   if (!line || typeof line?.quantity === 'undefined') return null;
   const {id: lineId, quantity, isOptimistic} = line;
+  // Shopify keeps a line in the cart when its quantity is decremented
+  // to 0. The user can recover it by clicking +, or drop it entirely
+  // with the trash button. The minus button is disabled at qty <= 1 so
+  // we never create a qty-0 line from the stepper.
   const prevQuantity = Number(Math.max(0, quantity - 1).toFixed(0));
   const nextQuantity = Number((quantity + 1).toFixed(0));
 
   return (
-    <div className="cart-line-quantity">
-      <small>Quantity: {quantity} &nbsp;&nbsp;</small>
-      <CartLineUpdateButton lines={[{id: lineId, quantity: prevQuantity}]}>
-        <button
-          aria-label="Decrease quantity"
-          disabled={quantity <= 1 || !!isOptimistic}
-          name="decrease-quantity"
-          value={prevQuantity}
-        >
-          <span>&#8722; </span>
-        </button>
-      </CartLineUpdateButton>
-      &nbsp;
-      <CartLineUpdateButton lines={[{id: lineId, quantity: nextQuantity}]}>
-        <button
-          aria-label="Increase quantity"
-          name="increase-quantity"
-          value={nextQuantity}
-          disabled={!!isOptimistic}
-        >
-          <span>&#43;</span>
-        </button>
-      </CartLineUpdateButton>
-      &nbsp;
+    <div className="cart-line-qty">
+      <div className="cart-line-qty__stepper" role="group" aria-label="Quantity">
+        <CartLineUpdateButton lines={[{id: lineId, quantity: prevQuantity}]}>
+          <button
+            className="cart-line-qty__btn cart-line-qty__btn--minus"
+            aria-label="Decrease quantity"
+            disabled={quantity <= 1 || !!isOptimistic}
+            name="decrease-quantity"
+            value={prevQuantity}
+            type="submit"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden>
+              <path d="M5 12h14" />
+            </svg>
+          </button>
+        </CartLineUpdateButton>
+        <span className="cart-line-qty__count" aria-live="polite">
+          {quantity}
+        </span>
+        <CartLineUpdateButton lines={[{id: lineId, quantity: nextQuantity}]}>
+          <button
+            className="cart-line-qty__btn cart-line-qty__btn--plus"
+            aria-label="Increase quantity"
+            name="increase-quantity"
+            value={nextQuantity}
+            type="submit"
+            disabled={!!isOptimistic || isUnrecoverable}
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden>
+              <path d="M12 5v14M5 12h14" />
+            </svg>
+          </button>
+        </CartLineUpdateButton>
+      </div>
       <CartLineRemoveButton lineIds={[lineId]} disabled={!!isOptimistic} />
     </div>
   );
@@ -145,7 +184,15 @@ function CartLineRemoveButton({lineIds, disabled}) {
       action={CartForm.ACTIONS.LinesRemove}
       inputs={{lineIds}}
     >
-      <button disabled={disabled} type="submit">
+      <button
+        disabled={disabled}
+        type="submit"
+        className="cart-line-remove"
+        aria-label="Remove from cart"
+      >
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
+          <path d="M3 6h18M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2M6 6l1 14a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-14" />
+        </svg>
         Remove
       </button>
     </CartForm>

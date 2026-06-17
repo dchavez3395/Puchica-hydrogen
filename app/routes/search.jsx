@@ -164,14 +164,11 @@ const PAGE_INFO_FRAGMENT = `#graphql
 // NOTE: https://shopify.dev/docs/api/storefront/latest/queries/search
 export const SEARCH_QUERY = `#graphql
   query RegularSearch(
-    $country: CountryCode
     $endCursor: String
     $first: Int
-    $language: LanguageCode
     $last: Int
     $term: String!
-    $startCursor: String
-  ) @inContext(country: $country, language: $language) {
+    $startCursor: String) {
     articles: search(
       query: $term,
       types: [ARTICLE],
@@ -343,13 +340,10 @@ const PREDICTIVE_SEARCH_QUERY_FRAGMENT = `#graphql
 // NOTE: https://shopify.dev/docs/api/storefront/latest/queries/predictiveSearch
 const PREDICTIVE_SEARCH_QUERY = `#graphql
   query PredictiveSearch(
-    $country: CountryCode
-    $language: LanguageCode
     $limit: Int!
     $limitScope: PredictiveSearchLimitScope!
     $term: String!
-    $types: [PredictiveSearchType!]
-  ) @inContext(country: $country, language: $language) {
+    $types: [PredictiveSearchType!]) {
     predictiveSearch(
       limit: $limit,
       limitScope: $limitScope,

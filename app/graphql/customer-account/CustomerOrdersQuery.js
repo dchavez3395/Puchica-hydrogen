@@ -54,8 +54,7 @@ export const CUSTOMER_ORDERS_QUERY = `#graphql
     $last: Int
     $startCursor: String
     $query: String
-    $language: LanguageCode
-  ) @inContext(language: $language) {
+    $language: LanguageCode) {
     customer {
       ...CustomerOrders
     }
