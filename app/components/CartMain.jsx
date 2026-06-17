@@ -198,9 +198,6 @@ function CartBrandHeader() {
       >
         <img src={STORE_LOGO_URL} alt={SITE_NAME} />
       </Link>
-      <p className="cart-brand__line">
-        <span aria-hidden>✦</span> Free shipping over $50
-      </p>
     </div>
   );
 }

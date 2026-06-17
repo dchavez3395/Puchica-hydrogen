@@ -119,15 +119,13 @@ img {
 .overlay > aside {
   background: var(--color-light);
   box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);
-  /* The page header (.pk-header, 72-73px) is `position: sticky; top: 0`
-   * and sits BELOW the announcement bar (.pk-ann, ~32px). Together
-   * they form the top ~105-108px of the viewport. The drawer must
-   * clear that area so the page header floats visibly above it and
-   * the drawer's own "CART" / "SEARCH" / "MENU" header isn't covered.
-   * See --pk-top-sticky in :root. The overlay itself (the dim
-   * background) stays at top: 0 so the full screen dims. */
-  top: var(--pk-top-sticky);
-  height: calc(100dvh - var(--pk-top-sticky));
+  /* Full viewport height — the page header (`.pk-header`, z=40,
+   * sticky) and announcement bar (`.pk-ann`, z=30) float above
+   * the drawer naturally because of z-index. The drawer's own
+   * internal <header> (CART/SEARCH/MENU) just needs enough top
+   * padding to clear the floating page header. */
+  top: 0;
+  height: 100dvh;
   width: min(var(--aside-width), 100vw);
   position: fixed;
   right: calc(-1 * var(--aside-width));
@@ -147,6 +145,18 @@ img {
   flex: none;
   background: #fff;
   z-index: 2;
+  /* Push the drawer's internal header below the floating page
+   * header. The padding-top is set by JS in Aside.jsx based on the
+   * live `.pk-header` bottom (announcement bar + page header,
+   * minus the announcement when it's been dismissed or scrolled
+   * away). Default 108px covers the unscrolled desktop state. */
+  padding-top: var(--pk-drawer-header-pad, 108px);
+}
+
+@media (max-width: 700px) {
+  .overlay > aside header {
+    padding-top: var(--pk-drawer-header-pad, 128px);
+  }
 }
 
 .overlay > aside header h3 {

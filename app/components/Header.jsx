@@ -15,13 +15,24 @@ const ANNOUNCEMENT_KEY = 'pk-ann-dismissed-v1';
  */
 export function Header({header, isLoggedIn, cart, publicStoreDomain}) {
   const {shop, menu} = header;
+  // Close any open drawer when the user clicks the logo to go home.
+  // The route-change effect in Aside.Provider also handles this, but
+  // closing here means there's no flicker where the new page shows
+  // behind the still-open drawer for one frame.
+  const {close} = useAside();
   return (
     <>
       <AnnouncementBar />
       <header className="pk-header" id="pk-header">
         <div className="pk-header__inner">
           <HeaderMenuMobileToggle />
-          <NavLink prefetch="intent" to="/" className="pk-logo" end>
+          <NavLink
+            prefetch="intent"
+            to="/"
+            className="pk-logo"
+            end
+            onClick={close}
+          >
             <img
               className="pk-logo__img"
               src={shop.brand?.logo?.image?.url || STORE_LOGO_URL}
