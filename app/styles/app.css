@@ -4,10 +4,24 @@
   --cart-aside-summary-height: 300px;
   --grid-item-width: 355px;
   --header-height: 64px;
+  /* Total sticky/page header area at the top of the viewport: the
+   * announcement bar (.pk-ann, ~32px on desktop) plus the page header
+   * (.pk-header, 72-73px). The aside drawer (cart/search/mobile menu)
+   * sits below this area so the page header floats visibly above it
+   * and doesn't cover the drawer's own internal header. The mobile
+   * override below bumps this for the wrapping announcement bar. */
+  --pk-top-sticky: 108px;
   --color-dark: #000;
   --color-light: #fff;
   --page-max: 1200px;
   --page-gutter: 20px;
+}
+
+@media (max-width: 700px) {
+  /* The announcement bar's text wraps to 2 lines on narrow viewports,
+   * making the bar ~48px tall instead of ~32px. Bump the drawer
+   * offset to match (48 + 73 = 121, rounded up to 128 for a 7px gap). */
+  :root { --pk-top-sticky: 128px; }
 }
 
 main {
@@ -105,12 +119,18 @@ img {
 .overlay > aside {
   background: var(--color-light);
   box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);
-  height: 100vh;
-  height: 100dvh;
+  /* The page header (.pk-header, 72-73px) is `position: sticky; top: 0`
+   * and sits BELOW the announcement bar (.pk-ann, ~32px). Together
+   * they form the top ~105-108px of the viewport. The drawer must
+   * clear that area so the page header floats visibly above it and
+   * the drawer's own "CART" / "SEARCH" / "MENU" header isn't covered.
+   * See --pk-top-sticky in :root. The overlay itself (the dim
+   * background) stays at top: 0 so the full screen dims. */
+  top: var(--pk-top-sticky);
+  height: calc(100dvh - var(--pk-top-sticky));
   width: min(var(--aside-width), 100vw);
   position: fixed;
   right: calc(-1 * var(--aside-width));
-  top: 0;
   transition: transform 200ms ease-in-out;
   display: flex;
   flex-direction: column;

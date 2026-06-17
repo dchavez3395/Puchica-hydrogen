@@ -65,7 +65,7 @@ function AnnouncementBar() {
       <div className="pk-ann__inner">
         <span>
           Free shipping on orders over $50 ✦ Easy 30-day returns ✦
-          <Link to="/collections/new" prefetch="intent" style={{marginLeft: 6}}>
+          <Link to="/collections" prefetch="intent" style={{marginLeft: 6}}>
             Shop new arrivals
           </Link>
         </span>
