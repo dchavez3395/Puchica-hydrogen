@@ -1,6 +1,7 @@
 import {CartForm, Money} from '@shopify/hydrogen';
 import {useEffect, useId, useRef, useState} from 'react';
 import {useFetcher} from 'react-router';
+import {CHECKOUT_URL_REWRITER} from '~/lib/checkout';
 
 /**
  * @param {CartSummaryProps}
@@ -38,7 +39,7 @@ export function CartSummary({cart, layout, hasCheckoutableItems = true}) {
         giftCardInputId={giftCardInputId}
       />
       <CartCheckoutActions
-        checkoutUrl={cart?.checkoutUrl}
+        checkoutUrl={CHECKOUT_URL_REWRITER(cart?.checkoutUrl)}
         disabled={!hasCheckoutableItems}
       />
     </div>

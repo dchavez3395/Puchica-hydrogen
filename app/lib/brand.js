@@ -13,7 +13,7 @@
  * under Settings > Brand, otherwise they fall back to this URL.
  */
 export const STORE_LOGO_URL =
-  'https://cdn.shopify.com/s/files/1/0842/2644/1466/files/Puchica_logo.png?v=1781275908';
+  'https://cdn.shopify.com/s/files/1/0842/2644/1466/files/puchica-logo.svg?v=1781383015';
 
 /**
  * One-line brand description used in the Organization JSON-LD

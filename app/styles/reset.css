@@ -78,8 +78,14 @@ body {
   min-height: 100vh;
 }
 
+/* `main` from app.css already sets max-width + padding + box-sizing.
+   In a column flex body, align-items: stretch would normally push main
+   flush to the left after max-width capping — leaving the page asymmetric
+   (more whitespace on the right than the left). Use auto horizontal
+   margins so the rule's max-width actually centers inside the body. */
 body > main {
-  margin: 0 1rem 1rem 1rem;
+  margin: 0 auto 1rem;
+  width: 100%;
 }
 
 section {

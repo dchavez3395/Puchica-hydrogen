@@ -67,6 +67,63 @@ export function CartMain({layout, cart: originalCart}) {
   const className = `cart-main ${withDiscount ? 'with-discount' : ''}`;
   const childrenMap = getLineItemChildrenMap(cart?.lines?.nodes ?? []);
 
+  // For the drawer (aside) layout, the summary is rendered OUTSIDE
+  // <section class="cart-main"> so the line items can scroll inside
+  // cart-main while the totals/apply/checkout row stays pinned to the
+  // bottom of the drawer. For the page layout, the summary lives
+  // inside .cart-details below the items — same component, no
+  // pinning, full document scroll. The split is layout-conditional
+  // because the CSS rules differ between .cart-summary-aside (fixed
+  // bottom) and .cart-summary-page (in flow).
+  const summaryNode = cartHasItems ? (
+    <CartSummary
+      cart={cart}
+      layout={layout}
+      hasCheckoutableItems={hasCheckoutableItems}
+    />
+  ) : null;
+
+  if (layout === 'aside') {
+    return (
+      <div className="cart-aside-shell">
+        {/* The brand banner is a flex sibling of .cart-main (and
+            .cart-summary-aside) inside the shell. Keeping it OUTSIDE
+            the scroll container means: (a) the brand stays pinned at
+            the top while the user scrolls line items, and (b) its
+            80px height doesn't add to the scroll region's content
+            size, so the violet scrollbar doesn't appear when the
+            actual items fit. Mirrors how .cart-summary-aside is
+            already a pinned sibling at the bottom. */}
+        {cartHasItems ? <CartBrandHeader /> : null}
+        <section
+          className={className}
+          aria-label={layout === 'page' ? 'Cart page' : 'Cart drawer'}
+        >
+          <CartEmpty hidden={cartHasItems} layout={layout} />
+          <div className="cart-details">
+            <p id="cart-lines" className="sr-only">
+              Line items
+            </p>
+            <ul aria-labelledby="cart-lines">
+              {visibleLines.map((line) => {
+                return (
+                  <CartLineItem
+                    key={line.id}
+                    line={line}
+                    layout={layout}
+                    childrenMap={childrenMap}
+                  />
+                );
+              })}
+            </ul>
+            {hasAnyLines && !cartHasItems ? <GhostCartNotice /> : null}
+          </div>
+        </section>
+        {summaryNode}
+      </div>
+    );
+  }
+
   return (
     <section
       className={className}
@@ -139,7 +196,7 @@ function CartBrandHeader() {
         className="cart-brand__logo"
         aria-label={`${SITE_NAME} home`}
       >
-        <img src={STORE_LOGO_URL} alt={SITE_NAME} width={40} height={40} />
+        <img src={STORE_LOGO_URL} alt={SITE_NAME} />
       </Link>
       <p className="cart-brand__line">
         <span aria-hidden>✦</span> Free shipping over $50

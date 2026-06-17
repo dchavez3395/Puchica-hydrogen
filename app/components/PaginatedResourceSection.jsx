@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {Pagination} from '@shopify/hydrogen';
+import {IconChevronLeft, IconChevronRight} from '~/components/Icons';
 
 /**
  * <PaginatedResourceSection> encapsulates the previous and next pagination
@@ -52,19 +53,7 @@ export function PaginatedResourceSection({
               <div className="pk-pager__side pk-pager__side--left">
                 {hasPreviousPage ? (
                   <PreviousLink className="pk-pager__prev">
-                    <svg
-                      width="14"
-                      height="14"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      aria-hidden
-                    >
-                      <path d="M15 18l-6-6 6-6" />
-                    </svg>
+                    <IconChevronLeft size={14} />
                     <span>Previous page</span>
                   </PreviousLink>
                 ) : (
@@ -81,19 +70,7 @@ export function PaginatedResourceSection({
                 ) : hasNextPage ? (
                   <NextLink className="pk-pager__next">
                     <span>Load next 12</span>
-                    <svg
-                      width="14"
-                      height="14"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      aria-hidden
-                    >
-                      <path d="M9 18l6-6-6-6" />
-                    </svg>
+                    <IconChevronRight size={14} />
                   </NextLink>
                 ) : hasPreviousPage ? (
                   <span className="pk-pager__end">

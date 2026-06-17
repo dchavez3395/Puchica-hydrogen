@@ -337,11 +337,38 @@ button.reset:hover:not(:has(> *)) {
 * components/Cart
 * --------------------------------------------------
 */
-.cart-main {
+.cart-aside-shell {
+  /* Vertical flex container that wraps .cart-main (scrollable) and
+     .cart-summary-aside (pinned to the bottom of the drawer). Both
+     children together fill the full height of the drawer's <main>.
+     .cart-main is `flex: 1` + `min-height: 0` (see its rule) so it
+     shrinks/scrolls; .cart-summary-aside is `flex: 0 0 auto` so it
+     takes its natural height. */
+  display: flex;
+  flex-direction: column;
   height: 100%;
-  max-height: calc(100vh - var(--cart-aside-summary-height));
+  min-height: 0;
+}
+
+.cart-main {
+  /* When rendered inside .cart-aside-shell (drawer layout), this is a
+     `flex: 1` scroll container — it shrinks to fill the space between
+     the brand header and the pinned .cart-summary-aside. `min-height: 0`
+     is critical: a flex item's default min-height is `auto`, which
+     means it can't shrink below its content size, so a tall list of
+     items would push the summary off the bottom of the drawer instead
+     of becoming scrollable inside .cart-main.
+
+     When rendered on the /cart page (no .cart-aside-shell wrapper),
+     .cart-main is just a normal block element. `height: 100%` is a
+     no-op there (no parent gives it a height) and `flex` is a no-op
+     (no flex parent), so the page layout is unaffected. */
+  height: 100%;
   overflow-y: auto;
-  width: auto;
+  position: relative;
+  width: 100%;
+  min-height: 0;
+  flex: 1 1 auto;
   /* Hide the scrollbar visually so the cart doesn't look like it has a
      chunky scroll gutter when content fits. The content is still
      scrollable (touch, shift-wheel, drag) — only the visual chrome is
@@ -368,20 +395,27 @@ button.reset:hover:not(:has(> *)) {
   background: rgba(109, 76, 255, 0.35);
 }
 
-.cart-main.with-discount {
-  max-height: calc(100vh - var(--cart-aside-summary-height-with-discount));
-}
-
 .cart-main > .cart-details {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  /* No fixed height here. In the drawer (aside) layout, .cart-main
+     is the scroll container and .cart-details is just the content
+     wrapper — sizing it to 100% of the scroll viewport would push
+     the natural content height past the visible area and trigger
+     a phantom scrollbar even when items fit. In the page layout,
+     .cart-main is a normal block, so the children flow at content
+     height either way. */
 }
 
 /* Brand banner at the top of the cart drawer. Repeats the site logo
    and a one-line "free shipping over $50" reminder so the drawer
    always carries a clear anchor back to the brand. The logo image
-   already contains the wordmark, so we just render the icon. */
+   is the full wordmark+bag SVG (1200x360, 3.33:1) — we render it
+   at natural aspect (height pinned, width auto) so the entire
+   "Puchica" wordmark is visible. The banner itself lives outside
+   the .cart-main scroll region (it's a flex sibling inside
+   .cart-aside-shell) so it stays pinned at the top while line
+   items scroll. */
 .cart-brand {
   display: flex;
   flex-direction: column;
@@ -390,6 +424,9 @@ button.reset:hover:not(:has(> *)) {
   padding: 6px 20px 10px;
   border-bottom: 1px solid var(--pk-border, #E5E0F0);
   background: linear-gradient(180deg, #fafaff 0%, #fff 100%);
+  /* Don't shrink when the drawer gets very short — the brand is
+     supposed to be a stable top anchor. */
+  flex: 0 0 auto;
 }
 .cart-brand__logo {
   display: inline-flex;
@@ -398,10 +435,8 @@ button.reset:hover:not(:has(> *)) {
   line-height: 0;
 }
 .cart-brand__logo img {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  object-fit: cover;
+  height: 32px;
+  width: auto;
   display: block;
 }
 .cart-brand__line {
@@ -541,12 +576,29 @@ button.reset:hover:not(:has(> *)) {
 .cart-summary-aside {
   background: #fff;
   border-top: 1px solid var(--pk-border, #E5E0F0);
-  bottom: 0;
-  left: 0;
-  right: 0;
   padding: 18px 20px 22px;
-  position: absolute;
+  /* `box-sizing: border-box` is required here so the 20px horizontal
+     padding is included inside `width: 100%` instead of being added
+     on top — without it, the summary overflows its parent by exactly
+     40px (20px each side). */
+  box-sizing: border-box;
+  /* In the drawer (aside) layout, .cart-summary-aside is a flex item
+     inside .cart-aside-shell (see CartMain.jsx). It takes its natural
+     height and stays pinned to the bottom of the drawer because
+     .cart-main above it is a `flex: 1` scroll container that shrinks
+     to fill the remaining space.
+
+     No `position: absolute` here anymore — the summary is in normal
+     flow, with .cart-main doing the scrolling. Previously the
+     summary was absolutely positioned inside .cart-main, which
+     meant scrolling cart-main moved the summary too.
+
+     Width: 100% is now safe because the containing block
+     (.cart-aside-shell) is a flex column, not a scroll container
+     with a scrollbar gutter, so there's no over-constraint between
+     `width: 100%` and the available width. */
   width: 100%;
+  flex: 0 0 auto;
   box-shadow: 0 -8px 24px rgba(80, 60, 160, 0.06);
 }
 .cart-summary-aside h4 {
@@ -3502,8 +3554,8 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 14px;
-  padding: 16px 34px;
+  gap: 8px;
+  padding: 14px 22px;
   background: var(--pk-grad-primary);
   color: #fff;
   font-size: 15.5px;
@@ -3512,7 +3564,6 @@ body {
   border-radius: 999px;
   box-shadow: 0 8px 22px rgba(109,76,255,.28);
   transition: transform .15s ease, box-shadow .2s ease, filter .2s ease;
-  min-width: 240px;
   letter-spacing: 0.01em;
   white-space: nowrap;
   flex-wrap: nowrap;
