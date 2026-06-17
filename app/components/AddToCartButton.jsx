@@ -125,26 +125,78 @@ function AddToCartSubmitButton({
  * successful new add can mention those legacy lines, neither of
  * which means THIS add failed.
  *
+ * Response shape (from app/routes/cart.jsx action): the cart object
+ * returned by Hydrogen's `cart.addLines()` is SLIM — it carries
+ * `id, totalQuantity, checkoutUrl` but not `lines`. The full cart
+ * (with `lines`) is only available via the loader. So the check has
+ * to work against the slim shape, with `lines` being a bonus
+ * signal when it happens to be present.
+ *
+ * Signals we use, in order of trust:
+ *   1. `errors` non-empty  → the mutation surfaced a CartUserError
+ *                            (out of stock, invalid variant, etc.) → reject.
+ *   2. `cart.lines` present with our merchandiseId at qty ≥ 1 → accept.
+ *                            This is the qty-0 ghost-line guard.
+ *   3. `cart.lines` present with our merchandiseId at qty 0 → reject.
+ *                            Ghost line was created.
+ *   4. `cart.lines` present, our merch NOT in it at all → reject.
+ *                            We asked for X, the cart doesn't have X.
+ *   5. `cart.lines` absent (slim response) and `cart.totalQuantity`
+ *      is a positive number → accept. The mutation succeeded; we
+ *      just don't have the line breakdown in this response.
+ *   6. `cart.lines` absent and `cart.totalQuantity` is 0 → reject.
+ *                            No cart content means the add didn't land.
+ *
+ * If `attemptedMerchandiseIds` is empty (caller didn't pass any),
+ * we can't apply signals 2/3/4 and fall back to "any successful
+ * cart response is an accept". This matches the previous behavior
+ * for that pass-through case.
+ *
  * @param {unknown} data
  * @param {string[]} attemptedMerchandiseIds
  * @returns {{ok: boolean}}
  */
 function checkAddAccepted(data, attemptedMerchandiseIds) {
   const cart = data?.cart;
-  const nodes = cart?.lines?.nodes;
-  if (!Array.isArray(nodes) || nodes.length === 0) {
+  const errors = data?.errors;
+  // Any surfaced error is a real rejection.
+  if (Array.isArray(errors) && errors.length > 0) {
+    return {ok: false};
+  }
+  // No cart at all means we didn't get a usable response.
+  if (!cart || typeof cart !== 'object') {
     return {ok: false};
   }
   const attempted = new Set(attemptedMerchandiseIds.filter(Boolean));
   // Pass-through: callers that don't track merchandiseIds (e.g. a
-  // future use) shouldn't false-positive the error path.
-  if (attempted.size === 0) return {ok: true};
-  for (const line of nodes) {
-    const merchId = line?.merchandise?.id;
-    if (merchId && attempted.has(merchId)) {
-      const q = line?.quantity;
-      if (typeof q === 'number' && q >= 1) return {ok: true};
+  // future use) shouldn't false-positive the error path. The
+  // errors check above is the only signal we can use.
+  if (attempted.size === 0) {
+    return {ok: true};
+  }
+  const nodes = cart?.lines?.nodes;
+  if (Array.isArray(nodes)) {
+    // Full-cart response. Find our line and check its quantity.
+    for (const line of nodes) {
+      const merchId = line?.merchandise?.id;
+      if (merchId && attempted.has(merchId)) {
+        const q = line?.quantity;
+        if (typeof q === 'number' && q >= 1) return {ok: true};
+        // Found at qty 0 (or quantity missing) → ghost line, reject.
+        return {ok: false};
+      }
     }
+    // Full cart returned but our merch isn't in it. The add did
+    // not create a line — treat as a rejection.
+    return {ok: false};
+  }
+  // Slim cart response (the common case from cartLinesAdd). Trust
+  // totalQuantity: a successful add grows the cart from 0 to 1 (or
+  // N to N+1), and a failed add leaves it unchanged. A 0 here means
+  // the add did not land.
+  const totalQty = cart?.totalQuantity;
+  if (typeof totalQty === 'number' && totalQty > 0) {
+    return {ok: true};
   }
   return {ok: false};
 }
