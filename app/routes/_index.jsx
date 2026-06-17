@@ -257,7 +257,7 @@ function ShopByCategory({categories}) {
             className="pk-cat-card pk-cat-card--bold"
           >
             <span className="pk-cat-card__icon">{categoryIcon(c.title)}</span>
-            <div className="pk-cat-card__text">
+            <div className="pk-cat-card__text flex flex-row! lg:flex-col">
               <h3>{c.title}</h3>
               <span className="pk-cat-card__cta">Shop now →</span>
             </div>
@@ -309,7 +309,7 @@ function BrandStory() {
             <IconCheckInline /> 30-day returns with a pre-paid label, every order
           </li>
         </ul>
-        <Link to="/pages/about" className="pk-btn pk-btn--primary pk-btn--lg">
+        <Link to="/pages/contact" className="pk-btn pk-btn--primary pk-btn--lg">
           About Puchica <span aria-hidden>→</span>
         </Link>
       </div>

@@ -291,7 +291,7 @@ const FALLBACK_HEADER_MENU = {
   items: [
     {id: '1', resourceId: null, tags: [], title: 'Collections', type: 'HTTP', url: '/collections', items: []},
     {id: '2', resourceId: null, tags: [], title: 'Best Sellers', type: 'HTTP', url: '/collections/best-sellers', items: []},
-    {id: '3', resourceId: null, tags: [], title: 'About', type: 'HTTP', url: '/pages/about', items: []},
+    {id: '3', resourceId: null, tags: [], title: 'Contact', type: 'HTTP', url: '/pages/contact', items: []},
   ],
 };
 

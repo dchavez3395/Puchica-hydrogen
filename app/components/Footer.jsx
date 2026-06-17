@@ -97,9 +97,8 @@ export function Footer({header}) {
         <div className="pk-footer__col">
           <h4>Customer Care</h4>
           <Link to="/pages/contact">Contact Us</Link>
-          <Link to="/policies/shipping-policy">Shipping &amp; Delivery</Link>
-          <Link to="/policies/refund-policy">Returns &amp; Refunds</Link>
           <Link to="/search">Search</Link>
+          <Link to="/policies">Policies</Link>
         </div>
 
         <Newsletter />
@@ -109,7 +108,6 @@ export function Footer({header}) {
         <span>© {year} Puchica. All rights reserved.</span>
         <nav className="pk-footer__legal" aria-label="Legal">
           <Link to="/policies/privacy-policy">Privacy Policy</Link>
-          <Link to="/policies/terms-of-service">Terms of Service</Link>
           <Link to="/policies">Policies</Link>
         </nav>
       </div>

@@ -210,10 +210,6 @@ function MobileMenuAside({header, publicStoreDomain}) {
               <span>Contact us</span>
               <span aria-hidden>→</span>
             </Link>
-            <Link to="/policies/shipping-policy" className="pk-mmenu__row">
-              <span>Shipping &amp; returns</span>
-              <span aria-hidden>→</span>
-            </Link>
             <Link to="/policies" className="pk-mmenu__row">
               <span>All policies</span>
               <span aria-hidden>→</span>
