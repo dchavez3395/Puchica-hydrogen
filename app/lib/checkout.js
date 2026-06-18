@@ -9,7 +9,7 @@
  * as the "primary storefront domain" for the cart's `@inContext` (country,
  * language) combination.
  *
- * For Puchica, the Storefront API returns checkoutUrl with host `puchica.ca`
+ * For Puchica, the Storefront API returned checkoutUrl with host `puchica.ca`
  * (the storefront's custom domain, served by Hydrogen on Oxygen) and the
  * `/cart/c/{token}?…` path. Two problems:
  *
@@ -18,18 +18,27 @@
  *   2. `puchica-2.myshopify.com/cart/c/{token}` (the actual primary domain)
  *      302-redirects to `puchica.ca/cart/c/{token}` for the same reason.
  *
- * The store's working checkout URL is on a different host AND a different
+ * The store's working checkout URL was on a different host AND a different
  * path: `https://puchica-2.myshopify.com/checkouts/cn/{token}/{locale}?…`.
- * Verified live — that URL returns 200 and serves the real Express checkout
+ * That URL returned 200 and served the real Express checkout
  * (Shop Pay / PayPal / G Pay / shipping / payment).
  *
- * ## How to remove
+ * ## Resolution
  *
- * Once the Markets / Domains config in Shopify admin is corrected so the
- * Storefront API returns the working URL directly, set
- * `CHECKOUT_URL_REWRITER` to the identity function `url => url` and this
- * becomes a no-op. The two callers (`CartSummary`, `cart.$lines`) won't
- * need changes.
+ * 2026-06-18: `puchica.ca` was re-pointed to `https://www.puchica.ca/` via
+ * GoDaddy domain forwarding (now actually going through Cloudflare → AWS
+ * Global Accelerator — see memory/puchica-dns-state-2026-06-18.md for the
+ * routing analysis and the planned Cloudflare migration).
+ *
+ * On `www.puchica.ca` Hydrogen is live and the Storefront API still returns
+ * the same `/cart/c/{token}` checkoutUrl shape. The Hydrogen worker has no
+ * `/cart/c/{token}` route, so the rewriter below is still required even
+ * with the apex→www redirect in place. Once the Markets/Domains config in
+ * Shopify admin is corrected so the Storefront API returns the working
+ * URL directly (or the Hydrogen worker is updated to handle `/cart/c/{token}`
+ * and proxy to the checkout host), set `CHECKOUT_URL_REWRITER` to the
+ * identity function `url => url` and this becomes a no-op. The two callers
+ * (`CartSummary`, `cart.$lines`) won't need changes.
  *
  * @param {string | null | undefined} url  The Cart.checkoutUrl value.
  * @returns {string | null | undefined}    A URL that actually serves checkout,

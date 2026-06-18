@@ -32,11 +32,18 @@ export function getVariantUrl({
   searchParams,
   selectedOptions,
 }) {
-  const match = /(\/[a-zA-Z]{2}-[a-zA-Z]{2}\/)/g.exec(pathname);
-  const isLocalePathname = match && match.length > 0;
+  // Locale-prefixed pathnames (e.g. /fr-ca/products/...) — only the
+  // markets we actually ship. An allow-list is safer than the prior
+  // generic [a-z]{2}-[a-z]{2} regex, which would false-match any
+  // hyphenated two-letter code in the path (e.g. /vi-vn/, /zh-cn/).
+  // TODO: when locale subpath routing is enabled in Markets, ensure
+  // every code we ship is listed here.
+  const LOCALE_PREFIX = /^\/(en-ca|fr-ca)\//i;
+  const localeMatch = LOCALE_PREFIX.exec(pathname);
+  const localePrefix = localeMatch ? localeMatch[0] : '';
 
-  const path = isLocalePathname
-    ? `${match[0]}products/${handle}`
+  const path = localePrefix
+    ? `${localePrefix}products/${handle}`
     : `/products/${handle}`;
 
   selectedOptions?.forEach((option) => {

@@ -107,6 +107,12 @@ export function HeaderMenu({menu, primaryDomainUrl, viewport, publicStoreDomain}
     viewport === 'desktop' ? 'pk-nav' : 'pk-nav pk-nav--mobile';
   const {close} = useAside();
 
+  // TODO(multi-market): primaryDomain is shop-global, not market-specific.
+  // When FR/CA menu items come online (or any market that resolves to a
+  // different storefront domain), this `includes()` test will fail to
+  // strip the host for those items. Consider building a per-market
+  // domain allow-list from the Markets config rather than relying on
+  // `header.shop.primaryDomain.url` alone.
   return (
     <nav className={className} role="navigation">
       {(menu || FALLBACK_HEADER_MENU).items.map((item) => {
