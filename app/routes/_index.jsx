@@ -3,7 +3,7 @@ import {Suspense, useEffect, useRef, useState} from 'react';
 import {Image, Money} from '@shopify/hydrogen';
 import {AddToCartButton} from '~/components/AddToCartButton';
 import {useAside} from '~/components/Aside';
-import {MockShopNotice} from '~/components/MockShopNotice';
+import {error as logError} from '~/lib/logger';
 import {
   categoryIcon,
   IconTruck,
@@ -51,7 +51,6 @@ async function loadCriticalData({context}) {
   ]);
 
   return {
-    isShopLinked: Boolean(context.env.PUBLIC_STORE_DOMAIN),
     categories: collections.nodes,
   };
 }
@@ -63,14 +62,14 @@ function loadDeferredData({context}) {
   const bestPicks = context.storefront
     .query(BEST_PICKS_QUERY)
     .catch((error) => {
-      console.error(error);
+      logError('homepage bestPicks query failed', error);
       return null;
     });
 
   const trending = context.storefront
     .query(TRENDING_QUERY)
     .catch((error) => {
-      console.error(error);
+      logError('homepage trending query failed', error);
       return null;
     });
 
@@ -79,7 +78,7 @@ function loadDeferredData({context}) {
   const promoFeature = context.storefront
     .query(PROMO_FEATURE_QUERY)
     .catch((error) => {
-      console.error(error);
+      logError('homepage promoFeature query failed', error);
       return null;
     });
 
@@ -88,7 +87,7 @@ function loadDeferredData({context}) {
   const mosaicCollections = context.storefront
     .query(MOSAIC_COLLECTIONS_QUERY)
     .catch((error) => {
-      console.error(error);
+      logError('homepage mosaicCollections query failed', error);
       return null;
     });
 
@@ -108,7 +107,6 @@ export default function Homepage() {
        * Google's docs allow it. */}
       <JsonLdScript data={organizationJsonLd({})} />
       <JsonLdScript data={websiteJsonLd({})} />
-      {data.isShopLinked ? null : <MockShopNotice />}
       <Hero categories={data.categories} bestPicks={data.bestPicks} />
       <Marquee />
       <ShopByCategory categories={data.categories} />

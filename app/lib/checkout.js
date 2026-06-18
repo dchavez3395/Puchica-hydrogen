@@ -9,7 +9,7 @@
  * as the "primary storefront domain" for the cart's `@inContext` (country,
  * language) combination.
  *
- * For Puchica, the Storefront API returned checkoutUrl with host `puchica.ca`
+ * For Puchica, the Storefront API returns checkoutUrl with host `puchica.ca`
  * (the storefront's custom domain, served by Hydrogen on Oxygen) and the
  * `/cart/c/{token}?…` path. Two problems:
  *
@@ -18,17 +18,32 @@
  *   2. `puchica-2.myshopify.com/cart/c/{token}` (the actual primary domain)
  *      302-redirects to `puchica.ca/cart/c/{token}` for the same reason.
  *
- * The store's working checkout URL was on a different host AND a different
- * path: `https://puchica-2.myshopify.com/checkouts/cn/{token}/{locale}?…`.
- * That URL returned 200 and served the real Express checkout
- * (Shop Pay / PayPal / G Pay / shipping / payment).
+ * The store's working checkout URL is on a different host AND a different
+ * path: `https://{PUBLIC_CHECKOUT_DOMAIN}/checkouts/cn/{token}/{locale}?…`.
+ * That URL returns 200 and serves the real Express checkout (Shop Pay /
+ * PayPal / G Pay / shipping / payment).
+ *
+ * ## Control surface (env vars, set in `.env`)
+ *
+ *   - `PUBLIC_CHECKOUT_DOMAIN` (default: `puchica-2.myshopify.com`)
+ *       The myshopify.com host that actually serves checkout. We
+ *       historically hardcoded this; making it env-driven means a
+ *       store-rename or duplicate-store migration can't silently
+ *       break checkout.
+ *   - `PUBLIC_CHECKOUT_LOCALE` (default: `en-ca`)
+ *       The locale segment in the working checkout path. Should match
+ *       the cart's `@inContext` (country, language). When multi-locale
+ *       ships, this should be derived per-request, not env.
+ *
+ * ## Self-observability
+ *
+ * In development only, the rewriter logs a warning when the input URL
+ * looks like the known-bad storefront host but doesn't match the
+ * `/cart/c/{token}` shape. This catches drift early (someone changed
+ * the Storefront API path convention, or Markets flipped a domain)
+ * without spamming the shopper's DevTools in production.
  *
  * ## Resolution
- *
- * 2026-06-18: `puchica.ca` was re-pointed to `https://www.puchica.ca/` via
- * GoDaddy domain forwarding (now actually going through Cloudflare → AWS
- * Global Accelerator — see memory/puchica-dns-state-2026-06-18.md for the
- * routing analysis and the planned Cloudflare migration).
  *
  * On `www.puchica.ca` Hydrogen is live and the Storefront API still returns
  * the same `/cart/c/{token}` checkoutUrl shape. The Hydrogen worker has no
@@ -38,12 +53,39 @@
  * URL directly (or the Hydrogen worker is updated to handle `/cart/c/{token}`
  * and proxy to the checkout host), set `CHECKOUT_URL_REWRITER` to the
  * identity function `url => url` and this becomes a no-op. The two callers
- * (`CartSummary`, `cart.$lines`) won't need changes.
+ * (`CartSummary`, `cart.jsx` action) won't need changes.
  *
  * @param {string | null | undefined} url  The Cart.checkoutUrl value.
  * @returns {string | null | undefined}    A URL that actually serves checkout,
  *   or the input if it was null/undefined/empty or already correct.
  */
+
+import {warn} from '~/lib/logger';
+
+// Read once at module load. Hydrogen surfaces these from `.env` into
+// `process.env` (Oxygen) and `import.meta.env` (Vite dev). We try
+// `import.meta.env` first because Vite tree-shakes it correctly in
+// dev/test, and fall back to `process.env` for the Oxygen runtime
+// where `import.meta.env` may not be hydrated for non-VITE_ vars.
+function readEnv(key, fallback) {
+  try {
+    const v = import.meta.env?.[key];
+    if (v) return v;
+  } catch {
+    /* import.meta.env unavailable */
+  }
+  if (typeof process !== 'undefined' && process.env && process.env[key]) {
+    return process.env[key];
+  }
+  return fallback;
+}
+
+const CHECKOUT_DOMAIN = readEnv('PUBLIC_CHECKOUT_DOMAIN', 'puchica-2.myshopify.com');
+const CHECKOUT_LOCALE = readEnv('PUBLIC_CHECKOUT_LOCALE', 'en-ca');
+
+// The known-bad storefront host that Hydrogen's @inContext(CA, EN) returns.
+const BAD_STOREFRONT_HOSTS = new Set(['puchica.ca', 'www.puchica.ca']);
+
 export const CHECKOUT_URL_REWRITER = (url) => {
   if (!url) return url;
 
@@ -55,9 +97,6 @@ export const CHECKOUT_URL_REWRITER = (url) => {
     return url;
   }
 
-  // The known-bad storefront host that Hydrogen's @inContext(CA, EN) returns.
-  const BAD_STOREFRONT_HOSTS = new Set(['puchica.ca', 'www.puchica.ca']);
-
   if (!BAD_STOREFRONT_HOSTS.has(parsed.host)) {
     // Not the storefront host — leave it alone (e.g. already on a checkout host).
     return url;
@@ -66,7 +105,13 @@ export const CHECKOUT_URL_REWRITER = (url) => {
   // Extract the cart token from /cart/c/{token}.
   const cartTokenMatch = parsed.pathname.match(/^\/cart\/c\/([^/]+)\/?$/);
   if (!cartTokenMatch) {
-    // Different path shape we don't recognize — don't break it.
+    // Same host as the storefront but a path we don't recognize. This
+    // is the drift case: the Storefront API changed shape, or someone
+    // wired a different route. Log once so it's visible in dev.
+    warn(
+      'checkout rewriter bypass: host matches storefront but path shape unexpected',
+      {host: parsed.host, pathname: parsed.pathname},
+    );
     return url;
   }
   const cartToken = cartTokenMatch[1];
@@ -75,7 +120,7 @@ export const CHECKOUT_URL_REWRITER = (url) => {
   // Hydrogen storefront uses (see app/lib/context.js: i18n: EN, country: CA).
   // If/when we add more locales, this should consult the cart's @inContext.
   const rewritten = new URL(
-    `https://puchica-2.myshopify.com/checkouts/cn/${encodeURIComponent(cartToken)}/en-ca`,
+    `https://${CHECKOUT_DOMAIN}/checkouts/cn/${encodeURIComponent(cartToken)}/${CHECKOUT_LOCALE}`,
   );
 
   // Preserve the query string (key, _s, _y, discount, etc.).

@@ -1,5 +1,7 @@
 import {Analytics, getShopAnalytics, useNonce} from '@shopify/hydrogen';
 import {
+  Form,
+  Link,
   Outlet,
   useRouteError,
   isRouteErrorResponse,
@@ -14,6 +16,7 @@ import {FOOTER_QUERY, HEADER_QUERY} from '~/lib/fragments';
 import resetStyles from '~/styles/reset.css?url';
 import appStyles from '~/styles/app.css?url';
 import {PageLayout} from './components/PageLayout';
+import {error as logError} from '~/lib/logger';
 
 /**
  * This is important to avoid re-fetching root queries on sub-navigations
@@ -139,7 +142,7 @@ function loadDeferredData({context}) {
     })
     .catch((error) => {
       // Log query errors, but don't throw them so the page can still render
-      console.error(error);
+      logError('deferred footer query failed', error);
       return null;
     });
   return {
@@ -195,27 +198,90 @@ export default function App() {
   );
 }
 
+/**
+ * Friendly error / 404 page.
+ *
+ * Renders a styled, customer-facing page (no raw error.message) and
+ * logs the underlying error through the dev-only logger so the merchant
+ * can still see what happened. The page has two variants:
+ *   - 404 ("We couldn't find that page"): routes that throw a Response
+ *     with status 404 land here.
+ *   - 5xx / unhandled ("Something went wrong"): everything else.
+ *
+ * Both variants offer a search box (GETs /search with the user's
+ * query) and clear CTAs back into the shop. We never render the raw
+ * error text — that's a leakage vector for server details and a
+ * trust-destroyer on a real storefront.
+ */
 export function ErrorBoundary() {
   const error = useRouteError();
-  let errorMessage = 'Unknown error';
   let errorStatus = 500;
+  let rawError;
 
   if (isRouteErrorResponse(error)) {
-    errorMessage = error?.data?.message ?? error.data;
     errorStatus = error.status;
+    rawError = error?.data ?? error?.statusText;
   } else if (error instanceof Error) {
-    errorMessage = error.message;
+    rawError = error.message;
   }
 
+  // Log once. The logger no-ops in production, so this is dev-only.
+  logError('route error', {status: errorStatus, error: rawError, route: undefined});
+
+  const isNotFound = errorStatus === 404;
+  const heading = isNotFound
+    ? "We couldn't find that page"
+    : 'Something went wrong on our end';
+  const subhead = isNotFound
+    ? 'The link may be broken, or the page may have moved. Try a search, or head back to the shop.'
+    : 'We hit an unexpected error rendering this page. Try again, or browse the catalog below.';
+
   return (
-    <div className="route-error">
-      <h1>Oops</h1>
-      <h2>{errorStatus}</h2>
-      {errorMessage && (
-        <fieldset>
-          <pre>{errorMessage}</pre>
-        </fieldset>
-      )}
+    <div className="route-error pk-route-error">
+      <div className="pk-route-error__panel">
+        <span className="pk-route-error__eyebrow" aria-hidden>
+          {errorStatus}
+        </span>
+        <h1 className="pk-route-error__title">{heading}</h1>
+        <p className="pk-route-error__sub">{subhead}</p>
+
+        <Form
+          method="get"
+          action="/search"
+          role="search"
+          className="pk-route-error__search"
+        >
+          <label htmlFor="route-error-search" className="sr-only">
+            Search the shop
+          </label>
+          <input
+            id="route-error-search"
+            type="search"
+            name="q"
+            placeholder="Search the shop…"
+            autoComplete="off"
+            className="pk-route-error__input"
+          />
+          <button type="submit" className="pk-btn pk-btn--primary">
+            Search
+          </button>
+        </Form>
+
+        <div className="pk-route-error__cta">
+          <Link to="/" className="pk-btn pk-btn--primary pk-btn--lg">
+            Back to home
+          </Link>
+          <Link to="/collections/all" className="pk-btn pk-btn--ghost pk-btn--lg">
+            Browse all products
+          </Link>
+        </div>
+
+        <p className="pk-route-error__contact">
+          Still stuck? Email{' '}
+          <a href="mailto:hello@puchica.ca">hello@puchica.ca</a> and
+          we&apos;ll help.
+        </p>
+      </div>
     </div>
   );
 }

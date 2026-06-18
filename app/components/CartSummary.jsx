@@ -1,6 +1,6 @@
 import {CartForm, Money} from '@shopify/hydrogen';
 import {useEffect, useId, useRef, useState} from 'react';
-import {useFetcher} from 'react-router';
+import {useActionData, useFetcher} from 'react-router';
 import {CHECKOUT_URL_REWRITER} from '~/lib/checkout';
 
 /**
@@ -33,6 +33,7 @@ export function CartSummary({cart, layout, hasCheckoutableItems = true}) {
         discountsHeadingId={discountsHeadingId}
         discountCodeInputId={discountCodeInputId}
       />
+      <CartActionErrors />
       <CartGiftCard
         giftCardCodes={cart?.appliedGiftCards}
         giftCardHeadingId={giftCardHeadingId}
@@ -72,6 +73,30 @@ function CartCheckoutActions({checkoutUrl, disabled = false}) {
           )}
       </a>
     </div>
+  );
+}
+
+/**
+ * Surfaces the first non-fatal error from the cart action
+ * (`/cart` action returns `{errors, warnings, cart}` from Hydrogen's
+ * Cart helpers; the UI historically ignored `errors` entirely so
+ * things like "promo code not valid" disappeared). Renders nothing
+ * if there's nothing to show.
+ */
+function CartActionErrors() {
+  const actionData = useActionData();
+  const errors = actionData?.errors;
+  if (!Array.isArray(errors) || errors.length === 0) return null;
+  // The Hydrogen Cart helpers return errors as either strings or
+  // `{message, code, field}` objects depending on the action.
+  const message = errors
+    .map((e) => (typeof e === 'string' ? e : e?.message))
+    .filter(Boolean)[0];
+  if (!message) return null;
+  return (
+    <p className="pk-cart-error" role="alert">
+      {message}
+    </p>
   );
 }
 

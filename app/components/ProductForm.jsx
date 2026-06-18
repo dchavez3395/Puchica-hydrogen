@@ -1,4 +1,5 @@
 import {Link, useNavigate} from 'react-router';
+import {useState} from 'react';
 import {AddToCartButton} from './AddToCartButton';
 import {useAside} from './Aside';
 
@@ -12,14 +13,14 @@ export function ProductForm({productOptions, selectedVariant}) {
   const navigate = useNavigate();
   const {open} = useAside();
   return (
-    <div className="product-form">
+    <div className="product-form" id="product-form">
       {productOptions.map((option) => {
         // If there is only a single value in the option values, don't display the option
         if (option.optionValues.length === 1) return null;
 
         return (
-          <div className="product-options" key={option.name}>
-            <h5>{option.name}</h5>
+          <fieldset className="product-options" key={option.name}>
+            <legend className="product-options__legend">{option.name}</legend>
             <div className="product-options-grid">
               {option.optionValues.map((value) => {
                 const {
@@ -89,8 +90,7 @@ export function ProductForm({productOptions, selectedVariant}) {
                 }
               })}
             </div>
-            <br />
-          </div>
+          </fieldset>
         );
       })}
       <AddToCartButton
@@ -112,7 +112,80 @@ export function ProductForm({productOptions, selectedVariant}) {
       >
         {selectedVariant?.availableForSale ? 'Add to cart' : 'Sold out'}
       </AddToCartButton>
+      {selectedVariant && !selectedVariant.availableForSale ? (
+        <NotifyBackForm variantId={selectedVariant.id} productHandle={productOptions?.handle} />
+      ) : null}
     </div>
+  );
+}
+
+/**
+ * Stub back-in-stock notification form. Renders when the selected
+ * variant is sold out. Posts to `/notify-back`, which is a placeholder
+ * route that returns `{ok: true}`. The real notification wiring
+ * (Klaviyo, Shopify customer events, or a Hydrogen custom endpoint)
+ * is a separate decision — this just unblocks the UX.
+ */
+function NotifyBackForm({variantId, productHandle}) {
+  const [email, setEmail] = useState('');
+  const [sent, setSent] = useState(false);
+  const [error, setError] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
+
+  if (sent) {
+    return (
+      <p className="pk-notify-back__ok" role="status">
+        Thanks — we&apos;ll email you when this is back in stock.
+      </p>
+    );
+  }
+
+  return (
+    <form
+      className="pk-notify-back"
+      onSubmit={async (e) => {
+        e.preventDefault();
+        setError(null);
+        setSubmitting(true);
+        try {
+          const res = await fetch('/notify-back', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({email, variantId, productHandle}),
+          });
+          if (!res.ok) throw new Error('Could not subscribe');
+          setSent(true);
+        } catch (err) {
+          setError('Something went wrong. Please try again.');
+        } finally {
+          setSubmitting(false);
+        }
+      }}
+    >
+      <label htmlFor={`notify-back-${variantId}`}>
+        Notify me when back in stock
+      </label>
+      <div className="pk-notify-back__row">
+        <input
+          id={`notify-back-${variantId}`}
+          type="email"
+          inputMode="email"
+          autoComplete="email"
+          required
+          placeholder="you@example.com"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <button type="submit" disabled={submitting || !email}>
+          {submitting ? '…' : 'Notify me'}
+        </button>
+      </div>
+      {error ? (
+        <p className="pk-notify-back__err" role="alert">
+          {error}
+        </p>
+      ) : null}
+    </form>
   );
 }
 

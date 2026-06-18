@@ -1,5 +1,5 @@
 :root {
-  --aside-width: 400px;
+  --aside-width: min(400px, 100vw);
   --cart-aside-summary-height-with-discount: 340px;
   --cart-aside-summary-height: 300px;
   --grid-item-width: 355px;
@@ -809,6 +809,8 @@ button.reset:hover:not(:has(> *)) {
 }
 .cart-summary-field__row input[type="text"]:focus {
   outline: none;
+  box-shadow: 0 0 0 3px rgba(109, 78, 246, 0.35);
+  border-color: var(--pk-violet-500);
 }
 .cart-summary-field__row button[type="submit"] {
   align-self: stretch;
@@ -918,6 +920,14 @@ button.reset:hover:not(:has(> *)) {
   outline: none;
   transition: border-color .15s ease, background .15s ease, box-shadow .15s ease;
   min-width: 0;
+}
+.search-aside input[type="search"]:focus,
+.search-aside input[type="text"]:focus {
+  /* Search input already has a soft focus ring, but ensure keyboard
+   * focus always shows. The :focus-visible state is what most users
+   * actually need. */
+  box-shadow: 0 0 0 3px rgba(109, 78, 246, 0.35);
+  border-color: var(--pk-violet-500);
 }
 .pk-search__input::placeholder { color: var(--pk-muted, #6B6486); }
 .pk-search__input:focus {
@@ -2099,7 +2109,7 @@ body {
   background: #fff;
   box-sizing: border-box;
 }
-.pk-footer__form input:focus { outline: none; border-color: var(--pk-violet-500); }
+.pk-footer__form input:focus { outline: none; box-shadow: 0 0 0 3px rgba(109, 78, 246, 0.35); border-color: var(--pk-violet-500); }
 .pk-footer__form button {
   flex: none;
   align-self: stretch;
@@ -4185,4 +4195,320 @@ body {
 
 @media (prefers-color-scheme: dark) {
   /* Puchica is light-only for now; dark mode is a future pass. */
+}
+
+/* ============================================================
+ * CRO pass — added 2026-06-18
+ * Styles for: friendly error page, working filters, sort chips,
+ * PDP reviews-coming-soon card, notify-back stub, cart errors,
+ * cart drawer mobile width.
+ * ============================================================ */
+
+/* ---------- Friendly error / 404 page ---------- */
+.pk-route-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  padding: 32px 16px;
+}
+.pk-route-error__panel {
+  max-width: 560px;
+  width: 100%;
+  text-align: center;
+  background: var(--pk-bg-soft, #F4F0FF);
+  border: 1px solid rgba(109, 78, 246, 0.18);
+  border-radius: 18px;
+  padding: 36px 24px;
+}
+.pk-route-error__eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--pk-violet-500, #6D4EF6);
+  background: rgba(109, 78, 246, 0.12);
+  border-radius: 999px;
+  padding: 4px 10px;
+  margin-bottom: 16px;
+}
+.pk-route-error__title {
+  font-size: clamp(24px, 4vw, 32px);
+  margin: 0 0 8px;
+  color: var(--pk-ink, #160F3A);
+}
+.pk-route-error__sub {
+  margin: 0 0 24px;
+  color: var(--pk-ink-soft, #4A4268);
+}
+.pk-route-error__search {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+.pk-route-error__input {
+  flex: 1;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(109, 78, 246, 0.25);
+  background: #fff;
+  font-size: 16px;
+}
+.pk-route-error__input:focus {
+  outline: none;
+  border-color: var(--pk-violet-500, #6D4EF6);
+  box-shadow: 0 0 0 3px rgba(109, 78, 246, 0.35);
+}
+.pk-route-error__cta {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+.pk-route-error__contact {
+  font-size: 14px;
+  color: var(--pk-ink-soft, #4A4268);
+  margin: 0;
+}
+.pk-route-error__contact a {
+  color: var(--pk-violet-500, #6D4EF6);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- Working filter buttons ---------- */
+.pk-filters__btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 10px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  color: inherit;
+  cursor: pointer;
+  font-size: 14px;
+  text-align: left;
+  text-decoration: none;
+  transition: background 0.12s ease, border-color 0.12s ease;
+}
+.pk-filters__btn:hover {
+  background: rgba(109, 78, 246, 0.08);
+  text-decoration: none;
+}
+.pk-filters__btn.is-active {
+  background: rgba(109, 78, 246, 0.12);
+  border-color: rgba(109, 78, 246, 0.4);
+  color: var(--pk-violet-500, #6D4EF6);
+  font-weight: 600;
+}
+.pk-filters__btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(109, 78, 246, 0.35);
+}
+
+/* ---------- Active-filter chips ---------- */
+.pk-toolbar__active {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 12px 0 18px;
+  padding: 10px 12px;
+  background: var(--pk-bg-soft, #F4F0FF);
+  border-radius: 10px;
+}
+.pk-toolbar__chip {
+  display: inline-block;
+  padding: 4px 10px;
+  background: rgba(109, 78, 246, 0.12);
+  color: var(--pk-violet-500, #6D4EF6);
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 999px;
+}
+.pk-toolbar__clear {
+  background: transparent;
+  border: 0;
+  color: var(--pk-violet-500, #6D4EF6);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  margin-left: auto;
+  padding: 4px 6px;
+}
+.pk-toolbar__clear:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(109, 78, 246, 0.35);
+  border-radius: 4px;
+}
+.pk-empty__reset {
+  background: transparent;
+  border: 0;
+  color: var(--pk-violet-500, #6D4EF6);
+  cursor: pointer;
+  font-size: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  padding: 0;
+}
+
+/* ---------- Cart error / notice ---------- */
+.pk-cart-error {
+  margin: 12px 0 0;
+  padding: 10px 12px;
+  background: #FFF1F1;
+  border: 1px solid #FFD6D6;
+  color: #8B1E1E;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+/* ---------- PDP reviews-coming-soon stub ---------- */
+.pk-reviews-stub {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin: 16px 0;
+  padding: 14px 16px;
+  background: var(--pk-bg-soft, #F4F0FF);
+  border: 1px dashed rgba(109, 78, 246, 0.35);
+  border-radius: 12px;
+}
+.pk-reviews-stub__stars {
+  font-size: 16px;
+  letter-spacing: 0.05em;
+  color: rgba(109, 78, 246, 0.45);
+  flex-shrink: 0;
+  padding-top: 2px;
+}
+.pk-reviews-stub__copy {
+  margin: 0;
+  font-size: 13px;
+  color: var(--pk-ink-soft, #4A4268);
+  line-height: 1.5;
+}
+
+/* ---------- PDP notify-back stub ---------- */
+.pk-notify-back {
+  margin-top: 18px;
+  padding: 14px 16px;
+  background: var(--pk-bg-soft, #F4F0FF);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.pk-notify-back label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--pk-ink, #160F3A);
+}
+.pk-notify-back__row {
+  display: flex;
+  gap: 8px;
+}
+.pk-notify-back input {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(109, 78, 246, 0.25);
+  background: #fff;
+  font-size: 14px;
+}
+.pk-notify-back input:focus {
+  outline: none;
+  border-color: var(--pk-violet-500, #6D4EF6);
+  box-shadow: 0 0 0 3px rgba(109, 78, 246, 0.35);
+}
+.pk-notify-back button {
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--pk-violet-500, #6D4EF6);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 14px;
+}
+.pk-notify-back button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.pk-notify-back__err {
+  margin: 0;
+  font-size: 13px;
+  color: #8B1E1E;
+}
+.pk-notify-back__ok {
+  margin: 12px 0 0;
+  padding: 10px 12px;
+  background: #EAF7EE;
+  border: 1px solid #B7E0C0;
+  color: #1E5F31;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+/* ---------- PDP option a11y (fieldset/legend) ---------- */
+.product-options {
+  border: 0;
+  padding: 0;
+  margin: 14px 0 18px;
+}
+.product-options__legend {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--pk-ink, #160F3A);
+  margin-bottom: 8px;
+  padding: 0;
+}
+
+/* ---------- Footer payment chips as list ---------- */
+.pk-footer__pay-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.pk-footer__pay-mark {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--pk-ink-soft, #4A4268);
+  background: rgba(109, 78, 246, 0.08);
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+.pk-footer__address {
+  margin-top: 14px;
+  font-size: 13px;
+  font-style: normal;
+  color: var(--pk-ink-soft, #4A4268);
+  line-height: 1.5;
+}
+.pk-footer__address a {
+  color: var(--pk-violet-500, #6D4EF6);
+  font-weight: 600;
 }

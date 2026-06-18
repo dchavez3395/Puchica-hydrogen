@@ -1,4 +1,4 @@
-import {redirect, useLoaderData, Link} from 'react-router';
+import {redirect, useLoaderData, Link, useSearchParams} from 'react-router';
 import {getPaginationVariables, Analytics} from '@shopify/hydrogen';
 import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
@@ -36,19 +36,68 @@ export async function loader(args) {
 }
 
 /**
+ * Map from the URL `?sort=…` value to a Storefront API `ProductCollectionSortKeys`
+ * enum. We default to `MANUAL` (matches Shopify's "Featured" pick when the
+ * merchant has ordered the collection) and only fall back to `RELEVANCE`
+ * for the "all products" / non-curated catalog if the merchant ever
+ * switches that page to use this query.
+ */
+const SORT_KEY_MAP = {
+  featured: {sortKey: 'MANUAL', reverse: false},
+  'best-selling': {sortKey: 'BEST_SELLING', reverse: false},
+  newest: {sortKey: 'CREATED', reverse: true},
+  'price-asc': {sortKey: 'PRICE', reverse: false},
+  'price-desc': {sortKey: 'PRICE', reverse: true},
+};
+const DEFAULT_SORT = 'featured';
+
+/**
+ * Map from URL `?price=…` to a Storefront API `PriceRangeFilter` shape.
+ * The bounds are USD/CAD cents. The actual numbers don't have to be
+ * perfect — they're a coarse filter for UX, not a guarantee.
+ */
+const PRICE_RANGE_MAP = {
+  'under-25': {price: {max: 25}},
+  '25-50': {price: {min: 25, max: 50}},
+  '50-100': {price: {min: 50, max: 100}},
+  '100-plus': {price: {min: 100}},
+};
+
+/**
  * @param {Route.LoaderArgs}
  */
 async function loadCriticalData({context, params, request}) {
   const {handle} = params;
   const {storefront} = context;
   const paginationVariables = getPaginationVariables(request, {pageBy: 12});
+  const url = new URL(request.url);
 
   if (!handle) throw redirect('/collections');
 
+  // Read sort + filter state from the URL. Treat unknown values as
+  // "no filter" so a stale link never breaks the page.
+  const sortValue = url.searchParams.get('sort') || DEFAULT_SORT;
+  const {sortKey, reverse} = SORT_KEY_MAP[sortValue] || SORT_KEY_MAP[DEFAULT_SORT];
+  const productType = url.searchParams.get('productType') || null;
+  const priceValue = url.searchParams.get('price') || null;
+  const priceRange = PRICE_RANGE_MAP[priceValue] || null;
+
+  // Build a `ProductFilter` for any active filter. The Storefront API
+  // accepts both at once; combining them is an AND.
+  const filters = [];
+  if (productType) filters.push({productType});
+  if (priceRange) filters.push(priceRange);
+
+  const variables = {
+    handle,
+    sortKey,
+    reverse,
+    filters: filters.length > 0 ? filters : undefined,
+    ...paginationVariables,
+  };
+
   const [{collection}] = await Promise.all([
-    storefront.query(COLLECTION_QUERY, {
-      variables: {handle, ...paginationVariables},
-    }),
+    storefront.query(COLLECTION_QUERY, {variables}),
   ]);
 
   if (!collection) {
@@ -66,8 +115,13 @@ function loadDeferredData() {
 export default function Collection() {
   /** @type {LoaderReturnData} */
   const {collection} = useLoaderData();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const sortValue = searchParams.get('sort') || 'featured';
+  const activeProductType = searchParams.get('productType') || null;
+  const activePrice = searchParams.get('price') || null;
   const nodes = collection.products?.nodes ?? [];
   const count = nodes.length;
+  const hasActiveFilter = Boolean(activeProductType || activePrice);
   // Storefront API 2025-04 doesn't expose a real `totalCount` on
   // ProductConnection. We infer an "X of Y+" framing from pageInfo so the
   // count chip is honest about the catalog being larger than the page.
@@ -105,13 +159,37 @@ export default function Collection() {
         <div className="pk-empty">
           <p className="pk-empty__title">Nothing here just yet</p>
           <p className="pk-empty__body">
-            We&apos;re restocking this collection. Check back soon, or browse
-            the rest of the shop.
+            {hasActiveFilter ? (
+              <>
+                No products match these filters.{' '}
+                <button
+                  type="button"
+                  className="pk-empty__reset"
+                  onClick={() => {
+                    const next = new URLSearchParams(searchParams);
+                    next.delete('productType');
+                    next.delete('price');
+                    setSearchParams(next, {replace: true});
+                  }}
+                >
+                  Clear filters
+                </button>
+              </>
+            ) : (
+              <>
+                We&apos;re restocking this collection. Check back soon, or
+                browse the rest of the shop.
+              </>
+            )}
           </p>
         </div>
       ) : (
         <div className="pk-col-body">
-          <FilterSidebar nodes={nodes} />
+          <FilterSidebar
+            nodes={nodes}
+            activeProductType={activeProductType}
+            activePrice={activePrice}
+          />
           <div className="pk-col-main">
             <div className="pk-toolbar">
               <span className="pk-toolbar__count">
@@ -129,7 +207,18 @@ export default function Collection() {
               </span>
               <label className="pk-toolbar__sort">
                 Sort by
-                <select defaultValue="featured">
+                <select
+                  value={sortValue}
+                  onChange={(e) => {
+                    const next = new URLSearchParams(searchParams);
+                    if (e.target.value === 'featured') {
+                      next.delete('sort');
+                    } else {
+                      next.set('sort', e.target.value);
+                    }
+                    setSearchParams(next, {replace: true});
+                  }}
+                >
                   <option value="featured">Featured</option>
                   <option value="best-selling">Best selling</option>
                   <option value="newest">Newest</option>
@@ -138,6 +227,32 @@ export default function Collection() {
                 </select>
               </label>
             </div>
+            {hasActiveFilter ? (
+              <div className="pk-toolbar__active">
+                {activeProductType ? (
+                  <span className="pk-toolbar__chip">
+                    Category: {activeProductType}
+                  </span>
+                ) : null}
+                {activePrice ? (
+                  <span className="pk-toolbar__chip">
+                    Price: {priceLabel(activePrice)}
+                  </span>
+                ) : null}
+                <button
+                  type="button"
+                  className="pk-toolbar__clear"
+                  onClick={() => {
+                    const next = new URLSearchParams(searchParams);
+                    next.delete('productType');
+                    next.delete('price');
+                    setSearchParams(next, {replace: true});
+                  }}
+                >
+                  Clear filters
+                </button>
+              </div>
+            ) : null}
             <PaginatedResourceSection
               connection={collection.products}
               resourcesClassName="pk-prod-grid"
@@ -163,7 +278,7 @@ export default function Collection() {
   );
 }
 
-function FilterSidebar({nodes}) {
+function FilterSidebar({nodes, activeProductType, activePrice}) {
   // Aggregate product types from this collection for an honest static filter.
   const typeCounts = {};
   for (const p of nodes) {
@@ -172,6 +287,30 @@ function FilterSidebar({nodes}) {
     }
   }
   const types = Object.entries(typeCounts).sort((a, b) => b[1] - a[1]);
+
+  // Each filter link toggles its own param while preserving the other
+  // params (sort, page cursor) so a shopper doesn't lose state on click.
+  function withParam(key, value) {
+    const next = new URLSearchParams();
+    // Mirror current search params from the URL.
+    if (typeof window !== 'undefined') {
+      const url = new URL(window.location.href);
+      url.searchParams.forEach((v, k) => next.set(k, v));
+    }
+    if (value === null) {
+      next.delete(key);
+    } else {
+      next.set(key, value);
+    }
+    return `?${next.toString()}`;
+  }
+
+  const priceOptions = [
+    ['under-25', 'Under $25'],
+    ['25-50', '$25 – $50'],
+    ['50-100', '$50 – $100'],
+    ['100-plus', '$100 +'],
+  ];
 
   return (
     <aside className="pk-filters" aria-label="Filters">
@@ -187,10 +326,21 @@ function FilterSidebar({nodes}) {
           ) : (
             types.slice(0, 8).map(([name, n]) => (
               <li key={name}>
-                <button type="button">
+                <Link
+                  to={withParam(
+                    'productType',
+                    activeProductType === name ? null : name,
+                  )}
+                  className={
+                    'pk-filters__btn' +
+                    (activeProductType === name ? ' is-active' : '')
+                  }
+                  prefetch="intent"
+                  aria-pressed={activeProductType === name}
+                >
                   <span>{name}</span>
                   <span className="pk-filters__count">{n}</span>
-                </button>
+                </Link>
               </li>
             ))
           )}
@@ -199,18 +349,40 @@ function FilterSidebar({nodes}) {
       <div className="pk-filters__group">
         <h3 className="pk-filters__title">Price</h3>
         <ul className="pk-filters__list">
-          <li><button type="button"><span>Under $25</span></button></li>
-          <li><button type="button"><span>$25 – $50</span></button></li>
-          <li><button type="button"><span>$50 – $100</span></button></li>
-          <li><button type="button"><span>$100 +</span></button></li>
+          {priceOptions.map(([value, label]) => (
+            <li key={value}>
+              <Link
+                to={withParam('price', activePrice === value ? null : value)}
+                className={
+                  'pk-filters__btn' +
+                  (activePrice === value ? ' is-active' : '')
+                }
+                prefetch="intent"
+                aria-pressed={activePrice === value}
+              >
+                <span>{label}</span>
+              </Link>
+            </li>
+          ))}
         </ul>
       </div>
-      <p className="pk-filters__note">
-        Filter selection is visual only on this preview build — full filtering
-        ships next.
-      </p>
     </aside>
   );
+}
+
+function priceLabel(value) {
+  switch (value) {
+    case 'under-25':
+      return 'Under $25';
+    case '25-50':
+      return '$25 – $50';
+    case '50-100':
+      return '$50 – $100';
+    case '100-plus':
+      return '$100 +';
+    default:
+      return value;
+  }
 }
 
 const PRODUCT_ITEM_FRAGMENT = `#graphql
@@ -250,7 +422,10 @@ const COLLECTION_QUERY = `#graphql
     $first: Int
     $last: Int
     $startCursor: String
-    $endCursor: String) {
+    $endCursor: String
+    $sortKey: ProductCollectionSortKeys
+    $reverse: Boolean
+    $filters: [ProductFilter!]) {
     collection(handle: $handle) {
       id
       handle
@@ -265,6 +440,9 @@ const COLLECTION_QUERY = `#graphql
         last: $last
         before: $startCursor
         after: $endCursor
+        sortKey: $sortKey
+        reverse: $reverse
+        filters: $filters
       ) {
         nodes { ...ProductItem }
         pageInfo {

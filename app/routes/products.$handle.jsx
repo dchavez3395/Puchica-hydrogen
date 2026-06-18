@@ -8,6 +8,7 @@ import {
   getAdjacentAndFirstAvailableVariants,
   useSelectedOptionInUrlParam,
 } from '@shopify/hydrogen';
+import {error as logError} from '~/lib/logger';
 import {ProductPrice} from '~/components/ProductPrice';
 import {ProductImage} from '~/components/ProductImage';
 import {ProductForm} from '~/components/ProductForm';
@@ -97,7 +98,7 @@ async function loadCriticalData({context, params, request}) {
       },
     });
   } catch (err) {
-    console.error('productRecommendations failed:', err);
+    logError('productRecommendations failed', err);
   }
 
   redirectIfHandleIsLocalized(request, {handle, data: product});
@@ -145,7 +146,9 @@ export default function Product() {
         {product.productType ? (
           <>
             <span className="pk-breadcrumbs__sep">/</span>
-            <Link to={`/collections/all`}>{product.productType}</Link>
+            <Link to={`/collections/${productTypeSlug(product.productType)}`}>
+              {product.productType}
+            </Link>
           </>
         ) : null}
         <span className="pk-breadcrumbs__sep">/</span>
@@ -191,6 +194,24 @@ export default function Product() {
               Secure checkout
             </span>
           </div>
+
+          {/*
+           * Honest reviews-coming-soon card. Until a real reviews
+           * integration (Judge.me / Yotpo / Shopify customer reviews)
+           * is wired in, we don't show fake stars or invented quotes.
+           * This block is visible but small — the social-proof work
+           * happens off-platform for now.
+           */}
+          <aside className="pk-reviews-stub" aria-label="Reviews">
+            <span className="pk-reviews-stub__stars" aria-hidden>
+              ☆☆☆☆☆
+            </span>
+            <p className="pk-reviews-stub__copy">
+              Verified buyer reviews are on the way. Every order ships
+              with a pre-paid return label — your satisfaction is the
+              only review we need to earn.
+            </p>
+          </aside>
 
           <ProductForm
             productOptions={productOptions}
@@ -397,11 +418,11 @@ function MobileCart({product, selectedVariant}) {
   const [visible, setVisible] = useState(false);
 
   // Show the sticky bar once the user scrolls past the in-page add-to-cart
-  // (the .product-form element). Re-check on resize and on scroll, throttled
+  // (the #product-form element). Re-check on resize and on scroll, throttled
   // to one frame via rAF.
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    const form = document.querySelector('.pk-product .product-form');
+    const form = document.getElementById('product-form');
     if (!form) return;
     let ticking = false;
     const onScroll = () => {
@@ -420,6 +441,9 @@ function MobileCart({product, selectedVariant}) {
 
   if (!selectedVariant) return null;
 
+  // Use a real button that scrolls the in-page form into view and
+  // submits it — the previous <a href="#product-form"> jumped to a
+  // <div> with no id, which silently no-oped on iOS Safari.
   return (
     <div
       ref={ref}
@@ -433,19 +457,24 @@ function MobileCart({product, selectedVariant}) {
           compareAtPrice={selectedVariant.compareAtPrice}
         />
       </span>
-      <a
-        href="#product-form"
+      <button
+        type="button"
         className="pk-btn pk-btn--primary pk-mob-cart__btn"
-        onClick={(e) => {
-          e.preventDefault();
-          const form = document.querySelector(
-            '.pk-product .product-form button[type="submit"]',
-          );
-          if (form instanceof HTMLElement) form.click();
+        onClick={() => {
+          const form = document.getElementById('product-form');
+          if (form instanceof HTMLElement) {
+            form.scrollIntoView({behavior: 'smooth', block: 'center'});
+            const submit = form.querySelector(
+              'button[type="submit"]',
+            );
+            // Give the smooth-scroll a beat so the focus ring paints
+            // on the real submit button instead of jumping to it.
+            window.setTimeout(() => submit?.click(), 280);
+          }
         }}
       >
         {selectedVariant.availableForSale ? 'Add to cart' : 'Sold out'}
-      </a>
+      </button>
     </div>
   );
 }
@@ -481,10 +510,29 @@ function buildBreadcrumbItems(product, title) {
     {name: 'Shop', url: '/collections/all'},
   ];
   if (product.productType) {
-    items.push({name: product.productType, url: '/collections/all'});
+    items.push({
+      name: product.productType,
+      url: `/collections/${productTypeSlug(product.productType)}`,
+    });
   }
   items.push({name: title, url: `/products/${product.handle}`});
   return items;
+}
+
+/**
+ * Convert a Shopify `productType` (free-text, e.g. "Kitchen & Dining")
+ * into a URL-safe slug for the breadcrumb link. Matches Shopify's
+ * default collection-handle convention: lowercased, spaces → dashes,
+ * ampersands preserved as "and". Conservative on punctuation so a
+ * product with an unusual productType can't 404 the breadcrumb link.
+ */
+function productTypeSlug(productType) {
+  if (!productType) return 'all';
+  return productType
+    .toLowerCase()
+    .replace(/&/g, 'and')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '') || 'all';
 }
 
 function buildJsonLd(product, selectedVariant) {
@@ -519,6 +567,14 @@ function buildJsonLd(product, selectedVariant) {
       name: 'Puchica',
       url: SITE_URL,
     },
+    // Reviews are on the way (see BrandPromise on the homepage for the
+    // honest "verified buyer reviews coming soon" framing). When the
+    // real integration lands (Judge.me / Yotpo / Shopify customer
+    // reviews), replace these null fields with `aggregateRating` and
+    // `review` arrays — the schema shape is pre-validated so it's a
+    // one-line change to flip on rich results.
+    aggregateRating: undefined,
+    review: undefined,
     offers: price
       ? {
           '@type': 'Offer',

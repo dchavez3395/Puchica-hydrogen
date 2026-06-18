@@ -2,6 +2,7 @@ import {useLoaderData, data} from 'react-router';
 import {CartForm} from '@shopify/hydrogen';
 import {CartMain} from '~/components/CartMain';
 import {puchicaMeta} from '~/lib/seo';
+import {CHECKOUT_URL_REWRITER} from '~/lib/checkout';
 
 /**
  * @type {Route.MetaFunction}
@@ -90,6 +91,17 @@ export async function action({request, context}) {
   const cartId = result?.cart?.id;
   const headers = cartId ? cart.setCartId(result.cart.id) : new Headers();
   const {cart: cartResult, errors, warnings} = result;
+
+  // The Storefront API returns a `/cart/c/{token}` checkoutUrl shaped for
+  // the storefront host, which 404s against Hydrogen. Pass the result
+  // through the rewriter so the "Continue to Checkout" button in
+  // CartSummary gets a URL that actually serves the Shopify-hosted
+  // checkout. This is the second of the two callers mentioned in
+  // app/lib/checkout.js (the other is CartSummary, which also rewrites
+  // the same field for the drawer view).
+  if (cartResult && cartResult.checkoutUrl) {
+    cartResult.checkoutUrl = CHECKOUT_URL_REWRITER(cartResult.checkoutUrl);
+  }
 
   const redirectTo = formData.get('redirectTo') ?? null;
   if (typeof redirectTo === 'string') {

@@ -83,6 +83,9 @@ type Pages = {
   "/blogs": {
     params: {};
   };
+  "/notify-back": {
+    params: {};
+  };
   "/newsletter": {
     params: {};
   };
@@ -129,7 +132,7 @@ type Pages = {
 type RouteFiles = {
   "root.jsx": {
     id: "root";
-    page: "/" | "/blogs/:blogHandle/:articleHandle" | "/sitemap/:type/:page.xml" | "/blogs/:blogHandle" | "/collections/:handle" | "/account/authorize" | "/collections" | "/policies/:handle" | "/products/:handle" | "/account/logout" | "/collections/all" | "/policies" | "/account/login" | "/discount/:code" | "/sitemap.xml" | "/pages/:handle" | "/robots.txt" | "/blogs" | "/newsletter" | "/account" | "/account/orders" | "/account/orders/:id" | "/account/addresses" | "/account/profile" | "/account/*" | "/search" | "/cart" | "/cart/:lines" | "/*";
+    page: "/" | "/blogs/:blogHandle/:articleHandle" | "/sitemap/:type/:page.xml" | "/blogs/:blogHandle" | "/collections/:handle" | "/account/authorize" | "/collections" | "/policies/:handle" | "/products/:handle" | "/account/logout" | "/collections/all" | "/policies" | "/account/login" | "/discount/:code" | "/sitemap.xml" | "/pages/:handle" | "/robots.txt" | "/blogs" | "/notify-back" | "/newsletter" | "/account" | "/account/orders" | "/account/orders/:id" | "/account/addresses" | "/account/profile" | "/account/*" | "/search" | "/cart" | "/cart/:lines" | "/*";
   };
   "routes/blogs.$blogHandle.$articleHandle.jsx": {
     id: "routes/blogs.$blogHandle.$articleHandle";
@@ -198,6 +201,10 @@ type RouteFiles = {
   "routes/blogs._index.jsx": {
     id: "routes/blogs._index";
     page: "/blogs";
+  };
+  "routes/notify-back.jsx": {
+    id: "routes/notify-back";
+    page: "/notify-back";
   };
   "routes/newsletter.jsx": {
     id: "routes/newsletter";
@@ -272,6 +279,7 @@ type RouteModules = {
   "routes/pages.$handle": typeof import("./app/routes/pages.$handle.jsx");
   "routes/[robots.txt]": typeof import("./app/routes/[robots.txt].jsx");
   "routes/blogs._index": typeof import("./app/routes/blogs._index.jsx");
+  "routes/notify-back": typeof import("./app/routes/notify-back.jsx");
   "routes/newsletter": typeof import("./app/routes/newsletter.jsx");
   "routes/account": typeof import("./app/routes/account.jsx");
   "routes/account.orders._index": typeof import("./app/routes/account.orders._index.jsx");

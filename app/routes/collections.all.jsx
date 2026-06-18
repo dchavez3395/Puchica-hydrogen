@@ -1,4 +1,4 @@
-import {useLoaderData, Link} from 'react-router';
+import {useLoaderData, Link, useSearchParams} from 'react-router';
 import {getPaginationVariables} from '@shopify/hydrogen';
 import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
 import {puchicaMeta} from '~/lib/seo';
@@ -27,14 +27,31 @@ export async function loader(args) {
 }
 
 /**
+ * Map from URL `?sort=…` to Storefront API `ProductSortKeys` (the
+ * top-level `products` connection uses `ProductSortKeys`, not the
+ * collection-scoped `ProductCollectionSortKeys`).
+ */
+const SORT_KEY_MAP = {
+  featured: {sortKey: 'RELEVANCE', reverse: false},
+  'best-selling': {sortKey: 'BEST_SELLING', reverse: false},
+  newest: {sortKey: 'CREATED_AT', reverse: true},
+  'price-asc': {sortKey: 'PRICE', reverse: false},
+  'price-desc': {sortKey: 'PRICE', reverse: true},
+};
+const DEFAULT_SORT = 'featured';
+
+/**
  * @param {Route.LoaderArgs}
  */
 async function loadCriticalData({context, request}) {
   const paginationVariables = getPaginationVariables(request, {pageBy: 12});
+  const url = new URL(request.url);
+  const sortValue = url.searchParams.get('sort') || DEFAULT_SORT;
+  const {sortKey, reverse} = SORT_KEY_MAP[sortValue] || SORT_KEY_MAP[DEFAULT_SORT];
 
   const [{products}] = await Promise.all([
     context.storefront.query(CATALOG_QUERY, {
-      variables: {...paginationVariables},
+      variables: {sortKey, reverse, ...paginationVariables},
     }),
   ]);
   return {products};
@@ -47,6 +64,8 @@ function loadDeferredData() {
 export default function Collection() {
   /** @type {LoaderReturnData} */
   const {products} = useLoaderData();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const sortValue = searchParams.get('sort') || 'featured';
   const nodes = products?.nodes ?? [];
   const count = nodes.length;
   // We don't have a real totalCount on ProductConnection in the current
@@ -111,7 +130,18 @@ export default function Collection() {
               </span>
               <label className="pk-toolbar__sort">
                 Sort by
-                <select defaultValue="featured">
+                <select
+                  value={sortValue}
+                  onChange={(e) => {
+                    const next = new URLSearchParams(searchParams);
+                    if (e.target.value === 'featured') {
+                      next.delete('sort');
+                    } else {
+                      next.set('sort', e.target.value);
+                    }
+                    setSearchParams(next, {replace: true});
+                  }}
+                >
                   <option value="featured">Featured</option>
                   <option value="best-selling">Best selling</option>
                   <option value="newest">Newest</option>
@@ -171,8 +201,10 @@ const CATALOG_QUERY = `#graphql
     $first: Int
     $last: Int
     $startCursor: String
-    $endCursor: String) {
-    products(first: $first, last: $last, before: $startCursor, after: $endCursor) {
+    $endCursor: String
+    $sortKey: ProductSortKeys
+    $reverse: Boolean) {
+    products(first: $first, last: $last, before: $startCursor, after: $endCursor, sortKey: $sortKey, reverse: $reverse) {
       nodes { ...CollectionItem }
       pageInfo {
         hasPreviousPage

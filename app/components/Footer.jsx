@@ -37,9 +37,12 @@ const SOCIAL = [
 
 // Payment marks as styled text "chips" — no third-party brand assets, no
 // real integration here. Real checkout is still handled by Shopify (PCI).
+// The aria-label makes these announce as a list of accepted payment
+// methods, not a meaningless string of brand names. The visual order
+// matches the order shoppers expect at checkout (most-used first).
 const PAYMENTS = [
-  {label: 'Visa', style: {fontStyle: 'italic'}},
-  {label: 'Mastercard', style: {fontStyle: 'italic'}},
+  {label: 'Visa'},
+  {label: 'Mastercard'},
   {label: 'Amex'},
   {label: 'PayPal'},
   {label: 'Apple Pay'},
@@ -57,7 +60,14 @@ export function Footer({header}) {
       <div className="pk-footer__inner">
         <div className="pk-footer__brand">
           <Link to="/" className="pk-footer__logo">
-            <img src={logo} alt="Puchica" />
+            <img
+              src={logo}
+              alt="Puchica"
+              width={120}
+              height={32}
+              loading="lazy"
+              decoding="async"
+            />
           </Link>
           <p className="pk-footer__tagline">
             Curated picks, fast shipping, and effortless style. Shop smart. Shop
@@ -73,12 +83,20 @@ export function Footer({header}) {
 
           <div className="pk-footer__pay" aria-label="Accepted payment methods">
             <span className="pk-footer__pay-label">Accepted payments</span>
-            {PAYMENTS.map((p) => (
-              <span key={p.label} className="pk-footer__pay-mark" style={p.style}>
-                {p.label}
-              </span>
-            ))}
+            <ul className="pk-footer__pay-list" aria-label="Payment methods">
+              {PAYMENTS.map((p) => (
+                <li key={p.label} className="pk-footer__pay-mark">
+                  {p.label}
+                </li>
+              ))}
+            </ul>
           </div>
+
+          <address className="pk-footer__address">
+            Puchica · Toronto, ON, Canada
+            <br />
+            <a href="mailto:hello@puchica.ca">hello@puchica.ca</a>
+          </address>
 
           <span className="pk-footer__secure">
             <span aria-hidden><IconShield size={14} /></span>
@@ -99,6 +117,9 @@ export function Footer({header}) {
           <Link to="/pages/contact">Contact Us</Link>
           <Link to="/search">Search</Link>
           <Link to="/policies">Policies</Link>
+          <Link to="/policies/shipping-policy">Shipping Policy</Link>
+          <Link to="/policies/refund-policy">Refund Policy</Link>
+          <Link to="/policies/terms-of-service">Terms of Service</Link>
         </div>
 
         <Newsletter />
@@ -136,6 +157,8 @@ function Newsletter() {
               required
               placeholder="Enter your email"
               aria-label="Email"
+              autoComplete="email"
+              inputMode="email"
             />
             <button type="submit" disabled={submitting} aria-label="Subscribe">
               {submitting ? '…' : '→'}

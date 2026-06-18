@@ -8,7 +8,11 @@ import {STORE_LOGO_URL} from '~/lib/brand';
 // `shop.brand.logo.image.url` if set under Settings > Brand, otherwise
 // it falls back to STORE_LOGO_URL from app/lib/brand.js.
 
-const ANNOUNCEMENT_KEY = 'pk-ann-dismissed-v1';
+const ANNOUNCEMENT_KEY = 'pk-ann-dismissed-v2';
+const ANNOUNCEMENT_TEXT = {
+  prefix: 'Free shipping on orders over $50 ✦ Easy 30-day returns ✦',
+  cta: {label: 'Shop new arrivals', to: '/collections'},
+};
 
 /**
  * @param {HeaderProps}
@@ -37,6 +41,15 @@ export function Header({header, isLoggedIn, cart, publicStoreDomain}) {
               className="pk-logo__img"
               src={shop.brand?.logo?.image?.url || STORE_LOGO_URL}
               alt={shop.name}
+              width={120}
+              height={32}
+              // Header logo is the LCP element on every page — paint
+              // it before everything else. The intrinsic dimensions
+              // are accurate for the SVG aspect, which keeps CLS at 0.
+              // React 18.3 emits the lowercase `fetchpriority` attribute;
+              // the camelCase prop name triggers a deprecation warning.
+              fetchpriority="high"
+              decoding="async"
             />
           </NavLink>
           <HeaderMenu
@@ -75,9 +88,13 @@ function AnnouncementBar() {
     <div className="pk-ann" data-hidden={hidden ? 'true' : 'false'} role="region" aria-label="Site announcement">
       <div className="pk-ann__inner">
         <span>
-          Free shipping on orders over $50 ✦ Easy 30-day returns ✦
-          <Link to="/collections" prefetch="intent" style={{marginLeft: 6}}>
-            Shop new arrivals
+          {ANNOUNCEMENT_TEXT.prefix}
+          <Link
+            to={ANNOUNCEMENT_TEXT.cta.to}
+            prefetch="intent"
+            style={{marginLeft: 6}}
+          >
+            {ANNOUNCEMENT_TEXT.cta.label}
           </Link>
         </span>
       </div>
