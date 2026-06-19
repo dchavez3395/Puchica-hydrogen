@@ -23,6 +23,8 @@ import {
 } from '~/components/Icons';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 import {puchicaMeta, canonical, SITE_URL, breadcrumbJsonLd, JsonLdScript} from '~/lib/seo';
+import {getJudgemeBadge} from '~/lib/judgeme';
+import {ReviewStars, JudgemeReviews} from '~/components/JudgemeReviews';
 
 /**
  * @type {Route.MetaFunction}
@@ -53,8 +55,8 @@ export async function loader(args) {
   // Critical path: product + recommendations. Recommendations are small
   // (≤ 4 products) and cheap, so we include them in the initial load so
   // they ship with the SSR HTML.
-  const {product, recommendations} = await loadCriticalData(args);
-  return {product, recommendations};
+  const {product, recommendations, reviews} = await loadCriticalData(args);
+  return {product, recommendations, reviews};
 }
 
 async function loadCriticalData({context, params, request}) {
@@ -101,13 +103,16 @@ async function loadCriticalData({context, params, request}) {
     logError('productRecommendations failed', err);
   }
 
+  // Judge.me aggregate rating (best-effort — never blocks the page render).
+  const reviews = await getJudgemeBadge(handle);
+
   redirectIfHandleIsLocalized(request, {handle, data: product});
-  return {product, recommendations: recs};
+  return {product, recommendations: recs, reviews};
 }
 
 export default function Product() {
   /** @type {LoaderReturnData} */
-  const {product, recommendations} = useLoaderData();
+  const {product, recommendations, reviews} = useLoaderData();
 
   const selectedVariant = useOptimisticVariant(
     product.selectedOrFirstAvailableVariant,
@@ -127,7 +132,7 @@ export default function Product() {
   const galleryImages = buildGallery(product, selectedVariant);
 
   // JSON-LD Product schema for SEO.
-  const jsonLd = buildJsonLd(product, selectedVariant);
+  const jsonLd = buildJsonLd(product, selectedVariant, reviews);
 
   return (
     <div className="pk-product">
@@ -202,16 +207,20 @@ export default function Product() {
            * This block is visible but small — the social-proof work
            * happens off-platform for now.
            */}
-          <aside className="pk-reviews-stub" aria-label="Reviews">
-            <span className="pk-reviews-stub__stars" aria-hidden>
-              ☆☆☆☆☆
-            </span>
-            <p className="pk-reviews-stub__copy">
-              Verified buyer reviews are on the way. Every order ships
-              with a pre-paid return label — your satisfaction is the
-              only review we need to earn.
-            </p>
-          </aside>
+          {reviews && reviews.count > 0 ? (
+            <ReviewStars rating={reviews.rating} count={reviews.count} />
+          ) : (
+            <aside className="pk-reviews-stub" aria-label="Reviews">
+              <span className="pk-reviews-stub__stars" aria-hidden>
+                ☆☆☆☆☆
+              </span>
+              <p className="pk-reviews-stub__copy">
+                Verified buyer reviews are on the way. Every order ships
+                with a pre-paid return label — your satisfaction is the
+                only review we need to earn.
+              </p>
+            </aside>
+          )}
 
           <ProductForm
             productOptions={productOptions}
@@ -240,6 +249,11 @@ export default function Product() {
       </section>
 
       <ShareRow product={product} />
+
+      <JudgemeReviews
+        externalId={reviews?.externalId}
+        productTitle={product.title}
+      />
 
       <Recommendations data={recommendations} />
 
@@ -535,7 +549,7 @@ function productTypeSlug(productType) {
     .replace(/^-+|-+$/g, '') || 'all';
 }
 
-function buildJsonLd(product, selectedVariant) {
+function buildJsonLd(product, selectedVariant, reviews) {
   const productUrl = canonical(`/products/${product.handle}`);
   // Always use the canonical product URL for the offer. Never use
   // `window.location.href` here — that varies by query string (e.g. when
@@ -573,7 +587,14 @@ function buildJsonLd(product, selectedVariant) {
     // reviews), replace these null fields with `aggregateRating` and
     // `review` arrays — the schema shape is pre-validated so it's a
     // one-line change to flip on rich results.
-    aggregateRating: undefined,
+    aggregateRating:
+      reviews && reviews.count > 0
+        ? {
+            '@type': 'AggregateRating',
+            ratingValue: reviews.rating,
+            reviewCount: reviews.count,
+          }
+        : undefined,
     review: undefined,
     offers: price
       ? {

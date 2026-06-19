@@ -4,6 +4,7 @@ import {Aside} from '~/components/Aside';
 import {Footer} from '~/components/Footer';
 import {Header, HeaderMenu} from '~/components/Header';
 import {CartMain} from '~/components/CartMain';
+import {NewsletterPopup} from '~/components/NewsletterPopup';
 import {
   SEARCH_ENDPOINT,
   SearchFormPredictive,
@@ -40,6 +41,7 @@ export function PageLayout({
         header={header}
         publicStoreDomain={publicStoreDomain}
       />
+      <NewsletterPopup />
     </Aside.Provider>
   );
 }

@@ -8,10 +8,10 @@ import {STORE_LOGO_URL} from '~/lib/brand';
 // `shop.brand.logo.image.url` if set under Settings > Brand, otherwise
 // it falls back to STORE_LOGO_URL from app/lib/brand.js.
 
-const ANNOUNCEMENT_KEY = 'pk-ann-dismissed-v2';
+const ANNOUNCEMENT_KEY = 'pk-ann-dismissed-v3';
 const ANNOUNCEMENT_TEXT = {
-  prefix: 'Free shipping on orders over $50 ✦ Easy 30-day returns ✦',
-  cta: {label: 'Shop new arrivals', to: '/collections'},
+  prefix: '15% off your first order — use code WELCOME15 at checkout ✦ Free shipping over $50 ✦',
+  cta: {label: 'Shop now', to: '/collections'},
 };
 
 /**
