@@ -3,16 +3,14 @@ import {Await, Link, NavLink, useAsyncValue} from 'react-router';
 import {useAnalytics, useOptimisticCart} from '@shopify/hydrogen';
 import {useAside} from '~/components/Aside';
 import {STORE_LOGO_URL} from '~/lib/brand';
+import {LocaleSwitcher} from '~/components/LocaleSwitcher';
+import {useT} from '~/lib/t';
 
 // Puchica logo. The HeaderGraphQL query prefers
 // `shop.brand.logo.image.url` if set under Settings > Brand, otherwise
 // it falls back to STORE_LOGO_URL from app/lib/brand.js.
 
 const ANNOUNCEMENT_KEY = 'pk-ann-dismissed-v3';
-const ANNOUNCEMENT_TEXT = {
-  prefix: '15% off your first order — use code WELCOME15 at checkout ✦ Free shipping over $50 ✦',
-  cta: {label: 'Shop now', to: '/collections'},
-};
 
 /**
  * @param {HeaderProps}
@@ -73,6 +71,7 @@ function AnnouncementBar() {
   // SSR-safe: render the bar always, but only hide it client-side after we
   // read the localStorage flag (and on subsequent renders).
   const [hidden, setHidden] = useState(false);
+  const t = useT();
 
   useEffect(() => {
     try {
@@ -88,13 +87,9 @@ function AnnouncementBar() {
     <div className="pk-ann" data-hidden={hidden ? 'true' : 'false'} role="region" aria-label="Site announcement">
       <div className="pk-ann__inner">
         <span>
-          {ANNOUNCEMENT_TEXT.prefix}
-          <Link
-            to={ANNOUNCEMENT_TEXT.cta.to}
-            prefetch="intent"
-            style={{marginLeft: 6}}
-          >
-            {ANNOUNCEMENT_TEXT.cta.label}
+          {`${t('announce_offer')} ✦ ${t('announce_freeship')} ✦`}
+          <Link to="/collections" prefetch="intent" style={{marginLeft: 6}}>
+            {t('announce_cta')}
           </Link>
         </span>
       </div>
@@ -189,6 +184,7 @@ function HeaderCtas({isLoggedIn, cart}) {
   useHeaderShrink();
   return (
     <div className="pk-header__ctas">
+      <LocaleSwitcher />
       <SearchToggle />
       <NavLink prefetch="intent" to="/account" className="pk-icon-btn" aria-label="Account">
         <Suspense fallback={<IconUser />}>

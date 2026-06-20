@@ -6,6 +6,7 @@ import {
   IconShield,
 } from '~/components/Icons';
 import {SOCIAL_PROFILES, STORE_LOGO_URL} from '~/lib/brand';
+import {useT} from '~/lib/t';
 
 // Footer loader prefers `shop.brand.logo.image.url` from the Storefront
 // API when set under Settings > Brand, otherwise falls back to
@@ -37,9 +38,6 @@ const SOCIAL = [
 
 // Payment marks as styled text "chips" — no third-party brand assets, no
 // real integration here. Real checkout is still handled by Shopify (PCI).
-// The aria-label makes these announce as a list of accepted payment
-// methods, not a meaningless string of brand names. The visual order
-// matches the order shoppers expect at checkout (most-used first).
 const PAYMENTS = [
   {label: 'Visa'},
   {label: 'Mastercard'},
@@ -53,6 +51,7 @@ const PAYMENTS = [
  * @param {FooterProps}
  */
 export function Footer({header}) {
+  const t = useT();
   const logo = header?.shop?.brand?.logo?.image?.url || STORE_LOGO_URL;
   const year = new Date().getFullYear();
   return (
@@ -69,10 +68,7 @@ export function Footer({header}) {
               decoding="async"
             />
           </Link>
-          <p className="pk-footer__tagline">
-            Curated picks, fast shipping, and effortless style. Shop smart. Shop
-            Puchica.
-          </p>
+          <p className="pk-footer__tagline">{t('footer_tagline')}</p>
           <div className="pk-footer__social" aria-label="Social links">
             {SOCIAL.map(({Icon, label, urlKey, handle}) => (
               <a key={label} href={urlKey} aria-label={`${label} (${handle})`} target="_blank" rel="noopener noreferrer">
@@ -82,7 +78,7 @@ export function Footer({header}) {
           </div>
 
           <div className="pk-footer__pay" aria-label="Accepted payment methods">
-            <span className="pk-footer__pay-label">Accepted payments</span>
+            <span className="pk-footer__pay-label">{t('footer_accepted_payments')}</span>
             <ul className="pk-footer__pay-list" aria-label="Payment methods">
               {PAYMENTS.map((p) => (
                 <li key={p.label} className="pk-footer__pay-mark">
@@ -100,36 +96,36 @@ export function Footer({header}) {
 
           <span className="pk-footer__secure">
             <span aria-hidden><IconShield size={14} /></span>
-            Secure checkout by Shopify — encrypted, PCI-compliant
+            {t('footer_secure')}
           </span>
         </div>
 
         <div className="pk-footer__col">
-          <h4>Shop</h4>
-          <Link to="/collections/all">All Products</Link>
-          <Link to="/collections/best-sellers">Best Sellers</Link>
-          <Link to="/collections/trending-finds">Trending Now</Link>
-          <Link to="/collections/gifts-under-25">Gifts Under $25</Link>
+          <h4>{t('footer_shop')}</h4>
+          <Link to="/collections/all">{t('nav_all_products')}</Link>
+          <Link to="/collections/best-sellers">{t('nav_best_sellers')}</Link>
+          <Link to="/collections/trending-finds">{t('nav_trending')}</Link>
+          <Link to="/collections/gifts-under-25">{t('nav_gifts')}</Link>
         </div>
 
         <div className="pk-footer__col">
-          <h4>Customer Care</h4>
-          <Link to="/pages/contact">Contact Us</Link>
-          <Link to="/search">Search</Link>
-          <Link to="/policies">Policies</Link>
-          <Link to="/policies/shipping-policy">Shipping Policy</Link>
-          <Link to="/policies/refund-policy">Refund Policy</Link>
-          <Link to="/policies/terms-of-service">Terms of Service</Link>
+          <h4>{t('footer_care')}</h4>
+          <Link to="/pages/contact">{t('footer_contact')}</Link>
+          <Link to="/search">{t('footer_search')}</Link>
+          <Link to="/policies">{t('footer_policies')}</Link>
+          <Link to="/policies/shipping-policy">{t('footer_shipping_policy')}</Link>
+          <Link to="/policies/refund-policy">{t('footer_refund_policy')}</Link>
+          <Link to="/policies/terms-of-service">{t('footer_terms')}</Link>
         </div>
 
         <Newsletter />
       </div>
 
       <div className="pk-footer__bar">
-        <span>© {year} Puchica. All rights reserved.</span>
+        <span>© {year} Puchica. {t('footer_rights')}</span>
         <nav className="pk-footer__legal" aria-label="Legal">
-          <Link to="/policies/privacy-policy">Privacy Policy</Link>
-          <Link to="/policies">Policies</Link>
+          <Link to="/policies/privacy-policy">{t('footer_privacy')}</Link>
+          <Link to="/policies">{t('footer_policies')}</Link>
         </nav>
       </div>
     </footer>
@@ -137,6 +133,7 @@ export function Footer({header}) {
 }
 
 function Newsletter() {
+  const t = useT();
   const fetcher = useFetcher();
   const ok = fetcher.data?.ok;
   const error = fetcher.data?.error;
@@ -144,18 +141,18 @@ function Newsletter() {
 
   return (
     <div className="pk-footer__col pk-footer__newsletter">
-      <h4>Join our newsletter</h4>
+      <h4>{t('footer_newsletter_title')}</h4>
       {ok ? (
-        <p className="pk-footer__ok">Thanks — you&apos;re on the list.</p>
+        <p className="pk-footer__ok">{t('footer_newsletter_ok')}</p>
       ) : (
         <>
-          <p>Exclusive offers and new arrivals, straight to your inbox.</p>
+          <p>{t('footer_newsletter_copy')}</p>
           <fetcher.Form method="post" action="/newsletter" className="pk-footer__form">
             <input
               type="email"
               name="email"
               required
-              placeholder="Enter your email"
+              placeholder={t('footer_email_placeholder')}
               aria-label="Email"
               autoComplete="email"
               inputMode="email"

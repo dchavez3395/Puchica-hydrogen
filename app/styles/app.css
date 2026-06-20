@@ -4512,3 +4512,114 @@ body {
   color: var(--pk-violet-500, #6D4EF6);
   font-weight: 600;
 }
+
+/* ---------- Search results page ---------- */
+.pk-search-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 28px 16px 64px;
+}
+.pk-search-page__head {
+  margin-bottom: 8px;
+}
+.pk-search-page__title {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0 0 16px;
+  color: var(--pk-ink, #1a1340);
+}
+.pk-search-page__title em {
+  font-style: normal;
+  color: var(--pk-violet-500, #6D4EF6);
+}
+.pk-search-page__form {
+  max-width: 560px;
+}
+.pk-search-page__error {
+  color: #c0392b;
+  margin: 8px 0 0;
+}
+.pk-search-section {
+  margin-top: 36px;
+}
+.pk-search-section__title {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 16px;
+  color: var(--pk-ink, #1a1340);
+}
+.pk-search-empty {
+  padding: 56px 0;
+  text-align: center;
+  color: var(--pk-muted, #6B6486);
+  font-size: 16px;
+}
+.pk-search-more {
+  display: flex;
+  justify-content: center;
+  margin: 22px 0;
+}
+.pk-search-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.pk-search-links a {
+  color: var(--pk-ink, #1a1340);
+  text-decoration: none;
+  font-weight: 600;
+}
+.pk-search-links a:hover {
+  color: var(--pk-violet-500, #6D4EF6);
+}
+
+/* ---------- Language switcher ---------- */
+.pk-locale {
+  position: relative;
+}
+.pk-locale__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  width: auto;
+  padding: 0 6px;
+}
+.pk-locale__code {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+.pk-locale__menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 160px;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  background: var(--pk-bg, #fff);
+  border: 1px solid rgba(20, 16, 45, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 16px 40px rgba(20, 16, 45, 0.16);
+  z-index: 200;
+}
+.pk-locale__item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 9px 12px;
+  border: none;
+  background: transparent;
+  border-radius: 8px;
+  font-size: 14px;
+  color: var(--pk-ink, #1a1340);
+  cursor: pointer;
+}
+.pk-locale__item:hover {
+  background: var(--pk-muted-bg, #E9E6FF);
+}
+.pk-locale__item.is-active {
+  font-weight: 700;
+  color: var(--pk-violet-500, #6D4EF6);
+}

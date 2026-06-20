@@ -1,0 +1,127 @@
+/**
+ * UI string dictionary for the storefront chrome (buttons, footer, nav).
+ *
+ * Shopify's @inContext handles PRODUCT / COLLECTION / BLOG content. These are
+ * the hard-coded interface strings that Shopify can't translate for a headless
+ * app, so we keep them here.
+ *
+ * Machine-translated first pass — review/refine the FR/ES/PT columns.
+ * Keys are stable; English is the source of truth and the fallback.
+ */
+export const DICTIONARIES = {
+  en: {
+    announce_offer: '15% off your first order — use code WELCOME15 at checkout',
+    announce_freeship: 'Free shipping over $50',
+    announce_cta: 'Shop now',
+    footer_tagline:
+      'Curated picks, fast shipping, and effortless style. Shop smart. Shop Puchica.',
+    footer_accepted_payments: 'Accepted payments',
+    footer_secure: 'Secure checkout by Shopify — encrypted, PCI-compliant',
+    footer_shop: 'Shop',
+    footer_care: 'Customer Care',
+    nav_all_products: 'All Products',
+    nav_best_sellers: 'Best Sellers',
+    nav_trending: 'Trending Now',
+    nav_gifts: 'Gifts Under $25',
+    footer_contact: 'Contact Us',
+    footer_search: 'Search',
+    footer_policies: 'Policies',
+    footer_shipping_policy: 'Shipping Policy',
+    footer_refund_policy: 'Refund Policy',
+    footer_terms: 'Terms of Service',
+    footer_newsletter_title: 'Join our newsletter',
+    footer_newsletter_copy:
+      'Exclusive offers and new arrivals, straight to your inbox.',
+    footer_email_placeholder: 'Enter your email',
+    footer_newsletter_ok: "Thanks — you're on the list.",
+    footer_rights: 'All rights reserved.',
+    footer_privacy: 'Privacy Policy',
+  },
+  fr: {
+    announce_offer:
+      '15 % de rabais sur votre première commande — code WELCOME15 au paiement',
+    announce_freeship: 'Livraison gratuite dès 50 $',
+    announce_cta: 'Magasiner',
+    footer_tagline:
+      'Sélections triées sur le volet, livraison rapide et style sans effort. Achetez malin. Achetez Puchica.',
+    footer_accepted_payments: 'Paiements acceptés',
+    footer_secure: 'Paiement sécurisé par Shopify — chiffré et conforme PCI',
+    footer_shop: 'Boutique',
+    footer_care: 'Service client',
+    nav_all_products: 'Tous les produits',
+    nav_best_sellers: 'Meilleures ventes',
+    nav_trending: 'Tendances',
+    nav_gifts: 'Cadeaux à moins de 25 $',
+    footer_contact: 'Contactez-nous',
+    footer_search: 'Recherche',
+    footer_policies: 'Politiques',
+    footer_shipping_policy: "Politique d'expédition",
+    footer_refund_policy: 'Politique de remboursement',
+    footer_terms: "Conditions d'utilisation",
+    footer_newsletter_title: 'Abonnez-vous à notre infolettre',
+    footer_newsletter_copy:
+      'Offres exclusives et nouveautés, directement dans votre boîte de réception.',
+    footer_email_placeholder: 'Entrez votre courriel',
+    footer_newsletter_ok: 'Merci — vous êtes inscrit.',
+    footer_rights: 'Tous droits réservés.',
+    footer_privacy: 'Politique de confidentialité',
+  },
+  es: {
+    announce_offer:
+      '15% de descuento en tu primer pedido — usa el código WELCOME15 al pagar',
+    announce_freeship: 'Envío gratis en pedidos de más de $50',
+    announce_cta: 'Comprar ahora',
+    footer_tagline:
+      'Selecciones cuidadas, envío rápido y estilo sin esfuerzo. Compra inteligente. Compra Puchica.',
+    footer_accepted_payments: 'Pagos aceptados',
+    footer_secure: 'Pago seguro con Shopify — cifrado y conforme con PCI',
+    footer_shop: 'Tienda',
+    footer_care: 'Atención al cliente',
+    nav_all_products: 'Todos los productos',
+    nav_best_sellers: 'Más vendidos',
+    nav_trending: 'Tendencias',
+    nav_gifts: 'Regalos por menos de $25',
+    footer_contact: 'Contáctanos',
+    footer_search: 'Buscar',
+    footer_policies: 'Políticas',
+    footer_shipping_policy: 'Política de envío',
+    footer_refund_policy: 'Política de reembolso',
+    footer_terms: 'Términos del servicio',
+    footer_newsletter_title: 'Únete a nuestro boletín',
+    footer_newsletter_copy:
+      'Ofertas exclusivas y novedades, directamente en tu correo.',
+    footer_email_placeholder: 'Ingresa tu correo',
+    footer_newsletter_ok: '¡Gracias! Ya estás en la lista.',
+    footer_rights: 'Todos los derechos reservados.',
+    footer_privacy: 'Política de privacidad',
+  },
+  'pt-br': {
+    announce_offer:
+      '15% de desconto no seu primeiro pedido — use o código WELCOME15 no checkout',
+    announce_freeship: 'Frete grátis acima de $50',
+    announce_cta: 'Comprar agora',
+    footer_tagline:
+      'Seleções caprichadas, frete rápido e estilo sem esforço. Compre inteligente. Compre Puchica.',
+    footer_accepted_payments: 'Pagamentos aceitos',
+    footer_secure: 'Checkout seguro pela Shopify — criptografado e em conformidade com PCI',
+    footer_shop: 'Loja',
+    footer_care: 'Atendimento ao cliente',
+    nav_all_products: 'Todos os produtos',
+    nav_best_sellers: 'Mais vendidos',
+    nav_trending: 'Em alta',
+    nav_gifts: 'Presentes até $25',
+    footer_contact: 'Fale conosco',
+    footer_search: 'Buscar',
+    footer_policies: 'Políticas',
+    footer_shipping_policy: 'Política de envio',
+    footer_refund_policy: 'Política de reembolso',
+    footer_terms: 'Termos de serviço',
+    footer_newsletter_title: 'Assine nossa newsletter',
+    footer_newsletter_copy:
+      'Ofertas exclusivas e novidades, direto no seu e-mail.',
+    footer_email_placeholder: 'Digite seu e-mail',
+    footer_newsletter_ok: 'Obrigado — você está na lista.',
+    footer_rights: 'Todos os direitos reservados.',
+    footer_privacy: 'Política de privacidade',
+  },
+};

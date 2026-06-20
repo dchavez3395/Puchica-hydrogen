@@ -1,6 +1,7 @@
 import {createHydrogenContext} from '@shopify/hydrogen';
 import {AppSession} from '~/lib/session';
 import {CART_QUERY_FRAGMENT} from '~/lib/fragments';
+import {getLocaleFromRequest} from '~/lib/i18n';
 
 // Define the additional context object
 const additionalContext = {
@@ -43,7 +44,10 @@ export async function createHydrogenRouterContext(
       cache,
       waitUntil,
       session,
-      i18n: {language: 'EN', country: 'CA'},
+      // Per-visitor locale: country (from Oxygen geo) drives currency/market,
+      // language (cookie override, else country default) drives translated
+      // content. Falls back to EN/CA. See app/lib/i18n.js.
+      i18n: getLocaleFromRequest(request),
       cart: {
         queryFragment: CART_QUERY_FRAGMENT,
       },

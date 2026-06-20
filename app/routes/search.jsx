@@ -51,34 +51,61 @@ export default function SearchPage() {
   if (type === 'predictive') return null;
 
   return (
-    <div className="search">
-      <h1>Search</h1>
-      <SearchForm>
-        {({inputRef}) => (
-          <>
-            <input
-              defaultValue={term}
-              name="q"
-              placeholder="Search…"
-              ref={inputRef}
-              type="search"
-            />
-            &nbsp;
-            <button type="submit">Search</button>
-          </>
-        )}
-      </SearchForm>
-      {error && <p style={{color: 'red'}}>{error}</p>}
+    <div className="pk-search-page">
+      <header className="pk-search-page__head">
+        <h1 className="pk-search-page__title">
+          {term ? (
+            <>
+              Results for <em>&ldquo;{term}&rdquo;</em>
+            </>
+          ) : (
+            'Search'
+          )}
+        </h1>
+        <SearchForm className="pk-search-page__form">
+          {({inputRef}) => (
+            <div className="pk-search__form">
+              <span className="pk-search__icon" aria-hidden>
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <circle cx="11" cy="11" r="7" />
+                  <path d="m21 21-4.3-4.3" />
+                </svg>
+              </span>
+              <input
+                className="pk-search__input"
+                defaultValue={term}
+                name="q"
+                placeholder="Search products…"
+                ref={inputRef}
+                type="search"
+              />
+              <button type="submit" className="pk-search__submit">
+                Search
+              </button>
+            </div>
+          )}
+        </SearchForm>
+      </header>
+      {error && <p className="pk-search-page__error">{error}</p>}
       {!term || !result?.total ? (
         <SearchResults.Empty />
       ) : (
         <SearchResults result={result} term={term}>
           {({articles, pages, products, term}) => (
-            <div>
+            <>
               <SearchResults.Products products={products} term={term} />
               <SearchResults.Pages pages={pages} term={term} />
               <SearchResults.Articles articles={articles} term={term} />
-            </div>
+            </>
           )}
         </SearchResults>
       )}
@@ -91,42 +118,31 @@ export default function SearchPage() {
  * Regular search query and fragments
  * (adjust as needed)
  */
+// Shaped to match the shared <ProductItem> card so search results render
+// identically to collection grids.
 const SEARCH_PRODUCT_FRAGMENT = `#graphql
   fragment SearchProduct on Product {
     __typename
-    handle
     id
-    publishedAt
+    handle
     title
+    productType
     trackingParameters
-    vendor
-    selectedOrFirstAvailableVariant(
-      selectedOptions: []
-      ignoreUnknownOptions: true
-      caseInsensitiveMatch: true
-    ) {
+    featuredImage {
       id
-      image {
-        url
-        altText
-        width
-        height
-      }
-      price {
-        amount
-        currencyCode
-      }
-      compareAtPrice {
-        amount
-        currencyCode
-      }
-      selectedOptions {
-        name
-        value
-      }
-      product {
-        handle
-        title
+      altText
+      url
+      width
+      height
+    }
+    priceRange {
+      minVariantPrice { amount currencyCode }
+      maxVariantPrice { amount currencyCode }
+    }
+    variants(first: 1) {
+      nodes {
+        id
+        availableForSale
       }
     }
   }
