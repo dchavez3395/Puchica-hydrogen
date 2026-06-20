@@ -31,6 +31,13 @@ main {
   padding: 0 var(--page-gutter);
   box-sizing: border-box;
 }
+/* Homepage is full-bleed — bust out of the shared max-width container */
+main:has(.pk-home) {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
 
 img {
   border-radius: 4px;
@@ -2351,9 +2358,10 @@ body {
 /* ---------- Marquee ---------- */
 .pk-marquee {
   overflow: hidden;
-  border-radius: var(--r-lg);
+  border-radius: 0;
   background: var(--pk-ink);
-  margin: 8px 0 40px;
+  margin: 0;
+  width: 100%;
   padding: 14px 0;
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
   mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
@@ -2578,7 +2586,8 @@ body {
 .pk-news {
   position: relative;
   overflow: hidden;
-  border-radius: var(--r-2xl);
+  border-radius: 0;
+  width: 100%;
   background: var(--pk-ink);
   color: var(--pk-paper);
   text-align: center;
@@ -4773,6 +4782,7 @@ body {
    MEGA HERO — 100dvh full-bleed dark hero
    ============================================================ */
 .pk-mega-hero {
+  width: 100%;
   min-height: 100dvh;
   background: var(--pk-grad-hero);
   display: grid;
@@ -4881,6 +4891,7 @@ body {
    SWIPE SHOP — Tinder-style product browser
    ============================================================ */
 .pk-swipe-shop {
+  width: 100%;
   background: var(--pk-violet-pale);
   padding: 96px 24px 80px;
   text-align: center;
@@ -4953,6 +4964,7 @@ body {
    CATEGORY WORLDS — full-bleed alternating sections
    ============================================================ */
 .pk-cat-world {
+  width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
   min-height: 68vh;
@@ -5012,6 +5024,7 @@ body {
    FEATURED BANNER — dark best-sellers showcase
    ============================================================ */
 .pk-feat-banner {
+  width: 100%;
   background: var(--pk-ink);
   color: #fff;
   display: grid;
