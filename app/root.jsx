@@ -65,7 +65,7 @@ export function links() {
     },
     {
       rel: 'stylesheet',
-      href: 'https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap',
+      href: 'https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..800&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&display=swap',
     },
     {rel: 'icon', type: 'image/svg+xml', href: favicon},
   ];

@@ -159,8 +159,7 @@ function CollectionItem({collection, index}) {
 
 /**
  * Pick a per-category gradient + accent colors so empty-state collection
- * cards look intentional instead of identical. The colors are kept on
- * the violet/peach/green/sky family so they all sit together.
+ * cards look intentional instead of identical.
  */
 function collectionTheme(title = '') {
   const t = title.toLowerCase();
@@ -214,18 +213,18 @@ function collectionTheme(title = '') {
   }
   if (t.includes('new') || t.includes('feature') || t.includes('trending')) {
     return {
-      gradient: 'linear-gradient(135deg, #E8E0FF 0%, #C9B6FF 50%, #A78BFA 100%)',
-      iconColor: '#3A2CCF',
+      gradient: 'linear-gradient(135deg, #FFF0E8 0%, #FFCFB0 50%, #CC4300 100%)',
+      iconColor: '#CC4300',
       chipBg: 'rgba(255,255,255,.85)',
-      chipBorder: 'rgba(58,44,207,.22)',
+      chipBorder: 'rgba(204,67,0,.22)',
     };
   }
-  // Default — Puchica violet
+  // Default — Puchica ember/parchment
   return {
-    gradient: 'linear-gradient(135deg, #E8E0FF 0%, #C9B6FF 50%, #6D4CFF 100%)',
-    iconColor: '#3A2CCF',
+    gradient: 'linear-gradient(135deg, #F2EBDA 0%, #E8DFCB 50%, #D4C5AD 100%)',
+    iconColor: '#CC4300',
     chipBg: 'rgba(255,255,255,.85)',
-    chipBorder: 'rgba(58,44,207,.22)',
+    chipBorder: 'rgba(204,67,0,.18)',
   };
 }
 

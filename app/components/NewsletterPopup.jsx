@@ -230,7 +230,7 @@ const styles = {
     border: 'none',
     borderRadius: '12px',
     cursor: 'pointer',
-    background: 'var(--pk-grad-primary, linear-gradient(135deg,#6D4CFF 0%,#A768FA 100%))',
+    background: 'var(--pk-grad-ember, linear-gradient(135deg,#CC4300 0%,#E05A1A 100%))',
   },
   error: {margin: '10px 0 0', color: '#c0392b', fontSize: '13px'},
   noThanks: {

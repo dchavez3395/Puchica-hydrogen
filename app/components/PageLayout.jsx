@@ -24,6 +24,7 @@ export function PageLayout({
 }) {
   return (
     <Aside.Provider>
+      <a href="#main-content" className="pk-skip-link">Skip to main content</a>
       <CartAside cart={cart} />
       <SearchAside />
       <MobileMenuAside header={header} publicStoreDomain={publicStoreDomain} />
@@ -35,7 +36,7 @@ export function PageLayout({
           publicStoreDomain={publicStoreDomain}
         />
       )}
-      <main>{children}</main>
+      <main id="main-content" tabIndex={-1}>{children}</main>
       <Footer
         footer={footer}
         header={header}
