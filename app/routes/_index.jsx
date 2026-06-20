@@ -22,11 +22,8 @@ export async function loader(args) {
   return {...deferredData, ...criticalData};
 }
 
-async function loadCriticalData({context}) {
-  const [{collections}] = await Promise.all([
-    context.storefront.query(HOME_COLLECTIONS_QUERY),
-  ]);
-  return {categories: collections.nodes};
+async function loadCriticalData() {
+  return {};
 }
 
 function loadDeferredData({context}) {
@@ -74,7 +71,7 @@ export default function Index() {
       {/* 6 — Full-bleed category sections */}
       <Suspense fallback={null}>
         <Await resolve={data.catWorld}>
-          {(res) => <CategoryWorlds collections={res?.collections?.nodes ?? []} />}
+          {(res) => <CategoryWorlds res={res} />}
         </Await>
       </Suspense>
 
@@ -314,53 +311,46 @@ function SwipeShop({products}) {
 /* ─────────────────────────────────────────────────────────────────
    CATEGORY WORLDS — full-bleed alternating sections
 ───────────────────────────────────────────────────────────────── */
-const CAT_PALETTE = {
-  home:     {bg: '#FFF5E0', accent: '#FFE090'},
-  kitchen:  {bg: '#FFF5E0', accent: '#FFE090'},
-  beauty:   {bg: '#FFF0F5', accent: '#FFD0E5'},
-  personal: {bg: '#FFF0F5', accent: '#FFD0E5'},
-  tech:     {bg: '#EEF2FF', accent: '#C8D4FF'},
-  gadget:   {bg: '#EEF2FF', accent: '#C8D4FF'},
-  pet:      {bg: '#EFFFEF', accent: '#B8F0B8'},
-  gift:     {bg: '#FFF8E6', accent: '#FFE8A0'},
-  outdoor:  {bg: '#EDFFF6', accent: '#B0F0D0'},
-  garden:   {bg: '#EDFFF6', accent: '#B0F0D0'},
+// Keyed by collection handle — matches your actual Shopify collections
+const CAT_META = {
+  'home-essentials': {
+    bg: '#FFF5E0', accent: '#FFE090',
+    tagline: 'Make your space a place you love.',
+    emoji: '🏠',
+  },
+  'beauty-personal-care': {
+    bg: '#FFF0F5', accent: '#FFD0E5',
+    tagline: 'Feel good from the inside out.',
+    emoji: '✨',
+  },
+  'tech-gadgets': {
+    bg: '#EEF2FF', accent: '#C8D4FF',
+    tagline: 'Smarter tools for everyday life.',
+    emoji: '💡',
+  },
+  'outdoor-garden': {
+    bg: '#EDFFF6', accent: '#B0F0D0',
+    tagline: 'Get outside. Live better.',
+    emoji: '🌿',
+  },
+  'pet-finds': {
+    bg: '#EFFFEF', accent: '#B8F0B8',
+    tagline: 'Because they deserve the best too.',
+    emoji: '🐾',
+  },
 };
 
-function catPalette(title = '') {
-  const t = title.toLowerCase();
-  for (const [key, val] of Object.entries(CAT_PALETTE)) {
-    if (t.includes(key)) return val;
-  }
-  return {bg: '#F0ECFF', accent: '#D6CEF8'};
+function catMeta(handle = '') {
+  return CAT_META[handle] ?? {bg: '#F0ECFF', accent: '#D6CEF8', tagline: 'Curated with care, just for you.', emoji: '⭐'};
 }
 
-function catTagline(title = '') {
-  const t = title.toLowerCase();
-  if (t.includes('home') || t.includes('kitchen')) return 'Make your space a place you love.';
-  if (t.includes('beauty') || t.includes('personal')) return 'Feel good from the inside out.';
-  if (t.includes('tech') || t.includes('gadget')) return 'Smarter tools for modern life.';
-  if (t.includes('pet')) return 'Because they deserve the best too.';
-  if (t.includes('gift')) return 'The perfect pick for anyone.';
-  if (t.includes('outdoor') || t.includes('garden')) return 'Get outside. Live better.';
-  return 'Curated with care, just for you.';
-}
+// Ordered list of the 5 real category collections, keyed by query alias
+const CAT_ORDER = ['home', 'beauty', 'tech', 'outdoor', 'pet'];
 
-function catEmoji(title = '') {
-  const t = title.toLowerCase();
-  if (t.includes('home')) return '🏠';
-  if (t.includes('kitchen')) return '🍳';
-  if (t.includes('beauty') || t.includes('personal')) return '✨';
-  if (t.includes('tech') || t.includes('gadget')) return '💡';
-  if (t.includes('pet')) return '🐾';
-  if (t.includes('gift')) return '🎁';
-  if (t.includes('outdoor') || t.includes('garden')) return '🌿';
-  return '⭐';
-}
-
-function CategoryWorlds({collections}) {
-  const withProducts = (collections ?? [])
-    .filter((c) => (c.products?.nodes?.length ?? 0) > 0)
+function CategoryWorlds({res}) {
+  const withProducts = CAT_ORDER
+    .map((key) => res?.[key])
+    .filter((c) => c && (c.products?.nodes?.length ?? 0) > 0)
     .slice(0, 4);
 
   if (!withProducts.length) return null;
@@ -368,19 +358,19 @@ function CategoryWorlds({collections}) {
   return (
     <>
       {withProducts.map((col, i) => {
-        const palette = catPalette(col.title);
+        const meta = catMeta(col.handle);
         const flip = i % 2 === 1;
         return (
           <section
             key={col.id}
             className={`pk-cat-world${flip ? ' pk-cat-world--flip' : ''}`}
-            style={{background: palette.bg}}
+            style={{background: meta.bg}}
           >
             <div className="pk-cat-world__copy">
               <p className="pk-cat-world__eyebrow">
-                {catEmoji(col.title)} {col.title}
+                {meta.emoji} {col.title}
               </p>
-              <h2 className="pk-cat-world__title">{catTagline(col.title)}</h2>
+              <h2 className="pk-cat-world__title">{meta.tagline}</h2>
               <p className="pk-cat-world__body">
                 {col.description ||
                   `Explore our handpicked ${col.title.toLowerCase()} essentials — chosen for quality, value, and everyday use.`}
@@ -395,7 +385,7 @@ function CategoryWorlds({collections}) {
             </div>
             <div
               className="pk-cat-world__products"
-              style={{background: palette.accent}}
+              style={{background: meta.accent}}
             >
               {col.products.nodes.slice(0, 4).map((p) => (
                 <Link
@@ -558,18 +548,6 @@ function NewsletterBand() {
 /* ─────────────────────────────────────────────────────────────────
    QUERIES
 ───────────────────────────────────────────────────────────────── */
-const HOME_COLLECTIONS_QUERY = `#graphql
-  fragment HomeCollection on Collection {
-    id title handle
-    image { id url altText width height }
-  }
-  query HomeCollections {
-    collections(first: 12, sortKey: UPDATED_AT, reverse: true) {
-      nodes { ...HomeCollection }
-    }
-  }
-`;
-
 const BEST_PICKS_QUERY = `#graphql
   fragment BestPick on Product {
     id title handle vendor
@@ -591,7 +569,7 @@ const TRENDING_QUERY = `#graphql
     featuredImage { id url altText width height }
   }
   query Trending {
-    products(first: 10, sortKey: CREATED_AT, reverse: true) {
+    products(first: 10, sortKey: BEST_SELLING) {
       nodes { ...TrendingProduct }
     }
   }
@@ -603,16 +581,18 @@ const CAT_WORLD_QUERY = `#graphql
     priceRange { minVariantPrice { amount currencyCode } }
     featuredImage { id url altText width height }
   }
-  fragment CatCollection on Collection {
+  fragment CatCol on Collection {
     id title handle description
     products(first: 4, sortKey: BEST_SELLING) {
       nodes { ...CatProduct }
     }
   }
   query CatWorld {
-    collections(first: 6, sortKey: UPDATED_AT, reverse: true) {
-      nodes { ...CatCollection }
-    }
+    home:    collection(handle: "home-essentials")      { ...CatCol }
+    beauty:  collection(handle: "beauty-personal-care") { ...CatCol }
+    tech:    collection(handle: "tech-gadgets")         { ...CatCol }
+    outdoor: collection(handle: "outdoor-garden")       { ...CatCol }
+    pet:     collection(handle: "pet-finds")            { ...CatCol }
   }
 `;
 
