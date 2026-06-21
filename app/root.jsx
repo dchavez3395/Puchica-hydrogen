@@ -12,7 +12,7 @@ import {
   useRouteLoaderData,
 } from 'react-router';
 const favicon = '/favicon.svg';
-import {FOOTER_QUERY, HEADER_QUERY} from '~/lib/fragments';
+import {FOOTER_QUERY, HEADER_QUERY, MEGA_MENU_QUERY} from '~/lib/fragments';
 import resetStyles from '~/styles/reset.css?url';
 import appStyles from '~/styles/app.css?url';
 import {PageLayout} from './components/PageLayout';
@@ -146,10 +146,24 @@ function loadDeferredData({context}) {
       logError('deferred footer query failed', error);
       return null;
     });
+
+  // defer the mega-menu collection query (used by the desktop header's
+  // Shop dropdown). Failure is non-fatal; the header falls back to a
+  // single "Shop" link.
+  const megaMenu = storefront
+    .query(MEGA_MENU_QUERY, {
+      cache: storefront.CacheLong(),
+    })
+    .catch((error) => {
+      logError('deferred mega-menu query failed', error);
+      return null;
+    });
+
   return {
     cart: cart.get(),
     isLoggedIn: customerAccount.isLoggedIn(),
     footer,
+    megaMenu,
   };
 }
 

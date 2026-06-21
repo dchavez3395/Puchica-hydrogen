@@ -225,6 +225,46 @@ export const HEADER_QUERY = `#graphql
   ${MENU_FRAGMENT}
 `;
 
+// Mega menu data for the Shop dropdown. Lists the 5 main category collections
+// with a representative product image, so the header can render a
+// hover-revealed panel with category tiles. Note: Storefront API does not
+// expose a productsCount field on Collection, so we rely on the collection
+// description (set in Shopify admin) for any count or summary copy.
+export const MEGA_MENU_QUERY = `#graphql
+  fragment MegaCategory on Collection {
+    id
+    handle
+    title
+    description
+    image {
+      id
+      url
+      altText
+      width
+      height
+    }
+    products(first: 1) {
+      nodes {
+        id
+        featuredImage {
+          url
+          altText
+          width
+          height
+        }
+      }
+    }
+  }
+  query MegaMenu {
+    home: collection(handle: "home-essentials") { ...MegaCategory }
+    beauty: collection(handle: "beauty-personal-care") { ...MegaCategory }
+    tech: collection(handle: "tech-gadgets") { ...MegaCategory }
+    outdoor: collection(handle: "outdoor-garden") { ...MegaCategory }
+    pet: collection(handle: "pet-finds") { ...MegaCategory }
+    best: collection(handle: "best-sellers") { ...MegaCategory }
+  }
+`;
+
 export const FOOTER_QUERY = `#graphql
   query Footer(
     $footerMenuHandle: String!) {

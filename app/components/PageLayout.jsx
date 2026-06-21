@@ -5,6 +5,7 @@ import {Footer} from '~/components/Footer';
 import {Header, HeaderMenu} from '~/components/Header';
 import {CartMain} from '~/components/CartMain';
 import {NewsletterPopup} from '~/components/NewsletterPopup';
+import StarGlyph from '~/components/StarGlyph';
 import {
   SEARCH_ENDPOINT,
   SearchFormPredictive,
@@ -20,6 +21,7 @@ export function PageLayout({
   footer,
   header,
   isLoggedIn,
+  megaMenu,
   publicStoreDomain,
 }) {
   return (
@@ -27,13 +29,14 @@ export function PageLayout({
       <a href="#main-content" className="pk-skip-link">Skip to main content</a>
       <CartAside cart={cart} />
       <SearchAside />
-      <MobileMenuAside header={header} publicStoreDomain={publicStoreDomain} />
+      <MobileMenuAside header={header} megaMenu={megaMenu} publicStoreDomain={publicStoreDomain} />
       {header && (
         <Header
           header={header}
           cart={cart}
           isLoggedIn={isLoggedIn}
           publicStoreDomain={publicStoreDomain}
+          megaMenu={megaMenu}
         />
       )}
       <main id="main-content" tabIndex={-1}>{children}</main>
@@ -181,10 +184,11 @@ function SearchAside() {
 /**
  * @param {{
  *   header: PageLayoutProps['header'];
+ *   megaMenu: PageLayoutProps['megaMenu'];
  *   publicStoreDomain: PageLayoutProps['publicStoreDomain'];
  * }}
  */
-function MobileMenuAside({header, publicStoreDomain}) {
+function MobileMenuAside({header, megaMenu, publicStoreDomain}) {
   return (
     header.menu &&
     header.shop.primaryDomain?.url && (
@@ -192,6 +196,7 @@ function MobileMenuAside({header, publicStoreDomain}) {
         <div className="pk-mmenu">
           <HeaderMenu
             menu={header.menu}
+            megaMenu={megaMenu}
             viewport="mobile"
             primaryDomainUrl={header.shop.primaryDomain.url}
             publicStoreDomain={publicStoreDomain}
@@ -219,7 +224,9 @@ function MobileMenuAside({header, publicStoreDomain}) {
             </Link>
           </div>
           <p className="pk-mmenu__foot">
-            Free shipping on orders over $50 ✦ 30-day easy returns
+            Free shipping on orders over $50
+            <StarGlyph size={10} style={{margin: '0 0.4em'}} />
+            30-day easy returns
           </p>
         </div>
       </Aside>
@@ -233,6 +240,7 @@ function MobileMenuAside({header, publicStoreDomain}) {
  * @property {Promise<FooterQuery|null>} footer
  * @property {HeaderQuery} header
  * @property {Promise<boolean>} isLoggedIn
+ * @property {Promise<MegaMenuQuery|null>} [megaMenu]
  * @property {string} publicStoreDomain
  * @property {React.ReactNode} [children]
  */
@@ -240,3 +248,4 @@ function MobileMenuAside({header, publicStoreDomain}) {
 /** @typedef {import('storefrontapi.generated').CartApiQueryFragment} CartApiQueryFragment */
 /** @typedef {import('storefrontapi.generated').FooterQuery} FooterQuery */
 /** @typedef {import('storefrontapi.generated').HeaderQuery} HeaderQuery */
+/** @typedef {import('storefrontapi.generated').MegaMenuQuery} MegaMenuQuery */

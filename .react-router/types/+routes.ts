@@ -69,18 +69,18 @@ type Pages = {
       "code": string;
     };
   };
-  "/sitemap.xml": {
-    params: {};
-  };
   "/pages/:handle": {
     params: {
       "handle": string;
     };
   };
-  "/robots.txt": {
+  "/sitemap.xml": {
     params: {};
   };
   "/blogs": {
+    params: {};
+  };
+  "/robots.txt": {
     params: {};
   };
   "/notify-back": {
@@ -141,7 +141,7 @@ type Pages = {
 type RouteFiles = {
   "root.jsx": {
     id: "root";
-    page: "/" | "/blogs/:blogHandle/:articleHandle" | "/sitemap/:type/:page.xml" | "/blogs/:blogHandle" | "/collections/:handle" | "/account/authorize" | "/collections" | "/policies/:handle" | "/products/:handle" | "/account/logout" | "/collections/all" | "/policies" | "/account/login" | "/discount/:code" | "/sitemap.xml" | "/pages/:handle" | "/robots.txt" | "/blogs" | "/notify-back" | "/newsletter" | "/account" | "/account/orders" | "/account/orders/:id" | "/account/addresses" | "/account/profile" | "/account/*" | "/search" | "/cart" | "/cart/:lines" | "/*" | "/graphiql" | "/subrequest-profiler" | "/.well-known/appspecific/com.chrome.devtools.json";
+    page: "/" | "/blogs/:blogHandle/:articleHandle" | "/sitemap/:type/:page.xml" | "/blogs/:blogHandle" | "/collections/:handle" | "/account/authorize" | "/collections" | "/policies/:handle" | "/products/:handle" | "/account/logout" | "/collections/all" | "/policies" | "/account/login" | "/discount/:code" | "/pages/:handle" | "/sitemap.xml" | "/blogs" | "/robots.txt" | "/notify-back" | "/newsletter" | "/account" | "/account/orders" | "/account/orders/:id" | "/account/addresses" | "/account/profile" | "/account/*" | "/search" | "/cart" | "/cart/:lines" | "/*" | "/graphiql" | "/subrequest-profiler" | "/.well-known/appspecific/com.chrome.devtools.json";
   };
   "routes/blogs.$blogHandle.$articleHandle.jsx": {
     id: "routes/blogs.$blogHandle.$articleHandle";
@@ -195,21 +195,21 @@ type RouteFiles = {
     id: "routes/discount.$code";
     page: "/discount/:code";
   };
-  "routes/[sitemap.xml].jsx": {
-    id: "routes/[sitemap.xml]";
-    page: "/sitemap.xml";
-  };
   "routes/pages.$handle.jsx": {
     id: "routes/pages.$handle";
     page: "/pages/:handle";
   };
-  "routes/[robots.txt].jsx": {
-    id: "routes/[robots.txt]";
-    page: "/robots.txt";
+  "routes/[sitemap.xml].jsx": {
+    id: "routes/[sitemap.xml]";
+    page: "/sitemap.xml";
   };
   "routes/blogs._index.jsx": {
     id: "routes/blogs._index";
     page: "/blogs";
+  };
+  "routes/[robots.txt].jsx": {
+    id: "routes/[robots.txt]";
+    page: "/robots.txt";
   };
   "routes/notify-back.jsx": {
     id: "routes/notify-back";
@@ -247,13 +247,13 @@ type RouteFiles = {
     id: "routes/account.$";
     page: "/account/*";
   };
-  "routes/_index.jsx": {
-    id: "routes/_index";
-    page: "/";
-  };
   "routes/search.jsx": {
     id: "routes/search";
     page: "/search";
+  };
+  "routes/_index.jsx": {
+    id: "routes/_index";
+    page: "/";
   };
   "routes/cart.jsx": {
     id: "routes/cart";
@@ -267,23 +267,23 @@ type RouteFiles = {
     id: "routes/$";
     page: "/*";
   };
-  "../node_modules/@shopify/hydrogen/dist/vite/virtual-routes/layout.jsx": {
-    id: "/Users/danielc/puchica-storefront/node_modules/@shopify/hydrogen/dist/vite/virtual-routes/layout";
+  "../../../..//Claude/puchica-site/node_modules/@shopify/hydrogen/dist/vite/virtual-routes/layout.jsx": {
+    id: "/Claude/puchica-site/node_modules/@shopify/hydrogen/dist/vite/virtual-routes/layout";
     page: "/graphiql" | "/subrequest-profiler" | "/.well-known/appspecific/com.chrome.devtools.json" | "/";
   };
-  "../node_modules/@shopify/hydrogen/dist/vite/virtual-routes/routes/graphiql.jsx": {
+  "../../../..//Claude/puchica-site/node_modules/@shopify/hydrogen/dist/vite/virtual-routes/routes/graphiql.jsx": {
     id: "vite/virtual-routes/routes/graphiql";
     page: "/graphiql";
   };
-  "../node_modules/@shopify/hydrogen/dist/vite/virtual-routes/routes/subrequest-profiler.jsx": {
+  "../../../..//Claude/puchica-site/node_modules/@shopify/hydrogen/dist/vite/virtual-routes/routes/subrequest-profiler.jsx": {
     id: "vite/virtual-routes/routes/subrequest-profiler";
     page: "/subrequest-profiler";
   };
-  "../node_modules/@shopify/hydrogen/dist/vite/virtual-routes/routes/[.]well-known.appspecific.com[.]chrome[.]devtools[.]json.jsx": {
+  "../../../..//Claude/puchica-site/node_modules/@shopify/hydrogen/dist/vite/virtual-routes/routes/[.]well-known.appspecific.com[.]chrome[.]devtools[.]json.jsx": {
     id: "vite/virtual-routes/routes/[.]well-known.appspecific.com[.]chrome[.]devtools[.]json";
     page: "/.well-known/appspecific/com.chrome.devtools.json";
   };
-  "../node_modules/@shopify/hydrogen/dist/vite/virtual-routes/routes/index.jsx": {
+  "../../../..//Claude/puchica-site/node_modules/@shopify/hydrogen/dist/vite/virtual-routes/routes/index.jsx": {
     id: "vite/virtual-routes/routes/index";
     page: "/";
   };
@@ -304,10 +304,10 @@ type RouteModules = {
   "routes/policies._index": typeof import("./app/routes/policies._index.jsx");
   "routes/account_.login": typeof import("./app/routes/account_.login.jsx");
   "routes/discount.$code": typeof import("./app/routes/discount.$code.jsx");
-  "routes/[sitemap.xml]": typeof import("./app/routes/[sitemap.xml].jsx");
   "routes/pages.$handle": typeof import("./app/routes/pages.$handle.jsx");
-  "routes/[robots.txt]": typeof import("./app/routes/[robots.txt].jsx");
+  "routes/[sitemap.xml]": typeof import("./app/routes/[sitemap.xml].jsx");
   "routes/blogs._index": typeof import("./app/routes/blogs._index.jsx");
+  "routes/[robots.txt]": typeof import("./app/routes/[robots.txt].jsx");
   "routes/notify-back": typeof import("./app/routes/notify-back.jsx");
   "routes/newsletter": typeof import("./app/routes/newsletter.jsx");
   "routes/account": typeof import("./app/routes/account.jsx");
@@ -317,12 +317,12 @@ type RouteModules = {
   "routes/account.profile": typeof import("./app/routes/account.profile.jsx");
   "routes/account._index": typeof import("./app/routes/account._index.jsx");
   "routes/account.$": typeof import("./app/routes/account.$.jsx");
-  "routes/_index": typeof import("./app/routes/_index.jsx");
   "routes/search": typeof import("./app/routes/search.jsx");
+  "routes/_index": typeof import("./app/routes/_index.jsx");
   "routes/cart": typeof import("./app/routes/cart.jsx");
   "routes/cart.$lines": typeof import("./app/routes/cart.$lines.jsx");
   "routes/$": typeof import("./app/routes/$.jsx");
-  "/Users/danielc/puchica-storefront/node_modules/@shopify/hydrogen/dist/vite/virtual-routes/layout": unknown;
+  "/Claude/puchica-site/node_modules/@shopify/hydrogen/dist/vite/virtual-routes/layout": unknown;
   "vite/virtual-routes/routes/graphiql": unknown;
   "vite/virtual-routes/routes/subrequest-profiler": unknown;
   "vite/virtual-routes/routes/[.]well-known.appspecific.com[.]chrome[.]devtools[.]json": unknown;
