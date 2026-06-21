@@ -116,6 +116,7 @@ function MegaHero({trending}) {
       <div className="pk-mega-hero__glow pk-mega-hero__glow--a" aria-hidden />
       <div className="pk-mega-hero__glow pk-mega-hero__glow--b" aria-hidden />
 
+      <div className="pk-mega-hero__inner">
       <div className="pk-mega-hero__copy">
         <span className="pk-mega-hero__eyebrow">✦ New arrivals every week</span>
         <h1 className="pk-mega-hero__title">
@@ -181,6 +182,7 @@ function MegaHero({trending}) {
           </Await>
         </Suspense>
       </div>
+      </div>{/* end pk-mega-hero__inner */}
     </section>
   );
 }
@@ -239,6 +241,7 @@ function SwipeShop({products}) {
 
   return (
     <section className="pk-swipe-shop">
+      <div className="pk-inner">
       <div className="pk-swipe-shop__head">
         <span className="pk-eyebrow">Just for You</span>
         <h2>Find Your Next Favourite Thing</h2>
@@ -304,6 +307,7 @@ function SwipeShop({products}) {
           ♥
         </button>
       </div>
+      </div>{/* end pk-inner */}
     </section>
   );
 }
@@ -419,6 +423,7 @@ function FeaturedBanner({products}) {
   if (!products?.length) return null;
   return (
     <section className="pk-feat-banner">
+      <div className="pk-feat-banner__inner">
       <div className="pk-feat-banner__copy">
         <p className="pk-feat-banner__label">★ Best Sellers</p>
         <h2 className="pk-feat-banner__title">
@@ -447,9 +452,11 @@ function FeaturedBanner({products}) {
                 <Money data={p.priceRange.minVariantPrice} />
               </p>
             </div>
+
           </Link>
         ))}
       </div>
+      </div>{/* end pk-feat-banner__inner */}
     </section>
   );
 }

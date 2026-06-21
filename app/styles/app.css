@@ -15,6 +15,9 @@
   --color-light: #fff;
   --page-max: 1200px;
   --page-gutter: 20px;
+  /* Full-bleed section inner container */
+  --pk-inner-max: 1440px;
+  --pk-gutter: clamp(28px, 6vw, 96px);
 }
 
 @media (max-width: 700px) {
@@ -37,6 +40,15 @@ main:has(.pk-home) {
   margin: 0;
   padding: 0;
   width: 100%;
+}
+/* Shared inner content column — matches header nav alignment exactly */
+.pk-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 24px;
+  padding-right: 24px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 img {
@@ -4785,13 +4797,24 @@ body {
   width: 100%;
   min-height: 100dvh;
   background: var(--pk-grad-hero);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.pk-mega-hero__inner {
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
-  position: relative;
-  overflow: hidden;
-  padding: 120px 80px 80px;
   gap: 60px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 120px 24px 80px;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+  flex: 1;
 }
 .pk-mega-hero::after {
   content: '';
@@ -4883,7 +4906,8 @@ body {
 .pk-float-card__price { font-size: 12px; color: var(--pk-spark); font-weight: 700; }
 
 @media (max-width: 900px) {
-  .pk-mega-hero { grid-template-columns: 1fr; padding: 120px 28px 64px; gap: 40px; min-height: auto; }
+  .pk-mega-hero { min-height: 0; }
+  .pk-mega-hero__inner { grid-template-columns: 1fr; padding: 100px 24px 64px; gap: 40px; }
   .pk-mega-hero__visual { display: none; }
 }
 
@@ -4893,7 +4917,7 @@ body {
 .pk-swipe-shop {
   width: 100%;
   background: var(--pk-violet-pale);
-  padding: 96px 24px 80px;
+  padding: 96px 0 80px;
   text-align: center;
 }
 .pk-swipe-shop__head { margin-bottom: 52px; }
@@ -4972,9 +4996,16 @@ body {
 .pk-cat-world--flip .pk-cat-world__copy { order: 2; }
 .pk-cat-world--flip .pk-cat-world__products { order: 1; }
 
+/* Left-edge padding tracks the header's content column via max():
+   at narrow screens → 72px breathing room;
+   at wider screens → (viewport - 1200px) / 2 + 24px, matching the nav left edge. */
 .pk-cat-world__copy {
   display: flex; flex-direction: column; justify-content: center; gap: 20px;
-  padding: 80px 72px;
+  padding: 80px 72px 80px max(72px, calc((100vw - 1200px) / 2 + 24px));
+}
+/* Flip: copy is the right column — mirror the alignment to the right edge */
+.pk-cat-world--flip .pk-cat-world__copy {
+  padding: 80px max(72px, calc((100vw - 1200px) / 2 + 24px)) 80px 72px;
 }
 .pk-cat-world__eyebrow {
   font-size: 12px; font-weight: 700; letter-spacing: 0.11em; text-transform: uppercase;
@@ -5027,11 +5058,16 @@ body {
   width: 100%;
   background: var(--pk-ink);
   color: #fff;
+}
+.pk-feat-banner__inner {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 64px;
   align-items: center;
-  padding: 96px 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 96px 24px;
+  box-sizing: border-box;
 }
 .pk-feat-banner__label {
   font-size: 12px; font-weight: 700; letter-spacing: 0.11em; text-transform: uppercase;
@@ -5067,5 +5103,5 @@ body {
 .pk-feat-banner__card-price { font-size: 12px; color: var(--pk-spark); font-weight: 700; }
 
 @media (max-width: 860px) {
-  .pk-feat-banner { grid-template-columns: 1fr; padding: 56px 28px; gap: 36px; }
+  .pk-feat-banner__inner { grid-template-columns: 1fr; padding: 56px 24px; gap: 36px; }
 }
