@@ -55,20 +55,17 @@ export default function Index() {
       {/* 2 — Scrolling marquee */}
       <Marquee />
 
-      {/* 3 — Transition: dark → lavender */}
-      <WaveDivider above="#160F3A" below="#F0ECFF" />
+      {/* 3 — Transition: dark hero → white swipe section */}
+      <WaveDivider above="#160F3A" below="#FDFCFF" />
 
       {/* 4 — Tinder-style product swiper */}
-      <Suspense fallback={<div style={{height: 640, background: '#F0ECFF'}} />}>
+      <Suspense fallback={<div style={{height: 640, background: '#FDFCFF'}} />}>
         <Await resolve={data.trending}>
           {(res) => <SwipeShop products={res?.products?.nodes ?? []} />}
         </Await>
       </Suspense>
 
-      {/* 5 — Transition: lavender → white */}
-      <WaveDivider above="#F0ECFF" below="#ffffff" />
-
-      {/* 6 — Full-bleed category sections */}
+      {/* 6 — Full-bleed category sections (clean cut: white → dark) */}
       <Suspense fallback={null}>
         <Await resolve={data.catWorld}>
           {(res) => <CategoryWorlds res={res} />}
@@ -309,37 +306,16 @@ function SwipeShop({products}) {
 /* ─────────────────────────────────────────────────────────────────
    CATEGORY WORLDS — full-bleed alternating sections
 ───────────────────────────────────────────────────────────────── */
-// Keyed by collection handle — matches your actual Shopify collections
 const CAT_META = {
-  'home-essentials': {
-    bg: '#FFF5E0', accent: '#FFE090',
-    tagline: 'Make your space a place you love.',
-    emoji: '🏠',
-  },
-  'beauty-personal-care': {
-    bg: '#FFF0F5', accent: '#FFD0E5',
-    tagline: 'Feel good from the inside out.',
-    emoji: '✨',
-  },
-  'tech-gadgets': {
-    bg: '#EEF2FF', accent: '#C8D4FF',
-    tagline: 'Smarter tools for everyday life.',
-    emoji: '💡',
-  },
-  'outdoor-garden': {
-    bg: '#EDFFF6', accent: '#B0F0D0',
-    tagline: 'Get outside. Live better.',
-    emoji: '🌿',
-  },
-  'pet-finds': {
-    bg: '#EFFFEF', accent: '#B8F0B8',
-    tagline: 'Because they deserve the best too.',
-    emoji: '🐾',
-  },
+  'home-essentials':      { tagline: 'Make your space a place you love.',      emoji: '🏠' },
+  'beauty-personal-care': { tagline: 'Feel good from the inside out.',          emoji: '✨' },
+  'tech-gadgets':         { tagline: 'Smarter tools for everyday life.',         emoji: '💡' },
+  'outdoor-garden':       { tagline: 'Get outside. Live better.',               emoji: '🌿' },
+  'pet-finds':            { tagline: 'Because they deserve the best too.',       emoji: '🐾' },
 };
 
 function catMeta(handle = '') {
-  return CAT_META[handle] ?? {bg: '#F0ECFF', accent: '#D6CEF8', tagline: 'Curated with care, just for you.', emoji: '⭐'};
+  return CAT_META[handle] ?? {tagline: 'Curated with care, just for you.', emoji: '⭐'};
 }
 
 // Ordered list of the 5 real category collections, keyed by query alias
@@ -358,11 +334,11 @@ function CategoryWorlds({res}) {
       {withProducts.map((col, i) => {
         const meta = catMeta(col.handle);
         const flip = i % 2 === 1;
+        const dark = i % 2 === 0;
         return (
           <section
             key={col.id}
-            className={`pk-cat-world${flip ? ' pk-cat-world--flip' : ''}`}
-            style={{background: meta.bg}}
+            className={`pk-cat-world${flip ? ' pk-cat-world--flip' : ''}${dark ? ' pk-cat-world--dark' : ' pk-cat-world--light'}`}
           >
             <div className="pk-cat-world__copy">
               <p className="pk-cat-world__eyebrow">
@@ -381,10 +357,7 @@ function CategoryWorlds({res}) {
                 Shop {col.title} →
               </Link>
             </div>
-            <div
-              className="pk-cat-world__products"
-              style={{background: meta.accent}}
-            >
+            <div className="pk-cat-world__products">
               {col.products.nodes.slice(0, 4).map((p) => (
                 <Link
                   key={p.id}
