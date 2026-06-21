@@ -117,72 +117,71 @@ function MegaHero({trending}) {
       <div className="pk-mega-hero__glow pk-mega-hero__glow--b" aria-hidden />
 
       <div className="pk-mega-hero__inner">
-      <div className="pk-mega-hero__copy">
-        <span className="pk-mega-hero__eyebrow">✦ New arrivals every week</span>
-        <h1 className="pk-mega-hero__title">
-          Everything you need,
-          <br />
-          <em>picked for you.</em>
-        </h1>
-        <p className="pk-mega-hero__sub">
-          Puchica is a curated shop for everyday life — home, beauty, tech,
-          pet and more. Handpicked by real people who care about quality.
-          Ships from Canada.
-        </p>
-        <div className="pk-mega-hero__ctas">
-          <Link to="/collections" className="pk-btn pk-btn--spark pk-btn--lg">
-            Shop Now <span aria-hidden>→</span>
-          </Link>
-          <Link to="/collections/all" className="pk-btn pk-btn--ghost pk-btn--lg">
-            Browse All
-          </Link>
+        <div className="pk-mega-hero__copy">
+          <span className="pk-mega-hero__eyebrow">✦ New arrivals every week</span>
+          <h1 className="pk-mega-hero__title">
+            Everything you need,
+            <br />
+            <em>picked for you.</em>
+          </h1>
+          <p className="pk-mega-hero__sub">
+            Puchica is a curated shop for everyday life — home, beauty, tech,
+            pet and more. Handpicked by real people who care about quality.
+            Ships from Canada.
+          </p>
+          <div className="pk-mega-hero__ctas">
+            <Link to="/collections" className="pk-btn pk-btn--spark pk-btn--lg">
+              Shop Now <span aria-hidden>→</span>
+            </Link>
+            <Link to="/collections/all" className="pk-btn pk-btn--ghost pk-btn--lg">
+              Browse All
+            </Link>
+          </div>
+          <ul className="pk-mega-hero__stats" aria-label="Store highlights">
+            <li>
+              <strong>500+</strong>
+              <span>Products</span>
+            </li>
+            <li>
+              <strong>Free</strong>
+              <span>Shipping $50+</span>
+            </li>
+            <li>
+              <strong>30 days</strong>
+              <span>Easy returns</span>
+            </li>
+          </ul>
         </div>
-        <ul className="pk-mega-hero__stats" aria-label="Store highlights">
-          <li>
-            <strong>500+</strong>
-            <span>Products</span>
-          </li>
-          <li>
-            <strong>Free</strong>
-            <span>Shipping $50+</span>
-          </li>
-          <li>
-            <strong>30 days</strong>
-            <span>Easy returns</span>
-          </li>
-        </ul>
+        <div className="pk-mega-hero__visual" aria-hidden>
+          <Suspense fallback={<div className="pk-float-grid" />}>
+            <Await resolve={trending}>
+              {(res) => {
+                const items = res?.products?.nodes?.slice(0, 4) ?? [];
+                if (!items.length) return null;
+                return (
+                  <div className="pk-float-grid">
+                    {items.map((p) => (
+                      <Link key={p.id} to={`/products/${p.handle}`} className="pk-float-card">
+                        <div className="pk-float-card__media">
+                          {p.featuredImage && (
+                            <Image data={p.featuredImage} aspectRatio="4/5" sizes="180px" />
+                          )}
+                        </div>
+                        <div className="pk-float-card__body">
+                          <p className="pk-float-card__title">{p.title}</p>
+                          <p className="pk-float-card__price">
+                            <Money data={p.priceRange.minVariantPrice} />
+                          </p>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                );
+              }}
+            </Await>
+          </Suspense>
+        </div>
       </div>
-
-      <div className="pk-mega-hero__visual" aria-hidden>
-        <Suspense fallback={<div className="pk-float-grid" />}>
-          <Await resolve={trending}>
-            {(res) => {
-              const items = res?.products?.nodes?.slice(0, 4) ?? [];
-              if (!items.length) return null;
-              return (
-                <div className="pk-float-grid">
-                  {items.map((p) => (
-                    <Link key={p.id} to={`/products/${p.handle}`} className="pk-float-card">
-                      <div className="pk-float-card__media">
-                        {p.featuredImage && (
-                          <Image data={p.featuredImage} aspectRatio="4/5" sizes="180px" />
-                        )}
-                      </div>
-                      <div className="pk-float-card__body">
-                        <p className="pk-float-card__title">{p.title}</p>
-                        <p className="pk-float-card__price">
-                          <Money data={p.priceRange.minVariantPrice} />
-                        </p>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              );
-            }}
-          </Await>
-        </Suspense>
-      </div>
-      </div>{/* end pk-mega-hero__inner */}
     </section>
   );
 }
@@ -242,72 +241,67 @@ function SwipeShop({products}) {
   return (
     <section className="pk-swipe-shop">
       <div className="pk-inner">
-      <div className="pk-swipe-shop__head">
-        <span className="pk-eyebrow">Just for You</span>
-        <h2>Find Your Next Favourite Thing</h2>
-        <p>Browse handpicked products one at a time</p>
-      </div>
-
-      <div className="pk-swipe-stage" role="region" aria-label="Product browser">
-        {/* Back cards for depth */}
-        <div className="pk-swipe-card pk-swipe-card--back2">
-          {b2?.featuredImage && (
-            <div className="pk-swipe-card__media">
-              <Image data={b2.featuredImage} aspectRatio="3/4" sizes="340px" />
-            </div>
-          )}
+        <div className="pk-swipe-shop__head">
+          <span className="pk-eyebrow">Just for You</span>
+          <h2>Find Your Next Favourite Thing</h2>
+          <p>Browse handpicked products one at a time</p>
         </div>
-        <div className="pk-swipe-card pk-swipe-card--back1">
-          {b1?.featuredImage && (
-            <div className="pk-swipe-card__media">
-              <Image data={b1.featuredImage} aspectRatio="3/4" sizes="340px" />
-            </div>
-          )}
-        </div>
-
-        {/* Front (active) card */}
-        <Link
-          to={`/products/${cur.handle}`}
-          className={`pk-swipe-card pk-swipe-card--front${
-            exiting ? ` pk-swipe-card--exit-${exiting}` : ''
-          }`}
-        >
-          {cur.featuredImage && (
-            <div className="pk-swipe-card__media">
-              <Image data={cur.featuredImage} aspectRatio="3/4" sizes="340px" />
-            </div>
-          )}
-          <div className="pk-swipe-card__info">
-            <p className="pk-swipe-card__name">{cur.title}</p>
-            <p className="pk-swipe-card__price">
-              <Money data={cur.priceRange.minVariantPrice} />
-            </p>
+        <div className="pk-swipe-stage" role="region" aria-label="Product browser">
+          <div className="pk-swipe-card pk-swipe-card--back2">
+            {b2?.featuredImage && (
+              <div className="pk-swipe-card__media">
+                <Image data={b2.featuredImage} aspectRatio="3/4" sizes="340px" />
+              </div>
+            )}
           </div>
-        </Link>
+          <div className="pk-swipe-card pk-swipe-card--back1">
+            {b1?.featuredImage && (
+              <div className="pk-swipe-card__media">
+                <Image data={b1.featuredImage} aspectRatio="3/4" sizes="340px" />
+              </div>
+            )}
+          </div>
+          <Link
+            to={`/products/${cur.handle}`}
+            className={`pk-swipe-card pk-swipe-card--front${
+              exiting ? ` pk-swipe-card--exit-${exiting}` : ''
+            }`}
+          >
+            {cur.featuredImage && (
+              <div className="pk-swipe-card__media">
+                <Image data={cur.featuredImage} aspectRatio="3/4" sizes="340px" />
+              </div>
+            )}
+            <div className="pk-swipe-card__info">
+              <p className="pk-swipe-card__name">{cur.title}</p>
+              <p className="pk-swipe-card__price">
+                <Money data={cur.priceRange.minVariantPrice} />
+              </p>
+            </div>
+          </Link>
+        </div>
+        <div className="pk-swipe-controls">
+          <button
+            type="button"
+            className="pk-swipe-btn pk-swipe-btn--pass"
+            onClick={() => advance('left')}
+            aria-label="Skip this product"
+          >
+            ✕
+          </button>
+          <span className="pk-swipe-counter">
+            {(idx % total) + 1} / {total}
+          </span>
+          <button
+            type="button"
+            className="pk-swipe-btn pk-swipe-btn--like"
+            onClick={() => advance('right')}
+            aria-label="Next product"
+          >
+            ♥
+          </button>
+        </div>
       </div>
-
-      <div className="pk-swipe-controls">
-        <button
-          type="button"
-          className="pk-swipe-btn pk-swipe-btn--pass"
-          onClick={() => advance('left')}
-          aria-label="Skip this product"
-        >
-          ✕
-        </button>
-        <span className="pk-swipe-counter">
-          {(idx % total) + 1} / {total}
-        </span>
-        <button
-          type="button"
-          className="pk-swipe-btn pk-swipe-btn--like"
-          onClick={() => advance('right')}
-          aria-label="Next product"
-        >
-          ♥
-        </button>
-      </div>
-      </div>{/* end pk-inner */}
     </section>
   );
 }
@@ -424,39 +418,38 @@ function FeaturedBanner({products}) {
   return (
     <section className="pk-feat-banner">
       <div className="pk-feat-banner__inner">
-      <div className="pk-feat-banner__copy">
-        <p className="pk-feat-banner__label">★ Best Sellers</p>
-        <h2 className="pk-feat-banner__title">
-          Our most-loved products, all in one place.
-        </h2>
-        <p className="pk-feat-banner__sub">
-          These are the products our customers keep coming back for — tried,
-          tested, and genuinely worth it.
-        </p>
-        <Link
-          to="/collections/best-sellers"
-          className="pk-btn pk-btn--spark pk-btn--lg"
-        >
-          View All Best Sellers →
-        </Link>
-      </div>
-      <div className="pk-feat-banner__grid">
-        {products.slice(0, 4).map((p) => (
-          <Link key={p.id} to={`/products/${p.handle}`} className="pk-feat-banner__card">
-            {p.featuredImage && (
-              <Image data={p.featuredImage} aspectRatio="1/1" sizes="200px" />
-            )}
-            <div className="pk-feat-banner__card-info">
-              <p className="pk-feat-banner__card-name">{p.title}</p>
-              <p className="pk-feat-banner__card-price">
-                <Money data={p.priceRange.minVariantPrice} />
-              </p>
-            </div>
-
+        <div className="pk-feat-banner__copy">
+          <p className="pk-feat-banner__label">★ Best Sellers</p>
+          <h2 className="pk-feat-banner__title">
+            Our most-loved products, all in one place.
+          </h2>
+          <p className="pk-feat-banner__sub">
+            These are the products our customers keep coming back for — tried,
+            tested, and genuinely worth it.
+          </p>
+          <Link
+            to="/collections/best-sellers"
+            className="pk-btn pk-btn--spark pk-btn--lg"
+          >
+            View All Best Sellers →
           </Link>
-        ))}
+        </div>
+        <div className="pk-feat-banner__grid">
+          {products.slice(0, 4).map((p) => (
+            <Link key={p.id} to={`/products/${p.handle}`} className="pk-feat-banner__card">
+              {p.featuredImage && (
+                <Image data={p.featuredImage} aspectRatio="1/1" sizes="200px" />
+              )}
+              <div className="pk-feat-banner__card-info">
+                <p className="pk-feat-banner__card-name">{p.title}</p>
+                <p className="pk-feat-banner__card-price">
+                  <Money data={p.priceRange.minVariantPrice} />
+                </p>
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
-      </div>{/* end pk-feat-banner__inner */}
     </section>
   );
 }
