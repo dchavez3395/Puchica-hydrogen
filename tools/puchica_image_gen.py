@@ -301,6 +301,32 @@ def main():
     print(f"Output dir: {out_dir}")
     print(f"Generated: {len(products) - failures} / {len(products)}")
 
+    # Write a Shopify-CSV-ready import file so Daniel can review and
+    # upload via the Shopify Admin UI in one batch. Schema is the
+    # Shopify Product CSV import format (Handle, Image Src, Image Position,
+    # Image Alt Text).
+    csv_path = out_dir / "shopify-import.csv"
+    with csv_path.open("w", encoding="utf-8", newline="") as f:
+        import csv
+        w = csv.writer(f)
+        w.writerow(["Handle", "Image Src", "Image Position", "Image Alt Text"])
+        for prod in manifest["products"]:
+            if prod["status"] != "ok":
+                continue
+            # Path needs to be a URL or local path Shopify can resolve.
+            # Local path: user uploads via Shopify Admin > Products > Import
+            # with the file:// URL or copies the images to a public CDN first.
+            w.writerow([
+                prod["handle"],
+                str(Path(prod["output_path"]).resolve()),
+                1,  # Image Position 1 = featured
+                prod["title"][:200],
+            ])
+    print(f"Wrote Shopify CSV import: {csv_path}")
+    print(f"  Open in any spreadsheet, review, then upload via")
+    print(f"  Shopify Admin > Products > Import. The 'Image Position 1'")
+    print(f"  rows will become the featured images on the matching products.")
+
     return 0 if failures == 0 else 2
 
 
