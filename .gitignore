@@ -6,6 +6,10 @@ node_modules
 /public/build
 /.mf
 
+# React Router dev/codegen output — auto-regenerated on every `npm run dev` and `npm run codegen`.
+# Not safe to commit; the regen produces a churn of +30 M/-30 D lines per dev session.
+/.react-router
+
 .env
 .env.*
 !.env.example
@@ -19,4 +23,8 @@ node_modules
 # Agent tooling (local-only, not for production)
 /.agents
 /skills-lock.json
+
+# Shared agent-context bus local state (if anyone re-runs agent_context_server.py from README)
+# Not currently used; connor runs the shared bus on 127.0.0.1:9420.
+/tools/.agent_context/
 
