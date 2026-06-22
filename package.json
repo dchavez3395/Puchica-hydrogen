@@ -9,7 +9,9 @@
     "dev": "shopify hydrogen dev --codegen",
     "preview": "shopify hydrogen preview --build",
     "lint": "eslint --no-error-on-unmatched-pattern .",
-    "codegen": "shopify hydrogen codegen && react-router typegen"
+    "codegen": "shopify hydrogen codegen && react-router typegen",
+    "reset-inventory": "node --env-file=.env scripts/reset-inventory.mjs",
+    "update-images": "node --env-file=.env scripts/batch-update-images.mjs"
   },
   "prettier": "@shopify/prettier-config",
   "dependencies": {
