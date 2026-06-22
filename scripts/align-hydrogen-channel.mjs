@@ -20,15 +20,19 @@
  *   SHOPIFY_ADMIN_TOKEN=shpat_xxxxx DRY_RUN=1 node scripts/align-hydrogen-channel.mjs
  */
 
-const SHOP = process.env.SHOPIFY_SHOP || 'ug91ve-sz.myshopify.com';
-const TOKEN = process.env.SHOPIFY_ADMIN_TOKEN;
+import {getAdminToken} from './shopify-oauth.mjs';
+
+const SHOP = process.env.SHOPIFY_SHOP || process.env.PUBLIC_STORE_DOMAIN || 'ug91ve-sz.myshopify.com';
+const TOKEN = process.env.SHOPIFY_CLIENT_ID && process.env.SHOPIFY_CLIENT_SECRET
+  ? await getAdminToken()
+  : process.env.SHOPIFY_ADMIN_TOKEN;
 const HYDROGEN_PUBLICATION_ID = 'gid://shopify/Publication/207659958522'; // "Puchica Storefront"
 const API = `https://${SHOP}/admin/api/2025-04/graphql.json`;
 const DRY_RUN = process.env.DRY_RUN === '1';
 const BATCH = 40; // products unpublished per request (keeps under cost limit)
 
 if (!TOKEN) {
-  console.error('Missing SHOPIFY_ADMIN_TOKEN env var. See setup notes at top of file.');
+  console.error('No admin token found. Set SHOPIFY_CLIENT_ID + SHOPIFY_CLIENT_SECRET in .env, or pass SHOPIFY_ADMIN_TOKEN=<token>.');
   process.exit(1);
 }
 

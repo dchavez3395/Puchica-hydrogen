@@ -52,6 +52,7 @@
 import {readFileSync, existsSync} from 'node:fs';
 import {homedir} from 'node:os';
 import {join} from 'node:path';
+import {getAdminToken} from './shopify-oauth.mjs';
 
 // Resolve the store from --store / STORE env, defaulting to the
 // Puchica dev store. Must match the store the CLI was authed against.
@@ -151,7 +152,9 @@ function loadCliToken() {
   return bestSession.accessToken;
 }
 
-const TOKEN = loadCliToken();
+const TOKEN = process.env.SHOPIFY_CLIENT_ID && process.env.SHOPIFY_CLIENT_SECRET
+  ? await getAdminToken()
+  : loadCliToken();
 
 /**
  * Cost-based rate limit state. The Shopify Admin API uses a

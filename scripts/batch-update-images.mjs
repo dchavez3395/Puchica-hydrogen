@@ -83,6 +83,7 @@
 import {readFileSync, writeFileSync, existsSync} from 'node:fs';
 import {homedir} from 'node:os';
 import {join} from 'node:path';
+import {getAdminToken} from './shopify-oauth.mjs';
 
 // -- CLI args --------------------------------------------------------------
 
@@ -179,7 +180,9 @@ function loadCliToken() {
   return bestSession.accessToken;
 }
 
-const TOKEN = loadCliToken();
+const TOKEN = process.env.SHOPIFY_CLIENT_ID && process.env.SHOPIFY_CLIENT_SECRET
+  ? await getAdminToken()
+  : loadCliToken();
 
 // Cost-based rate limit state — same as reset-inventory.mjs.
 const rateLimit = {
