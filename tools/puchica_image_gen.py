@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
-"""Generate lifestyle product images for Puchica using Gemini 2.5 Flash Image.
+"""Generate lifestyle product images for Puchica using Google's Gemini API.
 
-This is the TANGENT workflow that runs in parallel to:
-- Agency / design / dev work on E:\\Claude\\puchica-site
-- Copywriting deliverables in workspace/deliverables/
+Per Daniel (2026-06-21), Higgsfield is just a wrapper around the
+"nano_banana_pro" image model. We call it directly via the Gemini API
+to skip the intermediary. No MCP required.
 
-Per the SOP, the canonical pipeline is Higgsfield MCP with `nano_banana_pro`
-model. We use Gemini 2.5 Flash Image as a substitute while the MCP isn't
-connected. Outputs are clearly tagged so the swap is mechanical when MCP
-becomes available.
+The model is exposed on Google's API as `gemini-3-pro-image` (stable)
+or `gemini-3-pro-image-preview` (preview). Both display name is
+"Nano Banana Pro". The `nano_banana_pro` name from Higgsfield is
+internal-only.
 
 Reads from the public Storefront API, fetches the top sellers by
 collection, generates one lifestyle image per product, and writes
@@ -39,8 +39,14 @@ SITE_ROOT = Path(r"E:\Claude\puchica-site")
 LOG_ROOT = WORKSPACE / "logs"
 
 # Models
-GEMINI_IMAGE_MODEL = "gemini-2.5-flash-image"
-HIGGSFIELD_MODEL = "nano_banana_pro"  # canonical target per SOP
+# Per Daniel 2026-06-21: Higgsfield is just a wrapper around nano_banana_pro.
+# On Google's Gemini API the model is exposed as:
+#   - gemini-3-pro-image         (stable, "Nano Banana Pro")
+#   - gemini-3-pro-image-preview (preview)
+#   - nano-banana-pro-preview    (alias)
+# See https://generativelanguage.googleapis.com/v1beta/models for the full list.
+GEMINI_IMAGE_MODEL = "gemini-3-pro-image"
+FALLBACK_MODEL = "gemini-2.5-flash-image"
 
 # Lifestyle prompt (verbatim from SOP)
 LIFESTYLE_PROMPT = (
@@ -223,7 +229,7 @@ def main():
 
     prompt = LIFESTYLE_PROMPT if args.style == "lifestyle" else PURE_WHITE_PROMPT
     print(f"Style: {args.style}")
-    print(f"Model: {GEMINI_IMAGE_MODEL} (canonical target: {HIGGSFIELD_MODEL} on Higgsfield MCP)")
+    print(f"Model: {GEMINI_IMAGE_MODEL} (Nano Banana Pro) via Gemini API")
 
     # Manifest
     manifest = {
@@ -231,13 +237,11 @@ def main():
         "collection": args.collection,
         "style": args.style,
         "model_used": GEMINI_IMAGE_MODEL,
-        "canonical_model_target": HIGGSFIELD_MODEL,
-        "canonical_target_note": (
-            "Per the Puchica SOP, the canonical image generation pipeline is "
-            "Higgsfield MCP with nano_banana_pro. This run uses Gemini 2.5 "
-            "Flash Image as a substitute because the Higgsfield MCP is not "
-            "currently connected. Outputs are functionally similar but "
-            "should be re-generated through Higgsfield before publishing."
+        "vendor": "Google Gemini API (direct, no intermediary)",
+        "rationale": (
+            "Daniel confirmed on 2026-06-21 that Higgsfield is just a "
+            "wrapper around nano_banana_pro. Calling the model directly "
+            "via the Gemini API to skip the intermediary. No MCP needed."
         ),
         "products": [],
     }
