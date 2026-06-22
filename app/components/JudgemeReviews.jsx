@@ -1,5 +1,6 @@
 import {useEffect} from 'react';
 import {JUDGEME_SHOP_DOMAIN, JUDGEME_PUBLIC_TOKEN} from '~/lib/judgeme';
+import StarGlyph from '~/components/StarGlyph';
 
 /**
  * Compact star rating for the product title area, rendered from the
@@ -24,9 +25,13 @@ export function ReviewStars({rating = 0, count = 0}) {
         color: 'inherit',
       }}
     >
-      <span aria-hidden style={{color: '#f5a623', fontSize: '16px', letterSpacing: '1px'}}>
-        {'★★★★★'.slice(0, full)}
-        {'☆☆☆☆☆'.slice(0, 5 - full)}
+      <span aria-hidden style={{color: '#f5a623', display: 'inline-flex', alignItems: 'center', gap: '2px'}}>
+        {Array.from({length: full}, (_, i) => (
+          <StarGlyph key={`f${i}`} variant="five" size={14} style={{margin: 0, color: '#f5a623'}} />
+        ))}
+        {Array.from({length: 5 - full}, (_, i) => (
+          <StarGlyph key={`e${i}`} variant="five" size={14} style={{margin: 0, opacity: 0.3}} />
+        ))}
       </span>
       <span style={{fontSize: '13px', opacity: 0.75}}>
         {rating.toFixed(1)} ({count} {count === 1 ? 'review' : 'reviews'})
