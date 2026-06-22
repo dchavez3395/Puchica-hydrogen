@@ -460,7 +460,7 @@ async function runBatchWithSplit(batch, locationId, qty) {
   let result;
   try {
     result = await setInventoryQuantitiesBatch(batch, locationId, qty);
-  } catch (e) {
+  } catch {
     // Network/throw. We don't know whether it's a transient
     // network blip (worth retrying the whole batch once) or a
     // persistent client error. Try the whole batch once more,

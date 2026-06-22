@@ -46,7 +46,7 @@ export function Header({header, isLoggedIn, cart, publicStoreDomain}) {
               // are accurate for the SVG aspect, which keeps CLS at 0.
               // React 18.3 emits the lowercase `fetchpriority` attribute;
               // the camelCase prop name triggers a deprecation warning.
-              fetchpriority="high"
+              fetchPriority="high"
               decoding="async"
             />
           </NavLink>

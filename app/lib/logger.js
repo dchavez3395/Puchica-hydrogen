@@ -35,12 +35,12 @@ export function log(...args) {
 
 export function warn(...args) {
   if (isProd()) return;
-  // eslint-disable-next-line no-console
+   
   console.warn(PREFIX, ...args);
 }
 
 export function error(...args) {
   if (isProd()) return;
-  // eslint-disable-next-line no-console
+   
   console.error(PREFIX, ...args);
 }

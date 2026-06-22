@@ -36,7 +36,7 @@ export async function action({request, context}) {
     }
 
     return data({ok: true});
-  } catch (e) {
+  } catch {
     return data(
       {ok: false, error: 'Something went wrong. Please try again.'},
       {status: 500},

@@ -155,7 +155,7 @@ function NotifyBackForm({variantId, productHandle}) {
           });
           if (!res.ok) throw new Error('Could not subscribe');
           setSent(true);
-        } catch (err) {
+        } catch {
           setError('Something went wrong. Please try again.');
         } finally {
           setSubmitting(false);

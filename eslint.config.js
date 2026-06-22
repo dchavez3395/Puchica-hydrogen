@@ -32,6 +32,8 @@ export default [
       '**/*.generated.d.ts',
       '**/.react-router/',
       '**/packages/hydrogen/dist/',
+      '.agents/',
+      'env.d.ts',
     ],
   },
   ...fixupConfigRules(
@@ -212,6 +214,12 @@ export default [
       '@typescript-eslint/no-misused-promises': 'error',
       'react/prop-types': 'off',
       'import/no-unresolved': ['error', {ignore: ['^virtual:']}],
+    },
+  },
+  {
+    files: ['scripts/**/*.mjs', 'scripts/**/*.js'],
+    rules: {
+      'no-console': 'off',
     },
   },
   {
