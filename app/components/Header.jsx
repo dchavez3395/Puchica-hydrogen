@@ -7,6 +7,7 @@ import {LocaleSwitcher} from '~/components/LocaleSwitcher';
 import {useT} from '~/lib/t';
 import StarGlyph from '~/components/StarGlyph';
 import {MegaMenu} from '~/components/MegaMenu';
+import {IconSearch} from '~/components/Icons';
 
 // Puchica logo. The HeaderGraphQL query prefers
 // `shop.brand.logo.image.url` if set under Settings > Brand, otherwise
@@ -341,14 +342,6 @@ function CartBanner() {
 }
 
 /* ---------- Lucide-style icons (24px, 2px stroke) ---------- */
-function IconSearch() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-      <circle cx="11" cy="11" r="7" />
-      <path d="m21 21-4.3-4.3" />
-    </svg>
-  );
-}
 function IconUser() {
   return (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>

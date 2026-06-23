@@ -2,7 +2,7 @@ import {Await, useLoaderData, useFetcher, Link} from 'react-router';
 import {Suspense, useEffect, useRef, useState} from 'react';
 import {Image, Money} from '@shopify/hydrogen';
 import {error as logError} from '~/lib/logger';
-import {IconTruck, IconReturn, IconShield, IconSparkles} from '~/components/Icons';
+import {IconTruck, IconReturn, IconShield, IconSparkles, IconGift, IconHeart, IconStar, IconHome, IconLeaf, IconLightbulb, IconPawPrint} from '~/components/Icons';
 import StarGlyph from '~/components/StarGlyph';
 import {puchicaMeta, organizationJsonLd, websiteJsonLd, JsonLdScript} from '~/lib/seo';
 
@@ -375,10 +375,10 @@ function ProductRack({products}) {
    GIFT FINDER — price bracket cards
 ───────────────────────────────────────────────────────────────── */
 const PRICE_BRACKETS = [
-  {range: 'under-25',  label: 'Under $25',  sub: 'Little treats, big smiles', emoji: '🎁'},
-  {range: '25-50',     label: '$25 – $50',  sub: 'Sweet-spot gifts',           emoji: '💝'},
-  {range: '50-100',    label: '$50 – $100', sub: 'Premium picks',              emoji: '✨'},
-  {range: '100-plus',  label: '$100+',      sub: 'Go all out',                emoji: '🌟'},
+  {range: 'under-25',  label: 'Under $25',  sub: 'Little treats, big smiles', icon: IconGift},
+  {range: '25-50',     label: '$25 – $50',  sub: 'Sweet-spot gifts',          icon: IconHeart},
+  {range: '50-100',    label: '$50 – $100', sub: 'Premium picks',             icon: IconSparkles},
+  {range: '100-plus',  label: '$100+',      sub: 'Go all out',                icon: IconStar},
 ];
 
 function GiftFinder() {
@@ -391,9 +391,9 @@ function GiftFinder() {
           <p className="pk-gift__sub">6,000+ options across every budget. Something for everyone on your list.</p>
         </div>
         <div className="pk-gift__grid">
-          {PRICE_BRACKETS.map(({range, label, sub, emoji}) => (
+          {PRICE_BRACKETS.map(({range, label, sub, icon: Icon}) => (
             <Link key={range} to={`/collections/all?price=${range}`} className="pk-gift__card" aria-label={`Shop gifts ${label}`}>
-              <span className="pk-gift__emoji" aria-hidden="true">{emoji}</span>
+              <span className="pk-gift__icon" aria-hidden="true"><Icon size={28} /></span>
               <strong className="pk-gift__label">{label}</strong>
               <span className="pk-gift__card-sub">{sub}</span>
               <span className="pk-gift__arrow" aria-hidden="true">→</span>
@@ -451,11 +451,11 @@ function NewArrivals({products}) {
    CATEGORY BENTO
 ───────────────────────────────────────────────────────────────── */
 const CAT_META = {
-  'home-essentials':      {tagline: 'Your space, elevated.',        emoji: '🏠'},
-  'beauty-personal-care': {tagline: 'Feel it from the inside out.', emoji: '✨'},
-  'tech-gadgets':         {tagline: 'Smarter, every single day.',   emoji: '💡'},
-  'outdoor-garden':       {tagline: 'Get out there.',               emoji: '🌿'},
-  'pet-finds':            {tagline: 'They deserve the best too.',   emoji: '🐾'},
+  'home-essentials':      {tagline: 'Your space, elevated.',        icon: IconHome},
+  'beauty-personal-care': {tagline: 'Feel it from the inside out.', icon: IconSparkles},
+  'tech-gadgets':         {tagline: 'Smarter, every single day.',   icon: IconLightbulb},
+  'outdoor-garden':       {tagline: 'Get out there.',               icon: IconLeaf},
+  'pet-finds':            {tagline: 'They deserve the best too.',   icon: IconPawPrint},
 };
 const CAT_ORDER = ['home', 'beauty', 'tech', 'outdoor', 'pet'];
 
@@ -470,7 +470,8 @@ function CategoryBento({res}) {
       </div>
       <div className="pk-bento__grid pk-inner">
         {cats.map((col, i) => {
-          const meta = CAT_META[col.handle] ?? {tagline: 'Curated with care.', emoji: '⭐'};
+          const meta = CAT_META[col.handle] ?? {tagline: 'Curated with care.', icon: IconStar};
+          const Icon = meta.icon;
           const img = col.products?.nodes?.[0]?.featuredImage;
           return (
             <Link key={col.id} to={`/collections/${col.handle}`}
@@ -485,7 +486,7 @@ function CategoryBento({res}) {
               )}
               <div className="pk-bento__cell-overlay" />
               <div className="pk-bento__cell-body">
-                <p className="pk-bento__cell-eye">{meta.emoji} {col.title}</p>
+                <p className="pk-bento__cell-eye"><span className="pk-bento__cell-icon" aria-hidden="true"><Icon size={18} /></span> {col.title}</p>
                 <h3 className="pk-bento__cell-name">{meta.tagline}</h3>
                 <span className="pk-bento__cell-cta">Shop now →</span>
               </div>
@@ -507,7 +508,7 @@ const MOODS = [
     title: 'Your home deserves better.',
     sub: 'Storage, decor, kitchen tools — everything to make the space you live in feel intentional.',
     cta: 'Upgrade your space →',
-    emoji: '🏠',
+    icon: IconHome,
   },
   {
     handle: 'beauty-personal-care', catKey: 'beauty',
@@ -515,7 +516,7 @@ const MOODS = [
     title: 'Take care of yourself.',
     sub: 'Skincare, wellness, and personal-care products that actually work — picked by people who use them.',
     cta: 'Treat yourself →',
-    emoji: '✨',
+    icon: IconSparkles,
   },
   {
     handle: 'tech-gadgets', catKey: 'tech',
@@ -523,7 +524,7 @@ const MOODS = [
     title: 'Work smarter, play harder.',
     sub: 'Accessories, tools, and gadgets that genuinely improve your day. No gimmicks.',
     cta: 'Power up →',
-    emoji: '💡',
+    icon: IconLightbulb,
   },
 ];
 
@@ -536,6 +537,7 @@ function ShopByMood({catRes}) {
       </div>
       <div className="pk-mood__grid">
         {MOODS.map((m) => {
+          const Icon = m.icon;
           const col = catRes?.[m.catKey];
           const img = col?.products?.nodes?.[0]?.featuredImage;
           return (
@@ -543,7 +545,7 @@ function ShopByMood({catRes}) {
               <div className="pk-mood__card-img">
                 {img
                   ? <Image data={img} aspectRatio="4/3" sizes="480px" loading="lazy" />
-                  : <span className="pk-mood__card-emoji" aria-hidden="true">{m.emoji}</span>
+                  : <span className="pk-mood__card-icon" aria-hidden="true"><Icon size={48} /></span>
                 }
               </div>
               <div className="pk-mood__card-body">

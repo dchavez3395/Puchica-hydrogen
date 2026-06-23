@@ -1,6 +1,7 @@
 import {Link} from 'react-router';
 import {puchicaMeta} from '~/lib/seo';
 import StarGlyph from '~/components/StarGlyph';
+import {IconSearch, IconHome, IconSparkles, IconLightbulb, IconLeaf, IconPawPrint, IconGift} from '~/components/Icons';
 
 export const meta = () =>
   puchicaMeta({
@@ -75,7 +76,7 @@ export default function AboutPage() {
           </div>
           <div className="pk-about-mission__visual" aria-hidden="true">
             <div className="pk-about-mission__card">
-              <span className="pk-about-mission__card-icon">🔍</span>
+              <span className="pk-about-mission__card-icon"><IconSearch size={32} /></span>
               <p className="pk-about-mission__card-text">
                 We evaluate thousands of products. Only the ones worth your
                 money make it through.
@@ -132,15 +133,15 @@ export default function AboutPage() {
           </p>
           <div className="pk-about-cats__grid">
             {[
-              {emoji: '🏠', name: 'Home & Living', sub: 'Organization, decor, kitchen'},
-              {emoji: '✨', name: 'Beauty & Self-Care', sub: 'Skincare, wellness, personal care'},
-              {emoji: '💡', name: 'Tech & Gadgets', sub: 'Accessories, tools, smart home'},
-              {emoji: '🌿', name: 'Outdoor & Garden', sub: 'Patio, camping, gardening'},
-              {emoji: '🐾', name: 'Pet Finds', sub: 'Toys, gear, grooming'},
-              {emoji: '🎁', name: 'Gifts', sub: 'For everyone on your list'},
-            ].map(({emoji, name, sub}) => (
+              {icon: IconHome,      name: 'Home & Living',       sub: 'Organization, decor, kitchen'},
+              {icon: IconSparkles,  name: 'Beauty & Self-Care',  sub: 'Skincare, wellness, personal care'},
+              {icon: IconLightbulb, name: 'Tech & Gadgets',      sub: 'Accessories, tools, smart home'},
+              {icon: IconLeaf,      name: 'Outdoor & Garden',    sub: 'Patio, camping, gardening'},
+              {icon: IconPawPrint,  name: 'Pet Finds',           sub: 'Toys, gear, grooming'},
+              {icon: IconGift,      name: 'Gifts',               sub: 'For everyone on your list'},
+            ].map(({icon: Icon, name, sub}) => (
               <div key={name} className="pk-about-cats__item">
-                <span className="pk-about-cats__emoji" aria-hidden="true">{emoji}</span>
+                <span className="pk-about-cats__icon" aria-hidden="true"><Icon size={22} /></span>
                 <strong className="pk-about-cats__name">{name}</strong>
                 <span className="pk-about-cats__sub">{sub}</span>
               </div>

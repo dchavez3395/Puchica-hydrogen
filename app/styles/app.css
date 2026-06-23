@@ -2698,8 +2698,8 @@ button:focus-visible,
 .pk-mood__card-img { aspect-ratio: 4/3; overflow: hidden; background: #1C1A12; position: relative; }
 .pk-mood__card-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s; }
 .pk-mood__card:hover .pk-mood__card-img img { transform: scale(1.06); }
-.pk-mood__card-emoji { position: absolute; top: 14px; left: 14px; font-size: 24px; line-height: 1; display: inline-flex; color: var(--pk-spark); }
-.pk-mood__card-emoji svg { display: block; }
+.pk-mood__card-icon { position: absolute; top: 14px; left: 14px; width: 48px; height: 48px; display: inline-flex; align-items: center; justify-content: center; color: var(--pk-spark); }
+.pk-mood__card-icon svg { display: block; }
 .pk-mood__card-body { padding: 22px 24px 26px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
 .pk-mood__card-label { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--pk-lime); }
 .pk-mood__card-title { font-family: var(--pk-font-display); font-size: 22px; font-weight: 800; margin: 0; line-height: 1.2; }
@@ -6243,7 +6243,12 @@ button:focus-visible,
   text-transform: uppercase;
   color: var(--pk-spark);
   margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
+.pk-bento__cell-icon { display: inline-flex; align-items: center; }
+.pk-bento__cell-icon svg { display: block; }
 
 .pk-bento__cell-name {
   font-family: var(--pk-font-display);
@@ -6377,11 +6382,16 @@ button:focus-visible,
   box-shadow: 0 24px 56px rgba(14,12,8,0.28);
   border-color: rgba(198,255,78,0.35);
 }
-.pk-gift__emoji {
-  font-size: 32px;
-  line-height: 1;
+.pk-gift__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  color: var(--pk-spark);
   margin-bottom: 4px;
 }
+.pk-gift__icon svg { display: block; }
 .pk-gift__label {
   font-family: var(--pk-font-display);
   font-size: 20px;
@@ -6807,7 +6817,8 @@ button:focus-visible,
   transition: transform 0.22s ease;
 }
 .pk-about-cats__item:hover { transform: translateY(-4px); }
-.pk-about-cats__emoji { font-size: 36px; line-height: 1; }
+.pk-about-cats__icon { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; color: var(--pk-spark); margin-bottom: 8px; }
+.pk-about-cats__icon svg { display: block; }
 .pk-about-cats__name {
   font-size: 16px;
   font-weight: 700;
