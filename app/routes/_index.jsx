@@ -4,6 +4,7 @@ import {Image, Money} from '@shopify/hydrogen';
 import {error as logError} from '~/lib/logger';
 import {IconTruck, IconReturn, IconShield, IconSparkles, IconGift, IconHeart, IconStar, IconHome, IconLeaf, IconLightbulb, IconPawPrint} from '~/components/Icons';
 import StarGlyph from '~/components/StarGlyph';
+import {ScrollPillNav} from '~/components/ScrollPillNav';
 import {puchicaMeta, organizationJsonLd, websiteJsonLd, JsonLdScript} from '~/lib/seo';
 
 /* Shared hook for arrow-nav on horizontal scroll tracks */
@@ -96,7 +97,7 @@ export default function Index() {
       <JsonLdScript data={websiteJsonLd({})} />
 
       {/* Dark hero section */}
-      <div className="pk-dark-lead">
+      <div id="hero-anchor" className="pk-dark-lead">
         <Suspense fallback={<div style={{minHeight: '100dvh', background: '#0E0C08'}} />}>
           <Await resolve={data.trending}>
             {(products) => <Hero products={products ?? []} />}
@@ -104,6 +105,8 @@ export default function Index() {
         </Suspense>
         <Marquee />
       </div>
+
+      <ScrollPillNav />
 
       {/* Discover swiper — same trending collection */}
       <Suspense fallback={null}>
@@ -288,7 +291,7 @@ function DiscoverSwiper({products}) {
 
   if (!items.length) return null;
   return (
-    <section className="pk-swiper" aria-label="Discover products carousel"
+    <section id="section-discover" className="pk-swiper" aria-label="Discover products carousel"
       onKeyDown={(e) => {
         if (e.key === 'ArrowLeft') { e.preventDefault(); scrollTo(active - 1); }
         if (e.key === 'ArrowRight') { e.preventDefault(); scrollTo(active + 1); }
@@ -345,7 +348,7 @@ function ProductRack({products}) {
   const {canLeft, canRight, scrollBy} = useScrollNav(trackRef);
   if (!products?.length) return null;
   return (
-    <section className="pk-rack" aria-label="Premium picks">
+    <section id="section-rack" className="pk-rack" aria-label="Premium picks">
       <div className="pk-inner pk-rack__head">
         <div>
           <p className="pk-rack__eye"><StarGlyph /> Home &amp; Kitchen</p>
@@ -413,7 +416,7 @@ function NewArrivals({products}) {
   const {canLeft, canRight, scrollBy} = useScrollNav(trackRef);
   if (!products?.length) return null;
   return (
-    <section className="pk-arrivals" aria-label="New arrivals">
+    <section id="section-new-arrivals" className="pk-arrivals" aria-label="New arrivals">
       <div className="pk-arrivals__head pk-inner">
         <div>
           <p className="pk-arrivals__eye"><StarGlyph /> Outdoor &amp; Garden</p>
@@ -463,7 +466,7 @@ function CategoryBento({res}) {
   const cats = CAT_ORDER.map((k) => res?.[k]).filter(Boolean).slice(0, 5);
   if (!cats.length) return null;
   return (
-    <section className="pk-bento" aria-label="Shop by category">
+    <section id="section-categories" className="pk-bento" aria-label="Shop by category">
       <div className="pk-bento__head pk-inner">
         <p className="pk-bento__eye"><StarGlyph /> Shop by category</p>
         <h2 className="pk-bento__title">Find your thing.</h2>
@@ -640,7 +643,7 @@ function FreshFinds({products}) {
 function FeaturedBanner({products}) {
   if (!products?.length) return null;
   return (
-    <section className="pk-feat-banner" aria-label="Best sellers">
+    <section id="section-best-sellers" className="pk-feat-banner" aria-label="Best sellers">
       <div className="pk-feat-banner__inner">
         <div className="pk-feat-banner__copy">
           <p className="pk-feat-banner__label"><StarGlyph variant="five" size={12} style={{marginRight: '0.5em'}} /> Best Sellers</p>
