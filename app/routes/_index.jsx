@@ -2,21 +2,28 @@ import {Await, useLoaderData} from 'react-router';
 import {Suspense} from 'react';
 import {error as logError} from '~/lib/logger';
 import {puchicaMeta, organizationJsonLd, websiteJsonLd, JsonLdScript} from '~/lib/seo';
-import {StoreHero} from '~/sections/store-hero/store-hero';
-import {DepartmentGrid} from '~/sections/department-grid/department-grid';
-import {ProductRail} from '~/components/ProductRail';
-import {BestSellersGrid} from '~/sections/best-sellers/best-sellers';
-import {TrustBar} from '~/sections/trust-bar/trust-bar';
-import {NewsletterFooter} from '~/sections/newsletter-footer/newsletter-footer';
 import {useT} from '~/lib/t';
-import {
-  HOME_BEST_SELLERS_QUERY,
-  HOME_NEW_ARRIVALS_QUERY,
-  HOME_CATEGORIES_QUERY,
-  HOME_SALE_QUERY,
-  HOME_FOR_YOU_QUERY,
-  HOME_GIFTS_QUERY,
-} from '~/lib/fragments';
+
+/* Shared hook for arrow-nav on horizontal scroll tracks */
+function useScrollNav(trackRef) {
+  const [canLeft, setCanLeft] = useState(false);
+  const [canRight, setCanRight] = useState(true);
+  useEffect(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    const update = () => {
+      setCanLeft(el.scrollLeft > 2);
+      setCanRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 2);
+    };
+    el.addEventListener('scroll', update, {passive: true});
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => { el.removeEventListener('scroll', update); ro.disconnect(); };
+  }, []);
+  const scrollBy = (amt) => trackRef.current?.scrollBy({left: amt, behavior: 'smooth'});
+  return {canLeft, canRight, scrollBy};
+}
 
 /** @type {Route.MetaFunction} */
 export const meta = ({params}) => {
@@ -882,6 +889,7 @@ function ValueProps() {
    NEWSLETTER
 ───────────────────────────────────────────────────────────────── */
 function NewsletterBand() {
+  const t = useT();
   const fetcher = useFetcher();
   const formRef = useRef(null);
   const [done, setDone] = useState(false);
@@ -892,24 +900,21 @@ function NewsletterBand() {
   }, [fetcher.data]);
 
   return (
-    <section className="pk-news" aria-label="Newsletter signup">
+    <section className="pk-news" aria-label={t('news_aria')}>
       <div className="pk-news__glow" aria-hidden="true" />
       <div className="pk-news__inner">
-        <span className="pk-pill pk-pill--glass">Join the club</span>
-        <h2 className="pk-news__title">Get the good stuff first.</h2>
-        <p className="pk-news__sub">
-          New arrivals, exclusive deals, and picks you won&apos;t find anywhere else
-          — straight to your inbox. No spam, unsubscribe anytime.
-        </p>
+        <span className="pk-pill pk-pill--glass">{t('news_eyebrow')}</span>
+        <h2 className="pk-news__title">{t('news_title')}</h2>
+        <p className="pk-news__sub">{t('news_sub')}</p>
         {done ? (
-          <p className="pk-news__done" role="status">You&apos;re in! Check your inbox.</p>
+          <p className="pk-news__done" role="status">{t('news_done')}</p>
         ) : (
           <fetcher.Form ref={formRef} method="post" action="/newsletter" className="pk-news__form">
-            <label htmlFor="nl-email" className="sr-only">Email address</label>
-            <input id="nl-email" type="email" name="email" placeholder="your@email.com"
+            <label htmlFor="nl-email" className="sr-only">{t('news_email_label')}</label>
+            <input id="nl-email" type="email" name="email" placeholder={t('news_email_placeholder')}
               required className="pk-news__input" autoComplete="email" />
             <button type="submit" className="pk-btn pk-btn--spark" disabled={submitting}>
-              {submitting ? 'Joining…' : 'Subscribe'}
+              {submitting ? t('news_submitting') : t('news_cta')}
             </button>
           </fetcher.Form>
         )}
