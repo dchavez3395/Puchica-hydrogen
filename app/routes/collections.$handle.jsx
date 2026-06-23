@@ -1,5 +1,5 @@
 import {redirect, useLoaderData, Link, useSearchParams} from 'react-router';
-import {getPaginationVariables, Analytics} from '@shopify/hydrogen';
+import {getPaginationVariables, Analytics, Image} from '@shopify/hydrogen';
 import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 import {puchicaMeta} from '~/lib/seo';
@@ -144,6 +144,23 @@ export default function Collection() {
       </nav>
 
       <header className="pk-col-hero">
+        {collection.image && (
+          <Image
+            data={collection.image}
+            className="pk-col-hero__bg"
+            loading="eager"
+            sizes="100vw"
+            style={{
+              position: 'absolute',
+              inset: 0,
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              opacity: 0.18,
+              zIndex: 0,
+            }}
+          />
+        )}
         <div className="pk-col-hero__glow" aria-hidden />
         <span className="pk-col-hero__eyebrow">Collection</span>
         <h1 className="pk-col-hero__title">{collection.title}</h1>
@@ -431,6 +448,7 @@ const COLLECTION_QUERY = `#graphql
       handle
       title
       description
+      image { id url altText width height }
       seo {
         title
         description

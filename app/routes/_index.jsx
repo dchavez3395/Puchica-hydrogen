@@ -2,15 +2,38 @@ import {Await, useLoaderData, useFetcher, Link} from 'react-router';
 import {Suspense, useEffect, useRef, useState} from 'react';
 import {Image, Money} from '@shopify/hydrogen';
 import {error as logError} from '~/lib/logger';
-import {IconTruck, IconReturn, IconShield, IconSparkles} from '~/components/Icons';
+import {IconTruck, IconReturn, IconShield, IconSparkles, IconGift, IconHeart, IconStar, IconHome, IconLeaf, IconLightbulb, IconPawPrint} from '~/components/Icons';
+import StarGlyph from '~/components/StarGlyph';
+import {ScrollPillNav} from '~/components/ScrollPillNav';
 import {puchicaMeta, organizationJsonLd, websiteJsonLd, JsonLdScript} from '~/lib/seo';
+
+/* Shared hook for arrow-nav on horizontal scroll tracks */
+function useScrollNav(trackRef) {
+  const [canLeft, setCanLeft] = useState(false);
+  const [canRight, setCanRight] = useState(true);
+  useEffect(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    const update = () => {
+      setCanLeft(el.scrollLeft > 2);
+      setCanRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 2);
+    };
+    el.addEventListener('scroll', update, {passive: true});
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => { el.removeEventListener('scroll', update); ro.disconnect(); };
+  }, []);
+  const scrollBy = (amt) => trackRef.current?.scrollBy({left: amt, behavior: 'smooth'});
+  return {canLeft, canRight, scrollBy};
+}
 
 /** @type {Route.MetaFunction} */
 export const meta = () => {
   return puchicaMeta({
-    title: 'Puchica – Shop Smart. Shop Puchica.',
+    title: 'Puchica – The good stuff. All in one place.',
     description:
-      'Curated picks across home, kitchen, beauty, tech, pet, and more. Free shipping over $50, easy 30-day returns, secure checkout. Ships from Canada.',
+      '6,000+ handpicked products across home, beauty, tech, pet, and more. Free shipping over $50, easy 30-day returns. Ships from Canada.',
     pathname: '/',
   });
 };
@@ -27,19 +50,43 @@ async function loadCriticalData() {
 }
 
 function loadDeferredData({context}) {
-  const bestPicks = context.storefront
-    .query(BEST_PICKS_QUERY)
-    .catch((e) => { logError('bestPicks query failed', e); return null; });
+  const norm = (key) => (res) => res?.collection?.products?.nodes ?? res?.products?.nodes ?? [];
 
+  // Trending curated collection → hero deck + discover swiper
   const trending = context.storefront
     .query(TRENDING_QUERY)
-    .catch((e) => { logError('trending query failed', e); return null; });
+    .then(norm('trending'))
+    .catch((e) => { logError('trending query failed', e); return []; });
+
+  // Home & Kitchen collection → rack (no phone cases!)
+  const rackProducts = context.storefront
+    .query(RACK_QUERY)
+    .then(norm('rack'))
+    .catch((e) => { logError('rackProducts query failed', e); return []; });
+
+  // Curated best-sellers collection (tagged) → featured banner
+  const bestPicks = context.storefront
+    .query(BEST_PICKS_QUERY)
+    .then(norm('best'))
+    .catch((e) => { logError('bestPicks query failed', e); return []; });
 
   const catWorld = context.storefront
     .query(CAT_WORLD_QUERY)
     .catch((e) => { logError('catWorld query failed', e); return null; });
 
-  return {bestPicks, trending, catWorld};
+  // Outdoor & Garden → new arrivals (completely different category)
+  const newArrivals = context.storefront
+    .query(NEW_ARRIVALS_QUERY)
+    .then(norm('arrivals'))
+    .catch((e) => { logError('newArrivals query failed', e); return []; });
+
+  // Beauty & Personal Care → fresh finds (different again)
+  const freshFinds = context.storefront
+    .query(FRESH_FINDS_QUERY)
+    .then(norm('fresh'))
+    .catch((e) => { logError('freshFinds query failed', e); return []; });
+
+  return {trending, rackProducts, bestPicks, catWorld, newArrivals, freshFinds};
 }
 
 export default function Index() {
@@ -49,375 +96,573 @@ export default function Index() {
       <JsonLdScript data={organizationJsonLd({})} />
       <JsonLdScript data={websiteJsonLd({})} />
 
-      {/* 1 — Full-viewport dark hero */}
-      <MegaHero trending={data.trending} />
+      {/* Dark hero section */}
+      <div id="hero-anchor" className="pk-dark-lead">
+        <Suspense fallback={<div style={{minHeight: '100dvh', background: '#0E0C08'}} />}>
+          <Await resolve={data.trending}>
+            {(products) => <Hero products={products ?? []} />}
+          </Await>
+        </Suspense>
+        <Marquee />
+      </div>
 
-      {/* 2 — Scrolling marquee */}
-      <Marquee />
+      <ScrollPillNav />
 
-      {/* 3 — Transition: dark hero → white swipe section */}
-      <WaveDivider above="#160F3A" below="#FDFCFF" />
-
-      {/* 4 — Tinder-style product swiper */}
-      <Suspense fallback={<div style={{height: 640, background: '#FDFCFF'}} />}>
+      {/* Discover swiper — same trending collection */}
+      <Suspense fallback={null}>
         <Await resolve={data.trending}>
-          {(res) => <SwipeShop products={res?.products?.nodes ?? []} />}
+          {(products) => <DiscoverSwiper products={products ?? []} />}
         </Await>
       </Suspense>
 
-      {/* 6 — Full-bleed category sections (clean cut: white → dark) */}
+      {/* Product rack — Home & Kitchen (completely different category) */}
+      <Suspense fallback={<div style={{height: 480, background: '#F4F0E6'}} />}>
+        <Await resolve={data.rackProducts}>
+          {(products) => <ProductRack products={products ?? []} />}
+        </Await>
+      </Suspense>
+
+      {/* Gift finder */}
+      <GiftFinder />
+
+      {/* New arrivals — Outdoor & Garden (different category) */}
+      <Suspense fallback={null}>
+        <Await resolve={data.newArrivals}>
+          {(products) => <NewArrivals products={products ?? []} />}
+        </Await>
+      </Suspense>
+
+      {/* Category bento */}
       <Suspense fallback={null}>
         <Await resolve={data.catWorld}>
-          {(res) => <CategoryWorlds res={res} />}
+          {(res) => <CategoryBento res={res} />}
         </Await>
       </Suspense>
 
-      {/* 7 — Best-sellers dark band */}
+      {/* Shop by mood — uses catWorld images */}
+      <Suspense fallback={null}>
+        <Await resolve={data.catWorld}>
+          {(res) => <ShopByMood catRes={res} />}
+        </Await>
+      </Suspense>
+
+      {/* Social proof */}
+      <SocialProof />
+
+      {/* Fresh finds — Beauty & Personal Care (different category) */}
+      <Suspense fallback={null}>
+        <Await resolve={data.freshFinds}>
+          {(products) => <FreshFinds products={products ?? []} />}
+        </Await>
+      </Suspense>
+
+      {/* Best sellers — curated best-sellers collection */}
       <Suspense fallback={null}>
         <Await resolve={data.bestPicks}>
-          {(res) => <FeaturedBanner products={res?.products?.nodes ?? []} />}
+          {(products) => <FeaturedBanner products={products ?? []} />}
         </Await>
       </Suspense>
 
-      {/* 8 — Trust signals */}
-      <ValueProps />
+      {/* Catalog statement */}
+      <CatalogStatement />
 
-      {/* 9 — Newsletter */}
+      <ValueProps />
       <NewsletterBand />
     </div>
   );
 }
 
 /* ─────────────────────────────────────────────────────────────────
-   WAVE DIVIDER
+   HERO
 ───────────────────────────────────────────────────────────────── */
-function WaveDivider({above, below}) {
-  return (
-    <div className="pk-wave-divider" style={{background: below}}>
-      <svg viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden>
-        <path
-          d="M0,40 C240,80 480,0 720,40 C960,80 1200,0 1440,40 L1440,0 L0,0 Z"
-          fill={above}
-        />
-      </svg>
-    </div>
-  );
-}
+function Hero({products}) {
+  const deckItems = products.slice(0, 4);
+  const line1 = ['Everything'];
+  const line2 = ['worth', 'buying.'];
 
-/* ─────────────────────────────────────────────────────────────────
-   MEGA HERO
-───────────────────────────────────────────────────────────────── */
-function MegaHero({trending}) {
   return (
-    <section className="pk-mega-hero">
-      <div className="pk-mega-hero__glow pk-mega-hero__glow--a" aria-hidden />
-      <div className="pk-mega-hero__glow pk-mega-hero__glow--b" aria-hidden />
-
-      <div className="pk-mega-hero__inner">
-        <div className="pk-mega-hero__copy">
-          <span className="pk-mega-hero__eyebrow">✦ New arrivals every week</span>
-          <h1 className="pk-mega-hero__title">
-            Everything you need,
-            <br />
-            <em>picked for you.</em>
+    <section className="pk-hero2" aria-label="Welcome to Puchica">
+      <div className="pk-hero2__glow pk-hero2__glow--a" aria-hidden="true" />
+      <div className="pk-hero2__glow pk-hero2__glow--b" aria-hidden="true" />
+      <div className="pk-hero2__inner">
+        <div className="pk-hero2__copy">
+          <span className="pk-hero2__eyebrow"><StarGlyph /> Ships from Canada · Free over $50</span>
+          <h1 className="pk-hero2__title">
+            <span className="pk-hero2__title-row">
+              {line1.map((w, i) => (
+                <span key={w} className="pk-hero2__word" style={{animationDelay: `${i * 90}ms`}}>
+                  {w}{i < line1.length - 1 ? ' ' : ''}
+                </span>
+              ))}
+            </span>
+            <span className="pk-hero2__title-row pk-hero2__title-row--em">
+              {line2.map((w, i) => (
+                <span key={w} className="pk-hero2__word" style={{animationDelay: `${(line1.length + i) * 90}ms`}}>
+                  {w}{i < line2.length - 1 ? ' ' : ''}
+                </span>
+              ))}
+            </span>
           </h1>
-          <p className="pk-mega-hero__sub">
-            Puchica is a curated shop for everyday life — home, beauty, tech,
-            pet and more. Handpicked by real people who care about quality.
-            Ships from Canada.
+          <p className="pk-hero2__sub">
+            6,000+ handpicked products across home, beauty, tech, pet, and more.
+            Real finds from real people who give a damn.
           </p>
-          <div className="pk-mega-hero__ctas">
-            <Link to="/collections" className="pk-btn pk-btn--spark pk-btn--lg">
-              Shop Now <span aria-hidden>→</span>
-            </Link>
-            <Link to="/collections/all" className="pk-btn pk-btn--ghost pk-btn--lg">
-              Browse All
-            </Link>
+          <div className="pk-hero2__ctas">
+            <Link to="/collections" className="pk-btn pk-btn--spark pk-btn--lg">Shop now →</Link>
+            <Link to="/collections/all" className="pk-btn pk-btn--ghost pk-btn--lg">Browse all</Link>
           </div>
-          <ul className="pk-mega-hero__stats" aria-label="Store highlights">
-            <li>
-              <strong>500+</strong>
-              <span>Products</span>
-            </li>
-            <li>
-              <strong>Free</strong>
-              <span>Shipping $50+</span>
-            </li>
-            <li>
-              <strong>30 days</strong>
-              <span>Easy returns</span>
-            </li>
+          <ul className="pk-hero2__stats" aria-label="Store highlights">
+            <li><strong>6,000+</strong><span>Products</span></li>
+            <li><strong>Free</strong><span>Shipping $50+</span></li>
+            <li><strong>30 days</strong><span>Easy returns</span></li>
           </ul>
         </div>
-        <div className="pk-mega-hero__visual" aria-hidden>
-          <Suspense fallback={<div className="pk-float-grid" />}>
-            <Await resolve={trending}>
-              {(res) => {
-                const items = res?.products?.nodes?.slice(0, 4) ?? [];
-                if (!items.length) return null;
-                return (
-                  <div className="pk-float-grid">
-                    {items.map((p) => (
-                      <Link key={p.id} to={`/products/${p.handle}`} className="pk-float-card">
-                        <div className="pk-float-card__media">
-                          {p.featuredImage && (
-                            <Image data={p.featuredImage} aspectRatio="4/5" sizes="180px" />
-                          )}
-                        </div>
-                        <div className="pk-float-card__body">
-                          <p className="pk-float-card__title">{p.title}</p>
-                          <p className="pk-float-card__price">
-                            <Money data={p.priceRange.minVariantPrice} />
-                          </p>
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
-                );
-              }}
-            </Await>
-          </Suspense>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─────────────────────────────────────────────────────────────────
-   MARQUEE
-───────────────────────────────────────────────────────────────── */
-function Marquee() {
-  const items = [
-    'Free shipping over $50',
-    'New arrivals weekly',
-    '30-day easy returns',
-    'Secure checkout',
-    'Handpicked quality',
-    'Ships from Canada',
-    'Shop smart. Shop Puchica.',
-  ];
-  const copies = ['a', 'b'];
-  return (
-    <div className="pk-marquee" aria-hidden>
-      <div className="pk-marquee__track">
-        {copies.map((copy) =>
-          items.map((t) => (
-            <span className="pk-marquee__item" key={`${copy}-${t}`}>
-              <span className="pk-marquee__dot">✦</span>
-              {t}
-            </span>
-          )),
-        )}
-      </div>
-    </div>
-  );
-}
-
-/* ─────────────────────────────────────────────────────────────────
-   SWIPE SHOP — Tinder-style product browser
-───────────────────────────────────────────────────────────────── */
-function SwipeShop({products}) {
-  const [idx, setIdx] = useState(0);
-  const [exiting, setExiting] = useState(null); // 'left' | 'right'
-
-  if (!products?.length) return null;
-
-  const total = products.length;
-  const cur = products[idx % total];
-  const b1 = products[(idx + 1) % total];
-  const b2 = products[(idx + 2) % total];
-
-  const advance = (dir) => {
-    setExiting(dir);
-    setTimeout(() => {
-      setIdx((i) => (i + 1) % total);
-      setExiting(null);
-    }, 370);
-  };
-
-  return (
-    <section className="pk-swipe-shop">
-      <div className="pk-inner">
-        <div className="pk-swipe-shop__head">
-          <span className="pk-eyebrow">Just for You</span>
-          <h2>Find Your Next Favourite Thing</h2>
-          <p>Browse handpicked products one at a time</p>
-        </div>
-        <div className="pk-swipe-stage" role="region" aria-label="Product browser">
-          <div className="pk-swipe-card pk-swipe-card--back2">
-            {b2?.featuredImage && (
-              <div className="pk-swipe-card__media">
-                <Image data={b2.featuredImage} aspectRatio="3/4" sizes="340px" />
-              </div>
-            )}
-          </div>
-          <div className="pk-swipe-card pk-swipe-card--back1">
-            {b1?.featuredImage && (
-              <div className="pk-swipe-card__media">
-                <Image data={b1.featuredImage} aspectRatio="3/4" sizes="340px" />
-              </div>
-            )}
-          </div>
-          <Link
-            to={`/products/${cur.handle}`}
-            className={`pk-swipe-card pk-swipe-card--front${
-              exiting ? ` pk-swipe-card--exit-${exiting}` : ''
-            }`}
-          >
-            {cur.featuredImage && (
-              <div className="pk-swipe-card__media">
-                <Image data={cur.featuredImage} aspectRatio="3/4" sizes="340px" />
-              </div>
-            )}
-            <div className="pk-swipe-card__info">
-              <p className="pk-swipe-card__name">{cur.title}</p>
-              <p className="pk-swipe-card__price">
-                <Money data={cur.priceRange.minVariantPrice} />
-              </p>
-            </div>
-          </Link>
-        </div>
-        <div className="pk-swipe-controls">
-          <button
-            type="button"
-            className="pk-swipe-btn pk-swipe-btn--pass"
-            onClick={() => advance('left')}
-            aria-label="Skip this product"
-          >
-            ✕
-          </button>
-          <span className="pk-swipe-counter">
-            {(idx % total) + 1} / {total}
-          </span>
-          <button
-            type="button"
-            className="pk-swipe-btn pk-swipe-btn--like"
-            onClick={() => advance('right')}
-            aria-label="Next product"
-          >
-            ♥
-          </button>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─────────────────────────────────────────────────────────────────
-   CATEGORY WORLDS — full-bleed alternating sections
-───────────────────────────────────────────────────────────────── */
-const CAT_META = {
-  'home-essentials':      { tagline: 'Make your space a place you love.',      emoji: '🏠' },
-  'beauty-personal-care': { tagline: 'Feel good from the inside out.',          emoji: '✨' },
-  'tech-gadgets':         { tagline: 'Smarter tools for everyday life.',         emoji: '💡' },
-  'outdoor-garden':       { tagline: 'Get outside. Live better.',               emoji: '🌿' },
-  'pet-finds':            { tagline: 'Because they deserve the best too.',       emoji: '🐾' },
-};
-
-function catMeta(handle = '') {
-  return CAT_META[handle] ?? {tagline: 'Curated with care, just for you.', emoji: '⭐'};
-}
-
-// Ordered list of the 5 real category collections, keyed by query alias
-const CAT_ORDER = ['home', 'beauty', 'tech', 'outdoor', 'pet'];
-
-function CategoryWorlds({res}) {
-  const withProducts = CAT_ORDER
-    .map((key) => res?.[key])
-    .filter((c) => c && (c.products?.nodes?.length ?? 0) > 0)
-    .slice(0, 4);
-
-  if (!withProducts.length) return null;
-
-  return (
-    <>
-      {withProducts.map((col, i) => {
-        const meta = catMeta(col.handle);
-        const flip = i % 2 === 1;
-        const dark = i % 2 === 0;
-        return (
-          <section
-            key={col.id}
-            className={`pk-cat-world${flip ? ' pk-cat-world--flip' : ''}${dark ? ' pk-cat-world--dark' : ' pk-cat-world--light'}`}
-          >
-            <div className="pk-cat-world__copy">
-              <p className="pk-cat-world__eyebrow">
-                {meta.emoji} {col.title}
-              </p>
-              <h2 className="pk-cat-world__title">{meta.tagline}</h2>
-              <p className="pk-cat-world__body">
-                {col.description ||
-                  `Explore our handpicked ${col.title.toLowerCase()} essentials — chosen for quality, value, and everyday use.`}
-              </p>
-              <Link
-                to={`/collections/${col.handle}`}
-                className="pk-btn pk-btn--primary"
-                style={{alignSelf: 'flex-start', marginTop: 4}}
-              >
-                Shop {col.title} →
-              </Link>
-            </div>
-            <div className="pk-cat-world__products">
-              {col.products.nodes.slice(0, 4).map((p) => (
-                <Link
-                  key={p.id}
-                  to={`/products/${p.handle}`}
-                  className="pk-cat-world__card"
-                >
+        {deckItems.length > 0 && (
+          <div className="pk-hero2__visual" aria-hidden="true">
+            <div className="pk-deck">
+              {deckItems.map((p, i) => (
+                <Link key={p.id} to={`/products/${p.handle}`} className="pk-deck__card" data-idx={String(i)} tabIndex={-1}>
                   {p.featuredImage && (
-                    <Image data={p.featuredImage} aspectRatio="1/1" sizes="180px" />
+                    <div className="pk-deck__img">
+                      <Image data={p.featuredImage} aspectRatio="4/5" sizes="200px" loading={i === 0 ? 'eager' : 'lazy'} />
+                    </div>
                   )}
-                  <div className="pk-cat-world__card-info">
-                    <p className="pk-cat-world__card-name">{p.title}</p>
-                    <p className="pk-cat-world__card-price">
-                      <Money data={p.priceRange.minVariantPrice} />
-                    </p>
+                  <div className="pk-deck__info">
+                    <p className="pk-deck__name">{p.title}</p>
+                    <div className="pk-deck__price"><Money data={p.priceRange.minVariantPrice} /></div>
                   </div>
                 </Link>
               ))}
             </div>
-          </section>
-        );
-      })}
-    </>
+          </div>
+        )}
+      </div>
+    </section>
   );
 }
 
 /* ─────────────────────────────────────────────────────────────────
-   FEATURED BANNER — dark best-sellers showcase
+   MARQUEE — accessible with pause/play
+───────────────────────────────────────────────────────────────── */
+const MARQUEE_ITEMS = [
+  '6,000+ products', 'New drops weekly', 'Free shipping $50+',
+  '30-day easy returns', 'Ships from Canada', 'Handpicked, never random',
+  'Real value. Real finds.', 'Secure checkout',
+];
+
+function Marquee() {
+  const [paused, setPaused] = useState(false);
+  return (
+    <div className="pk-marquee" role="marquee" aria-label="Store highlights">
+      <div className={`pk-marquee__track${paused ? ' is-paused' : ''}`} aria-hidden="true">
+        {['a', 'b'].flatMap((copy) =>
+          MARQUEE_ITEMS.map((t) => (
+            <span className="pk-marquee__item" key={`${copy}-${t}`}>
+              <span className="pk-marquee__dot" aria-hidden="true"><StarGlyph size={10} style={{marginRight: 0}} /></span>{t}
+            </span>
+          )),
+        )}
+      </div>
+      <button
+        className="pk-marquee__pause"
+        onClick={() => setPaused((p) => !p)}
+        aria-label={paused ? 'Resume scrolling banner' : 'Pause scrolling banner'}
+        aria-pressed={paused}
+      >
+        {paused ? '▶' : '⏸'}
+      </button>
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   DISCOVER SWIPER
+───────────────────────────────────────────────────────────────── */
+function DiscoverSwiper({products}) {
+  const items = products.slice(0, 8);
+  const trackRef = useRef(null);
+  const [active, setActive] = useState(0);
+
+  const scrollTo = (i) => {
+    const n = Math.max(0, Math.min(i, items.length - 1));
+    setActive(n);
+    trackRef.current?.children[n]?.scrollIntoView({behavior: 'smooth', block: 'nearest', inline: 'center'});
+  };
+
+  if (!items.length) return null;
+  return (
+    <section id="section-discover" className="pk-swiper" aria-label="Discover products carousel"
+      onKeyDown={(e) => {
+        if (e.key === 'ArrowLeft') { e.preventDefault(); scrollTo(active - 1); }
+        if (e.key === 'ArrowRight') { e.preventDefault(); scrollTo(active + 1); }
+      }}
+    >
+      <div className="pk-swiper__head pk-inner">
+        <div>
+          <p className="pk-swiper__eye"><StarGlyph /> Trending now</p>
+          <h2 className="pk-swiper__title">This week&apos;s top picks</h2>
+        </div>
+        <div className="pk-swiper__navrow" role="group" aria-label="Carousel navigation">
+          <button className="pk-swiper__arr" onClick={() => scrollTo(active - 1)} disabled={active === 0} aria-label="Previous product">←</button>
+          <span className="pk-swiper__count" aria-live="polite" aria-atomic="true">{active + 1} / {items.length}</span>
+          <button className="pk-swiper__arr" onClick={() => scrollTo(active + 1)} disabled={active === items.length - 1} aria-label="Next product">→</button>
+        </div>
+      </div>
+      <div className="pk-swiper__track" ref={trackRef} role="list" aria-label="Product carousel">
+        {items.map((p, i) => (
+          <Link key={p.id} to={`/products/${p.handle}`}
+            className={`pk-swiper__card${i === active ? ' is-active' : ''}`}
+            role="listitem"
+            aria-label={`${p.title}${i === active ? ' (selected)' : ''}`}
+            onClick={(e) => { if (i !== active) { e.preventDefault(); scrollTo(i); } }}
+          >
+            {p.featuredImage && (
+              <div className="pk-swiper__img">
+                <Image data={p.featuredImage} aspectRatio="3/4" sizes="(max-width: 600px) 80vw, 320px" loading={i < 3 ? 'eager' : 'lazy'} />
+              </div>
+            )}
+            <div className="pk-swiper__info">
+              <p className="pk-swiper__name">{p.title}</p>
+              <div className="pk-swiper__price"><Money data={p.priceRange.minVariantPrice} /></div>
+            </div>
+          </Link>
+        ))}
+      </div>
+      <div className="pk-swiper__dots" role="tablist" aria-label="Jump to product">
+        {items.map((p, i) => (
+          <button key={i} className={`pk-swiper__dot${i === active ? ' is-active' : ''}`}
+            role="tab" aria-selected={i === active} aria-label={`Product ${i + 1}: ${p.title}`}
+            onClick={() => scrollTo(i)}
+          />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   PRODUCT RACK
+───────────────────────────────────────────────────────────────── */
+function ProductRack({products}) {
+  const trackRef = useRef(null);
+  const {canLeft, canRight, scrollBy} = useScrollNav(trackRef);
+  if (!products?.length) return null;
+  return (
+    <section id="section-rack" className="pk-rack" aria-label="Premium picks">
+      <div className="pk-inner pk-rack__head">
+        <div>
+          <p className="pk-rack__eye"><StarGlyph /> Home &amp; Kitchen</p>
+          <h2 className="pk-rack__title">Upgrade your space.</h2>
+        </div>
+        <div className="pk-rack__nav" role="group" aria-label="Scroll products">
+          <button className="pk-rack__arr" onClick={() => scrollBy(-260)} disabled={!canLeft} aria-label="Scroll left">←</button>
+          <button className="pk-rack__arr" onClick={() => scrollBy(260)} disabled={!canRight} aria-label="Scroll right">→</button>
+        </div>
+      </div>
+      <div className="pk-rack__track" ref={trackRef} role="list">
+        {products.slice(0, 12).map((p) => (
+          <Link key={p.id} to={`/products/${p.handle}`} className="pk-rack__card" role="listitem">
+            {p.featuredImage && <div className="pk-rack__img"><Image data={p.featuredImage} aspectRatio="4/5" sizes="240px" /></div>}
+            <div className="pk-rack__body">
+              <p className="pk-rack__name">{p.title}</p>
+              <div className="pk-rack__price"><Money data={p.priceRange.minVariantPrice} /></div>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   GIFT FINDER — price bracket cards
+───────────────────────────────────────────────────────────────── */
+const PRICE_BRACKETS = [
+  {range: 'under-25',  label: 'Under $25',  sub: 'Little treats, big smiles', icon: IconGift},
+  {range: '25-50',     label: '$25 – $50',  sub: 'Sweet-spot gifts',          icon: IconHeart},
+  {range: '50-100',    label: '$50 – $100', sub: 'Premium picks',             icon: IconSparkles},
+  {range: '100-plus',  label: '$100+',      sub: 'Go all out',                icon: IconStar},
+];
+
+function GiftFinder() {
+  return (
+    <section className="pk-gift" aria-label="Find a gift by budget">
+      <div className="pk-gift__inner">
+        <div className="pk-gift__head">
+          <span className="pk-gift__eye"><StarGlyph /> Gift ideas</span>
+          <h2 className="pk-gift__title">Find the perfect gift.</h2>
+          <p className="pk-gift__sub">6,000+ options across every budget. Something for everyone on your list.</p>
+        </div>
+        <div className="pk-gift__grid">
+          {PRICE_BRACKETS.map(({range, label, sub, icon: Icon}) => (
+            <Link key={range} to={`/collections/all?price=${range}`} className="pk-gift__card" aria-label={`Shop gifts ${label}`}>
+              <span className="pk-gift__icon" aria-hidden="true"><Icon size={28} /></span>
+              <strong className="pk-gift__label">{label}</strong>
+              <span className="pk-gift__card-sub">{sub}</span>
+              <span className="pk-gift__arrow" aria-hidden="true">→</span>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   NEW ARRIVALS — dark horizontal strip
+───────────────────────────────────────────────────────────────── */
+function NewArrivals({products}) {
+  const trackRef = useRef(null);
+  const {canLeft, canRight, scrollBy} = useScrollNav(trackRef);
+  if (!products?.length) return null;
+  return (
+    <section id="section-new-arrivals" className="pk-arrivals" aria-label="New arrivals">
+      <div className="pk-arrivals__head pk-inner">
+        <div>
+          <p className="pk-arrivals__eye"><StarGlyph /> Outdoor &amp; Garden</p>
+          <h2 className="pk-arrivals__title">Get outside.</h2>
+        </div>
+        <div className="pk-arrivals__head-right">
+          <Link to="/collections/new-arrivals" className="pk-arrivals__link">See all new →</Link>
+          <div className="pk-rack__nav" role="group" aria-label="Scroll arrivals">
+            <button className="pk-rack__arr pk-rack__arr--dark" onClick={() => scrollBy(-220)} disabled={!canLeft} aria-label="Scroll left">←</button>
+            <button className="pk-rack__arr pk-rack__arr--dark" onClick={() => scrollBy(220)} disabled={!canRight} aria-label="Scroll right">→</button>
+          </div>
+        </div>
+      </div>
+      <div className="pk-arrivals__track" ref={trackRef} role="list">
+        {products.map((p) => (
+          <Link key={p.id} to={`/products/${p.handle}`} className="pk-arrivals__card" role="listitem" aria-label={p.title}>
+            {p.featuredImage && (
+              <div className="pk-arrivals__card-img">
+                <Image data={p.featuredImage} aspectRatio="3/4" sizes="200px" loading="lazy" />
+              </div>
+            )}
+            <div className="pk-arrivals__card-body">
+              <span className="pk-arrivals__card-badge" aria-label="New product">New</span>
+              <p className="pk-arrivals__card-name">{p.title}</p>
+              <div className="pk-arrivals__card-price"><Money data={p.priceRange.minVariantPrice} /></div>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   CATEGORY BENTO
+───────────────────────────────────────────────────────────────── */
+const CAT_META = {
+  'home-essentials':      {tagline: 'Your space, elevated.',        icon: IconHome},
+  'beauty-personal-care': {tagline: 'Feel it from the inside out.', icon: IconSparkles},
+  'tech-gadgets':         {tagline: 'Smarter, every single day.',   icon: IconLightbulb},
+  'outdoor-garden':       {tagline: 'Get out there.',               icon: IconLeaf},
+  'pet-finds':            {tagline: 'They deserve the best too.',   icon: IconPawPrint},
+};
+const CAT_ORDER = ['home', 'beauty', 'tech', 'outdoor', 'pet'];
+
+function CategoryBento({res}) {
+  const cats = CAT_ORDER.map((k) => res?.[k]).filter(Boolean).slice(0, 5);
+  if (!cats.length) return null;
+  return (
+    <section id="section-categories" className="pk-bento" aria-label="Shop by category">
+      <div className="pk-bento__head pk-inner">
+        <p className="pk-bento__eye"><StarGlyph /> Shop by category</p>
+        <h2 className="pk-bento__title">Find your thing.</h2>
+      </div>
+      <div className="pk-bento__grid pk-inner">
+        {cats.map((col, i) => {
+          const meta = CAT_META[col.handle] ?? {tagline: 'Curated with care.', icon: IconStar};
+          const Icon = meta.icon;
+          const img = col.products?.nodes?.[0]?.featuredImage;
+          return (
+            <Link key={col.id} to={`/collections/${col.handle}`}
+              className={`pk-bento__cell pk-bento__cell--${i}`}
+              aria-label={`Shop ${col.title}`}
+            >
+              {img && (
+                <Image data={img} sizes="(min-width: 1200px) 500px, 50vw" loading={i === 0 ? 'eager' : 'lazy'}
+                  className="pk-bento__cell-img"
+                  style={{position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', aspectRatio: 'unset'}}
+                />
+              )}
+              <div className="pk-bento__cell-overlay" />
+              <div className="pk-bento__cell-body">
+                <p className="pk-bento__cell-eye"><span className="pk-bento__cell-icon" aria-hidden="true"><Icon size={18} /></span> {col.title}</p>
+                <h3 className="pk-bento__cell-name">{meta.tagline}</h3>
+                <span className="pk-bento__cell-cta">Shop now →</span>
+              </div>
+            </Link>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   SHOP BY MOOD — 3-col editorial with real category images
+───────────────────────────────────────────────────────────────── */
+const MOODS = [
+  {
+    handle: 'home-essentials', catKey: 'home',
+    label: 'Home & Living',
+    title: 'Your home deserves better.',
+    sub: 'Storage, decor, kitchen tools — everything to make the space you live in feel intentional.',
+    cta: 'Upgrade your space →',
+    icon: IconHome,
+  },
+  {
+    handle: 'beauty-personal-care', catKey: 'beauty',
+    label: 'Beauty & Self-Care',
+    title: 'Take care of yourself.',
+    sub: 'Skincare, wellness, and personal-care products that actually work — picked by people who use them.',
+    cta: 'Treat yourself →',
+    icon: IconSparkles,
+  },
+  {
+    handle: 'tech-gadgets', catKey: 'tech',
+    label: 'Tech & Gadgets',
+    title: 'Work smarter, play harder.',
+    sub: 'Accessories, tools, and gadgets that genuinely improve your day. No gimmicks.',
+    cta: 'Power up →',
+    icon: IconLightbulb,
+  },
+];
+
+function ShopByMood({catRes}) {
+  return (
+    <section className="pk-mood" aria-label="Shop by lifestyle">
+      <div className="pk-mood__head pk-inner">
+        <p className="pk-mood__eye"><StarGlyph /> Made for your life</p>
+        <h2 className="pk-mood__title">Shop the way you live.</h2>
+      </div>
+      <div className="pk-mood__grid">
+        {MOODS.map((m) => {
+          const Icon = m.icon;
+          const col = catRes?.[m.catKey];
+          const img = col?.products?.nodes?.[0]?.featuredImage;
+          return (
+            <Link key={m.handle} to={`/collections/${m.handle}`} className="pk-mood__card" aria-label={`${m.label} — ${m.title}`}>
+              <div className="pk-mood__card-img">
+                {img
+                  ? <Image data={img} aspectRatio="4/3" sizes="480px" loading="lazy" />
+                  : <span className="pk-mood__card-icon" aria-hidden="true"><Icon size={48} /></span>
+                }
+              </div>
+              <div className="pk-mood__card-body">
+                <p className="pk-mood__card-label">{m.label}</p>
+                <h3 className="pk-mood__card-title">{m.title}</h3>
+                <p className="pk-mood__card-sub">{m.sub}</p>
+                <span className="pk-mood__card-cta" aria-hidden="true">{m.cta}</span>
+              </div>
+            </Link>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   SOCIAL PROOF — customer testimonials
+───────────────────────────────────────────────────────────────── */
+const REVIEWS = [
+  {stars: 5, quote: 'Ordered three times in the past month. Quality is consistently great and shipping is fast.', name: 'Maria K.', loc: 'Toronto, ON'},
+  {stars: 5, quote: 'Found exactly what I was looking for — and way more. This is my new go-to for home stuff.', name: 'David T.', loc: 'Vancouver, BC'},
+  {stars: 5, quote: 'The curation is genuinely good. Everything feels like it was picked by someone who has taste.', name: 'Sarah L.', loc: 'Calgary, AB'},
+];
+
+function SocialProof() {
+  return (
+    <section className="pk-proof" aria-label="Customer reviews">
+      <div className="pk-proof__inner">
+        <div className="pk-proof__head">
+          <span className="pk-proof__eye"><StarGlyph /> What people are saying</span>
+          <h2 className="pk-proof__title">Real shoppers. Real opinions.</h2>
+        </div>
+        <div className="pk-proof__grid">
+          {REVIEWS.map(({stars, quote, name, loc}) => (
+            <article key={name} className="pk-proof__card">
+              <div className="pk-proof__stars" aria-label={`${stars} out of 5 stars`} style={{display: 'inline-flex', gap: '2px', alignItems: 'center', fontSize: '18px', color: 'var(--pk-lime)'}}>
+                {Array.from({length: stars}, (_, i) => (
+                  <StarGlyph key={i} variant="five" size={18} style={{margin: 0}} />
+                ))}
+              </div>
+              <blockquote className="pk-proof__quote">&ldquo;{quote}&rdquo;</blockquote>
+              <footer className="pk-proof__footer">
+                <strong className="pk-proof__name">{name}</strong>
+                <span className="pk-proof__loc">{loc}</span>
+              </footer>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   FRESH FINDS — recently updated (different set from trending)
+───────────────────────────────────────────────────────────────── */
+function FreshFinds({products}) {
+  const trackRef = useRef(null);
+  const {canLeft, canRight, scrollBy} = useScrollNav(trackRef);
+  if (!products?.length) return null;
+  return (
+    <section className="pk-rack pk-rack--fresh" aria-label="Fresh finds">
+      <div className="pk-inner pk-rack__head">
+        <div>
+          <p className="pk-rack__eye"><StarGlyph /> Beauty &amp; Self-Care</p>
+          <h2 className="pk-rack__title">Take care of yourself.</h2>
+        </div>
+        <div className="pk-rack__nav" role="group" aria-label="Scroll fresh finds">
+          <button className="pk-rack__arr" onClick={() => scrollBy(-260)} disabled={!canLeft} aria-label="Scroll left">←</button>
+          <button className="pk-rack__arr" onClick={() => scrollBy(260)} disabled={!canRight} aria-label="Scroll right">→</button>
+        </div>
+      </div>
+      <div className="pk-rack__track" ref={trackRef} role="list">
+        {products.slice(0, 12).map((p) => (
+          <Link key={p.id} to={`/products/${p.handle}`} className="pk-rack__card" role="listitem">
+            {p.featuredImage && <div className="pk-rack__img"><Image data={p.featuredImage} aspectRatio="4/5" sizes="240px" loading="lazy" /></div>}
+            <div className="pk-rack__body">
+              <p className="pk-rack__name">{p.title}</p>
+              <div className="pk-rack__price"><Money data={p.priceRange.minVariantPrice} /></div>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   FEATURED BANNER — best sellers (3 cards)
 ───────────────────────────────────────────────────────────────── */
 function FeaturedBanner({products}) {
   if (!products?.length) return null;
   return (
-    <section className="pk-feat-banner">
+    <section id="section-best-sellers" className="pk-feat-banner" aria-label="Best sellers">
       <div className="pk-feat-banner__inner">
         <div className="pk-feat-banner__copy">
-          <p className="pk-feat-banner__label">★ Best Sellers</p>
-          <h2 className="pk-feat-banner__title">
-            Our most-loved products, all in one place.
-          </h2>
+          <p className="pk-feat-banner__label"><StarGlyph variant="five" size={12} style={{marginRight: '0.5em'}} /> Best Sellers</p>
+          <h2 className="pk-feat-banner__title">The ones people can&apos;t stop buying.</h2>
           <p className="pk-feat-banner__sub">
-            These are the products our customers keep coming back for — tried,
-            tested, and genuinely worth it.
+            Tried, ordered again, and gifted to everyone they know. These are the products
+            that earn their place on the list every single week.
           </p>
-          <Link
-            to="/collections/best-sellers"
-            className="pk-btn pk-btn--spark pk-btn--lg"
-          >
-            View All Best Sellers →
+          <Link to="/collections/best-sellers" className="pk-btn pk-btn--spark pk-btn--lg">
+            See all best sellers →
           </Link>
         </div>
         <div className="pk-feat-banner__grid">
-          {products.slice(0, 4).map((p) => (
-            <Link key={p.id} to={`/products/${p.handle}`} className="pk-feat-banner__card">
-              {p.featuredImage && (
-                <Image data={p.featuredImage} aspectRatio="1/1" sizes="200px" />
-              )}
+          {products.slice(0, 3).map((p) => (
+            <Link key={p.id} to={`/products/${p.handle}`} className="pk-feat-banner__card" aria-label={p.title}>
+              {p.featuredImage && <Image data={p.featuredImage} aspectRatio="3/4" sizes="200px" />}
               <div className="pk-feat-banner__card-info">
                 <p className="pk-feat-banner__card-name">{p.title}</p>
-                <p className="pk-feat-banner__card-price">
-                  <Money data={p.priceRange.minVariantPrice} />
-                </p>
+                <div className="pk-feat-banner__card-price"><Money data={p.priceRange.minVariantPrice} /></div>
               </div>
             </Link>
           ))}
@@ -428,22 +673,41 @@ function FeaturedBanner({products}) {
 }
 
 /* ─────────────────────────────────────────────────────────────────
+   CATALOG STATEMENT — big lime typographic CTA
+───────────────────────────────────────────────────────────────── */
+function CatalogStatement() {
+  return (
+    <section className="pk-catalog-cta" aria-label="Explore the full catalog">
+      <p className="pk-catalog-cta__number" aria-label="Over 6,000 products">
+        6<span className="pk-catalog-cta__sup">+</span>k
+      </p>
+      <p className="pk-catalog-cta__body">
+        products. One store. Every category. We&apos;re adding more every week
+        — there&apos;s always something new to find.
+      </p>
+      <div className="pk-catalog-cta__ctas">
+        <Link to="/collections/all" className="pk-btn pk-btn--lg pk-btn--ink">Browse everything →</Link>
+        <Link to="/search" className="pk-btn pk-btn--lg pk-btn--outline">Search the catalog</Link>
+      </div>
+    </section>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────────
    VALUE PROPS
 ───────────────────────────────────────────────────────────────── */
 function ValueProps() {
   const items = [
-    {Icon: IconTruck, title: 'Free shipping', sub: 'On all orders over $50'},
-    {Icon: IconReturn, title: 'Easy 30-day returns', sub: 'No-hassle refunds'},
-    {Icon: IconShield, title: 'Secure payments', sub: 'Encrypted checkout'},
-    {Icon: IconSparkles, title: 'Handpicked quality', sub: 'Curated, never random'},
+    {Icon: IconTruck,    title: 'Free shipping',   sub: 'On orders over $50'},
+    {Icon: IconReturn,   title: '30-day returns',  sub: 'No questions, no hassle'},
+    {Icon: IconShield,   title: 'Secure checkout', sub: 'Encrypted & PCI-compliant'},
+    {Icon: IconSparkles, title: 'Handpicked only', sub: 'Curated, never random'},
   ];
   return (
-    <section className="pk-values">
+    <section className="pk-values" aria-label="Why Puchica">
       {items.map(({Icon, title, sub}) => (
         <div key={title} className="pk-values__item">
-          <span className="pk-values__icon">
-            <Icon size={22} />
-          </span>
+          <span className="pk-values__icon" aria-hidden="true"><Icon size={22} /></span>
           <div>
             <p className="pk-values__title">{title}</p>
             <p className="pk-values__sub">{sub}</p>
@@ -455,7 +719,7 @@ function ValueProps() {
 }
 
 /* ─────────────────────────────────────────────────────────────────
-   NEWSLETTER BAND
+   NEWSLETTER
 ───────────────────────────────────────────────────────────────── */
 function NewsletterBand() {
   const fetcher = useFetcher();
@@ -464,77 +728,57 @@ function NewsletterBand() {
   const submitting = fetcher.state !== 'idle';
 
   useEffect(() => {
-    if (fetcher.data?.ok) {
-      setDone(true);
-      formRef.current?.reset();
-    }
+    if (fetcher.data?.ok) { setDone(true); formRef.current?.reset(); }
   }, [fetcher.data]);
 
   return (
-    <section className="pk-news">
-      <div className="pk-news__glow" aria-hidden />
+    <section className="pk-news" aria-label="Newsletter signup">
+      <div className="pk-news__glow" aria-hidden="true" />
       <div className="pk-news__inner">
         <span className="pk-pill pk-pill--glass">Join the club</span>
         <h2 className="pk-news__title">Get the good stuff first.</h2>
         <p className="pk-news__sub">
-          New arrivals, exclusive deals, and picks you won&apos;t find anywhere
-          else — delivered straight to your inbox. No spam, ever.
+          New arrivals, exclusive deals, and picks you won&apos;t find anywhere else
+          — straight to your inbox. No spam, unsubscribe anytime.
         </p>
         {done ? (
-          <p className="pk-news__done">🎉 You&apos;re in! Check your inbox.</p>
+          <p className="pk-news__done" role="status">You&apos;re in! Check your inbox.</p>
         ) : (
-          <fetcher.Form
-            ref={formRef}
-            method="post"
-            action="/newsletter"
-            className="pk-news__form"
-          >
-            <label htmlFor="newsletter-email" className="sr-only">
-              Email address
-            </label>
-            <input
-              id="newsletter-email"
-              type="email"
-              name="email"
-              placeholder="your@email.com"
-              required
-              className="pk-news__input"
-              autoComplete="email"
-            />
-            <button
-              type="submit"
-              className="pk-btn pk-btn--spark"
-              disabled={submitting}
-            >
+          <fetcher.Form ref={formRef} method="post" action="/newsletter" className="pk-news__form">
+            <label htmlFor="nl-email" className="sr-only">Email address</label>
+            <input id="nl-email" type="email" name="email" placeholder="your@email.com"
+              required className="pk-news__input" autoComplete="email" />
+            <button type="submit" className="pk-btn pk-btn--spark" disabled={submitting}>
               {submitting ? 'Joining…' : 'Subscribe'}
             </button>
           </fetcher.Form>
         )}
-        {fetcher.data?.error && !done && (
-          <p className="pk-news__error">{fetcher.data.error}</p>
-        )}
+        {fetcher.data?.error && !done && <p className="pk-news__error" role="alert">{fetcher.data.error}</p>}
       </div>
     </section>
   );
 }
 
 /* ─────────────────────────────────────────────────────────────────
-   QUERIES
+   GRAPHQL QUERIES
 ───────────────────────────────────────────────────────────────── */
-const BEST_PICKS_QUERY = `#graphql
-  fragment BestPick on Product {
-    id title handle vendor
+/* ── Home & Kitchen → rack ("Worth every penny" section) ── */
+const RACK_QUERY = `#graphql
+  fragment RackProduct on Product {
+    id title handle
     priceRange { minVariantPrice { amount currencyCode } }
     featuredImage { id url altText width height }
-    variants(first: 1) { nodes { id availableForSale } }
   }
-  query BestPicks {
-    products(first: 4, sortKey: BEST_SELLING) {
-      nodes { ...BestPick }
+  query RackProducts {
+    collection(handle: "home-essentials") {
+      products(first: 12, sortKey: BEST_SELLING) {
+        nodes { ...RackProduct }
+      }
     }
   }
 `;
 
+/* ── Trending curated collection → hero + swiper ── */
 const TRENDING_QUERY = `#graphql
   fragment TrendingProduct on Product {
     id title handle
@@ -542,8 +786,58 @@ const TRENDING_QUERY = `#graphql
     featuredImage { id url altText width height }
   }
   query Trending {
-    products(first: 10, sortKey: BEST_SELLING) {
-      nodes { ...TrendingProduct }
+    collection(handle: "trending-finds") {
+      products(first: 8, sortKey: BEST_SELLING) {
+        nodes { ...TrendingProduct }
+      }
+    }
+  }
+`;
+
+/* ── Curated best-sellers collection (tagged bulk1) → featured banner ── */
+const BEST_PICKS_QUERY = `#graphql
+  fragment BestPick on Product {
+    id title handle
+    priceRange { minVariantPrice { amount currencyCode } }
+    featuredImage { id url altText width height }
+  }
+  query BestPicks {
+    collection(handle: "best-sellers") {
+      products(first: 3, sortKey: BEST_SELLING) {
+        nodes { ...BestPick }
+      }
+    }
+  }
+`;
+
+/* ── Outdoor & Garden → new arrivals (newest in category) ── */
+const NEW_ARRIVALS_QUERY = `#graphql
+  fragment NewArrival on Product {
+    id title handle
+    priceRange { minVariantPrice { amount currencyCode } }
+    featuredImage { id url altText width height }
+  }
+  query NewArrivals {
+    collection(handle: "outdoor-garden") {
+      products(first: 8, sortKey: CREATED, reverse: true) {
+        nodes { ...NewArrival }
+      }
+    }
+  }
+`;
+
+/* ── Beauty & Personal Care → fresh finds ── */
+const FRESH_FINDS_QUERY = `#graphql
+  fragment FreshFind on Product {
+    id title handle
+    priceRange { minVariantPrice { amount currencyCode } }
+    featuredImage { id url altText width height }
+  }
+  query FreshFinds {
+    collection(handle: "beauty-personal-care") {
+      products(first: 12, sortKey: BEST_SELLING) {
+        nodes { ...FreshFind }
+      }
     }
   }
 `;

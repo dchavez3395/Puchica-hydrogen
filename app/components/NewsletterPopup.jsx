@@ -1,5 +1,6 @@
 import {useEffect, useRef, useState} from 'react';
 import {useFetcher} from 'react-router';
+import {IconSparkles} from '~/components/Icons';
 
 /**
  * Email-capture popup that offers the WELCOME15 first-order discount.
@@ -119,7 +120,10 @@ export function NewsletterPopup() {
 
         {success ? (
           <>
-            <h2 style={styles.h2}>You&rsquo;re in! 🎉</h2>
+            <h2 style={styles.h2}>
+              <IconSparkles size={18} style={{verticalAlign: '-0.15em', marginRight: 6}} />
+              You&rsquo;re in!
+            </h2>
             <p style={styles.p}>
               Here&rsquo;s 15% off your first order. Use this code at checkout:
             </p>
