@@ -100,7 +100,21 @@ export default function Index() {
       <JsonLdScript data={organizationJsonLd({})} />
       <JsonLdScript data={websiteJsonLd({})} />
 
-      <StoreHero />
+      {/* Dark hero section */}
+      <div id="hero-anchor" className="pk-dark-lead">
+        <Suspense fallback={<div style={{minHeight: '100dvh', background: '#0E0C08'}} />}>
+          <Await resolve={data.trending}>
+            {(products) => <Hero products={products ?? []} />}
+          </Await>
+        </Suspense>
+        <Marquee />
+        {/* Phase 1.7: product marquee / Trending Now strip */}
+        <Suspense fallback={null}>
+          <Await resolve={data.trending}>
+            {(products) => <ProductMarquee products={products ?? []} />}
+          </Await>
+        </Suspense>
+      </div>
 
       <Suspense fallback={<DepartmentGridSkeleton />}>
         <Await resolve={data.categories}>
@@ -337,21 +351,136 @@ function Marquee() {
   );
 }
 
-/**
- * Wrapper that renders a ProductRail inside a <section> with the
- * standard section padding + inner container.
- */
-function ProductRailSection({
-  products,
-  eyebrow,
-  heading,
-  seeAllLabel,
-  seeAllHref,
-  scrollLeftAria,
-  scrollRightAria,
-  variant,
-}) {
-  if (!products?.length) return null;
+/* ─────────────────────────────────────────────────────────────────
+   PRODUCT MARQUEE — auto-scrolling Trending Now product strip.
+   Sits inside .pk-dark-lead right after the text marquee, so both
+   read as one "Trending" zone over the dark hero lead.
+
+   A11y:
+   - Track is aria-hidden (cards are duplicated for the seamless loop,
+     so the original product links are the canonical ones).
+   - Pause button is keyboard-reachable, aria-pressed, focuses the strip.
+   - Reduced-motion kills the animation entirely (no opt-back-in).
+   - Hover, focus-within, and tab-hidden all pause without re-rendering.
+───────────────────────────────────────────────────────────────── */
+function ProductMarquee({products}) {
+  const items = products.slice(0, 12);
+  const trackRef = useRef(null);
+  const sectionRef = useRef(null);
+  const [paused, setPaused] = useState(false);
+  const [focused, setFocused] = useState(false);
+
+  // Read prefers-reduced-motion once on mount.
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return;
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    reducedMotion.current = mq.matches;
+    const onChange = (e) => { reducedMotion.current = e.matches; };
+    mq.addEventListener?.('change', onChange);
+    return () => mq.removeEventListener?.('change', onChange);
+  }, []);
+
+  // Effective paused = user toggle OR focus OR reduced-motion. Hover
+  // and document-hidden are read inside the CSS pause path via the
+  // .is-paused class on the track, so React state doesn't rebuild the
+  // animation on every mouse move.
+  const effectivePaused = paused || focused || reducedMotion.current;
+  // Mirror onto the track DOM (CSS owns the actual animation-play-state).
+  useEffect(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    el.classList.toggle('is-paused', effectivePaused);
+  }, [effectivePaused]);
+
+  if (!items.length) return null;
+
+  return (
+    <section
+      ref={sectionRef}
+      className="pk-pmarq"
+      aria-label="Trending now products"
+      onFocus={() => setFocused(true)}
+      onBlur={() => setFocused(false)}
+    >
+      <div className="pk-pmarq__head pk-inner">
+        <div>
+          <p className="pk-pmarq__eye"><StarGlyph /> Trending now</p>
+          <h2 className="pk-pmarq__title">This week&apos;s handpicked finds.</h2>
+        </div>
+        <button
+          type="button"
+          className={`pk-pmarq__pause${paused ? ' is-paused' : ''}`}
+          onClick={() => setPaused((p) => !p)}
+          aria-label={paused ? 'Resume product marquee' : 'Pause product marquee'}
+          aria-pressed={paused}
+        >
+          <span className="pk-pmarq__pause-icon" aria-hidden="true">{paused ? '▶' : '⏸'}</span>
+          <span className="pk-pmarq__pause-label">{paused ? 'Resume' : 'Pause'}</span>
+        </button>
+      </div>
+
+      <div className="pk-pmarq__track-wrap">
+        <div className="pk-pmarq__track" ref={trackRef}>
+          {/* Original set — canonical links for AT + tab order. */}
+          {items.map((p) => (
+            <Link
+              key={p.id}
+              to={`/products/${p.handle}`}
+              className="pk-pmarq__card"
+              aria-label={p.title}
+            >
+              {p.featuredImage && (
+                <div className="pk-pmarq__card-img">
+                  <Image data={p.featuredImage} aspectRatio="3/4" sizes="(max-width: 600px) 50vw, 220px" loading="lazy" />
+                </div>
+              )}
+              <div className="pk-pmarq__card-body">
+                <p className="pk-pmarq__card-name">{p.title}</p>
+                <div className="pk-pmarq__card-price"><Money data={p.priceRange.minVariantPrice} /></div>
+              </div>
+            </Link>
+          ))}
+          {/* Duplicate set for seamless loop. Visually identical, hidden from AT. */}
+          <div className="pk-pmarq__dupset" aria-hidden="true">
+            {items.map((p) => (
+              <Link
+                key={`dup-${p.id}`}
+                to={`/products/${p.handle}`}
+                className="pk-pmarq__card"
+                tabIndex={-1}
+              >
+                {p.featuredImage && (
+                  <div className="pk-pmarq__card-img">
+                    <Image data={p.featuredImage} aspectRatio="3/4" sizes="(max-width: 600px) 50vw, 220px" loading="lazy" />
+                  </div>
+                )}
+                <div className="pk-pmarq__card-body">
+                  <p className="pk-pmarq__card-name">{p.title}</p>
+                  <div className="pk-pmarq__card-price"><Money data={p.priceRange.minVariantPrice} /></div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   DISCOVER SWIPER
+───────────────────────────────────────────────────────────────── */
+function DiscoverSwiper({products}) {
+  const items = products.slice(0, 8);
+  const trackRef = useRef(null);
+  const sectionRef = useRef(null);
+  const [active, setActive] = useState(0);
+  // Auto-advance state. Reduced-motion is read once on mount and respected
+  // as "always paused" — there's no motion the user can opt back into.
+  const [autoPaused, setAutoPaused] = useState(false);
+  const [focused, setFocused] = useState(false);
+  const reducedMotion = useRef(false);
+>>>>>>> 05021d7 (feat(phase-1.7): Trending Now product marquee)
 
   return (
     <section
@@ -818,7 +947,7 @@ const TRENDING_QUERY = `#graphql
   }
   query Trending($country: CountryCode!, $language: LanguageCode!) @inContext(country: $country, language: $language) {
     collection(handle: "trending-finds") {
-      products(first: 8, sortKey: BEST_SELLING) {
+      products(first: 16, sortKey: BEST_SELLING) {
         nodes { ...TrendingProduct }
       }
     }
