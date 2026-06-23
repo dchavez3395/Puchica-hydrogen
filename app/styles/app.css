@@ -1851,7 +1851,7 @@ button:focus-visible,
   cursor: pointer;
   text-decoration: none;
   position: relative;
-  transition: background 0.15s ease, color 0.15s ease;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease;
 }
 .pk-icon-btn:hover { background: var(--pk-surface); color: var(--pk-lime-dark); }
 .pk-icon-btn.is-active {
@@ -6951,7 +6951,7 @@ button:focus-visible,
   white-space: nowrap;
   background: transparent;
   border: 1.5px solid transparent;
-  transition: background 0.16s, border-color 0.16s, color 0.16s;
+  transition: background 0.16s, border-color 0.16s, color 0.16s, transform 0.12s;
 }
 .pk-pill-nav__pill:hover {
   background: var(--pk-ink);
@@ -6968,3 +6968,38 @@ button:focus-visible,
   .pk-pill-nav__list { padding: 7px 16px; gap: 4px; }
   .pk-pill-nav__pill { font-size: 12px; padding: 4px 12px; }
 }
+
+/* ============================================================
+   MICRO-INTERACTIONS — button press, card focus, image zoom
+   ============================================================ */
+
+/* Button press (push-down on click) */
+.pk-btn--primary:active {
+  transform: translateY(1px);
+  box-shadow: 0 4px 10px rgba(14, 12, 8, 0.18);
+}
+.pk-btn--spark:active {
+  transform: translateY(1px);
+  box-shadow: 0 4px 10px rgba(198, 255, 78, 0.22);
+}
+.pk-btn--ghost:active {
+  transform: translateY(1px);
+}
+
+/* Icon button press */
+.pk-icon-btn:active { transform: scale(0.91); }
+
+/* Pill nav press */
+.pk-pill-nav__pill:active { transform: scale(0.94); }
+
+/* Feat-banner card image zoom — consistent with rack & arrivals */
+.pk-feat-banner__card img { transition: transform 0.4s ease; }
+.pk-feat-banner__card:hover img { transform: scale(1.06); }
+
+/* Card focus-visible: match each card's own border-radius */
+.pk-rack__card:focus-visible,
+.pk-arrivals__card:focus-visible,
+.pk-feat-banner__card:focus-visible { border-radius: 18px; outline-offset: 4px; }
+.pk-bento__cell:focus-visible,
+.pk-collist-card:focus-visible    { border-radius: 20px; outline-offset: 4px; }
+.pk-mood__card:focus-visible      { border-radius: 24px; outline-offset: 4px; }
