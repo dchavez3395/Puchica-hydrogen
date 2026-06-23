@@ -252,24 +252,35 @@ const MARQUEE_ITEMS = [
 
 function Marquee() {
   const [paused, setPaused] = useState(false);
+  // The track is decorative (duplicated items are not real content), but
+  // the pause control sits inside the same wrapper so it stays in the
+  // tab order and is announced. SR users get the same offer info via
+  // the sticky announcement bar (Header.AnnouncementBar) above the page
+  // header, so the visual marquee text doesn't need to be exposed.
   return (
-    <div className="pk-marquee" role="marquee" aria-label="Store highlights">
-      <div className={`pk-marquee__track${paused ? ' is-paused' : ''}`} aria-hidden="true">
-        {['a', 'b'].flatMap((copy) =>
-          MARQUEE_ITEMS.map((t) => (
-            <span className="pk-marquee__item" key={`${copy}-${t}`}>
-              <span className="pk-marquee__dot" aria-hidden="true"><StarGlyph size={10} style={{marginRight: 0}} /></span>{t}
-            </span>
-          )),
-        )}
+    <div className="pk-marquee">
+      <div className="pk-marquee__track-wrap" aria-hidden="true">
+        <div className={`pk-marquee__track${paused ? ' is-paused' : ''}`}>
+          {['a', 'b'].flatMap((copy) =>
+            MARQUEE_ITEMS.map((t) => (
+              <span className="pk-marquee__item" key={`${copy}-${t}`}>
+                <span className="pk-marquee__dot"><StarGlyph size={10} style={{marginRight: 0}} /></span>{t}
+              </span>
+            )),
+          )}
+        </div>
       </div>
+      {/* Pause control sits OUTSIDE the scrolling row and is exposed to AT. */}
       <button
-        className="pk-marquee__pause"
+        type="button"
+        className={`pk-marquee__pause${paused ? ' is-paused' : ''}`}
         onClick={() => setPaused((p) => !p)}
         aria-label={paused ? 'Resume scrolling banner' : 'Pause scrolling banner'}
         aria-pressed={paused}
+        tabIndex={0}
       >
-        {paused ? '▶' : '⏸'}
+        <span className="pk-marquee__pause-icon" aria-hidden="true">{paused ? '▶' : '⏸'}</span>
+        <span className="pk-marquee__pause-label">{paused ? 'Resume' : 'Pause'}</span>
       </button>
     </div>
   );
@@ -281,7 +292,23 @@ function Marquee() {
 function DiscoverSwiper({products}) {
   const items = products.slice(0, 8);
   const trackRef = useRef(null);
+  const sectionRef = useRef(null);
   const [active, setActive] = useState(0);
+  // Auto-advance state. Reduced-motion is read once on mount and respected
+  // as "always paused" — there's no motion the user can opt back into.
+  const [autoPaused, setAutoPaused] = useState(false);
+  const [focused, setFocused] = useState(false);
+  const reducedMotion = useRef(false);
+
+  // Track the user's pause/manual-nav intent separately from the timer.
+  // autoPaused = true means the user explicitly hit the pause button.
+  // Hover and document-hidden are checked inside the tick (not as React
+  // state) so the interval doesn't rebuild on every mouse move.
+  const userPaused = autoPaused || focused || reducedMotion.current;
+  // activeRef lets the interval read the latest `active` without including
+  // it in deps — including it would reset the 5s timer on every tick.
+  const activeRef = useRef(0);
+  useEffect(() => { activeRef.current = active; }, [active]);
 
   const scrollTo = (i) => {
     const n = Math.max(0, Math.min(i, items.length - 1));
@@ -289,9 +316,43 @@ function DiscoverSwiper({products}) {
     trackRef.current?.children[n]?.scrollIntoView({behavior: 'smooth', block: 'nearest', inline: 'center'});
   };
 
+  // Read prefers-reduced-motion once on mount.
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return;
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    reducedMotion.current = mq.matches;
+    const onChange = (e) => { reducedMotion.current = e.matches; };
+    mq.addEventListener?.('change', onChange);
+    return () => mq.removeEventListener?.('change', onChange);
+  }, []);
+
+  // 5s auto-advance. Re-subscribes only when the user toggles pause or the
+  // item count changes — never on every active change. Hover and tab-hidden
+  // are checked inside the tick.
+  useEffect(() => {
+    if (items.length < 2) return;
+    if (userPaused) return;
+    const id = setInterval(() => {
+      if (document.hidden) return;
+      if (sectionRef.current && sectionRef.current.matches(':hover')) return;
+      const curr = activeRef.current;
+      const next = (curr + 1) % items.length;
+      setActive(next);
+      trackRef.current?.children[next]?.scrollIntoView({behavior: 'smooth', block: 'nearest', inline: 'center'});
+    }, 5000);
+    return () => clearInterval(id);
+  }, [userPaused, items.length]);
+
   if (!items.length) return null;
   return (
-    <section id="section-discover" className="pk-swiper" aria-label="Discover products carousel"
+    <section
+      ref={sectionRef}
+      id="section-discover"
+      className="pk-swiper"
+      aria-label="Discover products carousel"
+      aria-roledescription="carousel"
+      onFocus={() => setFocused(true)}
+      onBlur={() => setFocused(false)}
       onKeyDown={(e) => {
         if (e.key === 'ArrowLeft') { e.preventDefault(); scrollTo(active - 1); }
         if (e.key === 'ArrowRight') { e.preventDefault(); scrollTo(active + 1); }
@@ -308,12 +369,19 @@ function DiscoverSwiper({products}) {
           <button className="pk-swiper__arr" onClick={() => scrollTo(active + 1)} disabled={active === items.length - 1} aria-label="Next product">→</button>
         </div>
       </div>
-      <div className="pk-swiper__track" ref={trackRef} role="list" aria-label="Product carousel">
+      <div
+        className="pk-swiper__track"
+        ref={trackRef}
+        id="pk-swiper-track"
+        aria-live={userPaused ? 'polite' : 'off'}
+      >
         {items.map((p, i) => (
-          <Link key={p.id} to={`/products/${p.handle}`}
+          <Link
+            key={p.id}
+            to={`/products/${p.handle}`}
             className={`pk-swiper__card${i === active ? ' is-active' : ''}`}
-            role="listitem"
-            aria-label={`${p.title}${i === active ? ' (selected)' : ''}`}
+            aria-current={i === active ? 'true' : undefined}
+            aria-label={`${p.title} — product ${i + 1} of ${items.length}`}
             onClick={(e) => { if (i !== active) { e.preventDefault(); scrollTo(i); } }}
           >
             {p.featuredImage && (
@@ -328,13 +396,29 @@ function DiscoverSwiper({products}) {
           </Link>
         ))}
       </div>
-      <div className="pk-swiper__dots" role="tablist" aria-label="Jump to product">
+      <div className="pk-swiper__dots" aria-label="Jump to product">
         {items.map((p, i) => (
-          <button key={i} className={`pk-swiper__dot${i === active ? ' is-active' : ''}`}
-            role="tab" aria-selected={i === active} aria-label={`Product ${i + 1}: ${p.title}`}
+          <button
+            key={p.id}
+            className={`pk-swiper__dot${i === active ? ' is-active' : ''}`}
+            aria-label={`Product ${i + 1}: ${p.title}`}
+            aria-current={i === active ? 'true' : undefined}
             onClick={() => scrollTo(i)}
           />
         ))}
+      </div>
+      <div className="pk-swiper__ctrl">
+        <button
+          type="button"
+          className={`pk-swiper__ctrl-btn${autoPaused ? ' is-paused' : ''}`}
+          onClick={() => setAutoPaused((p) => !p)}
+          aria-label={autoPaused ? 'Resume auto-advancing carousel' : 'Pause auto-advancing carousel'}
+          aria-pressed={autoPaused}
+          aria-controls="pk-swiper-track"
+        >
+          <span className="pk-swiper__ctrl-icon" aria-hidden="true">{autoPaused ? '▶' : '⏸'}</span>
+          <span className="pk-swiper__ctrl-label">{autoPaused ? 'Resume auto-play' : 'Pause auto-play'}</span>
+        </button>
       </div>
     </section>
   );

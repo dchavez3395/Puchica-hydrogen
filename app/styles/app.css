@@ -1854,6 +1854,10 @@ button:focus-visible,
   transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease;
 }
 .pk-icon-btn:hover { background: var(--pk-surface); color: var(--pk-lime-dark); }
+.pk-icon-btn:focus-visible {
+  outline: 2px solid var(--pk-lime);
+  outline-offset: 2px;
+}
 .pk-icon-btn.is-active {
   background: var(--pk-lime);
   color: #0E0C08;
@@ -2409,38 +2413,63 @@ button:focus-visible,
 .pk-spotlight__row .pk-spotlight__cta { margin-top: 0; }
 
 /* ---------- Marquee ---------- */
+/* Flex row: track fills the available space and clips its scrolling text,
+   pause control sits to the right OUTSIDE the track — it never overlaps
+   the moving items. High-contrast pill on the dark ink background. */
 .pk-marquee {
-  overflow: hidden;
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
   border-radius: 0;
   background: var(--pk-ink);
   margin: 0;
   width: 100%;
-  padding: 14px 0;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  padding: 8px 14px 8px 0;
   position: relative;
+}
+.pk-marquee__track-wrap {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  padding: 6px 0;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
 }
 .pk-marquee__track.is-paused { animation-play-state: paused; }
 .pk-marquee__pause {
-  position: absolute;
-  right: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: rgba(198, 255, 78, 0.12);
-  border: 1px solid rgba(198, 255, 78, 0.30);
-  color: var(--pk-lime);
-  font-size: 11px;
-  cursor: pointer;
-  display: flex;
+  flex: 0 0 auto;
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  z-index: 2;
-  transition: background 0.2s;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1.5px solid var(--pk-lime);
+  background: var(--pk-lime);
+  color: var(--pk-ink);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, transform 0.15s;
 }
-.pk-marquee__pause:hover { background: rgba(198, 255, 78, 0.25); }
+.pk-marquee__pause:hover { background: #d6ff4a; border-color: #d6ff4a; }
+.pk-marquee__pause:focus-visible {
+  outline: 2px solid var(--pk-paper);
+  outline-offset: 3px;
+}
+.pk-marquee__pause:active { transform: scale(0.96); }
+.pk-marquee__pause.is-paused {
+  background: transparent;
+  color: var(--pk-lime);
+}
+.pk-marquee__pause-icon { font-size: 11px; line-height: 1; }
+.pk-marquee__pause-label { line-height: 1; }
+@media (max-width: 520px) {
+  .pk-marquee__pause-label { display: none; }
+  .pk-marquee__pause { padding: 8px; }
+}
 .pk-marquee__track {
   display: inline-flex;
   align-items: center;
@@ -3637,6 +3666,11 @@ button:focus-visible,
   border-radius: 6px;
 }
 .pk-ann__close:hover { color: var(--pk-paper); background: rgba(242, 235, 218, 0.12); }
+.pk-ann__close:focus-visible {
+  outline: 2px solid var(--pk-lime);
+  outline-offset: 2px;
+  color: var(--pk-paper);
+}
 
 /* Header — sticky + shrink on scroll */
 .pk-header { position: sticky; top: 0; z-index: 40; }
@@ -5917,6 +5951,10 @@ button:focus-visible,
   color: #0E0C08;
 }
 .pk-swiper__arr:disabled { opacity: 0.28; cursor: not-allowed; }
+.pk-swiper__arr:focus-visible {
+  outline: 2px solid var(--pk-lime);
+  outline-offset: 3px;
+}
 
 .pk-swiper__count {
   font-size: 13px;
@@ -5998,6 +6036,48 @@ button:focus-visible,
   background: var(--pk-lime);
   transform: scale(1.5);
 }
+.pk-swiper__dot:focus-visible {
+  outline: 2px solid var(--pk-lime);
+  outline-offset: 3px;
+}
+
+/* Auto-play control — sits below the dots, lime pill, focus-visible ring. */
+.pk-swiper__ctrl {
+  display: flex;
+  justify-content: center;
+  padding-top: 18px;
+}
+.pk-swiper__ctrl-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1.5px solid rgba(198, 255, 78, 0.4);
+  background: rgba(198, 255, 78, 0.08);
+  color: var(--pk-lime);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.15s;
+}
+.pk-swiper__ctrl-btn:hover {
+  background: rgba(198, 255, 78, 0.16);
+  border-color: var(--pk-lime);
+}
+.pk-swiper__ctrl-btn:focus-visible {
+  outline: 2px solid var(--pk-lime);
+  outline-offset: 3px;
+}
+.pk-swiper__ctrl-btn:active { transform: scale(0.96); }
+.pk-swiper__ctrl-btn.is-paused {
+  background: var(--pk-lime);
+  color: #0E0C08;
+  border-color: var(--pk-lime);
+}
+.pk-swiper__ctrl-icon { font-size: 11px; line-height: 1; }
+.pk-swiper__ctrl-label { line-height: 1; }
 
 @media (max-width: 640px) {
   .pk-swiper__card { flex: 0 0 80vw; }
@@ -6048,6 +6128,10 @@ button:focus-visible,
   color: var(--pk-cream);
 }
 .pk-rack__arr:disabled { opacity: 0.25; cursor: not-allowed; }
+.pk-rack__arr:focus-visible {
+  outline: 2px solid var(--pk-lime);
+  outline-offset: 3px;
+}
 
 /* Dark-bg variant used in arrivals + fresh finds */
 .pk-rack__arr--dark {
@@ -6996,10 +7080,32 @@ button:focus-visible,
 .pk-feat-banner__card img { transition: transform 0.4s ease; }
 .pk-feat-banner__card:hover img { transform: scale(1.06); }
 
-/* Card focus-visible: match each card's own border-radius */
+/* Card focus-visible: match each card's own border-radius, give a lime outline. */
 .pk-rack__card:focus-visible,
 .pk-arrivals__card:focus-visible,
-.pk-feat-banner__card:focus-visible { border-radius: 18px; outline-offset: 4px; }
+.pk-feat-banner__card:focus-visible {
+  border-radius: 18px;
+  outline: 2px solid var(--pk-lime);
+  outline-offset: 4px;
+}
 .pk-bento__cell:focus-visible,
-.pk-collist-card:focus-visible    { border-radius: 20px; outline-offset: 4px; }
-.pk-mood__card:focus-visible      { border-radius: 24px; outline-offset: 4px; }
+.pk-collist-card:focus-visible {
+  border-radius: 20px;
+  outline: 2px solid var(--pk-lime);
+  outline-offset: 4px;
+}
+.pk-mood__card:focus-visible {
+  border-radius: 24px;
+  outline: 2px solid var(--pk-lime);
+  outline-offset: 4px;
+}
+.pk-swiper__card:focus-visible {
+  border-radius: 20px;
+  outline: 2px solid var(--pk-lime);
+  outline-offset: 4px;
+}
+.pk-gift__card:focus-visible {
+  border-radius: 20px;
+  outline: 2px solid var(--pk-lime);
+  outline-offset: 4px;
+}
