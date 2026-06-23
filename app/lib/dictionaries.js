@@ -10,11 +10,10 @@
  */
 export const DICTIONARIES = {
   en: {
-    announce_offer: '15% off your first order — use code WELCOME15 at checkout',
+    announce_offer: '30-day returns. No questions. No fine print.',
     announce_freeship: 'Free shipping over $50',
     announce_cta: 'Shop now',
-    footer_tagline:
-      'Curated picks, fast shipping, and effortless style. Shop smart. Shop Puchica.',
+    footer_tagline: '6,000+ handpicked products. Ships from Canada. The good stuff. All in one place.',
     footer_accepted_payments: 'Accepted payments',
     footer_secure: 'Secure checkout by Shopify — encrypted, PCI-compliant',
     footer_shop: 'Shop',
@@ -38,12 +37,10 @@ export const DICTIONARIES = {
     footer_privacy: 'Privacy Policy',
   },
   fr: {
-    announce_offer:
-      '15 % de rabais sur votre première commande — code WELCOME15 au paiement',
+    announce_offer: 'Retours sous 30 jours. Sans questions. Sans conditions.',
     announce_freeship: 'Livraison gratuite dès 50 $',
     announce_cta: 'Magasiner',
-    footer_tagline:
-      'Sélections triées sur le volet, livraison rapide et style sans effort. Achetez malin. Achetez Puchica.',
+    footer_tagline: 'Plus de 6 000 produits sélectionnés. Expédié du Canada. Le meilleur, tout au même endroit.',
     footer_accepted_payments: 'Paiements acceptés',
     footer_secure: 'Paiement sécurisé par Shopify — chiffré et conforme PCI',
     footer_shop: 'Boutique',
@@ -67,12 +64,10 @@ export const DICTIONARIES = {
     footer_privacy: 'Politique de confidentialité',
   },
   es: {
-    announce_offer:
-      '15% de descuento en tu primer pedido — usa el código WELCOME15 al pagar',
+    announce_offer: 'Devoluciones en 30 días. Sin preguntas. Sin letra pequeña.',
     announce_freeship: 'Envío gratis en pedidos de más de $50',
     announce_cta: 'Comprar ahora',
-    footer_tagline:
-      'Selecciones cuidadas, envío rápido y estilo sin esfuerzo. Compra inteligente. Compra Puchica.',
+    footer_tagline: 'Más de 6.000 productos seleccionados. Enviado desde Canadá. Lo mejor, todo en un solo lugar.',
     footer_accepted_payments: 'Pagos aceptados',
     footer_secure: 'Pago seguro con Shopify — cifrado y conforme con PCI',
     footer_shop: 'Tienda',
@@ -96,12 +91,10 @@ export const DICTIONARIES = {
     footer_privacy: 'Política de privacidad',
   },
   'pt-br': {
-    announce_offer:
-      '15% de desconto no seu primeiro pedido — use o código WELCOME15 no checkout',
+    announce_offer: 'Devoluções em 30 dias. Sem perguntas. Sem letras miúdas.',
     announce_freeship: 'Frete grátis acima de $50',
     announce_cta: 'Comprar agora',
-    footer_tagline:
-      'Seleções caprichadas, frete rápido e estilo sem esforço. Compre inteligente. Compre Puchica.',
+    footer_tagline: 'Mais de 6.000 produtos selecionados. Enviado do Canadá. O melhor, tudo em um só lugar.',
     footer_accepted_payments: 'Pagamentos aceitos',
     footer_secure: 'Checkout seguro pela Shopify — criptografado e em conformidade com PCI',
     footer_shop: 'Loja',
