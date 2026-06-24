@@ -373,7 +373,15 @@ function DiscoverSwiper({products}) {
       const curr = activeRef.current;
       const next = (curr + 1) % items.length;
       setActive(next);
-      trackRef.current?.children[next]?.scrollIntoView({behavior: 'smooth', block: 'nearest', inline: 'center'});
+      // Only auto-scroll the carousel track when the section is in viewport
+      // Otherwise this yanks the user back to the carousel if they've scrolled past it
+      if (sectionRef.current) {
+        const rect = sectionRef.current.getBoundingClientRect();
+        const inView = rect.top < window.innerHeight && rect.bottom > 0;
+        if (inView) {
+          trackRef.current?.children[next]?.scrollIntoView({behavior: 'smooth', block: 'nearest', inline: 'center'});
+        }
+      }
     }, 5000);
     return () => clearInterval(id);
   }, [userPaused, items.length]);
