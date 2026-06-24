@@ -35,7 +35,7 @@ export function ProductItem({product, loading}) {
         prefetch="intent"
         aria-label={product.title}
       >
-        {image && (
+        {image ? (
           <Image
             alt={image.altText || product.title}
             aspectRatio="1/1"
@@ -43,6 +43,10 @@ export function ProductItem({product, loading}) {
             loading={loading}
             sizes="(min-width: 45em) 25vw, 50vw"
           />
+        ) : (
+          <div className="pk-card__placeholder" aria-hidden="true">
+            <span className="pk-card__placeholder-text">Puchica</span>
+          </div>
         )}
       </Link>
       <div className="pk-card__body">

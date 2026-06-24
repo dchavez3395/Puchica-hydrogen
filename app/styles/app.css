@@ -7822,3 +7822,23 @@ button:focus-visible,
     grid-template-columns: 1fr;
   }
 }
+
+
+/* ==================================================
+   Product Card Placeholder - branded fallback for missing images
+   ================================================== */
+.pk-card__placeholder {
+  width: 100%;
+  aspect-ratio: 1/1;
+  background: #FAF8F3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pk-card__placeholder-text {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #CC4300;
+  opacity: 0.5;
+}
