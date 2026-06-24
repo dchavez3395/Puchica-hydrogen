@@ -22,12 +22,12 @@ export function TrendingTicker({products = []}) {
       </div>
       <div className="pk-ticker__track">
         <div className="pk-ticker__scroll">
-          {items.map((product, i) => {
+          {items.map((product) => {
             const image = product?.featuredImage;
             const price = product?.priceRange?.minVariantPrice;
             return (
               <Link
-                key={`${product.id}-${i}`}
+                key={`tt-${product.id}-${product.handle}`}
                 to={`/products/${product.handle}`}
                 className="pk-ticker__item"
                 prefetch="intent"
