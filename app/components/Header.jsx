@@ -165,6 +165,14 @@ export function HeaderMenu({menu, megaMenu, primaryDomainUrl, viewport, publicSt
       {viewport === 'desktop' && (
         <MegaMenu deferred={megaMenu} onClose={close} />
       )}
+      <NavLink
+        className="pk-nav__link"
+        to="/explore"
+        onClick={close}
+        prefetch="intent"
+      >
+        Explore
+      </NavLink>
       {viewport === 'mobile' && (
         <NavLink
           className="pk-nav__link"
