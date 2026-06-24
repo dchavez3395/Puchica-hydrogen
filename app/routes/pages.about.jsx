@@ -7,7 +7,7 @@ export const meta = () =>
   puchicaMeta({
     title: 'About Puchica – The good stuff, handpicked.',
     description:
-      "Puchica is a Canadian online store with 6,000+ handpicked products across home, beauty, tech, pet, and more. We find the good stuff so you don't have to.",
+      "Puchica is a Canadian online store with 6,000+ handpicked products across home, beauty, tech, pet, and more. We find the good stuff so you don&apos;t have to.",
     pathname: '/pages/about',
   });
 
@@ -31,7 +31,7 @@ export default function AboutPage() {
           <p className="pk-about-hero__sub">
             Puchica is a Canadian online store built on a simple idea: there
             are thousands of genuinely great products out there, buried under
-            noise. We dig them up so you don't have to.
+            noise. We dig them up so you don&apos;t have to.
           </p>
           <Link to="/collections/all" className="pk-btn pk-btn--spark pk-btn--lg">
             Start shopping →

@@ -50,7 +50,7 @@ async function loadCriticalData() {
 }
 
 function loadDeferredData({context}) {
-  const norm = (key) => (res) => res?.collection?.products?.nodes ?? res?.products?.nodes ?? [];
+  const norm = () => (res) => res?.collection?.products?.nodes ?? res?.products?.nodes ?? [];
 
   // Trending curated collection → hero deck + discover swiper
   const trending = context.storefront
@@ -345,7 +345,7 @@ function DiscoverSwiper({products}) {
 
   if (!items.length) return null;
   return (
-    <section
+    <section // eslint-disable-line jsx-a11y/no-noninteractive-element-interactions
       ref={sectionRef}
       id="section-discover"
       className="pk-swiper"
