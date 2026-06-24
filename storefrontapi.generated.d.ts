@@ -349,6 +349,373 @@ export type HeaderQuery = {
   >;
 };
 
+export type MegaCategoryFragment = Pick<
+  StorefrontAPI.Collection,
+  'id' | 'handle' | 'title' | 'description'
+> & {
+  image?: StorefrontAPI.Maybe<
+    Pick<StorefrontAPI.Image, 'id' | 'url' | 'altText' | 'width' | 'height'>
+  >;
+  products: {
+    nodes: Array<
+      Pick<StorefrontAPI.Product, 'id'> & {
+        featuredImage?: StorefrontAPI.Maybe<
+          Pick<StorefrontAPI.Image, 'url' | 'altText' | 'width' | 'height'>
+        >;
+      }
+    >;
+  };
+};
+
+export type MegaMenuQueryVariables = StorefrontAPI.Exact<{
+  [key: string]: never;
+}>;
+
+export type MegaMenuQuery = {
+  phoneCase?: StorefrontAPI.Maybe<
+    Pick<
+      StorefrontAPI.Collection,
+      'id' | 'handle' | 'title' | 'description'
+    > & {
+      image?: StorefrontAPI.Maybe<
+        Pick<StorefrontAPI.Image, 'id' | 'url' | 'altText' | 'width' | 'height'>
+      >;
+      products: {
+        nodes: Array<
+          Pick<StorefrontAPI.Product, 'id'> & {
+            featuredImage?: StorefrontAPI.Maybe<
+              Pick<StorefrontAPI.Image, 'url' | 'altText' | 'width' | 'height'>
+            >;
+          }
+        >;
+      };
+    }
+  >;
+  homeEssentials?: StorefrontAPI.Maybe<
+    Pick<
+      StorefrontAPI.Collection,
+      'id' | 'handle' | 'title' | 'description'
+    > & {
+      image?: StorefrontAPI.Maybe<
+        Pick<StorefrontAPI.Image, 'id' | 'url' | 'altText' | 'width' | 'height'>
+      >;
+      products: {
+        nodes: Array<
+          Pick<StorefrontAPI.Product, 'id'> & {
+            featuredImage?: StorefrontAPI.Maybe<
+              Pick<StorefrontAPI.Image, 'url' | 'altText' | 'width' | 'height'>
+            >;
+          }
+        >;
+      };
+    }
+  >;
+  electronicsAccessories?: StorefrontAPI.Maybe<
+    Pick<
+      StorefrontAPI.Collection,
+      'id' | 'handle' | 'title' | 'description'
+    > & {
+      image?: StorefrontAPI.Maybe<
+        Pick<StorefrontAPI.Image, 'id' | 'url' | 'altText' | 'width' | 'height'>
+      >;
+      products: {
+        nodes: Array<
+          Pick<StorefrontAPI.Product, 'id'> & {
+            featuredImage?: StorefrontAPI.Maybe<
+              Pick<StorefrontAPI.Image, 'url' | 'altText' | 'width' | 'height'>
+            >;
+          }
+        >;
+      };
+    }
+  >;
+  apparelAccessories?: StorefrontAPI.Maybe<
+    Pick<
+      StorefrontAPI.Collection,
+      'id' | 'handle' | 'title' | 'description'
+    > & {
+      image?: StorefrontAPI.Maybe<
+        Pick<StorefrontAPI.Image, 'id' | 'url' | 'altText' | 'width' | 'height'>
+      >;
+      products: {
+        nodes: Array<
+          Pick<StorefrontAPI.Product, 'id'> & {
+            featuredImage?: StorefrontAPI.Maybe<
+              Pick<StorefrontAPI.Image, 'url' | 'altText' | 'width' | 'height'>
+            >;
+          }
+        >;
+      };
+    }
+  >;
+  healthWellness?: StorefrontAPI.Maybe<
+    Pick<
+      StorefrontAPI.Collection,
+      'id' | 'handle' | 'title' | 'description'
+    > & {
+      image?: StorefrontAPI.Maybe<
+        Pick<StorefrontAPI.Image, 'id' | 'url' | 'altText' | 'width' | 'height'>
+      >;
+      products: {
+        nodes: Array<
+          Pick<StorefrontAPI.Product, 'id'> & {
+            featuredImage?: StorefrontAPI.Maybe<
+              Pick<StorefrontAPI.Image, 'url' | 'altText' | 'width' | 'height'>
+            >;
+          }
+        >;
+      };
+    }
+  >;
+  sportsOutdoors?: StorefrontAPI.Maybe<
+    Pick<
+      StorefrontAPI.Collection,
+      'id' | 'handle' | 'title' | 'description'
+    > & {
+      image?: StorefrontAPI.Maybe<
+        Pick<StorefrontAPI.Image, 'id' | 'url' | 'altText' | 'width' | 'height'>
+      >;
+      products: {
+        nodes: Array<
+          Pick<StorefrontAPI.Product, 'id'> & {
+            featuredImage?: StorefrontAPI.Maybe<
+              Pick<StorefrontAPI.Image, 'url' | 'altText' | 'width' | 'height'>
+            >;
+          }
+        >;
+      };
+    }
+  >;
+  petFinds?: StorefrontAPI.Maybe<
+    Pick<
+      StorefrontAPI.Collection,
+      'id' | 'handle' | 'title' | 'description'
+    > & {
+      image?: StorefrontAPI.Maybe<
+        Pick<StorefrontAPI.Image, 'id' | 'url' | 'altText' | 'width' | 'height'>
+      >;
+      products: {
+        nodes: Array<
+          Pick<StorefrontAPI.Product, 'id'> & {
+            featuredImage?: StorefrontAPI.Maybe<
+              Pick<StorefrontAPI.Image, 'url' | 'altText' | 'width' | 'height'>
+            >;
+          }
+        >;
+      };
+    }
+  >;
+  automotive?: StorefrontAPI.Maybe<
+    Pick<
+      StorefrontAPI.Collection,
+      'id' | 'handle' | 'title' | 'description'
+    > & {
+      image?: StorefrontAPI.Maybe<
+        Pick<StorefrontAPI.Image, 'id' | 'url' | 'altText' | 'width' | 'height'>
+      >;
+      products: {
+        nodes: Array<
+          Pick<StorefrontAPI.Product, 'id'> & {
+            featuredImage?: StorefrontAPI.Maybe<
+              Pick<StorefrontAPI.Image, 'url' | 'altText' | 'width' | 'height'>
+            >;
+          }
+        >;
+      };
+    }
+  >;
+  toolsHomeImprovement?: StorefrontAPI.Maybe<
+    Pick<
+      StorefrontAPI.Collection,
+      'id' | 'handle' | 'title' | 'description'
+    > & {
+      image?: StorefrontAPI.Maybe<
+        Pick<StorefrontAPI.Image, 'id' | 'url' | 'altText' | 'width' | 'height'>
+      >;
+      products: {
+        nodes: Array<
+          Pick<StorefrontAPI.Product, 'id'> & {
+            featuredImage?: StorefrontAPI.Maybe<
+              Pick<StorefrontAPI.Image, 'url' | 'altText' | 'width' | 'height'>
+            >;
+          }
+        >;
+      };
+    }
+  >;
+  beautyPersonalCare?: StorefrontAPI.Maybe<
+    Pick<
+      StorefrontAPI.Collection,
+      'id' | 'handle' | 'title' | 'description'
+    > & {
+      image?: StorefrontAPI.Maybe<
+        Pick<StorefrontAPI.Image, 'id' | 'url' | 'altText' | 'width' | 'height'>
+      >;
+      products: {
+        nodes: Array<
+          Pick<StorefrontAPI.Product, 'id'> & {
+            featuredImage?: StorefrontAPI.Maybe<
+              Pick<StorefrontAPI.Image, 'url' | 'altText' | 'width' | 'height'>
+            >;
+          }
+        >;
+      };
+    }
+  >;
+  toysGames?: StorefrontAPI.Maybe<
+    Pick<
+      StorefrontAPI.Collection,
+      'id' | 'handle' | 'title' | 'description'
+    > & {
+      image?: StorefrontAPI.Maybe<
+        Pick<StorefrontAPI.Image, 'id' | 'url' | 'altText' | 'width' | 'height'>
+      >;
+      products: {
+        nodes: Array<
+          Pick<StorefrontAPI.Product, 'id'> & {
+            featuredImage?: StorefrontAPI.Maybe<
+              Pick<StorefrontAPI.Image, 'url' | 'altText' | 'width' | 'height'>
+            >;
+          }
+        >;
+      };
+    }
+  >;
+  homeDecor?: StorefrontAPI.Maybe<
+    Pick<
+      StorefrontAPI.Collection,
+      'id' | 'handle' | 'title' | 'description'
+    > & {
+      image?: StorefrontAPI.Maybe<
+        Pick<StorefrontAPI.Image, 'id' | 'url' | 'altText' | 'width' | 'height'>
+      >;
+      products: {
+        nodes: Array<
+          Pick<StorefrontAPI.Product, 'id'> & {
+            featuredImage?: StorefrontAPI.Maybe<
+              Pick<StorefrontAPI.Image, 'url' | 'altText' | 'width' | 'height'>
+            >;
+          }
+        >;
+      };
+    }
+  >;
+  officeSchoolSupplies?: StorefrontAPI.Maybe<
+    Pick<
+      StorefrontAPI.Collection,
+      'id' | 'handle' | 'title' | 'description'
+    > & {
+      image?: StorefrontAPI.Maybe<
+        Pick<StorefrontAPI.Image, 'id' | 'url' | 'altText' | 'width' | 'height'>
+      >;
+      products: {
+        nodes: Array<
+          Pick<StorefrontAPI.Product, 'id'> & {
+            featuredImage?: StorefrontAPI.Maybe<
+              Pick<StorefrontAPI.Image, 'url' | 'altText' | 'width' | 'height'>
+            >;
+          }
+        >;
+      };
+    }
+  >;
+  babyNursery?: StorefrontAPI.Maybe<
+    Pick<
+      StorefrontAPI.Collection,
+      'id' | 'handle' | 'title' | 'description'
+    > & {
+      image?: StorefrontAPI.Maybe<
+        Pick<StorefrontAPI.Image, 'id' | 'url' | 'altText' | 'width' | 'height'>
+      >;
+      products: {
+        nodes: Array<
+          Pick<StorefrontAPI.Product, 'id'> & {
+            featuredImage?: StorefrontAPI.Maybe<
+              Pick<StorefrontAPI.Image, 'url' | 'altText' | 'width' | 'height'>
+            >;
+          }
+        >;
+      };
+    }
+  >;
+  outdoorGarden?: StorefrontAPI.Maybe<
+    Pick<
+      StorefrontAPI.Collection,
+      'id' | 'handle' | 'title' | 'description'
+    > & {
+      image?: StorefrontAPI.Maybe<
+        Pick<StorefrontAPI.Image, 'id' | 'url' | 'altText' | 'width' | 'height'>
+      >;
+      products: {
+        nodes: Array<
+          Pick<StorefrontAPI.Product, 'id'> & {
+            featuredImage?: StorefrontAPI.Maybe<
+              Pick<StorefrontAPI.Image, 'url' | 'altText' | 'width' | 'height'>
+            >;
+          }
+        >;
+      };
+    }
+  >;
+  bestSellers?: StorefrontAPI.Maybe<
+    Pick<
+      StorefrontAPI.Collection,
+      'id' | 'handle' | 'title' | 'description'
+    > & {
+      image?: StorefrontAPI.Maybe<
+        Pick<StorefrontAPI.Image, 'id' | 'url' | 'altText' | 'width' | 'height'>
+      >;
+      products: {
+        nodes: Array<
+          Pick<StorefrontAPI.Product, 'id'> & {
+            featuredImage?: StorefrontAPI.Maybe<
+              Pick<StorefrontAPI.Image, 'url' | 'altText' | 'width' | 'height'>
+            >;
+          }
+        >;
+      };
+    }
+  >;
+  trendingFinds?: StorefrontAPI.Maybe<
+    Pick<
+      StorefrontAPI.Collection,
+      'id' | 'handle' | 'title' | 'description'
+    > & {
+      image?: StorefrontAPI.Maybe<
+        Pick<StorefrontAPI.Image, 'id' | 'url' | 'altText' | 'width' | 'height'>
+      >;
+      products: {
+        nodes: Array<
+          Pick<StorefrontAPI.Product, 'id'> & {
+            featuredImage?: StorefrontAPI.Maybe<
+              Pick<StorefrontAPI.Image, 'url' | 'altText' | 'width' | 'height'>
+            >;
+          }
+        >;
+      };
+    }
+  >;
+  giftsUnder25?: StorefrontAPI.Maybe<
+    Pick<
+      StorefrontAPI.Collection,
+      'id' | 'handle' | 'title' | 'description'
+    > & {
+      image?: StorefrontAPI.Maybe<
+        Pick<StorefrontAPI.Image, 'id' | 'url' | 'altText' | 'width' | 'height'>
+      >;
+      products: {
+        nodes: Array<
+          Pick<StorefrontAPI.Product, 'id'> & {
+            featuredImage?: StorefrontAPI.Maybe<
+              Pick<StorefrontAPI.Image, 'url' | 'altText' | 'width' | 'height'>
+            >;
+          }
+        >;
+      };
+    }
+  >;
+};
+
 export type FooterQueryVariables = StorefrontAPI.Exact<{
   footerMenuHandle: StorefrontAPI.Scalars['String']['input'];
 }>;
@@ -373,37 +740,9 @@ export type FooterQuery = {
   >;
 };
 
-export type HomeCollectionFragment = Pick<
-  StorefrontAPI.Collection,
-  'id' | 'title' | 'handle'
-> & {
-  image?: StorefrontAPI.Maybe<
-    Pick<StorefrontAPI.Image, 'id' | 'url' | 'altText' | 'width' | 'height'>
-  >;
-};
-
-export type HomeCollectionsQueryVariables = StorefrontAPI.Exact<{
-  [key: string]: never;
-}>;
-
-export type HomeCollectionsQuery = {
-  collections: {
-    nodes: Array<
-      Pick<StorefrontAPI.Collection, 'id' | 'title' | 'handle'> & {
-        image?: StorefrontAPI.Maybe<
-          Pick<
-            StorefrontAPI.Image,
-            'id' | 'url' | 'altText' | 'width' | 'height'
-          >
-        >;
-      }
-    >;
-  };
-};
-
-export type BestPickFragment = Pick<
+export type RackProductFragment = Pick<
   StorefrontAPI.Product,
-  'id' | 'title' | 'handle' | 'vendor'
+  'id' | 'title' | 'handle'
 > & {
   priceRange: {
     minVariantPrice: Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>;
@@ -411,39 +750,33 @@ export type BestPickFragment = Pick<
   featuredImage?: StorefrontAPI.Maybe<
     Pick<StorefrontAPI.Image, 'id' | 'url' | 'altText' | 'width' | 'height'>
   >;
-  variants: {
-    nodes: Array<Pick<StorefrontAPI.ProductVariant, 'id' | 'availableForSale'>>;
-  };
 };
 
-export type BestPicksQueryVariables = StorefrontAPI.Exact<{
+export type RackProductsQueryVariables = StorefrontAPI.Exact<{
   [key: string]: never;
 }>;
 
-export type BestPicksQuery = {
-  products: {
-    nodes: Array<
-      Pick<StorefrontAPI.Product, 'id' | 'title' | 'handle' | 'vendor'> & {
-        priceRange: {
-          minVariantPrice: Pick<
-            StorefrontAPI.MoneyV2,
-            'amount' | 'currencyCode'
+export type RackProductsQuery = {
+  collection?: StorefrontAPI.Maybe<{
+    products: {
+      nodes: Array<
+        Pick<StorefrontAPI.Product, 'id' | 'title' | 'handle'> & {
+          priceRange: {
+            minVariantPrice: Pick<
+              StorefrontAPI.MoneyV2,
+              'amount' | 'currencyCode'
+            >;
+          };
+          featuredImage?: StorefrontAPI.Maybe<
+            Pick<
+              StorefrontAPI.Image,
+              'id' | 'url' | 'altText' | 'width' | 'height'
+            >
           >;
-        };
-        featuredImage?: StorefrontAPI.Maybe<
-          Pick<
-            StorefrontAPI.Image,
-            'id' | 'url' | 'altText' | 'width' | 'height'
-          >
-        >;
-        variants: {
-          nodes: Array<
-            Pick<StorefrontAPI.ProductVariant, 'id' | 'availableForSale'>
-          >;
-        };
-      }
-    >;
-  };
+        }
+      >;
+    };
+  }>;
 };
 
 export type TrendingProductFragment = Pick<
@@ -463,6 +796,321 @@ export type TrendingQueryVariables = StorefrontAPI.Exact<{
 }>;
 
 export type TrendingQuery = {
+  collection?: StorefrontAPI.Maybe<{
+    products: {
+      nodes: Array<
+        Pick<StorefrontAPI.Product, 'id' | 'title' | 'handle'> & {
+          priceRange: {
+            minVariantPrice: Pick<
+              StorefrontAPI.MoneyV2,
+              'amount' | 'currencyCode'
+            >;
+          };
+          featuredImage?: StorefrontAPI.Maybe<
+            Pick<
+              StorefrontAPI.Image,
+              'id' | 'url' | 'altText' | 'width' | 'height'
+            >
+          >;
+        }
+      >;
+    };
+  }>;
+};
+
+export type BestPickFragment = Pick<
+  StorefrontAPI.Product,
+  'id' | 'title' | 'handle'
+> & {
+  priceRange: {
+    minVariantPrice: Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>;
+  };
+  featuredImage?: StorefrontAPI.Maybe<
+    Pick<StorefrontAPI.Image, 'id' | 'url' | 'altText' | 'width' | 'height'>
+  >;
+};
+
+export type BestPicksQueryVariables = StorefrontAPI.Exact<{
+  [key: string]: never;
+}>;
+
+export type BestPicksQuery = {
+  collection?: StorefrontAPI.Maybe<{
+    products: {
+      nodes: Array<
+        Pick<StorefrontAPI.Product, 'id' | 'title' | 'handle'> & {
+          priceRange: {
+            minVariantPrice: Pick<
+              StorefrontAPI.MoneyV2,
+              'amount' | 'currencyCode'
+            >;
+          };
+          featuredImage?: StorefrontAPI.Maybe<
+            Pick<
+              StorefrontAPI.Image,
+              'id' | 'url' | 'altText' | 'width' | 'height'
+            >
+          >;
+        }
+      >;
+    };
+  }>;
+};
+
+export type NewArrivalFragment = Pick<
+  StorefrontAPI.Product,
+  'id' | 'title' | 'handle'
+> & {
+  priceRange: {
+    minVariantPrice: Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>;
+  };
+  featuredImage?: StorefrontAPI.Maybe<
+    Pick<StorefrontAPI.Image, 'id' | 'url' | 'altText' | 'width' | 'height'>
+  >;
+};
+
+export type NewArrivalsQueryVariables = StorefrontAPI.Exact<{
+  [key: string]: never;
+}>;
+
+export type NewArrivalsQuery = {
+  collection?: StorefrontAPI.Maybe<{
+    products: {
+      nodes: Array<
+        Pick<StorefrontAPI.Product, 'id' | 'title' | 'handle'> & {
+          priceRange: {
+            minVariantPrice: Pick<
+              StorefrontAPI.MoneyV2,
+              'amount' | 'currencyCode'
+            >;
+          };
+          featuredImage?: StorefrontAPI.Maybe<
+            Pick<
+              StorefrontAPI.Image,
+              'id' | 'url' | 'altText' | 'width' | 'height'
+            >
+          >;
+        }
+      >;
+    };
+  }>;
+};
+
+export type FreshFindFragment = Pick<
+  StorefrontAPI.Product,
+  'id' | 'title' | 'handle'
+> & {
+  priceRange: {
+    minVariantPrice: Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>;
+  };
+  featuredImage?: StorefrontAPI.Maybe<
+    Pick<StorefrontAPI.Image, 'id' | 'url' | 'altText' | 'width' | 'height'>
+  >;
+};
+
+export type FreshFindsQueryVariables = StorefrontAPI.Exact<{
+  [key: string]: never;
+}>;
+
+export type FreshFindsQuery = {
+  collection?: StorefrontAPI.Maybe<{
+    products: {
+      nodes: Array<
+        Pick<StorefrontAPI.Product, 'id' | 'title' | 'handle'> & {
+          priceRange: {
+            minVariantPrice: Pick<
+              StorefrontAPI.MoneyV2,
+              'amount' | 'currencyCode'
+            >;
+          };
+          featuredImage?: StorefrontAPI.Maybe<
+            Pick<
+              StorefrontAPI.Image,
+              'id' | 'url' | 'altText' | 'width' | 'height'
+            >
+          >;
+        }
+      >;
+    };
+  }>;
+};
+
+export type ShowColFragment = Pick<
+  StorefrontAPI.Collection,
+  'id' | 'title' | 'handle' | 'description'
+> & {
+  image?: StorefrontAPI.Maybe<
+    Pick<StorefrontAPI.Image, 'id' | 'url' | 'altText' | 'width' | 'height'>
+  >;
+  products: {
+    nodes: Array<
+      Pick<StorefrontAPI.Product, 'id'> & {
+        featuredImage?: StorefrontAPI.Maybe<
+          Pick<
+            StorefrontAPI.Image,
+            'id' | 'url' | 'altText' | 'width' | 'height'
+          >
+        >;
+      }
+    >;
+  };
+};
+
+export type ShowcaseQueryVariables = StorefrontAPI.Exact<{
+  [key: string]: never;
+}>;
+
+export type ShowcaseQuery = {
+  a?: StorefrontAPI.Maybe<
+    Pick<
+      StorefrontAPI.Collection,
+      'id' | 'title' | 'handle' | 'description'
+    > & {
+      image?: StorefrontAPI.Maybe<
+        Pick<StorefrontAPI.Image, 'id' | 'url' | 'altText' | 'width' | 'height'>
+      >;
+      products: {
+        nodes: Array<
+          Pick<StorefrontAPI.Product, 'id'> & {
+            featuredImage?: StorefrontAPI.Maybe<
+              Pick<
+                StorefrontAPI.Image,
+                'id' | 'url' | 'altText' | 'width' | 'height'
+              >
+            >;
+          }
+        >;
+      };
+    }
+  >;
+  b?: StorefrontAPI.Maybe<
+    Pick<
+      StorefrontAPI.Collection,
+      'id' | 'title' | 'handle' | 'description'
+    > & {
+      image?: StorefrontAPI.Maybe<
+        Pick<StorefrontAPI.Image, 'id' | 'url' | 'altText' | 'width' | 'height'>
+      >;
+      products: {
+        nodes: Array<
+          Pick<StorefrontAPI.Product, 'id'> & {
+            featuredImage?: StorefrontAPI.Maybe<
+              Pick<
+                StorefrontAPI.Image,
+                'id' | 'url' | 'altText' | 'width' | 'height'
+              >
+            >;
+          }
+        >;
+      };
+    }
+  >;
+  c?: StorefrontAPI.Maybe<
+    Pick<
+      StorefrontAPI.Collection,
+      'id' | 'title' | 'handle' | 'description'
+    > & {
+      image?: StorefrontAPI.Maybe<
+        Pick<StorefrontAPI.Image, 'id' | 'url' | 'altText' | 'width' | 'height'>
+      >;
+      products: {
+        nodes: Array<
+          Pick<StorefrontAPI.Product, 'id'> & {
+            featuredImage?: StorefrontAPI.Maybe<
+              Pick<
+                StorefrontAPI.Image,
+                'id' | 'url' | 'altText' | 'width' | 'height'
+              >
+            >;
+          }
+        >;
+      };
+    }
+  >;
+  d?: StorefrontAPI.Maybe<
+    Pick<
+      StorefrontAPI.Collection,
+      'id' | 'title' | 'handle' | 'description'
+    > & {
+      image?: StorefrontAPI.Maybe<
+        Pick<StorefrontAPI.Image, 'id' | 'url' | 'altText' | 'width' | 'height'>
+      >;
+      products: {
+        nodes: Array<
+          Pick<StorefrontAPI.Product, 'id'> & {
+            featuredImage?: StorefrontAPI.Maybe<
+              Pick<
+                StorefrontAPI.Image,
+                'id' | 'url' | 'altText' | 'width' | 'height'
+              >
+            >;
+          }
+        >;
+      };
+    }
+  >;
+  e?: StorefrontAPI.Maybe<
+    Pick<
+      StorefrontAPI.Collection,
+      'id' | 'title' | 'handle' | 'description'
+    > & {
+      image?: StorefrontAPI.Maybe<
+        Pick<StorefrontAPI.Image, 'id' | 'url' | 'altText' | 'width' | 'height'>
+      >;
+      products: {
+        nodes: Array<
+          Pick<StorefrontAPI.Product, 'id'> & {
+            featuredImage?: StorefrontAPI.Maybe<
+              Pick<
+                StorefrontAPI.Image,
+                'id' | 'url' | 'altText' | 'width' | 'height'
+              >
+            >;
+          }
+        >;
+      };
+    }
+  >;
+  f?: StorefrontAPI.Maybe<
+    Pick<
+      StorefrontAPI.Collection,
+      'id' | 'title' | 'handle' | 'description'
+    > & {
+      image?: StorefrontAPI.Maybe<
+        Pick<StorefrontAPI.Image, 'id' | 'url' | 'altText' | 'width' | 'height'>
+      >;
+      products: {
+        nodes: Array<
+          Pick<StorefrontAPI.Product, 'id'> & {
+            featuredImage?: StorefrontAPI.Maybe<
+              Pick<
+                StorefrontAPI.Image,
+                'id' | 'url' | 'altText' | 'width' | 'height'
+              >
+            >;
+          }
+        >;
+      };
+    }
+  >;
+};
+
+export type CatProductFragment = Pick<
+  StorefrontAPI.Product,
+  'id' | 'title' | 'handle'
+> & {
+  priceRange: {
+    minVariantPrice: Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>;
+  };
+  featuredImage?: StorefrontAPI.Maybe<
+    Pick<StorefrontAPI.Image, 'id' | 'url' | 'altText' | 'width' | 'height'>
+  >;
+};
+
+export type CatColFragment = Pick<
+  StorefrontAPI.Collection,
+  'id' | 'title' | 'handle' | 'description'
+> & {
   products: {
     nodes: Array<
       Pick<StorefrontAPI.Product, 'id' | 'title' | 'handle'> & {
@@ -483,16 +1131,25 @@ export type TrendingQuery = {
   };
 };
 
-export type PromoFeatureQueryVariables = StorefrontAPI.Exact<{
+export type CatWorldQueryVariables = StorefrontAPI.Exact<{
   [key: string]: never;
 }>;
 
-export type PromoFeatureQuery = {
-  collection?: StorefrontAPI.Maybe<
-    Pick<StorefrontAPI.Collection, 'id' | 'title' | 'handle'> & {
+export type CatWorldQuery = {
+  home?: StorefrontAPI.Maybe<
+    Pick<
+      StorefrontAPI.Collection,
+      'id' | 'title' | 'handle' | 'description'
+    > & {
       products: {
         nodes: Array<
           Pick<StorefrontAPI.Product, 'id' | 'title' | 'handle'> & {
+            priceRange: {
+              minVariantPrice: Pick<
+                StorefrontAPI.MoneyV2,
+                'amount' | 'currencyCode'
+              >;
+            };
             featuredImage?: StorefrontAPI.Maybe<
               Pick<
                 StorefrontAPI.Image,
@@ -504,35 +1161,106 @@ export type PromoFeatureQuery = {
       };
     }
   >;
-};
-
-export type MosaicCollectionsQueryVariables = StorefrontAPI.Exact<{
-  [key: string]: never;
-}>;
-
-export type MosaicCollectionsQuery = {
-  collections: {
-    nodes: Array<
-      Pick<StorefrontAPI.Collection, 'id' | 'title' | 'handle'> & {
-        image?: StorefrontAPI.Maybe<
-          Pick<
-            StorefrontAPI.Image,
-            'id' | 'url' | 'altText' | 'width' | 'height'
-          >
-        >;
-        products: {
-          nodes: Array<{
+  beauty?: StorefrontAPI.Maybe<
+    Pick<
+      StorefrontAPI.Collection,
+      'id' | 'title' | 'handle' | 'description'
+    > & {
+      products: {
+        nodes: Array<
+          Pick<StorefrontAPI.Product, 'id' | 'title' | 'handle'> & {
+            priceRange: {
+              minVariantPrice: Pick<
+                StorefrontAPI.MoneyV2,
+                'amount' | 'currencyCode'
+              >;
+            };
             featuredImage?: StorefrontAPI.Maybe<
               Pick<
                 StorefrontAPI.Image,
                 'id' | 'url' | 'altText' | 'width' | 'height'
               >
             >;
-          }>;
-        };
-      }
-    >;
-  };
+          }
+        >;
+      };
+    }
+  >;
+  tech?: StorefrontAPI.Maybe<
+    Pick<
+      StorefrontAPI.Collection,
+      'id' | 'title' | 'handle' | 'description'
+    > & {
+      products: {
+        nodes: Array<
+          Pick<StorefrontAPI.Product, 'id' | 'title' | 'handle'> & {
+            priceRange: {
+              minVariantPrice: Pick<
+                StorefrontAPI.MoneyV2,
+                'amount' | 'currencyCode'
+              >;
+            };
+            featuredImage?: StorefrontAPI.Maybe<
+              Pick<
+                StorefrontAPI.Image,
+                'id' | 'url' | 'altText' | 'width' | 'height'
+              >
+            >;
+          }
+        >;
+      };
+    }
+  >;
+  outdoor?: StorefrontAPI.Maybe<
+    Pick<
+      StorefrontAPI.Collection,
+      'id' | 'title' | 'handle' | 'description'
+    > & {
+      products: {
+        nodes: Array<
+          Pick<StorefrontAPI.Product, 'id' | 'title' | 'handle'> & {
+            priceRange: {
+              minVariantPrice: Pick<
+                StorefrontAPI.MoneyV2,
+                'amount' | 'currencyCode'
+              >;
+            };
+            featuredImage?: StorefrontAPI.Maybe<
+              Pick<
+                StorefrontAPI.Image,
+                'id' | 'url' | 'altText' | 'width' | 'height'
+              >
+            >;
+          }
+        >;
+      };
+    }
+  >;
+  pet?: StorefrontAPI.Maybe<
+    Pick<
+      StorefrontAPI.Collection,
+      'id' | 'title' | 'handle' | 'description'
+    > & {
+      products: {
+        nodes: Array<
+          Pick<StorefrontAPI.Product, 'id' | 'title' | 'handle'> & {
+            priceRange: {
+              minVariantPrice: Pick<
+                StorefrontAPI.MoneyV2,
+                'amount' | 'currencyCode'
+              >;
+            };
+            featuredImage?: StorefrontAPI.Maybe<
+              Pick<
+                StorefrontAPI.Image,
+                'id' | 'url' | 'altText' | 'width' | 'height'
+              >
+            >;
+          }
+        >;
+      };
+    }
+  >;
 };
 
 export type ArticleQueryVariables = StorefrontAPI.Exact<{
@@ -694,6 +1422,9 @@ export type CollectionQuery = {
       StorefrontAPI.Collection,
       'id' | 'handle' | 'title' | 'description'
     > & {
+      image?: StorefrontAPI.Maybe<
+        Pick<StorefrontAPI.Image, 'id' | 'url' | 'altText' | 'width' | 'height'>
+      >;
       seo: Pick<StorefrontAPI.Seo, 'title' | 'description'>;
       products: {
         nodes: Array<
@@ -1476,29 +2207,41 @@ interface GeneratedQueryTypes {
     return: HeaderQuery;
     variables: HeaderQueryVariables;
   };
+  '#graphql\n  fragment MegaCategory on Collection {\n    id\n    handle\n    title\n    description\n    image {\n      id\n      url\n      altText\n      width\n      height\n    }\n    products(first: 1) {\n      nodes {\n        id\n        featuredImage {\n          url\n          altText\n          width\n          height\n        }\n      }\n    }\n  }\n  query MegaMenu {\n    phoneCase: collection(handle: "phone-case") { ...MegaCategory }\n    homeEssentials: collection(handle: "home-essentials") { ...MegaCategory }\n    electronicsAccessories: collection(handle: "electronics-accessories") { ...MegaCategory }\n    apparelAccessories: collection(handle: "apparel-accessories") { ...MegaCategory }\n    healthWellness: collection(handle: "health-wellness") { ...MegaCategory }\n    sportsOutdoors: collection(handle: "sports-outdoors") { ...MegaCategory }\n    petFinds: collection(handle: "pet-finds") { ...MegaCategory }\n    automotive: collection(handle: "automotive") { ...MegaCategory }\n    toolsHomeImprovement: collection(handle: "tools-home-improvement") { ...MegaCategory }\n    beautyPersonalCare: collection(handle: "beauty-personal-care") { ...MegaCategory }\n    toysGames: collection(handle: "toys-games") { ...MegaCategory }\n    homeDecor: collection(handle: "home-decor") { ...MegaCategory }\n    officeSchoolSupplies: collection(handle: "office-school-supplies") { ...MegaCategory }\n    babyNursery: collection(handle: "baby-nursery") { ...MegaCategory }\n    outdoorGarden: collection(handle: "outdoor-garden") { ...MegaCategory }\n    bestSellers: collection(handle: "best-sellers") { ...MegaCategory }\n    trendingFinds: collection(handle: "trending-finds") { ...MegaCategory }\n    giftsUnder25: collection(handle: "gifts-under-25") { ...MegaCategory }\n  }\n': {
+    return: MegaMenuQuery;
+    variables: MegaMenuQueryVariables;
+  };
   '#graphql\n  query Footer(\n    $footerMenuHandle: String!) {\n    menu(handle: $footerMenuHandle) {\n      ...Menu\n    }\n  }\n  #graphql\n  fragment MenuItem on MenuItem {\n    id\n    resourceId\n    tags\n    title\n    type\n    url\n  }\n  fragment ChildMenuItem on MenuItem {\n    ...MenuItem\n  }\n  fragment ParentMenuItem on MenuItem {\n    ...MenuItem\n    items {\n      ...ChildMenuItem\n    }\n  }\n  fragment Menu on Menu {\n    id\n    items {\n      ...ParentMenuItem\n    }\n  }\n\n': {
     return: FooterQuery;
     variables: FooterQueryVariables;
   };
-  '#graphql\n  fragment HomeCollection on Collection {\n    id\n    title\n    handle\n    image {\n      id\n      url\n      altText\n      width\n      height\n    }\n  }\n  query HomeCollections {\n    collections(first: 12, sortKey: UPDATED_AT, reverse: true) {\n      nodes {\n        ...HomeCollection\n      }\n    }\n  }\n': {
-    return: HomeCollectionsQuery;
-    variables: HomeCollectionsQueryVariables;
+  '#graphql\n  fragment RackProduct on Product {\n    id title handle\n    priceRange { minVariantPrice { amount currencyCode } }\n    featuredImage { id url altText width height }\n  }\n  query RackProducts {\n    collection(handle: "home-essentials") {\n      products(first: 12, sortKey: BEST_SELLING) {\n        nodes { ...RackProduct }\n      }\n    }\n  }\n': {
+    return: RackProductsQuery;
+    variables: RackProductsQueryVariables;
   };
-  '#graphql\n  fragment BestPick on Product {\n    id\n    title\n    handle\n    vendor\n    priceRange {\n      minVariantPrice {\n        amount\n        currencyCode\n      }\n    }\n    featuredImage {\n      id\n      url\n      altText\n      width\n      height\n    }\n    variants(first: 1) {\n      nodes {\n        id\n        availableForSale\n      }\n    }\n  }\n  query BestPicks {\n    products(first: 4, sortKey: BEST_SELLING) {\n      nodes {\n        ...BestPick\n      }\n    }\n  }\n': {
-    return: BestPicksQuery;
-    variables: BestPicksQueryVariables;
-  };
-  '#graphql\n  fragment TrendingProduct on Product {\n    id\n    title\n    handle\n    priceRange {\n      minVariantPrice {\n        amount\n        currencyCode\n      }\n    }\n    featuredImage {\n      id\n      url\n      altText\n      width\n      height\n    }\n  }\n  query Trending {\n    products(first: 10, sortKey: CREATED_AT, reverse: true) {\n      nodes {\n        ...TrendingProduct\n      }\n    }\n  }\n': {
+  '#graphql\n  fragment TrendingProduct on Product {\n    id title handle\n    priceRange { minVariantPrice { amount currencyCode } }\n    featuredImage { id url altText width height }\n  }\n  query Trending {\n    collection(handle: "trending-finds") {\n      products(first: 8, sortKey: BEST_SELLING) {\n        nodes { ...TrendingProduct }\n      }\n    }\n  }\n': {
     return: TrendingQuery;
     variables: TrendingQueryVariables;
   };
-  '#graphql\n  query PromoFeature {\n    collection(handle: "best-sellers") {\n      id\n      title\n      handle\n      products(first: 6, sortKey: BEST_SELLING) {\n        nodes {\n          id\n          title\n          handle\n          featuredImage {\n            id\n            url\n            altText\n            width\n            height\n          }\n        }\n      }\n    }\n  }\n': {
-    return: PromoFeatureQuery;
-    variables: PromoFeatureQueryVariables;
+  '#graphql\n  fragment BestPick on Product {\n    id title handle\n    priceRange { minVariantPrice { amount currencyCode } }\n    featuredImage { id url altText width height }\n  }\n  query BestPicks {\n    collection(handle: "best-sellers") {\n      products(first: 3, sortKey: BEST_SELLING) {\n        nodes { ...BestPick }\n      }\n    }\n  }\n': {
+    return: BestPicksQuery;
+    variables: BestPicksQueryVariables;
   };
-  '#graphql\n  query MosaicCollections {\n    collections(first: 8, sortKey: UPDATED_AT, reverse: true) {\n      nodes {\n        id\n        title\n        handle\n        image {\n          id\n          url\n          altText\n          width\n          height\n        }\n        products(first: 1) {\n          nodes {\n            featuredImage {\n              id\n              url\n              altText\n              width\n              height\n            }\n          }\n        }\n      }\n    }\n  }\n': {
-    return: MosaicCollectionsQuery;
-    variables: MosaicCollectionsQueryVariables;
+  '#graphql\n  fragment NewArrival on Product {\n    id title handle\n    priceRange { minVariantPrice { amount currencyCode } }\n    featuredImage { id url altText width height }\n  }\n  query NewArrivals {\n    collection(handle: "outdoor-garden") {\n      products(first: 8, sortKey: CREATED, reverse: true) {\n        nodes { ...NewArrival }\n      }\n    }\n  }\n': {
+    return: NewArrivalsQuery;
+    variables: NewArrivalsQueryVariables;
+  };
+  '#graphql\n  fragment FreshFind on Product {\n    id title handle\n    priceRange { minVariantPrice { amount currencyCode } }\n    featuredImage { id url altText width height }\n  }\n  query FreshFinds {\n    collection(handle: "beauty-personal-care") {\n      products(first: 12, sortKey: BEST_SELLING) {\n        nodes { ...FreshFind }\n      }\n    }\n  }\n': {
+    return: FreshFindsQuery;
+    variables: FreshFindsQueryVariables;
+  };
+  '#graphql\n  fragment ShowCol on Collection {\n    id title handle description\n    image { id url altText width height }\n    products(first: 1, sortKey: BEST_SELLING) {\n      nodes { id featuredImage { id url altText width height } }\n    }\n  }\n  query Showcase {\n    a: collection(handle: "phone-case")             { ...ShowCol }\n    b: collection(handle: "apparel-accessories")    { ...ShowCol }\n    c: collection(handle: "health-wellness")        { ...ShowCol }\n    d: collection(handle: "sports-outdoors")        { ...ShowCol }\n    e: collection(handle: "automotive")             { ...ShowCol }\n    f: collection(handle: "toys-games")             { ...ShowCol }\n  }\n': {
+    return: ShowcaseQuery;
+    variables: ShowcaseQueryVariables;
+  };
+  '#graphql\n  fragment CatProduct on Product {\n    id title handle\n    priceRange { minVariantPrice { amount currencyCode } }\n    featuredImage { id url altText width height }\n  }\n  fragment CatCol on Collection {\n    id title handle description\n    products(first: 4, sortKey: BEST_SELLING) {\n      nodes { ...CatProduct }\n    }\n  }\n  query CatWorld {\n    home:    collection(handle: "home-essentials")      { ...CatCol }\n    beauty:  collection(handle: "beauty-personal-care") { ...CatCol }\n    tech:    collection(handle: "tech-gadgets")         { ...CatCol }\n    outdoor: collection(handle: "outdoor-garden")       { ...CatCol }\n    pet:     collection(handle: "pet-finds")            { ...CatCol }\n  }\n': {
+    return: CatWorldQuery;
+    variables: CatWorldQueryVariables;
   };
   '#graphql\n  query Article(\n    $articleHandle: String!\n    $blogHandle: String!\n    $language: LanguageCode) {\n    blog(handle: $blogHandle) {\n      handle\n      articleByHandle(handle: $articleHandle) {\n        handle\n        title\n        contentHtml\n        publishedAt\n        author: authorV2 {\n          name\n        }\n        image {\n          id\n          altText\n          url\n          width\n          height\n        }\n        seo {\n          description\n          title\n        }\n      }\n    }\n  }\n': {
     return: ArticleQuery;
@@ -1512,7 +2255,7 @@ interface GeneratedQueryTypes {
     return: BlogsQuery;
     variables: BlogsQueryVariables;
   };
-  '#graphql\n  #graphql\n  fragment MoneyProductItem on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment ProductItem on Product {\n    id\n    handle\n    title\n    productType\n    featuredImage {\n      id\n      altText\n      url\n      width\n      height\n    }\n    priceRange {\n      minVariantPrice { ...MoneyProductItem }\n      maxVariantPrice { ...MoneyProductItem }\n    }\n    variants(first: 1) {\n      nodes {\n        id\n        availableForSale\n      }\n    }\n  }\n\n  query Collection(\n    $handle: String!\n    $first: Int\n    $last: Int\n    $startCursor: String\n    $endCursor: String\n    $sortKey: ProductCollectionSortKeys\n    $reverse: Boolean\n    $filters: [ProductFilter!]) {\n    collection(handle: $handle) {\n      id\n      handle\n      title\n      description\n      seo {\n        title\n        description\n      }\n      products(\n        first: $first\n        last: $last\n        before: $startCursor\n        after: $endCursor\n        sortKey: $sortKey\n        reverse: $reverse\n        filters: $filters\n      ) {\n        nodes { ...ProductItem }\n        pageInfo {\n          hasPreviousPage\n          hasNextPage\n          endCursor\n          startCursor\n        }\n      }\n    }\n  }\n': {
+  '#graphql\n  #graphql\n  fragment MoneyProductItem on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment ProductItem on Product {\n    id\n    handle\n    title\n    productType\n    featuredImage {\n      id\n      altText\n      url\n      width\n      height\n    }\n    priceRange {\n      minVariantPrice { ...MoneyProductItem }\n      maxVariantPrice { ...MoneyProductItem }\n    }\n    variants(first: 1) {\n      nodes {\n        id\n        availableForSale\n      }\n    }\n  }\n\n  query Collection(\n    $handle: String!\n    $first: Int\n    $last: Int\n    $startCursor: String\n    $endCursor: String\n    $sortKey: ProductCollectionSortKeys\n    $reverse: Boolean\n    $filters: [ProductFilter!]) {\n    collection(handle: $handle) {\n      id\n      handle\n      title\n      description\n      image { id url altText width height }\n      seo {\n        title\n        description\n      }\n      products(\n        first: $first\n        last: $last\n        before: $startCursor\n        after: $endCursor\n        sortKey: $sortKey\n        reverse: $reverse\n        filters: $filters\n      ) {\n        nodes { ...ProductItem }\n        pageInfo {\n          hasPreviousPage\n          hasNextPage\n          endCursor\n          startCursor\n        }\n      }\n    }\n  }\n': {
     return: CollectionQuery;
     variables: CollectionQueryVariables;
   };

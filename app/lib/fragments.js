@@ -225,7 +225,7 @@ export const HEADER_QUERY = `#graphql
   ${MENU_FRAGMENT}
 `;
 
-// Mega menu data for the Shop dropdown. Lists the 5 main category collections
+// Mega menu data for the Shop dropdown. Lists all 19 category collections
 // with a representative product image, so the header can render a
 // hover-revealed panel with category tiles. Note: Storefront API does not
 // expose a productsCount field on Collection, so we rely on the collection
@@ -256,12 +256,24 @@ export const MEGA_MENU_QUERY = `#graphql
     }
   }
   query MegaMenu {
-    home: collection(handle: "home-essentials") { ...MegaCategory }
-    beauty: collection(handle: "beauty-personal-care") { ...MegaCategory }
-    tech: collection(handle: "tech-gadgets") { ...MegaCategory }
-    outdoor: collection(handle: "outdoor-garden") { ...MegaCategory }
-    pet: collection(handle: "pet-finds") { ...MegaCategory }
-    best: collection(handle: "best-sellers") { ...MegaCategory }
+    phoneCase: collection(handle: "phone-case") { ...MegaCategory }
+    homeEssentials: collection(handle: "home-essentials") { ...MegaCategory }
+    electronicsAccessories: collection(handle: "electronics-accessories") { ...MegaCategory }
+    apparelAccessories: collection(handle: "apparel-accessories") { ...MegaCategory }
+    healthWellness: collection(handle: "health-wellness") { ...MegaCategory }
+    sportsOutdoors: collection(handle: "sports-outdoors") { ...MegaCategory }
+    petFinds: collection(handle: "pet-finds") { ...MegaCategory }
+    automotive: collection(handle: "automotive") { ...MegaCategory }
+    toolsHomeImprovement: collection(handle: "tools-home-improvement") { ...MegaCategory }
+    beautyPersonalCare: collection(handle: "beauty-personal-care") { ...MegaCategory }
+    toysGames: collection(handle: "toys-games") { ...MegaCategory }
+    homeDecor: collection(handle: "home-decor") { ...MegaCategory }
+    officeSchoolSupplies: collection(handle: "office-school-supplies") { ...MegaCategory }
+    babyNursery: collection(handle: "baby-nursery") { ...MegaCategory }
+    outdoorGarden: collection(handle: "outdoor-garden") { ...MegaCategory }
+    bestSellers: collection(handle: "best-sellers") { ...MegaCategory }
+    trendingFinds: collection(handle: "trending-finds") { ...MegaCategory }
+    giftsUnder25: collection(handle: "gifts-under-25") { ...MegaCategory }
   }
 `;
 

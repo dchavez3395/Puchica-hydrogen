@@ -2,9 +2,10 @@
  * MegaMenu -- Shop dropdown panel for the desktop header.
  *
  * Renders a hover-revealed (or click-revealed on touch) full-width panel with
- * 5 category tiles + a "Best Sellers" featured promo tile. Data is fetched
- * via Storefront API MEGA_MENU_QUERY, deferred to avoid blocking the header
- * render. Falls back to a clean empty state if the query fails.
+ * 15 category tiles in a 3-column grid + a featured row for Best Sellers,
+ * Trending Now, and Gifts Under $25. Data is fetched via Storefront API
+ * MEGA_MENU_QUERY, deferred to avoid blocking the header render. Falls back
+ * to a clean empty state if the query fails.
  *
  * On mobile (< 900px), the parent HeaderMenuMobileToggle handles the drawer;
  * this component returns null.
@@ -14,16 +15,70 @@ import {Await, Link} from 'react-router';
 import {Image} from '@shopify/hydrogen';
 import StarGlyph from './StarGlyph';
 
-const CATEGORY_ORDER = ['home', 'beauty', 'tech', 'outdoor', 'pet'];
+// All 19 collection handles split into product categories and featured promos.
+const PRODUCT_CATEGORIES = [
+  'phone-case',
+  'home-essentials',
+  'electronics-accessories',
+  'apparel-accessories',
+  'health-wellness',
+  'sports-outdoors',
+  'pet-finds',
+  'automotive',
+  'tools-home-improvement',
+  'beauty-personal-care',
+  'toys-games',
+  'home-decor',
+  'office-school-supplies',
+  'baby-nursery',
+  'outdoor-garden',
+];
+
+const FEATURED_CATEGORIES = ['best-sellers', 'trending-finds', 'gifts-under-25'];
+
+// Map handles to the GraphQL alias keys used in MEGA_MENU_QUERY.
+const ALIAS_MAP = {
+  'phone-case': 'phoneCase',
+  'home-essentials': 'homeEssentials',
+  'electronics-accessories': 'electronicsAccessories',
+  'apparel-accessories': 'apparelAccessories',
+  'health-wellness': 'healthWellness',
+  'sports-outdoors': 'sportsOutdoors',
+  'pet-finds': 'petFinds',
+  'automotive': 'automotive',
+  'tools-home-improvement': 'toolsHomeImprovement',
+  'beauty-personal-care': 'beautyPersonalCare',
+  'toys-games': 'toysGames',
+  'home-decor': 'homeDecor',
+  'office-school-supplies': 'officeSchoolSupplies',
+  'baby-nursery': 'babyNursery',
+  'outdoor-garden': 'outdoorGarden',
+  'best-sellers': 'bestSellers',
+  'trending-finds': 'trendingFinds',
+  'gifts-under-25': 'giftsUnder25',
+};
 
 // Curated copy for each category. Tone: short, no filler, sentence case.
 // "tagline" is the single-eyebrow line that appears under the category name.
 const TAGLINES = {
-  home: 'Kitchen, storage, decor.',
-  beauty: 'Skin, scent, grooming.',
-  tech: 'Audio, chargers, smart devices.',
-  outdoor: 'Garden, outdoor, patio.',
-  pet: 'Toys, beds, things for them.',
+  'phone-case': 'Cases, grips, protection.',
+  'home-essentials': 'Kitchen, storage, decor.',
+  'electronics-accessories': 'Cables, chargers, mounts.',
+  'apparel-accessories': 'Bags, hats, wearables.',
+  'health-wellness': 'Skin, scent, grooming.',
+  'sports-outdoors': 'Gear, fitness, fan shop.',
+  'pet-finds': 'Toys, beds, things for them.',
+  'automotive': 'Interior, tools, gadgets.',
+  'tools-home-improvement': 'Fix, build, organize.',
+  'beauty-personal-care': 'Makeup, nails, self-care.',
+  'toys-games': 'Play, learn, collect.',
+  'home-decor': 'Wall, light, accents.',
+  'office-school-supplies': 'Desk, paper, must-haves.',
+  'baby-nursery': 'Feeding, decor, comfort.',
+  'outdoor-garden': 'Garden, patio, outdoor.',
+  'best-sellers': 'Top picks everyone loves.',
+  'trending-finds': 'What is hot right now.',
+  'gifts-under-25': 'Great gifts, small budget.',
 };
 
 export function MegaMenu({deferred, onClose}) {
@@ -135,12 +190,23 @@ export function MegaMenu({deferred, onClose}) {
 
 function MegaMenuPanel({data, onNavigate}) {
   if (!data) return <MegaMenuSkeleton />;
-  const tiles = CATEGORY_ORDER.map((key) => data[key]).filter(Boolean);
-  const best = data.best;
+
+  // Build product tile list from PRODUCT_CATEGORIES order.
+  const productTiles = PRODUCT_CATEGORIES.map((handle) => {
+    const alias = ALIAS_MAP[handle];
+    return data[alias];
+  }).filter(Boolean);
+
+  // Build featured tile list from FEATURED_CATEGORIES order.
+  const featuredTiles = FEATURED_CATEGORIES.map((handle) => {
+    const alias = ALIAS_MAP[handle];
+    return data[alias];
+  }).filter(Boolean);
+
   return (
     <div className="pk-mega__grid">
       <ul className="pk-mega__tiles">
-        {tiles.map((c) => {
+        {productTiles.map((c) => {
           if (!c) return null;
           const tagline = TAGLINES[c.handle] || '';
           const image = c.image || c.products?.nodes?.[0]?.featuredImage;
@@ -177,27 +243,28 @@ function MegaMenuPanel({data, onNavigate}) {
           );
         })}
       </ul>
-      {best && (
-        <aside className="pk-mega__feature" aria-label="Featured: Best Sellers">
-          <Link
-            to={`/collections/${best.handle}`}
-            prefetch="intent"
-            className="pk-mega__feature-link"
-            onClick={onNavigate}
-          >
-            <p className="pk-mega__feature-eye">
-              <StarGlyph size={10} /> Curated
-            </p>
-            <h3 className="pk-mega__feature-title">{best.title}</h3>
-            {best.description && (
-              <p className="pk-mega__feature-desc">
-                {best.description.slice(0, 110)}
-                {best.description.length > 110 ? '…' : ''}
-              </p>
-            )}
-            <span className="pk-mega__feature-cta">See the best &rarr;</span>
-          </Link>
-        </aside>
+      {featuredTiles.length > 0 && (
+        <div className="pk-mega__featured-row">
+          {featuredTiles.map((c) => {
+            if (!c) return null;
+            const tagline = TAGLINES[c.handle] || '';
+            return (
+              <Link
+                key={c.id}
+                to={`/collections/${c.handle}`}
+                prefetch="intent"
+                className="pk-mega__featured-tile"
+                onClick={onNavigate}
+              >
+                <p className="pk-mega__featured-eye">
+                  <StarGlyph size={10} /> {tagline}
+                </p>
+                <h3 className="pk-mega__featured-title">{c.title}</h3>
+                <span className="pk-mega__featured-cta">Shop &rarr;</span>
+              </Link>
+            );
+          })}
+        </div>
       )}
     </div>
   );
@@ -207,8 +274,8 @@ function MegaMenuSkeleton() {
   return (
     <div className="pk-mega__grid" aria-hidden>
       <ul className="pk-mega__tiles">
-        {CATEGORY_ORDER.map((key) => (
-          <li key={key} className="pk-mega__tile">
+        {PRODUCT_CATEGORIES.map((handle) => (
+          <li key={handle} className="pk-mega__tile">
             <div className="pk-mega__tile-link">
               <div className="pk-mega__tile-img">
                 <div className="pk-mega__tile-placeholder" />
@@ -220,6 +287,13 @@ function MegaMenuSkeleton() {
           </li>
         ))}
       </ul>
+      <div className="pk-mega__featured-row">
+        {FEATURED_CATEGORIES.map((handle) => (
+          <div key={handle} className="pk-mega__featured-tile">
+            <h3 className="pk-mega__featured-title">&nbsp;</h3>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
