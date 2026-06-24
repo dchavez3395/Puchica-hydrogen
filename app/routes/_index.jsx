@@ -9,6 +9,7 @@ import {puchicaMeta, organizationJsonLd, websiteJsonLd, JsonLdScript} from '~/li
 import {CollectionShowcase} from '~/components/CollectionShowcase';
 import {StatsCounter} from '~/components/StatsCounter';
 import {TrendingTicker} from '~/components/TrendingTicker';
+import {ParallaxBanner} from '~/components/ParallaxBanner';
 
 /* Shared hook for arrow-nav on horizontal scroll tracks */
 function useScrollNav(trackRef) {
@@ -184,6 +185,8 @@ export default function Index() {
 
       {/* Catalog statement */}
       <CatalogStatement />
+      <ParallaxBanner />
+
 
       <ValueProps />
       <NewsletterBand />
