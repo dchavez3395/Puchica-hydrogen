@@ -7109,3 +7109,83 @@ button:focus-visible,
   outline: 2px solid var(--pk-lime);
   outline-offset: 4px;
 }
+
+
+/* ==================================================
+   Scroll Reveal - IntersectionObserver-driven animations
+   ================================================== */
+.pk-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+.pk-reveal.pk-reveal--left {
+  transform: translateX(-40px);
+}
+.pk-reveal.pk-reveal--right {
+  transform: translateX(40px);
+}
+.pk-reveal.pk-reveal--scale {
+  transform: scale(0.92);
+}
+.pk-reveal.is-visible {
+  opacity: 1;
+  transform: translate(0, 0) scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pk-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* ==================================================
+   3D Tilt Card - mouse-tracking tilt effect
+   ================================================== */
+.pk-tilt {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.1s ease-out;
+  will-change: transform;
+}
+.pk-tilt__glare {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle at var(--glare-x, 50%) var(--glare-y, 50%),
+    rgba(255, 255, 255, 0.25) 0%,
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.2s ease-out;
+  pointer-events: none;
+  z-index: 1;
+}
+.pk-tilt:hover .pk-tilt__glare {
+  opacity: 1;
+}
+
+@media (pointer: coarse) {
+  .pk-tilt {
+    transform: none !important;
+    transition: none !important;
+  }
+  .pk-tilt__glare {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pk-tilt {
+    transform: none !important;
+    transition: none !important;
+  }
+  .pk-tilt__glare {
+    display: none;
+  }
+}
