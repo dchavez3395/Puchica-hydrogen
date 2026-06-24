@@ -25,6 +25,8 @@ import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 import {puchicaMeta, canonical, SITE_URL, breadcrumbJsonLd, JsonLdScript} from '~/lib/seo';
 import {getJudgemeBadge} from '~/lib/judgeme';
 import {ReviewStars, JudgemeReviews} from '~/components/JudgemeReviews';
+import {ScrollReveal} from '~/components/ScrollReveal';
+import {TiltCard} from '~/components/TiltCard';
 
 /**
  * @type {Route.MetaFunction}
@@ -412,15 +414,18 @@ function ShareRow({product}) {
 }
 
 function Recommendations({data}) {
-  // data may be null (loader failure) or {productRecommendations: [...]}
   const products = data?.productRecommendations ?? [];
   if (!products.length) return null;
   return (
     <section className="pk-reco" aria-label="You might also like">
       <h2 className="pk-reco__title">You might also like</h2>
       <div className="pk-reco__grid">
-        {products.slice(0, 4).map((p) => (
-          <ProductItem key={p.id} product={p} />
+        {products.slice(0, 4).map((p, i) => (
+          <ScrollReveal key={p.id} delay={i * 80} variant="up">
+            <TiltCard className="pk-reco__card" maxTilt={6}>
+              <ProductItem product={p} />
+            </TiltCard>
+          </ScrollReveal>
         ))}
       </div>
     </section>
