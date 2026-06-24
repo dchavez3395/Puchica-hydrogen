@@ -83,6 +83,7 @@ export async function loader(args) {
  * @param {Route.LoaderArgs}
  */
 async function loadCriticalData({context}) {
+  const {country, language} = context.storefront.i18n;
   // Build alias lines: `phoneCase: collection(handle: "phone-case") { ...ExploreCollection }`
   const aliasLines = ALL_COLLECTION_HANDLES.map(
     (handle) =>
@@ -120,12 +121,12 @@ async function loadCriticalData({context}) {
         nodes { ...ExploreProduct }
       }
     }
-    query ExplorePage {
+    query ExplorePage($country: CountryCode!, $language: LanguageCode!) @inContext(country: $country, language: $language) {
 ${aliasLines}
     }
   `;
 
-  const data = await context.storefront.query(query);
+  const data = await context.storefront.query(query, {variables: {country, language}});
   return {collections: data};
 }
 

@@ -180,11 +180,13 @@ const PAGE_INFO_FRAGMENT = `#graphql
 // NOTE: https://shopify.dev/docs/api/storefront/latest/queries/search
 export const SEARCH_QUERY = `#graphql
   query RegularSearch(
+    $country: CountryCode!
+    $language: LanguageCode!
     $endCursor: String
     $first: Int
     $last: Int
     $term: String!
-    $startCursor: String) {
+    $startCursor: String) @inContext(country: $country, language: $language) {
     articles: search(
       query: $term,
       types: [ARTICLE],
@@ -243,13 +245,14 @@ export const SEARCH_QUERY = `#graphql
  */
 async function regularSearch({request, context}) {
   const {storefront} = context;
+  const {country, language} = storefront.i18n;
   const url = new URL(request.url);
   const variables = getPaginationVariables(request, {pageBy: 8});
   const term = String(url.searchParams.get('q') || '');
 
   // Search articles, pages, and products for the `q` term
   const {errors, ...items} = await storefront.query(SEARCH_QUERY, {
-    variables: {...variables, term},
+    variables: {...variables, country, language, term},
   });
 
   if (!items) {
@@ -356,10 +359,12 @@ const PREDICTIVE_SEARCH_QUERY_FRAGMENT = `#graphql
 // NOTE: https://shopify.dev/docs/api/storefront/latest/queries/predictiveSearch
 const PREDICTIVE_SEARCH_QUERY = `#graphql
   query PredictiveSearch(
+    $country: CountryCode!
+    $language: LanguageCode!
     $limit: Int!
     $limitScope: PredictiveSearchLimitScope!
     $term: String!
-    $types: [PredictiveSearchType!]) {
+    $types: [PredictiveSearchType!]) @inContext(country: $country, language: $language) {
     predictiveSearch(
       limit: $limit,
       limitScope: $limitScope,
@@ -400,6 +405,7 @@ const PREDICTIVE_SEARCH_QUERY = `#graphql
  */
 async function predictiveSearch({request, context}) {
   const {storefront} = context;
+  const {country, language} = storefront.i18n;
   const url = new URL(request.url);
   const term = String(url.searchParams.get('q') || '').trim();
   const limit = Number(url.searchParams.get('limit') || 10);
@@ -413,6 +419,8 @@ async function predictiveSearch({request, context}) {
     {
       variables: {
         // customize search options as needed
+        country,
+        language,
         limit,
         limitScope: 'EACH',
         term,

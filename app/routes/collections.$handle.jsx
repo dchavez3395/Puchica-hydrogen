@@ -69,6 +69,7 @@ const PRICE_RANGE_MAP = {
 async function loadCriticalData({context, params, request}) {
   const {handle} = params;
   const {storefront} = context;
+  const {country, language} = storefront.i18n;
   const paginationVariables = getPaginationVariables(request, {pageBy: 12});
   const url = new URL(request.url);
 
@@ -90,6 +91,8 @@ async function loadCriticalData({context, params, request}) {
 
   const variables = {
     handle,
+    country,
+    language,
     sortKey,
     reverse,
     filters: filters.length > 0 ? filters : undefined,
@@ -435,6 +438,8 @@ const PRODUCT_ITEM_FRAGMENT = `#graphql
 const COLLECTION_QUERY = `#graphql
   ${PRODUCT_ITEM_FRAGMENT}
   query Collection(
+    $country: CountryCode!
+    $language: LanguageCode!
     $handle: String!
     $first: Int
     $last: Int
@@ -442,7 +447,7 @@ const COLLECTION_QUERY = `#graphql
     $endCursor: String
     $sortKey: ProductCollectionSortKeys
     $reverse: Boolean
-    $filters: [ProductFilter!]) {
+    $filters: [ProductFilter!]) @inContext(country: $country, language: $language) {
     collection(handle: $handle) {
       id
       handle

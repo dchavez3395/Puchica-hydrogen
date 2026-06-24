@@ -74,6 +74,8 @@ function trimTrailingStopword(sliced) {
  * @param {Route.LoaderArgs}
  */
 export async function loader({params, context}) {
+  const {country, language} = context.storefront.i18n;
+
   if (!params.handle) {
     throw new Response('No handle was passed in', {status: 404});
   }
@@ -84,6 +86,8 @@ export async function loader({params, context}) {
 
   const data = await context.storefront.query(POLICY_CONTENT_QUERY, {
     variables: {
+      country,
+      language,
       privacyPolicy: false,
       shippingPolicy: false,
       termsOfService: false,
@@ -129,10 +133,12 @@ const POLICY_CONTENT_QUERY = `#graphql
     url
   }
   query Policy(
+    $country: CountryCode!
+    $language: LanguageCode!
     $privacyPolicy: Boolean!
     $refundPolicy: Boolean!
     $shippingPolicy: Boolean!
-    $termsOfService: Boolean!) {
+    $termsOfService: Boolean!) @inContext(country: $country, language: $language) {
     shop {
       privacyPolicy @include(if: $privacyPolicy) {
         ...Policy

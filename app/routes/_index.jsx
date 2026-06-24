@@ -54,33 +54,34 @@ async function loadCriticalData() {
 }
 
 function loadDeferredData({context}) {
+  const {country, language} = context.storefront.i18n;
   const norm = () => (res) => res?.collection?.products?.nodes ?? res?.products?.nodes ?? [];
 
   // Trending curated collection → hero deck + discover swiper
   const trending = context.storefront
-    .query(TRENDING_QUERY)
+    .query(TRENDING_QUERY, {variables: {country, language}})
     .then(norm('trending'))
     .catch((e) => { logError('trending query failed', e); return []; });
 
   // Home & Kitchen collection → rack (no phone cases!)
   const rackProducts = context.storefront
-    .query(RACK_QUERY)
+    .query(RACK_QUERY, {variables: {country, language}})
     .then(norm('rack'))
     .catch((e) => { logError('rackProducts query failed', e); return []; });
 
   // Curated best-sellers collection (tagged) → featured banner
   const bestPicks = context.storefront
-    .query(BEST_PICKS_QUERY)
+    .query(BEST_PICKS_QUERY, {variables: {country, language}})
     .then(norm('best'))
     .catch((e) => { logError('bestPicks query failed', e); return []; });
 
   const catWorld = context.storefront
-    .query(CAT_WORLD_QUERY)
+    .query(CAT_WORLD_QUERY, {variables: {country, language}})
     .catch((e) => { logError('catWorld query failed', e); return null; });
 
   // Collection showcase - 6 rotating categories
   const showcaseCollections = context.storefront
-    .query(SHOWCASE_QUERY)
+    .query(SHOWCASE_QUERY, {variables: {country, language}})
     .then((res) => {
       if (!res) return [];
       return Object.values(res).filter(Boolean);
@@ -89,13 +90,13 @@ function loadDeferredData({context}) {
 
   // Outdoor & Garden → new arrivals (completely different category)
   const newArrivals = context.storefront
-    .query(NEW_ARRIVALS_QUERY)
+    .query(NEW_ARRIVALS_QUERY, {variables: {country, language}})
     .then(norm('arrivals'))
     .catch((e) => { logError('newArrivals query failed', e); return []; });
 
   // Beauty & Personal Care → fresh finds (different again)
   const freshFinds = context.storefront
-    .query(FRESH_FINDS_QUERY)
+    .query(FRESH_FINDS_QUERY, {variables: {country, language}})
     .then(norm('fresh'))
     .catch((e) => { logError('freshFinds query failed', e); return []; });
 
@@ -896,7 +897,7 @@ const RACK_QUERY = `#graphql
     priceRange { minVariantPrice { amount currencyCode } }
     featuredImage { id url altText width height }
   }
-  query RackProducts {
+  query RackProducts($country: CountryCode!, $language: LanguageCode!) @inContext(country: $country, language: $language) {
     collection(handle: "home-essentials") {
       products(first: 12, sortKey: BEST_SELLING) {
         nodes { ...RackProduct }
@@ -912,7 +913,7 @@ const TRENDING_QUERY = `#graphql
     priceRange { minVariantPrice { amount currencyCode } }
     featuredImage { id url altText width height }
   }
-  query Trending {
+  query Trending($country: CountryCode!, $language: LanguageCode!) @inContext(country: $country, language: $language) {
     collection(handle: "trending-finds") {
       products(first: 8, sortKey: BEST_SELLING) {
         nodes { ...TrendingProduct }
@@ -928,7 +929,7 @@ const BEST_PICKS_QUERY = `#graphql
     priceRange { minVariantPrice { amount currencyCode } }
     featuredImage { id url altText width height }
   }
-  query BestPicks {
+  query BestPicks($country: CountryCode!, $language: LanguageCode!) @inContext(country: $country, language: $language) {
     collection(handle: "best-sellers") {
       products(first: 3, sortKey: BEST_SELLING) {
         nodes { ...BestPick }
@@ -944,7 +945,7 @@ const NEW_ARRIVALS_QUERY = `#graphql
     priceRange { minVariantPrice { amount currencyCode } }
     featuredImage { id url altText width height }
   }
-  query NewArrivals {
+  query NewArrivals($country: CountryCode!, $language: LanguageCode!) @inContext(country: $country, language: $language) {
     collection(handle: "outdoor-garden") {
       products(first: 8, sortKey: CREATED, reverse: true) {
         nodes { ...NewArrival }
@@ -960,7 +961,7 @@ const FRESH_FINDS_QUERY = `#graphql
     priceRange { minVariantPrice { amount currencyCode } }
     featuredImage { id url altText width height }
   }
-  query FreshFinds {
+  query FreshFinds($country: CountryCode!, $language: LanguageCode!) @inContext(country: $country, language: $language) {
     collection(handle: "beauty-personal-care") {
       products(first: 12, sortKey: BEST_SELLING) {
         nodes { ...FreshFind }
@@ -977,7 +978,7 @@ const SHOWCASE_QUERY = `#graphql
       nodes { id featuredImage { id url altText width height } }
     }
   }
-  query Showcase {
+  query Showcase($country: CountryCode!, $language: LanguageCode!) @inContext(country: $country, language: $language) {
     a: collection(handle: "phone-case")             { ...ShowCol }
     b: collection(handle: "apparel-accessories")    { ...ShowCol }
     c: collection(handle: "health-wellness")        { ...ShowCol }
@@ -999,7 +1000,7 @@ const CAT_WORLD_QUERY = `#graphql
       nodes { ...CatProduct }
     }
   }
-  query CatWorld {
+  query CatWorld($country: CountryCode!, $language: LanguageCode!) @inContext(country: $country, language: $language) {
     home:    collection(handle: "home-essentials")      { ...CatCol }
     beauty:  collection(handle: "beauty-personal-care") { ...CatCol }
     tech:    collection(handle: "tech-gadgets")         { ...CatCol }

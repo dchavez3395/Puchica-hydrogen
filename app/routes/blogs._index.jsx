@@ -38,6 +38,7 @@ export async function loader(args) {
  * @param {Route.LoaderArgs}
  */
 async function loadCriticalData({context, request}) {
+  const {country, language} = context.storefront.i18n;
   const paginationVariables = getPaginationVariables(request, {
     pageBy: 10,
   });
@@ -45,6 +46,8 @@ async function loadCriticalData({context, request}) {
   const [{blogs}] = await Promise.all([
     context.storefront.query(BLOGS_QUERY, {
       variables: {
+        country,
+        language,
         ...paginationVariables,
       },
     }),
@@ -92,10 +95,12 @@ export default function Blogs() {
 // NOTE: https://shopify.dev/docs/api/storefront/latest/objects/blog
 const BLOGS_QUERY = `#graphql
   query Blogs(
+    $country: CountryCode!
+    $language: LanguageCode!
     $endCursor: String
     $first: Int
     $last: Int
-    $startCursor: String) {
+    $startCursor: String) @inContext(country: $country, language: $language) {
     blogs(
       first: $first,
       last: $last,

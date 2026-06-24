@@ -17,7 +17,8 @@ export const meta = () => {
  * @param {Route.LoaderArgs}
  */
 export async function loader({context}) {
-  const data = await context.storefront.query(POLICIES_QUERY);
+  const {country, language} = context.storefront.i18n;
+  const data = await context.storefront.query(POLICIES_QUERY, {variables: {country, language}});
 
   const shopPolicies = data.shop;
   const policies = [
@@ -59,7 +60,7 @@ const POLICIES_QUERY = `#graphql
     title
     handle
   }
-  query Policies {
+  query Policies($country: CountryCode!, $language: LanguageCode!) @inContext(country: $country, language: $language) {
     shop {
       privacyPolicy {
         ...PolicyItem

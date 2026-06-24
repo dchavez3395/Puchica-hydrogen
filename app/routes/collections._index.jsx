@@ -31,11 +31,12 @@ export async function loader(args) {
  * @param {Route.LoaderArgs}
  */
 async function loadCriticalData({context, request}) {
+  const {country, language} = context.storefront.i18n;
   const paginationVariables = getPaginationVariables(request, {pageBy: 30});
 
   const [{collections}] = await Promise.all([
     context.storefront.query(COLLECTIONS_QUERY, {
-      variables: paginationVariables,
+      variables: {country, language, ...paginationVariables},
     }),
   ]);
   return {collections};
@@ -334,10 +335,12 @@ const COLLECTIONS_QUERY = `#graphql
     }
   }
   query StoreCollections(
+    $country: CountryCode!
+    $language: LanguageCode!
     $endCursor: String
     $first: Int
     $last: Int
-    $startCursor: String) {
+    $startCursor: String) @inContext(country: $country, language: $language) {
     collections(
       first: $first
       last: $last

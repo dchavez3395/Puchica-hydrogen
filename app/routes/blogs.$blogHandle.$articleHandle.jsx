@@ -43,6 +43,7 @@ export async function loader(args) {
  * @param {Route.LoaderArgs}
  */
 async function loadCriticalData({context, request, params}) {
+  const {country, language} = context.storefront.i18n;
   const {blogHandle, articleHandle} = params;
 
   if (!articleHandle || !blogHandle) {
@@ -51,7 +52,7 @@ async function loadCriticalData({context, request, params}) {
 
   const [{blog}] = await Promise.all([
     context.storefront.query(ARTICLE_QUERY, {
-      variables: {blogHandle, articleHandle},
+      variables: {blogHandle, articleHandle, country, language},
     }),
     // Add other queries here, so that they are loaded in parallel
   ]);
@@ -120,9 +121,10 @@ export default function Article() {
 // NOTE: https://shopify.dev/docs/api/storefront/latest/objects/blog#field-blog-articlebyhandle
 const ARTICLE_QUERY = `#graphql
   query Article(
+    $country: CountryCode!
+    $language: LanguageCode!
     $articleHandle: String!
-    $blogHandle: String!
-    $language: LanguageCode) {
+    $blogHandle: String!) @inContext(country: $country, language: $language) {
     blog(handle: $blogHandle) {
       handle
       articleByHandle(handle: $articleHandle) {

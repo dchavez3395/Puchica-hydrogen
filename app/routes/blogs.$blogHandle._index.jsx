@@ -39,6 +39,7 @@ export async function loader(args) {
  * @param {Route.LoaderArgs}
  */
 async function loadCriticalData({context, request, params}) {
+  const {country, language} = context.storefront.i18n;
   const paginationVariables = getPaginationVariables(request, {
     pageBy: 4,
   });
@@ -51,6 +52,8 @@ async function loadCriticalData({context, request, params}) {
     context.storefront.query(BLOGS_QUERY, {
       variables: {
         blogHandle: params.blogHandle,
+        country,
+        language,
         ...paginationVariables,
       },
     }),
@@ -135,11 +138,13 @@ function ArticleItem({article, loading}) {
 // NOTE: https://shopify.dev/docs/api/storefront/latest/objects/blog
 const BLOGS_QUERY = `#graphql
   query Blog(
+    $country: CountryCode!
+    $language: LanguageCode!
     $blogHandle: String!
     $first: Int
     $last: Int
     $startCursor: String
-    $endCursor: String) {
+    $endCursor: String) @inContext(country: $country, language: $language) {
     blog(handle: $blogHandle) {
       title
       handle

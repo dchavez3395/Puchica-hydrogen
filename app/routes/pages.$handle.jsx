@@ -61,6 +61,8 @@ export async function loader(args) {
  * @param {Route.LoaderArgs}
  */
 async function loadCriticalData({context, request, params}) {
+  const {country, language} = context.storefront.i18n;
+
   if (!params.handle) {
     throw new Error('Missing page handle');
   }
@@ -69,6 +71,8 @@ async function loadCriticalData({context, request, params}) {
     context.storefront.query(PAGE_QUERY, {
       variables: {
         handle: params.handle,
+        country,
+        language,
       },
     }),
     // Add other queries here, so that they are loaded in parallel
@@ -119,7 +123,9 @@ export default function Page() {
 
 const PAGE_QUERY = `#graphql
   query Page(
-    $handle: String!) {
+    $country: CountryCode!
+    $language: LanguageCode!
+    $handle: String!) @inContext(country: $country, language: $language) {
     page(handle: $handle) {
       handle
       id

@@ -28,3 +28,7 @@ node_modules
 # Not currently used; connor runs the shared bus on 127.0.0.1:9420.
 /tools/.agent_context/
 
+
+env
+DEPLOY.md
+shopify.app.*.toml

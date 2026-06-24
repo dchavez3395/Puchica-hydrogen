@@ -44,6 +44,7 @@ const DEFAULT_SORT = 'featured';
  * @param {Route.LoaderArgs}
  */
 async function loadCriticalData({context, request}) {
+  const {country, language} = context.storefront.i18n;
   const paginationVariables = getPaginationVariables(request, {pageBy: 12});
   const url = new URL(request.url);
   const sortValue = url.searchParams.get('sort') || DEFAULT_SORT;
@@ -51,7 +52,7 @@ async function loadCriticalData({context, request}) {
 
   const [{products}] = await Promise.all([
     context.storefront.query(CATALOG_QUERY, {
-      variables: {sortKey, reverse, ...paginationVariables},
+      variables: {country, language, sortKey, reverse, ...paginationVariables},
     }),
   ]);
   return {products};
@@ -198,12 +199,14 @@ const COLLECTION_ITEM_FRAGMENT = `#graphql
 
 const CATALOG_QUERY = `#graphql
   query Catalog(
+    $country: CountryCode!
+    $language: LanguageCode!
     $first: Int
     $last: Int
     $startCursor: String
     $endCursor: String
     $sortKey: ProductSortKeys
-    $reverse: Boolean) {
+    $reverse: Boolean) @inContext(country: $country, language: $language) {
     products(first: $first, last: $last, before: $startCursor, after: $endCursor, sortKey: $sortKey, reverse: $reverse) {
       nodes { ...CollectionItem }
       pageInfo {
