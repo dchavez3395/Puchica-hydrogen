@@ -7,6 +7,7 @@ import StarGlyph from '~/components/StarGlyph';
 import {ScrollPillNav} from '~/components/ScrollPillNav';
 import {puchicaMeta, organizationJsonLd, websiteJsonLd, JsonLdScript} from '~/lib/seo';
 import {CollectionShowcase} from '~/components/CollectionShowcase';
+import {StatsCounter} from '~/components/StatsCounter';
 
 /* Shared hook for arrow-nav on horizontal scroll tracks */
 function useScrollNav(trackRef) {
@@ -185,6 +186,13 @@ export default function Index() {
 
       <ValueProps />
       <NewsletterBand />
+      <StatsCounter stats={[
+        {value: 6155, label: 'Products', suffix: '+'},
+        {value: 19, label: 'Collections'},
+        {value: 15, label: 'Categories'},
+        {value: 100, label: 'Canadian', suffix: '%'},
+      ]} />
+
     </div>
   );
 }
