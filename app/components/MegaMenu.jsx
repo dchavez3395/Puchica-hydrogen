@@ -20,10 +20,10 @@ const CATEGORY_ORDER = ['home', 'beauty', 'tech', 'outdoor', 'pet'];
 // "tagline" is the single-eyebrow line that appears under the category name.
 const TAGLINES = {
   home: 'Kitchen, storage, decor.',
-  beauty: 'Skin, scent, self-care.',
-  tech: 'Audio, accessories, smart.',
-  outdoor: 'Garden, camping, sports.',
-  pet: 'Vests, beds, things for them.',
+  beauty: 'Skin, scent, grooming.',
+  tech: 'Audio, chargers, smart devices.',
+  outdoor: 'Garden, outdoor, patio.',
+  pet: 'Toys, beds, things for them.',
 };
 
 export function MegaMenu({deferred, onClose}) {
