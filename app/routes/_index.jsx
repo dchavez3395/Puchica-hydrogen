@@ -6,6 +6,7 @@ import {IconTruck, IconReturn, IconShield, IconSparkles, IconGift, IconHeart, Ic
 import StarGlyph from '~/components/StarGlyph';
 import {ScrollPillNav} from '~/components/ScrollPillNav';
 import {puchicaMeta, organizationJsonLd, websiteJsonLd, JsonLdScript} from '~/lib/seo';
+import {CollectionShowcase} from '~/components/CollectionShowcase';
 
 /* Shared hook for arrow-nav on horizontal scroll tracks */
 function useScrollNav(trackRef) {
@@ -74,6 +75,15 @@ function loadDeferredData({context}) {
     .query(CAT_WORLD_QUERY)
     .catch((e) => { logError('catWorld query failed', e); return null; });
 
+  // Collection showcase - 6 rotating categories
+  const showcaseCollections = context.storefront
+    .query(SHOWCASE_QUERY)
+    .then((res) => {
+      if (!res) return [];
+      return Object.values(res).filter(Boolean);
+    })
+    .catch((e) => { logError('showcase query failed', e); return []; });
+
   // Outdoor & Garden → new arrivals (completely different category)
   const newArrivals = context.storefront
     .query(NEW_ARRIVALS_QUERY)
@@ -86,7 +96,7 @@ function loadDeferredData({context}) {
     .then(norm('fresh'))
     .catch((e) => { logError('freshFinds query failed', e); return []; });
 
-  return {trending, rackProducts, bestPicks, catWorld, newArrivals, freshFinds};
+  return {trending, rackProducts, bestPicks, catWorld, newArrivals, freshFinds, showcaseCollections };
 }
 
 export default function Index() {
@@ -136,6 +146,13 @@ export default function Index() {
       <Suspense fallback={null}>
         <Await resolve={data.catWorld}>
           {(res) => <CategoryBento res={res} />}
+        </Await>
+      </Suspense>
+
+      {/* Collection showcase - alternating layout */}
+      <Suspense fallback={null}>
+        <Await resolve={data.showcaseCollections}>
+          {(collections) => <CollectionShowcase collections={collections ?? []} />}
         </Await>
       </Suspense>
 
@@ -923,6 +940,24 @@ const FRESH_FINDS_QUERY = `#graphql
         nodes { ...FreshFind }
       }
     }
+  }
+`;
+
+const SHOWCASE_QUERY = `#graphql
+  fragment ShowCol on Collection {
+    id title handle description
+    image { id url altText width height }
+    products(first: 1, sortKey: BEST_SELLING) {
+      nodes { id featuredImage { id url altText width height } }
+    }
+  }
+  query Showcase {
+    a: collection(handle: "phone-case")             { ...ShowCol }
+    b: collection(handle: "apparel-accessories")    { ...ShowCol }
+    c: collection(handle: "health-wellness")        { ...ShowCol }
+    d: collection(handle: "sports-outdoors")        { ...ShowCol }
+    e: collection(handle: "automotive")             { ...ShowCol }
+    f: collection(handle: "toys-games")             { ...ShowCol }
   }
 `;
 

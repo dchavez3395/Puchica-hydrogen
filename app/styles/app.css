@@ -34,14 +34,14 @@ main {
   padding: 0 var(--page-gutter);
   box-sizing: border-box;
 }
-/* Homepage is full-bleed — bust out of the shared max-width container */
+/* Homepage is full-bleed â€” bust out of the shared max-width container */
 main:has(.pk-home) {
   max-width: none;
   margin: 0;
   padding: 0;
   width: 100%;
 }
-/* Shared inner content column — matches header nav alignment exactly */
+/* Shared inner content column â€” matches header nav alignment exactly */
 .pk-inner {
   max-width: 1200px;
   margin: 0 auto;
@@ -130,7 +130,7 @@ img {
 /* Cart drawer. These rules were originally written against a bare
  * `aside` selector so they could style the drawer markup in
  * `app/components/Aside.jsx`. That selector also matched every
- * other <aside> in the app — most importantly the collection page's
+ * other <aside> in the app â€” most importantly the collection page's
  * `.pk-filters`, which inherited `height: 100dvh` and `display:
  * flex` and stretched to a full viewport of empty space on mobile.
  * Scope every rule here to `.overlay > aside` so it only ever
@@ -138,7 +138,7 @@ img {
 .overlay > aside {
   background: var(--color-light);
   box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);
-  /* Full viewport height — the page header (`.pk-header`, z=40,
+  /* Full viewport height â€” the page header (`.pk-header`, z=40,
    * sticky) and announcement bar (`.pk-ann`, z=30) float above
    * the drawer naturally because of z-index. The drawer's own
    * internal <header> (CART/SEARCH/MENU) just needs enough top
@@ -419,7 +419,7 @@ button.reset:hover:not(:has(> *)) {
 
 .cart-main {
   /* When rendered inside .cart-aside-shell (drawer layout), this is a
-     `flex: 1` scroll container — it shrinks to fill the space between
+     `flex: 1` scroll container â€” it shrinks to fill the space between
      the brand header and the pinned .cart-summary-aside. `min-height: 0`
      is critical: a flex item's default min-height is `auto`, which
      means it can't shrink below its content size, so a tall list of
@@ -438,7 +438,7 @@ button.reset:hover:not(:has(> *)) {
   flex: 1 1 auto;
   /* Hide the scrollbar visually so the cart doesn't look like it has a
      chunky scroll gutter when content fits. The content is still
-     scrollable (touch, shift-wheel, drag) — only the visual chrome is
+     scrollable (touch, shift-wheel, drag) â€” only the visual chrome is
      removed. WebKit/Blink + Firefox covered below. */
   scrollbar-width: thin;
   scrollbar-color: transparent transparent;
@@ -467,7 +467,7 @@ button.reset:hover:not(:has(> *)) {
   flex-direction: column;
   /* No fixed height here. In the drawer (aside) layout, .cart-main
      is the scroll container and .cart-details is just the content
-     wrapper — sizing it to 100% of the scroll viewport would push
+     wrapper â€” sizing it to 100% of the scroll viewport would push
      the natural content height past the visible area and trigger
      a phantom scrollbar even when items fit. In the page layout,
      .cart-main is a normal block, so the children flow at content
@@ -477,7 +477,7 @@ button.reset:hover:not(:has(> *)) {
 /* Brand banner at the top of the cart drawer. Repeats the site logo
    and a one-line "free shipping over $50" reminder so the drawer
    always carries a clear anchor back to the brand. The logo image
-   is the full wordmark+bag SVG (1200x360, 3.33:1) — we render it
+   is the full wordmark+bag SVG (1200x360, 3.33:1) â€” we render it
    at natural aspect (height pinned, width auto) so the entire
    "Puchica" wordmark is visible. The banner itself lives outside
    the .cart-main scroll region (it's a flex sibling inside
@@ -488,13 +488,13 @@ button.reset:hover:not(:has(> *)) {
   flex-direction: column;
   align-items: center;
   gap: 6px;
-  /* No top padding — the brand sits flush against the header's bottom
+  /* No top padding â€” the brand sits flush against the header's bottom
      border/shadow so the drawer reads as one continuous vertical block
-     (header → brand → list → summary) instead of two detached pieces. */
+     (header â†’ brand â†’ list â†’ summary) instead of two detached pieces. */
   padding: 0 20px 10px;
   border-bottom: 1px solid var(--pk-border, #E5E0F0);
   background: linear-gradient(180deg, var(--pk-paper, #F2EBDA) 0%, #fff 100%);
-  /* Don't shrink when the drawer gets very short — the brand is
+  /* Don't shrink when the drawer gets very short â€” the brand is
      supposed to be a stable top anchor. */
   flex: 0 0 auto;
 }
@@ -540,13 +540,13 @@ button.reset:hover:not(:has(> *)) {
 /* A line whose quantity has been decremented to 0. Still rendered so
    the user can recover it (click +) or remove it (trash button), but
    slightly dimmed so it doesn't read as "in the cart" alongside real
-   items. No stripes — the goal is a subtle "needs attention" state,
+   items. No stripes â€” the goal is a subtle "needs attention" state,
    not an "unavailable" warning. */
 .cart-line.is-zero {
   opacity: 0.6;
 }
 /* Highlight the + button on a qty-0 line so the recovery action is
-   obvious — the count goes violet, the + button is filled violet. */
+   obvious â€” the count goes violet, the + button is filled violet. */
 .cart-line.is-zero .cart-line-qty__count {
   color: var(--pk-violet-700, #4a2fd6);
 }
@@ -557,7 +557,7 @@ button.reset:hover:not(:has(> *)) {
 /* Unrecoverable qty-0 lines: the qty-0 was imposed by the server
    (the variant isn't available in the buyer's region), not by a
    user decrement. Clicking + would just trigger another rejected
-   update, so the violet "recover" highlight is misleading — undo
+   update, so the violet "recover" highlight is misleading â€” undo
    it and let the disabled state of the + button communicate that.
    The line itself stays dimmed (inheriting is-zero) so the user
    still sees it and can remove it with the trash button. */
@@ -573,7 +573,7 @@ button.reset:hover:not(:has(> *)) {
 }
 
 /* Inline notice shown in the drawer when every line is a qty-0
-   ghost — explains the empty-looking cart and points to the trash
+   ghost â€” explains the empty-looking cart and points to the trash
    button. */
 .cart-ghost-notice {
   margin: 16px 0 0;
@@ -649,7 +649,7 @@ button.reset:hover:not(:has(> *)) {
   padding: 18px 20px 22px;
   /* `box-sizing: border-box` is required here so the 20px horizontal
      padding is included inside `width: 100%` instead of being added
-     on top — without it, the summary overflows its parent by exactly
+     on top â€” without it, the summary overflows its parent by exactly
      40px (20px each side). */
   box-sizing: border-box;
   /* In the drawer (aside) layout, .cart-summary-aside is a flex item
@@ -658,7 +658,7 @@ button.reset:hover:not(:has(> *)) {
      .cart-main above it is a `flex: 1` scroll container that shrinks
      to fill the remaining space.
 
-     No `position: absolute` here anymore — the summary is in normal
+     No `position: absolute` here anymore â€” the summary is in normal
      flow, with .cart-main doing the scrolling. Previously the
      summary was absolutely positioned inside .cart-main, which
      meant scrolling cart-main moved the summary too.
@@ -794,7 +794,7 @@ button.reset:hover:not(:has(> *)) {
 .cart-subtotal dd { margin: 0; font-weight: 700; }
 
 /* Discount code input + gift card input. They are inline form rows
-   sitting just below the subtotal — no heavy boxed backgrounds, just
+   sitting just below the subtotal â€” no heavy boxed backgrounds, just
    a single 1px border around the input + button cluster. */
 .cart-summary-aside section {
   margin: 14px 0 0;
@@ -1033,7 +1033,7 @@ button.reset:hover:not(:has(> *)) {
   color: #fff;
 }
 
-/* Existing predictive-search inner content — re-skinned to fit. */
+/* Existing predictive-search inner content â€” re-skinned to fit. */
 .predictive-search {
   background: #fff;
   color: var(--pk-ink, #160F3A);
@@ -1350,32 +1350,32 @@ button.reset:hover:not(:has(> *)) {
 
 /*
 * ==================================================
-* Puchica Design System v4 — Palette A: Warm Black + Acid Lime + Cream
+* Puchica Design System v4 â€” Palette A: Warm Black + Acid Lime + Cream
 * ==================================================
 */
 :root {
-  /* ── Core palette ── */
-  --pk-ink:           #0E0C08;   /* warm black — dark bg, primary text on cream */
-  --pk-ink-soft:      #1C1A12;   /* slightly lighter dark — card surfaces on dark */
-  --pk-ink-softer:    #2A2820;   /* lightest dark — subtle dividers */
+  /* â”€â”€ Core palette â”€â”€ */
+  --pk-ink:           #0E0C08;   /* warm black â€” dark bg, primary text on cream */
+  --pk-ink-soft:      #1C1A12;   /* slightly lighter dark â€” card surfaces on dark */
+  --pk-ink-softer:    #2A2820;   /* lightest dark â€” subtle dividers */
 
-  --pk-lime:          #C6FF4E;   /* acid lime — primary accent on dark */
+  --pk-lime:          #C6FF4E;   /* acid lime â€” primary accent on dark */
   --pk-lime-hover:    #B3F030;   /* hover state for lime */
   --pk-lime-pale:     #EFFFCC;   /* tint for light surfaces */
   --pk-lime-dark:     #4D6B00;   /* legible lime for text on cream */
 
-  --pk-cream:         #F4F0E6;   /* warm cream — page bg, text on dark */
-  --pk-cream-soft:    #EDE8D8;   /* slightly darker cream — card surfaces */
+  --pk-cream:         #F4F0E6;   /* warm cream â€” page bg, text on dark */
+  --pk-cream-soft:    #EDE8D8;   /* slightly darker cream â€” card surfaces */
   --pk-cream-dark:    #D8D0BC;   /* cream border */
 
-  /* ── Alert ── */
+  /* â”€â”€ Alert â”€â”€ */
   --pk-coral:         #FF5757;
 
-  /* ── Neutrals ── */
-  --pk-muted:         #72685A;   /* muted text on cream — 4.6:1 ✓ WCAG AA */
+  /* â”€â”€ Neutrals â”€â”€ */
+  --pk-muted:         #72685A;   /* muted text on cream â€” 4.6:1 âœ“ WCAG AA */
   --pk-white:         #FFFFFF;
 
-  /* ── Page semantic tokens ── */
+  /* â”€â”€ Page semantic tokens â”€â”€ */
   --pk-bg:            var(--pk-cream);
   --pk-off-white:     var(--pk-cream);
   --pk-surface:       var(--pk-cream-soft);
@@ -1388,24 +1388,24 @@ button.reset:hover:not(:has(> *)) {
   --pk-subtle:        var(--pk-lime-pale);
   --pk-muted-bg:      var(--pk-lime-pale);
 
-  /* ── Gradients ── */
+  /* â”€â”€ Gradients â”€â”€ */
   --pk-grad-hero:     linear-gradient(135deg, #0E0C08 0%, #1C1A12 50%, #0E0C08 100%);
   --pk-grad-lime:     linear-gradient(135deg, #C6FF4E 0%, #B3F030 100%);
   --pk-grad-card:     linear-gradient(180deg, #F4F0E6 0%, #EDE8D8 100%);
 
-  /* ── Backward-compat aliases ── */
-  /* "ember" drives CTA buttons/links on light bg → warm black */
+  /* â”€â”€ Backward-compat aliases â”€â”€ */
+  /* "ember" drives CTA buttons/links on light bg â†’ warm black */
   --pk-ember:         var(--pk-ink);
   --pk-ember-hover:   var(--pk-ink-soft);
   --pk-ember-pale:    var(--pk-lime-pale);
-  /* "spark" drives accents on dark bg → acid lime */
+  /* "spark" drives accents on dark bg â†’ acid lime */
   --pk-spark:         var(--pk-lime);
   --pk-spark-hover:   var(--pk-lime-hover);
   --pk-spark-pale:    var(--pk-lime-pale);
-  /* grove (was forest green) → ink */
+  /* grove (was forest green) â†’ ink */
   --pk-grove:         var(--pk-ink);
   --pk-grove-pale:    var(--pk-cream-soft);
-  /* violet aliases → lime equivalents */
+  /* violet aliases â†’ lime equivalents */
   --pk-violet:        var(--pk-lime-dark);
   --pk-violet-light:  var(--pk-lime);
   --pk-violet-deep:   var(--pk-ink);
@@ -1431,17 +1431,17 @@ button.reset:hover:not(:has(> *)) {
   --pk-violet-100:    var(--pk-lime-pale);
   --pk-violet-200:    var(--pk-cream-soft);
 
-  /* ── Shadows — warm-tinted ── */
+  /* â”€â”€ Shadows â€” warm-tinted â”€â”€ */
   --pk-sh-sm:  0 2px 8px rgba(14, 12, 8, 0.08);
   --pk-sh-md:  0 8px 24px rgba(14, 12, 8, 0.12);
   --pk-sh-lg:  0 20px 48px rgba(14, 12, 8, 0.16);
   --pk-sh-xl:  0 32px 80px rgba(14, 12, 8, 0.22);
   --pk-sh-glow: 0 0 40px rgba(198, 255, 78, 0.32);
 
-  /* ── Radii ── */
+  /* â”€â”€ Radii â”€â”€ */
   --r-sm: 8px; --r-md: 12px; --r-lg: 16px; --r-xl: 24px; --r-2xl: 32px; --r-full: 9999px;
 
-  /* ── Typography ── */
+  /* â”€â”€ Typography â”€â”€ */
   --pk-font-display: 'Outfit', 'Plus Jakarta Sans', system-ui, sans-serif;
   --pk-font-body:    'DM Sans', 'Inter', ui-sans-serif, system-ui, sans-serif;
   --pk-font:         var(--pk-font-body);
@@ -1454,7 +1454,7 @@ body {
   color: var(--pk-ink);
 }
 
-/* Global keyboard focus ring — lime on everything */
+/* Global keyboard focus ring â€” lime on everything */
 :focus-visible {
   outline: 2px solid var(--pk-lime);
   outline-offset: 3px;
@@ -1467,7 +1467,7 @@ button:focus-visible,
   border-radius: 6px;
 }
 
-/* Full-bleed layout — sections control their own width */
+/* Full-bleed layout â€” sections control their own width */
 .pk-home {
   overflow: hidden;
   padding: 0 0 0;
@@ -1663,7 +1663,7 @@ button:focus-visible,
   overflow: hidden;
 }
 .pk-card__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
-/* Heart removed — wishlist isn't a real feature yet, the button was misleading. */
+/* Heart removed â€” wishlist isn't a real feature yet, the button was misleading. */
 /* Card body fills remaining height so the Add to Cart button (and the
  * "View details" fallback) line up across cards in a row, even when
  * the title above is 1, 2, or 3 lines long. `flex: 1` on the body +
@@ -1672,7 +1672,7 @@ button:focus-visible,
 .pk-card__body { padding: 14px; display: flex; flex-direction: column; gap: 4px; flex: 1 1 auto; }
 .pk-card__title { font-weight: 700; font-size: 14px; color: var(--pk-ink); text-decoration: none; line-height: 1.3;
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
-  /* Clamp to 2 lines (~2 * 1.3 * 14px ≈ 36.4px) so all cards reserve
+  /* Clamp to 2 lines (~2 * 1.3 * 14px â‰ˆ 36.4px) so all cards reserve
    * the same vertical space for the title. */
   min-height: calc(2 * 1.3em); }
 .pk-card__vendor { color: var(--pk-muted); font-size: 12px; margin: 0; }
@@ -1828,7 +1828,7 @@ button:focus-visible,
   transition: color 0.15s ease;
 }
 .pk-nav__link:hover { color: var(--pk-lime-dark); }
-/* Active state visual is owned by the aria-current rule below — keep
+/* Active state visual is owned by the aria-current rule below â€” keep
    this in sync. The old `.active` class rule has been removed to avoid
    the double-underline bug. */
 .pk-nav__link.active { color: var(--pk-lime-dark); }
@@ -1995,7 +1995,7 @@ button:focus-visible,
 
 /*
 * ==================================================
-* Puchica product page — shared rules (color, typography, options form)
+* Puchica product page â€” shared rules (color, typography, options form)
 * Layout rules for `.pk-product` and the image/info grid live in the
 * later "Product page (PDP)" section below.
 * ==================================================
@@ -2096,7 +2096,7 @@ button:focus-visible,
 .pk-product__perks li svg { color: var(--pk-lime-dark); flex: none; }
 
 /* (Removed the leftover `@media (max-width: 860px) { .pk-product { grid-template-columns: 1fr } }`
- * from the old grid layout — `.pk-product` is no longer a grid, so the
+ * from the old grid layout â€” `.pk-product` is no longer a grid, so the
  * rule was a no-op. The mobile layout for `.pk-product__top` lives in
  * the PDP section below.) */
 
@@ -2194,7 +2194,7 @@ button:focus-visible,
   .pk-collist-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 560px) {
-  /* Stay 2-up on phones — the home grid and collection grid are tuned
+  /* Stay 2-up on phones â€” the home grid and collection grid are tuned
    * for 2 columns at this width (see the 700px breakpoint block). */
   .pk-collist-grid { grid-template-columns: 1fr; }
 }
@@ -2320,7 +2320,7 @@ button:focus-visible,
 
 /*
 * ==================================================
-* Puchica homepage — Bold & Modern (v2 blocks)
+* Puchica homepage â€” Bold & Modern (v2 blocks)
 * ==================================================
 */
 
@@ -2414,7 +2414,7 @@ button:focus-visible,
 
 /* ---------- Marquee ---------- */
 /* Flex row: track fills the available space and clips its scrolling text,
-   pause control sits to the right OUTSIDE the track — it never overlaps
+   pause control sits to the right OUTSIDE the track â€” it never overlaps
    the moving items. High-contrast pill on the dark ink background. */
 .pk-marquee {
   display: flex;
@@ -2530,7 +2530,7 @@ button:focus-visible,
    Two distinct cards side-by-side: a purple panel on the left and a
    product image card on the right. The grid's default align-items
    stretch makes them the same height. The gap between them is the
-   only "joint" — there's no shared background, no shared border, no
+   only "joint" â€” there's no shared background, no shared border, no
    shared shadow. Each card is fully independent. */
 .pk-promo {
   display: grid;
@@ -2633,7 +2633,7 @@ button:focus-visible,
 .pk-rail__price { font-weight: 800; font-size: 15px; }
 
 /* ============================================================
-   NEW ARRIVALS — horizontal dark scroll strip
+   NEW ARRIVALS â€” horizontal dark scroll strip
    ============================================================ */
 .pk-arrivals {
   width: 100%;
@@ -2694,7 +2694,7 @@ button:focus-visible,
 .pk-arrivals__card-price { font-size: 13px; font-weight: 800; color: var(--pk-lime); margin: 0; }
 
 /* ============================================================
-   SHOP BY MOOD — editorial lifestyle 3-col
+   SHOP BY MOOD â€” editorial lifestyle 3-col
    ============================================================ */
 .pk-mood {
   width: 100%;
@@ -2744,7 +2744,7 @@ button:focus-visible,
 }
 
 /* ============================================================
-   CATALOG STATEMENT — typographic full-width CTA
+   CATALOG STATEMENT â€” typographic full-width CTA
    ============================================================ */
 .pk-catalog-cta {
   width: 100%;
@@ -2913,7 +2913,7 @@ button:focus-visible,
 
 /*
 * ==================================================
-* Puchica — Breadcrumbs (shared)
+* Puchica â€” Breadcrumbs (shared)
 * ==================================================
 */
 .pk-breadcrumbs {
@@ -2936,7 +2936,7 @@ button:focus-visible,
 
 /*
 * ==================================================
-* Puchica — Catalog (collection listing) page
+* Puchica â€” Catalog (collection listing) page
 * ==================================================
 */
 .pk-collection {
@@ -3025,7 +3025,7 @@ button:focus-visible,
   .pk-col-hero__title { font-size: 30px; }
 }
 
-/* Catalog body — sidebar + grid */
+/* Catalog body â€” sidebar + grid */
 .pk-col-body {
   display: grid;
   grid-template-columns: 240px 1fr;
@@ -3204,7 +3204,7 @@ button:focus-visible,
 }
 .pk-card__badge--new { background: var(--pk-grove); color: #fff; }
 .pk-card__badge--sale { background: var(--pk-ember); color: #fff; }
-/* Quick-add button removed — replaced by the always-visible Add to Cart button. */
+/* Quick-add button removed â€” replaced by the always-visible Add to Cart button. */
 @media (max-width: 900px) {
   /* On touch devices, surface the quick-add always. */
   .pk-card__quick { opacity: 1; transform: none; pointer-events: auto; }
@@ -3224,12 +3224,12 @@ button:focus-visible,
 }
 .pk-card__heart:hover { color: var(--pk-violet-700); background: #fff; }
 
-/* Collection list (collections._index) polish — handled in the
+/* Collection list (collections._index) polish â€” handled in the
    .pk-collist-card section above. */
 
 /*
 * ==================================================
-* Puchica — Product page (PDP)
+* Puchica â€” Product page (PDP)
 * ==================================================
 */
 .pk-product {
@@ -3238,12 +3238,12 @@ button:focus-visible,
   padding: 28px 0 72px;
   font-family: var(--pk-font);
   color: var(--pk-ink);
-  /* Block container — children flow vertically. The two-column image +
+  /* Block container â€” children flow vertically. The two-column image +
    * info row lives inside `.pk-product__top` so the sticky info column
    * sticks ONLY within that row, not the whole page (which extends past
    * the row to fit tabs + recommendations). Previously this was a grid
    * with `grid-column: 1 / -1` on the full-width children, and the
-   * sticky info column's containing block was the whole grid — it
+   * sticky info column's containing block was the whole grid â€” it
    * pinned to viewport top and painted over the tabs/recommendations. */
 }
 @media (max-width: 900px) {
@@ -3300,7 +3300,7 @@ button:focus-visible,
 .pk-thumbs__item:hover { transform: translateY(-1px); }
 .pk-thumbs__item[aria-current="true"] { border-color: var(--pk-ember); }
 
-/* Main image — aspect ratio is set inline based on the source image
+/* Main image â€” aspect ratio is set inline based on the source image
  * so portrait product shots (e.g. sweaters on a model) don't get
  * cropped to a square. The CSS leaves the ratio unset by default and
  * supplies reasonable fallbacks below. */
@@ -3494,7 +3494,7 @@ button:focus-visible,
   /* Center the description in a comfortable reading column. Supplier
    * description HTML is full of 800-1000px images and long paragraph
    * blocks; without a max-width the panel feels like it "explodes"
-   * out of the narrower product columns above. 760px ≈ 65 chars/line,
+   * out of the narrower product columns above. 760px â‰ˆ 65 chars/line,
    * which is the standard for product copy. */
   max-width: 760px;
   margin: 0 auto;
@@ -3546,7 +3546,7 @@ button:focus-visible,
 }
 .pk-tabs__panel iframe { aspect-ratio: 16 / 9; }
 /* The first paragraph after the tabs nav usually has extra top spacing
- * (Shopify editors leave a leading empty <p>) — pull it up. */
+ * (Shopify editors leave a leading empty <p>) â€” pull it up. */
 .pk-tabs__panel > div > p:first-child { margin-top: 0; }
 /* Bold runs inside paragraphs (supplier copy uses <strong> for
  * section labels) should breathe more above them. */
@@ -3618,7 +3618,7 @@ button:focus-visible,
 
 /*
 * ==================================================
-* Puchica — Announcement bar + header polish
+* Puchica â€” Announcement bar + header polish
 * ==================================================
 */
 .pk-ann {
@@ -3655,7 +3655,7 @@ button:focus-visible,
   color: rgba(242, 235, 218, 0.7);
   cursor: pointer;
   /* Tap target: ~32px on mobile, ~24px on desktop. iOS HIG /
-   * WCAG both recommend a 44px target — this lands at 36px which
+   * WCAG both recommend a 44px target â€” this lands at 36px which
    * is a reasonable compromise in the slim announcement bar. */
   padding: 8px;
   min-width: 32px;
@@ -3672,7 +3672,7 @@ button:focus-visible,
   color: var(--pk-paper);
 }
 
-/* Header — sticky + shrink on scroll */
+/* Header â€” sticky + shrink on scroll */
 .pk-header { position: sticky; top: 0; z-index: 40; }
 .pk-header__inner {
   transition: padding 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
@@ -3701,13 +3701,13 @@ button:focus-visible,
 }
 
 /* ============================================================
-   MEGA MENU — desktop dropdown
+   MEGA MENU â€” desktop dropdown
    ============================================================
    Triggered by hover/focus on the desktop "Shop" button.
    Panel sits below the header (which is position: sticky, so it's
    the positioning context). Uses CSS Grid for a 5-up tile row + 1-up
    featured "Best Sellers" tile.
-   Mobile (<= 900px): hidden — the mobile drawer takes over.
+   Mobile (<= 900px): hidden â€” the mobile drawer takes over.
 */
 .pk-mega {
   position: relative;
@@ -3739,10 +3739,9 @@ button:focus-visible,
 .pk-mega__inner { width: 100%; }
 
 .pk-mega__grid {
-  display: grid;
-  grid-template-columns: 5fr 1.6fr;
-  gap: 18px;
-  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
 .pk-mega__tiles {
@@ -3750,7 +3749,7 @@ button:focus-visible,
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 10px;
 }
 
@@ -3821,10 +3820,16 @@ button:focus-visible,
 }
 .pk-mega__tile-link:hover .pk-mega__tile-cta { transform: translateX(2px); }
 
-.pk-mega__feature {
+/* Featured row: Best Sellers, Trending Now, Gifts Under $25 */
+.pk-mega__featured-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.pk-mega__featured-tile {
   background: var(--pk-ink);
   border-radius: 14px;
-  padding: 18px 18px 20px;
+  padding: 16px 18px 18px;
   display: flex;
   flex-direction: column;
   text-decoration: none;
@@ -3833,21 +3838,13 @@ button:focus-visible,
   overflow: hidden;
   transition: transform 0.22s ease, box-shadow 0.22s ease;
 }
-.pk-mega__feature:hover,
-.pk-mega__feature:focus-visible {
+.pk-mega__featured-tile:hover,
+.pk-mega__featured-tile:focus-visible {
   transform: translateY(-3px);
   box-shadow: 0 16px 36px rgba(14, 12, 8, 0.28);
   outline: none;
 }
-.pk-mega__feature-link {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  text-decoration: none;
-  color: inherit;
-  height: 100%;
-}
-.pk-mega__feature-eye {
+.pk-mega__featured-eye {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -3858,30 +3855,23 @@ button:focus-visible,
   color: var(--pk-lime);
   margin: 0 0 4px;
 }
-.pk-mega__feature-title {
+.pk-mega__featured-title {
   font-family: var(--pk-font-display);
-  font-size: 19px;
+  font-size: 17px;
   font-weight: 800;
   letter-spacing: -0.5px;
   line-height: 1.2;
-  margin: 0 0 6px;
+  margin: 0 0 8px;
   color: #F4F0E6;
 }
-.pk-mega__feature-desc {
-  font-size: 13px;
-  color: rgba(244, 240, 230, 0.72);
-  margin: 0 0 10px;
-  line-height: 1.45;
-  flex: 1;
-}
-.pk-mega__feature-cta {
+.pk-mega__featured-cta {
   font-size: 13px;
   font-weight: 700;
   color: var(--pk-lime);
   margin-top: auto;
   transition: transform 0.18s ease;
 }
-.pk-mega__feature:hover .pk-mega__feature-cta { transform: translateX(3px); }
+.pk-mega__featured-tile:hover .pk-mega__featured-cta { transform: translateX(3px); }
 
 .pk-mega__error {
   padding: 32px 20px;
@@ -3903,17 +3893,20 @@ button:focus-visible,
   100% { background-position: -200% 0; }
 }
 
+/* Tablet: 2 columns */
 @media (max-width: 1100px) {
   .pk-mega__panel { width: max(960px, 92vw); }
-  .pk-mega__grid { grid-template-columns: 5fr 1.4fr; }
+  .pk-mega__tiles { grid-template-columns: repeat(2, 1fr); }
+  .pk-mega__featured-row { grid-template-columns: repeat(3, 1fr); }
 }
+
+/* Mobile: horizontal scroll, but mega menu is hidden < 960px via .pk-mega { display: none } */
 @media (max-width: 960px) {
-  /* Mobile: the drawer hosts the nav; mega menu is hidden. */
   .pk-mega { display: none; }
 }
 
 /* ============================================================
-   MEGA MENU TRIGGER — the desktop "Shop" button
+   MEGA MENU TRIGGER â€” the desktop "Shop" button
    ============================================================ */
 .pk-mega__trigger {
   /* Inherits .pk-nav__link look/feel; this class only flags the
@@ -3930,7 +3923,7 @@ button:focus-visible,
 
 /*
 * ==================================================
-* Puchica — Footer micro-polish (payments + trust)
+* Puchica â€” Footer micro-polish (payments + trust)
 * ==================================================
 */
 .pk-footer__pay {
@@ -3980,7 +3973,7 @@ button:focus-visible,
    Two distinct cards side-by-side: a gradient icon card on the left
    and a light copy card on the right. The grid's default
    align-items: stretch makes them the same height. The gap between
-   them is the only "joint" — no shared background, no shared border,
+   them is the only "joint" â€” no shared background, no shared border,
    no shared shadow. */
 .pk-story {
   display: grid;
@@ -4075,7 +4068,7 @@ button:focus-visible,
   .pk-story__title { font-size: 24px; }
 }
 
-/* ---------- Promo split — media with real product image ---------- */
+/* ---------- Promo split â€” media with real product image ---------- */
 .pk-promo__media-link {
   position: absolute; inset: 0;
   display: block;
@@ -4474,7 +4467,7 @@ button:focus-visible,
 
 /*
 * ==================================================
-* Puchica — Contact page
+* Puchica â€” Contact page
 * ==================================================
 */
 .pk-contact {
@@ -4555,7 +4548,7 @@ button:focus-visible,
   box-shadow: 0 12px 28px rgba(22, 15, 58, 0.08);
   border-color: var(--pk-violet-200, #DDD0FF);
 }
-/* The email card uses the brand gradient — it's the primary action. */
+/* The email card uses the brand gradient â€” it's the primary action. */
 .pk-contact-card--email {
   background: var(--pk-ink);
   border-color: transparent;
@@ -4643,7 +4636,7 @@ button:focus-visible,
   text-underline-offset: 3px;
 }
 
-/* "What to expect" — three promise rows in a flex column */
+/* "What to expect" â€” three promise rows in a flex column */
 .pk-contact__promises { margin: 56px 0; }
 .pk-contact__promises-list {
   list-style: none;
@@ -4710,7 +4703,7 @@ button:focus-visible,
   border-color: var(--pk-violet-200, #DDD0FF);
   box-shadow: 0 6px 18px rgba(22, 15, 58, 0.06);
 }
-/* Hide the default disclosure marker — we render our own chev. */
+/* Hide the default disclosure marker â€” we render our own chev. */
 .pk-contact__faq-item > summary {
   list-style: none;
   cursor: pointer;
@@ -4762,7 +4755,7 @@ button:focus-visible,
   text-underline-offset: 3px;
 }
 
-/* Bottom CTA panel — mirrors the hero's brand gradient as a closer */
+/* Bottom CTA panel â€” mirrors the hero's brand gradient as a closer */
 .pk-contact__cta {
   margin: 56px 0 0;
   padding: 44px 32px;
@@ -4817,7 +4810,7 @@ button:focus-visible,
 }
 
 /* ============================================================
- * CRO pass — added 2026-06-18
+ * CRO pass â€” added 2026-06-18
  * Styles for: friendly error page, working filters, sort chips,
  * PDP reviews-coming-soon card, notify-back stub, cart errors,
  * cart drawer mobile width.
@@ -5244,9 +5237,9 @@ button:focus-visible,
 }
 
 /* ============================================================
-   GLOBAL REDUCED-MOTION — WCAG 2.3.3 / 2.5.3
+   GLOBAL REDUCED-MOTION â€” WCAG 2.3.3 / 2.5.3
    Honour the user's OS preference: disable all decorative
-   animations and keep only opacity transitions (≤ 200ms).
+   animations and keep only opacity transitions (â‰¤ 200ms).
    ============================================================ */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -5259,12 +5252,12 @@ button:focus-visible,
   }
   /* Marquee track stays static */
   .pk-marquee__track { animation: none !important; transform: translateX(0) !important; }
-  /* Hero glows — skip */
+  /* Hero glows â€” skip */
   .pk-hero__glow, .pk-news__glow, .pk-mega-hero__glow { animation: none !important; opacity: 0.18 !important; }
 }
 
 /* ============================================================
-   WAVE DIVIDER — SVG section transitions
+   WAVE DIVIDER â€” SVG section transitions
    ============================================================ */
 .pk-wave-divider {
   display: block; width: 100%; line-height: 0; overflow: hidden;
@@ -5272,7 +5265,7 @@ button:focus-visible,
 .pk-wave-divider svg { display: block; width: 100%; height: 80px; }
 
 /* ============================================================
-   MEGA HERO — 100dvh full-bleed dark hero
+   MEGA HERO â€” 100dvh full-bleed dark hero
    ============================================================ */
 .pk-mega-hero {
   width: 100%;
@@ -5360,7 +5353,7 @@ button:focus-visible,
   position: relative; z-index: 1;
   display: flex; justify-content: center; align-items: center;
 }
-/* 2×2 floating card grid, rotated for editorial feel */
+/* 2Ã—2 floating card grid, rotated for editorial feel */
 .pk-float-grid {
   display: grid;
   grid-template-columns: 180px 180px;
@@ -5393,7 +5386,7 @@ button:focus-visible,
 }
 
 /* ============================================================
-   SWIPE SHOP — Tinder-style product browser
+   SWIPE SHOP â€” Tinder-style product browser
    ============================================================ */
 .pk-swipe-shop {
   width: 100%;
@@ -5467,7 +5460,7 @@ button:focus-visible,
 .pk-swipe-counter { font-size: 13px; color: var(--pk-muted); min-width: 48px; text-align: center; }
 
 /* ============================================================
-   CATEGORY WORLDS — full-bleed alternating sections
+   CATEGORY WORLDS â€” full-bleed alternating sections
    ============================================================ */
 .pk-cat-world {
   width: 100%;
@@ -5479,13 +5472,13 @@ button:focus-visible,
 .pk-cat-world--flip .pk-cat-world__products { order: 1; }
 
 /* Left-edge padding tracks the header's content column via max():
-   at narrow screens → 72px breathing room;
-   at wider screens → (viewport - 1200px) / 2 + 24px, matching the nav left edge. */
+   at narrow screens â†’ 72px breathing room;
+   at wider screens â†’ (viewport - 1200px) / 2 + 24px, matching the nav left edge. */
 .pk-cat-world__copy {
   display: flex; flex-direction: column; justify-content: center; gap: 20px;
   padding: 80px 72px 80px max(72px, calc((100vw - 1200px) / 2 + 24px));
 }
-/* Flip: copy is the right column — mirror the alignment to the right edge */
+/* Flip: copy is the right column â€” mirror the alignment to the right edge */
 .pk-cat-world--flip .pk-cat-world__copy {
   padding: 80px max(72px, calc((100vw - 1200px) / 2 + 24px)) 80px 72px;
 }
@@ -5520,7 +5513,7 @@ button:focus-visible,
 }
 .pk-cat-world__card-price { font-size: 12px; font-weight: 700; }
 
-/* ── Dark variant ── */
+/* â”€â”€ Dark variant â”€â”€ */
 .pk-cat-world--dark {
   background: var(--pk-ink);
   color: var(--pk-cream);
@@ -5550,7 +5543,7 @@ button:focus-visible,
   box-shadow: 0 0 20px rgba(247,183,49,0.35);
 }
 
-/* ── Light variant ── */
+/* â”€â”€ Light variant â”€â”€ */
 .pk-cat-world--light {
   background: var(--pk-off-white);
   color: var(--pk-ink);
@@ -5579,7 +5572,7 @@ button:focus-visible,
 }
 
 /* ============================================================
-   FEATURED BANNER — dark best-sellers showcase
+   FEATURED BANNER â€” dark best-sellers showcase
    ============================================================ */
 .pk-feat-banner {
   width: 100%;
@@ -5634,10 +5627,10 @@ button:focus-visible,
 }
 
 /* ============================================================
-   REDESIGN v4 — Hero2 · ProductRack · CategoryBento
+   REDESIGN v4 â€” Hero2 Â· ProductRack Â· CategoryBento
    ============================================================ */
 
-/* ── Animations ── */
+/* â”€â”€ Animations â”€â”€ */
 @keyframes pk-wordIn {
   from { opacity: 0; transform: translateY(16px); }
   to   { opacity: 1; transform: none; }
@@ -5654,20 +5647,20 @@ button:focus-visible,
   }
 }
 
-/* ── Marquee updated: seamless from hero ── */
+/* â”€â”€ Marquee updated: seamless from hero â”€â”€ */
 .pk-home .pk-marquee { background: #0E0C08; }
 .pk-home .pk-marquee__item { color: rgba(244,240,230,0.72); }
 .pk-home .pk-marquee__dot  { color: var(--pk-lime); }
 
-/* ── Value props in home context ── */
+/* â”€â”€ Value props in home context â”€â”€ */
 .pk-home .pk-values { margin: 56px auto; }
 .pk-home .pk-values__icon { background: var(--pk-lime-pale); color: var(--pk-lime-dark); }
 
-/* ── Newsletter in home context ── */
+/* â”€â”€ Newsletter in home context â”€â”€ */
 .pk-home .pk-news { margin: 0; }
 
 /* ============================================================
-   DARK LEAD — capsule wrapper for hero + marquee
+   DARK LEAD â€” capsule wrapper for hero + marquee
    ============================================================ */
 .pk-dark-lead {
   background: #0E0C08;
@@ -5677,7 +5670,7 @@ button:focus-visible,
 }
 
 /* ============================================================
-   HERO 2 — full-viewport dark hero
+   HERO 2 â€” full-viewport dark hero
    ============================================================ */
 .pk-hero2 {
   width: 100%;
@@ -5820,7 +5813,7 @@ button:focus-visible,
   padding: 16px;
 }
 
-/* ── Card deck ── */
+/* â”€â”€ Card deck â”€â”€ */
 .pk-deck {
   display: grid;
   grid-template-columns: 190px 190px;
@@ -5872,7 +5865,7 @@ button:focus-visible,
 }
 .pk-deck__price { font-size: 12px; font-weight: 700; color: var(--pk-lime); margin: 0; }
 
-/* ── Hero2 responsive ── */
+/* â”€â”€ Hero2 responsive â”€â”€ */
 @media (max-width: 960px) {
   .pk-hero2__inner { grid-template-columns: 1fr; padding: 96px 24px 64px; gap: 48px; }
   .pk-hero2__visual { justify-content: flex-start; }
@@ -5888,7 +5881,7 @@ button:focus-visible,
 }
 
 /* ============================================================
-   DISCOVER SWIPER — center-focused product carousel
+   DISCOVER SWIPER â€” center-focused product carousel
    ============================================================ */
 .pk-swiper {
   width: 100%;
@@ -6041,7 +6034,7 @@ button:focus-visible,
   outline-offset: 3px;
 }
 
-/* Auto-play control — sits below the dots, lime pill, focus-visible ring. */
+/* Auto-play control â€” sits below the dots, lime pill, focus-visible ring. */
 .pk-swiper__ctrl {
   display: flex;
   justify-content: center;
@@ -6085,7 +6078,7 @@ button:focus-visible,
 }
 
 /* ============================================================
-   PRODUCT RACK — horizontal scroll showcase
+   PRODUCT RACK â€” horizontal scroll showcase
    ============================================================ */
 .pk-rack {
   width: 100%;
@@ -6163,14 +6156,14 @@ button:focus-visible,
   line-height: 1.06;
 }
 
-/* Scroll track — extends edge to edge, first card aligns to content column */
+/* Scroll track â€” extends edge to edge, first card aligns to content column */
 .pk-rack__track {
   display: flex;
   gap: 16px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
-  /* Left-edge padding: at narrow screens → 24px; at wide screens → matches header nav */
+  /* Left-edge padding: at narrow screens â†’ 24px; at wide screens â†’ matches header nav */
   padding-left: max(24px, calc((100vw - 1200px) / 2 + 24px));
   padding-right: 24px;
   padding-bottom: 4px;
@@ -6223,7 +6216,7 @@ button:focus-visible,
 }
 
 /* ============================================================
-   CATEGORY BENTO — asymmetric image-fill grid
+   CATEGORY BENTO â€” asymmetric image-fill grid
    ============================================================ */
 .pk-bento {
   width: 100%;
@@ -6253,7 +6246,7 @@ button:focus-visible,
   line-height: 1.06;
 }
 
-/* Bento grid: tall left cell, 2×2 right block */
+/* Bento grid: tall left cell, 2Ã—2 right block */
 .pk-bento__grid {
   display: grid;
   grid-template-columns: 1.45fr 1fr 1fr;
@@ -6280,7 +6273,7 @@ button:focus-visible,
 }
 .pk-bento__cell:hover { transform: scale(1.015); box-shadow: 0 24px 56px rgba(0,0,0,0.50); }
 
-/* Image fills cell — Hydrogen Image sets inline styles so we use important overrides */
+/* Image fills cell â€” Hydrogen Image sets inline styles so we use important overrides */
 .pk-bento__cell-img {
   position: absolute !important;
   inset: 0 !important;
@@ -6392,7 +6385,7 @@ button:focus-visible,
 }
 
 /* ============================================================
-   GIFT FINDER — price bracket editorial cards
+   GIFT FINDER â€” price bracket editorial cards
    ============================================================ */
 .pk-gift {
   width: 100%;
@@ -6507,7 +6500,7 @@ button:focus-visible,
 }
 
 /* ============================================================
-   SOCIAL PROOF — customer reviews
+   SOCIAL PROOF â€” customer reviews
    ============================================================ */
 .pk-proof {
   width: 100%;
@@ -6603,7 +6596,7 @@ button:focus-visible,
 }
 
 /* ============================================================
-   FRESH FINDS — dark variant of the rack, lime accent
+   FRESH FINDS â€” dark variant of the rack, lime accent
    ============================================================ */
 .pk-rack--fresh {
   background: var(--pk-ink);
@@ -6990,9 +6983,9 @@ button:focus-visible,
   .pk-about-cta { padding: 64px 20px; }
 }
 
-/* ─────────────────────────────────────────────────────────────────
-   SCROLL-PILL NAV — sticky section navigator (appears after hero)
-───────────────────────────────────────────────────────────────── */
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+   SCROLL-PILL NAV â€” sticky section navigator (appears after hero)
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .pk-pill-nav {
   position: sticky;
   top: 64px; /* clears the main header */
@@ -7054,7 +7047,7 @@ button:focus-visible,
 }
 
 /* ============================================================
-   MICRO-INTERACTIONS — button press, card focus, image zoom
+   MICRO-INTERACTIONS â€” button press, card focus, image zoom
    ============================================================ */
 
 /* Button press (push-down on click) */
@@ -7076,7 +7069,7 @@ button:focus-visible,
 /* Pill nav press */
 .pk-pill-nav__pill:active { transform: scale(0.94); }
 
-/* Feat-banner card image zoom — consistent with rack & arrivals */
+/* Feat-banner card image zoom â€” consistent with rack & arrivals */
 .pk-feat-banner__card img { transition: transform 0.4s ease; }
 .pk-feat-banner__card:hover img { transform: scale(1.06); }
 
@@ -7286,5 +7279,116 @@ button:focus-visible,
   }
   .pk-collist-card--featured {
     grid-column: span 1;
+  }
+}
+
+
+/* ==================================================
+   Collection Showcase - alternating left/right layout
+   ================================================== */
+.pk-showcase {
+  padding: 60px 0 80px;
+  background: #FAF8F3;
+}
+.pk-showcase__heading {
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 800;
+  text-align: center;
+  margin: 0 0 8px;
+  color: #1A1A1A;
+}
+.pk-showcase__sub {
+  text-align: center;
+  font-size: 15px;
+  color: #888;
+  margin: 0 0 48px;
+}
+.pk-showcase__list {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+}
+.pk-showcase__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+.pk-showcase__row--reverse {
+  direction: rtl;
+}
+.pk-showcase__row--reverse > * {
+  direction: ltr;
+}
+.pk-showcase__media-wrap {
+  width: 100%;
+}
+.pk-showcase__tilt {
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  transition: box-shadow 0.3s ease;
+}
+.pk-showcase__tilt:hover {
+  box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+}
+.pk-showcase__media {
+  aspect-ratio: 4/3;
+  overflow: hidden;
+}
+.pk-showcase__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.pk-showcase__media-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #F2EBDA, #E8DFCB, #D4C5AD);
+}
+.pk-showcase__copy {
+  padding: 0 8px;
+}
+.pk-showcase__eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #CC4300;
+  display: block;
+  margin-bottom: 12px;
+}
+.pk-showcase__title {
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 700;
+  margin: 0 0 12px;
+  color: #1A1A1A;
+}
+.pk-showcase__desc {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #666;
+  margin: 0 0 24px;
+}
+.pk-showcase__cta {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .pk-showcase__row,
+  .pk-showcase__row--reverse {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    direction: ltr;
+  }
+  .pk-showcase__list {
+    gap: 48px;
   }
 }
