@@ -8,6 +8,7 @@ import {ScrollPillNav} from '~/components/ScrollPillNav';
 import {puchicaMeta, organizationJsonLd, websiteJsonLd, JsonLdScript} from '~/lib/seo';
 import {CollectionShowcase} from '~/components/CollectionShowcase';
 import {StatsCounter} from '~/components/StatsCounter';
+import {TrendingTicker} from '~/components/TrendingTicker';
 
 /* Shared hook for arrow-nav on horizontal scroll tracks */
 function useScrollNav(trackRef) {
@@ -186,6 +187,12 @@ export default function Index() {
 
       <ValueProps />
       <NewsletterBand />
+      <Suspense fallback={null}>
+        <Await resolve={data.trending}>
+          {(products) => <TrendingTicker products={products ?? []} />}
+        </Await>
+      </Suspense>
+
       <StatsCounter stats={[
         {value: 6155, label: 'Products', suffix: '+'},
         {value: 19, label: 'Collections'},

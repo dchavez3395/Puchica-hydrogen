@@ -7436,3 +7436,103 @@ button:focus-visible,
     gap: 24px;
   }
 }
+
+
+/* ==================================================
+   Trending Ticker - auto-scrolling product ticker
+   ================================================== */
+.pk-ticker {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 0;
+  background: #1A1A1A;
+  overflow: hidden;
+}
+.pk-ticker__label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 20px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+  white-space: nowrap;
+  flex-shrink: 0;
+  z-index: 1;
+}
+.pk-ticker__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #CC4300;
+  animation: pk-ticker-pulse 2s ease-in-out infinite;
+}
+@keyframes pk-ticker-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+.pk-ticker__track {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  mask-image: linear-gradient(to right, transparent, #000 40px, #000 calc(100% - 40px), transparent);
+}
+.pk-ticker__scroll {
+  display: flex;
+  gap: 24px;
+  animation: pk-ticker-scroll 40s linear infinite;
+  width: max-content;
+}
+.pk-ticker__track:hover .pk-ticker__scroll {
+  animation-play-state: paused;
+}
+@keyframes pk-ticker-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.pk-ticker__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px;
+  border-radius: 100px;
+  background: rgba(255,255,255,0.06);
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+.pk-ticker__item:hover {
+  background: rgba(255,255,255,0.12);
+}
+.pk-ticker__img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.pk-ticker__title {
+  font-size: 13px;
+  color: rgba(255,255,255,0.85);
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.pk-ticker__price {
+  font-size: 13px;
+  font-weight: 700;
+  color: #FF8A4C;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pk-ticker__scroll {
+    animation: none;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  .pk-ticker__dot {
+    animation: none;
+  }
+}
