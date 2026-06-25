@@ -790,6 +790,9 @@ export type TrendingProductFragment = Pick<
   featuredImage?: StorefrontAPI.Maybe<
     Pick<StorefrontAPI.Image, 'id' | 'url' | 'altText' | 'width' | 'height'>
   >;
+  variants: {
+    nodes: Array<Pick<StorefrontAPI.ProductVariant, 'id' | 'availableForSale'>>;
+  };
 };
 
 export type TrendingQueryVariables = StorefrontAPI.Exact<{
@@ -814,6 +817,11 @@ export type TrendingQuery = {
               'id' | 'url' | 'altText' | 'width' | 'height'
             >
           >;
+          variants: {
+            nodes: Array<
+              Pick<StorefrontAPI.ProductVariant, 'id' | 'availableForSale'>
+            >;
+          };
         }
       >;
     };
@@ -2246,7 +2254,7 @@ interface GeneratedQueryTypes {
     return: RackProductsQuery;
     variables: RackProductsQueryVariables;
   };
-  '#graphql\n  fragment TrendingProduct on Product {\n    id title handle\n    priceRange { minVariantPrice { amount currencyCode } }\n    featuredImage { id url altText width height }\n  }\n  query Trending($country: CountryCode!, $language: LanguageCode!) @inContext(country: $country, language: $language) {\n    collection(handle: "trending-finds") {\n      products(first: 8, sortKey: BEST_SELLING) {\n        nodes { ...TrendingProduct }\n      }\n    }\n  }\n': {
+  '#graphql\n  fragment TrendingProduct on Product {\n    id title handle\n    priceRange { minVariantPrice { amount currencyCode } }\n    featuredImage { id url altText width height }\n    variants(first: 1) {\n      nodes {\n        id\n        availableForSale\n      }\n    }\n  }\n  query Trending($country: CountryCode!, $language: LanguageCode!) @inContext(country: $country, language: $language) {\n    collection(handle: "trending-finds") {\n      products(first: 8, sortKey: BEST_SELLING) {\n        nodes { ...TrendingProduct }\n      }\n    }\n  }\n': {
     return: TrendingQuery;
     variables: TrendingQueryVariables;
   };

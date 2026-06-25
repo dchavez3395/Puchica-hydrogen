@@ -4,7 +4,6 @@ import {Image, Money} from '@shopify/hydrogen';
 import {error as logError} from '~/lib/logger';
 import {IconTruck, IconReturn, IconShield, IconSparkles, IconGift, IconHeart, IconStar, IconHome, IconLeaf, IconLightbulb, IconPawPrint} from '~/components/Icons';
 import StarGlyph from '~/components/StarGlyph';
-import {ScrollPillNav} from '~/components/ScrollPillNav';
 import {puchicaMeta, organizationJsonLd, websiteJsonLd, JsonLdScript} from '~/lib/seo';
 import {CollectionShowcase} from '~/components/CollectionShowcase';
 import {StatsCounter} from '~/components/StatsCounter';
@@ -12,6 +11,8 @@ import {TrendingTicker} from '~/components/TrendingTicker';
 import {ParallaxBanner} from '~/components/ParallaxBanner';
 import {ScrollReveal} from '~/components/ScrollReveal';
 import {TiltCard} from '~/components/TiltCard';
+import {useAside} from '~/components/Aside';
+import {AddToCartButton} from '~/components/AddToCartButton';
 
 /* Shared hook for arrow-nav on horizontal scroll tracks */
 function useScrollNav(trackRef) {
@@ -107,6 +108,8 @@ function loadDeferredData({context}) {
 
 export default function Index() {
   const data = useLoaderData();
+  const [isPlaying, setIsPlaying] = useState(true);
+
   return (
     <div className="pk-home">
       <JsonLdScript data={organizationJsonLd({})} />
@@ -116,13 +119,17 @@ export default function Index() {
       <div id="hero-anchor" className="pk-dark-lead">
         <Suspense fallback={<div style={{minHeight: '100dvh', background: '#0E0C08'}} />}>
           <Await resolve={data.trending}>
-            {(products) => <Hero products={products ?? []} />}
+            {(products) => (
+              <Hero
+                products={products ?? []}
+                isPlaying={isPlaying}
+                setIsPlaying={setIsPlaying}
+              />
+            )}
           </Await>
         </Suspense>
-        <Marquee />
+        <Marquee isPlaying={isPlaying} />
       </div>
-
-      <ScrollPillNav />
 
       {/* Discover swiper — same trending collection */}
       <Suspense fallback={null}>
@@ -148,6 +155,17 @@ export default function Index() {
 
       {/* Gift finder */}
       <GiftFinder />
+
+      {/* Product Matchmaker (Tinder Swipe Finder) */}
+      <Suspense fallback={null}>
+        <Await resolve={data.trending}>
+          {(products) => (
+            <ScrollReveal variant="up">
+              <ProductMatchmaker products={products ?? []} />
+            </ScrollReveal>
+          )}
+        </Await>
+      </Suspense>
 
       {/* New arrivals — Outdoor & Garden (different category) */}
       <Suspense fallback={null}>
@@ -231,13 +249,40 @@ export default function Index() {
 /* ─────────────────────────────────────────────────────────────────
    HERO
 ───────────────────────────────────────────────────────────────── */
-function Hero({products}) {
-  const deckItems = products.slice(0, 4);
+function Hero({products, isPlaying, setIsPlaying}) {
+  const carouselProducts = (products ?? []).slice(0, 5).filter((p) => p.featuredImage);
+  const [activeIdx, setActiveIdx] = useState(0);
+
+  useEffect(() => {
+    if (!isPlaying || carouselProducts.length <= 1) return;
+    const interval = setInterval(() => {
+      setActiveIdx((prev) => (prev + 1) % carouselProducts.length);
+    }, 6000); // Shift slides every 6s for comfortable visual reading
+    return () => clearInterval(interval);
+  }, [isPlaying, carouselProducts.length]);
+
+  const featuredProduct = carouselProducts[activeIdx];
   const line1 = ['Everything'];
   const line2 = ['worth', 'buying.'];
 
   return (
-    <section className="pk-hero2" aria-label="Welcome to Puchica">
+    <section className="pk-hero2 pk-hero2--lifestyle" aria-label="Curated drops slideshow">
+      <div className="pk-hero2__bg">
+        {carouselProducts.map((p, idx) => (
+          <div
+            key={p.id}
+            className={`pk-hero2__bg-slide${idx === activeIdx ? ' is-active' : ''}`}
+            aria-hidden="true"
+          >
+            <Image
+              data={p.featuredImage}
+              sizes="100vw"
+              loading={idx === 0 ? 'eager' : 'lazy'}
+            />
+          </div>
+        ))}
+        <div className="pk-hero2__bg-overlay" />
+      </div>
       <div className="pk-hero2__glow pk-hero2__glow--a" aria-hidden="true" />
       <div className="pk-hero2__glow pk-hero2__glow--b" aria-hidden="true" />
       <div className="pk-hero2__inner">
@@ -273,26 +318,34 @@ function Hero({products}) {
             <li><strong>30 days</strong><span>Easy returns</span></li>
           </ul>
         </div>
-        {deckItems.length > 0 && (
-          <div className="pk-hero2__visual" aria-hidden="true">
-            <div className="pk-deck">
-              {deckItems.map((p, i) => (
-                <Link key={p.id} to={`/products/${p.handle}`} className="pk-deck__card" data-idx={String(i)} tabIndex={-1}>
-                  {p.featuredImage && (
-                    <div className="pk-deck__img">
-                      <Image data={p.featuredImage} aspectRatio="4/5" sizes="200px" loading={i === 0 ? 'eager' : 'lazy'} />
-                    </div>
-                  )}
-                  <div className="pk-deck__info">
-                    <p className="pk-deck__name">{p.title}</p>
-                    <div className="pk-deck__price"><Money data={p.priceRange.minVariantPrice} /></div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        )}
       </div>
+
+      {featuredProduct && (
+        <Link
+          to={`/products/${featuredProduct.handle}`}
+          className="pk-hero2__featured-link"
+          aria-label={`View featured background product: ${featuredProduct.title}`}
+        >
+          Featured: {featuredProduct.title}
+        </Link>
+      )}
+
+      <button
+        type="button"
+        className="pk-hero2__play-pause"
+        onClick={() => setIsPlaying(!isPlaying)}
+        aria-label={isPlaying ? 'Pause background slideshow' : 'Play background slideshow'}
+      >
+        {isPlaying ? (
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+          </svg>
+        ) : (
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M8 5v14l11-7z"/>
+          </svg>
+        )}
+      </button>
     </section>
   );
 }
@@ -306,17 +359,13 @@ const MARQUEE_ITEMS = [
   'Real value. Real finds.', 'Secure checkout',
 ];
 
-function Marquee() {
-  const [paused, setPaused] = useState(false);
-  // The track is decorative (duplicated items are not real content), but
-  // the pause control sits inside the same wrapper so it stays in the
-  // tab order and is announced. SR users get the same offer info via
-  // the sticky announcement bar (Header.AnnouncementBar) above the page
-  // header, so the visual marquee text doesn't need to be exposed.
+function Marquee({isPlaying}) {
+  // The track is decorative (duplicated items are not real content).
+  // The scroll state is synchronized with the main Hero play/pause controller.
   return (
     <div className="pk-marquee">
       <div className="pk-marquee__track-wrap" aria-hidden="true">
-        <div className={`pk-marquee__track${paused ? ' is-paused' : ''}`}>
+        <div className={`pk-marquee__track${!isPlaying ? ' is-paused' : ''}`}>
           {['a', 'b'].flatMap((copy) =>
             MARQUEE_ITEMS.map((t) => (
               <span className="pk-marquee__item" key={`${copy}-${t}`}>
@@ -326,19 +375,274 @@ function Marquee() {
           )}
         </div>
       </div>
-      {/* Pause control sits OUTSIDE the scrolling row and is exposed to AT. */}
-      <button
-        type="button"
-        className={`pk-marquee__pause${paused ? ' is-paused' : ''}`}
-        onClick={() => setPaused((p) => !p)}
-        aria-label={paused ? 'Resume scrolling banner' : 'Pause scrolling banner'}
-        aria-pressed={paused}
-        tabIndex={0}
-      >
-        <span className="pk-marquee__pause-icon" aria-hidden="true">{paused ? '▶' : '⏸'}</span>
-        <span className="pk-marquee__pause-label">{paused ? 'Resume' : 'Pause'}</span>
-      </button>
     </div>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   PRODUCT MATCHMAKER (TINDER SWIPE FINDER)
+───────────────────────────────────────────────────────────────── */
+function ProductMatchmaker({products}) {
+  const swipeProducts = (products ?? []).filter(
+    (p) => p.featuredImage && p.variants?.nodes?.[0],
+  );
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [dragOffset, setDragOffset] = useState({x: 0, y: 0});
+  const [isDragging, setIsDragging] = useState(false);
+  const [swipeDirection, setSwipeDirection] = useState(null);
+  const [likedCount, setLikedCount] = useState(0);
+  const {open} = useAside();
+
+  const dragStartRef = useRef({x: 0, y: 0});
+  const activeProduct = swipeProducts[currentIndex];
+  const nextProduct = swipeProducts[currentIndex + 1];
+  const nextProduct2 = swipeProducts[currentIndex + 2];
+
+  const handleStart = (e, isTouch = false) => {
+    if (!isTouch) {
+      e.preventDefault();
+    }
+    const clientX = isTouch ? e.touches[0].clientX : e.clientX;
+    const clientY = isTouch ? e.touches[0].clientY : e.clientY;
+    setIsDragging(true);
+    dragStartRef.current = {x: clientX, y: clientY};
+  };
+
+  const handleMove = (e, isTouch = false) => {
+    if (!isDragging) return;
+    const clientX = isTouch ? e.touches[0].clientX : e.clientX;
+    const clientY = isTouch ? e.touches[0].clientY : e.clientY;
+    const deltaX = clientX - dragStartRef.current.x;
+    const deltaY = clientY - dragStartRef.current.y;
+    setDragOffset({x: deltaX, y: deltaY});
+  };
+
+  const handleEnd = () => {
+    if (!isDragging) return;
+    setIsDragging(false);
+    const threshold = 120;
+    if (dragOffset.x > threshold) {
+      swipe('right');
+    } else if (dragOffset.x < -threshold) {
+      swipe('left');
+    } else if (dragOffset.y < -threshold) {
+      swipe('up');
+    } else {
+      setDragOffset({x: 0, y: 0});
+    }
+  };
+
+  const swipe = (dir) => {
+    setSwipeDirection(dir);
+    if (dir === 'right') {
+      setLikedCount((prev) => prev + 1);
+    } else if (dir === 'up' && activeProduct) {
+      triggerAddToCart(activeProduct.id);
+      open('cart');
+    }
+
+    setTimeout(() => {
+      setCurrentIndex((prev) => prev + 1);
+      setSwipeDirection(null);
+      setDragOffset({x: 0, y: 0});
+    }, 300);
+  };
+
+  const triggerAddToCart = (productId) => {
+    const container = document.getElementById(`atc-wrap-${productId}`);
+    if (container) {
+      const btn = container.querySelector('button[type="submit"]');
+      if (btn) {
+        btn.click();
+      }
+    }
+  };
+
+  const resetDeck = () => {
+    setCurrentIndex(0);
+    setLikedCount(0);
+  };
+
+  const getStampOpacity = (type) => {
+    if (swipeDirection) {
+      return swipeDirection === type ? 1 : 0;
+    }
+    const maxVal = 100;
+    if (type === 'like' && dragOffset.x > 20) {
+      return Math.min(dragOffset.x / maxVal, 1);
+    }
+    if (type === 'nope' && dragOffset.x < -20) {
+      return Math.min(-dragOffset.x / maxVal, 1);
+    }
+    if (type === 'super' && dragOffset.y < -20 && Math.abs(dragOffset.y) > Math.abs(dragOffset.x)) {
+      return Math.min(-dragOffset.y / maxVal, 1);
+    }
+    return 0;
+  };
+
+  if (!swipeProducts.length) return null;
+
+  const isCompleted = currentIndex >= swipeProducts.length;
+
+  return (
+    <section className="pk-matchmaker" aria-label="Product Swipe Matchmaker">
+      <div className="pk-matchmaker__inner">
+        <div className="pk-matchmaker__head">
+          <span className="pk-matchmaker__eye"><StarGlyph /> Discovery Matchmaker</span>
+          <h2 className="pk-matchmaker__title">Puchica Match.</h2>
+          <p className="pk-matchmaker__sub">
+            Swipe right to <strong>Like</strong>, left to <strong>Pass</strong>, or swipe up to <strong>Super Swipe &amp; Add to Cart</strong>!
+          </p>
+        </div>
+
+        {isCompleted ? (
+          <div className="pk-matchmaker__empty">
+            <span className="pk-matchmaker__empty-heart" aria-hidden="true">💖</span>
+            <h3>No more items today!</h3>
+            <p>You swiped through all trending items and liked {likedCount} of them.</p>
+            <div className="pk-matchmaker__empty-actions">
+              <button onClick={resetDeck} className="pk-btn pk-btn--spark">Swipe Again</button>
+              <Link to="/collections/all" className="pk-btn pk-btn--ghost">Browse All</Link>
+            </div>
+          </div>
+        ) : (
+          <div className="pk-matchmaker__find-wrap">
+            <div className="pk-matchmaker__stack" role="region" aria-label="Product swipe deck">
+              {nextProduct2 && (
+                <div className="pk-matchmaker__card pk-matchmaker__card--under2" aria-hidden="true">
+                  <div className="pk-matchmaker__img-wrap">
+                    <Image data={nextProduct2.featuredImage} sizes="360px" />
+                  </div>
+                  <div className="pk-matchmaker__card-info">
+                    <p className="pk-matchmaker__card-name">{nextProduct2.title}</p>
+                    <div className="pk-matchmaker__card-price">
+                      <Money data={nextProduct2.priceRange.minVariantPrice} />
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {nextProduct && (
+                <div className="pk-matchmaker__card pk-matchmaker__card--under" aria-hidden="true">
+                  <div className="pk-matchmaker__img-wrap">
+                    <Image data={nextProduct.featuredImage} sizes="360px" />
+                  </div>
+                  <div className="pk-matchmaker__card-info">
+                    <p className="pk-matchmaker__card-name">{nextProduct.title}</p>
+                    <div className="pk-matchmaker__card-price">
+                      <Money data={nextProduct.priceRange.minVariantPrice} />
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {activeProduct && (
+                <div
+                  className={`pk-matchmaker__card pk-matchmaker__card--top${isDragging ? ' is-dragging' : ''}`}
+                  onMouseDown={(e) => handleStart(e, false)}
+                  onMouseMove={(e) => handleMove(e, false)}
+                  onMouseUp={handleEnd}
+                  onMouseLeave={handleEnd}
+                  onTouchStart={(e) => handleStart(e, true)}
+                  onTouchMove={(e) => handleMove(e, true)}
+                  onTouchEnd={handleEnd}
+                  style={{
+                    transform: swipeDirection 
+                      ? (swipeDirection === 'right' 
+                        ? 'translate3d(500px, 0, 0) rotate(30deg)' 
+                        : swipeDirection === 'left' 
+                          ? 'translate3d(-500px, 0, 0) rotate(-30deg)' 
+                          : 'translate3d(0, -500px, 0) rotate(0deg)')
+                      : `translate3d(${dragOffset.x}px, ${dragOffset.y}px, 0) rotate(${dragOffset.x * 0.08}deg)`,
+                    transition: isDragging ? 'none' : 'transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1)',
+                  }}
+                >
+                  <div className="pk-matchmaker__img-wrap">
+                    <Image data={activeProduct.featuredImage} sizes="360px" loading="eager" />
+                    
+                    <span 
+                      className="pk-matchmaker__stamp pk-matchmaker__stamp--like" 
+                      style={{ opacity: getStampOpacity('like') }}
+                    >
+                      LIKE
+                    </span>
+                    <span 
+                      className="pk-matchmaker__stamp pk-matchmaker__stamp--nope" 
+                      style={{ opacity: getStampOpacity('nope') }}
+                    >
+                      NOPE
+                    </span>
+                    <span 
+                      className="pk-matchmaker__stamp pk-matchmaker__stamp--super" 
+                      style={{ opacity: getStampOpacity('super') }}
+                    >
+                      SUPER ATC
+                    </span>
+                  </div>
+
+                  <div className="pk-matchmaker__card-info">
+                    <p className="pk-matchmaker__card-name">{activeProduct.title}</p>
+                    <div className="pk-matchmaker__card-price">
+                      <Money data={activeProduct.priceRange.minVariantPrice} />
+                    </div>
+                  </div>
+
+                  <div id={`atc-wrap-${activeProduct.id}`} style={{ display: 'none' }}>
+                    <AddToCartButton
+                      lines={[{ merchandiseId: activeProduct.variants.nodes[0].id, quantity: 1 }]}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        open('cart');
+                      }}
+                    >
+                      Add to Cart
+                    </AddToCartButton>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {activeProduct && (
+              <div className="pk-matchmaker__actions">
+                <button 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    swipe('left');
+                  }} 
+                  className="pk-matchmaker__btn pk-matchmaker__btn--nope"
+                  aria-label="Pass on product"
+                >
+                  ❌
+                </button>
+                <button 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    swipe('up');
+                  }} 
+                  className="pk-matchmaker__btn pk-matchmaker__btn--super"
+                  aria-label="Super swipe (Add to Cart)"
+                >
+                  ⚡
+                </button>
+                <button 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    swipe('right');
+                  }} 
+                  className="pk-matchmaker__btn pk-matchmaker__btn--like"
+                  aria-label="Like product"
+                >
+                  💚
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    </section>
   );
 }
 
@@ -975,6 +1279,12 @@ const TRENDING_QUERY = `#graphql
     id title handle
     priceRange { minVariantPrice { amount currencyCode } }
     featuredImage { id url altText width height }
+    variants(first: 1) {
+      nodes {
+        id
+        availableForSale
+      }
+    }
   }
   query Trending($country: CountryCode!, $language: LanguageCode!) @inContext(country: $country, language: $language) {
     collection(handle: "trending-finds") {

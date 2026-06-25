@@ -95,7 +95,8 @@ export function ProductForm({productOptions, selectedVariant}) {
       })}
       <AddToCartButton
         disabled={!selectedVariant || !selectedVariant.availableForSale}
-        onClick={() => {
+        onClick={(e) => {
+          e.stopPropagation();
           open('cart');
         }}
         lines={

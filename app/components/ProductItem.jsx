@@ -70,7 +70,10 @@ export function ProductItem({product, loading, index}) {
               <AddToCartButton
                 lines={[{merchandiseId: variant.id, quantity: 1}]}
                 disabled={!variant.availableForSale}
-                onClick={() => open('cart')}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  open('cart');
+                }}
               >
                 {variant.availableForSale ? 'Add to Cart' : 'Sold out'}
               </AddToCartButton>

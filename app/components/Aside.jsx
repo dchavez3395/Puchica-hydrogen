@@ -1,4 +1,4 @@
-import {createContext, useContext, useEffect, useState} from 'react';
+import {createContext, useCallback, useContext, useEffect, useState} from 'react';
 import {useId} from 'react';
 import {useLocation} from 'react-router';
 
@@ -67,17 +67,22 @@ Aside.Provider = function AsideProvider({children}) {
   const [type, setType] = useState('closed');
   const location = useLocation();
 
+  // Stable reference — must not be recreated on every render because
+  // MegaMenu's useEffect depends on it and would fire on every re-render
+  // (immediately calling close() and cancelling any open()).
+  const close = useCallback(() => setType('closed'), []);
+
   // Close any open drawer when the route changes.
-  // useEffect(() => {
-  //   setType('closed');
-  // }, [location.pathname, location.search]);
+  useEffect(() => {
+    close();
+  }, [location.pathname, location.search, close]);
 
   return (
     <AsideContext.Provider
       value={{
         type,
         open: setType,
-        close: () => setType('closed'),
+        close,
       }}
     >
       {children}

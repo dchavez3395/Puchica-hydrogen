@@ -127,63 +127,56 @@ export function HeaderMenu({menu, megaMenu, primaryDomainUrl, viewport, publicSt
     viewport === 'desktop' ? 'pk-nav' : 'pk-nav pk-nav--mobile';
   const {close} = useAside();
 
-  const shopifyItems = (menu || FALLBACK_HEADER_MENU).items;
+  // Desktop: fully controlled order — no surprises from Shopify admin menu.
+  if (viewport === 'desktop') {
+    return (
+      <nav className={className} role="navigation">
+        <MegaMenu deferred={megaMenu} onClose={close} />
+        {DESKTOP_NAV.map((item) => (
+          <NavLink
+            key={item.id}
+            className="pk-nav__link"
+            to={item.url}
+            onClick={close}
+            prefetch="intent"
+          >
+            {item.title}
+          </NavLink>
+        ))}
+      </nav>
+    );
+  }
 
-  // Build a set of the paths already covered by the Shopify menu so we
-  // don't render duplicate links when the admin menu already includes them.
+  // Mobile: Shopify admin menu as source of truth, filtered + augmented.
+  const shopifyItems = (menu || FALLBACK_HEADER_MENU).items;
   const shopifyPaths = new Set(
     shopifyItems
       .filter((i) => i.url)
       .map((i) => {
-        try {
-          return new URL(i.url, 'https://x').pathname;
-        } catch {
-          return i.url;
-        }
+        try { return new URL(i.url, 'https://x').pathname; }
+        catch { return i.url; }
       }),
   );
-
-  const extras = EXTRA_NAV.filter((e) => !shopifyPaths.has(e.url.split('?')[0]));
-
-  // Filter shopify items so we don't render a top-level "Shop" link if the
-  // admin menu already has one -- the MegaMenu IS the Shop entry on desktop.
-  // On mobile, we still show the Shopify "Shop" link (MegaMenu renders null
-  // there, so we add a dedicated fallback link).
-  const filteredItems = viewport === 'desktop'
-    ? shopifyItems.filter((i) => {
-        if (!i.url) return false;
-        const path = (() => {
-          try { return new URL(i.url, 'https://x').pathname; }
-          catch { return i.url; }
-        })();
-        return path !== '/collections/all';
-      })
-    : shopifyItems.filter((i) => !!i.url);
+  const mobileExtras = MOBILE_EXTRA_NAV.filter((e) => !shopifyPaths.has(e.url));
+  const mobileItems = shopifyItems.filter((i) => {
+    if (!i.url) return false;
+    try {
+      const path = new URL(i.url, 'https://x').pathname;
+      return path !== '/' && path !== '/collections/all';
+    } catch { return true; }
+  });
 
   return (
     <nav className={className} role="navigation">
-      {viewport === 'desktop' && (
-        <MegaMenu deferred={megaMenu} onClose={close} />
-      )}
       <NavLink
         className="pk-nav__link"
-        to="/explore"
+        to="/collections/all"
         onClick={close}
         prefetch="intent"
       >
-        Explore
+        Shop
       </NavLink>
-      {viewport === 'mobile' && (
-        <NavLink
-          className="pk-nav__link"
-          to="/collections/all"
-          onClick={close}
-          prefetch="intent"
-        >
-          Shop
-        </NavLink>
-      )}
-      {filteredItems.map((item) => {
+      {mobileItems.map((item) => {
         if (!item.url) return null;
         const url =
           item.url.includes('myshopify.com') ||
@@ -204,7 +197,7 @@ export function HeaderMenu({menu, megaMenu, primaryDomainUrl, viewport, publicSt
           </NavLink>
         );
       })}
-      {extras.map((e) => (
+      {mobileExtras.map((e) => (
         <NavLink
           key={e.id}
           className="pk-nav__link"
@@ -396,12 +389,19 @@ const FALLBACK_HEADER_MENU = {
   ],
 };
 
-// Extra nav items always injected alongside whatever the Shopify admin menu provides.
-// De-duplicated against the Shopify menu by URL so they don't appear twice.
-const EXTRA_NAV = [
-  {id: 'ex-new', title: 'New Arrivals', url: '/collections/new-arrivals'},
-  {id: 'ex-gifts', title: 'Gift Guide', url: '/collections/all?price=25-50'},
-  {id: 'ex-about', title: 'About', url: '/pages/about'},
+// Desktop nav — fully controlled order; Shopify admin menu is ignored on desktop.
+const DESKTOP_NAV = [
+  {id: 'dn-new', title: 'New Arrivals', url: '/collections/new-arrivals'},
+  {id: 'dn-explore', title: 'Explore', url: '/explore'},
+  {id: 'dn-about', title: 'About', url: '/pages/about'},
+  {id: 'dn-contact', title: 'Contact', url: '/pages/contact'},
+];
+
+// Mobile extras — injected after Shopify menu items if not already present.
+const MOBILE_EXTRA_NAV = [
+  {id: 'mn-explore', title: 'Explore', url: '/explore'},
+  {id: 'mn-new', title: 'New Arrivals', url: '/collections/new-arrivals'},
+  {id: 'mn-about', title: 'About', url: '/pages/about'},
 ];
 
 /** @typedef {'desktop' | 'mobile'} Viewport */
