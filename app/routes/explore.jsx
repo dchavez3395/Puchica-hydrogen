@@ -10,37 +10,22 @@ import {TiltCard} from '~/components/TiltCard';
 export const meta = () => {
   return puchicaMeta({
     title: 'Explore – Puchica',
-    description: 'Browse our full catalog',
+    description: 'Browse our hand-curated collections of home essentials, electronics, beauty, pets, and garden gear.',
     pathname: '/explore',
   });
 };
 
 /**
- * All 15 product category handles (matching MegaMenu PRODUCT_CATEGORIES).
- * The explore page uses these as filter toggle chips.
+ * All active category handles that exist in this Shopify store.
  */
 const PRODUCT_CATEGORIES = [
-  'phone-case',
   'home-essentials',
-  'electronics-accessories',
-  'apparel-accessories',
-  'health-wellness',
-  'sports-outdoors',
-  'pet-finds',
-  'automotive',
-  'tools-home-improvement',
   'beauty-personal-care',
-  'toys-games',
-  'home-decor',
-  'office-school-supplies',
-  'baby-nursery',
+  'tech-gadgets',
+  'pet-finds',
   'outdoor-garden',
 ];
 
-/**
- * All 19 collection handles (15 product categories + 3 featured + 1 extra).
- * Used for the Storefront API query aliases.
- */
 const ALL_COLLECTION_HANDLES = [
   ...PRODUCT_CATEGORIES,
   'best-sellers',
@@ -49,18 +34,24 @@ const ALL_COLLECTION_HANDLES = [
 ];
 
 /**
- * Map from collection handle to GraphQL alias key (camelCase).
+ * Map handles to clean GraphQL aliases.
  */
 function handleToAlias(handle) {
-  return handle.replace(/-([a-z])/g, (_, c) => c.toUpperCase());
+  return handle.replace(/-([a-z0-9])/g, (_, c) => c.toUpperCase());
 }
 
 /**
- * Friendly display names for each category, derived from handle.
- * "phone-case" → "Phone Case", "home-essentials" → "Home Essentials"
+ * Map handles to official user-facing names.
  */
 function handleToLabel(handle) {
-  return handle
+  const CATEGORY_MAP = {
+    'home-essentials': 'Home & Kitchen',
+    'beauty-personal-care': 'Beauty & Grooming',
+    'tech-gadgets': 'Electronics & Tech',
+    'pet-finds': 'Pet Supplies',
+    'outdoor-garden': 'Garden & Outdoor',
+  };
+  return CATEGORY_MAP[handle] || handle
     .split('-')
     .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
     .join(' ');
@@ -76,15 +67,11 @@ export async function loader(args) {
 }
 
 /**
- * Query all 19 collections via Storefront API using GraphQL aliases.
- * For each collection, fetch first 24 products with id, title, handle,
- * priceRange, and featuredImage.
- *
+ * Query all active collections via Storefront API using GraphQL aliases.
  * @param {Route.LoaderArgs}
  */
 async function loadCriticalData({context}) {
   const {country, language} = context.storefront.i18n;
-  // Build alias lines: `phoneCase: collection(handle: "phone-case") { ...ExploreCollection }`
   const aliasLines = ALL_COLLECTION_HANDLES.map(
     (handle) =>
       `  ${handleToAlias(handle)}: collection(handle: "${handle}") { ...ExploreCollection }`,
@@ -157,15 +144,21 @@ export default function ExplorePage() {
     activeCats.includes(c.handle),
   );
 
-  // Flatten all products from visible collections
-  const allProducts = visibleCollections.flatMap((c) =>
-    (c.products?.nodes ?? []).map((p) => ({
-      ...p,
-      _collectionHandle: c.handle,
-      _collectionTitle: c.title,
-    })),
-  );
+  // Flatten all products from visible collections and de-duplicate by ID
+  const productMap = new Map();
+  visibleCollections.forEach((c) => {
+    (c.products?.nodes ?? []).forEach((p) => {
+      if (!productMap.has(p.id)) {
+        productMap.set(p.id, {
+          ...p,
+          _collectionHandle: c.handle,
+          _collectionTitle: c.title,
+        });
+      }
+    });
+  });
 
+  const allProducts = Array.from(productMap.values());
   const productCount = allProducts.length;
   const collectionCount = visibleCollections.length;
 
@@ -194,66 +187,82 @@ export default function ExplorePage() {
       <nav className="pk-breadcrumbs" aria-label="Breadcrumb">
         <Link to="/">Home</Link>
         <span className="pk-breadcrumbs__sep">/</span>
-        <span className="pk-breadcrumbs__current">Explore</span>
+        <span className="pk-breadcrumbs__current">Explore Catalog</span>
       </nav>
 
       <header className="pk-explore__header">
+        <div className="pk-explore__glow" aria-hidden />
+        <span className="pk-explore__eyebrow">Discover the Collection</span>
         <h1 className="pk-explore__title">Explore the full catalog</h1>
         <p className="pk-explore__count">
-          Showing {productCount} {productCount === 1 ? 'product' : 'products'}{' '}
-          across {collectionCount} {collectionCount === 1 ? 'collection' : 'collections'}
+          Showing <strong>{productCount}</strong> {productCount === 1 ? 'product' : 'products'}{' '}
+          across <strong>{collectionCount}</strong> active {collectionCount === 1 ? 'category' : 'categories'}
         </p>
       </header>
 
       <div className="pk-explore__body">
         <aside className="pk-explore__filter" aria-label="Category filters">
-          <div className="pk-explore__filter-head">
-            <span className="pk-explore__filter-title">Categories</span>
-            {selectedCats.length > 0 && (
-              <button
-                type="button"
-                className="pk-explore__filter-clear"
-                onClick={clearFilters}
-              >
-                Clear all
-              </button>
-            )}
-          </div>
-          <div className="pk-explore__chips">
-            {PRODUCT_CATEGORIES.map((handle) => {
-              const isActive = selectedCats.length === 0 || selectedCats.includes(handle);
-              return (
+          <div className="pk-explore__filter-card">
+            <div className="pk-explore__filter-head">
+              <span className="pk-explore__filter-title">Filter by Category</span>
+              {selectedCats.length > 0 && (
                 <button
-                  key={handle}
                   type="button"
-                  className={`pk-explore__chip${isActive ? ' is-active' : ''}`}
-                  onClick={() => toggleCategory(handle)}
-                  aria-pressed={isActive}
+                  className="pk-explore__filter-clear"
+                  onClick={clearFilters}
                 >
-                  {handleToLabel(handle)}
+                  Clear all
                 </button>
-              );
-            })}
+              )}
+            </div>
+            <div className="pk-explore__chips">
+              {PRODUCT_CATEGORIES.map((handle) => {
+                const isFiltered = selectedCats.includes(handle);
+                return (
+                  <button
+                    key={handle}
+                    type="button"
+                    className={`pk-explore__chip${isFiltered ? ' is-active' : ''}`}
+                    onClick={() => toggleCategory(handle)}
+                    aria-pressed={isFiltered}
+                  >
+                    <span className="pk-explore__chip-bullet" style={{
+                      backgroundColor: isFiltered ? 'var(--pk-lime, #D0FF50)' : 'var(--pk-border, #E5E0F0)'
+                    }} />
+                    {handleToLabel(handle)}
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </aside>
 
         <div className="pk-explore__main">
           {productCount === 0 ? (
             <div className="pk-explore__empty">
-              <p className="pk-explore__empty-title">No products found</p>
+              <span className="pk-explore__empty-icon">🔍</span>
+              <h2 className="pk-explore__empty-title">No products found</h2>
               <p className="pk-explore__empty-body">
-                Try selecting different categories to see more products.
+                Try adjusting your active category selections or clear the filters.
               </p>
+              <button
+                type="button"
+                className="pk-btn pk-btn--primary"
+                style={{marginTop: 20}}
+                onClick={clearFilters}
+              >
+                Reset Filters
+              </button>
             </div>
           ) : (
             <div className="pk-explore__grid">
               {allProducts.map((product, index) => (
                 <ScrollReveal
                   key={product.id}
-                  delay={Math.min(index * 50, 400)}
+                  delay={Math.min(index * 40, 300)}
                   variant="up"
                 >
-                  <TiltCard className="pk-explore__card">
+                  <TiltCard className="pk-explore__card" maxTilt={6}>
                     <Link
                       to={`/products/${product.handle}`}
                       prefetch="intent"
@@ -271,15 +280,18 @@ export default function ExplorePage() {
                         ) : (
                           <div className="pk-explore__card-placeholder" aria-hidden />
                         )}
+                        <span className="pk-explore__card-badge">View Details</span>
                       </div>
                       <div className="pk-explore__card-body">
                         <span className="pk-explore__card-collection">
                           {product._collectionTitle}
                         </span>
                         <h3 className="pk-explore__card-title">{product.title}</h3>
-                        <span className="pk-explore__card-price">
-                          {formatPrice(product.priceRange?.minVariantPrice)}
-                        </span>
+                        <div className="pk-explore__card-foot">
+                          <span className="pk-explore__card-price">
+                            {formatPrice(product.priceRange?.minVariantPrice)}
+                          </span>
+                        </div>
                       </div>
                     </Link>
                   </TiltCard>

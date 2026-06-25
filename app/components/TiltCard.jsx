@@ -56,7 +56,7 @@ export function TiltCard({
       ref={ref}
       className={`pk-tilt ${className}`.trim()}
       style={{
-        transform,
+        ...(transform ? {transform} : {}),
         ...(glare ? {'--glare-x': `${glarePos.x}%`, '--glare-y': `${glarePos.y}%`} : {}),
         ...style,
       }}

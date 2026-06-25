@@ -10,6 +10,8 @@ import {CollectionShowcase} from '~/components/CollectionShowcase';
 import {StatsCounter} from '~/components/StatsCounter';
 import {TrendingTicker} from '~/components/TrendingTicker';
 import {ParallaxBanner} from '~/components/ParallaxBanner';
+import {ScrollReveal} from '~/components/ScrollReveal';
+import {TiltCard} from '~/components/TiltCard';
 
 /* Shared hook for arrow-nav on horizontal scroll tracks */
 function useScrollNav(trackRef) {
@@ -125,14 +127,22 @@ export default function Index() {
       {/* Discover swiper — same trending collection */}
       <Suspense fallback={null}>
         <Await resolve={data.trending}>
-          {(products) => <DiscoverSwiper products={products ?? []} />}
+          {(products) => (
+            <ScrollReveal variant="up">
+              <DiscoverSwiper products={products ?? []} />
+            </ScrollReveal>
+          )}
         </Await>
       </Suspense>
 
       {/* Product rack — Home & Kitchen (completely different category) */}
       <Suspense fallback={<div style={{height: 480, background: '#F4F0E6'}} />}>
         <Await resolve={data.rackProducts}>
-          {(products) => <ProductRack products={products ?? []} />}
+          {(products) => (
+            <ScrollReveal variant="up">
+              <ProductRack products={products ?? []} />
+            </ScrollReveal>
+          )}
         </Await>
       </Suspense>
 
@@ -142,7 +152,11 @@ export default function Index() {
       {/* New arrivals — Outdoor & Garden (different category) */}
       <Suspense fallback={null}>
         <Await resolve={data.newArrivals}>
-          {(products) => <NewArrivals products={products ?? []} />}
+          {(products) => (
+            <ScrollReveal variant="up">
+              <NewArrivals products={products ?? []} />
+            </ScrollReveal>
+          )}
         </Await>
       </Suspense>
 
@@ -168,12 +182,18 @@ export default function Index() {
       </Suspense>
 
       {/* Social proof */}
-      <SocialProof />
+      <ScrollReveal variant="up">
+        <SocialProof />
+      </ScrollReveal>
 
       {/* Fresh finds — Beauty & Personal Care (different category) */}
       <Suspense fallback={null}>
         <Await resolve={data.freshFinds}>
-          {(products) => <FreshFinds products={products ?? []} />}
+          {(products) => (
+            <ScrollReveal variant="up">
+              <FreshFinds products={products ?? []} />
+            </ScrollReveal>
+          )}
         </Await>
       </Suspense>
 
@@ -322,6 +342,21 @@ function Marquee() {
   );
 }
 
+function scrollContainerToChild(container, childIndex) {
+  if (!container) return;
+  const child = container.children[childIndex];
+  if (!child) return;
+
+  const containerWidth = container.clientWidth;
+  const childWidth = child.clientWidth;
+  const scrollLeft = child.offsetLeft - (containerWidth / 2) + (childWidth / 2);
+
+  container.scrollTo({
+    left: scrollLeft,
+    behavior: 'smooth',
+  });
+}
+
 /* ─────────────────────────────────────────────────────────────────
    DISCOVER SWIPER
 ───────────────────────────────────────────────────────────────── */
@@ -349,7 +384,7 @@ function DiscoverSwiper({products}) {
   const scrollTo = (i) => {
     const n = Math.max(0, Math.min(i, items.length - 1));
     setActive(n);
-    trackRef.current?.children[n]?.scrollIntoView({behavior: 'smooth', block: 'nearest', inline: 'center'});
+    scrollContainerToChild(trackRef.current, n);
   };
 
   // Read prefers-reduced-motion once on mount.
@@ -380,7 +415,7 @@ function DiscoverSwiper({products}) {
         const rect = sectionRef.current.getBoundingClientRect();
         const inView = rect.top < window.innerHeight && rect.bottom > 0;
         if (inView) {
-          trackRef.current?.children[next]?.scrollIntoView({behavior: 'smooth', block: 'nearest', inline: 'center'});
+          scrollContainerToChild(trackRef.current, next);
         }
       }
     }, 5000);
@@ -514,25 +549,31 @@ const PRICE_BRACKETS = [
 
 function GiftFinder() {
   return (
-    <section className="pk-gift" aria-label="Find a gift by budget">
-      <div className="pk-gift__inner">
-        <div className="pk-gift__head">
-          <span className="pk-gift__eye"><StarGlyph /> Gift ideas</span>
-          <h2 className="pk-gift__title">Find the perfect gift.</h2>
-          <p className="pk-gift__sub">6,000+ options across every budget. Something for everyone on your list.</p>
+    <ScrollReveal variant="up">
+      <section className="pk-gift" aria-label="Find a gift by budget">
+        <div className="pk-gift__inner">
+          <div className="pk-gift__head">
+            <span className="pk-gift__eye"><StarGlyph /> Gift ideas</span>
+            <h2 className="pk-gift__title">Find the perfect gift.</h2>
+            <p className="pk-gift__sub">6,000+ options across every budget. Something for everyone on your list.</p>
+          </div>
+          <div className="pk-gift__grid">
+            {PRICE_BRACKETS.map(({range, label, sub, icon: Icon}, i) => (
+              <ScrollReveal key={range} delay={i * 60} variant="up">
+                <TiltCard className="pk-gift__card-wrap" maxTilt={6}>
+                  <Link to={`/collections/all?price=${range}`} className="pk-gift__card" aria-label={`Shop gifts ${label}`}>
+                    <span className="pk-gift__icon" aria-hidden="true"><Icon size={28} /></span>
+                    <strong className="pk-gift__label">{label}</strong>
+                    <span className="pk-gift__card-sub">{sub}</span>
+                    <span className="pk-gift__arrow" aria-hidden="true">→</span>
+                  </Link>
+                </TiltCard>
+              </ScrollReveal>
+            ))}
+          </div>
         </div>
-        <div className="pk-gift__grid">
-          {PRICE_BRACKETS.map(({range, label, sub, icon: Icon}) => (
-            <Link key={range} to={`/collections/all?price=${range}`} className="pk-gift__card" aria-label={`Shop gifts ${label}`}>
-              <span className="pk-gift__icon" aria-hidden="true"><Icon size={28} /></span>
-              <strong className="pk-gift__label">{label}</strong>
-              <span className="pk-gift__card-sub">{sub}</span>
-              <span className="pk-gift__arrow" aria-hidden="true">→</span>
-            </Link>
-          ))}
-        </div>
-      </div>
-    </section>
+      </section>
+    </ScrollReveal>
   );
 }
 
@@ -592,6 +633,7 @@ const CAT_ORDER = ['home', 'beauty', 'tech', 'outdoor', 'pet'];
 
 function CategoryBento({res}) {
   const cats = CAT_ORDER.map((k) => res?.[k]).filter(Boolean).slice(0, 5);
+
   if (!cats.length) return null;
   return (
     <section id="section-categories" className="pk-bento" aria-label="Shop by category">
@@ -605,23 +647,34 @@ function CategoryBento({res}) {
           const Icon = meta.icon;
           const img = col.products?.nodes?.[0]?.featuredImage;
           return (
-            <Link key={col.id} to={`/collections/${col.handle}`}
-              className={`pk-bento__cell pk-bento__cell--${i}`}
-              aria-label={`Shop ${col.title}`}
+            <ScrollReveal
+              key={col.id}
+              delay={i * 60}
+              variant="up"
+              className={`pk-bento__cell--${i}`}
+              style={{ display: 'flex' }}
             >
-              {img && (
-                <Image data={img} sizes="(min-width: 1200px) 500px, 50vw" loading={i === 0 ? 'eager' : 'lazy'}
-                  className="pk-bento__cell-img"
-                  style={{position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', aspectRatio: 'unset'}}
-                />
-              )}
-              <div className="pk-bento__cell-overlay" />
-              <div className="pk-bento__cell-body">
-                <p className="pk-bento__cell-eye"><span className="pk-bento__cell-icon" aria-hidden="true"><Icon size={18} /></span> {col.title}</p>
-                <h3 className="pk-bento__cell-name">{meta.tagline}</h3>
-                <span className="pk-bento__cell-cta">Shop now →</span>
-              </div>
-            </Link>
+              <TiltCard className="pk-bento__cell-wrap" maxTilt={6} style={{ width: '100%' }}>
+                <Link to={`/collections/${col.handle}`}
+                  className="pk-bento__cell"
+                  style={{ height: '100%' }}
+                  aria-label={`Shop ${col.title}`}
+                >
+                  {img && (
+                    <Image data={img} sizes="(min-width: 1200px) 500px, 50vw" loading={i === 0 ? 'eager' : 'lazy'}
+                      className="pk-bento__cell-img"
+                      style={{position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', aspectRatio: 'unset'}}
+                    />
+                  )}
+                  <div className="pk-bento__cell-overlay" />
+                  <div className="pk-bento__cell-body">
+                    <p className="pk-bento__cell-eye"><span className="pk-bento__cell-icon" aria-hidden="true"><Icon size={18} /></span> {col.title}</p>
+                    <h3 className="pk-bento__cell-name">{meta.tagline}</h3>
+                    <span className="pk-bento__cell-cta">Shop now →</span>
+                  </div>
+                </Link>
+              </TiltCard>
+            </ScrollReveal>
           );
         })}
       </div>
@@ -661,35 +714,41 @@ const MOODS = [
 
 function ShopByMood({catRes}) {
   return (
-    <section className="pk-mood" aria-label="Shop by lifestyle">
-      <div className="pk-mood__head pk-inner">
-        <p className="pk-mood__eye"><StarGlyph /> Made for your life</p>
-        <h2 className="pk-mood__title">Shop the way you live.</h2>
-      </div>
-      <div className="pk-mood__grid">
-        {MOODS.map((m) => {
-          const Icon = m.icon;
-          const col = catRes?.[m.catKey];
-          const img = col?.products?.nodes?.[0]?.featuredImage;
-          return (
-            <Link key={m.handle} to={`/collections/${m.handle}`} className="pk-mood__card" aria-label={`${m.label} — ${m.title}`}>
-              <div className="pk-mood__card-img">
-                {img
-                  ? <Image data={img} aspectRatio="4/3" sizes="480px" loading="lazy" />
-                  : <span className="pk-mood__card-icon" aria-hidden="true"><Icon size={48} /></span>
-                }
-              </div>
-              <div className="pk-mood__card-body">
-                <p className="pk-mood__card-label">{m.label}</p>
-                <h3 className="pk-mood__card-title">{m.title}</h3>
-                <p className="pk-mood__card-sub">{m.sub}</p>
-                <span className="pk-mood__card-cta" aria-hidden="true">{m.cta}</span>
-              </div>
-            </Link>
-          );
-        })}
-      </div>
-    </section>
+    <ScrollReveal variant="up">
+      <section className="pk-mood" aria-label="Shop by lifestyle">
+        <div className="pk-mood__head pk-inner">
+          <p className="pk-mood__eye"><StarGlyph /> Made for your life</p>
+          <h2 className="pk-mood__title">Shop the way you live.</h2>
+        </div>
+        <div className="pk-mood__grid">
+          {MOODS.map((m, i) => {
+            const Icon = m.icon;
+            const col = catRes?.[m.catKey];
+            const img = col?.products?.nodes?.[0]?.featuredImage;
+            return (
+              <ScrollReveal key={m.handle} delay={i * 60} variant="up">
+                <TiltCard className="pk-mood__card-wrap" maxTilt={6}>
+                  <Link key={m.handle} to={`/collections/${m.handle}`} className="pk-mood__card" aria-label={`${m.label} — ${m.title}`}>
+                    <div className="pk-mood__card-img">
+                      {img
+                        ? <Image data={img} aspectRatio="4/3" sizes="480px" loading="lazy" />
+                        : <span className="pk-mood__card-icon" aria-hidden="true"><Icon size={48} /></span>
+                      }
+                    </div>
+                    <div className="pk-mood__card-body">
+                      <p className="pk-mood__card-label">{m.label}</p>
+                      <h3 className="pk-mood__card-title">{m.title}</h3>
+                      <p className="pk-mood__card-sub">{m.sub}</p>
+                      <span className="pk-mood__card-cta" aria-hidden="true">{m.cta}</span>
+                    </div>
+                  </Link>
+                </TiltCard>
+              </ScrollReveal>
+            );
+          })}
+        </div>
+      </section>
+    </ScrollReveal>
   );
 }
 
@@ -773,7 +832,7 @@ function FeaturedBanner({products}) {
   return (
     <section id="section-best-sellers" className="pk-feat-banner" aria-label="Best sellers">
       <div className="pk-feat-banner__inner">
-        <div className="pk-feat-banner__copy">
+        <ScrollReveal className="pk-feat-banner__copy" variant="left">
           <p className="pk-feat-banner__label"><StarGlyph variant="five" size={12} style={{marginRight: '0.5em'}} /> Best Sellers</p>
           <h2 className="pk-feat-banner__title">The ones people can&apos;t stop buying.</h2>
           <p className="pk-feat-banner__sub">
@@ -783,16 +842,20 @@ function FeaturedBanner({products}) {
           <Link to="/collections/best-sellers" className="pk-btn pk-btn--spark pk-btn--lg">
             See all best sellers →
           </Link>
-        </div>
+        </ScrollReveal>
         <div className="pk-feat-banner__grid">
-          {products.slice(0, 3).map((p) => (
-            <Link key={p.id} to={`/products/${p.handle}`} className="pk-feat-banner__card" aria-label={p.title}>
-              {p.featuredImage && <Image data={p.featuredImage} aspectRatio="3/4" sizes="200px" />}
-              <div className="pk-feat-banner__card-info">
-                <p className="pk-feat-banner__card-name">{p.title}</p>
-                <div className="pk-feat-banner__card-price"><Money data={p.priceRange.minVariantPrice} /></div>
-              </div>
-            </Link>
+          {products.slice(0, 3).map((p, i) => (
+            <ScrollReveal key={p.id} delay={i * 60} variant="right">
+              <TiltCard className="pk-feat-banner__card-wrap" maxTilt={6}>
+                <Link to={`/products/${p.handle}`} className="pk-feat-banner__card" aria-label={p.title}>
+                  {p.featuredImage && <Image data={p.featuredImage} aspectRatio="3/4" sizes="200px" />}
+                  <div className="pk-feat-banner__card-info">
+                    <p className="pk-feat-banner__card-name">{p.title}</p>
+                    <div className="pk-feat-banner__card-price"><Money data={p.priceRange.minVariantPrice} /></div>
+                  </div>
+                </Link>
+              </TiltCard>
+            </ScrollReveal>
           ))}
         </div>
       </div>

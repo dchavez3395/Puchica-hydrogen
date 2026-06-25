@@ -275,7 +275,11 @@ function HeaderMenuMobileToggle() {
       }
       aria-label={isOpen ? 'Close menu' : 'Open menu'}
       aria-expanded={isOpen ? 'true' : 'false'}
-      onClick={() => open(isOpen ? 'closed' : 'mobile')}
+      onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        open(isOpen ? 'closed' : 'mobile');
+      }}
     >
       <IconMenu />
     </button>
@@ -290,7 +294,11 @@ function SearchToggle() {
       className={'pk-icon-btn' + (isOpen ? ' is-active' : '')}
       aria-label={isOpen ? 'Close search' : 'Open search'}
       aria-expanded={isOpen ? 'true' : 'false'}
-      onClick={() => open(isOpen ? 'closed' : 'search')}
+      onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        open(isOpen ? 'closed' : 'search');
+      }}
     >
       <IconSearch />
     </button>
@@ -313,6 +321,7 @@ function CartBadge({count}) {
       aria-expanded={isOpen ? 'true' : 'false'}
       onClick={(e) => {
         e.preventDefault();
+        e.stopPropagation();
         open(isOpen ? 'closed' : 'cart');
         if (!isOpen) {
           publish('cart_viewed', {

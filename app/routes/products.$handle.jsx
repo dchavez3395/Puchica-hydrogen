@@ -25,8 +25,6 @@ import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 import {puchicaMeta, canonical, SITE_URL, breadcrumbJsonLd, JsonLdScript} from '~/lib/seo';
 import {getJudgemeBadge} from '~/lib/judgeme';
 import {ReviewStars, JudgemeReviews} from '~/components/JudgemeReviews';
-import {ScrollReveal} from '~/components/ScrollReveal';
-import {TiltCard} from '~/components/TiltCard';
 
 /**
  * @type {Route.MetaFunction}
@@ -421,11 +419,7 @@ function Recommendations({data}) {
       <h2 className="pk-reco__title">You might also like</h2>
       <div className="pk-reco__grid">
         {products.slice(0, 4).map((p, i) => (
-          <ScrollReveal key={p.id} delay={i * 80} variant="up">
-            <TiltCard className="pk-reco__card" maxTilt={6}>
-              <ProductItem product={p} />
-            </TiltCard>
-          </ScrollReveal>
+          <ProductItem key={p.id} product={p} index={i} />
         ))}
       </div>
     </section>

@@ -1,6 +1,6 @@
 import {useEffect, useRef, useState} from 'react';
-import {useRouteLoaderData} from 'react-router';
-import {LANGUAGE_KEYS, LOCALE_COOKIE} from '~/lib/i18n';
+import {useFetcher, useRouteLoaderData} from 'react-router';
+import {LANGUAGE_KEYS} from '~/lib/i18n';
 
 const LABELS = {
   en: 'English',
@@ -11,9 +11,9 @@ const LABELS = {
 const ORDER = ['en', 'fr', 'es', 'pt-br'];
 
 /**
- * Language switcher. Sets the `pk_locale` cookie and reloads so the server
- * re-renders the chosen language. Currency still follows the visitor's
- * country (geo) — this only changes content language.
+ * Language switcher. POSTs to /locale (server action) which sets the
+ * pk_locale cookie and redirects back — the server owns the cookie so
+ * there are no client-side timing issues with document.cookie + reload.
  */
 export function LocaleSwitcher() {
   const root = useRouteLoaderData('root');
@@ -22,8 +22,8 @@ export function LocaleSwitcher() {
 
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
+  const fetcher = useFetcher();
 
-  // Close when clicking outside.
   useEffect(() => {
     if (!open) return;
     const onDown = (e) => {
@@ -34,12 +34,11 @@ export function LocaleSwitcher() {
   }, [open]);
 
   function choose(key) {
-    try {
-      document.cookie = `${LOCALE_COOKIE}=${key}; path=/; max-age=31536000; samesite=lax`;
-    } catch {
-      /* cookies blocked */
-    }
-    window.location.reload();
+    setOpen(false);
+    fetcher.submit(
+      {lang: key, return: window.location.pathname + window.location.search},
+      {method: 'POST', action: '/locale'},
+    );
   }
 
   return (

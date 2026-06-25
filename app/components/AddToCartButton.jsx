@@ -1,5 +1,6 @@
 import {CartForm} from '@shopify/hydrogen';
 import {useEffect, useState} from 'react';
+import {useAside} from '~/components/Aside';
 
 /**
  * @param {{
@@ -62,6 +63,7 @@ function AddToCartSubmitButton({
   const [showError, setShowError] = useState(false);
   const isSubmitting = fetcher.state !== 'idle';
   const isDisabled = disabled ?? isSubmitting;
+  const {open} = useAside();
 
   useEffect(() => {
     if (fetcher.state !== 'idle' || !fetcher.data) return;
@@ -69,6 +71,7 @@ function AddToCartSubmitButton({
     if (result.ok) {
       setShowAdded(true);
       setShowError(false);
+      open('cart');
       const t = setTimeout(() => setShowAdded(false), 1400);
       return () => clearTimeout(t);
     }
@@ -77,7 +80,7 @@ function AddToCartSubmitButton({
     setShowAdded(false);
     const t = setTimeout(() => setShowError(false), 3200);
     return () => clearTimeout(t);
-  }, [fetcher.state, fetcher.data, attemptedMerchandiseIds]);
+  }, [fetcher.state, fetcher.data, attemptedMerchandiseIds, open]);
 
   const label = showError
     ? 'Out of stock'

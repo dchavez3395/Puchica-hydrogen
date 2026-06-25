@@ -28,6 +28,7 @@ export function PageLayout({
   return (
     <Aside.Provider>
       <a href="#main-content" className="pk-skip-link">Skip to main content</a>
+      <AsideDebug />
       <CartAside cart={cart} />
       <SearchAside />
       <MobileMenuAside header={header} megaMenu={megaMenu} publicStoreDomain={publicStoreDomain} />
@@ -48,6 +49,30 @@ export function PageLayout({
       />
       <NewsletterPopup />
     </Aside.Provider>
+  );
+}
+
+function AsideDebug() {
+  const {type} = useAside();
+  return (
+    <div style={{
+      position: 'fixed',
+      top: '12px',
+      left: '12px',
+      zIndex: 999999,
+      background: 'rgba(15, 26, 14, 0.95)',
+      color: '#D0FF50',
+      padding: '8px 14px',
+      borderRadius: '8px',
+      fontSize: '12px',
+      fontWeight: 'bold',
+      fontFamily: 'monospace',
+      boxShadow: '0 4px 20px rgba(0,0,0,0.2)',
+      border: '1px solid rgba(208,255,80,0.3)',
+      pointerEvents: 'none'
+    }}>
+      DRAWER STATE: {type.toUpperCase()}
+    </div>
   );
 }
 

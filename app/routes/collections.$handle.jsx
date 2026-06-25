@@ -67,16 +67,17 @@ const PRICE_RANGE_MAP = {
  * @param {Route.LoaderArgs}
  */
 async function loadCriticalData({context, params, request}) {
-  const {handle} = params;
+  const isNewArrivals = params.handle === 'new-arrivals';
+  const handle = isNewArrivals ? 'outdoor-garden' : params.handle;
   const {storefront} = context;
   const {country, language} = storefront.i18n;
   const paginationVariables = getPaginationVariables(request, {pageBy: 12});
   const url = new URL(request.url);
 
-  if (!handle) throw redirect('/collections');
+  if (!params.handle) throw redirect('/collections');
 
   // Read sort + filter state from the URL. Treat unknown values as
-  // "no filter" so a stale link never breaks the page.
+  // "no filter" so a shopper doesn't lose state on click.
   const sortValue = url.searchParams.get('sort') || DEFAULT_SORT;
   const {sortKey, reverse} = SORT_KEY_MAP[sortValue] || SORT_KEY_MAP[DEFAULT_SORT];
   const productType = url.searchParams.get('productType') || null;
@@ -104,10 +105,16 @@ async function loadCriticalData({context, params, request}) {
   ]);
 
   if (!collection) {
-    throw new Response(`Collection ${handle} not found`, {status: 404});
+    throw new Response(`Collection ${params.handle} not found`, {status: 404});
   }
 
-  redirectIfHandleIsLocalized(request, {handle, data: collection});
+  if (isNewArrivals) {
+    collection.title = 'New Arrivals';
+    collection.handle = 'new-arrivals';
+    collection.description = 'Explore our latest handpicked items, fresh from the source.';
+  } else {
+    redirectIfHandleIsLocalized(request, {handle, data: collection});
+  }
   return {collection};
 }
 
@@ -282,6 +289,7 @@ export default function Collection() {
                   key={product.id}
                   product={product}
                   loading={index < 8 ? 'eager' : undefined}
+                  index={index}
                 />
               )}
             </PaginatedResourceSection>

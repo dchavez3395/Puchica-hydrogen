@@ -1,5 +1,5 @@
 import {Link} from 'react-router';
-import {Pagination} from '@shopify/hydrogen';
+import {PaginatedResourceSection} from './PaginatedResourceSection';
 import {urlWithTrackingParams} from '~/lib/search';
 import {ProductItem} from '~/components/ProductItem';
 
@@ -90,31 +90,19 @@ function SearchResultsProducts({products}) {
   return (
     <section className="pk-search-section" aria-label="Product results">
       <h2 className="pk-search-section__title">Products</h2>
-      <Pagination connection={products}>
-        {({nodes, isLoading, NextLink, PreviousLink}) => (
-          <>
-            <div className="pk-search-more">
-              <PreviousLink className="pk-btn pk-btn--ghost">
-                {isLoading ? 'Loading…' : '↑ Load previous'}
-              </PreviousLink>
-            </div>
-            <div className="pk-prod-grid">
-              {nodes.map((product, i) => (
-                <ProductItem
-                  key={product.id}
-                  product={product}
-                  loading={i < 4 ? 'eager' : 'lazy'}
-                />
-              ))}
-            </div>
-            <div className="pk-search-more">
-              <NextLink className="pk-btn pk-btn--ghost">
-                {isLoading ? 'Loading…' : 'Load more ↓'}
-              </NextLink>
-            </div>
-          </>
+      <PaginatedResourceSection
+        connection={products}
+        resourcesClassName="pk-prod-grid"
+      >
+        {({node: product, index}) => (
+          <ProductItem
+            key={product.id}
+            product={product}
+            loading={index < 4 ? 'eager' : 'lazy'}
+            index={index}
+          />
         )}
-      </Pagination>
+      </PaginatedResourceSection>
     </section>
   );
 }
