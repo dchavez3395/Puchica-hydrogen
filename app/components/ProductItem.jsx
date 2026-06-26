@@ -5,6 +5,7 @@ import {AddToCartButton} from '~/components/AddToCartButton';
 import {useAside} from '~/components/Aside';
 import {ScrollReveal} from '~/components/ScrollReveal';
 import {TiltCard} from '~/components/TiltCard';
+import {useT} from '~/lib/t';
 
 /**
  * @param {{
@@ -19,6 +20,7 @@ import {TiltCard} from '~/components/TiltCard';
 export function ProductItem({product, loading, index}) {
   const variantUrl = useVariantUrl(product.handle);
   const image = product.featuredImage;
+  const t = useT();
   // For products with options (size/color/etc.) we don't have a single
   // variant ID we can add to cart without going to the PDP — the
   // CollectionItemFragment only asks for `variants(first: 1)` as a probe.
@@ -75,12 +77,12 @@ export function ProductItem({product, loading, index}) {
                   open('cart');
                 }}
               >
-                {variant.availableForSale ? 'Add to Cart' : 'Sold out'}
+                {variant.availableForSale ? t('product_add_to_cart') : t('product_sold_out')}
               </AddToCartButton>
             </div>
           ) : (
             <Link to={variantUrl} className="pk-card__viewbtn" prefetch="intent">
-              View details
+              {t('card_view_details')}
             </Link>
           )}
         </div>

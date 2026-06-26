@@ -270,7 +270,7 @@ function Hero({products, isPlaying, setIsPlaying}) {
   const line2 = heroWords.slice(1);
 
   return (
-    <section className="pk-hero2 pk-hero2--lifestyle" aria-label="Curated drops slideshow">
+    <section className="pk-hero2 pk-hero2--lifestyle" aria-label={t('swiper_slides_aria')}>
       <div className="pk-hero2__bg">
         {carouselProducts.map((p, idx) => (
           <div
@@ -313,7 +313,7 @@ function Hero({products, isPlaying, setIsPlaying}) {
             <Link to="/collections" className="pk-btn pk-btn--spark pk-btn--lg">{t('hero_cta_shop')}</Link>
             <Link to="/collections/all" className="pk-btn pk-btn--ghost pk-btn--lg">{t('hero_cta_browse')}</Link>
           </div>
-          <ul className="pk-hero2__stats" aria-label="Store highlights">
+          <ul className="pk-hero2__stats" aria-label={t('swiper_stats_aria')}>
             <li><strong>6,000+</strong><span>{t('hero_stat_products')}</span></li>
             <li><strong>Free</strong><span>{t('hero_stat_shipping')}</span></li>
             <li><strong>30 days</strong><span>{t('hero_stat_returns')}</span></li>
@@ -487,7 +487,7 @@ function ProductMatchmaker({products}) {
   const isCompleted = currentIndex >= swipeProducts.length;
 
   return (
-    <section className="pk-matchmaker" aria-label="Product Swipe Matchmaker">
+    <section className="pk-matchmaker" aria-label={t('match_section_aria')}>
       <div className="pk-matchmaker__inner">
         <div className="pk-matchmaker__head">
           <span className="pk-matchmaker__eye"><StarGlyph /> {t('match_eyebrow')}</span>
@@ -508,7 +508,7 @@ function ProductMatchmaker({products}) {
           </div>
         ) : (
           <div className="pk-matchmaker__find-wrap">
-            <div className="pk-matchmaker__stack" role="region" aria-label="Product swipe deck">
+            <div className="pk-matchmaker__stack" role="region" aria-label={t('match_deck_aria')}>
               {nextProduct2 && (
                 <div className="pk-matchmaker__card pk-matchmaker__card--under2" aria-hidden="true">
                   <div className="pk-matchmaker__img-wrap">
@@ -612,7 +612,7 @@ function ProductMatchmaker({products}) {
                     swipe('left');
                   }} 
                   className="pk-matchmaker__btn pk-matchmaker__btn--nope"
-                  aria-label="Pass on product"
+                  aria-label={t('match_pass_aria')}
                 >
                   ❌
                 </button>
@@ -623,7 +623,7 @@ function ProductMatchmaker({products}) {
                     swipe('up');
                   }} 
                   className="pk-matchmaker__btn pk-matchmaker__btn--super"
-                  aria-label="Super swipe (Add to Cart)"
+                  aria-label={t('match_super_aria')}
                 >
                   ⚡
                 </button>
@@ -634,7 +634,7 @@ function ProductMatchmaker({products}) {
                     swipe('right');
                   }} 
                   className="pk-matchmaker__btn pk-matchmaker__btn--like"
-                  aria-label="Like product"
+                  aria-label={t('match_like_aria')}
                 >
                   💚
                 </button>
@@ -734,7 +734,7 @@ function DiscoverSwiper({products}) {
       ref={sectionRef}
       id="section-discover"
       className="pk-swiper"
-      aria-label="Discover products carousel"
+      aria-label={t('swiper_carousel_aria')}
       aria-roledescription="carousel"
       onFocus={() => setFocused(true)}
       onBlur={() => setFocused(false)}
@@ -748,10 +748,10 @@ function DiscoverSwiper({products}) {
           <p className="pk-swiper__eye"><StarGlyph /> {t('swiper_eyebrow')}</p>
           <h2 className="pk-swiper__title">{t('swiper_title')}</h2>
         </div>
-        <div className="pk-swiper__navrow" role="group" aria-label="Carousel navigation">
-          <button className="pk-swiper__arr" onClick={() => scrollTo(active - 1)} disabled={active === 0} aria-label="Previous product">←</button>
+        <div className="pk-swiper__navrow" role="group" aria-label={t('swiper_carousel_nav_aria')}>
+          <button className="pk-swiper__arr" onClick={() => scrollTo(active - 1)} disabled={active === 0} aria-label={t('swiper_prev_aria')}>←</button>
           <span className="pk-swiper__count" aria-live="polite" aria-atomic="true">{active + 1} / {items.length}</span>
-          <button className="pk-swiper__arr" onClick={() => scrollTo(active + 1)} disabled={active === items.length - 1} aria-label="Next product">→</button>
+          <button className="pk-swiper__arr" onClick={() => scrollTo(active + 1)} disabled={active === items.length - 1} aria-label={t('swiper_next_aria')}>→</button>
         </div>
       </div>
       <div
@@ -781,7 +781,7 @@ function DiscoverSwiper({products}) {
           </Link>
         ))}
       </div>
-      <div className="pk-swiper__dots" aria-label="Jump to product">
+      <div className="pk-swiper__dots" aria-label={t('swiper_dots_aria')}>
         {items.map((p, i) => (
           <button
             key={p.id}
@@ -818,15 +818,15 @@ function ProductRack({products}) {
   const {canLeft, canRight, scrollBy} = useScrollNav(trackRef);
   if (!products?.length) return null;
   return (
-    <section id="section-rack" className="pk-rack" aria-label="Premium picks">
+    <section id="section-rack" className="pk-rack" aria-label={t('rack_section_aria')}>
       <div className="pk-inner pk-rack__head">
         <div>
           <p className="pk-rack__eye"><StarGlyph /> {t('rack_eyebrow')}</p>
           <h2 className="pk-rack__title">{t('rack_title')}</h2>
         </div>
-        <div className="pk-rack__nav" role="group" aria-label="Scroll products">
-          <button className="pk-rack__arr" onClick={() => scrollBy(-260)} disabled={!canLeft} aria-label="Scroll left">←</button>
-          <button className="pk-rack__arr" onClick={() => scrollBy(260)} disabled={!canRight} aria-label="Scroll right">→</button>
+        <div className="pk-rack__nav" role="group" aria-label={t('rack_scroll_aria')}>
+          <button className="pk-rack__arr" onClick={() => scrollBy(-260)} disabled={!canLeft} aria-label={t('rack_scroll_left_aria')}>←</button>
+          <button className="pk-rack__arr" onClick={() => scrollBy(260)} disabled={!canRight} aria-label={t('rack_scroll_right_aria')}>→</button>
         </div>
       </div>
       <div className="pk-rack__track" ref={trackRef} role="list">
@@ -857,7 +857,7 @@ function GiftFinder() {
   ];
   return (
     <ScrollReveal variant="up">
-      <section className="pk-gift" aria-label="Find a gift by budget">
+      <section className="pk-gift" aria-label={t('gift_section_aria')}>
         <div className="pk-gift__inner">
           <div className="pk-gift__head">
             <span className="pk-gift__eye"><StarGlyph /> {t('gift_eyebrow')}</span>
@@ -893,7 +893,7 @@ function NewArrivals({products}) {
   const {canLeft, canRight, scrollBy} = useScrollNav(trackRef);
   if (!products?.length) return null;
   return (
-    <section id="section-new-arrivals" className="pk-arrivals" aria-label="New arrivals">
+    <section id="section-new-arrivals" className="pk-arrivals" aria-label={t('arrivals_section_aria')}>
       <div className="pk-arrivals__head pk-inner">
         <div>
           <p className="pk-arrivals__eye"><StarGlyph /> {t('arrivals_eyebrow')}</p>
@@ -901,9 +901,9 @@ function NewArrivals({products}) {
         </div>
         <div className="pk-arrivals__head-right">
           <Link to="/collections/new-arrivals" className="pk-arrivals__link">{t('arrivals_see_all')}</Link>
-          <div className="pk-rack__nav" role="group" aria-label="Scroll arrivals">
-            <button className="pk-rack__arr pk-rack__arr--dark" onClick={() => scrollBy(-220)} disabled={!canLeft} aria-label="Scroll left">←</button>
-            <button className="pk-rack__arr pk-rack__arr--dark" onClick={() => scrollBy(220)} disabled={!canRight} aria-label="Scroll right">→</button>
+          <div className="pk-rack__nav" role="group" aria-label={t('arrivals_scroll_aria')}>
+            <button className="pk-rack__arr pk-rack__arr--dark" onClick={() => scrollBy(-220)} disabled={!canLeft} aria-label={t('rack_scroll_left_aria')}>←</button>
+            <button className="pk-rack__arr pk-rack__arr--dark" onClick={() => scrollBy(220)} disabled={!canRight} aria-label={t('rack_scroll_right_aria')}>→</button>
           </div>
         </div>
       </div>
@@ -916,7 +916,7 @@ function NewArrivals({products}) {
               </div>
             )}
             <div className="pk-arrivals__card-body">
-              <span className="pk-arrivals__card-badge" aria-label="New product">{t('arrivals_badge')}</span>
+              <span className="pk-arrivals__card-badge" aria-label={t('arrivals_badge_aria')}>{t('arrivals_badge')}</span>
               <p className="pk-arrivals__card-name">{p.title}</p>
               <div className="pk-arrivals__card-price"><Money data={p.priceRange.minVariantPrice} /></div>
             </div>
@@ -945,7 +945,7 @@ function CategoryBento({res}) {
 
   if (!cats.length) return null;
   return (
-    <section id="section-categories" className="pk-bento" aria-label="Shop by category">
+    <section id="section-categories" className="pk-bento" aria-label={t('cat_section_aria')}>
       <div className="pk-bento__head pk-inner">
         <p className="pk-bento__eye"><StarGlyph /> {t('cat_eyebrow')}</p>
         <h2 className="pk-bento__title">{t('cat_title')}</h2>
@@ -1024,7 +1024,7 @@ function ShopByMood({catRes}) {
   ];
   return (
     <ScrollReveal variant="up">
-      <section className="pk-mood" aria-label="Shop by lifestyle">
+      <section className="pk-mood" aria-label={t('mood_section_aria')}>
         <div className="pk-mood__head pk-inner">
           <p className="pk-mood__eye"><StarGlyph /> {t('mood_eyebrow')}</p>
           <h2 className="pk-mood__title">{t('mood_title')}</h2>
@@ -1072,7 +1072,7 @@ function SocialProof() {
     {stars: 5, quote: t('review_3_quote'), name: 'Sarah L.', loc: 'Calgary, AB'},
   ];
   return (
-    <section className="pk-proof" aria-label="Customer reviews">
+    <section className="pk-proof" aria-label={t('review_section_aria')}>
       <div className="pk-proof__inner">
         <div className="pk-proof__head">
           <span className="pk-proof__eye"><StarGlyph /> {t('review_eyebrow')}</span>
@@ -1108,15 +1108,15 @@ function FreshFinds({products}) {
   const {canLeft, canRight, scrollBy} = useScrollNav(trackRef);
   if (!products?.length) return null;
   return (
-    <section className="pk-rack pk-rack--fresh" aria-label="Fresh finds">
+    <section className="pk-rack pk-rack--fresh" aria-label={t('fresh_section_aria')}>
       <div className="pk-inner pk-rack__head">
         <div>
           <p className="pk-rack__eye"><StarGlyph /> {t('mood_beauty_label')}</p>
           <h2 className="pk-rack__title">{t('mood_beauty_title')}</h2>
         </div>
-        <div className="pk-rack__nav" role="group" aria-label="Scroll fresh finds">
-          <button className="pk-rack__arr" onClick={() => scrollBy(-260)} disabled={!canLeft} aria-label="Scroll left">←</button>
-          <button className="pk-rack__arr" onClick={() => scrollBy(260)} disabled={!canRight} aria-label="Scroll right">→</button>
+        <div className="pk-rack__nav" role="group" aria-label={t('fresh_scroll_aria')}>
+          <button className="pk-rack__arr" onClick={() => scrollBy(-260)} disabled={!canLeft} aria-label={t('rack_scroll_left_aria')}>←</button>
+          <button className="pk-rack__arr" onClick={() => scrollBy(260)} disabled={!canRight} aria-label={t('rack_scroll_right_aria')}>→</button>
         </div>
       </div>
       <div className="pk-rack__track" ref={trackRef} role="list">
@@ -1141,7 +1141,7 @@ function FeaturedBanner({products}) {
   const t = useT();
   if (!products?.length) return null;
   return (
-    <section id="section-best-sellers" className="pk-feat-banner" aria-label="Best sellers">
+    <section id="section-best-sellers" className="pk-feat-banner" aria-label={t('banner_section_aria')}>
       <div className="pk-feat-banner__inner">
         <ScrollReveal className="pk-feat-banner__copy" variant="left">
           <p className="pk-feat-banner__label"><StarGlyph variant="five" size={12} style={{marginRight: '0.5em'}} /> {t('banner_eyebrow')}</p>
@@ -1177,8 +1177,8 @@ function FeaturedBanner({products}) {
 function CatalogStatement() {
   const t = useT();
   return (
-    <section className="pk-catalog-cta" aria-label="Explore the full catalog">
-      <p className="pk-catalog-cta__number" aria-label="Over 6,000 products">
+    <section className="pk-catalog-cta" aria-label={t('catalog_section_aria')}>
+      <p className="pk-catalog-cta__number" aria-label={t('catalog_count_aria')}>
         6<span className="pk-catalog-cta__sup">+</span>k
       </p>
       <p className="pk-catalog-cta__body">{t('catalog_body')}</p>
@@ -1202,7 +1202,7 @@ function ValueProps() {
     {Icon: IconSparkles, title: t('trust_handpicked_title'), sub: t('trust_handpicked_sub')},
   ];
   return (
-    <section className="pk-values" aria-label="Why Puchica">
+    <section className="pk-values" aria-label={t('trust_section_aria')}>
       {items.map(({Icon, title, sub}) => (
         <div key={title} className="pk-values__item">
           <span className="pk-values__icon" aria-hidden="true"><Icon size={22} /></span>
@@ -1231,7 +1231,7 @@ function NewsletterBand() {
   }, [fetcher.data]);
 
   return (
-    <section className="pk-news" aria-label="Newsletter signup">
+    <section className="pk-news" aria-label={t('newsletter_section_aria')}>
       <div className="pk-news__glow" aria-hidden="true" />
       <div className="pk-news__inner">
         <span className="pk-pill pk-pill--glass">{t('newsletter_pill')}</span>

@@ -104,7 +104,7 @@ function AnnouncementBar() {
       <button
         type="button"
         className="pk-ann__close"
-        aria-label="Dismiss announcement"
+        aria-label={t('header_dismiss_aria')}
         onClick={() => {
           setHidden(true);
           try {
@@ -126,13 +126,26 @@ export function HeaderMenu({menu, megaMenu, primaryDomainUrl, viewport, publicSt
   const className =
     viewport === 'desktop' ? 'pk-nav' : 'pk-nav pk-nav--mobile';
   const {close} = useAside();
+  const t = useT();
 
   // Desktop: fully controlled order — no surprises from Shopify admin menu.
+  const desktopNav = [
+    {id: 'dn-new', title: t('nav_new_arrivals'), url: '/collections/new-arrivals'},
+    {id: 'dn-explore', title: t('nav_explore'), url: '/explore'},
+    {id: 'dn-about', title: t('nav_about'), url: '/pages/about'},
+    {id: 'dn-contact', title: t('nav_contact'), url: '/pages/contact'},
+  ];
+  const mobileExtraNav = [
+    {id: 'mn-explore', title: t('nav_explore'), url: '/explore'},
+    {id: 'mn-new', title: t('nav_new_arrivals'), url: '/collections/new-arrivals'},
+    {id: 'mn-about', title: t('nav_about'), url: '/pages/about'},
+  ];
+
   if (viewport === 'desktop') {
     return (
       <nav className={className} role="navigation">
         <MegaMenu deferred={megaMenu} onClose={close} />
-        {DESKTOP_NAV.map((item) => (
+        {desktopNav.map((item) => (
           <NavLink
             key={item.id}
             className="pk-nav__link"
@@ -157,7 +170,7 @@ export function HeaderMenu({menu, megaMenu, primaryDomainUrl, viewport, publicSt
         catch { return i.url; }
       }),
   );
-  const mobileExtras = MOBILE_EXTRA_NAV.filter((e) => !shopifyPaths.has(e.url));
+  const mobileExtras = mobileExtraNav.filter((e) => !shopifyPaths.has(e.url));
   const mobileItems = shopifyItems.filter((i) => {
     if (!i.url) return false;
     try {
@@ -174,7 +187,7 @@ export function HeaderMenu({menu, megaMenu, primaryDomainUrl, viewport, publicSt
         onClick={close}
         prefetch="intent"
       >
-        Shop
+        {t('nav_shop')}
       </NavLink>
       {mobileItems.map((item) => {
         if (!item.url) return null;
@@ -242,11 +255,12 @@ function useHeaderShrink() {
  */
 function HeaderCtas({isLoggedIn, cart}) {
   useHeaderShrink();
+  const t = useT();
   return (
     <div className="pk-header__ctas">
       <LocaleSwitcher />
       <SearchToggle />
-      <NavLink prefetch="intent" to="/account" className="pk-icon-btn" aria-label="Account">
+      <NavLink prefetch="intent" to="/account" className="pk-icon-btn" aria-label={t('header_account_aria')}>
         <Suspense fallback={<IconUser />}>
           <Await resolve={isLoggedIn} errorElement={<IconUser />}>
             {() => <IconUser />}
@@ -260,13 +274,14 @@ function HeaderCtas({isLoggedIn, cart}) {
 
 function HeaderMenuMobileToggle() {
   const {open, type} = useAside();
+  const t = useT();
   const isOpen = type === 'mobile';
   return (
     <button
       className={
         'pk-icon-btn pk-header__burger' + (isOpen ? ' is-active' : '')
       }
-      aria-label={isOpen ? 'Close menu' : 'Open menu'}
+      aria-label={isOpen ? t('header_menu_close') : t('header_menu_open')}
       aria-expanded={isOpen ? 'true' : 'false'}
       onClick={(e) => {
         e.preventDefault();
@@ -281,11 +296,12 @@ function HeaderMenuMobileToggle() {
 
 function SearchToggle() {
   const {open, type} = useAside();
+  const t = useT();
   const isOpen = type === 'search';
   return (
     <button
       className={'pk-icon-btn' + (isOpen ? ' is-active' : '')}
-      aria-label={isOpen ? 'Close search' : 'Open search'}
+      aria-label={isOpen ? t('header_search_close') : t('header_search_open')}
       aria-expanded={isOpen ? 'true' : 'false'}
       onClick={(e) => {
         e.preventDefault();
@@ -303,6 +319,7 @@ function SearchToggle() {
  */
 function CartBadge({count}) {
   const {open, type} = useAside();
+  const t = useT();
   const isOpen = type === 'cart';
   const {publish, shop, cart, prevCart} = useAnalytics();
 
@@ -310,7 +327,7 @@ function CartBadge({count}) {
     <a
       href="/cart"
       className={'pk-icon-btn pk-cart-btn' + (isOpen ? ' is-active' : '')}
-      aria-label={isOpen ? 'Close cart' : 'Open cart'}
+      aria-label={isOpen ? t('header_cart_close') : t('header_cart_open')}
       aria-expanded={isOpen ? 'true' : 'false'}
       onClick={(e) => {
         e.preventDefault();
@@ -389,20 +406,6 @@ const FALLBACK_HEADER_MENU = {
   ],
 };
 
-// Desktop nav — fully controlled order; Shopify admin menu is ignored on desktop.
-const DESKTOP_NAV = [
-  {id: 'dn-new', title: 'New Arrivals', url: '/collections/new-arrivals'},
-  {id: 'dn-explore', title: 'Explore', url: '/explore'},
-  {id: 'dn-about', title: 'About', url: '/pages/about'},
-  {id: 'dn-contact', title: 'Contact', url: '/pages/contact'},
-];
-
-// Mobile extras — injected after Shopify menu items if not already present.
-const MOBILE_EXTRA_NAV = [
-  {id: 'mn-explore', title: 'Explore', url: '/explore'},
-  {id: 'mn-new', title: 'New Arrivals', url: '/collections/new-arrivals'},
-  {id: 'mn-about', title: 'About', url: '/pages/about'},
-];
 
 /** @typedef {'desktop' | 'mobile'} Viewport */
 /**

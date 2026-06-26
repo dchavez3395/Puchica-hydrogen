@@ -2,6 +2,7 @@ import {Link} from 'react-router';
 import {PaginatedResourceSection} from './PaginatedResourceSection';
 import {urlWithTrackingParams} from '~/lib/search';
 import {ProductItem} from '~/components/ProductItem';
+import {useT} from '~/lib/t';
 
 /**
  * @param {Omit<SearchResultsProps, 'error' | 'type'>}
@@ -23,13 +24,14 @@ SearchResults.Empty = SearchResultsEmpty;
  * @param {PartialSearchResult<'articles'>}
  */
 function SearchResultsArticles({term, articles}) {
+  const t = useT();
   if (!articles?.nodes.length) {
     return null;
   }
 
   return (
-    <section className="pk-search-section" aria-label="Article results">
-      <h2 className="pk-search-section__title">Articles</h2>
+    <section className="pk-search-section" aria-label={t('search_articles_aria')}>
+      <h2 className="pk-search-section__title">{t('search_articles')}</h2>
       <div className="pk-search-links">
         {articles?.nodes?.map((article) => {
           const articleUrl = urlWithTrackingParams({
@@ -53,13 +55,14 @@ function SearchResultsArticles({term, articles}) {
  * @param {PartialSearchResult<'pages'>}
  */
 function SearchResultsPages({term, pages}) {
+  const t = useT();
   if (!pages?.nodes.length) {
     return null;
   }
 
   return (
-    <section className="pk-search-section" aria-label="Page results">
-      <h2 className="pk-search-section__title">Pages</h2>
+    <section className="pk-search-section" aria-label={t('search_pages_aria')}>
+      <h2 className="pk-search-section__title">{t('search_pages')}</h2>
       <div className="pk-search-links">
         {pages?.nodes?.map((page) => {
           const pageUrl = urlWithTrackingParams({
@@ -83,13 +86,14 @@ function SearchResultsPages({term, pages}) {
  * @param {PartialSearchResult<'products'>}
  */
 function SearchResultsProducts({products}) {
+  const t = useT();
   if (!products?.nodes.length) {
     return null;
   }
 
   return (
-    <section className="pk-search-section" aria-label="Product results">
-      <h2 className="pk-search-section__title">Products</h2>
+    <section className="pk-search-section" aria-label={t('search_products_aria')}>
+      <h2 className="pk-search-section__title">{t('search_products')}</h2>
       <PaginatedResourceSection
         connection={products}
         resourcesClassName="pk-prod-grid"
@@ -108,9 +112,10 @@ function SearchResultsProducts({products}) {
 }
 
 function SearchResultsEmpty() {
+  const t = useT();
   return (
     <p className="pk-search-empty">
-      No results found. Try a different search term.
+      {t('search_empty')}
     </p>
   );
 }

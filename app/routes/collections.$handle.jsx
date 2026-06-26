@@ -147,7 +147,7 @@ export default function Collection() {
 
   return (
     <div className="pk-collection">
-      <nav className="pk-breadcrumbs" aria-label="Breadcrumb">
+      <nav className="pk-breadcrumbs" aria-label={t('breadcrumb_aria')}>
         <Link to="/">{t('breadcrumb_home')}</Link>
         <span className="pk-breadcrumbs__sep">/</span>
         <Link to="/collections">{t('breadcrumb_collections')}</Link>
@@ -215,6 +215,7 @@ export default function Collection() {
             nodes={nodes}
             activeProductType={activeProductType}
             activePrice={activePrice}
+            t={t}
           />
           <div className="pk-col-main">
             <div className="pk-toolbar">
@@ -332,14 +333,14 @@ function FilterSidebar({nodes, activeProductType, activePrice, t}) {
   }
 
   const priceOptions = [
-    ['under-25', 'Under $25'],
-    ['25-50', '$25 – $50'],
-    ['50-100', '$50 – $100'],
-    ['100-plus', '$100 +'],
+    ['under-25', t('col_price_under25')],
+    ['25-50', t('col_price_25_50')],
+    ['50-100', t('col_price_50_100')],
+    ['100-plus', t('col_price_100_plus')],
   ];
 
   return (
-    <aside className="pk-filters" aria-label="Filters">
+    <aside className="pk-filters" aria-label={t('col_filters_aria')}>
       <div className="pk-filters__group">
         <h3 className="pk-filters__title">{t('col_filter_cat_heading')}</h3>
         <ul className="pk-filters__list">
@@ -373,7 +374,7 @@ function FilterSidebar({nodes, activeProductType, activePrice, t}) {
         </ul>
       </div>
       <div className="pk-filters__group">
-        <h3 className="pk-filters__title">Price</h3>
+        <h3 className="pk-filters__title">{t('col_filter_price_heading')}</h3>
         <ul className="pk-filters__list">
           {priceOptions.map(([value, label]) => (
             <li key={value}>
@@ -396,16 +397,16 @@ function FilterSidebar({nodes, activeProductType, activePrice, t}) {
   );
 }
 
-function priceLabel(value) {
+function priceLabel(value, t) {
   switch (value) {
     case 'under-25':
-      return 'Under $25';
+      return t('col_price_under25');
     case '25-50':
-      return '$25 – $50';
+      return t('col_price_25_50');
     case '50-100':
-      return '$50 – $100';
+      return t('col_price_50_100');
     case '100-plus':
-      return '$100 +';
+      return t('col_price_100_plus');
     default:
       return value;
   }
@@ -493,14 +494,14 @@ const COLLECTION_QUERY = `#graphql
  *  - 12 of 12 products     → "12 products"          (last page)
  *  - fallback              → "Always growing"
  */
-function formatCount(visible, implied, hasNext) {
-  if (!visible) return 'Collection is loading';
-  const word = visible === 1 ? 'product' : 'products';
+function formatCount(visible, implied, hasNext, t) {
+  if (!visible) return t('col_count_loading');
+  const word = visible === 1 ? t('col_product_singular') : t('col_product_plural');
   if (hasNext && implied && implied > visible) {
-    return `${visible} of ${implied}+ ${word}`;
+    return `${visible} ${t('col_count_of')} ${implied}+ ${word}`;
   }
   if (hasNext) {
-    return `${visible} ${word} and counting`;
+    return `${visible} ${word} ${t('col_count_and_counting')}`;
   }
   return `${visible} ${word}`;
 }

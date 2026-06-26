@@ -26,6 +26,7 @@ import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 import {puchicaMeta, canonical, SITE_URL, breadcrumbJsonLd, JsonLdScript} from '~/lib/seo';
 import {getJudgemeBadge} from '~/lib/judgeme';
 import {ReviewStars, JudgemeReviews} from '~/components/JudgemeReviews';
+import {useT} from '~/lib/t';
 
 /** @type {Route.MetaFunction} */
 export const meta = ({data}) => {
@@ -76,6 +77,7 @@ async function loadCriticalData({context, params, request}) {
 
 export default function Product() {
   const {product, recommendations, reviews} = useLoaderData();
+  const t = useT();
 
   const selectedVariant = useOptimisticVariant(
     product.selectedOrFirstAvailableVariant,
@@ -100,10 +102,10 @@ export default function Product() {
       />
       <JsonLdScript data={breadcrumbJsonLd(buildBreadcrumbItems(product, title))} />
 
-      <nav className="pk-breadcrumbs pk-product__crumbs" aria-label="Breadcrumb">
-        <Link to="/">Home</Link>
+      <nav className="pk-breadcrumbs pk-product__crumbs" aria-label={t('breadcrumb_aria')}>
+        <Link to="/">{t('breadcrumb_home')}</Link>
         <span className="pk-breadcrumbs__sep">/</span>
-        <Link to="/collections/all">Shop</Link>
+        <Link to="/collections/all">{t('breadcrumb_shop')}</Link>
         {product.productType ? (
           <>
             <span className="pk-breadcrumbs__sep">/</span>
@@ -133,7 +135,7 @@ export default function Product() {
               compareAtPrice={selectedVariant?.compareAtPrice}
             />
             {selectedVariant?.availableForSale === false && (
-              <span className="pk-product__badge pk-product__badge--sold">Sold out</span>
+              <span className="pk-product__badge pk-product__badge--sold">{t('product_badge_sold_out')}</span>
             )}
           </div>
 
@@ -152,34 +154,34 @@ export default function Product() {
             <div className="pk-product__trust-item">
               <span className="pk-product__trust-icon"><IconTruck size={15} /></span>
               <span>
-                <strong>Free shipping</strong>
-                <em>on orders over $50</em>
+                <strong>{t('product_trust_shipping')}</strong>
+                <em>{t('product_trust_shipping_sub')}</em>
               </span>
             </div>
             <div className="pk-product__trust-item">
               <span className="pk-product__trust-icon"><IconReturn size={15} /></span>
               <span>
-                <strong>30-day returns</strong>
-                <em>pre-paid label included</em>
+                <strong>{t('product_trust_returns')}</strong>
+                <em>{t('product_trust_returns_sub')}</em>
               </span>
             </div>
             <div className="pk-product__trust-item">
               <span className="pk-product__trust-icon"><IconShield size={15} /></span>
               <span>
-                <strong>Secure checkout</strong>
-                <em>encrypted &amp; PCI-compliant</em>
+                <strong>{t('product_trust_secure')}</strong>
+                <em>{t('product_trust_secure_sub')}</em>
               </span>
             </div>
           </div>
 
-          <ul className="pk-product__perks" aria-label="Shipping &amp; service promises">
+          <ul className="pk-product__perks" aria-label={t('product_perks_aria')}>
             <li>
               <span className="pk-product__perk-icon" aria-hidden><IconPackage size={14} /></span>
-              Packed and shipped within 1–2 business days
+              {t('product_perk_packed')}
             </li>
             <li>
               <span className="pk-product__perk-icon" aria-hidden><IconCheck size={14} /></span>
-              Curated by the Puchica team — never random
+              {t('product_perk_curated')}
             </li>
           </ul>
         </div>
@@ -189,7 +191,7 @@ export default function Product() {
       {descriptionHtml && (
         <section className="pk-pdesc">
           <div className="pk-pdesc__inner">
-            <p className="pk-pdesc__eyebrow">About this product</p>
+            <p className="pk-pdesc__eyebrow">{t('product_desc_eyebrow')}</p>
             <div
               className="pk-pdesc__body"
               dangerouslySetInnerHTML={{__html: descriptionHtml}}
@@ -200,24 +202,24 @@ export default function Product() {
 
       {/* ── Details accordions ── */}
       <div className="pk-pdetails">
-        <Accordion title="Specifications">
-          <Specs product={product} />
+        <Accordion title={t('product_tab_specs')}>
+          <Specs product={product} t={t} />
         </Accordion>
-        <Accordion title="Shipping &amp; Returns">
-          <Shipping />
+        <Accordion title={t('product_tab_shipping')}>
+          <Shipping t={t} />
         </Accordion>
       </div>
 
-      <ShareRow product={product} />
+      <ShareRow product={product} t={t} />
 
       <JudgemeReviews
         externalId={reviews?.externalId}
         productTitle={product.title}
       />
 
-      <Recommendations data={recommendations} />
+      <Recommendations data={recommendations} t={t} />
 
-      <MobileCart product={product} selectedVariant={selectedVariant} />
+      <MobileCart product={product} selectedVariant={selectedVariant} t={t} />
 
       <Analytics.ProductView
         data={{
@@ -256,15 +258,15 @@ function Accordion({title, children}) {
 }
 
 /* ── Specs table ── */
-function Specs({product}) {
+function Specs({product, t}) {
   const rows = [
-    product.vendor && ['Vendor', product.vendor],
-    product.productType && ['Category', product.productType],
-    product.handle && ['SKU', product.handle.toUpperCase()],
+    product.vendor && [t('product_spec_vendor'), product.vendor],
+    product.productType && [t('product_spec_category'), product.productType],
+    product.handle && [t('product_spec_sku'), product.handle.toUpperCase()],
   ].filter(Boolean);
 
   if (rows.length === 0) {
-    return <p className="pk-pdetails__empty">No specifications available.</p>;
+    return <p className="pk-pdetails__empty">{t('product_specs_empty')}</p>;
   }
   return (
     <table className="pk-pdetails__table">
@@ -281,32 +283,28 @@ function Specs({product}) {
 }
 
 /* ── Shipping & Returns copy ── */
-function Shipping() {
+function Shipping({t}) {
+  const helpBody = t('product_help_body');
+  const contactLinkText = t('product_help_contact_link');
+  const helpParts = helpBody.split(contactLinkText);
   return (
     <div className="pk-pdetails__shipping">
-      <h4>Shipping</h4>
+      <h4>{t('product_shipping_h')}</h4>
+      <p>{t('product_shipping_body')}</p>
+      <h4>{t('product_returns_h')}</h4>
+      <p>{t('product_returns_body')}</p>
+      <h4>{t('product_help_h')}</h4>
       <p>
-        Most orders ship within 1–2 business days. Standard delivery takes
-        5–10 business days across Canada and the US. A tracking link arrives
-        by email as soon as your order ships.
-      </p>
-      <h4>Returns</h4>
-      <p>
-        Something not right? You have 30 days from delivery to send it back.
-        Every order ships with a pre-paid return label — print it, repack, drop
-        it off. Full refund to your original payment method, no restocking fees.
-      </p>
-      <h4>Questions?</h4>
-      <p>
-        Reach us via the <Link to="/pages/contact">contact page</Link>. A real
-        person on the Puchica team responds within one business day.
+        {helpParts[0]}
+        <Link to="/pages/contact">{contactLinkText}</Link>
+        {helpParts[1] ?? ''}
       </p>
     </div>
   );
 }
 
 /* ── Share ── */
-function ShareRow({product}) {
+function ShareRow({product, t}) {
   const [copied, setCopied] = useState(false);
   const url = typeof window !== 'undefined' ? window.location.href : '';
 
@@ -324,25 +322,25 @@ function ShareRow({product}) {
 
   return (
     <div className="pk-share">
-      <span>Share this product:</span>
+      <span>{t('product_share_label')}</span>
       <button type="button" className="pk-share__btn" onClick={onShare}>
         <IconShare size={14} />
-        {typeof navigator !== 'undefined' && navigator.share ? 'Share' : 'Copy link'}
+        {typeof navigator !== 'undefined' && navigator.share ? t('product_share_btn') : t('product_copy_link')}
       </button>
-      {copied && <span className="pk-share__copied">Copied!</span>}
+      {copied && <span className="pk-share__copied">{t('product_link_copied')}</span>}
     </div>
   );
 }
 
 /* ── Recommendations ── */
-function Recommendations({data}) {
+function Recommendations({data, t}) {
   const products = data?.productRecommendations ?? [];
   if (!products.length) return null;
   return (
-    <section className="pk-reco" aria-label="You might also like">
+    <section className="pk-reco" aria-label={t('product_reco_title')}>
       <div className="pk-reco__head">
-        <h2 className="pk-reco__title">You might also like</h2>
-        <Link to="/collections/all" className="pk-reco__see-all">See all →</Link>
+        <h2 className="pk-reco__title">{t('product_reco_title')}</h2>
+        <Link to="/collections/all" className="pk-reco__see-all">{t('product_reco_see_all')}</Link>
       </div>
       <div className="pk-reco__grid">
         {products.slice(0, 4).map((p, i) => (
@@ -354,7 +352,7 @@ function Recommendations({data}) {
 }
 
 /* ── Sticky mobile ATC ── */
-function MobileCart({product, selectedVariant}) {
+function MobileCart({product, selectedVariant, t}) {
   const ref = useRef(null);
   const [visible, setVisible] = useState(false);
 
@@ -405,7 +403,7 @@ function MobileCart({product, selectedVariant}) {
           }
         }}
       >
-        {selectedVariant.availableForSale ? 'Add to cart' : 'Sold out'}
+        {selectedVariant.availableForSale ? t('product_add_to_cart') : t('product_sold_out')}
       </button>
     </div>
   );

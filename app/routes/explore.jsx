@@ -188,7 +188,7 @@ export default function ExplorePage() {
 
   return (
     <div className="pk-explore">
-      <nav className="pk-breadcrumbs" aria-label="Breadcrumb">
+      <nav className="pk-breadcrumbs" aria-label={t('breadcrumb_aria')}>
         <Link to="/">{t('explore_home')}</Link>
         <span className="pk-breadcrumbs__sep">/</span>
         <span className="pk-breadcrumbs__current">{t('explore_breadcrumb')}</span>
@@ -207,7 +207,7 @@ export default function ExplorePage() {
       </header>
 
       <div className="pk-explore__body">
-        <aside className="pk-explore__filter" aria-label="Category filters">
+        <aside className="pk-explore__filter" aria-label={t('explore_cat_filter_aria')}>
           <div className="pk-explore__filter-card">
             <div className="pk-explore__filter-head">
               <span className="pk-explore__filter-title">{t('explore_filter_title')}</span>
