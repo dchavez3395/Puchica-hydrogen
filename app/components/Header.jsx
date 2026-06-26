@@ -260,7 +260,7 @@ function HeaderCtas({isLoggedIn, cart}) {
     <div className="pk-header__ctas">
       <LocaleSwitcher />
       <SearchToggle />
-      <NavLink prefetch="intent" to="/account" className="pk-icon-btn" aria-label={t('header_account_aria')}>
+      <NavLink prefetch="intent" to="/account" className="pk-icon-btn pk-account-btn" aria-label={t('header_account_aria')}>
         <Suspense fallback={<IconUser />}>
           <Await resolve={isLoggedIn} errorElement={<IconUser />}>
             {() => <IconUser />}

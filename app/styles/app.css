@@ -1885,6 +1885,9 @@ button:focus-visible,
   .pk-header__burger { display: grid; }
   .pk-logo { margin-right: auto; }
   .pk-header__ctas { margin-left: 0; }
+  /* Move language + account into the mobile drawer to free up header space */
+  .pk-header__ctas .pk-locale,
+  .pk-header__ctas .pk-account-btn { display: none; }
 }
 
 /* mobile menu inside the Aside */
@@ -1941,6 +1944,20 @@ button:focus-visible,
   text-align: center;
   line-height: 1.5;
 }
+.pk-mmenu__locale {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-top: 1px solid var(--pk-border, #E5E0F0);
+  margin-top: 4px;
+}
+.pk-mmenu__locale-label {
+  font-size: 13px;
+  color: var(--pk-muted, #6B6486);
+}
+/* In the mobile drawer the locale dropdown opens upward to stay in view */
+.pk-mmenu__locale .pk-locale__menu { bottom: 100%; top: auto; }
 
 /*
 * ==================================================
