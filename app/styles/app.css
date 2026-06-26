@@ -2891,22 +2891,26 @@ button:focus-visible,
   .pk-values { grid-template-columns: 1fr; }
   /* Reduce side padding so the form is as wide as possible */
   .pk-news { padding: 52px 16px; }
-  /* Column layout: drop the fixed 56px height so items stack freely */
+  /* Column layout */
   .pk-news__form {
     flex-direction: column;
     height: auto;
     gap: 10px;
   }
   .pk-news__input {
-    height: 52px;
+    height: 60px;
     width: 100%;
+    font-size: 16px;
   }
   .pk-news__form .pk-btn {
-    height: 52px;
+    height: 60px;
     width: 100%;
     justify-content: center;
+    font-size: 16px;
   }
   .pk-news__title { font-size: 26px; }
+  /* Best sellers title: allow the left column to shrink so text wraps */
+  .pk-rack__head > div:first-child { min-width: 0; }
 }
 
 /*
@@ -7793,22 +7797,58 @@ button:focus-visible,
 }
 
 @media (max-width: 600px) {
-  /* Stack label above the scrolling track so the track gets full viewport width */
+  /* On mobile show the ticker as a vertical column list instead of a horizontal scroll */
   .pk-ticker {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-    padding: 14px 0 12px;
+    align-items: stretch;
+    gap: 0;
+    padding: 0;
   }
   .pk-ticker__label {
-    padding: 0 16px 0 20px;
+    padding: 14px 20px 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
   }
-  .pk-ticker__track {
-    width: 100%;
-    /* Softer fade on narrow screens so items don't vanish at edges */
-    mask-image: linear-gradient(to right, transparent, #000 20px, #000 calc(100% - 20px), transparent);
+  /* Hide the horizontal scroll track; show the column list instead */
+  .pk-ticker__track { display: none; }
+  .pk-ticker__col {
+    display: flex;
+    flex-direction: column;
+    padding: 4px 0 8px;
+  }
+  .pk-ticker__col-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 20px;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    transition: background 0.15s;
+  }
+  .pk-ticker__col-item:hover { background: rgba(255,255,255,0.05); }
+  .pk-ticker__col-img {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+  .pk-ticker__col-name {
+    flex: 1;
+    font-size: 13px;
+    color: rgba(255,255,255,0.85);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .pk-ticker__col-price {
+    font-size: 13px;
+    font-weight: 700;
+    color: #FF8A4C;
+    flex-shrink: 0;
   }
 }
+/* Desktop hides the col list */
+.pk-ticker__col { display: none; }
 @media (prefers-reduced-motion: reduce) {
   .pk-ticker__scroll {
     animation: none;
