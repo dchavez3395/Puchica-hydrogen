@@ -40,6 +40,10 @@ export const DICTIONARIES = {
     nav_trending: 'Trending Now',
     nav_gifts: 'Gifts Under $25',
     nav_shop: 'Shop',
+    nav_new_arrivals: 'New Arrivals',
+    nav_explore: 'Explore',
+    nav_about: 'About',
+    nav_contact: 'Contact',
 
     // ── Header controls ───────────────────────────────────────────
     header_dismiss_aria: 'Dismiss announcement',
@@ -241,6 +245,7 @@ export const DICTIONARIES = {
     col_price_100_plus: '$100 +',
     col_count_loading: 'Collection is loading',
     col_count_and_counting: 'and counting',
+    col_count_of: 'of',
 
     // ── All products page ─────────────────────────────────────────
     all_breadcrumb: 'All Products',
@@ -252,9 +257,16 @@ export const DICTIONARIES = {
     all_count_loading: 'Catalog is loading',
 
     // ── Product page ──────────────────────────────────────────────
-    product_trust_shipping: 'Free shipping over $50',
+    product_trust_shipping: 'Free shipping',
+    product_trust_shipping_sub: 'on orders over $50',
     product_trust_returns: '30-day returns',
+    product_trust_returns_sub: 'pre-paid label included',
     product_trust_secure: 'Secure checkout',
+    product_trust_secure_sub: 'encrypted & PCI-compliant',
+    product_desc_eyebrow: 'About this product',
+    product_reco_see_all: 'See all →',
+    product_perks_aria: 'Shipping & service promises',
+    product_badge_sold_out: 'Sold out',
     product_reviews_stub: 'Verified buyer reviews are on the way. Every order ships with a pre-paid return label — your satisfaction is the only review we need to earn.',
     product_perk_packed: 'Carefully packed and shipped within 1–2 business days',
     product_perk_return: 'Pre-paid return label included with every order',
@@ -273,6 +285,7 @@ export const DICTIONARIES = {
     product_returns_body: "If something isn't right, you have 30 days from the delivery date to send it back. Every order ships with a pre-paid return label — print it, repack the item, and drop it off. Full refund to the original payment method, no restocking fees.",
     product_help_h: 'Need help?',
     product_help_body: 'Reach us anytime via the contact page. A real person on the Puchica team will get back to you within one business day.',
+    product_help_contact_link: 'contact page',
     product_share_label: 'Share:',
     product_share_btn: 'Share',
     product_copy_link: 'Copy link',
@@ -296,6 +309,12 @@ export const DICTIONARIES = {
     search_pages: 'Pages',
     search_products: 'Products',
     search_empty: 'No results found. Try a different search term.',
+    search_articles_aria: 'Article results',
+    search_pages_aria: 'Page results',
+    search_products_aria: 'Product results',
+
+    // ── Product card ──────────────────────────────────────────────
+    card_view_details: 'View details',
   },
 
   // ════════════════════════════════════════════════════════════════
@@ -327,6 +346,10 @@ export const DICTIONARIES = {
     nav_trending: 'Tendances',
     nav_gifts: 'Cadeaux à moins de 25 $',
     nav_shop: 'Boutique',
+    nav_new_arrivals: 'Nouveautés',
+    nav_explore: 'Explorer',
+    nav_about: 'À propos',
+    nav_contact: 'Contact',
 
     header_dismiss_aria: "Fermer l’annonce",
     header_menu_open: 'Ouvrir le menu',
@@ -509,6 +532,7 @@ export const DICTIONARIES = {
     col_price_100_plus: '100 $ et plus',
     col_count_loading: 'Collection en cours de chargement',
     col_count_and_counting: 'et plus',
+    col_count_of: 'sur',
 
     all_breadcrumb: 'Tous les produits',
     all_eyebrow: 'La boutique complète',
@@ -518,9 +542,16 @@ export const DICTIONARIES = {
     all_empty_body: 'Le catalogue se charge. Si le problème persiste, actualisez la page.',
     all_count_loading: 'Catalogue en cours de chargement',
 
-    product_trust_shipping: 'Livraison gratuite dès 50 $',
+    product_trust_shipping: 'Livraison gratuite',
+    product_trust_shipping_sub: 'sur les commandes de plus de 50 $',
     product_trust_returns: 'Retours sous 30 jours',
     product_trust_secure: 'Paiement sécurisé',
+    product_trust_returns_sub: 'étiquette de retour prépayée incluse',
+    product_trust_secure_sub: 'chiffré et conforme PCI',
+    product_desc_eyebrow: 'À propos de ce produit',
+    product_reco_see_all: 'Voir tout →',
+    product_perks_aria: 'Promesses de livraison et de service',
+    product_badge_sold_out: 'Rupture de stock',
     product_reviews_stub: 'Les avis des acheteurs vérifiés arrivent bientôt. Chaque commande est livrée avec une étiquette de retour prépayée — votre satisfaction est le seul avis qui compte.',
     product_perk_packed: 'Soigneusement emballé et expédié sous 1 à 2 jours ouvrables',
     product_perk_return: 'Étiquette de retour prépayée incluse avec chaque commande',
@@ -560,6 +591,10 @@ export const DICTIONARIES = {
     search_pages: 'Pages',
     search_products: 'Produits',
     search_empty: 'Aucun résultat. Essayez un autre terme de recherche.',
+    search_articles_aria: "Résultats d'articles",
+    search_pages_aria: 'Résultats de pages',
+    search_products_aria: 'Résultats de produits',
+    card_view_details: 'Voir les détails',
   },
 
   // ════════════════════════════════════════════════════════════════
@@ -591,6 +626,10 @@ export const DICTIONARIES = {
     nav_trending: 'Tendencias',
     nav_gifts: 'Regalos por menos de $25',
     nav_shop: 'Tienda',
+    nav_new_arrivals: 'Novedades',
+    nav_explore: 'Explorar',
+    nav_about: 'Nosotros',
+    nav_contact: 'Contacto',
 
     header_dismiss_aria: 'Cerrar anuncio',
     header_menu_open: 'Abrir menú',
@@ -773,6 +812,7 @@ export const DICTIONARIES = {
     col_price_100_plus: '$100 +',
     col_count_loading: 'Colección cargando',
     col_count_and_counting: 'y contando',
+    col_count_of: 'de',
 
     all_breadcrumb: 'Todos los productos',
     all_eyebrow: 'La tienda completa',
@@ -782,9 +822,16 @@ export const DICTIONARIES = {
     all_empty_body: 'El catálogo está cargando. Si el problema persiste, intenta recargar.',
     all_count_loading: 'Catálogo cargando',
 
-    product_trust_shipping: 'Envío gratis desde $50',
+    product_trust_shipping: 'Envío gratis',
+    product_trust_shipping_sub: 'en pedidos mayores de $50',
     product_trust_returns: 'Devoluciones 30 días',
+    product_trust_returns_sub: 'etiqueta de devolución prepagada incluida',
     product_trust_secure: 'Pago seguro',
+    product_trust_secure_sub: 'cifrado y cumple PCI',
+    product_desc_eyebrow: 'Acerca de este producto',
+    product_reco_see_all: 'Ver todo →',
+    product_perks_aria: 'Promesas de envío y servicio',
+    product_badge_sold_out: 'Agotado',
     product_reviews_stub: 'Las reseñas de compradores verificados están en camino. Cada pedido incluye una etiqueta de devolución prepagada — tu satisfacción es la única reseña que necesitamos ganar.',
     product_perk_packed: 'Embalado cuidadosamente y enviado en 1–2 días hábiles',
     product_perk_return: 'Etiqueta de devolución prepagada incluida con cada pedido',
@@ -803,6 +850,7 @@ export const DICTIONARIES = {
     product_returns_body: 'Si algo no está bien, tienes 30 días desde la fecha de entrega para devolverlo. Cada pedido incluye una etiqueta de devolución prepagada — imprímela, reempaca el artículo y depósitalo. Reembolso completo al método de pago original, sin tarifas de reabastecimiento.',
     product_help_h: '¿Necesitas ayuda?',
     product_help_body: 'Contáctanos en cualquier momento desde la página de contacto. Una persona real del equipo Puchica te responderá en un día hábil.',
+    product_help_contact_link: 'página de contacto',
     product_share_label: 'Compartir:',
     product_share_btn: 'Compartir',
     product_copy_link: 'Copiar enlace',
@@ -824,6 +872,10 @@ export const DICTIONARIES = {
     search_pages: 'Páginas',
     search_products: 'Productos',
     search_empty: 'Sin resultados. Intenta con otro término de búsqueda.',
+    search_articles_aria: 'Resultados de artículos',
+    search_pages_aria: 'Resultados de páginas',
+    search_products_aria: 'Resultados de productos',
+    card_view_details: 'Ver detalles',
   },
 
   // ════════════════════════════════════════════════════════════════
@@ -855,6 +907,10 @@ export const DICTIONARIES = {
     nav_trending: 'Em alta',
     nav_gifts: 'Presentes até $25',
     nav_shop: 'Loja',
+    nav_new_arrivals: 'Novidades',
+    nav_explore: 'Explorar',
+    nav_about: 'Sobre',
+    nav_contact: 'Contato',
 
     header_dismiss_aria: 'Fechar anúncio',
     header_menu_open: 'Abrir menu',
@@ -1037,6 +1093,7 @@ export const DICTIONARIES = {
     col_price_100_plus: '$100 +',
     col_count_loading: 'Coleção carregando',
     col_count_and_counting: 'e contando',
+    col_count_of: 'de',
 
     all_breadcrumb: 'Todos os produtos',
     all_eyebrow: 'A loja completa',
@@ -1046,9 +1103,16 @@ export const DICTIONARIES = {
     all_empty_body: 'O catálogo está carregando. Se o problema persistir, tente atualizar a página.',
     all_count_loading: 'Catálogo carregando',
 
-    product_trust_shipping: 'Frete grátis acima de $50',
+    product_trust_shipping: 'Frete grátis',
+    product_trust_shipping_sub: 'em pedidos acima de $50',
     product_trust_returns: 'Devoluções em 30 dias',
+    product_trust_returns_sub: 'etiqueta de devolução pré-paga incluída',
     product_trust_secure: 'Checkout seguro',
+    product_trust_secure_sub: 'criptografado e em conformidade com PCI',
+    product_desc_eyebrow: 'Sobre este produto',
+    product_reco_see_all: 'Ver tudo →',
+    product_perks_aria: 'Promessas de envio e serviço',
+    product_badge_sold_out: 'Esgotado',
     product_reviews_stub: 'As avaliações de compradores verificados estão a caminho. Cada pedido é enviado com uma etiqueta de devolução pré-paga — sua satisfação é a única avaliação que precisamos ganhar.',
     product_perk_packed: 'Embalado com cuidado e enviado em 1–2 dias úteis',
     product_perk_return: 'Etiqueta de devolução pré-paga incluída em cada pedido',
@@ -1067,6 +1131,7 @@ export const DICTIONARIES = {
     product_returns_body: 'Se algo não estiver certo, você tem 30 dias a partir da data de entrega para devolver. Cada pedido é enviado com uma etiqueta de devolução pré-paga — imprima, reembale o item e deposite-o. Reembolso total no método de pagamento original, sem taxas de reabastecimento.',
     product_help_h: 'Precisa de ajuda?',
     product_help_body: 'Entre em contato a qualquer momento pela página de contato. Uma pessoa real da equipe Puchica responderá em até um dia útil.',
+    product_help_contact_link: 'página de contato',
     product_share_label: 'Compartilhar:',
     product_share_btn: 'Compartilhar',
     product_copy_link: 'Copiar link',
@@ -1088,5 +1153,9 @@ export const DICTIONARIES = {
     search_pages: 'Páginas',
     search_products: 'Produtos',
     search_empty: 'Nenhum resultado. Tente um termo de busca diferente.',
+    search_articles_aria: 'Resultados de artigos',
+    search_pages_aria: 'Resultados de páginas',
+    search_products_aria: 'Resultados de produtos',
+    card_view_details: 'Ver detalhes',
   },
 };

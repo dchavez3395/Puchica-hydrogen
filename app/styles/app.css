@@ -1448,6 +1448,7 @@ body {
   font-family: var(--pk-font-body);
   background: var(--pk-off-white);
   color: var(--pk-ink);
+  overflow-x: hidden;
 }
 
 /* Global keyboard focus ring â€” lime on everything */
@@ -2811,6 +2812,7 @@ button:focus-visible,
   overflow: hidden;
   border-radius: 0;
   width: 100%;
+  box-sizing: border-box;
   background: var(--pk-ink);
   color: var(--pk-paper);
   text-align: center;
@@ -2870,7 +2872,21 @@ button:focus-visible,
   .pk-promo__panel { padding: 34px 26px; }
   .pk-promo__title { font-size: 28px; }
   .pk-values { grid-template-columns: 1fr; }
-  .pk-news__form { flex-direction: column; }
+  /* Column layout: drop the fixed 56px height so items stack freely */
+  .pk-news__form {
+    flex-direction: column;
+    height: auto;
+    gap: 10px;
+  }
+  .pk-news__input {
+    height: 52px;
+    width: 100%;
+  }
+  .pk-news__form .pk-btn {
+    height: 52px;
+    width: 100%;
+    justify-content: center;
+  }
   .pk-news__title { font-size: 26px; }
 }
 
