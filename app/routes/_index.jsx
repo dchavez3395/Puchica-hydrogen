@@ -2,6 +2,7 @@ import {Await, useLoaderData, useFetcher, Link} from 'react-router';
 import {Suspense, useEffect, useRef, useState} from 'react';
 import {Image, Money} from '@shopify/hydrogen';
 import {error as logError} from '~/lib/logger';
+import {useT} from '~/lib/t';
 import {IconTruck, IconReturn, IconShield, IconSparkles, IconGift, IconHeart, IconStar, IconHome, IconLeaf, IconLightbulb, IconPawPrint} from '~/components/Icons';
 import StarGlyph from '~/components/StarGlyph';
 import {puchicaMeta, organizationJsonLd, websiteJsonLd, JsonLdScript} from '~/lib/seo';
@@ -108,6 +109,7 @@ function loadDeferredData({context}) {
 
 export default function Index() {
   const data = useLoaderData();
+  const t = useT();
   const [isPlaying, setIsPlaying] = useState(true);
 
   return (
@@ -236,10 +238,10 @@ export default function Index() {
       </Suspense>
 
       <StatsCounter stats={[
-        {value: 6155, label: 'Products', suffix: '+'},
-        {value: 19, label: 'Collections'},
-        {value: 15, label: 'Categories'},
-        {value: 100, label: 'Canadian', suffix: '%'},
+        {value: 6155, label: t('counter_products'), suffix: '+'},
+        {value: 19, label: t('counter_collections')},
+        {value: 15, label: t('counter_categories')},
+        {value: 100, label: t('counter_canadian'), suffix: '%'},
       ]} />
 
     </div>
@@ -250,6 +252,7 @@ export default function Index() {
    HERO
 ───────────────────────────────────────────────────────────────── */
 function Hero({products, isPlaying, setIsPlaying}) {
+  const t = useT();
   const carouselProducts = (products ?? []).slice(0, 5).filter((p) => p.featuredImage);
   const [activeIdx, setActiveIdx] = useState(0);
 
@@ -262,8 +265,9 @@ function Hero({products, isPlaying, setIsPlaying}) {
   }, [isPlaying, carouselProducts.length]);
 
   const featuredProduct = carouselProducts[activeIdx];
-  const line1 = ['Everything'];
-  const line2 = ['worth', 'buying.'];
+  const heroWords = t('hero_title').split(' ');
+  const line1 = heroWords.slice(0, 1);
+  const line2 = heroWords.slice(1);
 
   return (
     <section className="pk-hero2 pk-hero2--lifestyle" aria-label="Curated drops slideshow">
@@ -287,7 +291,7 @@ function Hero({products, isPlaying, setIsPlaying}) {
       <div className="pk-hero2__glow pk-hero2__glow--b" aria-hidden="true" />
       <div className="pk-hero2__inner">
         <div className="pk-hero2__copy">
-          <span className="pk-hero2__eyebrow"><StarGlyph /> Ships from Canada · Free over $50</span>
+          <span className="pk-hero2__eyebrow"><StarGlyph /> {t('hero_eyebrow')}</span>
           <h1 className="pk-hero2__title">
             <span className="pk-hero2__title-row">
               {line1.map((w, i) => (
@@ -304,18 +308,15 @@ function Hero({products, isPlaying, setIsPlaying}) {
               ))}
             </span>
           </h1>
-          <p className="pk-hero2__sub">
-            6,000+ handpicked products across home, beauty, tech, pet, and more.
-            Real finds from real people who give a damn.
-          </p>
+          <p className="pk-hero2__sub">{t('hero_sub')}</p>
           <div className="pk-hero2__ctas">
-            <Link to="/collections" className="pk-btn pk-btn--spark pk-btn--lg">Shop now →</Link>
-            <Link to="/collections/all" className="pk-btn pk-btn--ghost pk-btn--lg">Browse all</Link>
+            <Link to="/collections" className="pk-btn pk-btn--spark pk-btn--lg">{t('hero_cta_shop')}</Link>
+            <Link to="/collections/all" className="pk-btn pk-btn--ghost pk-btn--lg">{t('hero_cta_browse')}</Link>
           </div>
           <ul className="pk-hero2__stats" aria-label="Store highlights">
-            <li><strong>6,000+</strong><span>Products</span></li>
-            <li><strong>Free</strong><span>Shipping $50+</span></li>
-            <li><strong>30 days</strong><span>Easy returns</span></li>
+            <li><strong>6,000+</strong><span>{t('hero_stat_products')}</span></li>
+            <li><strong>Free</strong><span>{t('hero_stat_shipping')}</span></li>
+            <li><strong>30 days</strong><span>{t('hero_stat_returns')}</span></li>
           </ul>
         </div>
       </div>
@@ -324,7 +325,7 @@ function Hero({products, isPlaying, setIsPlaying}) {
         <Link
           to={`/products/${featuredProduct.handle}`}
           className="pk-hero2__featured-link"
-          aria-label={`View featured background product: ${featuredProduct.title}`}
+          aria-label={t('hero_featured_label').replace('{title}', featuredProduct.title)}
         >
           Featured: {featuredProduct.title}
         </Link>
@@ -334,7 +335,7 @@ function Hero({products, isPlaying, setIsPlaying}) {
         type="button"
         className="pk-hero2__play-pause"
         onClick={() => setIsPlaying(!isPlaying)}
-        aria-label={isPlaying ? 'Pause background slideshow' : 'Play background slideshow'}
+        aria-label={isPlaying ? t('hero_pause_label') : t('hero_play_label')}
       >
         {isPlaying ? (
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -353,13 +354,13 @@ function Hero({products, isPlaying, setIsPlaying}) {
 /* ─────────────────────────────────────────────────────────────────
    MARQUEE — accessible with pause/play
 ───────────────────────────────────────────────────────────────── */
-const MARQUEE_ITEMS = [
-  '6,000+ products', 'New drops weekly', 'Free shipping $50+',
-  '30-day easy returns', 'Ships from Canada', 'Handpicked, never random',
-  'Real value. Real finds.', 'Secure checkout',
-];
-
 function Marquee({isPlaying}) {
+  const t = useT();
+  const MARQUEE_ITEMS = [
+    t('ticker_products'), t('ticker_new_drops'), t('ticker_free_shipping'),
+    t('ticker_returns'), t('ticker_ships'), t('ticker_handpicked'),
+    t('ticker_real_value'), t('ticker_secure'),
+  ];
   // The track is decorative (duplicated items are not real content).
   // The scroll state is synchronized with the main Hero play/pause controller.
   return (
@@ -383,6 +384,7 @@ function Marquee({isPlaying}) {
    PRODUCT MATCHMAKER (TINDER SWIPE FINDER)
 ───────────────────────────────────────────────────────────────── */
 function ProductMatchmaker({products}) {
+  const t = useT();
   const swipeProducts = (products ?? []).filter(
     (p) => p.featuredImage && p.variants?.nodes?.[0],
   );
@@ -488,21 +490,20 @@ function ProductMatchmaker({products}) {
     <section className="pk-matchmaker" aria-label="Product Swipe Matchmaker">
       <div className="pk-matchmaker__inner">
         <div className="pk-matchmaker__head">
-          <span className="pk-matchmaker__eye"><StarGlyph /> Discovery Matchmaker</span>
-          <h2 className="pk-matchmaker__title">Puchica Match.</h2>
-          <p className="pk-matchmaker__sub">
-            Swipe right to <strong>Like</strong>, left to <strong>Pass</strong>, or swipe up to <strong>Super Swipe &amp; Add to Cart</strong>!
-          </p>
+          <span className="pk-matchmaker__eye"><StarGlyph /> {t('match_eyebrow')}</span>
+          <h2 className="pk-matchmaker__title">{t('match_title')}</h2>
+          {/* eslint-disable-next-line react/no-danger */}
+          <p className="pk-matchmaker__sub" dangerouslySetInnerHTML={{__html: t('match_sub')}} />
         </div>
 
         {isCompleted ? (
           <div className="pk-matchmaker__empty">
             <span className="pk-matchmaker__empty-heart" aria-hidden="true">💖</span>
-            <h3>No more items today!</h3>
-            <p>You swiped through all trending items and liked {likedCount} of them.</p>
+            <h3>{t('match_empty_title')}</h3>
+            <p>{t('match_empty_body').replace('{count}', likedCount)}</p>
             <div className="pk-matchmaker__empty-actions">
-              <button onClick={resetDeck} className="pk-btn pk-btn--spark">Swipe Again</button>
-              <Link to="/collections/all" className="pk-btn pk-btn--ghost">Browse All</Link>
+              <button onClick={resetDeck} className="pk-btn pk-btn--spark">{t('match_reset')}</button>
+              <Link to="/collections/all" className="pk-btn pk-btn--ghost">{t('match_browse')}</Link>
             </div>
           </div>
         ) : (
@@ -560,23 +561,23 @@ function ProductMatchmaker({products}) {
                   <div className="pk-matchmaker__img-wrap">
                     <Image data={activeProduct.featuredImage} sizes="360px" loading="eager" />
                     
-                    <span 
-                      className="pk-matchmaker__stamp pk-matchmaker__stamp--like" 
+                    <span
+                      className="pk-matchmaker__stamp pk-matchmaker__stamp--like"
                       style={{ opacity: getStampOpacity('like') }}
                     >
-                      LIKE
+                      {t('match_stamp_like')}
                     </span>
-                    <span 
-                      className="pk-matchmaker__stamp pk-matchmaker__stamp--nope" 
+                    <span
+                      className="pk-matchmaker__stamp pk-matchmaker__stamp--nope"
                       style={{ opacity: getStampOpacity('nope') }}
                     >
-                      NOPE
+                      {t('match_stamp_nope')}
                     </span>
-                    <span 
-                      className="pk-matchmaker__stamp pk-matchmaker__stamp--super" 
+                    <span
+                      className="pk-matchmaker__stamp pk-matchmaker__stamp--super"
                       style={{ opacity: getStampOpacity('super') }}
                     >
-                      SUPER ATC
+                      {t('match_stamp_super')}
                     </span>
                   </div>
 
@@ -665,6 +666,7 @@ function scrollContainerToChild(container, childIndex) {
    DISCOVER SWIPER
 ───────────────────────────────────────────────────────────────── */
 function DiscoverSwiper({products}) {
+  const t = useT();
   const items = products.slice(0, 8);
   const trackRef = useRef(null);
   const sectionRef = useRef(null);
@@ -743,8 +745,8 @@ function DiscoverSwiper({products}) {
     >
       <div className="pk-swiper__head pk-inner">
         <div>
-          <p className="pk-swiper__eye"><StarGlyph /> Trending now</p>
-          <h2 className="pk-swiper__title">This week&apos;s top picks</h2>
+          <p className="pk-swiper__eye"><StarGlyph /> {t('swiper_eyebrow')}</p>
+          <h2 className="pk-swiper__title">{t('swiper_title')}</h2>
         </div>
         <div className="pk-swiper__navrow" role="group" aria-label="Carousel navigation">
           <button className="pk-swiper__arr" onClick={() => scrollTo(active - 1)} disabled={active === 0} aria-label="Previous product">←</button>
@@ -795,12 +797,12 @@ function DiscoverSwiper({products}) {
           type="button"
           className={`pk-swiper__ctrl-btn${autoPaused ? ' is-paused' : ''}`}
           onClick={() => setAutoPaused((p) => !p)}
-          aria-label={autoPaused ? 'Resume auto-advancing carousel' : 'Pause auto-advancing carousel'}
+          aria-label={autoPaused ? t('swiper_resume_label') : t('swiper_pause_label')}
           aria-pressed={autoPaused}
           aria-controls="pk-swiper-track"
         >
           <span className="pk-swiper__ctrl-icon" aria-hidden="true">{autoPaused ? '▶' : '⏸'}</span>
-          <span className="pk-swiper__ctrl-label">{autoPaused ? 'Resume auto-play' : 'Pause auto-play'}</span>
+          <span className="pk-swiper__ctrl-label">{autoPaused ? t('swiper_resume_label') : t('swiper_pause_label')}</span>
         </button>
       </div>
     </section>
@@ -811,6 +813,7 @@ function DiscoverSwiper({products}) {
    PRODUCT RACK
 ───────────────────────────────────────────────────────────────── */
 function ProductRack({products}) {
+  const t = useT();
   const trackRef = useRef(null);
   const {canLeft, canRight, scrollBy} = useScrollNav(trackRef);
   if (!products?.length) return null;
@@ -818,8 +821,8 @@ function ProductRack({products}) {
     <section id="section-rack" className="pk-rack" aria-label="Premium picks">
       <div className="pk-inner pk-rack__head">
         <div>
-          <p className="pk-rack__eye"><StarGlyph /> Home &amp; Kitchen</p>
-          <h2 className="pk-rack__title">Upgrade your space.</h2>
+          <p className="pk-rack__eye"><StarGlyph /> {t('rack_eyebrow')}</p>
+          <h2 className="pk-rack__title">{t('rack_title')}</h2>
         </div>
         <div className="pk-rack__nav" role="group" aria-label="Scroll products">
           <button className="pk-rack__arr" onClick={() => scrollBy(-260)} disabled={!canLeft} aria-label="Scroll left">←</button>
@@ -844,22 +847,22 @@ function ProductRack({products}) {
 /* ─────────────────────────────────────────────────────────────────
    GIFT FINDER — price bracket cards
 ───────────────────────────────────────────────────────────────── */
-const PRICE_BRACKETS = [
-  {range: 'under-25',  label: 'Under $25',  sub: 'Little treats, big smiles', icon: IconGift},
-  {range: '25-50',     label: '$25 – $50',  sub: 'Sweet-spot gifts',          icon: IconHeart},
-  {range: '50-100',    label: '$50 – $100', sub: 'Premium picks',             icon: IconSparkles},
-  {range: '100-plus',  label: '$100+',      sub: 'Go all out',                icon: IconStar},
-];
-
 function GiftFinder() {
+  const t = useT();
+  const PRICE_BRACKETS = [
+    {range: 'under-25', label: t('gift_under25_label'), sub: t('gift_under25_sub'), icon: IconGift},
+    {range: '25-50',    label: t('gift_25_50_label'),   sub: t('gift_25_50_sub'),   icon: IconHeart},
+    {range: '50-100',   label: t('gift_50_100_label'),  sub: t('gift_50_100_sub'),  icon: IconSparkles},
+    {range: '100-plus', label: t('gift_100_label'),     sub: t('gift_100_sub'),     icon: IconStar},
+  ];
   return (
     <ScrollReveal variant="up">
       <section className="pk-gift" aria-label="Find a gift by budget">
         <div className="pk-gift__inner">
           <div className="pk-gift__head">
-            <span className="pk-gift__eye"><StarGlyph /> Gift ideas</span>
-            <h2 className="pk-gift__title">Find the perfect gift.</h2>
-            <p className="pk-gift__sub">6,000+ options across every budget. Something for everyone on your list.</p>
+            <span className="pk-gift__eye"><StarGlyph /> {t('gift_eyebrow')}</span>
+            <h2 className="pk-gift__title">{t('gift_title')}</h2>
+            <p className="pk-gift__sub">{t('gift_sub')}</p>
           </div>
           <div className="pk-gift__grid">
             {PRICE_BRACKETS.map(({range, label, sub, icon: Icon}, i) => (
@@ -885,6 +888,7 @@ function GiftFinder() {
    NEW ARRIVALS — dark horizontal strip
 ───────────────────────────────────────────────────────────────── */
 function NewArrivals({products}) {
+  const t = useT();
   const trackRef = useRef(null);
   const {canLeft, canRight, scrollBy} = useScrollNav(trackRef);
   if (!products?.length) return null;
@@ -892,11 +896,11 @@ function NewArrivals({products}) {
     <section id="section-new-arrivals" className="pk-arrivals" aria-label="New arrivals">
       <div className="pk-arrivals__head pk-inner">
         <div>
-          <p className="pk-arrivals__eye"><StarGlyph /> Outdoor &amp; Garden</p>
-          <h2 className="pk-arrivals__title">Get outside.</h2>
+          <p className="pk-arrivals__eye"><StarGlyph /> {t('arrivals_eyebrow')}</p>
+          <h2 className="pk-arrivals__title">{t('arrivals_title')}</h2>
         </div>
         <div className="pk-arrivals__head-right">
-          <Link to="/collections/new-arrivals" className="pk-arrivals__link">See all new →</Link>
+          <Link to="/collections/new-arrivals" className="pk-arrivals__link">{t('arrivals_see_all')}</Link>
           <div className="pk-rack__nav" role="group" aria-label="Scroll arrivals">
             <button className="pk-rack__arr pk-rack__arr--dark" onClick={() => scrollBy(-220)} disabled={!canLeft} aria-label="Scroll left">←</button>
             <button className="pk-rack__arr pk-rack__arr--dark" onClick={() => scrollBy(220)} disabled={!canRight} aria-label="Scroll right">→</button>
@@ -912,7 +916,7 @@ function NewArrivals({products}) {
               </div>
             )}
             <div className="pk-arrivals__card-body">
-              <span className="pk-arrivals__card-badge" aria-label="New product">New</span>
+              <span className="pk-arrivals__card-badge" aria-label="New product">{t('arrivals_badge')}</span>
               <p className="pk-arrivals__card-name">{p.title}</p>
               <div className="pk-arrivals__card-price"><Money data={p.priceRange.minVariantPrice} /></div>
             </div>
@@ -926,28 +930,29 @@ function NewArrivals({products}) {
 /* ─────────────────────────────────────────────────────────────────
    CATEGORY BENTO
 ───────────────────────────────────────────────────────────────── */
-const CAT_META = {
-  'home-essentials':      {tagline: 'Your space, elevated.',        icon: IconHome},
-  'beauty-personal-care': {tagline: 'Feel it from the inside out.', icon: IconSparkles},
-  'tech-gadgets':         {tagline: 'Smarter, every single day.',   icon: IconLightbulb},
-  'outdoor-garden':       {tagline: 'Get out there.',               icon: IconLeaf},
-  'pet-finds':            {tagline: 'They deserve the best too.',   icon: IconPawPrint},
-};
 const CAT_ORDER = ['home', 'beauty', 'tech', 'outdoor', 'pet'];
 
 function CategoryBento({res}) {
+  const t = useT();
+  const CAT_META = {
+    'home-essentials':      {tagline: t('cat_home_tagline'),    icon: IconHome},
+    'beauty-personal-care': {tagline: t('cat_beauty_tagline'),  icon: IconSparkles},
+    'tech-gadgets':         {tagline: t('cat_tech_tagline'),    icon: IconLightbulb},
+    'outdoor-garden':       {tagline: t('cat_outdoor_tagline'), icon: IconLeaf},
+    'pet-finds':            {tagline: t('cat_pet_tagline'),     icon: IconPawPrint},
+  };
   const cats = CAT_ORDER.map((k) => res?.[k]).filter(Boolean).slice(0, 5);
 
   if (!cats.length) return null;
   return (
     <section id="section-categories" className="pk-bento" aria-label="Shop by category">
       <div className="pk-bento__head pk-inner">
-        <p className="pk-bento__eye"><StarGlyph /> Shop by category</p>
-        <h2 className="pk-bento__title">Find your thing.</h2>
+        <p className="pk-bento__eye"><StarGlyph /> {t('cat_eyebrow')}</p>
+        <h2 className="pk-bento__title">{t('cat_title')}</h2>
       </div>
       <div className="pk-bento__grid pk-inner">
         {cats.map((col, i) => {
-          const meta = CAT_META[col.handle] ?? {tagline: 'Curated with care.', icon: IconStar};
+          const meta = CAT_META[col.handle] ?? {tagline: t('cat_fallback_tagline'), icon: IconStar};
           const Icon = meta.icon;
           const img = col.products?.nodes?.[0]?.featuredImage;
           return (
@@ -974,7 +979,7 @@ function CategoryBento({res}) {
                   <div className="pk-bento__cell-body">
                     <p className="pk-bento__cell-eye"><span className="pk-bento__cell-icon" aria-hidden="true"><Icon size={18} /></span> {col.title}</p>
                     <h3 className="pk-bento__cell-name">{meta.tagline}</h3>
-                    <span className="pk-bento__cell-cta">Shop now →</span>
+                    <span className="pk-bento__cell-cta">{t('cat_shop_now')}</span>
                   </div>
                 </Link>
               </TiltCard>
@@ -989,40 +994,40 @@ function CategoryBento({res}) {
 /* ─────────────────────────────────────────────────────────────────
    SHOP BY MOOD — 3-col editorial with real category images
 ───────────────────────────────────────────────────────────────── */
-const MOODS = [
-  {
-    handle: 'home-essentials', catKey: 'home',
-    label: 'Home & Living',
-    title: 'Your home deserves better.',
-    sub: 'Storage, decor, kitchen tools — everything to make the space you live in feel intentional.',
-    cta: 'Upgrade your space →',
-    icon: IconHome,
-  },
-  {
-    handle: 'beauty-personal-care', catKey: 'beauty',
-    label: 'Beauty & Self-Care',
-    title: 'Take care of yourself.',
-    sub: 'Skincare, wellness, and personal-care products that actually work — picked by people who use them.',
-    cta: 'Treat yourself →',
-    icon: IconSparkles,
-  },
-  {
-    handle: 'tech-gadgets', catKey: 'tech',
-    label: 'Tech & Gadgets',
-    title: 'Work smarter, play harder.',
-    sub: 'Accessories, tools, and gadgets that genuinely improve your day. No gimmicks.',
-    cta: 'Power up →',
-    icon: IconLightbulb,
-  },
-];
-
 function ShopByMood({catRes}) {
+  const t = useT();
+  const MOODS = [
+    {
+      handle: 'home-essentials', catKey: 'home',
+      label: t('mood_home_label'),
+      title: t('mood_home_title'),
+      sub: t('mood_home_sub'),
+      cta: t('mood_home_cta'),
+      icon: IconHome,
+    },
+    {
+      handle: 'beauty-personal-care', catKey: 'beauty',
+      label: t('mood_beauty_label'),
+      title: t('mood_beauty_title'),
+      sub: t('mood_beauty_sub'),
+      cta: t('mood_beauty_cta'),
+      icon: IconSparkles,
+    },
+    {
+      handle: 'tech-gadgets', catKey: 'tech',
+      label: t('mood_tech_label'),
+      title: t('mood_tech_title'),
+      sub: t('mood_tech_sub'),
+      cta: t('mood_tech_cta'),
+      icon: IconLightbulb,
+    },
+  ];
   return (
     <ScrollReveal variant="up">
       <section className="pk-mood" aria-label="Shop by lifestyle">
         <div className="pk-mood__head pk-inner">
-          <p className="pk-mood__eye"><StarGlyph /> Made for your life</p>
-          <h2 className="pk-mood__title">Shop the way you live.</h2>
+          <p className="pk-mood__eye"><StarGlyph /> {t('mood_eyebrow')}</p>
+          <h2 className="pk-mood__title">{t('mood_title')}</h2>
         </div>
         <div className="pk-mood__grid">
           {MOODS.map((m, i) => {
@@ -1059,19 +1064,19 @@ function ShopByMood({catRes}) {
 /* ─────────────────────────────────────────────────────────────────
    SOCIAL PROOF — customer testimonials
 ───────────────────────────────────────────────────────────────── */
-const REVIEWS = [
-  {stars: 5, quote: 'Ordered three times in the past month. Quality is consistently great and shipping is fast.', name: 'Maria K.', loc: 'Toronto, ON'},
-  {stars: 5, quote: 'Found exactly what I was looking for — and way more. This is my new go-to for home stuff.', name: 'David T.', loc: 'Vancouver, BC'},
-  {stars: 5, quote: 'The curation is genuinely good. Everything feels like it was picked by someone who has taste.', name: 'Sarah L.', loc: 'Calgary, AB'},
-];
-
 function SocialProof() {
+  const t = useT();
+  const REVIEWS = [
+    {stars: 5, quote: t('review_1_quote'), name: 'Maria K.', loc: 'Toronto, ON'},
+    {stars: 5, quote: t('review_2_quote'), name: 'David T.', loc: 'Vancouver, BC'},
+    {stars: 5, quote: t('review_3_quote'), name: 'Sarah L.', loc: 'Calgary, AB'},
+  ];
   return (
     <section className="pk-proof" aria-label="Customer reviews">
       <div className="pk-proof__inner">
         <div className="pk-proof__head">
-          <span className="pk-proof__eye"><StarGlyph /> What people are saying</span>
-          <h2 className="pk-proof__title">Real shoppers. Real opinions.</h2>
+          <span className="pk-proof__eye"><StarGlyph /> {t('review_eyebrow')}</span>
+          <h2 className="pk-proof__title">{t('review_title')}</h2>
         </div>
         <div className="pk-proof__grid">
           {REVIEWS.map(({stars, quote, name, loc}) => (
@@ -1098,6 +1103,7 @@ function SocialProof() {
    FRESH FINDS — recently updated (different set from trending)
 ───────────────────────────────────────────────────────────────── */
 function FreshFinds({products}) {
+  const t = useT();
   const trackRef = useRef(null);
   const {canLeft, canRight, scrollBy} = useScrollNav(trackRef);
   if (!products?.length) return null;
@@ -1105,8 +1111,8 @@ function FreshFinds({products}) {
     <section className="pk-rack pk-rack--fresh" aria-label="Fresh finds">
       <div className="pk-inner pk-rack__head">
         <div>
-          <p className="pk-rack__eye"><StarGlyph /> Beauty &amp; Self-Care</p>
-          <h2 className="pk-rack__title">Take care of yourself.</h2>
+          <p className="pk-rack__eye"><StarGlyph /> {t('mood_beauty_label')}</p>
+          <h2 className="pk-rack__title">{t('mood_beauty_title')}</h2>
         </div>
         <div className="pk-rack__nav" role="group" aria-label="Scroll fresh finds">
           <button className="pk-rack__arr" onClick={() => scrollBy(-260)} disabled={!canLeft} aria-label="Scroll left">←</button>
@@ -1132,19 +1138,17 @@ function FreshFinds({products}) {
    FEATURED BANNER — best sellers (3 cards)
 ───────────────────────────────────────────────────────────────── */
 function FeaturedBanner({products}) {
+  const t = useT();
   if (!products?.length) return null;
   return (
     <section id="section-best-sellers" className="pk-feat-banner" aria-label="Best sellers">
       <div className="pk-feat-banner__inner">
         <ScrollReveal className="pk-feat-banner__copy" variant="left">
-          <p className="pk-feat-banner__label"><StarGlyph variant="five" size={12} style={{marginRight: '0.5em'}} /> Best Sellers</p>
-          <h2 className="pk-feat-banner__title">The ones people can&apos;t stop buying.</h2>
-          <p className="pk-feat-banner__sub">
-            Tried, ordered again, and gifted to everyone they know. These are the products
-            that earn their place on the list every single week.
-          </p>
+          <p className="pk-feat-banner__label"><StarGlyph variant="five" size={12} style={{marginRight: '0.5em'}} /> {t('banner_eyebrow')}</p>
+          <h2 className="pk-feat-banner__title">{t('banner_title')}</h2>
+          <p className="pk-feat-banner__sub">{t('banner_sub')}</p>
           <Link to="/collections/best-sellers" className="pk-btn pk-btn--spark pk-btn--lg">
-            See all best sellers →
+            {t('banner_cta')}
           </Link>
         </ScrollReveal>
         <div className="pk-feat-banner__grid">
@@ -1171,18 +1175,16 @@ function FeaturedBanner({products}) {
    CATALOG STATEMENT — big lime typographic CTA
 ───────────────────────────────────────────────────────────────── */
 function CatalogStatement() {
+  const t = useT();
   return (
     <section className="pk-catalog-cta" aria-label="Explore the full catalog">
       <p className="pk-catalog-cta__number" aria-label="Over 6,000 products">
         6<span className="pk-catalog-cta__sup">+</span>k
       </p>
-      <p className="pk-catalog-cta__body">
-        products. One store. Every category. We&apos;re adding more every week
-        — there&apos;s always something new to find.
-      </p>
+      <p className="pk-catalog-cta__body">{t('catalog_body')}</p>
       <div className="pk-catalog-cta__ctas">
-        <Link to="/collections/all" className="pk-btn pk-btn--lg pk-btn--ink">Browse everything →</Link>
-        <Link to="/search" className="pk-btn pk-btn--lg pk-btn--outline">Search the catalog</Link>
+        <Link to="/collections/all" className="pk-btn pk-btn--lg pk-btn--ink">{t('catalog_cta_browse')}</Link>
+        <Link to="/search" className="pk-btn pk-btn--lg pk-btn--outline">{t('catalog_cta_search')}</Link>
       </div>
     </section>
   );
@@ -1192,11 +1194,12 @@ function CatalogStatement() {
    VALUE PROPS
 ───────────────────────────────────────────────────────────────── */
 function ValueProps() {
+  const t = useT();
   const items = [
-    {Icon: IconTruck,    title: 'Free shipping',   sub: 'On orders over $50'},
-    {Icon: IconReturn,   title: '30-day returns',  sub: 'No questions, no hassle'},
-    {Icon: IconShield,   title: 'Secure checkout', sub: 'Encrypted & PCI-compliant'},
-    {Icon: IconSparkles, title: 'Handpicked only', sub: 'Curated, never random'},
+    {Icon: IconTruck,    title: t('trust_shipping_title'),   sub: t('trust_shipping_sub')},
+    {Icon: IconReturn,   title: t('trust_returns_title'),    sub: t('trust_returns_sub')},
+    {Icon: IconShield,   title: t('trust_secure_title'),     sub: t('trust_secure_sub')},
+    {Icon: IconSparkles, title: t('trust_handpicked_title'), sub: t('trust_handpicked_sub')},
   ];
   return (
     <section className="pk-values" aria-label="Why Puchica">
@@ -1217,6 +1220,7 @@ function ValueProps() {
    NEWSLETTER
 ───────────────────────────────────────────────────────────────── */
 function NewsletterBand() {
+  const t = useT();
   const fetcher = useFetcher();
   const formRef = useRef(null);
   const [done, setDone] = useState(false);
@@ -1230,21 +1234,18 @@ function NewsletterBand() {
     <section className="pk-news" aria-label="Newsletter signup">
       <div className="pk-news__glow" aria-hidden="true" />
       <div className="pk-news__inner">
-        <span className="pk-pill pk-pill--glass">Join the club</span>
-        <h2 className="pk-news__title">Get the good stuff first.</h2>
-        <p className="pk-news__sub">
-          New arrivals, exclusive deals, and picks you won&apos;t find anywhere else
-          — straight to your inbox. No spam, unsubscribe anytime.
-        </p>
+        <span className="pk-pill pk-pill--glass">{t('newsletter_pill')}</span>
+        <h2 className="pk-news__title">{t('newsletter_title')}</h2>
+        <p className="pk-news__sub">{t('newsletter_sub')}</p>
         {done ? (
-          <p className="pk-news__done" role="status">You&apos;re in! Check your inbox.</p>
+          <p className="pk-news__done" role="status">{t('newsletter_done')}</p>
         ) : (
           <fetcher.Form ref={formRef} method="post" action="/newsletter" className="pk-news__form">
-            <label htmlFor="nl-email" className="sr-only">Email address</label>
-            <input id="nl-email" type="email" name="email" placeholder="your@email.com"
+            <label htmlFor="nl-email" className="sr-only">{t('newsletter_email_label')}</label>
+            <input id="nl-email" type="email" name="email" placeholder={t('newsletter_placeholder')}
               required className="pk-news__input" autoComplete="email" />
             <button type="submit" className="pk-btn pk-btn--spark" disabled={submitting}>
-              {submitting ? 'Joining…' : 'Subscribe'}
+              {submitting ? t('newsletter_joining') : t('newsletter_subscribe')}
             </button>
           </fetcher.Form>
         )}

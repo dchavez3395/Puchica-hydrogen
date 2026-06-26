@@ -3,6 +3,7 @@ import {Image} from '@shopify/hydrogen';
 import {puchicaMeta} from '~/lib/seo';
 import {ScrollReveal} from '~/components/ScrollReveal';
 import {TiltCard} from '~/components/TiltCard';
+import {useT} from '~/lib/t';
 
 /**
  * @type {Route.MetaFunction}
@@ -41,15 +42,17 @@ function handleToAlias(handle) {
 }
 
 /**
- * Map handles to official user-facing names.
+ * Map handles to translated user-facing names.
+ * @param {string} handle
+ * @param {(key: string) => string} t
  */
-function handleToLabel(handle) {
+function handleToLabel(handle, t) {
   const CATEGORY_MAP = {
-    'home-essentials': 'Home & Kitchen',
-    'beauty-personal-care': 'Beauty & Grooming',
-    'tech-gadgets': 'Electronics & Tech',
-    'pet-finds': 'Pet Supplies',
-    'outdoor-garden': 'Garden & Outdoor',
+    'home-essentials':     t('explore_cat_home'),
+    'beauty-personal-care': t('explore_cat_beauty'),
+    'tech-gadgets':        t('explore_cat_tech'),
+    'pet-finds':           t('explore_cat_pet'),
+    'outdoor-garden':      t('explore_cat_outdoor'),
   };
   return CATEGORY_MAP[handle] || handle
     .split('-')
@@ -124,6 +127,7 @@ function loadDeferredData() {
 export default function ExplorePage() {
   /** @type {LoaderReturnData} */
   const {collections} = useLoaderData();
+  const t = useT();
   const [searchParams, setSearchParams] = useSearchParams();
 
   // Read ?cats= query param to pre-select categories
@@ -185,18 +189,20 @@ export default function ExplorePage() {
   return (
     <div className="pk-explore">
       <nav className="pk-breadcrumbs" aria-label="Breadcrumb">
-        <Link to="/">Home</Link>
+        <Link to="/">{t('explore_home')}</Link>
         <span className="pk-breadcrumbs__sep">/</span>
-        <span className="pk-breadcrumbs__current">Explore Catalog</span>
+        <span className="pk-breadcrumbs__current">{t('explore_breadcrumb')}</span>
       </nav>
 
       <header className="pk-explore__header">
         <div className="pk-explore__glow" aria-hidden />
-        <span className="pk-explore__eyebrow">Discover the Collection</span>
-        <h1 className="pk-explore__title">Explore the full catalog</h1>
+        <span className="pk-explore__eyebrow">{t('explore_eyebrow')}</span>
+        <h1 className="pk-explore__title">{t('explore_title')}</h1>
         <p className="pk-explore__count">
-          Showing <strong>{productCount}</strong> {productCount === 1 ? 'product' : 'products'}{' '}
-          across <strong>{collectionCount}</strong> active {collectionCount === 1 ? 'category' : 'categories'}
+          {t('explore_showing')} <strong>{productCount}</strong>{' '}
+          {productCount === 1 ? t('explore_product_singular') : t('explore_product_plural')}{' '}
+          {t('explore_across')} <strong>{collectionCount}</strong>{' '}
+          {collectionCount === 1 ? t('explore_count_active_cat_singular') : t('explore_count_active_cat_plural')}
         </p>
       </header>
 
@@ -204,14 +210,14 @@ export default function ExplorePage() {
         <aside className="pk-explore__filter" aria-label="Category filters">
           <div className="pk-explore__filter-card">
             <div className="pk-explore__filter-head">
-              <span className="pk-explore__filter-title">Filter by Category</span>
+              <span className="pk-explore__filter-title">{t('explore_filter_title')}</span>
               {selectedCats.length > 0 && (
                 <button
                   type="button"
                   className="pk-explore__filter-clear"
                   onClick={clearFilters}
                 >
-                  Clear all
+                  {t('explore_filter_clear')}
                 </button>
               )}
             </div>
@@ -229,7 +235,7 @@ export default function ExplorePage() {
                     <span className="pk-explore__chip-bullet" style={{
                       backgroundColor: isFiltered ? 'var(--pk-lime, #D0FF50)' : 'var(--pk-border, #E5E0F0)'
                     }} />
-                    {handleToLabel(handle)}
+                    {handleToLabel(handle, t)}
                   </button>
                 );
               })}
@@ -241,17 +247,15 @@ export default function ExplorePage() {
           {productCount === 0 ? (
             <div className="pk-explore__empty">
               <span className="pk-explore__empty-icon">🔍</span>
-              <h2 className="pk-explore__empty-title">No products found</h2>
-              <p className="pk-explore__empty-body">
-                Try adjusting your active category selections or clear the filters.
-              </p>
+              <h2 className="pk-explore__empty-title">{t('explore_empty_title')}</h2>
+              <p className="pk-explore__empty-body">{t('explore_empty_body')}</p>
               <button
                 type="button"
                 className="pk-btn pk-btn--primary"
                 style={{marginTop: 20}}
                 onClick={clearFilters}
               >
-                Reset Filters
+                {t('explore_empty_reset')}
               </button>
             </div>
           ) : (
@@ -280,7 +284,7 @@ export default function ExplorePage() {
                         ) : (
                           <div className="pk-explore__card-placeholder" aria-hidden />
                         )}
-                        <span className="pk-explore__card-badge">View Details</span>
+                        <span className="pk-explore__card-badge">{t('explore_view_details')}</span>
                       </div>
                       <div className="pk-explore__card-body">
                         <span className="pk-explore__card-collection">
