@@ -2889,6 +2889,8 @@ button:focus-visible,
   .pk-promo__panel { padding: 34px 26px; }
   .pk-promo__title { font-size: 28px; }
   .pk-values { grid-template-columns: 1fr; }
+  /* Reduce side padding so the form is as wide as possible */
+  .pk-news { padding: 52px 16px; }
   /* Column layout: drop the fixed 56px height so items stack freely */
   .pk-news__form {
     flex-direction: column;
@@ -7790,6 +7792,23 @@ button:focus-visible,
   color: #FF8A4C;
 }
 
+@media (max-width: 600px) {
+  /* Stack label above the scrolling track so the track gets full viewport width */
+  .pk-ticker {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 14px 0 12px;
+  }
+  .pk-ticker__label {
+    padding: 0 16px 0 20px;
+  }
+  .pk-ticker__track {
+    width: 100%;
+    /* Softer fade on narrow screens so items don't vanish at edges */
+    mask-image: linear-gradient(to right, transparent, #000 20px, #000 calc(100% - 20px), transparent);
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   .pk-ticker__scroll {
     animation: none;
