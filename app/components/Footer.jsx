@@ -176,12 +176,12 @@ function Newsletter() {
               name="email"
               required
               placeholder={t('footer_email_placeholder')}
-              aria-label="Email"
+              aria-label={t('footer_newsletter_email_aria')}
               autoComplete="email"
               inputMode="email"
             />
-            <button type="submit" disabled={submitting} aria-label="Subscribe">
-              {submitting ? '…' : '→'}
+            <button type="submit" disabled={submitting} aria-label={t('footer_newsletter_subscribe_aria')}>
+              {submitting ? t('footer_newsletter_submitting') : '→'}
             </button>
           </fetcher.Form>
           {error ? <p className="pk-footer__err">{error}</p> : null}
