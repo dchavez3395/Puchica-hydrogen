@@ -2882,13 +2882,15 @@ button:focus-visible,
 }
 .pk-catalog-cta__number {
   font-family: var(--pk-font-display);
-  font-size: clamp(72px, 14vw, 160px);
+  font-size: clamp(60px, 10vw, 110px);
   font-weight: 900;
   color: #F4F0E6;
   line-height: 0.9;
   letter-spacing: -4px;
   font-variant-numeric: tabular-nums;
   display: inline-block;
+  min-width: 4ch; /* reserve room for "6,000" so the number doesn't
+                     reflow as it grows from 0 → 6,000 */
 }
 .pk-catalog-cta__sup { font-size: 0.45em; vertical-align: super; letter-spacing: -1px; color: #F4F0E6; }
 .pk-catalog-cta__body {

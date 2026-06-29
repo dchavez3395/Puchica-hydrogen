@@ -1146,10 +1146,15 @@ function CatalogStatement() {
   const countRef = useRef(null);
   const [count, setCount] = useState(0);
 
-  // Count up from 0 → 6 (display digit) the first time the section
-  // scrolls into view. Respects prefers-reduced-motion (jumps to 6).
-  // Trigger threshold is 0.4 so the count visibly runs while the user
-  // is actually looking at it.
+  // Count up from 0 → 6,000 (display value) the first time the
+  // section scrolls into view. Respects prefers-reduced-motion
+  // (jumps to the final value). Trigger threshold is 0.4 so the
+  // count visibly runs while the user is actually looking at it.
+  //
+  // The display reads "6,000+k" — the big number climbs through
+  // hundreds, then thousands, and settles on six thousand. The
+  // "+k" suffix is decorative (kept from the original treatment)
+  // but the numeric value behind it is 6,000.
   useEffect(() => {
     const el = countRef.current;
     if (!el) return;
@@ -1158,7 +1163,7 @@ function CatalogStatement() {
       '(prefers-reduced-motion: reduce)',
     ).matches;
     if (reduced) {
-      setCount(6);
+      setCount(6000);
       return;
     }
 
@@ -1168,13 +1173,14 @@ function CatalogStatement() {
         for (const entry of entries) {
           if (entry.isIntersecting && !started) {
             started = true;
-            const duration = 1400;
+            const duration = 1800;
             const start = performance.now();
             const tick = (now) => {
               const progress = Math.min((now - start) / duration, 1);
-              // Ease out cubic — starts fast, settles smoothly into 6.
+              // Ease out cubic — fast at first (hundreds tick by
+              // quickly), then slows as it approaches 6,000.
               const eased = 1 - Math.pow(1 - progress, 3);
-              setCount(Math.round(eased * 6));
+              setCount(Math.round(eased * 6000));
               if (progress < 1) requestAnimationFrame(tick);
             };
             requestAnimationFrame(tick);
@@ -1188,6 +1194,8 @@ function CatalogStatement() {
     return () => observer.disconnect();
   }, []);
 
+  const formatted = count.toLocaleString('en-CA');
+
   return (
     <section className="pk-catalog-cta" aria-label={t('catalog_section_aria')}>
       <p
@@ -1195,7 +1203,7 @@ function CatalogStatement() {
         className="pk-catalog-cta__number"
         aria-label={t('catalog_count_aria')}
       >
-        {count}
+        {formatted}
         <span className="pk-catalog-cta__sup">+</span>k
       </p>
       <p className="pk-catalog-cta__body">{t('catalog_body')}</p>
