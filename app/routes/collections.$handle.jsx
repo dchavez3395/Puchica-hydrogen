@@ -3,6 +3,7 @@ import {getPaginationVariables, Analytics, Image} from '@shopify/hydrogen';
 import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 import {puchicaMeta} from '~/lib/seo';
+import {useT} from '~/lib/t';
 import {ProductItem} from '~/components/ProductItem';
 
 /**
@@ -67,16 +68,17 @@ const PRICE_RANGE_MAP = {
  * @param {Route.LoaderArgs}
  */
 async function loadCriticalData({context, params, request}) {
-  const {handle} = params;
+  const isNewArrivals = params.handle === 'new-arrivals';
+  const handle = isNewArrivals ? 'outdoor-garden' : params.handle;
   const {storefront} = context;
   const {country, language} = storefront.i18n;
   const paginationVariables = getPaginationVariables(request, {pageBy: 12});
   const url = new URL(request.url);
 
-  if (!handle) throw redirect('/collections');
+  if (!params.handle) throw redirect('/collections');
 
   // Read sort + filter state from the URL. Treat unknown values as
-  // "no filter" so a stale link never breaks the page.
+  // "no filter" so a shopper doesn't lose state on click.
   const sortValue = url.searchParams.get('sort') || DEFAULT_SORT;
   const {sortKey, reverse} = SORT_KEY_MAP[sortValue] || SORT_KEY_MAP[DEFAULT_SORT];
   const productType = url.searchParams.get('productType') || null;
@@ -104,10 +106,16 @@ async function loadCriticalData({context, params, request}) {
   ]);
 
   if (!collection) {
-    throw new Response(`Collection ${handle} not found`, {status: 404});
+    throw new Response(`Collection ${params.handle} not found`, {status: 404});
   }
 
-  redirectIfHandleIsLocalized(request, {handle, data: collection});
+  if (isNewArrivals) {
+    collection.title = 'New Arrivals';
+    collection.handle = 'new-arrivals';
+    collection.description = 'Explore our latest handpicked items, fresh from the source.';
+  } else {
+    redirectIfHandleIsLocalized(request, {handle, data: collection});
+  }
   return {collection};
 }
 
@@ -118,6 +126,7 @@ function loadDeferredData() {
 export default function Collection() {
   /** @type {LoaderReturnData} */
   const {collection} = useLoaderData();
+  const t = useT();
   const [searchParams, setSearchParams] = useSearchParams();
   const sortValue = searchParams.get('sort') || 'featured';
   const activeProductType = searchParams.get('productType') || null;
@@ -138,10 +147,10 @@ export default function Collection() {
 
   return (
     <div className="pk-collection">
-      <nav className="pk-breadcrumbs" aria-label="Breadcrumb">
-        <Link to="/">Home</Link>
+      <nav className="pk-breadcrumbs" aria-label={t('breadcrumb_aria')}>
+        <Link to="/">{t('breadcrumb_home')}</Link>
         <span className="pk-breadcrumbs__sep">/</span>
-        <Link to="/collections">Collections</Link>
+        <Link to="/collections">{t('breadcrumb_collections')}</Link>
         <span className="pk-breadcrumbs__sep">/</span>
         <span className="pk-breadcrumbs__current">{collection.title}</span>
       </nav>
@@ -165,23 +174,23 @@ export default function Collection() {
           />
         )}
         <div className="pk-col-hero__glow" aria-hidden />
-        <span className="pk-col-hero__eyebrow">Collection</span>
+        <span className="pk-col-hero__eyebrow">{t('col_eyebrow')}</span>
         <h1 className="pk-col-hero__title">{collection.title}</h1>
         {collection.description ? (
           <p className="pk-col-hero__sub">{collection.description}</p>
         ) : null}
         <span className="pk-col-hero__count">
-          {formatCount(count, impliedTotal, hasNextPage)}
+          {formatCount(count, impliedTotal, hasNextPage, t)}
         </span>
       </header>
 
       {count === 0 ? (
         <div className="pk-empty">
-          <p className="pk-empty__title">Nothing here just yet</p>
+          <p className="pk-empty__title">{t('col_empty_title')}</p>
           <p className="pk-empty__body">
             {hasActiveFilter ? (
               <>
-                No products match these filters.{' '}
+                {t('col_empty_filtered')}{' '}
                 <button
                   type="button"
                   className="pk-empty__reset"
@@ -192,14 +201,11 @@ export default function Collection() {
                     setSearchParams(next, {replace: true});
                   }}
                 >
-                  Clear filters
+                  {t('col_clear_filters')}
                 </button>
               </>
             ) : (
-              <>
-                We&apos;re restocking this collection. Check back soon, or
-                browse the rest of the shop.
-              </>
+              t('col_empty_restocking')
             )}
           </p>
         </div>
@@ -209,24 +215,24 @@ export default function Collection() {
             nodes={nodes}
             activeProductType={activeProductType}
             activePrice={activePrice}
+            t={t}
           />
           <div className="pk-col-main">
             <div className="pk-toolbar">
               <span className="pk-toolbar__count">
                 {hasNextPage ? (
                   <>
-                    Showing <strong>{count}</strong> so far — load more
-                    below
+                    {t('col_showing')} <strong>{count}</strong> {t('col_showing_more')}
                   </>
                 ) : (
                   <>
-                    Showing <strong>{count}</strong>{' '}
-                    {count === 1 ? 'product' : 'products'}
+                    {t('col_showing')} <strong>{count}</strong>{' '}
+                    {count === 1 ? t('col_product_singular') : t('col_product_plural')}
                   </>
                 )}
               </span>
               <label className="pk-toolbar__sort">
-                Sort by
+                {t('col_sort_by')}
                 <select
                   value={sortValue}
                   onChange={(e) => {
@@ -239,11 +245,11 @@ export default function Collection() {
                     setSearchParams(next, {replace: true});
                   }}
                 >
-                  <option value="featured">Featured</option>
-                  <option value="best-selling">Best selling</option>
-                  <option value="newest">Newest</option>
-                  <option value="price-asc">Price: low to high</option>
-                  <option value="price-desc">Price: high to low</option>
+                  <option value="featured">{t('col_sort_featured')}</option>
+                  <option value="best-selling">{t('col_sort_best')}</option>
+                  <option value="newest">{t('col_sort_newest')}</option>
+                  <option value="price-asc">{t('col_sort_price_asc')}</option>
+                  <option value="price-desc">{t('col_sort_price_desc')}</option>
                 </select>
               </label>
             </div>
@@ -251,12 +257,12 @@ export default function Collection() {
               <div className="pk-toolbar__active">
                 {activeProductType ? (
                   <span className="pk-toolbar__chip">
-                    Category: {activeProductType}
+                    {t('col_filter_cat_label')} {activeProductType}
                   </span>
                 ) : null}
                 {activePrice ? (
                   <span className="pk-toolbar__chip">
-                    Price: {priceLabel(activePrice)}
+                    {t('col_filter_price_label')} {priceLabel(activePrice, t)}
                   </span>
                 ) : null}
                 <button
@@ -269,7 +275,7 @@ export default function Collection() {
                     setSearchParams(next, {replace: true});
                   }}
                 >
-                  Clear filters
+                  {t('col_clear_filters')}
                 </button>
               </div>
             ) : null}
@@ -282,6 +288,7 @@ export default function Collection() {
                   key={product.id}
                   product={product}
                   loading={index < 8 ? 'eager' : undefined}
+                  index={index}
                 />
               )}
             </PaginatedResourceSection>
@@ -298,7 +305,7 @@ export default function Collection() {
   );
 }
 
-function FilterSidebar({nodes, activeProductType, activePrice}) {
+function FilterSidebar({nodes, activeProductType, activePrice, t}) {
   // Aggregate product types from this collection for an honest static filter.
   const typeCounts = {};
   for (const p of nodes) {
@@ -326,21 +333,21 @@ function FilterSidebar({nodes, activeProductType, activePrice}) {
   }
 
   const priceOptions = [
-    ['under-25', 'Under $25'],
-    ['25-50', '$25 – $50'],
-    ['50-100', '$50 – $100'],
-    ['100-plus', '$100 +'],
+    ['under-25', t('col_price_under25')],
+    ['25-50', t('col_price_25_50')],
+    ['50-100', t('col_price_50_100')],
+    ['100-plus', t('col_price_100_plus')],
   ];
 
   return (
-    <aside className="pk-filters" aria-label="Filters">
+    <aside className="pk-filters" aria-label={t('col_filters_aria')}>
       <div className="pk-filters__group">
-        <h3 className="pk-filters__title">Category</h3>
+        <h3 className="pk-filters__title">{t('col_filter_cat_heading')}</h3>
         <ul className="pk-filters__list">
           {types.length === 0 ? (
             <li>
               <span className="pk-filters__note">
-                No sub-categories in this collection.
+                {t('col_filter_no_types')}
               </span>
             </li>
           ) : (
@@ -367,7 +374,7 @@ function FilterSidebar({nodes, activeProductType, activePrice}) {
         </ul>
       </div>
       <div className="pk-filters__group">
-        <h3 className="pk-filters__title">Price</h3>
+        <h3 className="pk-filters__title">{t('col_filter_price_heading')}</h3>
         <ul className="pk-filters__list">
           {priceOptions.map(([value, label]) => (
             <li key={value}>
@@ -390,16 +397,16 @@ function FilterSidebar({nodes, activeProductType, activePrice}) {
   );
 }
 
-function priceLabel(value) {
+function priceLabel(value, t) {
   switch (value) {
     case 'under-25':
-      return 'Under $25';
+      return t('col_price_under25');
     case '25-50':
-      return '$25 – $50';
+      return t('col_price_25_50');
     case '50-100':
-      return '$50 – $100';
+      return t('col_price_50_100');
     case '100-plus':
-      return '$100 +';
+      return t('col_price_100_plus');
     default:
       return value;
   }
@@ -487,14 +494,14 @@ const COLLECTION_QUERY = `#graphql
  *  - 12 of 12 products     → "12 products"          (last page)
  *  - fallback              → "Always growing"
  */
-function formatCount(visible, implied, hasNext) {
-  if (!visible) return 'Collection is loading';
-  const word = visible === 1 ? 'product' : 'products';
+function formatCount(visible, implied, hasNext, t) {
+  if (!visible) return t('col_count_loading');
+  const word = visible === 1 ? t('col_product_singular') : t('col_product_plural');
   if (hasNext && implied && implied > visible) {
-    return `${visible} of ${implied}+ ${word}`;
+    return `${visible} ${t('col_count_of')} ${implied}+ ${word}`;
   }
   if (hasNext) {
-    return `${visible} ${word} and counting`;
+    return `${visible} ${word} ${t('col_count_and_counting')}`;
   }
   return `${visible} ${word}`;
 }

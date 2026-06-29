@@ -1,4 +1,4 @@
-import {createContext, useContext, useEffect, useState} from 'react';
+import {createContext, useCallback, useContext, useEffect, useState} from 'react';
 import {useId} from 'react';
 import {useLocation} from 'react-router';
 
@@ -40,30 +40,6 @@ export function Aside({children, heading, type}) {
     return () => abortController.abort();
   }, [close, expanded]);
 
-  // Live-size the drawer's internal header padding-top so the
-  // CART/SEARCH/MENU heading always sits just below the floating
-  // page header. As the page scrolls the announcement bar goes away
-  // and the header shrinks to ~73px — without this, the heading
-  // leaves a dead "forehead" of empty drawer space above it.
-  useEffect(() => {
-    if (!expanded) return;
-    const root = document.documentElement;
-    const update = () => {
-      const header = document.querySelector('.pk-header');
-      const bottom = header
-        ? Math.round(header.getBoundingClientRect().bottom)
-        : 108;
-      root.style.setProperty('--pk-drawer-header-pad', `${bottom}px`);
-    };
-    update();
-    window.addEventListener('scroll', update, {passive: true});
-    window.addEventListener('resize', update);
-    return () => {
-      window.removeEventListener('scroll', update);
-      window.removeEventListener('resize', update);
-    };
-  }, [expanded]);
-
   return (
     <div
       aria-modal
@@ -71,7 +47,7 @@ export function Aside({children, heading, type}) {
       role="dialog"
       aria-labelledby={id}
     >
-      <button className="close-outside" onClick={close} />
+      <button className="close-outside" onClick={close} aria-label="Close drawer" />
       <aside>
         <header>
           <h3 id={id}>{heading}</h3>
@@ -91,21 +67,22 @@ Aside.Provider = function AsideProvider({children}) {
   const [type, setType] = useState('closed');
   const location = useLocation();
 
-  // Close any open drawer when the route changes. The user's
-  // expectation is that clicking the logo (or any in-page link)
-  // while the cart/search/menu drawer is open navigates AND
-  // dismisses the drawer — otherwise the drawer overlays the new
-  // page and looks like the navigation didn't happen.
+  // Stable reference — must not be recreated on every render because
+  // MegaMenu's useEffect depends on it and would fire on every re-render
+  // (immediately calling close() and cancelling any open()).
+  const close = useCallback(() => setType('closed'), []);
+
+  // Close any open drawer when the route changes.
   useEffect(() => {
-    setType('closed');
-  }, [location.pathname, location.search]);
+    close();
+  }, [location.pathname, location.search, close]);
 
   return (
     <AsideContext.Provider
       value={{
         type,
         open: setType,
-        close: () => setType('closed'),
+        close,
       }}
     >
       {children}

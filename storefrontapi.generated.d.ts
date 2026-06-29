@@ -790,6 +790,9 @@ export type TrendingProductFragment = Pick<
   featuredImage?: StorefrontAPI.Maybe<
     Pick<StorefrontAPI.Image, 'id' | 'url' | 'altText' | 'width' | 'height'>
   >;
+  variants: {
+    nodes: Array<Pick<StorefrontAPI.ProductVariant, 'id' | 'availableForSale'>>;
+  };
 };
 
 export type TrendingQueryVariables = StorefrontAPI.Exact<{
@@ -814,6 +817,11 @@ export type TrendingQuery = {
               'id' | 'url' | 'altText' | 'width' | 'height'
             >
           >;
+          variants: {
+            nodes: Array<
+              Pick<StorefrontAPI.ProductVariant, 'id' | 'availableForSale'>
+            >;
+          };
         }
       >;
     };
@@ -2246,7 +2254,7 @@ interface GeneratedQueryTypes {
     return: RackProductsQuery;
     variables: RackProductsQueryVariables;
   };
-  '#graphql\n  fragment TrendingProduct on Product {\n    id title handle\n    priceRange { minVariantPrice { amount currencyCode } }\n    featuredImage { id url altText width height }\n  }\n  query Trending($country: CountryCode!, $language: LanguageCode!) @inContext(country: $country, language: $language) {\n    collection(handle: "trending-finds") {\n      products(first: 8, sortKey: BEST_SELLING) {\n        nodes { ...TrendingProduct }\n      }\n    }\n  }\n': {
+  '#graphql\n  fragment TrendingProduct on Product {\n    id title handle\n    priceRange { minVariantPrice { amount currencyCode } }\n    featuredImage { id url altText width height }\n    variants(first: 1) {\n      nodes {\n        id\n        availableForSale\n      }\n    }\n  }\n  query Trending($country: CountryCode!, $language: LanguageCode!) @inContext(country: $country, language: $language) {\n    collection(handle: "trending-finds") {\n      products(first: 8, sortKey: BEST_SELLING) {\n        nodes { ...TrendingProduct }\n      }\n    }\n  }\n': {
     return: TrendingQuery;
     variables: TrendingQueryVariables;
   };
@@ -2306,11 +2314,11 @@ interface GeneratedQueryTypes {
     return: PoliciesQuery;
     variables: PoliciesQueryVariables;
   };
-  '#graphql\n  query Product(\n    $country: CountryCode!\n    $handle: String!\n    $language: LanguageCode!\n    $selectedOptions: [SelectedOptionInput!]!)\n  @inContext(country: $country, language: $language) {\n    product(handle: $handle) {\n      ...Product\n    }\n  }\n  #graphql\n  fragment Product on Product {\n    id\n    title\n    vendor\n    handle\n    descriptionHtml\n    description\n    productType\n    encodedVariantExistence\n    encodedVariantAvailability\n    featuredImage {\n      id\n      url\n      altText\n      width\n      height\n    }\n    images(first: 10) {\n      nodes {\n        id\n        url\n        altText\n        width\n        height\n      }\n    }\n    options {\n      name\n      optionValues {\n        name\n        firstSelectableVariant { ...ProductVariant }\n        swatch {\n          color\n          image { previewImage { url } }\n        }\n      }\n    }\n    selectedOrFirstAvailableVariant(selectedOptions: $selectedOptions, ignoreUnknownOptions: true, caseInsensitiveMatch: true) {\n      ...ProductVariant\n    }\n    adjacentVariants (selectedOptions: $selectedOptions) {\n      ...ProductVariant\n    }\n    seo { description title }\n  }\n  #graphql\n  fragment ProductVariant on ProductVariant {\n    availableForSale\n    compareAtPrice { amount currencyCode }\n    id\n    image {\n      __typename\n      id\n      url\n      altText\n      width\n      height\n    }\n    price { amount currencyCode }\n    product { title handle }\n    selectedOptions { name value }\n    sku\n    title\n    unitPrice { amount currencyCode }\n  }\n\n\n': {
+  '#graphql\n  query Product(\n    $country: CountryCode!\n    $handle: String!\n    $language: LanguageCode!\n    $selectedOptions: [SelectedOptionInput!]!\n  ) @inContext(country: $country, language: $language) {\n    product(handle: $handle) { ...Product }\n  }\n  #graphql\n  fragment Product on Product {\n    id title vendor handle descriptionHtml description productType\n    encodedVariantExistence encodedVariantAvailability\n    featuredImage { id url altText width height }\n    images(first: 10) {\n      nodes { id url altText width height }\n    }\n    options {\n      name\n      optionValues {\n        name\n        firstSelectableVariant { ...ProductVariant }\n        swatch { color image { previewImage { url } } }\n      }\n    }\n    selectedOrFirstAvailableVariant(selectedOptions: $selectedOptions, ignoreUnknownOptions: true, caseInsensitiveMatch: true) {\n      ...ProductVariant\n    }\n    adjacentVariants(selectedOptions: $selectedOptions) { ...ProductVariant }\n    seo { description title }\n  }\n  #graphql\n  fragment ProductVariant on ProductVariant {\n    availableForSale\n    compareAtPrice { amount currencyCode }\n    id\n    image { __typename id url altText width height }\n    price { amount currencyCode }\n    product { title handle }\n    selectedOptions { name value }\n    sku\n    title\n    unitPrice { amount currencyCode }\n  }\n\n\n': {
     return: ProductQuery;
     variables: ProductQueryVariables;
   };
-  '#graphql\n  #graphql\n  fragment RecommendedProduct on Product {\n    id\n    handle\n    title\n    productType\n    featuredImage {\n      id\n      url\n      altText\n      width\n      height\n    }\n    priceRange {\n      minVariantPrice { amount currencyCode }\n      maxVariantPrice { amount currencyCode }\n    }\n    variants(first: 1) {\n      nodes {\n        id\n        availableForSale\n      }\n    }\n  }\n\n  query ProductRecommendations(\n    $country: CountryCode!\n    $language: LanguageCode!\n    $productId: ID!)\n  @inContext(country: $country, language: $language) {\n    productRecommendations(productId: $productId) {\n      ...RecommendedProduct\n    }\n  }\n': {
+  '#graphql\n  #graphql\n  fragment RecommendedProduct on Product {\n    id handle title productType\n    featuredImage { id url altText width height }\n    priceRange {\n      minVariantPrice { amount currencyCode }\n      maxVariantPrice { amount currencyCode }\n    }\n    variants(first: 1) { nodes { id availableForSale } }\n  }\n\n  query ProductRecommendations(\n    $country: CountryCode!\n    $language: LanguageCode!\n    $productId: ID!\n  ) @inContext(country: $country, language: $language) {\n    productRecommendations(productId: $productId) { ...RecommendedProduct }\n  }\n': {
     return: ProductRecommendationsQuery;
     variables: ProductRecommendationsQueryVariables;
   };

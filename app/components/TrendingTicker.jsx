@@ -11,7 +11,7 @@ import {Image} from '@shopify/hydrogen';
 export function TrendingTicker({products = []}) {
   if (!products.length) return null;
 
-  // Duplicate for seamless loop
+  // Duplicate for seamless loop (desktop only)
   const items = [...products, ...products];
 
   return (
@@ -20,14 +20,16 @@ export function TrendingTicker({products = []}) {
         <span className="pk-ticker__dot" aria-hidden="true" />
         Trending
       </div>
+
+      {/* Desktop: horizontal auto-scroll */}
       <div className="pk-ticker__track">
         <div className="pk-ticker__scroll">
-          {items.map((product) => {
+          {items.map((product, index) => {
             const image = product?.featuredImage;
             const price = product?.priceRange?.minVariantPrice;
             return (
               <Link
-                key={`tt-${product.id}-${product.handle}`}
+                key={`tt-${product.id}-${product.handle}-${index}`}
                 to={`/products/${product.handle}`}
                 className="pk-ticker__item"
                 prefetch="intent"
@@ -39,6 +41,7 @@ export function TrendingTicker({products = []}) {
                     sizes="48px"
                     loading="lazy"
                     className="pk-ticker__img"
+                    style={{width: 32, height: 32, flexShrink: 0}}
                   />
                 )}
                 <span className="pk-ticker__title">{product.title}</span>
@@ -51,6 +54,39 @@ export function TrendingTicker({products = []}) {
             );
           })}
         </div>
+      </div>
+
+      {/* Mobile: vertical column list (no duplicates) */}
+      <div className="pk-ticker__col">
+        {products.slice(0, 6).map((product) => {
+          const image = product?.featuredImage;
+          const price = product?.priceRange?.minVariantPrice;
+          return (
+            <Link
+              key={`ttm-${product.id}`}
+              to={`/products/${product.handle}`}
+              className="pk-ticker__col-item"
+              prefetch="intent"
+            >
+              {image && (
+                <img
+                  src={image.url}
+                  alt={image.altText || product.title}
+                  width={44}
+                  height={44}
+                  loading="lazy"
+                  className="pk-ticker__col-img"
+                />
+              )}
+              <span className="pk-ticker__col-name">{product.title}</span>
+              {price && (
+                <span className="pk-ticker__col-price">
+                  ${parseFloat(price.amount).toFixed(0)}
+                </span>
+              )}
+            </Link>
+          );
+        })}
       </div>
     </section>
   );

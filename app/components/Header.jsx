@@ -104,7 +104,7 @@ function AnnouncementBar() {
       <button
         type="button"
         className="pk-ann__close"
-        aria-label="Dismiss announcement"
+        aria-label={t('header_dismiss_aria')}
         onClick={() => {
           setHidden(true);
           try {
@@ -126,64 +126,70 @@ export function HeaderMenu({menu, megaMenu, primaryDomainUrl, viewport, publicSt
   const className =
     viewport === 'desktop' ? 'pk-nav' : 'pk-nav pk-nav--mobile';
   const {close} = useAside();
+  const t = useT();
 
+  // Desktop: fully controlled order — no surprises from Shopify admin menu.
+  const desktopNav = [
+    {id: 'dn-new', title: t('nav_new_arrivals'), url: '/collections/new-arrivals'},
+    {id: 'dn-explore', title: t('nav_explore'), url: '/explore'},
+    {id: 'dn-about', title: t('nav_about'), url: '/pages/about'},
+    {id: 'dn-contact', title: t('nav_contact'), url: '/pages/contact'},
+  ];
+  const mobileExtraNav = [
+    {id: 'mn-explore', title: t('nav_explore'), url: '/explore'},
+    {id: 'mn-new', title: t('nav_new_arrivals'), url: '/collections/new-arrivals'},
+    {id: 'mn-about', title: t('nav_about'), url: '/pages/about'},
+  ];
+
+  if (viewport === 'desktop') {
+    return (
+      <nav className={className} role="navigation">
+        <MegaMenu deferred={megaMenu} onClose={close} />
+        {desktopNav.map((item) => (
+          <NavLink
+            key={item.id}
+            className="pk-nav__link"
+            to={item.url}
+            onClick={close}
+            prefetch="intent"
+          >
+            {item.title}
+          </NavLink>
+        ))}
+      </nav>
+    );
+  }
+
+  // Mobile: Shopify admin menu as source of truth, filtered + augmented.
   const shopifyItems = (menu || FALLBACK_HEADER_MENU).items;
-
-  // Build a set of the paths already covered by the Shopify menu so we
-  // don't render duplicate links when the admin menu already includes them.
   const shopifyPaths = new Set(
     shopifyItems
       .filter((i) => i.url)
       .map((i) => {
-        try {
-          return new URL(i.url, 'https://x').pathname;
-        } catch {
-          return i.url;
-        }
+        try { return new URL(i.url, 'https://x').pathname; }
+        catch { return i.url; }
       }),
   );
-
-  const extras = EXTRA_NAV.filter((e) => !shopifyPaths.has(e.url.split('?')[0]));
-
-  // Filter shopify items so we don't render a top-level "Shop" link if the
-  // admin menu already has one -- the MegaMenu IS the Shop entry on desktop.
-  // On mobile, we still show the Shopify "Shop" link (MegaMenu renders null
-  // there, so we add a dedicated fallback link).
-  const filteredItems = viewport === 'desktop'
-    ? shopifyItems.filter((i) => {
-        if (!i.url) return false;
-        const path = (() => {
-          try { return new URL(i.url, 'https://x').pathname; }
-          catch { return i.url; }
-        })();
-        return path !== '/collections/all';
-      })
-    : shopifyItems.filter((i) => !!i.url);
+  const mobileExtras = mobileExtraNav.filter((e) => !shopifyPaths.has(e.url));
+  const mobileItems = shopifyItems.filter((i) => {
+    if (!i.url) return false;
+    try {
+      const path = new URL(i.url, 'https://x').pathname;
+      return path !== '/' && path !== '/collections/all';
+    } catch { return true; }
+  });
 
   return (
     <nav className={className} role="navigation">
-      {viewport === 'desktop' && (
-        <MegaMenu deferred={megaMenu} onClose={close} />
-      )}
       <NavLink
         className="pk-nav__link"
-        to="/explore"
+        to="/collections/all"
         onClick={close}
         prefetch="intent"
       >
-        Explore
+        {t('nav_shop')}
       </NavLink>
-      {viewport === 'mobile' && (
-        <NavLink
-          className="pk-nav__link"
-          to="/collections/all"
-          onClick={close}
-          prefetch="intent"
-        >
-          Shop
-        </NavLink>
-      )}
-      {filteredItems.map((item) => {
+      {mobileItems.map((item) => {
         if (!item.url) return null;
         const url =
           item.url.includes('myshopify.com') ||
@@ -204,7 +210,7 @@ export function HeaderMenu({menu, megaMenu, primaryDomainUrl, viewport, publicSt
           </NavLink>
         );
       })}
-      {extras.map((e) => (
+      {mobileExtras.map((e) => (
         <NavLink
           key={e.id}
           className="pk-nav__link"
@@ -249,11 +255,12 @@ function useHeaderShrink() {
  */
 function HeaderCtas({isLoggedIn, cart}) {
   useHeaderShrink();
+  const t = useT();
   return (
     <div className="pk-header__ctas">
       <LocaleSwitcher />
       <SearchToggle />
-      <NavLink prefetch="intent" to="/account" className="pk-icon-btn" aria-label="Account">
+      <NavLink prefetch="intent" to="/account" className="pk-icon-btn pk-account-btn" aria-label={t('header_account_aria')}>
         <Suspense fallback={<IconUser />}>
           <Await resolve={isLoggedIn} errorElement={<IconUser />}>
             {() => <IconUser />}
@@ -267,15 +274,20 @@ function HeaderCtas({isLoggedIn, cart}) {
 
 function HeaderMenuMobileToggle() {
   const {open, type} = useAside();
+  const t = useT();
   const isOpen = type === 'mobile';
   return (
     <button
       className={
         'pk-icon-btn pk-header__burger' + (isOpen ? ' is-active' : '')
       }
-      aria-label={isOpen ? 'Close menu' : 'Open menu'}
+      aria-label={isOpen ? t('header_menu_close') : t('header_menu_open')}
       aria-expanded={isOpen ? 'true' : 'false'}
-      onClick={() => open(isOpen ? 'closed' : 'mobile')}
+      onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        open(isOpen ? 'closed' : 'mobile');
+      }}
     >
       <IconMenu />
     </button>
@@ -284,13 +296,18 @@ function HeaderMenuMobileToggle() {
 
 function SearchToggle() {
   const {open, type} = useAside();
+  const t = useT();
   const isOpen = type === 'search';
   return (
     <button
       className={'pk-icon-btn' + (isOpen ? ' is-active' : '')}
-      aria-label={isOpen ? 'Close search' : 'Open search'}
+      aria-label={isOpen ? t('header_search_close') : t('header_search_open')}
       aria-expanded={isOpen ? 'true' : 'false'}
-      onClick={() => open(isOpen ? 'closed' : 'search')}
+      onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        open(isOpen ? 'closed' : 'search');
+      }}
     >
       <IconSearch />
     </button>
@@ -302,6 +319,7 @@ function SearchToggle() {
  */
 function CartBadge({count}) {
   const {open, type} = useAside();
+  const t = useT();
   const isOpen = type === 'cart';
   const {publish, shop, cart, prevCart} = useAnalytics();
 
@@ -309,10 +327,11 @@ function CartBadge({count}) {
     <a
       href="/cart"
       className={'pk-icon-btn pk-cart-btn' + (isOpen ? ' is-active' : '')}
-      aria-label={isOpen ? 'Close cart' : 'Open cart'}
+      aria-label={isOpen ? t('header_cart_close') : t('header_cart_open')}
       aria-expanded={isOpen ? 'true' : 'false'}
       onClick={(e) => {
         e.preventDefault();
+        e.stopPropagation();
         open(isOpen ? 'closed' : 'cart');
         if (!isOpen) {
           publish('cart_viewed', {
@@ -387,13 +406,6 @@ const FALLBACK_HEADER_MENU = {
   ],
 };
 
-// Extra nav items always injected alongside whatever the Shopify admin menu provides.
-// De-duplicated against the Shopify menu by URL so they don't appear twice.
-const EXTRA_NAV = [
-  {id: 'ex-new', title: 'New Arrivals', url: '/collections/new-arrivals'},
-  {id: 'ex-gifts', title: 'Gift Guide', url: '/collections/all?price=25-50'},
-  {id: 'ex-about', title: 'About', url: '/pages/about'},
-];
 
 /** @typedef {'desktop' | 'mobile'} Viewport */
 /**

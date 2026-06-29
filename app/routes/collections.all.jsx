@@ -3,6 +3,7 @@ import {getPaginationVariables} from '@shopify/hydrogen';
 import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
 import {puchicaMeta} from '~/lib/seo';
 import {ProductItem} from '~/components/ProductItem';
+import {useT} from '~/lib/t';
 
 /**
  * @type {Route.MetaFunction}
@@ -65,6 +66,7 @@ function loadDeferredData() {
 export default function Collection() {
   /** @type {LoaderReturnData} */
   const {products} = useLoaderData();
+  const t = useT();
   const [searchParams, setSearchParams] = useSearchParams();
   const sortValue = searchParams.get('sort') || 'featured';
   const nodes = products?.nodes ?? [];
@@ -87,30 +89,25 @@ export default function Collection() {
 
   return (
     <div className="pk-collection">
-      <nav className="pk-breadcrumbs" aria-label="Breadcrumb">
-        <Link to="/">Home</Link>
+      <nav className="pk-breadcrumbs" aria-label={t('breadcrumb_aria')}>
+        <Link to="/">{t('breadcrumb_home')}</Link>
         <span className="pk-breadcrumbs__sep">/</span>
-        <span className="pk-breadcrumbs__current">All Products</span>
+        <span className="pk-breadcrumbs__current">{t('all_breadcrumb')}</span>
       </nav>
 
       <header className="pk-col-hero pk-col-hero--soft">
-        <span className="pk-col-hero__eyebrow">The full shop</span>
-        <h1 className="pk-col-hero__title">All products</h1>
-        <p className="pk-col-hero__sub">
-          The complete Puchica catalog — every curated pick in one place.
-          Filter by category from the sidebar, or use the search bar up top.
-        </p>
+        <span className="pk-col-hero__eyebrow">{t('all_eyebrow')}</span>
+        <h1 className="pk-col-hero__title">{t('all_title')}</h1>
+        <p className="pk-col-hero__sub">{t('all_sub')}</p>
         <span className="pk-col-hero__count">
-          {formatCatalogCount(count, impliedTotal, hasNextPage)}
+          {formatCatalogCount(count, impliedTotal, hasNextPage, t)}
         </span>
       </header>
 
       {count === 0 ? (
         <div className="pk-empty">
-          <p className="pk-empty__title">No products to show</p>
-          <p className="pk-empty__body">
-            The catalog is loading. If this persists, try refreshing.
-          </p>
+          <p className="pk-empty__title">{t('all_empty_title')}</p>
+          <p className="pk-empty__body">{t('all_empty_body')}</p>
         </div>
       ) : (
         <div className="pk-col-body" style={{gridTemplateColumns: '1fr'}}>
@@ -119,18 +116,17 @@ export default function Collection() {
               <span className="pk-toolbar__count">
                 {hasNextPage ? (
                   <>
-                    Showing <strong>{count}</strong> so far — load more
-                    below
+                    {t('col_showing')} <strong>{count}</strong> {t('col_showing_more')}
                   </>
                 ) : (
                   <>
-                    Showing <strong>{count}</strong>{' '}
-                    {count === 1 ? 'product' : 'products'}
+                    {t('col_showing')} <strong>{count}</strong>{' '}
+                    {count === 1 ? t('col_product_singular') : t('col_product_plural')}
                   </>
                 )}
               </span>
               <label className="pk-toolbar__sort">
-                Sort by
+                {t('col_sort_by')}
                 <select
                   value={sortValue}
                   onChange={(e) => {
@@ -143,11 +139,11 @@ export default function Collection() {
                     setSearchParams(next, {replace: true});
                   }}
                 >
-                  <option value="featured">Featured</option>
-                  <option value="best-selling">Best selling</option>
-                  <option value="newest">Newest</option>
-                  <option value="price-asc">Price: low to high</option>
-                  <option value="price-desc">Price: high to low</option>
+                  <option value="featured">{t('col_sort_featured')}</option>
+                  <option value="best-selling">{t('col_sort_best')}</option>
+                  <option value="newest">{t('col_sort_newest')}</option>
+                  <option value="price-asc">{t('col_sort_price_asc')}</option>
+                  <option value="price-desc">{t('col_sort_price_desc')}</option>
                 </select>
               </label>
             </div>
@@ -160,6 +156,7 @@ export default function Collection() {
                   key={product.id}
                   product={product}
                   loading={index < 8 ? 'eager' : undefined}
+                  index={index}
                 />
               )}
             </PaginatedResourceSection>
@@ -228,14 +225,14 @@ const CATALOG_QUERY = `#graphql
  *  - 12 of 12 products     → "12 products"          (last page)
  *  - fallback              → "Always growing"
  */
-function formatCatalogCount(visible, implied, hasNext) {
-  if (!visible) return 'Catalog is loading';
-  const word = visible === 1 ? 'product' : 'products';
+function formatCatalogCount(visible, implied, hasNext, t) {
+  if (!visible) return t('all_count_loading');
+  const word = visible === 1 ? t('col_product_singular') : t('col_product_plural');
   if (hasNext && implied && implied > visible) {
-    return `${visible} of ${implied}+ ${word}`;
+    return `${visible} ${t('col_count_of')} ${implied}+ ${word}`;
   }
   if (hasNext) {
-    return `${visible} ${word} and counting`;
+    return `${visible} ${word} ${t('col_count_and_counting')}`;
   }
   return `${visible} ${word}`;
 }

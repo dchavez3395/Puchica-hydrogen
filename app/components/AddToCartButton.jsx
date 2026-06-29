@@ -1,5 +1,7 @@
 import {CartForm} from '@shopify/hydrogen';
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
+import {useAside} from '~/components/Aside';
+import {useT} from '~/lib/t';
 
 /**
  * @param {{
@@ -17,9 +19,9 @@ export function AddToCartButton({
   disabled,
   lines,
   onClick,
-  // Label shown briefly after a successful add. Defaults to "Added ✓".
+  // Label shown briefly after a successful add. Defaults to translated "Added ✓".
   // Set to null to disable the success state.
-  addedLabel = 'Added ✓',
+  addedLabel,
 }) {
   return (
     <CartForm route="/cart" inputs={{lines}} action={CartForm.ACTIONS.LinesAdd}>
@@ -58,17 +60,33 @@ function AddToCartSubmitButton({
   fetcher,
   attemptedMerchandiseIds,
 }) {
+  const t = useT();
   const [showAdded, setShowAdded] = useState(false);
   const [showError, setShowError] = useState(false);
   const isSubmitting = fetcher.state !== 'idle';
   const isDisabled = disabled ?? isSubmitting;
+  const {open} = useAside();
+
+  const wasSubmittingRef = useRef(false);
+
+  useEffect(() => {
+    if (isSubmitting) {
+      wasSubmittingRef.current = true;
+    }
+  }, [isSubmitting]);
+
+  const attemptedIdsKey = attemptedMerchandiseIds.join(',');
 
   useEffect(() => {
     if (fetcher.state !== 'idle' || !fetcher.data) return;
+    if (!wasSubmittingRef.current) return;
+    wasSubmittingRef.current = false;
+
     const result = checkAddAccepted(fetcher.data, attemptedMerchandiseIds);
     if (result.ok) {
       setShowAdded(true);
       setShowError(false);
+      open('cart');
       const t = setTimeout(() => setShowAdded(false), 1400);
       return () => clearTimeout(t);
     }
@@ -77,14 +95,15 @@ function AddToCartSubmitButton({
     setShowAdded(false);
     const t = setTimeout(() => setShowError(false), 3200);
     return () => clearTimeout(t);
-  }, [fetcher.state, fetcher.data, attemptedMerchandiseIds]);
+  }, [fetcher.state, fetcher.data, attemptedIdsKey, open]);
 
+  const resolvedAddedLabel = addedLabel !== undefined ? addedLabel : t('atc_added');
   const label = showError
-    ? 'Out of stock'
+    ? t('atc_out_of_stock')
     : showAdded
-    ? addedLabel
+    ? resolvedAddedLabel
     : isSubmitting
-    ? 'Adding…'
+    ? t('atc_adding')
     : children;
 
   return (

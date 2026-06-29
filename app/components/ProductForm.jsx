@@ -2,6 +2,7 @@ import {Link, useNavigate} from 'react-router';
 import {useState} from 'react';
 import {AddToCartButton} from './AddToCartButton';
 import {useAside} from './Aside';
+import {useT} from '~/lib/t';
 
 /**
  * @param {{
@@ -12,6 +13,7 @@ import {useAside} from './Aside';
 export function ProductForm({productOptions, selectedVariant}) {
   const navigate = useNavigate();
   const {open} = useAside();
+  const t = useT();
   return (
     <div className="product-form" id="product-form">
       {productOptions.map((option) => {
@@ -95,7 +97,8 @@ export function ProductForm({productOptions, selectedVariant}) {
       })}
       <AddToCartButton
         disabled={!selectedVariant || !selectedVariant.availableForSale}
-        onClick={() => {
+        onClick={(e) => {
+          e.stopPropagation();
           open('cart');
         }}
         lines={
@@ -110,7 +113,7 @@ export function ProductForm({productOptions, selectedVariant}) {
             : []
         }
       >
-        {selectedVariant?.availableForSale ? 'Add to cart' : 'Sold out'}
+        {selectedVariant?.availableForSale ? t('product_add_to_cart') : t('product_sold_out')}
       </AddToCartButton>
       {selectedVariant && !selectedVariant.availableForSale ? (
         <NotifyBackForm variantId={selectedVariant.id} productHandle={productOptions?.handle} />
@@ -127,6 +130,7 @@ export function ProductForm({productOptions, selectedVariant}) {
  * is a separate decision — this just unblocks the UX.
  */
 function NotifyBackForm({variantId, productHandle}) {
+  const t = useT();
   const [email, setEmail] = useState('');
   const [sent, setSent] = useState(false);
   const [error, setError] = useState(null);
@@ -135,7 +139,7 @@ function NotifyBackForm({variantId, productHandle}) {
   if (sent) {
     return (
       <p className="pk-notify-back__ok" role="status">
-        Thanks — we&apos;ll email you when this is back in stock.
+        {t('product_notify_ok')}
       </p>
     );
   }
@@ -156,14 +160,14 @@ function NotifyBackForm({variantId, productHandle}) {
           if (!res.ok) throw new Error('Could not subscribe');
           setSent(true);
         } catch {
-          setError('Something went wrong. Please try again.');
+          setError(t('product_notify_error'));
         } finally {
           setSubmitting(false);
         }
       }}
     >
       <label htmlFor={`notify-back-${variantId}`}>
-        Notify me when back in stock
+        {t('product_notify_label')}
       </label>
       <div className="pk-notify-back__row">
         <input
@@ -172,12 +176,12 @@ function NotifyBackForm({variantId, productHandle}) {
           inputMode="email"
           autoComplete="email"
           required
-          placeholder="you@example.com"
+          placeholder={t('product_notify_placeholder')}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <button type="submit" disabled={submitting || !email}>
-          {submitting ? '…' : 'Notify me'}
+          {submitting ? '…' : t('product_notify_btn')}
         </button>
       </div>
       {error ? (

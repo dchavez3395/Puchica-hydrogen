@@ -7,6 +7,7 @@ import {CartMain} from '~/components/CartMain';
 import {NewsletterPopup} from '~/components/NewsletterPopup';
 import StarGlyph from '~/components/StarGlyph';
 import {IconSearch} from '~/components/Icons';
+import {LocaleSwitcher} from '~/components/LocaleSwitcher';
 import {
   SEARCH_ENDPOINT,
   SearchFormPredictive,
@@ -200,6 +201,10 @@ function MobileMenuAside({header, megaMenu, publicStoreDomain}) {
               <span>View cart</span>
               <span aria-hidden>→</span>
             </Link>
+            <div className="pk-mmenu__locale">
+              <span className="pk-mmenu__locale-label">Language</span>
+              <LocaleSwitcher />
+            </div>
           </div>
           <div className="pk-mmenu__group">
             <p className="pk-mmenu__label">Customer Care</p>

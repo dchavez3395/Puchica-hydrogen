@@ -2,14 +2,18 @@ import {Await, useLoaderData, useFetcher, Link} from 'react-router';
 import {Suspense, useEffect, useRef, useState} from 'react';
 import {Image, Money} from '@shopify/hydrogen';
 import {error as logError} from '~/lib/logger';
+import {useT} from '~/lib/t';
 import {IconTruck, IconReturn, IconShield, IconSparkles, IconGift, IconHeart, IconStar, IconHome, IconLeaf, IconLightbulb, IconPawPrint} from '~/components/Icons';
 import StarGlyph from '~/components/StarGlyph';
-import {ScrollPillNav} from '~/components/ScrollPillNav';
 import {puchicaMeta, organizationJsonLd, websiteJsonLd, JsonLdScript} from '~/lib/seo';
 import {CollectionShowcase} from '~/components/CollectionShowcase';
 import {StatsCounter} from '~/components/StatsCounter';
 import {TrendingTicker} from '~/components/TrendingTicker';
 import {ParallaxBanner} from '~/components/ParallaxBanner';
+import {ScrollReveal} from '~/components/ScrollReveal';
+import {TiltCard} from '~/components/TiltCard';
+import {useAside} from '~/components/Aside';
+import {AddToCartButton} from '~/components/AddToCartButton';
 
 /* Shared hook for arrow-nav on horizontal scroll tracks */
 function useScrollNav(trackRef) {
@@ -105,6 +109,9 @@ function loadDeferredData({context}) {
 
 export default function Index() {
   const data = useLoaderData();
+  const t = useT();
+  const [isPlaying, setIsPlaying] = useState(true);
+
   return (
     <div className="pk-home">
       <JsonLdScript data={organizationJsonLd({})} />
@@ -114,35 +121,62 @@ export default function Index() {
       <div id="hero-anchor" className="pk-dark-lead">
         <Suspense fallback={<div style={{minHeight: '100dvh', background: '#0E0C08'}} />}>
           <Await resolve={data.trending}>
-            {(products) => <Hero products={products ?? []} />}
+            {(products) => (
+              <Hero
+                products={products ?? []}
+                isPlaying={isPlaying}
+                setIsPlaying={setIsPlaying}
+              />
+            )}
           </Await>
         </Suspense>
-        <Marquee />
+        <Marquee isPlaying={isPlaying} />
       </div>
-
-      <ScrollPillNav />
 
       {/* Discover swiper — same trending collection */}
       <Suspense fallback={null}>
         <Await resolve={data.trending}>
-          {(products) => <DiscoverSwiper products={products ?? []} />}
+          {(products) => (
+            <ScrollReveal variant="up">
+              <DiscoverSwiper products={products ?? []} />
+            </ScrollReveal>
+          )}
         </Await>
       </Suspense>
 
       {/* Product rack — Home & Kitchen (completely different category) */}
       <Suspense fallback={<div style={{height: 480, background: '#F4F0E6'}} />}>
         <Await resolve={data.rackProducts}>
-          {(products) => <ProductRack products={products ?? []} />}
+          {(products) => (
+            <ScrollReveal variant="up">
+              <ProductRack products={products ?? []} />
+            </ScrollReveal>
+          )}
         </Await>
       </Suspense>
 
       {/* Gift finder */}
       <GiftFinder />
 
+      {/* Product Matchmaker (Tinder Swipe Finder) */}
+      <Suspense fallback={null}>
+        <Await resolve={data.trending}>
+          {(products) => (
+            <ScrollReveal variant="up">
+              <ProductMatchmaker products={products ?? []} />
+            </ScrollReveal>
+          )}
+        </Await>
+      </Suspense>
+
       {/* New arrivals — Outdoor & Garden (different category) */}
       <Suspense fallback={null}>
         <Await resolve={data.newArrivals}>
-          {(products) => <NewArrivals products={products ?? []} />}
+          {(products) => (
+            <ScrollReveal variant="up">
+              <NewArrivals products={products ?? []} />
+            </ScrollReveal>
+          )}
         </Await>
       </Suspense>
 
@@ -168,12 +202,18 @@ export default function Index() {
       </Suspense>
 
       {/* Social proof */}
-      <SocialProof />
+      <ScrollReveal variant="up">
+        <SocialProof />
+      </ScrollReveal>
 
       {/* Fresh finds — Beauty & Personal Care (different category) */}
       <Suspense fallback={null}>
         <Await resolve={data.freshFinds}>
-          {(products) => <FreshFinds products={products ?? []} />}
+          {(products) => (
+            <ScrollReveal variant="up">
+              <FreshFinds products={products ?? []} />
+            </ScrollReveal>
+          )}
         </Await>
       </Suspense>
 
@@ -198,10 +238,10 @@ export default function Index() {
       </Suspense>
 
       <StatsCounter stats={[
-        {value: 6155, label: 'Products', suffix: '+'},
-        {value: 19, label: 'Collections'},
-        {value: 15, label: 'Categories'},
-        {value: 100, label: 'Canadian', suffix: '%'},
+        {value: 6155, label: t('counter_products'), suffix: '+'},
+        {value: 19, label: t('counter_collections')},
+        {value: 15, label: t('counter_categories')},
+        {value: 100, label: t('counter_canadian'), suffix: '%'},
       ]} />
 
     </div>
@@ -211,18 +251,47 @@ export default function Index() {
 /* ─────────────────────────────────────────────────────────────────
    HERO
 ───────────────────────────────────────────────────────────────── */
-function Hero({products}) {
-  const deckItems = products.slice(0, 4);
-  const line1 = ['Everything'];
-  const line2 = ['worth', 'buying.'];
+function Hero({products, isPlaying, setIsPlaying}) {
+  const t = useT();
+  const carouselProducts = (products ?? []).slice(0, 5).filter((p) => p.featuredImage);
+  const [activeIdx, setActiveIdx] = useState(0);
+
+  useEffect(() => {
+    if (!isPlaying || carouselProducts.length <= 1) return;
+    const interval = setInterval(() => {
+      setActiveIdx((prev) => (prev + 1) % carouselProducts.length);
+    }, 6000); // Shift slides every 6s for comfortable visual reading
+    return () => clearInterval(interval);
+  }, [isPlaying, carouselProducts.length]);
+
+  const featuredProduct = carouselProducts[activeIdx];
+  const heroWords = t('hero_title').split(' ');
+  const line1 = heroWords.slice(0, 1);
+  const line2 = heroWords.slice(1);
 
   return (
-    <section className="pk-hero2" aria-label="Welcome to Puchica">
+    <section className="pk-hero2 pk-hero2--lifestyle" aria-label={t('swiper_slides_aria')}>
+      <div className="pk-hero2__bg">
+        {carouselProducts.map((p, idx) => (
+          <div
+            key={p.id}
+            className={`pk-hero2__bg-slide${idx === activeIdx ? ' is-active' : ''}`}
+            aria-hidden="true"
+          >
+            <Image
+              data={p.featuredImage}
+              sizes="100vw"
+              loading={idx === 0 ? 'eager' : 'lazy'}
+            />
+          </div>
+        ))}
+        <div className="pk-hero2__bg-overlay" />
+      </div>
       <div className="pk-hero2__glow pk-hero2__glow--a" aria-hidden="true" />
       <div className="pk-hero2__glow pk-hero2__glow--b" aria-hidden="true" />
       <div className="pk-hero2__inner">
         <div className="pk-hero2__copy">
-          <span className="pk-hero2__eyebrow"><StarGlyph /> Ships from Canada · Free over $50</span>
+          <span className="pk-hero2__eyebrow"><StarGlyph /> {t('hero_eyebrow')}</span>
           <h1 className="pk-hero2__title">
             <span className="pk-hero2__title-row">
               {line1.map((w, i) => (
@@ -239,40 +308,45 @@ function Hero({products}) {
               ))}
             </span>
           </h1>
-          <p className="pk-hero2__sub">
-            6,000+ handpicked products across home, beauty, tech, pet, and more.
-            Real finds from real people who give a damn.
-          </p>
+          <p className="pk-hero2__sub">{t('hero_sub')}</p>
           <div className="pk-hero2__ctas">
-            <Link to="/collections" className="pk-btn pk-btn--spark pk-btn--lg">Shop now →</Link>
-            <Link to="/collections/all" className="pk-btn pk-btn--ghost pk-btn--lg">Browse all</Link>
+            <Link to="/collections" className="pk-btn pk-btn--spark pk-btn--lg">{t('hero_cta_shop')}</Link>
+            <Link to="/collections/all" className="pk-btn pk-btn--ghost pk-btn--lg">{t('hero_cta_browse')}</Link>
           </div>
-          <ul className="pk-hero2__stats" aria-label="Store highlights">
-            <li><strong>6,000+</strong><span>Products</span></li>
-            <li><strong>Free</strong><span>Shipping $50+</span></li>
-            <li><strong>30 days</strong><span>Easy returns</span></li>
+          <ul className="pk-hero2__stats" aria-label={t('swiper_stats_aria')}>
+            <li><strong>6,000+</strong><span>{t('hero_stat_products')}</span></li>
+            <li><strong>Free</strong><span>{t('hero_stat_shipping')}</span></li>
+            <li><strong>30 days</strong><span>{t('hero_stat_returns')}</span></li>
           </ul>
         </div>
-        {deckItems.length > 0 && (
-          <div className="pk-hero2__visual" aria-hidden="true">
-            <div className="pk-deck">
-              {deckItems.map((p, i) => (
-                <Link key={p.id} to={`/products/${p.handle}`} className="pk-deck__card" data-idx={String(i)} tabIndex={-1}>
-                  {p.featuredImage && (
-                    <div className="pk-deck__img">
-                      <Image data={p.featuredImage} aspectRatio="4/5" sizes="200px" loading={i === 0 ? 'eager' : 'lazy'} />
-                    </div>
-                  )}
-                  <div className="pk-deck__info">
-                    <p className="pk-deck__name">{p.title}</p>
-                    <div className="pk-deck__price"><Money data={p.priceRange.minVariantPrice} /></div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        )}
       </div>
+
+      {featuredProduct && (
+        <Link
+          to={`/products/${featuredProduct.handle}`}
+          className="pk-hero2__featured-link"
+          aria-label={t('hero_featured_label').replace('{title}', featuredProduct.title)}
+        >
+          Featured: {featuredProduct.title}
+        </Link>
+      )}
+
+      <button
+        type="button"
+        className="pk-hero2__play-pause"
+        onClick={() => setIsPlaying(!isPlaying)}
+        aria-label={isPlaying ? t('hero_pause_label') : t('hero_play_label')}
+      >
+        {isPlaying ? (
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+          </svg>
+        ) : (
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M8 5v14l11-7z"/>
+          </svg>
+        )}
+      </button>
     </section>
   );
 }
@@ -280,23 +354,19 @@ function Hero({products}) {
 /* ─────────────────────────────────────────────────────────────────
    MARQUEE — accessible with pause/play
 ───────────────────────────────────────────────────────────────── */
-const MARQUEE_ITEMS = [
-  '6,000+ products', 'New drops weekly', 'Free shipping $50+',
-  '30-day easy returns', 'Ships from Canada', 'Handpicked, never random',
-  'Real value. Real finds.', 'Secure checkout',
-];
-
-function Marquee() {
-  const [paused, setPaused] = useState(false);
-  // The track is decorative (duplicated items are not real content), but
-  // the pause control sits inside the same wrapper so it stays in the
-  // tab order and is announced. SR users get the same offer info via
-  // the sticky announcement bar (Header.AnnouncementBar) above the page
-  // header, so the visual marquee text doesn't need to be exposed.
+function Marquee({isPlaying}) {
+  const t = useT();
+  const MARQUEE_ITEMS = [
+    t('ticker_products'), t('ticker_new_drops'), t('ticker_free_shipping'),
+    t('ticker_returns'), t('ticker_ships'), t('ticker_handpicked'),
+    t('ticker_real_value'), t('ticker_secure'),
+  ];
+  // The track is decorative (duplicated items are not real content).
+  // The scroll state is synchronized with the main Hero play/pause controller.
   return (
     <div className="pk-marquee">
       <div className="pk-marquee__track-wrap" aria-hidden="true">
-        <div className={`pk-marquee__track${paused ? ' is-paused' : ''}`}>
+        <div className={`pk-marquee__track${!isPlaying ? ' is-paused' : ''}`}>
           {['a', 'b'].flatMap((copy) =>
             MARQUEE_ITEMS.map((t) => (
               <span className="pk-marquee__item" key={`${copy}-${t}`}>
@@ -306,26 +376,297 @@ function Marquee() {
           )}
         </div>
       </div>
-      {/* Pause control sits OUTSIDE the scrolling row and is exposed to AT. */}
-      <button
-        type="button"
-        className={`pk-marquee__pause${paused ? ' is-paused' : ''}`}
-        onClick={() => setPaused((p) => !p)}
-        aria-label={paused ? 'Resume scrolling banner' : 'Pause scrolling banner'}
-        aria-pressed={paused}
-        tabIndex={0}
-      >
-        <span className="pk-marquee__pause-icon" aria-hidden="true">{paused ? '▶' : '⏸'}</span>
-        <span className="pk-marquee__pause-label">{paused ? 'Resume' : 'Pause'}</span>
-      </button>
     </div>
   );
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   PRODUCT MATCHMAKER (TINDER SWIPE FINDER)
+───────────────────────────────────────────────────────────────── */
+function ProductMatchmaker({products}) {
+  const t = useT();
+  const swipeProducts = (products ?? []).filter(
+    (p) => p.featuredImage && p.variants?.nodes?.[0],
+  );
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [dragOffset, setDragOffset] = useState({x: 0, y: 0});
+  const [isDragging, setIsDragging] = useState(false);
+  const [swipeDirection, setSwipeDirection] = useState(null);
+  const [likedCount, setLikedCount] = useState(0);
+  const {open} = useAside();
+
+  const dragStartRef = useRef({x: 0, y: 0});
+  const activeProduct = swipeProducts[currentIndex];
+  const nextProduct = swipeProducts[currentIndex + 1];
+  const nextProduct2 = swipeProducts[currentIndex + 2];
+
+  const handleStart = (e, isTouch = false) => {
+    if (!isTouch) {
+      e.preventDefault();
+    }
+    const clientX = isTouch ? e.touches[0].clientX : e.clientX;
+    const clientY = isTouch ? e.touches[0].clientY : e.clientY;
+    setIsDragging(true);
+    dragStartRef.current = {x: clientX, y: clientY};
+  };
+
+  const handleMove = (e, isTouch = false) => {
+    if (!isDragging) return;
+    const clientX = isTouch ? e.touches[0].clientX : e.clientX;
+    const clientY = isTouch ? e.touches[0].clientY : e.clientY;
+    const deltaX = clientX - dragStartRef.current.x;
+    const deltaY = clientY - dragStartRef.current.y;
+    setDragOffset({x: deltaX, y: deltaY});
+  };
+
+  const handleEnd = () => {
+    if (!isDragging) return;
+    setIsDragging(false);
+    const threshold = 120;
+    if (dragOffset.x > threshold) {
+      swipe('right');
+    } else if (dragOffset.x < -threshold) {
+      swipe('left');
+    } else if (dragOffset.y < -threshold) {
+      swipe('up');
+    } else {
+      setDragOffset({x: 0, y: 0});
+    }
+  };
+
+  const swipe = (dir) => {
+    setSwipeDirection(dir);
+    if (dir === 'right') {
+      setLikedCount((prev) => prev + 1);
+    } else if (dir === 'up' && activeProduct) {
+      triggerAddToCart(activeProduct.id);
+      open('cart');
+    }
+
+    setTimeout(() => {
+      setCurrentIndex((prev) => prev + 1);
+      setSwipeDirection(null);
+      setDragOffset({x: 0, y: 0});
+    }, 300);
+  };
+
+  const triggerAddToCart = (productId) => {
+    const container = document.getElementById(`atc-wrap-${productId}`);
+    if (container) {
+      const btn = container.querySelector('button[type="submit"]');
+      if (btn) {
+        btn.click();
+      }
+    }
+  };
+
+  const resetDeck = () => {
+    setCurrentIndex(0);
+    setLikedCount(0);
+  };
+
+  const getStampOpacity = (type) => {
+    if (swipeDirection) {
+      return swipeDirection === type ? 1 : 0;
+    }
+    const maxVal = 100;
+    if (type === 'like' && dragOffset.x > 20) {
+      return Math.min(dragOffset.x / maxVal, 1);
+    }
+    if (type === 'nope' && dragOffset.x < -20) {
+      return Math.min(-dragOffset.x / maxVal, 1);
+    }
+    if (type === 'super' && dragOffset.y < -20 && Math.abs(dragOffset.y) > Math.abs(dragOffset.x)) {
+      return Math.min(-dragOffset.y / maxVal, 1);
+    }
+    return 0;
+  };
+
+  if (!swipeProducts.length) return null;
+
+  const isCompleted = currentIndex >= swipeProducts.length;
+
+  return (
+    <section className="pk-matchmaker" aria-label={t('match_section_aria')}>
+      <div className="pk-matchmaker__inner">
+        <div className="pk-matchmaker__head">
+          <span className="pk-matchmaker__eye"><StarGlyph /> {t('match_eyebrow')}</span>
+          <h2 className="pk-matchmaker__title">{t('match_title')}</h2>
+          {/* eslint-disable-next-line react/no-danger */}
+          <p className="pk-matchmaker__sub" dangerouslySetInnerHTML={{__html: t('match_sub')}} />
+        </div>
+
+        {isCompleted ? (
+          <div className="pk-matchmaker__empty">
+            <span className="pk-matchmaker__empty-heart" aria-hidden="true">💖</span>
+            <h3>{t('match_empty_title')}</h3>
+            <p>{t('match_empty_body').replace('{count}', likedCount)}</p>
+            <div className="pk-matchmaker__empty-actions">
+              <button onClick={resetDeck} className="pk-btn pk-btn--spark">{t('match_reset')}</button>
+              <Link to="/collections/all" className="pk-btn pk-btn--ghost">{t('match_browse')}</Link>
+            </div>
+          </div>
+        ) : (
+          <div className="pk-matchmaker__find-wrap">
+            <div className="pk-matchmaker__stack" role="region" aria-label={t('match_deck_aria')}>
+              {nextProduct2 && (
+                <div className="pk-matchmaker__card pk-matchmaker__card--under2" aria-hidden="true">
+                  <div className="pk-matchmaker__img-wrap">
+                    <Image data={nextProduct2.featuredImage} sizes="360px" />
+                  </div>
+                  <div className="pk-matchmaker__card-info">
+                    <p className="pk-matchmaker__card-name">{nextProduct2.title}</p>
+                    <div className="pk-matchmaker__card-price">
+                      <Money data={nextProduct2.priceRange.minVariantPrice} />
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {nextProduct && (
+                <div className="pk-matchmaker__card pk-matchmaker__card--under" aria-hidden="true">
+                  <div className="pk-matchmaker__img-wrap">
+                    <Image data={nextProduct.featuredImage} sizes="360px" />
+                  </div>
+                  <div className="pk-matchmaker__card-info">
+                    <p className="pk-matchmaker__card-name">{nextProduct.title}</p>
+                    <div className="pk-matchmaker__card-price">
+                      <Money data={nextProduct.priceRange.minVariantPrice} />
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {activeProduct && (
+                <div
+                  className={`pk-matchmaker__card pk-matchmaker__card--top${isDragging ? ' is-dragging' : ''}`}
+                  onMouseDown={(e) => handleStart(e, false)}
+                  onMouseMove={(e) => handleMove(e, false)}
+                  onMouseUp={handleEnd}
+                  onMouseLeave={handleEnd}
+                  onTouchStart={(e) => handleStart(e, true)}
+                  onTouchMove={(e) => handleMove(e, true)}
+                  onTouchEnd={handleEnd}
+                  style={{
+                    transform: swipeDirection 
+                      ? (swipeDirection === 'right' 
+                        ? 'translate3d(500px, 0, 0) rotate(30deg)' 
+                        : swipeDirection === 'left' 
+                          ? 'translate3d(-500px, 0, 0) rotate(-30deg)' 
+                          : 'translate3d(0, -500px, 0) rotate(0deg)')
+                      : `translate3d(${dragOffset.x}px, ${dragOffset.y}px, 0) rotate(${dragOffset.x * 0.08}deg)`,
+                    transition: isDragging ? 'none' : 'transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1)',
+                  }}
+                >
+                  <div className="pk-matchmaker__img-wrap">
+                    <Image data={activeProduct.featuredImage} sizes="360px" loading="eager" />
+                    
+                    <span
+                      className="pk-matchmaker__stamp pk-matchmaker__stamp--like"
+                      style={{ opacity: getStampOpacity('like') }}
+                    >
+                      {t('match_stamp_like')}
+                    </span>
+                    <span
+                      className="pk-matchmaker__stamp pk-matchmaker__stamp--nope"
+                      style={{ opacity: getStampOpacity('nope') }}
+                    >
+                      {t('match_stamp_nope')}
+                    </span>
+                    <span
+                      className="pk-matchmaker__stamp pk-matchmaker__stamp--super"
+                      style={{ opacity: getStampOpacity('super') }}
+                    >
+                      {t('match_stamp_super')}
+                    </span>
+                  </div>
+
+                  <div className="pk-matchmaker__card-info">
+                    <p className="pk-matchmaker__card-name">{activeProduct.title}</p>
+                    <div className="pk-matchmaker__card-price">
+                      <Money data={activeProduct.priceRange.minVariantPrice} />
+                    </div>
+                  </div>
+
+                  <div id={`atc-wrap-${activeProduct.id}`} style={{ display: 'none' }}>
+                    <AddToCartButton
+                      lines={[{ merchandiseId: activeProduct.variants.nodes[0].id, quantity: 1 }]}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        open('cart');
+                      }}
+                    >
+                      Add to Cart
+                    </AddToCartButton>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {activeProduct && (
+              <div className="pk-matchmaker__actions">
+                <button 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    swipe('left');
+                  }} 
+                  className="pk-matchmaker__btn pk-matchmaker__btn--nope"
+                  aria-label={t('match_pass_aria')}
+                >
+                  ❌
+                </button>
+                <button 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    swipe('up');
+                  }} 
+                  className="pk-matchmaker__btn pk-matchmaker__btn--super"
+                  aria-label={t('match_super_aria')}
+                >
+                  ⚡
+                </button>
+                <button 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    swipe('right');
+                  }} 
+                  className="pk-matchmaker__btn pk-matchmaker__btn--like"
+                  aria-label={t('match_like_aria')}
+                >
+                  💚
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
+
+function scrollContainerToChild(container, childIndex) {
+  if (!container) return;
+  const child = container.children[childIndex];
+  if (!child) return;
+
+  const containerWidth = container.clientWidth;
+  const childWidth = child.clientWidth;
+  const scrollLeft = child.offsetLeft - (containerWidth / 2) + (childWidth / 2);
+
+  container.scrollTo({
+    left: scrollLeft,
+    behavior: 'smooth',
+  });
 }
 
 /* ─────────────────────────────────────────────────────────────────
    DISCOVER SWIPER
 ───────────────────────────────────────────────────────────────── */
 function DiscoverSwiper({products}) {
+  const t = useT();
   const items = products.slice(0, 8);
   const trackRef = useRef(null);
   const sectionRef = useRef(null);
@@ -349,7 +690,7 @@ function DiscoverSwiper({products}) {
   const scrollTo = (i) => {
     const n = Math.max(0, Math.min(i, items.length - 1));
     setActive(n);
-    trackRef.current?.children[n]?.scrollIntoView({behavior: 'smooth', block: 'nearest', inline: 'center'});
+    scrollContainerToChild(trackRef.current, n);
   };
 
   // Read prefers-reduced-motion once on mount.
@@ -380,7 +721,7 @@ function DiscoverSwiper({products}) {
         const rect = sectionRef.current.getBoundingClientRect();
         const inView = rect.top < window.innerHeight && rect.bottom > 0;
         if (inView) {
-          trackRef.current?.children[next]?.scrollIntoView({behavior: 'smooth', block: 'nearest', inline: 'center'});
+          scrollContainerToChild(trackRef.current, next);
         }
       }
     }, 5000);
@@ -393,7 +734,7 @@ function DiscoverSwiper({products}) {
       ref={sectionRef}
       id="section-discover"
       className="pk-swiper"
-      aria-label="Discover products carousel"
+      aria-label={t('swiper_carousel_aria')}
       aria-roledescription="carousel"
       onFocus={() => setFocused(true)}
       onBlur={() => setFocused(false)}
@@ -404,13 +745,13 @@ function DiscoverSwiper({products}) {
     >
       <div className="pk-swiper__head pk-inner">
         <div>
-          <p className="pk-swiper__eye"><StarGlyph /> Trending now</p>
-          <h2 className="pk-swiper__title">This week&apos;s top picks</h2>
+          <p className="pk-swiper__eye"><StarGlyph /> {t('swiper_eyebrow')}</p>
+          <h2 className="pk-swiper__title">{t('swiper_title')}</h2>
         </div>
-        <div className="pk-swiper__navrow" role="group" aria-label="Carousel navigation">
-          <button className="pk-swiper__arr" onClick={() => scrollTo(active - 1)} disabled={active === 0} aria-label="Previous product">←</button>
+        <div className="pk-swiper__navrow" role="group" aria-label={t('swiper_carousel_nav_aria')}>
+          <button className="pk-swiper__arr" onClick={() => scrollTo(active - 1)} disabled={active === 0} aria-label={t('swiper_prev_aria')}>←</button>
           <span className="pk-swiper__count" aria-live="polite" aria-atomic="true">{active + 1} / {items.length}</span>
-          <button className="pk-swiper__arr" onClick={() => scrollTo(active + 1)} disabled={active === items.length - 1} aria-label="Next product">→</button>
+          <button className="pk-swiper__arr" onClick={() => scrollTo(active + 1)} disabled={active === items.length - 1} aria-label={t('swiper_next_aria')}>→</button>
         </div>
       </div>
       <div
@@ -440,7 +781,7 @@ function DiscoverSwiper({products}) {
           </Link>
         ))}
       </div>
-      <div className="pk-swiper__dots" aria-label="Jump to product">
+      <div className="pk-swiper__dots" aria-label={t('swiper_dots_aria')}>
         {items.map((p, i) => (
           <button
             key={p.id}
@@ -456,12 +797,12 @@ function DiscoverSwiper({products}) {
           type="button"
           className={`pk-swiper__ctrl-btn${autoPaused ? ' is-paused' : ''}`}
           onClick={() => setAutoPaused((p) => !p)}
-          aria-label={autoPaused ? 'Resume auto-advancing carousel' : 'Pause auto-advancing carousel'}
+          aria-label={autoPaused ? t('swiper_resume_label') : t('swiper_pause_label')}
           aria-pressed={autoPaused}
           aria-controls="pk-swiper-track"
         >
           <span className="pk-swiper__ctrl-icon" aria-hidden="true">{autoPaused ? '▶' : '⏸'}</span>
-          <span className="pk-swiper__ctrl-label">{autoPaused ? 'Resume auto-play' : 'Pause auto-play'}</span>
+          <span className="pk-swiper__ctrl-label">{autoPaused ? t('swiper_resume_label') : t('swiper_pause_label')}</span>
         </button>
       </div>
     </section>
@@ -472,19 +813,20 @@ function DiscoverSwiper({products}) {
    PRODUCT RACK
 ───────────────────────────────────────────────────────────────── */
 function ProductRack({products}) {
+  const t = useT();
   const trackRef = useRef(null);
   const {canLeft, canRight, scrollBy} = useScrollNav(trackRef);
   if (!products?.length) return null;
   return (
-    <section id="section-rack" className="pk-rack" aria-label="Premium picks">
+    <section id="section-rack" className="pk-rack" aria-label={t('rack_section_aria')}>
       <div className="pk-inner pk-rack__head">
         <div>
-          <p className="pk-rack__eye"><StarGlyph /> Home &amp; Kitchen</p>
-          <h2 className="pk-rack__title">Upgrade your space.</h2>
+          <p className="pk-rack__eye"><StarGlyph /> {t('rack_eyebrow')}</p>
+          <h2 className="pk-rack__title">{t('rack_title')}</h2>
         </div>
-        <div className="pk-rack__nav" role="group" aria-label="Scroll products">
-          <button className="pk-rack__arr" onClick={() => scrollBy(-260)} disabled={!canLeft} aria-label="Scroll left">←</button>
-          <button className="pk-rack__arr" onClick={() => scrollBy(260)} disabled={!canRight} aria-label="Scroll right">→</button>
+        <div className="pk-rack__nav" role="group" aria-label={t('rack_scroll_aria')}>
+          <button className="pk-rack__arr" onClick={() => scrollBy(-260)} disabled={!canLeft} aria-label={t('rack_scroll_left_aria')}>←</button>
+          <button className="pk-rack__arr" onClick={() => scrollBy(260)} disabled={!canRight} aria-label={t('rack_scroll_right_aria')}>→</button>
         </div>
       </div>
       <div className="pk-rack__track" ref={trackRef} role="list">
@@ -505,34 +847,40 @@ function ProductRack({products}) {
 /* ─────────────────────────────────────────────────────────────────
    GIFT FINDER — price bracket cards
 ───────────────────────────────────────────────────────────────── */
-const PRICE_BRACKETS = [
-  {range: 'under-25',  label: 'Under $25',  sub: 'Little treats, big smiles', icon: IconGift},
-  {range: '25-50',     label: '$25 – $50',  sub: 'Sweet-spot gifts',          icon: IconHeart},
-  {range: '50-100',    label: '$50 – $100', sub: 'Premium picks',             icon: IconSparkles},
-  {range: '100-plus',  label: '$100+',      sub: 'Go all out',                icon: IconStar},
-];
-
 function GiftFinder() {
+  const t = useT();
+  const PRICE_BRACKETS = [
+    {range: 'under-25', label: t('gift_under25_label'), sub: t('gift_under25_sub'), icon: IconGift},
+    {range: '25-50',    label: t('gift_25_50_label'),   sub: t('gift_25_50_sub'),   icon: IconHeart},
+    {range: '50-100',   label: t('gift_50_100_label'),  sub: t('gift_50_100_sub'),  icon: IconSparkles},
+    {range: '100-plus', label: t('gift_100_label'),     sub: t('gift_100_sub'),     icon: IconStar},
+  ];
   return (
-    <section className="pk-gift" aria-label="Find a gift by budget">
-      <div className="pk-gift__inner">
-        <div className="pk-gift__head">
-          <span className="pk-gift__eye"><StarGlyph /> Gift ideas</span>
-          <h2 className="pk-gift__title">Find the perfect gift.</h2>
-          <p className="pk-gift__sub">6,000+ options across every budget. Something for everyone on your list.</p>
+    <ScrollReveal variant="up">
+      <section className="pk-gift" aria-label={t('gift_section_aria')}>
+        <div className="pk-gift__inner">
+          <div className="pk-gift__head">
+            <span className="pk-gift__eye"><StarGlyph /> {t('gift_eyebrow')}</span>
+            <h2 className="pk-gift__title">{t('gift_title')}</h2>
+            <p className="pk-gift__sub">{t('gift_sub')}</p>
+          </div>
+          <div className="pk-gift__grid">
+            {PRICE_BRACKETS.map(({range, label, sub, icon: Icon}, i) => (
+              <ScrollReveal key={range} delay={i * 60} variant="up">
+                <TiltCard className="pk-gift__card-wrap" maxTilt={6}>
+                  <Link to={`/collections/all?price=${range}`} className="pk-gift__card" aria-label={`Shop gifts ${label}`}>
+                    <span className="pk-gift__icon" aria-hidden="true"><Icon size={28} /></span>
+                    <strong className="pk-gift__label">{label}</strong>
+                    <span className="pk-gift__card-sub">{sub}</span>
+                    <span className="pk-gift__arrow" aria-hidden="true">→</span>
+                  </Link>
+                </TiltCard>
+              </ScrollReveal>
+            ))}
+          </div>
         </div>
-        <div className="pk-gift__grid">
-          {PRICE_BRACKETS.map(({range, label, sub, icon: Icon}) => (
-            <Link key={range} to={`/collections/all?price=${range}`} className="pk-gift__card" aria-label={`Shop gifts ${label}`}>
-              <span className="pk-gift__icon" aria-hidden="true"><Icon size={28} /></span>
-              <strong className="pk-gift__label">{label}</strong>
-              <span className="pk-gift__card-sub">{sub}</span>
-              <span className="pk-gift__arrow" aria-hidden="true">→</span>
-            </Link>
-          ))}
-        </div>
-      </div>
-    </section>
+      </section>
+    </ScrollReveal>
   );
 }
 
@@ -540,21 +888,22 @@ function GiftFinder() {
    NEW ARRIVALS — dark horizontal strip
 ───────────────────────────────────────────────────────────────── */
 function NewArrivals({products}) {
+  const t = useT();
   const trackRef = useRef(null);
   const {canLeft, canRight, scrollBy} = useScrollNav(trackRef);
   if (!products?.length) return null;
   return (
-    <section id="section-new-arrivals" className="pk-arrivals" aria-label="New arrivals">
+    <section id="section-new-arrivals" className="pk-arrivals" aria-label={t('arrivals_section_aria')}>
       <div className="pk-arrivals__head pk-inner">
         <div>
-          <p className="pk-arrivals__eye"><StarGlyph /> Outdoor &amp; Garden</p>
-          <h2 className="pk-arrivals__title">Get outside.</h2>
+          <p className="pk-arrivals__eye"><StarGlyph /> {t('arrivals_eyebrow')}</p>
+          <h2 className="pk-arrivals__title">{t('arrivals_title')}</h2>
         </div>
         <div className="pk-arrivals__head-right">
-          <Link to="/collections/new-arrivals" className="pk-arrivals__link">See all new →</Link>
-          <div className="pk-rack__nav" role="group" aria-label="Scroll arrivals">
-            <button className="pk-rack__arr pk-rack__arr--dark" onClick={() => scrollBy(-220)} disabled={!canLeft} aria-label="Scroll left">←</button>
-            <button className="pk-rack__arr pk-rack__arr--dark" onClick={() => scrollBy(220)} disabled={!canRight} aria-label="Scroll right">→</button>
+          <Link to="/collections/new-arrivals" className="pk-arrivals__link">{t('arrivals_see_all')}</Link>
+          <div className="pk-rack__nav" role="group" aria-label={t('arrivals_scroll_aria')}>
+            <button className="pk-rack__arr pk-rack__arr--dark" onClick={() => scrollBy(-220)} disabled={!canLeft} aria-label={t('rack_scroll_left_aria')}>←</button>
+            <button className="pk-rack__arr pk-rack__arr--dark" onClick={() => scrollBy(220)} disabled={!canRight} aria-label={t('rack_scroll_right_aria')}>→</button>
           </div>
         </div>
       </div>
@@ -567,7 +916,7 @@ function NewArrivals({products}) {
               </div>
             )}
             <div className="pk-arrivals__card-body">
-              <span className="pk-arrivals__card-badge" aria-label="New product">New</span>
+              <span className="pk-arrivals__card-badge" aria-label={t('arrivals_badge_aria')}>{t('arrivals_badge')}</span>
               <p className="pk-arrivals__card-name">{p.title}</p>
               <div className="pk-arrivals__card-price"><Money data={p.priceRange.minVariantPrice} /></div>
             </div>
@@ -581,47 +930,60 @@ function NewArrivals({products}) {
 /* ─────────────────────────────────────────────────────────────────
    CATEGORY BENTO
 ───────────────────────────────────────────────────────────────── */
-const CAT_META = {
-  'home-essentials':      {tagline: 'Your space, elevated.',        icon: IconHome},
-  'beauty-personal-care': {tagline: 'Feel it from the inside out.', icon: IconSparkles},
-  'tech-gadgets':         {tagline: 'Smarter, every single day.',   icon: IconLightbulb},
-  'outdoor-garden':       {tagline: 'Get out there.',               icon: IconLeaf},
-  'pet-finds':            {tagline: 'They deserve the best too.',   icon: IconPawPrint},
-};
 const CAT_ORDER = ['home', 'beauty', 'tech', 'outdoor', 'pet'];
 
 function CategoryBento({res}) {
+  const t = useT();
+  const CAT_META = {
+    'home-essentials':      {tagline: t('cat_home_tagline'),    icon: IconHome},
+    'beauty-personal-care': {tagline: t('cat_beauty_tagline'),  icon: IconSparkles},
+    'tech-gadgets':         {tagline: t('cat_tech_tagline'),    icon: IconLightbulb},
+    'outdoor-garden':       {tagline: t('cat_outdoor_tagline'), icon: IconLeaf},
+    'pet-finds':            {tagline: t('cat_pet_tagline'),     icon: IconPawPrint},
+  };
   const cats = CAT_ORDER.map((k) => res?.[k]).filter(Boolean).slice(0, 5);
+
   if (!cats.length) return null;
   return (
-    <section id="section-categories" className="pk-bento" aria-label="Shop by category">
+    <section id="section-categories" className="pk-bento" aria-label={t('cat_section_aria')}>
       <div className="pk-bento__head pk-inner">
-        <p className="pk-bento__eye"><StarGlyph /> Shop by category</p>
-        <h2 className="pk-bento__title">Find your thing.</h2>
+        <p className="pk-bento__eye"><StarGlyph /> {t('cat_eyebrow')}</p>
+        <h2 className="pk-bento__title">{t('cat_title')}</h2>
       </div>
       <div className="pk-bento__grid pk-inner">
         {cats.map((col, i) => {
-          const meta = CAT_META[col.handle] ?? {tagline: 'Curated with care.', icon: IconStar};
+          const meta = CAT_META[col.handle] ?? {tagline: t('cat_fallback_tagline'), icon: IconStar};
           const Icon = meta.icon;
           const img = col.products?.nodes?.[0]?.featuredImage;
           return (
-            <Link key={col.id} to={`/collections/${col.handle}`}
-              className={`pk-bento__cell pk-bento__cell--${i}`}
-              aria-label={`Shop ${col.title}`}
+            <ScrollReveal
+              key={col.id}
+              delay={i * 60}
+              variant="up"
+              className={`pk-bento__cell--${i}`}
+              style={{ display: 'flex' }}
             >
-              {img && (
-                <Image data={img} sizes="(min-width: 1200px) 500px, 50vw" loading={i === 0 ? 'eager' : 'lazy'}
-                  className="pk-bento__cell-img"
-                  style={{position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', aspectRatio: 'unset'}}
-                />
-              )}
-              <div className="pk-bento__cell-overlay" />
-              <div className="pk-bento__cell-body">
-                <p className="pk-bento__cell-eye"><span className="pk-bento__cell-icon" aria-hidden="true"><Icon size={18} /></span> {col.title}</p>
-                <h3 className="pk-bento__cell-name">{meta.tagline}</h3>
-                <span className="pk-bento__cell-cta">Shop now →</span>
-              </div>
-            </Link>
+              <TiltCard className="pk-bento__cell-wrap" maxTilt={6} style={{ width: '100%' }}>
+                <Link to={`/collections/${col.handle}`}
+                  className="pk-bento__cell"
+                  style={{ height: '100%' }}
+                  aria-label={`Shop ${col.title}`}
+                >
+                  {img && (
+                    <Image data={img} sizes="(min-width: 1200px) 500px, 50vw" loading={i === 0 ? 'eager' : 'lazy'}
+                      className="pk-bento__cell-img"
+                      style={{position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', aspectRatio: 'unset'}}
+                    />
+                  )}
+                  <div className="pk-bento__cell-overlay" />
+                  <div className="pk-bento__cell-body">
+                    <p className="pk-bento__cell-eye"><span className="pk-bento__cell-icon" aria-hidden="true"><Icon size={18} /></span> {col.title}</p>
+                    <h3 className="pk-bento__cell-name">{meta.tagline}</h3>
+                    <span className="pk-bento__cell-cta">{t('cat_shop_now')}</span>
+                  </div>
+                </Link>
+              </TiltCard>
+            </ScrollReveal>
           );
         })}
       </div>
@@ -632,83 +994,89 @@ function CategoryBento({res}) {
 /* ─────────────────────────────────────────────────────────────────
    SHOP BY MOOD — 3-col editorial with real category images
 ───────────────────────────────────────────────────────────────── */
-const MOODS = [
-  {
-    handle: 'home-essentials', catKey: 'home',
-    label: 'Home & Living',
-    title: 'Your home deserves better.',
-    sub: 'Storage, decor, kitchen tools — everything to make the space you live in feel intentional.',
-    cta: 'Upgrade your space →',
-    icon: IconHome,
-  },
-  {
-    handle: 'beauty-personal-care', catKey: 'beauty',
-    label: 'Beauty & Self-Care',
-    title: 'Take care of yourself.',
-    sub: 'Skincare, wellness, and personal-care products that actually work — picked by people who use them.',
-    cta: 'Treat yourself →',
-    icon: IconSparkles,
-  },
-  {
-    handle: 'tech-gadgets', catKey: 'tech',
-    label: 'Tech & Gadgets',
-    title: 'Work smarter, play harder.',
-    sub: 'Accessories, tools, and gadgets that genuinely improve your day. No gimmicks.',
-    cta: 'Power up →',
-    icon: IconLightbulb,
-  },
-];
-
 function ShopByMood({catRes}) {
+  const t = useT();
+  const MOODS = [
+    {
+      handle: 'home-essentials', catKey: 'home',
+      label: t('mood_home_label'),
+      title: t('mood_home_title'),
+      sub: t('mood_home_sub'),
+      cta: t('mood_home_cta'),
+      icon: IconHome,
+    },
+    {
+      handle: 'beauty-personal-care', catKey: 'beauty',
+      label: t('mood_beauty_label'),
+      title: t('mood_beauty_title'),
+      sub: t('mood_beauty_sub'),
+      cta: t('mood_beauty_cta'),
+      icon: IconSparkles,
+    },
+    {
+      handle: 'tech-gadgets', catKey: 'tech',
+      label: t('mood_tech_label'),
+      title: t('mood_tech_title'),
+      sub: t('mood_tech_sub'),
+      cta: t('mood_tech_cta'),
+      icon: IconLightbulb,
+    },
+  ];
   return (
-    <section className="pk-mood" aria-label="Shop by lifestyle">
-      <div className="pk-mood__head pk-inner">
-        <p className="pk-mood__eye"><StarGlyph /> Made for your life</p>
-        <h2 className="pk-mood__title">Shop the way you live.</h2>
-      </div>
-      <div className="pk-mood__grid">
-        {MOODS.map((m) => {
-          const Icon = m.icon;
-          const col = catRes?.[m.catKey];
-          const img = col?.products?.nodes?.[0]?.featuredImage;
-          return (
-            <Link key={m.handle} to={`/collections/${m.handle}`} className="pk-mood__card" aria-label={`${m.label} — ${m.title}`}>
-              <div className="pk-mood__card-img">
-                {img
-                  ? <Image data={img} aspectRatio="4/3" sizes="480px" loading="lazy" />
-                  : <span className="pk-mood__card-icon" aria-hidden="true"><Icon size={48} /></span>
-                }
-              </div>
-              <div className="pk-mood__card-body">
-                <p className="pk-mood__card-label">{m.label}</p>
-                <h3 className="pk-mood__card-title">{m.title}</h3>
-                <p className="pk-mood__card-sub">{m.sub}</p>
-                <span className="pk-mood__card-cta" aria-hidden="true">{m.cta}</span>
-              </div>
-            </Link>
-          );
-        })}
-      </div>
-    </section>
+    <ScrollReveal variant="up">
+      <section className="pk-mood" aria-label={t('mood_section_aria')}>
+        <div className="pk-mood__head pk-inner">
+          <p className="pk-mood__eye"><StarGlyph /> {t('mood_eyebrow')}</p>
+          <h2 className="pk-mood__title">{t('mood_title')}</h2>
+        </div>
+        <div className="pk-mood__grid">
+          {MOODS.map((m, i) => {
+            const Icon = m.icon;
+            const col = catRes?.[m.catKey];
+            const img = col?.products?.nodes?.[0]?.featuredImage;
+            return (
+              <ScrollReveal key={m.handle} delay={i * 60} variant="up">
+                <TiltCard className="pk-mood__card-wrap" maxTilt={6}>
+                  <Link key={m.handle} to={`/collections/${m.handle}`} className="pk-mood__card" aria-label={`${m.label} — ${m.title}`}>
+                    <div className="pk-mood__card-img">
+                      {img
+                        ? <Image data={img} aspectRatio="4/3" sizes="480px" loading="lazy" />
+                        : <span className="pk-mood__card-icon" aria-hidden="true"><Icon size={48} /></span>
+                      }
+                    </div>
+                    <div className="pk-mood__card-body">
+                      <p className="pk-mood__card-label">{m.label}</p>
+                      <h3 className="pk-mood__card-title">{m.title}</h3>
+                      <p className="pk-mood__card-sub">{m.sub}</p>
+                      <span className="pk-mood__card-cta" aria-hidden="true">{m.cta}</span>
+                    </div>
+                  </Link>
+                </TiltCard>
+              </ScrollReveal>
+            );
+          })}
+        </div>
+      </section>
+    </ScrollReveal>
   );
 }
 
 /* ─────────────────────────────────────────────────────────────────
    SOCIAL PROOF — customer testimonials
 ───────────────────────────────────────────────────────────────── */
-const REVIEWS = [
-  {stars: 5, quote: 'Ordered three times in the past month. Quality is consistently great and shipping is fast.', name: 'Maria K.', loc: 'Toronto, ON'},
-  {stars: 5, quote: 'Found exactly what I was looking for — and way more. This is my new go-to for home stuff.', name: 'David T.', loc: 'Vancouver, BC'},
-  {stars: 5, quote: 'The curation is genuinely good. Everything feels like it was picked by someone who has taste.', name: 'Sarah L.', loc: 'Calgary, AB'},
-];
-
 function SocialProof() {
+  const t = useT();
+  const REVIEWS = [
+    {stars: 5, quote: t('review_1_quote'), name: 'Maria K.', loc: 'Toronto, ON'},
+    {stars: 5, quote: t('review_2_quote'), name: 'David T.', loc: 'Vancouver, BC'},
+    {stars: 5, quote: t('review_3_quote'), name: 'Sarah L.', loc: 'Calgary, AB'},
+  ];
   return (
-    <section className="pk-proof" aria-label="Customer reviews">
+    <section className="pk-proof" aria-label={t('review_section_aria')}>
       <div className="pk-proof__inner">
         <div className="pk-proof__head">
-          <span className="pk-proof__eye"><StarGlyph /> What people are saying</span>
-          <h2 className="pk-proof__title">Real shoppers. Real opinions.</h2>
+          <span className="pk-proof__eye"><StarGlyph /> {t('review_eyebrow')}</span>
+          <h2 className="pk-proof__title">{t('review_title')}</h2>
         </div>
         <div className="pk-proof__grid">
           {REVIEWS.map(({stars, quote, name, loc}) => (
@@ -735,19 +1103,20 @@ function SocialProof() {
    FRESH FINDS — recently updated (different set from trending)
 ───────────────────────────────────────────────────────────────── */
 function FreshFinds({products}) {
+  const t = useT();
   const trackRef = useRef(null);
   const {canLeft, canRight, scrollBy} = useScrollNav(trackRef);
   if (!products?.length) return null;
   return (
-    <section className="pk-rack pk-rack--fresh" aria-label="Fresh finds">
+    <section className="pk-rack pk-rack--fresh" aria-label={t('fresh_section_aria')}>
       <div className="pk-inner pk-rack__head">
         <div>
-          <p className="pk-rack__eye"><StarGlyph /> Beauty &amp; Self-Care</p>
-          <h2 className="pk-rack__title">Take care of yourself.</h2>
+          <p className="pk-rack__eye"><StarGlyph /> {t('mood_beauty_label')}</p>
+          <h2 className="pk-rack__title">{t('mood_beauty_title')}</h2>
         </div>
-        <div className="pk-rack__nav" role="group" aria-label="Scroll fresh finds">
-          <button className="pk-rack__arr" onClick={() => scrollBy(-260)} disabled={!canLeft} aria-label="Scroll left">←</button>
-          <button className="pk-rack__arr" onClick={() => scrollBy(260)} disabled={!canRight} aria-label="Scroll right">→</button>
+        <div className="pk-rack__nav" role="group" aria-label={t('fresh_scroll_aria')}>
+          <button className="pk-rack__arr" onClick={() => scrollBy(-260)} disabled={!canLeft} aria-label={t('rack_scroll_left_aria')}>←</button>
+          <button className="pk-rack__arr" onClick={() => scrollBy(260)} disabled={!canRight} aria-label={t('rack_scroll_right_aria')}>→</button>
         </div>
       </div>
       <div className="pk-rack__track" ref={trackRef} role="list">
@@ -769,30 +1138,32 @@ function FreshFinds({products}) {
    FEATURED BANNER — best sellers (3 cards)
 ───────────────────────────────────────────────────────────────── */
 function FeaturedBanner({products}) {
+  const t = useT();
   if (!products?.length) return null;
   return (
-    <section id="section-best-sellers" className="pk-feat-banner" aria-label="Best sellers">
+    <section id="section-best-sellers" className="pk-feat-banner" aria-label={t('banner_section_aria')}>
       <div className="pk-feat-banner__inner">
-        <div className="pk-feat-banner__copy">
-          <p className="pk-feat-banner__label"><StarGlyph variant="five" size={12} style={{marginRight: '0.5em'}} /> Best Sellers</p>
-          <h2 className="pk-feat-banner__title">The ones people can&apos;t stop buying.</h2>
-          <p className="pk-feat-banner__sub">
-            Tried, ordered again, and gifted to everyone they know. These are the products
-            that earn their place on the list every single week.
-          </p>
+        <ScrollReveal className="pk-feat-banner__copy" variant="left">
+          <p className="pk-feat-banner__label"><StarGlyph variant="five" size={12} style={{marginRight: '0.5em'}} /> {t('banner_eyebrow')}</p>
+          <h2 className="pk-feat-banner__title">{t('banner_title')}</h2>
+          <p className="pk-feat-banner__sub">{t('banner_sub')}</p>
           <Link to="/collections/best-sellers" className="pk-btn pk-btn--spark pk-btn--lg">
-            See all best sellers →
+            {t('banner_cta')}
           </Link>
-        </div>
+        </ScrollReveal>
         <div className="pk-feat-banner__grid">
-          {products.slice(0, 3).map((p) => (
-            <Link key={p.id} to={`/products/${p.handle}`} className="pk-feat-banner__card" aria-label={p.title}>
-              {p.featuredImage && <Image data={p.featuredImage} aspectRatio="3/4" sizes="200px" />}
-              <div className="pk-feat-banner__card-info">
-                <p className="pk-feat-banner__card-name">{p.title}</p>
-                <div className="pk-feat-banner__card-price"><Money data={p.priceRange.minVariantPrice} /></div>
-              </div>
-            </Link>
+          {products.slice(0, 3).map((p, i) => (
+            <ScrollReveal key={p.id} delay={i * 60} variant="right">
+              <TiltCard className="pk-feat-banner__card-wrap" maxTilt={6}>
+                <Link to={`/products/${p.handle}`} className="pk-feat-banner__card" aria-label={p.title}>
+                  {p.featuredImage && <Image data={p.featuredImage} aspectRatio="3/4" sizes="200px" />}
+                  <div className="pk-feat-banner__card-info">
+                    <p className="pk-feat-banner__card-name">{p.title}</p>
+                    <div className="pk-feat-banner__card-price"><Money data={p.priceRange.minVariantPrice} /></div>
+                  </div>
+                </Link>
+              </TiltCard>
+            </ScrollReveal>
           ))}
         </div>
       </div>
@@ -804,18 +1175,16 @@ function FeaturedBanner({products}) {
    CATALOG STATEMENT — big lime typographic CTA
 ───────────────────────────────────────────────────────────────── */
 function CatalogStatement() {
+  const t = useT();
   return (
-    <section className="pk-catalog-cta" aria-label="Explore the full catalog">
-      <p className="pk-catalog-cta__number" aria-label="Over 6,000 products">
+    <section className="pk-catalog-cta" aria-label={t('catalog_section_aria')}>
+      <p className="pk-catalog-cta__number" aria-label={t('catalog_count_aria')}>
         6<span className="pk-catalog-cta__sup">+</span>k
       </p>
-      <p className="pk-catalog-cta__body">
-        products. One store. Every category. We&apos;re adding more every week
-        — there&apos;s always something new to find.
-      </p>
+      <p className="pk-catalog-cta__body">{t('catalog_body')}</p>
       <div className="pk-catalog-cta__ctas">
-        <Link to="/collections/all" className="pk-btn pk-btn--lg pk-btn--ink">Browse everything →</Link>
-        <Link to="/search" className="pk-btn pk-btn--lg pk-btn--outline">Search the catalog</Link>
+        <Link to="/collections/all" className="pk-btn pk-btn--lg pk-btn--ink">{t('catalog_cta_browse')}</Link>
+        <Link to="/search" className="pk-btn pk-btn--lg pk-btn--outline">{t('catalog_cta_search')}</Link>
       </div>
     </section>
   );
@@ -825,14 +1194,15 @@ function CatalogStatement() {
    VALUE PROPS
 ───────────────────────────────────────────────────────────────── */
 function ValueProps() {
+  const t = useT();
   const items = [
-    {Icon: IconTruck,    title: 'Free shipping',   sub: 'On orders over $50'},
-    {Icon: IconReturn,   title: '30-day returns',  sub: 'No questions, no hassle'},
-    {Icon: IconShield,   title: 'Secure checkout', sub: 'Encrypted & PCI-compliant'},
-    {Icon: IconSparkles, title: 'Handpicked only', sub: 'Curated, never random'},
+    {Icon: IconTruck,    title: t('trust_shipping_title'),   sub: t('trust_shipping_sub')},
+    {Icon: IconReturn,   title: t('trust_returns_title'),    sub: t('trust_returns_sub')},
+    {Icon: IconShield,   title: t('trust_secure_title'),     sub: t('trust_secure_sub')},
+    {Icon: IconSparkles, title: t('trust_handpicked_title'), sub: t('trust_handpicked_sub')},
   ];
   return (
-    <section className="pk-values" aria-label="Why Puchica">
+    <section className="pk-values" aria-label={t('trust_section_aria')}>
       {items.map(({Icon, title, sub}) => (
         <div key={title} className="pk-values__item">
           <span className="pk-values__icon" aria-hidden="true"><Icon size={22} /></span>
@@ -850,6 +1220,7 @@ function ValueProps() {
    NEWSLETTER
 ───────────────────────────────────────────────────────────────── */
 function NewsletterBand() {
+  const t = useT();
   const fetcher = useFetcher();
   const formRef = useRef(null);
   const [done, setDone] = useState(false);
@@ -860,24 +1231,21 @@ function NewsletterBand() {
   }, [fetcher.data]);
 
   return (
-    <section className="pk-news" aria-label="Newsletter signup">
+    <section className="pk-news" aria-label={t('newsletter_section_aria')}>
       <div className="pk-news__glow" aria-hidden="true" />
       <div className="pk-news__inner">
-        <span className="pk-pill pk-pill--glass">Join the club</span>
-        <h2 className="pk-news__title">Get the good stuff first.</h2>
-        <p className="pk-news__sub">
-          New arrivals, exclusive deals, and picks you won&apos;t find anywhere else
-          — straight to your inbox. No spam, unsubscribe anytime.
-        </p>
+        <span className="pk-pill pk-pill--glass">{t('newsletter_pill')}</span>
+        <h2 className="pk-news__title">{t('newsletter_title')}</h2>
+        <p className="pk-news__sub">{t('newsletter_sub')}</p>
         {done ? (
-          <p className="pk-news__done" role="status">You&apos;re in! Check your inbox.</p>
+          <p className="pk-news__done" role="status">{t('newsletter_done')}</p>
         ) : (
           <fetcher.Form ref={formRef} method="post" action="/newsletter" className="pk-news__form">
-            <label htmlFor="nl-email" className="sr-only">Email address</label>
-            <input id="nl-email" type="email" name="email" placeholder="your@email.com"
+            <label htmlFor="nl-email" className="sr-only">{t('newsletter_email_label')}</label>
+            <input id="nl-email" type="email" name="email" placeholder={t('newsletter_placeholder')}
               required className="pk-news__input" autoComplete="email" />
             <button type="submit" className="pk-btn pk-btn--spark" disabled={submitting}>
-              {submitting ? 'Joining…' : 'Subscribe'}
+              {submitting ? t('newsletter_joining') : t('newsletter_subscribe')}
             </button>
           </fetcher.Form>
         )}
@@ -912,6 +1280,12 @@ const TRENDING_QUERY = `#graphql
     id title handle
     priceRange { minVariantPrice { amount currencyCode } }
     featuredImage { id url altText width height }
+    variants(first: 1) {
+      nodes {
+        id
+        availableForSale
+      }
+    }
   }
   query Trending($country: CountryCode!, $language: LanguageCode!) @inContext(country: $country, language: $language) {
     collection(handle: "trending-finds") {
