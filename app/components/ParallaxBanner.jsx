@@ -6,7 +6,7 @@ import {Link} from 'react-router';
  */
 export function ParallaxBanner() {
   return (
-    <section className="pk-parallax" aria-label="Brand banner">
+    <section className="pk-parallax" aria-label="Brand banner" data-desktop-only>
       <div className="pk-parallax__bg" aria-hidden="true" />
       <div className="pk-parallax__overlay" aria-hidden="true" />
       <div className="pk-parallax__content pk-inner">
@@ -19,7 +19,7 @@ export function ParallaxBanner() {
         </p>
         <Link
           to="/explore"
-          className="pk-btn pk-btn--spark pk-btn--lg pk-parallax__cta"
+          className="pk-btn pk-btn--ember pk-btn--lg pk-parallax__cta"
         >
           Browse by category →
         </Link>

@@ -1,3 +1,4 @@
+import {useEffect, useState} from 'react';
 import {Link} from 'react-router';
 import {Image} from '@shopify/hydrogen';
 
@@ -5,14 +6,37 @@ import {Image} from '@shopify/hydrogen';
  * TrendingTicker — horizontal scrolling ticker of trending products.
  * Pauses on hover. Duplicates list for seamless loop.
  *
+ * Respects prefers-reduced-motion: reduce (both via CSS media query and
+ * via a JS state that removes the duplicated list from the DOM, so
+ * screen readers and accessibility tools that ignore the media query
+ * still don't read every product twice).
+ *
  * @param {Object} props
  * @param {Array} props.products - product nodes from Storefront API
  */
 export function TrendingTicker({products = []}) {
+  const [reducedMotion, setReducedMotion] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return;
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const onChange = (e) => setReducedMotion(e.matches);
+    setReducedMotion(mq.matches);
+    if (mq.addEventListener) mq.addEventListener('change', onChange);
+    else mq.addListener(onChange);
+    return () => {
+      if (mq.removeEventListener) mq.removeEventListener('change', onChange);
+      else mq.removeListener(onChange);
+    };
+  }, []);
+
   if (!products.length) return null;
 
-  // Duplicate for seamless loop (desktop only)
-  const items = [...products, ...products];
+  // Duplicate for seamless loop (desktop only, and only when motion is
+  // allowed). When the user prefers reduced motion, the CSS already
+  // disables the animation, so we drop the duplicated set so screen
+  // readers and a11y tools don't read every product twice.
+  const items = reducedMotion ? products : [...products, ...products];
 
   return (
     <section className="pk-ticker" aria-label="Trending products">

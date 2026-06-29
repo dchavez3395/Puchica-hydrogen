@@ -1,13 +1,12 @@
-import {Await, useLoaderData, useFetcher, Link} from 'react-router';
+import {Await, useLoaderData, Link} from 'react-router';
 import {Suspense, useEffect, useRef, useState} from 'react';
 import {Image, Money} from '@shopify/hydrogen';
 import {error as logError} from '~/lib/logger';
 import {useT} from '~/lib/t';
-import {IconTruck, IconReturn, IconShield, IconSparkles, IconGift, IconHeart, IconStar, IconHome, IconLeaf, IconLightbulb, IconPawPrint} from '~/components/Icons';
+import {IconGift, IconHeart, IconSparkles, IconStar, IconHome, IconLeaf, IconLightbulb, IconPawPrint} from '~/components/Icons';
 import StarGlyph from '~/components/StarGlyph';
 import {puchicaMeta, organizationJsonLd, websiteJsonLd, JsonLdScript} from '~/lib/seo';
 import {CollectionShowcase} from '~/components/CollectionShowcase';
-import {StatsCounter} from '~/components/StatsCounter';
 import {TrendingTicker} from '~/components/TrendingTicker';
 import {ParallaxBanner} from '~/components/ParallaxBanner';
 import {ScrollReveal} from '~/components/ScrollReveal';
@@ -109,7 +108,6 @@ function loadDeferredData({context}) {
 
 export default function Index() {
   const data = useLoaderData();
-  const t = useT();
   const [isPlaying, setIsPlaying] = useState(true);
 
   return (
@@ -201,11 +199,6 @@ export default function Index() {
         </Await>
       </Suspense>
 
-      {/* Social proof */}
-      <ScrollReveal variant="up">
-        <SocialProof />
-      </ScrollReveal>
-
       {/* Fresh finds — Beauty & Personal Care (different category) */}
       <Suspense fallback={null}>
         <Await resolve={data.freshFinds}>
@@ -229,20 +222,11 @@ export default function Index() {
       <ParallaxBanner />
 
 
-      <ValueProps />
-      <NewsletterBand />
       <Suspense fallback={null}>
         <Await resolve={data.trending}>
           {(products) => <TrendingTicker products={products ?? []} />}
         </Await>
       </Suspense>
-
-      <StatsCounter stats={[
-        {value: 6155, label: t('counter_products'), suffix: '+'},
-        {value: 19, label: t('counter_collections')},
-        {value: 15, label: t('counter_categories')},
-        {value: 100, label: t('counter_canadian'), suffix: '%'},
-      ]} />
 
     </div>
   );
@@ -310,7 +294,7 @@ function Hero({products, isPlaying, setIsPlaying}) {
           </h1>
           <p className="pk-hero2__sub">{t('hero_sub')}</p>
           <div className="pk-hero2__ctas">
-            <Link to="/collections" className="pk-btn pk-btn--spark pk-btn--lg">{t('hero_cta_shop')}</Link>
+            <Link to="/collections" className="pk-btn pk-btn--ember pk-btn--lg">{t('hero_cta_shop')}</Link>
             <Link to="/collections/all" className="pk-btn pk-btn--ghost pk-btn--lg">{t('hero_cta_browse')}</Link>
           </div>
           <ul className="pk-hero2__stats" aria-label={t('swiper_stats_aria')}>
@@ -502,7 +486,7 @@ function ProductMatchmaker({products}) {
             <h3>{t('match_empty_title')}</h3>
             <p>{t('match_empty_body').replace('{count}', likedCount)}</p>
             <div className="pk-matchmaker__empty-actions">
-              <button onClick={resetDeck} className="pk-btn pk-btn--spark">{t('match_reset')}</button>
+              <button onClick={resetDeck} className="pk-btn pk-btn--ember">{t('match_reset')}</button>
               <Link to="/collections/all" className="pk-btn pk-btn--ghost">{t('match_browse')}</Link>
             </div>
           </div>
@@ -667,7 +651,7 @@ function scrollContainerToChild(container, childIndex) {
 ───────────────────────────────────────────────────────────────── */
 function DiscoverSwiper({products}) {
   const t = useT();
-  const items = products.slice(0, 8);
+  const items = products.slice(0, 5);
   const trackRef = useRef(null);
   const sectionRef = useRef(null);
   const [active, setActive] = useState(0);
@@ -830,7 +814,7 @@ function ProductRack({products}) {
         </div>
       </div>
       <div className="pk-rack__track" ref={trackRef} role="list">
-        {products.slice(0, 12).map((p) => (
+        {products.slice(0, 6).map((p) => (
           <Link key={p.id} to={`/products/${p.handle}`} className="pk-rack__card" role="listitem">
             {p.featuredImage && <div className="pk-rack__img"><Image data={p.featuredImage} aspectRatio="4/5" sizes="240px" /></div>}
             <div className="pk-rack__body">
@@ -1062,44 +1046,6 @@ function ShopByMood({catRes}) {
 }
 
 /* ─────────────────────────────────────────────────────────────────
-   SOCIAL PROOF — customer testimonials
-───────────────────────────────────────────────────────────────── */
-function SocialProof() {
-  const t = useT();
-  const REVIEWS = [
-    {stars: 5, quote: t('review_1_quote'), name: 'Maria K.', loc: 'Toronto, ON'},
-    {stars: 5, quote: t('review_2_quote'), name: 'David T.', loc: 'Vancouver, BC'},
-    {stars: 5, quote: t('review_3_quote'), name: 'Sarah L.', loc: 'Calgary, AB'},
-  ];
-  return (
-    <section className="pk-proof" aria-label={t('review_section_aria')}>
-      <div className="pk-proof__inner">
-        <div className="pk-proof__head">
-          <span className="pk-proof__eye"><StarGlyph /> {t('review_eyebrow')}</span>
-          <h2 className="pk-proof__title">{t('review_title')}</h2>
-        </div>
-        <div className="pk-proof__grid">
-          {REVIEWS.map(({stars, quote, name, loc}) => (
-            <article key={name} className="pk-proof__card">
-              <div className="pk-proof__stars" aria-label={`${stars} out of 5 stars`} style={{display: 'inline-flex', gap: '2px', alignItems: 'center', fontSize: '18px', color: 'var(--pk-lime)'}}>
-                {Array.from({length: stars}, (_, i) => (
-                  <StarGlyph key={i} variant="five" size={18} style={{margin: 0}} />
-                ))}
-              </div>
-              <blockquote className="pk-proof__quote">&ldquo;{quote}&rdquo;</blockquote>
-              <footer className="pk-proof__footer">
-                <strong className="pk-proof__name">{name}</strong>
-                <span className="pk-proof__loc">{loc}</span>
-              </footer>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─────────────────────────────────────────────────────────────────
    FRESH FINDS — recently updated (different set from trending)
 ───────────────────────────────────────────────────────────────── */
 function FreshFinds({products}) {
@@ -1120,7 +1066,7 @@ function FreshFinds({products}) {
         </div>
       </div>
       <div className="pk-rack__track" ref={trackRef} role="list">
-        {products.slice(0, 12).map((p) => (
+        {products.slice(0, 6).map((p) => (
           <Link key={p.id} to={`/products/${p.handle}`} className="pk-rack__card" role="listitem">
             {p.featuredImage && <div className="pk-rack__img"><Image data={p.featuredImage} aspectRatio="4/5" sizes="240px" loading="lazy" /></div>}
             <div className="pk-rack__body">
@@ -1147,7 +1093,7 @@ function FeaturedBanner({products}) {
           <p className="pk-feat-banner__label"><StarGlyph variant="five" size={12} style={{marginRight: '0.5em'}} /> {t('banner_eyebrow')}</p>
           <h2 className="pk-feat-banner__title">{t('banner_title')}</h2>
           <p className="pk-feat-banner__sub">{t('banner_sub')}</p>
-          <Link to="/collections/best-sellers" className="pk-btn pk-btn--spark pk-btn--lg">
+          <Link to="/collections/best-sellers" className="pk-btn pk-btn--ember pk-btn--lg">
             {t('banner_cta')}
           </Link>
         </ScrollReveal>
@@ -1191,71 +1137,6 @@ function CatalogStatement() {
 }
 
 /* ─────────────────────────────────────────────────────────────────
-   VALUE PROPS
-───────────────────────────────────────────────────────────────── */
-function ValueProps() {
-  const t = useT();
-  const items = [
-    {Icon: IconTruck,    title: t('trust_shipping_title'),   sub: t('trust_shipping_sub')},
-    {Icon: IconReturn,   title: t('trust_returns_title'),    sub: t('trust_returns_sub')},
-    {Icon: IconShield,   title: t('trust_secure_title'),     sub: t('trust_secure_sub')},
-    {Icon: IconSparkles, title: t('trust_handpicked_title'), sub: t('trust_handpicked_sub')},
-  ];
-  return (
-    <section className="pk-values" aria-label={t('trust_section_aria')}>
-      {items.map(({Icon, title, sub}) => (
-        <div key={title} className="pk-values__item">
-          <span className="pk-values__icon" aria-hidden="true"><Icon size={22} /></span>
-          <div>
-            <p className="pk-values__title">{title}</p>
-            <p className="pk-values__sub">{sub}</p>
-          </div>
-        </div>
-      ))}
-    </section>
-  );
-}
-
-/* ─────────────────────────────────────────────────────────────────
-   NEWSLETTER
-───────────────────────────────────────────────────────────────── */
-function NewsletterBand() {
-  const t = useT();
-  const fetcher = useFetcher();
-  const formRef = useRef(null);
-  const [done, setDone] = useState(false);
-  const submitting = fetcher.state !== 'idle';
-
-  useEffect(() => {
-    if (fetcher.data?.ok) { setDone(true); formRef.current?.reset(); }
-  }, [fetcher.data]);
-
-  return (
-    <section className="pk-news" aria-label={t('newsletter_section_aria')}>
-      <div className="pk-news__glow" aria-hidden="true" />
-      <div className="pk-news__inner">
-        <span className="pk-pill pk-pill--glass">{t('newsletter_pill')}</span>
-        <h2 className="pk-news__title">{t('newsletter_title')}</h2>
-        <p className="pk-news__sub">{t('newsletter_sub')}</p>
-        {done ? (
-          <p className="pk-news__done" role="status">{t('newsletter_done')}</p>
-        ) : (
-          <fetcher.Form ref={formRef} method="post" action="/newsletter" className="pk-news__form">
-            <label htmlFor="nl-email" className="sr-only">{t('newsletter_email_label')}</label>
-            <input id="nl-email" type="email" name="email" placeholder={t('newsletter_placeholder')}
-              required className="pk-news__input" autoComplete="email" />
-            <button type="submit" className="pk-btn pk-btn--spark" disabled={submitting}>
-              {submitting ? t('newsletter_joining') : t('newsletter_subscribe')}
-            </button>
-          </fetcher.Form>
-        )}
-        {fetcher.data?.error && !done && <p className="pk-news__error" role="alert">{fetcher.data.error}</p>}
-      </div>
-    </section>
-  );
-}
-
-/* ─────────────────────────────────────────────────────────────────
    GRAPHQL QUERIES
 ───────────────────────────────────────────────────────────────── */
 /* ── Home & Kitchen → rack ("Worth every penny" section) ── */
@@ -1267,7 +1148,7 @@ const RACK_QUERY = `#graphql
   }
   query RackProducts($country: CountryCode!, $language: LanguageCode!) @inContext(country: $country, language: $language) {
     collection(handle: "home-essentials") {
-      products(first: 12, sortKey: BEST_SELLING) {
+      products(first: 6, sortKey: BEST_SELLING) {
         nodes { ...RackProduct }
       }
     }
@@ -1289,7 +1170,7 @@ const TRENDING_QUERY = `#graphql
   }
   query Trending($country: CountryCode!, $language: LanguageCode!) @inContext(country: $country, language: $language) {
     collection(handle: "trending-finds") {
-      products(first: 8, sortKey: BEST_SELLING) {
+      products(first: 5, sortKey: BEST_SELLING) {
         nodes { ...TrendingProduct }
       }
     }
@@ -1321,7 +1202,7 @@ const NEW_ARRIVALS_QUERY = `#graphql
   }
   query NewArrivals($country: CountryCode!, $language: LanguageCode!) @inContext(country: $country, language: $language) {
     collection(handle: "outdoor-garden") {
-      products(first: 8, sortKey: CREATED, reverse: true) {
+      products(first: 4, sortKey: CREATED, reverse: true) {
         nodes { ...NewArrival }
       }
     }
@@ -1337,7 +1218,7 @@ const FRESH_FINDS_QUERY = `#graphql
   }
   query FreshFinds($country: CountryCode!, $language: LanguageCode!) @inContext(country: $country, language: $language) {
     collection(handle: "beauty-personal-care") {
-      products(first: 12, sortKey: BEST_SELLING) {
+      products(first: 6, sortKey: BEST_SELLING) {
         nodes { ...FreshFind }
       }
     }

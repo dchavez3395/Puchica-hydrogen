@@ -98,6 +98,29 @@ export function Footer({header}) {
             <span aria-hidden><IconShield size={14} /></span>
             {t('footer_secure')}
           </span>
+
+          {/* Folded in from the old standalone StatsCounter section.
+              Static, no count-up animation, so it sits cleanly in the
+              footer without the IntersectionObserver. Numbers are
+              editorial, not audited metrics. */}
+          <div className="pk-footer__stats" aria-label="Store highlights">
+            <div className="pk-footer__stat">
+              <span className="pk-footer__stat-value">6,000+</span>
+              <span className="pk-footer__stat-label">Products</span>
+            </div>
+            <div className="pk-footer__stat">
+              <span className="pk-footer__stat-value">19</span>
+              <span className="pk-footer__stat-label">Collections</span>
+            </div>
+            <div className="pk-footer__stat">
+              <span className="pk-footer__stat-value">$50</span>
+              <span className="pk-footer__stat-label">Free shipping</span>
+            </div>
+            <div className="pk-footer__stat">
+              <span className="pk-footer__stat-value">30</span>
+              <span className="pk-footer__stat-label">Day returns</span>
+            </div>
+          </div>
         </div>
 
         <div className="pk-footer__col">

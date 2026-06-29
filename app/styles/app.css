@@ -4234,6 +4234,51 @@ button:focus-visible,
   display: inline-grid; place-items: center;
 }
 
+/* Footer-stats strip (folded in from the old standalone StatsCounter
+   section). 4-up grid, no count-up animation, editorial numbers.
+   Sits at the bottom of the brand block, above the legal bar. */
+.pk-footer__stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.pk-footer__stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.pk-footer__stat-value {
+  font-family: var(--pk-font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--pk-cream);
+  line-height: 1.1;
+}
+.pk-footer__stat-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--pk-muted);
+}
+@media (max-width: 600px) {
+  .pk-footer__stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px 12px;
+  }
+  .pk-footer__stat-value { font-size: 1.25rem; }
+}
+
+/* Parallax banner: desktop only. The mobile fallback used to render
+   a static block; per design rules, mobile gets a clean break and
+   the section is hidden entirely so the homepage rhythm is preserved. */
+@media (max-width: 900px) {
+  .pk-parallax { display: none; }
+}
+
 /* ============================================================
    HOMEPAGE NEW BLOCKS
    ============================================================ */
