@@ -66,8 +66,8 @@ async function loadCriticalData({context, params, request}) {
     recs = await storefront.query(PRODUCT_RECOMMENDATIONS_QUERY, {
       variables: {country, language, productId: product.id},
     });
-  } catch (err) {
-    logError('productRecommendations failed', err);
+  } catch (recErr) {
+    logError('productRecommendations failed', recErr);
   }
 
   const reviews = await getJudgemeBadge(handle);
@@ -310,13 +310,21 @@ function ShareRow({product, t}) {
 
   const onShare = async () => {
     if (typeof navigator !== 'undefined' && navigator.share) {
-      try { await navigator.share({title: product.title, url}); } catch {}
+      try {
+        await navigator.share({title: product.title, url});
+      } catch {
+        // User-cancelled or share API unavailable — fall through to the
+        // clipboard branch below.
+      }
     } else {
       try {
         await navigator.clipboard.writeText(url);
         setCopied(true);
         setTimeout(() => setCopied(false), 1800);
-      } catch {}
+      } catch {
+        // Clipboard write blocked (insecure context / permission denied).
+        // Fall back silently — the share row still renders the link.
+      }
     }
   };
 

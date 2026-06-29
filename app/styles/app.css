@@ -2111,7 +2111,7 @@ button:focus-visible,
   align-items: center;
   gap: 12px;
 }
-.pk-product__perks li svg { color: var(--pk-lime-dark); flex: none; }
+.pk-product__perks li svg { color: var(--pk-grove); flex: none; }
 
 /* (Removed the leftover `@media (max-width: 860px) { .pk-product { grid-template-columns: 1fr } }`
  * from the old grid layout â€” `.pk-product` is no longer a grid, so the
