@@ -18,6 +18,7 @@ import {
   IconCheck,
   IconInstagram,
   IconFacebook,
+  IconTiktok,
   IconPackage,
 } from '~/components/Icons';
 import {SOCIAL_PROFILES} from '~/lib/brand';
@@ -85,14 +86,6 @@ const FAQ = [
 
 /* ---------- inline icons (not in the shared Icons module) ---------- */
 
-function IconMail(props) {
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" {...props}>
-      <rect x="3" y="5" width="18" height="14" rx="2" />
-      <path d="m3 7 9 6 9-6" />
-    </svg>
-  );
-}
 function IconClock(props) {
   return (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" {...props}>
@@ -136,26 +129,10 @@ export function ContactPage() {
         </p>
       </header>
 
-      {/* Contact channels — three cards, each a different way to reach us */}
+      {/* Contact channels — three social cards, one per platform. Email
+       * lives at the bottom of the page (the "Still have a question?"
+       * CTA below) so the channel row stays uniform. */}
       <section className="pk-contact__channels" aria-label="Ways to reach us">
-        <article className="pk-contact-card pk-contact-card--email">
-          <div className="pk-contact-card__icon" aria-hidden="true">
-            <IconMail />
-          </div>
-          <h2 className="pk-contact-card__title">Email us</h2>
-          <p className="pk-contact-card__body">
-            Best for order questions, returns, or anything detailed. We
-            reply within one business day.
-          </p>
-          <a
-            className="pk-contact-card__cta"
-            href={`mailto:${CONTACT_EMAIL}`}
-          >
-            {CONTACT_EMAIL}
-            <IconArrowRight />
-          </a>
-        </article>
-
         {instagram ? (
           <article className="pk-contact-card">
             <div className="pk-contact-card__icon" aria-hidden="true">
@@ -198,25 +175,30 @@ export function ContactPage() {
           </article>
         ) : null}
 
-        {/* X card removed: no X profile. If we add one later, the
-         * pattern is identical to Instagram/Facebook. */}
-      </section>
+        {tiktok ? (
+          <article className="pk-contact-card">
+            <div className="pk-contact-card__icon" aria-hidden="true">
+              <IconTiktok size={22} />
+            </div>
+            <h2 className="pk-contact-card__title">Find us on TikTok</h2>
+            <p className="pk-contact-card__body">
+              New finds, behind-the-scenes, and the occasional unboxing.
+            </p>
+            <a
+              className="pk-contact-card__cta"
+              href={tiktok}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {tiktokHandle || 'TikTok'}
+              <IconArrowRight />
+            </a>
+          </article>
+        ) : null}
 
-      {/* TikTok — same pattern, but only if the brand has set a handle.
-       * Hidden when not configured. */}
-      {tiktok ? (
-        <p className="pk-contact__tiktok">
-          We&apos;re also on TikTok{' '}
-          <a
-            href={tiktok}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {tiktokHandle || 'TikTok'}
-          </a>
-          .
-        </p>
-      ) : null}
+        {/* X card removed: no X profile. If we add one later, the
+         * pattern is identical to Instagram/Facebook/TikTok. */}
+      </section>
 
       {/* What to expect — three short reassurance chips. Renders as a
        * flex row on desktop, wraps on mobile. */}

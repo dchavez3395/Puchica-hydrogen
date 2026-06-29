@@ -5185,27 +5185,6 @@ button:focus-visible,
   box-shadow: 0 12px 28px rgba(22, 15, 58, 0.08);
   border-color: var(--pk-violet-200, #DDD0FF);
 }
-/* The email card uses the brand gradient â€” it's the primary action. */
-.pk-contact-card--email {
-  background: var(--pk-ink);
-  border-color: transparent;
-  color: var(--pk-paper);
-}
-.pk-contact-card--email .pk-contact-card__icon {
-  background: rgba(242, 235, 218, 0.14);
-  color: var(--pk-paper);
-}
-.pk-contact-card--email .pk-contact-card__title { color: var(--pk-paper); }
-.pk-contact-card--email .pk-contact-card__body { color: rgba(242, 235, 218, 0.75); }
-.pk-contact-card--email .pk-contact-card__cta {
-  color: var(--pk-paper);
-  background: rgba(242, 235, 218, 0.12);
-  border: 1px solid rgba(242, 235, 218, 0.24);
-}
-.pk-contact-card--email .pk-contact-card__cta:hover {
-  background: rgba(242, 235, 218, 0.22);
-  border-color: rgba(242, 235, 218, 0.40);
-}
 
 .pk-contact-card__icon {
   display: grid;
@@ -5259,19 +5238,7 @@ button:focus-visible,
 .pk-contact-card__cta svg { flex: none; transition: transform 0.12s ease; }
 .pk-contact-card__cta:hover svg { transform: translateX(2px); }
 
-/* TikTok callout line, only when the brand has a TikTok handle */
-.pk-contact__tiktok {
-  text-align: center;
-  margin: 0 0 56px;
-  color: var(--pk-muted);
-  font-size: 14.5px;
-}
-.pk-contact__tiktok a {
-  color: var(--pk-violet-700);
-  font-weight: 700;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
+
 
 /* "What to expect" â€” three promise rows in a flex column */
 .pk-contact__promises { margin: 56px 0; }
