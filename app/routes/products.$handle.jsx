@@ -348,7 +348,10 @@ function Recommendations({data, t}) {
     <section className="pk-reco" aria-label={t('product_reco_title')}>
       <div className="pk-reco__head">
         <h2 className="pk-reco__title">{t('product_reco_title')}</h2>
-        <Link to="/collections/all" className="pk-reco__see-all">{t('product_reco_see_all')}</Link>
+        <Link to="/collections/all" className="pk-reco__see-all">
+          {t('product_reco_see_all')}
+          <span className="pk-reco__see-all-arrow" aria-hidden="true">→</span>
+        </Link>
       </div>
       <div className="pk-reco__grid">
         {products.slice(0, 4).map((p, i) => (

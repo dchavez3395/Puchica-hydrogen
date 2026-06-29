@@ -895,7 +895,10 @@ function NewArrivals({products}) {
           <h2 className="pk-arrivals__title">{t('arrivals_title')}</h2>
         </div>
         <div className="pk-arrivals__head-right">
-          <Link to="/collections/new-arrivals" className="pk-arrivals__link">{t('arrivals_see_all')}</Link>
+          <Link to="/collections/new-arrivals" className="pk-arrivals__link">
+            {t('arrivals_see_all')}
+            <span className="pk-arrivals__link-arrow" aria-hidden="true">→</span>
+          </Link>
           <div className="pk-rack__nav" role="group" aria-label={t('arrivals_scroll_aria')}>
             <button className="pk-rack__arr pk-rack__arr--dark" onClick={() => scrollBy(-220)} disabled={!canLeft} aria-label={t('rack_scroll_left_aria')}>←</button>
             <button className="pk-rack__arr pk-rack__arr--dark" onClick={() => scrollBy(220)} disabled={!canRight} aria-label={t('rack_scroll_right_aria')}>→</button>

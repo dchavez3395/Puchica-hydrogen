@@ -60,3 +60,5 @@ seo-fix-restore*.err
 .shopify-admin-token
 seo-reset.py
 audit_ink.py
+audit_*.py
+audit_*.txt
