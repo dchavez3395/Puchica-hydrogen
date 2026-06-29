@@ -84,7 +84,7 @@ function ShowcaseRow({collection, index, reverse}) {
         <h3 className="pk-showcase__title">{title}</h3>
         <p className="pk-showcase__desc">
           Discover our {title.toLowerCase()} selection — handpicked products
-          shipped from Canada with free shipping over $50.
+          with free shipping over $50.
         </p>
         <Link
           to={`/collections/${handle}`}
