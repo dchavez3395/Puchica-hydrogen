@@ -11,8 +11,8 @@ import {TrendingTicker} from '~/components/TrendingTicker';
 import {ParallaxBanner} from '~/components/ParallaxBanner';
 import {ScrollReveal} from '~/components/ScrollReveal';
 import {TiltCard} from '~/components/TiltCard';
-import {EmblaProductCarousel} from '~/components/EmblaProductCarousel';
 import {MagneticButton} from '~/components/MagneticButton';
+import {HeroParallax} from '~/components/HeroParallax';
 import {useAside} from '~/components/Aside';
 import {AddToCartButton} from '~/components/AddToCartButton';
 
@@ -219,34 +219,6 @@ export default function Index() {
         </Await>
       </Suspense>
 
-      {/* Embla swipe carousel — new arrivals, swipe on touch / drag on desktop */}
-      <Suspense fallback={null}>
-        <Await resolve={data.newArrivals}>
-          {(products) => (
-            <EmblaProductCarousel
-              products={products ?? []}
-              title="New Arrivals"
-              viewAllHref="/collections/new"
-              emphasis="dark"
-            />
-          )}
-        </Await>
-      </Suspense>
-
-      {/* Embla swipe carousel — fresh finds, light cream emphasis */}
-      <Suspense fallback={null}>
-        <Await resolve={data.freshFinds}>
-          {(products) => (
-            <EmblaProductCarousel
-              products={products ?? []}
-              title="Fresh Finds"
-              viewAllHref="/collections/all"
-              emphasis="light"
-            />
-          )}
-        </Await>
-      </Suspense>
-
       {/* Catalog statement */}
       <CatalogStatement />
       <ParallaxBanner />
@@ -303,8 +275,9 @@ function Hero({products, isPlaying, setIsPlaying}) {
       </div>
       <div className="pk-hero2__glow pk-hero2__glow--a" aria-hidden="true" />
       <div className="pk-hero2__glow pk-hero2__glow--b" aria-hidden="true" />
-      <div className="pk-hero2__inner">
-        <div className="pk-hero2__copy">
+      <HeroParallax strength={0.15} direction="up">
+        <div className="pk-hero2__inner">
+          <div className="pk-hero2__copy">
           <span className="pk-hero2__eyebrow"><StarGlyph /> {t('hero_eyebrow')}</span>
           <h1 className="pk-hero2__title">
             <span className="pk-hero2__title-row">
@@ -332,8 +305,9 @@ function Hero({products, isPlaying, setIsPlaying}) {
             <li><strong>Free</strong><span>{t('hero_stat_shipping')}</span></li>
             <li><strong>30 days</strong><span>{t('hero_stat_returns')}</span></li>
           </ul>
+          </div>
         </div>
-      </div>
+      </HeroParallax>
 
       {featuredProduct && (
         <Link

@@ -8951,3 +8951,26 @@ button:focus-visible,
 @media (prefers-reduced-motion: reduce) {
   .pk-parallax { will-change: auto; transform: none !important; }
 }
+
+/* 3D product viewer */
+.pk-3d, .pk-3d-placeholder, .pk-3d-fallback {
+  position: relative; width: 100%; border-radius: var(--r-xl);
+  background: linear-gradient(180deg, var(--pk-cream) 0%, var(--pk-cream-soft) 100%);
+  overflow: hidden; display: flex; align-items: center; justify-content: center;
+  border: 1px solid var(--pk-card-border, var(--pk-cream-dark));
+}
+.pk-3d img, .pk-3d-placeholder img, .pk-3d-fallback img {
+  width: 100%; height: 100%; object-fit: cover;
+}
+.pk-3d-fallback__msg {
+  color: var(--pk-muted); font-size: 14px; text-align: center; padding: 24px;
+}
+.pk-3d__hint {
+  position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
+  font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--pk-muted); background: rgba(255,255,255,.7); padding: 4px 10px;
+  border-radius: 999px; pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .pk-3d canvas { pointer-events: none; }
+}

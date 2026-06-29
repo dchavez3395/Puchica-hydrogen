@@ -252,4 +252,10 @@ export default [
       'react-hooks/rules-of-hooks': 'off',
     },
   },
+  {
+    files: ['app/components/ProductViewer3D.jsx', 'app/components/**/*3D*.jsx'],
+    rules: {
+      'react/no-unknown-property': 'off',
+    },
+  },
 ];

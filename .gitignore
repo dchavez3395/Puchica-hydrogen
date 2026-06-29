@@ -59,3 +59,4 @@ seo-fix-restore*.err
 # Shopify Admin API token (regenerated per session)
 .shopify-admin-token
 seo-reset.py
+audit_ink.py
