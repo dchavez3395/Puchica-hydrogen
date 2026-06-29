@@ -1666,14 +1666,14 @@ button:focus-visible,
  * the title above is 1, 2, or 3 lines long. `flex: 1` on the body +
  * `margin-top: auto` on the cart pushes it to the bottom. The title
  * uses a 2-line clamp so it has a deterministic max height. */
-.pk-card__body { padding: 14px; display: flex; flex-direction: column; gap: 4px; flex: 1 1 auto; }
-.pk-card__title { font-weight: 700; font-size: 14px; color: var(--pk-ink); text-decoration: none; line-height: 1.3;
+.pk-card__body { padding: 14px; display: flex; flex-direction: column; gap: 4px; flex: 1 1 auto; color: var(--pk-ink); }
+.pk-card__title { font-weight: 700; font-size: 14px; color: inherit; text-decoration: none; line-height: 1.3;
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
   /* Clamp to 2 lines (~2 * 1.3 * 14px â‰ˆ 36.4px) so all cards reserve
    * the same vertical space for the title. */
   min-height: calc(2 * 1.3em); }
 .pk-card__vendor { color: var(--pk-muted); font-size: 12px; margin: 0; }
-.pk-card__price { font-weight: 800; font-size: 16px; margin-top: 2px; }
+.pk-card__price { font-weight: 800; font-size: 16px; margin-top: 2px; color: inherit; }
 .pk-card__rating { display: flex; align-items: center; gap: 6px; font-size: 12px; }
 .pk-stars { color: #f5b301; letter-spacing: 1px; }
 
