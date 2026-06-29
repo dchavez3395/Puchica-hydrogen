@@ -5844,7 +5844,7 @@ button:focus-visible,
   background: rgba(244,240,230,0.13);
   box-shadow: 0 8px 32px rgba(0,0,0,0.38);
 }
-.pk-cat-world--dark .pk-cat-world__card-price { color: var(--pk-spark); }
+.pk-cat-world--dark .pk-cat-world__card-price { color: var(--pk-ember); }
 /* gold CTA on dark */
 .pk-cat-world--dark .pk-btn--primary {
   background: var(--pk-spark);
@@ -5862,9 +5862,9 @@ button:focus-visible,
   background: var(--pk-off-white);
   color: var(--pk-ink);
 }
-.pk-cat-world--light .pk-cat-world__eyebrow { color: var(--pk-violet); }
+.pk-cat-world--light .pk-cat-world__eyebrow { color: var(--pk-ember); }
 .pk-cat-world--light .pk-cat-world__body    { color: var(--pk-muted); }
-.pk-cat-world--light .pk-cat-world__products { background: var(--pk-violet-pale); }
+.pk-cat-world--light .pk-cat-world__products { background: var(--pk-cream-soft); }
 .pk-cat-world--light .pk-cat-world__card {
   background: #fff;
   border: 1px solid var(--pk-violet-border);
@@ -5874,7 +5874,7 @@ button:focus-visible,
   background: var(--pk-violet-card);
   box-shadow: var(--pk-sh-md);
 }
-.pk-cat-world--light .pk-cat-world__card-price { color: var(--pk-violet); }
+.pk-cat-world--light .pk-cat-world__card-price { color: var(--pk-ember); }
 
 @media (max-width: 860px) {
   .pk-cat-world { grid-template-columns: 1fr; min-height: auto; }
