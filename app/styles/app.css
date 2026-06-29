@@ -9055,6 +9055,11 @@ button:focus-visible,
   background: #fff;
   color: #160F3A;
 }
+.pk-card--dark .pk-card__badge--staff-pick {
+  background: #fff;
+  color: #160F3A;
+  border-color: transparent;
+}
 
 .pk-embla { padding: 48px 0; position: relative; }
 .pk-embla--light { background: var(--pk-cream-soft); color: var(--pk-ink); }
