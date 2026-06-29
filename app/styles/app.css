@@ -7072,7 +7072,7 @@ button:focus-visible,
   justify-content: center;
   width: 32px;
   height: 32px;
-  color: var(--pk-ember);
+  color: rgba(255,255,255,0.6);
   margin-bottom: 4px;
 }
 .pk-gift__icon svg { display: block; }
@@ -7091,7 +7091,7 @@ button:focus-visible,
 }
 .pk-gift__arrow {
   font-size: 18px;
-  color: var(--pk-ember);
+  color: rgba(255,255,255,0.6);
   margin-top: auto;
   transition: transform 0.2s ease;
 }
@@ -7220,7 +7220,7 @@ button:focus-visible,
   border-color: rgba(198,255,78,0.3);
 }
 .pk-rack--fresh .pk-rack__name { color: rgba(244,240,230,0.88); }
-.pk-rack--fresh .pk-rack__price { color: var(--pk-ember); }
+.pk-rack--fresh .pk-rack__price { color: rgba(244,240,230,0.88); }
 .pk-rack--fresh .pk-rack__track {
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 3%, #000 92%, transparent);
   mask-image: linear-gradient(90deg, transparent, #000 3%, #000 92%, transparent);
