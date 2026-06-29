@@ -41,7 +41,7 @@ export const meta = () => {
   return puchicaMeta({
     title: 'Puchica – The good stuff. All in one place.',
     description:
-      '6,000+ handpicked products across home, beauty, tech, pet, and more. Free shipping over $50, easy 30-day returns. Ships from Canada.',
+      'Puchica: 6,000+ products across home, beauty, tech, pet, and more. Picked in Toronto, shipped from Canada. Free shipping over $50, 30-day returns.',
     pathname: '/',
   });
 };

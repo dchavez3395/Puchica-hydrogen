@@ -131,8 +131,8 @@ export function ContactPage() {
         <h1 className="pk-col-hero__title">We&apos;re here to help.</h1>
         <p className="pk-col-hero__sub">
           Questions about an order, a product, or anything else? Pick the
-          channel that works for you — a real person on the Puchica team
-          will get back to you, usually within a few hours.
+          channel that works for you — a real person on the Puchica team will
+          get back to you, usually within one business day.
         </p>
       </header>
 
@@ -240,8 +240,8 @@ export function ContactPage() {
               <IconClock />
             </span>
             <div>
-              <strong>Average response: under 4 hours</strong>
-              <p>Often much faster. Worst case: one business day, weekdays 9–5 ET.</p>
+              <strong>Usually within one business day</strong>
+              <p>Often faster. Worst case: one business day, weekdays 9–5 ET.</p>
             </div>
           </li>
           <li>
@@ -249,7 +249,7 @@ export function ContactPage() {
               <IconPackage />
             </span>
             <div>
-              <strong>Order help 7 days a week</strong>
+              <strong>Order help every day</strong>
               <p>Tracking questions, returns, address changes — yes, on weekends too.</p>
             </div>
           </li>

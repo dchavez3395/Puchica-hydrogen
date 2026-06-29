@@ -12,7 +12,7 @@ export const meta = () => {
   return puchicaMeta({
     title: 'All Products – Puchica',
     description:
-      'Browse the full Puchica catalog — curated picks across home, beauty, tech, pet, and more. Free shipping over $50, easy 30-day returns.',
+      'Every product in the Puchica catalog, in one place. Filter by category, sort by price or popularity, search by name. Free shipping over $50, 30-day returns.',
     type: 'website',
     pathname: '/collections/all',
   });

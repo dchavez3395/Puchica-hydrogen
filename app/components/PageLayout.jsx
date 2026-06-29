@@ -5,8 +5,8 @@ import {Footer} from '~/components/Footer';
 import {Header, HeaderMenu} from '~/components/Header';
 import {CartMain} from '~/components/CartMain';
 import {NewsletterPopup} from '~/components/NewsletterPopup';
-import StarGlyph from '~/components/StarGlyph';
 import {IconSearch} from '~/components/Icons';
+import {useT} from '~/lib/t';
 import {LocaleSwitcher} from '~/components/LocaleSwitcher';
 import {
   SEARCH_ENDPOINT,
@@ -179,6 +179,7 @@ function SearchAside() {
  * }}
  */
 function MobileMenuAside({header, megaMenu, publicStoreDomain}) {
+  const t = useT();
   return (
     header.menu &&
     header.shop.primaryDomain?.url && (
@@ -192,35 +193,33 @@ function MobileMenuAside({header, megaMenu, publicStoreDomain}) {
             publicStoreDomain={publicStoreDomain}
           />
           <div className="pk-mmenu__group">
-            <p className="pk-mmenu__label">Account</p>
+            <p className="pk-mmenu__label">{t('mobile_account')}</p>
             <Link to="/account" className="pk-mmenu__row" onClick={() => {}}>
-              <span>Sign in / Create account</span>
+              <span>{t('mobile_signin')}</span>
               <span aria-hidden>→</span>
             </Link>
             <Link to="/cart" className="pk-mmenu__row">
-              <span>View cart</span>
+              <span>{t('mobile_view_cart')}</span>
               <span aria-hidden>→</span>
             </Link>
             <div className="pk-mmenu__locale">
-              <span className="pk-mmenu__locale-label">Language</span>
+              <span className="pk-mmenu__locale-label">{t('mobile_language')}</span>
               <LocaleSwitcher />
             </div>
           </div>
           <div className="pk-mmenu__group">
-            <p className="pk-mmenu__label">Customer Care</p>
+            <p className="pk-mmenu__label">{t('mobile_customer_care')}</p>
             <Link to="/pages/contact" className="pk-mmenu__row">
-              <span>Contact us</span>
+              <span>{t('mobile_contact_us')}</span>
               <span aria-hidden>→</span>
             </Link>
             <Link to="/policies" className="pk-mmenu__row">
-              <span>All policies</span>
+              <span>{t('mobile_all_policies')}</span>
               <span aria-hidden>→</span>
             </Link>
           </div>
           <p className="pk-mmenu__foot">
-            Free shipping on orders over $50
-            <StarGlyph size={10} style={{margin: '0 0.4em'}} />
-            30-day easy returns
+            {t('mobile_announce_foot')}
           </p>
         </div>
       </Aside>

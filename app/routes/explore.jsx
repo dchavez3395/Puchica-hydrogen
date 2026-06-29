@@ -11,7 +11,7 @@ import {useT} from '~/lib/t';
 export const meta = () => {
   return puchicaMeta({
     title: 'Explore – Puchica',
-    description: 'Browse our hand-curated collections of home essentials, electronics, beauty, pets, and garden gear.',
+    description: 'Filter the Puchica catalog by category. Home, beauty, tech, pet, outdoor — pick what you want, see what we have.',
     pathname: '/explore',
   });
 };

@@ -16,7 +16,7 @@ export const DICTIONARIES = {
     announce_cta: 'Shop now',
 
     // ── Footer ────────────────────────────────────────────────────
-    footer_tagline: '6,000+ handpicked products. Ships from Canada. The good stuff. All in one place.',
+    footer_tagline: '6,000+ products. Picked in Toronto. Ships from Canada.',
     footer_accepted_payments: 'Accepted payments',
     footer_secure: 'Secure checkout by Shopify — encrypted, PCI-compliant',
     footer_shop: 'Shop',
@@ -54,11 +54,43 @@ export const DICTIONARIES = {
     header_account_aria: 'Account',
     header_cart_open: 'Open cart',
     header_cart_close: 'Close cart',
+    // Mobile menu aside (PageLayout.jsx)
+    mobile_account: 'Account',
+    mobile_signin: 'Sign in / Create account',
+    mobile_view_cart: 'View cart',
+    mobile_language: 'Language',
+    mobile_customer_care: 'Customer Care',
+    mobile_contact_us: 'Contact us',
+    mobile_all_policies: 'All policies',
+    mobile_announce_foot: 'Free shipping on orders over $50 · 30-day easy returns',
+    mobile_announce_foot_sep: ' · ',
+    // Product page trust labels
+    product_promise_canadian: 'Canadian-owned · Dropshipped',
+
+    // Mega menu category taglines (translated FR/ES/PT as a follow-up pass)
+    megamenu_tagline_phone_case: 'Cases, grips, protection.',
+    megamenu_tagline_home_essentials: 'Kitchen, storage, decor.',
+    megamenu_tagline_electronics_accessories: 'Cables, chargers, mounts.',
+    megamenu_tagline_apparel_accessories: 'Bags, hats, wearables.',
+    megamenu_tagline_health_wellness: 'Skin, scent, grooming.',
+    megamenu_tagline_sports_outdoors: 'Gear, fitness, fan shop.',
+    megamenu_tagline_pet_finds: 'Toys, beds, things for them.',
+    megamenu_tagline_automotive: 'Interior, tools, gadgets.',
+    megamenu_tagline_tools_home_improvement: 'Fix, build, organize.',
+    megamenu_tagline_beauty_personal_care: 'Makeup, nails, self-care.',
+    megamenu_tagline_toys_games: 'Play, learn, collect.',
+    megamenu_tagline_home_decor: 'Wall, light, accents.',
+    megamenu_tagline_office_school_supplies: 'Desk, paper, must-haves.',
+    megamenu_tagline_baby_nursery: 'Feeding, decor, comfort.',
+    megamenu_tagline_outdoor_garden: 'Garden, patio, outdoor.',
+    megamenu_tagline_best_sellers: 'Top picks everyone loves.',
+    megamenu_tagline_trending_finds: 'What is hot right now.',
+    megamenu_tagline_gifts_under_25: 'Great gifts, small budget.',
 
     // ── Hero ──────────────────────────────────────────────────────
     hero_eyebrow: 'Ships from Canada · Free over $50',
     hero_title: 'Everything worth buying.',
-    hero_sub: '6,000+ handpicked products across home, beauty, tech, pet, and more. Real finds from real people who give a damn.',
+    hero_sub: '6,000+ products across home, beauty, tech, pet, and more. Picked in Toronto, shipped from Canada, returned without drama.',
     hero_cta_shop: 'Shop now →',
     hero_cta_browse: 'Browse all',
     hero_stat_products: 'Products',
@@ -75,7 +107,7 @@ export const DICTIONARIES = {
     ticker_returns: '30-day easy returns',
     ticker_ships: 'Ships from Canada',
     ticker_handpicked: 'Handpicked, never random',
-    ticker_real_value: 'Real value. Real finds.',
+    ticker_real_value: 'Canadian support · Always on',
     ticker_secure: 'Secure checkout',
 
     // ── Discover swiper ───────────────────────────────────────────
@@ -117,31 +149,31 @@ export const DICTIONARIES = {
     // ── Matchmaker ────────────────────────────────────────────────
     match_eyebrow: 'Discovery Matchmaker',
     match_title: 'Puchica Match.',
-    match_sub: 'Swipe right to <strong>Like</strong>, left to <strong>Pass</strong>, or swipe up to <strong>Super Swipe &amp; Add to Cart</strong>!',
+    match_sub: 'Swipe right on something you like. Swipe up to buy it on the spot. Swipe left to move on. Your cart\u2019s the only relationship here.',
     match_empty_title: 'No more items today!',
-    match_empty_body: 'You swiped through all trending items and liked {count} of them.',
+    match_empty_body: 'That\u2019s the deck. You liked {count} things. Want another round?',
     match_reset: 'Swipe Again',
     match_browse: 'Browse All',
     match_stamp_like: 'LIKE',
     match_stamp_nope: 'NOPE',
-    match_stamp_super: 'SUPER ATC',
+    match_stamp_super: 'BUY NOW',
 
     // ── Product rack ──────────────────────────────────────────────
     rack_eyebrow: 'Home & Kitchen',
-    rack_title: 'Upgrade your space.',
+    rack_title: 'Small wins for the room you\u2019re in.',
 
     // ── Gift finder ───────────────────────────────────────────────
     gift_eyebrow: 'Gift ideas',
-    gift_title: 'Find the perfect gift.',
-    gift_sub: '6,000+ options across every budget. Something for everyone on your list.',
+    gift_title: 'Pick a budget. We\u2019ll do the rest.',
+    gift_sub: 'Whether it\u2019s a stocking stuffer or the kind of present that ends up being talked about at dinner.',
     gift_under25_label: 'Under $25',
-    gift_under25_sub: 'Little treats, big smiles',
+    gift_under25_sub: 'Stocking-stuffer energy.',
     gift_25_50_label: '$25 – $50',
-    gift_25_50_sub: 'Sweet-spot gifts',
+    gift_25_50_sub: 'Most people start here.',
     gift_50_100_label: '$50 – $100',
-    gift_50_100_sub: 'Premium picks',
+    gift_50_100_sub: 'The \u201Cwow\u201D zone.',
     gift_100_label: '$100+',
-    gift_100_sub: 'Go all out',
+    gift_100_sub: 'For when you actually mean it.',
 
     // ── New arrivals ──────────────────────────────────────────────
     arrivals_eyebrow: 'Outdoor & Garden',
@@ -152,9 +184,9 @@ export const DICTIONARIES = {
     // ── Category bento ────────────────────────────────────────────
     cat_eyebrow: 'Shop by category',
     cat_title: 'Find your thing.',
-    cat_home_tagline: 'Your space, elevated.',
-    cat_beauty_tagline: 'Feel it from the inside out.',
-    cat_tech_tagline: 'Smarter, every single day.',
+    cat_home_tagline: 'Things that earn their spot in the room.',
+    cat_beauty_tagline: 'Stuff that doesn\u2019t pretend to be clinical.',
+    cat_tech_tagline: 'Gadgets and cables. Nothing weird.',
     cat_outdoor_tagline: 'Get out there.',
     cat_pet_tagline: 'They deserve the best too.',
     cat_fallback_tagline: 'Curated with care.',
@@ -162,35 +194,35 @@ export const DICTIONARIES = {
 
     // ── Shop by mood ──────────────────────────────────────────────
     mood_eyebrow: 'Made for your life',
-    mood_title: 'Shop the way you live.',
+    mood_title: 'Three rooms in your life. Stuff that fits.',
     mood_home_label: 'Home & Living',
-    mood_home_title: 'Your home deserves better.',
-    mood_home_sub: 'Storage, decor, kitchen tools — everything to make the space you live in feel intentional.',
-    mood_home_cta: 'Upgrade your space →',
+    mood_home_title: 'Your room, working harder.',
+    mood_home_sub: 'Storage, decor, kitchen things. We picked them because we\u2019d want them.',
+    mood_home_cta: 'See what\u2019s in there →',
     mood_beauty_label: 'Beauty & Self-Care',
-    mood_beauty_title: 'Take care of yourself.',
-    mood_beauty_sub: 'Skincare, wellness, and personal-care products that actually work — picked by people who use them.',
-    mood_beauty_cta: 'Treat yourself →',
+    mood_beauty_title: 'Stuff that doesn\u2019t make your skin angry.',
+    mood_beauty_sub: 'Skincare, hair, body. We test it before it goes up.',
+    mood_beauty_cta: 'See what\u2019s in there →',
     mood_tech_label: 'Tech & Gadgets',
-    mood_tech_title: 'Work smarter, play harder.',
-    mood_tech_sub: 'Accessories, tools, and gadgets that genuinely improve your day. No gimmicks.',
-    mood_tech_cta: 'Power up →',
+    mood_tech_title: 'Stuff that makes existing tech less annoying.',
+    mood_tech_sub: 'Accessories, cables, the small things that fix daily frustrations.',
+    mood_tech_cta: 'See what\u2019s in there →',
 
     // ── Reviews / testimonials ────────────────────────────────────
     review_eyebrow: 'What people are saying',
-    review_title: 'Real shoppers. Real opinions.',
+    review_title: 'What shoppers say.',
     review_1_quote: 'Ordered three times in the past month. Quality is consistently great and shipping is fast.',
     review_2_quote: 'Found exactly what I was looking for — and way more. This is my new go-to for home stuff.',
     review_3_quote: 'The curation is genuinely good. Everything feels like it was picked by someone who has taste.',
 
     // ── Featured banner (best sellers) ───────────────────────────
     banner_eyebrow: 'Best Sellers',
-    banner_title: "The ones people can't stop buying.",
-    banner_sub: 'Tried, ordered again, and gifted to everyone they know. These are the products that earn their place on the list every single week.',
-    banner_cta: 'See all best sellers →',
+    banner_title: 'The reorder list.',
+    banner_sub: 'The products our customers come back for. Sometimes as gifts.',
+    banner_cta: 'See all →',
 
     // ── Catalog statement ─────────────────────────────────────────
-    catalog_body: "products. One store. Every category. We're adding more every week — there's always something new to find.",
+    catalog_body: 'products. Curated by humans. Most under $100.',
     catalog_cta_browse: 'Browse everything →',
     catalog_cta_search: 'Search the catalog',
 
@@ -206,8 +238,8 @@ export const DICTIONARIES = {
 
     // ── Newsletter band ───────────────────────────────────────────
     newsletter_pill: 'Join the club',
-    newsletter_title: 'Get the good stuff first.',
-    newsletter_sub: "New arrivals, exclusive deals, and picks you won't find anywhere else — straight to your inbox. No spam, unsubscribe anytime.",
+    newsletter_title: 'New stuff, before the site gets it.',
+    newsletter_sub: 'New arrivals, the picks that actually move, and the occasional discount code. About one email a week.',
     newsletter_done: "You're in! Check your inbox.",
     newsletter_email_label: 'Email address',
     newsletter_placeholder: 'your@email.com',
@@ -880,7 +912,6 @@ export const DICTIONARIES = {
 
     breadcrumb_aria: 'Ruta de navegación',
     col_filters_aria: 'Filtros',
-    explore_cat_filter_aria: 'Filtros por categoria',
     explore_cat_filter_aria: 'Filtros por categoría',
     breadcrumb_home: 'Inicio',
     breadcrumb_collections: 'Colecciones',

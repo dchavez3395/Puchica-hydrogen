@@ -14,6 +14,29 @@ import {Suspense, useEffect, useId, useRef, useState} from 'react';
 import {Await, Link} from 'react-router';
 import {Image} from '@shopify/hydrogen';
 import StarGlyph from './StarGlyph';
+import {useT} from '~/lib/t';
+
+// Map handles to dictionary keys for category taglines.
+const TAGLINE_KEYS = {
+  'phone-case': 'megamenu_tagline_phone_case',
+  'home-essentials': 'megamenu_tagline_home_essentials',
+  'electronics-accessories': 'megamenu_tagline_electronics_accessories',
+  'apparel-accessories': 'megamenu_tagline_apparel_accessories',
+  'health-wellness': 'megamenu_tagline_health_wellness',
+  'sports-outdoors': 'megamenu_tagline_sports_outdoors',
+  'pet-finds': 'megamenu_tagline_pet_finds',
+  'automotive': 'megamenu_tagline_automotive',
+  'tools-home-improvement': 'megamenu_tagline_tools_home_improvement',
+  'beauty-personal-care': 'megamenu_tagline_beauty_personal_care',
+  'toys-games': 'megamenu_tagline_toys_games',
+  'home-decor': 'megamenu_tagline_home_decor',
+  'office-school-supplies': 'megamenu_tagline_office_school_supplies',
+  'baby-nursery': 'megamenu_tagline_baby_nursery',
+  'outdoor-garden': 'megamenu_tagline_outdoor_garden',
+  'best-sellers': 'megamenu_tagline_best_sellers',
+  'trending-finds': 'megamenu_tagline_trending_finds',
+  'gifts-under-25': 'megamenu_tagline_gifts_under_25',
+};
 
 // All 19 collection handles split into product categories and featured promos.
 const PRODUCT_CATEGORIES = [
@@ -58,28 +81,12 @@ const ALIAS_MAP = {
   'gifts-under-25': 'giftsUnder25',
 };
 
-// Curated copy for each category. Tone: short, no filler, sentence case.
-// "tagline" is the single-eyebrow line that appears under the category name.
-const TAGLINES = {
-  'phone-case': 'Cases, grips, protection.',
-  'home-essentials': 'Kitchen, storage, decor.',
-  'electronics-accessories': 'Cables, chargers, mounts.',
-  'apparel-accessories': 'Bags, hats, wearables.',
-  'health-wellness': 'Skin, scent, grooming.',
-  'sports-outdoors': 'Gear, fitness, fan shop.',
-  'pet-finds': 'Toys, beds, things for them.',
-  'automotive': 'Interior, tools, gadgets.',
-  'tools-home-improvement': 'Fix, build, organize.',
-  'beauty-personal-care': 'Makeup, nails, self-care.',
-  'toys-games': 'Play, learn, collect.',
-  'home-decor': 'Wall, light, accents.',
-  'office-school-supplies': 'Desk, paper, must-haves.',
-  'baby-nursery': 'Feeding, decor, comfort.',
-  'outdoor-garden': 'Garden, patio, outdoor.',
-  'best-sellers': 'Top picks everyone loves.',
-  'trending-finds': 'What is hot right now.',
-  'gifts-under-25': 'Great gifts, small budget.',
-};
+// Tagline lookup. Taglines live in dictionaries.js so they can be
+// translated per locale (see `megamenu_tagline_*` keys).
+function taglineFor(handle, t) {
+  const key = TAGLINE_KEYS[handle];
+  return key ? t(key) : '';
+}
 
 export function MegaMenu({deferred, onClose}) {
   const id = useId();
@@ -189,6 +196,7 @@ export function MegaMenu({deferred, onClose}) {
 }
 
 function MegaMenuPanel({data, onNavigate}) {
+  const t = useT();
   if (!data) return <MegaMenuSkeleton />;
 
   // Build product tile list from PRODUCT_CATEGORIES order.
@@ -208,7 +216,7 @@ function MegaMenuPanel({data, onNavigate}) {
       <ul className="pk-mega__tiles">
         {productTiles.map((c) => {
           if (!c) return null;
-          const tagline = TAGLINES[c.handle] || '';
+          const tagline = taglineFor(c.handle, t) || '';
           const image = c.image || c.products?.nodes?.[0]?.featuredImage;
           return (
             <li key={c.id} className="pk-mega__tile">
@@ -247,7 +255,7 @@ function MegaMenuPanel({data, onNavigate}) {
         <div className="pk-mega__featured-row">
           {featuredTiles.map((c) => {
             if (!c) return null;
-            const tagline = TAGLINES[c.handle] || '';
+            const tagline = taglineFor(c.handle, t) || '';
             return (
               <Link
                 key={c.id}

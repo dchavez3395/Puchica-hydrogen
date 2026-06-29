@@ -7,7 +7,7 @@ export const meta = () =>
   puchicaMeta({
     title: 'About Puchica – The good stuff, handpicked.',
     description:
-      "Puchica is a Canadian online store with 6,000+ handpicked products across home, beauty, tech, pet, and more. We find the good stuff so you don&apos;t have to.",
+      "We're picky about what makes the catalog. If we wouldn't buy it ourselves, it doesn't go up. 6,000+ products, picked in Toronto, shipped from Canada.",
     pathname: '/pages/about',
   });
 
@@ -24,14 +24,14 @@ export default function AboutPage() {
         <div className="pk-about-hero__inner">
           <span className="pk-about-hero__eyebrow"><StarGlyph /> Our story</span>
           <h1 className="pk-about-hero__title">
-            We find the good stuff.
+            We pick the good stuff.
             <br />
-            <span className="pk-about-hero__em">You get to enjoy it.</span>
+            <span className="pk-about-hero__em">You get to skip the research.</span>
           </h1>
           <p className="pk-about-hero__sub">
-            Puchica is a Canadian online store built on a simple idea: there
-            are thousands of genuinely great products out there, buried under
-            noise. We dig them up so you don&apos;t have to.
+            Puchica is a Canadian-owned store that dropships curated finds. We
+            sort through thousands of products so you don&apos;t have to. If it
+            doesn&apos;t earn its spot, it doesn&apos;t ship.
           </p>
           <Link to="/collections/all" className="pk-btn pk-btn--spark pk-btn--lg">
             Start shopping →
@@ -60,18 +60,20 @@ export default function AboutPage() {
           <div className="pk-about-mission__copy">
             <span className="pk-about-mission__eye"><StarGlyph /> Why we exist</span>
             <h2 className="pk-about-mission__title">
-              Shopping shouldn&apos;t feel like a part-time job.
+              There are a lot of products out there. Most are forgettable.
             </h2>
             <p className="pk-about-mission__body">
-              The internet is full of products. Most of them are mediocre.
-              Finding the good ones takes time you don&apos;t have — scrolling
-              endless reviews, comparing options, second-guessing every click.
+              We sort through them so you don&apos;t have to. Each one gets a
+              real look: does it work, is it worth the money, would we
+              actually use it. If the answer is no to any of those, it doesn&apos;t
+              go in the catalog.
             </p>
             <p className="pk-about-mission__body">
-              We built Puchica to be the shortcut. Everything in our catalog
-              has been evaluated for real value: does it work? Is it worth the
-              price? Would we actually buy it? If the answer to any of those is
-              no, it doesn&apos;t make the cut.
+              Puchica is a Canadian-owned store. We don&apos;t warehouse
+              inventory ourselves — products ship from our suppliers, which
+              lets us keep the catalog broad without locking up capital in
+              stock. You get a real, curated selection instead of a guess at
+              what might sell.
             </p>
           </div>
           <div className="pk-about-mission__visual" aria-hidden="true">
@@ -100,17 +102,17 @@ export default function AboutPage() {
               {
                 n: '01',
                 title: 'We find it',
-                body: 'Our team scans new products constantly — from trade shows to social media to deep dives into supplier catalogs. No algorithm involved.',
+                body: 'Our team checks new products constantly — trade shows, suppliers, social media. No algorithm picks what goes up.',
               },
               {
                 n: '02',
-                title: 'We evaluate it',
-                body: 'Every product gets a real look: quality, price-to-value, usefulness, uniqueness. We ask: would we actually buy this? Would we recommend it?',
+                title: 'We check it',
+                body: 'Does it work. Is it worth the money. Would we actually use it. If any answer is no, it doesn’t make the cut.',
               },
               {
                 n: '03',
                 title: 'You get it',
-                body: 'If it passes, it joins the catalog. We handle the rest — sourcing, fulfilment, and getting it to your door fast from our base in Toronto, ON.',
+                body: 'If it passes, it’s in the shop. It ships from our supplier to your door, with a pre-paid return label in every box.',
               },
             ].map(({n, title, body}) => (
               <div key={n} className="pk-about-how__step">
@@ -154,8 +156,8 @@ export default function AboutPage() {
       <section className="pk-about-promise">
         <div className="pk-about-promise__inner">
           <blockquote className="pk-about-promise__quote">
-            &ldquo;We&apos;re picky so you don&apos;t have to be. If it&apos;s
-            on Puchica, someone on our team would actually buy it.&rdquo;
+            &ldquo;If it&apos;s on Puchica, we&apos;d buy it ourselves. We test
+            it, we live with it, and we keep the bar where it is.&rdquo;
           </blockquote>
           <p className="pk-about-promise__attr">— The Puchica team, Toronto ON</p>
         </div>
@@ -166,8 +168,8 @@ export default function AboutPage() {
         <div className="pk-about-cta__inner">
           <h2 className="pk-about-cta__title">Ready to find your thing?</h2>
           <p className="pk-about-cta__sub">
-            6,000+ products. Free shipping over $50. Easy 30-day returns. Ships
-            from Canada.
+            6,000+ products, picked by humans. Most under $100. Free shipping
+            over $50, 30-day returns, ships from Canada.
           </p>
           <div className="pk-about-cta__btns">
             <Link to="/collections/all" className="pk-btn pk-btn--spark pk-btn--lg">

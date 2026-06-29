@@ -2035,10 +2035,13 @@ button:focus-visible,
   cursor: pointer;
   color: var(--pk-indigo-900);
 }
-.pk-product .product-options-item[style*="black"] {
+.pk-product .product-options-item.is-selected {
   border-color: var(--pk-violet-500) !important;
   background: var(--pk-violet-50);
   color: var(--pk-violet-700);
+}
+.pk-product .product-options-item.is-unavailable {
+  opacity: 0.3;
 }
 
 /* add to cart (filled primary, per design system) */
