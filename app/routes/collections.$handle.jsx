@@ -169,11 +169,12 @@ export default function Collection() {
               height: '100%',
               objectFit: 'cover',
               opacity: 0.18,
-              zIndex: 0,
+              zIndex: -1,
             }}
           />
         )}
         <div className="pk-col-hero__glow" aria-hidden />
+        <div className="pk-col-hero__glow pk-col-hero__glow--ember" aria-hidden />
         <span className="pk-col-hero__eyebrow">{t('col_eyebrow')}</span>
         <h1 className="pk-col-hero__title">{collection.title}</h1>
         {collection.description ? (
@@ -222,11 +223,12 @@ export default function Collection() {
               <span className="pk-toolbar__count">
                 {hasNextPage ? (
                   <>
-                    {t('col_showing')} <strong>{count}</strong> {t('col_showing_more')}
+                    {t('col_count_of')} <strong>{count}+</strong>{' '}
+                    {count === 1 ? t('col_product_singular') : t('col_product_plural')}
                   </>
                 ) : (
                   <>
-                    {t('col_showing')} <strong>{count}</strong>{' '}
+                    <strong>{count}</strong>{' '}
                     {count === 1 ? t('col_product_singular') : t('col_product_plural')}
                   </>
                 )}
