@@ -9778,8 +9778,8 @@ button:focus-visible,
   max-width: 1080px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-  gap: clamp(28px, 5vw, 80px);
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: clamp(24px, 3vw, 48px);
   align-items: start;
   position: relative;
 }
@@ -9804,7 +9804,7 @@ button:focus-visible,
  * zigzag pattern has a single editorial frame per row. */
 .pk-split__header {
   max-width: 1080px;
-  margin: 0 auto clamp(36px, 5vw, 56px);
+  margin: 0 auto clamp(24px, 3vw, 36px);
   padding-left: 22px;
   position: relative;
 }
@@ -9814,7 +9814,7 @@ button:focus-visible,
   left: 0;
   top: 0;
   width: 3px;
-  height: 80px;
+  height: 50px;
   border-radius: 2px;
   background: linear-gradient(180deg, var(--pk-ember) 0%, transparent 100%);
 }
@@ -9826,7 +9826,7 @@ button:focus-visible,
  * break, then the prose flows at full column width. */
 .pk-split__body-tail {
   max-width: 1080px;
-  margin: clamp(36px, 5vw, 56px) auto 0;
+  margin: clamp(24px, 3vw, 36px) auto 0;
   padding-left: 22px;
   position: relative;
 }
@@ -9873,28 +9873,34 @@ button:focus-visible,
 .pk-split__col-visual {
   position: relative;
   min-height: 100%;
+  max-height: 420px;
+}
+@media (max-width: 900px) {
+  .pk-split__col-visual { max-height: none; }
 }
 
-/* Mosaic — three tiles, collapses to fewer on narrow viewports. */
+/* Mosaic — three tiles, collapses to fewer on narrow viewports.
+ * Capped to keep the side-by-side zone compact so the body tail
+ * flows immediately under the visual at full width. */
 .pk-split__mosaic {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 220px 220px;
-  gap: 12px;
+  grid-template-rows: 180px 180px;
+  gap: 10px;
   position: relative;
 }
 @media (max-width: 900px) {
   .pk-split__mosaic {
-    grid-template-rows: 160px 160px;
+    grid-template-rows: 140px 140px;
     margin-top: 8px;
   }
 }
 .pk-split__tile {
   position: relative;
   overflow: hidden;
-  border-radius: 18px;
+  border-radius: 16px;
   background: var(--pk-cream);
-  box-shadow: 0 8px 30px rgba(15, 26, 14, 0.08);
+  box-shadow: 0 6px 22px rgba(15, 26, 14, 0.08);
 }
 .pk-split__tile img {
   width: 100%;
@@ -9909,14 +9915,16 @@ button:focus-visible,
 .pk-split__tile--3 { grid-column: 2; grid-row: 2; }
 
 /* Single hero image — used when a section wants one big photo
- * rather than a 3-tile collage. */
+ * rather than a 3-tile collage. Landscape orientation keeps the
+ * side-by-side zone compact. */
 .pk-split__hero-image {
   position: relative;
-  border-radius: 22px;
+  border-radius: 18px;
   overflow: hidden;
   background: var(--pk-cream);
-  box-shadow: 0 12px 40px rgba(15, 26, 14, 0.1);
-  aspect-ratio: 4 / 5;
+  box-shadow: 0 8px 28px rgba(15, 26, 14, 0.1);
+  aspect-ratio: 5 / 4;
+  max-height: 320px;
 }
 .pk-split__hero-image img {
   width: 100%;
