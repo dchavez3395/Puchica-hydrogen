@@ -1103,27 +1103,24 @@ function FeaturedBanner({products}) {
   return (
     <section id="section-best-sellers" className="pk-feat-banner" aria-label={t('banner_section_aria')}>
       <div className="pk-feat-banner__inner">
-        <ScrollReveal className="pk-feat-banner__copy" variant="left">
-          <p className="pk-feat-banner__label"><StarGlyph variant="five" size={12} style={{marginRight: '0.5em'}} /> {t('banner_eyebrow')}</p>
-          <h2 className="pk-feat-banner__title">{t('banner_title')}</h2>
-          <p className="pk-feat-banner__sub">{t('banner_sub')}</p>
-          <MagneticButton as={Link} to="/collections/best-sellers" className="pk-btn pk-btn--ember pk-btn--lg">
-            {t('banner_cta')}
-          </MagneticButton>
-        </ScrollReveal>
+        <div className="pk-feat-banner__head">
+          <div>
+            <p className="pk-feat-banner__label"><StarGlyph variant="five" size={12} style={{marginRight: '0.5em'}} /> {t('banner_eyebrow')}</p>
+            <h2 className="pk-feat-banner__title">{t('banner_title')}</h2>
+          </div>
+          <Link to="/collections/best-sellers" className="pk-feat-banner__cta">
+            {t('banner_cta')} →
+          </Link>
+        </div>
         <div className="pk-feat-banner__grid">
-          {products.slice(0, 3).map((p, i) => (
-            <ScrollReveal key={p.id} delay={i * 60} variant="right">
-              <TiltCard className="pk-feat-banner__card-wrap" maxTilt={6}>
-                <Link to={`/products/${p.handle}`} className="pk-feat-banner__card" aria-label={p.title}>
-                  {p.featuredImage && <Image data={p.featuredImage} aspectRatio="3/4" sizes="200px" />}
-                  <div className="pk-feat-banner__card-info">
-                    <p className="pk-feat-banner__card-name">{p.title}</p>
-                    <div className="pk-feat-banner__card-price"><Money data={p.priceRange.minVariantPrice} /></div>
-                  </div>
-                </Link>
-              </TiltCard>
-            </ScrollReveal>
+          {products.slice(0, 4).map((p) => (
+            <Link key={p.id} to={`/products/${p.handle}`} className="pk-feat-banner__card" aria-label={p.title}>
+              {p.featuredImage && <Image data={p.featuredImage} aspectRatio="4/5" sizes="280px" loading="lazy" />}
+              <div className="pk-feat-banner__card-info">
+                <p className="pk-feat-banner__card-name">{p.title}</p>
+                <div className="pk-feat-banner__card-price"><Money data={p.priceRange.minVariantPrice} /></div>
+              </div>
+            </Link>
           ))}
         </div>
       </div>
