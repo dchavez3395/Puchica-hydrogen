@@ -4545,6 +4545,69 @@ button:focus-visible,
   .pk-section__head--center h2 { font-size: 24px; }
 }
 
+/* Policies index page — list of policy links. Replaces the
+   unstyled <fieldset>-based layout that pre-dated the design system. */
+.pk-policies-index {
+  max-width: 720px;
+  margin: 64px auto;
+  padding: 0 24px;
+}
+.pk-policies-index__head { margin-bottom: 32px; }
+.pk-policies-index__head h1 {
+  font-family: var(--pk-font-display);
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 600;
+  margin: 0 0 8px;
+  color: var(--pk-ink);
+}
+.pk-policies-index__head p {
+  font-size: 1rem;
+  color: var(--pk-ink-soft);
+  margin: 0;
+  max-width: 480px;
+}
+.pk-policies-index__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid var(--pk-border);
+}
+.pk-policies-index__link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 4px;
+  border-bottom: 1px solid var(--pk-border);
+  text-decoration: none;
+  color: var(--pk-ink);
+  transition: color 0.15s ease, padding-left 0.15s ease;
+}
+.pk-policies-index__link:hover,
+.pk-policies-index__link:focus-visible {
+  color: var(--pk-ember);
+  padding-left: 8px;
+}
+.pk-policies-index__link:focus-visible {
+  outline: 2px solid var(--pk-ember);
+  outline-offset: -2px;
+  border-radius: 2px;
+}
+.pk-policies-index__link-title {
+  font-family: var(--pk-font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+.pk-policies-index__link-arrow {
+  color: var(--pk-muted);
+  font-size: 1.25rem;
+  transition: transform 0.15s ease, color 0.15s ease;
+}
+.pk-policies-index__link:hover .pk-policies-index__link-arrow,
+.pk-policies-index__link:focus-visible .pk-policies-index__link-arrow {
+  color: var(--pk-ember);
+  transform: translateX(4px);
+}
+
 /* ---------- Pagination control ---------- */
 .pk-pager {
   display: grid;

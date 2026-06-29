@@ -8,7 +8,7 @@ export const meta = () => {
   return puchicaMeta({
     title: 'Policies – Puchica',
     description:
-      'Puchica policies: shipping, returns, privacy, and terms. Free shipping over $50. Easy 30-day returns.',
+      'Shipping, returns, privacy, and terms for orders placed at Puchica.ca. Canadian-owned. 30-day easy returns.',
     pathname: '/policies',
   });
 };
@@ -41,15 +41,21 @@ export default function Policies() {
   const {policies} = useLoaderData();
 
   return (
-    <div className="policies">
-      <h1>Policies</h1>
-      <div>
+    <div className="pk-policies-index pk-inner">
+      <header className="pk-policies-index__head">
+        <h1>Policies</h1>
+        <p>Shipping, returns, privacy, and terms for orders at Puchica.</p>
+      </header>
+      <ul className="pk-policies-index__list">
         {policies.map((policy) => (
-          <fieldset key={policy.id}>
-            <Link to={`/policies/${policy.handle}`}>{policy.title}</Link>
-          </fieldset>
+          <li key={policy.id}>
+            <Link to={`/policies/${policy.handle}`} className="pk-policies-index__link">
+              <span className="pk-policies-index__link-title">{policy.title}</span>
+              <span className="pk-policies-index__link-arrow" aria-hidden>→</span>
+            </Link>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 }
