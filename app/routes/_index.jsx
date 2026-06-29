@@ -105,7 +105,17 @@ function loadDeferredData({context}) {
     .then(norm('fresh'))
     .catch((e) => { logError('freshFinds query failed', e); return []; });
 
-  return {trending, rackProducts, bestPicks, catWorld, newArrivals, freshFinds, showcaseCollections };
+  const discoverProducts = context.storefront
+    .query(DISCOVER_QUERY, {variables: {country, language}})
+    .then(norm('tech-gadgets'))
+    .catch((e) => { logError('discoverProducts query failed', e); return []; });
+
+  const matchProducts = context.storefront
+    .query(MATCH_QUERY, {variables: {country, language}})
+    .then(norm('health-wellness'))
+    .catch((e) => { logError('matchProducts query failed', e); return []; });
+
+  return {trending, rackProducts, bestPicks, catWorld, newArrivals, freshFinds, showcaseCollections, discoverProducts, matchProducts};
 }
 
 export default function Index() {
@@ -133,9 +143,9 @@ export default function Index() {
         <Marquee isPlaying={isPlaying} />
       </div>
 
-      {/* Discover swiper — same trending collection */}
+      {/* Discover swiper — Tech & Gadgets collection */}
       <Suspense fallback={null}>
-        <Await resolve={data.trending}>
+        <Await resolve={data.discoverProducts}>
           {(products) => (
             <ScrollReveal variant="up">
               <DiscoverSwiper products={products ?? []} />
@@ -158,9 +168,9 @@ export default function Index() {
       {/* Gift finder */}
       <GiftFinder />
 
-      {/* Product Matchmaker (Tinder Swipe Finder) */}
+      {/* Product Matchmaker (Tinder Swipe Finder) — Health & Wellness collection */}
       <Suspense fallback={null}>
-        <Await resolve={data.trending}>
+        <Await resolve={data.matchProducts}>
           {(products) => (
             <ScrollReveal variant="up">
               <ProductMatchmaker products={products ?? []} />
@@ -1197,7 +1207,7 @@ const BEST_PICKS_QUERY = `#graphql
   }
   query BestPicks($country: CountryCode!, $language: LanguageCode!) @inContext(country: $country, language: $language) {
     collection(handle: "best-sellers") {
-      products(first: 3, sortKey: BEST_SELLING) {
+      products(first: 4, sortKey: BEST_SELLING) {
         nodes { ...BestPick }
       }
     }
@@ -1213,7 +1223,7 @@ const NEW_ARRIVALS_QUERY = `#graphql
   }
   query NewArrivals($country: CountryCode!, $language: LanguageCode!) @inContext(country: $country, language: $language) {
     collection(handle: "outdoor-garden") {
-      products(first: 4, sortKey: CREATED, reverse: true) {
+      products(first: 8, sortKey: CREATED, reverse: true) {
         nodes { ...NewArrival }
       }
     }
@@ -1231,6 +1241,44 @@ const FRESH_FINDS_QUERY = `#graphql
     collection(handle: "beauty-personal-care") {
       products(first: 6, sortKey: BEST_SELLING) {
         nodes { ...FreshFind }
+      }
+    }
+  }
+`;
+
+/* ── Tech & Gadgets → discover swiper ── */
+const DISCOVER_QUERY = `#graphql
+  fragment DiscoverProduct on Product {
+    id title handle
+    priceRange { minVariantPrice { amount currencyCode } }
+    featuredImage { id url altText width height }
+    variants(first: 1) {
+      nodes { id availableForSale }
+    }
+  }
+  query DiscoverProducts($country: CountryCode!, $language: LanguageCode!) @inContext(country: $country, language: $language) {
+    collection(handle: "tech-gadgets") {
+      products(first: 6, sortKey: BEST_SELLING) {
+        nodes { ...DiscoverProduct }
+      }
+    }
+  }
+`;
+
+/* ── Health & Wellness → matchmaker swipe cards ── */
+const MATCH_QUERY = `#graphql
+  fragment MatchProduct on Product {
+    id title handle
+    priceRange { minVariantPrice { amount currencyCode } }
+    featuredImage { id url altText width height }
+    variants(first: 1) {
+      nodes { id availableForSale }
+    }
+  }
+  query MatchProducts($country: CountryCode!, $language: LanguageCode!) @inContext(country: $country, language: $language) {
+    collection(handle: "health-wellness") {
+      products(first: 8, sortKey: BEST_SELLING) {
+        nodes { ...MatchProduct }
       }
     }
   }
