@@ -1488,36 +1488,75 @@ button:focus-visible,
   align-items: center;
   gap: 8px;
   font-family: var(--pk-font-body);
-  font-weight: 600;
-  border-radius: 12px;
-  padding: 13px 22px;
+  font-weight: 700;
+  border-radius: 2px;
+  padding: 12px 28px;
   text-decoration: none;
-  border: none;
+  border: 1.5px solid currentColor;
   cursor: pointer;
-  font-size: 15px;
-  transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 .pk-btn--primary {
-  background: #0E0C08;
-  color: #F4F0E6;
-  box-shadow: 0 8px 20px rgba(14, 12, 8, 0.22);
+  background: transparent;
+  color: #160F3A;
+  border: 1.5px solid #160F3A;
+  box-shadow: none;
 }
 .pk-btn--primary:hover {
-  background: #1C1A12;
-  transform: translateY(-1px);
-  box-shadow: 0 12px 24px rgba(14, 12, 8, 0.30);
+  background: #CC4300;
+  border-color: #CC4300;
+  color: #fff;
+  transform: none;
+  box-shadow: none;
+}
+.pk-btn--primary-dark {
+  background: transparent;
+  color: #fff;
+  border: 1.5px solid #fff;
+}
+.pk-btn--primary-dark:hover {
+  background: #fff;
+  color: #160F3A;
+  border-color: #fff;
+}
+.pk-btn--secondary {
+  background: transparent;
+  color: #160F3A;
+  border: 1px solid #160F3A;
+  padding: 10px 20px;
+}
+.pk-btn--secondary:hover {
+  background: #160F3A;
+  color: #fff;
+}
+.pk-btn--secondary-dark {
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.5);
+  padding: 10px 20px;
+}
+.pk-btn--secondary-dark:hover {
+  background: #fff;
+  color: #160F3A;
+  border-color: #fff;
 }
 /* Lime CTA for dark backgrounds */
 .pk-btn--spark {
   background: var(--pk-lime);
   color: #0E0C08;
-  box-shadow: 0 8px 20px rgba(198, 255, 78, 0.30);
+  border: 1.5px solid var(--pk-lime);
+  border-radius: 2px;
   font-weight: 800;
+  box-shadow: none;
 }
 .pk-btn--spark:hover {
   background: var(--pk-lime-hover);
-  transform: translateY(-1px);
-  box-shadow: 0 12px 24px rgba(198, 255, 78, 0.42);
+  border-color: var(--pk-lime-hover);
+  transform: none;
+  box-shadow: none;
 }
 /* Ember CTA - warm orange/red, intended for hero CTAs / primary
    actions on cream and ink. Variables were aliased to --pk-ink which
@@ -1528,12 +1567,15 @@ button:focus-visible,
   background: #CC4300;
   color: #F4F0E6;
   font-weight: 800;
-  box-shadow: 0 8px 20px rgba(204, 67, 0, 0.32);
+  border: 1.5px solid #CC4300;
+  border-radius: 2px;
+  box-shadow: none;
 }
 .pk-btn--ember:hover {
   background: #A83800;
-  transform: translateY(-1px);
-  box-shadow: 0 12px 26px rgba(204, 67, 0, 0.42);
+  border-color: #A83800;
+  transform: none;
+  box-shadow: none;
 }
 .pk-btn--ember:disabled,
 .pk-btn--ember[aria-disabled="true"] {
@@ -1548,6 +1590,7 @@ button:focus-visible,
   background: transparent;
   color: #CC4300;
   border: 1.5px solid #CC4300;
+  border-radius: 2px;
   font-weight: 700;
 }
 .pk-btn--ember-ghost:hover { background: rgba(204, 67, 0, 0.08); }
@@ -1555,6 +1598,7 @@ button:focus-visible,
   background: rgba(244,240,230,0.10);
   color: #F4F0E6;
   border: 1px solid rgba(244,240,230,0.30);
+  border-radius: 2px;
 }
 .pk-btn--ghost:hover {
   background: rgba(244,240,230,0.18);
@@ -1650,7 +1694,7 @@ button:focus-visible,
   display: inline-flex; align-items: center; gap: 6px;
   font-size: 14px; font-weight: 700; letter-spacing: 0.02em;
   color: #CC4300; background: transparent;
-  padding: 8px 14px; border-radius: 999px;
+  padding: 8px 14px; border-radius: 2px;
   border: 1px solid currentColor;
   text-decoration: none; white-space: nowrap;
   transition: background .2s, transform .15s;
@@ -2406,7 +2450,7 @@ button:focus-visible,
   gap: 2px;
   margin-bottom: 28px;
 }
-.pk-btn--lg { padding: 15px 26px; font-size: 16px; border-radius: 14px; }
+.pk-btn--lg { padding: 15px 26px; font-size: 16px; border-radius: 2px; }
 .pk-btn--light {
   background: var(--pk-paper);
   color: var(--pk-ember-hover);
@@ -2673,7 +2717,7 @@ button:focus-visible,
   display: inline-flex; align-items: center; gap: 6px;
   font-size: 13px; font-weight: 700; letter-spacing: 0.04em;
   color: var(--pk-paper); background: rgba(244, 240, 230, 0.1);
-  padding: 9px 16px; border-radius: 999px;
+  padding: 9px 16px; border-radius: 2px;
   border: 1px solid rgba(244, 240, 230, 0.25);
   text-decoration: none; white-space: nowrap;
   transition: background .2s, border-color .2s, transform .15s;
@@ -6434,7 +6478,7 @@ button:focus-visible,
 .pk-swiper__arr {
   width: 44px;
   height: 44px;
-  border-radius: 50%;
+  border-radius: 2px;
   border: 1.5px solid rgba(198, 255, 78, 0.35);
   background: rgba(198, 255, 78, 0.06);
   color: #F4F0E6;
@@ -6611,7 +6655,7 @@ button:focus-visible,
 .pk-rack__arr {
   width: 40px;
   height: 40px;
-  border-radius: 50%;
+  border-radius: 2px;
   border: 1.5px solid rgba(14,12,8,0.2);
   background: transparent;
   color: var(--pk-ink);
