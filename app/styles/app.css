@@ -7248,9 +7248,10 @@ button:focus-visible,
   position: relative;
   background: var(--pk-ink);
   color: #F4F0E6;
-  padding: 120px 24px 96px;
+  padding: 120px 0 96px;
   overflow: hidden;
   text-align: center;
+  width: 100%;
 }
 .pk-about-hero__glow {
   position: absolute;
@@ -7268,6 +7269,8 @@ button:focus-visible,
   z-index: 1;
   max-width: 720px;
   margin: 0 auto;
+  padding: 0 24px;
+  box-sizing: border-box;
 }
 .pk-about-hero__eyebrow {
   font-size: 12px;
@@ -7303,6 +7306,7 @@ button:focus-visible,
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 0;
+  width: 100%;
 }
 .pk-about-stats__item {
   display: flex;
@@ -7332,6 +7336,7 @@ button:focus-visible,
 .pk-about-mission {
   padding: 96px 0;
   background: var(--pk-cream);
+  width: 100%;
 }
 .pk-about-mission__inner {
   max-width: 1200px;
@@ -7392,6 +7397,7 @@ button:focus-visible,
   background: var(--pk-ink);
   color: #F4F0E6;
   padding: 96px 0;
+  width: 100%;
 }
 .pk-about-how__inner {
   max-width: 1200px;
@@ -7453,6 +7459,7 @@ button:focus-visible,
 .pk-about-cats {
   background: var(--pk-cream);
   padding: 96px 0;
+  width: 100%;
 }
 .pk-about-cats__inner {
   max-width: 1200px;
@@ -7518,12 +7525,15 @@ button:focus-visible,
 /* Promise / pull quote */
 .pk-about-promise {
   background: var(--pk-lime);
-  padding: 80px 24px;
+  padding: 80px 0;
   text-align: center;
+  width: 100%;
 }
 .pk-about-promise__inner {
   max-width: 800px;
   margin: 0 auto;
+  padding: 0 24px;
+  box-sizing: border-box;
 }
 .pk-about-promise__quote {
   font-family: var(--pk-font-display);
@@ -7546,12 +7556,15 @@ button:focus-visible,
 .pk-about-cta {
   background: var(--pk-ink);
   color: #F4F0E6;
-  padding: 96px 24px;
+  padding: 96px 0;
   text-align: center;
+  width: 100%;
 }
 .pk-about-cta__inner {
   max-width: 640px;
   margin: 0 auto;
+  padding: 0 24px;
+  box-sizing: border-box;
 }
 .pk-about-cta__title {
   font-family: var(--pk-font-display);
@@ -7582,12 +7595,15 @@ button:focus-visible,
   .pk-about-cats__grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 640px) {
-  .pk-about-hero { padding: 88px 20px 64px; }
+  .pk-about-hero { padding: 88px 0 64px; }
+  .pk-about-hero__inner { padding: 0 20px; }
   .pk-about-stats { grid-template-columns: repeat(2, 1fr); }
   .pk-about-stats__item { border-right: none; border-bottom: 1px solid rgba(14,12,8,0.12); padding: 28px 20px; }
   .pk-about-stats__item:nth-child(2n) { border-right: none; }
   .pk-about-cats__grid { grid-template-columns: 1fr; }
-  .pk-about-cta { padding: 64px 20px; }
+  .pk-about-cta { padding: 64px 0; }
+  .pk-about-cta__inner { padding: 0 20px; }
+  .pk-about-promise__inner { padding: 0 20px; }
 }
 
 /* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
