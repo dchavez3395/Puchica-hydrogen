@@ -2889,8 +2889,11 @@ button:focus-visible,
   letter-spacing: -4px;
   font-variant-numeric: tabular-nums;
   display: inline-block;
-  min-width: 4ch; /* reserve room for "6,000" so the number doesn't
-                     reflow as it grows from 0 → 6,000 */
+  /* Reserve room for the longest pre-abbreviation value ("999") so
+     the block doesn't reflow when the digits cross 3 digits. The
+     "1k+" / "6k+" tail is short enough to live inside this width
+     without overflow. */
+  min-width: 3ch;
 }
 .pk-catalog-cta__sup { font-size: 0.45em; vertical-align: super; letter-spacing: -1px; color: #F4F0E6; }
 .pk-catalog-cta__body {

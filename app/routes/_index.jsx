@@ -1146,15 +1146,14 @@ function CatalogStatement() {
   const countRef = useRef(null);
   const [count, setCount] = useState(0);
 
-  // Count up from 0 → 6,000 (display value) the first time the
-  // section scrolls into view. Respects prefers-reduced-motion
-  // (jumps to the final value). Trigger threshold is 0.4 so the
-  // count visibly runs while the user is actually looking at it.
-  //
-  // The display reads "6,000+k" — the big number climbs through
-  // hundreds, then thousands, and settles on six thousand. The
-  // "+k" suffix is decorative (kept from the original treatment)
-  // but the numeric value behind it is 6,000.
+  // Count up from 0 → 6,000 (internal value) the first time the
+  // section scrolls into view. Display format follows the value:
+  //   0 → 999       : full digit, no comma yet (e.g. 0, 100, 500)
+  //   1,000 → 9,999 : abbreviated to "1k", "2k", … "6k" so the
+  //                   number reads as a short typographic flourish
+  //                   instead of a four-digit counter.
+  // The "+" superscript + "k" suffix in the JSX only renders when
+  // we display the abbreviated form (see displayK below).
   useEffect(() => {
     const el = countRef.current;
     if (!el) return;
@@ -1177,8 +1176,8 @@ function CatalogStatement() {
             const start = performance.now();
             const tick = (now) => {
               const progress = Math.min((now - start) / duration, 1);
-              // Ease out cubic — fast at first (hundreds tick by
-              // quickly), then slows as it approaches 6,000.
+              // Ease out cubic — hundreds tick fast, last stretch
+              // into 6,000 settles.
               const eased = 1 - Math.pow(1 - progress, 3);
               setCount(Math.round(eased * 6000));
               if (progress < 1) requestAnimationFrame(tick);
@@ -1194,7 +1193,8 @@ function CatalogStatement() {
     return () => observer.disconnect();
   }, []);
 
-  const formatted = count.toLocaleString('en-CA');
+  // 0 → 999 prints the raw number. 1,000+ collapses to "<n>k".
+  const displayK = count >= 1000;
 
   return (
     <section className="pk-catalog-cta" aria-label={t('catalog_section_aria')}>
@@ -1203,8 +1203,8 @@ function CatalogStatement() {
         className="pk-catalog-cta__number"
         aria-label={t('catalog_count_aria')}
       >
-        {formatted}
-        <span className="pk-catalog-cta__sup">+</span>k
+        {displayK ? `${Math.floor(count / 1000)}k` : count}
+        {displayK ? <span className="pk-catalog-cta__sup">+</span> : null}
       </p>
       <p className="pk-catalog-cta__body">{t('catalog_body')}</p>
       <div className="pk-catalog-cta__ctas">
