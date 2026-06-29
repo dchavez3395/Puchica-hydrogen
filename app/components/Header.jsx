@@ -89,7 +89,7 @@ function AnnouncementBar() {
   }, []);
 
   return (
-    <div className="pk-ann" data-hidden={hidden ? 'true' : 'false'} role="region" aria-label="Site announcement">
+    <div className="pk-ann" data-hidden={hidden ? 'true' : 'false'} role="region" aria-label={t('announce_region_aria')}>
       <div className="pk-ann__inner">
         <span>
           {t('announce_offer')}
