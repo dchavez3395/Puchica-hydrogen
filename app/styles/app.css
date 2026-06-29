@@ -536,7 +536,7 @@ button.reset:hover:not(:has(> *)) {
   gap: 4px;
 }
 .cart-brand__line span {
-  color: var(--pk-ember, #CC4300);
+  color: var(--pk-ember, #A83800);
   font-weight: 700;
 }
 
@@ -845,7 +845,7 @@ button.reset:hover:not(:has(> *)) {
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 .cart-summary-field__row:focus-within {
-  border-color: var(--pk-ember, #CC4300);
+  border-color: var(--pk-ember, #A83800);
   box-shadow: 0 0 0 3px rgba(204, 67, 0, 0.14);
 }
 .cart-summary-field__row input[type="text"] {
@@ -885,9 +885,9 @@ button.reset:hover:not(:has(> *)) {
   transition: background 0.12s ease, color 0.12s ease;
 }
 .cart-summary-field__row button[type="submit"]:hover {
-  background: var(--pk-ember, #CC4300);
+  background: var(--pk-ember, #A83800);
   color: #fff;
-  border-left-color: var(--pk-ember, #CC4300);
+  border-left-color: var(--pk-ember, #A83800);
 }
 .cart-summary-aside section code {
   font-family: var(--pk-font-mono, ui-monospace, SFMono-Regular, monospace);
@@ -903,7 +903,7 @@ button.reset:hover:not(:has(> *)) {
 .cart-summary-checkout a {
   display: block;
   padding: 14px 16px;
-  background: var(--pk-ember, #CC4300);
+  background: var(--pk-ember, #A83800);
   color: #fff;
   text-align: center;
   border-radius: 12px;
@@ -957,7 +957,7 @@ button.reset:hover:not(:has(> *)) {
   left: 34px;
   top: 50%;
   transform: translateY(-50%);
-  color: var(--pk-ember, #CC4300);
+  color: var(--pk-ember, #A83800);
   display: inline-grid;
   place-items: center;
   pointer-events: none;
@@ -983,7 +983,7 @@ button.reset:hover:not(:has(> *)) {
 }
 .pk-search__input::placeholder { color: var(--pk-muted, #6B5E4E); }
 .pk-search__input:focus {
-  border-color: var(--pk-ember, #CC4300);
+  border-color: var(--pk-ember, #A83800);
   background: #fff;
   box-shadow: 0 0 0 4px rgba(204,67,0,.14);
 }
@@ -1028,7 +1028,7 @@ button.reset:hover:not(:has(> *)) {
   width: 14px;
   height: 14px;
   border: 2px solid var(--pk-border, #D4C5AD);
-  border-top-color: var(--pk-ember, #CC4300);
+  border-top-color: var(--pk-ember, #A83800);
   border-radius: 50%;
   animation: pk-pager-spin .8s linear infinite;
   flex: none;
@@ -1047,7 +1047,7 @@ button.reset:hover:not(:has(> *)) {
   transition: background .15s ease, color .15s ease;
 }
 .pk-search__more:hover {
-  background: var(--pk-ember, #CC4300);
+  background: var(--pk-ember, #A83800);
   color: #fff;
 }
 
@@ -1413,8 +1413,8 @@ button.reset:hover:not(:has(> *)) {
 
   /* â”€â”€ Backward-compat aliases â”€â”€ */
   /* "ember" drives CTA buttons/links on light bg â†’ warm black */
-  --pk-ember:         #CC4300;
-  --pk-ember-hover:   #A83800;
+  --pk-ember:         #A83800;
+  --pk-ember-hover:   #8C3000;
   --pk-ember-pale:    var(--pk-lime-pale);
   /* "spark" drives accents on dark bg â†’ acid lime */
   --pk-spark:         var(--pk-lime);
@@ -1527,8 +1527,8 @@ button:focus-visible,
   box-shadow: none;
 }
 .pk-btn--primary:hover {
-  background: #CC4300;
-  border-color: #CC4300;
+  background: #A83800;
+  border-color: #A83800;
   color: #fff;
   transform: none;
   box-shadow: none;
@@ -1582,13 +1582,13 @@ button:focus-visible,
 /* Ember CTA - warm orange/red, intended for hero CTAs / primary
    actions on cream and ink. Variables were aliased to --pk-ink which
    silently rendered them black-on-everything. Now uses the brand
-   ember hex (#CC4300) so CTAs read as warm and stay legible on
+   ember hex (#A83800) so CTAs read as warm and stay legible on
    either dark or light surfaces. */
 .pk-btn--ember {
-  background: #CC4300;
+  background: #A83800;
   color: #F4F0E6;
   font-weight: 800;
-  border: 1.5px solid #CC4300;
+  border: 1.5px solid #A83800;
   border-radius: 2px;
   box-shadow: none;
 }
@@ -1609,8 +1609,8 @@ button:focus-visible,
    readable when stacked next to a different background. */
 .pk-btn--ember-ghost {
   background: transparent;
-  color: #CC4300;
-  border: 1.5px solid #CC4300;
+  color: #A83800;
+  border: 1.5px solid #A83800;
   border-radius: 2px;
   font-weight: 700;
 }
@@ -1714,7 +1714,7 @@ button:focus-visible,
 .pk-section__link {
   display: inline-flex; align-items: center; gap: 6px;
   font-size: 14px; font-weight: 700; letter-spacing: 0.02em;
-  color: #CC4300; background: transparent;
+  color: #A83800; background: transparent;
   padding: 8px 14px; border-radius: 2px;
   border: 1px solid currentColor;
   text-decoration: none; white-space: nowrap;
@@ -1745,7 +1745,7 @@ button:focus-visible,
 .pk-cat-card__cta {
   display: inline-flex; align-items: center; gap: 4px;
   font-size: 13px; font-weight: 700;
-  color: #CC4300; margin-top: 10px;
+  color: #A83800; margin-top: 10px;
   transition: gap .2s;
 }
 .pk-cat-card:hover .pk-cat-card__cta { gap: 8px; }
@@ -2702,7 +2702,7 @@ button:focus-visible,
   line-height: 1.4;
   pointer-events: none;
 }
-.pk-card__badge--new-arrival { background: #CC4300; color: #fff; }
+.pk-card__badge--new-arrival { background: #A83800; color: #fff; }
 .pk-card__badge--top-pick    { background: #6D4CFF; color: #fff; }
 .pk-card__badge--trending    { background: #160F3A; color: #fff; }
 .pk-card__badge--staff-pick  { background: var(--pk-paper); color: #160F3A; border: 1px solid rgba(22,15,58,0.2); }
@@ -3982,7 +3982,7 @@ button:focus-visible,
 .pk-reco__see-all {
   display: inline-flex; align-items: center; gap: 6px;
   font-size: 13px; font-weight: 700; letter-spacing: 0.02em;
-  color: #CC4300;
+  color: #A83800;
   padding: 8px 14px; border-radius: 999px;
   border: 1px solid currentColor;
   text-decoration: none;
@@ -4967,7 +4967,7 @@ button:focus-visible,
 }
 .pk-empty-cart__circle--b {
   inset: 24px;
-  background: var(--pk-ember, #CC4300);
+  background: var(--pk-ember, #A83800);
   opacity: 0.14;
 }
 .pk-empty-cart__icon {
@@ -4986,7 +4986,7 @@ button:focus-visible,
   position: absolute;
   display: grid;
   place-items: center;
-  color: var(--pk-ember, #CC4300);
+  color: var(--pk-ember, #A83800);
   background: #fff;
   border-radius: 999px;
   padding: 6px;
@@ -5419,7 +5419,7 @@ button:focus-visible,
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--pk-ember, #CC4300);
+  color: var(--pk-ember, #A83800);
   background: rgba(204, 67, 0, 0.10);
   border-radius: 999px;
   padding: 4px 10px;
@@ -5449,7 +5449,7 @@ button:focus-visible,
 }
 .pk-route-error__input:focus {
   outline: none;
-  border-color: var(--pk-ember, #CC4300);
+  border-color: var(--pk-ember, #A83800);
   box-shadow: 0 0 0 3px rgba(204, 67, 0, 0.25);
 }
 .pk-route-error__cta {
@@ -5465,7 +5465,7 @@ button:focus-visible,
   margin: 0;
 }
 .pk-route-error__contact a {
-  color: var(--pk-ember, #CC4300);
+  color: var(--pk-ember, #A83800);
   font-weight: 600;
   text-decoration: underline;
   text-underline-offset: 3px;
@@ -5538,7 +5538,7 @@ button:focus-visible,
 .pk-toolbar__clear {
   background: transparent;
   border: 0;
-  color: var(--pk-ember, #CC4300);
+  color: var(--pk-ember, #A83800);
   cursor: pointer;
   font-size: 13px;
   font-weight: 600;
@@ -5555,7 +5555,7 @@ button:focus-visible,
 .pk-empty__reset {
   background: transparent;
   border: 0;
-  color: var(--pk-ember, #CC4300);
+  color: var(--pk-ember, #A83800);
   cursor: pointer;
   font-size: inherit;
   font-weight: 600;
@@ -5629,14 +5629,14 @@ button:focus-visible,
 }
 .pk-notify-back input:focus {
   outline: none;
-  border-color: var(--pk-ember, #CC4300);
+  border-color: var(--pk-ember, #A83800);
   box-shadow: 0 0 0 3px rgba(204, 67, 0, 0.25);
 }
 .pk-notify-back button {
   padding: 10px 16px;
   border: 0;
   border-radius: 8px;
-  background: var(--pk-ember, #CC4300);
+  background: var(--pk-ember, #A83800);
   color: #fff;
   font-weight: 600;
   cursor: pointer;
@@ -5723,7 +5723,7 @@ button:focus-visible,
 }
 .pk-search-page__title em {
   font-style: normal;
-  color: var(--pk-ember, #CC4300);
+  color: var(--pk-ember, #A83800);
 }
 .pk-search-page__form {
   max-width: 560px;
@@ -5763,7 +5763,7 @@ button:focus-visible,
   font-weight: 600;
 }
 .pk-search-links a:hover {
-  color: var(--pk-ember, #CC4300);
+  color: var(--pk-ember, #A83800);
 }
 
 /* ---------- Language switcher ---------- */
@@ -5813,7 +5813,7 @@ button:focus-visible,
 }
 .pk-locale__item.is-active {
   font-weight: 700;
-  color: var(--pk-ember, #CC4300);
+  color: var(--pk-ember, #A83800);
 }
 
 /* ============================================================
@@ -6098,7 +6098,7 @@ button:focus-visible,
   background: var(--pk-ink);
   color: var(--pk-cream);
 }
-.pk-cat-world--dark .pk-cat-world__eyebrow { color: var(--pk-ember); }
+.pk-cat-world--dark .pk-cat-world__eyebrow { color: rgba(255,255,255,0.5); }
 .pk-cat-world--dark .pk-cat-world__body    { color: rgba(244,240,230,0.58); }
 .pk-cat-world--dark .pk-cat-world__products { background: rgba(244,240,230,0.04); }
 .pk-cat-world--dark .pk-cat-world__card {
@@ -6110,7 +6110,7 @@ button:focus-visible,
   background: rgba(244,240,230,0.13);
   box-shadow: 0 8px 32px rgba(0,0,0,0.38);
 }
-.pk-cat-world--dark .pk-cat-world__card-price { color: var(--pk-ember); }
+.pk-cat-world--dark .pk-cat-world__card-price { color: rgba(255,255,255,0.85); }
 /* gold CTA on dark */
 .pk-cat-world--dark .pk-btn--primary {
   background: var(--pk-spark);
@@ -6590,7 +6590,7 @@ button:focus-visible,
 }
 .pk-swiper__card.is-active {
   border-color: var(--pk-ember);
-  box-shadow: 0 0 0 1px var(--pk-ember), 0 24px 64px rgba(204, 67, 0, 0.12);
+  box-shadow: 0 0 0 1px var(--pk-ember), 0 24px 64px rgba(168, 56, 0, 0.12);
   transform: scale(1);
 }
 .pk-swiper__card:hover {
@@ -7844,14 +7844,20 @@ button:focus-visible,
 }
 .pk-collist-card__chip {
   position: absolute;
+  top: auto;
   bottom: 12px;
   left: 12px;
   padding: 4px 12px;
   border-radius: 100px;
-  font-size: 12px;
-  font-weight: 600;
-  border: 1px solid;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  border: 1px solid rgba(15,26,14,0.10);
+  background: rgba(242, 235, 218, 0.92);
+  color: var(--pk-ink);
   backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 .pk-collist-card__body {
   padding: 16px 20px 20px;
@@ -7967,7 +7973,7 @@ button:focus-visible,
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #CC4300;
+  color: #A83800;
   display: block;
   margin-bottom: 12px;
 }
@@ -8024,7 +8030,7 @@ button:focus-visible,
   font-size: clamp(32px, 5vw, 48px);
   font-weight: 800;
   line-height: 1;
-  background: linear-gradient(135deg, #FF8A4C 0%, #CC4300 100%);
+  background: linear-gradient(135deg, #FF8A4C 0%, #A83800 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -8074,7 +8080,7 @@ button:focus-visible,
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #CC4300;
+  background: #A83800;
   animation: pk-ticker-pulse 2s ease-in-out infinite;
 }
 @keyframes pk-ticker-pulse {
@@ -8594,7 +8600,7 @@ button:focus-visible,
   font-size: 18px;
   font-weight: 700;
   letter-spacing: 0.08em;
-  color: #CC4300;
+  color: #A83800;
   opacity: 0.5;
 }
 
