@@ -56,9 +56,10 @@ export function PageLayout({
  * @param {{cart: PageLayoutProps['cart']}}
  */
 function CartAside({cart}) {
+  const t = useT();
   return (
-    <Aside type="cart" heading="CART">
-      <Suspense fallback={<p>Loading cart ...</p>}>
+    <Aside type="cart" heading={t('aside_heading_cart')}>
+      <Suspense fallback={<p>{t('cart_loading')}</p>}>
         <Await resolve={cart}>
           {(cart) => {
             return <CartMain cart={cart} layout="aside" />;
@@ -71,8 +72,9 @@ function CartAside({cart}) {
 
 function SearchAside() {
   const queriesDatalistId = useId();
+  const t = useT();
   return (
-    <Aside type="search" heading="SEARCH">
+    <Aside type="search" heading={t('aside_heading_search')}>
       <div className="pk-search">
         <SearchFormPredictive>
           {({fetchResults, goToSearch, inputRef}) => (
@@ -91,7 +93,7 @@ function SearchAside() {
                 name="q"
                 onChange={fetchResults}
                 onFocus={fetchResults}
-                placeholder="Search products, collections, articles…"
+                placeholder={t('search_placeholder')}
                 ref={inputRef}
                 type="search"
                 list={queriesDatalistId}
@@ -100,9 +102,9 @@ function SearchAside() {
               <button
                 type="submit"
                 className="pk-search__submit"
-                aria-label="Search"
+                aria-label={t('search_aria_submit')}
               >
-                Search
+                {t('search_submit_label')}
               </button>
             </form>
           )}
@@ -117,7 +119,7 @@ function SearchAside() {
                 return (
                   <div className="pk-search__loading">
                     <span className="pk-search__spinner" aria-hidden />
-                    Searching for &ldquo;{term.current}&rdquo;…
+                    {t('search_loading_for').replace('{term}', term.current)}
                   </div>
                 );
               }
@@ -158,7 +160,7 @@ function SearchAside() {
                       to={`${SEARCH_ENDPOINT}?q=${term.current}`}
                       className="pk-search__more"
                     >
-                      View all results for &ldquo;{term.current}&rdquo; →
+                      {t('search_view_all').replace('{term}', term.current)}
                     </Link>
                   ) : null}
                 </>
@@ -183,7 +185,7 @@ function MobileMenuAside({header, megaMenu, publicStoreDomain}) {
   return (
     header.menu &&
     header.shop.primaryDomain?.url && (
-      <Aside type="mobile" heading="MENU">
+      <Aside type="mobile" heading={t('aside_heading_menu')}>
         <div className="pk-mmenu">
           <HeaderMenu
             menu={header.menu}
