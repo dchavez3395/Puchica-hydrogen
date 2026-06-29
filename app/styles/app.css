@@ -6282,6 +6282,11 @@ button:focus-visible,
   position: relative;
   overflow: hidden;
 }
+.pk-hero2 > .pk-parallax {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
 
 /* Ambient lime glow orbs */
 .pk-hero2__glow {
