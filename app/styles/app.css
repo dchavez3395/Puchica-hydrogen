@@ -8934,3 +8934,20 @@ button:focus-visible,
 @media (prefers-reduced-motion: reduce) {
   .pk-reveal, .pk-reveal * { animation: none !important; transition: none !important; transform: none !important; opacity: 1 !important; }
 }
+
+/* Magnetic CTA - mouse-follow pull effect */
+.pk-magnetic { will-change: transform; }
+.pk-magnetic__inner {
+  will-change: transform;
+  transition: transform .25s cubic-bezier(.2,.7,.2,1);
+}
+.pk-magnetic:hover .pk-magnetic__inner { transition: transform .12s cubic-bezier(.2,.7,.2,1); }
+@media (prefers-reduced-motion: reduce) {
+  .pk-magnetic__inner { transition: none !important; transform: none !important; }
+}
+
+/* Hero parallax - subtle translateY on scroll, GPU-only */
+.pk-parallax { will-change: transform; }
+@media (prefers-reduced-motion: reduce) {
+  .pk-parallax { will-change: auto; transform: none !important; }
+}

@@ -12,6 +12,7 @@ import {ParallaxBanner} from '~/components/ParallaxBanner';
 import {ScrollReveal} from '~/components/ScrollReveal';
 import {TiltCard} from '~/components/TiltCard';
 import {EmblaProductCarousel} from '~/components/EmblaProductCarousel';
+import {MagneticButton} from '~/components/MagneticButton';
 import {useAside} from '~/components/Aside';
 import {AddToCartButton} from '~/components/AddToCartButton';
 
@@ -232,6 +233,20 @@ export default function Index() {
         </Await>
       </Suspense>
 
+      {/* Embla swipe carousel — fresh finds, light cream emphasis */}
+      <Suspense fallback={null}>
+        <Await resolve={data.freshFinds}>
+          {(products) => (
+            <EmblaProductCarousel
+              products={products ?? []}
+              title="Fresh Finds"
+              viewAllHref="/collections/all"
+              emphasis="light"
+            />
+          )}
+        </Await>
+      </Suspense>
+
       {/* Catalog statement */}
       <CatalogStatement />
       <ParallaxBanner />
@@ -309,7 +324,7 @@ function Hero({products, isPlaying, setIsPlaying}) {
           </h1>
           <p className="pk-hero2__sub">{t('hero_sub')}</p>
           <div className="pk-hero2__ctas">
-            <Link to="/collections" className="pk-btn pk-btn--ember pk-btn--lg">{t('hero_cta_shop')}</Link>
+            <MagneticButton as={Link} to="/collections" className="pk-btn pk-btn--ember pk-btn--lg">{t('hero_cta_shop')}</MagneticButton>
             <Link to="/collections/all" className="pk-btn pk-btn--ghost pk-btn--lg">{t('hero_cta_browse')}</Link>
           </div>
           <ul className="pk-hero2__stats" aria-label={t('swiper_stats_aria')}>
@@ -1115,9 +1130,9 @@ function FeaturedBanner({products}) {
           <p className="pk-feat-banner__label"><StarGlyph variant="five" size={12} style={{marginRight: '0.5em'}} /> {t('banner_eyebrow')}</p>
           <h2 className="pk-feat-banner__title">{t('banner_title')}</h2>
           <p className="pk-feat-banner__sub">{t('banner_sub')}</p>
-          <Link to="/collections/best-sellers" className="pk-btn pk-btn--ember pk-btn--lg">
+          <MagneticButton as={Link} to="/collections/best-sellers" className="pk-btn pk-btn--ember pk-btn--lg">
             {t('banner_cta')}
-          </Link>
+          </MagneticButton>
         </ScrollReveal>
         <div className="pk-feat-banner__grid">
           {products.slice(0, 3).map((p, i) => (
