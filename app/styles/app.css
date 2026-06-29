@@ -7269,7 +7269,8 @@ button:focus-visible,
   z-index: 1;
   max-width: 720px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding-left: max(24px, calc((100vw - 1200px) / 2 + 24px));
+  padding-right: max(24px, calc((100vw - 1200px) / 2 + 24px));
   box-sizing: border-box;
 }
 .pk-about-hero__eyebrow {
@@ -7339,9 +7340,8 @@ button:focus-visible,
   width: 100%;
 }
 .pk-about-mission__inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px;
+  padding-left: max(24px, calc((100vw - 1200px) / 2 + 24px));
+  padding-right: max(24px, calc((100vw - 1200px) / 2 + 24px));
   box-sizing: border-box;
   display: grid;
   grid-template-columns: 1.2fr 1fr;
@@ -7400,9 +7400,8 @@ button:focus-visible,
   width: 100%;
 }
 .pk-about-how__inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px;
+  padding-left: max(24px, calc((100vw - 1200px) / 2 + 24px));
+  padding-right: max(24px, calc((100vw - 1200px) / 2 + 24px));
   box-sizing: border-box;
 }
 .pk-about-how__head {
@@ -7462,9 +7461,8 @@ button:focus-visible,
   width: 100%;
 }
 .pk-about-cats__inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px;
+  padding-left: max(24px, calc((100vw - 1200px) / 2 + 24px));
+  padding-right: max(24px, calc((100vw - 1200px) / 2 + 24px));
   box-sizing: border-box;
   text-align: center;
 }
@@ -7532,7 +7530,8 @@ button:focus-visible,
 .pk-about-promise__inner {
   max-width: 800px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding-left: max(24px, calc((100vw - 1200px) / 2 + 24px));
+  padding-right: max(24px, calc((100vw - 1200px) / 2 + 24px));
   box-sizing: border-box;
 }
 .pk-about-promise__quote {
@@ -7563,7 +7562,8 @@ button:focus-visible,
 .pk-about-cta__inner {
   max-width: 640px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding-left: max(24px, calc((100vw - 1200px) / 2 + 24px));
+  padding-right: max(24px, calc((100vw - 1200px) / 2 + 24px));
   box-sizing: border-box;
 }
 .pk-about-cta__title {
@@ -7596,14 +7596,17 @@ button:focus-visible,
 }
 @media (max-width: 640px) {
   .pk-about-hero { padding: 88px 0 64px; }
-  .pk-about-hero__inner { padding: 0 20px; }
+  .pk-about-hero__inner { padding-left: 20px; padding-right: 20px; }
+  .pk-about-mission__inner { padding-left: 20px; padding-right: 20px; }
+  .pk-about-how__inner { padding-left: 20px; padding-right: 20px; }
+  .pk-about-cats__inner { padding-left: 20px; padding-right: 20px; }
+  .pk-about-promise__inner { padding-left: 20px; padding-right: 20px; }
+  .pk-about-cta__inner { padding-left: 20px; padding-right: 20px; }
   .pk-about-stats { grid-template-columns: repeat(2, 1fr); }
   .pk-about-stats__item { border-right: none; border-bottom: 1px solid rgba(14,12,8,0.12); padding: 28px 20px; }
   .pk-about-stats__item:nth-child(2n) { border-right: none; }
   .pk-about-cats__grid { grid-template-columns: 1fr; }
   .pk-about-cta { padding: 64px 0; }
-  .pk-about-cta__inner { padding: 0 20px; }
-  .pk-about-promise__inner { padding: 0 20px; }
 }
 
 /* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
