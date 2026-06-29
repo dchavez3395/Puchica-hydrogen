@@ -1426,7 +1426,7 @@ button.reset:hover:not(:has(> *)) {
   /* violet aliases â†’ lime equivalents */
   --pk-violet:        var(--pk-lime-dark);
   --pk-violet-light:  var(--pk-lime);
-  --pk-violet-deep:   var(--pk-ink);
+  --pk-violet-deep:   #4B3BCC;
   --pk-violet-pale:   var(--pk-lime-pale);
   --pk-violet-card:   var(--pk-cream-soft);
   --pk-violet-border: var(--pk-cream-dark);
@@ -1718,7 +1718,7 @@ button:focus-visible,
   padding: 8px 14px; border-radius: 2px;
   border: 1px solid currentColor;
   text-decoration: none; white-space: nowrap;
-  transition: background .2s, transform .15s;
+  transition: transform .15s;
 }
 .pk-section__link:hover { background: rgba(204, 67, 0, 0.08); transform: translateX(2px); }
 .pk-section__link-arrow { transition: transform .2s; }
@@ -1760,7 +1760,7 @@ button:focus-visible,
   overflow: hidden;
   background: #fff;
   border: 1px solid rgba(22,15,58,0.08);
-  transition: transform 0.22s ease, outline 0.1s;
+  transition: transform 0.22s ease;
   position: relative;
   display: flex; flex-direction: column;
 }
@@ -2705,7 +2705,7 @@ button:focus-visible,
 .pk-card__badge--new-arrival { background: #CC4300; color: #fff; }
 .pk-card__badge--top-pick    { background: #6D4CFF; color: #fff; }
 .pk-card__badge--trending    { background: #160F3A; color: #fff; }
-.pk-card__badge--staff-pick  { background: #F2EBDA; color: #160F3A; border: 1px solid rgba(22,15,58,0.2); }
+.pk-card__badge--staff-pick  { background: var(--pk-paper); color: #160F3A; border: 1px solid rgba(22,15,58,0.2); }
 
 /* ---------- Trending rail ---------- */
 .pk-rail {
@@ -2763,7 +2763,7 @@ button:focus-visible,
   padding: 9px 16px; border-radius: 2px;
   border: 1px solid var(--pk-ember);
   text-decoration: none; white-space: nowrap;
-  transition: background .2s, border-color .2s, transform .15s;
+  transition: border-color .2s, transform .15s;
 }
 .pk-arrivals__link:hover { background: rgba(204,67,0,0.08); border-color: var(--pk-ember); transform: translateX(2px); }
 .pk-arrivals__link-arrow { transition: transform .2s; }
@@ -6633,7 +6633,7 @@ button:focus-visible,
   align-items: center;
   gap: 8px;
   padding: 8px 16px;
-  border-radius: 999px;
+  border-radius: 2px;
   border: 1.5px solid rgba(22,15,58,0.2);
   background: transparent;
   color: var(--pk-ink);
@@ -7608,7 +7608,7 @@ button:focus-visible,
 .pk-pill-nav__pill {
   display: inline-block;
   padding: 5px 14px;
-  border-radius: 100px;
+  border-radius: 2px;
   font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.02em;
