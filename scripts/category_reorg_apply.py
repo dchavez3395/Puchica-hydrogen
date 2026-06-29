@@ -285,15 +285,14 @@ def main():
                 continue
             try:
                 result = s.gql('''
-                mutation cu($id: ID!, $input: CollectionInput!) {
-                  collectionUpdate(id: $id, input: $input) {
+                mutation cu($input: CollectionInput!) {
+                  collectionUpdate(input: $input) {
                     collection { id handle title }
                     userErrors { field message }
                   }
                 }
                 ''', {
-                    'id': c['id'],
-                    'input': {'title': r['new_title'], 'handle': r['new_handle']}
+                    'input': {'id': c['id'], 'title': r['new_title'], 'handle': r['new_handle']}
                 })
                 errs = (result.get('collectionUpdate') or {}).get('userErrors') or []
                 if errs:
@@ -393,15 +392,14 @@ def main():
             }]
             try:
                 result = s.gql('''
-                mutation cu($id: ID!, $input: CollectionInput!) {
-                  collectionUpdate(id: $id, input: $input) {
+                mutation cu($input: CollectionInput!) {
+                  collectionUpdate(input: $input) {
                     collection { id handle }
                     userErrors { field message }
                   }
                 }
                 ''', {
-                    'id': c['id'],
-                    'input': {'ruleSet': {'appliedDisjunctively': True, 'rules': new_rules}}
+                    'input': {'id': c['id'], 'ruleSet': {'appliedDisjunctively': True, 'rules': new_rules}}
                 })
                 errs = (result.get('collectionUpdate') or {}).get('userErrors') or []
                 if errs:
@@ -512,13 +510,13 @@ def _rollback(s, snap):
             continue  # no guard to remove
         try:
             result = s.gql('''
-            mutation cu($id: ID!, $input: CollectionInput!) {
-              collectionUpdate(id: $id, input: $input) {
+            mutation cu($input: CollectionInput!) {
+              collectionUpdate(input: $input) {
                 collection { id }
                 userErrors { field message }
               }
             }
-            ''', {'id': cid, 'input': {'ruleSet': {'appliedDisjunctively': True, 'rules': new_rules}}})
+            ''', {'input': {'id': cid, 'ruleSet': {'appliedDisjunctively': True, 'rules': new_rules}}})
             errs = (result.get('collectionUpdate') or {}).get('userErrors') or []
             if errs:
                 print(f'  FAIL {meta["handle"]}: {errs}')
@@ -540,15 +538,14 @@ def _rollback(s, snap):
             continue
         try:
             result = s.gql('''
-            mutation cu($id: ID!, $input: CollectionInput!) {
-              collectionUpdate(id: $id, input: $input) {
+            mutation cu($input: CollectionInput!) {
+              collectionUpdate(input: $input) {
                 collection { id handle title }
                 userErrors { field message }
               }
             }
             ''', {
-                'id': cid,
-                'input': {'title': meta['title'], 'handle': old_h}
+                'input': {'id': cid, 'title': meta['title'], 'handle': old_h}
             })
             errs = (result.get('collectionUpdate') or {}).get('userErrors') or []
             if errs:
