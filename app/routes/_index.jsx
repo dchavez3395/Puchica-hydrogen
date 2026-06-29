@@ -524,6 +524,9 @@ function ProductMatchmaker({products}) {
               {activeProduct && (
                 <div
                   className={`pk-matchmaker__card pk-matchmaker__card--top${isDragging ? ' is-dragging' : ''}`}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`${t('match_deck_aria')}: ${activeProduct.title}. Use arrow keys to swipe, Enter to open.`}
                   onMouseDown={(e) => handleStart(e, false)}
                   onMouseMove={(e) => handleMove(e, false)}
                   onMouseUp={handleEnd}
@@ -531,12 +534,17 @@ function ProductMatchmaker({products}) {
                   onTouchStart={(e) => handleStart(e, true)}
                   onTouchMove={(e) => handleMove(e, true)}
                   onTouchEnd={handleEnd}
+                  onKeyDown={(e) => {
+                    if (e.key === 'ArrowLeft') swipe('left');
+                    else if (e.key === 'ArrowRight') swipe('right');
+                    else if (e.key === 'ArrowUp') swipe('super');
+                  }}
                   style={{
-                    transform: swipeDirection 
-                      ? (swipeDirection === 'right' 
-                        ? 'translate3d(500px, 0, 0) rotate(30deg)' 
-                        : swipeDirection === 'left' 
-                          ? 'translate3d(-500px, 0, 0) rotate(-30deg)' 
+                    transform: swipeDirection
+                      ? (swipeDirection === 'right'
+                        ? 'translate3d(500px, 0, 0) rotate(30deg)'
+                        : swipeDirection === 'left'
+                          ? 'translate3d(-500px, 0, 0) rotate(-30deg)'
                           : 'translate3d(0, -500px, 0) rotate(0deg)')
                       : `translate3d(${dragOffset.x}px, ${dragOffset.y}px, 0) rotate(${dragOffset.x * 0.08}deg)`,
                     transition: isDragging ? 'none' : 'transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1)',
