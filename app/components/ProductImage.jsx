@@ -1,156 +1,289 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState, useCallback} from 'react';
 import {Image} from '@shopify/hydrogen';
-import {IconChevronLeft, IconChevronRight} from '~/components/Icons';
+import useEmblaCarousel from 'embla-carousel-react';
+import {IconChevronLeft, IconChevronRight, IconCube, IconZoomIn} from '~/components/Icons';
+import {HeroParallax} from './HeroParallax';
+import {ProductHero3D} from './ProductHero3D';
 
 /**
- * Renders a vertical-thumbnail gallery on desktop and a swipeable
- * single-image carousel on mobile. If only one image is available,
- * falls back to a single full-bleed image.
+ * Hero gallery for the PDP — rebuilt for the 2026-06-29 reboot.
  *
- * The main hero uses the source image's natural aspect ratio (capped at
- * 1:1 square) so portrait photos don't get cropped / letterboxed into
- * a square. This matches what most apparel shoppers expect: a sweater
- * on a model should look like a sweater on a model, not a 1:1 zoom-in
- * on the torso. Thumbnails stay 1:1 so the strip keeps a uniform look.
+ * Three display modes:
+ *   - 'image' (default): standard photo gallery + hover magnifier
+ *   - '3d'   : swaps the hero for the WebGL viewer
+ *   - 'zoom' : magnifier lens (desktop, hover-capable pointer only)
+ *
+ * Visual treatment:
+ *   - Vertical thumbnail filmstrip on desktop, horizontal Embla
+ *     filmstrip on mobile.
+ *   - The hero photo is wrapped in <HeroParallax> so it drifts at
+ *     0.4× scroll speed on desktop. Disabled when the user opts
+ *     into reduced motion (the HeroParallax component handles this).
+ *   - The active thumbnail gets an ember outline; other thumbnails
+ *     show a subtle ring on hover.
+ *   - The hero container has a faint product-accent gradient (driven
+ *     by the `accentColor` CSS variable) so the page picks up the
+ *     merchant's brand vibe without us hardcoding colors.
+ *
+ * The 3D toggle pill renders only when:
+ *   - `modelAvailable` is true AND
+ *   - Either `modelUrl` is present OR the merchant has configured a
+ *     metafield that we want to feature. Without a model URL the
+ *     toggle surfaces a textured-card viewer — a deliberate fallback
+ *     so the affordance stays meaningful.
+ *
+ * Aspect-ratio behavior is preserved from the previous version:
+ *   - Portrait source       → honored
+ *   - Landscape source      → capped at 1:1
+ *   - Square (supplier)     → forced 4:5 to crop white border padding
  *
  * @param {{
  *   images: ProductVariantFragment['image'][];
  *   initialIndex?: number;
- *   productTitle?: string;  // used as a meaningful alt fallback for
- *                            // merchants who didn't set altText in
- *                            // Shopify admin. Without this the alt
- *                            // would either be empty (which Google
- *                            // treats as missing) or the literal
- *                            // "Product image" (low-quality alt).
+ *   productTitle?: string;
+ *   modelUrl?: string | null;
+ *   modelAvailable?: boolean; // pass false to force-hide the 3D toggle
+ *   accentColor?: string | null; // hex like '#CC4300' for hero accent
  * }}
  */
-export function ProductImage({images, initialIndex = 0, productTitle}) {
+export function ProductImage({
+  images,
+  initialIndex = 0,
+  productTitle,
+  modelUrl = null,
+  modelAvailable = true,
+  accentColor = null,
+}) {
   const list = (images || []).filter(Boolean);
   const [index, setIndex] = useState(
     Math.min(Math.max(0, initialIndex), Math.max(0, list.length - 1)),
   );
+  const [mode, setMode] = useState('image'); // 'image' | '3d'
+  const [zoom, setZoom] = useState(null); // {x, y} pointer pos, or null
+  const heroRef = useRef(null);
 
-  // Stable key for the images array — re-runs the effect only when the
-  // underlying image ids actually change. We extract it to a variable so
-  // eslint's react-hooks rule can statically verify the dep.
+  // Sync the Embla filmstrip (mobile) with the active index.
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    containScroll: 'trimSnaps',
+    dragFree: false,
+    align: 'start',
+  });
+  useEffect(() => {
+    if (!emblaApi) return;
+    if (index > 0) emblaApi.scrollTo(index);
+  }, [emblaApi, index]);
+
   const imageKey = list.map((i) => i.id || i.url).join('|');
 
-  // If the variant image changes from the outside (parent passes a new
-  // images array), snap to the first one. This keeps the gallery in sync
-  // when the user picks a different option.
   useEffect(() => {
     setIndex(0);
-  }, [imageKey]);
+    setZoom(null);
+  }, [imageKey, mode]);
+
+  // Pointer handlers — defined unconditionally so the hook order is
+  // stable. They no-op when there's no hero yet.
+  const onHeroPointerMove = useCallback((e) => {
+    if (mode !== 'image' || e.pointerType !== 'mouse') return;
+    const rect = heroRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    setZoom({x: Math.max(0, Math.min(100, x)), y: Math.max(0, Math.min(100, y))});
+  }, [mode]);
+  const onHeroPointerLeave = useCallback(() => setZoom(null), []);
 
   if (list.length === 0) {
     return <div className="pk-product__hero" aria-hidden />;
   }
 
   const current = list[index];
-  const go = (delta) => {
-    setIndex((i) => (i + delta + list.length) % list.length);
-  };
+  const go = (delta) => setIndex((i) => (i + delta + list.length) % list.length);
 
-  // Derive the hero's aspect ratio from the source image so portrait
-  // shots aren't cropped. Cap at 1:1 — super-wide banners would dwarf
-  // the info column otherwise. Force 4:5 (portrait) on square sources
-  // because supplier photos often come in square format with white
-  // border padding around the actual product, which looks like blank
-  // top/bottom space in the gallery.
+  // Aspect-ratio derivation (unchanged).
   const nW = current.width;
   const nH = current.height;
   let heroRatio;
   if (nW && nH) {
     const sourceRatio = nW / nH;
-    if (sourceRatio < 0.95) {
-      // Genuinely portrait source — honor it.
-      heroRatio = sourceRatio;
-    } else if (sourceRatio > 1.05) {
-      // Landscape source — cap at 1:1.
-      heroRatio = 1;
-    } else {
-      // Square source — assume supplier-padded product shot, force
-      // 4:5 portrait to crop out the typical white border padding.
-      heroRatio = 4 / 5;
-    }
+    if (sourceRatio < 0.95) heroRatio = sourceRatio;
+    else if (sourceRatio > 1.05) heroRatio = 1;
+    else heroRatio = 4 / 5;
   } else {
     heroRatio = 1;
   }
   const heroStyle = {aspectRatio: heroRatio.toFixed(4)};
 
+  // Inline accent color CSS variable — drives the subtle gradient
+  // behind the hero. Falls back to brand ember if no metafield.
+  const accentStyle = accentColor
+    ? {'--pk-product-accent': accentColor}
+    : undefined;
+
+  const has3D = modelAvailable;
+  // Pass the accent color down so the 3D scene can tint its rim light.
+  const hero3DAccent = accentColor;
+
   return (
-    <>
-      <div className="pk-product__media">
-        {list.length > 1 && (
-          <ul className="pk-thumbs" aria-label="Product images">
-            {list.map((img, i) => (
-              <li key={img.id || i}>
+    <div className="pk-product__media" style={accentStyle}>
+      {/* Desktop vertical filmstrip */}
+      {list.length > 1 && mode === 'image' && (
+        <ul className="pk-thumbs" aria-label="Product images">
+          {list.map((img, i) => (
+            <li key={img.id || i}>
+              <button
+                type="button"
+                className="pk-thumbs__item"
+                aria-current={i === index ? 'true' : 'false'}
+                aria-label={`View image ${i + 1} of ${list.length}`}
+                onClick={() => setIndex(i)}
+              >
+                <Image
+                  alt={img.altText || productTitle || 'Product image'}
+                  data={img}
+                  aspectRatio="1/1"
+                  sizes="80px"
+                  loading={i < 4 ? 'eager' : 'lazy'}
+                />
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+
+      <div
+        className="pk-product__hero-wrap"
+      >
+        {/* Parallax wrap on the hero. HeroParallax no-ops cleanly on
+            touch / reduced motion. */}
+        <HeroParallax strength={0.4} className="pk-product__hero-parallax">
+          <div
+            ref={heroRef}
+            className={
+              'pk-product__hero' +
+              (mode === '3d' ? ' pk-product__hero--3d' : '') +
+              (zoom ? ' is-zooming' : '')
+            }
+            style={mode === '3d' ? undefined : heroStyle}
+            onPointerMove={onHeroPointerMove}
+            onPointerLeave={onHeroPointerLeave}
+          >
+            {mode === '3d' ? (
+              <ProductHero3D
+                imageUrl={current.url}
+                imageAlt={current.altText || productTitle}
+                modelUrl={modelUrl}
+                accentColor={hero3DAccent}
+              />
+            ) : (
+              <>
+                <Image
+                  alt={current.altText || productTitle || 'Product image'}
+                  data={current}
+                  aspectRatio={`${heroRatio.toFixed(4)}`.replace(/(\.\d*?)0+$/, '$1').replace(/\.$/, '')}
+                  crop="top"
+                  sizes="(min-width: 60em) 600px, 100vw"
+                  loading={index === 0 ? 'eager' : 'lazy'}
+                  className="pk-product__hero-img"
+                />
+                {zoom && (
+                  <div
+                    className="pk-product__hero-lens"
+                    aria-hidden
+                    style={{
+                      left: `${zoom.x}%`,
+                      top: `${zoom.y}%`,
+                      backgroundImage: `url(${current.url})`,
+                      backgroundPosition: `${zoom.x}% ${zoom.y}%`,
+                    }}
+                  />
+                )}
+              </>
+            )}
+
+            {has3D && mode === 'image' && (
+              <button
+                type="button"
+                className="pk-product__hero-3d-toggle"
+                onClick={() => setMode('3d')}
+                aria-label="View product in 3D"
+              >
+                <IconCube size={14} />
+                <span>View in 3D</span>
+              </button>
+            )}
+            {has3D && mode === '3d' && (
+              <button
+                type="button"
+                className="pk-product__hero-3d-toggle pk-product__hero-3d-toggle--active"
+                onClick={() => setMode('image')}
+                aria-label="Return to photo view"
+              >
+                <span>← Photos</span>
+              </button>
+            )}
+
+            {mode === 'image' && list.length > 0 && (
+              <span className="pk-product__hero-zoom-hint" aria-hidden>
+                <IconZoomIn size={14} />
+                Hover to zoom
+              </span>
+            )}
+
+            {mode === 'image' && list.length > 1 && (
+              <>
                 <button
                   type="button"
-                  className="pk-thumbs__item"
+                  className="pk-product__hero-nav pk-product__hero-nav--prev"
+                  aria-label="Previous image"
+                  onClick={() => go(-1)}
+                >
+                  <IconChevronLeft size={18} />
+                </button>
+                <button
+                  type="button"
+                  className="pk-product__hero-nav pk-product__hero-nav--next"
+                  aria-label="Next image"
+                  onClick={() => go(1)}
+                >
+                  <IconChevronRight size={18} />
+                </button>
+              </>
+            )}
+          </div>
+        </HeroParallax>
+
+        {/* Mobile Embla filmstrip — lives below the hero on small
+            screens. Hidden on desktop where the vertical thumbs take
+            over. */}
+        {list.length > 1 && mode === 'image' && (
+          <div className="pk-filmstrip" ref={emblaRef}>
+            <div className="pk-filmstrip__container">
+              {list.map((img, i) => (
+                <button
+                  key={img.id || img.url || i}
+                  type="button"
+                  className={
+                    'pk-filmstrip__slide' +
+                    (i === index ? ' is-current' : '')
+                  }
+                  aria-label={`Go to image ${i + 1} of ${list.length}`}
                   aria-current={i === index ? 'true' : 'false'}
-                  aria-label={`View image ${i + 1} of ${list.length}`}
                   onClick={() => setIndex(i)}
                 >
                   <Image
                     alt={img.altText || productTitle || 'Product image'}
                     data={img}
                     aspectRatio="1/1"
-                    sizes="80px"
-                    loading={i < 4 ? 'eager' : 'lazy'}
+                    sizes="(max-width: 700px) 90px, 80px"
+                    loading="lazy"
                   />
                 </button>
-              </li>
-            ))}
-          </ul>
+              ))}
+            </div>
+          </div>
         )}
-
-        <div className="pk-product__hero" style={heroStyle}>
-          <Image
-            alt={current.altText || productTitle || 'Product image'}
-            data={current}
-            aspectRatio={`${heroRatio.toFixed(4)}`.replace(/(\.\d*?)0+$/, '$1').replace(/\.$/, '')}
-            crop="top"
-            sizes="(min-width: 60em) 600px, 100vw"
-            loading={index === 0 ? 'eager' : 'lazy'}
-          />
-          {list.length > 1 && (
-            <>
-              <button
-                type="button"
-                className="pk-product__hero-nav pk-product__hero-nav--prev"
-                aria-label="Previous image"
-                onClick={() => go(-1)}
-              >
-                <IconChevronLeft size={18} />
-              </button>
-              <button
-                type="button"
-                className="pk-product__hero-nav pk-product__hero-nav--next"
-                aria-label="Next image"
-                onClick={() => go(1)}
-              >
-                <IconChevronRight size={18} />
-              </button>
-            </>
-          )}
-        </div>
       </div>
-
-      {list.length > 1 && (
-        <div className="pk-gallery-dots" aria-hidden>
-          {list.map((img, i) => (
-            <button
-              key={img.id || img.url || `dot-${i}`}
-              type="button"
-              aria-label={`Go to image ${i + 1}`}
-              aria-current={i === index ? 'true' : 'false'}
-              onClick={() => setIndex(i)}
-            />
-          ))}
-        </div>
-      )}
-    </>
+    </div>
   );
 }
 

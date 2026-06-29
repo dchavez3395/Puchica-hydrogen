@@ -127,6 +127,39 @@ export const IconTiktok = (p) => (
   </Svg>
 );
 
+export const IconCube = (p) => (
+  <Svg {...p}>
+    <path d="M12 2 3 7v10l9 5 9-5V7l-9-5Z" />
+    <path d="M3 7l9 5 9-5M12 12v10" />
+  </Svg>
+);
+
+export const IconZoomIn = (p) => (
+  <Svg {...p}>
+    <circle cx="11" cy="11" r="7" />
+    <path d="m21 21-4.3-4.3M11 8v6M8 11h6" />
+  </Svg>
+);
+
+export const IconLock = (p) => (
+  <Svg {...p}>
+    <rect x="4" y="11" width="16" height="10" rx="2" />
+    <path d="M8 11V8a4 4 0 1 1 8 0v3" />
+  </Svg>
+);
+
+export const IconPlus = (p) => (
+  <Svg {...p}>
+    <path d="M12 5v14M5 12h14" />
+  </Svg>
+);
+
+export const IconMinus = (p) => (
+  <Svg {...p}>
+    <path d="M5 12h14" />
+  </Svg>
+);
+
 export const IconShare = (p) => (
   <Svg {...p}>
     <circle cx="18" cy="5" r="3" />

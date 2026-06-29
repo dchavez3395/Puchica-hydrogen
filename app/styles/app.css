@@ -3985,14 +3985,24 @@ button:focus-visible,
   gap: 12px;
   transition: color 0.12s ease;
 }
+/* <summary> has its own user-agent marker (▼) — hide it since we
+   render our own chevron, and inherit our typography reset from
+   the trigger class. */
+.pk-accordion__trigger::-webkit-details-marker { display: none; }
+.pk-accordion__trigger { list-style: none; }
 .pk-accordion__trigger:hover { color: var(--pk-ember); }
 .pk-accordion__chevron {
   flex: none;
   transition: transform 0.18s ease;
   color: var(--pk-muted);
 }
-.pk-accordion.is-open .pk-accordion__trigger { color: var(--pk-ember); }
-.pk-accordion.is-open .pk-accordion__chevron { transform: rotate(90deg); color: var(--pk-ember); }
+.pk-accordion.is-open .pk-accordion__trigger,
+.pk-accordion[open] > .pk-accordion__trigger { color: var(--pk-ember); }
+.pk-accordion.is-open .pk-accordion__chevron,
+.pk-accordion[open] > .pk-accordion__trigger .pk-accordion__chevron {
+  transform: rotate(90deg);
+  color: var(--pk-ember);
+}
 .pk-accordion__body {
   padding: 0 0 24px;
   color: var(--pk-muted);
@@ -4075,6 +4085,144 @@ button:focus-visible,
 }
 
 /* ── End product page redesign ── */
+
+/* ── PDP hero upgrades ─────────────────────────────────────────── */
+
+/* Subtle Ken Burns on the hero image — slow zoom-in drift while the
+ * page is in view. Disabled when the user is hovering (zoom mode)
+ * or when the 3D viewer is active. */
+@keyframes pkHeroDrift {
+  0%   { transform: scale(1.0) translate(0, 0); }
+  50%  { transform: scale(1.04) translate(-0.4%, -0.3%); }
+  100% { transform: scale(1.0) translate(0, 0); }
+}
+.pk-product__hero-img {
+  animation: pkHeroDrift 14s ease-in-out infinite;
+  will-change: transform;
+}
+.pk-product__hero.is-zooming .pk-product__hero-img { animation-play-state: paused; }
+
+/* Hide drift when 3D mode occupies the hero. */
+.pk-product__hero--3d { aspect-ratio: 1 / 1 !important; }
+.pk-product__hero--3d .pk-product__hero-img { display: none; }
+
+/* Zoom lens — a circular crop that follows the cursor inside the
+ * hero. We use background-image with the same URL and update the
+ * background-position to mirror the cursor's % inside the hero. */
+.pk-product__hero-lens {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 8px 30px rgba(15, 26, 14, 0.25);
+  background-color: var(--pk-surface);
+  background-repeat: no-repeat;
+  background-size: 240% 240%; /* 2.4× zoom of the underlying photo */
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 3;
+}
+@media (max-width: 700px) {
+  .pk-product__hero-lens { display: none; }
+}
+
+.pk-product__hero-zoom-hint {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid var(--pk-border);
+  color: var(--pk-ink);
+  font-size: 12px;
+  font-weight: 600;
+  pointer-events: none;
+  z-index: 2;
+  backdrop-filter: blur(6px);
+}
+@media (hover: none) {
+  .pk-product__hero-zoom-hint { display: none; }
+}
+
+/* 3D toggle pill — top-right of the hero. */
+.pk-product__hero-3d-toggle {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(20, 20, 20, 0.78);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  border: 0;
+  cursor: pointer;
+  z-index: 4;
+  backdrop-filter: blur(8px);
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+.pk-product__hero-3d-toggle:hover {
+  background: rgba(20, 20, 20, 0.92);
+  transform: translateY(-1px);
+}
+.pk-product__hero-3d-toggle--active {
+  background: rgba(168, 56, 0, 0.92);
+}
+
+/* Fallback / placeholder for the 3D viewer before r3f loads, or
+ * when WebGL is missing. */
+.pk-3d-placeholder,
+.pk-3d-fallback {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  background: var(--pk-surface);
+}
+.pk-3d-placeholder img,
+.pk-3d-fallback img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.pk-3d {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+}
+.pk-3d:active { cursor: grabbing; }
+.pk-3d__hint {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  background: rgba(20, 20, 20, 0.78);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 5px 9px;
+  border-radius: 999px;
+  pointer-events: none;
+  letter-spacing: 0.04em;
+}
+
+/* When in 3D mode, hide thumbnails (focused scene takes over). */
+.pk-product__hero--3d + .pk-thumbs,
+.pk-product__hero--3d ~ .pk-thumbs { display: none; }
+
+/* Hide the 3D toggle and lens mode at <700px — touch devices prefer
+ * the swipe gallery, not the magnifier or 3D toggle. */
 
 /*
 * ==================================================
@@ -9240,4 +9388,391 @@ button:focus-visible,
 }
 @media (prefers-reduced-motion: reduce) {
   .pk-3d canvas { pointer-events: none; }
+}
+
+/* ==================================================
+   PDP reboot 2026-06-29 — hero parallax + filmstrip +
+   editorial description + magnetic ATC + heart pop.
+   Styles appended at the bottom of the file so the
+   existing selectors above win specificity ties.
+   ================================================== */
+
+/* Hero accent — a subtle radial gradient driven by the per-product
+ * accentColor metafield (set via inline --pk-product-accent).
+ * Falls back to ember. Sits behind the hero photo so it doesn't
+ * distract, but peeks out on the corners for a curated feel. */
+.pk-product__media {
+  --pk-product-accent: #CC4300;
+  position: relative;
+  isolation: isolate;
+}
+.pk-product__media::before {
+  content: '';
+  position: absolute;
+  inset: -10% -8% -8% -8%;
+  z-index: -1;
+  background:
+    radial-gradient(60% 50% at 15% 0%, color-mix(in srgb, var(--pk-product-accent) 18%, transparent) 0%, transparent 60%),
+    radial-gradient(50% 40% at 100% 100%, color-mix(in srgb, var(--pk-product-accent) 12%, transparent) 0%, transparent 65%);
+  filter: blur(12px);
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+/* Hero wrapper that holds both the hero and (on mobile) the
+ * horizontal filmstrip underneath. */
+.pk-product__hero-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+
+/* HeroParallax wrap — wraps the hero div itself so the photo can
+ * drift inside. Don't apply box-sizing here so the parallax
+ * math in HeroParallax.jsx (which reads bounding box height)
+ * still matches the visible hero. */
+.pk-product__hero-parallax {
+  display: block;
+  position: relative;
+}
+
+/* Thumbnails get a tinted bottom-edge accent so the active item
+ * reads at a glance. We piggyback on the existing border + add a
+ * small ember dot in the corner. */
+.pk-thumbs__item {
+  position: relative;
+}
+.pk-thumbs__item[aria-current="true"]::after {
+  content: '';
+  position: absolute;
+  inset: auto 6px 6px 6px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--pk-ember);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--pk-ember) 60%, transparent);
+}
+
+/* Mobile horizontal filmstrip (Embla). Only visible below 700px —
+ * the vertical thumbs stay on desktop. */
+.pk-filmstrip {
+  display: none;
+  margin: 4px 0 0;
+  overflow: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+@media (max-width: 700px) {
+  .pk-filmstrip { display: block; }
+}
+.pk-filmstrip__container {
+  display: flex;
+  gap: 8px;
+  padding: 4px 2px 8px;
+  scroll-snap-type: x mandatory;
+}
+.pk-filmstrip__slide {
+  flex: 0 0 78px;
+  height: 78px;
+  width: 78px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--pk-surface);
+  border: 2px solid transparent;
+  cursor: pointer;
+  padding: 0;
+  scroll-snap-align: start;
+  position: relative;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+.pk-filmstrip__slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.pk-filmstrip__slide:hover { transform: translateY(-1px); }
+.pk-filmstrip__slide.is-current {
+  border-color: var(--pk-ember);
+  box-shadow: 0 6px 18px rgba(168, 56, 0, 0.18);
+}
+
+/* Magnetic ATC wrap — pk-atc-magnetic only adds an inline-block
+ * frame around the ATC button so the inner span can translate
+ * without breaking layout. */
+.pk-atc-magnetic { display: inline-block; width: 100%; }
+.pk-atc-magnetic .pk-magnetic__inner { width: 100%; display: block; }
+.pk-atc-magnetic .pk-magnetic__inner > button,
+.pk-atc-magnetic button[type="submit"] { width: 100%; }
+
+/* Heart pop — applied for 420ms after the user toggles save.
+ * Keyframe is small (a 1.3× bounce) so it doesn't get in the
+ * way of the rest of the UI. */
+@keyframes pkHeartPop {
+  0%   { transform: scale(1); }
+  35%  { transform: scale(1.35); }
+  60%  { transform: scale(0.92); }
+  100% { transform: scale(1); }
+}
+.pk-save--pop { animation: pkHeartPop 0.42s cubic-bezier(.34,1.56,.64,1); }
+.pk-save--pop svg { animation: pkHeartPop 0.42s cubic-bezier(.34,1.56,.64,1); }
+@media (prefers-reduced-motion: reduce) {
+  .pk-save--pop { animation: none !important; }
+  .pk-save--pop svg { animation: none !important; }
+}
+
+/* Editorial description — split-column layout at >= 900px.
+ * Adds a brand accent bar on the left, an image mosaic (or
+ * brand mark) on the right, and a tighter prose column. */
+.pk-pdesc {
+  margin-top: 56px;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  padding: 80px clamp(20px, calc(50vw - 576px), 100px);
+  background: var(--pk-surface);
+  border-top: 1px solid var(--pk-border);
+  border-bottom: 1px solid var(--pk-border);
+  position: relative;
+  overflow: hidden;
+}
+/* Faint ember wash on the right side of the description block —
+ * gives it a magazine-spread feel without committing to a hard
+ * color. */
+.pk-pdesc::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(60% 80% at 110% 50%, rgba(168, 56, 0, 0.06), transparent 70%);
+  pointer-events: none;
+}
+@media (max-width: 900px) {
+  .pk-pdesc { margin-top: 32px; padding: 44px 20px; }
+}
+.pk-pdesc__inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: clamp(28px, 5vw, 80px);
+  align-items: start;
+  position: relative;
+}
+@media (max-width: 900px) {
+  .pk-pdesc__inner { grid-template-columns: 1fr; gap: 28px; }
+}
+.pk-pdesc__col-text {
+  position: relative;
+  padding-left: 22px;
+}
+.pk-pdesc__col-text::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0;
+  width: 3px;
+  height: 60px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--pk-ember) 0%, transparent 100%);
+}
+.pk-pdesc__eyebrow {
+  margin: 0 0 14px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--pk-ember);
+}
+.pk-pdesc__headline {
+  margin: 0 0 22px;
+  font-family: var(--pk-font-display);
+  font-size: clamp(28px, 3.6vw, 40px);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  line-height: 1.05;
+  color: var(--pk-ink);
+}
+.pk-pdesc__body {
+  color: var(--pk-ink);
+  font-size: 16px;
+  line-height: 1.78;
+  min-width: 0;
+  overflow: hidden;
+}
+/* Pull-quote treatment for any <blockquote> the merchant adds. */
+.pk-pdesc__body blockquote {
+  margin: 28px 0 28px 0;
+  padding: 4px 0 4px 20px;
+  border-left: 2px solid var(--pk-ember);
+  font-family: var(--pk-font-display);
+  font-size: clamp(18px, 2vw, 22px);
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--pk-ink);
+}
+.pk-pdesc__body h1,
+.pk-pdesc__body h2,
+.pk-pdesc__body h3,
+.pk-pdesc__body h4 {
+  font-family: var(--pk-font-display);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 28px 0 10px;
+  color: var(--pk-ink);
+}
+.pk-pdesc__body h2 { font-size: 22px; }
+.pk-pdesc__body h3 { font-size: 18px; }
+.pk-pdesc__body h4 { font-size: 16px; }
+.pk-pdesc__body p { margin: 0 0 16px; }
+.pk-pdesc__body p:first-child { margin-top: 0; }
+.pk-pdesc__body ul,
+.pk-pdesc__body ol { margin: 0 0 16px 1.4em; padding: 0; }
+.pk-pdesc__body li { margin-bottom: 6px; }
+.pk-pdesc__body strong { font-weight: 700; }
+.pk-pdesc__body a { color: var(--pk-ember); }
+.pk-pdesc__body a:hover { text-decoration: underline; }
+.pk-pdesc__body img,
+.pk-pdesc__body iframe,
+.pk-pdesc__body video {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  display: block;
+  margin: 20px auto;
+}
+.pk-pdesc__body iframe { aspect-ratio: 16 / 9; width: 100%; }
+
+/* Image mosaic on the right column. Three tiles arranged in an
+ * editorial collage. Hidden when the gallery has fewer than 2
+ * secondary images. */
+.pk-pdesc__col-mosaic {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 220px 220px;
+  gap: 12px;
+  position: relative;
+}
+@media (max-width: 900px) {
+  .pk-pdesc__col-mosaic {
+    grid-template-rows: 160px 160px;
+    margin-top: 8px;
+  }
+}
+.pk-pdesc__tile {
+  position: relative;
+  overflow: hidden;
+  border-radius: 18px;
+  background: var(--pk-cream);
+  box-shadow: 0 8px 30px rgba(15, 26, 14, 0.08);
+}
+.pk-pdesc__tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.pk-pdesc__tile:hover img { transform: scale(1.04); }
+.pk-pdesc__tile--1 {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+}
+.pk-pdesc__tile--2 {
+  grid-column: 2;
+  grid-row: 1;
+}
+.pk-pdesc__tile--3 {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+/* Brand accent column when there's no mosaic — a tall card with
+ * the Puchica wordmark and a quote. Acts as a visual cap on the
+ * description so it doesn't end abruptly. */
+.pk-pdesc__col-accent {
+  background: linear-gradient(155deg, var(--pk-ink) 0%, #1d1838 100%);
+  border-radius: 18px;
+  padding: 36px 28px;
+  color: var(--pk-paper);
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+.pk-pdesc__col-accent::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(50% 50% at 80% 20%, rgba(198, 255, 78, 0.18), transparent 65%),
+    radial-gradient(50% 50% at 20% 90%, rgba(204, 67, 0, 0.22), transparent 65%);
+  pointer-events: none;
+}
+.pk-pdesc__brand-mark {
+  font-family: var(--pk-font-display);
+  font-size: 36px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  position: relative;
+  z-index: 1;
+}
+.pk-pdesc__col-accent p {
+  margin: 12px 0 0;
+  font-size: 14px;
+  line-height: 1.6;
+  opacity: 0.78;
+  position: relative;
+  z-index: 1;
+}
+
+/* Recommendation grid — staggered fade. Each cell is a ScrollReveal
+ * wrapper, so the .pk-reco__cell class just sizes the cell. */
+.pk-reco__cell { display: block; height: 100%; }
+.pk-reco__cell > * { height: 100%; }
+
+/* Buy-box micro-interactions — small lifts on swatches. */
+.pk-product .product-options-item {
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.pk-product .product-options-item:not(:disabled):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(15, 26, 14, 0.08);
+}
+.pk-product .product-options-item.is-selected {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--pk-ember) 35%, transparent);
+}
+
+/* Trust block — tighter on mobile. */
+@media (max-width: 700px) {
+  .pk-product__trust { padding: 14px 0; gap: 10px; }
+  .pk-product__trust-item strong { font-size: 12px; }
+  .pk-product__trust-item em { font-size: 11px; }
+  .pk-product__trust-icon { width: 26px; height: 26px; }
+  .pk-product__trust-icon svg { width: 14px; height: 14px; }
+}
+
+/* Share row — subtle hover state for the share button. */
+.pk-share__btn {
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+.pk-share__btn:hover {
+  transform: translateY(-1px);
+}
+
+/* Free-shipping progress bar — animated fill. */
+.pk-ship-progress__bar span {
+  transition: width 0.4s cubic-bezier(.2,.7,.2,1);
+}
+
+/* Buy-box entrance — when the info column mounts, give it a
+ * gentle upward float to match the hero parallax feel. */
+.pk-product__info {
+  animation: pkInfoIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes pkInfoIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pk-product__info { animation: none !important; }
 }

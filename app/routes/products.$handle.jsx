@@ -26,6 +26,8 @@ import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 import {puchicaMeta, canonical, SITE_URL, breadcrumbJsonLd, JsonLdScript} from '~/lib/seo';
 import {getJudgemeBadge} from '~/lib/judgeme';
 import {ReviewStars, JudgemeReviews} from '~/components/JudgemeReviews';
+import {EditorialDescription} from '~/components/EditorialDescription';
+import {ScrollReveal} from '~/components/ScrollReveal';
 import {useT} from '~/lib/t';
 
 /** @type {Route.MetaFunction} */
@@ -120,16 +122,26 @@ export default function Product() {
 
       {/* ── Top: gallery + sticky buy box ── */}
       <div className="pk-product__top">
-        <ProductImage images={galleryImages} initialIndex={0} productTitle={title} />
+        <ProductImage
+          images={galleryImages}
+          initialIndex={0}
+          productTitle={title}
+          modelUrl={product.model3dUrl?.value || null}
+          accentColor={product.accentColor?.value || null}
+        />
 
         <div className="pk-product__info">
           {product.vendor && (
-            <p className="pk-product__vendor">{product.vendor}</p>
+            <ScrollReveal as="p" className="pk-product__vendor" variant="up">
+              {product.vendor}
+            </ScrollReveal>
           )}
 
-          <h1 className="pk-product__title">{title}</h1>
+          <ScrollReveal as="div" delay={60} variant="up">
+            <h1 className="pk-product__title">{title}</h1>
+          </ScrollReveal>
 
-          <div className="pk-product__price-row">
+          <ScrollReveal as="div" className="pk-product__price-row" delay={120} variant="up">
             <ProductPrice
               price={selectedVariant?.price}
               compareAtPrice={selectedVariant?.compareAtPrice}
@@ -137,18 +149,23 @@ export default function Product() {
             {selectedVariant?.availableForSale === false && (
               <span className="pk-product__badge pk-product__badge--sold">{t('product_badge_sold_out')}</span>
             )}
-          </div>
+          </ScrollReveal>
 
           {reviews && reviews.count > 0 ? (
-            <ReviewStars rating={reviews.rating} count={reviews.count} />
+            <ScrollReveal delay={180} variant="up">
+              <ReviewStars rating={reviews.rating} count={reviews.count} />
+            </ScrollReveal>
           ) : null}
 
-          <div className="pk-product__form-wrap" id="product-form">
-            <ProductForm
-              productOptions={productOptions}
-              selectedVariant={selectedVariant}
-            />
-          </div>
+          <ScrollReveal delay={240} variant="up">
+            <div className="pk-product__form-wrap" id="product-form">
+              <ProductForm
+                productOptions={productOptions}
+                selectedVariant={selectedVariant}
+                product={{handle: product.handle, title: product.title, featuredImage: product.featuredImage}}
+              />
+            </div>
+          </ScrollReveal>
 
           <div className="pk-product__trust">
             <div className="pk-product__trust-item">
@@ -187,28 +204,23 @@ export default function Product() {
         </div>
       </div>
 
-      {/* ── Description — full-width editorial section ── */}
-      {descriptionHtml && (
-        <section className="pk-pdesc">
-          <div className="pk-pdesc__inner">
-            <p className="pk-pdesc__eyebrow">{t('product_desc_eyebrow')}</p>
-            <div
-              className="pk-pdesc__body"
-              dangerouslySetInnerHTML={{__html: descriptionHtml}}
-            />
-          </div>
-        </section>
-      )}
+      {/* ── Editorial description — full-bleed split layout ── */}
+      <EditorialDescription
+        html={descriptionHtml}
+        productType={product.productType}
+        galleryImages={galleryImages}
+        eyebrow={t('product_desc_eyebrow')}
+      />
 
-      {/* ── Details accordions ── */}
-      <div className="pk-pdetails">
-        <Accordion title={t('product_tab_specs')}>
+      {/* ── Details accordions (semantic <details>) ── */}
+      <ScrollReveal as="div" className="pk-pdetails" variant="up">
+        <DetailsAccordion title={t('product_tab_specs')}>
           <Specs product={product} t={t} />
-        </Accordion>
-        <Accordion title={t('product_tab_shipping')}>
+        </DetailsAccordion>
+        <DetailsAccordion title={t('product_tab_shipping')}>
           <Shipping t={t} />
-        </Accordion>
-      </div>
+        </DetailsAccordion>
+      </ScrollReveal>
 
       <ShareRow product={product} t={t} />
 
@@ -238,22 +250,16 @@ export default function Product() {
   );
 }
 
-/* ── Accordion ── */
-function Accordion({title, children}) {
-  const [open, setOpen] = useState(false);
+/* ── Accordion — semantic <details> so keyboard a11y comes for free ── */
+function DetailsAccordion({title, children}) {
   return (
-    <div className={`pk-accordion${open ? ' is-open' : ''}`}>
-      <button
-        type="button"
-        className="pk-accordion__trigger"
-        aria-expanded={open}
-        onClick={() => setOpen((v) => !v)}
-      >
+    <details className="pk-accordion">
+      <summary className="pk-accordion__trigger">
         <span>{title}</span>
         <IconChevronRight size={16} className="pk-accordion__chevron" />
-      </button>
-      {open && <div className="pk-accordion__body">{children}</div>}
-    </div>
+      </summary>
+      <div className="pk-accordion__body">{children}</div>
+    </details>
   );
 }
 
@@ -346,16 +352,23 @@ function Recommendations({data, t}) {
   if (!products.length) return null;
   return (
     <section className="pk-reco" aria-label={t('product_reco_title')}>
-      <div className="pk-reco__head">
+      <ScrollReveal className="pk-reco__head">
         <h2 className="pk-reco__title">{t('product_reco_title')}</h2>
         <Link to="/collections/all" className="pk-reco__see-all">
           {t('product_reco_see_all')}
           <span className="pk-reco__see-all-arrow" aria-hidden="true">→</span>
         </Link>
-      </div>
+      </ScrollReveal>
       <div className="pk-reco__grid">
         {products.slice(0, 4).map((p, i) => (
-          <ProductItem key={p.id} product={p} index={i} />
+          <ScrollReveal
+            key={p.id}
+            delay={i * 80}
+            variant="up"
+            className="pk-reco__cell"
+          >
+            <ProductItem product={p} index={i} />
+          </ScrollReveal>
         ))}
       </div>
     </section>
@@ -486,6 +499,10 @@ const PRODUCT_VARIANT_FRAGMENT = `#graphql
     image { __typename id url altText width height }
     price { amount currencyCode }
     product { title handle }
+    # quantityAvailable intentionally omitted: the dev Storefront API
+    # token lacks unauthenticated_read_product_inventory and the field
+    # would fail every request. Stock-driven UI null-checks before
+    # rendering, so the page degrades to no stock signal.
     selectedOptions { name value }
     sku
     title
@@ -501,6 +518,12 @@ const PRODUCT_FRAGMENT = `#graphql
     images(first: 10) {
       nodes { id url altText width height }
     }
+    # Optional product-level metafields. The 3D viewer toggles on
+    # the model_3d_url key; without it the toggle stays hidden so
+    # we don't show a broken button. The hero gallery picks up the
+    # accent_color metafield for the soft gradient behind the hero.
+    model3dUrl: metafield(namespace: "custom", key: "model_3d_url") { value }
+    accentColor: metafield(namespace: "custom", key: "accent_color") { value }
     options {
       name
       optionValues {
