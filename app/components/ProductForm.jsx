@@ -222,32 +222,8 @@ export function ProductForm({productOptions, selectedVariant, product, onAddStar
         </p>
       ) : null}
 
-      {/* Free shipping progress */}
-      {selectedVariant?.availableForSale && subtotal > 0 ? (
-        <div
-          className={
-            'pk-ship-progress' +
-            (qualifiesFreeShipping ? ' pk-ship-progress--done' : '')
-          }
-        >
-          <div className="pk-ship-progress__bar" aria-hidden>
-            <span style={{width: `${freeShipProgress}%`}} />
-          </div>
-          <p className="pk-ship-progress__msg">
-            {qualifiesFreeShipping ? (
-              <>🎉 You&apos;ve unlocked free shipping.</>
-            ) : (
-              <>
-                Add <strong>${freeShipRemaining.toFixed(2)}</strong> more for{' '}
-                <strong>free shipping</strong>.
-              </>
-            )}
-          </p>
-        </div>
-      ) : null}
-
       {selectedVariant && !selectedVariant.availableForSale ? (
-        <NotifyBackForm variantId={selectedVariant.id} productHandle={productOptions?.handle} />
+        <NotifyBackForm variantId={selectedVariant.id} productHandle={product?.handle} />
       ) : null}
     </div>
   );
@@ -328,6 +304,59 @@ function ProductOptionSwatch({swatch, name}) {
       style={{backgroundColor: color || 'transparent'}}
     >
       {!!image && <img src={image} alt={name} />}
+    </div>
+  );
+}
+
+/**
+ * FreeShippingProgress — full-width pill under the price row.
+ *
+ * Lifted out of the form so the route can render it as a sibling of
+ * the price row instead of cramming it below the ATC. Reuses the same
+ * FREE_SHIPPING_THRESHOLD constant so the threshold stays in sync with
+ * the trust block copy.
+ *
+ * @param {{
+ *   selectedVariant?: {price?: {amount: string; currencyCode: string}; availableForSale?: boolean} | null;
+ *   qty: number;
+ *   t: (key: string) => string;
+ * }}
+ */
+export function FreeShippingProgress({selectedVariant, qty, t}) {
+  if (!selectedVariant?.availableForSale) return null;
+  const variantPrice = parseFloat(selectedVariant?.price?.amount || '0');
+  const subtotal = variantPrice * qty;
+  if (subtotal <= 0) return null;
+
+  const freeShipRemaining = Math.max(0, FREE_SHIPPING_THRESHOLD - subtotal);
+  const freeShipProgress = Math.min(
+    100,
+    (subtotal / FREE_SHIPPING_THRESHOLD) * 100,
+  );
+  const qualifiesFreeShipping = freeShipRemaining === 0;
+
+  return (
+    <div
+      className={
+        'pk-ship-progress' +
+        (qualifiesFreeShipping ? ' pk-ship-progress--done' : '')
+      }
+      role="status"
+      aria-live="polite"
+    >
+      <div className="pk-ship-progress__bar" aria-hidden>
+        <span style={{width: `${freeShipProgress}%`}} />
+      </div>
+      <p className="pk-ship-progress__msg">
+        {qualifiesFreeShipping ? (
+          <>{t('product_ship_unlocked')}</>
+        ) : (
+          <>
+            {t('product_ship_add_more_prefix')} <strong>${freeShipRemaining.toFixed(2)}</strong>{' '}
+            {t('product_ship_add_more_suffix')}
+          </>
+        )}
+      </p>
     </div>
   );
 }

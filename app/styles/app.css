@@ -2221,25 +2221,10 @@ button:focus-visible,
   border: 1px solid var(--pk-border);
 }
 
-/* perks */
-.pk-product__perks {
-  list-style: none;
-  margin: 32px 0 0;
-  padding: 20px 22px;
-  background: var(--pk-surface);
-  border: 1px solid var(--pk-border);
-  border-radius: var(--r-lg);
-  display: grid;
-  gap: 14px;
-}
-.pk-product__perks li {
-  font-size: 14px;
-  color: #3D3824;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.pk-product__perks li svg { color: var(--pk-grove); flex: none; }
+/* (Dead .pk-product__perks block removed — was a duplicate from the
+ * previous PDP design that lingered after the reboot. The live perks
+ * rules live with the rest of the PDP design additions further down
+ * this file.) */
 
 /* (Removed the leftover `@media (max-width: 860px) { .pk-product { grid-template-columns: 1fr } }`
  * from the old grid layout â€” `.pk-product` is no longer a grid, so the
@@ -3629,30 +3614,9 @@ button:focus-visible,
   color: var(--pk-grove);
 }
 
-/* Perks list (under form) */
-.pk-product__perks {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.pk-product__perks li {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 14px;
-  color: var(--pk-muted);
-}
-.pk-product__perks li span[aria-hidden] {
-  display: grid; place-items: center;
-  width: 32px; height: 32px;
-  border-radius: 10px;
-  background: var(--pk-lime-pale);
-  color: var(--pk-lime-dark);
-  flex: none;
-}
+/* (Old .pk-product__perks block removed — replaced by the
+ * neutral-chip version that ships with the rest of the PDP design
+ * additions further down this file.) */
 
 /* Tabs (Description / Specs / Shipping) */
 .pk-tabs {
@@ -3832,87 +3796,224 @@ button:focus-visible,
 }
 .pk-product__badge--sold { background: #fce8e8; color: #b91c1c; }
 
-/* Upgraded trust block — 3 vertical rows */
+/* ── Price cluster ──
+ * Wraps the price row + free-shipping progress so they read as one
+ * decision unit. The price row gets a left ember rule and a larger
+ * display size; the shipping progress sits below as a slim pill. */
+.pk-product__price-cluster {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 6px 0 4px;
+}
+.pk-product__price-row {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding-left: 18px;
+}
+.pk-product__price-row::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--pk-ember) 0%, transparent 100%);
+}
+.pk-product__price {
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  line-height: 1;
+  color: var(--pk-ink);
+}
+.pk-product__price .price--compare {
+  font-size: 16px;
+  color: var(--pk-muted);
+  text-decoration: line-through;
+  font-weight: 600;
+  margin-left: 4px;
+}
+.pk-product__badge--sold {
+  background: #fce8e8;
+  color: #b91c1c;
+  padding: 4px 12px;
+}
+
+/* ── Free-shipping progress pill ──
+ * Full-width of the info column; sits below the price. Slim bar
+ * + single line of supporting copy. */
+.pk-ship-progress {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px;
+  background: var(--pk-cream-soft);
+  border: 1px solid var(--pk-border);
+  border-radius: 999px;
+  font-size: 13px;
+  color: var(--pk-ink);
+}
+.pk-ship-progress__bar {
+  flex: 1;
+  height: 5px;
+  background: var(--pk-cream-dark);
+  border-radius: 999px;
+  overflow: hidden;
+  position: relative;
+  min-width: 60px;
+}
+.pk-ship-progress__bar span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--pk-ember) 0%, var(--pk-ember-hover) 100%);
+  border-radius: 999px;
+  transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.pk-ship-progress__msg {
+  margin: 0;
+  font-size: 13px;
+  color: var(--pk-ink);
+  white-space: nowrap;
+}
+.pk-ship-progress__msg strong { font-weight: 700; color: var(--pk-ember); }
+.pk-ship-progress--done { background: var(--pk-ember-pale); border-color: var(--pk-ember); }
+.pk-ship-progress--done .pk-ship-progress__bar span {
+  background: linear-gradient(90deg, var(--pk-lime) 0%, var(--pk-lime-hover) 100%);
+}
+.pk-ship-progress--done .pk-ship-progress__msg strong { color: var(--pk-ember); }
+
+/* ── Trust block ──
+ * 3 vertical rows of promise. Neutral hairline chips replace the
+ * lime-pale fills. No top/bottom border — the chips carry the
+ * visual weight now and the strip stops feeling like a single line. */
 .pk-product__trust {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding: 18px 0;
-  border-top: 1px solid var(--pk-border);
-  border-bottom: 1px solid var(--pk-border);
-  margin-top: 4px;
+  gap: 14px;
+  padding: 4px 0;
+  margin-top: 8px;
 }
 .pk-product__trust-item {
   display: flex;
-  align-items: flex-start;
-  gap: 10px;
+  align-items: center;
+  gap: 14px;
   line-height: 1.35;
 }
 .pk-product__trust-item strong {
   display: block;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
   color: var(--pk-ink);
+  letter-spacing: -0.005em;
 }
 .pk-product__trust-item em {
   font-style: normal;
-  font-size: 12px;
+  font-size: 13px;
   color: var(--pk-muted);
+  margin-top: 2px;
 }
 .pk-product__trust-icon {
   display: grid;
   place-items: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 8px;
-  background: var(--pk-grove-pale);
-  color: var(--pk-grove);
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: var(--pk-cream-soft);
+  border: 1px solid var(--pk-border);
+  color: var(--pk-ember);
   flex: none;
-  margin-top: 2px;
+}
+.pk-product__trust-copy { display: flex; flex-direction: column; min-width: 0; }
+
+/* ── Promise callout ──
+ * Lifted out of the perks list so the "Carefully packed within 1-2
+ * business days" copy gets its own block. Ember icon + cream-soft
+ * surface with a subtle right rule. */
+.pk-product__promise {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  background: linear-gradient(95deg, var(--pk-cream-soft) 0%, var(--pk-ember-pale) 100%);
+  border: 1px solid var(--pk-border);
+  border-radius: 14px;
+  position: relative;
+}
+.pk-product__promise::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 12px;
+  bottom: 12px;
+  width: 2px;
+  border-radius: 1px;
+  background: linear-gradient(180deg, var(--pk-ember) 0%, transparent 100%);
+  opacity: 0.5;
+}
+.pk-product__promise-icon {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--pk-paper);
+  border: 1px solid var(--pk-border);
+  color: var(--pk-ember);
+  flex: none;
+}
+.pk-product__promise-text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--pk-ink);
+  font-weight: 600;
 }
 
-/* Perk icon class (alongside existing span[aria-hidden] rule) */
+/* ── Perks list ──
+ * Smaller, less prominent than the trust block — just a single
+ * "Curated by the Puchica team" line. Same neutral chip language. */
+.pk-product__perks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.pk-product__perks li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  color: var(--pk-muted);
+}
 .pk-product__perk-icon {
   display: grid;
   place-items: center;
   width: 32px;
   height: 32px;
   border-radius: 10px;
-  background: var(--pk-lime-pale);
-  color: var(--pk-lime-dark);
+  background: var(--pk-cream-soft);
+  border: 1px solid var(--pk-border);
+  color: var(--pk-ember);
   flex: none;
 }
 
-/* ── Full-width editorial description section ── */
-.pk-pdesc {
-  /* Break out of pk-product's 1200px container to reach full viewport width */
-  margin-top: 48px;
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
-  padding: 60px clamp(20px, calc(50vw - 576px), 100px);
-  background: var(--pk-surface);
-  border-top: 1px solid var(--pk-border);
-  border-bottom: 1px solid var(--pk-border);
-}
-@media (max-width: 900px) {
-  .pk-pdesc { margin-top: 32px; padding: 40px 20px; }
-}
-.pk-pdesc__inner {
-  max-width: 760px;
-  margin: 0 auto;
-}
-.pk-pdesc__eyebrow {
-  margin: 0 0 20px;
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  color: var(--pk-ember);
-}
+/* ── pk-pdesc surface (editorial block) ──
+ * The layout grid now lives in .pk-split__inner. .pk-pdesc only owns
+ * its surface treatment so the editorial block keeps its cream
+ * backdrop and full-bleed breakout. */
+/* Editorial body — prose lives in .pk-pdesc__body (the wrapper
+ * inside SplitSection's children). */
 .pk-pdesc__body {
   color: var(--pk-ink);
   font-size: 16px;
-  line-height: 1.72;
+  line-height: 1.78;
   min-width: 0;
   overflow: hidden;
 }
@@ -3928,12 +4029,7 @@ button:focus-visible,
 }
 .pk-pdesc__body h2 { font-size: 22px; }
 .pk-pdesc__body h3 { font-size: 18px; }
-.pk-pdesc__body h4 {
-  font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-family: var(--pk-font);
-}
+.pk-pdesc__body h4 { font-size: 16px; }
 .pk-pdesc__body p { margin: 0 0 16px; }
 .pk-pdesc__body p:first-child { margin-top: 0; }
 .pk-pdesc__body ul,
@@ -3945,20 +4041,25 @@ button:focus-visible,
 .pk-pdesc__body img,
 .pk-pdesc__body iframe,
 .pk-pdesc__body video {
-  display: block;
   max-width: 100%;
-  width: 100%;
   height: auto;
-  margin: 28px auto;
-  border-radius: var(--r-lg);
-  border: 1px solid var(--pk-border);
-  background: #fff;
-  box-shadow: 0 1px 3px rgba(22, 15, 58, 0.05);
+  border-radius: 12px;
+  display: block;
+  margin: 20px auto;
 }
-.pk-pdesc__body iframe { aspect-ratio: 16 / 9; }
-.pk-pdesc__body > p:first-child,
-.pk-pdesc__body > div > p:first-child { margin-top: 0; }
-.pk-pdesc__body > p > strong:first-child { display: inline-block; margin-top: 8px; }
+.pk-pdesc__body iframe { aspect-ratio: 16 / 9; width: 100%; }
+/* Pull-quote treatment for any <blockquote> the merchant adds. */
+.pk-pdesc__body blockquote {
+  margin: 28px 0;
+  padding: 4px 0 4px 20px;
+  border-left: 2px solid var(--pk-ember);
+  font-family: var(--pk-font-display);
+  font-size: clamp(18px, 2vw, 22px);
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--pk-ink);
+}
 
 /* ── Details accordions ── */
 .pk-pdetails {
@@ -9544,10 +9645,35 @@ button:focus-visible,
   background: radial-gradient(60% 80% at 110% 50%, rgba(168, 56, 0, 0.06), transparent 70%);
   pointer-events: none;
 }
-@media (max-width: 900px) {
-  .pk-pdesc { margin-top: 32px; padding: 44px 20px; }
+
+/* ════════════════════════════════════════════════════════════════════
+   Split section — generalized two-column layout for the PDP.
+
+   Replaces the per-section `.pk-pdesc__inner` grid. Used by:
+     • Editorial description  (tone: default, align: left)
+     • Highlights             (tone: default, align: left)
+     • Care & shipping        (tone: inverse, align: right)
+
+   The grid is text + visual on desktop, single-column on mobile.
+   Tone='inverse' swaps to a dark warm-black background and inverts
+   text colors. Tone='default' sits on the page cream. Other PDP
+   sections (`.pk-pdesc`, `.pk-highlights`, `.pk-care`) own only
+   their surface treatment and section-specific content styles.
+   ════════════════════════════════════════════════════════════════════ */
+
+.pk-split {
+  margin-top: 56px;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  padding: 64px clamp(20px, calc(50vw - 576px), 100px);
+  position: relative;
+  overflow: hidden;
 }
-.pk-pdesc__inner {
+@media (max-width: 900px) {
+  .pk-split { margin-top: 36px; padding: 40px 20px; }
+}
+
+.pk-split__inner {
   max-width: 1080px;
   margin: 0 auto;
   display: grid;
@@ -9556,23 +9682,32 @@ button:focus-visible,
   align-items: start;
   position: relative;
 }
+/* Flip the column order for right-aligned splits — visual moves
+   to the left, text to the right. */
+.pk-split--right .pk-split__inner { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); }
+.pk-split--right .pk-split__col-visual { order: -1; }
 @media (max-width: 900px) {
-  .pk-pdesc__inner { grid-template-columns: 1fr; gap: 28px; }
+  .pk-split__inner,
+  .pk-split--right .pk-split__inner { grid-template-columns: 1fr; gap: 28px; }
+  .pk-split--right .pk-split__col-visual { order: 0; }
 }
-.pk-pdesc__col-text {
+
+.pk-split__col-text {
   position: relative;
   padding-left: 22px;
 }
-.pk-pdesc__col-text::before {
+.pk-split__col-text::before {
   content: '';
   position: absolute;
-  left: 0; top: 0;
+  left: 0;
+  top: 0;
   width: 3px;
   height: 60px;
   border-radius: 2px;
   background: linear-gradient(180deg, var(--pk-ember) 0%, transparent 100%);
 }
-.pk-pdesc__eyebrow {
+
+.pk-split__eyebrow {
   margin: 0 0 14px;
   font-size: 11px;
   font-weight: 700;
@@ -9580,7 +9715,7 @@ button:focus-visible,
   letter-spacing: 0.18em;
   color: var(--pk-ember);
 }
-.pk-pdesc__headline {
+.pk-split__headline {
   margin: 0 0 22px;
   font-family: var(--pk-font-display);
   font-size: clamp(28px, 3.6vw, 40px);
@@ -9589,61 +9724,25 @@ button:focus-visible,
   line-height: 1.05;
   color: var(--pk-ink);
 }
-.pk-pdesc__body {
+.pk-split__body {
   color: var(--pk-ink);
   font-size: 16px;
   line-height: 1.78;
   min-width: 0;
-  overflow: hidden;
 }
-/* Pull-quote treatment for any <blockquote> the merchant adds. */
-.pk-pdesc__body blockquote {
-  margin: 28px 0 28px 0;
-  padding: 4px 0 4px 20px;
-  border-left: 2px solid var(--pk-ember);
-  font-family: var(--pk-font-display);
-  font-size: clamp(18px, 2vw, 22px);
-  font-style: italic;
-  font-weight: 500;
-  line-height: 1.4;
-  color: var(--pk-ink);
-}
-.pk-pdesc__body h1,
-.pk-pdesc__body h2,
-.pk-pdesc__body h3,
-.pk-pdesc__body h4 {
-  font-family: var(--pk-font-display);
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  margin: 28px 0 10px;
-  color: var(--pk-ink);
-}
-.pk-pdesc__body h2 { font-size: 22px; }
-.pk-pdesc__body h3 { font-size: 18px; }
-.pk-pdesc__body h4 { font-size: 16px; }
-.pk-pdesc__body p { margin: 0 0 16px; }
-.pk-pdesc__body p:first-child { margin-top: 0; }
-.pk-pdesc__body ul,
-.pk-pdesc__body ol { margin: 0 0 16px 1.4em; padding: 0; }
-.pk-pdesc__body li { margin-bottom: 6px; }
-.pk-pdesc__body strong { font-weight: 700; }
-.pk-pdesc__body a { color: var(--pk-ember); }
-.pk-pdesc__body a:hover { text-decoration: underline; }
-.pk-pdesc__body img,
-.pk-pdesc__body iframe,
-.pk-pdesc__body video {
-  max-width: 100%;
-  height: auto;
-  border-radius: 12px;
-  display: block;
-  margin: 20px auto;
-}
-.pk-pdesc__body iframe { aspect-ratio: 16 / 9; width: 100%; }
+.pk-split__body p { margin: 0 0 16px; }
+.pk-split__body p:first-child { margin-top: 0; }
+.pk-split__body ul,
+.pk-split__body ol { margin: 0 0 16px 1.4em; padding: 0; }
+.pk-split__body li { margin-bottom: 6px; }
 
-/* Image mosaic on the right column. Three tiles arranged in an
- * editorial collage. Hidden when the gallery has fewer than 2
- * secondary images. */
-.pk-pdesc__col-mosaic {
+.pk-split__col-visual {
+  position: relative;
+  min-height: 100%;
+}
+
+/* Mosaic — three tiles, collapses to fewer on narrow viewports. */
+.pk-split__mosaic {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 220px 220px;
@@ -9651,45 +9750,52 @@ button:focus-visible,
   position: relative;
 }
 @media (max-width: 900px) {
-  .pk-pdesc__col-mosaic {
+  .pk-split__mosaic {
     grid-template-rows: 160px 160px;
     margin-top: 8px;
   }
 }
-.pk-pdesc__tile {
+.pk-split__tile {
   position: relative;
   overflow: hidden;
   border-radius: 18px;
   background: var(--pk-cream);
   box-shadow: 0 8px 30px rgba(15, 26, 14, 0.08);
 }
-.pk-pdesc__tile img {
+.pk-split__tile img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
   transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.pk-pdesc__tile:hover img { transform: scale(1.04); }
-.pk-pdesc__tile--1 {
-  grid-column: 1;
-  grid-row: 1 / span 2;
+.pk-split__tile:hover img { transform: scale(1.04); }
+.pk-split__tile--1 { grid-column: 1; grid-row: 1 / span 2; }
+.pk-split__tile--2 { grid-column: 2; grid-row: 1; }
+.pk-split__tile--3 { grid-column: 2; grid-row: 2; }
+
+/* Single hero image — used when a section wants one big photo
+ * rather than a 3-tile collage. */
+.pk-split__hero-image {
+  position: relative;
+  border-radius: 22px;
+  overflow: hidden;
+  background: var(--pk-cream);
+  box-shadow: 0 12px 40px rgba(15, 26, 14, 0.1);
+  aspect-ratio: 4 / 5;
 }
-.pk-pdesc__tile--2 {
-  grid-column: 2;
-  grid-row: 1;
-}
-.pk-pdesc__tile--3 {
-  grid-column: 2;
-  grid-row: 2;
+.pk-split__hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
-/* Brand accent column when there's no mosaic — a tall card with
- * the Puchica wordmark and a quote. Acts as a visual cap on the
- * description so it doesn't end abruptly. */
-.pk-pdesc__col-accent {
+/* Brand accent column — dark warm card with the wordmark.
+ * Fallback when no gallery images are available. */
+.pk-split__accent {
   background: linear-gradient(155deg, var(--pk-ink) 0%, #1d1838 100%);
-  border-radius: 18px;
+  border-radius: 22px;
   padding: 36px 28px;
   color: var(--pk-paper);
   min-height: 280px;
@@ -9699,7 +9805,7 @@ button:focus-visible,
   position: relative;
   overflow: hidden;
 }
-.pk-pdesc__col-accent::after {
+.pk-split__accent::after {
   content: '';
   position: absolute;
   inset: 0;
@@ -9708,7 +9814,7 @@ button:focus-visible,
     radial-gradient(50% 50% at 20% 90%, rgba(204, 67, 0, 0.22), transparent 65%);
   pointer-events: none;
 }
-.pk-pdesc__brand-mark {
+.pk-split__brand-mark {
   font-family: var(--pk-font-display);
   font-size: 36px;
   font-weight: 800;
@@ -9716,13 +9822,82 @@ button:focus-visible,
   position: relative;
   z-index: 1;
 }
-.pk-pdesc__col-accent p {
-  margin: 12px 0 0;
-  font-size: 14px;
-  line-height: 1.6;
-  opacity: 0.78;
-  position: relative;
-  z-index: 1;
+
+/* Inverse tone — used by the Care & shipping section to break the
+ * cream monotony and let the row alternate visually. */
+.pk-split--inverse {
+  background: linear-gradient(180deg, var(--pk-ink) 0%, var(--pk-ink-soft) 100%);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.pk-split--inverse .pk-split__eyebrow { color: var(--pk-lime); }
+.pk-split--inverse .pk-split__headline { color: var(--pk-paper); }
+.pk-split--inverse .pk-split__body { color: rgba(244, 240, 230, 0.86); }
+.pk-split--inverse .pk-split__col-text::before {
+  background: linear-gradient(180deg, var(--pk-lime) 0%, transparent 100%);
+}
+.pk-split--inverse .pk-split__mosaic {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 18px;
+  padding: 12px;
+  gap: 10px;
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   Highlights section.
+
+   Uses single hero image (or mosaic fallback) on the right.
+   Three short promise bullets on the left.
+   ════════════════════════════════════════════════════════════════════ */
+.pk-highlights__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 14px;
+}
+.pk-highlights__list li {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 14px 0;
+  border-top: 1px solid var(--pk-border);
+}
+.pk-highlights__list li:last-child { border-bottom: 1px solid var(--pk-border); }
+.pk-highlights__list li strong {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--pk-ink);
+  letter-spacing: -0.005em;
+}
+.pk-highlights__list li span {
+  font-size: 13px;
+  color: var(--pk-muted);
+  line-height: 1.5;
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   Care & shipping section (inverse tone).
+
+   Re-presents the Shipping accordion copy in editorial voice.
+   ════════════════════════════════════════════════════════════════════ */
+.pk-care__body {
+  display: grid;
+  gap: 18px;
+}
+.pk-care__body h3 {
+  margin: 0;
+  font-family: var(--pk-font-display);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--pk-paper);
+}
+.pk-care__body p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.7;
+  color: rgba(244, 240, 230, 0.82);
 }
 
 /* Recommendation grid — staggered fade. Each cell is a ScrollReveal
@@ -9742,13 +9917,44 @@ button:focus-visible,
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--pk-ember) 35%, transparent);
 }
 
+/* Low-stock urgency inside the form — ember dot, no lime. */
+.pk-stock-urgency {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--pk-ink);
+}
+.pk-stock-urgency__dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--pk-ember);
+  box-shadow: 0 0 0 4px rgba(168, 56, 0, 0.12);
+  flex: none;
+  animation: pkStockPulse 1.8s ease-in-out infinite;
+}
+@keyframes pkStockPulse {
+  0%, 100% { box-shadow: 0 0 0 4px rgba(168, 56, 0, 0.12); }
+  50% { box-shadow: 0 0 0 7px rgba(168, 56, 0, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pk-stock-urgency__dot { animation: none; }
+}
+
 /* Trust block — tighter on mobile. */
 @media (max-width: 700px) {
-  .pk-product__trust { padding: 14px 0; gap: 10px; }
-  .pk-product__trust-item strong { font-size: 12px; }
-  .pk-product__trust-item em { font-size: 11px; }
-  .pk-product__trust-icon { width: 26px; height: 26px; }
+  .pk-product__trust { gap: 10px; }
+  .pk-product__trust-item strong { font-size: 13px; }
+  .pk-product__trust-item em { font-size: 12px; }
+  .pk-product__trust-icon { width: 34px; height: 34px; border-radius: 10px; }
   .pk-product__trust-icon svg { width: 14px; height: 14px; }
+  .pk-product__promise { padding: 12px 14px; }
+  .pk-product__promise-icon { width: 32px; height: 32px; }
+  .pk-product__promise-text { font-size: 13px; }
 }
 
 /* Share row — subtle hover state for the share button. */

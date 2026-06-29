@@ -11,22 +11,23 @@ import {
 import {error as logError} from '~/lib/logger';
 import {ProductPrice} from '~/components/ProductPrice';
 import {ProductImage} from '~/components/ProductImage';
-import {ProductForm} from '~/components/ProductForm';
+import {ProductForm, FreeShippingProgress} from '~/components/ProductForm';
 import {ProductItem} from '~/components/ProductItem';
 import {
   IconTruck,
   IconReturn,
   IconShield,
-  IconPackage,
   IconShare,
   IconCheck,
   IconChevronRight,
+  IconSparkles,
 } from '~/components/Icons';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 import {puchicaMeta, canonical, SITE_URL, breadcrumbJsonLd, JsonLdScript} from '~/lib/seo';
 import {getJudgemeBadge} from '~/lib/judgeme';
 import {ReviewStars, JudgemeReviews} from '~/components/JudgemeReviews';
 import {EditorialDescription} from '~/components/EditorialDescription';
+import {SplitSection, SplitHeroImage, MosaicFromGallery} from '~/components/SplitSection';
 import {ScrollReveal} from '~/components/ScrollReveal';
 import {useT} from '~/lib/t';
 
@@ -141,14 +142,31 @@ export default function Product() {
             <h1 className="pk-product__title">{title}</h1>
           </ScrollReveal>
 
-          <ScrollReveal as="div" className="pk-product__price-row" delay={120} variant="up">
-            <ProductPrice
-              price={selectedVariant?.price}
-              compareAtPrice={selectedVariant?.compareAtPrice}
+          {/* ── Price + free-shipping pill — owns its own cluster so the
+              eye reads the price, the threshold nudge, and the badge
+              as one decision unit before the buy form. */}
+          <ScrollReveal
+            as="div"
+            className="pk-product__price-cluster"
+            delay={120}
+            variant="up"
+          >
+            <div className="pk-product__price-row">
+              <ProductPrice
+                price={selectedVariant?.price}
+                compareAtPrice={selectedVariant?.compareAtPrice}
+              />
+              {selectedVariant?.availableForSale === false && (
+                <span className="pk-product__badge pk-product__badge--sold">
+                  {t('product_badge_sold_out')}
+                </span>
+              )}
+            </div>
+            <FreeShippingProgress
+              selectedVariant={selectedVariant}
+              qty={1}
+              t={t}
             />
-            {selectedVariant?.availableForSale === false && (
-              <span className="pk-product__badge pk-product__badge--sold">{t('product_badge_sold_out')}</span>
-            )}
           </ScrollReveal>
 
           {reviews && reviews.count > 0 ? (
@@ -167,38 +185,56 @@ export default function Product() {
             </div>
           </ScrollReveal>
 
-          <div className="pk-product__trust">
+          {/* ── Trust block: 3 rows of promise, neutral hairline chips
+              (no lime-pale fill). Each row reads heading + sub-line
+              inline so the block doesn't compete with the buy form. */}
+          <div className="pk-product__trust" aria-label={t('product_perks_aria')}>
             <div className="pk-product__trust-item">
-              <span className="pk-product__trust-icon"><IconTruck size={15} /></span>
-              <span>
+              <span className="pk-product__trust-icon" aria-hidden>
+                <IconTruck size={16} />
+              </span>
+              <span className="pk-product__trust-copy">
                 <strong>{t('product_trust_shipping')}</strong>
                 <em>{t('product_trust_shipping_sub')}</em>
               </span>
             </div>
             <div className="pk-product__trust-item">
-              <span className="pk-product__trust-icon"><IconReturn size={15} /></span>
-              <span>
+              <span className="pk-product__trust-icon" aria-hidden>
+                <IconReturn size={16} />
+              </span>
+              <span className="pk-product__trust-copy">
                 <strong>{t('product_trust_returns')}</strong>
                 <em>{t('product_trust_returns_sub')}</em>
               </span>
             </div>
             <div className="pk-product__trust-item">
-              <span className="pk-product__trust-icon"><IconShield size={15} /></span>
-              <span>
+              <span className="pk-product__trust-icon" aria-hidden>
+                <IconShield size={16} />
+              </span>
+              <span className="pk-product__trust-copy">
                 <strong>{t('product_trust_secure')}</strong>
                 <em>{t('product_trust_secure_sub')}</em>
               </span>
             </div>
           </div>
 
-          <ul className="pk-product__perks" aria-label={t('product_perks_aria')}>
-            <li>
-              <span className="pk-product__perk-icon" aria-hidden><IconPackage size={14} /></span>
+          {/* ── Promise callout — the brand's strongest care signal
+              lifted out of the perks list and given its own block. */}
+          <div className="pk-product__promise" role="note">
+            <span className="pk-product__promise-icon" aria-hidden>
+              <IconSparkles size={16} />
+            </span>
+            <p className="pk-product__promise-text">
               {t('product_perk_packed')}
-            </li>
+            </p>
+          </div>
+
+          <ul className="pk-product__perks">
             <li>
-              <span className="pk-product__perk-icon" aria-hidden><IconCheck size={14} /></span>
-              {t('product_perk_curated')}
+              <span className="pk-product__perk-icon" aria-hidden>
+                <IconCheck size={14} />
+              </span>
+              <span>{t('product_perk_curated')}</span>
             </li>
           </ul>
         </div>
@@ -211,6 +247,63 @@ export default function Product() {
         galleryImages={galleryImages}
         eyebrow={t('product_desc_eyebrow')}
       />
+
+      {/* ── Highlights — alternating split row, text left / image right.
+          Reuses existing trust/perk copy so we don't ship new i18n
+          strings. Anchors on the second gallery image (skipping the
+          hero) and falls back to the brand-accent column. */}
+      <SplitSection
+        align="left"
+        eyebrow={t('product_highlights_eyebrow')}
+        heading={product.productType || title}
+        tone="default"
+        className="pk-highlights"
+        visual={
+          galleryImages[1] ? (
+            <SplitHeroImage
+              image={galleryImages[1]}
+              fallbackAlt={title}
+            />
+          ) : (
+            <MosaicFromGallery images={galleryImages} title={title} />
+          )
+        }
+      >
+        <ul className="pk-highlights__list">
+          <li>
+            <strong>{t('product_trust_shipping')}</strong>
+            <span>{t('product_trust_shipping_sub')}</span>
+          </li>
+          <li>
+            <strong>{t('product_trust_returns')}</strong>
+            <span>{t('product_trust_returns_sub')}</span>
+          </li>
+          <li>
+            <strong>{t('product_perk_curated')}</strong>
+          </li>
+        </ul>
+      </SplitSection>
+
+      {/* ── Care & shipping — alternating split row, mosaic left /
+          text right. Mirrors the Shipping accordion copy in a
+          cleaner editorial voice. */}
+      <SplitSection
+        align="right"
+        eyebrow={t('product_care_eyebrow')}
+        heading={t('product_care_h')}
+        tone="inverse"
+        className="pk-care"
+        visual={
+          <MosaicFromGallery images={galleryImages} title={title} />
+        }
+      >
+        <div className="pk-care__body">
+          <h3>{t('product_shipping_h')}</h3>
+          <p>{t('product_shipping_body')}</p>
+          <h3>{t('product_returns_h')}</h3>
+          <p>{t('product_returns_body')}</p>
+        </div>
+      </SplitSection>
 
       {/* ── Details accordions (semantic <details>) ── */}
       <ScrollReveal as="div" className="pk-pdetails" variant="up">
