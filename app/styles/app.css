@@ -6082,12 +6082,14 @@ button:focus-visible,
 .pk-cat-world--dark .pk-btn--primary {
   background: var(--pk-spark);
   color: var(--pk-ink);
-  border-color: transparent;
-  box-shadow: 0 0 0 0 var(--pk-spark);
+  border-color: var(--pk-spark);
 }
 .pk-cat-world--dark .pk-btn--primary:hover {
-  background: var(--pk-spark-hover);
-  box-shadow: 0 0 20px rgba(247,183,49,0.35);
+  background: var(--pk-lime-hover);
+  border-color: var(--pk-lime-hover);
+  color: var(--pk-ink);
+  transform: none;
+  box-shadow: none;
 }
 
 /* â”€â”€ Light variant â”€â”€ */
@@ -7604,7 +7606,7 @@ button:focus-visible,
 /* Button press (push-down on click) */
 .pk-btn--primary:active {
   transform: translateY(1px);
-  box-shadow: 0 4px 10px rgba(14, 12, 8, 0.18);
+  box-shadow: none;
 }
 .pk-btn--spark:active {
   transform: translateY(1px);
