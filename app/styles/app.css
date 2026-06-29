@@ -1756,14 +1756,18 @@ button:focus-visible,
 .pk-prod-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
 .pk-prod-grid--loading { min-height: 320px; }
 .pk-card {
-  background: #fff;
-  border: 1px solid var(--pk-card-border);
-  border-radius: var(--pk-radius);
+  border-radius: 2px;
   overflow: hidden;
+  background: #fff;
+  border: 1px solid rgba(22,15,58,0.08);
+  transition: transform 0.22s ease, outline 0.1s;
+  position: relative;
   display: flex; flex-direction: column;
-  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
 }
-.pk-card:hover { transform: translateY(-3px); box-shadow: 0 16px 36px rgba(15,26,14,.10); border-color: var(--pk-border); }
+.pk-card:hover {
+  outline: 2px solid #160F3A;
+  transform: translateY(-3px);
+}
 .pk-card__media {
   position: relative; display: block; background: var(--pk-paper-dark);
   /* Pin the image to a 1:1 box so the card can't grow vertically with
@@ -1795,36 +1799,44 @@ button:focus-visible,
 .pk-star-glyph { color: currentColor; opacity: 0.9; }
 .pk-star-glyph svg { display: block; }
 .pk-card__reviews { color: var(--pk-muted); }
-.pk-card__cart { margin-top: auto; padding-top: 10px; }
+.pk-card__cart { margin-top: auto; padding-top: 10px; overflow: hidden; }
 .pk-card__viewbtn { margin-top: auto; }
 .pk-card__cart form { margin: 0; }
 .pk-card__cart button[type="submit"],
 .pk-card__viewbtn {
   width: 100%;
   display: block;
-  background: #0E0C08;
-  color: #F4F0E6;
-  border: none;
-  border-radius: var(--r-md);
-  padding: 11px 12px;
-  font-family: var(--pk-font-body);
-  font-size: 14px;
-  font-weight: 600;
+  padding: 10px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: transparent;
+  color: #160F3A;
+  border: 1.5px solid #160F3A;
+  border-radius: 2px;
   cursor: pointer;
   text-align: center;
   text-decoration: none;
-  transition: background 0.15s ease, box-shadow 0.15s ease;
+  transform: translateY(100%);
+  transition: transform 0.22s ease, background 0s, color 0s;
 }
-.pk-card__cart button[type="submit"] { margin-top: 0; }
+.pk-card:hover .pk-card__cart button[type="submit"],
+.pk-card:hover .pk-card__viewbtn {
+  transform: translateY(0);
+}
 .pk-card__cart button[type="submit"]:hover,
 .pk-card__viewbtn:hover {
-  background: #1C1A12;
-  box-shadow: 0 6px 16px rgba(14, 12, 8, 0.22);
+  background: #160F3A;
+  color: #fff;
 }
 .pk-card__cart button[type="submit"]:disabled {
-  background: var(--pk-paper-dark);
-  color: var(--pk-muted);
+  opacity: 0.45;
   cursor: not-allowed;
+  background: transparent;
+  color: rgba(22,15,58,0.4);
+  border-color: rgba(22,15,58,0.2);
+  transform: translateY(0);
 }
 /* AddToCartButton state machine. `.pk-atc` is added to every cart-submit
    button; the `--loading`, `--added`, and `--error` modifiers are driven
@@ -2675,15 +2687,25 @@ button:focus-visible,
 .pk-promo__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 .pk-promo__media-fallback { position: absolute; inset: 0; background: var(--pk-grad-lavender); }
 
-/* ---------- Card bestseller badge ---------- */
+/* ---------- Card badge (Task 5 redesign) ---------- */
 .pk-card__badge {
-  position: absolute; top: 10px; left: 10px; z-index: 2;
-  background: var(--pk-grad-primary);
-  color: #fff; font-size: 11px; font-weight: 700;
-  padding: 5px 11px; border-radius: 999px;
-  box-shadow: var(--pk-sh-sm);
-  letter-spacing: 0.02em;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+  border-radius: 2px;
+  padding: 3px 8px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.4;
+  pointer-events: none;
 }
+.pk-card__badge--new-arrival { background: #CC4300; color: #fff; }
+.pk-card__badge--top-pick    { background: #6D4CFF; color: #fff; }
+.pk-card__badge--trending    { background: #160F3A; color: #fff; }
+.pk-card__badge--staff-pick  { background: #F2EBDA; color: #160F3A; border: 1px solid rgba(22,15,58,0.2); }
 
 /* ---------- Trending rail ---------- */
 .pk-rail {
@@ -3311,21 +3333,9 @@ button:focus-visible,
 
 /* Product card polish (additions on top of existing pk-card) */
 .pk-card__media { position: relative; }
-.pk-card__badge {
-  position: absolute;
-  top: 10px; left: 10px;
-  z-index: 2;
-  background: var(--pk-ink);
-  color: var(--pk-paper);
-  font-size: 11px;
-  font-weight: 700;
-  padding: 5px 11px;
-  border-radius: 999px;
-  box-shadow: var(--pk-sh-sm);
-  letter-spacing: 0.02em;
-}
-.pk-card__badge--new { background: var(--pk-grove); color: #fff; }
-.pk-card__badge--sale { background: var(--pk-ember); color: #fff; }
+/* Badge modifiers --new and --sale kept for backward compat (collection page may use them) */
+.pk-card__badge--new  { background: var(--pk-grove); color: #fff; border-radius: 2px; }
+.pk-card__badge--sale { background: var(--pk-ember); color: #fff; border-radius: 2px; }
 /* Quick-add button removed â€” replaced by the always-visible Add to Cart button. */
 @media (max-width: 900px) {
   /* On touch devices, surface the quick-add always. */
@@ -9011,6 +9021,40 @@ button:focus-visible,
 .pk-card--inverted .pk-card__title { color: var(--pk-paper); }
 .pk-card--inverted .pk-card__body { color: var(--pk-paper); }
 .pk-card--inverted:hover { border-color: rgba(244,240,230,.4); box-shadow: 0 16px 36px rgba(0,0,0,.4); }
+
+/* Dark (glass) card variant — used when card appears on #160F3A or #4B3BCC bg */
+.pk-card--dark {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: #F4F0E6;
+}
+.pk-card--dark:hover {
+  outline: 2px solid rgba(255,255,255,0.4);
+  transform: translateY(-3px);
+}
+.pk-card--dark .pk-card__title { color: #F4F0E6; }
+.pk-card--dark .pk-card__price { color: #F4F0E6; }
+.pk-card--dark .pk-card__vendor { color: rgba(244,240,230,0.55); }
+.pk-card--dark .pk-card__cart button[type="submit"],
+.pk-card--dark .pk-card__viewbtn {
+  background: transparent;
+  color: #F4F0E6;
+  border-color: rgba(244,240,230,0.5);
+}
+.pk-card--dark:hover .pk-card__cart button[type="submit"],
+.pk-card--dark:hover .pk-card__viewbtn {
+  transform: translateY(0);
+}
+.pk-card--dark .pk-card__cart button[type="submit"]:hover,
+.pk-card--dark .pk-card__viewbtn:hover {
+  background: #fff;
+  color: #160F3A;
+  border-color: #fff;
+}
+.pk-card--dark .pk-card__badge--trending {
+  background: #fff;
+  color: #160F3A;
+}
 
 .pk-embla { padding: 48px 0; position: relative; }
 .pk-embla--light { background: var(--pk-cream-soft); color: var(--pk-ink); }

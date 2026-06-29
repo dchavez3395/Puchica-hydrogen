@@ -532,7 +532,7 @@ const PRODUCT_QUERY = `#graphql
 
 const RECOMMENDED_ITEM_FRAGMENT = `#graphql
   fragment RecommendedProduct on Product {
-    id handle title productType
+    id handle title productType tags
     featuredImage { id url altText width height }
     priceRange {
       minVariantPrice { amount currencyCode }

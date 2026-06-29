@@ -7,6 +7,22 @@ import {ScrollReveal} from '~/components/ScrollReveal';
 import {TiltCard} from '~/components/TiltCard';
 import {useT} from '~/lib/t';
 
+const BADGE_TAG_MAP = {
+  'new-arrival': {label: 'New Arrival', cls: 'pk-card__badge--new-arrival'},
+  'top-pick':    {label: 'Top Pick',    cls: 'pk-card__badge--top-pick'},
+  'trending':    {label: 'Trending',    cls: 'pk-card__badge--trending'},
+  'staff-pick':  {label: 'Staff Pick',  cls: 'pk-card__badge--staff-pick'},
+};
+
+function resolveBadge(tags) {
+  if (!tags?.length) return null;
+  const normalized = tags.map((t) => t.toLowerCase().replace(/\s+/g, '-'));
+  for (const key of Object.keys(BADGE_TAG_MAP)) {
+    if (normalized.includes(key)) return BADGE_TAG_MAP[key];
+  }
+  return null;
+}
+
 /**
  * @param {{
  *   product:
@@ -15,9 +31,10 @@ import {useT} from '~/lib/t';
  *     | RecommendedProductFragment;
  *   loading?: 'eager' | 'lazy';
  *   index?: number;
+ *   dark?: boolean;
  * }}
  */
-export function ProductItem({product, loading, index}) {
+export function ProductItem({product, loading, index, dark = false}) {
   const variantUrl = useVariantUrl(product.handle);
   const image = product.featuredImage;
   const t = useT();
@@ -33,10 +50,17 @@ export function ProductItem({product, loading, index}) {
   const {open} = useAside();
 
   const delay = typeof index === 'number' ? Math.min(index * 40, 320) : 0;
+  const badge = resolveBadge(product.tags);
+  const cardClass = `pk-card pk-card--link${dark ? ' pk-card--dark' : ''}`;
 
   return (
     <ScrollReveal delay={delay} variant="up">
-      <TiltCard className="pk-card pk-card--link" maxTilt={6}>
+      <TiltCard className={cardClass} maxTilt={6}>
+        {badge && (
+          <span className={`pk-card__badge ${badge.cls}`} aria-label={badge.label}>
+            {badge.label}
+          </span>
+        )}
         <Link
           className="pk-card__media"
           to={variantUrl}

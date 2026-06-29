@@ -422,6 +422,7 @@ const PRODUCT_ITEM_FRAGMENT = `#graphql
     handle
     title
     productType
+    tags
     featuredImage {
       id
       altText

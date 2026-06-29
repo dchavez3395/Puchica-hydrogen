@@ -127,6 +127,7 @@ const SEARCH_PRODUCT_FRAGMENT = `#graphql
     handle
     title
     productType
+    tags
     trackingParameters
     featuredImage {
       id
