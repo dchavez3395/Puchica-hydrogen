@@ -247,7 +247,7 @@ function CartEmpty({hidden = false}) {
             to="/collections/best-sellers"
             onClick={close}
             prefetch="intent"
-            className="pk-btn pk-btn--ghost pk-btn--lg"
+            className="pk-btn pk-btn--secondary pk-btn--lg"
           >
             See best sellers
           </Link>
