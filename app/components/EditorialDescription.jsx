@@ -4,22 +4,19 @@ import {SplitSection, MosaicFromGallery, EditorialAccent} from './SplitSection';
 /**
  * EditorialDescription — PDP editorial block.
  *
- * Two-column full-bleed section that splits the merchant's
- * descriptionHtml into a clean prose column on the left and an image
- * mosaic (or brand accent) on the right at >= 900px.
+ * Renders the merchant's descriptionHtml as a three-zone magazine
+ * spread: full-width eyebrow + headline at the top, side-by-side
+ * text + visual in the middle, with the body wrapping at full
+ * width under both. The first paragraph / first prose block sits
+ * beside the visual; everything after wraps below.
  *
- * As of the SplitSection extraction, this component delegates layout
- * to SplitSection. It owns only the editorial copy wiring: the body
- * dangerouslySetInnerHTML passthrough and the visual-column fallback
- * decision (mosaic when 3+ gallery images are available, brand-mark
- * accent otherwise).
+ * Picking the right-column visual: at least 3 secondary images
+ * (galleryImages.slice(1, 4)) → mosaic; otherwise → brand-accent
+ * column.
  *
- * Merchants don't need to author anything new — the prose body comes
- * straight from `product.descriptionHtml`. We add:
- *   - Eyebrow ("About this product")
- *   - Editorial headline (derived from the product type)
- *   - A pull-quote treatment for any `<blockquote>` the merchant
- *     includes in the body
+ * The prose body comes straight from `product.descriptionHtml`. We
+ * add the editorial framing (eyebrow, headline) — no merchant work
+ * required. Blockquote pull-quotes get a left ember rule.
  *
  * @param {{
  *   html: string;
@@ -30,10 +27,19 @@ import {SplitSection, MosaicFromGallery, EditorialAccent} from './SplitSection';
  * }}
  */
 export function EditorialDescription({html, productType, galleryImages = [], eyebrow}) {
-  // Pick the right-column visual. Need at least 3 secondary images
-  // to fill the mosaic grid; below that, fall back to the brand
-  // accent. The hero is galleryImages[0]; everything else can
-  // populate the right column.
+  // Split the merchant body into a lead (sits beside the visual)
+  // and a tail (wraps below at full width). We split on the first
+  // `</p>` / `</h1..4>` boundary — anything before is the lead,
+  // anything after is the tail. SSR-safe (no DOMParser).
+  const {lead, tail} = useMemo(() => {
+    if (!html) return {lead: '', tail: ''};
+    const closeRe = /<\/(p|h[1-6]|ul|ol|blockquote)>/i;
+    const m = html.match(closeRe);
+    if (!m) return {lead: html, tail: ''};
+    const cutAt = m.index + m[0].length;
+    return {lead: html.slice(0, cutAt), tail: html.slice(cutAt)};
+  }, [html]);
+
   const useMosaic = useMemo(() => {
     return (galleryImages || []).slice(1, 4).length >= 3;
   }, [galleryImages]);
@@ -53,11 +59,20 @@ export function EditorialDescription({html, productType, galleryImages = [], eye
       heading={productType || undefined}
       visual={visual}
       className="pk-pdesc"
-    >
-      <div
-        className="pk-pdesc__body"
-        dangerouslySetInnerHTML={{__html: html}}
-      />
-    </SplitSection>
+      head={
+        <div
+          className="pk-pdesc__body"
+          dangerouslySetInnerHTML={{__html: lead}}
+        />
+      }
+      tail={
+        tail ? (
+          <div
+            className="pk-pdesc__body"
+            dangerouslySetInnerHTML={{__html: tail}}
+          />
+        ) : null
+      }
+    />
   );
 }

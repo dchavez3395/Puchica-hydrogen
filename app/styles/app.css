@@ -9621,6 +9621,107 @@ button:focus-visible,
   .pk-save--pop svg { animation: none !important; }
 }
 
+/* Qty + ATC + save row — pill stepper on the left, full-width
+ * ATC fill, square heart toggle on the right. All three share the
+ * info-column width and stay on a single row at >= 600px; the
+ * ATC button falls to its own row on mobile so the qty stepper
+ * and save heart stay tappable at thumb size. */
+.pk-qty-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+  width: 100%;
+}
+.pk-qty {
+  display: inline-flex;
+  align-items: center;
+  height: 48px;
+  padding: 0 6px;
+  border: 1.5px solid var(--pk-border);
+  border-radius: 999px;
+  background: var(--pk-paper);
+  flex: none;
+}
+.pk-qty__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  background: transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  color: var(--pk-ink);
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.pk-qty__btn:hover:not(:disabled) {
+  background: var(--pk-cream-soft);
+  color: var(--pk-ember);
+}
+.pk-qty__btn:disabled {
+  color: var(--pk-cream-dark);
+  cursor: not-allowed;
+}
+.pk-qty__val {
+  min-width: 28px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--pk-ink);
+  user-select: none;
+  font-variant-numeric: tabular-nums;
+}
+.pk-qty-row__atc {
+  flex: 1;
+  min-width: 0;
+}
+.pk-qty-row__atc .pk-atc-magnetic { width: 100%; }
+.pk-qty-row__atc button[type="submit"] {
+  width: 100%;
+  height: 48px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+/* Square heart toggle — sits flush right of the ATC. */
+.pk-save {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border: 1.5px solid var(--pk-border);
+  border-radius: 14px;
+  background: var(--pk-paper);
+  cursor: pointer;
+  color: var(--pk-muted);
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+  flex: none;
+}
+.pk-save:hover { color: var(--pk-ember); border-color: var(--pk-ember); }
+.pk-save.is-saved {
+  color: var(--pk-ember);
+  border-color: var(--pk-ember);
+  background: var(--pk-ember-pale);
+}
+.pk-save.is-saved svg { fill: currentColor; }
+/* On narrow viewports, drop the ATC onto its own row so the
+ * stepper and heart stay thumb-sized. */
+@media (max-width: 600px) {
+  .pk-qty-row { flex-wrap: wrap; }
+  .pk-qty-row__atc {
+    flex: 1 0 100%;
+    order: 3;
+    margin-top: 8px;
+  }
+  .pk-save { order: 2; margin-left: auto; }
+  .pk-qty { order: 1; }
+}
+
 /* Editorial description — split-column layout at >= 900px.
  * Adds a brand accent bar on the left, an image mosaic (or
  * brand mark) on the right, and a tighter prose column. */
@@ -9694,9 +9795,42 @@ button:focus-visible,
 
 .pk-split__col-text {
   position: relative;
-  padding-left: 22px;
+  /* No ember rule here — the .pk-split__header above and the
+   * .pk-split__body-tail below each carry their own. */
 }
-.pk-split__col-text::before {
+
+/* Header zone — eyebrow + heading sit at full section width above
+ * the side-by-side grid. Anchors the section so the alternating
+ * zigzag pattern has a single editorial frame per row. */
+.pk-split__header {
+  max-width: 1080px;
+  margin: 0 auto clamp(36px, 5vw, 56px);
+  padding-left: 22px;
+  position: relative;
+}
+.pk-split__header::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 3px;
+  height: 80px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--pk-ember) 0%, transparent 100%);
+}
+.pk-split__header .pk-split__eyebrow { margin: 0 0 14px; }
+.pk-split__header .pk-split__headline { margin: 0; max-width: 22ch; }
+
+/* Body tail — full-width wrap under the side-by-side grid. Visually
+ * reads as "the rest of the article" — top divider hints at the
+ * break, then the prose flows at full column width. */
+.pk-split__body-tail {
+  max-width: 1080px;
+  margin: clamp(36px, 5vw, 56px) auto 0;
+  padding-left: 22px;
+  position: relative;
+}
+.pk-split__body-tail::before {
   content: '';
   position: absolute;
   left: 0;
@@ -9833,7 +9967,8 @@ button:focus-visible,
 .pk-split--inverse .pk-split__eyebrow { color: var(--pk-lime); }
 .pk-split--inverse .pk-split__headline { color: var(--pk-paper); }
 .pk-split--inverse .pk-split__body { color: rgba(244, 240, 230, 0.86); }
-.pk-split--inverse .pk-split__col-text::before {
+.pk-split--inverse .pk-split__body-tail { color: rgba(244, 240, 230, 0.86); }
+.pk-split--inverse .pk-split__body-tail::before {
   background: linear-gradient(180deg, var(--pk-lime) 0%, transparent 100%);
 }
 .pk-split--inverse .pk-split__mosaic {
@@ -9881,11 +10016,13 @@ button:focus-visible,
 
    Re-presents the Shipping accordion copy in editorial voice.
    ════════════════════════════════════════════════════════════════════ */
-.pk-care__body {
+.pk-care__lead,
+.pk-care__tail {
   display: grid;
   gap: 18px;
 }
-.pk-care__body h3 {
+.pk-care__lead h3,
+.pk-care__tail h3 {
   margin: 0;
   font-family: var(--pk-font-display);
   font-size: 18px;
@@ -9893,11 +10030,19 @@ button:focus-visible,
   letter-spacing: -0.01em;
   color: var(--pk-paper);
 }
-.pk-care__body p {
+.pk-care__lead p,
+.pk-care__tail p {
   margin: 0;
   font-size: 15px;
   line-height: 1.7;
   color: rgba(244, 240, 230, 0.82);
+}
+/* When the tail sits below the visual on the dark surface, give it
+ * a top rule so the magazine wrap reads clearly. */
+.pk-care__tail {
+  margin-top: 0;
+  padding-top: 28px;
+  border-top: 1px solid rgba(244, 240, 230, 0.12);
 }
 
 /* Recommendation grid — staggered fade. Each cell is a ScrollReveal

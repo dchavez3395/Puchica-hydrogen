@@ -268,21 +268,22 @@ export default function Product() {
             <MosaicFromGallery images={galleryImages} title={title} />
           )
         }
-      >
-        <ul className="pk-highlights__list">
-          <li>
-            <strong>{t('product_trust_shipping')}</strong>
-            <span>{t('product_trust_shipping_sub')}</span>
-          </li>
-          <li>
-            <strong>{t('product_trust_returns')}</strong>
-            <span>{t('product_trust_returns_sub')}</span>
-          </li>
-          <li>
-            <strong>{t('product_perk_curated')}</strong>
-          </li>
-        </ul>
-      </SplitSection>
+        head={
+          <ul className="pk-highlights__list">
+            <li>
+              <strong>{t('product_trust_shipping')}</strong>
+              <span>{t('product_trust_shipping_sub')}</span>
+            </li>
+            <li>
+              <strong>{t('product_trust_returns')}</strong>
+              <span>{t('product_trust_returns_sub')}</span>
+            </li>
+            <li>
+              <strong>{t('product_perk_curated')}</strong>
+            </li>
+          </ul>
+        }
+      />
 
       {/* ── Care & shipping — alternating split row, mosaic left /
           text right. Mirrors the Shipping accordion copy in a
@@ -296,14 +297,19 @@ export default function Product() {
         visual={
           <MosaicFromGallery images={galleryImages} title={title} />
         }
-      >
-        <div className="pk-care__body">
-          <h3>{t('product_shipping_h')}</h3>
-          <p>{t('product_shipping_body')}</p>
-          <h3>{t('product_returns_h')}</h3>
-          <p>{t('product_returns_body')}</p>
-        </div>
-      </SplitSection>
+        head={
+          <div className="pk-care__lead">
+            <h3>{t('product_shipping_h')}</h3>
+            <p>{t('product_shipping_body')}</p>
+          </div>
+        }
+        tail={
+          <div className="pk-care__tail">
+            <h3>{t('product_returns_h')}</h3>
+            <p>{t('product_returns_body')}</p>
+          </div>
+        }
+      />
 
       {/* ── Details accordions (semantic <details>) ── */}
       <ScrollReveal as="div" className="pk-pdetails" variant="up">

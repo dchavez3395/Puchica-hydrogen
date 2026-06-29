@@ -2,18 +2,27 @@ import {useMemo} from 'react';
 import {ScrollReveal} from './ScrollReveal';
 
 /**
- * SplitSection — generalized full-bleed two-column layout for the PDP.
+ * SplitSection — generalized full-bleed editorial layout for the PDP.
  *
  * Extracted from EditorialDescription so adjacent sections can render as
- * text+image rows that alternate direction (text-left/image-right,
- * text-right/image-left). The grid lives here; the editorial block
- * delegates to it. Each section owns its right-column visual (image,
- * mosaic, brand mark, or arbitrary JSX) so we never duplicate layout.
+ * three-zone magazine rows that alternate direction:
+ *
+ *   ┌────────────────────────────────────────────┐
+ *   │              EYEBROW  / HEADLINE           │  full width header
+ *   ├──────────────────────┬─────────────────────┤
+ *   │   bodyHead (text)    │     visual          │  side-by-side, 1.2fr / 1fr
+ *   ├──────────────────────┴─────────────────────┤
+ *   │              bodyTail (text)              │  full width wrap under
+ *   └────────────────────────────────────────────┘
+ *
+ * Adjacent sections alternate which side carries the text via `align`:
+ * `align="left"` puts bodyHead on the left and visual on the right;
+ * `align="right"` flips them. Collapses to a single column on mobile
+ * with the visual stacked above the body, header always first.
  *
  * Always full-bleed: the section uses the same viewport-width breakout
  * trick as `.pk-pdesc` (margin-left/right: calc(50% - 50vw)). Sits
- * naturally between major PDP sections; collapses to a single column
- * on narrow viewports with the visual stacked above the text.
+ * naturally between major PDP sections.
  *
  * @param {Object} props
  * @param {'left' | 'right'} [props.align='left']
@@ -22,10 +31,18 @@ import {ScrollReveal} from './ScrollReveal';
  *   'right' = flipped; the visual moves to the left.
  * @param {string} [props.eyebrow]
  *   Small uppercase label above the heading (e.g. "About this product").
+ *   Rendered in the full-width header.
  * @param {string} [props.heading]
- *   Display-size heading. If absent, eyebrow + children stand alone.
- * @param {React.ReactNode} [props.children]
- *   Text-column body content (paragraphs, lists, custom JSX).
+ *   Display-size heading. Rendered in the full-width header.
+ * @param {React.ReactNode} [props.head]
+ *   Text-column body content that sits BESIDE the visual. Rendered
+ *   inside `pk-split__col-text`. Pass the lead paragraph or pull-quote
+ *   here so it gets visual context. If absent, the side-by-side zone
+ *   collapses to just the visual.
+ * @param {React.ReactNode} [props.tail]
+ *   Text content that WRAPS UNDER the side-by-side zone at full
+ *   width. Pass the rest of the body here so long descriptions don't
+ *   get squished into a thin column. Optional.
  * @param {React.ReactNode} [props.visual]
  *   Right-column content. Use <MosaicFromGallery> for a 3-tile mosaic,
  *   a single <img>, an <EditorialAccent> brand-mark column, or any
@@ -44,47 +61,68 @@ export function SplitSection({
   align = 'left',
   eyebrow,
   heading,
-  children,
+  head,
+  tail,
   visual,
   tone = 'default',
   className = '',
   as: Tag = 'section',
   revealDelay = 0,
 }) {
-  if (!visual && !children && !heading && !eyebrow) return null;
+  if (!visual && !head && !tail && !heading && !eyebrow) return null;
 
   const alignClass = align === 'right' ? 'pk-split--right' : 'pk-split--left';
   const toneClass = tone === 'inverse' ? 'pk-split--inverse' : '';
+  const hasHeader = eyebrow || heading;
 
   return (
     <Tag
       className={`pk-split ${alignClass} ${toneClass} ${className}`.trim()}
     >
-      <div className="pk-split__inner">
+      {hasHeader ? (
         <ScrollReveal
           as="div"
-          className="pk-split__col-text"
-          variant={align === 'right' ? 'right' : 'up'}
+          className="pk-split__header"
+          variant="up"
           delay={revealDelay}
         >
           {eyebrow ? <p className="pk-split__eyebrow">{eyebrow}</p> : null}
           {heading ? (
             <h2 className="pk-split__headline">{heading}</h2>
           ) : null}
-          {children ? (
-            <div className="pk-split__body">{children}</div>
-          ) : null}
+        </ScrollReveal>
+      ) : null}
+
+      <div className="pk-split__inner">
+        <ScrollReveal
+          as="div"
+          className="pk-split__col-text"
+          variant={align === 'right' ? 'right' : 'up'}
+          delay={revealDelay + 60}
+        >
+          {head ? <div className="pk-split__body">{head}</div> : null}
         </ScrollReveal>
 
         <ScrollReveal
           as="div"
           className="pk-split__col-visual"
           variant={align === 'right' ? 'left' : 'right'}
-          delay={revealDelay + 120}
+          delay={revealDelay + 180}
         >
           {visual}
         </ScrollReveal>
       </div>
+
+      {tail ? (
+        <ScrollReveal
+          as="div"
+          className="pk-split__body-tail"
+          variant="up"
+          delay={revealDelay + 240}
+        >
+          {tail}
+        </ScrollReveal>
+      ) : null}
     </Tag>
   );
 }
