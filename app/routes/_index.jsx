@@ -476,7 +476,6 @@ function ProductMatchmaker({products}) {
         <div className="pk-matchmaker__head">
           <span className="pk-matchmaker__eye"><StarGlyph /> {t('match_eyebrow')}</span>
           <h2 className="pk-matchmaker__title">{t('match_title')}</h2>
-          {/* eslint-disable-next-line react/no-danger */}
           <p className="pk-matchmaker__sub" dangerouslySetInnerHTML={{__html: t('match_sub')}} />
         </div>
 
