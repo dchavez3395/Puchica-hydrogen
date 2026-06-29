@@ -7,7 +7,7 @@ export const meta = () =>
   puchicaMeta({
     title: 'About Puchica – The good stuff, handpicked.',
     description:
-      "We're picky about what makes the catalog. If we wouldn't buy it ourselves, it doesn't go up. 6,000+ products, picked in Toronto, shipped from Canada.",
+      "We're picky about what makes the catalog. If we wouldn't buy it ourselves, it doesn't go up. 6,000+ products, handpicked with care.",
     pathname: '/pages/about',
   });
 
@@ -29,7 +29,7 @@ export default function AboutPage() {
             <span className="pk-about-hero__em">You get to skip the research.</span>
           </h1>
           <p className="pk-about-hero__sub">
-            Puchica is a Canadian-owned store that dropships curated finds. We
+            Puchica is a Canadian-owned store built around curated finds. We
             sort through thousands of products so you don&apos;t have to. If it
             doesn&apos;t earn its spot, it doesn&apos;t ship.
           </p>
@@ -43,7 +43,7 @@ export default function AboutPage() {
       <div className="pk-about-stats" aria-label="Puchica in numbers">
         {[
           {num: '6,000+', label: 'Handpicked products'},
-          {num: '100%', label: 'Ships from Canada'},
+          {num: '100%', label: 'Quality-checked'},
           {num: '$50+', label: 'Free shipping threshold'},
           {num: '30 days', label: 'No-hassle returns'},
         ].map(({num, label}) => (
@@ -69,11 +69,10 @@ export default function AboutPage() {
               go in the catalog.
             </p>
             <p className="pk-about-mission__body">
-              Puchica is a Canadian-owned store. We don&apos;t warehouse
-              inventory ourselves — products ship from our suppliers, which
-              lets us keep the catalog broad without locking up capital in
-              stock. You get a real, curated selection instead of a guess at
-              what might sell.
+              Puchica is a Canadian-owned store. We work directly with a
+              curated network of suppliers to bring you a broad selection
+              without compromising on quality. You get a real, curated
+              selection instead of a guess at what might sell.
             </p>
           </div>
           <div className="pk-about-mission__visual" aria-hidden="true">
@@ -112,7 +111,7 @@ export default function AboutPage() {
               {
                 n: '03',
                 title: 'You get it',
-                body: 'If it passes, it’s in the shop. It ships from our supplier to your door, with a pre-paid return label in every box.',
+                body: 'If it passes, it’s in the shop. It ships directly to your door, with a pre-paid return label in every box.',
               },
             ].map(({n, title, body}) => (
               <div key={n} className="pk-about-how__step">
@@ -169,7 +168,7 @@ export default function AboutPage() {
           <h2 className="pk-about-cta__title">Ready to find your thing?</h2>
           <p className="pk-about-cta__sub">
             6,000+ products, picked by humans. Most under $100. Free shipping
-            over $50, 30-day returns, ships from Canada.
+            over $50, 30-day returns, delivered fast.
           </p>
           <div className="pk-about-cta__btns">
             <Link to="/collections/all" className="pk-btn pk-btn--spark pk-btn--lg">

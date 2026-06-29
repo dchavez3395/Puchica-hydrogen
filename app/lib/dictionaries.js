@@ -16,7 +16,7 @@ export const DICTIONARIES = {
     announce_cta: 'Shop now',
 
     // ── Footer ────────────────────────────────────────────────────
-    footer_tagline: '6,000+ products. Picked in Toronto. Ships from Canada.',
+    footer_tagline: '6,000+ products. Picked in Toronto. Fast shipping.',
     footer_accepted_payments: 'Accepted payments',
     footer_secure: 'Secure checkout by Shopify — encrypted, PCI-compliant',
     footer_shop: 'Shop',
@@ -78,7 +78,7 @@ export const DICTIONARIES = {
     mobile_announce_foot: 'Free shipping on orders over $50 · 30-day easy returns',
     mobile_announce_foot_sep: ' · ',
     // Product page trust labels
-    product_promise_canadian: 'Canadian-owned · Dropshipped',
+    product_promise_canadian: 'Canadian-owned · Curated',
 
     // Mega menu category taglines (translated FR/ES/PT as a follow-up pass)
     megamenu_tagline_phone_case: 'Cases, grips, protection.',
@@ -101,9 +101,9 @@ export const DICTIONARIES = {
     megamenu_tagline_gifts_under_25: 'Great gifts, small budget.',
 
     // ── Hero ──────────────────────────────────────────────────────
-    hero_eyebrow: 'Ships from Canada · Free over $50',
+    hero_eyebrow: 'Curated picks · Free over $50',
     hero_title: 'Everything worth buying.',
-    hero_sub: '6,000+ products across home, beauty, tech, pet, and more. Picked in Toronto, shipped from Canada, returned without drama.',
+    hero_sub: '6,000+ products across home, beauty, tech, pet, and more. Picked in Toronto, delivered fast, returned without drama.',
     hero_cta_shop: 'Shop now →',
     hero_cta_browse: 'Browse all',
     hero_stat_products: 'Products',
@@ -118,7 +118,7 @@ export const DICTIONARIES = {
     ticker_new_drops: 'New drops weekly',
     ticker_free_shipping: 'Free shipping $50+',
     ticker_returns: '30-day easy returns',
-    ticker_ships: 'Ships from Canada',
+    ticker_ships: 'Fast shipping',
     ticker_handpicked: 'Handpicked, never random',
     ticker_real_value: 'Canadian support · Always on',
     ticker_secure: 'Secure checkout',
@@ -263,7 +263,7 @@ export const DICTIONARIES = {
     counter_products: 'Products',
     counter_collections: 'Collections',
     counter_categories: 'Categories',
-    counter_canadian: 'Canadian',
+    counter_canadian: 'Curated',
 
     // ── Explore page ──────────────────────────────────────────────
     explore_home: 'Home',
@@ -358,7 +358,7 @@ export const DICTIONARIES = {
     product_spec_sku: 'SKU',
     product_specs_empty: 'No specifications available for this product.',
     product_shipping_h: 'Shipping',
-    product_shipping_body: "Most orders ship within 1–2 business days from our warehouse. Standard delivery takes 5–10 business days across Canada and the US. You'll receive a tracking link by email as soon as your order ships.",
+    product_shipping_body: "Most orders ship within 1–2 business days. Standard delivery takes 5–10 business days across Canada and the US. You'll receive a tracking link by email as soon as your order ships.",
     product_returns_h: 'Returns',
     product_returns_body: "If something isn't right, you have 30 days from the delivery date to send it back. Every order ships with a pre-paid return label — print it, repack the item, and drop it off. Full refund to the original payment method, no restocking fees.",
     product_help_h: 'Need help?',
@@ -401,7 +401,7 @@ export const DICTIONARIES = {
     announce_freeship: 'Livraison gratuite dès 50 $',
     announce_cta: 'Magasiner',
 
-    footer_tagline: 'Plus de 6 000 produits sélectionnés. Expédié du Canada. Le meilleur, tout au même endroit.',
+    footer_tagline: 'Plus de 6 000 produits sélectionnés. Livraison rapide. Le meilleur, tout au même endroit.',
     footer_accepted_payments: 'Paiements acceptés',
     footer_secure: 'Paiement sécurisé par Shopify — chiffré et conforme PCI',
     footer_shop: 'Boutique',
@@ -414,7 +414,8 @@ export const DICTIONARIES = {
     footer_terms: "Conditions d’utilisation",
     footer_newsletter_title: 'Abonnez-vous à notre infolettre',
     footer_newsletter_copy: 'Offres exclusives et nouveautés, directement dans votre boîte de réception.',
-    footer_email_placeholder: 'Entrez votre courriel',    footer_newsletter_email_aria: 'Adresse courriel',
+    footer_email_placeholder: 'Entrez votre courriel',
+    footer_newsletter_email_aria: 'Adresse courriel',
     footer_newsletter_subscribe_aria: 'S\'abonner',
     footer_newsletter_submitting: '…',
 
@@ -441,7 +442,7 @@ export const DICTIONARIES = {
     header_cart_open: 'Ouvrir le panier',
     header_cart_close: 'Fermer le panier',
 
-    hero_eyebrow: 'Expédié du Canada · Gratuit dès 50 $',
+    hero_eyebrow: 'Sélection curatée · Gratuit dès 50 $',
     hero_title: 'Des trouvailles qui comptent.',
     hero_sub: 'Plus de 6 000 produits sélectionnés dans la maison, la beauté, la tech et bien plus. De vraies découvertes par de vraies personnes.',
     hero_cta_shop: 'Magasiner →',
@@ -457,7 +458,7 @@ export const DICTIONARIES = {
     ticker_new_drops: 'Nouveautés chaque semaine',
     ticker_free_shipping: 'Livraison gratuite 50 $+',
     ticker_returns: 'Retours faciles 30 jours',
-    ticker_ships: 'Expédié du Canada',
+    ticker_ships: 'Livraison rapide',
     ticker_handpicked: 'Sélectionné, jamais aléatoire',
     ticker_real_value: 'Vraie valeur. Vraies trouvailles.',
     ticker_secure: 'Paiement sécurisé',
@@ -589,7 +590,7 @@ export const DICTIONARIES = {
     counter_products: 'Produits',
     counter_collections: 'Collections',
     counter_categories: 'Catégories',
-    counter_canadian: 'Canadien',
+    counter_canadian: 'Sélectionné',
 
     explore_home: 'Accueil',
     explore_breadcrumb: 'Explorer le catalogue',
@@ -679,7 +680,7 @@ export const DICTIONARIES = {
     product_spec_sku: 'SKU',
     product_specs_empty: 'Aucune caractéristique disponible pour ce produit.',
     product_shipping_h: 'Livraison',
-    product_shipping_body: "La plupart des commandes sont expédiées sous 1 à 2 jours ouvrables depuis notre entrepôt. La livraison standard prend 5 à 10 jours ouvrables au Canada et aux États-Unis. Vous recevrez un lien de suivi par courriel dès l’expédition.",
+    product_shipping_body: "La plupart des commandes sont expédiées sous 1 à 2 jours ouvrables. La livraison standard prend 5 à 10 jours ouvrables au Canada et aux États-Unis. Vous recevrez un lien de suivi par courriel dès l’expédition.",
     product_returns_h: 'Retours',
     product_returns_body: "Si quelque chose ne va pas, vous avez 30 jours à partir de la date de livraison pour retourner l’article. Chaque commande est livrée avec une étiquette de retour prépayée — imprimez-la, remballez l’article et déposez-le. Remboursement complet sur le mode de paiement original, sans frais de restockage.",
     product_help_h: 'Besoin d’aide ?',
@@ -726,7 +727,7 @@ export const DICTIONARIES = {
     announce_freeship: 'Envío gratis en pedidos de más de $50',
     announce_cta: 'Comprar ahora',
 
-    footer_tagline: 'Más de 6.000 productos seleccionados. Enviado desde Canadá. Lo mejor, todo en un solo lugar.',
+    footer_tagline: 'Más de 6.000 productos seleccionados. Envío rápido. Lo mejor, todo en un solo lugar.',
     footer_accepted_payments: 'Pagos aceptados',
     footer_secure: 'Pago seguro con Shopify — cifrado y conforme con PCI',
     footer_shop: 'Tienda',
@@ -739,7 +740,8 @@ export const DICTIONARIES = {
     footer_terms: 'Términos del servicio',
     footer_newsletter_title: 'Unéte a nuestro boletín',
     footer_newsletter_copy: 'Ofertas exclusivas y novedades, directamente en tu correo.',
-    footer_email_placeholder: 'Ingresa tu correo',    footer_newsletter_email_aria: 'Correo electrónico',
+    footer_email_placeholder: 'Ingresa tu correo',
+    footer_newsletter_email_aria: 'Correo electrónico',
     footer_newsletter_subscribe_aria: 'Suscribirse',
     footer_newsletter_submitting: '…',
 
@@ -766,7 +768,7 @@ export const DICTIONARIES = {
     header_cart_open: 'Abrir carrito',
     header_cart_close: 'Cerrar carrito',
 
-    hero_eyebrow: 'Enviado desde Canadá · Gratis desde $50',
+    hero_eyebrow: 'Selección curada · Gratis desde $50',
     hero_title: 'Todo lo que vale.',
     hero_sub: 'Más de 6.000 productos seleccionados en hogar, belleza, tech, mascotas y más. Hallazgos reales de personas reales.',
     hero_cta_shop: 'Comprar ahora →',
@@ -782,7 +784,7 @@ export const DICTIONARIES = {
     ticker_new_drops: 'Novedades cada semana',
     ticker_free_shipping: 'Envío gratis $50+',
     ticker_returns: 'Devoluciones fáciles 30 días',
-    ticker_ships: 'Enviado desde Canadá',
+    ticker_ships: 'Envío rápido',
     ticker_handpicked: 'Seleccionado, nunca aleatorio',
     ticker_real_value: 'Valor real. Hallazgos reales.',
     ticker_secure: 'Pago seguro',
@@ -914,7 +916,7 @@ export const DICTIONARIES = {
     counter_products: 'Productos',
     counter_collections: 'Colecciones',
     counter_categories: 'Categorías',
-    counter_canadian: 'Canadiense',
+    counter_canadian: 'Seleccionado',
 
     explore_home: 'Inicio',
     explore_breadcrumb: 'Explorar catálogo',
@@ -1004,7 +1006,7 @@ export const DICTIONARIES = {
     product_spec_sku: 'SKU',
     product_specs_empty: 'No hay especificaciones disponibles para este producto.',
     product_shipping_h: 'Envío',
-    product_shipping_body: 'La mayoría de los pedidos se envían en 1–2 días hábiles desde nuestro almacén. La entrega estándar tarda 5–10 días hábiles en Canadá y EE.UU. Recibirás un enlace de seguimiento por correo tan pronto como tu pedido sea enviado.',
+    product_shipping_body: 'La mayoría de los pedidos se envían en 1–2 días hábiles. La entrega estándar tarda 5–10 días hábiles en Canadá y EE.UU. Recibirás un enlace de seguimiento por correo tan pronto como tu pedido sea enviado.',
     product_returns_h: 'Devoluciones',
     product_returns_body: 'Si algo no está bien, tienes 30 días desde la fecha de entrega para devolverlo. Cada pedido incluye una etiqueta de devolución prepagada — imprímela, reempaca el artículo y depósitalo. Reembolso completo al método de pago original, sin tarifas de reabastecimiento.',
     product_help_h: '¿Necesitas ayuda?',
@@ -1052,7 +1054,7 @@ export const DICTIONARIES = {
     announce_freeship: 'Frete grátis acima de $50',
     announce_cta: 'Comprar agora',
 
-    footer_tagline: 'Mais de 6.000 produtos selecionados. Enviado do Canadá. O melhor, tudo em um só lugar.',
+    footer_tagline: 'Mais de 6.000 produtos selecionados. Entrega rápida. O melhor, tudo em um só lugar.',
     footer_accepted_payments: 'Pagamentos aceitos',
     footer_secure: 'Checkout seguro pela Shopify — criptografado e em conformidade com PCI',
     footer_shop: 'Loja',
@@ -1065,7 +1067,8 @@ export const DICTIONARIES = {
     footer_terms: 'Termos de serviço',
     footer_newsletter_title: 'Assine nossa newsletter',
     footer_newsletter_copy: 'Ofertas exclusivas e novidades, direto no seu e-mail.',
-    footer_email_placeholder: 'Digite seu e-mail',    footer_newsletter_email_aria: 'Endereço de e-mail',
+    footer_email_placeholder: 'Digite seu e-mail',
+    footer_newsletter_email_aria: 'Endereço de e-mail',
     footer_newsletter_subscribe_aria: 'Inscrever-se',
     footer_newsletter_submitting: '…',
 
@@ -1092,7 +1095,7 @@ export const DICTIONARIES = {
     header_cart_open: 'Abrir carrinho',
     header_cart_close: 'Fechar carrinho',
 
-    hero_eyebrow: 'Enviado do Canadá · Grátis acima de $50',
+    hero_eyebrow: 'Seleção curada · Grátis acima de $50',
     hero_title: 'Tudo que importa.',
     hero_sub: 'Mais de 6.000 produtos selecionados em casa, beleza, tech, pets e muito mais. Descobertas reais de pessoas reais.',
     hero_cta_shop: 'Comprar agora →',
@@ -1108,7 +1111,7 @@ export const DICTIONARIES = {
     ticker_new_drops: 'Novidades toda semana',
     ticker_free_shipping: 'Frete grátis $50+',
     ticker_returns: 'Devoluções fáceis em 30 dias',
-    ticker_ships: 'Enviado do Canadá',
+    ticker_ships: 'Entrega rápida',
     ticker_handpicked: 'Selecionado, nunca aleatório',
     ticker_real_value: 'Valor real. Descobertas reais.',
     ticker_secure: 'Checkout seguro',
@@ -1240,7 +1243,7 @@ export const DICTIONARIES = {
     counter_products: 'Produtos',
     counter_collections: 'Coleções',
     counter_categories: 'Categorias',
-    counter_canadian: 'Canadense',
+    counter_canadian: 'Selecionado',
 
     explore_home: 'Início',
     explore_breadcrumb: 'Explorar catálogo',
@@ -1329,7 +1332,7 @@ export const DICTIONARIES = {
     product_spec_sku: 'SKU',
     product_specs_empty: 'Nenhuma especificação disponível para este produto.',
     product_shipping_h: 'Envio',
-    product_shipping_body: 'A maioria dos pedidos é enviada em 1–2 dias úteis do nosso armazem. A entrega padrão leva 5–10 dias úteis no Canadá e nos EUA. Você receberá um link de rastreamento por e-mail assim que seu pedido for enviado.',
+    product_shipping_body: 'A maioria dos pedidos é enviada em 1–2 dias úteis. A entrega padrão leva 5–10 dias úteis no Canadá e nos EUA. Você receberá um link de rastreamento por e-mail assim que seu pedido for enviado.',
     product_returns_h: 'Devoluções',
     product_returns_body: 'Se algo não estiver certo, você tem 30 dias a partir da data de entrega para devolver. Cada pedido é enviado com uma etiqueta de devolução pré-paga — imprima, reembale o item e deposite-o. Reembolso total no método de pagamento original, sem taxas de reabastecimento.',
     product_help_h: 'Precisa de ajuda?',
