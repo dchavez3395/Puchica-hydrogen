@@ -18,6 +18,7 @@
   /* Full-bleed section inner container */
   --pk-inner-max: 1440px;
   --pk-gutter: clamp(28px, 6vw, 96px);
+  --pk-violet-deep: #4B3BCC;
 }
 
 @media (max-width: 700px) {
@@ -2171,16 +2172,7 @@ button:focus-visible,
 * Puchica collection / catalog pages
 * ==================================================
 */
-.pk-collection {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 36px 0 72px !important;
-  font-family: var(--pk-font);
-  color: var(--pk-indigo-900);
-}
-.pk-collection__head { margin-bottom: 26px; }
-.pk-collection__head h1 { font-size: 32px; font-weight: 700; margin: 0; }
-.pk-collection__desc { color: var(--pk-muted); font-size: 15px; margin: 8px 0 0; max-width: 720px; line-height: 1.5; }
+/* legacy selectors removed — see pk-col-hero / pk-col-body below */
 
 /* product grid (shared with PaginatedResourceSection) */
 .pk-prod-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
