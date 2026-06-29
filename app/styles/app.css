@@ -1413,8 +1413,8 @@ button.reset:hover:not(:has(> *)) {
 
   /* â”€â”€ Backward-compat aliases â”€â”€ */
   /* "ember" drives CTA buttons/links on light bg â†’ warm black */
-  --pk-ember:         var(--pk-ink);
-  --pk-ember-hover:   var(--pk-ink-soft);
+  --pk-ember:         #CC4300;
+  --pk-ember-hover:   #A83800;
   --pk-ember-pale:    var(--pk-lime-pale);
   /* "spark" drives accents on dark bg â†’ acid lime */
   --pk-spark:         var(--pk-lime);
@@ -2886,7 +2886,7 @@ button:focus-visible,
   line-height: 0.9;
   letter-spacing: -4px;
 }
-.pk-catalog-cta__sup { font-size: 0.45em; vertical-align: super; letter-spacing: -1px; color: var(--pk-ember); }
+.pk-catalog-cta__sup { font-size: 0.45em; vertical-align: super; letter-spacing: -1px; color: #F4F0E6; }
 .pk-catalog-cta__body {
   font-family: var(--pk-font-display);
   font-size: clamp(18px, 2.5vw, 30px);
@@ -6515,8 +6515,8 @@ button:focus-visible,
 .pk-swiper__arr {
   width: 44px;
   height: 44px;
-  border-radius: 2px;
-  border: 1.5px solid rgba(22, 15, 58, 0.25);
+  border-radius: 50%;
+  border: 1.5px solid rgba(22, 15, 58, 0.35);
   background: transparent;
   color: var(--pk-ink);
   font-size: 18px;
@@ -6524,7 +6524,7 @@ button:focus-visible,
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.2s, border-color 0.2s, color 0.2s;
+  transition: none;
 }
 .pk-swiper__arr:hover:not(:disabled) {
   background: var(--pk-ink);
@@ -6692,8 +6692,8 @@ button:focus-visible,
 .pk-rack__arr {
   width: 40px;
   height: 40px;
-  border-radius: 2px;
-  border: 1.5px solid rgba(244,240,230,0.25);
+  border-radius: 50%;
+  border: 1.5px solid rgba(244,240,230,0.35);
   background: transparent;
   color: #F4F0E6;
   font-size: 16px;
@@ -6701,7 +6701,7 @@ button:focus-visible,
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.18s, border-color 0.18s, color 0.18s;
+  transition: none;
 }
 .pk-rack__arr:hover:not(:disabled) {
   background: #F4F0E6;
@@ -8657,6 +8657,11 @@ button:focus-visible,
   margin: 0 auto;
 }
 .pk-hero2--lifestyle .pk-hero2__copy {
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
+.pk-hero2--lifestyle .pk-hero2__title {
   align-items: center;
 }
 .pk-hero2--lifestyle .pk-hero2__sub {
