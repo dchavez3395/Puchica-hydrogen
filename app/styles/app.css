@@ -52,6 +52,27 @@ main:has(.pk-home) {
   box-sizing: border-box;
 }
 
+/* === Playful Premium Typography === */
+.pk-headline {
+  font-size: clamp(52px, 7vw, 88px);
+  line-height: 0.95;
+  font-weight: 800;
+  letter-spacing: -2px;
+  margin: 0;
+}
+.pk-eyebrow {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--pk-ember);
+  margin-bottom: 12px;
+}
+.pk-eyebrow--on-dark {
+  color: rgba(255, 255, 255, 0.5);
+}
+
 img {
   border-radius: 4px;
 }
@@ -2710,8 +2731,8 @@ button:focus-visible,
   overflow: hidden;
 }
 .pk-arrivals__head { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 36px; gap: 16px; }
-.pk-arrivals__eye { font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--pk-spark); margin: 0 0 8px; }
-.pk-arrivals__title { font-family: var(--pk-font-display); font-size: clamp(22px, 3vw, 40px); font-weight: 800; color: #F4F0E6; margin: 0; letter-spacing: -0.5px; }
+.pk-arrivals__eye { font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--pk-ember); margin: 0 0 8px; }
+.pk-arrivals__title { font-family: var(--pk-font-display); font-size: clamp(52px, 7vw, 88px); font-weight: 800; color: #F4F0E6; margin: 0; letter-spacing: -2px; line-height: 0.95; }
 .pk-arrivals__head-right { display: flex; align-items: center; gap: 16px; flex-shrink: 0; }
 .pk-arrivals__link {
   display: inline-flex; align-items: center; gap: 6px;
@@ -6144,8 +6165,8 @@ button:focus-visible,
 }
 .pk-feat-banner__title {
   font-family: var(--pk-font-display);
-  font-size: clamp(26px, 3vw, 46px);
-  font-weight: 800; line-height: 1.1; letter-spacing: -1px;
+  font-size: clamp(52px, 7vw, 88px);
+  font-weight: 800; line-height: 0.95; letter-spacing: -2px;
   margin: 0 0 16px;
 }
 .pk-feat-banner__sub {
@@ -6456,18 +6477,18 @@ button:focus-visible,
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--pk-lime);
+  color: var(--pk-ember);
   margin: 0 0 10px;
 }
 
 .pk-swiper__title {
   font-family: var(--pk-font-display);
-  font-size: clamp(26px, 3.5vw, 48px);
+  font-size: clamp(52px, 7vw, 88px);
   font-weight: 800;
-  letter-spacing: -1px;
-  color: #F4F0E6;
+  letter-spacing: -2px;
+  color: var(--pk-ink);
   margin: 0;
-  line-height: 1.1;
+  line-height: 0.95;
 }
 
 .pk-swiper__navrow {
@@ -6695,18 +6716,18 @@ button:focus-visible,
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--pk-violet);
+  color: var(--pk-ember);
   margin: 0 0 10px;
 }
 
 .pk-rack__title {
   font-family: var(--pk-font-display);
-  font-size: clamp(26px, 3.5vw, 48px);
+  font-size: clamp(52px, 7vw, 88px);
   font-weight: 800;
-  letter-spacing: -1.5px;
+  letter-spacing: -2px;
   margin: 0;
   color: var(--pk-ink);
-  line-height: 1.06;
+  line-height: 0.95;
 }
 
 /* Scroll track â€” extends edge to edge, first card aligns to content column */
@@ -6791,12 +6812,12 @@ button:focus-visible,
 
 .pk-bento__title {
   font-family: var(--pk-font-display);
-  font-size: clamp(28px, 4vw, 54px);
+  font-size: clamp(52px, 7vw, 88px);
   font-weight: 800;
-  letter-spacing: -1.5px;
+  letter-spacing: -2px;
   margin: 0;
   color: #fff;
-  line-height: 1.06;
+  line-height: 0.95;
 }
 
 /* Bento grid: tall left cell, 2Ã—2 right block */
@@ -6960,18 +6981,18 @@ button:focus-visible,
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--pk-lime-dark);
+  color: var(--pk-ember);
   display: block;
   margin-bottom: 12px;
 }
 .pk-gift__title {
   font-family: var(--pk-font-display);
-  font-size: clamp(28px, 4vw, 52px);
+  font-size: clamp(52px, 7vw, 88px);
   font-weight: 800;
-  letter-spacing: -1.5px;
+  letter-spacing: -2px;
   color: var(--pk-ink);
   margin: 0 0 14px;
-  line-height: 1.06;
+  line-height: 0.95;
 }
 .pk-gift__sub {
   font-size: 16px;
@@ -8739,18 +8760,18 @@ button:focus-visible,
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--pk-lime, #C6FF4E);
+  color: rgba(255,255,255,0.5);
   display: block;
   margin-bottom: 12px;
 }
 .pk-matchmaker__title {
   font-family: var(--pk-font-display);
-  font-size: clamp(28px, 4vw, 52px);
+  font-size: clamp(52px, 7vw, 88px);
   font-weight: 800;
-  letter-spacing: -1.5px;
+  letter-spacing: -2px;
   color: #ffffff;
   margin: 0 0 14px;
-  line-height: 1.06;
+  line-height: 0.95;
 }
 .pk-matchmaker__sub {
   font-size: 16px;
