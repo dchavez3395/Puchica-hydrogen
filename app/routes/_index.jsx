@@ -11,6 +11,7 @@ import {TrendingTicker} from '~/components/TrendingTicker';
 import {ParallaxBanner} from '~/components/ParallaxBanner';
 import {ScrollReveal} from '~/components/ScrollReveal';
 import {TiltCard} from '~/components/TiltCard';
+import {EmblaProductCarousel} from '~/components/EmblaProductCarousel';
 import {useAside} from '~/components/Aside';
 import {AddToCartButton} from '~/components/AddToCartButton';
 
@@ -214,6 +215,20 @@ export default function Index() {
       <Suspense fallback={null}>
         <Await resolve={data.bestPicks}>
           {(products) => <FeaturedBanner products={products ?? []} />}
+        </Await>
+      </Suspense>
+
+      {/* Embla swipe carousel — new arrivals, swipe on touch / drag on desktop */}
+      <Suspense fallback={null}>
+        <Await resolve={data.newArrivals}>
+          {(products) => (
+            <EmblaProductCarousel
+              products={products ?? []}
+              title="New Arrivals"
+              viewAllHref="/collections/new"
+              emphasis="dark"
+            />
+          )}
         </Await>
       </Suspense>
 

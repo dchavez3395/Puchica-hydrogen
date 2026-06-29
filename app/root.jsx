@@ -16,6 +16,7 @@ import {FOOTER_QUERY, HEADER_QUERY, MEGA_MENU_QUERY} from '~/lib/fragments';
 import resetStyles from '~/styles/reset.css?url';
 import appStyles from '~/styles/app.css?url';
 import {PageLayout} from './components/PageLayout';
+import {SmoothScroll} from './components/SmoothScroll';
 import {error as logError} from '~/lib/logger';
 
 /**
@@ -184,7 +185,7 @@ export function Layout({children}) {
         <Links />
       </head>
       <body>
-        {children}
+        <SmoothScroll>{children}</SmoothScroll>
         <ScrollRestoration nonce={nonce} />
         <Scripts nonce={nonce} />
       </body>

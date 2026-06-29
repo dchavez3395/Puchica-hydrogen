@@ -38,3 +38,24 @@ storefrontapi.generated.d.ts
 env
 DEPLOY.md
 shopify.app.*.toml
+
+# Local automation scripts (QA, SEO fixers, debug helpers) — do not commit
+seo-fix*.py
+seo-test*.py
+seo-debug*.py
+seo-restore*.py
+qa-run*.py
+qa-debug*.py
+find-no-anim.py
+
+# Local run logs and errors
+seo-fix*.txt
+seo-fix*.err
+qa-run*.txt
+qa-run*.err
+seo-fix-restore*.txt
+seo-fix-restore*.err
+
+# Shopify Admin API token (regenerated per session)
+.shopify-admin-token
+seo-reset.py
