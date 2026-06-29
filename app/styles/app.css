@@ -4608,6 +4608,77 @@ button:focus-visible,
   transform: translateX(4px);
 }
 
+/* Policy detail page — long-form text, single column, max-width. */
+.pk-policy {
+  background: var(--pk-bg);
+  padding: 48px 0 96px;
+}
+.pk-policy__inner {
+  max-width: 720px;
+  padding: 0 24px;
+}
+.pk-policy__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--pk-muted);
+  text-decoration: none;
+  margin-bottom: 24px;
+  transition: color 0.15s ease, gap 0.15s ease;
+}
+.pk-policy__back:hover,
+.pk-policy__back:focus-visible {
+  color: var(--pk-ember);
+  gap: 12px;
+}
+.pk-policy__back:focus-visible {
+  outline: 2px solid var(--pk-ember);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+.pk-policy__head {
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--pk-border);
+}
+.pk-policy__head h1 {
+  font-family: var(--pk-font-display);
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  font-weight: 600;
+  margin: 0;
+  color: var(--pk-ink);
+  letter-spacing: -0.02em;
+}
+.pk-policy__body {
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--pk-ink);
+}
+.pk-policy__body h2 {
+  font-family: var(--pk-font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 40px 0 12px;
+  color: var(--pk-ink);
+}
+.pk-policy__body h3 {
+  font-family: var(--pk-font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 28px 0 8px;
+  color: var(--pk-ink);
+}
+.pk-policy__body p { margin: 0 0 16px; }
+.pk-policy__body ul,
+.pk-policy__body ol { padding-left: 24px; margin: 0 0 16px; }
+.pk-policy__body li { margin-bottom: 6px; }
+.pk-policy__body a { color: var(--pk-ember); text-decoration: underline; text-underline-offset: 3px; }
+.pk-policy__body a:hover,
+.pk-policy__body a:focus-visible { color: var(--pk-ink); }
+.pk-policy__body a:focus-visible { outline: 2px solid var(--pk-ember); outline-offset: 2px; border-radius: 2px; }
+
 /* ---------- Pagination control ---------- */
 .pk-pager {
   display: grid;

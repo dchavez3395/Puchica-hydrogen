@@ -110,15 +110,22 @@ export default function Policy() {
   const {policy} = useLoaderData();
 
   return (
-    <div className="policy">
-      <br />
-      <br />
-      <div>
-        <Link to="/policies">← Back to Policies</Link>
+    <div className="pk-policy">
+      <div className="pk-policy__inner pk-inner">
+        <Link to="/policies" className="pk-policy__back">
+          <span aria-hidden>←</span>
+          <span>Back to Policies</span>
+        </Link>
+        <article className="pk-policy__article">
+          <header className="pk-policy__head">
+            <h1>{policy.title}</h1>
+          </header>
+          <div
+            className="pk-policy__body"
+            dangerouslySetInnerHTML={{__html: policy.body}}
+          />
+        </article>
       </div>
-      <br />
-      <h1>{policy.title}</h1>
-      <div dangerouslySetInnerHTML={{__html: policy.body}} />
     </div>
   );
 }
