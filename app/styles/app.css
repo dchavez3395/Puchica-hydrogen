@@ -16,8 +16,8 @@
   --page-max: 1200px;
   --page-gutter: 20px;
   /* Full-bleed section inner container */
-  --pk-inner-max: 1440px;
-  --pk-gutter: clamp(28px, 6vw, 96px);
+  --pk-inner-max: 1200px;
+  --pk-gutter: 24px;
   --pk-violet-deep: #4B3BCC;
 }
 
@@ -36,7 +36,8 @@ main {
   box-sizing: border-box;
 }
 /* Homepage is full-bleed â€” bust out of the shared max-width container */
-main:has(.pk-home) {
+main:has(.pk-home),
+main:has(.pk-about) {
   max-width: none;
   margin: 0;
   padding: 0;
@@ -7267,10 +7268,11 @@ button:focus-visible,
 .pk-about-hero__inner {
   position: relative;
   z-index: 1;
-  max-width: 720px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding-left: max(24px, calc((100vw - 1200px) / 2 + 24px));
-  padding-right: max(24px, calc((100vw - 1200px) / 2 + 24px));
+  padding-left: 24px;
+  padding-right: 24px;
+  width: 100%;
   box-sizing: border-box;
 }
 .pk-about-hero__eyebrow {
@@ -7340,8 +7342,11 @@ button:focus-visible,
   width: 100%;
 }
 .pk-about-mission__inner {
-  padding-left: max(24px, calc((100vw - 1200px) / 2 + 24px));
-  padding-right: max(24px, calc((100vw - 1200px) / 2 + 24px));
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 24px;
+  padding-right: 24px;
+  width: 100%;
   box-sizing: border-box;
   display: grid;
   grid-template-columns: 1.2fr 1fr;
@@ -7400,8 +7405,11 @@ button:focus-visible,
   width: 100%;
 }
 .pk-about-how__inner {
-  padding-left: max(24px, calc((100vw - 1200px) / 2 + 24px));
-  padding-right: max(24px, calc((100vw - 1200px) / 2 + 24px));
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 24px;
+  padding-right: 24px;
+  width: 100%;
   box-sizing: border-box;
 }
 .pk-about-how__head {
@@ -7461,8 +7469,11 @@ button:focus-visible,
   width: 100%;
 }
 .pk-about-cats__inner {
-  padding-left: max(24px, calc((100vw - 1200px) / 2 + 24px));
-  padding-right: max(24px, calc((100vw - 1200px) / 2 + 24px));
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 24px;
+  padding-right: 24px;
+  width: 100%;
   box-sizing: border-box;
   text-align: center;
 }
@@ -7528,10 +7539,11 @@ button:focus-visible,
   width: 100%;
 }
 .pk-about-promise__inner {
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding-left: max(24px, calc((100vw - 1200px) / 2 + 24px));
-  padding-right: max(24px, calc((100vw - 1200px) / 2 + 24px));
+  padding-left: 24px;
+  padding-right: 24px;
+  width: 100%;
   box-sizing: border-box;
 }
 .pk-about-promise__quote {
@@ -7560,10 +7572,11 @@ button:focus-visible,
   width: 100%;
 }
 .pk-about-cta__inner {
-  max-width: 640px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding-left: max(24px, calc((100vw - 1200px) / 2 + 24px));
-  padding-right: max(24px, calc((100vw - 1200px) / 2 + 24px));
+  padding-left: 24px;
+  padding-right: 24px;
+  width: 100%;
   box-sizing: border-box;
 }
 .pk-about-cta__title {
