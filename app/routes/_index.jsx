@@ -1143,10 +1143,60 @@ function FeaturedBanner({products}) {
 ───────────────────────────────────────────────────────────────── */
 function CatalogStatement() {
   const t = useT();
+  const countRef = useRef(null);
+  const [count, setCount] = useState(0);
+
+  // Count up from 0 → 6 (display digit) the first time the section
+  // scrolls into view. Respects prefers-reduced-motion (jumps to 6).
+  // Trigger threshold is 0.4 so the count visibly runs while the user
+  // is actually looking at it.
+  useEffect(() => {
+    const el = countRef.current;
+    if (!el) return;
+
+    const reduced = window.matchMedia(
+      '(prefers-reduced-motion: reduce)',
+    ).matches;
+    if (reduced) {
+      setCount(6);
+      return;
+    }
+
+    let started = false;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting && !started) {
+            started = true;
+            const duration = 1400;
+            const start = performance.now();
+            const tick = (now) => {
+              const progress = Math.min((now - start) / duration, 1);
+              // Ease out cubic — starts fast, settles smoothly into 6.
+              const eased = 1 - Math.pow(1 - progress, 3);
+              setCount(Math.round(eased * 6));
+              if (progress < 1) requestAnimationFrame(tick);
+            };
+            requestAnimationFrame(tick);
+            observer.unobserve(entry.target);
+          }
+        }
+      },
+      {threshold: 0.4},
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section className="pk-catalog-cta" aria-label={t('catalog_section_aria')}>
-      <p className="pk-catalog-cta__number" aria-label={t('catalog_count_aria')}>
-        6<span className="pk-catalog-cta__sup">+</span>k
+      <p
+        ref={countRef}
+        className="pk-catalog-cta__number"
+        aria-label={t('catalog_count_aria')}
+      >
+        {count}
+        <span className="pk-catalog-cta__sup">+</span>k
       </p>
       <p className="pk-catalog-cta__body">{t('catalog_body')}</p>
       <div className="pk-catalog-cta__ctas">

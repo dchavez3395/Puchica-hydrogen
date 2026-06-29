@@ -2887,6 +2887,8 @@ button:focus-visible,
   color: #F4F0E6;
   line-height: 0.9;
   letter-spacing: -4px;
+  font-variant-numeric: tabular-nums;
+  display: inline-block;
 }
 .pk-catalog-cta__sup { font-size: 0.45em; vertical-align: super; letter-spacing: -1px; color: #F4F0E6; }
 .pk-catalog-cta__body {
