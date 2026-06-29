@@ -46,6 +46,8 @@ export default function CatchAllPage() {
       </nav>
 
       <header className="pk-col-hero pk-col-hero--soft">
+        <div className="pk-col-hero__glow" aria-hidden />
+        <div className="pk-col-hero__glow pk-col-hero__glow--ember" aria-hidden />
         <span className="pk-col-hero__eyebrow">404</span>
         <h1 className="pk-col-hero__title">We couldn&apos;t find that page</h1>
         <p className="pk-col-hero__sub">

@@ -3124,10 +3124,23 @@ button:focus-visible,
   z-index: 0;
 }
 .pk-col-hero--soft {
-  background: var(--pk-paper-dark);
+  background:
+    radial-gradient(120% 80% at 100% 0%, rgba(168, 56, 0, 0.10), transparent 55%),
+    radial-gradient(90% 70% at 0% 100%, rgba(198, 255, 78, 0.18), transparent 60%),
+    var(--pk-paper-dark);
   color: var(--pk-ink);
   box-shadow: none;
   border: 1px solid var(--pk-border);
+}
+.pk-col-hero--soft::before {
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      rgba(61, 56, 36, 0.03) 0,
+      rgba(61, 56, 36, 0.03) 1px,
+      transparent 1px,
+      transparent 14px
+    );
 }
 .pk-col-hero__eyebrow {
   display: inline-block;
@@ -3198,6 +3211,14 @@ button:focus-visible,
   right: auto; left: -140px; top: auto; bottom: -180px;
   background: radial-gradient(circle, rgba(168, 56, 0, 0.5), transparent 65%);
   opacity: 0.6; filter: blur(60px);
+}
+.pk-col-hero--soft .pk-col-hero__glow {
+  background: radial-gradient(circle, rgba(168, 56, 0, 0.28), transparent 65%);
+  opacity: 0.55;
+}
+.pk-col-hero--soft .pk-col-hero__glow--ember {
+  background: radial-gradient(circle, rgba(198, 255, 78, 0.35), transparent 65%);
+  opacity: 0.5;
 }
 
 @media (max-width: 700px) {

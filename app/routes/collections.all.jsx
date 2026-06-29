@@ -96,6 +96,8 @@ export default function Collection() {
       </nav>
 
       <header className="pk-col-hero pk-col-hero--soft">
+        <div className="pk-col-hero__glow" aria-hidden />
+        <div className="pk-col-hero__glow pk-col-hero__glow--ember" aria-hidden />
         <span className="pk-col-hero__eyebrow">{t('all_eyebrow')}</span>
         <h1 className="pk-col-hero__title">{t('all_title')}</h1>
         <p className="pk-col-hero__sub">{t('all_sub')}</p>
@@ -116,11 +118,12 @@ export default function Collection() {
               <span className="pk-toolbar__count">
                 {hasNextPage ? (
                   <>
-                    {t('col_showing')} <strong>{count}</strong> {t('col_showing_more')}
+                    {t('col_count_of')} <strong>{count}+</strong>{' '}
+                    {count === 1 ? t('col_product_singular') : t('col_product_plural')}
                   </>
                 ) : (
                   <>
-                    {t('col_showing')} <strong>{count}</strong>{' '}
+                    <strong>{count}</strong>{' '}
                     {count === 1 ? t('col_product_singular') : t('col_product_plural')}
                   </>
                 )}

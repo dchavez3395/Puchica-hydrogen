@@ -195,16 +195,17 @@ export default function ExplorePage() {
         <span className="pk-breadcrumbs__current">{t('explore_breadcrumb')}</span>
       </nav>
 
-      <header className="pk-explore__header">
-        <div className="pk-explore__glow" aria-hidden />
-        <span className="pk-explore__eyebrow">{t('explore_eyebrow')}</span>
-        <h1 className="pk-explore__title">{t('explore_title')}</h1>
-        <p className="pk-explore__count">
+      <header className="pk-col-hero">
+        <div className="pk-col-hero__glow" aria-hidden />
+        <div className="pk-col-hero__glow pk-col-hero__glow--ember" aria-hidden />
+        <span className="pk-col-hero__eyebrow">{t('explore_eyebrow')}</span>
+        <h1 className="pk-col-hero__title">{t('explore_title')}</h1>
+        <span className="pk-col-hero__count">
           {t('explore_showing')} <strong>{productCount}</strong>{' '}
           {productCount === 1 ? t('explore_product_singular') : t('explore_product_plural')}{' '}
           {t('explore_across')} <strong>{collectionCount}</strong>{' '}
           {collectionCount === 1 ? t('explore_count_active_cat_singular') : t('explore_count_active_cat_plural')}
-        </p>
+        </span>
       </header>
 
       <div className="pk-explore__body">
