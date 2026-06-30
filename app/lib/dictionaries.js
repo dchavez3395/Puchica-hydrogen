@@ -196,6 +196,13 @@ export const DICTIONARIES = {
     arrivals_see_all: 'See all new',
     arrivals_badge: 'New',
 
+    // ── For You ───────────────────────────────────────────────────
+    foryou_eyebrow: 'Curated for you',
+    foryou_title: 'Picture this.',
+    foryou_sub: 'A hand-styled edit — every shot made just for these products.',
+    foryou_cta: 'Shop the edit',
+    foryou_section_aria: 'For You showcase',
+
     // ── Category bento ────────────────────────────────────────────
     cat_eyebrow: 'Shop by category',
     cat_title: 'Find your thing.',
@@ -534,6 +541,13 @@ export const DICTIONARIES = {
     arrivals_see_all: 'Voir toutes les nouveautés',
     arrivals_badge: 'Nouveau',
 
+    // ── For You ───────────────────────────────────────────────────
+    foryou_eyebrow: 'Sélectionné pour vous',
+    foryou_title: 'Imaginez ça.',
+    foryou_sub: 'Une sélection stylisée — chaque photo créée pour ces produits.',
+    foryou_cta: 'Découvrir la sélection',
+    foryou_section_aria: 'Vitrine Pour vous',
+
     cat_eyebrow: 'Magasiner par catégorie',
     cat_title: 'Trouvez votre truc.',
     cat_home_tagline: 'Votre espace, sublimé.',
@@ -862,6 +876,13 @@ export const DICTIONARIES = {
     arrivals_title: 'Sal afuera.',
     arrivals_see_all: 'Ver todas las novedades',
     arrivals_badge: 'Nuevo',
+
+    // ── For You ───────────────────────────────────────────────────
+    foryou_eyebrow: 'Seleccionado para ti',
+    foryou_title: 'Imagínalo así.',
+    foryou_sub: 'Una selección con estilo propio — cada foto creada para estos productos.',
+    foryou_cta: 'Ver la selección',
+    foryou_section_aria: 'Vitrina Para ti',
 
     cat_eyebrow: 'Comprar por categoría',
     cat_title: 'Encuentra lo tuyo.',
@@ -1192,6 +1213,13 @@ export const DICTIONARIES = {
     arrivals_title: 'Vá para fora.',
     arrivals_see_all: 'Ver todas as novidades',
     arrivals_badge: 'Novo',
+
+    // ── For You ───────────────────────────────────────────────────
+    foryou_eyebrow: 'Selecionado para você',
+    foryou_title: 'Imagine assim.',
+    foryou_sub: 'Uma curadoria com estilo próprio — cada foto feita para estes produtos.',
+    foryou_cta: 'Ver a seleção',
+    foryou_section_aria: 'Vitrine Para você',
 
     cat_eyebrow: 'Comprar por categoria',
     cat_title: 'Encontre o seu.',
