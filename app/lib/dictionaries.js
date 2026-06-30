@@ -103,7 +103,7 @@ export const DICTIONARIES = {
     megamenu_tagline_gifts_under_25: 'Great gifts, small budget.',
 
     // ── Hero ──────────────────────────────────────────────────────
-    hero_eyebrow: 'Curated picks · Free over $50',
+    hero_eyebrow: 'From Canada, To the World!',
     hero_title: 'Everything worth buying.',
     hero_sub: '6,000+ products across home, beauty, tech, pet, and more. Picked in Toronto, delivered fast, returned without drama.',
     hero_cta_shop: 'Shop now →',
@@ -237,7 +237,7 @@ export const DICTIONARIES = {
     banner_cta: 'See all',
 
     // ── Catalog statement ─────────────────────────────────────────
-    catalog_body: 'products. Curated by humans. Most under $100.',
+    catalog_body: 'Thousands of products, ALL hand picked by humans, not A.I.',
     catalog_cta_browse: 'Browse everything →',
     catalog_cta_search: 'Search the catalog',
 

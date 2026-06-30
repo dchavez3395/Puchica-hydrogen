@@ -26,14 +26,13 @@ export default function AboutPage() {
         <div className="pk-about-hero__inner">
           <span className="pk-about-hero__eyebrow"><StarGlyph /> Our story</span>
           <h1 className="pk-about-hero__title">
-            We pick the good stuff.
+            Quality products.
             <br />
-            <span className="pk-about-hero__em">You get to skip the research.</span>
+            <span className="pk-about-hero__em">Hand-picked for YOU.</span>
           </h1>
           <p className="pk-about-hero__sub">
             Puchica is a Canadian-owned store built around curated finds. We
-            sort through thousands of products so you don&apos;t have to. If it
-            doesn&apos;t earn its spot, it doesn&apos;t ship.
+            sort through thousands of products so you don&apos;t have to.
           </p>
           <Link to="/collections/all" className="pk-btn pk-btn--spark pk-btn--lg">
             Start shopping →

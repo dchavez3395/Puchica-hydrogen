@@ -4,6 +4,7 @@ import {SearchForm} from '~/components/SearchForm';
 import {SearchResults} from '~/components/SearchResults';
 import {getEmptyPredictiveSearchResult} from '~/lib/search';
 import {puchicaMeta} from '~/lib/seo';
+import {diversifyByVendor} from '~/lib/diversify';
 
 /**
  * @type {Route.MetaFunction}
@@ -258,6 +259,18 @@ async function regularSearch({request, context}) {
 
   if (!items) {
     throw new Error('No search data returned from Shopify API');
+  }
+
+  // The merchant's catalogue is dominated by phone-case SKUs whose
+  // titles all share a vendor prefix. When Shopify's RELEVANCE
+  // sort returns these in source order the first page is mostly
+  // the same vendor. Interleave the visible products by vendor
+  // so adjacent results are from different vendors.
+  if (items.products?.nodes?.length > 2) {
+    items.products = {
+      ...items.products,
+      nodes: diversifyByVendor(items.products.nodes),
+    };
   }
 
   const total = Object.values(items).reduce(

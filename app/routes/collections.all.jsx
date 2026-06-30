@@ -4,6 +4,7 @@ import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
 import {puchicaMeta} from '~/lib/seo';
 import {ProductItem} from '~/components/ProductItem';
 import {useT} from '~/lib/t';
+import {diversifyByVendor} from '~/lib/diversify';
 
 /**
  * @type {Route.MetaFunction}
@@ -71,7 +72,7 @@ async function loadCriticalData({context, request}) {
   const priceValue = url.searchParams.get('price') || null;
   void priceValue;
 
-  const [{products}] = await Promise.all([
+  const [{products: rawProducts}] = await Promise.all([
     context.storefront.query(CATALOG_QUERY, {
       variables: {
         country,
@@ -82,6 +83,20 @@ async function loadCriticalData({context, request}) {
       },
     }),
   ]);
+  // The merchant's catalogue is dominated by phone-case SKUs whose
+  // titles all share a vendor prefix (`Almond Latte - Cute iPhone
+  // 13 Case`, `Almond Latte - Cute AirPods Case`, …). When the
+  // chosen sort returns these in alphabetical or relevance order,
+  // the first 12 products on the page are almost always the same
+  // vendor. Re-rank so adjacent products are from different vendors
+  // (e.g. iPhone case, hair product, robot toy, in that order).
+  // See app/lib/diversify.js.
+  const products = rawProducts?.nodes?.length > 2
+    ? {
+        ...rawProducts,
+        nodes: diversifyByVendor(rawProducts.nodes),
+      }
+    : rawProducts;
   return {products};
 }
 
@@ -128,7 +143,7 @@ export default function Collection() {
         <h1 className="pk-col-hero__title">{t('all_title')}</h1>
         <p className="pk-col-hero__sub">{t('all_sub')}</p>
         <span className="pk-col-hero__count">
-          {formatCatalogCount(count, impliedTotal, hasNextPage, t)}
+          Puchica
         </span>
       </header>
 

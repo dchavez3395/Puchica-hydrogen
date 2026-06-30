@@ -5,6 +5,7 @@ import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 import {puchicaMeta} from '~/lib/seo';
 import {useT} from '~/lib/t';
 import {ProductItem} from '~/components/ProductItem';
+import {diversifyByVendor} from '~/lib/diversify';
 
 /**
  * @type {Route.MetaFunction}
@@ -116,6 +117,22 @@ async function loadCriticalData({context, params, request}) {
   } else {
     redirectIfHandleIsLocalized(request, {handle, data: collection});
   }
+
+  // The merchant's catalogue is dominated by phone-case SKUs whose
+  // titles all share a vendor prefix (`Almond Latte - Cute iPhone
+  // 13 Case`, `Almond Latte - Cute AirPods Case`, …). When the
+  // chosen sort returns these in alphabetical or merchant-defined
+  // order, the first 12 products on a page are almost always the
+  // same vendor — the page reads as one long list of the same
+  // brand. Re-rank the page so adjacent products are from different
+  // vendors. See app/lib/diversify.js.
+  if (collection.products?.nodes?.length > 2) {
+    collection.products = {
+      ...collection.products,
+      nodes: diversifyByVendor(collection.products.nodes),
+    };
+  }
+
   return {collection};
 }
 
@@ -181,7 +198,7 @@ export default function Collection() {
           <p className="pk-col-hero__sub">{collection.description}</p>
         ) : null}
         <span className="pk-col-hero__count">
-          {formatCount(count, impliedTotal, hasNextPage, t)}
+          Puchica
         </span>
       </header>
 

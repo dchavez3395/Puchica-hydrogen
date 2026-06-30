@@ -201,10 +201,7 @@ export default function ExplorePage() {
         <span className="pk-col-hero__eyebrow">{t('explore_eyebrow')}</span>
         <h1 className="pk-col-hero__title">{t('explore_title')}</h1>
         <span className="pk-col-hero__count">
-          {t('explore_showing')} <strong>{productCount}</strong>{' '}
-          {productCount === 1 ? t('explore_product_singular') : t('explore_product_plural')}{' '}
-          {t('explore_across')} <strong>{collectionCount}</strong>{' '}
-          {collectionCount === 1 ? t('explore_count_active_cat_singular') : t('explore_count_active_cat_plural')}
+          Puchica
         </span>
       </header>
 

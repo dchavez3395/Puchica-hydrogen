@@ -12,10 +12,10 @@ export function ParallaxBanner() {
       <div className="pk-parallax__content pk-inner">
         <span className="pk-parallax__eyebrow">Puchica</span>
         <h2 className="pk-parallax__title">
-          Most of it under $100.<br />All of it picked by humans.
+          What's your thing?<br /> We have it.
         </h2>
         <p className="pk-parallax__sub">
-          6,000+ products. 19 collections. One Canadian store.
+          Dozens of collections. One Canadian store.
         </p>
         <Link
           to="/explore"

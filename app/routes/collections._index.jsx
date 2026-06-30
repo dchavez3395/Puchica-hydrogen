@@ -73,7 +73,7 @@ export default function Collections() {
         </p>
         {count > 0 && (
           <span className="pk-col-hero__count">
-            {count} {count === 1 ? 'collection' : 'collections'}
+            Puchica
           </span>
         )}
       </header>
