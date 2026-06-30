@@ -4038,16 +4038,53 @@ button:focus-visible,
 .pk-pdesc__body strong { font-weight: 700; }
 .pk-pdesc__body a { color: var(--pk-ember); }
 .pk-pdesc__body a:hover { text-decoration: underline; }
+/* Merchant images inside the description body should sit BESIDE the
+ * prose, not above it. Wrap with `shape-outside` so the next line
+ * tucks against the image's box and the layout reads "text image,
+ * image text, text image" instead of a tall stack of full-width
+ * photos. Capped at 50% of the column width with a 220px minimum so
+ * small viewports don't squish them. Video follows the same rule.
+ * Iframe stays at full width (16:9 hero/section). */
 .pk-pdesc__body img,
-.pk-pdesc__body iframe,
 .pk-pdesc__body video {
-  max-width: 100%;
-  height: auto;
-  border-radius: 12px;
   display: block;
-  margin: 20px auto;
+  max-width: 50%;
+  min-width: 220px;
+  width: auto;
+  height: auto;
+  border-radius: 14px;
+  margin: 4px 24px 14px 0;
+  float: left;
+  shape-outside: margin-box;
+  shape-margin: 12px;
 }
-.pk-pdesc__body iframe { aspect-ratio: 16 / 9; width: 100%; }
+.pk-pdesc__body iframe {
+  max-width: 100%;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  border: 0;
+  border-radius: 14px;
+  display: block;
+  margin: 20px 0;
+}
+/* Tag every <p> AFTER a floated image with `clear: left` so the
+ * following paragraph breaks back to the full column width instead
+ * of staying trapped in the float's wrap. */
+.pk-pdesc__body img + p,
+.pk-pdesc__body video + p { clear: left; }
+
+/* On phone widths the column is too narrow to wrap beside a 50%
+ * image. Stack to full width instead. */
+@media (max-width: 700px) {
+  .pk-pdesc__body img,
+  .pk-pdesc__body video {
+    float: none;
+    max-width: 100%;
+    min-width: 0;
+    margin: 16px 0;
+  }
+}
 /* Pull-quote treatment for any <blockquote> the merchant adds. */
 .pk-pdesc__body blockquote {
   margin: 28px 0;
