@@ -14,11 +14,14 @@ import {ProductHero3D} from './ProductHero3D';
  *   - 'zoom' : magnifier lens (desktop, hover-capable pointer only)
  *
  * Visual treatment:
- *   - Vertical thumbnail filmstrip on desktop, horizontal Embla
- *     filmstrip on mobile.
  *   - The hero photo is wrapped in <HeroParallax> so it drifts at
  *     0.4× scroll speed on desktop. Disabled when the user opts
  *     into reduced motion (the HeroParallax component handles this).
+ *   - Thumbnails live in a horizontal Embla strip BELOW the hero
+ *     on every viewport — the previous vertical left-rail thumbs
+ *     have been removed in favor of this single row. Embla gives
+ *     drag-to-scroll on touch and a clean horizontal row on
+ *     desktop.
  *   - The active thumbnail gets an ember outline; other thumbnails
  *     show a subtle ring on hover.
  *   - The hero container has a faint product-accent gradient (driven
@@ -125,31 +128,6 @@ export function ProductImage({
 
   return (
     <div className="pk-product__media" style={accentStyle}>
-      {/* Desktop vertical filmstrip */}
-      {list.length > 1 && mode === 'image' && (
-        <ul className="pk-thumbs" aria-label="Product images">
-          {list.map((img, i) => (
-            <li key={img.id || i}>
-              <button
-                type="button"
-                className="pk-thumbs__item"
-                aria-current={i === index ? 'true' : 'false'}
-                aria-label={`View image ${i + 1} of ${list.length}`}
-                onClick={() => setIndex(i)}
-              >
-                <Image
-                  alt={img.altText || productTitle || 'Product image'}
-                  data={img}
-                  aspectRatio="1/1"
-                  sizes="80px"
-                  loading={i < 4 ? 'eager' : 'lazy'}
-                />
-              </button>
-            </li>
-          ))}
-        </ul>
-      )}
-
       <div
         className="pk-product__hero-wrap"
       >
@@ -252,34 +230,37 @@ export function ProductImage({
           </div>
         </HeroParallax>
 
-        {/* Mobile Embla filmstrip — lives below the hero on small
-            screens. Hidden on desktop where the vertical thumbs take
-            over. */}
+        {/* Thumbnail strip — Embla horizontal carousel below the hero.
+            On desktop the row is a flex container with overflow-x:auto
+            for drag-scroll; on mobile it gets snap-drag behaviour from
+            Embla. The previous left-rail vertical thumbs rail is gone —
+            the row below the hero handles all viewports. */}
         {list.length > 1 && mode === 'image' && (
-          <div className="pk-filmstrip" ref={emblaRef}>
-            <div className="pk-filmstrip__container">
+          <div className="pk-thumbs pk-thumbs--strip" ref={emblaRef}>
+            <ul className="pk-thumbs__row" aria-label="Product images">
               {list.map((img, i) => (
-                <button
-                  key={img.id || img.url || i}
-                  type="button"
-                  className={
-                    'pk-filmstrip__slide' +
-                    (i === index ? ' is-current' : '')
-                  }
-                  aria-label={`Go to image ${i + 1} of ${list.length}`}
-                  aria-current={i === index ? 'true' : 'false'}
-                  onClick={() => setIndex(i)}
-                >
-                  <Image
-                    alt={img.altText || productTitle || 'Product image'}
-                    data={img}
-                    aspectRatio="1/1"
-                    sizes="(max-width: 700px) 90px, 80px"
-                    loading="lazy"
-                  />
-                </button>
+                <li key={img.id || img.url || i} className="pk-thumbs__cell">
+                  <button
+                    type="button"
+                    className={
+                      'pk-thumbs__item' +
+                      (i === index ? ' is-current' : '')
+                    }
+                    aria-current={i === index ? 'true' : 'false'}
+                    aria-label={`View image ${i + 1} of ${list.length}`}
+                    onClick={() => setIndex(i)}
+                  >
+                    <Image
+                      alt={img.altText || productTitle || 'Product image'}
+                      data={img}
+                      aspectRatio="1/1"
+                      sizes="(max-width: 700px) 90px, 80px"
+                      loading={i < 4 ? 'eager' : 'lazy'}
+                    />
+                  </button>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
         )}
       </div>

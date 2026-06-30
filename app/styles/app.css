@@ -3444,42 +3444,48 @@ button:focus-visible,
 .pk-product__crumbs { padding: 0 0 18px; }
 .pk-product__media {
   position: relative;
-  display: grid;
-  grid-template-columns: 80px 1fr;
-  gap: 14px;
-  align-items: start;
+  display: block;
   min-width: 0;
 }
-@media (max-width: 700px) {
-  .pk-product__media { grid-template-columns: 1fr; }
-}
 
-/* Thumbnails */
-.pk-thumbs {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  position: sticky;
-  top: 96px;
-  max-height: calc(100vh - 120px);
-  overflow-y: auto;
-  scrollbar-width: thin;
-  padding: 2px;
+/* Thumbnails — horizontal Embla strip below the hero.
+ * The previous left-rail vertical filmstrip is gone. On every
+ * viewport the thumbs live in a single horizontal row underneath
+ * the hero photo. Embla gives drag-scroll on touch and a clean
+ * row on desktop. */
+.pk-thumbs--strip {
+  display: block;
+  margin: 4px 0 0;
+  overflow: hidden;
+  -webkit-overflow-scrolling: touch;
 }
-@media (max-width: 700px) { .pk-thumbs { display: none; } }
+.pk-thumbs__row {
+  display: flex;
+  gap: 8px;
+  padding: 4px 2px 8px;
+  margin: 0;
+  list-style: none;
+}
+.pk-thumbs__cell { flex: 0 0 auto; }
 .pk-thumbs__item {
-  width: 80px; height: 80px;
+  width: 80px;
+  height: 80px;
   border-radius: 12px;
   overflow: hidden;
   background: var(--pk-surface);
   border: 2px solid transparent;
   cursor: pointer;
   padding: 0;
+  display: block;
   transition: border-color 0.12s ease, transform 0.12s ease;
+  position: relative;
+}
+@media (max-width: 700px) {
+  .pk-thumbs__item { width: 78px; height: 78px; }
 }
 .pk-thumbs__item img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .pk-thumbs__item:hover { transform: translateY(-1px); }
-.pk-thumbs__item[aria-current="true"] { border-color: var(--pk-ember); }
+.pk-thumbs__item.is-current { border-color: var(--pk-ember); }
 
 /* Main image â€” aspect ratio is set inline based on the source image
  * so portrait product shots (e.g. sweaters on a model) don't get
@@ -4290,10 +4296,6 @@ button:focus-visible,
   pointer-events: none;
   letter-spacing: 0.04em;
 }
-
-/* When in 3D mode, hide thumbnails (focused scene takes over). */
-.pk-product__hero--3d + .pk-thumbs,
-.pk-product__hero--3d ~ .pk-thumbs { display: none; }
 
 /* Hide the 3D toggle and lens mode at <700px — touch devices prefer
  * the swipe gallery, not the magnifier or 3D toggle. */
@@ -9511,63 +9513,28 @@ button:focus-visible,
   position: relative;
 }
 
-/* Thumbnails get a tinted bottom-edge accent so the active item
- * reads at a glance. We piggyback on the existing border + add a
- * small ember dot in the corner. */
-.pk-thumbs__item {
-  position: relative;
-}
-.pk-thumbs__item[aria-current="true"]::after {
-  content: '';
-  position: absolute;
-  inset: auto 6px 6px 6px;
-  height: 3px;
-  border-radius: 2px;
-  background: var(--pk-ember);
-  box-shadow: 0 0 12px color-mix(in srgb, var(--pk-ember) 60%, transparent);
-}
-
-/* Mobile horizontal filmstrip (Embla). Only visible below 700px —
- * the vertical thumbs stay on desktop. */
-.pk-filmstrip {
-  display: none;
+/* Horizontal thumbnail strip — Embla transport layer.
+ * The .pk-thumbs--strip is the Embla root, .pk-thumbs__row is
+ * the flex container Embla translates, and .pk-thumbs__cell +
+ * .pk-thumbs__item are the visible thumb cells. The old
+ * .pk-filmstrip/.pk-filmstrip__slide rules are gone. */
+.pk-thumbs--strip {
+  display: block;
   margin: 4px 0 0;
   overflow: hidden;
   -webkit-overflow-scrolling: touch;
 }
-@media (max-width: 700px) {
-  .pk-filmstrip { display: block; }
-}
-.pk-filmstrip__container {
+.pk-thumbs--strip .pk-thumbs__row {
   display: flex;
   gap: 8px;
   padding: 4px 2px 8px;
+  margin: 0;
+  list-style: none;
   scroll-snap-type: x mandatory;
 }
-.pk-filmstrip__slide {
-  flex: 0 0 78px;
-  height: 78px;
-  width: 78px;
-  border-radius: 12px;
-  overflow: hidden;
-  background: var(--pk-surface);
-  border: 2px solid transparent;
-  cursor: pointer;
-  padding: 0;
+.pk-thumbs--strip .pk-thumbs__cell {
+  flex: 0 0 auto;
   scroll-snap-align: start;
-  position: relative;
-  transition: transform 0.15s ease, border-color 0.15s ease;
-}
-.pk-filmstrip__slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-.pk-filmstrip__slide:hover { transform: translateY(-1px); }
-.pk-filmstrip__slide.is-current {
-  border-color: var(--pk-ember);
-  box-shadow: 0 6px 18px rgba(168, 56, 0, 0.18);
 }
 
 /* Magnetic ATC wrap — pk-atc-magnetic only adds an inline-block
