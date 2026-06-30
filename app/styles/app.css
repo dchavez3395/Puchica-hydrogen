@@ -7669,14 +7669,19 @@ button:focus-visible,
   align-items: center;
   gap: 24px;
 }
-/* The Puchica logo is a horizontal lockup (1200×360, ~3.3:1). On
-   the dark ink card the colored parts of the SVG (violet bag icon
-   + indigo wordmark) read well against the dark background. The
-   logo keeps its native aspect ratio while scaling to the card
-   width, capped at 360px so it never gets visually heavier than
-   the headline next to it. */
+/* The Puchica logo is a dark-on-light mark (violet bag + indigo
+   wordmark). On the dark ink card we sit it on a cream tile —
+   same treatment as the footer logo (see .pk-footer__logo) — so
+   the colors stay readable. The tile is centered, padded, and
+   the logo inside keeps its native aspect ratio (1200×360,
+   ~3.3:1) while scaling to the tile width, capped at 360px so
+   it never gets visually heavier than the headline next to it. */
 .pk-about-mission__logo {
   display: block;
+  background: rgba(244, 240, 230, 0.95);
+  padding: 18px 28px;
+  border-radius: 14px;
+  border: 1px solid rgba(244, 240, 230, 0.2);
   width: 100%;
   max-width: 360px;
   height: auto;
