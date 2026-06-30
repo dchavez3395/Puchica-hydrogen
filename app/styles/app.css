@@ -10398,3 +10398,82 @@ button:focus-visible,
 @media (prefers-reduced-motion: reduce) {
   .pk-product__info { animation: none !important; }
 }
+
+/* ── For You showcase ───────────────────────────────────────── */
+.pk-foryou {
+  background: var(--pk-cream);
+  padding: 64px 0;
+}
+.pk-foryou__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+.pk-foryou__eye {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--pk-muted);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+.pk-foryou__title {
+  font-size: clamp(28px, 4vw, 42px);
+  color: var(--pk-ink);
+  margin: 0 0 8px;
+}
+.pk-foryou__sub {
+  color: var(--pk-muted);
+  max-width: 480px;
+  margin: 0;
+}
+.pk-foryou__cta {
+  color: var(--pk-ink);
+  font-weight: 600;
+  white-space: nowrap;
+  text-decoration: none;
+  border-bottom: 1px solid var(--pk-ink);
+  padding-bottom: 2px;
+}
+.pk-foryou__grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 16px;
+}
+.pk-foryou__hero, .pk-foryou__small {
+  display: block;
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--pk-cream-soft);
+}
+.pk-foryou__hero-body, .pk-foryou__small-body {
+  padding: 12px 14px;
+}
+.pk-foryou__name {
+  font-weight: 600;
+  color: var(--pk-ink);
+  margin: 0 0 4px;
+  font-size: 14px;
+}
+.pk-foryou__price {
+  color: var(--pk-muted);
+  font-size: 13px;
+}
+.pk-foryou__rest {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+@media (max-width: 760px) {
+  .pk-foryou__grid {
+    grid-template-columns: 1fr;
+  }
+}
