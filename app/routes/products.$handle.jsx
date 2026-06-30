@@ -248,12 +248,16 @@ export default function Product() {
         eyebrow={t('product_desc_eyebrow')}
       />
 
-      {/* ── Highlights — alternating split row, text left / image right.
-          Reuses existing trust/perk copy so we don't ship new i18n
-          strings. Anchors on the second gallery image (skipping the
-          hero) and falls back to the brand-accent column. */}
+      {/* ── Highlights — alternating split row, image left / text right.
+          Flipped from text-left to text-right so the three editorial
+          sections zigzag: editorial (text-left, images-right) →
+          highlights (image-left, text-right) → care (text-left,
+          mosaic-right). Reuses existing trust/perk copy so we don't
+          ship new i18n strings. Anchors on the second gallery image
+          (skipping the hero) and falls back to the brand-accent
+          column. */}
       <SplitSection
-        align="left"
+        align="right"
         eyebrow={t('product_highlights_eyebrow')}
         heading={product.productType || title}
         tone="default"
@@ -285,11 +289,12 @@ export default function Product() {
         }
       />
 
-      {/* ── Care & shipping — alternating split row, mosaic left /
-          text right. Mirrors the Shipping accordion copy in a
-          cleaner editorial voice. */}
+      {/* ── Care & shipping — alternating split row, text left /
+          mosaic right. Flipped from text-right to text-left to
+          continue the zigzag after Highlights. Mirrors the
+          Shipping accordion copy in a cleaner editorial voice. */}
       <SplitSection
-        align="right"
+        align="left"
         eyebrow={t('product_care_eyebrow')}
         heading={t('product_care_h')}
         tone="inverse"
