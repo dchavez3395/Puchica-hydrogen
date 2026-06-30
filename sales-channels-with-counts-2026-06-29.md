@@ -1,13 +1,13 @@
-# Sales Channels — With Publication Counts (2026-06-29)
+# Sales Channels — With Product Counts (2026-06-29)
 
-| Name | Catalog | Products |
-| --- | --- | ---:|
-| Online Store |  | ERR: Shopify GraphQL errors: [{'message': "Field 'produ |
-| Shop |  | ERR: Shopify GraphQL errors: [{'message': "Field 'produ |
-| Point of Sale |  | ERR: Shopify GraphQL errors: [{'message': "Field 'produ |
-| Puchica Storefront |  | ERR: Shopify GraphQL errors: [{'message': "Field 'produ |
-| Inbox |  | ERR: Shopify GraphQL errors: [{'message': "Field 'produ |
-| Reddit Ads |  | ERR: Shopify GraphQL errors: [{'message': "Field 'produ |
-| TikTok |  | ERR: Shopify GraphQL errors: [{'message': "Field 'produ |
-| Google & YouTube |  | ERR: Shopify GraphQL errors: [{'message': "Field 'produ |
-| Facebook & Instagram |  | ERR: Shopify GraphQL errors: [{'message': "Field 'produ |
+| Name | Products |
+| --- | ---:|
+| Online Store | 5890 |
+| Shop | 5890 |
+| Puchica Storefront | 5890 |
+| Reddit Ads | 5890 |
+| TikTok | 5890 |
+| Facebook & Instagram | 5890 |
+| Inbox | 213 |
+| Google & YouTube | 213 |
+| Point of Sale | 0 |
