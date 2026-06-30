@@ -9765,38 +9765,33 @@ button:focus-visible,
 /* Inline-media variant of the editorial block. When the merchant's
  * descriptionHtml carries <img>/<video> tags, we walk the body once
  * and emit `{kind: 'text' | 'image', html}` chunks in source order.
- * Each chunk gets its OWN row, sitting on one half of the row:
+ * Each text chunk is paired with the image that follows it, and the
+ * pair becomes one vertical section:
  *
  *   ┌─────────────────────────────────────────────────────────┐
- *   │ row 0: TEXT                                             │
- *   │           (right half = intentional whitespace)         │
+ *   │ section 0                                              │
+ *   │   h2 + intro paragraph                                 │
+ *   │   image 1                                              │
  *   ├─────────────────────────────────────────────────────────┤
- *   │ (left half = intentional whitespace)                    │
- *   │                                     row 1: IMAGE        │
+ *   │ section 1                                              │
+ *   │   paragraph 2                                          │
+ *   │   image 2                                              │
  *   ├─────────────────────────────────────────────────────────┤
- *   │ row 2: TEXT                                             │
- *   │           (right half = intentional whitespace)         │
+ *   │ section 2                                              │
+ *   │   "That's not all" + 8-bullet features list            │
+ *   │   image 3                                              │
  *   ├─────────────────────────────────────────────────────────┤
- *   │ (left half = intentional whitespace)                    │
- *   │                                     row 3: IMAGE        │
- *   ├─────────────────────────────────────────────────────────┤
- *   │ row 4: TEXT                                             │
- *   ├─────────────────────────────────────────────────────────┤
- *   │ row 5: TEXT (full-width, no image partner)              │
+ *   │ section 3 (trailing)                                   │
+ *   │   SPECS heading + 12-bullet specs list (full-width)    │
  *   └─────────────────────────────────────────────────────────┘
  *
- * Consecutive rows alternate which half carries the content
- * (`.pk-pdesc__row--left` vs `--right`). The opposite half is
- * always empty whitespace — that breathing room IS the magazine
- * spread. Pairing text and image into the same row was making the
- * empty half vanish, which killed the rhythm.
+ * The image is always UNDER the h2 / paragraph that introduces
+ * it, never beside it. Content is centered and capped to a
+ * readable measure (720px text, 880px image). No alternating
+ * side-rails, no half-empty columns.
  *
- * A trailing text chunk with no image partner (e.g. the final
- * SPECS list) breaks the alternating pattern and renders
- * full-width so the spec list has room to breathe.
- *
- * Mobile (<900px) collapses every row to a single column so each
- * chunk stacks vertically in source order.
+ * Mobile (<900px) drops the content cap and lets sections span
+ * the full viewport width.
  */
 .pk-pdesc--zigzag {
   /* The eyebrow + h2 used to live in a separate `.pk-pdesc__header`
@@ -9845,50 +9840,35 @@ button:focus-visible,
   gap: clamp(40px, 5vw, 72px);
 }
 
-/* Single row: each chunk sits in its own row, full grid width.
- * Consecutive rows alternate which side the content is visually
- * anchored to (text aligned left, then image aligned right, then
- * text aligned left, etc.) but every chunk spans the full row
- * width so the prose and images aren't crammed into a 50% column
- * with an empty side-rail.
- *
- * The visible content is constrained to a readable measure
- * (720px text, 880px image) and aligned to the alternating side.
- * Whitespace beyond the content cap is intentional — the magazine
- * rhythm depends on it — but no longer reads as "a half-empty
- * row", because the content block is full width of its row, not
- * a 50% column with the opposite half blank.
- */
-.pk-pdesc__row--single {
+/* Section row: each text chunk and its image partner are stacked
+ * vertically inside a single section. The text sits on top, the
+ * image is directly below it — the image is always UNDER the h2
+ * / paragraph that introduces it, never beside it. The section
+ * itself uses the full grid width, with content capped to a
+ * readable measure (720px text, 880px image) and centered. */
+.pk-pdesc__row--section {
   display: flex;
+  flex-direction: column;
   width: 100%;
+  gap: clamp(20px, 3vw, 36px);
 }
-.pk-pdesc__row--single > .pk-pdesc__content {
-  max-width: 720px;
-  width: 100%;
-}
-/* Image chunks get a slightly wider cap — images need more room
- * to breathe than prose. */
-.pk-pdesc__row--single > .pk-pdesc__content.pk-pdesc__content--image {
+.pk-pdesc__row--section > .pk-pdesc__content {
   max-width: 880px;
+  width: 100%;
+  margin: 0 auto;
 }
-/* Left-aligned content sits at the start of the row (margin-left:
- * 0, margin-right: auto). Right-aligned content sits at the end
- * (margin-left: auto, margin-right: 0). */
-.pk-pdesc__row--single.pk-pdesc__row--left > .pk-pdesc__content {
-  margin-left: 0;
-  margin-right: auto;
-}
-.pk-pdesc__row--single.pk-pdesc__row--right > .pk-pdesc__content {
-  margin-left: auto;
-  margin-right: 0;
+/* Text content inside a section gets a slightly narrower cap so
+ * prose lines are readable. */
+.pk-pdesc__row--section > .pk-pdesc__content.pk-pdesc__content--text {
+  max-width: 720px;
 }
 
-/* Full-width row: trailing text (e.g. SPECS list) without an image
- * partner. Spans the whole grid so the spec list has room to
- * breathe. */
+/* Full-width section: trailing text (e.g. SPECS list) without an
+ * image partner, or any single-child section. Spans the whole
+ * grid so the spec list has room to breathe. */
 .pk-pdesc__row--full {
   display: flex;
+  flex-direction: column;
   width: 100%;
 }
 .pk-pdesc__row--full > .pk-pdesc__content {
@@ -9973,12 +9953,8 @@ button:focus-visible,
 }
 
 @media (max-width: 900px) {
-  .pk-pdesc__row--single.pk-pdesc__row--left > .pk-pdesc__content,
-  .pk-pdesc__row--single.pk-pdesc__row--right > .pk-pdesc__content {
-    margin-left: 0;
-    margin-right: 0;
-    max-width: none;
-  }
+  .pk-pdesc__row--section > .pk-pdesc__content,
+  .pk-pdesc__row--section > .pk-pdesc__content.pk-pdesc__content--text,
   .pk-pdesc__row--full > .pk-pdesc__content {
     max-width: none;
   }
