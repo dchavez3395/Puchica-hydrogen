@@ -16,6 +16,7 @@ import {MagneticButton} from '~/components/MagneticButton';
 import {HeroParallax} from '~/components/HeroParallax';
 import {useAside} from '~/components/Aside';
 import {AddToCartButton} from '~/components/AddToCartButton';
+import {ForYouShowcase} from '~/components/ForYouShowcase';
 
 /* Shared hook for arrow-nav on horizontal scroll tracks */
 function useScrollNav(trackRef) {
@@ -145,7 +146,13 @@ function loadDeferredData({context}) {
     .then(norm('health-wellness'))
     .catch((e) => { logError('matchProducts query failed', e); return []; });
 
-  return {trending, rackProducts, bestPicks, catWorld, newArrivals, freshFinds, showcaseCollections, discoverProducts, matchProducts};
+  // For You — products tagged for-you (Higgsfield-image showcase)
+  const forYou = context.storefront
+    .query(FOR_YOU_QUERY, {variables: {country, language}})
+    .then((res) => diversifyByVendor(res?.products?.nodes ?? []))
+    .catch((e) => { logError('forYou query failed', e); return []; });
+
+  return {trending, rackProducts, bestPicks, catWorld, newArrivals, freshFinds, showcaseCollections, discoverProducts, matchProducts, forYou};
 }
 
 export default function Index() {
@@ -172,6 +179,13 @@ export default function Index() {
         </Suspense>
         <Marquee isPlaying={isPlaying} />
       </div>
+
+      {/* For You — Higgsfield-image showcase */}
+      <Suspense fallback={null}>
+        <Await resolve={data.forYou}>
+          {(products) => <ForYouShowcase products={products ?? []} />}
+        </Await>
+      </Suspense>
 
       {/* Discover swiper — Tech & Gadgets collection */}
       <Suspense fallback={null}>
@@ -1273,6 +1287,21 @@ function CatalogStatement() {
 /* ─────────────────────────────────────────────────────────────────
    GRAPHQL QUERIES
 ───────────────────────────────────────────────────────────────── */
+/* ── For You — products tagged for-you (Higgsfield-image showcase) ── */
+const FOR_YOU_QUERY = `#graphql
+  fragment ForYouProduct on Product {
+    id title handle
+    tags
+    priceRange { minVariantPrice { amount currencyCode } }
+    featuredImage { id url altText width height }
+  }
+  query ForYou($country: CountryCode!, $language: LanguageCode!) @inContext(country: $country, language: $language) {
+    products(first: 12, sortKey: BEST_SELLING, query: "tag:'for-you'") {
+      nodes { ...ForYouProduct }
+    }
+  }
+`;
+
 /* ── Home & Kitchen → rack ("Worth every penny" section) ── */
 const RACK_QUERY = `#graphql
   fragment RackProduct on Product {
