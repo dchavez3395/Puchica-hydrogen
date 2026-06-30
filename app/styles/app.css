@@ -9808,42 +9808,58 @@ button:focus-visible,
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  /* Breathing room between rows so each pair reads as its own
-   * editorial moment. */
-  gap: 1rem;
+  /* Magazine-stack: real vertical air between each pair. */
+  gap: clamp(48px, 7vw, 96px);
 }
-
-/* Section row: each text chunk and its image partner are stacked
- * vertically inside a single section. The text sits on top, the
- * image is directly below it — the image is always UNDER the h2
- * / paragraph that introduces it, never beside it. The section
- * itself uses the full grid width, with content capped to a
- * readable measure (720px text, 880px image) and centered. */
-.pk-pdesc__row--section {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  gap: clamp(20px, 3vw, 36px);
+/* Layout B (no inline media) uses the same container but with
+ * tighter gaps since it stacks three light elements (lead, visual,
+ * tail) rather than three heavy pair rows. */
+.pk-pdesc__blocks--stack {
+  gap: clamp(32px, 5vw, 56px);
 }
-.pk-pdesc__row--section > .pk-pdesc__content {
+.pk-pdesc__row {
   max-width: 880px;
-  width: 100%;
-}
-/* Text content inside a section gets a slightly narrower cap so
- * prose lines are readable. */
-
-/* Full-width section: trailing text (e.g. SPECS list) without an
- * image partner, or any single-child section. Spans the whole
- * grid so the spec list has room to breathe. */
-.pk-pdesc__row--full {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-.pk-pdesc__row--full > .pk-pdesc__content {
-  max-width: 880px;
-  width: 100%;
   margin: 0 auto;
+  width: 100%;
+}
+
+/* Paired-column row: text and image sit side-by-side. Even-index
+ * pairs default to text-left / image-right; `.pk-pdesc__pair--flip`
+ * swaps them. The two columns share a 2-up grid at the same inner
+ * width cap the editorial block already uses. */
+.pk-pdesc__pair {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: clamp(28px, 4vw, 56px);
+  align-items: center;
+}
+.pk-pdesc__pair--flip {
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+}
+.pk-pdesc__pair--flip .pk-pdesc__col--image { order: -1; }
+
+/* Single-image orphans (e.g. an `<img>` with no preceding prose)
+ * stretch to the full inner width so the visual is the focus. */
+.pk-pdesc__pair--solo {
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 880px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.pk-pdesc__col { min-width: 0; }
+.pk-pdesc__col--text { max-width: 640px; }
+.pk-pdesc__col--image { width: 100%; }
+
+@media (max-width: 900px) {
+  .pk-pdesc__pair,
+  .pk-pdesc__pair--flip {
+    grid-template-columns: 1fr;
+    gap: clamp(20px, 4vw, 32px);
+  }
+  .pk-pdesc__pair--flip .pk-pdesc__col--image { order: 0; }
+  .pk-pdesc__col--text { max-width: none; }
+  .pk-pdesc__pair--solo { max-width: none; }
 }
 
 /* Image chunk: clean rounded card, full width of its content. */
@@ -9856,9 +9872,52 @@ button:focus-visible,
   background: var(--pk-surface-2, var(--pk-cream-soft));
 }
 
-/* Text chunk: prevent prose from forcing the column wider than its
- * share (long URLs / inline styles sometimes do). */
+/* ── Prose rhythm inside the text column ──
+ *
+ * Without explicit margins the merchant's `<p>` blocks stack
+ * with no breathing room. We give each paragraph a half-line
+ * of trailing space, anchor the first one to the top of the
+ * column, and make sure any merchant `<h3>` opens a new visual
+ * section. The list (already 2-column on desktop) keeps its
+ * own treatment below. */
 .pk-pdesc__text { min-width: 0; }
+.pk-pdesc__text > p {
+  margin: 0 0 1.15em;
+  line-height: 1.7;
+  color: var(--pk-ink);
+  font-size: 16px;
+}
+.pk-pdesc__text > p:first-child { margin-top: 0; }
+.pk-pdesc__text > p:last-child { margin-bottom: 0; }
+/* Standalone paragraph that is just a leading image wrapper
+ * (`<p><span><img></span></p>`) collapses to zero — the image is
+ * already rendered as its own column chunk above. */
+.pk-pdesc__text > p:has(> span:only-child > img:only-child),
+.pk-pdesc__text > p:has(> b:only-child > img:only-child),
+.pk-pdesc__text > p:has(> img:only-child) {
+  margin: 0;
+  line-height: 0;
+}
+/* Merchant h3 — section subhead. Sits above a paragraph block,
+ * spaced clearly so the reader can see where one idea ends and
+ * the next begins. */
+.pk-pdesc__text > h3 {
+  font-family: var(--pk-font-display);
+  font-size: clamp(20px, 2.2vw, 24px);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+  color: var(--pk-ink);
+  margin: 28px 0 14px;
+}
+.pk-pdesc__text > h3:first-child { margin-top: 0; }
+.pk-pdesc__text strong { font-weight: 700; }
+.pk-pdesc__text a { color: var(--pk-ember); }
+.pk-pdesc__text a:hover { text-decoration: underline; }
+.pk-pdesc__text ul,
+.pk-pdesc__text ol {
+  margin: 18px 0 20px;
+}
 
 /* ── Bullet list treatment inside editorial text chunks ──
  *
@@ -9919,14 +9978,6 @@ button:focus-visible,
   font-weight: 700;
   color: var(--pk-ink);
   letter-spacing: 0.01em;
-}
-
-@media (max-width: 900px) {
-  .pk-pdesc__row--section > .pk-pdesc__content,
-  .pk-pdesc__row--section > .pk-pdesc__content.pk-pdesc__content--text,
-  .pk-pdesc__row--full > .pk-pdesc__content {
-    max-width: none;
-  }
 }
 
 /* ════════════════════════════════════════════════════════════════════

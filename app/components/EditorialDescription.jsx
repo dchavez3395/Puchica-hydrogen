@@ -59,14 +59,20 @@ export function EditorialDescription({
   }, [html]);
 
   // Walk the merchant body once and emit `{kind, html}` chunks in
-  // source order. The merchant wraps every inline image in
-  // `<p><b><img></b></p>` — each match is a single image chunk, and
-  // the prose between matches is a text chunk. This is the building
-  // block for Layout A's zigzag render below.
+  // source order. The merchant wraps every inline image in one of
+  // a few patterns — `<p><b><img></b></p>`, `<p><span><img></span></p>`,
+  // a bare `<p><img></p>`, or occasionally a `<div class="grid_devider">
+  // <img></div>`. Each match is a single image chunk, and the prose
+  // between matches is a text chunk. This is the building block for
+  // Layout A's paired-column render below.
   const chunks = useMemo(() => {
     if (!html) return [];
+    // One regex that catches every common inline-image wrapper.
+    // Group 1 captures the entire matching block so we can emit it
+    // intact. We require the `<img>` to be the only meaningful
+    // content inside the wrapper (whitespace between tags is OK).
     const re =
-      /<p[^>]*>\s*<b[^>]*>\s*<img\b[^>]*\/?>\s*<\/b>\s*<\/p>/gi;
+      /<(p|div)[^>]*>(?:\s*<(b|span|strong|em|i|figure|div)[^>]*>)?\s*<img\b[^>]*\/?>\s*(?:<\/(b|span|strong|em|i|figure|div)[^>]*>)?\s*<\/\1>/gi;
     const out = [];
     let last = 0;
     let m;
@@ -93,31 +99,27 @@ export function EditorialDescription({
 
   // ── Layout A: inline media present ─────────────────────────────
   // Walk the chunk sequence and pair each text chunk with the
-  // image chunk that follows it. Each pair becomes one vertical
-  // section: text on top, image directly below it. The image
-  // sits UNDER the h2 / intro paragraph, not beside it.
+  // image chunk that follows it. Each pair becomes one section
+  // with text on one side and the image on the other — the
+  // columns alternate per section so the page reads top-to-bottom
+  // like a magazine spread.
   //
   //   ┌─────────────────────────────────────────────────────────┐
-  //   │ section 0                                              │
-  //   │   h2 + intro paragraph                                 │
-  //   │   image 1                                              │
+  //   │ section 0  (text LEFT, image RIGHT)                     │
+  //   │   h2 + intro paragraph  |  image 1                     │
   //   ├─────────────────────────────────────────────────────────┤
-  //   │ section 1                                              │
-  //   │   paragraph 2                                          │
-  //   │   image 2                                              │
+  //   │ section 1  (image LEFT, text RIGHT)                     │
+  //   │   image 2              |  paragraph 2                  │
   //   ├─────────────────────────────────────────────────────────┤
-  //   │ section 2                                              │
-  //   │   "That's not all" + 8-bullet features list            │
-  //   │   image 3                                              │
+  //   │ section 2  (text LEFT, image RIGHT)                     │
+  //   │   features list        |  image 3                      │
   //   ├─────────────────────────────────────────────────────────┤
-  //   │ section 3 (trailing)                                   │
-  //   │   SPECS heading + 12-bullet specs list (full-width)   │
+  //   │ section 3 (trailing — full width)                       │
+  //   │   SPECS heading + 12-bullet specs list                  │
   //   └─────────────────────────────────────────────────────────┘
   //
-  // Each section uses the full grid width — text and image
-  // stack vertically rather than side-by-side, so the image
-  // is always directly under the h2/paragraph that introduces
-  // it. No alternating side-rails, no half-empty columns.
+  // Both columns share the same vertical rhythm and the same inner
+  // width cap. On narrow viewports the columns stack.
   if (hasInlineMedia) {
     // Build sections: walk the chunk sequence and pair each
     // text chunk with the immediately-following image chunk.
@@ -163,17 +165,22 @@ export function EditorialDescription({
               ? headingHtml + section.text.html
               : section.text?.html || '';
 
+            // Alternate the column order: even sections get text-
+            // left / image-right, odd sections get image-left /
+            // text-right. This is the magazine zigzag.
+            const flipped = i % 2 === 1;
+
             return (
               <ScrollReveal
                 key={i}
                 as="div"
                 variant="up"
-                className={`pk-pdesc__row pk-pdesc__row--section ${
-                  section.trailing ? 'pk-pdesc__row--full' : ''
+                className={`pk-pdesc__pair ${
+                  flipped ? 'pk-pdesc__pair--flip' : ''
                 }`}
               >
                 {section.text && (
-                  <div className="pk-pdesc__content pk-pdesc__content--text">
+                  <div className="pk-pdesc__col pk-pdesc__col--text">
                     <div
                       className="pk-pdesc__text"
                       dangerouslySetInnerHTML={{__html: textHtml}}
@@ -181,7 +188,7 @@ export function EditorialDescription({
                   </div>
                 )}
                 {section.image && (
-                  <div className="pk-pdesc__content pk-pdesc__content--image">
+                  <div className="pk-pdesc__col pk-pdesc__col--image">
                     <div
                       className="pk-pdesc__image"
                       dangerouslySetInnerHTML={{
@@ -193,6 +200,30 @@ export function EditorialDescription({
               </ScrollReveal>
             );
           })}
+
+          {/* Trailing image-only chunks (no preceding text) get
+           * their own full-width slot under the last paired row. */}
+          {chunks
+            .filter((c) => c.kind === 'image')
+            .filter((c) =>
+              // was this image already consumed by a pair?
+              !sections.some((s) => s.image === c),
+            )
+            .map((orphan, j) => (
+              <ScrollReveal
+                key={`orphan-${j}`}
+                as="div"
+                variant="up"
+                className="pk-pdesc__pair pk-pdesc__pair--solo"
+              >
+                <div className="pk-pdesc__col pk-pdesc__col--image">
+                  <div
+                    className="pk-pdesc__image"
+                    dangerouslySetInnerHTML={{__html: orphan.html}}
+                  />
+                </div>
+              </ScrollReveal>
+            ))}
         </div>
       </section>
     );
@@ -225,19 +256,17 @@ export function EditorialDescription({
         ) : null}
       </ScrollReveal>
 
-      <div className="pk-pdesc__blocks">
+      <div className="pk-pdesc__blocks pk-pdesc__blocks--stack">
         {lead ? (
           <ScrollReveal
             as="div"
             variant="up"
-            className="pk-pdesc__row pk-pdesc__row--section"
+            className="pk-pdesc__row"
           >
-            <div className="pk-pdesc__content pk-pdesc__content--text">
-              <div
-                className="pk-pdesc__text"
-                dangerouslySetInnerHTML={{__html: lead}}
-              />
-            </div>
+            <div
+              className="pk-pdesc__text"
+              dangerouslySetInnerHTML={{__html: lead}}
+            />
           </ScrollReveal>
         ) : null}
 
@@ -245,11 +274,9 @@ export function EditorialDescription({
           <ScrollReveal
             as="div"
             variant="up"
-            className="pk-pdesc__row pk-pdesc__row--section"
+            className="pk-pdesc__row"
           >
-            <div className="pk-pdesc__content pk-pdesc__content--image">
-              {visual}
-            </div>
+            {visual}
           </ScrollReveal>
         ) : null}
 
@@ -257,7 +284,7 @@ export function EditorialDescription({
           <ScrollReveal
             as="div"
             variant="up"
-            className="pk-pdesc__row pk-pdesc__row--full"
+            className="pk-pdesc__row"
           >
             <div
               className="pk-pdesc__text"
