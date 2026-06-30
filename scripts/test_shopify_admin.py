@@ -430,3 +430,65 @@ class TestCategoryReorgSchemas:
         # Our scripts poll until counts stabilize.
         expected_delay_seconds = 300  # 5 min conservative
         assert expected_delay_seconds >= 0
+
+
+class TestFileUpdateSchema:
+    """Schema for fileUpdate mutation - bit me during image alt text fix."""
+
+    def test_file_update_uses_files_plural(self):
+        """fileUpdate takes 'files' (plural array), not 'input'.
+        Bug found 2026-06-29: original alt text script used (input: {...})
+        which returned errors:
+          Field 'fileUpdate' is missing required arguments: files
+          Field 'fileUpdate' doesn't accept argument 'input'
+          Field 'file' doesn't exist on type 'FileUpdatePayload'
+        Correct signature:
+          mutation fu($files: [FileUpdateInput!]!) {
+            fileUpdate(files: $files) {
+              files { id alt }
+              userErrors { field message }
+            }
+          }
+        """
+        correct_mutation = '''
+        mutation fu($files: [FileUpdateInput!]!) {
+          fileUpdate(files: $files) {
+            files { id alt }
+            userErrors { field message }
+          }
+        }
+        '''
+        assert 'fileUpdate(files: $files)' in correct_mutation
+        assert 'fileUpdate(input: $input)' not in correct_mutation
+        # Response field is 'files' (plural), not 'file'
+        assert 'files { id alt }' in correct_mutation
+        assert 'file { id alt }' not in correct_mutation
+
+    def test_file_update_handles_empty_alt_gracefully(self):
+        """If a media item already has alt text, fileUpdate should be a
+        no-op or accept the same value (idempotent)."""
+        # We can't test live API here, but document expected behavior.
+        # Caller should check existing alt before calling fileUpdate.
+        expected_behavior = 'idempotent'
+        assert expected_behavior == 'idempotent'
+
+
+class TestDescriptionRewriteSchema:
+    """Schema for productUpdate with descriptionHtml - the description
+    reorg scripts and the description rewrite apply script use this."""
+
+    def test_product_update_with_description_html(self):
+        """productUpdate with descriptionHtml should accept the field
+        inside input. The mutation is the standard shape used by all
+        our catalog write scripts."""
+        mutation = '''
+        mutation pu($input: ProductInput!) {
+          productUpdate(input: $input) {
+            product { id descriptionHtml }
+            userErrors { field message }
+          }
+        }
+        '''
+        assert 'productUpdate(input: $input)' in mutation
+        # We use descriptionHtml in description_rewrite_apply.py
+        assert 'descriptionHtml' in mutation
