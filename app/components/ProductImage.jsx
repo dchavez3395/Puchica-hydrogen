@@ -122,7 +122,14 @@ export function ProductImage({
     ? {'--pk-product-accent': accentColor}
     : undefined;
 
-  const has3D = modelAvailable;
+  // 3D viewer is temporarily disabled — the WebGL bundle (three.js
+  // + drei + fiber) crashes the route when the toggle is clicked,
+  // throwing an unhandled error that the route ErrorBoundary
+  // renders as a 404-style page. The product gallery already
+  // shows all images via the horizontal thumbnail strip + hover
+  // magnifier, so the affordance can wait until the bundle is
+  // stabilized. Re-enable by setting this to `modelAvailable`.
+  const has3D = false;
   // Pass the accent color down so the 3D scene can tint its rim light.
   const hero3DAccent = accentColor;
 
