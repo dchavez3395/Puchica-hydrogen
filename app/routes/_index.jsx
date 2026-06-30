@@ -3,7 +3,7 @@ import {Suspense, useEffect, useRef, useState} from 'react';
 import {Image, Money} from '@shopify/hydrogen';
 import {error as logError} from '~/lib/logger';
 import {useT} from '~/lib/t';
-import {diversifyByVendor} from '~/lib/diversify';
+import {diversifyByVendor, prioritizeTag} from '~/lib/diversify';
 import {IconGift, IconHeart, IconSparkles, IconStar, IconHome, IconLeaf, IconLightbulb, IconPawPrint} from '~/components/Icons';
 import StarGlyph from '~/components/StarGlyph';
 import {puchicaMeta, organizationJsonLd, websiteJsonLd, JsonLdScript} from '~/lib/seo';
@@ -68,7 +68,7 @@ function loadDeferredData({context}) {
   const norm = () => (res) => {
     const nodes =
       res?.collection?.products?.nodes ?? res?.products?.nodes ?? [];
-    return diversifyByVendor(nodes);
+    return prioritizeTag(nodes, 'for-you');
   };
 
   // Trending curated collection → hero deck + discover swiper
@@ -1277,6 +1277,7 @@ function CatalogStatement() {
 const RACK_QUERY = `#graphql
   fragment RackProduct on Product {
     id title handle
+    tags
     priceRange { minVariantPrice { amount currencyCode } }
     featuredImage { id url altText width height }
   }
@@ -1293,6 +1294,7 @@ const RACK_QUERY = `#graphql
 const TRENDING_QUERY = `#graphql
   fragment TrendingProduct on Product {
     id title handle
+    tags
     priceRange { minVariantPrice { amount currencyCode } }
     featuredImage { id url altText width height }
     variants(first: 1) {
@@ -1331,6 +1333,7 @@ const BEST_PICKS_QUERY = `#graphql
 const NEW_ARRIVALS_QUERY = `#graphql
   fragment NewArrival on Product {
     id title handle
+    tags
     priceRange { minVariantPrice { amount currencyCode } }
     featuredImage { id url altText width height }
   }
@@ -1347,6 +1350,7 @@ const NEW_ARRIVALS_QUERY = `#graphql
 const FRESH_FINDS_QUERY = `#graphql
   fragment FreshFind on Product {
     id title handle
+    tags
     priceRange { minVariantPrice { amount currencyCode } }
     featuredImage { id url altText width height }
   }
@@ -1363,6 +1367,7 @@ const FRESH_FINDS_QUERY = `#graphql
 const DISCOVER_QUERY = `#graphql
   fragment DiscoverProduct on Product {
     id title handle
+    tags
     priceRange { minVariantPrice { amount currencyCode } }
     featuredImage { id url altText width height }
     variants(first: 1) {
@@ -1382,6 +1387,7 @@ const DISCOVER_QUERY = `#graphql
 const MATCH_QUERY = `#graphql
   fragment MatchProduct on Product {
     id title handle
+    tags
     priceRange { minVariantPrice { amount currencyCode } }
     featuredImage { id url altText width height }
     variants(first: 1) {
