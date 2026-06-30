@@ -4038,51 +4038,22 @@ button:focus-visible,
 .pk-pdesc__body strong { font-weight: 700; }
 .pk-pdesc__body a { color: var(--pk-ember); }
 .pk-pdesc__body a:hover { text-decoration: underline; }
-/* Merchant images inside the description body should sit BESIDE the
- * prose — not stacked above it — and they should ZIGZAG across the
- * column so consecutive sections read "image-left/text-right, then
- * text-left/image-right, then image-left/text-right…". Capped at
- * 50% of the column width with a 220px minimum so small viewports
- * don't squish them. Video follows the same rule. Iframe stays at
- * full width (16:9 hero/section).
- *
- * The merchant's HTML wraps inline images in `<p><b><img></b></p>`,
- * with regular prose `<p>`s interleaved between them. To get true
- * alternation we count only the image-containing `<p>` siblings via
- * `:nth-of-type(odd|even of :has(> img))` — so the float direction
- * flips per inline image, regardless of how many prose `<p>`s sit
- * between them. */
+/* Inline <img>/<video> in the description body are extracted out into
+ * `.pk-pdesc__media-col` (Layout A) and rendered in their own
+ * vertical stack via `.pk-pdesc__image-stack`. The text column on
+ * the left never sees them — no float, no wrap, no left/right
+ * alternation. The rules below are a defensive reset for the rare
+ * case where an image slips through extraction: cap at full column
+ * width with rounded corners, no float. */
 .pk-pdesc__body img,
 .pk-pdesc__body video {
   display: block;
-  max-width: 50%;
-  min-width: 220px;
-  width: auto;
+  max-width: 100%;
+  width: 100%;
   height: auto;
   border-radius: 14px;
-  shape-outside: margin-box;
-  shape-margin: 12px;
+  margin: 20px 0;
 }
-/* 1st inline image → left, prose wraps on its right. */
-.pk-pdesc__body > p:has(> img):nth-of-type(odd of :has(> img)) img,
-.pk-pdesc__body > p:has(> img):nth-of-type(odd of :has(> img)) video {
-  float: left;
-  margin: 4px 24px 14px 0;
-}
-/* 2nd → right, prose wraps on its left. */
-.pk-pdesc__body > p:has(> img):nth-of-type(even of :has(> img)) img,
-.pk-pdesc__body > p:has(> img):nth-of-type(even of :has(> img)) video {
-  float: right;
-  margin: 4px 0 14px 24px;
-}
-/* Plain inline <img> not wrapped in a paragraph (rare) — default
- * to left like the first pattern. */
-.pk-pdesc__body > img,
-.pk-pdesc__body > video {
-  float: left;
-  margin: 4px 24px 14px 0;
-}
-
 .pk-pdesc__body iframe {
   max-width: 100%;
   width: 100%;
@@ -4092,18 +4063,6 @@ button:focus-visible,
   border-radius: 14px;
   display: block;
   margin: 20px 0;
-}
-
-/* On phone widths the column is too narrow to wrap beside a 50%
- * image. Stack to full width instead. */
-@media (max-width: 700px) {
-  .pk-pdesc__body img,
-  .pk-pdesc__body video {
-    float: none;
-    max-width: 100%;
-    min-width: 0;
-    margin: 16px 0;
-  }
 }
 /* Pull-quote treatment for any <blockquote> the merchant adds. */
 .pk-pdesc__body blockquote {
@@ -9805,35 +9764,36 @@ button:focus-visible,
 }
 
 /* Inline-media variant of the editorial block. When the merchant's
- * descriptionHtml carries <img>/<video> tags, render the lead
- * (eyebrow + heading) in a narrow left column and let the full body
- * prose flow in a wider right column. The right column owns the full
- * prose body — including its interleaved inline images — so the
- * CSS-driven `nth-of-type(odd|even of :has(> img))` alternation
- * can float those images against a healthy text wrap (no upstream
- * mosaic to compete with). On mobile the two columns stack
- * vertically. */
+ * descriptionHtml carries <img>/<video> tags, we split the body into
+ * text-only and image-only chunks in JSX and render them in two
+ * dedicated columns:
+ *   • Left  → eyebrow + the full text prose (paragraphs, lists, headings).
+ *            No images live here, no text wraps beside images.
+ *   • Right → editorial h2 + the merchant's images stacked vertically.
+ *
+ * The left column gets more space (it's where readers spend their time)
+ * and stays sticky so the eyebrow stays visible while the body scrolls.
+ * On mobile the columns stack vertically with text first, then heading
+ * and image stack. */
 .pk-pdesc__with-media {
   display: grid;
-  grid-template-columns: minmax(180px, 1fr) minmax(0, 2.2fr);
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
   gap: clamp(24px, 4vw, 56px);
   align-items: start;
 }
-.pk-pdesc__lead-col {
+.pk-pdesc__text-col {
   position: sticky;
   top: 24px;
   align-self: start;
 }
-.pk-pdesc__lead-col .pk-split__eyebrow { margin: 0; }
-.pk-pdesc__body-col { min-width: 0; }
-/* Inline heading inside the body column — the merchant's
- * descriptionHtml already contains an <h3> product title at the top
- * (e.g. "Garden Hose Splitter 4 Way"), so this h2 stays modest:
- * it's the editorial section heading, sized below a true hero. A
- * thin ember rule on the left ties it to the eyebrow above and to
- * the rest of the editorial sections. */
+.pk-pdesc__text-col .pk-split__eyebrow { margin: 0 0 22px; }
+.pk-pdesc__media-col { min-width: 0; }
+/* Inline heading inside the media column — sized smaller than the
+ * section hero since the merchant's body already contains an <h3>
+ * product title (e.g. "Garden Hose Splitter 4 Way"). A thin ember
+ * rule on the left ties it visually to the other editorial h2s. */
 .pk-pdesc__heading-inline {
-  margin: 0 0 24px;
+  margin: 0 0 22px;
   padding-left: 18px;
   position: relative;
   font-size: clamp(22px, 2.4vw, 28px);
@@ -9852,12 +9812,28 @@ button:focus-visible,
   border-radius: 2px;
   background: linear-gradient(180deg, var(--pk-ember) 0%, transparent 100%);
 }
+/* Image stack — each merchant image renders as a clean rounded card
+ * in the right column. Generous vertical breathing room between them
+ * so the column reads as a gallery. */
+.pk-pdesc__image-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.pk-pdesc__image-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  border: 1px solid var(--pk-border);
+  background: var(--pk-surface-2, var(--pk-cream-soft));
+}
 @media (max-width: 900px) {
   .pk-pdesc__with-media {
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 32px;
   }
-  .pk-pdesc__lead-col { position: static; }
+  .pk-pdesc__text-col { position: static; }
 }
 
 /* ════════════════════════════════════════════════════════════════════

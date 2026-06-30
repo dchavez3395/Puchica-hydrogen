@@ -9,11 +9,12 @@ import {SplitSection, MosaicFromGallery, EditorialAccent} from './SplitSection';
  * `<img>` / `<video>` tags:
  *
  *   • With inline media (e.g. Garden Hose Splitter, Giant Teddy Bear):
- *     Skip the dedicated top visual column entirely. Render the lead
- *     heading on the left and the full body (with floating inline
- *     images) on the right at desktop, both as one `.pk-pdesc` block.
- *     The inline images become the visual rhythm — they alternate
- *     left/right via `.pk-pdesc__body > p:has(> img):nth-of-type(…)`.
+ *     Pure two-column split. Left column carries the eyebrow plus the
+ *     text-only portion of the body (paragraphs, lists, headings).
+ *     Right column carries the section heading plus the merchant's
+ *     inline images stacked vertically. No text wraps beside images —
+ *     text and images live in separate columns and read as
+ *     "text on one side, images on the other."
  *
  *   • Without inline media (most products):
  *     Keep the original three-zone layout: eyebrow + headline, then
@@ -46,11 +47,23 @@ export function EditorialDescription({html, productType, galleryImages = [], eye
   }, [html]);
 
   // Detect whether the merchant's body has inline <img>/<video>
-  // media interleaved with the prose. If so, treat those images as
-  // the editorial visual zone and skip the redundant top mosaic.
-  const hasInlineMedia = useMemo(() => {
-    if (!html) return false;
-    return /<(img|video)\b/i.test(html);
+  // media interleaved with the prose. If so, we split the body into
+  // a text-only chunk and an images-only chunk and render them in
+  // separate columns.
+  const {textOnly, imagesOnly} = useMemo(() => {
+    if (!html) return {textOnly: '', imagesOnly: []};
+    const hasMedia = /<(img|video)\b/i.test(html);
+    if (!hasMedia) return {textOnly: html, imagesOnly: []};
+    // The merchant wraps every inline image in `<p><b><img></b></p>`.
+    // Strip those wrapper paragraphs from the text and capture their
+    // inner markup separately.
+    const wrapperRe = /<p[^>]*>\s*<b[^>]*>\s*(<img\b[^>]*\/?>)\s*<\/b>\s*<\/p>/gi;
+    const imgs = [];
+    const stripped = html.replace(wrapperRe, (_m, img) => {
+      imgs.push(img);
+      return '';
+    });
+    return {textOnly: stripped, imagesOnly: imgs};
   }, [html]);
 
   const useMosaic = useMemo(() => {
@@ -59,24 +72,36 @@ export function EditorialDescription({html, productType, galleryImages = [], eye
 
   if (!html) return null;
 
+  const hasInlineMedia = imagesOnly.length > 0;
+
   // ── Layout A: inline media present ─────────────────────────────
-  // Render the lead (heading) at full width, the body with floating
-  // inline images below it. The CSS handles the image alternation.
+  // Two-column magazine: text-only body on the left, section heading
+  // + stacked inline images on the right. No text wraps beside
+  // images — they live in dedicated zones.
   if (hasInlineMedia) {
     return (
       <section className="pk-pdesc pk-split pk-split--left">
         <div className="pk-split__inner pk-pdesc__with-media">
-          <div className="pk-split__col-text pk-pdesc__lead-col">
+          <div className="pk-split__col-text pk-pdesc__text-col">
             <p className="pk-split__eyebrow">{eyebrow}</p>
+            <div
+              className="pk-pdesc__body"
+              dangerouslySetInnerHTML={{__html: textOnly}}
+            />
           </div>
-          <div className="pk-split__col-visual pk-pdesc__body-col">
+          <div className="pk-split__col-visual pk-pdesc__media-col">
             <h2 className="pk-split__headline pk-pdesc__heading-inline">
               {productType || ''}
             </h2>
-            <div
-              className="pk-pdesc__body"
-              dangerouslySetInnerHTML={{__html: html}}
-            />
+            <div className="pk-pdesc__image-stack">
+              {imagesOnly.map((img, i) => (
+                <div
+                  key={i}
+                  className="pk-pdesc__image-item"
+                  dangerouslySetInnerHTML={{__html: img}}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </section>
