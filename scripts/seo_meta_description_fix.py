@@ -103,7 +103,7 @@ def main():
     fails = 0
     applied = 0
     with ShopifyAdmin() as s:
-        for r in to_fix:
+        for i, r in enumerate(to_fix):
             try:
                 res = s.gql('''
                 mutation pu($input: ProductInput!) {
@@ -118,14 +118,17 @@ def main():
                 if errs:
                     fails += 1
                     if not args.quiet:
-                        print(f'  FAIL {r["handle"]}: {errs}')
+                        print(f'  FAIL {r["handle"]}: {errs}', flush=True)
                 else:
                     applied += 1
-                time.sleep(0.05)
+                # Progress every 25 items
+                if (i + 1) % 25 == 0:
+                    print(f'  [{i+1}/{len(to_fix)}] applied={applied} failed={fails}', flush=True)
+                time.sleep(0.2)
             except (ShopifyGraphQLError, urllib.error.HTTPError) as e:
                 fails += 1
                 if not args.quiet:
-                    print(f'  ERR  {r["handle"]}: {e}')
+                    print(f'  ERR  {r["handle"]}: {e}', flush=True)
 
     print(f'\n=== DONE ===')
     print(f'  Applied: {applied}/{len(to_fix)}')
