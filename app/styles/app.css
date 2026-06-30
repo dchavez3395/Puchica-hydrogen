@@ -9573,6 +9573,10 @@ button:focus-visible,
   margin-top: 14px;
   width: 100%;
 }
+/* Make the three children of the buy row share the same vertical
+ * baseline regardless of their internal padding / inner spans. */
+.pk-qty-row > * { align-self: center; }
+.pk-qty-row__atc form { margin: 0; }
 .pk-qty {
   display: inline-flex;
   align-items: center;
@@ -9762,7 +9766,7 @@ button:focus-visible,
   flex-direction: column;
   /* Breathing room between rows so each pair reads as its own
    * editorial moment. */
-  gap: clamp(40px, 5vw, 72px);
+  gap: 1rem;
 }
 
 /* Section row: each text chunk and its image partner are stacked
@@ -9780,13 +9784,9 @@ button:focus-visible,
 .pk-pdesc__row--section > .pk-pdesc__content {
   max-width: 880px;
   width: 100%;
-  margin: 0 auto;
 }
 /* Text content inside a section gets a slightly narrower cap so
  * prose lines are readable. */
-.pk-pdesc__row--section > .pk-pdesc__content.pk-pdesc__content--text {
-  max-width: 720px;
-}
 
 /* Full-width section: trailing text (e.g. SPECS list) without an
  * image partner, or any single-child section. Spans the whole
@@ -9913,8 +9913,8 @@ button:focus-visible,
 }
 
 .pk-split__inner {
-  max-width: 1080px;
-  margin: 0 auto;
+  margin: auto;
+  padding-top: 1rem;
   display: grid;
   grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
   gap: clamp(24px, 3vw, 48px);
@@ -9942,30 +9942,49 @@ button:focus-visible,
  * zigzag pattern has a single editorial frame per row. */
 .pk-split__header {
   max-width: 1080px;
-  margin: 0 auto clamp(24px, 3vw, 36px);
-  padding-left: 22px;
+  margin: 0 auto clamp(28px, 3.4vw, 40px);
+  padding: 4px 0 4px 28px;
   position: relative;
 }
+/* Editorial chapter mark — a thicker, fully-filled ember bar with
+ * a small dot at the top, so the accent reads as a deliberate
+ * marker rather than a stray hairline. The bar runs the full
+ * height of the header (eyebrow + headline) so it visually owns
+ * the section. */
 .pk-split__header::before {
   content: '';
   position: absolute;
   left: 0;
   top: 0;
-  width: 3px;
-  height: 50px;
+  bottom: 0;
+  width: 4px;
   border-radius: 2px;
-  background: linear-gradient(180deg, var(--pk-ember) 0%, transparent 100%);
+  background: var(--pk-ember);
+}
+.pk-split__header::after {
+  content: '';
+  position: absolute;
+  left: -3px;
+  top: -3px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--pk-ember);
+  box-shadow: 0 0 0 3px var(--pk-cream);
+}
+.pk-split--inverse .pk-split__header::after {
+  box-shadow: 0 0 0 3px var(--pk-surface-2, #15110d);
 }
 .pk-split__header .pk-split__eyebrow { margin: 0 0 14px; }
 .pk-split__header .pk-split__headline { margin: 0; max-width: 22ch; }
 
 /* Body tail — full-width wrap under the side-by-side grid. Visually
- * reads as "the rest of the article" — top divider hints at the
- * break, then the prose flows at full column width. */
+ * reads as "the rest of the article" — a top ember rule hints at
+ * the break, then the prose flows at full column width. */
 .pk-split__body-tail {
   max-width: 1080px;
-  margin: clamp(24px, 3vw, 36px) auto 0;
-  padding-left: 22px;
+  margin: clamp(28px, 3.4vw, 40px) auto 0;
+  padding: 4px 0 4px 28px;
   position: relative;
 }
 .pk-split__body-tail::before {
@@ -9973,10 +9992,24 @@ button:focus-visible,
   position: absolute;
   left: 0;
   top: 0;
-  width: 3px;
-  height: 60px;
+  bottom: 0;
+  width: 4px;
   border-radius: 2px;
-  background: linear-gradient(180deg, var(--pk-ember) 0%, transparent 100%);
+  background: var(--pk-ember);
+}
+.pk-split__body-tail::after {
+  content: '';
+  position: absolute;
+  left: -3px;
+  top: -3px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--pk-ember);
+  box-shadow: 0 0 0 3px var(--pk-cream);
+}
+.pk-split--inverse .pk-split__body-tail::after {
+  box-shadow: 0 0 0 3px var(--pk-surface-2, #15110d);
 }
 
 .pk-split__eyebrow {
@@ -10162,13 +10195,15 @@ button:focus-visible,
 
    Re-presents the Shipping accordion copy in editorial voice.
    ════════════════════════════════════════════════════════════════════ */
-.pk-care__lead,
-.pk-care__tail {
+.pk-care__text {
   display: grid;
-  gap: 18px;
+  gap: 24px;
 }
-.pk-care__lead h3,
-.pk-care__tail h3 {
+.pk-care__block {
+  display: grid;
+  gap: 10px;
+}
+.pk-care__block h3 {
   margin: 0;
   font-family: var(--pk-font-display);
   font-size: 18px;
@@ -10176,18 +10211,17 @@ button:focus-visible,
   letter-spacing: -0.01em;
   color: var(--pk-paper);
 }
-.pk-care__lead p,
-.pk-care__tail p {
+.pk-care__block p {
   margin: 0;
   font-size: 15px;
   line-height: 1.7;
   color: rgba(244, 240, 230, 0.82);
 }
-/* When the tail sits below the visual on the dark surface, give it
- * a top rule so the magazine wrap reads clearly. */
-.pk-care__tail {
-  margin-top: 0;
-  padding-top: 28px;
+/* Subtle hairline between the two text blocks on the dark
+ * surface, so Shipping and Returns read as siblings in the
+ * same column rather than two separate sections. */
+.pk-care__block + .pk-care__block {
+  padding-top: 24px;
   border-top: 1px solid rgba(244, 240, 230, 0.12);
 }
 

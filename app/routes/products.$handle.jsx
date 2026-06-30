@@ -182,9 +182,13 @@ export default function Product() {
             </div>
           </ScrollReveal>
 
-          {/* ── Trust block: 3 rows of promise, neutral hairline chips
+          {/* ── Trust block: 4 rows of promise, neutral hairline chips
               (no lime-pale fill). Each row reads heading + sub-line
-              inline so the block doesn't compete with the buy form. */}
+              inline so the block doesn't compete with the buy form.
+              The 4th row used to live alone in a separate `.pk-product__perks`
+              list below the promise callout — keeping it stranded there
+              made the curated-pick feel like a stray orphan. It now
+              sits with the other trust promises. */}
           <div className="pk-product__trust" aria-label={t('product_perks_aria')}>
             <div className="pk-product__trust-item">
               <span className="pk-product__trust-icon" aria-hidden>
@@ -213,6 +217,14 @@ export default function Product() {
                 <em>{t('product_trust_secure_sub')}</em>
               </span>
             </div>
+            <div className="pk-product__trust-item">
+              <span className="pk-product__trust-icon" aria-hidden>
+                <IconCheck size={14} />
+              </span>
+              <span className="pk-product__trust-copy">
+                <strong>{t('product_perk_curated')}</strong>
+              </span>
+            </div>
           </div>
 
           {/* ── Promise callout — the brand's strongest care signal
@@ -225,15 +237,6 @@ export default function Product() {
               {t('product_perk_packed')}
             </p>
           </div>
-
-          <ul className="pk-product__perks">
-            <li>
-              <span className="pk-product__perk-icon" aria-hidden>
-                <IconCheck size={14} />
-              </span>
-              <span>{t('product_perk_curated')}</span>
-            </li>
-          </ul>
         </div>
       </div>
 
@@ -287,9 +290,10 @@ export default function Product() {
       />
 
       {/* ── Care & shipping — alternating split row, text left /
-          mosaic right. Flipped from text-right to text-left to
-          continue the zigzag after Highlights. Mirrors the
-          Shipping accordion copy in a cleaner editorial voice. */}
+          mosaic right. Both Shipping and Returns live in the
+          same text column beside the mosaic so the section
+          reads as one decision unit. The previous `tail` slot
+          made Returns look like a third stray section. */}
       <SplitSection
         align="left"
         eyebrow={t('product_care_eyebrow')}
@@ -300,15 +304,15 @@ export default function Product() {
           <MosaicFromGallery images={galleryImages} title={title} />
         }
         head={
-          <div className="pk-care__lead">
-            <h3>{t('product_shipping_h')}</h3>
-            <p>{t('product_shipping_body')}</p>
-          </div>
-        }
-        tail={
-          <div className="pk-care__tail">
-            <h3>{t('product_returns_h')}</h3>
-            <p>{t('product_returns_body')}</p>
+          <div className="pk-care__text">
+            <div className="pk-care__block">
+              <h3>{t('product_shipping_h')}</h3>
+              <p>{t('product_shipping_body')}</p>
+            </div>
+            <div className="pk-care__block">
+              <h3>{t('product_returns_h')}</h3>
+              <p>{t('product_returns_body')}</p>
+            </div>
           </div>
         }
       />
