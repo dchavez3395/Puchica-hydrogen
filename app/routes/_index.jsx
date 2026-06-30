@@ -3,6 +3,7 @@ import {Suspense, useEffect, useRef, useState} from 'react';
 import {Image, Money} from '@shopify/hydrogen';
 import {error as logError} from '~/lib/logger';
 import {useT} from '~/lib/t';
+import {diversifyByVendor} from '~/lib/diversify';
 import {IconGift, IconHeart, IconSparkles, IconStar, IconHome, IconLeaf, IconLightbulb, IconPawPrint} from '~/components/Icons';
 import StarGlyph from '~/components/StarGlyph';
 import {puchicaMeta, organizationJsonLd, websiteJsonLd, JsonLdScript} from '~/lib/seo';
@@ -60,7 +61,15 @@ async function loadCriticalData() {
 
 function loadDeferredData({context}) {
   const {country, language} = context.storefront.i18n;
-  const norm = () => (res) => res?.collection?.products?.nodes ?? res?.products?.nodes ?? [];
+  // Pull the product node list from either `collection.products` or a
+  // top-level `products` connection (different queries use different
+  // shapes), then spread same-vendor products so adjacent items are
+  // from different vendors. See app/lib/diversify.js for the algorithm.
+  const norm = () => (res) => {
+    const nodes =
+      res?.collection?.products?.nodes ?? res?.products?.nodes ?? [];
+    return diversifyByVendor(nodes);
+  };
 
   // Trending curated collection → hero deck + discover swiper
   const trending = context.storefront
@@ -82,6 +91,27 @@ function loadDeferredData({context}) {
 
   const catWorld = context.storefront
     .query(CAT_WORLD_QUERY, {variables: {country, language}})
+    .then((res) => {
+      if (!res) return null;
+      // Re-rank each category's product list so the cover image
+      // (the first product) doesn't always come from the same
+      // dominant vendor.
+      const out = {};
+      for (const [k, col] of Object.entries(res)) {
+        if (col?.products?.nodes?.length) {
+          out[k] = {
+            ...col,
+            products: {
+              ...col.products,
+              nodes: diversifyByVendor(col.products.nodes),
+            },
+          };
+        } else {
+          out[k] = col;
+        }
+      }
+      return out;
+    })
     .catch((e) => { logError('catWorld query failed', e); return null; });
 
   // Collection showcase - 6 rotating categories
@@ -1252,7 +1282,7 @@ const RACK_QUERY = `#graphql
   }
   query RackProducts($country: CountryCode!, $language: LanguageCode!) @inContext(country: $country, language: $language) {
     collection(handle: "home-kitchen") {
-      products(first: 6, sortKey: BEST_SELLING) {
+      products(first: 6, sortKey: MANUAL) {
         nodes { ...RackProduct }
       }
     }
@@ -1322,7 +1352,7 @@ const FRESH_FINDS_QUERY = `#graphql
   }
   query FreshFinds($country: CountryCode!, $language: LanguageCode!) @inContext(country: $country, language: $language) {
     collection(handle: "beauty-personal-care") {
-      products(first: 6, sortKey: BEST_SELLING) {
+      products(first: 6, sortKey: MANUAL) {
         nodes { ...FreshFind }
       }
     }
@@ -1341,7 +1371,7 @@ const DISCOVER_QUERY = `#graphql
   }
   query DiscoverProducts($country: CountryCode!, $language: LanguageCode!) @inContext(country: $country, language: $language) {
     collection(handle: "electronics-accessories") {
-      products(first: 6, sortKey: BEST_SELLING) {
+      products(first: 6, sortKey: MANUAL) {
         nodes { ...DiscoverProduct }
       }
     }
@@ -1393,7 +1423,7 @@ const CAT_WORLD_QUERY = `#graphql
   }
   fragment CatCol on Collection {
     id title handle description
-    products(first: 4, sortKey: BEST_SELLING) {
+    products(first: 4, sortKey: MANUAL) {
       nodes { ...CatProduct }
     }
   }
