@@ -3441,7 +3441,7 @@ button:focus-visible,
   .pk-product__top { grid-template-columns: 1fr; gap: 24px; }
 }
 
-.pk-product__crumbs { margin: 0 0 18px; }
+.pk-product__crumbs { padding: 0 0 18px; }
 .pk-product__media {
   position: relative;
   display: grid;
@@ -3797,9 +3797,10 @@ button:focus-visible,
 .pk-product__badge--sold { background: #fce8e8; color: #b91c1c; }
 
 /* ── Price cluster ──
- * Wraps the price row + free-shipping progress so they read as one
- * decision unit. The price row gets a left ember rule and a larger
- * display size; the shipping progress sits below as a slim pill. */
+ * Wraps the price row so the price and any "sold out" badge read
+ * as one decision unit. The free-shipping progress bar that used
+ * to live here is gone — the policy claim is owned by the trust
+ * block / footer copy. */
 .pk-product__price-cluster {
   display: flex;
   flex-direction: column;
@@ -3843,49 +3844,6 @@ button:focus-visible,
   color: #b91c1c;
   padding: 4px 12px;
 }
-
-/* ── Free-shipping progress pill ──
- * Full-width of the info column; sits below the price. Slim bar
- * + single line of supporting copy. */
-.pk-ship-progress {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 12px 16px;
-  background: var(--pk-cream-soft);
-  border: 1px solid var(--pk-border);
-  border-radius: 999px;
-  font-size: 13px;
-  color: var(--pk-ink);
-}
-.pk-ship-progress__bar {
-  flex: 1;
-  height: 5px;
-  background: var(--pk-cream-dark);
-  border-radius: 999px;
-  overflow: hidden;
-  position: relative;
-  min-width: 60px;
-}
-.pk-ship-progress__bar span {
-  display: block;
-  height: 100%;
-  background: linear-gradient(90deg, var(--pk-ember) 0%, var(--pk-ember-hover) 100%);
-  border-radius: 999px;
-  transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.pk-ship-progress__msg {
-  margin: 0;
-  font-size: 13px;
-  color: var(--pk-ink);
-  white-space: nowrap;
-}
-.pk-ship-progress__msg strong { font-weight: 700; color: var(--pk-ember); }
-.pk-ship-progress--done { background: var(--pk-ember-pale); border-color: var(--pk-ember); }
-.pk-ship-progress--done .pk-ship-progress__bar span {
-  background: linear-gradient(90deg, var(--pk-lime) 0%, var(--pk-lime-hover) 100%);
-}
-.pk-ship-progress--done .pk-ship-progress__msg strong { color: var(--pk-ember); }
 
 /* ── Trust block ──
  * 3 vertical rows of promise. Neutral hairline chips replace the
@@ -10329,11 +10287,6 @@ button:focus-visible,
 }
 .pk-share__btn:hover {
   transform: translateY(-1px);
-}
-
-/* Free-shipping progress bar — animated fill. */
-.pk-ship-progress__bar span {
-  transition: width 0.4s cubic-bezier(.2,.7,.2,1);
 }
 
 /* Buy-box entrance — when the info column mounts, give it a

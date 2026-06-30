@@ -11,7 +11,7 @@ import {
 import {error as logError} from '~/lib/logger';
 import {ProductPrice} from '~/components/ProductPrice';
 import {ProductImage} from '~/components/ProductImage';
-import {ProductForm, FreeShippingProgress} from '~/components/ProductForm';
+import {ProductForm} from '~/components/ProductForm';
 import {ProductItem} from '~/components/ProductItem';
 import {
   IconTruck,
@@ -142,9 +142,11 @@ export default function Product() {
             <h1 className="pk-product__title">{title}</h1>
           </ScrollReveal>
 
-          {/* ── Price + free-shipping pill — owns its own cluster so the
-              eye reads the price, the threshold nudge, and the badge
-              as one decision unit before the buy form. */}
+          {/* ── Price row — owns its own cluster. The free-shipping
+              progress bar used to live here but is gone: the policy
+              claim is owned by the trust block / footer copy, and
+              the per-product fill bar felt like a marketing nudge
+              rather than a fact. */}
           <ScrollReveal
             as="div"
             className="pk-product__price-cluster"
@@ -162,11 +164,6 @@ export default function Product() {
                 </span>
               )}
             </div>
-            <FreeShippingProgress
-              selectedVariant={selectedVariant}
-              qty={1}
-              t={t}
-            />
           </ScrollReveal>
 
           {reviews && reviews.count > 0 ? (
