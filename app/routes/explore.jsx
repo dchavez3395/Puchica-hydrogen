@@ -21,10 +21,10 @@ export const meta = () => {
  * All active category handles that exist in this Shopify store.
  */
 const PRODUCT_CATEGORIES = [
-  'home-essentials',
+  'home-kitchen',
   'beauty-personal-care',
-  'tech-gadgets',
-  'pet-finds',
+  'electronics-accessories',
+  'pet-supplies',
   'outdoor-garden',
 ];
 
@@ -49,11 +49,11 @@ function handleToAlias(handle) {
  */
 function handleToLabel(handle, t) {
   const CATEGORY_MAP = {
-    'home-essentials':     t('explore_cat_home'),
+    'home-kitchen':         t('explore_cat_home'),
     'beauty-personal-care': t('explore_cat_beauty'),
-    'tech-gadgets':        t('explore_cat_tech'),
-    'pet-finds':           t('explore_cat_pet'),
-    'outdoor-garden':      t('explore_cat_outdoor'),
+    'electronics-accessories': t('explore_cat_tech'),
+    'pet-supplies':         t('explore_cat_pet'),
+    'outdoor-garden':       t('explore_cat_outdoor'),
   };
   return CATEGORY_MAP[handle] || handle
     .split('-')

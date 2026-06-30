@@ -83,11 +83,13 @@ export const DICTIONARIES = {
     // Mega menu category taglines (translated FR/ES/PT as a follow-up pass)
     megamenu_tagline_phone_case: 'Cases, grips, protection.',
     megamenu_tagline_home_essentials: 'Kitchen, storage, decor.',
+    megamenu_tagline_home_kitchen: 'Kitchen, storage, decor.',
     megamenu_tagline_electronics_accessories: 'Cables, chargers, mounts.',
     megamenu_tagline_apparel_accessories: 'Bags, hats, wearables.',
     megamenu_tagline_health_wellness: 'Skin, scent, grooming.',
     megamenu_tagline_sports_outdoors: 'Gear, fitness, fan shop.',
     megamenu_tagline_pet_finds: 'Toys, beds, things for them.',
+    megamenu_tagline_pet_supplies: 'Toys, beds, things for them.',
     megamenu_tagline_automotive: 'Interior, tools, gadgets.',
     megamenu_tagline_tools_home_improvement: 'Fix, build, organize.',
     megamenu_tagline_beauty_personal_care: 'Makeup, nails, self-care.',

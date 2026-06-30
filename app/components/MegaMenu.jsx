@@ -19,12 +19,12 @@ import {useT} from '~/lib/t';
 // Map handles to dictionary keys for category taglines.
 const TAGLINE_KEYS = {
   'phone-case': 'megamenu_tagline_phone_case',
-  'home-essentials': 'megamenu_tagline_home_essentials',
+  'home-kitchen': 'megamenu_tagline_home_kitchen',
   'electronics-accessories': 'megamenu_tagline_electronics_accessories',
   'apparel-accessories': 'megamenu_tagline_apparel_accessories',
   'health-wellness': 'megamenu_tagline_health_wellness',
   'sports-outdoors': 'megamenu_tagline_sports_outdoors',
-  'pet-finds': 'megamenu_tagline_pet_finds',
+  'pet-supplies': 'megamenu_tagline_pet_supplies',
   'automotive': 'megamenu_tagline_automotive',
   'tools-home-improvement': 'megamenu_tagline_tools_home_improvement',
   'beauty-personal-care': 'megamenu_tagline_beauty_personal_care',
@@ -41,12 +41,12 @@ const TAGLINE_KEYS = {
 // All 19 collection handles split into product categories and featured promos.
 const PRODUCT_CATEGORIES = [
   'phone-case',
-  'home-essentials',
+  'home-kitchen',
   'electronics-accessories',
   'apparel-accessories',
   'health-wellness',
   'sports-outdoors',
-  'pet-finds',
+  'pet-supplies',
   'automotive',
   'tools-home-improvement',
   'beauty-personal-care',
@@ -62,12 +62,12 @@ const FEATURED_CATEGORIES = ['best-sellers', 'trending-finds', 'gifts-under-25']
 // Map handles to the GraphQL alias keys used in MEGA_MENU_QUERY.
 const ALIAS_MAP = {
   'phone-case': 'phoneCase',
-  'home-essentials': 'homeEssentials',
+  'home-kitchen': 'homeKitchen',
   'electronics-accessories': 'electronicsAccessories',
   'apparel-accessories': 'apparelAccessories',
   'health-wellness': 'healthWellness',
   'sports-outdoors': 'sportsOutdoors',
-  'pet-finds': 'petFinds',
+  'pet-supplies': 'petSupplies',
   'automotive': 'automotive',
   'tools-home-improvement': 'toolsHomeImprovement',
   'beauty-personal-care': 'beautyPersonalCare',

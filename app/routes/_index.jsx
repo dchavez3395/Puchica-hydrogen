@@ -107,7 +107,7 @@ function loadDeferredData({context}) {
 
   const discoverProducts = context.storefront
     .query(DISCOVER_QUERY, {variables: {country, language}})
-    .then(norm('tech-gadgets'))
+    .then(norm('electronics-accessories'))
     .catch((e) => { logError('discoverProducts query failed', e); return []; });
 
   const matchProducts = context.storefront
@@ -854,11 +854,23 @@ function ProductRack({products}) {
 ───────────────────────────────────────────────────────────────── */
 function GiftFinder() {
   const t = useT();
+  // Price cards route to the live `best-sellers` collection with the
+  // `?price=…` param so the price filter actually narrows the
+  // products list. The simpler `/collections/all` view goes through
+  // `QueryRoot.products`, which doesn't accept a `ProductFilter` —
+  // only `Collection.products` does. So we need a real collection
+  // here for the filter to be honored.
+  //
+  // The `best-sellers` collection is the largest curated set in the
+  // catalog and is the closest thing to "the whole catalog" that
+  // supports price filtering on the current API. Gift cards under
+  // $25 map to the dedicated `gifts-under-25` collection which is
+  // hand-curated for that bracket.
   const PRICE_BRACKETS = [
-    {range: 'under-25', label: t('gift_under25_label'), sub: t('gift_under25_sub'), icon: IconGift},
-    {range: '25-50',    label: t('gift_25_50_label'),   sub: t('gift_25_50_sub'),   icon: IconHeart},
-    {range: '50-100',   label: t('gift_50_100_label'),  sub: t('gift_50_100_sub'),  icon: IconSparkles},
-    {range: '100-plus', label: t('gift_100_label'),     sub: t('gift_100_sub'),     icon: IconStar},
+    {range: 'under-25', label: t('gift_under25_label'), sub: t('gift_under25_sub'), icon: IconGift,    base: 'gifts-under-25'},
+    {range: '25-50',    label: t('gift_25_50_label'),   sub: t('gift_25_50_sub'),   icon: IconHeart,   base: 'best-sellers'},
+    {range: '50-100',   label: t('gift_50_100_label'),  sub: t('gift_50_100_sub'),  icon: IconSparkles,base: 'best-sellers'},
+    {range: '100-plus', label: t('gift_100_label'),     sub: t('gift_100_sub'),     icon: IconStar,    base: 'best-sellers'},
   ];
   return (
     <ScrollReveal variant="up">
@@ -870,10 +882,10 @@ function GiftFinder() {
             <p className="pk-gift__sub">{t('gift_sub')}</p>
           </div>
           <div className="pk-gift__grid">
-            {PRICE_BRACKETS.map(({range, label, sub, icon: Icon}, i) => (
+            {PRICE_BRACKETS.map(({range, label, sub, icon: Icon, base}, i) => (
               <ScrollReveal key={range} delay={i * 60} variant="up">
                 <TiltCard className="pk-gift__card-wrap" maxTilt={6}>
-                  <Link to={`/collections/all?price=${range}`} className="pk-gift__card" aria-label={`Shop gifts ${label}`}>
+                  <Link to={`/collections/${base}?price=${range}`} className="pk-gift__card" aria-label={`Shop gifts ${label}`}>
                     <span className="pk-gift__icon" aria-hidden="true"><Icon size={28} /></span>
                     <strong className="pk-gift__label">{label}</strong>
                     <span className="pk-gift__card-sub">{sub}</span>
@@ -943,22 +955,28 @@ const CAT_ORDER = ['home', 'beauty', 'tech', 'outdoor', 'pet'];
 function CategoryBento({res}) {
   const t = useT();
   const CAT_META = {
-    'home-essentials':      {tagline: t('cat_home_tagline'),    icon: IconHome},
-    'beauty-personal-care': {tagline: t('cat_beauty_tagline'),  icon: IconSparkles},
-    'tech-gadgets':         {tagline: t('cat_tech_tagline'),    icon: IconLightbulb},
-    'outdoor-garden':       {tagline: t('cat_outdoor_tagline'), icon: IconLeaf},
-    'pet-finds':            {tagline: t('cat_pet_tagline'),     icon: IconPawPrint},
+    'home-kitchen':          {tagline: t('cat_home_tagline'),    icon: IconHome},
+    'beauty-personal-care':  {tagline: t('cat_beauty_tagline'),  icon: IconSparkles},
+    'electronics-accessories': {tagline: t('cat_tech_tagline'),  icon: IconLightbulb},
+    'outdoor-garden':        {tagline: t('cat_outdoor_tagline'), icon: IconLeaf},
+    'pet-supplies':          {tagline: t('cat_pet_tagline'),     icon: IconPawPrint},
   };
   const cats = CAT_ORDER.map((k) => res?.[k]).filter(Boolean).slice(0, 5);
 
   if (!cats.length) return null;
+  // The bento uses explicit grid placement that's built for 5
+  // cards. When fewer categories return data, fall back to a
+  // simpler uniform grid so the section doesn't look like a
+  // half-built construction site.
+  const gridClass = `pk-bento__grid pk-bento__grid--n${cats.length} pk-inner`;
+
   return (
     <section id="section-categories" className="pk-bento" aria-label={t('cat_section_aria')}>
       <div className="pk-bento__head pk-inner">
         <p className="pk-bento__eye"><StarGlyph /> {t('cat_eyebrow')}</p>
         <h2 className="pk-bento__title">{t('cat_title')}</h2>
       </div>
-      <div className="pk-bento__grid pk-inner">
+      <div className={gridClass}>
         {cats.map((col, i) => {
           const meta = CAT_META[col.handle] ?? {tagline: t('cat_fallback_tagline'), icon: IconStar};
           const Icon = meta.icon;
@@ -1006,7 +1024,7 @@ function ShopByMood({catRes}) {
   const t = useT();
   const MOODS = [
     {
-      handle: 'home-essentials', catKey: 'home',
+      handle: 'home-kitchen', catKey: 'home',
       label: t('mood_home_label'),
       title: t('mood_home_title'),
       sub: t('mood_home_sub'),
@@ -1022,7 +1040,7 @@ function ShopByMood({catRes}) {
       icon: IconSparkles,
     },
     {
-      handle: 'tech-gadgets', catKey: 'tech',
+      handle: 'electronics-accessories', catKey: 'tech',
       label: t('mood_tech_label'),
       title: t('mood_tech_title'),
       sub: t('mood_tech_sub'),
@@ -1209,7 +1227,14 @@ function CatalogStatement() {
       <p className="pk-catalog-cta__body">{t('catalog_body')}</p>
       <div className="pk-catalog-cta__ctas">
         <Link to="/collections/all" className="pk-btn pk-btn--lg pk-btn--ink">{t('catalog_cta_browse')}</Link>
-        <Link to="/search" className="pk-btn pk-btn--lg pk-btn--outline">{t('catalog_cta_search')}</Link>
+        {/* The "Search the catalog" CTA used to link to /search with no
+            query string, which rendered the search route as an empty
+            page with just the input. Rather than pre-fill a query
+            (the search route's empty-state isn't designed to dump the
+            full catalog), the header already exposes a search
+            affordance, so the secondary CTA was removed. The
+            "catalog_cta_search" translation key is preserved for any
+            later use. */}
       </div>
     </section>
   );
@@ -1226,7 +1251,7 @@ const RACK_QUERY = `#graphql
     featuredImage { id url altText width height }
   }
   query RackProducts($country: CountryCode!, $language: LanguageCode!) @inContext(country: $country, language: $language) {
-    collection(handle: "home-essentials") {
+    collection(handle: "home-kitchen") {
       products(first: 6, sortKey: BEST_SELLING) {
         nodes { ...RackProduct }
       }
@@ -1315,7 +1340,7 @@ const DISCOVER_QUERY = `#graphql
     }
   }
   query DiscoverProducts($country: CountryCode!, $language: LanguageCode!) @inContext(country: $country, language: $language) {
-    collection(handle: "tech-gadgets") {
+    collection(handle: "electronics-accessories") {
       products(first: 6, sortKey: BEST_SELLING) {
         nodes { ...DiscoverProduct }
       }
@@ -1373,11 +1398,11 @@ const CAT_WORLD_QUERY = `#graphql
     }
   }
   query CatWorld($country: CountryCode!, $language: LanguageCode!) @inContext(country: $country, language: $language) {
-    home:    collection(handle: "home-essentials")      { ...CatCol }
-    beauty:  collection(handle: "beauty-personal-care") { ...CatCol }
-    tech:    collection(handle: "tech-gadgets")         { ...CatCol }
-    outdoor: collection(handle: "outdoor-garden")       { ...CatCol }
-    pet:     collection(handle: "pet-finds")            { ...CatCol }
+    home:    collection(handle: "home-kitchen")          { ...CatCol }
+    beauty:  collection(handle: "beauty-personal-care")  { ...CatCol }
+    tech:    collection(handle: "electronics-accessories") { ...CatCol }
+    outdoor: collection(handle: "outdoor-garden")        { ...CatCol }
+    pet:     collection(handle: "pet-supplies")          { ...CatCol }
   }
 `;
 

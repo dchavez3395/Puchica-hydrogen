@@ -257,12 +257,12 @@ export const MEGA_MENU_QUERY = `#graphql
   }
   query MegaMenu {
     phoneCase: collection(handle: "phone-case") { ...MegaCategory }
-    homeEssentials: collection(handle: "home-essentials") { ...MegaCategory }
+    homeKitchen: collection(handle: "home-kitchen") { ...MegaCategory }
     electronicsAccessories: collection(handle: "electronics-accessories") { ...MegaCategory }
     apparelAccessories: collection(handle: "apparel-accessories") { ...MegaCategory }
     healthWellness: collection(handle: "health-wellness") { ...MegaCategory }
     sportsOutdoors: collection(handle: "sports-outdoors") { ...MegaCategory }
-    petFinds: collection(handle: "pet-finds") { ...MegaCategory }
+    petSupplies: collection(handle: "pet-supplies") { ...MegaCategory }
     automotive: collection(handle: "automotive") { ...MegaCategory }
     toolsHomeImprovement: collection(handle: "tools-home-improvement") { ...MegaCategory }
     beautyPersonalCare: collection(handle: "beauty-personal-care") { ...MegaCategory }
