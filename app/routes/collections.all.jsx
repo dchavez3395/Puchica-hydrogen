@@ -72,7 +72,7 @@ async function loadCriticalData({context, request}) {
   const priceValue = url.searchParams.get('price') || null;
   void priceValue;
 
-  const [{products}] = await Promise.all([
+  const [{products, heroProducts}] = await Promise.all([
     context.storefront.query(CATALOG_QUERY, {
       variables: {
         country,
@@ -83,7 +83,7 @@ async function loadCriticalData({context, request}) {
       },
     }),
   ]);
-  return {products};
+  return {products, heroProducts};
 }
 
 function loadDeferredData() {
@@ -92,7 +92,7 @@ function loadDeferredData() {
 
 export default function Collection() {
   /** @type {LoaderReturnData} */
-  const {products} = useLoaderData();
+  const {products, heroProducts} = useLoaderData();
   const t = useT();
   const [searchParams, setSearchParams] = useSearchParams();
   const sortValue = searchParams.get('sort') || 'featured';
@@ -123,11 +123,13 @@ export default function Collection() {
       </nav>
 
       <PageHero
-        variant="paper"
         eyebrow={t('all_eyebrow')}
         title={t('all_title')}
         sub={t('all_sub')}
         count={formatCatalogCount(count, impliedTotal, hasNextPage, t)}
+        slides={(heroProducts?.nodes || [])
+          .map((p) => p.featuredImage)
+          .filter(Boolean)}
       />
 
       {count === 0 ? (
@@ -239,6 +241,15 @@ const CATALOG_QUERY = `#graphql
         hasNextPage
         startCursor
         endCursor
+      }
+    }
+    # Hero carousel: 8 bestsellers from the whole catalog. The
+    # /collections/all page uses the default PageHero variant
+    # (dark + cross-fade), so the slide deck sits behind the title.
+    heroProducts: products(first: 8, sortKey: BEST_SELLING) {
+      nodes {
+        id
+        featuredImage { id url altText width height }
       }
     }
   }

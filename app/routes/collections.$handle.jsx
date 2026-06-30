@@ -159,6 +159,9 @@ export default function Collection() {
       <PageHero
         image={collection.image}
         heroImage={collection.heroImage}
+        slides={(collection.heroProducts?.nodes || [])
+          .map((p) => p.featuredImage)
+          .filter(Boolean)}
         imageAlt={collection.image?.altText || collection.title}
         eyebrow={t('col_eyebrow')}
         title={collection.title}
@@ -478,6 +481,16 @@ const COLLECTION_QUERY = `#graphql
           hasNextPage
           endCursor
           startCursor
+        }
+      }
+      # Hero carousel: pull 8 bestsellers for the cross-fade slide
+      # deck behind the title. The PageHero falls back to this when
+      # no static image source is available. Cheap extra cost (~50
+      # units) and no second round-trip.
+      heroProducts: products(first: 8, sortKey: BEST_SELLING) {
+        nodes {
+          id
+          featuredImage { id url altText width height }
         }
       }
     }
