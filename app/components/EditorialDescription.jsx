@@ -75,29 +75,32 @@ export function EditorialDescription({html, productType, galleryImages = [], eye
   const hasInlineMedia = imagesOnly.length > 0;
 
   // ── Layout A: inline media present ─────────────────────────────
-  // Two-column magazine: text-only body on the left, section heading
-  // + stacked inline images on the right. No text wraps beside
-  // images — they live in dedicated zones.
+  // Two-column magazine. Left column owns the editorial framing
+  // (eyebrow + h2) plus ALL the merchant's prose text. Right column
+  // owns the merchant's images stacked vertically, alternating
+  // left/right within the column so consecutive images don't pile
+  // up on one side — image 1 leans left, image 2 leans right,
+  // image 3 leans left, and so on.
   if (hasInlineMedia) {
     return (
       <section className="pk-pdesc pk-split pk-split--left">
         <div className="pk-split__inner pk-pdesc__with-media">
           <div className="pk-split__col-text pk-pdesc__text-col">
             <p className="pk-split__eyebrow">{eyebrow}</p>
+            <h2 className="pk-split__headline pk-pdesc__heading-inline">
+              {productType || ''}
+            </h2>
             <div
               className="pk-pdesc__body"
               dangerouslySetInnerHTML={{__html: textOnly}}
             />
           </div>
           <div className="pk-split__col-visual pk-pdesc__media-col">
-            <h2 className="pk-split__headline pk-pdesc__heading-inline">
-              {productType || ''}
-            </h2>
             <div className="pk-pdesc__image-stack">
               {imagesOnly.map((img, i) => (
                 <div
                   key={i}
-                  className="pk-pdesc__image-item"
+                  className={`pk-pdesc__image-item pk-pdesc__image-item--${i % 2 === 0 ? 'left' : 'right'}`}
                   dangerouslySetInnerHTML={{__html: img}}
                 />
               ))}

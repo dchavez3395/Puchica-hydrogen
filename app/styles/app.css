@@ -9767,14 +9767,18 @@ button:focus-visible,
  * descriptionHtml carries <img>/<video> tags, we split the body into
  * text-only and image-only chunks in JSX and render them in two
  * dedicated columns:
- *   • Left  → eyebrow + the full text prose (paragraphs, lists, headings).
- *            No images live here, no text wraps beside images.
- *   • Right → editorial h2 + the merchant's images stacked vertically.
+ *   • Left  → eyebrow + editorial h2 + the full text prose
+ *            (paragraphs, lists, headings). All editorial framing
+ *            lives here. No images.
+ *   • Right → the merchant's images stacked vertically, each one
+ *            alternating left/right within the column (image 1
+ *            leans left, image 2 leans right, image 3 leans left)
+ *            so the column reads as a zigzag gallery instead of a
+ *            straight stack of identical blocks.
  *
- * The left column gets more space (it's where readers spend their time)
- * and stays sticky so the eyebrow stays visible while the body scrolls.
- * On mobile the columns stack vertically with text first, then heading
- * and image stack. */
+ * Mobile (<900px) collapses to a single column with text first,
+ * then heading, then the image stack.
+ */
 .pk-pdesc__with-media {
   display: grid;
   grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
@@ -9785,40 +9789,34 @@ button:focus-visible,
   position: sticky;
   top: 24px;
   align-self: start;
+  min-width: 0;
 }
-.pk-pdesc__text-col .pk-split__eyebrow { margin: 0 0 22px; }
-.pk-pdesc__media-col { min-width: 0; }
-/* Inline heading inside the media column — sized smaller than the
- * section hero since the merchant's body already contains an <h3>
- * product title (e.g. "Garden Hose Splitter 4 Way"). A thin ember
- * rule on the left ties it visually to the other editorial h2s. */
+.pk-pdesc__text-col .pk-split__eyebrow { margin: 0 0 14px; }
+/* Editorial h2 sits directly under the eyebrow in the text column,
+ * not in a separate rail. Sized smaller than a hero since the
+ * merchant's body already contains its own <h3> product title. */
 .pk-pdesc__heading-inline {
   margin: 0 0 22px;
-  padding-left: 18px;
-  position: relative;
+  font-family: var(--pk-font-display);
   font-size: clamp(22px, 2.4vw, 28px);
   font-weight: 700;
   letter-spacing: -0.01em;
   line-height: 1.15;
   color: var(--pk-ink);
 }
-.pk-pdesc__heading-inline::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 4px;
-  bottom: 4px;
-  width: 3px;
-  border-radius: 2px;
-  background: linear-gradient(180deg, var(--pk-ember) 0%, transparent 100%);
-}
-/* Image stack — each merchant image renders as a clean rounded card
- * in the right column. Generous vertical breathing room between them
- * so the column reads as a gallery. */
+.pk-pdesc__media-col { min-width: 0; }
+/* Image stack — each merchant image renders as a clean rounded
+ * card with horizontal alignment that alternates per item, so the
+ * column reads as a gallery of mixed-side photos rather than a
+ * straight wall. Odd-indexed images lean left (full width minus a
+ * small right gutter), even-indexed images lean right (full width
+ * minus a small left gutter). The gutter is small enough that the
+ * images stay visually anchored to the column without falling off
+ * the edge. */
 .pk-pdesc__image-stack {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 22px;
 }
 .pk-pdesc__image-item img {
   display: block;
@@ -9828,12 +9826,25 @@ button:focus-visible,
   border: 1px solid var(--pk-border);
   background: var(--pk-surface-2, var(--pk-cream-soft));
 }
+.pk-pdesc__image-item--left img {
+  /* Lean left: full width with a small offset to the right. */
+  margin-right: 32px;
+}
+.pk-pdesc__image-item--right img {
+  /* Lean right: full width with a small offset to the left. */
+  margin-left: 32px;
+}
 @media (max-width: 900px) {
   .pk-pdesc__with-media {
     grid-template-columns: 1fr;
     gap: 32px;
   }
   .pk-pdesc__text-col { position: static; }
+  .pk-pdesc__image-item--left img,
+  .pk-pdesc__image-item--right img {
+    margin-left: 0;
+    margin-right: 0;
+  }
 }
 
 /* ════════════════════════════════════════════════════════════════════
