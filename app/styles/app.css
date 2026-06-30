@@ -3084,129 +3084,108 @@ button:focus-visible,
   color: var(--pk-ink);
 }
 
-/* Inner-page hero (category, all-products, about, search, contact).
-   Type-only editorial layout. The visual chrome is:
-   - a small star + a hairline horizontal rule + a tracked eyebrow
-   - an oversized display title right-anchored to the panel
-   - a sub indented to match the title's left edge
-   - a small count chip below
-   No images, no scrim, no carousel. The same template works on
-   dark, paper, and ink — only the color palette changes. */
+/* Inner-page hero (category, all-products, about, search) */
 .pk-hero {
   position: relative;
   border-radius: var(--r-2xl);
   overflow: hidden;
   min-height: clamp(360px, 50vh, 560px);
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  align-items: flex-end;
+  isolation: isolate;
   margin: 4px 0 32px;
   box-shadow: var(--pk-sh-md);
-  /* Default — dark ink. The hero is type-only so this color is the
-     visual "weight" of the panel. The paper and ink variants
-     override. */
+  /* Default fallback background — used when no image is provided
+     and the variant is not --paper or --ink. Keeps the hero
+     looking like a deliberate dark panel rather than a transparent
+     box on the page background. */
   background: var(--pk-ink);
   color: var(--pk-cream);
-  padding: clamp(40px, 6vw, 72px) clamp(24px, 4vw, 56px);
 }
-
-/* Eyebrow row: star + hairline rule + tracked small-caps text. The
-   rule grows to fill the remaining horizontal space, which gives
-   the panel a magazine "running header" feel. */
-.pk-hero__eyebrow-row {
+.pk-hero__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  z-index: -2;
+}
+.pk-hero__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(14, 12, 8, 0) 35%, rgba(14, 12, 8, 0.78) 100%);
+  z-index: -1;
+  pointer-events: none;
+}
+.pk-hero__inner {
+  position: relative;
+  max-width: var(--pk-inner-max);
+  width: 100%;
+  margin: 0 auto;
+  padding: clamp(40px, 6vw, 72px) clamp(24px, 4vw, 48px);
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   gap: 14px;
-  margin-bottom: clamp(20px, 3vw, 36px);
-}
-.pk-hero__star {
-  display: inline-flex;
-  align-items: center;
-  color: var(--pk-lime);
-  flex-shrink: 0;
-}
-.pk-hero__rule {
-  flex: 1 1 auto;
-  height: 1px;
-  background: currentColor;
-  opacity: 0.22;
-  min-width: 24px;
 }
 .pk-hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   text-transform: uppercase;
-  letter-spacing: 0.18em;
-  font-size: 11px;
+  letter-spacing: 0.14em;
+  font-size: 12px;
   font-weight: 700;
   color: var(--pk-lime);
-  white-space: nowrap;
-  flex-shrink: 0;
 }
-
-/* Display title. Right-anchored to the panel's right padding so it
-   crowds the right edge. The oversize + tight tracking + right
-   alignment is what gives the panel its magazine-cover feel. */
 .pk-hero__title {
   font-family: var(--pk-font-display);
-  font-size: clamp(56px, 8.5vw, 124px);
+  font-size: clamp(40px, 6vw, 72px);
   font-weight: 800;
-  letter-spacing: -3px;
-  line-height: 0.98;
-  margin: 0 0 clamp(20px, 3vw, 32px);
-  color: var(--pk-cream);
-  text-align: right;
-  text-wrap: balance;
-  /* Don't let a single word sit alone on the last line — title
-     lines should be reasonably balanced. */
-}
-
-/* The sub is indented to roughly match where the title's left
-   edge starts, so the type "stair-steps" down the panel. On long
-   titles the sub ends up on a different horizontal line, which is
-   fine — it visually tracks the title. */
-.pk-hero__sub {
-  font-size: 16px;
-  line-height: 1.55;
-  color: rgba(244, 240, 230, 0.78);
+  letter-spacing: -2.5px;
+  line-height: 1.04;
   margin: 0;
-  max-width: 440px;
-  margin-left: auto;
-  text-align: right;
+  color: var(--pk-cream);
+  max-width: 18ch;
 }
-
-/* Count chip. Sits at the bottom of the type stack, left-aligned
-   (the eyebrow row sets the left rhythm, the count echoes it). */
+.pk-hero__sub {
+  font-size: 17px;
+  line-height: 1.55;
+  color: rgba(244, 240, 230, 0.82);
+  margin: 0;
+  max-width: 520px;
+}
 .pk-hero__count {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  margin-top: clamp(20px, 3vw, 32px);
+  margin-top: 4px;
   padding: 6px 12px;
   border-radius: 999px;
-  background: rgba(244, 240, 230, 0.12);
-  border: 1px solid rgba(244, 240, 230, 0.22);
+  background: rgba(244, 240, 230, 0.14);
+  border: 1px solid rgba(244, 240, 230, 0.24);
   color: var(--pk-cream);
   font-size: 13px;
   font-weight: 600;
-  align-self: flex-start;
 }
 /* Highlighted phrase inside the hero title (used on the about page
    for "You get to skip the research."). */
 .pk-hero__em { color: var(--pk-lime); }
 /* Optional CTA row inside the hero. */
-.pk-hero__cta { margin-top: 16px; display: inline-block; align-self: flex-start; }
+.pk-hero__cta { margin-top: 12px; }
 /* Search form slot when the hero is used for /search. */
-.pk-hero__search { margin-top: 12px; max-width: 560px; width: 100%; }
+.pk-hero__search { margin-top: 8px; max-width: 560px; width: 100%; }
 
 /* Paper variant — no image, cream background. Used on the search
-   page. The eyebrow switches to ember and the type goes ink so the
-   contrast story is clean. */
+   page and on /collections/all. The eyebrow switches to ember and
+   the type goes ink so the contrast story is clean. */
 .pk-hero--paper {
   background: var(--pk-paper-dark);
   box-shadow: none;
   border: 1px solid var(--pk-border);
   min-height: clamp(280px, 32vh, 380px);
 }
-.pk-hero--paper .pk-hero__star { color: var(--pk-ember); }
 .pk-hero--paper .pk-hero__eyebrow { color: var(--pk-ember); }
 .pk-hero--paper .pk-hero__title { color: var(--pk-ink); }
 .pk-hero--paper .pk-hero__sub { color: var(--pk-muted); }
@@ -3216,18 +3195,16 @@ button:focus-visible,
   color: var(--pk-muted);
 }
 
-/* Ink variant — same as default, but reserved as a semantic marker
-   for pages that intentionally have no imagery (e.g. /about). */
+/* Ink variant — no image, dark background. Used on the about page. */
 .pk-hero--ink {
   background: var(--pk-ink);
   min-height: clamp(380px, 50vh, 560px);
 }
 
 @media (max-width: 700px) {
-  .pk-hero { min-height: 300px; border-radius: 16px; padding: 32px 22px; }
-  .pk-hero__title { font-size: 44px; letter-spacing: -1.5px; line-height: 1.0; }
-  .pk-hero__sub { font-size: 15px; }
-  .pk-hero__eyebrow-row { gap: 10px; margin-bottom: 16px; }
+  .pk-hero { min-height: 320px; border-radius: 16px; }
+  .pk-hero__inner { padding: 28px 22px; }
+  .pk-hero__title { font-size: 36px; letter-spacing: -1.5px; }
 }
 
 /* Catalog body â€” sidebar + grid */

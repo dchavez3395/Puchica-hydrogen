@@ -1,30 +1,31 @@
-import StarGlyph from './StarGlyph';
+import {Image} from '@shopify/hydrogen';
 
 /**
- * Type-only editorial hero used on inner pages (category, all-products,
- * about, search, contact). One component, three visual variants — the
- * inner structure is identical so the type rhythm matches across the
- * site.
+ * Editorial hero used on inner pages (category, all-products, about,
+ * search). One component, three visual variants — the inner structure
+ * is identical so the type rhythm matches across the site.
  *
  * Variants:
- *   - default      → dark ink background, cream type, lime accent
- *   - 'paper'      → cream / paper background, ink type, ember accent
- *   - 'ink'        → dark ink background, cream type, lime accent (same
- *                    colors as default; reserved as a marker for "this
- *                    page intentionally has no imagery" — e.g. /about)
+ *   - default      → full-bleed image with bottom dark scrim
+ *   - 'paper'      → cream / paper background, no image, ember accent
+ *   - 'ink'        → dark ink background, no image, lime accent
  *
- * The visual chrome is: a tracked eyebrow with a star glyph and a
- * hairline horizontal rule, an oversized display title right-anchored
- * so it crowds the panel's right edge, the sub indented to match the
- * title's leading edge, and a small count chip below.
- *
- * No images, no scrim, no carousel — the hero relies entirely on type
- * weight, the eyebrow ornament, and the right-anchored title to feel
- * editorial. This means every inner page looks the same regardless of
- * whether the merchant has uploaded anything.
+ * The previous hero treatment (two blurred radial glows in opposite
+ * corners, a 2.5% diagonal line pattern, italic display title) was
+ * reading as AI slop — every DTC store in 2024 had it. This version
+ * leans editorial: tight upright display type anchored to the
+ * bottom-left, image at full bleed when available, scrim to keep
+ * type legible on busy covers.
  *
  * @param {{
  *   variant?: 'default' | 'paper' | 'ink';
+ *   // Standard Shopify image shape (e.g. `collection.image` or `product.featuredImage`).
+ *   image?: { id?: string; url?: string; altText?: string | null; width?: number; height?: number } | null;
+ *   // Storefront API `file_reference` metafield shape, e.g.
+ *   // `custom.hero_image` on a Collection — { id, image: { url, altText, width, height } }.
+ *   // When present, takes precedence over `image`.
+ *   heroImage?: { id?: string; image?: { url?: string; altText?: string | null; width?: number; height?: number } | null } | null;
+ *   imageAlt?: string;
  *   eyebrow?: React.ReactNode;
  *   title: React.ReactNode;
  *   sub?: React.ReactNode;
@@ -34,6 +35,9 @@ import StarGlyph from './StarGlyph';
  */
 export function PageHero({
   variant = 'default',
+  image = null,
+  heroImage = null,
+  imageAlt = '',
   eyebrow,
   title,
   sub,
@@ -45,21 +49,37 @@ export function PageHero({
     variant === 'ink' ? 'pk-hero--ink' :
     '';
 
+  // Prefer the explicit hero_image metafield; otherwise fall back to the
+  // passed-in image (which on collections is collection.image — usually
+  // the product cover shot, often not big enough to full-bleed).
+  // The metafield shape is:
+  //   { id, reference: { image: { url, altText, width, height } } }
+  const heroMetafieldImage = heroImage?.reference?.image;
+  const resolvedImage = heroMetafieldImage?.url
+    ? heroMetafieldImage
+    : image?.url
+    ? image
+    : null;
+
   return (
     <header className={`pk-hero ${variantClass}`}>
-      {eyebrow ? (
-        <div className="pk-hero__eyebrow-row">
-          <span className="pk-hero__star" aria-hidden="true">
-            <StarGlyph size={14} />
-          </span>
-          <span className="pk-hero__rule" aria-hidden="true" />
-          <span className="pk-hero__eyebrow">{eyebrow}</span>
-        </div>
+      {resolvedImage ? (
+        <Image
+          data={resolvedImage}
+          alt={imageAlt || resolvedImage.altText || (typeof title === 'string' ? title : '')}
+          className="pk-hero__img"
+          loading="eager"
+          sizes="100vw"
+        />
       ) : null}
-      <h1 className="pk-hero__title">{title}</h1>
-      {sub ? <p className="pk-hero__sub">{sub}</p> : null}
-      {count ? <span className="pk-hero__count">{count}</span> : null}
-      {children}
+      {resolvedImage ? <div className="pk-hero__scrim" aria-hidden /> : null}
+      <div className="pk-hero__inner">
+        {eyebrow ? <span className="pk-hero__eyebrow">{eyebrow}</span> : null}
+        <h1 className="pk-hero__title">{title}</h1>
+        {sub ? <p className="pk-hero__sub">{sub}</p> : null}
+        {count ? <span className="pk-hero__count">{count}</span> : null}
+        {children}
+      </div>
     </header>
   );
 }
