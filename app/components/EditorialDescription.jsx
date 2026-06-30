@@ -68,9 +68,11 @@ export function EditorialDescription({html, productType, galleryImages = [], eye
         <div className="pk-split__inner pk-pdesc__with-media">
           <div className="pk-split__col-text pk-pdesc__lead-col">
             <p className="pk-split__eyebrow">{eyebrow}</p>
-            <h2 className="pk-split__headline">{productType || ''}</h2>
           </div>
           <div className="pk-split__col-visual pk-pdesc__body-col">
+            <h2 className="pk-split__headline pk-pdesc__heading-inline">
+              {productType || ''}
+            </h2>
             <div
               className="pk-pdesc__body"
               dangerouslySetInnerHTML={{__html: html}}

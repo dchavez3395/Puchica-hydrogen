@@ -9822,10 +9822,36 @@ button:focus-visible,
 .pk-pdesc__lead-col {
   position: sticky;
   top: 24px;
+  align-self: start;
 }
-.pk-pdesc__lead-col .pk-split__eyebrow { margin: 0 0 14px; }
-.pk-pdesc__lead-col .pk-split__headline { margin: 0; max-width: 18ch; }
+.pk-pdesc__lead-col .pk-split__eyebrow { margin: 0; }
 .pk-pdesc__body-col { min-width: 0; }
+/* Inline heading inside the body column — the merchant's
+ * descriptionHtml already contains an <h3> product title at the top
+ * (e.g. "Garden Hose Splitter 4 Way"), so this h2 stays modest:
+ * it's the editorial section heading, sized below a true hero. A
+ * thin ember rule on the left ties it to the eyebrow above and to
+ * the rest of the editorial sections. */
+.pk-pdesc__heading-inline {
+  margin: 0 0 24px;
+  padding-left: 18px;
+  position: relative;
+  font-size: clamp(22px, 2.4vw, 28px);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  color: var(--pk-ink);
+}
+.pk-pdesc__heading-inline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  width: 3px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--pk-ember) 0%, transparent 100%);
+}
 @media (max-width: 900px) {
   .pk-pdesc__with-media {
     grid-template-columns: 1fr;
