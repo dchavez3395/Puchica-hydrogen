@@ -4039,12 +4039,19 @@ button:focus-visible,
 .pk-pdesc__body a { color: var(--pk-ember); }
 .pk-pdesc__body a:hover { text-decoration: underline; }
 /* Merchant images inside the description body should sit BESIDE the
- * prose, not above it. Wrap with `shape-outside` so the next line
- * tucks against the image's box and the layout reads "text image,
- * image text, text image" instead of a tall stack of full-width
- * photos. Capped at 50% of the column width with a 220px minimum so
- * small viewports don't squish them. Video follows the same rule.
- * Iframe stays at full width (16:9 hero/section). */
+ * prose — not stacked above it — and they should ZIGZAG across the
+ * column so consecutive sections read "image-left/text-right, then
+ * text-left/image-right, then image-left/text-right…". Capped at
+ * 50% of the column width with a 220px minimum so small viewports
+ * don't squish them. Video follows the same rule. Iframe stays at
+ * full width (16:9 hero/section).
+ *
+ * The merchant's HTML wraps inline images in `<p><b><img></b></p>`,
+ * with regular prose `<p>`s interleaved between them. To get true
+ * alternation we count only the image-containing `<p>` siblings via
+ * `:nth-of-type(odd|even of :has(> img))` — so the float direction
+ * flips per inline image, regardless of how many prose `<p>`s sit
+ * between them. */
 .pk-pdesc__body img,
 .pk-pdesc__body video {
   display: block;
@@ -4053,11 +4060,29 @@ button:focus-visible,
   width: auto;
   height: auto;
   border-radius: 14px;
-  margin: 4px 24px 14px 0;
-  float: left;
   shape-outside: margin-box;
   shape-margin: 12px;
 }
+/* 1st inline image → left, prose wraps on its right. */
+.pk-pdesc__body > p:has(> img):nth-of-type(odd of :has(> img)) img,
+.pk-pdesc__body > p:has(> img):nth-of-type(odd of :has(> img)) video {
+  float: left;
+  margin: 4px 24px 14px 0;
+}
+/* 2nd → right, prose wraps on its left. */
+.pk-pdesc__body > p:has(> img):nth-of-type(even of :has(> img)) img,
+.pk-pdesc__body > p:has(> img):nth-of-type(even of :has(> img)) video {
+  float: right;
+  margin: 4px 0 14px 24px;
+}
+/* Plain inline <img> not wrapped in a paragraph (rare) — default
+ * to left like the first pattern. */
+.pk-pdesc__body > img,
+.pk-pdesc__body > video {
+  float: left;
+  margin: 4px 24px 14px 0;
+}
+
 .pk-pdesc__body iframe {
   max-width: 100%;
   width: 100%;
@@ -4068,11 +4093,6 @@ button:focus-visible,
   display: block;
   margin: 20px 0;
 }
-/* Tag every <p> AFTER a floated image with `clear: left` so the
- * following paragraph breaks back to the full column width instead
- * of staying trapped in the float's wrap. */
-.pk-pdesc__body img + p,
-.pk-pdesc__body video + p { clear: left; }
 
 /* On phone widths the column is too narrow to wrap beside a 50%
  * image. Stack to full width instead. */
@@ -9782,6 +9802,36 @@ button:focus-visible,
   inset: 0;
   background: radial-gradient(60% 80% at 110% 50%, rgba(168, 56, 0, 0.06), transparent 70%);
   pointer-events: none;
+}
+
+/* Inline-media variant of the editorial block. When the merchant's
+ * descriptionHtml carries <img>/<video> tags, render the lead
+ * (eyebrow + heading) in a narrow left column and let the full body
+ * prose flow in a wider right column. The right column owns the full
+ * prose body — including its interleaved inline images — so the
+ * CSS-driven `nth-of-type(odd|even of :has(> img))` alternation
+ * can float those images against a healthy text wrap (no upstream
+ * mosaic to compete with). On mobile the two columns stack
+ * vertically. */
+.pk-pdesc__with-media {
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) minmax(0, 2.2fr);
+  gap: clamp(24px, 4vw, 56px);
+  align-items: start;
+}
+.pk-pdesc__lead-col {
+  position: sticky;
+  top: 24px;
+}
+.pk-pdesc__lead-col .pk-split__eyebrow { margin: 0 0 14px; }
+.pk-pdesc__lead-col .pk-split__headline { margin: 0; max-width: 18ch; }
+.pk-pdesc__body-col { min-width: 0; }
+@media (max-width: 900px) {
+  .pk-pdesc__with-media {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .pk-pdesc__lead-col { position: static; }
 }
 
 /* ════════════════════════════════════════════════════════════════════
