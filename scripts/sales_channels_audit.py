@@ -1,9 +1,7 @@
-#!/usr/bin/env python3
-"""sales_channels_audit.py — Check which sales channels are installed
-on the Puchica Shopify store, which products are published to each,
-and identify any channels that aren't connected.
+"""sales_channels_audit_publications.py — Per-channel product counts.
 
-Output: sales-channels-2026-06-29.md with full breakdown.
+Uses read_publications scope to count products published to each
+channel.
 """
 import json
 import sys
@@ -15,79 +13,57 @@ from shopify_admin import ShopifyAdmin  # noqa: E402
 
 def main():
     with ShopifyAdmin() as s:
-        # Use the channels connection (not publications) to see each
-        # channel's product listings
-        all_channels = []
-        after = None
-        while True:
-            d3 = s.gql('''
-            query($after: String) {
-              channels(first: 50, after: $after) {
-                edges {
-                  node {
-                    id name handle
-                  }
-                }
-                pageInfo { hasNextPage endCursor }
+        d = s.gql('''
+        {
+          publications(first: 50) {
+            edges {
+              node {
+                id
+                name
+                app { id }
+                catalog { id title }
               }
             }
-            ''', {'after': after})
-            for e in (d3.get('channels') or {}).get('edges', []):
-                all_channels.append(e['node'])
-            pi = (d3.get('channels') or {}).get('pageInfo', {})
-            if not pi.get('hasNextPage'):
-                break
-            after = pi.get('endCursor')
-            if not after:
-                break
+          }
+        }
+        ''')
+        publications = (d.get('publications') or {}).get('edges') or []
+        if not publications:
+            print('No publications returned (scope?)')
+            return
 
-    print(f'Total channels found: {len(all_channels)}')
-    out = []
-    out.append('# Sales Channels Audit (2026-06-29)')
-    out.append('')
-    out.append('Sales channels let Puchica list products on multiple platforms from one Shopify backend. More channels = more surface area for sales.')
-    out.append('')
-    out.append('## Current channels')
-    out.append('')
-    out.append('| ID | Name | Handle | Products published |')
-    out.append('| --- | --- | --- | ---:|')
-    for c in all_channels:
-        out.append(f"| `{c['id']}` | {c.get('name', '')} | `{c.get('handle', '')}` | (read_publications scope needed) |")
-    out.append('')
+        # Fetch product counts for each publication via Publication.productsCount
+        rows = []
+        for e in publications:
+            pub = e['node']
+            pid = pub['id']
+            try:
+                cnt = s.gql(f'''
+                query($id: ID!) {{
+                  publication(id: $id) {{
+                    productsCount {{ count }}
+                  }}
+                }}
+                ''', {'id': pid})
+                count = (((cnt.get('publication') or {}).get('productsCount')) or {}).get('count', '?')
+            except Exception as e:
+                count = f'ERR: {str(e)[:50]}'
+            rows.append({
+                'id': pid,
+                'name': pub.get('name', ''),
+                'catalog': (pub.get('catalog') or {}).get('title', ''),
+                'products': count,
+            })
 
-    # Recommendations
-    out.append('## Recommended channels to add')
-    out.append('')
-    out.append('Channels that connect directly to high-traffic marketplaces or social platforms:')
-    out.append('')
-    recs = [
-        ('TikTok Shop', 'REQUIRED if "we have access to post from the tiktok app" — install TikTok channel in Shopify admin'),
-        ('Facebook & Instagram', 'Meta Commerce channel for FB Shop + IG Shopping'),
-        ('Google & YouTube', 'Google channel — already implied by Google Shopping feed work today'),
-        ('Pinterest', 'Pinterest Sales channel — high purchase-intent audience'),
-        ('Snapchat', 'Snapchat Sales channel — younger demographic'),
-        ('Amazon', 'Amazon by Bazaarvoice / Amazon MCF — major marketplace'),
-        ('Etsy', 'Etsy Marketplace Integration — niche buyers, high AOV'),
-        ('Walmart', 'Walmart Marketplace — competing with Amazon for mass-market'),
-        ('eBay', 'eBay channel — auction/buyer pool'),
-    ]
-    out.append('| Channel | Why install |')
-    out.append('| --- | --- |')
-    for ch, why in recs:
-        out.append(f'| {ch} | {why} |')
-    out.append('')
-
-    # Existing known channels
-    out.append('## Existing sales channels (likely present)')
-    out.append('')
-    known = ['Online Store', 'Point of Sale', 'Shop', 'Facebook & Instagram']
-    for k in known:
-        present = any(k.lower() in (c.get('name', '') or '').lower() for c in all_channels)
-        out.append(f"- **{k}**: {'✓ present' if present else '✗ not found'}")
-    out.append('')
-
-    Path('sales-channels-2026-06-29.md').write_text('\n'.join(out), encoding='utf-8')
-    print(f'\nReport: sales-channels-2026-06-29.md')
+    print(f'Total publications: {len(rows)}')
+    md = ['# Sales Channels — With Publication Counts (2026-06-29)\n']
+    md.append('| Name | Catalog | Products |')
+    md.append('| --- | --- | ---:|')
+    for r in rows:
+        md.append(f"| {r['name']} | {r['catalog']} | {r['products']} |")
+    Path('sales-channels-with-counts-2026-06-29.md').write_text(
+        '\n'.join(md), encoding='utf-8')
+    print('Report: sales-channels-with-counts-2026-06-29.md')
 
 
 if __name__ == '__main__':
