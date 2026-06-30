@@ -203,11 +203,15 @@ export function EditorialDescription({
                 className={`pk-pdesc__row pk-pdesc__row--single pk-pdesc__row--${side} pk-pdesc__row--${chunk.kind}`}
               >
                 <div
-                  className={
-                    isText ? 'pk-pdesc__text' : 'pk-pdesc__image'
-                  }
-                  dangerouslySetInnerHTML={{__html: html}}
-                />
+                  className={`pk-pdesc__content pk-pdesc__content--${chunk.kind}`}
+                >
+                  <div
+                    className={
+                      isText ? 'pk-pdesc__text' : 'pk-pdesc__image'
+                    }
+                    dangerouslySetInnerHTML={{__html: html}}
+                  />
+                </div>
               </ScrollReveal>
             );
           })}
@@ -224,13 +228,17 @@ export function EditorialDescription({
               {trailing.map((chunk, i) => (
                 <div
                   key={i}
-                  className={
-                    chunk.kind === 'text'
-                      ? 'pk-pdesc__text'
-                      : 'pk-pdesc__image'
-                  }
-                  dangerouslySetInnerHTML={{__html: chunk.html}}
-                />
+                  className={`pk-pdesc__content pk-pdesc__content--${chunk.kind}`}
+                >
+                  <div
+                    className={
+                      chunk.kind === 'text'
+                        ? 'pk-pdesc__text'
+                        : 'pk-pdesc__image'
+                    }
+                    dangerouslySetInnerHTML={{__html: chunk.html}}
+                  />
+                </div>
               ))}
             </ScrollReveal>
           )}

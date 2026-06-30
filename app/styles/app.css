@@ -9845,51 +9845,59 @@ button:focus-visible,
   gap: clamp(40px, 5vw, 72px);
 }
 
-/* Single row: one chunk (text or image) on one half. The opposite
- * half is intentionally empty — that's the magazine rhythm. Each
- * row is a 50/50 grid where the chunk sits in column 1 (`--left`)
- * or column 2 (`--right`), and the empty half-rail still consumes
- * its share of the row height so the chunk has room to breathe.
+/* Single row: each chunk sits in its own row, full grid width.
+ * Consecutive rows alternate which side the content is visually
+ * anchored to (text aligned left, then image aligned right, then
+ * text aligned left, etc.) but every chunk spans the full row
+ * width so the prose and images aren't crammed into a 50% column
+ * with an empty side-rail.
  *
- * On mobile (<900px) the row collapses to a single column so the
- * chunk takes the full width and there's no empty side. */
+ * The visible content is constrained to a readable measure
+ * (720px text, 880px image) and aligned to the alternating side.
+ * Whitespace beyond the content cap is intentional — the magazine
+ * rhythm depends on it — but no longer reads as "a half-empty
+ * row", because the content block is full width of its row, not
+ * a 50% column with the opposite half blank.
+ */
 .pk-pdesc__row--single {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: start;
-}
-/* The chunk sits in the LEFT half — right half is whitespace. */
-.pk-pdesc__row--single.pk-pdesc__row--left > .pk-pdesc__text,
-.pk-pdesc__row--single.pk-pdesc__row--left > .pk-pdesc__image {
-  grid-column: 1;
-}
-/* The chunk sits in the RIGHT half — left half is whitespace. */
-.pk-pdesc__row--single.pk-pdesc__row--right > .pk-pdesc__text,
-.pk-pdesc__row--single.pk-pdesc__row--right > .pk-pdesc__image {
-  grid-column: 2;
-}
-/* Constrain the chunk itself to its half so it doesn't bleed into
- * the empty side. The empty half still holds its track, so the
- * row stays the full grid width. */
-.pk-pdesc__row--single > .pk-pdesc__text,
-.pk-pdesc__row--single > .pk-pdesc__image {
-  max-width: 100%;
+  display: flex;
   width: 100%;
+}
+.pk-pdesc__row--single > .pk-pdesc__content {
+  max-width: 720px;
+  width: 100%;
+}
+/* Image chunks get a slightly wider cap — images need more room
+ * to breathe than prose. */
+.pk-pdesc__row--single > .pk-pdesc__content.pk-pdesc__content--image {
+  max-width: 880px;
+}
+/* Left-aligned content sits at the start of the row (margin-left:
+ * 0, margin-right: auto). Right-aligned content sits at the end
+ * (margin-left: auto, margin-right: 0). */
+.pk-pdesc__row--single.pk-pdesc__row--left > .pk-pdesc__content {
+  margin-left: 0;
+  margin-right: auto;
+}
+.pk-pdesc__row--single.pk-pdesc__row--right > .pk-pdesc__content {
+  margin-left: auto;
+  margin-right: 0;
 }
 
 /* Full-width row: trailing text (e.g. SPECS list) without an image
- * partner. Spans both columns so the spec list has room to breathe. */
+ * partner. Spans the whole grid so the spec list has room to
+ * breathe. */
 .pk-pdesc__row--full {
-  display: grid;
-  grid-template-columns: 1fr;
-}
-.pk-pdesc__row--full > .pk-pdesc__text,
-.pk-pdesc__row--full > .pk-pdesc__image {
-  grid-column: 1;
+  display: flex;
   width: 100%;
 }
+.pk-pdesc__row--full > .pk-pdesc__content {
+  max-width: 880px;
+  width: 100%;
+  margin: 0 auto;
+}
 
-/* Image chunk: clean rounded card, full width of its column. */
+/* Image chunk: clean rounded card, full width of its content. */
 .pk-pdesc__image img {
   display: block;
   width: 100%;
@@ -9900,8 +9908,7 @@ button:focus-visible,
 }
 
 /* Text chunk: prevent prose from forcing the column wider than its
- * share (long URLs / inline styles sometimes do). The existing
- * `.pk-pdesc__body` rules style the inner content. */
+ * share (long URLs / inline styles sometimes do). */
 .pk-pdesc__text { min-width: 0; }
 
 /* ── Bullet list treatment inside editorial text chunks ──
@@ -9966,17 +9973,13 @@ button:focus-visible,
 }
 
 @media (max-width: 900px) {
-  .pk-pdesc__row--single {
-    grid-template-columns: 1fr;
+  .pk-pdesc__row--single.pk-pdesc__row--left > .pk-pdesc__content,
+  .pk-pdesc__row--single.pk-pdesc__row--right > .pk-pdesc__content {
+    margin-left: 0;
+    margin-right: 0;
+    max-width: none;
   }
-  .pk-pdesc__row--single.pk-pdesc__row--left > .pk-pdesc__text,
-  .pk-pdesc__row--single.pk-pdesc__row--left > .pk-pdesc__image,
-  .pk-pdesc__row--single.pk-pdesc__row--right > .pk-pdesc__text,
-  .pk-pdesc__row--single.pk-pdesc__row--right > .pk-pdesc__image {
-    grid-column: 1;
-  }
-  .pk-pdesc__row--full > .pk-pdesc__text,
-  .pk-pdesc__row--full > .pk-pdesc__image {
+  .pk-pdesc__row--full > .pk-pdesc__content {
     max-width: none;
   }
 }
