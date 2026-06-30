@@ -2177,7 +2177,6 @@ button:focus-visible,
   width: 100%;
   max-width: 360px;
   display: block;
-  margin-top: 8px;
   background: #0E0C08;
   color: #F4F0E6;
   border: none;
@@ -9760,7 +9759,7 @@ button:focus-visible,
 }
 
 .pk-pdesc__blocks {
-  max-width: 1080px;
+  max-width: var(--pk-inner-max);
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -9913,6 +9912,7 @@ button:focus-visible,
 }
 
 .pk-split__inner {
+  max-width: var(--pk-inner-max);
   margin: auto;
   padding-top: 1rem;
   display: grid;
@@ -9941,7 +9941,7 @@ button:focus-visible,
  * the side-by-side grid. Anchors the section so the alternating
  * zigzag pattern has a single editorial frame per row. */
 .pk-split__header {
-  max-width: 1080px;
+  max-width: var(--pk-inner-max);
   margin: 0 auto clamp(28px, 3.4vw, 40px);
   padding: 4px 0 4px 28px;
   position: relative;
@@ -9982,7 +9982,7 @@ button:focus-visible,
  * reads as "the rest of the article" — a top ember rule hints at
  * the break, then the prose flows at full column width. */
 .pk-split__body-tail {
-  max-width: 1080px;
+  max-width: var(--pk-inner-max);
   margin: clamp(28px, 3.4vw, 40px) auto 0;
   padding: 4px 0 4px 28px;
   position: relative;
