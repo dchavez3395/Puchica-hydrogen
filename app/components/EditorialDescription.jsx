@@ -1,6 +1,5 @@
 import {useMemo} from 'react';
 import {
-  SplitSection,
   MosaicFromGallery,
   EditorialAccent,
 } from './SplitSection';
@@ -199,7 +198,14 @@ export function EditorialDescription({
     );
   }
 
-  // ── Layout B: no inline media — keep the original three-zone form
+  // ── Layout B: no inline media — vertical magazine stack.
+  // Render the same way Layout A does: a header (eyebrow + h2),
+  // then a vertical section of head → visual → tail, each at
+  // full width. The previous side-by-side 2-column grid left a
+  // tall visual column next to a short h5 lead, creating dead
+  // space below the heading. Stacking vertically puts the mosaic
+  // (or accent) directly under the lead, and the tail under both,
+  // giving the editorial description one clean reading rhythm.
   const visual = useMosaic ? (
     <MosaicFromGallery images={galleryImages} />
   ) : (
@@ -207,26 +213,59 @@ export function EditorialDescription({
   );
 
   return (
-    <SplitSection
-      align="left"
-      eyebrow={eyebrow}
-      heading={productType || undefined}
-      visual={visual}
-      className="pk-pdesc"
-      head={
-        <div
-          className="pk-pdesc__body"
-          dangerouslySetInnerHTML={{__html: lead}}
-        />
-      }
-      tail={
-        tail ? (
-          <div
-            className="pk-pdesc__body"
-            dangerouslySetInnerHTML={{__html: tail}}
-          />
-        ) : null
-      }
-    />
+    <section className="pk-split pk-split--left pk-pdesc">
+      <ScrollReveal
+        as="div"
+        className="pk-split__header"
+        variant="up"
+      >
+        {eyebrow ? <p className="pk-split__eyebrow">{eyebrow}</p> : null}
+        {productType ? (
+          <h2 className="pk-split__headline">{productType}</h2>
+        ) : null}
+      </ScrollReveal>
+
+      <div className="pk-pdesc__blocks">
+        {lead ? (
+          <ScrollReveal
+            as="div"
+            variant="up"
+            className="pk-pdesc__row pk-pdesc__row--section"
+          >
+            <div className="pk-pdesc__content pk-pdesc__content--text">
+              <div
+                className="pk-pdesc__text"
+                dangerouslySetInnerHTML={{__html: lead}}
+              />
+            </div>
+          </ScrollReveal>
+        ) : null}
+
+        {visual ? (
+          <ScrollReveal
+            as="div"
+            variant="up"
+            className="pk-pdesc__row pk-pdesc__row--section"
+          >
+            <div className="pk-pdesc__content pk-pdesc__content--image">
+              {visual}
+            </div>
+          </ScrollReveal>
+        ) : null}
+
+        {tail ? (
+          <ScrollReveal
+            as="div"
+            variant="up"
+            className="pk-pdesc__row pk-pdesc__row--full"
+          >
+            <div
+              className="pk-pdesc__text"
+              dangerouslySetInnerHTML={{__html: tail}}
+            />
+          </ScrollReveal>
+        ) : null}
+      </div>
+    </section>
   );
 }
