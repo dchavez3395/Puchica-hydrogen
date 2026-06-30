@@ -157,9 +157,6 @@ export default function Collection() {
       </nav>
 
       <PageHero
-        image={collection.image}
-        heroImage={collection.heroImage}
-        imageAlt={collection.image?.altText || collection.title}
         eyebrow={t('col_eyebrow')}
         title={collection.title}
         sub={collection.description || undefined}
@@ -445,20 +442,6 @@ const COLLECTION_QUERY = `#graphql
       title
       description
       image { id url altText width height }
-      # Optional hero image metafield. Falls back to the collection image if absent.
-      # The merchant uploads this in Shopify admin at
-      # Settings > Custom data > Collections > hero_image. Recommended
-      # 2400x1350 (16:9) so it full-bleeds across the hero. The metafield
-      # is a file_reference pointing at a Shopify-hosted image, so we have
-      # to walk reference -> MediaImage -> image to get the URL.
-      heroImage: metafield(namespace: "custom", key: "hero_image") {
-        id
-        reference {
-          ... on MediaImage {
-            image { id url altText width height }
-          }
-        }
-      }
       seo {
         title
         description
