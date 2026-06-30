@@ -193,7 +193,7 @@ export const DICTIONARIES = {
     // ── New arrivals ──────────────────────────────────────────────
     arrivals_eyebrow: 'Outdoor & Garden',
     arrivals_title: 'Get outside.',
-    arrivals_see_all: 'See all new →',
+    arrivals_see_all: 'See all new',
     arrivals_badge: 'New',
 
     // ── Category bento ────────────────────────────────────────────
@@ -531,7 +531,7 @@ export const DICTIONARIES = {
 
     arrivals_eyebrow: 'Extérieur & Jardin',
     arrivals_title: 'Allez dehors.',
-    arrivals_see_all: 'Voir toutes les nouveautés →',
+    arrivals_see_all: 'Voir toutes les nouveautés',
     arrivals_badge: 'Nouveau',
 
     cat_eyebrow: 'Magasiner par catégorie',
@@ -860,7 +860,7 @@ export const DICTIONARIES = {
 
     arrivals_eyebrow: 'Exterior & Jardín',
     arrivals_title: 'Sal afuera.',
-    arrivals_see_all: 'Ver todas las novedades →',
+    arrivals_see_all: 'Ver todas las novedades',
     arrivals_badge: 'Nuevo',
 
     cat_eyebrow: 'Comprar por categoría',
@@ -1190,7 +1190,7 @@ export const DICTIONARIES = {
 
     arrivals_eyebrow: 'Ar livre & Jardim',
     arrivals_title: 'Vá para fora.',
-    arrivals_see_all: 'Ver todas as novidades →',
+    arrivals_see_all: 'Ver todas as novidades',
     arrivals_badge: 'Novo',
 
     cat_eyebrow: 'Comprar por categoria',
