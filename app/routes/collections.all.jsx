@@ -39,6 +39,7 @@ const SORT_KEY_MAP = {
   'price-asc': {sortKey: 'PRICE', reverse: false},
   'price-desc': {sortKey: 'PRICE', reverse: true},
 };
+
 const DEFAULT_SORT = 'featured';
 
 /**
@@ -51,9 +52,34 @@ async function loadCriticalData({context, request}) {
   const sortValue = url.searchParams.get('sort') || DEFAULT_SORT;
   const {sortKey, reverse} = SORT_KEY_MAP[sortValue] || SORT_KEY_MAP[DEFAULT_SORT];
 
+  // Note: we deliberately do NOT apply a `?price=` filter here. The
+  // top-level `QueryRoot.products` connection does not accept a
+  // `ProductFilter` input list — only `Collection.products` does.
+  // And while `QueryRoot.products.query` does accept Shopify search
+  // syntax, the storefront API only honors exact-value matches for
+  // `variants.price` (e.g. `variants.price:25`) — range operators
+  // like `>=` and `<=` are silently ignored, and a query that fails
+  // to match returns the full unfiltered result. Without a way to
+  // express a range against this connection, we'd be displaying a
+  // chip that claims a filter is active when the underlying
+  // products list is actually unchanged. Better to surface the
+  // truth — the catalog is unfiltered here — and let shoppers use
+  // the dedicated `/collections/<handle>?price=…` routes (which go
+  // through `Collection.products` with a real `ProductFilter`) to
+  // get actual range filtering. The "Pick a budget" GiftFinder
+  // cards on the homepage now point at those routes instead.
+  const priceValue = url.searchParams.get('price') || null;
+  void priceValue;
+
   const [{products}] = await Promise.all([
     context.storefront.query(CATALOG_QUERY, {
-      variables: {country, language, sortKey, reverse, ...paginationVariables},
+      variables: {
+        country,
+        language,
+        sortKey,
+        reverse,
+        ...paginationVariables,
+      },
     }),
   ]);
   return {products};
