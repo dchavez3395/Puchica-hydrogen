@@ -9765,50 +9765,43 @@ button:focus-visible,
 /* Inline-media variant of the editorial block. When the merchant's
  * descriptionHtml carries <img>/<video> tags, we walk the body
  * once and emit `{kind: 'text' | 'image', html}` chunks in source
- * order, then render them as a vertical zigzag:
+ * order, then pair each text chunk with the immediately-following
+ * image chunk into a single side-by-side row:
  *
  *   ┌─────────────────────────────────────────────────────────┐
  *   │                  EYEBROW / HEADLINE                    │  full width header
  *   ├──────────────────────┬──────────────────────────────────┤
- *   │   chunk 0 (text)     │                                  │  chunk 0 left
+ *   │   row 0: TEXT        │   row 0: IMAGE                   │  text-left
  *   ├──────────────────────┴──────────────────────────────────┤
- *   │                                  │   chunk 1 (image)    │  chunk 1 right
- *   ├──────────────────────┬──────────────────────────────────┤
- *   │   chunk 2 (text)     │                                  │  chunk 2 left
+ *   │   row 1: IMAGE       │   row 1: TEXT                    │  text-right
  *   ├──────────────────────┴──────────────────────────────────┤
- *   │                                  │   chunk 3 (image)    │  chunk 3 right
+ *   │   row 2: TEXT        │   row 2: IMAGE                   │  text-left
+ *   ├─────────────────────────────────────────────────────────┤
+ *   │   row 3: TEXT (full width, no image partner)           │  trailing specs
  *   └─────────────────────────────────────────────────────────┘
  *
- * Each row is a two-column grid; the chunk's content sits in column
- * 1 for odd-indexed rows and column 2 for even-indexed rows. The
- * empty opposite half is just whitespace, which gives the magazine
- * rhythm without forcing text to wrap beside images.
+ * Each row is a two-column grid; consecutive rows alternate which
+ * column carries the text (`.pk-pdesc__row--left` vs `--right`).
+ * A trailing text chunk with no image partner renders as a
+ * `.pk-pdesc__row--full` row spanning both columns. No empty
+ * whitespace half-rows.
  *
- * Mobile (<900px) collapses every row to a single column so chunks
- * stack vertically (text → image → text → image, in source order).
+ * Mobile (<900px) collapses every row to a single column so each
+ * chunk stacks vertically in source order.
  */
 .pk-pdesc--zigzag {
-  /* Inherits the same full-bleed breakout the rest of `.pk-pdesc`
-   * already uses via the parent section rules. */
+  /* The eyebrow + h2 used to live in a separate `.pk-pdesc__header`
+   * band above all rows. That sat as dead space and broke the
+   * rhythm — the headline should belong to the article. They now
+   * inline into the first text chunk (rendered above the first
+   * row's prose), so the section starts directly with rows. */
 }
-.pk-pdesc--zigzag .pk-pdesc__header {
-  max-width: 1080px;
-  margin: 0 auto clamp(28px, 4vw, 48px);
-  padding-left: 22px;
-  position: relative;
-}
-.pk-pdesc--zigzag .pk-pdesc__header::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 3px;
-  height: 60px;
-  border-radius: 2px;
-  background: linear-gradient(180deg, var(--pk-ember) 0%, transparent 100%);
-}
-.pk-pdesc--zigzag .pk-pdesc__heading-inline {
-  margin: 14px 0 0;
+
+/* The h2 / eyebrow that rides along inside the first row's text
+ * column. Styled the same as the original `.pk-pdesc__heading-inline`
+ * rules, just so the appearance stays consistent. */
+.pk-pdesc__heading-inline {
+  margin: 0 0 14px;
   font-family: var(--pk-font-display);
   font-size: clamp(22px, 2.4vw, 28px);
   font-weight: 700;
@@ -9817,33 +9810,64 @@ button:focus-visible,
   color: var(--pk-ink);
   max-width: 22ch;
 }
+.pk-pdesc__text > .pk-split__eyebrow {
+  margin: 0 0 6px;
+  position: relative;
+  padding-left: 14px;
+}
+.pk-pdesc__text > .pk-split__eyebrow::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 3px;
+  height: 14px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--pk-ember) 0%, transparent 100%);
+}
 
 .pk-pdesc__blocks {
   max-width: 1080px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  /* Generous breathing room between rows so the alternating rhythm
-   * reads as separate editorial moments rather than a tight stack. */
-  gap: clamp(48px, 7vw, 96px);
+  /* Breathing room between rows so each pair reads as its own
+   * editorial moment. */
+  gap: clamp(40px, 5vw, 72px);
 }
 
-.pk-pdesc__block {
+/* Paired row: text + image, side-by-side, 50/50. align-items:start
+ * so a short text chunk sticks to the top of its column next to a
+ * tall image (and vice versa) — `center` was floating them in the
+ * middle, which read as "empty space" at the top/bottom. */
+.pk-pdesc__row--paired {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: clamp(24px, 4vw, 56px);
   align-items: start;
-  /* Ensures the row has visible height even when one chunk is much
-   * shorter than the other; the empty opposite half remains a real
-   * half of the row. */
-  min-height: 1px;
 }
-/* Odd-indexed chunks (0, 2, 4…) sit in the LEFT column. */
-.pk-pdesc__block--left > * { grid-column: 1; }
-/* Even-indexed chunks (1, 3, 5…) sit in the RIGHT column. */
-.pk-pdesc__block--right > * { grid-column: 2; }
+/* Row 0 (i=0): text-left, image-right. */
+.pk-pdesc__row--paired.pk-pdesc__row--left  .pk-pdesc__row-text  { grid-column: 1; }
+.pk-pdesc__row--paired.pk-pdesc__row--left  .pk-pdesc__row-image { grid-column: 2; }
+/* Row 1 (i=1): image-left, text-right. */
+.pk-pdesc__row--paired.pk-pdesc__row--right .pk-pdesc__row-image { grid-column: 1; }
+.pk-pdesc__row--paired.pk-pdesc__row--right .pk-pdesc__row-text  { grid-column: 2; }
 
-/* Image blocks: clean rounded card, full width of the half it sits in. */
+/* Full-width row: text (or image) without a partner — spans both
+ * columns. The trailing text (e.g. final SPECS list) gets the full
+ * grid width with the prose's own max-width handling line length;
+ * a 720px cap here was creating wide white bands on either side. */
+.pk-pdesc__row--full {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+.pk-pdesc__row--full .pk-pdesc__text,
+.pk-pdesc__row--full .pk-pdesc__image {
+  grid-column: 1;
+  width: 100%;
+}
+
+/* Image chunk: clean rounded card, full width of its column. */
 .pk-pdesc__image img {
   display: block;
   width: 100%;
@@ -9853,18 +9877,26 @@ button:focus-visible,
   background: var(--pk-surface-2, var(--pk-cream-soft));
 }
 
-/* Text blocks: prevent the prose from forcing the row wider than its
- * allocated half (long URLs / inline styles sometimes do). The
- * existing `.pk-pdesc__body` rules style the inner content. */
+/* Text chunk: prevent prose from forcing the column wider than its
+ * share (long URLs / inline styles sometimes do). The existing
+ * `.pk-pdesc__body` rules style the inner content. */
 .pk-pdesc__text { min-width: 0; }
 
 @media (max-width: 900px) {
-  .pk-pdesc__block {
+  .pk-pdesc__row--paired {
     grid-template-columns: 1fr;
     gap: 24px;
   }
-  .pk-pdesc__block--left > *,
-  .pk-pdesc__block--right > * { grid-column: 1; }
+  .pk-pdesc__row--paired.pk-pdesc__row--left  .pk-pdesc__row-text,
+  .pk-pdesc__row--paired.pk-pdesc__row--left  .pk-pdesc__row-image,
+  .pk-pdesc__row--paired.pk-pdesc__row--right .pk-pdesc__row-text,
+  .pk-pdesc__row--paired.pk-pdesc__row--right .pk-pdesc__row-image {
+    grid-column: 1;
+  }
+  .pk-pdesc__row--full .pk-pdesc__text,
+  .pk-pdesc__row--full .pk-pdesc__image {
+    max-width: none;
+  }
 }
 
 /* ════════════════════════════════════════════════════════════════════
