@@ -22,7 +22,6 @@ import {
   IconPackage,
 } from '~/components/Icons';
 import {SOCIAL_PROFILES} from '~/lib/brand';
-import {PageHero} from '~/components/PageHero';
 
 /**
  * Support email. Used in:
@@ -116,13 +115,19 @@ export function ContactPage() {
 
   return (
     <div className="pk-contact">
-      {/* Hero — uses the shared PageHero so the type rhythm matches the
-       * rest of the inner pages (see app/components/PageHero.jsx). */}
-      <PageHero
-        eyebrow="Get in touch"
-        title="We’re here to help."
-        sub="Questions about an order, a product, or anything else? Pick the channel that works for you — a real person on the Puchica team will get back to you, usually within one business day."
-      />
+      {/* Hero — same gradient language as the collection hero so the
+       * site feels coherent. Uses --soft variant under 700px (smaller
+       * padding handled by the .pk-col-hero media query already). */}
+      <header className="pk-col-hero pk-contact__hero">
+        <span className="pk-col-hero__glow" aria-hidden="true" />
+        <span className="pk-col-hero__eyebrow">Get in touch</span>
+        <h1 className="pk-col-hero__title">We&apos;re here to help.</h1>
+        <p className="pk-col-hero__sub">
+          Questions about an order, a product, or anything else? Pick the
+          channel that works for you — a real person on the Puchica team will
+          get back to you, usually within one business day.
+        </p>
+      </header>
 
       {/* Contact channels — three social cards, one per platform. Email
        * lives at the bottom of the page (the "Still have a question?"

@@ -2,7 +2,6 @@ import {useLoaderData} from 'react-router';
 import {getPaginationVariables, Analytics} from '@shopify/hydrogen';
 import {SearchForm} from '~/components/SearchForm';
 import {SearchResults} from '~/components/SearchResults';
-import {PageHero} from '~/components/PageHero';
 import {getEmptyPredictiveSearchResult} from '~/lib/search';
 import {puchicaMeta} from '~/lib/seo';
 
@@ -53,21 +52,17 @@ export default function SearchPage() {
 
   return (
     <div className="pk-search-page">
-      <PageHero
-        variant="paper"
-        eyebrow="Search"
-        title={
-          term ? (
+      <header className="pk-search-page__head">
+        <h1 className="pk-search-page__title">
+          {term ? (
             <>
               Results for <em>&ldquo;{term}&rdquo;</em>
             </>
           ) : (
-            'Find what you’re looking for.'
-          )
-        }
-        sub="Search the whole Puchica catalog by name, category, or keyword."
-      >
-        <SearchForm className="pk-search-page__form pk-hero__search">
+            'Search'
+          )}
+        </h1>
+        <SearchForm className="pk-search-page__form">
           {({inputRef}) => (
             <div className="pk-search__form">
               <span className="pk-search__icon" aria-hidden>
@@ -99,7 +94,7 @@ export default function SearchPage() {
             </div>
           )}
         </SearchForm>
-      </PageHero>
+      </header>
       {error && <p className="pk-search-page__error">{error}</p>}
       {!term || !result?.total ? (
         <SearchResults.Empty />
