@@ -4038,13 +4038,12 @@ button:focus-visible,
 .pk-pdesc__body strong { font-weight: 700; }
 .pk-pdesc__body a { color: var(--pk-ember); }
 .pk-pdesc__body a:hover { text-decoration: underline; }
-/* Inline <img>/<video> in the description body are extracted out into
- * `.pk-pdesc__media-col` (Layout A) and rendered in their own
- * vertical stack via `.pk-pdesc__image-stack`. The text column on
- * the left never sees them — no float, no wrap, no left/right
- * alternation. The rules below are a defensive reset for the rare
- * case where an image slips through extraction: cap at full column
- * width with rounded corners, no float. */
+/* Inline <img>/<video> in the description body are extracted out
+ * in JSX (Layout A) into their own `.pk-pdesc__image` chunks and
+ * never rendered inside `.pk-pdesc__body`. The rules below are a
+ * defensive reset for the rare case where an image slips through
+ * extraction (e.g. an image NOT wrapped in `<p><b>...</b></p>`):
+ * cap at full column width with rounded corners, no float. */
 .pk-pdesc__body img,
 .pk-pdesc__body video {
   display: block;
@@ -9764,61 +9763,88 @@ button:focus-visible,
 }
 
 /* Inline-media variant of the editorial block. When the merchant's
- * descriptionHtml carries <img>/<video> tags, we split the body into
- * text-only and image-only chunks in JSX and render them in two
- * dedicated columns:
- *   • Left  → eyebrow + editorial h2 + the full text prose
- *            (paragraphs, lists, headings). All editorial framing
- *            lives here. No images.
- *   • Right → the merchant's images stacked vertically, each one
- *            alternating left/right within the column (image 1
- *            leans left, image 2 leans right, image 3 leans left)
- *            so the column reads as a zigzag gallery instead of a
- *            straight stack of identical blocks.
+ * descriptionHtml carries <img>/<video> tags, we walk the body
+ * once and emit `{kind: 'text' | 'image', html}` chunks in source
+ * order, then render them as a vertical zigzag:
  *
- * Mobile (<900px) collapses to a single column with text first,
- * then heading, then the image stack.
+ *   ┌─────────────────────────────────────────────────────────┐
+ *   │                  EYEBROW / HEADLINE                    │  full width header
+ *   ├──────────────────────┬──────────────────────────────────┤
+ *   │   chunk 0 (text)     │                                  │  chunk 0 left
+ *   ├──────────────────────┴──────────────────────────────────┤
+ *   │                                  │   chunk 1 (image)    │  chunk 1 right
+ *   ├──────────────────────┬──────────────────────────────────┤
+ *   │   chunk 2 (text)     │                                  │  chunk 2 left
+ *   ├──────────────────────┴──────────────────────────────────┤
+ *   │                                  │   chunk 3 (image)    │  chunk 3 right
+ *   └─────────────────────────────────────────────────────────┘
+ *
+ * Each row is a two-column grid; the chunk's content sits in column
+ * 1 for odd-indexed rows and column 2 for even-indexed rows. The
+ * empty opposite half is just whitespace, which gives the magazine
+ * rhythm without forcing text to wrap beside images.
+ *
+ * Mobile (<900px) collapses every row to a single column so chunks
+ * stack vertically (text → image → text → image, in source order).
  */
-.pk-pdesc__with-media {
-  display: grid;
-  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-  gap: clamp(24px, 4vw, 56px);
-  align-items: start;
+.pk-pdesc--zigzag {
+  /* Inherits the same full-bleed breakout the rest of `.pk-pdesc`
+   * already uses via the parent section rules. */
 }
-.pk-pdesc__text-col {
-  position: sticky;
-  top: 24px;
-  align-self: start;
-  min-width: 0;
+.pk-pdesc--zigzag .pk-pdesc__header {
+  max-width: 1080px;
+  margin: 0 auto clamp(28px, 4vw, 48px);
+  padding-left: 22px;
+  position: relative;
 }
-.pk-pdesc__text-col .pk-split__eyebrow { margin: 0 0 14px; }
-/* Editorial h2 sits directly under the eyebrow in the text column,
- * not in a separate rail. Sized smaller than a hero since the
- * merchant's body already contains its own <h3> product title. */
-.pk-pdesc__heading-inline {
-  margin: 0 0 22px;
+.pk-pdesc--zigzag .pk-pdesc__header::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 3px;
+  height: 60px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--pk-ember) 0%, transparent 100%);
+}
+.pk-pdesc--zigzag .pk-pdesc__heading-inline {
+  margin: 14px 0 0;
   font-family: var(--pk-font-display);
   font-size: clamp(22px, 2.4vw, 28px);
   font-weight: 700;
   letter-spacing: -0.01em;
   line-height: 1.15;
   color: var(--pk-ink);
+  max-width: 22ch;
 }
-.pk-pdesc__media-col { min-width: 0; }
-/* Image stack — each merchant image renders as a clean rounded
- * card with horizontal alignment that alternates per item, so the
- * column reads as a gallery of mixed-side photos rather than a
- * straight wall. Odd-indexed images lean left (full width minus a
- * small right gutter), even-indexed images lean right (full width
- * minus a small left gutter). The gutter is small enough that the
- * images stay visually anchored to the column without falling off
- * the edge. */
-.pk-pdesc__image-stack {
+
+.pk-pdesc__blocks {
+  max-width: 1080px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 22px;
+  /* Generous breathing room between rows so the alternating rhythm
+   * reads as separate editorial moments rather than a tight stack. */
+  gap: clamp(48px, 7vw, 96px);
 }
-.pk-pdesc__image-item img {
+
+.pk-pdesc__block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(24px, 4vw, 56px);
+  align-items: start;
+  /* Ensures the row has visible height even when one chunk is much
+   * shorter than the other; the empty opposite half remains a real
+   * half of the row. */
+  min-height: 1px;
+}
+/* Odd-indexed chunks (0, 2, 4…) sit in the LEFT column. */
+.pk-pdesc__block--left > * { grid-column: 1; }
+/* Even-indexed chunks (1, 3, 5…) sit in the RIGHT column. */
+.pk-pdesc__block--right > * { grid-column: 2; }
+
+/* Image blocks: clean rounded card, full width of the half it sits in. */
+.pk-pdesc__image img {
   display: block;
   width: 100%;
   height: auto;
@@ -9826,25 +9852,19 @@ button:focus-visible,
   border: 1px solid var(--pk-border);
   background: var(--pk-surface-2, var(--pk-cream-soft));
 }
-.pk-pdesc__image-item--left img {
-  /* Lean left: full width with a small offset to the right. */
-  margin-right: 32px;
-}
-.pk-pdesc__image-item--right img {
-  /* Lean right: full width with a small offset to the left. */
-  margin-left: 32px;
-}
+
+/* Text blocks: prevent the prose from forcing the row wider than its
+ * allocated half (long URLs / inline styles sometimes do). The
+ * existing `.pk-pdesc__body` rules style the inner content. */
+.pk-pdesc__text { min-width: 0; }
+
 @media (max-width: 900px) {
-  .pk-pdesc__with-media {
+  .pk-pdesc__block {
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: 24px;
   }
-  .pk-pdesc__text-col { position: static; }
-  .pk-pdesc__image-item--left img,
-  .pk-pdesc__image-item--right img {
-    margin-left: 0;
-    margin-right: 0;
-  }
+  .pk-pdesc__block--left > *,
+  .pk-pdesc__block--right > * { grid-column: 1; }
 }
 
 /* ════════════════════════════════════════════════════════════════════

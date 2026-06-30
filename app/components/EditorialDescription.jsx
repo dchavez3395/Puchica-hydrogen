@@ -1,5 +1,10 @@
 import {useMemo} from 'react';
-import {SplitSection, MosaicFromGallery, EditorialAccent} from './SplitSection';
+import {
+  SplitSection,
+  MosaicFromGallery,
+  EditorialAccent,
+} from './SplitSection';
+import {ScrollReveal} from './ScrollReveal';
 
 /**
  * EditorialDescription — PDP editorial block.
@@ -9,12 +14,14 @@ import {SplitSection, MosaicFromGallery, EditorialAccent} from './SplitSection';
  * `<img>` / `<video>` tags:
  *
  *   • With inline media (e.g. Garden Hose Splitter, Giant Teddy Bear):
- *     Pure two-column split. Left column carries the eyebrow plus the
- *     text-only portion of the body (paragraphs, lists, headings).
- *     Right column carries the section heading plus the merchant's
- *     inline images stacked vertically. No text wraps beside images —
- *     text and images live in separate columns and read as
- *     "text on one side, images on the other."
+ *     The body is parsed into a flat sequence of `{kind: 'text'|'image', html}`
+ *     chunks — anything between images (paragraphs, lists, headings)
+ *     is a text chunk, every `<p><b><img></b></p>` wrapper is an
+ *     image chunk. Chunks render as a vertical zigzag: each chunk
+ *     takes a full-width row, with its content sitting on alternating
+ *     sides — chunk 0 left, chunk 1 right, chunk 2 left, and so on.
+ *     The empty opposite half is whitespace, giving the magazine
+ *     rhythm without forcing text to wrap beside images.
  *
  *   • Without inline media (most products):
  *     Keep the original three-zone layout: eyebrow + headline, then
@@ -33,7 +40,12 @@ import {SplitSection, MosaicFromGallery, EditorialAccent} from './SplitSection';
  *   t?: (k: string) => string;
  * }}
  */
-export function EditorialDescription({html, productType, galleryImages = [], eyebrow}) {
+export function EditorialDescription({
+  html,
+  productType,
+  galleryImages = [],
+  eyebrow,
+}) {
   // Split the merchant body into a lead and a tail. We split on the
   // first `</p>` / `</h1..4>` boundary — anything before is the lead,
   // anything after is the tail. SSR-safe (no DOMParser).
@@ -46,24 +58,29 @@ export function EditorialDescription({html, productType, galleryImages = [], eye
     return {lead: html.slice(0, cutAt), tail: html.slice(cutAt)};
   }, [html]);
 
-  // Detect whether the merchant's body has inline <img>/<video>
-  // media interleaved with the prose. If so, we split the body into
-  // a text-only chunk and an images-only chunk and render them in
-  // separate columns.
-  const {textOnly, imagesOnly} = useMemo(() => {
-    if (!html) return {textOnly: '', imagesOnly: []};
-    const hasMedia = /<(img|video)\b/i.test(html);
-    if (!hasMedia) return {textOnly: html, imagesOnly: []};
-    // The merchant wraps every inline image in `<p><b><img></b></p>`.
-    // Strip those wrapper paragraphs from the text and capture their
-    // inner markup separately.
-    const wrapperRe = /<p[^>]*>\s*<b[^>]*>\s*(<img\b[^>]*\/?>)\s*<\/b>\s*<\/p>/gi;
-    const imgs = [];
-    const stripped = html.replace(wrapperRe, (_m, img) => {
-      imgs.push(img);
-      return '';
-    });
-    return {textOnly: stripped, imagesOnly: imgs};
+  // Walk the merchant body once and emit `{kind, html}` chunks in
+  // source order. The merchant wraps every inline image in
+  // `<p><b><img></b></p>` — each match is a single image chunk, and
+  // the prose between matches is a text chunk. This is the building
+  // block for Layout A's zigzag render below.
+  const chunks = useMemo(() => {
+    if (!html) return [];
+    const re =
+      /<p[^>]*>\s*<b[^>]*>\s*<img\b[^>]*\/?>\s*<\/b>\s*<\/p>/gi;
+    const out = [];
+    let last = 0;
+    let m;
+    while ((m = re.exec(html)) !== null) {
+      if (m.index > last) {
+        out.push({kind: 'text', html: html.slice(last, m.index)});
+      }
+      out.push({kind: 'image', html: m[0]});
+      last = m.index + m[0].length;
+    }
+    if (last < html.length) {
+      out.push({kind: 'text', html: html.slice(last)});
+    }
+    return out;
   }, [html]);
 
   const useMosaic = useMemo(() => {
@@ -72,40 +89,50 @@ export function EditorialDescription({html, productType, galleryImages = [], eye
 
   if (!html) return null;
 
-  const hasInlineMedia = imagesOnly.length > 0;
+  const hasInlineMedia = chunks.some((c) => c.kind === 'image');
 
   // ── Layout A: inline media present ─────────────────────────────
-  // Two-column magazine. Left column owns the editorial framing
-  // (eyebrow + h2) plus ALL the merchant's prose text. Right column
-  // owns the merchant's images stacked vertically, alternating
-  // left/right within the column so consecutive images don't pile
-  // up on one side — image 1 leans left, image 2 leans right,
-  // image 3 leans left, and so on.
+  // Zigzag. Each chunk gets its own full-width row. The row is a
+  // two-column grid; the chunk's content sits in column 1 on
+  // odd-indexed rows and column 2 on even-indexed rows, so the
+  // page reads as: text-left → image-right → text-left → image-
+  // right, with the opposite half of each row left as whitespace
+  // for breathing room. ScrollReveal slides each row in from its
+  // content side so consecutive rows arrive from opposite edges.
   if (hasInlineMedia) {
     return (
-      <section className="pk-pdesc pk-split pk-split--left">
-        <div className="pk-split__inner pk-pdesc__with-media">
-          <div className="pk-split__col-text pk-pdesc__text-col">
-            <p className="pk-split__eyebrow">{eyebrow}</p>
-            <h2 className="pk-split__headline pk-pdesc__heading-inline">
-              {productType || ''}
-            </h2>
-            <div
-              className="pk-pdesc__body"
-              dangerouslySetInnerHTML={{__html: textOnly}}
-            />
-          </div>
-          <div className="pk-split__col-visual pk-pdesc__media-col">
-            <div className="pk-pdesc__image-stack">
-              {imagesOnly.map((img, i) => (
-                <div
-                  key={i}
-                  className={`pk-pdesc__image-item pk-pdesc__image-item--${i % 2 === 0 ? 'left' : 'right'}`}
-                  dangerouslySetInnerHTML={{__html: img}}
-                />
-              ))}
-            </div>
-          </div>
+      <section className="pk-pdesc pk-pdesc--zigzag">
+        <div className="pk-pdesc__header">
+          <p className="pk-split__eyebrow">{eyebrow}</p>
+          <h2 className="pk-split__headline pk-pdesc__heading-inline">
+            {productType || ''}
+          </h2>
+        </div>
+        <div className="pk-pdesc__blocks">
+          {chunks.map((chunk, i) => {
+            const side = i % 2 === 0 ? 'left' : 'right';
+            const revealVariant = side === 'left' ? 'right' : 'left';
+            return (
+              <ScrollReveal
+                key={i}
+                as="div"
+                variant={revealVariant}
+                className={`pk-pdesc__block pk-pdesc__block--${chunk.kind} pk-pdesc__block--${side}`}
+              >
+                {chunk.kind === 'image' ? (
+                  <div
+                    className="pk-pdesc__image"
+                    dangerouslySetInnerHTML={{__html: chunk.html}}
+                  />
+                ) : (
+                  <div
+                    className="pk-pdesc__text"
+                    dangerouslySetInnerHTML={{__html: chunk.html}}
+                  />
+                )}
+              </ScrollReveal>
+            );
+          })}
         </div>
       </section>
     );
