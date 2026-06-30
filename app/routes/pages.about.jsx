@@ -3,6 +3,7 @@ import {Image} from '@shopify/hydrogen';
 import {puchicaMeta} from '~/lib/seo';
 import StarGlyph from '~/components/StarGlyph';
 import {STORE_LOGO_URL} from '~/lib/brand';
+import {PageHero} from '~/components/PageHero';
 import {IconHome, IconSparkles, IconLightbulb, IconLeaf, IconPawPrint, IconGift} from '~/components/Icons';
 
 export const meta = () =>
@@ -21,25 +22,22 @@ export default function AboutPage() {
   return (
     <div className="pk-about">
       {/* Hero */}
-      <section className="pk-about-hero">
-        <div className="pk-about-hero__glow" aria-hidden="true" />
-        <div className="pk-about-hero__inner">
-          <span className="pk-about-hero__eyebrow"><StarGlyph /> Our story</span>
-          <h1 className="pk-about-hero__title">
+      <PageHero
+        variant="ink"
+        eyebrow={<><StarGlyph /> Our story</>}
+        title={
+          <>
             We pick the good stuff.
             <br />
-            <span className="pk-about-hero__em">You get to skip the research.</span>
-          </h1>
-          <p className="pk-about-hero__sub">
-            Puchica is a Canadian-owned store built around curated finds. We
-            sort through thousands of products so you don&apos;t have to. If it
-            doesn&apos;t earn its spot, it doesn&apos;t ship.
-          </p>
-          <Link to="/collections/all" className="pk-btn pk-btn--spark pk-btn--lg">
-            Start shopping →
-          </Link>
-        </div>
-      </section>
+            <span className="pk-hero__em">You get to skip the research.</span>
+          </>
+        }
+        sub="Puchica is a Canadian-owned store built around curated finds. We sort through thousands of products so you don’t have to. If it doesn’t earn its spot, it doesn’t ship."
+      >
+        <Link to="/collections/all" className="pk-btn pk-btn--spark pk-btn--lg pk-hero__cta">
+          Start shopping →
+        </Link>
+      </PageHero>
 
       {/* Stats bar */}
       <div className="pk-about-stats" aria-label="Puchica in numbers">

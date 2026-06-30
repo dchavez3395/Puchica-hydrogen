@@ -3,6 +3,7 @@ import {getPaginationVariables} from '@shopify/hydrogen';
 import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
 import {puchicaMeta} from '~/lib/seo';
 import {ProductItem} from '~/components/ProductItem';
+import {PageHero} from '~/components/PageHero';
 import {useT} from '~/lib/t';
 
 /**
@@ -121,16 +122,13 @@ export default function Collection() {
         <span className="pk-breadcrumbs__current">{t('all_breadcrumb')}</span>
       </nav>
 
-      <header className="pk-col-hero pk-col-hero--soft">
-        <div className="pk-col-hero__glow" aria-hidden />
-        <div className="pk-col-hero__glow pk-col-hero__glow--ember" aria-hidden />
-        <span className="pk-col-hero__eyebrow">{t('all_eyebrow')}</span>
-        <h1 className="pk-col-hero__title">{t('all_title')}</h1>
-        <p className="pk-col-hero__sub">{t('all_sub')}</p>
-        <span className="pk-col-hero__count">
-          {formatCatalogCount(count, impliedTotal, hasNextPage, t)}
-        </span>
-      </header>
+      <PageHero
+        variant="paper"
+        eyebrow={t('all_eyebrow')}
+        title={t('all_title')}
+        sub={t('all_sub')}
+        count={formatCatalogCount(count, impliedTotal, hasNextPage, t)}
+      />
 
       {count === 0 ? (
         <div className="pk-empty">
