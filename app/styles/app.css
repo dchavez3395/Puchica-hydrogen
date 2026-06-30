@@ -7664,11 +7664,22 @@ button:focus-visible,
   border-radius: 24px;
   padding: 44px 36px;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
 }
-.pk-about-mission__card-icon {
-  font-size: 40px;
+/* The Puchica logo is a horizontal lockup (1200×360, ~3.3:1). On
+   the dark ink card the colored parts of the SVG (violet bag icon
+   + indigo wordmark) read well against the dark background. The
+   logo keeps its native aspect ratio while scaling to the card
+   width, capped at 360px so it never gets visually heavier than
+   the headline next to it. */
+.pk-about-mission__logo {
   display: block;
-  margin-bottom: 20px;
+  width: 100%;
+  max-width: 360px;
+  height: auto;
 }
 .pk-about-mission__card-text {
   font-size: 18px;
@@ -7676,6 +7687,7 @@ button:focus-visible,
   line-height: 1.65;
   margin: 0;
   font-style: italic;
+  max-width: 380px;
 }
 
 /* How it works */

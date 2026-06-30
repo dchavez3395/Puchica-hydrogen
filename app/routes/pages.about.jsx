@@ -1,7 +1,9 @@
 import {Link} from 'react-router';
+import {Image} from '@shopify/hydrogen';
 import {puchicaMeta} from '~/lib/seo';
 import StarGlyph from '~/components/StarGlyph';
-import {IconSearch, IconHome, IconSparkles, IconLightbulb, IconLeaf, IconPawPrint, IconGift} from '~/components/Icons';
+import {STORE_LOGO_URL} from '~/lib/brand';
+import {IconHome, IconSparkles, IconLightbulb, IconLeaf, IconPawPrint, IconGift} from '~/components/Icons';
 
 export const meta = () =>
   puchicaMeta({
@@ -75,9 +77,16 @@ export default function AboutPage() {
               selection instead of a guess at what might sell.
             </p>
           </div>
-          <div className="pk-about-mission__visual" aria-hidden="true">
+          <div className="pk-about-mission__visual">
             <div className="pk-about-mission__card">
-              <span className="pk-about-mission__card-icon"><IconSearch size={32} /></span>
+              <Image
+                className="pk-about-mission__logo"
+                src={STORE_LOGO_URL}
+                alt="Puchica"
+                width={400}
+                height={120}
+                loading="lazy"
+              />
               <p className="pk-about-mission__card-text">
                 We evaluate thousands of products. Only the ones worth your
                 money make it through.
@@ -155,8 +164,7 @@ export default function AboutPage() {
       <section className="pk-about-promise">
         <div className="pk-about-promise__inner">
           <blockquote className="pk-about-promise__quote">
-            &ldquo;If it&apos;s on Puchica, we&apos;d buy it ourselves. We test
-            it, we live with it, and we keep the bar where it is.&rdquo;
+            &ldquo;Every Puchica product has been thoroughly tested by our team. Providing the most curated selection of products that we can find. If we wouldn&apos;t use it ourselves, it won&apos;t be Puchica.&rdquo;
           </blockquote>
           <p className="pk-about-promise__attr">— The Puchica team, Toronto ON</p>
         </div>
