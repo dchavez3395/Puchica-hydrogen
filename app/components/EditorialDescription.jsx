@@ -17,12 +17,13 @@ import {ScrollReveal} from './ScrollReveal';
  *     The body is parsed into a flat sequence of `{kind: 'text'|'image', html}`
  *     chunks — anything between images (paragraphs, lists, headings)
  *     is a text chunk, every `<p><b><img></b></p>` wrapper is an
- *     image chunk. Chunks are then paired into rows: each row holds
- *     one text chunk and one image chunk side-by-side in a 50/50
- *     grid, and consecutive rows alternate which side carries the
- *     text (text-left|image-right → image-left|text-right → …).
- *     A trailing text chunk with no image partner (e.g. the final
- *     SPECS section) spans the full width.
+ *     image chunk. Each chunk gets its OWN row, sitting on one half
+ *     of the row (left or right). Consecutive rows alternate which
+ *     side carries the content (text-left → image-right → text-left
+ *     → …), and the opposite half is intentional whitespace — the
+ *     magazine rhythm depends on it. A trailing text chunk with no
+ *     image partner (e.g. the final SPECS section) spans the full
+ *     width.
  *
  *   • Without inline media (most products):
  *     Keep the original three-zone layout: eyebrow + headline, then
@@ -93,40 +94,76 @@ export function EditorialDescription({
   const hasInlineMedia = chunks.some((c) => c.kind === 'image');
 
   // ── Layout A: inline media present ─────────────────────────────
-  // Paired rows. Walk the chunk sequence once and pair each text
-  // chunk with the immediately-following image chunk into a single
-  // 50/50 row. Consecutive rows alternate which side carries the
-  // text: row 0 = text-left / image-right, row 1 = image-left /
-  // text-right, row 2 = text-left / image-right, … If a text chunk
-  // has no image partner (e.g. the final SPECS list trailing after
-  // the last image), it spans the full row width so no content is
-  // stranded on its own half. No empty whitespace columns.
+  // Each chunk renders as its own row. Text chunks sit on one half
+  // of the row (column 1 left, or column 2 right), image chunks sit
+  // on the other half, alternating by source order:
+  //
+  //   chunk 0 (text)  → row 0, left  (right is intentional whitespace)
+  //   chunk 1 (image) → row 1, right (left  is intentional whitespace)
+  //   chunk 2 (text)  → row 2, left  (right is intentional whitespace)
+  //   chunk 3 (image) → row 3, right (left  is intentional whitespace)
+  //   …
+  //
+  // The opposite half is empty whitespace — the magazine rhythm
+  // depends on it. We deliberately do NOT pair text and image in
+  // the same row: when text and image share a row, the empty half
+  // vanishes and the spread loses its breathing room.
+  //
+  // A trailing text chunk with no image partner (e.g. the final
+  // SPECS list after the last image) breaks the alternating
+  // pattern and renders full-width so the spec list has room to
+  // breathe.
   if (hasInlineMedia) {
-    // Build the row list: each row is either {text, image} (paired)
-    // or {text, image: null} (full-width trailing text).
-    const rows = [];
+    // Split into "alternating" chunks (which render single-side
+    // per row) and "trailing" content (which renders full-width).
+    //
+    // The standard pattern is text/image/text/image/text/image/…
+    // alternating. We walk the chunks and accumulate the leading
+    // alternating run. Then:
+    //   • If the final chunk is a text chunk with no image
+    //     following it (e.g. SPECS list after the last product
+    //     image), pull it out as trailing so the spec list has
+    //     room to breathe at full width.
+    //   • If the pattern itself breaks (e.g. image-image or text-
+    //     text), everything after the break is trailing.
+    const altChunks = [];
+    let trailing = null;
     for (let i = 0; i < chunks.length; i++) {
       const c = chunks[i];
-      if (c.kind === 'text') {
-        const next = chunks[i + 1];
-        if (next && next.kind === 'image') {
-          rows.push({text: c, image: next});
-          i++; // consumed the image too
-        } else {
-          rows.push({text: c, image: null});
-        }
+      const expected = i % 2 === 0 ? 'text' : 'image';
+      if (c.kind === expected) {
+        altChunks.push(c);
       } else {
-        // Orphan image (no preceding text) — render as full-width
-        // image row so it isn't dropped.
-        rows.push({text: null, image: c});
+        // Pattern breaks — everything from here on is trailing.
+        const rest = chunks.slice(i);
+        if (rest[0].kind === 'image') {
+          altChunks.push(rest[0]);
+          trailing = rest.slice(1);
+        } else {
+          trailing = rest;
+        }
+        break;
       }
     }
 
-    // The h2 + eyebrow used to live in a separate header band
-    // above all rows. That read as "dead space" and broke the
-    // rhythm — the headline should belong to the article itself,
-    // not float above it. Inline both into the first text chunk
-    // so they sit INSIDE the first row's text column.
+    // If the alternating run ends on a text chunk with no image
+    // partner (the common case — merchant body ends with the
+    // SPECS list after the last image), pull the trailing text
+    // out into the full-width slot so it doesn't sit alone on a
+    // half-row.
+    if (
+      !trailing &&
+      altChunks.length > 0 &&
+      altChunks[altChunks.length - 1].kind === 'text' &&
+      (altChunks.length === 1 ||
+        altChunks[altChunks.length - 2].kind === 'image')
+    ) {
+      trailing = [altChunks.pop()];
+    }
+
+    // The eyebrow + h2 ride along at the top of the first text
+    // chunk so the headline belongs to the article instead of
+    // floating above it (which read as dead space).
     const headingHtml =
       (eyebrow ? `<p class="pk-split__eyebrow">${eyebrow}</p>` : '') +
       (productType
@@ -136,73 +173,67 @@ export function EditorialDescription({
     return (
       <section className="pk-pdesc pk-pdesc--zigzag">
         <div className="pk-pdesc__blocks">
-          {rows.map((row, i) => {
+          {altChunks.map((chunk, i) => {
+            // Each chunk sits on one side: text on left, image on
+            // right, alternating. i=0 (text) → left, i=1 (image) →
+            // right, i=2 (text) → left, …
             const side = i % 2 === 0 ? 'left' : 'right';
-            // Paired rows slide in from the text side; full-width
-            // tail rows slide up from below.
+            const isText = chunk.kind === 'text';
+
+            // The first chunk carries the eyebrow + h2 above its
+            // content — subsequent chunks render just the merchant
+            // HTML.
+            const html =
+              i === 0 && isText
+                ? headingHtml + chunk.html
+                : chunk.html;
+
+            // Reveal direction: text slides in from its side
+            // (right→left when text is on the left), image slides
+            // in from its side (left→right when image is on the
+            // right).
             const revealVariant =
-              row.image == null
-                ? 'up'
-                : side === 'left'
-                ? 'right'
-                : 'left';
+              side === 'left' ? 'right' : 'left';
 
-            // The first paired row carries the eyebrow + h2 above
-            // its text — every subsequent row renders just the
-            // merchant's prose.
-            const isFirstPaired = i === 0 && row.image != null;
-            const textHtml =
-              (isFirstPaired ? headingHtml : '') + (row.text?.html || '');
-
-            // Full-width row: either text-only tail or orphan image.
-            if (row.image == null) {
-              const isText = row.text != null;
-              return (
-                <ScrollReveal
-                  key={i}
-                  as="div"
-                  variant="up"
-                  className={`pk-pdesc__row pk-pdesc__row--full pk-pdesc__row--${isText ? 'text' : 'image'}`}
-                >
-                  {isText ? (
-                    <div
-                      className="pk-pdesc__text"
-                      dangerouslySetInnerHTML={{__html: textHtml}}
-                    />
-                  ) : (
-                    <div
-                      className="pk-pdesc__image"
-                      dangerouslySetInnerHTML={{__html: row.image?.html || ''}}
-                    />
-                  )}
-                </ScrollReveal>
-              );
-            }
-
-            // Paired row: text + image side-by-side. `side` decides
-            // which column carries the text.
             return (
               <ScrollReveal
                 key={i}
                 as="div"
                 variant={revealVariant}
-                className={`pk-pdesc__row pk-pdesc__row--paired pk-pdesc__row--${side}`}
+                className={`pk-pdesc__row pk-pdesc__row--single pk-pdesc__row--${side} pk-pdesc__row--${chunk.kind}`}
               >
-                <div className="pk-pdesc__row-text">
-                  <div
-                    className="pk-pdesc__text"
-                    dangerouslySetInnerHTML={{__html: textHtml}}
-                  />
-                </div>
-                <div className="pk-pdesc__row-image">
-                  <div
-                    className="pk-pdesc__image"
-                    dangerouslySetInnerHTML={{__html: row.image.html}}
-                  />
-                </div>
+                <div
+                  className={
+                    isText ? 'pk-pdesc__text' : 'pk-pdesc__image'
+                  }
+                  dangerouslySetInnerHTML={{__html: html}}
+                />
               </ScrollReveal>
             );
           })}
+
+          {/* Trailing text without an image partner (e.g. SPECS
+           * list after the last image) renders full-width so it
+           * doesn't sit alone on a half-row. */}
+          {trailing && trailing.length > 0 && (
+            <ScrollReveal
+              as="div"
+              variant="up"
+              className="pk-pdesc__row pk-pdesc__row--full pk-pdesc__row--text"
+            >
+              {trailing.map((chunk, i) => (
+                <div
+                  key={i}
+                  className={
+                    chunk.kind === 'text'
+                      ? 'pk-pdesc__text'
+                      : 'pk-pdesc__image'
+                  }
+                  dangerouslySetInnerHTML={{__html: chunk.html}}
+                />
+              ))}
+            </ScrollReveal>
+          )}
         </div>
       </section>
     );
