@@ -1,25 +1,42 @@
 import {getSitemap} from '@shopify/hydrogen';
+import {PREFIXED_LANGS} from '~/lib/i18n';
 
 /**
  * @param {Route.LoaderArgs}
  *
- * The storefront is hard-coded to EN/CA in app/lib/context.js, so we
- * only advertise EN-CA in the sitemap. The previous `EN-US`/`FR-CA`
- * entries told Google about locale-prefixed URLs that 404'd at runtime
- * — Google Search Console would flag those as soft-404s and erode
- * crawl budget.
+ * The URL-locale routes (/fr, /es, /pt-br) are live, so the sitemap
+ * advertises all four languages. Hydrogen's `getSitemap` emits one
+ * `<xhtml:link rel="alternate" hreflang=...>` per locale, plus an `x-default`
+ * pointing at the unprefixed (English) URL, automatically — we just
+ * have to list the locales and the URL shape.
  *
- * If the storefront later adds locale subpath routing, extend this
- * array and add hreflang `<link rel="alternate">` tags in root.jsx.
+ * Locale codes are the four BCP-47 tags search engines see. They map
+ * to URL prefixes: `EN` (unprefixed), `fr` -> `/fr`, `es` -> `/es`,
+ * `pt-br` -> `/pt-br`. The `getLink` callback's `locale` argument is
+ * the *prefix* (or undefined for the canonical English URL), so we
+ * use it directly to build the path.
  */
 export async function loader({request, params, context: {storefront}}) {
+  // Order matters: EN first so the canonical `<loc>` for every URL is
+  // the unprefixed (English) one, matching the x-default that
+  // hreflangAlternates() emits in root.jsx. The codes here match
+  // hreflangAlternates() in app/lib/seo.js so Google's hreflang
+  // signals from the sitemap and from <link rel="alternate"> agree.
+  const locales = ['en', 'fr', 'es', 'pt-br'];
+
   const response = await getSitemap({
     storefront,
     request,
     params,
-    locales: ['EN-CA'],
+    locales,
     getLink: ({type, baseUrl, handle, locale}) => {
       if (!locale) return `${baseUrl}/${type}/${handle}`;
+      // Sanity-check the prefix against the i18n module's allow-list.
+      // If a future locale is added to the array but not to
+      // PREFIXED_LANGS, we'd accidentally advertise 404 URLs.
+      if (!PREFIXED_LANGS.includes(locale)) {
+        return `${baseUrl}/${type}/${handle}`;
+      }
       return `${baseUrl}/${locale}/${type}/${handle}`;
     },
   });
