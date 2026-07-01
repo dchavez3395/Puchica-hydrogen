@@ -1,4 +1,5 @@
-import {Link, useNavigate} from 'react-router';
+import {useNavigate} from 'react-router';
+import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {useState, useEffect, useRef} from 'react';
 import {AddToCartButton} from './AddToCartButton';
 import {useAside} from './Aside';

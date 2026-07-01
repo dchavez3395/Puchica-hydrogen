@@ -6,7 +6,7 @@ import {puchicaMeta} from '~/lib/seo';
 /**
  * @type {Route.MetaFunction}
  */
-export const meta = ({data}) => {
+export const meta = ({data, params}) => {
   const article = data?.article;
   const title = article?.seo?.title || article?.title || 'Article';
   return puchicaMeta({
@@ -21,6 +21,7 @@ export const meta = ({data}) => {
       `Read ${title} on the Puchica blog.`,
     noindex: true,
     pathname: `/blogs/${article?.blogHandle || ''}/${article?.handle || ''}`,
+    langKey: params?.locale,
   });
 };
 

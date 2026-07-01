@@ -1,15 +1,17 @@
-import {useLoaderData, Link} from 'react-router';
+import {useLoaderData} from 'react-router';
+import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {puchicaMeta} from '~/lib/seo';
 
 /**
  * @type {Route.MetaFunction}
  */
-export const meta = () => {
+export const meta = ({params}) => {
   return puchicaMeta({
     title: 'Policies – Puchica',
     description:
       'Shipping, returns, privacy, and terms for orders placed at Puchica.ca. Canadian-owned. 30-day easy returns.',
     pathname: '/policies',
+    langKey: params?.locale,
   });
 };
 

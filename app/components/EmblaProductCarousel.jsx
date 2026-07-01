@@ -1,5 +1,5 @@
 import {useState, useEffect, useCallback} from 'react';
-import {Link} from 'react-router';
+import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import useEmblaCarousel from 'embla-carousel-react';
 import {ProductPrice} from './ProductPrice';
 

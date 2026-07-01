@@ -1,5 +1,9 @@
 import {Suspense, useEffect, useState} from 'react';
-import {Await, Link, NavLink, useAsyncValue} from 'react-router';
+import {Await, useAsyncValue} from 'react-router';
+import {
+  LocalizedLink as Link,
+  LocalizedNavLink as NavLink,
+} from '~/components/LocalizedLink';
 import {useAnalytics, useOptimisticCart} from '@shopify/hydrogen';
 import {useAside} from '~/components/Aside';
 import {STORE_LOGO_URL} from '~/lib/brand';

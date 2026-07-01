@@ -1,4 +1,5 @@
-import {Link, data, useLoaderData} from 'react-router';
+import {data, useLoaderData} from 'react-router';
+import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {puchicaMeta} from '~/lib/seo';
 
 /**

@@ -1,5 +1,6 @@
 import {useEffect, useRef, useState} from 'react';
-import {useLoaderData, Link} from 'react-router';
+import {useLoaderData} from 'react-router';
+import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {
   getSelectedProductOptions,
   Analytics,
@@ -32,7 +33,7 @@ import {ScrollReveal} from '~/components/ScrollReveal';
 import {useT} from '~/lib/t';
 
 /** @type {Route.MetaFunction} */
-export const meta = ({data}) => {
+export const meta = ({data, params}) => {
   if (!data?.product) return [{title: 'Puchica'}];
   const seo = data.product.seo || {};
   const title = seo.title || `${data.product.title} – Puchica`;
@@ -42,7 +43,7 @@ export const meta = ({data}) => {
     `Shop ${data.product.title} from Puchica.`;
   const image = data.product.featuredImage?.url;
   const pathname = `/products/${data.product.handle}`;
-  return puchicaMeta({title, description, image, type: 'product', pathname});
+  return puchicaMeta({title, description, image, type: 'product', pathname, langKey: params?.locale});
 };
 
 /** @param {Route.LoaderArgs} args */

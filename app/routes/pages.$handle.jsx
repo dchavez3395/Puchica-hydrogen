@@ -14,7 +14,7 @@ import {ContactPage} from '~/components/ContactPage';
 const CONTACT_DESCRIPTION =
   'Get in touch with the Puchica team. Email, Instagram DM, or Facebook — a real person usually replies within one business day.';
 
-export const meta = ({data}) => {
+export const meta = ({data, params}) => {
   const page = data?.page;
   // Special case: the contact page renders its own layout, so give it
   // a real description instead of the empty body the merchant has set
@@ -24,6 +24,7 @@ export const meta = ({data}) => {
       title: 'Contact us – Puchica',
       description: CONTACT_DESCRIPTION,
       pathname: '/pages/contact',
+      langKey: params?.locale,
     });
   }
   // Prefer the merchant-set seo fields (already in the query). Fall back
@@ -39,6 +40,7 @@ export const meta = ({data}) => {
     title: `${title} – Puchica`,
     description,
     pathname: `/pages/${page?.handle || ''}`,
+    langKey: params?.locale,
   });
 };
 

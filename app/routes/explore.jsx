@@ -1,4 +1,5 @@
-import {useLoaderData, Link, useSearchParams} from 'react-router';
+import {useLoaderData, useSearchParams} from 'react-router';
+import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {Image, Money} from '@shopify/hydrogen';
 import {puchicaMeta} from '~/lib/seo';
 import {ScrollReveal} from '~/components/ScrollReveal';
@@ -8,12 +9,13 @@ import {useT} from '~/lib/t';
 /**
  * @type {Route.MetaFunction}
  */
-export const meta = () => {
+export const meta = ({params}) => {
   return puchicaMeta({
     title: 'Explore – Puchica',
     description:
       'Browse the Puchica catalog by category. Filter by room, audience, or budget. No noise — just the products we picked.',
     pathname: '/explore',
+    langKey: params?.locale,
   });
 };
 

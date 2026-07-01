@@ -1,10 +1,11 @@
-import {Link, useLoaderData} from 'react-router';
+import {useLoaderData} from 'react-router';
+import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {puchicaMeta} from '~/lib/seo';
 
 /**
  * @type {Route.MetaFunction}
  */
-export const meta = ({data}) => {
+export const meta = ({data, params}) => {
   const policy = data?.policy;
   const title = policy?.title || 'Policy';
   // Description: sentence-aware first ~160 chars of the policy body.
@@ -21,6 +22,7 @@ export const meta = ({data}) => {
     title: `${title} – Puchica`,
     description,
     pathname: `/policies/${policy?.handle || ''}`,
+    langKey: params?.locale,
   });
 };
 

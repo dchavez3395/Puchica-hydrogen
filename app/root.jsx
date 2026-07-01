@@ -5,12 +5,14 @@ import {
   Outlet,
   useRouteError,
   isRouteErrorResponse,
+  useLocation,
   Links,
   Meta,
   Scripts,
   ScrollRestoration,
   useRouteLoaderData,
 } from 'react-router';
+import {hreflangAlternates} from '~/lib/seo';
 const favicon = '/favicon.svg';
 import {FOOTER_QUERY, HEADER_QUERY, MEGA_MENU_QUERY} from '~/lib/fragments';
 import resetStyles from '~/styles/reset.css?url';
@@ -173,6 +175,10 @@ function loadDeferredData({context}) {
  */
 export function Layout({children}) {
   const nonce = useNonce();
+  const {pathname} = useLocation();
+  // Reciprocal hreflang alternates for all four languages + x-default, keyed to
+  // the current path. Correct now that the /fr, /es, /pt-br routes resolve.
+  const alternates = hreflangAlternates(pathname);
 
   return (
     <html lang="en-CA">
@@ -181,6 +187,14 @@ export function Layout({children}) {
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <link rel="stylesheet" href={resetStyles}></link>
         <link rel="stylesheet" href={appStyles}></link>
+        {alternates.map((a) => (
+          <link
+            key={a.hreflang}
+            rel="alternate"
+            hrefLang={a.hreflang}
+            href={a.href}
+          />
+        ))}
         <Meta />
         <Links />
       </head>

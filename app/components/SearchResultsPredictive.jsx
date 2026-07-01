@@ -1,4 +1,5 @@
-import {Link, useFetcher} from 'react-router';
+import {useFetcher} from 'react-router';
+import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {Image, Money} from '@shopify/hydrogen';
 import {useRef, useEffect} from 'react';
 import {

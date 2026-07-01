@@ -1,4 +1,4 @@
-import {Link} from 'react-router';
+import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {PaginatedResourceSection} from './PaginatedResourceSection';
 import {urlWithTrackingParams} from '~/lib/search';
 import {ProductItem} from '~/components/ProductItem';

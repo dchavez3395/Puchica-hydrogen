@@ -11,8 +11,8 @@
 export const DICTIONARIES = {
   en: {
     // ── Announcement bar ──────────────────────────────────────────
-    announce_offer: '30-day returns. No questions. No fine print.',
-    announce_freeship: 'Free shipping over $50',
+    announce_offer: '15% off your first order — code FIRST15',
+    announce_freeship: 'Free shipping across Canada',
     announce_cta: 'Shop now',
 
     // ── Footer ────────────────────────────────────────────────────
@@ -75,7 +75,7 @@ export const DICTIONARIES = {
     mobile_customer_care: 'Customer Care',
     mobile_contact_us: 'Contact us',
     mobile_all_policies: 'All policies',
-    mobile_announce_foot: 'Free shipping on orders over $50 · 30-day easy returns',
+    mobile_announce_foot: 'Free shipping across Canada · 30-day easy returns',
     mobile_announce_foot_sep: ' · ',
     // Product page trust labels
     product_promise_canadian: 'Canadian-owned · Curated',
@@ -118,7 +118,7 @@ export const DICTIONARIES = {
     // ── Ticker / Marquee ──────────────────────────────────────────
     ticker_products: '6,000+ products',
     ticker_new_drops: 'New drops weekly',
-    ticker_free_shipping: 'Free shipping $50+',
+    ticker_free_shipping: 'Free shipping across Canada',
     ticker_returns: '30-day easy returns',
     ticker_ships: 'Fast shipping',
     ticker_handpicked: 'Handpicked, never random',
@@ -255,7 +255,7 @@ export const DICTIONARIES = {
 
     // ── Trust / value props ───────────────────────────────────────
     trust_shipping_title: 'Free shipping',
-    trust_shipping_sub: 'On orders over $50',
+    trust_shipping_sub: 'Across Canada',
     trust_returns_title: '30-day returns',
     trust_returns_sub: 'No questions, no hassle',
     trust_secure_title: 'Secure checkout',
@@ -350,7 +350,7 @@ export const DICTIONARIES = {
 
     // ── Product page ──────────────────────────────────────────────
     product_trust_shipping: 'Free shipping',
-    product_trust_shipping_sub: 'on orders over $50',
+    product_trust_shipping_sub: 'across Canada',
     product_trust_returns: '30-day returns',
     product_trust_returns_sub: 'pre-paid label included',
     product_trust_secure: 'Secure checkout',
@@ -414,7 +414,7 @@ export const DICTIONARIES = {
 
   // ════════════════════════════════════════════════════════════════
   fr: {
-    announce_offer: 'Retours sous 30 jours. Sans questions. Sans conditions.',
+    announce_offer: '15 % de rabais sur votre première commande — code FIRST15',
     announce_freeship: 'Livraison gratuite dès 50 $',
     announce_cta: 'Magasiner',
 
@@ -755,8 +755,8 @@ export const DICTIONARIES = {
 
   // ════════════════════════════════════════════════════════════════
   es: {
-    announce_offer: 'Devoluciones en 30 días. Sin preguntas. Sin letra pequeña.',
-    announce_freeship: 'Envío gratis en pedidos de más de $50',
+    announce_offer: '15 % de descuento en tu primer pedido — código FIRST15',
+    announce_freeship: 'Devoluciones en 30 días, sin complicaciones',
     announce_cta: 'Comprar ahora',
 
     footer_tagline: 'Más de 6.000 productos seleccionados. Envío rápido. Lo mejor, todo en un solo lugar.',
@@ -1097,8 +1097,8 @@ export const DICTIONARIES = {
 
   // ════════════════════════════════════════════════════════════════
   'pt-br': {
-    announce_offer: 'Devoluções em 30 dias. Sem perguntas. Sem letras miúdas.',
-    announce_freeship: 'Frete grátis acima de $50',
+    announce_offer: '15% de desconto no primeiro pedido — código FIRST15',
+    announce_freeship: 'Devoluções em 30 dias, sem complicações',
     announce_cta: 'Comprar agora',
 
     footer_tagline: 'Mais de 6.000 produtos selecionados. Entrega rápida. O melhor, tudo em um só lugar.',

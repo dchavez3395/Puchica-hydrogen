@@ -1,4 +1,5 @@
-import {useLoaderData, Link} from 'react-router';
+import {useLoaderData} from 'react-router';
+import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {getPaginationVariables, Image} from '@shopify/hydrogen';
 import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
 import {puchicaMeta} from '~/lib/seo';
@@ -9,12 +10,13 @@ import {TiltCard} from '~/components/TiltCard';
 /**
  * @type {Route.MetaFunction}
  */
-export const meta = () => {
+export const meta = ({params}) => {
   return puchicaMeta({
     title: 'Collections – Puchica',
     description:
       'Shop Puchica by collection — 19 categories across home, beauty, tech, pet, apparel, health, and more. Free shipping over $50, easy 30-day returns.',
     pathname: '/collections',
+    langKey: params?.locale,
   });
 };
 

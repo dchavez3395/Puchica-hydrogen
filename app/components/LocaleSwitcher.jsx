@@ -1,6 +1,6 @@
 import {useEffect, useRef, useState} from 'react';
 import {useFetcher, useRouteLoaderData} from 'react-router';
-import {LANGUAGE_KEYS} from '~/lib/i18n';
+import {LANGUAGE_KEYS, localizePath} from '~/lib/i18n';
 
 const LABELS = {
   en: 'English',
@@ -12,8 +12,11 @@ const ORDER = ['en', 'fr', 'es', 'pt-br'];
 
 /**
  * Language switcher. POSTs to /locale (server action) which sets the
- * pk_locale cookie and redirects back — the server owns the cookie so
- * there are no client-side timing issues with document.cookie + reload.
+ * pk_locale cookie and redirects to the LOCALIZED path — so choosing a
+ * language both remembers the preference (cookie, for future bare-URL visits)
+ * and moves the user to the crawlable per-language URL (/fr, /es, /pt-br;
+ * English is unprefixed). The URL is the source of truth for which language
+ * renders — see getLocaleFromRequest in app/lib/i18n.js.
  */
 export function LocaleSwitcher() {
   const root = useRouteLoaderData('root');
@@ -35,8 +38,12 @@ export function LocaleSwitcher() {
 
   function choose(key) {
     setOpen(false);
+    // Re-prefix the current path for the chosen language (localizePath strips
+    // any existing /fr|/es|/pt-br first, so switching FR -> ES works too).
+    const target =
+      localizePath(window.location.pathname, key) + window.location.search;
     fetcher.submit(
-      {lang: key, return: window.location.pathname + window.location.search},
+      {lang: key, return: target},
       {method: 'POST', action: '/locale'},
     );
   }

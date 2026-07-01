@@ -1,4 +1,5 @@
-import {Await, useLoaderData, Link} from 'react-router';
+import {Await, useLoaderData} from 'react-router';
+import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {Suspense, useEffect, useRef, useState} from 'react';
 import {Image, Money} from '@shopify/hydrogen';
 import {error as logError} from '~/lib/logger';
@@ -39,12 +40,13 @@ function useScrollNav(trackRef) {
 }
 
 /** @type {Route.MetaFunction} */
-export const meta = () => {
+export const meta = ({params}) => {
   return puchicaMeta({
     title: 'Puchica – The good stuff. All in one place.',
     description:
       'Puchica: 6,000+ products across home, beauty, tech, pet, and more. Curated in Toronto. Free shipping over $50, 30-day returns.',
     pathname: '/',
+    langKey: params?.locale,
   });
 };
 

@@ -13,7 +13,7 @@ import {diversifyByVendor} from '~/lib/diversify';
  * would dilute the site's index if Google indexed every
  * `/search?q=wheelbarrow` page that got crawled, so we noindex them.
  */
-export const meta = ({data}) => {
+export const meta = ({data, params}) => {
   const term = (data?.term || '').trim();
   return puchicaMeta({
     title: term ? `Search: ${term} – Puchica` : 'Search – Puchica',
@@ -22,6 +22,7 @@ export const meta = ({data}) => {
       : 'Search the Puchica catalog for curated picks across home, kitchen, beauty, tech, pet, and more.',
     noindex: true,
     pathname: '/search',
+    langKey: params?.locale,
   });
 };
 

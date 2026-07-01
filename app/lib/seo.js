@@ -13,6 +13,7 @@
  */
 
 import {BRAND_DESCRIPTION, SOCIAL_PROFILES, STORE_LOGO_URL} from '~/lib/brand';
+import {parseLocaleFromPath, localizePath} from '~/lib/i18n';
 
 /**
  * The public-facing canonical domain. NOT the Shopify domain
@@ -42,10 +43,15 @@ export const OG_LOCALE = 'en_CA';
  * Always returns a string ending in the given path with no trailing slash
  * unless the path itself ends with one.
  *
+ * Pass `langKey` ('fr' | 'es' | 'pt-br') to build the localized canonical for
+ * a non-English page, so each language self-canonicalizes. English (default,
+ * or an omitted langKey) stays unprefixed — existing callers are unchanged.
+ *
  * @param {string} pathname - should start with "/" (e.g. "/products/foo")
+ * @param {string} [langKey] - 'en' | 'fr' | 'es' | 'pt-br'; defaults to English
  */
-export function canonical(pathname) {
-  if (!pathname) return SITE_URL + '/';
+export function canonical(pathname, langKey) {
+  if (!pathname) return SITE_URL + (langKey ? localizePath('/', langKey) : '/');
   // Strip any host if the caller passed a full URL by accident.
   let path = pathname;
   try {
@@ -56,7 +62,33 @@ export function canonical(pathname) {
     /* ignore */
   }
   if (!path.startsWith('/')) path = '/' + path;
+  // localizePath is idempotent (strips any existing prefix first), so this is
+  // safe whether the caller passes a bare or already-prefixed path.
+  if (langKey) path = localizePath(path, langKey);
   return SITE_URL + path;
+}
+
+/**
+ * Build the reciprocal hreflang alternates for a page, for all four languages
+ * plus `x-default` (English). Returns objects ready to spread into React
+ * Router `<link rel="alternate" hreflang=...>` meta/link descriptors.
+ *
+ * Emit these on every indexable page ONCE the URL-locale routing is live —
+ * they point at /fr, /es, /pt-br URLs, so wiring them in before those routes
+ * resolve would advertise 404s to search engines.
+ *
+ * @param {string} pathname - the current path (bare or already-prefixed)
+ * @returns {Array<{hreflang: string, href: string}>}
+ */
+export function hreflangAlternates(pathname) {
+  const {rest} = parseLocaleFromPath(pathname || '/');
+  const langs = ['en', 'fr', 'es', 'pt-br'];
+  const alts = langs.map((k) => ({
+    hreflang: k,
+    href: SITE_URL + localizePath(rest, k),
+  }));
+  alts.push({hreflang: 'x-default', href: SITE_URL + localizePath(rest, 'en')});
+  return alts;
 }
 
 /**
@@ -73,6 +105,9 @@ export function canonical(pathname) {
  * @param {string} [opts.type]      - OG type, default "website"
  * @param {boolean} [opts.noindex]  - if true, emits robots noindex,follow
  * @param {string} [opts.pathname]  - used to build canonical + og:url
+ * @param {string} [opts.langKey]   - 'fr'|'es'|'pt-br' to localize the
+ *   canonical/og:url; omit or 'en' for the unprefixed English URL. Pass
+ *   `params.locale` from the route's meta args.
  * @param {string} [opts.twitterCard] - "summary" (default) or "summary_large_image"
  */
 export function puchicaMeta({
@@ -82,6 +117,7 @@ export function puchicaMeta({
   type = 'website',
   noindex = false,
   pathname,
+  langKey,
   twitterCard = 'summary',
 } = {}) {
   const tags = [];
@@ -103,8 +139,11 @@ export function puchicaMeta({
   tags.push({property: 'og:type', content: type});
   if (image) tags.push({property: 'og:image', content: image});
   if (pathname) {
-    tags.push({property: 'og:url', content: canonical(pathname)});
-    tags.push({tagName: 'link', rel: 'canonical', href: canonical(pathname)});
+    // langKey ('fr' | 'es' | 'pt-br') prefixes the canonical so each language
+    // self-canonicalizes; undefined/'en' leaves English URLs unprefixed.
+    const href = canonical(pathname, langKey);
+    tags.push({property: 'og:url', content: href});
+    tags.push({tagName: 'link', rel: 'canonical', href});
   }
   if (OG_LOCALE) tags.push({property: 'og:locale', content: OG_LOCALE});
 

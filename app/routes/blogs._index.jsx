@@ -1,4 +1,5 @@
-import {Link, useLoaderData} from 'react-router';
+import {useLoaderData} from 'react-router';
+import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {getPaginationVariables} from '@shopify/hydrogen';
 import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
 import {puchicaMeta} from '~/lib/seo';
@@ -10,12 +11,13 @@ import {puchicaMeta} from '~/lib/seo';
  * Shopify compatibility. We noindex it so it doesn't show up as thin
  * content if a stray blog appears in the future.
  */
-export const meta = () => {
+export const meta = ({params}) => {
   return puchicaMeta({
     title: 'Blog – Puchica',
     description: 'Stories, guides, and picks from the Puchica team.',
     noindex: true,
     pathname: '/blogs',
+    langKey: params?.locale,
   });
 };
 

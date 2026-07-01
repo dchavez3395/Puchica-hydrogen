@@ -1,4 +1,4 @@
-import {Link} from 'react-router';
+import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {useEffect, useRef, useState} from 'react';
 
 const PILLS = [

@@ -1,4 +1,5 @@
-import {Link, useLoaderData} from 'react-router';
+import {useLoaderData} from 'react-router';
+import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {Image, getPaginationVariables} from '@shopify/hydrogen';
 import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
@@ -7,7 +8,7 @@ import {puchicaMeta} from '~/lib/seo';
 /**
  * @type {Route.MetaFunction}
  */
-export const meta = ({data}) => {
+export const meta = ({data, params}) => {
   const blog = data?.blog;
   const title = blog?.seo?.title || blog?.title || 'Blog';
   return puchicaMeta({
@@ -17,6 +18,7 @@ export const meta = ({data}) => {
       `The ${title} blog from Puchica.`,
     noindex: true,
     pathname: `/blogs/${blog?.handle || ''}`,
+    langKey: params?.locale,
   });
 };
 

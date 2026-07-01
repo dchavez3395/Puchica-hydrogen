@@ -11,7 +11,8 @@
  * this component returns null.
  */
 import {Suspense, useEffect, useId, useRef, useState} from 'react';
-import {Await, Link} from 'react-router';
+import {Await} from 'react-router';
+import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {Image} from '@shopify/hydrogen';
 import StarGlyph from './StarGlyph';
 import {useT} from '~/lib/t';

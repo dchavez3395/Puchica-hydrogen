@@ -1,4 +1,4 @@
-import {Link} from 'react-router';
+import {LocalizedLink as Link} from '~/components/LocalizedLink';
 
 /**
  * ParallaxBanner — full-width brand banner with fixed background attachment

@@ -1,4 +1,4 @@
-import {Link} from 'react-router';
+import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {Image} from '@shopify/hydrogen';
 import {puchicaMeta} from '~/lib/seo';
 import StarGlyph from '~/components/StarGlyph';
@@ -6,12 +6,13 @@ import {STORE_LOGO_URL} from '~/lib/brand';
 import {IconHome, IconSparkles, IconLightbulb, IconLeaf, IconPawPrint, IconGift} from '~/components/Icons';
 import {ShippingReach} from '~/components/ShippingReach';
 
-export const meta = () =>
+export const meta = ({params}) =>
   puchicaMeta({
     title: 'About Puchica – The good stuff, handpicked.',
     description:
       "We're picky about what makes the catalog. If we wouldn't buy it ourselves, it doesn't go up. 6,000+ products, handpicked with care.",
     pathname: '/pages/about',
+    langKey: params?.locale,
   });
 
 export async function loader() {

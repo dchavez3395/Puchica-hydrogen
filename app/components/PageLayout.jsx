@@ -1,4 +1,5 @@
-import {Await, Link} from 'react-router';
+import {Await} from 'react-router';
+import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {Suspense, useId} from 'react';
 import {Aside} from '~/components/Aside';
 import {Footer} from '~/components/Footer';

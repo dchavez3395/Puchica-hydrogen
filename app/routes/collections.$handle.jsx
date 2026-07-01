@@ -1,4 +1,5 @@
-import {redirect, useLoaderData, Link, useSearchParams} from 'react-router';
+import {redirect, useLoaderData, useSearchParams} from 'react-router';
+import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {getPaginationVariables, Analytics, Image} from '@shopify/hydrogen';
 import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
@@ -10,7 +11,7 @@ import {diversifyByVendor} from '~/lib/diversify';
 /**
  * @type {Route.MetaFunction}
  */
-export const meta = ({data}) => {
+export const meta = ({data, params}) => {
   const collection = data?.collection;
   const t = collection?.seo?.title || collection?.title || 'Collection';
   const d =
@@ -25,6 +26,7 @@ export const meta = ({data}) => {
     image,
     type: 'website',
     pathname,
+    langKey: params?.locale,
   });
 };
 
