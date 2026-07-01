@@ -4,12 +4,14 @@ import {Image, Money} from '@shopify/hydrogen';
 import {error as logError} from '~/lib/logger';
 import {useT} from '~/lib/t';
 import {diversifyByVendor} from '~/lib/diversify';
+import {getWorld} from '~/lib/shippingDestinations';
 import {IconGift, IconHeart, IconSparkles, IconStar, IconHome, IconLeaf, IconLightbulb, IconPawPrint} from '~/components/Icons';
 import StarGlyph from '~/components/StarGlyph';
 import {puchicaMeta, organizationJsonLd, websiteJsonLd, JsonLdScript} from '~/lib/seo';
 import {CollectionShowcase} from '~/components/CollectionShowcase';
 import {TrendingTicker} from '~/components/TrendingTicker';
 import {ParallaxBanner} from '~/components/ParallaxBanner';
+import {ShippingMap} from '~/components/ShippingMap';
 import {ScrollReveal} from '~/components/ScrollReveal';
 import {TiltCard} from '~/components/TiltCard';
 import {MagneticButton} from '~/components/MagneticButton';
@@ -56,19 +58,35 @@ export async function loader(args) {
 }
 
 async function loadCriticalData() {
-  return {};
+  // World TopoJSON for the shipping map. Server-side fetch + parse so
+  // country paths are in the SSR HTML on first paint. Cached in module
+  // scope so the CDN is only hit once per server process.
+  const world = await getWorld().catch((e) => {
+    logError('world TopoJSON failed', e);
+    return null;
+  });
+  return {world};
 }
 
 function loadDeferredData({context}) {
   const {country, language} = context.storefront.i18n;
   // Pull the product node list from either `collection.products` or a
   // top-level `products` connection (different queries use different
-  // shapes), then spread same-vendor products so adjacent items are
-  // from different vendors. See app/lib/diversify.js for the algorithm.
+  // shapes). Then:
+  //   1. Filter to the CURATED_TAG subset (Storefront API's
+  //      `filters: { tag }` argument is honored inconsistently, so
+  //      we filter in the loader where the result is deterministic).
+  //   2. Spread same-vendor products so adjacent items are from
+  //      different vendors. See app/lib/diversify.js for the
+  //      algorithm.
+  // Components then `slice(0, N)` for their display count.
   const norm = () => (res) => {
     const nodes =
       res?.collection?.products?.nodes ?? res?.products?.nodes ?? [];
-    return diversifyByVendor(nodes);
+    const curated = nodes.filter((p) =>
+      Array.isArray(p?.tags) && p.tags.includes(CURATED_TAG),
+    );
+    return diversifyByVendor(curated);
   };
 
   // Trending curated collection → hero deck + discover swiper
@@ -93,17 +111,20 @@ function loadDeferredData({context}) {
     .query(CAT_WORLD_QUERY, {variables: {country, language}})
     .then((res) => {
       if (!res) return null;
-      // Re-rank each category's product list so the cover image
-      // (the first product) doesn't always come from the same
-      // dominant vendor.
+      // For each category: filter to the CURATED_TAG subset, then
+      // re-rank so the cover image (the first product) doesn't
+      // always come from the same dominant vendor.
       const out = {};
       for (const [k, col] of Object.entries(res)) {
         if (col?.products?.nodes?.length) {
+          const curated = col.products.nodes.filter((p) =>
+            Array.isArray(p?.tags) && p.tags.includes(CURATED_TAG),
+          );
           out[k] = {
             ...col,
             products: {
               ...col.products,
-              nodes: diversifyByVendor(col.products.nodes),
+              nodes: diversifyByVendor(curated),
             },
           };
         } else {
@@ -114,12 +135,23 @@ function loadDeferredData({context}) {
     })
     .catch((e) => { logError('catWorld query failed', e); return null; });
 
-  // Collection showcase - 6 rotating categories
+  // Collection showcase - 6 rotating categories. Each collection's
+  // cover image is its own `image` if set; otherwise we fall back
+  // to the first CURATED_TAG product. With `first: 250` we have
+  // enough to find a tagged one for most collections.
   const showcaseCollections = context.storefront
     .query(SHOWCASE_QUERY, {variables: {country, language}})
     .then((res) => {
       if (!res) return [];
-      return Object.values(res).filter(Boolean);
+      return Object.values(res).filter(Boolean).map((col) => {
+        if (col?.image) return col; // explicit cover image wins
+        const firstCurated = col?.products?.nodes?.find(
+          (p) => Array.isArray(p?.tags) && p.tags.includes(CURATED_TAG),
+        );
+        return firstCurated
+          ? {...col, image: firstCurated.featuredImage}
+          : col;
+      });
     })
     .catch((e) => { logError('showcase query failed', e); return []; });
 
@@ -263,6 +295,8 @@ export default function Index() {
       <CatalogStatement />
       <ParallaxBanner />
 
+      {/* Shipping reach map */}
+      <ShippingMap world={data.world} />
 
       <Suspense fallback={null}>
         <Await resolve={data.trending}>
@@ -1272,19 +1306,36 @@ function CatalogStatement() {
 
 /* ─────────────────────────────────────────────────────────────────
    GRAPHQL QUERIES
+   Homepages queries all fetch `first: 250` and rely on a JS-side
+   tag filter (see `loadDeferredData` below) to narrow to the
+   `featured-image-curated` subset. Shopify's `Collection.products`
+   `filters: { tag }` argument is honored inconsistently across API
+   versions, so we filter in the loader where the result is
+   deterministic.
+
+   Each product fragment includes `tags` so the loader can filter
+   without a second round-trip.
 ───────────────────────────────────────────────────────────────── */
+// The tag that identifies the curated set. 293 products in the
+// catalog have this tag; the homepage surfaces only those products.
+const CURATED_TAG = 'featured-image-curated';
+
+// Cap on the number of products any single homepage query requests.
+// 250 is the Storefront API per-page max; any single homepage section
+// pulls at most this many, then the loader takes the top N (where N
+// is the section's display count) after filtering to CURATED_TAG.
+const COLLECTION_FETCH_CAP = 250;
+
 /* ── Home & Kitchen → rack ("Worth every penny" section) ── */
 const RACK_QUERY = `#graphql
   fragment RackProduct on Product {
-    id title handle
+    id title handle tags
     priceRange { minVariantPrice { amount currencyCode } }
     featuredImage { id url altText width height }
   }
   query RackProducts($country: CountryCode!, $language: LanguageCode!) @inContext(country: $country, language: $language) {
-    collection(handle: "home-kitchen") {
-      products(first: 6, sortKey: MANUAL) {
-        nodes { ...RackProduct }
-      }
+    products(first: 40, sortKey: BEST_SELLING, query: "tag:'featured-image-curated' AND product_type:'Home & Kitchen'") {
+      nodes { ...RackProduct }
     }
   }
 `;
@@ -1292,7 +1343,7 @@ const RACK_QUERY = `#graphql
 /* ── Trending curated collection → hero + swiper ── */
 const TRENDING_QUERY = `#graphql
   fragment TrendingProduct on Product {
-    id title handle
+    id title handle tags
     priceRange { minVariantPrice { amount currencyCode } }
     featuredImage { id url altText width height }
     variants(first: 1) {
@@ -1304,23 +1355,23 @@ const TRENDING_QUERY = `#graphql
   }
   query Trending($country: CountryCode!, $language: LanguageCode!) @inContext(country: $country, language: $language) {
     collection(handle: "trending-finds") {
-      products(first: 5, sortKey: BEST_SELLING) {
+      products(first: ${COLLECTION_FETCH_CAP}, sortKey: BEST_SELLING) {
         nodes { ...TrendingProduct }
       }
     }
   }
 `;
 
-/* ── Curated best-sellers collection (tagged bulk1) → featured banner ── */
+/* ── Curated best-sellers collection → featured banner ── */
 const BEST_PICKS_QUERY = `#graphql
   fragment BestPick on Product {
-    id title handle
+    id title handle tags
     priceRange { minVariantPrice { amount currencyCode } }
     featuredImage { id url altText width height }
   }
   query BestPicks($country: CountryCode!, $language: LanguageCode!) @inContext(country: $country, language: $language) {
     collection(handle: "best-sellers") {
-      products(first: 4, sortKey: BEST_SELLING) {
+      products(first: ${COLLECTION_FETCH_CAP}, sortKey: BEST_SELLING) {
         nodes { ...BestPick }
       }
     }
@@ -1330,13 +1381,13 @@ const BEST_PICKS_QUERY = `#graphql
 /* ── Outdoor & Garden → new arrivals (newest in category) ── */
 const NEW_ARRIVALS_QUERY = `#graphql
   fragment NewArrival on Product {
-    id title handle
+    id title handle tags
     priceRange { minVariantPrice { amount currencyCode } }
     featuredImage { id url altText width height }
   }
   query NewArrivals($country: CountryCode!, $language: LanguageCode!) @inContext(country: $country, language: $language) {
     collection(handle: "outdoor-garden") {
-      products(first: 8, sortKey: CREATED, reverse: true) {
+      products(first: ${COLLECTION_FETCH_CAP}, sortKey: CREATED, reverse: true) {
         nodes { ...NewArrival }
       }
     }
@@ -1346,13 +1397,13 @@ const NEW_ARRIVALS_QUERY = `#graphql
 /* ── Beauty & Personal Care → fresh finds ── */
 const FRESH_FINDS_QUERY = `#graphql
   fragment FreshFind on Product {
-    id title handle
+    id title handle tags
     priceRange { minVariantPrice { amount currencyCode } }
     featuredImage { id url altText width height }
   }
   query FreshFinds($country: CountryCode!, $language: LanguageCode!) @inContext(country: $country, language: $language) {
     collection(handle: "beauty-personal-care") {
-      products(first: 6, sortKey: MANUAL) {
+      products(first: ${COLLECTION_FETCH_CAP}, sortKey: MANUAL) {
         nodes { ...FreshFind }
       }
     }
@@ -1362,7 +1413,7 @@ const FRESH_FINDS_QUERY = `#graphql
 /* ── Tech & Gadgets → discover swiper ── */
 const DISCOVER_QUERY = `#graphql
   fragment DiscoverProduct on Product {
-    id title handle
+    id title handle tags
     priceRange { minVariantPrice { amount currencyCode } }
     featuredImage { id url altText width height }
     variants(first: 1) {
@@ -1370,10 +1421,8 @@ const DISCOVER_QUERY = `#graphql
     }
   }
   query DiscoverProducts($country: CountryCode!, $language: LanguageCode!) @inContext(country: $country, language: $language) {
-    collection(handle: "electronics-accessories") {
-      products(first: 6, sortKey: MANUAL) {
-        nodes { ...DiscoverProduct }
-      }
+    products(first: 40, sortKey: BEST_SELLING, query: "tag:'featured-image-curated' AND product_type:'Electronics & Accessories'") {
+      nodes { ...DiscoverProduct }
     }
   }
 `;
@@ -1381,7 +1430,7 @@ const DISCOVER_QUERY = `#graphql
 /* ── Health & Wellness → matchmaker swipe cards ── */
 const MATCH_QUERY = `#graphql
   fragment MatchProduct on Product {
-    id title handle
+    id title handle tags
     priceRange { minVariantPrice { amount currencyCode } }
     featuredImage { id url altText width height }
     variants(first: 1) {
@@ -1389,10 +1438,8 @@ const MATCH_QUERY = `#graphql
     }
   }
   query MatchProducts($country: CountryCode!, $language: LanguageCode!) @inContext(country: $country, language: $language) {
-    collection(handle: "health-wellness") {
-      products(first: 8, sortKey: BEST_SELLING) {
-        nodes { ...MatchProduct }
-      }
+    products(first: 40, sortKey: BEST_SELLING, query: "tag:'featured-image-curated' AND product_type:'Health & Wellness' AND -tag:intimate") {
+      nodes { ...MatchProduct }
     }
   }
 `;
@@ -1401,8 +1448,8 @@ const SHOWCASE_QUERY = `#graphql
   fragment ShowCol on Collection {
     id title handle description
     image { id url altText width height }
-    products(first: 1, sortKey: BEST_SELLING) {
-      nodes { id featuredImage { id url altText width height } }
+    products(first: ${COLLECTION_FETCH_CAP}, sortKey: BEST_SELLING) {
+      nodes { id tags featuredImage { id url altText width height } }
     }
   }
   query Showcase($country: CountryCode!, $language: LanguageCode!) @inContext(country: $country, language: $language) {
@@ -1417,13 +1464,13 @@ const SHOWCASE_QUERY = `#graphql
 
 const CAT_WORLD_QUERY = `#graphql
   fragment CatProduct on Product {
-    id title handle
+    id title handle tags
     priceRange { minVariantPrice { amount currencyCode } }
     featuredImage { id url altText width height }
   }
   fragment CatCol on Collection {
     id title handle description
-    products(first: 4, sortKey: MANUAL) {
+    products(first: ${COLLECTION_FETCH_CAP}, sortKey: MANUAL) {
       nodes { ...CatProduct }
     }
   }
