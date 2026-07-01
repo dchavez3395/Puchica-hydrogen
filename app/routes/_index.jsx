@@ -11,6 +11,8 @@ import {puchicaMeta, organizationJsonLd, websiteJsonLd, JsonLdScript} from '~/li
 import {CollectionShowcase} from '~/components/CollectionShowcase';
 import {TrendingTicker} from '~/components/TrendingTicker';
 import {ParallaxBanner} from '~/components/ParallaxBanner';
+import {ShippingMap} from '~/components/ShippingMap';
+import {getWorld} from '~/lib/shippingDestinations';
 import {ScrollReveal} from '~/components/ScrollReveal';
 import {TiltCard} from '~/components/TiltCard';
 import {MagneticButton} from '~/components/MagneticButton';
@@ -58,7 +60,14 @@ export async function loader(args) {
 }
 
 async function loadCriticalData() {
-  return {};
+  // World TopoJSON for the shipping map. Server-side fetch + parse so
+  // country paths are in the SSR HTML on first paint. Cached in module
+  // scope so the CDN is only hit once per server process.
+  const world = await getWorld().catch((e) => {
+    logError('world TopoJSON failed', e);
+    return null;
+  });
+  return {world};
 }
 
 function loadDeferredData({context}) {
@@ -265,6 +274,9 @@ export default function Index() {
       <CatalogStatement />
       <ParallaxBanner />
 
+
+      {/* Shipping reach map */}
+      <ShippingMap world={data.world} />
 
       <Suspense fallback={null}>
         <Await resolve={data.trending}>

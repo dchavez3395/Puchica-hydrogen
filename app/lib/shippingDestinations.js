@@ -31,6 +31,13 @@ export const SHIPPING_DESTINATIONS = [
   {city: 'Denver', country: 'USA', lat: 39.7392, lng: -104.9903, region: 'NA', tier: 'secondary'},
   {city: 'Mexico City', country: 'Mexico', lat: 19.4326, lng: -99.1332, region: 'NA', tier: 'major'},
   {city: 'Guadalajara', country: 'Mexico', lat: 20.6597, lng: -103.3496, region: 'NA', tier: 'secondary'},
+  {city: 'Monterrey', country: 'Mexico', lat: 25.6866, lng: -100.3161, region: 'NA', tier: 'secondary'},
+  {city: 'Boston', country: 'USA', lat: 42.3601, lng: -71.0589, region: 'NA', tier: 'secondary'},
+  {city: 'San Francisco', country: 'USA', lat: 37.7749, lng: -122.4194, region: 'NA', tier: 'secondary'},
+  {city: 'Atlanta', country: 'USA', lat: 33.7490, lng: -84.3880, region: 'NA', tier: 'secondary'},
+  {city: 'Phoenix', country: 'USA', lat: 33.4484, lng: -112.0740, region: 'NA', tier: 'secondary'},
+  {city: 'Edmonton', country: 'Canada', lat: 53.5461, lng: -113.4938, region: 'NA', tier: 'secondary'},
+  {city: 'Halifax', country: 'Canada', lat: 44.6488, lng: -63.5752, region: 'NA', tier: 'secondary'},
 
   // South America
   {city: 'São Paulo', country: 'Brazil', lat: -23.5505, lng: -46.6333, region: 'SA', tier: 'major'},
@@ -39,10 +46,20 @@ export const SHIPPING_DESTINATIONS = [
   {city: 'Bogotá', country: 'Colombia', lat: 4.7110, lng: -74.0721, region: 'SA', tier: 'secondary'},
   {city: 'Santiago', country: 'Chile', lat: -33.4489, lng: -70.6693, region: 'SA', tier: 'secondary'},
   {city: 'Lima', country: 'Peru', lat: -12.0464, lng: -77.0428, region: 'SA', tier: 'secondary'},
+  {city: 'Caracas', country: 'Venezuela', lat: 10.4806, lng: -66.9036, region: 'SA', tier: 'secondary'},
+  {city: 'Quito', country: 'Ecuador', lat: -0.1807, lng: -78.4678, region: 'SA', tier: 'secondary'},
+  {city: 'Montevideo', country: 'Uruguay', lat: -34.9011, lng: -56.1645, region: 'SA', tier: 'secondary'},
+  {city: 'Brasília', country: 'Brazil', lat: -15.8267, lng: -47.9218, region: 'SA', tier: 'secondary'},
+  {city: 'Medellín', country: 'Colombia', lat: 6.2442, lng: -75.5812, region: 'SA', tier: 'secondary'},
 
   // UK & EU
   {city: 'London', country: 'UK', lat: 51.5072, lng: -0.1276, region: 'UK', tier: 'major'},
   {city: 'Manchester', country: 'UK', lat: 53.4808, lng: -2.2426, region: 'UK', tier: 'secondary'},
+  {city: 'Birmingham', country: 'UK', lat: 52.4862, lng: -1.8904, region: 'UK', tier: 'secondary'},
+  {city: 'Edinburgh', country: 'UK', lat: 55.9533, lng: -3.1883, region: 'UK', tier: 'secondary'},
+  {city: 'Glasgow', country: 'UK', lat: 55.8642, lng: -4.2518, region: 'UK', tier: 'secondary'},
+  {city: 'Bristol', country: 'UK', lat: 51.4545, lng: -2.5879, region: 'UK', tier: 'secondary'},
+  {city: 'Leeds', country: 'UK', lat: 53.8008, lng: -1.5491, region: 'UK', tier: 'secondary'},
   {city: 'Paris', country: 'France', lat: 48.8566, lng: 2.3522, region: 'EU', tier: 'major'},
   {city: 'Berlin', country: 'Germany', lat: 52.5200, lng: 13.4050, region: 'EU', tier: 'major'},
   {city: 'Munich', country: 'Germany', lat: 48.1351, lng: 11.5820, region: 'EU', tier: 'secondary'},
@@ -56,6 +73,17 @@ export const SHIPPING_DESTINATIONS = [
   {city: 'Stockholm', country: 'Sweden', lat: 59.3293, lng: 18.0686, region: 'EU', tier: 'secondary'},
   {city: 'Copenhagen', country: 'Denmark', lat: 55.6761, lng: 12.5683, region: 'EU', tier: 'secondary'},
   {city: 'Lisbon', country: 'Portugal', lat: 38.7223, lng: -9.1393, region: 'EU', tier: 'secondary'},
+  {city: 'Porto', country: 'Portugal', lat: 41.1579, lng: -8.6291, region: 'EU', tier: 'secondary'},
+  {city: 'Brussels', country: 'Belgium', lat: 50.8503, lng: 4.3517, region: 'EU', tier: 'secondary'},
+  {city: 'Zurich', country: 'Switzerland', lat: 47.3769, lng: 8.5417, region: 'EU', tier: 'secondary'},
+  {city: 'Geneva', country: 'Switzerland', lat: 46.2044, lng: 6.1432, region: 'EU', tier: 'secondary'},
+  {city: 'Athens', country: 'Greece', lat: 37.9838, lng: 23.7275, region: 'EU', tier: 'secondary'},
+  {city: 'Helsinki', country: 'Finland', lat: 60.1699, lng: 24.9384, region: 'EU', tier: 'secondary'},
+  {city: 'Oslo', country: 'Norway', lat: 59.9139, lng: 10.7522, region: 'EU', tier: 'secondary'},
+  {city: 'Warsaw', country: 'Poland', lat: 52.2297, lng: 21.0122, region: 'EU', tier: 'secondary'},
+  {city: 'Prague', country: 'Czechia', lat: 50.0755, lng: 14.4378, region: 'EU', tier: 'secondary'},
+  {city: 'Budapest', country: 'Hungary', lat: 47.4979, lng: 19.0402, region: 'EU', tier: 'secondary'},
+  {city: 'Bucharest', country: 'Romania', lat: 44.4268, lng: 26.1025, region: 'EU', tier: 'secondary'},
 
   // Asia Pacific
   {city: 'Tokyo', country: 'Japan', lat: 35.6762, lng: 139.6503, region: 'AP', tier: 'major'},
@@ -73,6 +101,11 @@ export const SHIPPING_DESTINATIONS = [
   {city: 'Mumbai', country: 'India', lat: 19.0760, lng: 72.8777, region: 'AP', tier: 'major'},
   {city: 'New Delhi', country: 'India', lat: 28.6139, lng: 77.2090, region: 'AP', tier: 'secondary'},
   {city: 'Bangalore', country: 'India', lat: 12.9716, lng: 77.5946, region: 'AP', tier: 'secondary'},
+  {city: 'Karachi', country: 'Pakistan', lat: 24.8607, lng: 67.0011, region: 'AP', tier: 'secondary'},
+  {city: 'Dhaka', country: 'Bangladesh', lat: 23.8103, lng: 90.4125, region: 'AP', tier: 'secondary'},
+  {city: 'Hanoi', country: 'Vietnam', lat: 21.0285, lng: 105.8542, region: 'AP', tier: 'secondary'},
+  {city: 'Ho Chi Minh City', country: 'Vietnam', lat: 10.8231, lng: 106.6297, region: 'AP', tier: 'secondary'},
+  {city: 'Colombo', country: 'Sri Lanka', lat: 6.9271, lng: 79.8612, region: 'AP', tier: 'secondary'},
 
   // Middle East
   {city: 'Dubai', country: 'UAE', lat: 25.2048, lng: 55.2708, region: 'ME', tier: 'major'},
@@ -83,13 +116,24 @@ export const SHIPPING_DESTINATIONS = [
   {city: 'Istanbul', country: 'Turkey', lat: 41.0082, lng: 28.9784, region: 'ME', tier: 'major'},
   {city: 'Ankara', country: 'Turkey', lat: 39.9334, lng: 32.8597, region: 'ME', tier: 'secondary'},
   {city: 'Cairo', country: 'Egypt', lat: 30.0444, lng: 31.2357, region: 'ME', tier: 'secondary'},
+  {city: 'Amman', country: 'Jordan', lat: 31.9454, lng: 35.9284, region: 'ME', tier: 'secondary'},
+  {city: 'Beirut', country: 'Lebanon', lat: 33.8938, lng: 35.5018, region: 'ME', tier: 'secondary'},
+  {city: 'Kuwait City', country: 'Kuwait', lat: 29.3759, lng: 47.9774, region: 'ME', tier: 'secondary'},
+  {city: 'Manama', country: 'Bahrain', lat: 26.2285, lng: 50.5860, region: 'ME', tier: 'secondary'},
+  {city: 'Muscat', country: 'Oman', lat: 23.5880, lng: 58.3829, region: 'ME', tier: 'secondary'},
 
   // Africa
   {city: 'Cape Town', country: 'South Africa', lat: -33.9249, lng: 18.4241, region: 'AF', tier: 'major'},
   {city: 'Johannesburg', country: 'South Africa', lat: -26.2041, lng: 28.0473, region: 'AF', tier: 'major'},
+  {city: 'Durban', country: 'South Africa', lat: -29.8587, lng: 31.0218, region: 'AF', tier: 'secondary'},
   {city: 'Lagos', country: 'Nigeria', lat: 6.5244, lng: 3.3792, region: 'AF', tier: 'secondary'},
+  {city: 'Abuja', country: 'Nigeria', lat: 9.0765, lng: 7.3986, region: 'AF', tier: 'secondary'},
   {city: 'Nairobi', country: 'Kenya', lat: -1.2921, lng: 36.8219, region: 'AF', tier: 'secondary'},
   {city: 'Casablanca', country: 'Morocco', lat: 33.5731, lng: -7.5898, region: 'AF', tier: 'secondary'},
+  {city: 'Accra', country: 'Ghana', lat: 5.6037, lng: -0.1870, region: 'AF', tier: 'secondary'},
+  {city: 'Addis Ababa', country: 'Ethiopia', lat: 9.0250, lng: 38.7400, region: 'AF', tier: 'secondary'},
+  {city: 'Tunis', country: 'Tunisia', lat: 36.8065, lng: 10.1815, region: 'AF', tier: 'secondary'},
+  {city: 'Algiers', country: 'Algeria', lat: 36.7538, lng: 3.0588, region: 'AF', tier: 'secondary'},
 
   // Oceania
   {city: 'Sydney', country: 'Australia', lat: -33.8688, lng: 151.2093, region: 'OC', tier: 'major'},
@@ -98,6 +142,8 @@ export const SHIPPING_DESTINATIONS = [
   {city: 'Perth', country: 'Australia', lat: -31.9505, lng: 115.8605, region: 'OC', tier: 'secondary'},
   {city: 'Auckland', country: 'New Zealand', lat: -36.8485, lng: 174.7633, region: 'OC', tier: 'major'},
   {city: 'Wellington', country: 'New Zealand', lat: -41.2865, lng: 174.7762, region: 'OC', tier: 'secondary'},
+  {city: 'Christchurch', country: 'New Zealand', lat: -43.5321, lng: 172.6362, region: 'OC', tier: 'secondary'},
+  {city: 'Adelaide', country: 'Australia', lat: -34.9285, lng: 138.6007, region: 'OC', tier: 'secondary'},
 ];
 
 /**
