@@ -1123,10 +1123,6 @@ button.reset:hover:not(:has(> *)) {
   margin-bottom: 1.5rem;
 }
 
-.search-results-item {
-  margin-bottom: 0.5rem;
-}
-
 .search-results-item a {
   display: flex;
   flex: row;
@@ -5733,6 +5729,7 @@ button:focus-visible,
   justify-content: space-between;
   gap: 8px;
   width: 100%;
+  padding-left: 0 !important;
   padding: 8px 10px;
   background: transparent;
   border: 1px solid transparent;
@@ -9164,7 +9161,7 @@ button:focus-visible,
   width: 100%;
   height: 480px;
   position: relative;
-  margin-bottom: 24px;
+  margin-bottom: 45px;
   perspective: 1000px;
 }
 .pk-matchmaker__card {
@@ -9817,7 +9814,6 @@ button:focus-visible,
   gap: clamp(32px, 5vw, 56px);
 }
 .pk-pdesc__row {
-  max-width: 880px;
   margin: 0 auto;
   width: 100%;
 }
@@ -10397,3 +10393,91 @@ button:focus-visible,
 @media (prefers-reduced-motion: reduce) {
   .pk-product__info { animation: none !important; }
 }
+
+/* ── Shipping map (homepage) ─────────────────────────────────── */
+.pk-ship { background: var(--pk-ink); padding: 72px 0; color: var(--pk-cream); }
+.pk-ship__head { margin-bottom: 32px; text-align: center; }
+.pk-ship__eye {
+  display: inline-flex; align-items: center; gap: 8px;
+  color: var(--pk-lime); font-size: 13px;
+  text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px;
+}
+.pk-ship__title { font-size: clamp(28px, 4vw, 48px); margin: 0 0 12px; color: var(--pk-cream); font-weight: 800; letter-spacing: -1px; }
+.pk-ship__sub { color: var(--pk-cream-soft); max-width: 620px; margin: 0 auto; font-size: 16px; }
+.pk-ship__canvas { position: relative; max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+.pk-ship__svg { display: block; width: 100%; height: auto; }
+.pk-ship__geo { fill: #1C1A12; stroke: #2A2820; stroke-width: 0.5; outline: none; }
+.pk-ship__dot { fill: var(--pk-lime); cursor: pointer; outline: none; transition: r 0.2s ease; }
+.pk-ship__dot:hover, .pk-ship__dot:focus { r: 7; }
+.pk-ship__dot--major { animation: pk-ship-pulse 2.4s ease-in-out infinite; }
+@keyframes pk-ship-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+.pk-ship__tooltip {
+  position: absolute; top: 16px; left: 36px;
+  background: var(--pk-cream); color: var(--pk-ink);
+  padding: 8px 14px; border-radius: 6px;
+  font-size: 14px; font-weight: 600; pointer-events: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+@media (prefers-reduced-motion: reduce) {
+  .pk-ship__dot--major { animation: none; }
+  .pk-ship__dot { transition: none; }
+}
+@media (max-width: 700px) {
+  .pk-ship { padding: 48px 0; }
+  .pk-ship__canvas { padding: 0 12px; }
+  .pk-ship__tooltip { top: 8px; left: 16px; font-size: 12px; }
+}
+
+/* ── About page reach section ────────────────────────────────── */
+.pk-about-reach { background: var(--pk-cream); padding: 72px 0; }
+.pk-about-reach__inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.pk-about-reach__eye {
+  display: inline-flex; align-items: center; gap: 8px;
+  color: var(--pk-lime-dark); font-size: 12px;
+  text-transform: uppercase; letter-spacing: 0.14em; font-weight: 700;
+  margin-bottom: 8px;
+}
+.pk-about-reach__title {
+  font-size: clamp(28px, 4vw, 44px); color: var(--pk-ink);
+  margin: 0 0 12px; font-weight: 800; letter-spacing: -1px;
+}
+.pk-about-reach__sub { color: var(--pk-muted); max-width: 560px; margin: 0 0 32px; font-size: 16px; }
+.pk-about-reach__grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+}
+.pk-about-reach__region {
+  background: var(--pk-cream-soft); border-radius: 12px; padding: 20px;
+}
+.pk-about-reach__region-name {
+  font-size: 13px; text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--pk-lime-dark); margin: 0 0 12px; font-weight: 700;
+}
+.pk-about-reach__cities { list-style: none; margin: 0; padding: 0; }
+.pk-about-reach__cities li {
+  font-size: 14px; color: var(--pk-ink); padding: 6px 0;
+  border-bottom: 1px solid rgba(114, 104, 90, 0.15);
+}
+.pk-about-reach__cities li:last-child { border-bottom: none; }
+.pk-about-reach__cities li span { color: var(--pk-muted); font-weight: 400; }
+@media (max-width: 900px) { .pk-about-reach__grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 700px) { .pk-about-reach__grid { grid-template-columns: 1fr; } }
+
+/* ── Contact page reach panel ────────────────────────────────── */
+.pk-contact__reach { padding: 64px 24px; max-width: 1200px; margin: 0 auto; }
+.pk-contact__reach-list {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+}
+.pk-contact__reach-list li {
+  background: var(--pk-cream-soft); border-radius: 10px; padding: 16px;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.pk-contact__reach-list strong {
+  color: var(--pk-ink); font-size: 14px; font-weight: 700;
+}
+.pk-contact__reach-list span { color: var(--pk-muted); font-size: 13px; }
+@media (max-width: 900px) { .pk-contact__reach-list { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 700px) { .pk-contact__reach-list { grid-template-columns: 1fr; } }

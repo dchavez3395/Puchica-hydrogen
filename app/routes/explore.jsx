@@ -1,5 +1,5 @@
 import {useLoaderData, Link, useSearchParams} from 'react-router';
-import {Image} from '@shopify/hydrogen';
+import {Image, Money} from '@shopify/hydrogen';
 import {puchicaMeta} from '~/lib/seo';
 import {ScrollReveal} from '~/components/ScrollReveal';
 import {TiltCard} from '~/components/TiltCard';
@@ -292,7 +292,9 @@ export default function ExplorePage() {
                         <h3 className="pk-explore__card-title">{product.title}</h3>
                         <div className="pk-explore__card-foot">
                           <span className="pk-explore__card-price">
-                            {formatPrice(product.priceRange?.minVariantPrice)}
+                            {product.priceRange?.minVariantPrice ? (
+                              <Money data={product.priceRange.minVariantPrice} />
+                            ) : null}
                           </span>
                         </div>
                       </div>
@@ -306,22 +308,6 @@ export default function ExplorePage() {
       </div>
     </div>
   );
-}
-
-/**
- * Format a Storefront API price object into a display string.
- * @param {{amount: string, currencyCode: string} | null | undefined} price
- */
-function formatPrice(price) {
-  if (!price?.amount || !price?.currencyCode) return '';
-  try {
-    return new Intl.NumberFormat('en-CA', {
-      style: 'currency',
-      currency: price.currencyCode,
-    }).format(parseFloat(price.amount));
-  } catch {
-    return price.amount;
-  }
 }
 
 /** @typedef {import('./+types/explore').Route} Route */

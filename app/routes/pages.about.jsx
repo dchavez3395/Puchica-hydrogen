@@ -4,6 +4,7 @@ import {puchicaMeta} from '~/lib/seo';
 import StarGlyph from '~/components/StarGlyph';
 import {STORE_LOGO_URL} from '~/lib/brand';
 import {IconHome, IconSparkles, IconLightbulb, IconLeaf, IconPawPrint, IconGift} from '~/components/Icons';
+import {ShippingReach} from '~/components/ShippingReach';
 
 export const meta = () =>
   puchicaMeta({
@@ -94,6 +95,9 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      {/* Cities we ship to */}
+      <ShippingReach variant="cities" />
 
       {/* How it works */}
       <section className="pk-about-how">

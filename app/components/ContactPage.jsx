@@ -22,6 +22,7 @@ import {
   IconPackage,
 } from '~/components/Icons';
 import {SOCIAL_PROFILES} from '~/lib/brand';
+import {ShippingReach} from '~/components/ShippingReach';
 
 /**
  * Support email. Used in:
@@ -75,8 +76,8 @@ const FAQ = [
     a: 'A pre-paid return label ships in every box. Repack the item, peel the label, drop it off. Refunds land on the original payment method within 5–7 business days of us receiving it.',
   },
   {
-    q: 'Do you ship outside Canada and the US?',
-    a: 'Right now, Canada and the US only. If you’re elsewhere and really want something, email us — we’ll see what we can do.',
+    q: 'Where do you ship?',
+    a: 'Across North & South America, the UK and the EU — about 20 cities today and growing. For a specific country, email us and we’ll confirm.',
   },
   {
     q: 'Are the products in the photos exactly what I get?',
@@ -237,6 +238,9 @@ export function ContactPage() {
           </li>
         </ul>
       </section>
+
+      {/* Cities we ship to */}
+      <ShippingReach variant="compact" />
 
       {/* FAQ — single column, generous spacing, Q in violet accent. */}
       <section className="pk-contact__faq" aria-label="Common questions">
