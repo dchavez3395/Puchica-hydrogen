@@ -1,6 +1,7 @@
 import {data, useLoaderData} from 'react-router';
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {puchicaMeta} from '~/lib/seo';
+import {useT} from '~/lib/t';
 
 /**
  * @type {Route.MetaFunction}
@@ -36,25 +37,24 @@ export async function loader({request}) {
 }
 
 export default function CatchAllPage() {
+  const t = useT();
   /** @type {LoaderReturnData} */
   const {pathname} = useLoaderData();
   return (
     <div className="pk-collection">
-      <nav className="pk-breadcrumbs" aria-label="Breadcrumb">
-        <Link to="/">Home</Link>
+      <nav className="pk-breadcrumbs" aria-label={t('notfound_breadcrumb_aria')}>
+        <Link to="/">{t('notfound_breadcrumb_home')}</Link>
         <span className="pk-breadcrumbs__sep">/</span>
-        <span className="pk-breadcrumbs__current">Page not found</span>
+        <span className="pk-breadcrumbs__current">{t('notfound_breadcrumb_current')}</span>
       </nav>
 
       <header className="pk-col-hero pk-col-hero--soft">
         <div className="pk-col-hero__glow" aria-hidden />
         <div className="pk-col-hero__glow pk-col-hero__glow--ember" aria-hidden />
-        <span className="pk-col-hero__eyebrow">404</span>
-        <h1 className="pk-col-hero__title">We couldn&apos;t find that page</h1>
+        <span className="pk-col-hero__eyebrow">{t('notfound_eyebrow')}</span>
+        <h1 className="pk-col-hero__title">{t('notfound_title')}</h1>
         <p className="pk-col-hero__sub">
-          The link <code>{pathname}</code> doesn&apos;t exist on Puchica. It may
-          have been moved, renamed, or never existed. Try one of these
-          instead:
+          {t('notfound_sub', {path: <code>{pathname}</code>})}
         </p>
       </header>
 
@@ -64,7 +64,7 @@ export default function CatchAllPage() {
             className="pk-empty"
             style={{padding: '32px 28px', textAlign: 'left'}}
           >
-            <p className="pk-empty__title">Popular collections</p>
+            <p className="pk-empty__title">{t('notfound_popular')}</p>
             <ul
               style={{
                 listStyle: 'none',
@@ -80,7 +80,7 @@ export default function CatchAllPage() {
                   prefetch="intent"
                   style={{fontWeight: 600}}
                 >
-                  Best sellers →
+                  {t('notfound_best')}
                 </Link>
               </li>
               <li>
@@ -89,7 +89,7 @@ export default function CatchAllPage() {
                   prefetch="intent"
                   style={{fontWeight: 600}}
                 >
-                  New arrivals →
+                  {t('notfound_new')}
                 </Link>
               </li>
               <li>
@@ -98,7 +98,7 @@ export default function CatchAllPage() {
                   prefetch="intent"
                   style={{fontWeight: 600}}
                 >
-                  All collections →
+                  {t('notfound_all_collections')}
                 </Link>
               </li>
               <li>
@@ -107,7 +107,7 @@ export default function CatchAllPage() {
                   prefetch="intent"
                   style={{fontWeight: 600}}
                 >
-                  Full catalog →
+                  {t('notfound_all_catalog')}
                 </Link>
               </li>
             </ul>

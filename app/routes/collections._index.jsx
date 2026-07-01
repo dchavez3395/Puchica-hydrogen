@@ -6,6 +6,7 @@ import {puchicaMeta} from '~/lib/seo';
 import {categoryIcon} from '~/components/Icons';
 import {ScrollReveal} from '~/components/ScrollReveal';
 import {TiltCard} from '~/components/TiltCard';
+import {useT} from '~/lib/t';
 
 /**
  * @type {Route.MetaFunction}
@@ -54,38 +55,37 @@ const FEATURED_HANDLES = new Set(['best-sellers', 'trending-finds', 'gifts-under
 export default function Collections() {
   /** @type {LoaderReturnData} */
   const {collections} = useLoaderData();
+  const t = useT();
   const nodes = collections?.nodes ?? [];
   const count = nodes.length;
 
   return (
     <div className="pk-collection">
-      <nav className="pk-breadcrumbs" aria-label="Breadcrumb">
-        <Link to="/">Home</Link>
+      <nav
+        className="pk-breadcrumbs"
+        aria-label={t('col_index_breadcrumb_aria')}
+      >
+        <Link to="/">{t('col_index_breadcrumb_home')}</Link>
         <span className="pk-breadcrumbs__sep">/</span>
-        <span className="pk-breadcrumbs__current">Collections</span>
+        <span className="pk-breadcrumbs__current">
+          {t('col_index_breadcrumb_current')}
+        </span>
       </nav>
 
       <header className="pk-col-hero">
         <div className="pk-col-hero__glow" aria-hidden />
-        <span className="pk-col-hero__eyebrow">Browse</span>
-        <h1 className="pk-col-hero__title">All collections</h1>
-        <p className="pk-col-hero__sub">
-          Pick a category and dig in. Every collection is hand-curated — we
-          only keep what we&apos;d use ourselves.
-        </p>
+        <span className="pk-col-hero__eyebrow">{t('col_index_eyebrow')}</span>
+        <h1 className="pk-col-hero__title">{t('col_index_h')}</h1>
+        <p className="pk-col-hero__sub">{t('col_index_sub')}</p>
         {count > 0 && (
-          <span className="pk-col-hero__count">
-            Puchica
-          </span>
+          <span className="pk-col-hero__count">{t('col_index_count')}</span>
         )}
       </header>
 
       {count === 0 ? (
         <div className="pk-empty">
-          <p className="pk-empty__title">No collections yet</p>
-          <p className="pk-empty__body">
-            Collections will appear here as we add them.
-          </p>
+          <p className="pk-empty__title">{t('col_index_empty_h')}</p>
+          <p className="pk-empty__body">{t('col_index_empty_body')}</p>
         </div>
       ) : (
         <PaginatedResourceSection
@@ -160,7 +160,7 @@ function CollectionItem({collection, index}) {
           </div>
           <div className="pk-collist-card__body">
             <h3 className="pk-collist-card__title">{collection.title}</h3>
-            <p className="pk-collist-card__count">Shop the collection →</p>
+            <p className="pk-collist-card__count">{t('col_index_card_cta')}</p>
           </div>
         </Link>
       </TiltCard>

@@ -199,9 +199,7 @@ export default function Collection() {
         {collection.description ? (
           <p className="pk-col-hero__sub">{collection.description}</p>
         ) : null}
-        <span className="pk-col-hero__count">
-          Puchica
-        </span>
+        <span className="pk-col-hero__count">{t('col_brand_chip')}</span>
       </header>
 
       {count === 0 ? (

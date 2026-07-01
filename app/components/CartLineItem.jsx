@@ -3,6 +3,7 @@ import {useVariantUrl} from '~/lib/variants';
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {ProductPrice} from './ProductPrice';
 import {useAside} from './Aside';
+import {useT} from '~/lib/t';
 
 /**
  * A single line item in the cart. It displays the product image, title, price.
@@ -16,6 +17,7 @@ import {useAside} from './Aside';
  * }}
  */
 export function CartLineItem({layout, line, childrenMap}) {
+  const t = useT();
   const {id, merchandise, quantity} = line;
   const {product, title, image, selectedOptions} = merchandise;
   const lineItemUrl = useVariantUrl(product.handle, selectedOptions);
@@ -93,7 +95,7 @@ export function CartLineItem({layout, line, childrenMap}) {
       {lineItemChildren ? (
         <div>
           <p id={childrenLabelId} className="sr-only">
-            Line items with {product.title}
+            {t('cart_line_items_aria', {title: product.title})}
           </p>
           <ul aria-labelledby={childrenLabelId} className="cart-line-children">
             {lineItemChildren.map((childLine) => (
@@ -118,6 +120,7 @@ export function CartLineItem({layout, line, childrenMap}) {
  * @param {{line: CartLine; isUnrecoverable?: boolean}}
  */
 function CartLineQuantity({line, isUnrecoverable = false}) {
+  const t = useT();
   if (!line || typeof line?.quantity === 'undefined') return null;
   const {id: lineId, quantity, isOptimistic} = line;
   // Shopify keeps a line in the cart when its quantity is decremented
@@ -129,11 +132,11 @@ function CartLineQuantity({line, isUnrecoverable = false}) {
 
   return (
     <div className="cart-line-qty">
-      <div className="cart-line-qty__stepper" role="group" aria-label="Quantity">
+      <div className="cart-line-qty__stepper" role="group" aria-label={t('cart_qty_aria')}>
         <CartLineUpdateButton lines={[{id: lineId, quantity: prevQuantity}]}>
           <button
             className="cart-line-qty__btn cart-line-qty__btn--minus"
-            aria-label="Decrease quantity"
+            aria-label={t('cart_qty_dec_aria')}
             disabled={quantity <= 1 || !!isOptimistic}
             name="decrease-quantity"
             value={prevQuantity}
@@ -150,7 +153,7 @@ function CartLineQuantity({line, isUnrecoverable = false}) {
         <CartLineUpdateButton lines={[{id: lineId, quantity: nextQuantity}]}>
           <button
             className="cart-line-qty__btn cart-line-qty__btn--plus"
-            aria-label="Increase quantity"
+            aria-label={t('cart_qty_inc_aria')}
             name="increase-quantity"
             value={nextQuantity}
             type="submit"
@@ -177,6 +180,7 @@ function CartLineQuantity({line, isUnrecoverable = false}) {
  * }}
  */
 function CartLineRemoveButton({lineIds, disabled}) {
+  const t = useT();
   return (
     <CartForm
       fetcherKey={getUpdateKey(lineIds)}
@@ -188,12 +192,12 @@ function CartLineRemoveButton({lineIds, disabled}) {
         disabled={disabled}
         type="submit"
         className="cart-line-remove"
-        aria-label="Remove from cart"
+        aria-label={t('cart_qty_remove_aria')}
       >
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
           <path d="M3 6h18M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2M6 6l1 14a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-14" />
         </svg>
-        Remove
+        {t('cart_qty_remove')}
       </button>
     </CartForm>
   );

@@ -1,6 +1,7 @@
 import {useLoaderData} from 'react-router';
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {puchicaMeta} from '~/lib/seo';
+import {useT} from '~/lib/t';
 
 /**
  * @type {Route.MetaFunction}
@@ -41,12 +42,13 @@ export async function loader({context}) {
 export default function Policies() {
   /** @type {LoaderReturnData} */
   const {policies} = useLoaderData();
+  const t = useT();
 
   return (
     <div className="pk-policies-index pk-inner">
       <header className="pk-policies-index__head">
-        <h1>Policies</h1>
-        <p>Shipping, returns, privacy, and terms for orders at Puchica.</p>
+        <h1>{t('policies_h')}</h1>
+        <p>{t('policies_sub')}</p>
       </header>
       <ul className="pk-policies-index__list">
         {policies.map((policy) => (

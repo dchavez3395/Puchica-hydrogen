@@ -20,6 +20,7 @@ import appStyles from '~/styles/app.css?url';
 import {PageLayout} from './components/PageLayout';
 import {SmoothScroll} from './components/SmoothScroll';
 import {error as logError} from '~/lib/logger';
+import {useT} from '~/lib/t';
 
 /**
  * This is important to avoid re-fetching root queries on sub-navigations
@@ -244,6 +245,7 @@ export default function App() {
  * trust-destroyer on a real storefront.
  */
 export function ErrorBoundary() {
+  const t = useT();
   const error = useRouteError();
   let errorStatus = 500;
   let rawError;
@@ -259,12 +261,8 @@ export function ErrorBoundary() {
   logError('route error', {status: errorStatus, error: rawError, route: undefined});
 
   const isNotFound = errorStatus === 404;
-  const heading = isNotFound
-    ? "We couldn't find that page"
-    : 'Something went wrong on our end';
-  const subhead = isNotFound
-    ? 'The link may be broken, or the page may have moved. Try a search, or head back to the shop.'
-    : 'We hit an unexpected error rendering this page. Try again, or browse the catalog below.';
+  const heading = isNotFound ? t('err_404_h') : t('err_500_h');
+  const subhead = isNotFound ? t('err_404_body') : t('err_500_body');
 
   return (
     <div className="route-error pk-route-error">
@@ -282,34 +280,32 @@ export function ErrorBoundary() {
           className="pk-route-error__search"
         >
           <label htmlFor="route-error-search" className="sr-only">
-            Search the shop
+            {t('err_search_aria')}
           </label>
           <input
             id="route-error-search"
             type="search"
             name="q"
-            placeholder="Search the shop…"
+            placeholder={t('err_search_placeholder')}
             autoComplete="off"
             className="pk-route-error__input"
           />
           <button type="submit" className="pk-btn pk-btn--primary">
-            Search
+            {t('err_search_btn')}
           </button>
         </Form>
 
         <div className="pk-route-error__cta">
           <Link to="/" className="pk-btn pk-btn--primary pk-btn--lg">
-            Back to home
+            {t('err_home')}
           </Link>
           <Link to="/collections/all" className="pk-btn pk-btn--ghost pk-btn--lg">
-            Browse all products
+            {t('err_browse')}
           </Link>
         </div>
 
         <p className="pk-route-error__contact">
-          Still stuck? Email{' '}
-          <a href="mailto:hello@puchica.ca">hello@puchica.ca</a> and
-          we&apos;ll help.
+          {t('err_contact', {email: <a href="mailto:hello@puchica.ca">hello@puchica.ca</a>})}
         </p>
       </div>
     </div>

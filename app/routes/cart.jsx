@@ -3,6 +3,7 @@ import {CartForm} from '@shopify/hydrogen';
 import {CartMain} from '~/components/CartMain';
 import {puchicaMeta} from '~/lib/seo';
 import {CHECKOUT_URL_REWRITER} from '~/lib/checkout';
+import {useT} from '~/lib/t';
 
 /**
  * @type {Route.MetaFunction}
@@ -131,12 +132,13 @@ export async function loader({context}) {
 }
 
 export default function Cart() {
+  const t = useT();
   /** @type {LoaderReturnData} */
   const cart = useLoaderData();
 
   return (
     <div className="cart">
-      <h1>Cart</h1>
+      <h1>{t('cart_page_h')}</h1>
       <CartMain layout="page" cart={cart} />
     </div>
   );

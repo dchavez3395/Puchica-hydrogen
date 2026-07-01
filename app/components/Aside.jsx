@@ -1,6 +1,7 @@
 import {createContext, useCallback, useContext, useEffect, useState} from 'react';
 import {useId} from 'react';
 import {useLocation} from 'react-router';
+import {useT} from '~/lib/t';
 
 /**
  * A side bar component with Overlay
@@ -21,6 +22,7 @@ export function Aside({children, heading, type}) {
   const {type: activeType, close} = useAside();
   const expanded = type === activeType;
   const id = useId();
+  const t = useT();
 
   // Esc closes the drawer.
   useEffect(() => {
@@ -47,11 +49,11 @@ export function Aside({children, heading, type}) {
       role="dialog"
       aria-labelledby={id}
     >
-      <button className="close-outside" onClick={close} aria-label="Close drawer" />
+      <button className="close-outside" onClick={close} aria-label={t('aside_close_drawer')} />
       <aside>
         <header>
           <h3 id={id}>{heading}</h3>
-          <button className="close reset" onClick={close} aria-label="Close">
+          <button className="close reset" onClick={close} aria-label={t('aside_close')}>
             &times;
           </button>
         </header>

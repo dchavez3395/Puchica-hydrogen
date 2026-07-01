@@ -6,6 +6,7 @@ import {CartSummary} from './CartSummary';
 import {IconBag, IconSparkles, IconTruck, IconReturn} from '~/components/Icons';
 import {STORE_LOGO_URL} from '~/lib/brand';
 import {SITE_NAME} from '~/lib/seo';
+import {useT} from '~/lib/t';
 /**
  * Returns a map of all line items and their children.
  * @param {CartLine[]} lines
@@ -35,6 +36,7 @@ function getLineItemChildrenMap(lines) {
  * @param {CartMainProps}
  */
 export function CartMain({layout, cart: originalCart}) {
+  const t = useT();
   // The useOptimisticCart hook applies pending actions to the cart
   // so the user immediately sees feedback when they modify the cart.
   const cart = useOptimisticCart(originalCart);
@@ -97,12 +99,12 @@ export function CartMain({layout, cart: originalCart}) {
         {cartHasItems ? <CartBrandHeader /> : null}
         <section
           className={className}
-          aria-label={layout === 'page' ? 'Cart page' : 'Cart drawer'}
+          aria-label={layout === 'page' ? t('cart_page_aria') : t('cart_section_aria')}
         >
           <CartEmpty hidden={cartHasItems} layout={layout} />
           <div className="cart-details">
             <p id="cart-lines" className="sr-only">
-              Line items
+              {t('cart_heading_aria')}
             </p>
             <ul aria-labelledby="cart-lines">
               {visibleLines.map((line) => {
@@ -127,13 +129,13 @@ export function CartMain({layout, cart: originalCart}) {
   return (
     <section
       className={className}
-      aria-label={layout === 'page' ? 'Cart page' : 'Cart drawer'}
+      aria-label={layout === 'page' ? t('cart_page_aria') : t('cart_section_aria')}
     >
       {layout === 'aside' && cartHasItems ? <CartBrandHeader /> : null}
       <CartEmpty hidden={cartHasItems} layout={layout} />
       <div className="cart-details">
         <p id="cart-lines" className="sr-only">
-          Line items
+          {t('cart_heading_aria')}
         </p>
         <div>
           <ul aria-labelledby="cart-lines">
@@ -169,12 +171,10 @@ export function CartMain({layout, cart: originalCart}) {
  * notice explains *why* the cart looks empty even though it isn't.
  */
 function GhostCartNotice() {
+  const t = useT();
   return (
     <div className="cart-ghost-notice" role="status">
-      <p>
-        These items aren&apos;t available in your region right now. Remove
-        them to clear your cart.
-      </p>
+      <p>{t('cart_ghost_notice')}</p>
     </div>
   );
 }
@@ -209,6 +209,7 @@ function CartBrandHeader() {
  * }}
  */
 function CartEmpty({hidden = false}) {
+  const t = useT();
   const {close} = useAside();
   return (
     <div className="pk-empty-cart" hidden={hidden}>
@@ -229,11 +230,8 @@ function CartEmpty({hidden = false}) {
         </span>
       </div>
       <div className="pk-empty-cart__copy">
-        <h3 className="pk-empty-cart__title">Your cart is empty</h3>
-        <p className="pk-empty-cart__body">
-          Nothing here yet — let&apos;s find something you&apos;ll love. Our
-          curated picks change often, so it&apos;s worth a look.
-        </p>
+        <h3 className="pk-empty-cart__title">{t('cart_empty_title')}</h3>
+        <p className="pk-empty-cart__body">{t('cart_empty_body')}</p>
         <div className="pk-empty-cart__actions">
           <Link
             to="/collections"
@@ -241,7 +239,7 @@ function CartEmpty({hidden = false}) {
             prefetch="viewport"
             className="pk-btn pk-btn--primary pk-btn--lg"
           >
-            Shop the catalog <span aria-hidden>→</span>
+            {t('cart_empty_cta_shop')} <span aria-hidden>→</span>
           </Link>
           <Link
             to="/collections/best-sellers"
@@ -249,17 +247,17 @@ function CartEmpty({hidden = false}) {
             prefetch="intent"
             className="pk-btn pk-btn--secondary pk-btn--lg"
           >
-            See best sellers
+            {t('cart_empty_cta_best')}
           </Link>
         </div>
-        <ul className="pk-empty-cart__perks" aria-label="Why shop with us">
+        <ul className="pk-empty-cart__perks" aria-label={t('cart_empty_perks_aria')}>
           <li>
             <span aria-hidden><IconTruck size={16} /></span>
-            Free shipping over $50
+            {t('cart_empty_perk_shipping')}
           </li>
           <li>
             <span aria-hidden><IconReturn size={16} /></span>
-            30-day easy returns
+            {t('cart_empty_perk_returns')}
           </li>
         </ul>
       </div>

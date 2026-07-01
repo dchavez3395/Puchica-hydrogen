@@ -1,6 +1,7 @@
 import {useEffect, useRef, useState} from 'react';
 import {useFetcher, useRouteLoaderData} from 'react-router';
 import {LANGUAGE_KEYS, localizePath} from '~/lib/i18n';
+import {useT} from '~/lib/t';
 
 const LABELS = {
   en: 'English',
@@ -19,6 +20,7 @@ const ORDER = ['en', 'fr', 'es', 'pt-br'];
  * renders — see getLocaleFromRequest in app/lib/i18n.js.
  */
 export function LocaleSwitcher() {
+  const t = useT();
   const root = useRouteLoaderData('root');
   const currentLang = root?.selectedLocale?.language || 'EN';
   const currentKey = LANGUAGE_KEYS[currentLang] || 'en';
@@ -55,7 +57,7 @@ export function LocaleSwitcher() {
         className="pk-icon-btn pk-locale__btn"
         aria-haspopup="true"
         aria-expanded={open}
-        aria-label="Change language"
+        aria-label={t('locale_change_aria')}
         onClick={() => setOpen((v) => !v)}
       >
         <svg

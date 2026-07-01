@@ -1,4 +1,5 @@
 import {useState, useRef, useEffect, Suspense, Component} from 'react';
+import {useT} from '~/lib/t';
 
 /**
  * ProductHero3D — hero-position 3D viewer for the PDP. Replaces (or
@@ -39,6 +40,7 @@ import {useState, useRef, useEffect, Suspense, Component} from 'react';
  * }}
  */
 export function ProductHero3D({imageUrl, imageAlt, modelUrl = null, accentColor = null}) {
+  const t = useT();
   // `shouldLoad` flips to true on first opt-in. Once true we run the
   // dynamic import; the placeholder photo (image mode) is shown until
   // then. Since the current ProductImage remounts this component
@@ -82,7 +84,7 @@ export function ProductHero3D({imageUrl, imageAlt, modelUrl = null, accentColor 
   }
 
   return (
-    <div ref={wrapRef} className="pk-3d" aria-label={`${imageAlt || 'Product'} 3D viewer`}>
+    <div ref={wrapRef} className="pk-3d" aria-label={`${imageAlt || t('pdp_3d_fallback_product')} ${t('pdp_3d_viewer')}`}>
       <Suspense fallback={imageUrl ? <img src={imageUrl} alt="" loading="lazy" /> : null}>
         <DynamicCanvas
           imageUrl={imageUrl}
@@ -91,7 +93,7 @@ export function ProductHero3D({imageUrl, imageAlt, modelUrl = null, accentColor 
           onError={() => setLoadFailed(true)}
         />
       </Suspense>
-      <div className="pk-3d__hint">Drag to rotate · scroll to zoom</div>
+      <div className="pk-3d__hint">{t('pdp_3d_hint')}</div>
     </div>
   );
 }

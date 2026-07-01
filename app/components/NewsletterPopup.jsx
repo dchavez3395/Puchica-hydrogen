@@ -1,6 +1,7 @@
 import {useEffect, useRef, useState} from 'react';
 import {useFetcher} from 'react-router';
 import {IconSparkles} from '~/components/Icons';
+import {useT} from '~/lib/t';
 
 /**
  * Email-capture popup that offers the WELCOME15 first-order discount.
@@ -21,6 +22,7 @@ const DISCOUNT_CODE = 'WELCOME15';
 const DELAY_MS = 8000;
 
 export function NewsletterPopup() {
+  const t = useT();
   const [mounted, setMounted] = useState(false);
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -99,19 +101,19 @@ export function NewsletterPopup() {
     <div
       role="dialog"
       aria-modal="true"
-      aria-label="Get 15% off your first order"
+      aria-label={t('np_aria')}
       style={styles.backdrop}
     >
       <button
         type="button"
-        aria-label="Close"
+        aria-label={t('np_close_backdrop')}
         onClick={dismiss}
         style={styles.backdropBtn}
       />
       <div style={styles.card}>
         <button
           type="button"
-          aria-label="Close"
+          aria-label={t('np_close_x')}
           onClick={dismiss}
           style={styles.close}
         >
@@ -122,43 +124,38 @@ export function NewsletterPopup() {
           <>
             <h2 style={styles.h2}>
               <IconSparkles size={18} style={{verticalAlign: '-0.15em', marginRight: 6}} />
-              You&rsquo;re in!
+              {t('np_success_h')}
             </h2>
-            <p style={styles.p}>
-              Here&rsquo;s 15% off your first order. Use this code at checkout:
-            </p>
+            <p style={styles.p}>{t('np_success_body')}</p>
             <button type="button" onClick={copyCode} style={styles.codeBtn}>
               {DISCOUNT_CODE}
-              <span style={styles.codeHint}>{copied ? 'Copied!' : 'Tap to copy'}</span>
+              <span style={styles.codeHint}>{copied ? t('np_copy_btn') : t('np_copy_hint')}</span>
             </button>
             <a href="/collections" style={styles.shopLink} onClick={dismiss}>
-              Start shopping →
+              {t('np_success_cta')}
             </a>
           </>
         ) : (
           <>
-            <h2 style={styles.h2}>Get 15% off your first order</h2>
-            <p style={styles.p}>
-              Join the list for new drops and members-only deals. We&rsquo;ll
-              send your code right away. No spam — unsubscribe anytime.
-            </p>
+            <h2 style={styles.h2}>{t('np_form_h')}</h2>
+            <p style={styles.p}>{t('np_form_body')}</p>
             <fetcher.Form method="post" action="/newsletter" style={styles.form}>
               <input
                 type="email"
                 name="email"
                 required
-                placeholder="you@email.com"
-                aria-label="Email address"
+                placeholder={t('np_email_placeholder')}
+                aria-label={t('np_email_aria')}
                 autoComplete="email"
                 style={styles.input}
               />
               <button type="submit" disabled={submitting} style={styles.submit}>
-                {submitting ? 'Joining…' : 'Get my 15% off'}
+                {submitting ? t('np_joining') : t('np_submit')}
               </button>
             </fetcher.Form>
             {error ? <p style={styles.error}>{error}</p> : null}
             <button type="button" onClick={dismiss} style={styles.noThanks}>
-              No thanks
+              {t('np_dismiss')}
             </button>
           </>
         )}

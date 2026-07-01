@@ -219,8 +219,8 @@ export function ContactPage() {
         </ul>
       </section>
 
-      {/* Shipping reach — "we ship anywhere" panel */}
-      <ShippingReach />
+      {/* Shipping reach — region row with city counts (compact variant). */}
+      <ShippingReach variant="compact" />
 
       {/* FAQ — single column, generous spacing, Q in violet accent. */}
       <section className="pk-contact__faq" aria-label={t('contact_faq_aria')}>

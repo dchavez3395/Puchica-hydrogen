@@ -104,7 +104,7 @@ export default function Product() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{__html: JSON.stringify(jsonLd)}}
       />
-      <JsonLdScript data={breadcrumbJsonLd(buildBreadcrumbItems(product, title))} />
+      <JsonLdScript data={breadcrumbJsonLd(buildBreadcrumbItems(product, title, t))} />
 
       <nav className="pk-breadcrumbs pk-product__crumbs" aria-label={t('breadcrumb_aria')}>
         <Link to="/">{t('breadcrumb_home')}</Link>
@@ -553,8 +553,8 @@ function buildGallery(product, selectedVariant) {
   return list;
 }
 
-function buildBreadcrumbItems(product, title) {
-  const items = [{name: 'Home', url: '/'}, {name: 'Shop', url: '/collections/all'}];
+function buildBreadcrumbItems(product, title, t) {
+  const items = [{name: t('breadcrumb_home'), url: '/'}, {name: t('breadcrumb_shop'), url: '/collections/all'}];
   if (product.productType) {
     items.push({name: product.productType, url: `/collections/${productTypeSlug(product.productType)}`});
   }

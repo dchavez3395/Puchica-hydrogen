@@ -8,17 +8,20 @@ import {TiltCard} from '~/components/TiltCard';
 import {useT} from '~/lib/t';
 
 const BADGE_TAG_MAP = {
-  'new-arrival': {label: 'New Arrival', cls: 'pk-card__badge--new-arrival'},
-  'top-pick':    {label: 'Top Pick',    cls: 'pk-card__badge--top-pick'},
-  'trending':    {label: 'Trending',    cls: 'pk-card__badge--trending'},
-  'staff-pick':  {label: 'Staff Pick',  cls: 'pk-card__badge--staff-pick'},
+  'new-arrival': {labelKey: 'badge_new_arrival', cls: 'pk-card__badge--new-arrival'},
+  'top-pick':    {labelKey: 'badge_top_pick',    cls: 'pk-card__badge--top-pick'},
+  'trending':    {labelKey: 'badge_trending',    cls: 'pk-card__badge--trending'},
+  'staff-pick':  {labelKey: 'badge_staff_pick',  cls: 'pk-card__badge--staff-pick'},
 };
 
-function resolveBadge(tags) {
+function resolveBadge(tags, t) {
   if (!tags?.length) return null;
-  const normalized = tags.map((t) => t.toLowerCase().replace(/\s+/g, '-'));
+  const normalized = tags.map((tag) => tag.toLowerCase().replace(/\s+/g, '-'));
   for (const key of Object.keys(BADGE_TAG_MAP)) {
-    if (normalized.includes(key)) return BADGE_TAG_MAP[key];
+    if (normalized.includes(key)) {
+      const entry = BADGE_TAG_MAP[key];
+      return {label: t(entry.labelKey), cls: entry.cls};
+    }
   }
   return null;
 }
@@ -50,7 +53,7 @@ export function ProductItem({product, loading, index, dark = false}) {
   const {open} = useAside();
 
   const delay = typeof index === 'number' ? Math.min(index * 40, 320) : 0;
-  const badge = resolveBadge(product.tags);
+  const badge = resolveBadge(product.tags, t);
   const cardClass = `pk-card pk-card--link${dark ? ' pk-card--dark' : ''}`;
 
   return (

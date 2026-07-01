@@ -202,9 +202,7 @@ export default function ExplorePage() {
         <div className="pk-col-hero__glow pk-col-hero__glow--ember" aria-hidden />
         <span className="pk-col-hero__eyebrow">{t('explore_eyebrow')}</span>
         <h1 className="pk-col-hero__title">{t('explore_title')}</h1>
-        <span className="pk-col-hero__count">
-          Puchica
-        </span>
+        <span className="pk-col-hero__count">{t('col_brand_chip')}</span>
       </header>
 
       <div className="pk-explore__body">

@@ -165,7 +165,7 @@ export function HeaderMenu({menu, megaMenu, primaryDomainUrl, viewport, publicSt
   }
 
   // Mobile: Shopify admin menu as source of truth, filtered + augmented.
-  const shopifyItems = (menu || FALLBACK_HEADER_MENU).items;
+  const shopifyItems = (menu || buildFallbackHeaderMenu(t)).items;
   const shopifyPaths = new Set(
     shopifyItems
       .filter((i) => i.url)
@@ -398,17 +398,22 @@ function IconMenu() {
   );
 }
 
-const FALLBACK_HEADER_MENU = {
-  id: 'gid://shopify/Menu/199655587896',
-  items: [
-    {id: '1', resourceId: null, tags: [], title: 'Shop All', type: 'HTTP', url: '/collections/all', items: []},
-    {id: '2', resourceId: null, tags: [], title: 'Best Sellers', type: 'HTTP', url: '/collections/best-sellers', items: []},
-    {id: '3', resourceId: null, tags: [], title: 'New Arrivals', type: 'HTTP', url: '/collections/new-arrivals', items: []},
-    {id: '4', resourceId: null, tags: [], title: 'Gift Guide', type: 'HTTP', url: '/collections/all?price=25-50', items: []},
-    {id: '5', resourceId: null, tags: [], title: 'About', type: 'HTTP', url: '/pages/about', items: []},
-    {id: '6', resourceId: null, tags: [], title: 'Contact', type: 'HTTP', url: '/pages/contact', items: []},
-  ],
-};
+// Fallback menu used when the Shopify admin menu can't be fetched (or the
+// store hasn't configured a navigation menu). Titles are produced per-locale
+// from the dictionary so translated storefronts see translated fallbacks.
+function buildFallbackHeaderMenu(t) {
+  return {
+    id: 'gid://shopify/Menu/199655587896',
+    items: [
+      {id: '1', resourceId: null, tags: [], title: t('nav_shop_all'), type: 'HTTP', url: '/collections/all', items: []},
+      {id: '2', resourceId: null, tags: [], title: t('nav_best_sellers_short'), type: 'HTTP', url: '/collections/best-sellers', items: []},
+      {id: '3', resourceId: null, tags: [], title: t('nav_new_arrivals_short'), type: 'HTTP', url: '/collections/new-arrivals', items: []},
+      {id: '4', resourceId: null, tags: [], title: t('nav_gift_guide'), type: 'HTTP', url: '/collections/all?price=25-50', items: []},
+      {id: '5', resourceId: null, tags: [], title: t('nav_about_short'), type: 'HTTP', url: '/pages/about', items: []},
+      {id: '6', resourceId: null, tags: [], title: t('nav_contact_short'), type: 'HTTP', url: '/pages/contact', items: []},
+    ],
+  };
+}
 
 
 /** @typedef {'desktop' | 'mobile'} Viewport */

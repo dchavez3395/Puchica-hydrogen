@@ -137,13 +137,13 @@ export function ProductForm({productOptions, selectedVariant, product, onAddStar
 
       {/* Quantity + ATC row */}
       <div className="pk-qty-row">
-        <div className="pk-qty" role="group" aria-label="Quantity">
+        <div className="pk-qty" role="group" aria-label={t('product_qty_aria')}>
           <button
             type="button"
             className="pk-qty__btn"
             onClick={() => setQty((q) => Math.max(1, q - 1))}
             disabled={qty <= 1}
-            aria-label="Decrease quantity"
+            aria-label={t('product_qty_dec_aria')}
           >
             <IconMinus size={14} />
           </button>
@@ -155,7 +155,7 @@ export function ProductForm({productOptions, selectedVariant, product, onAddStar
             className="pk-qty__btn"
             onClick={() => setQty((q) => Math.min(99, q + 1))}
             disabled={typeof stock === 'number' && qty >= stock}
-            aria-label="Increase quantity"
+            aria-label={t('product_qty_inc_aria')}
           >
             <IconPlus size={14} />
           </button>
@@ -203,7 +203,7 @@ export function ProductForm({productOptions, selectedVariant, product, onAddStar
             }
             onClick={toggleSave}
             aria-pressed={saved}
-            aria-label={saved ? 'Remove from saved' : 'Save for later'}
+            aria-label={saved ? t('product_unsave_aria') : t('product_save_aria')}
           >
             <IconHeart size={16} />
           </button>
@@ -214,7 +214,7 @@ export function ProductForm({productOptions, selectedVariant, product, onAddStar
       {lowStock ? (
         <p className="pk-stock-urgency" aria-live="polite">
           <span className="pk-stock-urgency__dot" aria-hidden />
-          {t('product_stock_low')} — only {stock} left
+          {t('product_stock_low')} — {t('product_stock_phrase', {stock})}
         </p>
       ) : null}
 

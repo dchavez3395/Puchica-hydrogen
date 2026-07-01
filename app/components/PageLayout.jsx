@@ -27,9 +27,10 @@ export function PageLayout({
   megaMenu,
   publicStoreDomain,
 }) {
+  const t = useT();
   return (
     <Aside.Provider>
-      <a href="#main-content" className="pk-skip-link">Skip to main content</a>
+      <a href="#main-content" className="pk-skip-link">{t('skip_to_content')}</a>
       <CartAside cart={cart} />
       <SearchAside />
       <MobileMenuAside header={header} megaMenu={megaMenu} publicStoreDomain={publicStoreDomain} />

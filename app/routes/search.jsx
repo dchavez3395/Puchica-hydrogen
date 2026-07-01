@@ -5,6 +5,7 @@ import {SearchResults} from '~/components/SearchResults';
 import {getEmptyPredictiveSearchResult} from '~/lib/search';
 import {puchicaMeta} from '~/lib/seo';
 import {diversifyByVendor} from '~/lib/diversify';
+import {useT} from '~/lib/t';
 
 /**
  * @type {Route.MetaFunction}
@@ -48,6 +49,7 @@ export async function loader({request, context}) {
  * Renders the /search route
  */
 export default function SearchPage() {
+  const t = useT();
   /** @type {LoaderReturnData} */
   const {type, term, result, error} = useLoaderData();
   if (type === 'predictive') return null;
@@ -58,10 +60,10 @@ export default function SearchPage() {
         <h1 className="pk-search-page__title">
           {term ? (
             <>
-              Results for <em>&ldquo;{term}&rdquo;</em>
+              {t('search_results_h', {term: `“${term}”`})}
             </>
           ) : (
-            'Search'
+            t('search_results_h_fallback')
           )}
         </h1>
         <SearchForm className="pk-search-page__form">
@@ -86,12 +88,12 @@ export default function SearchPage() {
                 className="pk-search__input"
                 defaultValue={term}
                 name="q"
-                placeholder="Search products…"
+                placeholder={t('search_input_placeholder')}
                 ref={inputRef}
                 type="search"
               />
               <button type="submit" className="pk-search__submit">
-                Search
+                {t('search_submit')}
               </button>
             </div>
           )}

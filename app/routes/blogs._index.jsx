@@ -3,6 +3,7 @@ import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {getPaginationVariables} from '@shopify/hydrogen';
 import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
 import {puchicaMeta} from '~/lib/seo';
+import {useT} from '~/lib/t';
 
 /**
  * @type {Route.MetaFunction}
@@ -72,10 +73,11 @@ function loadDeferredData() {
 export default function Blogs() {
   /** @type {LoaderReturnData} */
   const {blogs} = useLoaderData();
+  const t = useT();
 
   return (
     <div className="blogs">
-      <h1>Blogs</h1>
+      <h1>{t('blogs_h')}</h1>
       <div className="blogs-grid">
         <PaginatedResourceSection connection={blogs}>
           {({node: blog}) => (

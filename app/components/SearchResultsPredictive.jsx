@@ -7,6 +7,7 @@ import {
   urlWithTrackingParams,
 } from '~/lib/search';
 import {useAside} from './Aside';
+import {useT} from '~/lib/t';
 
 /**
  * Component that renders predictive search results
@@ -56,11 +57,12 @@ SearchResultsPredictive.Empty = SearchResultsPredictiveEmpty;
  * @param {PartialPredictiveSearchResult<'articles'>}
  */
 function SearchResultsPredictiveArticles({term, articles, closeSearch}) {
+  const t = useT();
   if (!articles.length) return null;
 
   return (
     <div className="predictive-search-result" key="articles">
-      <h5>Articles</h5>
+      <h5>{t('pred_articles')}</h5>
       <ul>
         {articles.map((article) => {
           const articleUrl = urlWithTrackingParams({
@@ -96,11 +98,12 @@ function SearchResultsPredictiveArticles({term, articles, closeSearch}) {
  * @param {PartialPredictiveSearchResult<'collections'>}
  */
 function SearchResultsPredictiveCollections({term, collections, closeSearch}) {
+  const t = useT();
   if (!collections.length) return null;
 
   return (
     <div className="predictive-search-result" key="collections">
-      <h5>Collections</h5>
+      <h5>{t('pred_collections')}</h5>
       <ul>
         {collections.map((collection) => {
           const collectionUrl = urlWithTrackingParams({
@@ -136,11 +139,12 @@ function SearchResultsPredictiveCollections({term, collections, closeSearch}) {
  * @param {PartialPredictiveSearchResult<'pages'>}
  */
 function SearchResultsPredictivePages({term, pages, closeSearch}) {
+  const t = useT();
   if (!pages.length) return null;
 
   return (
     <div className="predictive-search-result" key="pages">
-      <h5>Pages</h5>
+      <h5>{t('pred_pages')}</h5>
       <ul>
         {pages.map((page) => {
           const pageUrl = urlWithTrackingParams({
@@ -168,11 +172,12 @@ function SearchResultsPredictivePages({term, pages, closeSearch}) {
  * @param {PartialPredictiveSearchResult<'products'>}
  */
 function SearchResultsPredictiveProducts({term, products, closeSearch}) {
+  const t = useT();
   if (!products.length) return null;
 
   return (
     <div className="predictive-search-result" key="products">
-      <h5>Products</h5>
+      <h5>{t('pred_products')}</h5>
       <ul>
         {products.map((product) => {
           const productUrl = urlWithTrackingParams({
@@ -232,35 +237,33 @@ function SearchResultsPredictiveQueries({queries, queriesDatalistId}) {
  * }}
  */
 function SearchResultsPredictiveEmpty({term, closeSearch}) {
+  const t = useT();
   if (!term.current) {
     return (
       <div className="pk-search__hint">
-        <p className="pk-search__hint-title">Start typing to search</p>
-        <p className="pk-search__hint-body">
-          Try categories like &ldquo;best sellers&rdquo;, &ldquo;home&rdquo;,
-          or specific product names.
-        </p>
+        <p className="pk-search__hint-title">{t('pred_empty_title')}</p>
+        <p className="pk-search__hint-body">{t('pred_empty_body')}</p>
         <div className="pk-search__suggestions">
           <Link
             to="/collections/best-sellers"
             onClick={closeSearch}
             className="pk-pill-link"
           >
-            Best sellers
+            {t('pred_pill_best')}
           </Link>
           <Link
             to="/collections"
             onClick={closeSearch}
             className="pk-pill-link"
           >
-            All categories
+            {t('pred_pill_all')}
           </Link>
           <Link
             to="/collections/new"
             onClick={closeSearch}
             className="pk-pill-link"
           >
-            New arrivals
+            {t('pred_pill_new')}
           </Link>
         </div>
       </div>
@@ -270,11 +273,9 @@ function SearchResultsPredictiveEmpty({term, closeSearch}) {
   return (
     <div className="pk-search__empty">
       <p className="pk-search__empty-title">
-        No results for &ldquo;{term.current}&rdquo;
+        {t('pred_no_results_h', {term: term.current})}
       </p>
-      <p className="pk-search__empty-body">
-        Try a different keyword or browse the most-loved picks.
-      </p>
+      <p className="pk-search__empty-body">{t('pred_no_results_body')}</p>
     </div>
   );
 }

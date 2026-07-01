@@ -2,11 +2,13 @@ import {CartForm, Money} from '@shopify/hydrogen';
 import {useEffect, useId, useRef, useState} from 'react';
 import {useActionData, useFetcher} from 'react-router';
 import {CHECKOUT_URL_REWRITER} from '~/lib/checkout';
+import {useT} from '~/lib/t';
 
 /**
  * @param {CartSummaryProps}
  */
 export function CartSummary({cart, layout, hasCheckoutableItems = true}) {
+  const t = useT();
   const className =
     layout === 'page' ? 'cart-summary-page' : 'cart-summary-aside';
   const summaryId = useId();
@@ -17,9 +19,9 @@ export function CartSummary({cart, layout, hasCheckoutableItems = true}) {
 
   return (
     <div aria-labelledby={summaryId} className={className}>
-      <h4 id={summaryId}>Totals</h4>
+      <h4 id={summaryId}>{t('cart_summary_title')}</h4>
       <dl role="group" className="cart-subtotal">
-        <dt>Subtotal</dt>
+        <dt>{t('cart_summary_subtotal')}</dt>
         <dd>
           {cart?.cost?.subtotalAmount?.amount ? (
             <Money data={cart?.cost?.subtotalAmount} />
@@ -51,6 +53,7 @@ export function CartSummary({cart, layout, hasCheckoutableItems = true}) {
  * @param {{checkoutUrl?: string; disabled?: boolean}}
  */
 function CartCheckoutActions({checkoutUrl, disabled = false}) {
+  const t = useT();
   if (!checkoutUrl) return null;
 
   return (
@@ -65,10 +68,10 @@ function CartCheckoutActions({checkoutUrl, disabled = false}) {
         }}
       >
         {disabled
-          ? 'Add an item to check out'
+          ? t('cart_summary_empty_btn')
           : (
             <>
-              Continue to Checkout <span aria-hidden>&rarr;</span>
+              {t('cart_summary_checkout_btn')} <span aria-hidden>&rarr;</span>
             </>
           )}
       </a>
@@ -112,17 +115,18 @@ function CartDiscounts({
   discountsHeadingId,
   discountCodeInputId,
 }) {
+  const t = useT();
   const codes =
     discountCodes
       ?.filter((discount) => discount.applicable)
       ?.map(({code}) => code) || [];
 
   return (
-    <section aria-label="Discounts">
+    <section aria-label={t('cart_summary_discounts_aria')}>
       {/* Have existing discount, display it with a remove option */}
       <dl hidden={!codes.length}>
         <div>
-          <dt id={discountsHeadingId}>Discounts</dt>
+          <dt id={discountsHeadingId}>{t('cart_summary_discounts_h')}</dt>
           <UpdateDiscountForm>
             <div
               className="cart-discount"
@@ -131,8 +135,8 @@ function CartDiscounts({
             >
               <code>{codes?.join(', ')}</code>
               &nbsp;
-              <button type="submit" aria-label="Remove discount">
-                Remove
+              <button type="submit" aria-label={t('cart_summary_remove_discount')}>
+                {t('cart_summary_remove')}
               </button>
             </div>
           </UpdateDiscountForm>
@@ -142,16 +146,16 @@ function CartDiscounts({
       {/* Show an input to apply a discount */}
       <UpdateDiscountForm discountCodes={codes}>
         <div className="cart-summary-field">
-          <label htmlFor={discountCodeInputId}>Promo code</label>
+          <label htmlFor={discountCodeInputId}>{t('cart_summary_promo_label')}</label>
           <div className="cart-summary-field__row">
             <input
               id={discountCodeInputId}
               type="text"
               name="discountCode"
-              placeholder="Enter code"
+              placeholder={t('cart_summary_promo_placeholder')}
             />
-            <button type="submit" aria-label="Apply discount code">
-              Apply
+            <button type="submit" aria-label={t('cart_summary_promo_apply_aria')}>
+              {t('cart_summary_promo_apply')}
             </button>
           </div>
         </div>
@@ -188,6 +192,7 @@ function UpdateDiscountForm({discountCodes, children}) {
  * }}
  */
 function CartGiftCard({giftCardCodes, giftCardHeadingId, giftCardInputId}) {
+  const t = useT();
   const giftCardCodeInput = useRef(null);
   const removeButtonRefs = useRef(new Map());
   const previousCardIdsRef = useRef([]);
@@ -235,10 +240,10 @@ function CartGiftCard({giftCardCodes, giftCardHeadingId, giftCardInputId}) {
   };
 
   return (
-    <section aria-label="Gift cards">
+    <section aria-label={t('cart_summary_gift_aria')}>
       {giftCardCodes && giftCardCodes.length > 0 && (
         <dl>
-          <dt id={giftCardHeadingId}>Applied Gift Card(s)</dt>
+          <dt id={giftCardHeadingId}>{t('cart_summary_gift_h')}</dt>
           {giftCardCodes.map((giftCard) => (
             <dd key={giftCard.id} className="cart-discount">
               <RemoveGiftCardForm
@@ -264,21 +269,21 @@ function CartGiftCard({giftCardCodes, giftCardHeadingId, giftCardInputId}) {
 
       <AddGiftCardForm fetcherKey="gift-card-add">
         <div className="cart-summary-field">
-          <label htmlFor={giftCardInputId}>Gift card</label>
+          <label htmlFor={giftCardInputId}>{t('cart_summary_gift_label')}</label>
           <div className="cart-summary-field__row">
             <input
               id={giftCardInputId}
               type="text"
               name="giftCardCode"
-              placeholder="Enter gift card code"
+              placeholder={t('cart_summary_gift_placeholder')}
               ref={giftCardCodeInput}
             />
             <button
               type="submit"
               disabled={giftCardAddFetcher.state !== 'idle'}
-              aria-label="Apply gift card code"
+              aria-label={t('cart_summary_gift_apply_aria')}
             >
-              Apply
+              {t('cart_summary_gift_apply')}
             </button>
           </div>
         </div>
@@ -321,6 +326,7 @@ function RemoveGiftCardForm({
   onRemoveClick,
   buttonRef,
 }) {
+  const t = useT();
   return (
     <CartForm
       route="/cart"
@@ -333,11 +339,11 @@ function RemoveGiftCardForm({
       &nbsp;
       <button
         type="submit"
-        aria-label={`Remove gift card ending in ${lastCharacters}`}
+        aria-label={t('cart_summary_remove_gift_aria', {last: lastCharacters})}
         onClick={onRemoveClick}
         ref={buttonRef}
       >
-        Remove
+        {t('cart_summary_remove')}
       </button>
     </CartForm>
   );

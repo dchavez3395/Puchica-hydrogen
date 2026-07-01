@@ -144,9 +144,7 @@ export default function Collection() {
         <span className="pk-col-hero__eyebrow">{t('all_eyebrow')}</span>
         <h1 className="pk-col-hero__title">{t('all_title')}</h1>
         <p className="pk-col-hero__sub">{t('all_sub')}</p>
-        <span className="pk-col-hero__count">
-          Puchica
-        </span>
+        <span className="pk-col-hero__count">{t('col_brand_chip')}</span>
       </header>
 
       {count === 0 ? (

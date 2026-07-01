@@ -1,4 +1,5 @@
 import {Money} from '@shopify/hydrogen';
+import {useT} from '~/lib/t';
 
 /**
  * @param {{
@@ -7,8 +8,9 @@ import {Money} from '@shopify/hydrogen';
  * }}
  */
 export function ProductPrice({price, compareAtPrice}) {
+  const t = useT();
   return (
-    <div aria-label="Price" className="product-price" role="group">
+    <div aria-label={t('product_price_aria')} className="product-price" role="group">
       {compareAtPrice ? (
         <div className="product-price-on-sale">
           {price ? <Money data={price} /> : null}

@@ -1,6 +1,7 @@
 import {useEffect} from 'react';
 import {JUDGEME_SHOP_DOMAIN, JUDGEME_PUBLIC_TOKEN} from '~/lib/judgeme';
 import StarGlyph from '~/components/StarGlyph';
+import {useT} from '~/lib/t';
 
 /**
  * Compact star rating for the product title area, rendered from the
@@ -11,12 +12,13 @@ import StarGlyph from '~/components/StarGlyph';
  * @param {{rating?: number, count?: number}} props
  */
 export function ReviewStars({rating = 0, count = 0}) {
+  const t = useT();
   if (!count) return null;
   const full = Math.max(0, Math.min(5, Math.round(rating)));
   return (
     <a
       href="#reviews"
-      aria-label={`${rating} out of 5 stars, ${count} reviews`}
+      aria-label={t('reviews_aria', {rating, count})}
       style={{
         display: 'inline-flex',
         alignItems: 'center',
@@ -34,7 +36,7 @@ export function ReviewStars({rating = 0, count = 0}) {
         ))}
       </span>
       <span style={{fontSize: '13px', opacity: 0.75}}>
-        {rating.toFixed(1)} ({count} {count === 1 ? 'review' : 'reviews'})
+        {rating.toFixed(1)} {count === 1 ? t('reviews_count_one', {count}) : t('reviews_count_many', {count})}
       </span>
     </a>
   );
@@ -49,6 +51,7 @@ export function ReviewStars({rating = 0, count = 0}) {
  * @param {{externalId?: number|string|null, productTitle?: string}} props
  */
 export function JudgemeReviews({externalId, productTitle}) {
+  const t = useT();
   useEffect(() => {
     if (!externalId || typeof window === 'undefined') return;
 
@@ -81,11 +84,11 @@ export function JudgemeReviews({externalId, productTitle}) {
   return (
     <section
       id="reviews"
-      aria-label="Customer reviews"
+      aria-label={t('reviews_section_aria')}
       style={{maxWidth: '1100px', margin: '8px auto 0', padding: '0 16px'}}
     >
       <h2 style={{fontSize: '22px', fontWeight: 700, margin: '0 0 16px'}}>
-        Customer reviews
+        {t('reviews_heading')}
       </h2>
       <div
         className="jdgm-widget jdgm-review-widget"

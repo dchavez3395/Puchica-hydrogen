@@ -2,6 +2,7 @@ import {useState, useEffect, useCallback} from 'react';
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import useEmblaCarousel from 'embla-carousel-react';
 import {ProductPrice} from './ProductPrice';
+import {useT} from '~/lib/t';
 
 /**
  * EmblaProductCarousel — swipe-able product row using Embla Carousel.
@@ -16,6 +17,7 @@ import {ProductPrice} from './ProductPrice';
  * @param {string} [props.emphasis] - 'light' (cream bg) or 'dark' (ink bg)
  */
 export function EmblaProductCarousel({products, title, viewAllHref, emphasis = 'light'}) {
+  const t = useT();
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: 'start',
     loop: false,
@@ -54,7 +56,7 @@ export function EmblaProductCarousel({products, title, viewAllHref, emphasis = '
           {title ? <h2 className="pk-embla__title">{title}</h2> : <span />}
           {viewAllHref ? (
             <Link to={viewAllHref} className="pk-embla__viewall">
-              View all →
+              {t('embla_view_all')}
             </Link>
           ) : null}
         </header>
@@ -101,18 +103,18 @@ export function EmblaProductCarousel({products, title, viewAllHref, emphasis = '
             className="pk-embla__btn"
             onClick={() => emblaApi?.scrollPrev()}
             disabled={!canScrollPrev}
-            aria-label="Previous"
+            aria-label={t('embla_prev_aria')}
           >
             ←
           </button>
-          <div className="pk-embla__dots" role="tablist" aria-label="Slide indicators">
+          <div className="pk-embla__dots" role="tablist" aria-label={t('embla_dots_aria')}>
             {scrollSnaps.map((_, i) => (
               <button
                 key={i}
                 type="button"
                 role="tab"
                 aria-selected={i === selectedIndex}
-                aria-label={`Go to slide ${i + 1}`}
+                aria-label={t('embla_dot_aria', {n: i + 1})}
                 className={`pk-embla__dot ${i === selectedIndex ? 'is-active' : ''}`}
                 onClick={() => emblaApi?.scrollTo(i)}
               />
@@ -123,7 +125,7 @@ export function EmblaProductCarousel({products, title, viewAllHref, emphasis = '
             className="pk-embla__btn"
             onClick={() => emblaApi?.scrollNext()}
             disabled={!canScrollNext}
-            aria-label="Next"
+            aria-label={t('embla_next_aria')}
           >
             →
           </button>

@@ -1,6 +1,7 @@
 import {useEffect, useRef} from 'react';
 import {Pagination} from '@shopify/hydrogen';
 import {IconChevronLeft, IconChevronRight} from '~/components/Icons';
+import {useT} from '~/lib/t';
 
 /**
  * <PaginatedResourceSection> encapsulates the previous and next pagination
@@ -41,6 +42,7 @@ function PaginatedResourceContent({
   ariaLabel,
   resourcesClassName,
 }) {
+  const t = useT();
   const {
     nodes,
     isLoading,
@@ -102,14 +104,14 @@ function PaginatedResourceContent({
       <div
         className="pk-pager"
         role="navigation"
-        aria-label="Pagination"
+        aria-label={t('pager_aria')}
         data-loading={isLoading ? 'true' : 'false'}
       >
         <div className="pk-pager__side pk-pager__side--left">
           {hasPreviousPage ? (
             <PreviousLink className="pk-pager__prev">
               <IconChevronLeft size={14} />
-              <span>Previous page</span>
+              <span>{t('pager_prev')}</span>
             </PreviousLink>
           ) : (
             <span className="pk-pager__spacer" aria-hidden />
@@ -120,11 +122,11 @@ function PaginatedResourceContent({
           {isLoading ? (
             <span className="pk-pager__loading">
               <span className="pk-pager__spinner" aria-hidden />
-              Loading more products…
+              {t('pager_loading')}
             </span>
           ) : hasNextPage ? (
             <NextLink className="pk-pager__next">
-              <span>Load next 12</span>
+              <span>{t('pager_next')}</span>
               <IconChevronRight size={14} />
             </NextLink>
           ) : hasPreviousPage ? (
@@ -142,11 +144,11 @@ function PaginatedResourceContent({
               >
                 <path d="M5 12l4 4L19 6" />
               </svg>
-              You&apos;ve reached the end
+              {t('pager_end')}
             </span>
           ) : (
             <span className="pk-pager__end">
-              Showing {totalCount} {totalCount === 1 ? 'product' : 'products'}
+              {totalCount === 1 ? t('pager_showing_one', {n: totalCount}) : t('pager_showing_many', {n: totalCount})}
             </span>
           )}
         </div>

@@ -4,6 +4,7 @@ import useEmblaCarousel from 'embla-carousel-react';
 import {IconChevronLeft, IconChevronRight, IconCube, IconZoomIn} from '~/components/Icons';
 import {HeroParallax} from './HeroParallax';
 import {ProductHero3D} from './ProductHero3D';
+import {useT} from '~/lib/t';
 
 /**
  * Hero gallery for the PDP — rebuilt for the 2026-06-29 reboot.
@@ -57,6 +58,7 @@ export function ProductImage({
   modelAvailable = true,
   accentColor = null,
 }) {
+  const t = useT();
   const list = (images || []).filter(Boolean);
   const [index, setIndex] = useState(
     Math.min(Math.max(0, initialIndex), Math.max(0, list.length - 1)),
@@ -162,7 +164,7 @@ export function ProductImage({
             ) : (
               <>
                 <Image
-                  alt={current.altText || productTitle || 'Product image'}
+                  alt={current.altText || productTitle || t('pdp_img_alt_fallback')}
                   data={current}
                   aspectRatio={`${heroRatio.toFixed(4)}`.replace(/(\.\d*?)0+$/, '$1').replace(/\.$/, '')}
                   crop="top"
@@ -190,10 +192,10 @@ export function ProductImage({
                 type="button"
                 className="pk-product__hero-3d-toggle"
                 onClick={() => setMode('3d')}
-                aria-label="View product in 3D"
+                aria-label={t('pdp_3d_open_aria')}
               >
                 <IconCube size={14} />
-                <span>View in 3D</span>
+                <span>{t('pdp_3d_open')}</span>
               </button>
             )}
             {has3D && mode === '3d' && (
@@ -201,16 +203,16 @@ export function ProductImage({
                 type="button"
                 className="pk-product__hero-3d-toggle pk-product__hero-3d-toggle--active"
                 onClick={() => setMode('image')}
-                aria-label="Return to photo view"
+                aria-label={t('pdp_3d_close_aria')}
               >
-                <span>← Photos</span>
+                <span>{t('pdp_3d_close')}</span>
               </button>
             )}
 
             {mode === 'image' && list.length > 0 && (
               <span className="pk-product__hero-zoom-hint" aria-hidden>
                 <IconZoomIn size={14} />
-                Hover to zoom
+                {t('pdp_zoom_hint')}
               </span>
             )}
 
@@ -219,7 +221,7 @@ export function ProductImage({
                 <button
                   type="button"
                   className="pk-product__hero-nav pk-product__hero-nav--prev"
-                  aria-label="Previous image"
+                  aria-label={t('pdp_prev_aria')}
                   onClick={() => go(-1)}
                 >
                   <IconChevronLeft size={18} />
@@ -227,7 +229,7 @@ export function ProductImage({
                 <button
                   type="button"
                   className="pk-product__hero-nav pk-product__hero-nav--next"
-                  aria-label="Next image"
+                  aria-label={t('pdp_next_aria')}
                   onClick={() => go(1)}
                 >
                   <IconChevronRight size={18} />
@@ -244,7 +246,7 @@ export function ProductImage({
             the row below the hero handles all viewports. */}
         {list.length > 1 && mode === 'image' && (
           <div className="pk-thumbs pk-thumbs--strip" ref={emblaRef}>
-            <ul className="pk-thumbs__row" aria-label="Product images">
+            <ul className="pk-thumbs__row" aria-label={t('pdp_thumbs_aria')}>
               {list.map((img, i) => (
                 <li key={img.id || img.url || i} className="pk-thumbs__cell">
                   <button
@@ -254,11 +256,11 @@ export function ProductImage({
                       (i === index ? ' is-current' : '')
                     }
                     aria-current={i === index ? 'true' : 'false'}
-                    aria-label={`View image ${i + 1} of ${list.length}`}
+                    aria-label={t('pdp_thumb_aria', {n: i + 1, total: list.length})}
                     onClick={() => setIndex(i)}
                   >
                     <Image
-                      alt={img.altText || productTitle || 'Product image'}
+                      alt={img.altText || productTitle || t('pdp_img_alt_fallback')}
                       data={img}
                       aspectRatio="1/1"
                       sizes="(max-width: 700px) 90px, 80px"

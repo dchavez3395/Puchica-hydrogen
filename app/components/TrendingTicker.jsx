@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react';
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {Image} from '@shopify/hydrogen';
+import {useT} from '~/lib/t';
 
 /**
  * TrendingTicker — horizontal scrolling ticker of trending products.
@@ -16,6 +17,7 @@ import {Image} from '@shopify/hydrogen';
  */
 export function TrendingTicker({products = []}) {
   const [reducedMotion, setReducedMotion] = useState(false);
+  const t = useT();
 
   useEffect(() => {
     if (typeof window === 'undefined' || !window.matchMedia) return;
@@ -39,10 +41,10 @@ export function TrendingTicker({products = []}) {
   const items = reducedMotion ? products : [...products, ...products];
 
   return (
-    <section className="pk-ticker" aria-label="Trending products">
+    <section className="pk-ticker" aria-label={t('ticker_section_aria')}>
       <div className="pk-ticker__label">
         <span className="pk-ticker__dot" aria-hidden="true" />
-        Trending
+        {t('ticker_label')}
       </div>
 
       {/* Desktop: horizontal auto-scroll */}

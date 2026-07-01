@@ -1,5 +1,6 @@
 import {useEffect, useRef, useState} from 'react';
 import {ScrollReveal} from '~/components/ScrollReveal';
+import {useT} from '~/lib/t';
 
 /**
  * StatsCounter — animated number counters that count up when scrolled
@@ -9,10 +10,11 @@ import {ScrollReveal} from '~/components/ScrollReveal';
  * @param {Array<{value: number, label: string, suffix?: string}>} props.stats
  */
 export function StatsCounter({stats = []}) {
+  const t = useT();
   if (!stats.length) return null;
 
   return (
-    <section className="pk-stats" aria-label="Store statistics">
+    <section className="pk-stats" aria-label={t('stats_aria')}>
       <div className="pk-inner">
         <ScrollReveal className="pk-stats__grid" variant="scale">
           {stats.map((stat, i) => (

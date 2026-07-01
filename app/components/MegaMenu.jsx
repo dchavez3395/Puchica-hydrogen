@@ -95,6 +95,7 @@ export function MegaMenu({deferred, onClose}) {
   const panelRef = useRef(null);
   const [open, setOpen] = useState(false);
   const closeTimer = useRef(null);
+  const t = useT();
 
   // Open on hover, with a small delay so quick mouse-passes don't trigger flicker.
   const handleEnter = () => {
@@ -156,7 +157,7 @@ export function MegaMenu({deferred, onClose}) {
         onClick={() => setOpen((o) => !o)}
         onFocus={handleEnter}
       >
-        Shop
+        {t('megamenu_trigger')}
         <svg
           className="pk-mega__chev"
           width="12"
@@ -176,7 +177,7 @@ export function MegaMenu({deferred, onClose}) {
         id={id}
         className="pk-mega__panel"
         role="region"
-        aria-label="Shop by category"
+        aria-label={t('megamenu_panel_aria')}
         aria-hidden={open ? 'false' : 'true'}
       >
         <div className="pk-mega__inner">
@@ -245,7 +246,7 @@ function MegaMenuPanel({data, onNavigate}) {
                   {tagline && (
                     <p className="pk-mega__tile-tagline">{tagline}</p>
                   )}
-                  <span className="pk-mega__tile-cta">Shop &rarr;</span>
+                  <span className="pk-mega__tile-cta">{t('megamenu_tile_cta')}</span>
                 </div>
               </Link>
             </li>
@@ -269,7 +270,7 @@ function MegaMenuPanel({data, onNavigate}) {
                   <StarGlyph size={10} /> {tagline}
                 </p>
                 <h3 className="pk-mega__featured-title">{c.title}</h3>
-                <span className="pk-mega__featured-cta">Shop &rarr;</span>
+                <span className="pk-mega__featured-cta">{t('megamenu_tile_cta')}</span>
               </Link>
             );
           })}
@@ -308,11 +309,12 @@ function MegaMenuSkeleton() {
 }
 
 function MegaMenuError() {
+  const t = useT();
   return (
     <div className="pk-mega__error" role="alert">
-      <p>We couldn&rsquo;t load the categories just now.</p>
+      <p>{t('megamenu_error_body')}</p>
       <Link to="/collections/all" className="pk-mega__error-link">
-        Browse everything &rarr;
+        {t('megamenu_error_cta')}
       </Link>
     </div>
   );

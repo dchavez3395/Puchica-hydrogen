@@ -6,6 +6,7 @@ import {
   useNavigation,
   useOutletContext,
 } from 'react-router';
+import {useT} from '~/lib/t';
 
 /**
  * @type {Route.MetaFunction}
@@ -81,6 +82,7 @@ export async function action({request, context}) {
 }
 
 export default function AccountProfile() {
+  const t = useT();
   const account = useOutletContext();
   const {state} = useNavigation();
   /** @type {ActionReturnData} */
@@ -89,30 +91,30 @@ export default function AccountProfile() {
 
   return (
     <div className="account-profile">
-      <h2>My profile</h2>
+      <h2>{t('account_profile_h')}</h2>
       <br />
       <Form method="PUT">
-        <legend>Personal information</legend>
+        <legend>{t('account_profile_fieldset')}</legend>
         <fieldset>
-          <label htmlFor="firstName">First name</label>
+          <label htmlFor="firstName">{t('account_first_name')}</label>
           <input
             id="firstName"
             name="firstName"
             type="text"
             autoComplete="given-name"
-            placeholder="First name"
-            aria-label="First name"
+            placeholder={t('account_first_name')}
+            aria-label={t('account_first_name')}
             defaultValue={customer.firstName ?? ''}
             minLength={2}
           />
-          <label htmlFor="lastName">Last name</label>
+          <label htmlFor="lastName">{t('account_last_name')}</label>
           <input
             id="lastName"
             name="lastName"
             type="text"
             autoComplete="family-name"
-            placeholder="Last name"
-            aria-label="Last name"
+            placeholder={t('account_last_name')}
+            aria-label={t('account_last_name')}
             defaultValue={customer.lastName ?? ''}
             minLength={2}
           />
@@ -127,7 +129,7 @@ export default function AccountProfile() {
           <br />
         )}
         <button type="submit" disabled={state !== 'idle'}>
-          {state !== 'idle' ? 'Updating' : 'Update'}
+          {state !== 'idle' ? t('account_updating') : t('account_update')}
         </button>
       </Form>
     </div>

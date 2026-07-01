@@ -3,6 +3,7 @@ import {Image} from '@shopify/hydrogen';
 import {ScrollReveal} from '~/components/ScrollReveal';
 import {TiltCard} from '~/components/TiltCard';
 import {categoryIcon} from '~/components/Icons';
+import {useT} from '~/lib/t';
 
 /**
  * CollectionShowcase — alternating left/right layout showing 6 collections
@@ -12,16 +13,17 @@ import {categoryIcon} from '~/components/Icons';
  * @param {Array} props.collections - array of collection objects from Storefront API
  */
 export function CollectionShowcase({collections = []}) {
+  const t = useT();
   if (!collections.length) return null;
 
   return (
-    <section className="pk-showcase" aria-label="Collection showcase">
+    <section className="pk-showcase" aria-label={t('showcase_section_aria')}>
       <div className="pk-inner">
         <ScrollReveal as="h2" className="pk-showcase__heading" variant="up">
-          Explore by category
+          {t('showcase_heading')}
         </ScrollReveal>
         <ScrollReveal as="p" className="pk-showcase__sub" variant="up" delay={100}>
-          {collections.length} collections. {Math.round(collections.length / 19 * 100)}% of the catalog covered.
+          {t('showcase_sub', {count: collections.length, pct: Math.round(collections.length / 19 * 100)})}
         </ScrollReveal>
       </div>
 
@@ -40,6 +42,7 @@ export function CollectionShowcase({collections = []}) {
 }
 
 function ShowcaseRow({collection, index, reverse}) {
+  const t = useT();
   const image = collection?.image || collection?.products?.nodes?.[0]?.featuredImage;
   const handle = collection?.handle || '';
   const title = collection?.title || '';
@@ -79,19 +82,18 @@ function ShowcaseRow({collection, index, reverse}) {
         delay={100}
       >
         <span className="pk-showcase__eyebrow">
-          Collection {String(index + 1).padStart(2, '0')}
+          {t('showcase_eyebrow', {n: String(index + 1).padStart(2, '0')})}
         </span>
         <h3 className="pk-showcase__title">{title}</h3>
         <p className="pk-showcase__desc">
-          Discover our {title.toLowerCase()} selection — handpicked products
-          with free shipping over $50.
+          {t('showcase_desc', {title: title.toLowerCase()})}
         </p>
         <Link
           to={`/collections/${handle}`}
           className="pk-btn pk-btn--ghost pk-showcase__cta"
           prefetch="intent"
         >
-          Shop {title} →
+          {t('showcase_cta', {title})}
         </Link>
       </ScrollReveal>
     </div>

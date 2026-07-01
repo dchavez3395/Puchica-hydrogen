@@ -1,6 +1,7 @@
 import {useLoaderData} from 'react-router';
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {puchicaMeta} from '~/lib/seo';
+import {useT} from '~/lib/t';
 
 /**
  * @type {Route.MetaFunction}
@@ -110,13 +111,14 @@ export async function loader({params, context}) {
 export default function Policy() {
   /** @type {LoaderReturnData} */
   const {policy} = useLoaderData();
+  const t = useT();
 
   return (
     <div className="pk-policy">
       <div className="pk-policy__inner pk-inner">
         <Link to="/policies" className="pk-policy__back">
           <span aria-hidden>←</span>
-          <span>Back to Policies</span>
+          <span>{t('policy_back')}</span>
         </Link>
         <article className="pk-policy__article">
           <header className="pk-policy__head">

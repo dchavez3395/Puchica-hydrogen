@@ -16,22 +16,24 @@ import {useT} from '~/lib/t';
 // The social URLs come from `SOCIAL_PROFILES` in app/lib/brand.js so the
 // Footer and the Organization JSON-LD schema stay in sync — if you add
 // a profile there, also add a matching entry below with its icon + label.
+// Labels are derived from a t() key (passed in at render time) so the
+// social handle shows the platform name in the visitor's language.
 const SOCIAL = [
   {
     Icon: IconInstagram,
-    label: 'Instagram',
+    labelKey: 'social_instagram',
     urlKey: 'https://instagram.com/puchica.canada',
     handle: 'puchica.canada',
   },
   {
     Icon: IconFacebook,
-    label: 'Facebook',
+    labelKey: 'social_facebook',
     urlKey: 'https://www.facebook.com/share/1HXPSqGprD/',
     handle: 'Puchica',
   },
   {
     Icon: IconTiktok,
-    label: 'TikTok',
+    labelKey: 'social_tiktok',
     urlKey: 'https://tiktok.com/@puchica_canada',
     handle: '@puchica_canada',
   },
@@ -70,17 +72,17 @@ export function Footer({header}) {
             />
           </Link>
           <p className="pk-footer__tagline">{t('footer_tagline')}</p>
-          <div className="pk-footer__social" aria-label="Social links">
-            {SOCIAL.map(({Icon, label, urlKey, handle}) => (
-              <a key={label} href={urlKey} aria-label={`${label} (${handle})`} target="_blank" rel="noopener noreferrer">
+          <div className="pk-footer__social" aria-label={t('footer_social_aria')}>
+            {SOCIAL.map(({Icon, labelKey, urlKey, handle}) => (
+              <a key={labelKey} href={urlKey} aria-label={`${t(labelKey)} (${handle})`} target="_blank" rel="noopener noreferrer">
                 <Icon size={18} />
               </a>
             ))}
           </div>
 
-          <div className="pk-footer__pay" aria-label="Accepted payment methods">
+          <div className="pk-footer__pay" aria-label={t('footer_payments_aria')}>
             <span className="pk-footer__pay-label">{t('footer_accepted_payments')}</span>
-            <ul className="pk-footer__pay-list" aria-label="Payment methods">
+            <ul className="pk-footer__pay-list" aria-label={t('footer_payments_list_aria')}>
               {PAYMENTS.map((p) => (
                 <li key={p.label} className="pk-footer__pay-mark">
                   {p.label}
@@ -90,9 +92,9 @@ export function Footer({header}) {
           </div>
 
           <address className="pk-footer__address">
-            Puchica · Toronto, ON, Canada
+            {t('footer_address')}
             <br />
-            <a href="mailto:hello@puchica.ca">hello@puchica.ca</a>
+            <a href="mailto:hello@puchica.ca">{t('footer_email')}</a>
           </address>
 
           <span className="pk-footer__secure">
@@ -104,22 +106,22 @@ export function Footer({header}) {
               Static, no count-up animation, so it sits cleanly in the
               footer without the IntersectionObserver. Numbers are
               editorial, not audited metrics. */}
-          <div className="pk-footer__stats" aria-label="Store highlights">
+          <div className="pk-footer__stats" aria-label={t('footer_stats_aria')}>
             <div className="pk-footer__stat">
               <span className="pk-footer__stat-value">6,000+</span>
-              <span className="pk-footer__stat-label">Products</span>
+              <span className="pk-footer__stat-label">{t('footer_stat_products')}</span>
             </div>
             <div className="pk-footer__stat">
               <span className="pk-footer__stat-value">19</span>
-              <span className="pk-footer__stat-label">Collections</span>
+              <span className="pk-footer__stat-label">{t('footer_stat_collections')}</span>
             </div>
             <div className="pk-footer__stat">
               <span className="pk-footer__stat-value">$50</span>
-              <span className="pk-footer__stat-label">Free shipping</span>
+              <span className="pk-footer__stat-label">{t('footer_stat_shipping')}</span>
             </div>
             <div className="pk-footer__stat">
               <span className="pk-footer__stat-value">30</span>
-              <span className="pk-footer__stat-label">Day returns</span>
+              <span className="pk-footer__stat-label">{t('footer_stat_returns')}</span>
             </div>
           </div>
         </div>
@@ -146,8 +148,8 @@ export function Footer({header}) {
       </div>
 
       <div className="pk-footer__bar">
-        <span>© {year} Puchica. {t('footer_rights')}</span>
-        <nav className="pk-footer__legal" aria-label="Legal">
+        <span>{t('footer_copyright', {year})} {t('footer_rights')}</span>
+        <nav className="pk-footer__legal" aria-label={t('footer_legal_aria')}>
           <Link to="/policies/privacy-policy">{t('footer_privacy')}</Link>
           <Link to="/policies">{t('footer_policies')}</Link>
         </nav>
@@ -182,7 +184,7 @@ function Newsletter() {
               inputMode="email"
             />
             <button type="submit" disabled={submitting} aria-label={t('footer_newsletter_subscribe_aria')}>
-              {submitting ? t('footer_newsletter_submitting') : '→'}
+              {submitting ? t('footer_newsletter_submitting') : t('footer_newsletter_cta')}
             </button>
           </fetcher.Form>
           {error ? <p className="pk-footer__err">{error}</p> : null}

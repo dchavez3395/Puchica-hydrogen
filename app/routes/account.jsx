@@ -6,6 +6,7 @@ import {
   useLoaderData,
 } from 'react-router';
 import {CUSTOMER_DETAILS_QUERY} from '~/graphql/customer-account/CustomerDetailsQuery';
+import {useT} from '~/lib/t';
 
 export function shouldRevalidate() {
   return true;
@@ -37,14 +38,15 @@ export async function loader({context}) {
 }
 
 export default function AccountLayout() {
+  const t = useT();
   /** @type {LoaderReturnData} */
   const {customer} = useLoaderData();
 
   const heading = customer
     ? customer.firstName
-      ? `Welcome, ${customer.firstName}`
-      : `Welcome to your account.`
-    : 'Account Details';
+      ? t('account_welcome', {firstName: customer.firstName})
+      : t('account_welcome_fallback')
+    : t('account_welcome_anon');
 
   return (
     <div className="account">
@@ -59,6 +61,7 @@ export default function AccountLayout() {
 }
 
 function AccountMenu() {
+  const t = useT();
   function isActiveStyle({isActive, isPending}) {
     return {
       fontWeight: isActive ? 'bold' : undefined,
@@ -69,15 +72,15 @@ function AccountMenu() {
   return (
     <nav role="navigation">
       <NavLink to="/account/orders" style={isActiveStyle}>
-        Orders &nbsp;
+        {t('account_nav_orders')} &nbsp;
       </NavLink>
       &nbsp;|&nbsp;
       <NavLink to="/account/profile" style={isActiveStyle}>
-        &nbsp; Profile &nbsp;
+        &nbsp; {t('account_nav_profile')} &nbsp;
       </NavLink>
       &nbsp;|&nbsp;
       <NavLink to="/account/addresses" style={isActiveStyle}>
-        &nbsp; Addresses &nbsp;
+        &nbsp; {t('account_nav_addresses')} &nbsp;
       </NavLink>
       &nbsp;|&nbsp;
       <Logout />
@@ -86,9 +89,10 @@ function AccountMenu() {
 }
 
 function Logout() {
+  const t = useT();
   return (
     <Form className="account-logout" method="POST" action="/account/logout">
-      &nbsp;<button type="submit">Sign out</button>
+      &nbsp;<button type="submit">{t('account_signout')}</button>
     </Form>
   );
 }

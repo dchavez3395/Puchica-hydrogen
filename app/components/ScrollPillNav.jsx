@@ -1,19 +1,24 @@
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {useEffect, useRef, useState} from 'react';
+import {useT} from '~/lib/t';
 
+// PILL definition uses translation keys, not literal labels — the render
+// passes t() in and resolves them to the active locale. Section ids are
+// hard-coded because they have to match the DOM, but labels are per-locale.
 const PILLS = [
-  {id: 'section-discover',     label: 'Trending'},
-  {id: 'section-rack',         label: 'Home & Kitchen'},
-  {id: 'section-new-arrivals', label: 'Outdoor'},
-  {id: 'section-categories',   label: 'Categories'},
-  {id: 'section-best-sellers', label: 'Best Sellers'},
-  {id: null,                   label: 'About us', href: '/pages/about'},
+  {id: 'section-discover',     labelKey: 'pillnav_trending'},
+  {id: 'section-rack',         labelKey: 'pillnav_home_kitchen'},
+  {id: 'section-new-arrivals', labelKey: 'pillnav_outdoor'},
+  {id: 'section-categories',   labelKey: 'pillnav_categories'},
+  {id: 'section-best-sellers', labelKey: 'pillnav_best_sellers'},
+  {id: null,                   labelKey: 'pillnav_about_us', href: '/pages/about'},
 ];
 
 export function ScrollPillNav({heroId = 'hero-anchor'}) {
   const [shown, setShown] = useState(false);
   const [active, setActive] = useState(null);
   const spyRef = useRef(null);
+  const t = useT();
 
   useEffect(() => {
     const hero = document.getElementById(heroId);
@@ -53,12 +58,13 @@ export function ScrollPillNav({heroId = 'hero-anchor'}) {
   return (
     <nav
       className="pk-pill-nav"
-      aria-label="Page sections"
+      aria-label={t('pillnav_aria')}
       data-shown={shown ? 'true' : 'false'}
     >
       <ul className="pk-pill-nav__list">
-        {PILLS.map(({id, label, href}) =>
-          href ? (
+        {PILLS.map(({id, labelKey, href}) => {
+          const label = t(labelKey);
+          return href ? (
             <li key={label}>
               <Link to={href} className="pk-pill-nav__pill">
                 {label}
@@ -75,8 +81,8 @@ export function ScrollPillNav({heroId = 'hero-anchor'}) {
                 {label}
               </a>
             </li>
-          ),
-        )}
+          );
+        })}
       </ul>
     </nav>
   );

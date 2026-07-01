@@ -1,6 +1,7 @@
 import {redirect, useLoaderData} from 'react-router';
 import {Money, Image} from '@shopify/hydrogen';
 import {CUSTOMER_ORDER_QUERY} from '~/graphql/customer-account/CustomerOrderQuery';
+import {useT} from '~/lib/t';
 
 /**
  * @type {Route.MetaFunction}
@@ -39,7 +40,7 @@ export async function loader({params, context}) {
   const discountApplications = order.discountApplications.nodes;
 
   // Get fulfillment status from first fulfillment node
-  const fulfillmentStatus = order.fulfillments.nodes[0]?.status ?? 'N/A';
+  const fulfillmentStatus = order.fulfillments.nodes[0]?.status ?? null;
 
   // Get first discount value with proper type checking
   const firstDiscount = discountApplications[0]?.value;
@@ -64,6 +65,7 @@ export async function loader({params, context}) {
 }
 
 export default function OrderRoute() {
+  const t = useT();
   /** @type {LoaderReturnData} */
   const {
     order,
@@ -74,20 +76,20 @@ export default function OrderRoute() {
   } = useLoaderData();
   return (
     <div className="account-order">
-      <h2>Order {order.name}</h2>
-      <p>Placed on {new Date(order.processedAt).toDateString()}</p>
+      <h2>{t('account_order_h', {name: order.name})}</h2>
+      <p>{t('account_order_placed', {date: new Date(order.processedAt).toDateString()})}</p>
       {order.confirmationNumber && (
-        <p>Confirmation: {order.confirmationNumber}</p>
+        <p>{t('account_order_confirmation', {num: order.confirmationNumber})}</p>
       )}
       <br />
       <div>
         <table>
           <thead>
             <tr>
-              <th scope="col">Product</th>
-              <th scope="col">Price</th>
-              <th scope="col">Quantity</th>
-              <th scope="col">Total</th>
+              <th scope="col">{t('account_order_th_product')}</th>
+              <th scope="col">{t('account_order_th_price')}</th>
+              <th scope="col">{t('account_order_th_qty')}</th>
+              <th scope="col">{t('account_order_th_total')}</th>
             </tr>
           </thead>
           <tbody>
@@ -101,14 +103,14 @@ export default function OrderRoute() {
               discountPercentage) && (
               <tr>
                 <th scope="row" colSpan={3}>
-                  <p>Discounts</p>
+                  <p>{t('account_order_discounts')}</p>
                 </th>
                 <th scope="row">
-                  <p>Discounts</p>
+                  <p>{t('account_order_discounts')}</p>
                 </th>
                 <td>
                   {discountPercentage ? (
-                    <span>-{discountPercentage}% OFF</span>
+                    <span>{t('account_order_discount_line', {pct: discountPercentage})}</span>
                   ) : (
                     discountValue && <Money data={discountValue} />
                   )}
@@ -117,10 +119,10 @@ export default function OrderRoute() {
             )}
             <tr>
               <th scope="row" colSpan={3}>
-                <p>Subtotal</p>
+                <p>{t('account_order_subtotal')}</p>
               </th>
               <th scope="row">
-                <p>Subtotal</p>
+                <p>{t('account_order_subtotal')}</p>
               </th>
               <td>
                 <Money data={order.subtotal} />
@@ -128,10 +130,10 @@ export default function OrderRoute() {
             </tr>
             <tr>
               <th scope="row" colSpan={3}>
-                Tax
+                {t('account_order_tax')}
               </th>
               <th scope="row">
-                <p>Tax</p>
+                <p>{t('account_order_tax')}</p>
               </th>
               <td>
                 <Money data={order.totalTax} />
@@ -139,10 +141,10 @@ export default function OrderRoute() {
             </tr>
             <tr>
               <th scope="row" colSpan={3}>
-                Total
+                {t('account_order_total')}
               </th>
               <th scope="row">
-                <p>Total</p>
+                <p>{t('account_order_total')}</p>
               </th>
               <td>
                 <Money data={order.totalPrice} />
@@ -151,7 +153,7 @@ export default function OrderRoute() {
           </tfoot>
         </table>
         <div>
-          <h3>Shipping Address</h3>
+          <h3>{t('account_order_shipping_h')}</h3>
           {order?.shippingAddress ? (
             <address>
               <p>{order.shippingAddress.name}</p>
@@ -167,18 +169,18 @@ export default function OrderRoute() {
               )}
             </address>
           ) : (
-            <p>No shipping address defined</p>
+            <p>{t('account_order_no_shipping')}</p>
           )}
-          <h3>Status</h3>
+          <h3>{t('account_order_status_h')}</h3>
           <div>
-            <p>{fulfillmentStatus}</p>
+            <p>{fulfillmentStatus ?? t('account_order_status_na')}</p>
           </div>
         </div>
       </div>
       <br />
       <p>
         <a target="_blank" href={order.statusPageUrl} rel="noreferrer">
-          View Order Status →
+          {t('account_order_status_link')}
         </a>
       </p>
     </div>
