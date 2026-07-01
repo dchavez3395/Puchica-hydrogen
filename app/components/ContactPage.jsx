@@ -23,6 +23,7 @@ import {
 } from '~/components/Icons';
 import {SOCIAL_PROFILES} from '~/lib/brand';
 import {ShippingReach} from '~/components/ShippingReach';
+import {useT} from '~/lib/t';
 
 /**
  * Support email. Used in:
@@ -62,29 +63,6 @@ function handleFromUrl(url, {facebook = false} = {}) {
   }
 }
 
-const FAQ = [
-  {
-    q: 'Where is my order?',
-    a: 'Your tracking link is in the shipping confirmation email — usually within 1–2 business days of ordering. If tracking shows no movement for 5+ business days, email us and we’ll chase it down.',
-  },
-  {
-    q: 'Can I change or cancel my order?',
-    a: 'Within 2 hours of placing it, yes — just reply to your order confirmation. After that the order is being prepared for shipment and changes aren’t possible, but returns are always free once it arrives.',
-  },
-  {
-    q: 'How do returns work?',
-    a: 'A pre-paid return label ships in every box. Repack the item, peel the label, drop it off. Refunds land on the original payment method within 5–7 business days of us receiving it.',
-  },
-  {
-    q: 'Where do you ship?',
-    a: 'Across North & South America, the UK and the EU — about 20 cities today and growing. For a specific country, email us and we’ll confirm.',
-  },
-  {
-    q: 'Are the products in the photos exactly what I get?',
-    a: 'Yes. The product photos on each listing are the actual product we ship — what you see is what you get.',
-  },
-];
-
 /* ---------- inline icons (not in the shared Icons module) ---------- */
 
 function IconClock(props) {
@@ -107,12 +85,24 @@ function IconArrowRight(props) {
 /* ---------- the page ---------- */
 
 export function ContactPage() {
+  const t = useT();
   const instagram = socialUrl(/instagram\.com/);
   const facebook = socialUrl(/facebook\.com/);
   const tiktok = socialUrl(/tiktok\.com/);
   const igHandle = handleFromUrl(instagram);
   const fbHandle = handleFromUrl(facebook, {facebook: true});
   const tiktokHandle = handleFromUrl(tiktok);
+
+  // FAQ items — questions + answers come from the dictionary so the
+  // "we ship anywhere" copy stays in sync with the about/contact
+  // shipping-reach panel.
+  const FAQ = [
+    {q: t('contact_faq_1_q'), a: t('contact_faq_1_a')},
+    {q: t('contact_faq_2_q'), a: t('contact_faq_2_a')},
+    {q: t('contact_faq_3_q'), a: t('contact_faq_3_a')},
+    {q: t('contact_faq_4_q'), a: t('contact_faq_4_a')},
+    {q: t('contact_faq_5_q'), a: t('contact_faq_5_a')},
+  ];
 
   return (
     <div className="pk-contact">
@@ -121,35 +111,29 @@ export function ContactPage() {
        * padding handled by the .pk-col-hero media query already). */}
       <header className="pk-col-hero pk-contact__hero">
         <span className="pk-col-hero__glow" aria-hidden="true" />
-        <span className="pk-col-hero__eyebrow">Get in touch</span>
-        <h1 className="pk-col-hero__title">We&apos;re here to help.</h1>
-        <p className="pk-col-hero__sub">
-          Questions about an order, a product, or anything else? Pick the
-          channel that works for you — a real person on the Puchica team will
-          get back to you, usually within one business day.
-        </p>
+        <span className="pk-col-hero__eyebrow">{t('contact_hero_eyebrow')}</span>
+        <h1 className="pk-col-hero__title">{t('contact_hero_title')}</h1>
+        <p className="pk-col-hero__sub">{t('contact_hero_sub')}</p>
       </header>
 
       {/* Contact channels — three social cards, one per platform. Email
        * lives at the bottom of the page (the "Still have a question?"
        * CTA below) so the channel row stays uniform. */}
-      <section className="pk-contact__channels" aria-label="Ways to reach us">
+      <section className="pk-contact__channels" aria-label={t('contact_channels_aria')}>
         {instagram ? (
           <article className="pk-contact-card">
             <div className="pk-contact-card__icon" aria-hidden="true">
               <IconInstagram size={22} />
             </div>
-            <h2 className="pk-contact-card__title">DM on Instagram</h2>
-            <p className="pk-contact-card__body">
-              Fastest for a quick question. We check DMs throughout the day.
-            </p>
+            <h2 className="pk-contact-card__title">{t('contact_ig_title')}</h2>
+            <p className="pk-contact-card__body">{t('contact_ig_body')}</p>
             <a
               className="pk-contact-card__cta"
               href={instagram}
               target="_blank"
               rel="noopener noreferrer"
             >
-              {igHandle || 'Instagram'}
+              {igHandle || t('contact_ig_fallback')}
               <IconArrowRight />
             </a>
           </article>
@@ -160,17 +144,15 @@ export function ContactPage() {
             <div className="pk-contact-card__icon" aria-hidden="true">
               <IconFacebook size={22} />
             </div>
-            <h2 className="pk-contact-card__title">Message on Facebook</h2>
-            <p className="pk-contact-card__body">
-              Another easy way to reach us. Same team, same response time.
-            </p>
+            <h2 className="pk-contact-card__title">{t('contact_fb_title')}</h2>
+            <p className="pk-contact-card__body">{t('contact_fb_body')}</p>
             <a
               className="pk-contact-card__cta"
               href={facebook}
               target="_blank"
               rel="noopener noreferrer"
             >
-              {fbHandle || 'Facebook'}
+              {fbHandle || t('contact_fb_fallback')}
               <IconArrowRight />
             </a>
           </article>
@@ -181,17 +163,15 @@ export function ContactPage() {
             <div className="pk-contact-card__icon" aria-hidden="true">
               <IconTiktok size={22} />
             </div>
-            <h2 className="pk-contact-card__title">Find us on TikTok</h2>
-            <p className="pk-contact-card__body">
-              New finds, behind-the-scenes, and the occasional unboxing.
-            </p>
+            <h2 className="pk-contact-card__title">{t('contact_tiktok_title')}</h2>
+            <p className="pk-contact-card__body">{t('contact_tiktok_body')}</p>
             <a
               className="pk-contact-card__cta"
               href={tiktok}
               target="_blank"
               rel="noopener noreferrer"
             >
-              {tiktokHandle || 'TikTok'}
+              {tiktokHandle || t('contact_tiktok_fallback')}
               <IconArrowRight />
             </a>
           </article>
@@ -203,10 +183,10 @@ export function ContactPage() {
 
       {/* What to expect — three short reassurance chips. Renders as a
        * flex row on desktop, wraps on mobile. */}
-      <section className="pk-contact__promises" aria-label="What to expect">
+      <section className="pk-contact__promises" aria-label={t('contact_promises_aria')}>
         <h2 className="pk-contact__section-head">
-          <span className="pk-contact__eyebrow">What to expect</span>
-          <span className="pk-contact__title">Real people, fast replies</span>
+          <span className="pk-contact__eyebrow">{t('contact_promises_eyebrow')}</span>
+          <span className="pk-contact__title">{t('contact_promises_title')}</span>
         </h2>
         <ul className="pk-contact__promises-list">
           <li>
@@ -214,8 +194,8 @@ export function ContactPage() {
               <IconCheck />
             </span>
             <div>
-              <strong>Real person on the team</strong>
-              <p>No bots, no auto-replies. Every message lands with a person.</p>
+              <strong>{t('contact_promise_1_strong')}</strong>
+              <p>{t('contact_promise_1_body')}</p>
             </div>
           </li>
           <li>
@@ -223,8 +203,8 @@ export function ContactPage() {
               <IconClock />
             </span>
             <div>
-              <strong>Usually within one business day</strong>
-              <p>Often faster. Worst case: one business day, weekdays 9–5 ET.</p>
+              <strong>{t('contact_promise_2_strong')}</strong>
+              <p>{t('contact_promise_2_body')}</p>
             </div>
           </li>
           <li>
@@ -232,21 +212,21 @@ export function ContactPage() {
               <IconPackage />
             </span>
             <div>
-              <strong>Order help every day</strong>
-              <p>Tracking questions, returns, address changes — yes, on weekends too.</p>
+              <strong>{t('contact_promise_3_strong')}</strong>
+              <p>{t('contact_promise_3_body')}</p>
             </div>
           </li>
         </ul>
       </section>
 
-      {/* Cities we ship to */}
-      <ShippingReach variant="compact" />
+      {/* Shipping reach — "we ship anywhere" panel */}
+      <ShippingReach />
 
       {/* FAQ — single column, generous spacing, Q in violet accent. */}
-      <section className="pk-contact__faq" aria-label="Common questions">
+      <section className="pk-contact__faq" aria-label={t('contact_faq_aria')}>
         <h2 className="pk-contact__section-head">
-          <span className="pk-contact__eyebrow">Common questions</span>
-          <span className="pk-contact__title">The short version</span>
+          <span className="pk-contact__eyebrow">{t('contact_faq_eyebrow')}</span>
+          <span className="pk-contact__title">{t('contact_faq_title')}</span>
         </h2>
         <div className="pk-contact__faq-list">
           {FAQ.map((item) => (
@@ -262,21 +242,21 @@ export function ContactPage() {
           ))}
         </div>
         <p className="pk-contact__faq-foot">
-          Don&apos;t see your question?{' '}
-          <a href={`mailto:${CONTACT_EMAIL}`}>Email us</a> — we read
-          everything.
+          {t('contact_faq_foot', {email: (
+            <a href={`mailto:${CONTACT_EMAIL}`}>{t('contact_faq_foot_link')}</a>
+          )})}
         </p>
       </section>
 
       {/* Bottom CTA — final nudge, mirrors the hero. */}
       <section className="pk-contact__cta">
-        <h2>Still have a question?</h2>
-        <p>Drop us a line. We read every message and we&apos;re happy to help.</p>
+        <h2>{t('contact_cta_title')}</h2>
+        <p>{t('contact_cta_body')}</p>
         <a
           className="pk-btn pk-btn--primary"
           href={`mailto:${CONTACT_EMAIL}?subject=Hi%20Puchica%20team`}
         >
-          Email {CONTACT_EMAIL}
+          {t('contact_cta_button', {email: CONTACT_EMAIL})}
           <IconArrowRight />
         </a>
       </section>

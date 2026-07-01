@@ -5,6 +5,7 @@ import StarGlyph from '~/components/StarGlyph';
 import {STORE_LOGO_URL} from '~/lib/brand';
 import {IconHome, IconSparkles, IconLightbulb, IconLeaf, IconPawPrint, IconGift} from '~/components/Icons';
 import {ShippingReach} from '~/components/ShippingReach';
+import {useT} from '~/lib/t';
 
 export const meta = ({params}) =>
   puchicaMeta({
@@ -20,36 +21,54 @@ export async function loader() {
 }
 
 export default function AboutPage() {
+  const t = useT();
+
+  // Stat tiles + category items are static structure with translated
+  // labels — pulling the strings out of JSX so the markup stays compact.
+  const stats = [
+    {num: t('about_stat_products_num'),  label: t('about_stat_products_label')},
+    {num: t('about_stat_quality_num'),   label: t('about_stat_quality_label')},
+    {num: t('about_stat_shipping_num'),  label: t('about_stat_shipping_label')},
+    {num: t('about_stat_returns_num'),   label: t('about_stat_returns_label')},
+  ];
+
+  const howSteps = [
+    {n: '01', title: t('about_how_1_title'), body: t('about_how_1_body')},
+    {n: '02', title: t('about_how_2_title'), body: t('about_how_2_body')},
+    {n: '03', title: t('about_how_3_title'), body: t('about_how_3_body')},
+  ];
+
+  const categories = [
+    {icon: IconHome,      name: t('about_cat_home_name'),    sub: t('about_cat_home_sub')},
+    {icon: IconSparkles,  name: t('about_cat_beauty_name'),  sub: t('about_cat_beauty_sub')},
+    {icon: IconLightbulb, name: t('about_cat_tech_name'),    sub: t('about_cat_tech_sub')},
+    {icon: IconLeaf,      name: t('about_cat_outdoor_name'), sub: t('about_cat_outdoor_sub')},
+    {icon: IconPawPrint,  name: t('about_cat_pet_name'),     sub: t('about_cat_pet_sub')},
+    {icon: IconGift,      name: t('about_cat_gift_name'),    sub: t('about_cat_gift_sub')},
+  ];
+
   return (
     <div className="pk-about">
       {/* Hero */}
       <section className="pk-about-hero">
         <div className="pk-about-hero__glow" aria-hidden="true" />
         <div className="pk-about-hero__inner">
-          <span className="pk-about-hero__eyebrow"><StarGlyph /> Our story</span>
+          <span className="pk-about-hero__eyebrow"><StarGlyph /> {t('about_hero_eyebrow')}</span>
           <h1 className="pk-about-hero__title">
-            Quality products.
+            {t('about_hero_title_main')}
             <br />
-            <span className="pk-about-hero__em">Hand-picked for YOU.</span>
+            <span className="pk-about-hero__em">{t('about_hero_title_em')}</span>
           </h1>
-          <p className="pk-about-hero__sub">
-            Puchica is a Canadian-owned store built around curated finds. We
-            sort through thousands of products so you don&apos;t have to.
-          </p>
+          <p className="pk-about-hero__sub">{t('about_hero_sub')}</p>
           <Link to="/collections/all" className="pk-btn pk-btn--spark pk-btn--lg">
-            Start shopping →
+            {t('about_hero_cta')}
           </Link>
         </div>
       </section>
 
       {/* Stats bar */}
-      <div className="pk-about-stats" aria-label="Puchica in numbers">
-        {[
-          {num: '6,000+', label: 'Handpicked products'},
-          {num: '100%', label: 'Quality-checked'},
-          {num: '$50+', label: 'Free shipping threshold'},
-          {num: '30 days', label: 'No-hassle returns'},
-        ].map(({num, label}) => (
+      <div className="pk-about-stats" aria-label={t('about_stats_aria')}>
+        {stats.map(({num, label}) => (
           <div key={label} className="pk-about-stats__item">
             <strong className="pk-about-stats__num">{num}</strong>
             <span className="pk-about-stats__label">{label}</span>
@@ -61,22 +80,10 @@ export default function AboutPage() {
       <section className="pk-about-mission">
         <div className="pk-about-mission__inner">
           <div className="pk-about-mission__copy">
-            <span className="pk-about-mission__eye"><StarGlyph /> Why we exist</span>
-            <h2 className="pk-about-mission__title">
-              There are a lot of products out there. Most are forgettable.
-            </h2>
-            <p className="pk-about-mission__body">
-              We sort through them so you don&apos;t have to. Each one gets a
-              real look: does it work, is it worth the money, would we
-              actually use it. If the answer is no to any of those, it doesn&apos;t
-              go in the catalog.
-            </p>
-            <p className="pk-about-mission__body">
-              Puchica is a Canadian-owned store. We work directly with a
-              curated network of suppliers to bring you a broad selection
-              without compromising on quality. You get a real, curated
-              selection instead of a guess at what might sell.
-            </p>
+            <span className="pk-about-mission__eye"><StarGlyph /> {t('about_mission_eye')}</span>
+            <h2 className="pk-about-mission__title">{t('about_mission_title')}</h2>
+            <p className="pk-about-mission__body">{t('about_mission_body_1')}</p>
+            <p className="pk-about-mission__body">{t('about_mission_body_2')}</p>
           </div>
           <div className="pk-about-mission__visual">
             <div className="pk-about-mission__card">
@@ -89,44 +96,25 @@ export default function AboutPage() {
                 loading="lazy"
               />
               <p className="pk-about-mission__card-text">
-                We evaluate thousands of products. Only the ones worth your
-                money make it through.
+                {t('about_mission_card_text')}
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Cities we ship to */}
-      <ShippingReach variant="cities" />
+      {/* Shipping reach — "we ship anywhere" panel */}
+      <ShippingReach />
 
       {/* How it works */}
       <section className="pk-about-how">
         <div className="pk-about-how__inner">
           <div className="pk-about-how__head">
-            <span className="pk-about-how__eye"><StarGlyph /> How we curate</span>
-            <h2 className="pk-about-how__title">
-              Every product earns its place.
-            </h2>
+            <span className="pk-about-how__eye"><StarGlyph /> {t('about_how_eye')}</span>
+            <h2 className="pk-about-how__title">{t('about_how_title')}</h2>
           </div>
           <div className="pk-about-how__steps">
-            {[
-              {
-                n: '01',
-                title: 'We find it',
-                body: 'Our team checks new products constantly — trade shows, suppliers, social media. No algorithm picks what goes up.',
-              },
-              {
-                n: '02',
-                title: 'We check it',
-                body: 'Does it work. Is it worth the money. Would we actually use it. If any answer is no, it doesn’t make the cut.',
-              },
-              {
-                n: '03',
-                title: 'You get it',
-                body: 'If it passes, it’s in the shop. It ships directly to your door, with a pre-paid return label in every box.',
-              },
-            ].map(({n, title, body}) => (
+            {howSteps.map(({n, title, body}) => (
               <div key={n} className="pk-about-how__step">
                 <span className="pk-about-how__n">{n}</span>
                 <h3 className="pk-about-how__step-title">{title}</h3>
@@ -140,20 +128,11 @@ export default function AboutPage() {
       {/* Categories */}
       <section className="pk-about-cats">
         <div className="pk-about-cats__inner">
-          <span className="pk-about-cats__eye"><StarGlyph /> What we carry</span>
-          <h2 className="pk-about-cats__title">6,000+ products. One store.</h2>
-          <p className="pk-about-cats__sub">
-            Across every category that actually matters in your day-to-day.
-          </p>
+          <span className="pk-about-cats__eye"><StarGlyph /> {t('about_cats_eye')}</span>
+          <h2 className="pk-about-cats__title">{t('about_cats_title')}</h2>
+          <p className="pk-about-cats__sub">{t('about_cats_sub')}</p>
           <div className="pk-about-cats__grid">
-            {[
-              {icon: IconHome,      name: 'Home & Living',       sub: 'Organization, decor, kitchen'},
-              {icon: IconSparkles,  name: 'Beauty & Self-Care',  sub: 'Skincare, wellness, personal care'},
-              {icon: IconLightbulb, name: 'Tech & Gadgets',      sub: 'Accessories, tools, smart home'},
-              {icon: IconLeaf,      name: 'Outdoor & Garden',    sub: 'Patio, camping, gardening'},
-              {icon: IconPawPrint,  name: 'Pet Finds',           sub: 'Toys, gear, grooming'},
-              {icon: IconGift,      name: 'Gifts',               sub: 'For everyone on your list'},
-            ].map(({icon: Icon, name, sub}) => (
+            {categories.map(({icon: Icon, name, sub}) => (
               <div key={name} className="pk-about-cats__item">
                 <span className="pk-about-cats__icon" aria-hidden="true"><Icon size={22} /></span>
                 <strong className="pk-about-cats__name">{name}</strong>
@@ -168,26 +147,23 @@ export default function AboutPage() {
       <section className="pk-about-promise">
         <div className="pk-about-promise__inner">
           <blockquote className="pk-about-promise__quote">
-            &ldquo;Every Puchica product has been thoroughly tested by our team. Providing the most curated selection of products that we can find. If we wouldn&apos;t use it ourselves, it won&apos;t be Puchica.&rdquo;
+            &ldquo;{t('about_promise_quote')}&rdquo;
           </blockquote>
-          <p className="pk-about-promise__attr">— The Puchica team, Toronto ON</p>
+          <p className="pk-about-promise__attr">{t('about_promise_attr')}</p>
         </div>
       </section>
 
       {/* CTA */}
       <section className="pk-about-cta">
         <div className="pk-about-cta__inner">
-          <h2 className="pk-about-cta__title">Ready to find your thing?</h2>
-          <p className="pk-about-cta__sub">
-            6,000+ products, picked by humans. Most under $100. Free shipping
-            over $50, 30-day returns, delivered fast.
-          </p>
+          <h2 className="pk-about-cta__title">{t('about_cta_title')}</h2>
+          <p className="pk-about-cta__sub">{t('about_cta_sub')}</p>
           <div className="pk-about-cta__btns">
             <Link to="/collections/all" className="pk-btn pk-btn--spark pk-btn--lg">
-              Browse everything →
+              {t('about_cta_browse')}
             </Link>
             <Link to="/pages/contact" className="pk-btn pk-btn--ghost pk-btn--lg">
-              Get in touch
+              {t('about_cta_contact')}
             </Link>
           </div>
         </div>
