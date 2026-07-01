@@ -155,6 +155,12 @@ export default function Collection() {
   // ProductConnection. We infer an "X of Y+" framing from pageInfo so the
   // count chip is honest about the catalog being larger than the page.
   const hasNextPage = Boolean(collection.products?.pageInfo?.hasNextPage);
+  const hasPrevPage = Boolean(collection.products?.pageInfo?.hasPreviousPage);
+  const pageBy = 12;
+  const impliedTotal =
+    hasNextPage || hasPrevPage
+      ? Math.max(count + (hasNextPage ? pageBy : 0), pageBy * 2)
+      : count;
 
   return (
     <div className="pk-collection">
@@ -364,7 +370,7 @@ function FilterSidebar({nodes, activeProductType, activePrice, t}) {
               </span>
             </li>
           ) : (
-            types.slice(0, 8).map(([name]) => (
+            types.slice(0, 8).map(([name, n]) => (
               <li key={name}>
                 <Link
                   to={withParam(
@@ -379,6 +385,7 @@ function FilterSidebar({nodes, activeProductType, activePrice, t}) {
                   aria-pressed={activeProductType === name}
                 >
                   <span>{name}</span>
+                  <span className="pk-filters__count">{n}</span>
                 </Link>
               </li>
             ))
@@ -498,6 +505,26 @@ const COLLECTION_QUERY = `#graphql
     }
   }
 `;
+
+/**
+ * Human-friendly collection-size label.
+ *  - 0 products            → "Collection is loading"
+ *  - 1 product             → "1 product"
+ *  - 12 of 24+ products    → "12 of 24+ products"  (when hasNextPage)
+ *  - 12 of 12 products     → "12 products"          (last page)
+ *  - fallback              → "Always growing"
+ */
+function formatCount(visible, implied, hasNext, t) {
+  if (!visible) return t('col_count_loading');
+  const word = visible === 1 ? t('col_product_singular') : t('col_product_plural');
+  if (hasNext && implied && implied > visible) {
+    return `${visible} ${t('col_count_of')} ${implied}+ ${word}`;
+  }
+  if (hasNext) {
+    return `${visible} ${word} ${t('col_count_and_counting')}`;
+  }
+  return `${visible} ${word}`;
+}
 
 /** @typedef {import('./+types/collections.$handle').Route} Route */
 /** @typedef {import('storefrontapi.generated').ProductItemFragment} ProductItemFragment */
