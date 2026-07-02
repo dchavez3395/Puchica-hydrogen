@@ -202,14 +202,14 @@ export default function Index() {
         </Await>
       </Suspense>
 
-      {/* World Cup jerseys — timely feature, placed high in the page */}
+      {/* World Cup jerseys — timely feature, placed high in the page.
+          No ScrollReveal wrap: it applies opacity:0 until the
+          IntersectionObserver fires, and on mobile the section sits
+          below a 100dvh hero where a stuck observer would leave the
+          block invisible. Render directly. */}
       <Suspense fallback={null}>
         <Await resolve={data.worldCup}>
-          {(products) => (
-            <ScrollReveal variant="up">
-              <WorldCupSection products={products ?? []} />
-            </ScrollReveal>
-          )}
+          {(products) => <WorldCupSection products={products ?? []} />}
         </Await>
       </Suspense>
 

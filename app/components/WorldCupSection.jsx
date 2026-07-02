@@ -32,7 +32,14 @@ export function WorldCupSection({products}) {
   return (
     <section
       aria-label="World Cup jerseys"
-      style={{background: '#0E0C08', color: '#F4F0E6', padding: '76px 0'}}
+      style={{
+        background: '#0E0C08',
+        color: '#F4F0E6',
+        // Tighter top/bottom on phones so the heading + first row
+        // of cards fit above the fold. Hero is 100dvh on mobile,
+        // so this section is the user's first scroll target.
+        padding: 'clamp(40px, 8vw, 76px) 0',
+      }}
     >
       <div style={{maxWidth: 1200, margin: '0 auto', padding: '0 20px'}}>
         <p
@@ -69,8 +76,11 @@ export function WorldCupSection({products}) {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))',
-            gap: 16,
+            // Smaller min on phones (~150px → 2 cols on 360px viewport)
+            // so the heading + first row of cards appear above the
+            // fold after scrolling past the 100dvh hero.
+            gridTemplateColumns: 'repeat(auto-fill, minmax(clamp(150px, 38vw, 180px), 1fr))',
+            gap: 'clamp(12px, 2.5vw, 16px)',
           }}
         >
           {list.map((p) => {
