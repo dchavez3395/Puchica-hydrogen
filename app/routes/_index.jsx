@@ -14,6 +14,7 @@ import {ParallaxBanner} from '~/components/ParallaxBanner';
 import {ShippingMap} from '~/components/ShippingMap';
 import {getWorld} from '~/lib/shippingDestinations';
 import {ScrollReveal} from '~/components/ScrollReveal';
+import {WorldCupSection} from '~/components/WorldCupSection';
 import {TiltCard} from '~/components/TiltCard';
 import {MagneticButton} from '~/components/MagneticButton';
 import {HeroParallax} from '~/components/HeroParallax';
@@ -156,7 +157,13 @@ function loadDeferredData({context}) {
     .then(norm('health-wellness'))
     .catch((e) => { logError('matchProducts query failed', e); return []; });
 
-  return {trending, rackProducts, bestPicks, catWorld, newArrivals, freshFinds, showcaseCollections, discoverProducts, matchProducts};
+  // World Cup jerseys — title-based search (productType is unreliable on these).
+  const worldCup = context.storefront
+    .query(WORLDCUP_QUERY, {variables: {country, language}})
+    .then(norm('worldcup'))
+    .catch((e) => { logError('worldCup query failed', e); return []; });
+
+  return {trending, rackProducts, bestPicks, catWorld, newArrivals, freshFinds, showcaseCollections, discoverProducts, matchProducts, worldCup};
 }
 
 export default function Index() {
@@ -190,6 +197,17 @@ export default function Index() {
           {(products) => (
             <ScrollReveal variant="up">
               <DiscoverSwiper products={products ?? []} />
+            </ScrollReveal>
+          )}
+        </Await>
+      </Suspense>
+
+      {/* World Cup jerseys — timely feature, placed high in the page */}
+      <Suspense fallback={null}>
+        <Await resolve={data.worldCup}>
+          {(products) => (
+            <ScrollReveal variant="up">
+              <WorldCupSection products={products ?? []} />
             </ScrollReveal>
           )}
         </Await>
@@ -1342,6 +1360,19 @@ const BEST_PICKS_QUERY = `#graphql
 `;
 
 /* ── Outdoor & Garden → new arrivals (newest in category) ── */
+const WORLDCUP_QUERY = `#graphql
+  fragment WorldCupProduct on Product {
+    id title handle
+    priceRange { minVariantPrice { amount currencyCode } }
+    featuredImage { id url altText width height }
+  }
+  query WorldCup($country: CountryCode!, $language: LanguageCode!) @inContext(country: $country, language: $language) {
+    products(first: 12, query: "title:jersey OR title:maillot", sortKey: BEST_SELLING) {
+      nodes { ...WorldCupProduct }
+    }
+  }
+`;
+
 const NEW_ARRIVALS_QUERY = `#graphql
   fragment NewArrival on Product {
     id title handle
