@@ -89,7 +89,13 @@ export function WorldCupSection({products}) {
               <Link
                 key={p.id}
                 to={`/products/${p.handle}`}
-                style={{textDecoration: 'none', color: 'inherit', display: 'block'}}
+                style={{
+                  textDecoration: 'none',
+                  color: 'inherit',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  height: '100%',
+                }}
                 aria-label={cleanTitle(p.title)}
               >
                 <div
@@ -99,6 +105,7 @@ export function WorldCupSection({products}) {
                     borderRadius: 14,
                     overflow: 'hidden',
                     background: '#1C1A12',
+                    flexShrink: 0,
                   }}
                 >
                   <img
@@ -123,10 +130,25 @@ export function WorldCupSection({products}) {
                     />
                   )}
                 </div>
-                <p style={{margin: '10px 2px 2px', fontSize: 14, fontWeight: 600, lineHeight: 1.3}}>
+                <p
+                  style={{
+                    margin: '10px 2px 2px',
+                    fontSize: 14,
+                    fontWeight: 600,
+                    lineHeight: 1.3,
+                    flexGrow: 1,
+                  }}
+                >
                   {cleanTitle(p.title)}
                 </p>
-                <p style={{margin: '0 2px', fontSize: 14, color: '#C6F24E', fontWeight: 700}}>
+                <p
+                  style={{
+                    margin: 'auto 2px 0',
+                    fontSize: 14,
+                    color: '#C6F24E',
+                    fontWeight: 700,
+                  }}
+                >
                   {p.priceRange?.minVariantPrice ? (
                     <Money data={p.priceRange.minVariantPrice} />
                   ) : null}
