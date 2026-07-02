@@ -125,7 +125,10 @@ just those.
 ## Image model
 Use the **latest nano banana pro** — this is final; do not substitute a
 "recommended" model.
-- Via **Higgsfield**: `model: "nano_banana_pro"`, `medias: [{role:"image", value:"<ref_url>"}]`.
+- Via **Higgsfield**: FIRST check `balance` (0 credits = can't generate — top up or use
+  the Gemini path). The reference URL must be imported: call `media_import_url(<ref_url>)`,
+  then pass the returned **media_id** in `medias: [{role:"image", value:"<media_id>"}]`
+  (a raw https:// URL is NOT accepted here). `model: "nano_banana_pro"`. `get_cost:true` preflights.
 - Alternatively via the **Gemini / antigravity nano-banana-pro** path if that's
   what's available — same model, same output. Either way the result is a public
   image URL, and Phase 3 (attach + featured) is identical regardless of backend.
