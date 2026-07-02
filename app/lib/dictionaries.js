@@ -324,7 +324,6 @@ export const DICTIONARIES = {
     breadcrumb_home: 'Home',
     breadcrumb_collections: 'Collections',
     breadcrumb_shop: 'Shop',
-    breadcrumb_shop: 'Shop',
 
     // ── Collection page ───────────────────────────────────────────
     col_eyebrow: 'Collection',
@@ -596,16 +595,6 @@ export const DICTIONARIES = {
     social_facebook: 'Facebook',
     social_tiktok: 'TikTok',
 
-    // ── Mobile menu (drawer) ──────────────────────────────────────
-    mobile_account: 'Account',
-    mobile_signin: 'Sign in',
-    mobile_view_cart: 'View cart',
-    mobile_language: 'Language',
-    mobile_customer_care: 'Customer care',
-    mobile_contact_us: 'Contact us',
-    mobile_all_policies: 'All policies',
-    mobile_announce_foot: 'Offers & new arrivals',
-    mobile_announce_foot_sep: ' · ',
 
     // ── Judgeme reviews ───────────────────────────────────────────
     reviews_section_aria: 'Customer reviews',
@@ -1098,7 +1087,6 @@ export const DICTIONARIES = {
     explore_cat_filter_aria: 'Filtres par catégorie',
     breadcrumb_home: 'Accueil',
     breadcrumb_collections: 'Collections',
-    breadcrumb_shop: 'Boutique',
     breadcrumb_shop: 'Boutique',
 
     col_eyebrow: 'Collection',
@@ -1896,7 +1884,6 @@ export const DICTIONARIES = {
     breadcrumb_home: 'Inicio',
     breadcrumb_collections: 'Colecciones',
     breadcrumb_shop: 'Tienda',
-    breadcrumb_shop: 'Tienda',
 
     col_eyebrow: 'Colección',
     col_empty_title: 'Nada aquí todavía',
@@ -2692,7 +2679,6 @@ export const DICTIONARIES = {
     col_filters_aria: 'Filtros',
     breadcrumb_home: 'Início',
     breadcrumb_collections: 'Coleções',
-    breadcrumb_shop: 'Loja',
     breadcrumb_shop: 'Loja',
 
     col_eyebrow: 'Coleção',
