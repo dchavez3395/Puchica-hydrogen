@@ -17,6 +17,9 @@
  *   const data  = await adminGraphQL('{ shop { name } }');
  */
 
+import dotenv from 'dotenv';
+dotenv.config();
+
 const TOKEN_REFRESH_BUFFER_S = 300; // refresh 5 min before expiry
 
 let _cache = null; // { token: string, expiresAt: number }
