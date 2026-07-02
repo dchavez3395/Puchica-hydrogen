@@ -94,6 +94,7 @@ export async function adminGraphQL(query, vars, {store, apiVersion = '2026-04'} 
       'X-Shopify-Access-Token': token,
     },
     body: JSON.stringify({query, variables: vars}),
+    signal: AbortSignal.timeout(20000),
   });
 
   if (!res.ok) {

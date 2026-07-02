@@ -62,3 +62,11 @@ coverage/
 .env.local
 .shopify
 .worktrees/
+
+# ─── Replicate image-generation cache & debug ─────────────────
+# Working artifacts from scripts/batch-runner-replicate.mjs and
+# its test scripts. Reproducible from the runner; not source.
+work/temp_gen.jpg
+work/temp_ref.jpg
+work/check_*.png
+work/test_*.png

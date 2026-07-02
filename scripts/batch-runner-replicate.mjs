@@ -8,7 +8,7 @@ import { adminGraphQL } from './shopify-oauth.mjs';
 
 const CHECKPOINT_PATH = join('work', 'checkpoint.json');
 const REPLICATE_API_TOKEN = process.env.REPLICATE_API_TOKEN;
-const MODEL_VERSION = "39ed52f2a78e934b3ba6e2a89f5b1c712de7dfea535525255b1aa35c5565e08b"; // SDXL Image-to-Image
+const MODEL_VERSION = "54a0e1e1841cbb8c4ef226bd5e197798bef44acd0f63ed38338bda222205a7b0"; // asiryan/flux-schnell (text-to-image)
 
 if (!REPLICATE_API_TOKEN) {
   console.error('Error: REPLICATE_API_TOKEN is missing in env.');
@@ -44,20 +44,78 @@ function generateBatchBPrompt(title) {
   else if (/Argentina/i.test(title)) nation = 'Argentina';
   else if (/Brasil/i.test(title)) nation = 'Brasil';
 
-  let productType = 'apparel item';
-  if (/cap|hat/i.test(title)) productType = 'cap';
-  else if (/tee|t-shirt/i.test(title)) productType = 't-shirt';
-  else if (/jacket/i.test(title)) productType = 'track jacket';
+  let details = 'a sporty apparel item';
+  if (/cap|hat/i.test(title)) {
+    if (nation === 'Canada') details = 'a red baseball cap with bold black "CANADA" text embroidered on the front';
+    else if (nation === 'Portugal') details = 'a green and red baseball cap with the Portugal football federation crest on the front';
+    else if (nation === 'Argentina') details = 'a sky blue and white baseball cap with the Argentina football association golden sun crest on the front';
+    else if (nation === 'Brasil') details = 'a yellow and green baseball cap with the Brasil football crest on the front';
+  } else if (/tee|t-shirt/i.test(title)) {
+    if (nation === 'Canada') details = 'a red ringer t-shirt with black collars and "CANADA" text on the chest';
+    else if (nation === 'Portugal') details = 'a red ringer t-shirt with green collars and "PORTUGAL" text on the chest';
+    else if (nation === 'Argentina') details = 'a white and sky blue striped ringer t-shirt with the Argentina crest on the chest';
+    else if (nation === 'Brasil') details = 'a yellow ringer t-shirt with green collars and "BRASIL" text on the chest';
+  } else if (/jacket/i.test(title)) {
+    details = `a sporty track jacket representing ${nation} with their national colors and crest on the chest`;
+  }
 
-  return `Place the product in a natural, real-world lifestyle setting where it would actually be used. Show a fan wearing this ${nation} World Cup ${productType} in a casual, real-world context — street celebration, watch party, or stadium stands. The product is clearly recognizable and in sharp focus, but the scene feels lived-in and authentic rather than staged. Use the reference image to identify what the product is, then place it convincingly in the moment of use.`;
+  return `A professional candid lifestyle photograph of a fan in the stadium stands, wearing ${details}. They are celebrating a goal, soft natural sunlight, shallow depth of field, realistic textures, premium editorial sports photography.`;
 }
 
 function generateBatchCPrompt(title, type) {
-  return `Place the product in a natural, real-world lifestyle setting where it would actually be used. If it is something worn or carried (hat, shoe, garment, swimsuit, pet vest, baby float, clip-on fan, etc.), show it being worn by an appropriate person, child, baby, or pet in a candid editorial style. If it is an object used in a space (fan, cooler, humidifier, garden tool, kitchen item, etc.), show it on the right surface or in the right environment for that use, with subtle context props or hands in frame if appropriate. The product is clearly recognizable and in sharp focus, but the scene feels lived-in and authentic rather than staged. Use the reference image to identify what the product is, then place it convincingly in the moment of use.`;
+  const t = title.toLowerCase();
+  
+  if (t.includes('almond latte')) {
+    let item = 'iPhone case';
+    if (t.includes('ipad')) item = 'iPad case';
+    else if (t.includes('kindle')) item = 'Kindle case';
+    else if (t.includes('airpods')) item = 'AirPods case';
+    else if (t.includes('sleeve')) item = 'laptop sleeve';
+    else if (t.includes('ring holder')) item = 'magnetic ring holder';
+    else if (t.includes('yoga mat')) item = 'yoga mat';
+    
+    if (item === 'yoga mat') {
+      return `A professional lifestyle photo of a high-end yoga mat with a beige and black spotted pattern (leopard-print style). The mat is rolled out on a clean, light-filled wooden floor of a modern yoga studio with plants in the background, soft natural sunlight, serene atmosphere.`;
+    }
+    
+    return `A professional lifestyle flat-lay photograph of a ${item}. The accessory features a stylish beige background with black leopard-print spots (Almond Latte design). It is lying on a rustic wooden coffee table in a modern aesthetic cafe, next to a warm latte cup with latte art and some green monstera leaves, soft natural lighting, editorial product photography.`;
+  }
+  
+  if (t.includes('feeder') || t.includes('fountain')) {
+    return `A lifestyle photo of a modern smart pet feeder and water fountain placed on a clean kitchen floor. A cute fluffy cat or dog is eating contentedly, bright kitchen interior, soft natural light, warm and cozy domestic scene.`;
+  }
+  
+  if (t.includes('massager')) {
+    return `A professional lifestyle photo of a rechargeable shiatsu back and neck massager pillow. It is resting on a cozy grey fabric armchair in a warmly lit living room, inviting atmosphere, editorial home decor photography.`;
+  }
+  
+  if (t.includes('plant moisture') || t.includes('moisture meter')) {
+    return `A lifestyle photo of a smart digital wireless plant moisture meter inserted into the soil of a beautiful potted houseplant (like a fiddle leaf fig) in a bright, modern living room next to a window, soft sunrays, clean aesthetic.`;
+  }
+  
+  if (t.includes('watch') || t.includes('tracker')) {
+    return `A lifestyle close-up photo of a person's wrist wearing a sleek black smart watch fitness tracker. They are outdoors on a morning run, blurred green nature trail in the background, bright natural morning sunlight.`;
+  }
+
+  if (t.includes('rangefinder')) {
+    return `A lifestyle photo of a hunting laser rangefinder resting on a camo backpack in the forest during autumn, warm morning fog, hunting gear, outdoor adventure photography.`;
+  }
+
+  if (t.includes('chicken waterer')) {
+    return `A lifestyle photo of automatic chicken waterer cups installed on a container in a clean backyard chicken coop, with chickens drinking water, natural outdoor lighting, authentic homestead scene.`;
+  }
+
+  if (t.includes('camera') || t.includes('shaver')) {
+    return `A lifestyle photo of a smart shaver placed on a clean bathroom vanity marble countertop next to a sink, modern bright bathroom interior.`;
+  }
+  
+  return `A premium product lifestyle photograph of ${title}. It is placed in a natural, real-world context where it would actually be used, with beautiful soft lighting, shallow depth of field, and a clean, modern aesthetic.`;
 }
 
 async function downloadImage(url, destPath) {
-  const res = await fetch(url);
+  const res = await fetch(url, {
+    signal: AbortSignal.timeout(25000)
+  });
   if (!res.ok) throw new Error(`Failed to download: ${res.statusText}`);
   const ab = await res.arrayBuffer();
   writeFileSync(destPath, Buffer.from(ab));
@@ -101,13 +159,12 @@ async function generateReplicateImage(refUrl, prompt) {
         version: MODEL_VERSION,
         input: {
           prompt: prompt,
-          image: refUrl,
-          prompt_strength: 0.65,
           width: 1024,
           height: 1024,
-          num_inference_steps: 30
+          num_inference_steps: 4
         }
-      })
+      }),
+      signal: AbortSignal.timeout(25000)
     });
 
     if (res.status === 429) {
@@ -132,7 +189,8 @@ async function generateReplicateImage(refUrl, prompt) {
     const pollRes = await fetch(`https://api.replicate.com/v1/predictions/${predictionId}`, {
       headers: {
         'Authorization': `Bearer ${REPLICATE_API_TOKEN}`
-      }
+      },
+      signal: AbortSignal.timeout(25000)
     });
 
     if (!pollRes.ok) {

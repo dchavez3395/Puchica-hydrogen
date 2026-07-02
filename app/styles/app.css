@@ -6810,7 +6810,10 @@ button:focus-visible,
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
-  padding: 8px 24px 24px;
+  padding-left: max(24px, calc((100vw - 1200px) / 2 + 24px));
+  padding-right: 24px;
+  padding-top: 8px;
+  padding-bottom: 24px;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
   mask-image: linear-gradient(90deg, transparent, #000 4%, #000 90%, transparent);

@@ -91,15 +91,20 @@ async function main() {
   const rxB = /\b(Canada|Portugal|Argentina|Brasil|Fifa|World Cup)\b/i;
 
   for (const node of allProducts) {
-    // Check if it already has a Higgsfield image
     const images = node.images?.edges || [];
     const hasHiggsfield = images.some(img => img.node?.url && img.node.url.includes('/hf_'));
-    if (hasHiggsfield) continue; // Skip already done
 
     const title = node.title || '';
-    if (rxA.test(title)) {
+    const isJersey = rxA.test(title);
+    const isWorldCupApparel = rxB.test(title);
+
+    if (hasHiggsfield && (isJersey || isWorldCupApparel)) {
+      continue;
+    }
+
+    if (isJersey) {
       batchA.push(node);
-    } else if (rxB.test(title)) {
+    } else if (isWorldCupApparel) {
       batchB.push(node);
     } else {
       batchC.push(node);
@@ -111,15 +116,19 @@ async function main() {
 
   // Limit Batch C to top 100 best-sellers
   const limitedBatchC = batchC.slice(0, 100);
+  // Batch D is the next 500 best-sellers
+  const batchD = batchC.slice(100, 600);
 
   writeFileSync(join('work', 'batch_a_pending.json'), JSON.stringify(batchA, null, 2));
   writeFileSync(join('work', 'batch_b_pending.json'), JSON.stringify(batchB, null, 2));
   writeFileSync(join('work', 'batch_c_pending.json'), JSON.stringify(limitedBatchC, null, 2));
+  writeFileSync(join('work', 'batch_d_pending.json'), JSON.stringify(batchD, null, 2));
 
   console.log(`\nCategorized counts (remaining to generate):`);
   console.log(`- Batch A (Jerseys): ${batchA.length}`);
   console.log(`- Batch B (Rest of World Cup): ${batchB.length}`);
-  console.log(`- Batch C (Top 100 Best-Selling Remaining): ${limitedBatchC.length}`);
+  console.log(`- Batch C (Top 100 Best-Selling General): ${limitedBatchC.length}`);
+  console.log(`- Batch D (Next 500 Best-Selling General): ${batchD.length}`);
 }
 
 main().catch(console.error);
