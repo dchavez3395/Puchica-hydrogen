@@ -36,6 +36,31 @@ function saveCheckpoint(state) {
   writeFileSync(CHECKPOINT_PATH, JSON.stringify(state, null, 2));
 }
 
+// Auto-commit work state after every checkpoint save so the working
+// tree stays clean and `hydrogen deploy` is never blocked by
+// in-flight runner progress. Best-effort: git errors are logged but
+// don't fail the batch. Skips if any non-work/ file is dirty so we
+// never clobber unrelated in-progress edits.
+function commitCheckpoint(batch, index, total, status) {
+  try {
+    const dirty = execSync('git status --porcelain', { encoding: 'utf8' });
+    const offending = dirty
+      .split('\n')
+      .filter(Boolean)
+      .filter(line => !/^.. work\//.test(line));
+    if (offending.length) {
+      console.warn(`  [git] Skipping auto-commit — dirty files outside work/: ${offending.length}`);
+      return;
+    }
+    const staged = execSync('git add work/checkpoint.json work/failed_images.txt work/batch_a_pending.json work/batch_b_pending.json work/batch_c_pending.json work/batch_d_pending.json && git diff --cached --name-only', { encoding: 'utf8' }).trim();
+    if (!staged) return;
+    const msg = `chore(automation): checkpoint batch ${batch} ${index}/${total} (${status})`;
+    execSync(`git commit -m "${msg}"`, { stdio: 'inherit' });
+  } catch (e) {
+    console.warn(`  [git] Auto-commit failed (non-fatal): ${e.message?.split('\n')[0]}`);
+  }
+}
+
 // Prompt generators matching batch-runner.mjs
 function generateBatchBPrompt(title) {
   let nation = 'appropriate country';
@@ -231,12 +256,14 @@ async function main() {
         state.batch = 'B';
         state.index = 0;
         saveCheckpoint(state);
+        commitCheckpoint(state.batch, state.index, products.length, 'transitioned');
         continue;
       } else if (state.batch === 'B') {
         console.log('--- Batch B complete! Transitioning to Batch C. ---');
         state.batch = 'C';
         state.index = 0;
         saveCheckpoint(state);
+        commitCheckpoint(state.batch, state.index, products.length, 'transitioned');
         continue;
       } else {
         console.log('--- ALL BATCHES COMPLETE! ---');
@@ -253,6 +280,7 @@ async function main() {
       state.failedIds.push(product.id);
       state.index++;
       saveCheckpoint(state);
+      commitCheckpoint(state.batch, state.index, products.length, 'skipped');
       continue;
     }
 
@@ -291,6 +319,8 @@ async function main() {
 
     state.index++;
     saveCheckpoint(state);
+    const status = state.failedIds.includes(product.id) ? 'failed' : 'ok';
+    commitCheckpoint(state.batch, state.index, products.length, status);
   }
 }
 
