@@ -38,7 +38,9 @@ export function ForYouShowcase({products = []}) {
           <TiltCard className="pk-foryou__hero-wrap" maxTilt={4}>
             <Link to={`/products/${hero.handle}`} className="pk-foryou__hero" aria-label={hero.title}>
               {hero.featuredImage && (
-                <Image data={hero.featuredImage} aspectRatio="4/5" sizes="(min-width: 900px) 560px, 100vw" loading="eager" />
+                <div className="pk-foryou__image-wrapper">
+                  <Image data={hero.featuredImage} sizes="(min-width: 900px) 560px, 100vw" loading="eager" />
+                </div>
               )}
               <div className="pk-foryou__hero-body">
                 <p className="pk-foryou__name">{hero.title}</p>
@@ -52,7 +54,9 @@ export function ForYouShowcase({products = []}) {
               <TiltCard key={p.id} className="pk-foryou__small-wrap" maxTilt={4}>
                 <Link to={`/products/${p.handle}`} className="pk-foryou__small" aria-label={p.title}>
                   {p.featuredImage && (
-                    <Image data={p.featuredImage} aspectRatio="1/1" sizes="220px" loading="lazy" />
+                    <div className="pk-foryou__image-wrapper">
+                      <Image data={p.featuredImage} sizes="220px" loading="lazy" />
+                    </div>
                   )}
                   <div className="pk-foryou__small-body">
                     <p className="pk-foryou__name">{p.title}</p>
