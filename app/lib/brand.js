@@ -22,7 +22,7 @@ export const STORE_LOGO_URL =
  * consistent across surfaces avoids conflicting signals.
  */
 export const BRAND_DESCRIPTION =
-  'Curated picks across home, kitchen, beauty, tech, pet, and more. Free shipping over $50, easy 30-day returns, secure checkout.';
+  'Curated picks across home, kitchen, beauty, tech, pet, and more. Free shipping across Canada, easy 30-day returns, secure checkout.';
 
 /**
  * Verified social profile URLs. The Organization JSON-LD's `sameAs`

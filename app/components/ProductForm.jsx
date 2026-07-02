@@ -2,6 +2,7 @@ import {useNavigate} from 'react-router';
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {useState, useEffect, useRef} from 'react';
 import {AddToCartButton} from './AddToCartButton';
+import {OfferCallout} from '~/components/OfferCallout';
 import {useAside} from './Aside';
 import {useT} from '~/lib/t';
 import {IconHeart, IconMinus, IconPlus} from '~/components/Icons';
@@ -209,6 +210,9 @@ export function ProductForm({productOptions, selectedVariant, product, onAddStar
           </button>
         ) : null}
       </div>
+
+      {/* First-order incentive, right under the buy button. */}
+      {selectedVariant?.availableForSale ? <OfferCallout /> : null}
 
       {/* Low-stock urgency */}
       {lowStock ? (

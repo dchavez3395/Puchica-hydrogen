@@ -7259,14 +7259,20 @@ button:focus-visible,
   .pk-bento { padding: 56px 0 64px; }
   .pk-bento__grid {
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(5, 200px);
+    /* Auto-rows instead of a fixed repeat(5): the grid is only as tall as the
+       number of categories that actually returned data. The old repeat(5,200px)
+       reserved 5 rows (~1000px) even when 3–4 came back, leaving a tall empty
+       section on mobile. */
+    grid-template-rows: none;
+    grid-auto-rows: 200px;
     gap: 8px;
   }
-  .pk-bento__cell--0 { grid-column: 1; grid-row: 1; }
-  .pk-bento__cell--1 { grid-column: 1; grid-row: 2; }
-  .pk-bento__cell--2 { grid-column: 1; grid-row: 3; }
-  .pk-bento__cell--3 { grid-column: 1; grid-row: 4; }
-  .pk-bento__cell--4 { grid-column: 1; grid-row: 5; }
+  /* Stack every cell one-per-row in source order regardless of count,
+     overriding the desktop (n5) and tablet explicit grid placements. */
+  .pk-bento__grid > * {
+    grid-column: 1 !important;
+    grid-row: auto !important;
+  }
 }
 
 /* ============================================================

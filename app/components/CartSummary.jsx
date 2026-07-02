@@ -3,6 +3,7 @@ import {useEffect, useId, useRef, useState} from 'react';
 import {useActionData, useFetcher} from 'react-router';
 import {CHECKOUT_URL_REWRITER} from '~/lib/checkout';
 import {useT} from '~/lib/t';
+import {OfferCallout} from '~/components/OfferCallout';
 
 /**
  * @param {CartSummaryProps}
@@ -41,6 +42,7 @@ export function CartSummary({cart, layout, hasCheckoutableItems = true}) {
         giftCardHeadingId={giftCardHeadingId}
         giftCardInputId={giftCardInputId}
       />
+      {hasCheckoutableItems ? <OfferCallout style={{margin: '0 0 12px'}} /> : null}
       <CartCheckoutActions
         checkoutUrl={CHECKOUT_URL_REWRITER(cart?.checkoutUrl)}
         disabled={!hasCheckoutableItems}

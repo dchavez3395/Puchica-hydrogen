@@ -46,7 +46,7 @@ export const meta = ({params}) => {
   return puchicaMeta({
     title: 'Puchica – The good stuff. All in one place.',
     description:
-      'Puchica: 6,000+ products across home, beauty, tech, pet, and more. Curated in Toronto. Free shipping over $50, 30-day returns.',
+      'Puchica: 6,000+ products across home, beauty, tech, pet, and more. Curated in Toronto. Free shipping across Canada, 30-day returns.',
     pathname: '/',
     langKey: params?.locale,
   });

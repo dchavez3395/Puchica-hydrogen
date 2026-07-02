@@ -14,6 +14,7 @@ export const DICTIONARIES = {
     announce_offer: '15% off your first order — code FIRST15',
     announce_freeship: 'Free shipping across Canada',
     announce_cta: 'Shop now',
+    offer_first15: 'New here? Take 15% off your first order with code FIRST15.',
     announce_region_aria: 'Site announcements',
 
     // ── Footer ────────────────────────────────────────────────────
@@ -108,7 +109,7 @@ export const DICTIONARIES = {
     hero_cta_shop: 'Shop now →',
     hero_cta_browse: 'Browse all',
     hero_stat_products: 'Products',
-    hero_stat_shipping: 'Shipping $50+',
+    hero_stat_shipping: 'Free shipping',
     hero_stat_returns: 'Easy returns',
     hero_pause_label: 'Pause background slideshow',
     hero_play_label: 'Play background slideshow',
@@ -456,7 +457,7 @@ export const DICTIONARIES = {
     showcase_heading: 'Explore by category',
     showcase_sub: '{count} collections. {pct}% of the catalog covered.',
     showcase_eyebrow: 'Collection {n}',
-    showcase_desc: 'Discover our {title} selection — handpicked products with free shipping over $50.',
+    showcase_desc: 'Discover our {title} selection — handpicked products with free shipping across Canada.',
     showcase_cta: 'Shop {title} →',
 
     // ── 404 / catch-all ───────────────────────────────────────────
@@ -487,7 +488,7 @@ export const DICTIONARIES = {
     cart_empty_cta_shop: 'Shop the catalog',
     cart_empty_cta_best: 'See best sellers',
     cart_empty_perks_aria: 'Why shop with us',
-    cart_empty_perk_shipping: 'Free shipping over $50',
+    cart_empty_perk_shipping: 'Free shipping across Canada',
     cart_empty_perk_returns: '30-day easy returns',
     cart_ghost_notice: "These items aren't available in your region right now. Remove them to clear your cart.",
     cart_summary_title: 'Totals',
@@ -755,8 +756,8 @@ export const DICTIONARIES = {
     about_stat_products_label: 'Handpicked products',
     about_stat_quality_num: '100%',
     about_stat_quality_label: 'Quality-checked',
-    about_stat_shipping_num: '$50+',
-    about_stat_shipping_label: 'Free shipping threshold',
+    about_stat_shipping_num: '$0',
+    about_stat_shipping_label: 'Shipping across Canada',
     about_stat_returns_num: '30 days',
     about_stat_returns_label: 'No-hassle returns',
     about_mission_eye: 'Why we exist',
@@ -790,7 +791,7 @@ export const DICTIONARIES = {
     about_promise_quote: "Every Puchica product has been thoroughly tested by our team. Providing the most curated selection of products that we can find. If we wouldn't use it ourselves, it won't be Puchica.",
     about_promise_attr: '— The Puchica team, Toronto ON',
     about_cta_title: 'Ready to find your thing?',
-    about_cta_sub: '6,000+ products, picked by humans. Most under $100. Free shipping over $50, 30-day returns, delivered fast.',
+    about_cta_sub: '6,000+ products, picked by humans. Most under $100. Free shipping across Canada, 30-day returns, delivered fast.',
     about_cta_browse: 'Browse everything →',
     about_cta_contact: 'Get in touch',
 
@@ -840,8 +841,9 @@ export const DICTIONARIES = {
   // ════════════════════════════════════════════════════════════════
   fr: {
     announce_offer: '15 % de rabais sur votre première commande — code FIRST15',
-    announce_freeship: 'Livraison gratuite dès 50 $',
+    announce_freeship: 'Livraison gratuite au Canada',
     announce_cta: 'Magasiner',
+    offer_first15: 'Nouveau ici ? 15 % de rabais sur votre première commande avec le code FIRST15.',
     announce_region_aria: 'Annonces du site',
 
     footer_tagline: 'Plus de 6 000 produits sélectionnés. Livraison rapide. Le meilleur, tout au même endroit.',
@@ -885,7 +887,7 @@ export const DICTIONARIES = {
     header_cart_open: 'Ouvrir le panier',
     header_cart_close: 'Fermer le panier',
 
-    hero_eyebrow: 'Sélection curatée · Gratuit dès 50 $',
+    hero_eyebrow: 'Sélection curatée · Gratuit au Canada',
     hero_title: 'Des trouvailles qui comptent.',
     hero_sub: 'Plus de 6 000 produits sélectionnés dans la maison, la beauté, la tech et bien plus. De vraies découvertes par de vraies personnes.',
     hero_cta_shop: 'Magasiner →',
@@ -900,7 +902,7 @@ export const DICTIONARIES = {
 
     ticker_products: '6 000+ produits',
     ticker_new_drops: 'Nouveautés chaque semaine',
-    ticker_free_shipping: 'Livraison gratuite 50 $+',
+    ticker_free_shipping: 'Livraison gratuite au Canada',
     ticker_returns: 'Retours faciles 30 jours',
     ticker_ships: 'Livraison rapide',
     ticker_handpicked: 'Sélectionné, jamais aléatoire',
@@ -1267,7 +1269,7 @@ export const DICTIONARIES = {
     cart_empty_cta_shop: 'Parcourir le catalogue',
     cart_empty_cta_best: 'Voir les meilleures ventes',
     cart_empty_perks_aria: 'Pourquoi magasiner avec nous',
-    cart_empty_perk_shipping: 'Livraison gratuite dès 50 $',
+    cart_empty_perk_shipping: 'Livraison gratuite au Canada',
     cart_empty_perk_returns: 'Retours faciles sous 30 jours',
     cart_ghost_notice: "Ces articles ne sont pas disponibles dans votre région pour le moment. Retirez-les pour vider votre panier.",
     cart_summary_title: 'Totaux',
@@ -1536,7 +1538,7 @@ export const DICTIONARIES = {
     about_stat_quality_num: '100 %',
     about_stat_quality_label: 'Contrôle qualité',
     about_stat_shipping_num: '50 $+',
-    about_stat_shipping_label: 'Seuil de livraison gratuite',
+    about_stat_shipping_label: 'Livraison au Canada',
     about_stat_returns_num: '30 jours',
     about_stat_returns_label: 'Retours sans tracas',
     about_mission_eye: 'Pourquoi nous existons',
@@ -1570,7 +1572,7 @@ export const DICTIONARIES = {
     about_promise_quote: "Chaque produit Puchica a été soigneusement testé par notre équipe. Nous offrons la sélection la plus soignée de produits que nous puissions trouver. Si nous ne l’utiliserions pas nous-mêmes, ce ne sera pas Puchica.",
     about_promise_attr: '— L’équipe Puchica, Toronto ON',
     about_cta_title: 'Prêt·e à trouver votre truc ?',
-    about_cta_sub: '6 000+ produits, choisis par des humains. La plupart à moins de 100 $. Livraison gratuite dès 50 $, retours sous 30 jours, livré rapidement.',
+    about_cta_sub: '6 000+ produits, choisis par des humains. La plupart à moins de 100 $. Livraison gratuite au Canada, retours sous 30 jours, livré rapidement.',
     about_cta_browse: 'Tout parcourir →',
     about_cta_contact: 'Nous joindre',
 
@@ -1631,6 +1633,7 @@ export const DICTIONARIES = {
     announce_offer: '15 % de descuento en tu primer pedido — código FIRST15',
     announce_freeship: 'Devoluciones en 30 días, sin complicaciones',
     announce_cta: 'Comprar ahora',
+    offer_first15: '¿Primera compra? 15 % de descuento en tu primer pedido con el código FIRST15.',
     announce_region_aria: 'Anuncios del sitio',
 
     footer_tagline: 'Más de 6.000 productos seleccionados. Envío rápido. Lo mejor, todo en un solo lugar.',
@@ -1674,13 +1677,13 @@ export const DICTIONARIES = {
     header_cart_open: 'Abrir carrito',
     header_cart_close: 'Cerrar carrito',
 
-    hero_eyebrow: 'Selección curada · Gratis desde $50',
+    hero_eyebrow: 'Selección curada · Gratis en Canadá',
     hero_title: 'Todo lo que vale.',
     hero_sub: 'Más de 6.000 productos seleccionados en hogar, belleza, tech, mascotas y más. Hallazgos reales de personas reales.',
     hero_cta_shop: 'Comprar ahora →',
     hero_cta_browse: 'Ver todo',
     hero_stat_products: 'Productos',
-    hero_stat_shipping: 'Envío $50+',
+    hero_stat_shipping: 'Envío gratis',
     hero_stat_returns: 'Devoluciones fáciles',
     hero_pause_label: 'Pausar presentación',
     hero_play_label: 'Reproducir presentación',
@@ -1689,7 +1692,7 @@ export const DICTIONARIES = {
 
     ticker_products: 'Más de 6.000 productos',
     ticker_new_drops: 'Novedades cada semana',
-    ticker_free_shipping: 'Envío gratis $50+',
+    ticker_free_shipping: 'Envío gratis en Canadá',
     ticker_returns: 'Devoluciones fáciles 30 días',
     ticker_ships: 'Envío rápido',
     ticker_handpicked: 'Seleccionado, nunca aleatorio',
@@ -1822,7 +1825,7 @@ export const DICTIONARIES = {
     catalog_cta_search: 'Buscar en el catálogo',
 
     trust_shipping_title: 'Envío gratis',
-    trust_shipping_sub: 'En pedidos de más de $50',
+    trust_shipping_sub: 'En pedidos a Canadá',
     trust_returns_title: 'Devoluciones 30 días',
     trust_returns_sub: 'Sin preguntas, sin complicaciones',
     trust_secure_title: 'Pago seguro',
@@ -1912,7 +1915,7 @@ export const DICTIONARIES = {
     all_count_loading: 'Catálogo cargando',
 
     product_trust_shipping: 'Envío gratis',
-    product_trust_shipping_sub: 'en pedidos mayores de $50',
+    product_trust_shipping_sub: 'en pedidos a Canadá',
     product_trust_returns: 'Devoluciones 30 días',
     product_trust_returns_sub: 'etiqueta de devolución prepagada incluida',
     product_trust_secure: 'Pago seguro',
@@ -2025,7 +2028,7 @@ export const DICTIONARIES = {
     showcase_heading: 'Explorar por categoría',
     showcase_sub: '{count} colecciones. {pct} % del catálogo cubierto.',
     showcase_eyebrow: 'Colección {n}',
-    showcase_desc: 'Descubre nuestra selección de {title} — productos seleccionados con envío gratis sobre $50.',
+    showcase_desc: 'Descubre nuestra selección de {title} — productos seleccionados con envío gratis en Canadá.',
     showcase_cta: 'Comprar {title} →',
 
     // ── 404 / ruta catch-all ────────────────────────────────────
@@ -2056,7 +2059,7 @@ export const DICTIONARIES = {
     cart_empty_cta_shop: 'Ver el catálogo',
     cart_empty_cta_best: 'Ver más vendidos',
     cart_empty_perks_aria: 'Por qué comprar con nosotros',
-    cart_empty_perk_shipping: 'Envío gratis sobre $50',
+    cart_empty_perk_shipping: 'Envío gratis en Canadá',
     cart_empty_perk_returns: 'Devoluciones fáciles 30 días',
     cart_ghost_notice: 'Estos artículos no están disponibles en tu región ahora. Quítalos para vaciar tu carrito.',
     cart_summary_title: 'Totales',
@@ -2324,8 +2327,8 @@ export const DICTIONARIES = {
     about_stat_products_label: 'Productos seleccionados',
     about_stat_quality_num: '100 %',
     about_stat_quality_label: 'Control de calidad',
-    about_stat_shipping_num: '$50+',
-    about_stat_shipping_label: 'Umbral de envío gratis',
+    about_stat_shipping_num: '$0',
+    about_stat_shipping_label: 'Envío a Canadá',
     about_stat_returns_num: '30 días',
     about_stat_returns_label: 'Devoluciones sin complicaciones',
     about_mission_eye: 'Por qué existimos',
@@ -2359,7 +2362,7 @@ export const DICTIONARIES = {
     about_promise_quote: 'Cada producto Puchica ha sido probado a fondo por nuestro equipo. Ofrecemos la selección más curada de productos que podamos encontrar. Si no lo usaríamos nosotros, no será Puchica.',
     about_promise_attr: '— El equipo Puchica, Toronto ON',
     about_cta_title: '¿Listo para encontrar lo tuyo?',
-    about_cta_sub: '6.000+ productos, elegidos por humanos. La mayoría por menos de $100. Envío gratis sobre $50, devoluciones de 30 días, entrega rápida.',
+    about_cta_sub: '6.000+ productos, elegidos por humanos. La mayoría por menos de $100. Envío gratis en Canadá, devoluciones de 30 días, entrega rápida.',
     about_cta_browse: 'Ver todo →',
     about_cta_contact: 'Contáctanos',
 
@@ -2420,6 +2423,7 @@ export const DICTIONARIES = {
     announce_offer: '15% de desconto no primeiro pedido — código FIRST15',
     announce_freeship: 'Devoluções em 30 dias, sem complicações',
     announce_cta: 'Comprar agora',
+    offer_first15: 'Primeira compra? 15% de desconto no primeiro pedido com o código FIRST15.',
     announce_region_aria: 'Avisos do site',
 
     footer_tagline: 'Mais de 6.000 produtos selecionados. Entrega rápida. O melhor, tudo em um só lugar.',
@@ -2463,13 +2467,13 @@ export const DICTIONARIES = {
     header_cart_open: 'Abrir carrinho',
     header_cart_close: 'Fechar carrinho',
 
-    hero_eyebrow: 'Seleção curada · Grátis acima de $50',
+    hero_eyebrow: 'Seleção curada · Grátis no Canadá',
     hero_title: 'Tudo que importa.',
     hero_sub: 'Mais de 6.000 produtos selecionados em casa, beleza, tech, pets e muito mais. Descobertas reais de pessoas reais.',
     hero_cta_shop: 'Comprar agora →',
     hero_cta_browse: 'Ver tudo',
     hero_stat_products: 'Produtos',
-    hero_stat_shipping: 'Frete $50+',
+    hero_stat_shipping: 'Frete grátis',
     hero_stat_returns: 'Devoluções fáceis',
     hero_pause_label: 'Pausar apresentação de slides',
     hero_play_label: 'Reproduzir apresentação de slides',
@@ -2478,7 +2482,7 @@ export const DICTIONARIES = {
 
     ticker_products: 'Mais de 6.000 produtos',
     ticker_new_drops: 'Novidades toda semana',
-    ticker_free_shipping: 'Frete grátis $50+',
+    ticker_free_shipping: 'Frete grátis no Canadá',
     ticker_returns: 'Devoluções fáceis em 30 dias',
     ticker_ships: 'Entrega rápida',
     ticker_handpicked: 'Selecionado, nunca aleatório',
@@ -2611,7 +2615,7 @@ export const DICTIONARIES = {
     catalog_cta_search: 'Buscar no catálogo',
 
     trust_shipping_title: 'Frete grátis',
-    trust_shipping_sub: 'Em pedidos acima de $50',
+    trust_shipping_sub: 'Em pedidos para o Canadá',
     trust_returns_title: 'Devoluções em 30 dias',
     trust_returns_sub: 'Sem perguntas, sem complicações',
     trust_secure_title: 'Checkout seguro',
@@ -2701,7 +2705,7 @@ export const DICTIONARIES = {
     all_count_loading: 'Catálogo carregando',
 
     product_trust_shipping: 'Frete grátis',
-    product_trust_shipping_sub: 'em pedidos acima de $50',
+    product_trust_shipping_sub: 'em pedidos para o Canadá',
     product_trust_returns: 'Devoluções em 30 dias',
     product_trust_returns_sub: 'etiqueta de devolução pré-paga incluída',
     product_trust_secure: 'Checkout seguro',
@@ -2814,7 +2818,7 @@ export const DICTIONARIES = {
     showcase_heading: 'Explore por categoria',
     showcase_sub: '{count} coleções. {pct} % do catálogo coberto.',
     showcase_eyebrow: 'Coleção {n}',
-    showcase_desc: 'Descubra nossa seleção de {title} — produtos curados com frete grátis acima de $50.',
+    showcase_desc: 'Descubra nossa seleção de {title} — produtos curados com frete grátis no Canadá.',
     showcase_cta: 'Comprar {title} →',
 
     // ── 404 / rota catch-all ────────────────────────────────────
@@ -2845,7 +2849,7 @@ export const DICTIONARIES = {
     cart_empty_cta_shop: 'Ver o catálogo',
     cart_empty_cta_best: 'Ver mais vendidos',
     cart_empty_perks_aria: 'Por que comprar com a gente',
-    cart_empty_perk_shipping: 'Frete grátis acima de $50',
+    cart_empty_perk_shipping: 'Frete grátis no Canadá',
     cart_empty_perk_returns: 'Devoluções fáceis em 30 dias',
     cart_ghost_notice: 'Estes itens não estão disponíveis na sua região agora. Remova-os para esvaziar o carrinho.',
     cart_summary_title: 'Totais',
@@ -3113,8 +3117,8 @@ export const DICTIONARIES = {
     about_stat_products_label: 'Produtos selecionados',
     about_stat_quality_num: '100%',
     about_stat_quality_label: 'Controle de qualidade',
-    about_stat_shipping_num: '$50+',
-    about_stat_shipping_label: 'Limite para frete grátis',
+    about_stat_shipping_num: '$0',
+    about_stat_shipping_label: 'Frete no Canadá',
     about_stat_returns_num: '30 dias',
     about_stat_returns_label: 'Devoluções sem complicação',
     about_mission_eye: 'Por que existimos',
@@ -3148,7 +3152,7 @@ export const DICTIONARIES = {
     about_promise_quote: 'Cada produto Puchica foi testado a fundo pela nossa equipe. Oferecemos a seleção mais curada de produtos que conseguimos encontrar. Se não usaríamos nós mesmos, não será Puchica.',
     about_promise_attr: '— Equipe Puchica, Toronto ON',
     about_cta_title: 'Pronto para encontrar o seu?',
-    about_cta_sub: '6.000+ produtos, escolhidos por humanos. A maioria abaixo de $100. Frete grátis acima de $50, devoluções em 30 dias, entrega rápida.',
+    about_cta_sub: '6.000+ produtos, escolhidos por humanos. A maioria abaixo de $100. Frete grátis no Canadá, devoluções em 30 dias, entrega rápida.',
     about_cta_browse: 'Ver tudo →',
     about_cta_contact: 'Fale conosco',
 

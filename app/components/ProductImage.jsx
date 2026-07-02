@@ -166,7 +166,7 @@ export function ProductImage({
                 <Image
                   alt={current.altText || productTitle || t('pdp_img_alt_fallback')}
                   data={current}
-                  aspectRatio={`${heroRatio.toFixed(4)}`.replace(/(\.\d*?)0+$/, '$1').replace(/\.$/, '')}
+                  aspectRatio={`${Math.round(heroRatio * 1000)}/1000`}
                   crop="top"
                   sizes="(min-width: 60em) 600px, 100vw"
                   loading={index === 0 ? 'eager' : 'lazy'}

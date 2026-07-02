@@ -96,7 +96,7 @@ export default function Product() {
 
   const {title, descriptionHtml} = product;
   const galleryImages = buildGallery(product, selectedVariant);
-  const jsonLd = buildJsonLd(product, selectedVariant, reviews);
+  const jsonLd = buildJsonLd(product, selectedVariant, reviews, galleryImages);
 
   return (
     <div className="pk-product">
@@ -419,6 +419,15 @@ function Shipping({t}) {
 function ShareRow({product, t}) {
   const [copied, setCopied] = useState(false);
   const url = typeof window !== 'undefined' ? window.location.href : '';
+  // The Web Share API label must be resolved AFTER mount. Checking
+  // navigator.share during render makes the server ("Copy link") and client
+  // ("Share") disagree, which triggers a hydration mismatch that forces the
+  // ENTIRE root to re-render on the client. Start false (matches SSR), upgrade
+  // after hydration.
+  const [canShare, setCanShare] = useState(false);
+  useEffect(() => {
+    setCanShare(typeof navigator !== 'undefined' && !!navigator.share);
+  }, []);
 
   const onShare = async () => {
     if (typeof navigator !== 'undefined' && navigator.share) {
@@ -445,7 +454,7 @@ function ShareRow({product, t}) {
       <span>{t('product_share_label')}</span>
       <button type="button" className="pk-share__btn" onClick={onShare}>
         <IconShare size={14} />
-        {typeof navigator !== 'undefined' && navigator.share ? t('product_share_btn') : t('product_copy_link')}
+        {canShare ? t('product_share_btn') : t('product_copy_link')}
       </button>
       {copied && <span className="pk-share__copied">{t('product_link_copied')}</span>}
     </div>
@@ -567,16 +576,25 @@ function productTypeSlug(productType) {
   return productType.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'all';
 }
 
-function buildJsonLd(product, selectedVariant, reviews) {
+function buildJsonLd(product, selectedVariant, reviews, galleryImages) {
   const productUrl = canonical(`/products/${product.handle}`);
   const price = selectedVariant?.price;
+  // Expose the full gallery (deduped, capped) so Google rich results / Merchant
+  // listings can show multiple images — falls back to the featured image.
+  const images = Array.isArray(galleryImages)
+    ? [...new Set(galleryImages.map((i) => i?.url).filter(Boolean))].slice(0, 10)
+    : [];
   return {
     '@context': 'https://schema.org',
     '@type': 'Product',
     '@id': `${productUrl}#product`,
     name: product.title,
     description: (product.description || '').slice(0, 5000),
-    image: product.featuredImage?.url ? [product.featuredImage.url] : undefined,
+    image: images.length
+      ? images
+      : product.featuredImage?.url
+        ? [product.featuredImage.url]
+        : undefined,
     sku: selectedVariant?.sku || product.handle,
     brand: {'@type': 'Brand', name: 'Puchica'},
     seller: {'@type': 'Organization', name: 'Puchica', url: SITE_URL},

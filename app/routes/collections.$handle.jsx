@@ -17,7 +17,7 @@ export const meta = ({data, params}) => {
   const d =
     collection?.seo?.description ||
     collection?.description ||
-    `Shop ${t} at Puchica — curated picks with free shipping over $50 and easy 30-day returns.`;
+    `Shop ${t} at Puchica — curated picks with free shipping across Canada and easy 30-day returns.`;
   const image = collection?.image?.url;
   const pathname = `/collections/${collection?.handle || ''}`;
   return puchicaMeta({

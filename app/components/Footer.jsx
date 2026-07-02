@@ -116,7 +116,7 @@ export function Footer({header}) {
               <span className="pk-footer__stat-label">{t('footer_stat_collections')}</span>
             </div>
             <div className="pk-footer__stat">
-              <span className="pk-footer__stat-value">$50</span>
+              <span className="pk-footer__stat-value">Canada</span>
               <span className="pk-footer__stat-label">{t('footer_stat_shipping')}</span>
             </div>
             <div className="pk-footer__stat">

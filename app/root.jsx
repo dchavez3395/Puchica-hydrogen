@@ -19,6 +19,7 @@ import resetStyles from '~/styles/reset.css?url';
 import appStyles from '~/styles/app.css?url';
 import {PageLayout} from './components/PageLayout';
 import {SmoothScroll} from './components/SmoothScroll';
+import {MetaPixel} from './components/MetaPixel';
 import {error as logError} from '~/lib/logger';
 import {useT} from '~/lib/t';
 
@@ -91,6 +92,9 @@ export async function loader(args) {
     ...deferredData,
     ...criticalData,
     publicStoreDomain: env.PUBLIC_STORE_DOMAIN,
+    // Meta Pixel ID (Meta Events Manager) — enables storefront-side ad tracking.
+    // No-ops until this env var is set. See app/components/MetaPixel.jsx.
+    metaPixelId: env.PUBLIC_FACEBOOK_PIXEL_ID || null,
     selectedLocale: args.context.storefront.i18n,
     shop: getShopAnalytics({
       storefront,
@@ -222,6 +226,7 @@ export default function App() {
       shop={data.shop}
       consent={data.consent}
     >
+      <MetaPixel pixelId={data.metaPixelId} />
       <PageLayout {...data}>
         <Outlet />
       </PageLayout>

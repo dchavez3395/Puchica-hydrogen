@@ -27,12 +27,38 @@ export default async function handleRequest(
       "'unsafe-inline'",
       'https://cdn.shopify.com',
       'https://fonts.googleapis.com',
+      'https://cdn.judge.me',
     ],
     fontSrc: [
       "'self'",
       'https://fonts.gstatic.com',
       'data:',
     ],
+    // Judge.me reviews widget — its script/API/images were being blocked by the
+    // CSP (default-src had no judge.me entry), so reviews never rendered.
+    // createContentSecurityPolicy merges these with Hydrogen's secure defaults
+    // (nonce, 'self', Shopify domains stay intact).
+    scriptSrc: [
+      "'self'",
+      'https://cdn.shopify.com',
+      'https://cdn.judge.me',
+      'https://cdnwidget.judge.me',
+    ],
+    connectSrc: [
+      "'self'",
+      'https://cdn.judge.me',
+      'https://cdnwidget.judge.me',
+      'https://api.judge.me',
+      'https://cache.judge.me',
+    ],
+    imgSrc: [
+      "'self'",
+      'data:',
+      'https://cdn.shopify.com',
+      'https://cdn.judge.me',
+      'https://judgeme.imgix.net',
+    ],
+    frameSrc: ["'self'", 'https://cdn.judge.me'],
   });
 
   const body = await renderToReadableStream(

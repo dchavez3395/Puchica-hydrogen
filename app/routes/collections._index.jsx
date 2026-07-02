@@ -15,7 +15,7 @@ export const meta = ({params}) => {
   return puchicaMeta({
     title: 'Collections – Puchica',
     description:
-      'Shop Puchica by collection — 19 categories across home, beauty, tech, pet, apparel, health, and more. Free shipping over $50, easy 30-day returns.',
+      'Shop Puchica by collection — 19 categories across home, beauty, tech, pet, apparel, health, and more. Free shipping across Canada, easy 30-day returns.',
     pathname: '/collections',
     langKey: params?.locale,
   });
