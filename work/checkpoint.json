@@ -1,6 +1,6 @@
 {
   "batch": "D",
-  "index": 399,
+  "index": 411,
   "doneIds": [
     "gid://shopify/Product/9269870264570",
     "gid://shopify/Product/9269870297338",
@@ -564,7 +564,19 @@
     "gid://shopify/Product/9270031450362",
     "gid://shopify/Product/9270031417594",
     "gid://shopify/Product/9270031384826",
-    "gid://shopify/Product/9270031352058"
+    "gid://shopify/Product/9270031352058",
+    "gid://shopify/Product/9270030926074",
+    "gid://shopify/Product/9270030893306",
+    "gid://shopify/Product/9270030860538",
+    "gid://shopify/Product/9270030795002",
+    "gid://shopify/Product/9270030762234",
+    "gid://shopify/Product/9270030565626",
+    "gid://shopify/Product/9270030532858",
+    "gid://shopify/Product/9270030467322",
+    "gid://shopify/Product/9270030434554",
+    "gid://shopify/Product/9270030401786",
+    "gid://shopify/Product/9270029975802",
+    "gid://shopify/Product/9270029943034"
   ],
   "failedIds": [
     "gid://shopify/Product/9270070575354",
