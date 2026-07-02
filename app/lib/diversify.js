@@ -91,3 +91,22 @@ function vendorKey(item) {
   const firstWord = t.split(/\s+/)[0];
   return firstWord || '__untitled__';
 }
+
+/**
+ * Reorder items so any item carrying `tag` (in its `tags` array) comes
+ * first, with vendor-diversification preserved independently within
+ * each group. Used to surface AI-showcase ("for-you" tagged) products
+ * at the front of a section's results while still spreading the
+ * dominant vendor within both the tagged and untagged groups.
+ *
+ * @template {{title: string, tags?: string[]}} T
+ * @param {T[]} items
+ * @param {string} tag
+ * @returns {T[]}
+ */
+export function prioritizeTag(items, tag) {
+  if (!Array.isArray(items) || items.length === 0) return items;
+  const tagged = items.filter((item) => item?.tags?.includes(tag));
+  const rest = items.filter((item) => !item?.tags?.includes(tag));
+  return [...diversifyByVendor(tagged), ...diversifyByVendor(rest)];
+}

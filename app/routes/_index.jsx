@@ -4,7 +4,7 @@ import {Suspense, useEffect, useRef, useState} from 'react';
 import {Image, Money} from '@shopify/hydrogen';
 import {error as logError} from '~/lib/logger';
 import {useT} from '~/lib/t';
-import {diversifyByVendor} from '~/lib/diversify';
+import {diversifyByVendor, prioritizeTag} from '~/lib/diversify';
 import {IconGift, IconHeart, IconSparkles, IconStar, IconHome, IconLeaf, IconLightbulb, IconPawPrint} from '~/components/Icons';
 import StarGlyph from '~/components/StarGlyph';
 import {puchicaMeta, organizationJsonLd, websiteJsonLd, JsonLdScript} from '~/lib/seo';
@@ -20,6 +20,7 @@ import {MagneticButton} from '~/components/MagneticButton';
 import {HeroParallax} from '~/components/HeroParallax';
 import {useAside} from '~/components/Aside';
 import {AddToCartButton} from '~/components/AddToCartButton';
+import {ForYouShowcase} from '~/components/ForYouShowcase';
 
 /* Shared hook for arrow-nav on horizontal scroll tracks */
 function useScrollNav(trackRef) {
@@ -80,7 +81,7 @@ function loadDeferredData({context}) {
   const norm = () => (res) => {
     const nodes =
       res?.collection?.products?.nodes ?? res?.products?.nodes ?? [];
-    return diversifyByVendor(nodes);
+    return prioritizeTag(nodes, 'for-you');
   };
 
   // Trending curated collection → hero deck + discover swiper
@@ -163,7 +164,13 @@ function loadDeferredData({context}) {
     .then(norm('worldcup'))
     .catch((e) => { logError('worldCup query failed', e); return []; });
 
-  return {trending, rackProducts, bestPicks, catWorld, newArrivals, freshFinds, showcaseCollections, discoverProducts, matchProducts, worldCup};
+  // For You — products tagged for-you (Higgsfield-image showcase)
+  const forYou = context.storefront
+    .query(FOR_YOU_QUERY, {variables: {country, language}})
+    .then((res) => diversifyByVendor(res?.products?.nodes ?? []))
+    .catch((e) => { logError('forYou query failed', e); return []; });
+
+  return {trending, rackProducts, bestPicks, catWorld, newArrivals, freshFinds, showcaseCollections, discoverProducts, matchProducts, worldCup, forYou};
 }
 
 export default function Index() {
@@ -190,6 +197,13 @@ export default function Index() {
         </Suspense>
         <Marquee isPlaying={isPlaying} />
       </div>
+
+      {/* For You — Higgsfield-image showcase */}
+      <Suspense fallback={null}>
+        <Await resolve={data.forYou}>
+          {(products) => <ForYouShowcase products={products ?? []} />}
+        </Await>
+      </Suspense>
 
       {/* Discover swiper — Tech & Gadgets collection */}
       <Suspense fallback={null}>
@@ -1305,10 +1319,26 @@ function CatalogStatement() {
 /* ─────────────────────────────────────────────────────────────────
    GRAPHQL QUERIES
 ───────────────────────────────────────────────────────────────── */
+/* ── For You — products tagged for-you (Higgsfield-image showcase) ── */
+const FOR_YOU_QUERY = `#graphql
+  fragment ForYouProduct on Product {
+    id title handle
+    tags
+    priceRange { minVariantPrice { amount currencyCode } }
+    featuredImage { id url altText width height }
+  }
+  query ForYou($country: CountryCode!, $language: LanguageCode!) @inContext(country: $country, language: $language) {
+    products(first: 12, sortKey: BEST_SELLING, query: "tag:'for-you'") {
+      nodes { ...ForYouProduct }
+    }
+  }
+`;
+
 /* ── Home & Kitchen → rack ("Worth every penny" section) ── */
 const RACK_QUERY = `#graphql
   fragment RackProduct on Product {
     id title handle
+    tags
     priceRange { minVariantPrice { amount currencyCode } }
     featuredImage { id url altText width height }
   }
@@ -1325,6 +1355,7 @@ const RACK_QUERY = `#graphql
 const TRENDING_QUERY = `#graphql
   fragment TrendingProduct on Product {
     id title handle
+    tags
     priceRange { minVariantPrice { amount currencyCode } }
     featuredImage { id url altText width height }
     variants(first: 1) {
@@ -1367,7 +1398,7 @@ const WORLDCUP_QUERY = `#graphql
     featuredImage { id url altText width height }
   }
   query WorldCup($country: CountryCode!, $language: LanguageCode!) @inContext(country: $country, language: $language) {
-    products(first: 12, query: "title:jersey OR title:maillot", sortKey: BEST_SELLING) {
+    products(first: 50, query: "title:jersey OR title:maillot", sortKey: BEST_SELLING) {
       nodes { ...WorldCupProduct }
     }
   }
@@ -1376,6 +1407,7 @@ const WORLDCUP_QUERY = `#graphql
 const NEW_ARRIVALS_QUERY = `#graphql
   fragment NewArrival on Product {
     id title handle
+    tags
     priceRange { minVariantPrice { amount currencyCode } }
     featuredImage { id url altText width height }
   }
@@ -1392,6 +1424,7 @@ const NEW_ARRIVALS_QUERY = `#graphql
 const FRESH_FINDS_QUERY = `#graphql
   fragment FreshFind on Product {
     id title handle
+    tags
     priceRange { minVariantPrice { amount currencyCode } }
     featuredImage { id url altText width height }
   }
@@ -1408,6 +1441,7 @@ const FRESH_FINDS_QUERY = `#graphql
 const DISCOVER_QUERY = `#graphql
   fragment DiscoverProduct on Product {
     id title handle
+    tags
     priceRange { minVariantPrice { amount currencyCode } }
     featuredImage { id url altText width height }
     variants(first: 1) {
@@ -1427,6 +1461,7 @@ const DISCOVER_QUERY = `#graphql
 const MATCH_QUERY = `#graphql
   fragment MatchProduct on Product {
     id title handle
+    tags
     priceRange { minVariantPrice { amount currencyCode } }
     featuredImage { id url altText width height }
     variants(first: 1) {
