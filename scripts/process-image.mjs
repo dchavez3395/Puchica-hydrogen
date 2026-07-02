@@ -112,9 +112,9 @@ async function main() {
       const nodes = mediaRes?.data?.product?.media?.nodes || [];
       const match = nodes.find(n => {
         if (!n?.image?.url) return false;
-        // Compare filenames
-        const a = new URL(n.image.url).pathname.split('/').pop();
-        const b = new URL(publicUrl).pathname.split('/').pop();
+        // Compare filenames without extension
+        const a = new URL(n.image.url).pathname.split('/').pop().split('.')[0];
+        const b = new URL(publicUrl).pathname.split('/').pop().split('.')[0];
         return a === b;
       });
       if (match?.id) {

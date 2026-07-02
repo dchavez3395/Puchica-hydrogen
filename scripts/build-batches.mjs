@@ -1,15 +1,17 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { join } from 'node:path';
-import { adminGraphQL } from './shopify-oauth.mjs';
 
 const query = `
 query($after: String) {
-  products(first: 250, after: $after) {
+  products(first: 250, sortKey: BEST_SELLING, after: $after) {
     edges {
       node {
         id
         title
-        status
+        productType
         featuredImage { url }
         images(first: 10) {
           edges {
@@ -28,21 +30,57 @@ query($after: String) {
 }
 `;
 
-async function main() {
+async function fetchStorefrontProducts() {
+  const store = process.env.PUBLIC_STORE_DOMAIN;
+  const token = process.env.PUBLIC_STOREFRONT_API_TOKEN;
+
+  if (!store || !token) {
+    throw new Error('Missing PUBLIC_STORE_DOMAIN or PUBLIC_STOREFRONT_API_TOKEN in env.');
+  }
+
   let after = null;
   let hasNext = true;
   let allProducts = [];
 
-  console.log('Fetching all active products from Shopify...');
+  console.log('Fetching products sorted by BEST_SELLING from Storefront API...');
   while (hasNext) {
-    const res = await adminGraphQL(query, { after });
-    const connection = res?.data?.products;
-    if (!connection) break;
-    allProducts.push(...(connection.edges || []).map(e => e.node));
+    const res = await fetch(`https://${store}/api/2026-04/graphql.json`, {
+      method: 'POST',
+      headers: {
+        'X-Shopify-Storefront-Access-Token': token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        query,
+        variables: { after }
+      })
+    });
+
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(`Storefront API request failed (HTTP ${res.status}): ${text}`);
+    }
+
+    const json = await res.json();
+    const connection = json?.data?.products;
+    if (!connection) {
+      console.warn('No connection returned, response:', JSON.stringify(json));
+      break;
+    }
+
+    const nodes = (connection.edges || []).map(e => e.node);
+    allProducts.push(...nodes);
+    console.log(`  Fetched ${allProducts.length} products...`);
+    
     hasNext = connection.pageInfo.hasNextPage;
     after = connection.pageInfo.endCursor;
   }
 
+  return allProducts;
+}
+
+async function main() {
+  const allProducts = await fetchStorefrontProducts();
   console.log(`Total active products fetched: ${allProducts.length}`);
 
   const batchA = [];
@@ -53,8 +91,6 @@ async function main() {
   const rxB = /\b(Canada|Portugal|Argentina|Brasil|Fifa|World Cup)\b/i;
 
   for (const node of allProducts) {
-    if (node.status !== 'ACTIVE') continue;
-
     // Check if it already has a Higgsfield image
     const images = node.images?.edges || [];
     const hasHiggsfield = images.some(img => img.node?.url && img.node.url.includes('/hf_'));
@@ -73,14 +109,17 @@ async function main() {
   // Ensure work/ exists
   mkdirSync('work', { recursive: true });
 
+  // Limit Batch C to top 100 best-sellers
+  const limitedBatchC = batchC.slice(0, 100);
+
   writeFileSync(join('work', 'batch_a_pending.json'), JSON.stringify(batchA, null, 2));
   writeFileSync(join('work', 'batch_b_pending.json'), JSON.stringify(batchB, null, 2));
-  writeFileSync(join('work', 'batch_c_pending.json'), JSON.stringify(batchC, null, 2));
+  writeFileSync(join('work', 'batch_c_pending.json'), JSON.stringify(limitedBatchC, null, 2));
 
-  console.log(`Categorized counts (remaining to generate):`);
+  console.log(`\nCategorized counts (remaining to generate):`);
   console.log(`- Batch A (Jerseys): ${batchA.length}`);
   console.log(`- Batch B (Rest of World Cup): ${batchB.length}`);
-  console.log(`- Batch C (Remaining Active): ${batchC.length}`);
+  console.log(`- Batch C (Top 100 Best-Selling Remaining): ${limitedBatchC.length}`);
 }
 
 main().catch(console.error);
