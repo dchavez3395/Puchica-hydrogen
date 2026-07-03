@@ -286,3 +286,84 @@ export const FOOTER_QUERY = `#graphql
   }
   ${MENU_FRAGMENT}
 `;
+
+/**
+ * Homepage product + category queries. Used by `app/routes/_index.jsx`
+ * after the 17→8 section cut. Fragments are kept here (instead of
+ * inline in the route) so the schema is discoverable in one place.
+ *
+ * The product fragment mirrors `RECOMMENDED_ITEM_FRAGMENT` from the
+ * PDP so the same `<ProductItem>` card renders identically on
+ * home / PDP-related / collection pages.
+ */
+const HOME_PRODUCT_FRAGMENT = `#graphql
+  fragment HomeProduct on Product {
+    id handle title productType tags
+    featuredImage { id url altText width height }
+    images(first: 2) { nodes { id url altText width height } }
+    priceRange { minVariantPrice { amount currencyCode } }
+    compareAtPriceRange { minVariantPrice { amount currencyCode } }
+    options(first: 1) {
+      name
+      values
+      optionValues { name swatch { color } }
+    }
+    variants(first: 1) { nodes { id availableForSale } }
+  }
+`;
+
+const HOME_CATEGORY_TILE_FRAGMENT = `#graphql
+  fragment HomeCategoryTile on Collection {
+    id handle title
+    image { id url altText width height }
+    # Storefront API does not expose a productsCount field on
+    # Collection, so we omit it. The section hides the count
+    # line when missing rather than guessing.
+  }
+`;
+
+export const HOME_BEST_SELLERS_QUERY = `#graphql
+  ${HOME_PRODUCT_FRAGMENT}
+  query HomeBestSellers(
+    $country: CountryCode!
+    $language: LanguageCode!
+  ) @inContext(country: $country, language: $language) {
+    bestSellers: collection(handle: "best-sellers") {
+      products(first: 4, sortKey: BEST_SELLING) {
+        nodes { ...HomeProduct }
+      }
+    }
+  }
+`;
+
+export const HOME_NEW_ARRIVALS_QUERY = `#graphql
+  ${HOME_PRODUCT_FRAGMENT}
+  query HomeNewArrivals(
+    $country: CountryCode!
+    $language: LanguageCode!
+  ) @inContext(country: $country, language: $language) {
+    newArrivals: collection(handle: "outdoor-garden") {
+      products(first: 8, sortKey: CREATED, reverse: true) {
+        nodes { ...HomeProduct }
+      }
+    }
+  }
+`;
+
+export const HOME_CATEGORIES_QUERY = `#graphql
+  ${HOME_CATEGORY_TILE_FRAGMENT}
+  query HomeCategories(
+    $country: CountryCode!
+    $language: LanguageCode!
+  ) @inContext(country: $country, language: $language) {
+    # 8 hard-coded top-level category handles. The Storefront API
+    # does not sort Collection by productsCount, so we list them
+    # by hand to keep the visual order stable.
+    categories: collections(
+      first: 8
+      query: "handle:phone-case OR handle:home-kitchen OR handle:electronics-accessories OR handle:apparel-accessories OR handle:health-wellness OR handle:sports-outdoors OR handle:pet-supplies OR handle:outdoor-garden"
+    ) {
+      nodes { ...HomeCategoryTile }
+    }
+  }
+`;
