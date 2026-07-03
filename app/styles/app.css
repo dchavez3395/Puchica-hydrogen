@@ -2645,7 +2645,6 @@ button:focus-visible,
   overflow: hidden;
   border-bottom: 2px solid var(--pk-lime, #D0FF50);
 }
-@media (prefers-reduced-motion: reduce) {
 
 /* ---------- Category cards (bold) ---------- */
 .pk-cat-card--bold {
@@ -2817,17 +2816,6 @@ button:focus-visible,
 .pk-arrivals__card-price { font-size: 13px; font-weight: 800; color: var(--pk-ember); margin: 0; }
 
 /* ============================================================
-   SHOP BY MOOD â€” editorial lifestyle 3-col
-   ============================================================ */
-.pk-mood {
-  width: 100%;
-  background: var(--pk-cream);
-  padding: 88px 0;
-}
-@media (max-width: 768px) {
-@media (min-width: 769px) and (max-width: 1024px) {
-
-/* ============================================================
    CATALOG STATEMENT â€” typographic full-width CTA
    ============================================================ */
 .pk-catalog-cta {
@@ -2917,7 +2905,7 @@ button:focus-visible,
   .pk-hero__cta-row .pk-btn { flex: 1 1 auto; justify-content: center; }
   /* Reduce side padding so the form is as wide as possible */
   .pk-news { padding: 52px 16px; }
-  /* Column layout */
+}
 
 /*
 * ==================================================
@@ -6004,9 +5992,6 @@ button:focus-visible,
 .pk-float-card__title { font-size: 12px; font-weight: 600; margin: 0 0 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .pk-float-card__price { font-size: 12px; color: var(--pk-ember); font-weight: 700; }
 
-@media (max-width: 900px) {
-  .pk-mega-hero { min-height: 0; }
-
 /* ============================================================
    SWIPE SHOP â€” Tinder-style product browser
    ============================================================ */
@@ -6150,11 +6135,6 @@ button:focus-visible,
   box-shadow: var(--pk-sh-md);
 }
 .pk-cat-world--light .pk-cat-world__card-price { color: var(--pk-ember); }
-
-@media (max-width: 860px) {
-  .pk-cat-world { grid-template-columns: 1fr; min-height: auto; }
-  .pk-cat-world--flip .pk-cat-world__copy { order: 0; }
-  .pk-cat-world--flip .pk-cat-world__products { order: 0; }
 
 /* ============================================================
    FEATURED BANNER — dark best-sellers showcase
@@ -6347,11 +6327,6 @@ button:focus-visible,
 }
 .pk-deck__price { font-size: 12px; font-weight: 700; color: var(--pk-ember); margin: 0; }
 
-/* â”€â”€ Hero2 responsive â”€â”€ */
-@media (max-width: 960px) {
-}
-@media (max-width: 560px) {
-
 /* ============================================================
    DISCOVER SWIPER â€” center-focused product carousel
    ============================================================ */
@@ -6369,9 +6344,6 @@ button:focus-visible,
 
 
 
-/* Auto-play control â€” sits below the dots, lime pill, focus-visible ring. */
-@media (max-width: 640px) {
-
 /* ============================================================
    PRODUCT RACK â€” horizontal scroll showcase
    ============================================================ */
@@ -6384,15 +6356,6 @@ button:focus-visible,
 
 
 
-
-/* Light-bg variant used in arrivals (paper bg) */
-
-
-
-/* Scroll track â€” extends edge to edge, first card aligns to content column */
-
-@media (max-width: 560px) {
-  .pk-rack { padding: 56px 0 52px; }
 
 /* ============================================================
    CATEGORY BENTO â€” asymmetric image-fill grid
@@ -6606,18 +6569,6 @@ button:focus-visible,
     grid-row: auto !important;
   }
 }
-
-/* ============================================================
-   GIFT FINDER â€” price bracket editorial cards
-   ============================================================ */
-.pk-gift {
-  width: 100%;
-  background: var(--pk-ink);
-  padding: 88px 0;
-}
-@media (max-width: 860px) {
-@media (max-width: 480px) {
-  .pk-gift { padding: 64px 0; }
 
 /* ============================================================
    SOCIAL PROOF â€” customer reviews
@@ -7166,13 +7117,11 @@ button:focus-visible,
   transform: translateY(-4px);
   transition: opacity 0.22s ease, transform 0.22s ease;
 }
-.pk-pill-nav[data-shown="true"] {
+.pk-pill-nav[data-shown=”true”] {
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;
 }
-@media (max-width: 640px) {
-  .pk-pill-nav { top: 56px; }
 
 /* ============================================================
    MICRO-INTERACTIONS â€” button press, card focus, image zoom
@@ -7865,10 +7814,6 @@ button:focus-visible,
   to { transform: scale(1.15); }
 }
 
-@media (max-width: 520px) {
-  .pk-matchmaker { padding: 64px 0; }
-
-
 @keyframes pk-embla-fade-up { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 .pk-card--inverted {
   background: linear-gradient(180deg, rgba(244,240,230,.04), rgba(244,240,230,.08));
@@ -7964,16 +7909,18 @@ button:focus-visible,
 .pk-reveal--scale { transform: scale(.94); }
 .pk-reveal--scale.is-visible { transform: scale(1); }
 @media (prefers-reduced-motion: reduce) {
-
-/* Magnetic CTA - mouse-follow pull effect */
+  .pk-reveal, .pk-reveal--left, .pk-reveal--right, .pk-reveal--scale {
+    opacity: 1; transform: none; transition: none;
+  }
+}
+/* Magnetic CTA — mouse-follow pull effect used by PDP buy column.
+   The pk-magnetic__inner span translates toward the cursor on
+   hover; the outer .pk-magnetic stays in flow so layout doesn't
+   shift. Disable the effect entirely under reduced motion. */
 .pk-magnetic { will-change: transform; }
 .pk-magnetic:hover .pk-magnetic__inner { transition: transform .12s cubic-bezier(.2,.7,.2,1); }
 @media (prefers-reduced-motion: reduce) {
-
-/* Hero parallax - subtle translateY on scroll, GPU-only */
-.pk-parallax { will-change: transform; }
-@media (prefers-reduced-motion: reduce) {
-  .pk-parallax { will-change: auto; transform: none !important; }
+  .pk-magnetic, .pk-magnetic__inner { will-change: auto; transform: none !important; }
 }
 
 /* 3D product viewer */
