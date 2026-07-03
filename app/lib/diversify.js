@@ -110,3 +110,24 @@ export function prioritizeTag(items, tag) {
   const rest = items.filter((item) => !item?.tags?.includes(tag));
   return [...diversifyByVendor(tagged), ...diversifyByVendor(rest)];
 }
+
+/**
+ * Filter and prioritize general catalog products (non-phone cases)
+ * ahead of phone cases, while keeping vendor diversification intact
+ * within both subsets.
+ *
+ * @template {{title: string}} T
+ * @param {T[]} items
+ * @returns {T[]}
+ */
+export function prioritizeGeneralProducts(items) {
+  if (!Array.isArray(items) || items.length === 0) return items;
+  const caseRegex = /\b(case|sleeve|cover|buds|guard)\b/i;
+  const general = items.filter((item) => !caseRegex.test(item?.title || ''));
+  const cases = items.filter((item) => caseRegex.test(item?.title || ''));
+
+  const divGen = diversifyByVendor(general);
+  const divCases = diversifyByVendor(cases);
+
+  return [...divGen.slice(0, 2), ...divCases, ...divGen.slice(2)];
+}

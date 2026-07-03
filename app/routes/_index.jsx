@@ -4,7 +4,7 @@ import {Suspense, useEffect, useRef, useState} from 'react';
 import {Image, Money} from '@shopify/hydrogen';
 import {error as logError} from '~/lib/logger';
 import {useT} from '~/lib/t';
-import {diversifyByVendor, prioritizeTag} from '~/lib/diversify';
+import {diversifyByVendor, prioritizeTag, prioritizeGeneralProducts} from '~/lib/diversify';
 import {IconGift, IconHeart, IconSparkles, IconStar, IconHome, IconLeaf, IconLightbulb, IconPawPrint} from '~/components/Icons';
 import StarGlyph from '~/components/StarGlyph';
 import {puchicaMeta, organizationJsonLd, websiteJsonLd, JsonLdScript} from '~/lib/seo';
@@ -167,7 +167,7 @@ function loadDeferredData({context}) {
   // For You — products tagged for-you (Higgsfield-image showcase)
   const forYou = context.storefront
     .query(FOR_YOU_QUERY, {variables: {country, language}})
-    .then((res) => diversifyByVendor(res?.products?.nodes ?? []))
+    .then((res) => prioritizeGeneralProducts(res?.products?.nodes ?? []))
     .catch((e) => { logError('forYou query failed', e); return []; });
 
   return {trending, rackProducts, bestPicks, catWorld, newArrivals, freshFinds, showcaseCollections, discoverProducts, matchProducts, worldCup, forYou};
@@ -1328,7 +1328,7 @@ const FOR_YOU_QUERY = `#graphql
     featuredImage { id url altText width height }
   }
   query ForYou($country: CountryCode!, $language: LanguageCode!) @inContext(country: $country, language: $language) {
-    products(first: 50, sortKey: BEST_SELLING, query: "tag:'for-you'") {
+    products(first: 250, sortKey: BEST_SELLING, query: "tag:'for-you'") {
       nodes { ...ForYouProduct }
     }
   }
