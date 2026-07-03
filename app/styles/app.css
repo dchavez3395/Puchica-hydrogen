@@ -8046,15 +8046,17 @@ button:focus-visible,
   position: relative;
 }
 
-/* Horizontal thumbnail strip — Embla transport layer.
- * The .pk-thumbs--strip is the Embla root, .pk-thumbs__row is
- * the flex container Embla translates, and .pk-thumbs__cell +
- * .pk-thumbs__item are the visible thumb cells. The old
- * .pk-filmstrip/.pk-filmstrip__slide rules are gone. */
+/* Horizontal thumbnail strip — native scroll-snap row.
+ * The .pk-thumbs--strip is the scrollable root, .pk-thumbs__row
+ * is the flex container, and .pk-thumbs__cell + .pk-thumbs__item
+ * are the visible thumb cells. The CSS scroll-snap on the row
+ * gives the per-cell snap the previous Embla integration
+ * provided. */
 .pk-thumbs--strip {
   display: block;
   margin: 4px 0 0;
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
 }
 .pk-thumbs--strip .pk-thumbs__row {

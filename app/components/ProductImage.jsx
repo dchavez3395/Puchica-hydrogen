@@ -1,6 +1,5 @@
 import {useEffect, useRef, useState, useCallback} from 'react';
 import {Image} from '@shopify/hydrogen';
-import useEmblaCarousel from 'embla-carousel-react';
 import {IconChevronLeft, IconChevronRight, IconZoomIn} from '~/components/Icons';
 import {HeroParallax} from './HeroParallax';
 import {useT} from '~/lib/t';
@@ -52,16 +51,19 @@ export function ProductImage({
   const [zoom, setZoom] = useState(null); // {x, y} pointer pos, or null
   const heroRef = useRef(null);
 
-  // Sync the Embla filmstrip (mobile) with the active index.
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    containScroll: 'trimSnaps',
-    dragFree: false,
-    align: 'start',
-  });
+  // Sync the active thumbnail into view when it changes (native
+  // scroll-snap strip — replaces the Embla carousel that used to
+  // be wired in here). The CSS snap-align on `.pk-thumbs__cell`
+  // handles the per-cell snap.
+  const thumbsRef = useRef(null);
   useEffect(() => {
-    if (!emblaApi) return;
-    if (index > 0) emblaApi.scrollTo(index);
-  }, [emblaApi, index]);
+    const strip = thumbsRef.current;
+    if (!strip || index <= 0) return;
+    const cell = strip.querySelector(`[data-thumb-index="${index}"]`);
+    if (cell?.scrollIntoView) {
+      cell.scrollIntoView({inline: 'start', block: 'nearest', behavior: 'smooth'});
+    }
+  }, [index]);
 
   const imageKey = list.map((i) => i.id || i.url).join('|');
 
@@ -179,16 +181,17 @@ export function ProductImage({
           </div>
         </HeroParallax>
 
-        {/* Thumbnail strip — Embla horizontal carousel below the hero.
-            On desktop the row is a flex container with overflow-x:auto
-            for drag-scroll; on mobile it gets snap-drag behaviour from
-            Embla. The previous left-rail vertical thumbs rail is gone —
-            the row below the hero handles all viewports. */}
+        {/* Thumbnail strip — native horizontal scroll-snap row below
+            the hero. On desktop the row is a flex container with
+            overflow-x:auto for drag-scroll; on mobile it gets
+            snap-drag behaviour from CSS scroll-snap on each cell.
+            The previous Embla carousel wiring is gone — the row
+            handles all viewports. */}
         {list.length > 1 && (
-          <div className="pk-thumbs pk-thumbs--strip" ref={emblaRef}>
+          <div className="pk-thumbs pk-thumbs--strip" ref={thumbsRef}>
             <ul className="pk-thumbs__row" aria-label={t('pdp_thumbs_aria')}>
               {list.map((img, i) => (
-                <li key={img.id || img.url || i} className="pk-thumbs__cell">
+                <li key={img.id || img.url || i} className="pk-thumbs__cell" data-thumb-index={i}>
                   <button
                     type="button"
                     className={
