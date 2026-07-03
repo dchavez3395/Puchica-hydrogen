@@ -307,7 +307,6 @@ export default function Collection() {
                   key={product.id}
                   product={product}
                   loading={index < 8 ? 'eager' : undefined}
-                  index={index}
                 />
               )}
             </PaginatedResourceSection>
@@ -449,9 +448,40 @@ const PRODUCT_ITEM_FRAGMENT = `#graphql
       width
       height
     }
+    # Second image powers hover-swap on the card.
+    images(first: 2) {
+      nodes {
+        id
+        altText
+        url
+        width
+        height
+      }
+    }
     priceRange {
       minVariantPrice { ...MoneyProductItem }
       maxVariantPrice { ...MoneyProductItem }
+    }
+    # compareAtPriceRange drives the new ember "Sale" badge.
+    compareAtPriceRange {
+      minVariantPrice { ...MoneyProductItem }
+    }
+    # First option (typically "Color") powers the swatch row.
+    options(first: 1) {
+      name
+      values
+      optionValues {
+        name
+        swatch {
+          color
+          image {
+            previewImage {
+              url
+              altText
+            }
+          }
+        }
+      }
     }
     variants(first: 1) {
       nodes {

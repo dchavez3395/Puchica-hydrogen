@@ -1819,7 +1819,7 @@ button:focus-visible,
   display: flex; flex-direction: column;
 }
 .pk-card:hover {
-  outline: 2px solid #160F3A;
+  outline: 2px solid var(--pk-ink);
   transform: translateY(-3px);
 }
 .pk-card__media {
@@ -2294,8 +2294,8 @@ button:focus-visible,
 .pk-prod-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
 
 /* whole-card link variant (collection product cards) */
-.pk-card--link { text-decoration: none; color: var(--pk-indigo-900); }
-.pk-card--link .pk-card__title { color: var(--pk-indigo-900); }
+.pk-card--link { text-decoration: none; color: var(--pk-ink); }
+.pk-card--link .pk-card__title { color: var(--pk-ink); }
 
 /* collections list */
 .pk-collist-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
@@ -2741,10 +2741,11 @@ button:focus-visible,
   line-height: 1.4;
   pointer-events: none;
 }
-.pk-card__badge--new-arrival { background: #A83800; color: #fff; }
-.pk-card__badge--top-pick    { background: #6D4CFF; color: #fff; }
-.pk-card__badge--trending    { background: #160F3A; color: #fff; }
-.pk-card__badge--staff-pick  { background: var(--pk-paper); color: #160F3A; border: 1px solid rgba(22,15,58,0.2); }
+.pk-card__badge--new-arrival { background: var(--pk-ember); color: #fff; }
+.pk-card__badge--top-pick    { background: var(--pk-ink); color: #fff; }
+.pk-card__badge--trending    { background: var(--pk-ink); color: #fff; }
+.pk-card__badge--staff-pick  { background: var(--pk-paper); color: var(--pk-ink); border: 1px solid var(--pk-line); }
+.pk-card__badge--sale        { background: var(--pk-ember); color: #fff; }
 
 /* ---------- Trending rail ---------- */
 .pk-rail {
@@ -3434,28 +3435,68 @@ button:focus-visible,
 
 /* Product card polish (additions on top of existing pk-card) */
 .pk-card__media { position: relative; }
-/* Badge modifiers --new and --sale kept for backward compat (collection page may use them) */
-.pk-card__badge--new  { background: var(--pk-grove); color: #fff; border-radius: 2px; }
-.pk-card__badge--sale { background: var(--pk-ember); color: #fff; border-radius: 2px; }
-/* Quick-add button removed â€” replaced by the always-visible Add to Cart button. */
-@media (max-width: 900px) {
-  /* On touch devices, surface the quick-add always. */
-  .pk-card__quick { opacity: 1; transform: none; pointer-events: auto; }
-}
-.pk-card__heart {
+
+/* Second-image hover swap. The .pk-card--has-hover modifier is added
+ * when `images.nodes[1]` exists and is distinct from the primary.
+ * Both <Image>s sit in the same 1:1 frame; the hover one is hidden
+ * until the card is hovered. */
+.pk-card__image {
   position: absolute;
-  top: 10px; right: 10px;
-  z-index: 2;
-  width: 36px; height: 36px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.92);
-  border: 1px solid var(--pk-border);
-  display: grid; place-items: center;
-  cursor: pointer;
-  color: var(--pk-muted);
-  transition: color 0.12s ease, background 0.12s ease;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: opacity var(--pk-dur-base) var(--pk-ease);
 }
-.pk-card__heart:hover { color: var(--pk-violet-700); background: #fff; }
+.pk-card__image--primary { opacity: 1; }
+.pk-card__image--hover   { opacity: 0; }
+.pk-card--has-hover:hover .pk-card__image--primary { opacity: 0; }
+.pk-card--has-hover:hover .pk-card__image--hover   { opacity: 1; }
+/* On touch devices, surface the swap-on-tap. There is no native :hover,
+ * so we just keep the primary visible. The rule above is harmless. */
+@media (hover: none) {
+  .pk-card--has-hover .pk-card__image--hover { display: none; }
+}
+
+/* Color swatch row. Each <li> is a 16px circle. When `swatch.color`
+ * is set by the fragment, the inline style paints it. Without that,
+ * the swatch falls back to a cream fill so the row is still a
+ * deterministic height and doesn't shift the price/cart below. */
+.pk-card__swatches {
+  list-style: none;
+  margin: 4px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.pk-card__swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--pk-cream);
+  border: 1px solid var(--pk-line);
+  box-sizing: border-box;
+  flex: 0 0 auto;
+}
+.pk-card__swatch:hover { transform: scale(1.1); }
+@media (prefers-reduced-motion: reduce) {
+  .pk-card__swatch:hover { transform: none; }
+}
+
+/* Sale price cluster: current price + struck-through compareAt. */
+.pk-card__price-cluster {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+}
+.pk-card__price-compare {
+  color: var(--pk-muted);
+  font-weight: 500;
+  font-size: 13px;
+  text-decoration: line-through;
+}
 
 /* Collection list (collections._index) polish â€” handled in the
    .pk-collist-card section above. */

@@ -3,8 +3,6 @@ import {Image, Money} from '@shopify/hydrogen';
 import {useVariantUrl} from '~/lib/variants';
 import {AddToCartButton} from '~/components/AddToCartButton';
 import {useAside} from '~/components/Aside';
-import {ScrollReveal} from '~/components/ScrollReveal';
-import {TiltCard} from '~/components/TiltCard';
 import {useT} from '~/lib/t';
 
 const BADGE_TAG_MAP = {
@@ -27,94 +25,171 @@ function resolveBadge(tags, t) {
 }
 
 /**
+ * Detect a sale from compareAtPriceRange. The fragment fetches
+ * compareAtPriceRange.minVariantPrice; if it's strictly greater
+ * than priceRange.minVariantPrice the product is on sale.
+ */
+function resolveSaleBadge(price, compareAt, t) {
+  if (!price || !compareAt) return null;
+  const p = Number(price.amount);
+  const c = Number(compareAt.amount);
+  if (!p || !c || c <= p) return null;
+  return {label: t('badge_sale'), cls: 'pk-card__badge--sale'};
+}
+
+/**
+ * Returns up to 6 color swatch dots for the first option when
+ * it looks like a color option. Returns [] otherwise so callers
+ * can `null`-check and skip rendering the row entirely.
+ */
+function resolveSwatches(options) {
+  if (!options?.length) return [];
+  const first = options[0];
+  if (!first?.name || !/color|colour/i.test(first.name)) return [];
+  const values = first.optionValues?.length
+    ? first.optionValues
+    : (first.values || []).map((name) => ({name, swatch: null}));
+  return values.slice(0, 6);
+}
+
+/**
  * @param {{
  *   product:
  *     | CollectionItemFragment
  *     | ProductItemFragment
  *     | RecommendedProductFragment;
  *   loading?: 'eager' | 'lazy';
- *   index?: number;
  *   dark?: boolean;
  * }}
  */
-export function ProductItem({product, loading, index, dark = false}) {
+export function ProductItem({product, loading, dark = false}) {
   const variantUrl = useVariantUrl(product.handle);
-  const image = product.featuredImage;
   const t = useT();
-  // For products with options (size/color/etc.) we don't have a single
-  // variant ID we can add to cart without going to the PDP — the
-  // CollectionItemFragment only asks for `variants(first: 1)` as a probe.
-  // If the product has any variant, we use its id; otherwise we send the
-  // user to the PDP to pick options.
-  const variant = product.variants?.nodes?.[0];
-  // Open the cart drawer when adding from a collection card so the
-  // shopper gets immediate visual feedback. (The PDP already does this
-  // in ProductForm — this closes the gap for collection/grid adds.)
   const {open} = useAside();
 
-  const delay = typeof index === 'number' ? Math.min(index * 40, 320) : 0;
-  const badge = resolveBadge(product.tags, t);
-  const cardClass = `pk-card pk-card--link${dark ? ' pk-card--dark' : ''}`;
+  const variant = product.variants?.nodes?.[0];
+  const featured = product.featuredImage;
+  const hoverImage = product.images?.nodes?.[1] ?? null;
+  const hasHover = !!hoverImage && hoverImage.id !== featured?.id;
+  const sale = resolveSaleBadge(
+    product.priceRange?.minVariantPrice,
+    product.compareAtPriceRange?.minVariantPrice,
+    t,
+  );
+  const tagBadge = resolveBadge(product.tags, t);
+  const badge = sale ?? tagBadge; // sale takes priority over editorial badges
+  const swatches = resolveSwatches(product.options);
+
+  const cardClass = `pk-card pk-card--link${dark ? ' pk-card--dark' : ''}${
+    hasHover ? ' pk-card--has-hover' : ''
+  }`;
 
   return (
-    <ScrollReveal delay={delay} variant="up">
-      <TiltCard className={cardClass} maxTilt={6}>
-        {badge && (
-          <span className={`pk-card__badge ${badge.cls}`} aria-label={badge.label}>
-            {badge.label}
-          </span>
-        )}
-        <Link
-          className="pk-card__media"
-          to={variantUrl}
-          prefetch="intent"
-          aria-label={product.title}
-        >
-          {image ? (
+    <div className={cardClass}>
+      {badge && (
+        <span className={`pk-card__badge ${badge.cls}`} aria-label={badge.label}>
+          {badge.label}
+        </span>
+      )}
+      <Link
+        className="pk-card__media"
+        to={variantUrl}
+        prefetch="intent"
+        aria-label={product.title}
+      >
+        {featured ? (
+          <>
             <Image
-              alt={image.altText || product.title}
+              className="pk-card__image pk-card__image--primary"
+              alt={featured.altText || product.title}
               aspectRatio="1/1"
-              data={image}
+              data={featured}
               loading={loading}
-              sizes="(min-width: 45em) 25vw, 50vw"
+              sizes="(min-width: 1280px) 25vw, (min-width: 700px) 33vw, 50vw"
             />
-          ) : (
-            <div className="pk-card__placeholder" aria-hidden="true">
-              <span className="pk-card__placeholder-text">Puchica</span>
-            </div>
-          )}
-        </Link>
-        <div className="pk-card__body">
-          <Link to={variantUrl} className="pk-card__title" prefetch="intent">
-            {product.title}
-          </Link>
-          {product.productType ? (
-            <span className="pk-card__vendor">{product.productType}</span>
-          ) : null}
-          <div className="pk-card__price">
-            <Money data={product.priceRange.minVariantPrice} />
+            {hasHover ? (
+              <Image
+                className="pk-card__image pk-card__image--hover"
+                alt={hoverImage.altText || product.title}
+                aspectRatio="1/1"
+                data={hoverImage}
+                loading="lazy"
+                sizes="(min-width: 1280px) 25vw, (min-width: 700px) 33vw, 50vw"
+                aria-hidden="true"
+              />
+            ) : null}
+          </>
+        ) : (
+          <div className="pk-card__placeholder" aria-hidden="true">
+            <span className="pk-card__placeholder-text">Puchica</span>
           </div>
-          {variant ? (
-            <div className="pk-card__cart">
-              <AddToCartButton
-                lines={[{merchandiseId: variant.id, quantity: 1}]}
-                disabled={!variant.availableForSale}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  open('cart');
-                }}
-              >
-                {variant.availableForSale ? t('product_add_to_cart') : t('product_sold_out')}
-              </AddToCartButton>
-            </div>
+        )}
+      </Link>
+      <div className="pk-card__body">
+        <Link to={variantUrl} className="pk-card__title" prefetch="intent">
+          {product.title}
+        </Link>
+        {product.productType ? (
+          <span className="pk-card__vendor">{product.productType}</span>
+        ) : null}
+        {swatches.length ? (
+          <ul
+            className="pk-card__swatches"
+            aria-label={t('card_swatches_aria')}
+          >
+            {swatches.map((sw, i) => {
+              const color = sw.swatch?.color;
+              const style = color
+                ? {backgroundColor: color}
+                : undefined;
+              return (
+                <li
+                  key={sw.name ?? i}
+                  className="pk-card__swatch"
+                  style={style}
+                  title={sw.name}
+                  aria-label={sw.name}
+                />
+              );
+            })}
+          </ul>
+        ) : null}
+        <div className="pk-card__price">
+          {sale ? (
+            <span className="pk-card__price-cluster">
+              <Money data={product.priceRange.minVariantPrice} />
+              <s className="pk-card__price-compare">
+                <Money
+                  data={product.compareAtPriceRange.minVariantPrice}
+                />
+              </s>
+            </span>
           ) : (
-            <Link to={variantUrl} className="pk-card__viewbtn" prefetch="intent">
-              {t('card_view_details')}
-            </Link>
+            <Money data={product.priceRange.minVariantPrice} />
           )}
         </div>
-      </TiltCard>
-    </ScrollReveal>
+        {variant ? (
+          <div className="pk-card__cart">
+            <AddToCartButton
+              lines={[{merchandiseId: variant.id, quantity: 1}]}
+              disabled={!variant.availableForSale}
+              onClick={(e) => {
+                e.stopPropagation();
+                open('cart');
+              }}
+            >
+              {variant.availableForSale
+                ? t('product_add_to_cart')
+                : t('product_sold_out')}
+            </AddToCartButton>
+          </div>
+        ) : (
+          <Link to={variantUrl} className="pk-card__viewbtn" prefetch="intent">
+            {t('card_view_details')}
+          </Link>
+        )}
+      </div>
+    </div>
   );
 }
 

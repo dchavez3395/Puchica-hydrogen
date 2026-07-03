@@ -427,6 +427,8 @@ export const DICTIONARIES = {
 
     // ── Product card ──────────────────────────────────────────────
     card_view_details: 'View details',
+    card_swatches_aria: 'Color options',
+    card_quick_add_aria: 'Quick add',
 
     // ── Header / nav chrome ───────────────────────────────────────
     nav_shop_all: 'Shop All',
@@ -625,6 +627,9 @@ export const DICTIONARIES = {
     badge_top_pick: 'Top Pick',
     badge_trending: 'Trending',
     badge_staff_pick: 'Staff Pick',
+    badge_sale: 'Sale',
+    badge_new: 'New',
+    badge_best_seller: 'Best seller',
 
     // ── Search route + predictive ────────────────────────────────
     search_results_h: 'Results for {term}',
@@ -1184,6 +1189,8 @@ export const DICTIONARIES = {
     search_pages_aria: 'Résultats de pages',
     search_products_aria: 'Résultats de produits',
     card_view_details: 'Voir les détails',
+    card_swatches_aria: 'Options de couleur',
+    card_quick_add_aria: 'Ajout rapide',
 
     // ── Chrome en-tête / navigation ──────────────────────────────
     nav_shop_all: 'Tout magasiner',
@@ -1412,6 +1419,9 @@ export const DICTIONARIES = {
     badge_top_pick: 'Coup de cœur',
     badge_trending: 'Tendance',
     badge_staff_pick: 'Choix de l’équipe',
+    badge_sale: 'Solde',
+    badge_new: 'Nouveau',
+    badge_best_seller: 'Meilleure vente',
 
     // ── Route de recherche + prédictive ─────────────────────────
     search_results_h: 'Résultats pour {term}',
@@ -1980,6 +1990,8 @@ export const DICTIONARIES = {
     search_pages_aria: 'Resultados de páginas',
     search_products_aria: 'Resultados de productos',
     card_view_details: 'Ver detalles',
+    card_swatches_aria: 'Opciones de color',
+    card_quick_add_aria: 'Añadir rápido',
 
     // ── Chrome de encabezado / navegación ───────────────────────
     nav_shop_all: 'Comprar todo',
@@ -2208,6 +2220,9 @@ export const DICTIONARIES = {
     badge_top_pick: 'Top Pick',
     badge_trending: 'Tendencia',
     badge_staff_pick: 'Selección del equipo',
+    badge_sale: 'Oferta',
+    badge_new: 'Nuevo',
+    badge_best_seller: 'Más vendido',
 
     // ── Ruta de búsqueda + predictiva ──────────────────────────
     search_results_h: 'Resultados para {term}',
@@ -2776,6 +2791,8 @@ export const DICTIONARIES = {
     search_pages_aria: 'Resultados de páginas',
     search_products_aria: 'Resultados de produtos',
     card_view_details: 'Ver detalhes',
+    card_swatches_aria: 'Opções de cor',
+    card_quick_add_aria: 'Adição rápida',
 
     // ── Chrome do cabeçalho / navegação ─────────────────────────
     nav_shop_all: 'Comprar tudo',
@@ -3004,6 +3021,9 @@ export const DICTIONARIES = {
     badge_top_pick: 'Top Pick',
     badge_trending: 'Em alta',
     badge_staff_pick: 'Escolha da equipe',
+    badge_sale: 'Promoção',
+    badge_new: 'Novo',
+    badge_best_seller: 'Mais vendido',
 
     // ── Rota de busca + preditiva ───────────────────────────────
     search_results_h: 'Resultados para {term}',

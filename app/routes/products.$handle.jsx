@@ -482,7 +482,7 @@ function Recommendations({data, t}) {
             variant="up"
             className="pk-reco__cell"
           >
-            <ProductItem product={p} index={i} />
+            <ProductItem product={p} />
           </ScrollReveal>
         ))}
       </div>
@@ -681,9 +681,19 @@ const RECOMMENDED_ITEM_FRAGMENT = `#graphql
   fragment RecommendedProduct on Product {
     id handle title productType tags
     featuredImage { id url altText width height }
+    images(first: 2) { nodes { id url altText width height } }
     priceRange {
       minVariantPrice { amount currencyCode }
       maxVariantPrice { amount currencyCode }
+    }
+    compareAtPriceRange { minVariantPrice { amount currencyCode } }
+    options(first: 1) {
+      name
+      values
+      optionValues {
+        name
+        swatch { color }
+      }
     }
     variants(first: 1) { nodes { id availableForSale } }
   }
