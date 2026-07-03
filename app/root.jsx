@@ -18,7 +18,8 @@ import {FOOTER_QUERY, HEADER_QUERY, MEGA_MENU_QUERY} from '~/lib/fragments';
 import resetStyles from '~/styles/reset.css?url';
 import appStyles from '~/styles/app.css?url';
 import {PageLayout} from './components/PageLayout';
-import {SmoothScroll} from './components/SmoothScroll';
+// SmoothScroll removed in Phase 1 — Lenis was passive scroll
+// enhancement with no callers; native scroll is fine.
 import {MetaPixel} from './components/MetaPixel';
 import {error as logError} from '~/lib/logger';
 import {useT} from '~/lib/t';
@@ -204,7 +205,7 @@ export function Layout({children}) {
         <Links />
       </head>
       <body>
-        <SmoothScroll>{children}</SmoothScroll>
+        {children}
         <ScrollRestoration nonce={nonce} />
         <Scripts nonce={nonce} />
       </body>
