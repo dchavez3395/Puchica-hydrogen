@@ -1328,7 +1328,7 @@ const FOR_YOU_QUERY = `#graphql
     featuredImage { id url altText width height }
   }
   query ForYou($country: CountryCode!, $language: LanguageCode!) @inContext(country: $country, language: $language) {
-    products(first: 12, sortKey: BEST_SELLING, query: "tag:'for-you'") {
+    products(first: 50, sortKey: BEST_SELLING, query: "tag:'for-you'") {
       nodes { ...ForYouProduct }
     }
   }
