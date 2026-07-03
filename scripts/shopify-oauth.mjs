@@ -57,6 +57,7 @@ export async function getAdminToken() {
       client_secret: clientSecret,
       grant_type: 'client_credentials',
     }),
+    signal: AbortSignal.timeout(15000),
   });
 
   if (!res.ok) {

@@ -118,17 +118,21 @@ async function main() {
   const limitedBatchC = batchC.slice(0, 100);
   // Batch D is the next 500 best-sellers
   const batchD = batchC.slice(100, 600);
+  // Batch E is the next 500 best-sellers
+  const batchE = batchC.slice(600, 1100);
 
   writeFileSync(join('work', 'batch_a_pending.json'), JSON.stringify(batchA, null, 2));
   writeFileSync(join('work', 'batch_b_pending.json'), JSON.stringify(batchB, null, 2));
   writeFileSync(join('work', 'batch_c_pending.json'), JSON.stringify(limitedBatchC, null, 2));
   writeFileSync(join('work', 'batch_d_pending.json'), JSON.stringify(batchD, null, 2));
+  writeFileSync(join('work', 'batch_e_pending.json'), JSON.stringify(batchE, null, 2));
 
   console.log(`\nCategorized counts (remaining to generate):`);
   console.log(`- Batch A (Jerseys): ${batchA.length}`);
   console.log(`- Batch B (Rest of World Cup): ${batchB.length}`);
   console.log(`- Batch C (Top 100 Best-Selling General): ${limitedBatchC.length}`);
   console.log(`- Batch D (Next 500 Best-Selling General): ${batchD.length}`);
+  console.log(`- Batch E (Next 500 Best-Selling General): ${batchE.length}`);
 }
 
 main().catch(console.error);
