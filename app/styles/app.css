@@ -1,24 +1,181 @@
+/* ────────────────────────────────────────────────────────────
+   Puchica Design Tokens v5
+   Single source of truth. Replaces the previous two-:root
+   system (v4 "Warm Black + Acid Lime + Cream" + the older
+   chrome block). The acid-lime / violet / spark / grove /
+   indigo legacy aliases are preserved as backward-compat
+   shims that now resolve to ink / cream / ember / muted so
+   the rest of the file can be migrated file-by-file. New
+   code should use the canonical names below.
+   ──────────────────────────────────────────────────────────── */
 :root {
-  --aside-width: min(400px, 100vw);
-  --cart-aside-summary-height-with-discount: 340px;
-  --cart-aside-summary-height: 300px;
-  --grid-item-width: 355px;
-  --header-height: 64px;
-  /* Total sticky/page header area at the top of the viewport: the
-   * announcement bar (.pk-ann, ~32px on desktop) plus the page header
-   * (.pk-header, 72-73px). The aside drawer (cart/search/mobile menu)
-   * sits below this area so the page header floats visibly above it
-   * and doesn't cover the drawer's own internal header. The mobile
-   * override below bumps this for the wrapping announcement bar. */
-  --pk-top-sticky: 108px;
-  --color-dark: #000;
-  --color-light: #fff;
-  --page-max: 1200px;
-  --page-gutter: 20px;
-  /* Full-bleed section inner container */
-  --pk-inner-max: 1200px;
-  --pk-gutter: 24px;
-  --pk-violet-deep: #4B3BCC;
+  /* ── Color: ink / paper / cream commerce system ─────── */
+  --pk-ink:         #171410;   /* warm black, primary text on cream */
+  --pk-ink-hover:   #2A2620;   /* hover for ink-filled elements */
+  --pk-paper:       #FAF9F6;   /* page background */
+  --pk-cream:       #F1EDE3;   /* tile, well, hero panel fills */
+  --pk-line:        #E8E3D8;   /* borders, dividers */
+  --pk-muted:       #6E675C;   /* secondary text, 4.6:1 AA on paper */
+  --pk-ember:       #A83800;   /* sale, badges, checkout ONLY */
+  --pk-ember-hover: #8C2C00;
+  --pk-white:       #FFFFFF;
+  --pk-coral:       #FF5757;   /* alert, error */
+
+  /* ── Type: Outfit (single family, 4 weights) ────────── */
+  --pk-font:        'Outfit', 'Plus Jakarta Sans', system-ui, sans-serif;
+  --pk-font-mono:   ui-monospace, SFMono-Regular, monospace;
+
+  /* ── Type scale (rem at 16px base) ──────────────────── */
+  --pk-fs-display: 52px; --pk-lh-display: 1.02;
+  --pk-fs-h1:      34px; --pk-lh-h1:      1.15;
+  --pk-fs-h2:      26px; --pk-lh-h2:      1.20;
+  --pk-fs-h3:      17px; --pk-lh-h3:      1.30;
+  --pk-fs-body:    15px; --pk-lh-body:    1.55;
+  --pk-fs-caption: 13px; --pk-lh-caption: 1.40;
+  --pk-fs-eyebrow: 12px;
+
+  /* ── 8pt spacing scale ──────────────────────────────── */
+  --pk-s-1:  8px;
+  --pk-s-2:  12px;
+  --pk-s-3:  16px;
+  --pk-s-4:  20px;
+  --pk-s-5:  24px;
+  --pk-s-6:  32px;
+  --pk-s-7:  48px;
+  --pk-s-8:  56px;
+  --pk-s-9:  72px;
+  --pk-s-10: 88px;
+
+  /* ── Radius ─────────────────────────────────────────── */
+  --pk-r-sm:   4px;
+  --pk-r-md:   6px;
+  --pk-r-lg:   8px;
+  --pk-r-xl:  10px;
+  --pk-r-2xl: 12px;
+  --pk-r-pill: 999px;
+
+  /* ── Elevation (warm-tinted, ink-based) ─────────────── */
+  --pk-sh-1: 0 1px 2px  rgba(23, 20, 16, 0.06);
+  --pk-sh-2: 0 2px 8px  rgba(23, 20, 16, 0.08);
+  --pk-sh-3: 0 8px 24px rgba(23, 20, 16, 0.12);
+  --pk-sh-4: 0 20px 48px rgba(23, 20, 16, 0.16);
+  --pk-sh-5: 0 32px 80px rgba(23, 20, 16, 0.22);
+
+  /* ── Motion ─────────────────────────────────────────── */
+  --pk-ease:        cubic-bezier(0.2, 0.6, 0.2, 1);
+  --pk-dur-fast:    180ms;
+  --pk-dur-base:    280ms;
+  --pk-dur-slow:    420ms;
+
+  /* ── Focus ──────────────────────────────────────────── */
+  --pk-focus-outline: 2px solid var(--pk-ink);
+  --pk-focus-offset:  2px;
+
+  /* ── Layout / chrome (preserved from pre-token era) ── */
+  --aside-width:                            min(420px, 100vw);
+  --cart-aside-summary-height-with-discount:340px;
+  --cart-aside-summary-height:              300px;
+  --grid-item-width:                        355px;
+  --header-height:                          68px;
+  /* Total sticky/page header area at the top of the viewport:
+   * the announcement bar (.pk-ann, ~32px) plus the page header
+   * (.pk-header, 68px). The aside drawer (cart/search/mobile)
+   * sits below this so the header floats above it. */
+  --pk-top-sticky:                          108px;
+  --color-dark:                             #000;
+  --color-light:                            #fff;
+  --page-max:                               1280px;
+  --page-gutter:                            20px;
+  --pk-inner-max:                           1280px;
+  --pk-gutter:                              24px;
+  --pk-radius:                              var(--pk-r-lg);
+
+  /* ── Backward-compat aliases (v4 → v5 redirect) ────────
+   * These existed in the v4 "Warm Black + Acid Lime + Cream"
+   * system. They now resolve to the new canonical colors so
+   * the rest of app.css can keep referencing them while we
+   * migrate file-by-file. New code must NOT use these. */
+  --pk-ink-soft:      #1C1A12;
+  --pk-ink-softer:    #2A2820;
+  --pk-cream-soft:    #EDE8D8;
+  --pk-cream-dark:    #E8E3D8;   /* == --pk-line */
+
+  --pk-bg:          var(--pk-paper);
+  --pk-off-white:   var(--pk-paper);
+  --pk-surface:     var(--pk-cream);
+  --pk-border:      var(--pk-line);
+  --pk-card-border: var(--pk-line);
+  --pk-paper:       var(--pk-paper);
+  --pk-paper-dark:  var(--pk-cream);
+  --pk-paper-warm:  var(--pk-cream);
+  --pk-bg-soft:     var(--pk-cream);
+  --pk-subtle:      var(--pk-cream);
+  --pk-muted-bg:    var(--pk-cream);
+
+  /* v4 gradients — kept as aliases for visual continuity.
+   * The hero/card gradients stay; the lime/forest/lavender/
+   * violet gradients that used acid-lime are now ink. */
+  --pk-grad-hero:    linear-gradient(135deg, #171410 0%, #1C1A12 50%, #171410 100%);
+  --pk-grad-lime:    linear-gradient(135deg, #171410 0%, #2A2620 100%);
+  --pk-grad-card:    linear-gradient(180deg, #FAF9F6 0%, #F1EDE3 100%);
+  --pk-grad-primary: var(--pk-grad-lime);
+  --pk-grad-forest:  var(--pk-grad-hero);
+  --pk-grad-ember:   var(--pk-grad-lime);
+  --pk-grad-warm:    var(--pk-grad-card);
+  --pk-grad-lavender:var(--pk-grad-card);
+  --pk-grad-violet:  var(--pk-grad-lime);
+
+  /* Lime → ink (the audit's "retire acid lime" mandate). */
+  --pk-lime:        var(--pk-ink);
+  --pk-lime-hover:  var(--pk-ink-hover);
+  --pk-lime-pale:   var(--pk-cream);
+  --pk-lime-dark:   var(--pk-ink);
+
+  /* Ember (legacy CTA red) → keep ember but route to ink for now.
+   * New code uses --pk-ember directly; this is the legacy alias. */
+  --pk-ember-pale:  var(--pk-cream);
+
+  /* Spark (legacy "on-dark accent") → ember for distinction. */
+  --pk-spark:       var(--pk-ember);
+  --pk-spark-hover: var(--pk-ember-hover);
+  --pk-spark-pale:  var(--pk-cream);
+
+  /* Grove (legacy forest green) → ink. */
+  --pk-grove:       var(--pk-ink);
+  --pk-grove-pale:  var(--pk-cream);
+
+  /* Violet (legacy indigo accent) → ink. */
+  --pk-violet:        var(--pk-ink);
+  --pk-violet-light:  var(--pk-ink);
+  --pk-violet-deep:   #4B3BCC;   /* brand mark color, KEEP — only used in the logo */
+  --pk-violet-pale:   var(--pk-cream);
+  --pk-violet-card:   var(--pk-cream);
+  --pk-violet-border: var(--pk-line);
+  --pk-violet-50:     var(--pk-cream);
+  --pk-violet-100:    var(--pk-cream);
+  --pk-violet-200:    var(--pk-cream);
+  --pk-violet-300:    var(--pk-ink);
+  --pk-violet-500:    var(--pk-ink);
+  --pk-violet-700:    var(--pk-ink);
+  --pk-violet-900:    var(--pk-ink);
+  --pk-purple:        var(--pk-ink);
+  --pk-purple-dark:   var(--pk-ink);
+  --pk-indigo-900:    var(--pk-ink);
+  --pk-indigo-800:    var(--pk-ink);
+
+  /* Legacy radii — keep as aliases of the new scale. */
+  --r-sm: 8px; --r-md: 12px; --r-lg: 16px; --r-xl: 24px; --r-2xl: 32px; --r-full: 9999px;
+
+  /* Legacy type tokens — keep for backward compat. */
+  --pk-font-display: var(--pk-font);
+  --pk-font-body:    var(--pk-font);
+
+  /* Legacy shadows — re-keyed to ink. */
+  --pk-sh-sm:   var(--pk-sh-2);
+  --pk-sh-md:   var(--pk-sh-3);
+  --pk-sh-lg:   var(--pk-sh-4);
+  --pk-sh-xl:   var(--pk-sh-5);
+  --pk-sh-glow: var(--pk-sh-3);
 }
 
 @media (max-width: 700px) {
@@ -1363,106 +1520,6 @@ button.reset:hover:not(:has(> *)) {
   flex-wrap: wrap;
 }
 
-/*
-* ==================================================
-* Puchica Design System v4 â€” Palette A: Warm Black + Acid Lime + Cream
-* ==================================================
-*/
-:root {
-  /* â”€â”€ Core palette â”€â”€ */
-  --pk-ink:           #0E0C08;   /* warm black â€” dark bg, primary text on cream */
-  --pk-ink-soft:      #1C1A12;   /* slightly lighter dark â€” card surfaces on dark */
-  --pk-ink-softer:    #2A2820;   /* lightest dark â€” subtle dividers */
-
-  --pk-lime:          #C6FF4E;   /* acid lime â€” primary accent on dark */
-  --pk-lime-hover:    #B3F030;   /* hover state for lime */
-  --pk-lime-pale:     #EFFFCC;   /* tint for light surfaces */
-  --pk-lime-dark:     #4D6B00;   /* legible lime for text on cream */
-
-  --pk-cream:         #F4F0E6;   /* warm cream â€” page bg, text on dark */
-  --pk-cream-soft:    #EDE8D8;   /* slightly darker cream â€” card surfaces */
-  --pk-cream-dark:    #D8D0BC;   /* cream border */
-
-  /* â”€â”€ Alert â”€â”€ */
-  --pk-coral:         #FF5757;
-
-  /* â”€â”€ Neutrals â”€â”€ */
-  --pk-muted:         #72685A;   /* muted text on cream â€” 4.6:1 âœ“ WCAG AA */
-  --pk-white:         #FFFFFF;
-
-  /* â”€â”€ Page semantic tokens â”€â”€ */
-  --pk-bg:            var(--pk-cream);
-  --pk-off-white:     var(--pk-cream);
-  --pk-surface:       var(--pk-cream-soft);
-  --pk-border:        var(--pk-cream-dark);
-  --pk-card-border:   var(--pk-cream-dark);
-  --pk-paper:         var(--pk-cream);
-  --pk-paper-dark:    var(--pk-cream-soft);
-  --pk-paper-warm:    var(--pk-lime-pale);
-  --pk-bg-soft:       var(--pk-lime-pale);
-  --pk-subtle:        var(--pk-lime-pale);
-  --pk-muted-bg:      var(--pk-lime-pale);
-
-  /* â”€â”€ Gradients â”€â”€ */
-  --pk-grad-hero:     linear-gradient(135deg, #0E0C08 0%, #1C1A12 50%, #0E0C08 100%);
-  --pk-grad-lime:     linear-gradient(135deg, #C6FF4E 0%, #B3F030 100%);
-  --pk-grad-card:     linear-gradient(180deg, #F4F0E6 0%, #EDE8D8 100%);
-
-  /* â”€â”€ Backward-compat aliases â”€â”€ */
-  /* "ember" drives CTA buttons/links on light bg â†’ warm black */
-  --pk-ember:         #A83800;
-  --pk-ember-hover:   #8C3000;
-  --pk-ember-pale:    var(--pk-lime-pale);
-  /* "spark" drives accents on dark bg â†’ acid lime */
-  --pk-spark:         var(--pk-lime);
-  --pk-spark-hover:   var(--pk-lime-hover);
-  --pk-spark-pale:    var(--pk-lime-pale);
-  /* grove (was forest green) â†’ ink */
-  --pk-grove:         var(--pk-ink);
-  --pk-grove-pale:    var(--pk-cream-soft);
-  /* violet aliases â†’ lime equivalents */
-  --pk-violet:        var(--pk-lime-dark);
-  --pk-violet-light:  var(--pk-lime);
-  --pk-violet-deep:   #4B3BCC;
-  --pk-violet-pale:   var(--pk-lime-pale);
-  --pk-violet-card:   var(--pk-cream-soft);
-  --pk-violet-border: var(--pk-cream-dark);
-  --pk-purple:        var(--pk-lime-dark);
-  --pk-purple-dark:   var(--pk-ink);
-  --pk-grad-primary:  var(--pk-grad-lime);
-  --pk-grad-forest:   var(--pk-grad-hero);
-  --pk-grad-ember:    var(--pk-grad-lime);
-  --pk-grad-warm:     var(--pk-grad-card);
-  --pk-grad-lavender: var(--pk-grad-card);
-  --pk-grad-violet:   var(--pk-grad-lime);
-  --pk-indigo-900:    var(--pk-ink);
-  --pk-indigo-800:    var(--pk-ink);
-  --pk-ink-soft:      #1C1A12;
-  --pk-violet-500:    var(--pk-lime-dark);
-  --pk-violet-700:    var(--pk-ink);
-  --pk-violet-900:    var(--pk-ink);
-  --pk-violet-300:    var(--pk-lime);
-  --pk-violet-50:     var(--pk-lime-pale);
-  --pk-violet-100:    var(--pk-lime-pale);
-  --pk-violet-200:    var(--pk-cream-soft);
-
-  /* â”€â”€ Shadows â€” warm-tinted â”€â”€ */
-  --pk-sh-sm:  0 2px 8px rgba(14, 12, 8, 0.08);
-  --pk-sh-md:  0 8px 24px rgba(14, 12, 8, 0.12);
-  --pk-sh-lg:  0 20px 48px rgba(14, 12, 8, 0.16);
-  --pk-sh-xl:  0 32px 80px rgba(14, 12, 8, 0.22);
-  --pk-sh-glow: 0 0 40px rgba(198, 255, 78, 0.32);
-
-  /* â”€â”€ Radii â”€â”€ */
-  --r-sm: 8px; --r-md: 12px; --r-lg: 16px; --r-xl: 24px; --r-2xl: 32px; --r-full: 9999px;
-
-  /* â”€â”€ Typography â”€â”€ */
-  --pk-font-display: 'Outfit', 'Plus Jakarta Sans', system-ui, sans-serif;
-  --pk-font-body:    'DM Sans', 'Inter', ui-sans-serif, system-ui, sans-serif;
-  --pk-font:         var(--pk-font-body);
-  --pk-radius:       var(--r-xl);
-}
-
 body {
   font-family: var(--pk-font-body);
   background: var(--pk-off-white);
@@ -1470,17 +1527,17 @@ body {
   overflow-x: hidden;
 }
 
-/* Global keyboard focus ring â€” lime on everything */
+/* Global keyboard focus ring — ink on everything */
 :focus-visible {
-  outline: 2px solid var(--pk-lime);
-  outline-offset: 3px;
-  border-radius: 4px;
+  outline: var(--pk-focus-outline);
+  outline-offset: var(--pk-focus-offset);
+  border-radius: 0;
 }
-/* Buttons and links get a tighter radius */
+/* Buttons and links keep the design-radius so the ring traces the element */
 a:focus-visible,
 button:focus-visible,
 [role="button"]:focus-visible {
-  border-radius: 6px;
+  border-radius: inherit;
 }
 
 /* Full-bleed layout â€” sections control their own width */
@@ -1519,7 +1576,7 @@ button:focus-visible,
 }
 .pk-btn--primary {
   background: transparent;
-  color: #160F3A;
+  color: var(--pk-ink);
   border: 1.5px solid #160F3A;
   box-shadow: none;
 }
@@ -1537,17 +1594,17 @@ button:focus-visible,
 }
 .pk-btn--primary-dark:hover {
   background: #fff;
-  color: #160F3A;
+  color: var(--pk-ink);
   border-color: #fff;
 }
 .pk-btn--secondary {
   background: transparent;
-  color: #160F3A;
+  color: var(--pk-ink);
   border: 1px solid #160F3A;
   padding: 10px 20px;
 }
 .pk-btn--secondary:hover {
-  background: #160F3A;
+  background: var(--pk-ink);
   color: #fff;
 }
 .pk-btn--secondary-dark {
@@ -1558,13 +1615,13 @@ button:focus-visible,
 }
 .pk-btn--secondary-dark:hover {
   background: #fff;
-  color: #160F3A;
+  color: var(--pk-ink);
   border-color: #fff;
 }
 /* Lime CTA for dark backgrounds */
 .pk-btn--spark {
   background: var(--pk-lime);
-  color: #0E0C08;
+  color: var(--pk-ink);
   border: 1.5px solid var(--pk-lime);
   border-radius: 2px;
   font-weight: 800;
@@ -1809,7 +1866,7 @@ button:focus-visible,
   letter-spacing: 0.08em;
   text-transform: uppercase;
   background: transparent;
-  color: #160F3A;
+  color: var(--pk-ink);
   border: 1.5px solid #160F3A;
   border-radius: 2px;
   cursor: pointer;
@@ -1824,7 +1881,7 @@ button:focus-visible,
 }
 .pk-card__cart button[type="submit"]:hover,
 .pk-card__viewbtn:hover {
-  background: #160F3A;
+  background: var(--pk-ink);
   color: #fff;
 }
 .pk-card__cart button[type="submit"]:disabled {
@@ -1982,10 +2039,10 @@ button:focus-visible,
 }
 .pk-icon-btn.is-active {
   background: var(--pk-lime);
-  color: #0E0C08;
+  color: var(--pk-ink);
   box-shadow: 0 4px 12px rgba(198,255,78,.36);
 }
-.pk-icon-btn.is-active:hover { background: var(--pk-lime-hover); color: #0E0C08; }
+.pk-icon-btn.is-active:hover { background: var(--pk-lime-hover); color: var(--pk-ink); }
 .pk-cart-badge {
   position: absolute;
   top: 4px;
@@ -1995,7 +2052,7 @@ button:focus-visible,
   padding: 0 5px;
   border-radius: 999px;
   background: var(--pk-lime);
-  color: #0E0C08;
+  color: var(--pk-ink);
   font-size: 11px;
   font-weight: 700;
   display: grid;
@@ -2173,7 +2230,7 @@ button:focus-visible,
   width: 100%;
   max-width: 360px;
   display: block;
-  background: #0E0C08;
+  background: var(--pk-ink);
   color: #F4F0E6;
   border: none;
   border-radius: var(--r-lg);
@@ -2356,7 +2413,7 @@ button:focus-visible,
   background: rgba(242, 235, 218, 0.08); border: 1px solid rgba(242, 235, 218, 0.16);
   color: var(--pk-paper); text-decoration: none; font-weight: 700;
 }
-.pk-footer__social a:hover { background: var(--pk-lime); color: #0E0C08; border-color: var(--pk-lime); }
+.pk-footer__social a:hover { background: var(--pk-lime); color: var(--pk-ink); border-color: var(--pk-lime); }
 
 .pk-footer__col h4 { font-size: 14px; font-weight: 700; margin: 0 0 14px; color: var(--pk-paper); }
 .pk-footer__col a {
@@ -2390,7 +2447,7 @@ button:focus-visible,
   border: none;
   border-radius: var(--r-md);
   background: var(--pk-lime);
-  color: #0E0C08;
+  color: var(--pk-ink);
   font-size: 18px;
   line-height: 1;
   cursor: pointer;
@@ -2788,7 +2845,7 @@ button:focus-visible,
   letter-spacing: 0.1em;
   text-transform: uppercase;
   background: var(--pk-lime);
-  color: #0E0C08;
+  color: var(--pk-ink);
   padding: 2px 7px;
   border-radius: 4px;
   margin-bottom: 6px;
@@ -2851,7 +2908,7 @@ button:focus-visible,
    ============================================================ */
 .pk-catalog-cta {
   width: 100%;
-  background: #160F3A;
+  background: var(--pk-ink);
   padding: 96px 24px;
   box-sizing: border-box;
   display: flex;
@@ -6399,7 +6456,7 @@ button:focus-visible,
    ============================================================ */
 .pk-feat-banner {
   width: 100%;
-  background: #160F3A;
+  background: var(--pk-ink);
   color: #F4F0E6;
 }
 .pk-feat-banner__inner {
@@ -6487,7 +6544,7 @@ button:focus-visible,
 
 /* â”€â”€ Marquee updated: seamless from hero â”€â”€ */
 .pk-home .pk-marquee {
-  background: #0E0C08;
+  background: var(--pk-ink);
   position: relative;
   z-index: 5;
 }
@@ -6505,7 +6562,7 @@ button:focus-visible,
    DARK LEAD â€” capsule wrapper for hero + marquee
    ============================================================ */
 .pk-dark-lead {
-  background: #0E0C08;
+  background: var(--pk-ink);
   overflow: hidden;
   position: relative;
   z-index: 1;
@@ -6932,7 +6989,7 @@ button:focus-visible,
    ============================================================ */
 .pk-rack {
   width: 100%;
-  background: #160F3A;
+  background: var(--pk-ink);
   padding: 80px 0 72px;
   overflow: hidden;
 }
@@ -6968,7 +7025,7 @@ button:focus-visible,
 .pk-rack__arr:hover:not(:disabled) {
   background: #F4F0E6;
   border-color: #F4F0E6;
-  color: #160F3A;
+  color: var(--pk-ink);
 }
 .pk-rack__arr:disabled { opacity: 0.25; cursor: not-allowed; }
 .pk-rack__arr:focus-visible {
@@ -7283,7 +7340,7 @@ button:focus-visible,
    ============================================================ */
 .pk-gift {
   width: 100%;
-  background: #160F3A;
+  background: var(--pk-ink);
   padding: 88px 0;
 }
 .pk-gift__inner {
@@ -7494,7 +7551,7 @@ button:focus-visible,
    FRESH FINDS â€” dark variant of the rack, lime accent
    ============================================================ */
 .pk-rack--fresh {
-  background: #160F3A;
+  background: var(--pk-ink);
 }
 .pk-rack--fresh .pk-rack__title { color: #F4F0E6; }
 .pk-rack--fresh .pk-rack__eye { color: var(--pk-lime); }
@@ -9412,16 +9469,16 @@ button:focus-visible,
 .pk-card--dark .pk-card__cart button[type="submit"]:hover,
 .pk-card--dark .pk-card__viewbtn:hover {
   background: #fff;
-  color: #160F3A;
+  color: var(--pk-ink);
   border-color: #fff;
 }
 .pk-card--dark .pk-card__badge--trending {
   background: #fff;
-  color: #160F3A;
+  color: var(--pk-ink);
 }
 .pk-card--dark .pk-card__badge--staff-pick {
   background: #fff;
-  color: #160F3A;
+  color: var(--pk-ink);
   border-color: transparent;
 }
 
