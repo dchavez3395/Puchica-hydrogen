@@ -4,6 +4,7 @@ import {useAside} from '~/components/Aside';
 import {CartLineItem} from '~/components/CartLineItem';
 import {CartSummary} from './CartSummary';
 import {IconBag, IconSparkles, IconTruck, IconReturn} from '~/components/Icons';
+import {FreeShippingBar} from './FreeShippingBar';
 import {STORE_LOGO_URL} from '~/lib/brand';
 import {SITE_NAME} from '~/lib/seo';
 import {useT} from '~/lib/t';
@@ -97,6 +98,12 @@ export function CartMain({layout, cart: originalCart}) {
             actual items fit. Mirrors how .cart-summary-aside is
             already a pinned sibling at the bottom. */}
         {cartHasItems ? <CartBrandHeader /> : null}
+        {cartHasItems ? (
+          <FreeShippingBar
+            subtotalAmount={cart?.cost?.subtotalAmount}
+            cartHasItems={cartHasItems}
+          />
+        ) : null}
         <section
           className={className}
           aria-label={layout === 'page' ? t('cart_page_aria') : t('cart_section_aria')}
@@ -152,6 +159,12 @@ export function CartMain({layout, cart: originalCart}) {
           </ul>
         </div>
         {hasAnyLines && !cartHasItems ? <GhostCartNotice /> : null}
+        {cartHasItems && (
+          <FreeShippingBar
+            subtotalAmount={cart?.cost?.subtotalAmount}
+            cartHasItems={cartHasItems}
+          />
+        )}
         {cartHasItems && (
           <CartSummary
             cart={cart}

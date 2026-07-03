@@ -698,6 +698,64 @@ button.reset:hover:not(:has(> *)) {
   font-weight: 700;
 }
 
+/* Free-shipping progress bar.
+   Sits between the cart brand header and the line items, both in the
+   drawer (cart-aside-shell) and on the /cart page. The track is a
+   4px-tall pill; the fill is ember when partial and switches to a
+   subtle success color when the threshold is reached. The success
+   state drops the bar's height via a small inset shadow to make the
+   transition feel celebratory without being noisy. */
+.pk-freeship {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px 20px;
+  background: var(--pk-cream);
+  border-bottom: 1px solid var(--pk-line);
+  flex: 0 0 auto;
+}
+.pk-freeship__copy {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 12.5px;
+  line-height: 1.3;
+}
+.pk-freeship__label {
+  color: var(--pk-ink);
+  font-weight: 600;
+}
+.pk-freeship__threshold {
+  color: var(--pk-muted);
+  font-size: 11.5px;
+  letter-spacing: 0.02em;
+}
+.pk-freeship__track {
+  position: relative;
+  width: 100%;
+  height: 4px;
+  background: var(--pk-line);
+  border-radius: var(--pk-r-pill);
+  overflow: hidden;
+}
+.pk-freeship__fill {
+  display: block;
+  height: 100%;
+  background: var(--pk-ember);
+  border-radius: var(--pk-r-pill);
+  transition: width var(--pk-dur-base) var(--pk-ease);
+}
+.pk-freeship--reached .pk-freeship__fill {
+  background: linear-gradient(90deg, var(--pk-ember), var(--pk-ember-hover));
+}
+.pk-freeship--reached .pk-freeship__label {
+  color: var(--pk-ember);
+}
+@media (prefers-reduced-motion: reduce) {
+  .pk-freeship__fill { transition: none; }
+}
+
 /* A running list of line items with hairline dividers between them.
    Reset <ul> defaults so it lays out as a clean stack. */
 .cart-main ul[aria-labelledby="cart-lines"] {
