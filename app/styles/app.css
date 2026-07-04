@@ -21,6 +21,14 @@
   --pk-white:       #FFFFFF;
   --pk-coral:       #FF5757;   /* alert, error */
 
+  /* Error / success states (cart error, notify-back, etc.) */
+  --pk-error-bg:     #FFF1F1;
+  --pk-error-line:   #FFD6D6;
+  --pk-error-ink:    #8B1E1E;
+  --pk-ok-bg:        #EAF7EE;
+  --pk-ok-line:      #B7E0C0;
+  --pk-ok-ink:       #1E5F31;
+
   /* ── Type: Outfit (single family, 4 weights) ────────── */
   --pk-font:        'Outfit', 'Plus Jakarta Sans', system-ui, sans-serif;
   --pk-font-mono:   ui-monospace, SFMono-Regular, monospace;
@@ -95,7 +103,7 @@
    * system. They now resolve to the new canonical colors so
    * the rest of app.css can keep referencing them while we
    * migrate file-by-file. New code must NOT use these. */
-  --pk-ink-soft:      #1C1A12;
+  --pk-ink-soft:      var(--pk-ink-soft);
   --pk-ink-softer:    #2A2820;
   --pk-cream-soft:    #EDE8D8;
   --pk-cream-dark:    #E8E3D8;   /* == --pk-line */
@@ -122,7 +130,7 @@
   /* v4 gradients — kept as aliases for visual continuity.
    * The hero/card gradients stay; the lime/forest/lavender/
    * violet gradients that used acid-lime are now ink. */
-  --pk-grad-hero:    linear-gradient(135deg, #171410 0%, #1C1A12 50%, #171410 100%);
+  --pk-grad-hero:    linear-gradient(135deg, #171410 0%, var(--pk-ink-soft) 50%, #171410 100%);
   --pk-grad-lime:    linear-gradient(135deg, #171410 0%, #2A2620 100%);
   --pk-grad-card:    linear-gradient(180deg, #FAF9F6 0%, #F1EDE3 100%);
   --pk-grad-primary: var(--pk-grad-lime);
@@ -1678,16 +1686,16 @@ button:focus-visible,
    ember hex (#A83800) so CTAs read as warm and stay legible on
    either dark or light surfaces. */
 .pk-btn--ember {
-  background: #A83800;
-  color: #F4F0E6;
+  background: var(--pk-ember);
+  color: var(--pk-paper);
   font-weight: 800;
   border: 1.5px solid #A83800;
   border-radius: 2px;
   box-shadow: none;
 }
 .pk-btn--ember:hover {
-  background: #A83800;
-  border-color: #A83800;
+  background: var(--pk-ember);
+  border-color: var(--pk-ember);
   transform: none;
   box-shadow: none;
 }
@@ -1702,7 +1710,7 @@ button:focus-visible,
    readable when stacked next to a different background. */
 .pk-btn--ember-ghost {
   background: transparent;
-  color: #A83800;
+  color: var(--pk-ember);
   border: 1.5px solid #A83800;
   border-radius: 2px;
   font-weight: 700;
@@ -1710,7 +1718,7 @@ button:focus-visible,
 .pk-btn--ember-ghost:hover { background: rgba(204, 67, 0, 0.08); }
 .pk-btn--ghost {
   background: rgba(244,240,230,0.10);
-  color: #F4F0E6;
+  color: var(--pk-paper);
   border: 1px solid rgba(244,240,230,0.30);
   border-radius: 2px;
 }
@@ -1807,7 +1815,7 @@ button:focus-visible,
 .pk-section__link {
   display: inline-flex; align-items: center; gap: 6px;
   font-size: 14px; font-weight: 700; letter-spacing: 0.02em;
-  color: #A83800; background: transparent;
+  color: var(--pk-ember); background: transparent;
   padding: 8px 14px; border-radius: 2px;
   border: 1px solid currentColor;
   text-decoration: none; white-space: nowrap;
@@ -1838,7 +1846,7 @@ button:focus-visible,
 .pk-cat-card__cta {
   display: inline-flex; align-items: center; gap: 4px;
   font-size: 13px; font-weight: 700;
-  color: #A83800; margin-top: 10px;
+  color: var(--pk-ember); margin-top: 10px;
   transition: gap .2s;
 }
 .pk-cat-card:hover .pk-cat-card__cta { gap: 8px; }
@@ -2213,9 +2221,9 @@ button:focus-visible,
   color: var(--pk-indigo-900);
 }
 .pk-product .product-options-item.is-selected {
-  border-color: var(--pk-violet-500) !important;
-  background: var(--pk-violet-50);
-  color: var(--pk-violet-700);
+  border-color: var(--pk-ember) !important;
+  background: var(--pk-cream);
+  color: var(--pk-ink);
 }
 .pk-product .product-options-item.is-unavailable {
   opacity: 0.3;
@@ -2227,7 +2235,7 @@ button:focus-visible,
   max-width: 360px;
   display: block;
   background: var(--pk-ink);
-  color: #F4F0E6;
+  color: var(--pk-paper);
   border: none;
   border-radius: var(--r-lg);
   padding: 15px 20px;
@@ -2238,7 +2246,7 @@ button:focus-visible,
   transition: background 0.15s ease, box-shadow 0.15s ease;
 }
 .pk-product .product-form button[type="submit"]:hover {
-  background: #1C1A12;
+  background: var(--pk-ink-soft);
   box-shadow: var(--pk-sh-md);
 }
 .pk-product .product-form button[type="submit"]:disabled {
@@ -2399,7 +2407,7 @@ button:focus-visible,
   text-decoration: none;
   transition: background 0.2s;
 }
-.pk-footer__logo:hover { background: #F4F0E6; }
+.pk-footer__logo:hover { background: var(--pk-paper); }
 .pk-footer__logo img { height: 36px; width: auto; display: block; }
 .pk-footer__tagline { color: rgba(242, 235, 218, 0.6); font-size: 14px; line-height: 1.6; margin: 14px 0 16px; max-width: 280px; }
 .pk-footer__social { display: flex; gap: 10px; }
@@ -3391,7 +3399,7 @@ button:focus-visible,
 .pk-reco__see-all {
   display: inline-flex; align-items: center; gap: 6px;
   font-size: 13px; font-weight: 700; letter-spacing: 0.02em;
-  color: #A83800;
+  color: var(--pk-ember);
   padding: 8px 14px; border-radius: 999px;
   border: 1px solid currentColor;
   text-decoration: none;
@@ -4478,21 +4486,21 @@ button:focus-visible,
   user-select: none;
 }
 .pk-contact__faq-item > summary::-webkit-details-marker { display: none; }
-.pk-contact__faq-item > summary:hover { color: var(--pk-violet-700); }
+.pk-contact__faq-item > summary:hover { color: var(--pk-ember); }
 .pk-contact__faq-chev {
   flex: none;
   display: grid;
   place-items: center;
   width: 28px; height: 28px;
   border-radius: 50%;
-  background: var(--pk-violet-50);
-  color: var(--pk-violet-700);
+  background: var(--pk-cream);
+  color: var(--pk-ink);
   transition: transform 0.18s ease, background 0.12s ease;
 }
 .pk-contact__faq-item[open] .pk-contact__faq-chev {
   transform: rotate(90deg);
-  background: var(--pk-violet-700);
-  color: #fff;
+  background: var(--pk-ember);
+  color: var(--pk-paper);
 }
 .pk-contact__faq-item > p {
   margin: 0;
@@ -4693,9 +4701,9 @@ button:focus-visible,
 .pk-cart-error {
   margin: 12px 0 0;
   padding: 10px 12px;
-  background: #FFF1F1;
-  border: 1px solid #FFD6D6;
-  color: #8B1E1E;
+  background: var(--pk-error-bg);
+  border: 1px solid var(--pk-error-line);
+  color: var(--pk-error-ink);
   border-radius: 8px;
   font-size: 14px;
 }
@@ -4749,14 +4757,14 @@ button:focus-visible,
 .pk-notify-back__err {
   margin: 0;
   font-size: 13px;
-  color: #8B1E1E;
+  color: var(--pk-error-ink);
 }
 .pk-notify-back__ok {
   margin: 12px 0 0;
   padding: 10px 12px;
-  background: #EAF7EE;
-  border: 1px solid #B7E0C0;
-  color: #1E5F31;
+  background: var(--pk-ok-bg);
+  border: 1px solid var(--pk-ok-line);
+  color: var(--pk-ok-ink);
   border-radius: 8px;
   font-size: 14px;
 }
@@ -4819,7 +4827,7 @@ button:focus-visible,
   font-weight: 800;
   letter-spacing: -0.02em;
   margin: 0 0 16px;
-  color: var(--pk-ink, #1a1340);
+  color: var(--pk-ink, #171410);
 }
 .pk-search-page__title em {
   font-style: normal;
@@ -4829,7 +4837,7 @@ button:focus-visible,
   max-width: 560px;
 }
 .pk-search-page__error {
-  color: #c0392b;
+  color: var(--pk-error-ink);
   margin: 8px 0 0;
 }
 .pk-search-section {
@@ -4839,7 +4847,7 @@ button:focus-visible,
   font-size: 18px;
   font-weight: 700;
   margin: 0 0 16px;
-  color: var(--pk-ink, #1a1340);
+  color: var(--pk-ink, #171410);
 }
 .pk-search-empty {
   padding: 56px 0;
@@ -4858,7 +4866,7 @@ button:focus-visible,
   gap: 10px;
 }
 .pk-search-links a {
-  color: var(--pk-ink, #1a1340);
+  color: var(--pk-ink, #171410);
   text-decoration: none;
   font-weight: 600;
 }
@@ -4946,7 +4954,7 @@ button:focus-visible,
 .pk-about-hero {
   position: relative;
   background: var(--pk-ink);
-  color: #F4F0E6;
+  color: var(--pk-paper);
   padding: 120px 0 96px;
   overflow: hidden;
   text-align: center;
@@ -4982,9 +4990,9 @@ button:focus-visible,
    * (acid lime) before the audit retired lime; that token now
    * resolves to `var(--pk-ink)`, which is the same as the hero
    * background and produces 1.0:1 contrast. Use the same cream
-   * the hero title uses (#F4F0E6) so the eyebrow matches the
+   * the hero title uses (var(--pk-paper)) so the eyebrow matches the
    * surrounding text tone instead of vanishing into the bg. */
-  color: #F4F0E6;
+  color: var(--pk-paper);
   display: block;
   margin-bottom: 24px;
 }
@@ -4995,7 +5003,7 @@ button:focus-visible,
   letter-spacing: -2.5px;
   line-height: 1.04;
   margin: 0 0 24px;
-  color: #F4F0E6;
+  color: var(--pk-paper);
 }
 .pk-about-hero__em {
   /* Bright accent word on the dark hero. The audit retired lime
@@ -5003,7 +5011,7 @@ button:focus-visible,
    * as ink-on-ink at 1.0:1. Switch to the same paper cream the
    * surrounding title uses; the visual emphasis comes from the
    * italic + line break, not a separate hue. */
-  color: #F4F0E6;
+  color: var(--pk-paper);
 }
 .pk-about-hero__sub {
   font-size: 18px;
@@ -5139,7 +5147,7 @@ button:focus-visible,
 /* How it works */
 .pk-about-how {
   background: var(--pk-ink);
-  color: #F4F0E6;
+  color: var(--pk-paper);
   padding: 96px 0;
   width: 100%;
 }
@@ -5162,7 +5170,7 @@ button:focus-visible,
   text-transform: uppercase;
   /* Bright accent on the dark "how" section. Was var(--pk-lime)
    * (now ink) which gave 1.0:1 contrast against the ink bg. */
-  color: #F4F0E6;
+  color: var(--pk-paper);
   display: block;
   margin-bottom: 16px;
 }
@@ -5172,7 +5180,7 @@ button:focus-visible,
   font-weight: 800;
   letter-spacing: -1.5px;
   line-height: 1.1;
-  color: #F4F0E6;
+  color: var(--pk-paper);
   margin: 0;
 }
 .pk-about-how__steps {
@@ -5188,7 +5196,7 @@ button:focus-visible,
   /* Big step number on the dark "how" section. Was var(--pk-lime)
    * (now ink) -- 1.0:1 on the ink bg. Paper cream matches the
    * eyebrow and the section's other foreground tones. */
-  color: #F4F0E6;
+  color: var(--pk-paper);
   line-height: 1;
   letter-spacing: -2px;
 }
@@ -5196,7 +5204,7 @@ button:focus-visible,
   font-family: var(--pk-font-display);
   font-size: 22px;
   font-weight: 800;
-  color: #F4F0E6;
+  color: var(--pk-paper);
   margin: 0;
 }
 .pk-about-how__step-body {
@@ -5265,7 +5273,7 @@ button:focus-visible,
 .pk-about-cats__name {
   font-size: 16px;
   font-weight: 700;
-  color: #F4F0E6;
+  color: var(--pk-paper);
   display: block;
 }
 /* The card sub (under each category name) and the section-level
@@ -5326,7 +5334,7 @@ button:focus-visible,
 /* CTA section */
 .pk-about-cta {
   background: var(--pk-ink);
-  color: #F4F0E6;
+  color: var(--pk-paper);
   padding: 96px 0;
   text-align: center;
   width: 100%;
@@ -5344,7 +5352,7 @@ button:focus-visible,
   font-size: clamp(28px, 4vw, 52px);
   font-weight: 800;
   letter-spacing: -1.5px;
-  color: #F4F0E6;
+  color: var(--pk-paper);
   margin: 0 0 16px;
   line-height: 1.06;
 }
@@ -5567,7 +5575,7 @@ button:focus-visible,
   top: calc(var(--pk-top-sticky) + 24px);
 }
 .pk-explore__filter-card {
-  background: #FAF8F3;
+  background: var(--pk-paper);
   border: 1px solid var(--pk-card-border, #DDD0BA);
   border-radius: 16px;
   padding: 24px;
@@ -5751,7 +5759,7 @@ button:focus-visible,
 .pk-explore__empty {
   text-align: center;
   padding: 80px 24px;
-  background: #FAF8F3;
+  background: var(--pk-paper);
   border: 1px dashed var(--pk-card-border, #DDD0BA);
   border-radius: 16px;
 }
@@ -5818,7 +5826,7 @@ button:focus-visible,
 .pk-card__placeholder {
   width: 100%;
   aspect-ratio: 1/1;
-  background: #FAF8F3;
+  background: var(--pk-paper);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -5827,7 +5835,7 @@ button:focus-visible,
   font-size: 18px;
   font-weight: 700;
   letter-spacing: 0.08em;
-  color: #A83800;
+  color: var(--pk-ember);
   opacity: 0.5;
 }
 
