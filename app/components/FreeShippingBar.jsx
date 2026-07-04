@@ -15,15 +15,18 @@ function readThreshold() {
 }
 
 /**
- * Format a number in a given currency code using the same locale the
- * cart subtotal uses (`Money` from Hydrogen). `Intl.NumberFormat`
- * rounds half-to-even which can disagree with Shopify — for the
- * free-shipping remainder the rounding error is at most a cent and
- * is acceptable.
+ * Format a number in a given currency code. The locale is pinned to
+ * 'en' so server-rendered HTML and client hydration produce the
+ * exact same string — `Intl.NumberFormat(undefined, …)` would
+ * otherwise pick the runtime's default locale, which differs
+ * between Node (often 'en-US') and the browser (user's locale),
+ * triggering a React hydration mismatch warning on every cart
+ * render. Rounding is half-to-even which can disagree with Shopify
+ * by at most a cent; acceptable for the threshold copy.
  */
 function formatPrice(amount, currencyCode) {
   try {
-    return new Intl.NumberFormat(undefined, {
+    return new Intl.NumberFormat('en', {
       style: 'currency',
       currency: currencyCode || 'CAD',
       maximumFractionDigits: 2,
