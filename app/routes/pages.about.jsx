@@ -4,7 +4,6 @@ import {puchicaMeta} from '~/lib/seo';
 import StarGlyph from '~/components/StarGlyph';
 import {STORE_LOGO_URL} from '~/lib/brand';
 import {IconHome, IconSparkles, IconLightbulb, IconLeaf, IconPawPrint, IconGift} from '~/components/Icons';
-import {ShippingReach} from '~/components/ShippingReach';
 import {useT} from '~/lib/t';
 
 export const meta = ({params}) =>
@@ -103,10 +102,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Shipping reach — "we ship anywhere" panel */}
-      <ShippingReach />
-
-      {/* How it works */}
+{/* How it works */}
       <section className="pk-about-how">
         <div className="pk-about-how__inner">
           <div className="pk-about-how__head">

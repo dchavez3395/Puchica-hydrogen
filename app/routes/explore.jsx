@@ -2,8 +2,6 @@ import {useLoaderData, useSearchParams} from 'react-router';
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {Image, Money} from '@shopify/hydrogen';
 import {puchicaMeta} from '~/lib/seo';
-import {ScrollReveal} from '~/components/ScrollReveal';
-import {TiltCard} from '~/components/TiltCard';
 import {useT} from '~/lib/t';
 
 /**
@@ -232,7 +230,7 @@ export default function ExplorePage() {
                     aria-pressed={isFiltered}
                   >
                     <span className="pk-explore__chip-bullet" style={{
-                      backgroundColor: isFiltered ? 'var(--pk-lime, #D0FF50)' : 'var(--pk-border, #E5E0F0)'
+                      backgroundColor: isFiltered ? 'var(--pk-ember, #A83800)' : 'var(--pk-border, #E8E3D8)'
                     }} />
                     {handleToLabel(handle, t)}
                   </button>
@@ -260,47 +258,41 @@ export default function ExplorePage() {
           ) : (
             <div className="pk-explore__grid">
               {allProducts.map((product, index) => (
-                <ScrollReveal
-                  key={product.id}
-                  delay={Math.min(index * 40, 300)}
-                  variant="up"
-                >
-                  <TiltCard className="pk-explore__card" maxTilt={6}>
-                    <Link
-                      to={`/products/${product.handle}`}
-                      prefetch="intent"
-                      className="pk-explore__card-link"
-                    >
-                      <div className="pk-explore__card-media">
-                        {product.featuredImage ? (
-                          <Image
-                            data={product.featuredImage}
-                            aspectRatio="1/1"
-                            sizes="(min-width: 900px) 33vw, (min-width: 600px) 50vw, 100vw"
-                            loading={index < 6 ? 'eager' : 'lazy'}
-                            alt={product.featuredImage.altText || product.title}
-                          />
-                        ) : (
-                          <div className="pk-explore__card-placeholder" aria-hidden />
-                        )}
-                        <span className="pk-explore__card-badge">{t('explore_view_details')}</span>
-                      </div>
-                      <div className="pk-explore__card-body">
-                        <span className="pk-explore__card-collection">
-                          {product._collectionTitle}
+                <div key={product.id} className="pk-explore__card">
+                  <Link
+                    to={`/products/${product.handle}`}
+                    prefetch="intent"
+                    className="pk-explore__card-link"
+                  >
+                    <div className="pk-explore__card-media">
+                      {product.featuredImage ? (
+                        <Image
+                          data={product.featuredImage}
+                          aspectRatio="1/1"
+                          sizes="(min-width: 900px) 33vw, (min-width: 600px) 50vw, 100vw"
+                          loading={index < 6 ? 'eager' : 'lazy'}
+                          alt={product.featuredImage.altText || product.title}
+                        />
+                      ) : (
+                        <div className="pk-explore__card-placeholder" aria-hidden />
+                      )}
+                      <span className="pk-explore__card-badge">{t('explore_view_details')}</span>
+                    </div>
+                    <div className="pk-explore__card-body">
+                      <span className="pk-explore__card-collection">
+                        {product._collectionTitle}
+                      </span>
+                      <h3 className="pk-explore__card-title">{product.title}</h3>
+                      <div className="pk-explore__card-foot">
+                        <span className="pk-explore__card-price">
+                          {product.priceRange?.minVariantPrice ? (
+                            <Money data={product.priceRange.minVariantPrice} />
+                          ) : null}
                         </span>
-                        <h3 className="pk-explore__card-title">{product.title}</h3>
-                        <div className="pk-explore__card-foot">
-                          <span className="pk-explore__card-price">
-                            {product.priceRange?.minVariantPrice ? (
-                              <Money data={product.priceRange.minVariantPrice} />
-                            ) : null}
-                          </span>
-                        </div>
                       </div>
-                    </Link>
-                  </TiltCard>
-                </ScrollReveal>
+                    </div>
+                  </Link>
+                </div>
               ))}
             </div>
           )}

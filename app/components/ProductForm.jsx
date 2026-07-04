@@ -6,7 +6,6 @@ import {OfferCallout} from '~/components/OfferCallout';
 import {useAside} from './Aside';
 import {useT} from '~/lib/t';
 import {IconHeart, IconMinus, IconPlus} from '~/components/Icons';
-import {MagneticSurface} from './MagneticSurface';
 
 /**
  * @param {{
@@ -163,35 +162,29 @@ export function ProductForm({productOptions, selectedVariant, product, onAddStar
         </div>
 
         <div className="pk-qty-row__atc">
-          {/* MagneticSurface wraps the submit button so the cursor
-              gently pulls it on hover-capable pointers. The submit
-              button itself stays owned by AddToCartButton, which
-              owns the form fetcher state. */}
-          <MagneticSurface strength={0.22} range={90} className="pk-atc-magnetic">
-            <AddToCartButton
-              disabled={!selectedVariant || !selectedVariant.availableForSale}
-              onClick={(e) => {
-                e.stopPropagation();
-                onAddStart?.();
-                open('cart');
-              }}
-              lines={
-                selectedVariant
-                  ? [
-                      {
-                        merchandiseId: selectedVariant.id,
-                        quantity: qty,
-                        selectedVariant,
-                      },
-                    ]
-                  : []
-              }
-            >
-              {selectedVariant?.availableForSale
-                ? t('product_add_to_cart')
-                : t('product_sold_out')}
-            </AddToCartButton>
-          </MagneticSurface>
+          <AddToCartButton
+            disabled={!selectedVariant || !selectedVariant.availableForSale}
+            onClick={(e) => {
+              e.stopPropagation();
+              onAddStart?.();
+              open('cart');
+            }}
+            lines={
+              selectedVariant
+                ? [
+                    {
+                      merchandiseId: selectedVariant.id,
+                      quantity: qty,
+                      selectedVariant,
+                    },
+                  ]
+                : []
+            }
+          >
+            {selectedVariant?.availableForSale
+              ? t('product_add_to_cart')
+              : t('product_sold_out')}
+          </AddToCartButton>
         </div>
 
         {product?.handle ? (

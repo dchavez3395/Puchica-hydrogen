@@ -22,7 +22,6 @@ import {
   IconPackage,
 } from '~/components/Icons';
 import {SOCIAL_PROFILES} from '~/lib/brand';
-import {ShippingReach} from '~/components/ShippingReach';
 import {useT} from '~/lib/t';
 
 /**
@@ -219,10 +218,7 @@ export function ContactPage() {
         </ul>
       </section>
 
-      {/* Shipping reach — region row with city counts (compact variant). */}
-      <ShippingReach variant="compact" />
-
-      {/* FAQ — single column, generous spacing, Q in violet accent. */}
+{/* FAQ — single column, generous spacing, Q in violet accent. */}
       <section className="pk-contact__faq" aria-label={t('contact_faq_aria')}>
         <h2 className="pk-contact__section-head">
           <span className="pk-contact__eyebrow">{t('contact_faq_eyebrow')}</span>
@@ -243,7 +239,7 @@ export function ContactPage() {
         </div>
         <p className="pk-contact__faq-foot">
           {t('contact_faq_foot', {email: (
-            <a href={`mailto:${CONTACT_EMAIL}`}>{t('contact_faq_foot_link')}</a>
+            <a key="email" href={`mailto:${CONTACT_EMAIL}`}>{t('contact_faq_foot_link')}</a>
           )})}
         </p>
       </section>

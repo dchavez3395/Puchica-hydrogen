@@ -16,9 +16,8 @@ import {useLocalizedHref} from '~/lib/useLocalizedHref';
  * so the existing `<Link to=...>` / `<NavLink to=...>` call sites need no other
  * change. Leave links that are already known-external as plain <a>.
  *
- * These use forwardRef so wrappers that need the DOM node (e.g. MagneticButton /
- * MagneticSurface, which attach cursor effects) can still get a ref — react-router's
- * Link/NavLink both forward refs to the underlying <a>.
+ * These use forwardRef so wrappers that need the DOM node can still get a
+ * ref — react-router's Link/NavLink both forward refs to the underlying <a>.
  *
  * NavLink's function-style `className`/`style`/`children` props pass straight
  * through untouched.

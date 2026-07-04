@@ -4,8 +4,6 @@ import {getPaginationVariables, Image} from '@shopify/hydrogen';
 import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
 import {puchicaMeta} from '~/lib/seo';
 import {categoryIcon} from '~/components/Icons';
-import {ScrollReveal} from '~/components/ScrollReveal';
-import {TiltCard} from '~/components/TiltCard';
 import {useT} from '~/lib/t';
 
 /**
@@ -112,6 +110,7 @@ export default function Collections() {
  * }}
  */
 function CollectionItem({collection, index}) {
+  const t = useT();
   const adminImage = collection?.image;
   const productImage = collection?.products?.nodes?.[0]?.featuredImage;
   const image = adminImage || productImage;
@@ -120,51 +119,46 @@ function CollectionItem({collection, index}) {
   const cardClass = isFeatured ? 'pk-collist-card pk-collist-card--featured' : 'pk-collist-card';
 
   return (
-    <ScrollReveal
-      delay={Math.min(index * 60, 400)}
-      variant={index % 2 === 0 ? 'left' : 'right'}
-    >
-      <TiltCard className={cardClass} maxTilt={8}>
-        <Link
-          to={`/collections/${collection.handle}`}
-          prefetch="intent"
-          style={{display: 'contents'}}
+    <div className={cardClass}>
+      <Link
+        to={`/collections/${collection.handle}`}
+        prefetch="intent"
+        style={{display: 'contents'}}
+      >
+        <div
+          className="pk-collist-card__media"
+          style={image ? undefined : {background: theme.gradient}}
         >
-          <div
-            className="pk-collist-card__media"
-            style={image ? undefined : {background: theme.gradient}}
-          >
-            {image ? (
-              <Image
-                alt={image.altText || collection.title}
-                aspectRatio="16/10"
-                data={image}
-                loading={index < 3 ? 'eager' : undefined}
-                sizes="(min-width: 45em) 400px, 100vw"
-              />
-            ) : (
-              <span
-                className="pk-collist-card__fallback-icon"
-                aria-hidden
-                style={{color: theme.iconColor}}
-              >
-                {categoryIcon(collection.title, {size: 64})}
-              </span>
-            )}
+          {image ? (
+            <Image
+              alt={image.altText || collection.title}
+              aspectRatio="16/10"
+              data={image}
+              loading={index < 3 ? 'eager' : undefined}
+              sizes="(min-width: 45em) 400px, 100vw"
+            />
+          ) : (
             <span
-              className="pk-collist-card__chip"
-              style={image ? undefined : {color: theme.iconColor, borderColor: theme.chipBorder, background: theme.chipBg}}
+              className="pk-collist-card__fallback-icon"
+              aria-hidden
+              style={{color: theme.iconColor}}
             >
-              {collection.title}
+              {categoryIcon(collection.title, {size: 64})}
             </span>
-          </div>
-          <div className="pk-collist-card__body">
-            <h3 className="pk-collist-card__title">{collection.title}</h3>
-            <p className="pk-collist-card__count">{t('col_index_card_cta')}</p>
-          </div>
-        </Link>
-      </TiltCard>
-    </ScrollReveal>
+          )}
+          <span
+            className="pk-collist-card__chip"
+            style={image ? undefined : {color: theme.iconColor, borderColor: theme.chipBorder, background: theme.chipBg}}
+          >
+            {collection.title}
+          </span>
+        </div>
+        <div className="pk-collist-card__body">
+          <h3 className="pk-collist-card__title">{collection.title}</h3>
+          <p className="pk-collist-card__count">{t('col_index_card_cta')}</p>
+        </div>
+      </Link>
+    </div>
   );
 }
 
