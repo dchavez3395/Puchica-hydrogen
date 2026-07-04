@@ -65,6 +65,7 @@ export function Header({header, isLoggedIn, cart, publicStoreDomain, megaMenu}) 
             primaryDomainUrl={header.shop.primaryDomain.url}
             publicStoreDomain={publicStoreDomain}
           />
+          <HeaderSearchBar />
           <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />
         </div>
       </header>
@@ -138,8 +139,10 @@ export function HeaderMenu({menu, megaMenu, primaryDomainUrl, viewport, publicSt
   // "money" everywhere it appears.
   const desktopNav = [
     {id: 'dn-new', title: t('nav_new_arrivals'), url: '/collections/new-arrivals'},
-    {id: 'dn-best', title: t('nav_best_sellers'), url: '/collections/best-sellers'},
     {id: 'dn-sale', title: t('nav_sale'), url: '/collections/sale', sale: true},
+    {id: 'dn-best', title: t('nav_best_sellers'), url: '/collections/best-sellers'},
+    {id: 'dn-foryou', title: t('nav_for_you'), url: '/collections/for-you'},
+    {id: 'dn-gifts', title: t('nav_gifts'), url: '/collections/gifts-under-25'},
   ];
   const mobileExtraNav = [
     {id: 'mn-new', title: t('nav_new_arrivals'), url: '/collections/new-arrivals'},
@@ -258,6 +261,35 @@ function useHeaderShrink() {
     onScroll();
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+}
+
+/**
+ * Desktop inline search bar — visible in the header (not hidden behind
+ * a toggle). For a department store with 6,000+ products, search is the
+ * primary discovery path. Mobile still uses the search toggle (aside).
+ */
+function HeaderSearchBar() {
+  const t = useT();
+  return (
+    <form
+      className="pk-header-search"
+      role="search"
+      action="/search"
+      method="get"
+    >
+      <span className="pk-header-search__icon" aria-hidden="true">
+        <IconSearch />
+      </span>
+      <input
+        type="search"
+        name="q"
+        className="pk-header-search__input"
+        placeholder={t('search_placeholder')}
+        aria-label={t('search_aria_submit')}
+        autoComplete="off"
+      />
+    </form>
+  );
 }
 
 /**

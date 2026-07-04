@@ -3,16 +3,15 @@ import {ProductItem} from '~/components/ProductItem';
 import {useT} from '~/lib/t';
 
 /**
- * Eyebrow + h2 + "See all →" + 4-up <ProductItem> grid.
- * Best-sellers come from the `best-sellers` collection sorted
- * by BEST_SELLING. The grid stays at 4 across on desktop, 2 across
- * on mobile — same layout the rest of the storefront uses.
+ * Best Sellers grid — 12 products in a 4-up (desktop) / 2-up (mobile)
+ * grid. This is the densest product section on the homepage, meant
+ * to feel like real shopping shelves.
  *
  * @param {{ products: Array<object> }}
  */
-export function BestSellers({products = []}) {
+export function BestSellersGrid({products = []}) {
   const t = useT();
-  const items = products.slice(0, 4);
+  const items = products.slice(0, 12);
 
   if (!items.length) return null;
 
@@ -38,7 +37,7 @@ export function BestSellers({products = []}) {
         <ul className="pk-product-grid">
           {items.map((p, i) => (
             <li key={p.id} className="pk-product-grid__item">
-              <ProductItem product={p} loading={i < 2 ? 'eager' : 'lazy'} />
+              <ProductItem product={p} loading={i < 4 ? 'eager' : 'lazy'} />
             </li>
           ))}
         </ul>
@@ -46,3 +45,7 @@ export function BestSellers({products = []}) {
     </section>
   );
 }
+
+// Keep the old export name for backward compat (any imports that
+// still reference BestSellers).
+export const BestSellers = BestSellersGrid;

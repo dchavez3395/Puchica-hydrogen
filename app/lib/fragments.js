@@ -226,10 +226,7 @@ export const HEADER_QUERY = `#graphql
 `;
 
 // Mega menu data for the Shop dropdown: every storefront-published
-// collection with a representative product image. The component picks
-// categories/featured out of the list by handle. Note: Storefront API
-// does not expose productsCount on Collection, so the panel shows
-// names only.
+// collection with a representative product image.
 export const MEGA_MENU_QUERY = `#graphql
   fragment MegaCategory on Collection {
     id
@@ -255,11 +252,6 @@ export const MEGA_MENU_QUERY = `#graphql
       }
     }
   }
-  # One list query instead of 18 hand-aliased lookups: the component
-  # maps handles from this list, so new/renamed collections only need
-  # the ordered handle array in MegaMenu.jsx — not a query change.
-  # (Collections must be published to the Puchica Storefront channel
-  # to appear here — that's a Shopify admin publication, not code.)
   query MegaMenu {
     collections(first: 30) {
       nodes { ...MegaCategory }
@@ -278,13 +270,9 @@ export const FOOTER_QUERY = `#graphql
 `;
 
 /**
- * Homepage product + category queries. Used by `app/routes/_index.jsx`
- * after the 17→8 section cut. Fragments are kept here (instead of
- * inline in the route) so the schema is discoverable in one place.
- *
+ * Homepage product + category queries.
  * The product fragment mirrors `RECOMMENDED_ITEM_FRAGMENT` from the
- * PDP so the same `<ProductItem>` card renders identically on
- * home / PDP-related / collection pages.
+ * PDP so the same `<ProductItem>` card renders identically everywhere.
  */
 const HOME_PRODUCT_FRAGMENT = `#graphql
   fragment HomeProduct on Product {
@@ -306,11 +294,6 @@ const HOME_CATEGORY_TILE_FRAGMENT = `#graphql
   fragment HomeCategoryTile on Collection {
     id handle title
     image { id url altText width height }
-    # The category's own "image" is often null in this store (a
-    # merchandiser hasn't uploaded collection images yet). To keep
-    # the homepage tile section visually rich, fall back to the
-    # first product's "featuredImage" -- same field shape, real
-    # product photo. The section picks whichever is present.
     products(first: 1, sortKey: BEST_SELLING) {
       nodes {
         featuredImage {
@@ -318,9 +301,6 @@ const HOME_CATEGORY_TILE_FRAGMENT = `#graphql
         }
       }
     }
-    # Storefront API does not expose a productsCount field on
-    # Collection, so we omit it. The section hides the count
-    # line when missing rather than guessing.
   }
 `;
 
@@ -331,7 +311,7 @@ export const HOME_BEST_SELLERS_QUERY = `#graphql
     $language: LanguageCode!
   ) @inContext(country: $country, language: $language) {
     bestSellers: collection(handle: "best-sellers") {
-      products(first: 4, sortKey: BEST_SELLING) {
+      products(first: 12, sortKey: BEST_SELLING) {
         nodes { ...HomeProduct }
       }
     }
@@ -344,66 +324,64 @@ export const HOME_NEW_ARRIVALS_QUERY = `#graphql
     $country: CountryCode!
     $language: LanguageCode!
   ) @inContext(country: $country, language: $language) {
-    # Source from the top-level products connection, sorted by
-    # CREATED_AT desc. The previous query pulled from
-    # collection(handle: "outdoor-garden") which made the
-    # "new arrivals" rail read as "new stuff in one category" --
-    # all 8 cards were outdoor products from a single bulk import.
-    # 24 (not 8) gives the rail's vendor diversification helper
-    # enough material to interleave vendors. The section still
-    # slices to 8 cards in the view layer.
-    # Note: the top-level products connection's sort enum is
-    # ProductSortKeys (CREATED_AT), not ProductCollectionSortKeys
-    # (CREATED) used inside collection.products.
     newArrivals: products(first: 24, sortKey: CREATED_AT, reverse: true) {
       nodes { ...HomeProduct }
     }
   }
 `;
 
-export const HOME_SPORTS_QUERY = `#graphql
+export const HOME_SALE_QUERY = `#graphql
   ${HOME_PRODUCT_FRAGMENT}
-  query HomeSports(
+  query HomeSale(
     $country: CountryCode!
     $language: LanguageCode!
   ) @inContext(country: $country, language: $language) {
-    # Filter on the Shopify product_type field. The store has
-    # real sports products (rangefinders, shin guards, trail
-    # cameras) tagged product_type: "Sports & Outdoors".
-    # BEST_SELLING -- not CREATED -- is the right merchandising
-    # sort for a category rail: show what people buy, not what
-    # was imported last.
-    #
-    # Note: the unquoted form "product_type:Sports & Outdoors"
-    # works; the single-quoted form "product_type:'Sports &...'"
-    # returns zero results. The "&" is treated as a search
-    # operator inside quotes -- use bare value, not quoted.
-    sports: products(
-      first: 8
-      sortKey: BEST_SELLING
-      query: "product_type:Sports & Outdoors"
-    ) {
-      nodes { ...HomeProduct }
+    onSale: collection(handle: "sale") {
+      products(first: 12, sortKey: BEST_SELLING) {
+        nodes { ...HomeProduct }
+      }
     }
   }
 `;
 
-export const HOME_WORLD_CUP_QUERY = `#graphql
+export const HOME_FOR_YOU_QUERY = `#graphql
   ${HOME_PRODUCT_FRAGMENT}
-  query HomeWorldCup(
+  query HomeForYou(
     $country: CountryCode!
     $language: LanguageCode!
   ) @inContext(country: $country, language: $language) {
-    # Filter on the Shopify tag field. The store has 5+ Canada
-    # soccer jerseys and dad caps tagged "world cup" -- the
-    # World Cup 2026 tournament is in June/July, this is timely.
-    # BEST_SELLING same reasoning as the sports rail.
-    worldCup: products(
-      first: 8
-      sortKey: BEST_SELLING
-      query: "tag:world cup"
-    ) {
-      nodes { ...HomeProduct }
+    forYou: collection(handle: "for-you") {
+      products(first: 12, sortKey: BEST_SELLING) {
+        nodes { ...HomeProduct }
+      }
+    }
+  }
+`;
+
+export const HOME_TRENDING_QUERY = `#graphql
+  ${HOME_PRODUCT_FRAGMENT}
+  query HomeTrending(
+    $country: CountryCode!
+    $language: LanguageCode!
+  ) @inContext(country: $country, language: $language) {
+    trending: collection(handle: "trending-finds") {
+      products(first: 12, sortKey: BEST_SELLING) {
+        nodes { ...HomeProduct }
+      }
+    }
+  }
+`;
+
+export const HOME_GIFTS_QUERY = `#graphql
+  ${HOME_PRODUCT_FRAGMENT}
+  query HomeGifts(
+    $country: CountryCode!
+    $language: LanguageCode!
+  ) @inContext(country: $country, language: $language) {
+    gifts: collection(handle: "gifts-under-25") {
+      products(first: 12, sortKey: BEST_SELLING) {
+        nodes { ...HomeProduct }
+      }
     }
   }
 `;
@@ -414,12 +392,12 @@ export const HOME_CATEGORIES_QUERY = `#graphql
     $country: CountryCode!
     $language: LanguageCode!
   ) @inContext(country: $country, language: $language) {
-    # 8 hard-coded top-level category handles. The Storefront API
-    # does not sort Collection by productsCount, so we list them
-    # by hand to keep the visual order stable.
+    # 15 department handles ordered by catalog size (largest first).
+    # The Storefront API does not sort Collection by productsCount,
+    # so we list them by hand to keep the visual order stable.
     categories: collections(
-      first: 8
-      query: "handle:phone-case OR handle:home-kitchen OR handle:electronics-accessories OR handle:apparel-accessories OR handle:health-wellness OR handle:sports-outdoors OR handle:pet-supplies OR handle:outdoor-garden"
+      first: 25
+      query: "handle:phone-case OR handle:home-kitchen OR handle:electronics-accessories OR handle:apparel-accessories OR handle:health-wellness OR handle:sports-outdoors OR handle:pet-supplies OR handle:automotive OR handle:tools-home-improvement OR handle:beauty-personal-care OR handle:toys-games OR handle:home-decor OR handle:office-school OR handle:baby-nursery OR handle:outdoor-garden"
     ) {
       nodes { ...HomeCategoryTile }
     }

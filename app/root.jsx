@@ -17,6 +17,7 @@ const favicon = '/favicon.svg';
 import {FOOTER_QUERY, HEADER_QUERY, MEGA_MENU_QUERY} from '~/lib/fragments';
 import resetStyles from '~/styles/reset.css?url';
 import appStyles from '~/styles/app.css?url';
+import commerceStyles from '~/styles/app-commerce.css?url';
 import {PageLayout} from './components/PageLayout';
 // SmoothScroll removed in Phase 1 — Lenis was passive scroll
 // enhancement with no callers; native scroll is fine.
@@ -193,6 +194,7 @@ export function Layout({children}) {
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <link rel="stylesheet" href={resetStyles}></link>
         <link rel="stylesheet" href={appStyles}></link>
+      <link rel="stylesheet" href={commerceStyles}></link>
         {alternates.map((a) => (
           <link
             key={a.hreflang}

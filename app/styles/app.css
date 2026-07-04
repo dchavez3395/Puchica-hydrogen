@@ -1802,7 +1802,7 @@ button:focus-visible,
 .pk-hero__thumb img { width: 100%; height: 100%; object-fit: cover; }
 
 /* ---------- Section heads ---------- */
-.pk-section { margin: 40px 0; }
+.pk-section { margin: 24px 0; }
 .pk-section__head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 18px; }
 .pk-section__head h2 {
   font-family: var(--pk-font-display);
@@ -1854,7 +1854,7 @@ button:focus-visible,
 .pk-cat-card__img img { width: 100%; height: auto; object-fit: contain; border-radius: 12px; }
 
 /* ---------- Product grid ---------- */
-.pk-prod-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.pk-prod-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
 .pk-prod-grid--loading { min-height: 320px; }
 .pk-card {
   border-radius: 2px;

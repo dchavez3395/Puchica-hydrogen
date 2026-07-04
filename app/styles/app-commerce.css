@@ -1,0 +1,324 @@
+/* ════════════════════════════════════════════════════════════════
+   PUCHICA COMMERCE — Big-retail style (Amazon/Walmart/Superstore)
+   Clean, dense, functional. No designer vibes.
+   ════════════════════════════════════════════════════════════════ */
+
+/* ── Store Hero ───────────────────────────────────────────────── */
+.pk-store-hero {
+  background: var(--pk-paper);
+  border-bottom: 1px solid var(--pk-line);
+}
+
+.pk-store-hero__inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 24px 20px 0;
+}
+
+/* Banner: headline + sub + quick links */
+.pk-store-hero__banner {
+  padding: 20px 0 24px;
+  border-bottom: 1px solid var(--pk-line);
+}
+
+.pk-store-hero__heading {
+  font-size: clamp(28px, 4vw, 40px);
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--pk-ink);
+  margin: 0 0 8px;
+}
+
+.pk-store-hero__sub {
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--pk-muted);
+  margin: 0 0 16px;
+  max-width: 60ch;
+}
+
+.pk-store-hero__quick-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pk-store-hero__quick {
+  display: inline-flex;
+  align-items: center;
+  height: 36px;
+  padding: 0 14px;
+  border-radius: 4px;
+  border: 1px solid var(--pk-line);
+  background: var(--pk-white);
+  color: var(--pk-ink);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: border-color 0.12s, background 0.12s;
+}
+.pk-store-hero__quick:hover {
+  border-color: var(--pk-ink);
+  background: var(--pk-cream);
+  text-decoration: none;
+}
+
+/* Category shortcut grid — dense, clean, like Amazon's category tiles */
+.pk-store-hero__cats {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+  background: var(--pk-line);
+  border-bottom: 1px solid var(--pk-line);
+  margin: 0 -20px;
+  padding: 0 20px;
+}
+
+.pk-store-hero__cat {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  padding: 14px 12px;
+  background: var(--pk-paper);
+  color: var(--pk-ink);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.12s;
+  border-bottom: 3px solid transparent;
+}
+.pk-store-hero__cat:hover {
+  background: var(--pk-cream);
+  border-bottom-color: var(--pk-ember);
+  text-decoration: none;
+}
+
+.pk-store-hero__cat--sale {
+  color: var(--pk-ember);
+}
+
+.pk-store-hero__cat-badge {
+  display: inline-block;
+  background: var(--pk-ember);
+  color: var(--pk-white);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 2px 6px;
+  border-radius: 3px;
+  line-height: 1;
+}
+
+.pk-store-hero__cat-label {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pk-store-hero__cat-arrow {
+  font-size: 12px;
+  color: var(--pk-muted);
+  flex-shrink: 0;
+}
+
+@media (max-width: 1024px) {
+  .pk-store-hero__cats {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .pk-store-hero__cats {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 500px) {
+  .pk-store-hero__cats {
+    grid-template-columns: repeat(2, 1fr);
+    overflow-x: auto;
+    grid-auto-flow: column;
+    grid-auto-columns: 45vw;
+    scroll-snap-type: x mandatory;
+  }
+  .pk-store-hero__cat {
+    scroll-snap-align: start;
+  }
+}
+
+/* ── Department Grid ──────────────────────────────────────────── */
+.pk-section--departments {
+  background: var(--pk-cream);
+  padding: 32px 0;
+}
+
+.pk-dept-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pk-dept-tile {
+  list-style: none;
+}
+
+.pk-dept-tile__link {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: var(--pk-ink);
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--pk-white);
+  border: 1px solid var(--pk-line);
+  transition: border-color 0.12s, box-shadow 0.12s;
+}
+.pk-dept-tile__link:hover {
+  border-color: var(--pk-ink);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  text-decoration: none;
+}
+
+.pk-dept-tile__media {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: var(--pk-cream);
+}
+.pk-dept-tile__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.pk-dept-tile__monogram {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--pk-cream);
+  color: var(--pk-muted);
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.pk-dept-tile__body {
+  padding: 10px 12px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pk-dept-tile__title {
+  font-size: 13px;
+  font-weight: 700;
+  margin: 0;
+  color: var(--pk-ink);
+  line-height: 1.3;
+}
+
+.pk-dept-tile__count {
+  font-size: 11px;
+  color: var(--pk-muted);
+  font-weight: 500;
+}
+
+.pk-dept-tile__cta {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--pk-ember);
+  margin-top: 2px;
+}
+
+.pk-dept-tile--skel {
+  aspect-ratio: 1 / 1.3;
+  border-radius: 6px;
+  background: var(--pk-cream);
+  border: 1px solid var(--pk-line);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@media (max-width: 1024px) {
+  .pk-dept-grid { grid-template-columns: repeat(4, 1fr); }
+}
+@media (max-width: 800px) {
+  .pk-dept-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 500px) {
+  .pk-dept-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ── Product rail sections ─────────────────────────────────────── */
+.pk-section--rail {
+  background: var(--pk-paper);
+  padding: 28px 0;
+}
+
+.pk-section--rail-sale {
+  background: var(--pk-cream);
+}
+
+/* ── Best sellers grid ────────────────────────────────────────── */
+.pk-section--best-sellers {
+  background: var(--pk-cream);
+  padding: 32px 0;
+}
+
+/* ── Header inline search bar ────────────────────────────────── */
+.pk-header-search {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  max-width: 480px;
+  margin: 0 16px;
+  position: relative;
+}
+
+.pk-header-search__icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--pk-muted);
+  pointer-events: none;
+}
+
+.pk-header-search__input {
+  width: 100%;
+  height: 40px;
+  padding: 0 16px 0 42px;
+  border: 1.5px solid var(--pk-line);
+  border-radius: 4px;
+  background: var(--pk-cream);
+  font-size: 14px;
+  font-family: var(--pk-font, 'Outfit', system-ui, sans-serif);
+  color: var(--pk-ink);
+  transition: border-color 0.12s, background 0.12s;
+}
+
+.pk-header-search__input:focus {
+  outline: none;
+  border-color: var(--pk-ink);
+  background: var(--pk-white);
+  box-shadow: 0 0 0 2px rgba(23,20,16,0.06);
+}
+
+.pk-header-search__input::placeholder {
+  color: var(--pk-muted);
+}
+
+@media (max-width: 900px) {
+  .pk-header-search { display: none; }
+}
