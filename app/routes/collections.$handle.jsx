@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import {redirect, useLoaderData, useSearchParams} from 'react-router';
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
-import {getPaginationVariables, Analytics, Image} from '@shopify/hydrogen';
+import {getPaginationVariables, Analytics} from '@shopify/hydrogen';
 import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 import {puchicaMeta} from '~/lib/seo';
@@ -183,32 +183,16 @@ export default function Collection() {
         <span className="pk-breadcrumbs__current">{collection.title}</span>
       </nav>
 
-      <header className="pk-col-hero">
-        {collection.image && (
-          <Image
-            data={collection.image}
-            className="pk-col-hero__bg"
-            loading="eager"
-            sizes="100vw"
-            style={{
-              position: 'absolute',
-              inset: 0,
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              opacity: 0.18,
-              zIndex: -1,
-            }}
-          />
+      <header className="pk-page-head">
+        <h1 className="pk-page-head__title">{collection.title}</h1>
+        {count > 0 && (
+          <span className="pk-page-head__count">
+            {count} {t('col_product_plural')}
+          </span>
         )}
-        <div className="pk-col-hero__glow" aria-hidden />
-        <div className="pk-col-hero__glow pk-col-hero__glow--ember" aria-hidden />
-        <span className="pk-col-hero__eyebrow">{t('col_eyebrow')}</span>
-        <h1 className="pk-col-hero__title">{collection.title}</h1>
         {collection.description ? (
-          <p className="pk-col-hero__sub">{collection.description}</p>
+          <p className="pk-page-head__sub">{collection.description}</p>
         ) : null}
-        <span className="pk-col-hero__count">{t('col_brand_chip')}</span>
       </header>
 
       {count === 0 ? (

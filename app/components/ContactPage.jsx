@@ -105,14 +105,10 @@ export function ContactPage() {
 
   return (
     <div className="pk-contact">
-      {/* Hero — same gradient language as the collection hero so the
-       * site feels coherent. Uses --soft variant under 700px (smaller
-       * padding handled by the .pk-col-hero media query already). */}
-      <header className="pk-col-hero pk-contact__hero">
-        <span className="pk-col-hero__glow" aria-hidden="true" />
-        <span className="pk-col-hero__eyebrow">{t('contact_hero_eyebrow')}</span>
-        <h1 className="pk-col-hero__title">{t('contact_hero_title')}</h1>
-        <p className="pk-col-hero__sub">{t('contact_hero_sub')}</p>
+      <header className="pk-page-head pk-page-head--center">
+        <span className="pk-page-head__eyebrow">{t('contact_hero_eyebrow')}</span>
+        <h1 className="pk-page-head__title">{t('contact_hero_title')}</h1>
+        <p className="pk-page-head__sub">{t('contact_hero_sub')}</p>
       </header>
 
       {/* Contact channels — three social cards, one per platform. Email

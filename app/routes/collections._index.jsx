@@ -70,13 +70,10 @@ export default function Collections() {
         </span>
       </nav>
 
-      <header className="pk-col-hero">
-        <div className="pk-col-hero__glow" aria-hidden />
-        <span className="pk-col-hero__eyebrow">{t('col_index_eyebrow')}</span>
-        <h1 className="pk-col-hero__title">{t('col_index_h')}</h1>
-        <p className="pk-col-hero__sub">{t('col_index_sub')}</p>
+      <header className="pk-page-head">
+        <h1 className="pk-page-head__title">{t('col_index_h')}</h1>
         {count > 0 && (
-          <span className="pk-col-hero__count">{t('col_index_count')}</span>
+          <span className="pk-page-head__count">{t('col_index_count')}</span>
         )}
       </header>
 
