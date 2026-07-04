@@ -132,16 +132,20 @@ export function HeaderMenu({menu, megaMenu, primaryDomainUrl, viewport, publicSt
   const {close} = useAside();
   const t = useT();
 
-  // Desktop: fully controlled order — no surprises from Shopify admin menu.
+  // Desktop: fully controlled, commerce-first order (audit §4 nav spec):
+  // category mega menu, then the two highest-converting entries, then
+  // Sale — the only colored item in the nav, so ember keeps meaning
+  // "money" everywhere it appears.
   const desktopNav = [
     {id: 'dn-new', title: t('nav_new_arrivals'), url: '/collections/new-arrivals'},
-    {id: 'dn-explore', title: t('nav_explore'), url: '/explore'},
-    {id: 'dn-about', title: t('nav_about'), url: '/pages/about'},
-    {id: 'dn-contact', title: t('nav_contact'), url: '/pages/contact'},
+    {id: 'dn-best', title: t('nav_best_sellers'), url: '/collections/best-sellers'},
+    {id: 'dn-sale', title: t('nav_sale'), url: '/collections/sale', sale: true},
   ];
   const mobileExtraNav = [
-    {id: 'mn-explore', title: t('nav_explore'), url: '/explore'},
     {id: 'mn-new', title: t('nav_new_arrivals'), url: '/collections/new-arrivals'},
+    {id: 'mn-best', title: t('nav_best_sellers'), url: '/collections/best-sellers'},
+    {id: 'mn-sale', title: t('nav_sale'), url: '/collections/sale'},
+    {id: 'mn-explore', title: t('nav_explore'), url: '/explore'},
     {id: 'mn-about', title: t('nav_about'), url: '/pages/about'},
   ];
 
@@ -152,7 +156,9 @@ export function HeaderMenu({menu, megaMenu, primaryDomainUrl, viewport, publicSt
         {desktopNav.map((item) => (
           <NavLink
             key={item.id}
-            className="pk-nav__link"
+            className={
+              'pk-nav__link' + (item.sale ? ' pk-nav__link--sale' : '')
+            }
             to={item.url}
             onClick={close}
             prefetch="intent"

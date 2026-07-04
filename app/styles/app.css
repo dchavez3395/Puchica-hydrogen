@@ -105,7 +105,14 @@
   --pk-surface:     var(--pk-cream);
   --pk-border:      var(--pk-line);
   --pk-card-border: var(--pk-line);
-  --pk-paper:       var(--pk-paper);
+  /* Self-referencing vars are invalid in CSS — the browser drops them
+   * to `initial` (empty). That makes every `color: var(--pk-paper)` on
+   * the dark surfaces (announcement bar, footer) fall through to the
+   * inherited ink, producing 1.0:1 contrast on text like "Shop now",
+   * the h4 column headings, the secure-checkout line, etc. Mirror
+   * the v5 canonical paper here so the alias block re-establishes
+   * the token instead of nuking it. */
+  --pk-paper:       #FAF9F6;
   --pk-paper-dark:  var(--pk-cream);
   --pk-paper-warm:  var(--pk-cream);
   --pk-bg-soft:     var(--pk-cream);
@@ -217,7 +224,7 @@ main {
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--pk-ember);
+  color: var(--pk-muted);
   margin-bottom: 12px;
 }
 .pk-eyebrow--on-dark {
@@ -1620,15 +1627,16 @@ button:focus-visible,
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 .pk-btn--primary {
-  background: transparent;
-  color: var(--pk-ink);
-  border: 1.5px solid #160F3A;
+  background: var(--pk-ink);
+  color: var(--pk-paper);
+  border: 1.5px solid var(--pk-ink);
+  border-radius: 8px;
   box-shadow: none;
 }
 .pk-btn--primary:hover {
-  background: #A83800;
-  border-color: #A83800;
-  color: #fff;
+  background: #2A2620;
+  border-color: #2A2620;
+  color: var(--pk-paper);
   transform: none;
   box-shadow: none;
 }
@@ -2043,19 +2051,25 @@ button:focus-visible,
 }
 .pk-nav__link {
   text-decoration: none;
-  color: #3D3824;
+  color: var(--pk-ink);
   font-size: 15px;
   font-weight: 500;
   padding: 4px 2px;
-  border-bottom: 0;
-  transition: color 0.15s ease;
+  border-bottom: 1.5px solid transparent;
+  transition: color 0.15s ease, border-color 0.15s ease;
   line-height: 1.2;
 }
-.pk-nav__link:hover { color: var(--pk-lime-dark); }
-/* Active state visual is owned by the aria-current rule below â€” keep
+.pk-nav__link:hover { border-bottom-color: var(--pk-ink); }
+/* Active state visual is owned by the aria-current rule below — keep
    this in sync. The old `.active` class rule has been removed to avoid
    the double-underline bug. */
-.pk-nav__link.active { color: var(--pk-lime-dark); }
+.pk-nav__link.active { border-bottom-color: var(--pk-ink); font-weight: 600; }
+
+/* Sale — the only colored nav item (audit §4). Ember always means
+   "money" and nowhere else in the chrome uses it. */
+.pk-nav__link--sale { color: var(--pk-ember); font-weight: 600; }
+.pk-nav__link--sale:hover { border-bottom-color: var(--pk-ember); }
+.pk-nav__link--sale.active { border-bottom-color: var(--pk-ember); }
 
 .pk-header__ctas {
   margin-left: auto;
@@ -2126,7 +2140,7 @@ button:focus-visible,
   border-bottom: 1px solid var(--pk-border, #E5E0F0);
 }
 .pk-nav--mobile .pk-nav__link { font-size: 17px; padding: 12px 8px; width: 100%; border-bottom: none; }
-.pk-nav--mobile .pk-nav__link.active { color: var(--pk-lime-dark); }
+.pk-nav--mobile .pk-nav__link.active { color: var(--pk-ink); font-weight: 700; }
 
 .pk-mmenu {
   padding: 4px 8px 28px;
@@ -2550,7 +2564,7 @@ button:focus-visible,
   letter-spacing: 0.14em;
   font-size: 12px;
   font-weight: 700;
-  color: var(--pk-ember);
+  color: var(--pk-muted);
   margin-bottom: 6px;
 }
 .pk-grad-text {
@@ -2567,7 +2581,32 @@ button:focus-visible,
   gap: 2px;
   margin-bottom: 28px;
 }
-.pk-btn--lg { padding: 15px 26px; font-size: 16px; border-radius: 2px; }
+.pk-btn--lg { padding: 0 28px; height: 48px; font-size: 15px; border-radius: 8px; }
+
+/* Canonical button pair (audit §3). Ink = the one primary action per
+   view; outline = the secondary path. Both self-contained so they
+   don't inherit the legacy .pk-btn ghost look. */
+.pk-btn--ink {
+  background: var(--pk-ink);
+  color: var(--pk-paper);
+  border: 1.5px solid var(--pk-ink);
+  border-radius: 8px;
+}
+.pk-btn--ink:hover {
+  background: #2A2620;
+  border-color: #2A2620;
+  color: var(--pk-paper);
+}
+.pk-btn--outline {
+  background: transparent;
+  color: var(--pk-ink);
+  border: 1.5px solid var(--pk-ink);
+  border-radius: 8px;
+}
+.pk-btn--outline:hover {
+  background: rgba(23, 20, 16, 0.06);
+  color: var(--pk-ink);
+}
 .pk-btn--light {
   background: var(--pk-paper);
   color: var(--pk-ember-hover);
@@ -6743,7 +6782,13 @@ button:focus-visible,
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--pk-lime);
+  /* Bright accent on the dark hero. Used to be `var(--pk-lime)`
+   * (acid lime) before the audit retired lime; that token now
+   * resolves to `var(--pk-ink)`, which is the same as the hero
+   * background and produces 1.0:1 contrast. Use the same cream
+   * the hero title uses (#F4F0E6) so the eyebrow matches the
+   * surrounding text tone instead of vanishing into the bg. */
+  color: #F4F0E6;
   display: block;
   margin-bottom: 24px;
 }
@@ -6756,7 +6801,14 @@ button:focus-visible,
   margin: 0 0 24px;
   color: #F4F0E6;
 }
-.pk-about-hero__em { color: var(--pk-lime); }
+.pk-about-hero__em {
+  /* Bright accent word on the dark hero. The audit retired lime
+   * (--pk-lime now resolves to --pk-ink) so this used to render
+   * as ink-on-ink at 1.0:1. Switch to the same paper cream the
+   * surrounding title uses; the visual emphasis comes from the
+   * italic + line break, not a separate hue. */
+  color: #F4F0E6;
+}
 .pk-about-hero__sub {
   font-size: 18px;
   color: rgba(244,240,230,0.72);
@@ -6765,9 +6817,20 @@ button:focus-visible,
   margin: 0 auto 40px;
 }
 
-/* Stats bar */
+/* Stats bar
+ *
+ * The original design was a bright acid-lime strip with dark
+ * text -- meant to act as a visual break between the dark hero
+ * and the cream mission section. The audit retired acid lime
+ * (--pk-lime → --pk-ink), which made both the background AND
+ * the text resolve to the same warm black, producing 1.0:1
+ * contrast on every stat. Use the page-paper cream here: it's
+ * lighter than --pk-cream so it still reads as a "bright"
+ * surface next to the cream mission section, and the inherited
+ * --pk-ink text + rgba(14,12,8,0.65) labels now have a
+ * 16:1 / 11:1 background to land on. */
 .pk-about-stats {
-  background: var(--pk-lime);
+  background: var(--pk-paper);
   color: var(--pk-ink);
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -6901,7 +6964,9 @@ button:focus-visible,
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--pk-lime);
+  /* Bright accent on the dark "how" section. Was var(--pk-lime)
+   * (now ink) which gave 1.0:1 contrast against the ink bg. */
+  color: #F4F0E6;
   display: block;
   margin-bottom: 16px;
 }
@@ -6924,7 +6989,10 @@ button:focus-visible,
   font-family: var(--pk-font-display);
   font-size: 56px;
   font-weight: 900;
-  color: var(--pk-lime);
+  /* Big step number on the dark "how" section. Was var(--pk-lime)
+   * (now ink) -- 1.0:1 on the ink bg. Paper cream matches the
+   * eyebrow and the section's other foreground tones. */
+  color: #F4F0E6;
   line-height: 1;
   letter-spacing: -2px;
 }
@@ -7004,18 +7072,35 @@ button:focus-visible,
   color: #F4F0E6;
   display: block;
 }
-.pk-about-cats__sub {
+/* The card sub (under each category name) and the section-level
+ * sub (under the section title) were both named `.pk-about-cats__sub`
+ * — the cascade made the card sub rule (declared later) win for the
+ * section sub too, painting the section subtitle as faded cream on
+ * the cream section background (1.0:1). Scope this rule to the
+ * .pk-about-cats__item so it only targets the card sub, and rename
+ * the selector for clarity. The card sub stays a faded cream on
+ * the dark card. */
+.pk-about-cats__item .pk-about-cats__sub,
+.pk-about-cats__item-sub {
   font-size: 13px;
   color: rgba(244,240,230,0.50);
   line-height: 1.4;
 }
 
-/* Promise / pull quote */
+/* Promise / pull quote
+ *
+ * Was a bright acid-lime block with dark text — the audit's
+ * `retire lime` aliased --pk-lime to --pk-ink, so the whole
+ * quote went ink-on-ink (1.0:1) and disappeared. Use the
+ * page-paper cream as the background (same trick as the stats
+ * bar) so it reads as a "bright" surface next to the surrounding
+ * dark sections, and let the quote inherit dark text. */
 .pk-about-promise {
-  background: var(--pk-lime);
+  background: var(--pk-paper);
   padding: 80px 0;
   text-align: center;
   width: 100%;
+  color: var(--pk-ink);
 }
 .pk-about-promise__inner {
   max-width: 1200px;
@@ -8794,6 +8879,12 @@ button:focus-visible,
   background: var(--pk-paper);
 }
 
+@media (min-width: 900px) {
+  .pk-section {
+    padding: 72px 0;
+  }
+}
+
 .pk-section__inner {
   max-width: var(--pk-inner-max);
   margin: 0 auto;
@@ -8993,21 +9084,36 @@ button:focus-visible,
   transform: scale(1.04);
 }
 
-.pk-cat-tile__placeholder {
+/* Monogram tile — used only when the category has neither a
+ * product image nor a collection image. A calm 1–2 letter mark
+ * on cream, sized to fill the 1:1 well. Visually distinct from
+ * the product-image tiles so the section never looks broken. */
+.pk-cat-tile__monogram {
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  padding: 16px;
-  color: var(--pk-muted);
-  font-weight: 600;
-  font-size: 14px;
+  background:
+    radial-gradient(circle at 30% 20%, var(--pk-paper) 0%, transparent 55%),
+    var(--pk-cream);
+}
+
+.pk-cat-tile__monogram-glyph {
+  font-size: 56px;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: var(--pk-ink);
+  opacity: 0.18;
+  line-height: 1;
 }
 
 .pk-cat-tile__body {
   padding: 14px 16px 18px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
 }
 
 .pk-cat-tile__title {
@@ -9016,6 +9122,18 @@ button:focus-visible,
   margin: 0;
   color: var(--pk-ink);
   line-height: 1.3;
+}
+
+.pk-cat-tile__cta {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--pk-muted);
+  white-space: nowrap;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.pk-cat-tile__link:hover .pk-cat-tile__cta {
+  color: var(--pk-ink);
 }
 
 @media (max-width: 900px) {
@@ -9115,6 +9233,16 @@ button:focus-visible,
 }
 
 .pk-rail {
+  /* display: block (set explicitly) overrides the legacy "trending
+   * rail" rule at line ~2712 which declares this same class as
+   * `display: grid; grid-auto-flow: column; grid-auto-columns: 220px`.
+   * That legacy rule, if it wins, shrinks the wrapper to one 220px
+   * grid cell and traps the inner <ul> scroll container in a
+   * 1-card-wide column. The new layout (Phase 1 redesign) makes
+   * .pk-rail a position-only wrapper; .pk-rail__track is the
+   * scroll container. Both rules have equal specificity so the
+   * later one wins, but only for properties it sets. */
+  display: block;
   position: relative;
 }
 
@@ -9198,6 +9326,36 @@ button:focus-visible,
   .pk-rail__item {
     flex: 0 0 200px;
   }
+}
+
+/* ── 5b. sports-outdoors ─────────────────────────────────────── */
+.pk-section--sports {
+  background: var(--pk-paper);
+}
+
+/* ── 5c. world-cup ───────────────────────────────────────────── */
+/* Cream background with a thin ember accent stripe under the
+ * heading. The World Cup 2026 is a campaign, and the audit's
+ * design system allows ember for "commercial meaning" -- one
+ * token application keeps it on-brand without over-saturating
+ * the page. */
+.pk-section--world-cup {
+  background: var(--pk-cream);
+  position: relative;
+}
+.pk-section--world-cup .pk-section__h::after {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 2px;
+  background: var(--pk-ember);
+  margin-top: 10px;
+  border-radius: 2px;
+}
+/* Campaign section: the eyebrow ("Limited time") carries commercial
+   meaning, so it keeps ember while regular section eyebrows are muted. */
+.pk-section--world-cup .pk-eyebrow {
+  color: var(--pk-ember);
 }
 
 /* ── 6. trust-bar ──────────────────────────────────────────────── */

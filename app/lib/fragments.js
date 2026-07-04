@@ -316,6 +316,18 @@ const HOME_CATEGORY_TILE_FRAGMENT = `#graphql
   fragment HomeCategoryTile on Collection {
     id handle title
     image { id url altText width height }
+    # The category's own "image" is often null in this store (a
+    # merchandiser hasn't uploaded collection images yet). To keep
+    # the homepage tile section visually rich, fall back to the
+    # first product's "featuredImage" -- same field shape, real
+    # product photo. The section picks whichever is present.
+    products(first: 1, sortKey: BEST_SELLING) {
+      nodes {
+        featuredImage {
+          id url altText width height
+        }
+      }
+    }
     # Storefront API does not expose a productsCount field on
     # Collection, so we omit it. The section hides the count
     # line when missing rather than guessing.
@@ -342,10 +354,66 @@ export const HOME_NEW_ARRIVALS_QUERY = `#graphql
     $country: CountryCode!
     $language: LanguageCode!
   ) @inContext(country: $country, language: $language) {
-    newArrivals: collection(handle: "outdoor-garden") {
-      products(first: 8, sortKey: CREATED, reverse: true) {
-        nodes { ...HomeProduct }
-      }
+    # Source from the top-level products connection, sorted by
+    # CREATED_AT desc. The previous query pulled from
+    # collection(handle: "outdoor-garden") which made the
+    # "new arrivals" rail read as "new stuff in one category" --
+    # all 8 cards were outdoor products from a single bulk import.
+    # 24 (not 8) gives the rail's vendor diversification helper
+    # enough material to interleave vendors. The section still
+    # slices to 8 cards in the view layer.
+    # Note: the top-level products connection's sort enum is
+    # ProductSortKeys (CREATED_AT), not ProductCollectionSortKeys
+    # (CREATED) used inside collection.products.
+    newArrivals: products(first: 24, sortKey: CREATED_AT, reverse: true) {
+      nodes { ...HomeProduct }
+    }
+  }
+`;
+
+export const HOME_SPORTS_QUERY = `#graphql
+  ${HOME_PRODUCT_FRAGMENT}
+  query HomeSports(
+    $country: CountryCode!
+    $language: LanguageCode!
+  ) @inContext(country: $country, language: $language) {
+    # Filter on the Shopify product_type field. The store has
+    # real sports products (rangefinders, shin guards, trail
+    # cameras) tagged product_type: "Sports & Outdoors".
+    # BEST_SELLING -- not CREATED -- is the right merchandising
+    # sort for a category rail: show what people buy, not what
+    # was imported last.
+    #
+    # Note: the unquoted form "product_type:Sports & Outdoors"
+    # works; the single-quoted form "product_type:'Sports &...'"
+    # returns zero results. The "&" is treated as a search
+    # operator inside quotes -- use bare value, not quoted.
+    sports: products(
+      first: 8
+      sortKey: BEST_SELLING
+      query: "product_type:Sports & Outdoors"
+    ) {
+      nodes { ...HomeProduct }
+    }
+  }
+`;
+
+export const HOME_WORLD_CUP_QUERY = `#graphql
+  ${HOME_PRODUCT_FRAGMENT}
+  query HomeWorldCup(
+    $country: CountryCode!
+    $language: LanguageCode!
+  ) @inContext(country: $country, language: $language) {
+    # Filter on the Shopify tag field. The store has 5+ Canada
+    # soccer jerseys and dad caps tagged "world cup" -- the
+    # World Cup 2026 tournament is in June/July, this is timely.
+    # BEST_SELLING same reasoning as the sports rail.
+    worldCup: products(
+      first: 8
+      sortKey: BEST_SELLING
+      query: "tag:world cup"
+    ) {
+      nodes { ...HomeProduct }
     }
   }
 `;

@@ -1,6 +1,6 @@
+import {Image} from '@shopify/hydrogen';
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {useT} from '~/lib/t';
-import {useAside} from '~/components/Aside';
 
 /**
  * 5/7 desktop, stacked mobile. Display heading + 1-line sub + primary
@@ -8,15 +8,19 @@ import {useAside} from '~/components/Aside';
  * parallax — the audit calls these out as the source of poor LCP
  * on social-referral mobile traffic.
  *
- * The hero image is a hard-coded CDN URL; Phase 2 will source it
- * from a Shopify metaobject.
+ * The hero image is now sourced from real product data (a best-seller
+ * `featuredImage`) rather than a hard-coded CDN URL — the previous
+ * hard-coded URL was a 404 in this store, so the section was rendering
+ * a broken image. If no image is supplied, the cream media well still
+ * shows up so layout stays stable; we just skip the <Image>.
+ *
+ * @param {{
+ *   image?: { url: string; altText?: string; width?: number; height?: number } | null;
+ *   link?: string;
+ * }}
  */
-const HERO_IMAGE_URL =
-  'https://cdn.shopify.com/s/files/1/0934/0664/1891/files/hero-lifestyle.jpg';
-
-export function HeroSplit() {
+export function HeroSplit({image = null, link = '/collections/best-sellers'}) {
   const t = useT();
-  const {open} = useAside();
 
   return (
     <section
@@ -29,13 +33,13 @@ export function HeroSplit() {
           <h1 className="pk-hero-split__heading">{t('hero_split_heading')}</h1>
           <p className="pk-hero-split__body">{t('hero_split_body')}</p>
           <div className="pk-hero-split__ctas">
-            <button
-              type="button"
+            <Link
+              to="/collections/best-sellers"
+              prefetch="viewport"
               className="pk-btn pk-btn--ink pk-btn--lg"
-              onClick={() => open('cart')}
             >
               {t('hero_split_cta_primary')}
-            </button>
+            </Link>
             <Link
               to="/collections"
               prefetch="viewport"
@@ -47,14 +51,23 @@ export function HeroSplit() {
           <p className="pk-hero-split__trust">{t('hero_split_trust')}</p>
         </div>
         <div className="pk-hero-split__media">
-          <img
-            src={HERO_IMAGE_URL}
-            alt=""
-            className="pk-hero-split__img"
-            loading="eager"
-            // React itself emits the lowercase `fetchpriority` attribute
-            {...{fetchpriority: 'high'}}
-          />
+          {image ? (
+            <Link
+              to={link}
+              prefetch="intent"
+              aria-label={image.altText || t('hero_split_cta_primary')}
+            >
+              <Image
+                className="pk-hero-split__img"
+                data={image}
+                alt={image.altText || ''}
+                aspectRatio="1/1"
+                sizes="(min-width: 900px) 60vw, 100vw"
+                loading="eager"
+                {...{fetchpriority: 'high'}}
+              />
+            </Link>
+          ) : null}
         </div>
       </div>
     </section>

@@ -46,6 +46,7 @@ export const DICTIONARIES = {
     nav_gifts: 'Gifts Under $25',
     nav_shop: 'Shop',
     nav_new_arrivals: 'New Arrivals',
+    nav_sale: 'Sale',
     nav_explore: 'Explore',
     nav_about: 'About',
     nav_contact: 'Contact',
@@ -853,6 +854,7 @@ export const DICTIONARIES = {
     shop_by_category_aria: 'Shop by category',
     shop_by_category_eyebrow: 'Categories',
     shop_by_category_heading: 'Find your thing',
+    shop_by_category_shop_cta: 'Shop',
 
     best_sellers_aria: 'Best sellers',
     best_sellers_eyebrow: 'Most loved',
@@ -871,6 +873,19 @@ export const DICTIONARIES = {
     new_arrivals_see_all: 'See all',
     new_arrivals_scroll_left: 'Scroll left',
     new_arrivals_scroll_right: 'Scroll right',
+
+    sports_aria: 'Sports and outdoors',
+    sports_eyebrow: 'Get active',
+    sports_heading: 'Sports & outdoors',
+    sports_see_all: 'Shop sports',
+
+    world_cup_aria: 'World Cup 2026',
+    world_cup_eyebrow: 'Limited time',
+    world_cup_heading: 'World Cup 2026',
+    world_cup_see_all: 'Shop the collection',
+
+    rail_scroll_left: 'Scroll left',
+    rail_scroll_right: 'Scroll right',
 
     trust_bar_aria: 'Why shop with us',
     trust_bar_shipping_h: 'Free shipping',
@@ -936,6 +951,7 @@ export const DICTIONARIES = {
     nav_gifts: 'Cadeaux à moins de 25 $',
     nav_shop: 'Boutique',
     nav_new_arrivals: 'Nouveautés',
+    nav_sale: 'Soldes',
     nav_explore: 'Explorer',
     nav_about: 'À propos',
     nav_contact: 'Contact',
@@ -1715,6 +1731,7 @@ export const DICTIONARIES = {
     shop_by_category_aria: 'Magasiner par catégorie',
     shop_by_category_eyebrow: 'Catégories',
     shop_by_category_heading: 'Trouvez votre bonheur',
+    shop_by_category_shop_cta: 'Magasiner',
 
     best_sellers_aria: 'Meilleures ventes',
     best_sellers_eyebrow: 'Les plus aimés',
@@ -1733,6 +1750,19 @@ export const DICTIONARIES = {
     new_arrivals_see_all: 'Tout voir',
     new_arrivals_scroll_left: 'Défiler à gauche',
     new_arrivals_scroll_right: 'Défiler à droite',
+
+    sports_aria: 'Sports et plein air',
+    sports_eyebrow: 'Bougez',
+    sports_heading: 'Sports & plein air',
+    sports_see_all: 'Magasiner',
+
+    world_cup_aria: 'Coupe du Monde 2026',
+    world_cup_eyebrow: 'Durée limitée',
+    world_cup_heading: 'Coupe du Monde 2026',
+    world_cup_see_all: 'Voir la collection',
+
+    rail_scroll_left: 'Défiler à gauche',
+    rail_scroll_right: 'Défiler à droite',
 
     trust_bar_aria: 'Pourquoi magasiner chez nous',
     trust_bar_shipping_h: 'Livraison gratuite',
@@ -1798,6 +1828,7 @@ export const DICTIONARIES = {
     nav_gifts: 'Regalos por menos de $25',
     nav_shop: 'Tienda',
     nav_new_arrivals: 'Novedades',
+    nav_sale: 'Ofertas',
     nav_explore: 'Explorar',
     nav_about: 'Nosotros',
     nav_contact: 'Contacto',
@@ -2577,6 +2608,7 @@ export const DICTIONARIES = {
     shop_by_category_aria: 'Comprar por categoría',
     shop_by_category_eyebrow: 'Categorías',
     shop_by_category_heading: 'Encuentra lo tuyo',
+    shop_by_category_shop_cta: 'Comprar',
 
     best_sellers_aria: 'Más vendidos',
     best_sellers_eyebrow: 'Los más amados',
@@ -2595,6 +2627,19 @@ export const DICTIONARIES = {
     new_arrivals_see_all: 'Ver todo',
     new_arrivals_scroll_left: 'Desplazar a la izquierda',
     new_arrivals_scroll_right: 'Desplazar a la derecha',
+
+    sports_aria: 'Deportes y aire libre',
+    sports_eyebrow: 'Muévete',
+    sports_heading: 'Deportes y aire libre',
+    sports_see_all: 'Comprar deportes',
+
+    world_cup_aria: 'Copa Mundial 2026',
+    world_cup_eyebrow: 'Tiempo limitado',
+    world_cup_heading: 'Copa Mundial 2026',
+    world_cup_see_all: 'Ver la colección',
+
+    rail_scroll_left: 'Desplazar a la izquierda',
+    rail_scroll_right: 'Desplazar a la derecha',
 
     trust_bar_aria: 'Por qué comprar con nosotros',
     trust_bar_shipping_h: 'Envío gratis',
@@ -2660,6 +2705,7 @@ export const DICTIONARIES = {
     nav_gifts: 'Presentes até $25',
     nav_shop: 'Loja',
     nav_new_arrivals: 'Novidades',
+    nav_sale: 'Promoções',
     nav_explore: 'Explorar',
     nav_about: 'Sobre',
     nav_contact: 'Contato',
@@ -3439,6 +3485,7 @@ export const DICTIONARIES = {
     shop_by_category_aria: 'Comprar por categoria',
     shop_by_category_eyebrow: 'Categorias',
     shop_by_category_heading: 'Encontre o seu',
+    shop_by_category_shop_cta: 'Comprar',
 
     best_sellers_aria: 'Mais vendidos',
     best_sellers_eyebrow: 'Os mais amados',
@@ -3457,6 +3504,19 @@ export const DICTIONARIES = {
     new_arrivals_see_all: 'Ver tudo',
     new_arrivals_scroll_left: 'Rolar para a esquerda',
     new_arrivals_scroll_right: 'Rolar para a direita',
+
+    sports_aria: 'Esportes e ar livre',
+    sports_eyebrow: 'Mexa-se',
+    sports_heading: 'Esportes e ar livre',
+    sports_see_all: 'Comprar esportes',
+
+    world_cup_aria: 'Copa do Mundo 2026',
+    world_cup_eyebrow: 'Tempo limitado',
+    world_cup_heading: 'Copa do Mundo 2026',
+    world_cup_see_all: 'Ver a coleção',
+
+    rail_scroll_left: 'Rolar para a esquerda',
+    rail_scroll_right: 'Rolar para a direita',
 
     trust_bar_aria: 'Por que comprar conosco',
     trust_bar_shipping_h: 'Frete grátis',
