@@ -132,12 +132,8 @@ export default function Product() {
         <span className="pk-breadcrumbs__current">{title}</span>
       </nav>
 
-      {/* ── Top: designed hero surface. The cream paper well frames
-          the gallery + sticky buy column as a single composed unit
-          (per the Figma reference). Internal layout still uses the
-          proven two-column grid. The well itself handles padding,
-          radius, border, and the page-level "this is a PDP" cue. */}
-      <section className="pk-page-hero pk-page-hero--split pk-product__hero-well">
+      {/* ── Top: gallery + sticky buy box ── */}
+      <div className="pk-product__top">
         <ProductImage
           images={galleryImages}
           initialIndex={0}
@@ -146,7 +142,7 @@ export default function Product() {
           accentColor={product.accentColor?.value || null}
         />
 
-        <div className="pk-product__info pk-page-hero__body">
+        <div className="pk-product__info">
           {/* Buy column in funnel order (audit §4): category → title →
               rating → price (+ save %) → options/qty/ATC → promise →
               trust → accordions. No scroll reveals — the buy column
@@ -259,7 +255,7 @@ export default function Product() {
 
           <ShareRow product={product} t={t} />
         </div>
-      </section>
+      </div>
 
       <JudgemeReviews
         externalId={reviews?.externalId}
