@@ -225,11 +225,11 @@ export const HEADER_QUERY = `#graphql
   ${MENU_FRAGMENT}
 `;
 
-// Mega menu data for the Shop dropdown. Lists all 19 category collections
-// with a representative product image, so the header can render a
-// hover-revealed panel with category tiles. Note: Storefront API does not
-// expose a productsCount field on Collection, so we rely on the collection
-// description (set in Shopify admin) for any count or summary copy.
+// Mega menu data for the Shop dropdown: every storefront-published
+// collection with a representative product image. The component picks
+// categories/featured out of the list by handle. Note: Storefront API
+// does not expose productsCount on Collection, so the panel shows
+// names only.
 export const MEGA_MENU_QUERY = `#graphql
   fragment MegaCategory on Collection {
     id
@@ -255,25 +255,15 @@ export const MEGA_MENU_QUERY = `#graphql
       }
     }
   }
+  # One list query instead of 18 hand-aliased lookups: the component
+  # maps handles from this list, so new/renamed collections only need
+  # the ordered handle array in MegaMenu.jsx — not a query change.
+  # (Collections must be published to the Puchica Storefront channel
+  # to appear here — that's a Shopify admin publication, not code.)
   query MegaMenu {
-    phoneCase: collection(handle: "phone-case") { ...MegaCategory }
-    homeKitchen: collection(handle: "home-kitchen") { ...MegaCategory }
-    electronicsAccessories: collection(handle: "electronics-accessories") { ...MegaCategory }
-    apparelAccessories: collection(handle: "apparel-accessories") { ...MegaCategory }
-    healthWellness: collection(handle: "health-wellness") { ...MegaCategory }
-    sportsOutdoors: collection(handle: "sports-outdoors") { ...MegaCategory }
-    petSupplies: collection(handle: "pet-supplies") { ...MegaCategory }
-    automotive: collection(handle: "automotive") { ...MegaCategory }
-    toolsHomeImprovement: collection(handle: "tools-home-improvement") { ...MegaCategory }
-    beautyPersonalCare: collection(handle: "beauty-personal-care") { ...MegaCategory }
-    toysGames: collection(handle: "toys-games") { ...MegaCategory }
-    homeDecor: collection(handle: "home-decor") { ...MegaCategory }
-    officeSchoolSupplies: collection(handle: "office-school-supplies") { ...MegaCategory }
-    babyNursery: collection(handle: "baby-nursery") { ...MegaCategory }
-    outdoorGarden: collection(handle: "outdoor-garden") { ...MegaCategory }
-    bestSellers: collection(handle: "best-sellers") { ...MegaCategory }
-    trendingFinds: collection(handle: "trending-finds") { ...MegaCategory }
-    giftsUnder25: collection(handle: "gifts-under-25") { ...MegaCategory }
+    collections(first: 30) {
+      nodes { ...MegaCategory }
+    }
   }
 `;
 

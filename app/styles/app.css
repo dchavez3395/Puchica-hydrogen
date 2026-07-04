@@ -4124,37 +4124,32 @@ button:focus-visible,
 }
 
 /* ============================================================
-   MEGA MENU â€” desktop dropdown
+   MEGA MENU — desktop dropdown (audit §4)
    ============================================================
-   Triggered by hover/focus on the desktop "Shop" button.
-   Panel sits below the header (which is position: sticky, so it's
-   the positioning context). Uses CSS Grid for a 5-up tile row + 1-up
-   featured "Best Sellers" tile.
-   Mobile (<= 900px): hidden â€” the mobile drawer takes over.
+   Full-width paper sheet flush under the sticky header: category
+   link columns left, featured Best Sellers tile right, quick-links
+   footer. Sale is the only colored link (ember = money).
+   Mobile (<= 960px): hidden — the mobile drawer takes over.
 */
 .pk-mega {
-  /* position: static so the panel's containing block is .pk-header__inner,
-     letting it center on the full header width rather than the tiny trigger */
   display: inline-flex;
   align-items: center;
 }
 .pk-mega__panel {
   position: absolute;
-  top: calc(100% + 6px); /* 100% = 72px header-inner height → panel starts just below header */
+  top: calc(100% + 1px); /* flush under the 74px header */
   left: 50%;
   transform: translateX(-50%) translateY(-8px);
-  width: min(1100px, calc(100% - 48px)); /* caps at header-inner content width */
+  width: 100vw;
   max-height: calc(100dvh - 90px);
   overflow-y: auto;
   z-index: 90;
-  background: var(--pk-cream);
-  border: 1px solid var(--pk-cream-dark);
-  border-radius: 18px;
-  box-shadow: 0 24px 48px -16px rgba(14, 12, 8, 0.22);
+  background: var(--pk-paper);
+  border-bottom: 1px solid var(--pk-line);
+  box-shadow: 0 32px 56px -24px rgba(23, 20, 16, 0.22);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.18s ease, transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
-  padding: 20px 20px 22px;
   box-sizing: border-box;
 }
 .pk-mega.is-open .pk-mega__panel {
@@ -4163,149 +4158,133 @@ button:focus-visible,
   pointer-events: auto;
 }
 
-.pk-mega__inner { width: 100%; }
-
-.pk-mega__grid {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
+.pk-mega__inner {
+  max-width: var(--pk-inner-max);
+  margin: 0 auto;
+  padding: 28px var(--pk-gutter) 20px;
 }
 
-.pk-mega__tiles {
+.pk-mega__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 260px;
+  gap: 48px;
+  align-items: start;
+}
+
+.pk-mega__label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--pk-muted);
+  margin: 0 0 12px;
+}
+
+.pk-mega__list {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 8px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px 32px;
 }
 
-.pk-mega__tile {
+.pk-mega__cat {
+  display: block;
+  padding: 7px 0;
+  font-size: 14.5px;
+  font-weight: 500;
+  color: var(--pk-ink);
+  text-decoration: none;
+  border-radius: 4px;
+}
+.pk-mega__cat:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.pk-mega__cat--skel {
+  background: var(--pk-cream);
+  border-radius: 4px;
+  min-height: 18px;
+  margin: 4px 0;
+}
+
+/* Featured Best Sellers tile */
+.pk-mega__feature {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px;
+  background: var(--pk-cream);
+  border: 1px solid var(--pk-line);
+  border-radius: 12px;
+  text-decoration: none;
+  color: var(--pk-ink);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.pk-mega__feature:hover {
+  transform: translateY(-3px);
+  border-color: var(--pk-ink);
+}
+.pk-mega__feature-img {
+  aspect-ratio: 1 / 1;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--pk-paper);
+}
+.pk-mega__feature-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   display: block;
 }
-.pk-mega__tile-link {
-  display: flex;
-  flex-direction: column;
-  text-decoration: none;
-  color: var(--pk-ink);
-  border-radius: 12px;
-  overflow: hidden;
-  background: var(--pk-white);
-  border: 1px solid var(--pk-cream-dark);
-  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
-  height: 100%;
-}
-.pk-mega__tile-link:hover,
-.pk-mega__tile-link:focus-visible {
-  transform: translateY(-3px);
-  box-shadow: 0 14px 32px rgba(14, 12, 8, 0.12);
-  border-color: var(--pk-lime);
-  outline: none;
-}
-.pk-mega__tile-img {
-  width: 100%;
-  aspect-ratio: 4/3;
-  overflow: hidden;
-  background: var(--pk-off-white);
-  position: relative;
-}
-.pk-mega__tile-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.pk-mega__tile-placeholder {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, var(--pk-off-white) 0%, rgba(14, 12, 8, 0.06) 50%, var(--pk-off-white) 100%);
-  background-size: 200% 100%;
-  animation: pk-skel 1.4s ease-in-out infinite;
-}
-.pk-mega__tile-body {
-  padding: 10px 12px 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-.pk-mega__tile-title {
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: -0.2px;
-  margin: 0;
-  color: var(--pk-ink);
-  line-height: 1.2;
-}
-.pk-mega__tile-tagline {
-  font-size: 12px;
-  color: var(--pk-muted);
-  margin: 0;
-  line-height: 1.35;
-}
-.pk-mega__tile-cta {
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--pk-lime-dark);
-  margin-top: 4px;
-  letter-spacing: 0.02em;
-  transition: transform 0.18s ease;
-}
-.pk-mega__tile-link:hover .pk-mega__tile-cta { transform: translateX(2px); }
-
-/* Featured row: Best Sellers, Trending Now, Gifts Under $25 */
-.pk-mega__featured-row {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-}
-.pk-mega__featured-tile {
-  background: var(--pk-ink);
-  border-radius: 14px;
-  padding: 16px 18px 18px;
-  display: flex;
-  flex-direction: column;
-  text-decoration: none;
-  color: var(--pk-cream);
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.22s ease, box-shadow 0.22s ease;
-}
-.pk-mega__featured-tile:hover,
-.pk-mega__featured-tile:focus-visible {
-  transform: translateY(-3px);
-  box-shadow: 0 16px 36px rgba(14, 12, 8, 0.28);
-  outline: none;
-}
-.pk-mega__featured-eye {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
+.pk-mega__feature-eye {
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.09em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--pk-lime);
-  margin: 0 0 4px;
+  color: var(--pk-muted);
+  margin: 4px 0 0;
 }
-.pk-mega__featured-title {
-  font-family: var(--pk-font-display);
+.pk-mega__feature-title {
   font-size: 17px;
-  font-weight: 800;
-  letter-spacing: -0.5px;
-  line-height: 1.2;
-  margin: 0 0 8px;
-  color: #F4F0E6;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.25;
 }
-.pk-mega__featured-cta {
+.pk-mega__feature-cta {
   font-size: 13px;
   font-weight: 700;
-  color: var(--pk-lime);
-  margin-top: auto;
-  transition: transform 0.18s ease;
+  color: var(--pk-ink);
 }
-.pk-mega__featured-tile:hover .pk-mega__featured-cta { transform: translateX(3px); }
+
+/* Quick links footer */
+.pk-mega__quick {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 28px;
+  border-top: 1px solid var(--pk-line);
+  margin-top: 24px;
+  padding-top: 14px;
+}
+.pk-mega__quick-link {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--pk-muted);
+  text-decoration: none;
+}
+.pk-mega__quick-link:hover {
+  color: var(--pk-ink);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.pk-mega__quick-link--sale { color: var(--pk-ember); }
+.pk-mega__quick-link--sale:hover { color: var(--pk-ember); }
 
 .pk-mega__error {
   padding: 32px 20px;
   text-align: center;
   color: var(--pk-ink);
-  background: var(--pk-white);
-  border-radius: 12px;
 }
 .pk-mega__error p { margin: 0 0 12px; font-size: 14px; }
 .pk-mega__error-link {
@@ -4320,19 +4299,12 @@ button:focus-visible,
   100% { background-position: -200% 0; }
 }
 
-/* Tablet: 3 columns */
-@media (max-width: 1100px) {
-  .pk-mega__tiles { grid-template-columns: repeat(3, 1fr); }
-  .pk-mega__featured-row { grid-template-columns: repeat(3, 1fr); }
-}
-
-/* Mobile: horizontal scroll, but mega menu is hidden < 960px via .pk-mega { display: none } */
 @media (max-width: 960px) {
   .pk-mega { display: none; }
 }
 
 /* ============================================================
-   MEGA MENU TRIGGER â€” the desktop "Shop" button
+   MEGA MENU TRIGGER — the desktop "Shop" button
    ============================================================ */
 .pk-mega__trigger {
   border: none;

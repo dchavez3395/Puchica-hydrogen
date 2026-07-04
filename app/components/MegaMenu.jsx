@@ -1,46 +1,28 @@
 /**
  * MegaMenu -- Shop dropdown panel for the desktop header.
  *
- * Renders a hover-revealed (or click-revealed on touch) full-width panel with
- * 15 category tiles in a 3-column grid + a featured row for Best Sellers,
- * Trending Now, and Gifts Under $25. Data is fetched via Storefront API
- * MEGA_MENU_QUERY, deferred to avoid blocking the header render. Falls back
- * to a clean empty state if the query fails.
+ * Audit §4 layout: a full-width paper panel with the category link
+ * columns on the left, one featured Best Sellers tile on the right,
+ * and a quick-links footer (New arrivals / Sale / World Cup / Gifts /
+ * All products). Sale is the only colored link — ember, same as the
+ * top nav — so the color keeps meaning "money".
  *
- * On mobile (< 900px), the parent HeaderMenuMobileToggle handles the drawer;
- * this component returns null.
+ * Data comes from MEGA_MENU_QUERY (all storefront-published
+ * collections); this component picks categories out of the list by
+ * handle so admin renames/additions only touch CATEGORY_HANDLES.
+ *
+ * On mobile (< 960px) the component is hidden via CSS; the mobile
+ * drawer takes over.
  */
 import {Suspense, useEffect, useId, useRef, useState} from 'react';
 import {Await} from 'react-router';
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {Image} from '@shopify/hydrogen';
-import StarGlyph from './StarGlyph';
 import {useT} from '~/lib/t';
 
-// Map handles to dictionary keys for category taglines.
-const TAGLINE_KEYS = {
-  'phone-case': 'megamenu_tagline_phone_case',
-  'home-kitchen': 'megamenu_tagline_home_kitchen',
-  'electronics-accessories': 'megamenu_tagline_electronics_accessories',
-  'apparel-accessories': 'megamenu_tagline_apparel_accessories',
-  'health-wellness': 'megamenu_tagline_health_wellness',
-  'sports-outdoors': 'megamenu_tagline_sports_outdoors',
-  'pet-supplies': 'megamenu_tagline_pet_supplies',
-  'automotive': 'megamenu_tagline_automotive',
-  'tools-home-improvement': 'megamenu_tagline_tools_home_improvement',
-  'beauty-personal-care': 'megamenu_tagline_beauty_personal_care',
-  'toys-games': 'megamenu_tagline_toys_games',
-  'home-decor': 'megamenu_tagline_home_decor',
-  'office-school-supplies': 'megamenu_tagline_office_school_supplies',
-  'baby-nursery': 'megamenu_tagline_baby_nursery',
-  'outdoor-garden': 'megamenu_tagline_outdoor_garden',
-  'best-sellers': 'megamenu_tagline_best_sellers',
-  'trending-finds': 'megamenu_tagline_trending_finds',
-  'gifts-under-25': 'megamenu_tagline_gifts_under_25',
-};
-
-// All 19 collection handles split into product categories and featured promos.
-const PRODUCT_CATEGORIES = [
+// Ordered category handles (largest departments first). These must be
+// published to the Puchica Storefront channel in Shopify admin.
+const CATEGORY_HANDLES = [
   'phone-case',
   'home-kitchen',
   'electronics-accessories',
@@ -48,46 +30,15 @@ const PRODUCT_CATEGORIES = [
   'health-wellness',
   'sports-outdoors',
   'pet-supplies',
+  'beauty-personal-care',
   'automotive',
   'tools-home-improvement',
-  'beauty-personal-care',
   'toys-games',
   'home-decor',
-  'office-school-supplies',
+  'office-school',
   'baby-nursery',
   'outdoor-garden',
 ];
-
-const FEATURED_CATEGORIES = ['best-sellers', 'trending-finds', 'gifts-under-25'];
-
-// Map handles to the GraphQL alias keys used in MEGA_MENU_QUERY.
-const ALIAS_MAP = {
-  'phone-case': 'phoneCase',
-  'home-kitchen': 'homeKitchen',
-  'electronics-accessories': 'electronicsAccessories',
-  'apparel-accessories': 'apparelAccessories',
-  'health-wellness': 'healthWellness',
-  'sports-outdoors': 'sportsOutdoors',
-  'pet-supplies': 'petSupplies',
-  'automotive': 'automotive',
-  'tools-home-improvement': 'toolsHomeImprovement',
-  'beauty-personal-care': 'beautyPersonalCare',
-  'toys-games': 'toysGames',
-  'home-decor': 'homeDecor',
-  'office-school-supplies': 'officeSchoolSupplies',
-  'baby-nursery': 'babyNursery',
-  'outdoor-garden': 'outdoorGarden',
-  'best-sellers': 'bestSellers',
-  'trending-finds': 'trendingFinds',
-  'gifts-under-25': 'giftsUnder25',
-};
-
-// Tagline lookup. Taglines live in dictionaries.js so they can be
-// translated per locale (see `megamenu_tagline_*` keys).
-function taglineFor(handle, t) {
-  const key = TAGLINE_KEYS[handle];
-  return key ? t(key) : '';
-}
 
 export function MegaMenu({deferred, onClose}) {
   const id = useId();
@@ -140,6 +91,8 @@ export function MegaMenu({deferred, onClose}) {
     onClose?.(open);
   }, [open, onClose]);
 
+  const close = () => setOpen(false);
+
   return (
     <div
       className={'pk-mega' + (open ? ' is-open' : '')}
@@ -183,12 +136,7 @@ export function MegaMenu({deferred, onClose}) {
         <div className="pk-mega__inner">
           <Suspense fallback={<MegaMenuSkeleton />}>
             <Await resolve={deferred} errorElement={<MegaMenuError />}>
-              {(data) => (
-                <MegaMenuPanel
-                  data={data}
-                  onNavigate={() => setOpen(false)}
-                />
-              )}
+              {(data) => <MegaMenuPanel data={data} onNavigate={close} />}
             </Await>
           </Suspense>
         </div>
@@ -199,110 +147,106 @@ export function MegaMenu({deferred, onClose}) {
 
 function MegaMenuPanel({data, onNavigate}) {
   const t = useT();
-  if (!data) return <MegaMenuSkeleton />;
+  const nodes = data?.collections?.nodes;
+  if (!nodes?.length) return <MegaMenuError />;
 
-  // Build product tile list from PRODUCT_CATEGORIES order.
-  const productTiles = PRODUCT_CATEGORIES.map((handle) => {
-    const alias = ALIAS_MAP[handle];
-    return data[alias];
-  }).filter(Boolean);
+  const byHandle = new Map(nodes.map((c) => [c.handle, c]));
+  const categories = CATEGORY_HANDLES.map((h) => byHandle.get(h)).filter(
+    Boolean,
+  );
+  const featured = byHandle.get('best-sellers');
+  const featuredImage =
+    featured?.image || featured?.products?.nodes?.[0]?.featuredImage;
 
-  // Build featured tile list from FEATURED_CATEGORIES order.
-  const featuredTiles = FEATURED_CATEGORIES.map((handle) => {
-    const alias = ALIAS_MAP[handle];
-    return data[alias];
-  }).filter(Boolean);
+  const quickLinks = [
+    {id: 'q-new', title: t('nav_new_arrivals'), url: '/collections/new-arrivals'},
+    {id: 'q-sale', title: t('nav_sale'), url: '/collections/sale', sale: true},
+    {id: 'q-wc', title: t('world_cup_heading'), url: '/collections/world-cup'},
+    {id: 'q-gifts', title: t('nav_gifts'), url: '/collections/gifts-under-25'},
+    {id: 'q-all', title: t('nav_all_products'), url: '/collections/all'},
+  ];
 
   return (
-    <div className="pk-mega__grid">
-      <ul className="pk-mega__tiles">
-        {productTiles.map((c) => {
-          if (!c) return null;
-          const tagline = taglineFor(c.handle, t) || '';
-          const image = c.image || c.products?.nodes?.[0]?.featuredImage;
-          return (
-            <li key={c.id} className="pk-mega__tile">
-              <Link
-                to={`/collections/${c.handle}`}
-                prefetch="intent"
-                className="pk-mega__tile-link"
-                onClick={onNavigate}
-              >
-                <div className="pk-mega__tile-img">
-                  {image ? (
-                    <Image
-                      data={image}
-                      aspectRatio="4/5"
-                      sizes="(max-width: 900px) 50vw, 200px"
-                      loading="lazy"
-                    />
-                  ) : (
-                    <div className="pk-mega__tile-placeholder" aria-hidden />
-                  )}
-                </div>
-                <div className="pk-mega__tile-body">
-                  <StarGlyph size={10} />
-                  <h3 className="pk-mega__tile-title">{c.title}</h3>
-                  {tagline && (
-                    <p className="pk-mega__tile-tagline">{tagline}</p>
-                  )}
-                  <span className="pk-mega__tile-cta">{t('megamenu_tile_cta')}</span>
-                </div>
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
-      {featuredTiles.length > 0 && (
-        <div className="pk-mega__featured-row">
-          {featuredTiles.map((c) => {
-            if (!c) return null;
-            const tagline = taglineFor(c.handle, t) || '';
-            return (
-              <Link
-                key={c.id}
-                to={`/collections/${c.handle}`}
-                prefetch="intent"
-                className="pk-mega__featured-tile"
-                onClick={onNavigate}
-              >
-                <p className="pk-mega__featured-eye">
-                  <StarGlyph size={10} /> {tagline}
-                </p>
-                <h3 className="pk-mega__featured-title">{c.title}</h3>
-                <span className="pk-mega__featured-cta">{t('megamenu_tile_cta')}</span>
-              </Link>
-            );
-          })}
-        </div>
-      )}
-    </div>
+    <>
+      <div className="pk-mega__grid">
+        <nav
+          className="pk-mega__cats"
+          aria-label={t('shop_by_category_aria')}
+        >
+          <p className="pk-mega__label">{t('shop_by_category_heading')}</p>
+          <ul className="pk-mega__list">
+            {categories.map((c) => (
+              <li key={c.id}>
+                <Link
+                  to={`/collections/${c.handle}`}
+                  prefetch="intent"
+                  className="pk-mega__cat"
+                  onClick={onNavigate}
+                >
+                  {c.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        {featured ? (
+          <Link
+            to="/collections/best-sellers"
+            prefetch="intent"
+            className="pk-mega__feature"
+            onClick={onNavigate}
+          >
+            <div className="pk-mega__feature-img">
+              {featuredImage ? (
+                <Image
+                  data={featuredImage}
+                  aspectRatio="1/1"
+                  sizes="280px"
+                  loading="lazy"
+                />
+              ) : null}
+            </div>
+            <p className="pk-mega__feature-eye">{t('best_sellers_eyebrow')}</p>
+            <h3 className="pk-mega__feature-title">{featured.title}</h3>
+            <span className="pk-mega__feature-cta">
+              {t('megamenu_tile_cta')} <span aria-hidden="true">→</span>
+            </span>
+          </Link>
+        ) : null}
+      </div>
+      <div className="pk-mega__quick">
+        {quickLinks.map((q) => (
+          <Link
+            key={q.id}
+            to={q.url}
+            prefetch="intent"
+            className={
+              'pk-mega__quick-link' + (q.sale ? ' pk-mega__quick-link--sale' : '')
+            }
+            onClick={onNavigate}
+          >
+            {q.title}
+          </Link>
+        ))}
+      </div>
+    </>
   );
 }
 
 function MegaMenuSkeleton() {
   return (
     <div className="pk-mega__grid" aria-hidden>
-      <ul className="pk-mega__tiles">
-        {PRODUCT_CATEGORIES.map((handle) => (
-          <li key={handle} className="pk-mega__tile">
-            <div className="pk-mega__tile-link">
-              <div className="pk-mega__tile-img">
-                <div className="pk-mega__tile-placeholder" />
-              </div>
-              <div className="pk-mega__tile-body">
-                <h3 className="pk-mega__tile-title">&nbsp;</h3>
-              </div>
-            </div>
-          </li>
-        ))}
-      </ul>
-      <div className="pk-mega__featured-row">
-        {FEATURED_CATEGORIES.map((handle) => (
-          <div key={handle} className="pk-mega__featured-tile">
-            <h3 className="pk-mega__featured-title">&nbsp;</h3>
-          </div>
-        ))}
+      <div className="pk-mega__cats">
+        <ul className="pk-mega__list">
+          {CATEGORY_HANDLES.map((handle) => (
+            <li key={handle}>
+              <span className="pk-mega__cat pk-mega__cat--skel">&nbsp;</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className="pk-mega__feature">
+        <div className="pk-mega__feature-img" />
       </div>
     </div>
   );
