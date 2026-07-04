@@ -1,3 +1,4 @@
+import {useEffect, useState} from 'react';
 import {redirect, useLoaderData, useSearchParams} from 'react-router';
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {getPaginationVariables, Analytics, Image} from '@shopify/hydrogen';
@@ -71,8 +72,7 @@ const PRICE_RANGE_MAP = {
  * @param {Route.LoaderArgs}
  */
 async function loadCriticalData({context, params, request}) {
-  const isNewArrivals = params.handle === 'new-arrivals';
-  const handle = isNewArrivals ? 'outdoor-garden' : params.handle;
+  const {handle} = params;
   const {storefront} = context;
   const {country, language} = storefront.i18n;
   const paginationVariables = getPaginationVariables(request, {pageBy: 12});
@@ -112,13 +112,7 @@ async function loadCriticalData({context, params, request}) {
     throw new Response(`Collection ${params.handle} not found`, {status: 404});
   }
 
-  if (isNewArrivals) {
-    collection.title = 'New Arrivals';
-    collection.handle = 'new-arrivals';
-    collection.description = 'Explore our latest handpicked items, fresh from the source.';
-  } else {
-    redirectIfHandleIsLocalized(request, {handle, data: collection});
-  }
+  redirectIfHandleIsLocalized(request, {handle, data: collection});
 
   // The merchant's catalogue is dominated by phone-case SKUs whose
   // titles all share a vendor prefix (`Almond Latte - Cute iPhone
@@ -153,16 +147,31 @@ export default function Collection() {
   const nodes = collection.products?.nodes ?? [];
   const count = nodes.length;
   const hasActiveFilter = Boolean(activeProductType || activePrice);
-  // Storefront API 2025-04 doesn't expose a real `totalCount` on
-  // ProductConnection. We infer an "X of Y+" framing from pageInfo so the
-  // count chip is honest about the catalog being larger than the page.
+
+  // Grid density: 4-up (default) or 3-up. Local preference, not URL
+  // state — it changes presentation, not the result set, so it should
+  // survive navigation without polluting shareable links.
+  const [density, setDensityState] = useState(4);
+  useEffect(() => {
+    try {
+      if (Number(localStorage.getItem('pk:grid-density')) === 3) {
+        setDensityState(3);
+      }
+    } catch {
+      // localStorage blocked — keep the default.
+    }
+  }, []);
+  const setDensity = (n) => {
+    setDensityState(n);
+    try {
+      localStorage.setItem('pk:grid-density', String(n));
+    } catch {
+      // Preference just won't persist.
+    }
+  };
+  // Storefront API doesn't expose a real totalCount on
+  // ProductConnection; "N+" (from hasNextPage) keeps the count honest.
   const hasNextPage = Boolean(collection.products?.pageInfo?.hasNextPage);
-  const hasPrevPage = Boolean(collection.products?.pageInfo?.hasPreviousPage);
-  const pageBy = 12;
-  const impliedTotal =
-    hasNextPage || hasPrevPage
-      ? Math.max(count + (hasNextPage ? pageBy : 0), pageBy * 2)
-      : count;
 
   return (
     <div className="pk-collection">
@@ -228,89 +237,34 @@ export default function Collection() {
           </p>
         </div>
       ) : (
-        <div className="pk-col-body">
-          <FilterSidebar
+        <div className="pk-col-main">
+          <Toolbar
             nodes={nodes}
+            count={count}
+            hasNextPage={hasNextPage}
+            sortValue={sortValue}
             activeProductType={activeProductType}
             activePrice={activePrice}
+            density={density}
+            setDensity={setDensity}
+            searchParams={searchParams}
+            setSearchParams={setSearchParams}
             t={t}
           />
-          <div className="pk-col-main">
-            <div className="pk-toolbar">
-              <span className="pk-toolbar__count">
-                {hasNextPage ? (
-                  <>
-                    {t('col_count_of')} <strong>{count}+</strong>{' '}
-                    {count === 1 ? t('col_product_singular') : t('col_product_plural')}
-                  </>
-                ) : (
-                  <>
-                    <strong>{count}</strong>{' '}
-                    {count === 1 ? t('col_product_singular') : t('col_product_plural')}
-                  </>
-                )}
-              </span>
-              <label className="pk-toolbar__sort">
-                {t('col_sort_by')}
-                <select
-                  value={sortValue}
-                  onChange={(e) => {
-                    const next = new URLSearchParams(searchParams);
-                    if (e.target.value === 'featured') {
-                      next.delete('sort');
-                    } else {
-                      next.set('sort', e.target.value);
-                    }
-                    setSearchParams(next, {replace: true});
-                  }}
-                >
-                  <option value="featured">{t('col_sort_featured')}</option>
-                  <option value="best-selling">{t('col_sort_best')}</option>
-                  <option value="newest">{t('col_sort_newest')}</option>
-                  <option value="price-asc">{t('col_sort_price_asc')}</option>
-                  <option value="price-desc">{t('col_sort_price_desc')}</option>
-                </select>
-              </label>
-            </div>
-            {hasActiveFilter ? (
-              <div className="pk-toolbar__active">
-                {activeProductType ? (
-                  <span className="pk-toolbar__chip">
-                    {t('col_filter_cat_label')} {activeProductType}
-                  </span>
-                ) : null}
-                {activePrice ? (
-                  <span className="pk-toolbar__chip">
-                    {t('col_filter_price_label')} {priceLabel(activePrice, t)}
-                  </span>
-                ) : null}
-                <button
-                  type="button"
-                  className="pk-toolbar__clear"
-                  onClick={() => {
-                    const next = new URLSearchParams(searchParams);
-                    next.delete('productType');
-                    next.delete('price');
-                    setSearchParams(next, {replace: true});
-                  }}
-                >
-                  {t('col_clear_filters')}
-                </button>
-              </div>
-            ) : null}
-            <PaginatedResourceSection
-              connection={collection.products}
-              resourcesClassName="pk-prod-grid"
-            >
-              {({node: product, index}) => (
-                <ProductItem
-                  key={product.id}
-                  product={product}
-                  loading={index < 8 ? 'eager' : undefined}
-                />
-              )}
-            </PaginatedResourceSection>
-          </div>
+          <PaginatedResourceSection
+            connection={collection.products}
+            resourcesClassName={
+              'pk-prod-grid' + (density === 3 ? ' pk-prod-grid--3' : '')
+            }
+          >
+            {({node: product, index}) => (
+              <ProductItem
+                key={product.id}
+                product={product}
+                loading={index < 8 ? 'eager' : undefined}
+              />
+            )}
+          </PaginatedResourceSection>
         </div>
       )}
 
@@ -323,8 +277,30 @@ export default function Collection() {
   );
 }
 
-function FilterSidebar({nodes, activeProductType, activePrice, t}) {
-  // Aggregate product types from this collection for an honest static filter.
+/**
+ * Toolbar — audit §4 collection spec: category + price chips on the
+ * left, count + sort + density toggle on the right. Chips replace the
+ * old sidebar: with a flat taxonomy a persistent sidebar wastes a
+ * column, and the chip row translates directly to mobile (it becomes
+ * a horizontal scroll strip).
+ */
+function Toolbar({
+  nodes,
+  count,
+  hasNextPage,
+  sortValue,
+  activeProductType,
+  activePrice,
+  density,
+  setDensity,
+  searchParams,
+  setSearchParams,
+  t,
+}) {
+  // Aggregate product types from the loaded page for honest chips.
+  // Only useful on mixed collections (Sale, Best Sellers, New
+  // Arrivals) — single-department collections have one type, and a
+  // one-chip row is noise, so it's suppressed.
   const typeCounts = {};
   for (const p of nodes) {
     if (p.productType) {
@@ -332,23 +308,20 @@ function FilterSidebar({nodes, activeProductType, activePrice, t}) {
     }
   }
   const types = Object.entries(typeCounts).sort((a, b) => b[1] - a[1]);
+  const showTypeChips = types.length > 1 || activeProductType;
 
-  // Each filter link toggles its own param while preserving the other
-  // params (sort, page cursor) so a shopper doesn't lose state on click.
-  function withParam(key, value) {
-    const next = new URLSearchParams();
-    // Mirror current search params from the URL.
-    if (typeof window !== 'undefined') {
-      const url = new URL(window.location.href);
-      url.searchParams.forEach((v, k) => next.set(k, v));
-    }
-    if (value === null) {
+  const toggleParam = (key, value, active) => {
+    const next = new URLSearchParams(searchParams);
+    // Filter changes invalidate the cursor — drop pagination params.
+    next.delete('cursor');
+    next.delete('direction');
+    if (active) {
       next.delete(key);
     } else {
       next.set(key, value);
     }
-    return `?${next.toString()}`;
-  }
+    setSearchParams(next, {replace: true, preventScrollReset: true});
+  };
 
   const priceOptions = [
     ['under-25', t('col_price_under25')],
@@ -358,76 +331,129 @@ function FilterSidebar({nodes, activeProductType, activePrice, t}) {
   ];
 
   return (
-    <aside className="pk-filters" aria-label={t('col_filters_aria')}>
-      <div className="pk-filters__group">
-        <h3 className="pk-filters__title">{t('col_filter_cat_heading')}</h3>
-        <ul className="pk-filters__list">
-          {types.length === 0 ? (
-            <li>
-              <span className="pk-filters__note">
-                {t('col_filter_no_types')}
-              </span>
-            </li>
-          ) : (
-            types.slice(0, 8).map(([name, n]) => (
-              <li key={name}>
-                <Link
-                  to={withParam(
-                    'productType',
-                    activeProductType === name ? null : name,
-                  )}
-                  className={
-                    'pk-filters__btn' +
-                    (activeProductType === name ? ' is-active' : '')
-                  }
-                  prefetch="intent"
-                  aria-pressed={activeProductType === name}
+    <div className="pk-toolbar">
+      <div className="pk-toolbar__chips" aria-label={t('col_filters_aria')}>
+        {showTypeChips
+          ? types.slice(0, 8).map(([name, n]) => {
+              const active = activeProductType === name;
+              return (
+                <button
+                  key={name}
+                  type="button"
+                  className={'pk-chip' + (active ? ' is-active' : '')}
+                  aria-pressed={active}
+                  onClick={() => toggleParam('productType', name, active)}
                 >
-                  <span>{name}</span>
-                  <span className="pk-filters__count">{n}</span>
-                </Link>
-              </li>
-            ))
-          )}
-        </ul>
+                  {name} <span className="pk-chip__count">{n}</span>
+                </button>
+              );
+            })
+          : null}
+        {showTypeChips ? <span className="pk-toolbar__divider" aria-hidden /> : null}
+        {priceOptions.map(([value, label]) => {
+          const active = activePrice === value;
+          return (
+            <button
+              key={value}
+              type="button"
+              className={'pk-chip' + (active ? ' is-active' : '')}
+              aria-pressed={active}
+              onClick={() => toggleParam('price', value, active)}
+            >
+              {label}
+            </button>
+          );
+        })}
+        {activeProductType || activePrice ? (
+          <button
+            type="button"
+            className="pk-toolbar__clear"
+            onClick={() => {
+              const next = new URLSearchParams(searchParams);
+              next.delete('productType');
+              next.delete('price');
+              setSearchParams(next, {replace: true, preventScrollReset: true});
+            }}
+          >
+            {t('col_clear_filters')}
+          </button>
+        ) : null}
       </div>
-      <div className="pk-filters__group">
-        <h3 className="pk-filters__title">{t('col_filter_price_heading')}</h3>
-        <ul className="pk-filters__list">
-          {priceOptions.map(([value, label]) => (
-            <li key={value}>
-              <Link
-                to={withParam('price', activePrice === value ? null : value)}
-                className={
-                  'pk-filters__btn' +
-                  (activePrice === value ? ' is-active' : '')
-                }
-                prefetch="intent"
-                aria-pressed={activePrice === value}
-              >
-                <span>{label}</span>
-              </Link>
-            </li>
-          ))}
-        </ul>
+
+      <div className="pk-toolbar__controls">
+        <span className="pk-toolbar__count">
+          <strong>{count}{hasNextPage ? '+' : ''}</strong>{' '}
+          {count === 1 ? t('col_product_singular') : t('col_product_plural')}
+        </span>
+        <label className="pk-toolbar__sort">
+          {t('col_sort_by')}
+          <select
+            value={sortValue}
+            onChange={(e) => {
+              const next = new URLSearchParams(searchParams);
+              if (e.target.value === 'featured') {
+                next.delete('sort');
+              } else {
+                next.set('sort', e.target.value);
+              }
+              setSearchParams(next, {replace: true});
+            }}
+          >
+            <option value="featured">{t('col_sort_featured')}</option>
+            <option value="best-selling">{t('col_sort_best')}</option>
+            <option value="newest">{t('col_sort_newest')}</option>
+            <option value="price-asc">{t('col_sort_price_asc')}</option>
+            <option value="price-desc">{t('col_sort_price_desc')}</option>
+          </select>
+        </label>
+        <div
+          className="pk-toolbar__density"
+          role="group"
+          aria-label={t('col_density_aria')}
+        >
+          <button
+            type="button"
+            className={'pk-toolbar__density-btn' + (density === 3 ? ' is-active' : '')}
+            aria-pressed={density === 3}
+            aria-label={t('col_density_3_aria')}
+            onClick={() => setDensity(3)}
+          >
+            <DensityIcon cols={3} />
+          </button>
+          <button
+            type="button"
+            className={'pk-toolbar__density-btn' + (density === 4 ? ' is-active' : '')}
+            aria-pressed={density === 4}
+            aria-label={t('col_density_4_aria')}
+            onClick={() => setDensity(4)}
+          >
+            <DensityIcon cols={4} />
+          </button>
+        </div>
       </div>
-    </aside>
+    </div>
   );
 }
 
-function priceLabel(value, t) {
-  switch (value) {
-    case 'under-25':
-      return t('col_price_under25');
-    case '25-50':
-      return t('col_price_25_50');
-    case '50-100':
-      return t('col_price_50_100');
-    case '100-plus':
-      return t('col_price_100_plus');
-    default:
-      return value;
-  }
+function DensityIcon({cols}) {
+  const w = 16;
+  const gap = 2;
+  const cell = (w - gap * (cols - 1)) / cols;
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden>
+      {Array.from({length: cols}, (_, i) => (
+        <rect
+          key={i}
+          x={i * (cell + gap)}
+          y="2"
+          width={cell}
+          height="12"
+          rx="1"
+          fill="currentColor"
+        />
+      ))}
+    </svg>
+  );
 }
 
 const PRODUCT_ITEM_FRAGMENT = `#graphql
@@ -535,26 +561,6 @@ const COLLECTION_QUERY = `#graphql
     }
   }
 `;
-
-/**
- * Human-friendly collection-size label.
- *  - 0 products            → "Collection is loading"
- *  - 1 product             → "1 product"
- *  - 12 of 24+ products    → "12 of 24+ products"  (when hasNextPage)
- *  - 12 of 12 products     → "12 products"          (last page)
- *  - fallback              → "Always growing"
- */
-function formatCount(visible, implied, hasNext, t) {
-  if (!visible) return t('col_count_loading');
-  const word = visible === 1 ? t('col_product_singular') : t('col_product_plural');
-  if (hasNext && implied && implied > visible) {
-    return `${visible} ${t('col_count_of')} ${implied}+ ${word}`;
-  }
-  if (hasNext) {
-    return `${visible} ${word} ${t('col_count_and_counting')}`;
-  }
-  return `${visible} ${word}`;
-}
 
 /** @typedef {import('./+types/collections.$handle').Route} Route */
 /** @typedef {import('storefrontapi.generated').ProductItemFragment} ProductItemFragment */

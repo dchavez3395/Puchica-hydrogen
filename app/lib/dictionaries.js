@@ -321,6 +321,9 @@ export const DICTIONARIES = {
     // ── Shared breadcrumbs ────────────────────────────────────────
     breadcrumb_aria: 'Breadcrumb',
     col_filters_aria: 'Filters',
+    col_density_aria: 'Grid density',
+    col_density_3_aria: 'Show 3 per row',
+    col_density_4_aria: 'Show 4 per row',
     explore_cat_filter_aria: 'Category filters',
     breadcrumb_home: 'Home',
     breadcrumb_collections: 'Collections',
@@ -1167,6 +1170,9 @@ export const DICTIONARIES = {
 
     breadcrumb_aria: "Fil d'Ariane",
     col_filters_aria: 'Filtres',
+    col_density_aria: 'Densité de la grille',
+    col_density_3_aria: 'Afficher 3 par rangée',
+    col_density_4_aria: 'Afficher 4 par rangée',
     explore_cat_filter_aria: 'Filtres par catégorie',
     breadcrumb_home: 'Accueil',
     breadcrumb_collections: 'Collections',
@@ -2045,6 +2051,9 @@ export const DICTIONARIES = {
 
     breadcrumb_aria: 'Ruta de navegación',
     col_filters_aria: 'Filtros',
+    col_density_aria: 'Densidad de la cuadrícula',
+    col_density_3_aria: 'Mostrar 3 por fila',
+    col_density_4_aria: 'Mostrar 4 por fila',
     explore_cat_filter_aria: 'Filtros por categoría',
     breadcrumb_home: 'Inicio',
     breadcrumb_collections: 'Colecciones',
@@ -2924,6 +2933,9 @@ export const DICTIONARIES = {
 
     breadcrumb_aria: 'Caminho de navegação',
     col_filters_aria: 'Filtros',
+    col_density_aria: 'Densidade da grade',
+    col_density_3_aria: 'Mostrar 3 por linha',
+    col_density_4_aria: 'Mostrar 4 por linha',
     breadcrumb_home: 'Início',
     breadcrumb_collections: 'Coleções',
     breadcrumb_shop: 'Loja',

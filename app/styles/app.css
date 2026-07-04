@@ -3070,69 +3070,6 @@ button:focus-visible,
   .pk-card__viewbtn { padding: 9px 8px; font-size: 13px; }
 }
 
-/* Filter rail */
-.pk-filters {
-  position: sticky;
-  top: 88px;
-  background: #fff;
-  border: 1px solid var(--pk-card-border);
-  border-radius: var(--r-lg);
-  padding: 18px 18px 20px;
-}.pk-filters__group + .pk-filters__group { margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--pk-border); }
-.pk-filters__title {
-  font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--pk-muted);
-  font-weight: 700;
-  margin: 0 0 10px;
-}
-.pk-filters__list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-.pk-filters__list button {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  background: transparent;
-  border: 0;
-  padding: 6px 8px;
-  border-radius: 8px;
-  font: inherit;
-  font-size: 14px;
-  color: var(--pk-ink);
-  text-align: left;
-  cursor: pointer;
-  transition: background 0.12s ease, color 0.12s ease;
-}
-.pk-filters__list button:hover { background: var(--pk-ember-pale); color: var(--pk-ember-hover); }
-.pk-filters__list button[aria-pressed="true"] { background: var(--pk-ember-pale); color: var(--pk-ember-hover); font-weight: 600; }
-.pk-filters__count { color: var(--pk-muted); font-size: 12px; }
-.pk-filters__note {
-  font-size: 12px;
-  color: var(--pk-muted);
-  margin: 8px 0 0;
-  line-height: 1.4;
-}
-
-/* Mobile filter rail: not sticky, more compact. Sits above the grid
- * as a regular card so it scrolls with the page and never overlaps
- * the products. This MUST come after the desktop .pk-filters rule
- * below to win on CSS source order (specificity is equal). */
-@media (max-width: 900px) {
-  .pk-filters {
-    position: static;
-    padding: 14px 14px 16px;
-  }
-  .pk-filters__group + .pk-filters__group { margin-top: 14px; padding-top: 14px; }
-  .pk-filters__list button { padding: 4px 6px; font-size: 13px; }
-}
 
 /* Catalog grid wrapper (toolbar + grid) */
 .pk-col-main { min-width: 0; }
@@ -5407,61 +5344,6 @@ button:focus-visible,
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
-}
-
-/* ---------- Working filter buttons ---------- */
-.pk-filters__btn {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  width: 100%;
-  padding-left: 0 !important;
-  padding: 8px 10px;
-  background: transparent;
-  border: 1px solid transparent;
-  border-radius: 8px;
-  color: inherit;
-  cursor: pointer;
-  font-size: 14px;
-  text-align: left;
-  text-decoration: none;
-  transition: background 0.12s ease, border-color 0.12s ease;
-}
-.pk-filters__btn:hover {
-  background: var(--pk-ember-pale, #FDF0E8);
-  text-decoration: none;
-}
-.pk-filters__btn.is-active {
-  background: var(--pk-ember-pale, #FDF0E8);
-  border-color: rgba(204, 67, 0, 0.35);
-  color: var(--pk-ember-hover, #A83800);
-  font-weight: 600;
-}
-.pk-filters__btn:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(204, 67, 0, 0.25);
-}
-
-/* ---------- Active-filter chips ---------- */
-.pk-toolbar__active {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px;
-  margin: 12px 0 18px;
-  padding: 10px 12px;
-  background: var(--pk-ember-pale, #FDF0E8);
-  border-radius: 10px;
-}
-.pk-toolbar__chip {
-  display: inline-block;
-  padding: 4px 10px;
-  background: rgba(204, 67, 0, 0.12);
-  color: var(--pk-ember-hover, #A83800);
-  font-size: 13px;
-  font-weight: 600;
-  border-radius: 999px;
 }
 .pk-toolbar__clear {
   background: transparent;
@@ -8657,4 +8539,123 @@ button:focus-visible,
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   COLLECTION TOOLBAR — Phase 2 (audit §4)
+   Category/price chips left, count + sort + density right. Chips
+   replace the old filter sidebar so the grid keeps the full width.
+   ════════════════════════════════════════════════════════════════ */
+
+.pk-toolbar {
+  flex-wrap: wrap;
+  background: var(--pk-paper);
+  border: 1px solid var(--pk-line);
+  border-radius: 8px;
+  padding: 10px 14px;
+}
+
+.pk-toolbar__chips {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-width: 0;
+}
+
+.pk-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 34px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1.5px solid var(--pk-line);
+  background: var(--pk-paper);
+  color: var(--pk-ink);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.pk-chip:hover { border-color: var(--pk-ink); }
+.pk-chip.is-active {
+  background: var(--pk-ink);
+  border-color: var(--pk-ink);
+  color: var(--pk-paper);
+}
+.pk-chip__count {
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--pk-muted);
+}
+.pk-chip.is-active .pk-chip__count { color: rgba(250, 249, 246, 0.7); }
+
+.pk-toolbar__divider {
+  width: 1px;
+  height: 20px;
+  background: var(--pk-line);
+  flex: none;
+}
+
+.pk-toolbar__controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: none;
+  margin-left: auto;
+}
+
+.pk-toolbar__density {
+  display: inline-flex;
+  border: 1.5px solid var(--pk-line);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.pk-toolbar__density-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  background: var(--pk-paper);
+  border: 0;
+  color: var(--pk-muted);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.pk-toolbar__density-btn + .pk-toolbar__density-btn {
+  border-left: 1.5px solid var(--pk-line);
+}
+.pk-toolbar__density-btn:hover { color: var(--pk-ink); }
+.pk-toolbar__density-btn.is-active {
+  background: var(--pk-ink);
+  color: var(--pk-paper);
+}
+
+/* 3-up "roomy" grid density */
+.pk-prod-grid--3 { grid-template-columns: repeat(3, 1fr); }
+
+@media (max-width: 900px) {
+  /* Density toggle is a desktop affordance; the grid is 2-up on
+     mobile regardless. */
+  .pk-toolbar__density { display: none; }
+  .pk-prod-grid--3 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 700px) {
+  /* Chips become a horizontal scroll strip (the audit's mobile
+     translation) instead of wrapping into a tall block. */
+  .pk-toolbar__chips {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+    flex-basis: 100%;
+  }
+  .pk-toolbar__chips::-webkit-scrollbar { display: none; }
+  .pk-toolbar__controls { margin-left: 0; width: 100%; justify-content: space-between; }
 }
