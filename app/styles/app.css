@@ -2053,28 +2053,28 @@ button:focus-visible,
   transition: color 0.15s ease;
   line-height: 1.2;
 }
+.pk-nav__link:hover { color: var(--pk-ember); }
+/* Active state owns the only underline in the nav — colored ::after
+   for the current page, no second indicator on hover (the color
+   shift above is the hover affordance). */
 .pk-nav__link::after {
   content: '';
   position: absolute;
   left: 12px; right: 12px; bottom: 0;
   height: 2px;
-  background: var(--pk-ink);
+  background: var(--pk-ember);
   border-radius: 2px;
   transform: scaleX(0);
   transform-origin: left center;
-  transition: transform 0.18s ease;
+  transition: transform 0.2s ease;
 }
-.pk-nav__link:hover::after { transform: scaleX(1); }
-/* Active state visual is owned by the aria-current rule below — the
-   single colored ::after for the active page, the single ink ::after
-   for hover. No border-bottom so the two states never stack into a
-   double underline. */
+.pk-nav__link[aria-current="page"]::after { transform: scaleX(1); }
 
 /* Sale — the only colored nav item (audit §4). Ember always means
-   "money" and nowhere else in the chrome uses it. */
+   "money" and nowhere else in the chrome uses it. The hover color
+   deepens so the affordance is still visible against the ember text. */
 .pk-nav__link--sale { color: var(--pk-ember); font-weight: 600; }
-.pk-nav__link--sale::after { background: var(--pk-ember); }
-.pk-nav__link--sale:hover::after { transform: scaleX(1); }
+.pk-nav__link--sale:hover { color: var(--pk-ember-hover); }
 
 .pk-header__ctas {
   margin-left: auto;
@@ -3574,16 +3574,12 @@ button:focus-visible,
   background: rgba(242, 235, 218, 0.98);
 }
 
-/* Active nav link — same ::after as the hover, but stays open
-   (scaleX(1)) and tinted ember so the current page is the only
-   coloured element in the nav. */
+/* Active nav link — the ::after is defined alongside .pk-nav__link
+   further up. Here we just pin it open and tint the text ember so
+   the current page is the only colored element in the nav. */
 .pk-nav__link[aria-current="page"] {
   color: var(--pk-ember);
   font-weight: 600;
-}
-.pk-nav__link[aria-current="page"]::after {
-  background: var(--pk-ember);
-  transform: scaleX(1);
 }
 
 /* ============================================================
