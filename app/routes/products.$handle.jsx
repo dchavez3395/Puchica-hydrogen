@@ -27,6 +27,7 @@ import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 import {puchicaMeta, canonical, SITE_URL, breadcrumbJsonLd, JsonLdScript} from '~/lib/seo';
 import {getJudgemeBadge} from '~/lib/judgeme';
 import {ReviewStars, JudgemeReviews} from '~/components/JudgemeReviews';
+import {recordRecentlyViewed} from '~/lib/recentlyViewed';
 import {useT} from '~/lib/t';
 
 /** @type {Route.MetaFunction} */
@@ -94,6 +95,18 @@ export default function Product() {
   const {title, descriptionHtml} = product;
   const galleryImages = buildGallery(product, selectedVariant);
   const jsonLd = buildJsonLd(product, selectedVariant, reviews, galleryImages);
+
+  // Record the view for the search sheet's "recently viewed" row.
+  // Keyed on product.id so variant switches don't re-record.
+  useEffect(() => {
+    recordRecentlyViewed({
+      handle: product.handle,
+      title: product.title,
+      image: product.featuredImage,
+      price: product.selectedOrFirstAvailableVariant?.price,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [product.id]);
 
   return (
     <div className="pk-product">

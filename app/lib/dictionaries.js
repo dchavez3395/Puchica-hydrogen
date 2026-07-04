@@ -321,6 +321,9 @@ export const DICTIONARIES = {
     // ── Shared breadcrumbs ────────────────────────────────────────
     breadcrumb_aria: 'Breadcrumb',
     col_filters_aria: 'Filters',
+    search_trending_label: 'Trending searches',
+    search_recent_label: 'Recently viewed',
+    search_trending_terms: 'phone case, plushie, world cup, massage gun, home decor, pet toys',
     col_density_aria: 'Grid density',
     col_density_3_aria: 'Show 3 per row',
     col_density_4_aria: 'Show 4 per row',
@@ -1170,6 +1173,9 @@ export const DICTIONARIES = {
 
     breadcrumb_aria: "Fil d'Ariane",
     col_filters_aria: 'Filtres',
+    search_trending_label: 'Recherches populaires',
+    search_recent_label: 'Vus récemment',
+    search_trending_terms: 'coque de téléphone, peluche, coupe du monde, pistolet de massage, déco maison, jouets pour animaux',
     col_density_aria: 'Densité de la grille',
     col_density_3_aria: 'Afficher 3 par rangée',
     col_density_4_aria: 'Afficher 4 par rangée',
@@ -2051,6 +2057,9 @@ export const DICTIONARIES = {
 
     breadcrumb_aria: 'Ruta de navegación',
     col_filters_aria: 'Filtros',
+    search_trending_label: 'Búsquedas populares',
+    search_recent_label: 'Vistos recientemente',
+    search_trending_terms: 'funda de teléfono, peluche, copa del mundo, pistola de masaje, decoración, juguetes para mascotas',
     col_density_aria: 'Densidad de la cuadrícula',
     col_density_3_aria: 'Mostrar 3 por fila',
     col_density_4_aria: 'Mostrar 4 por fila',
@@ -2933,6 +2942,9 @@ export const DICTIONARIES = {
 
     breadcrumb_aria: 'Caminho de navegação',
     col_filters_aria: 'Filtros',
+    search_trending_label: 'Buscas populares',
+    search_recent_label: 'Vistos recentemente',
+    search_trending_terms: 'capa de celular, pelúcia, copa do mundo, massageador, decoração, brinquedos para pets',
     col_density_aria: 'Densidade da grade',
     col_density_3_aria: 'Mostrar 3 por linha',
     col_density_4_aria: 'Mostrar 4 por linha',

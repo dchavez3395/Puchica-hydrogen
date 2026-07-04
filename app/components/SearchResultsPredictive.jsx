@@ -1,11 +1,12 @@
 import {useFetcher} from 'react-router';
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {Image, Money} from '@shopify/hydrogen';
-import {useRef, useEffect} from 'react';
+import {useRef, useEffect, useState} from 'react';
 import {
   getEmptyPredictiveSearchResult,
   urlWithTrackingParams,
 } from '~/lib/search';
+import {getRecentlyViewed} from '~/lib/recentlyViewed';
 import {useAside} from './Aside';
 import {useT} from '~/lib/t';
 
@@ -239,35 +240,7 @@ function SearchResultsPredictiveQueries({queries, queriesDatalistId}) {
 function SearchResultsPredictiveEmpty({term, closeSearch}) {
   const t = useT();
   if (!term.current) {
-    return (
-      <div className="pk-search__hint">
-        <p className="pk-search__hint-title">{t('pred_empty_title')}</p>
-        <p className="pk-search__hint-body">{t('pred_empty_body')}</p>
-        <div className="pk-search__suggestions">
-          <Link
-            to="/collections/best-sellers"
-            onClick={closeSearch}
-            className="pk-pill-link"
-          >
-            {t('pred_pill_best')}
-          </Link>
-          <Link
-            to="/collections"
-            onClick={closeSearch}
-            className="pk-pill-link"
-          >
-            {t('pred_pill_all')}
-          </Link>
-          <Link
-            to="/collections/new"
-            onClick={closeSearch}
-            className="pk-pill-link"
-          >
-            {t('pred_pill_new')}
-          </Link>
-        </div>
-      </div>
-    );
+    return <SearchZeroState closeSearch={closeSearch} />;
   }
 
   return (
@@ -276,6 +249,85 @@ function SearchResultsPredictiveEmpty({term, closeSearch}) {
         {t('pred_no_results_h', {term: term.current})}
       </p>
       <p className="pk-search__empty-body">{t('pred_no_results_body')}</p>
+    </div>
+  );
+}
+
+/**
+ * Zero-query state (audit §4): trending searches and recently-viewed
+ * products before the shopper types, so the sheet is never a dead end.
+ * Trending terms live in the dictionary (one comma-separated key per
+ * locale) so merchandising can retune them without code changes.
+ */
+function SearchZeroState({closeSearch}) {
+  const t = useT();
+  // Recently-viewed lives in localStorage — client-only. Start empty
+  // (matches SSR) and hydrate after mount to avoid a mismatch.
+  const [recent, setRecent] = useState([]);
+  useEffect(() => {
+    setRecent(getRecentlyViewed().slice(0, 4));
+  }, []);
+
+  const trending = String(t('search_trending_terms'))
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean)
+    .slice(0, 6);
+
+  return (
+    <div className="pk-search__zero">
+      <div className="pk-search__zero-group">
+        <p className="pk-search__zero-label">{t('search_trending_label')}</p>
+        <div className="pk-search__trending">
+          {trending.map((term) => (
+            <Link
+              key={term}
+              to={`/search?q=${encodeURIComponent(term)}`}
+              onClick={closeSearch}
+              className="pk-chip"
+            >
+              {term}
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      {recent.length > 0 ? (
+        <div className="pk-search__zero-group">
+          <p className="pk-search__zero-label">{t('search_recent_label')}</p>
+          <ul className="pk-search__recent">
+            {recent.map((p) => (
+              <li key={p.handle}>
+                <Link
+                  to={`/products/${p.handle}`}
+                  onClick={closeSearch}
+                  className="pk-search__recent-item"
+                >
+                  <div className="pk-search__recent-img">
+                    {p.image?.url ? (
+                      <Image
+                        data={p.image}
+                        alt={p.image.altText || p.title}
+                        aspectRatio="1/1"
+                        sizes="96px"
+                        loading="lazy"
+                      />
+                    ) : null}
+                  </div>
+                  <span className="pk-search__recent-title">{p.title}</span>
+                  {p.price ? (
+                    <span className="pk-search__recent-price">
+                      <Money data={p.price} />
+                    </span>
+                  ) : null}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : (
+        <p className="pk-search__hint-body">{t('pred_empty_body')}</p>
+      )}
     </div>
   );
 }
