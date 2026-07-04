@@ -6739,10 +6739,11 @@ button:focus-visible,
 .pk-newsletter__form {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   align-items: stretch;
   gap: 10px;
 }
-.pk-newsletter__form > .pk-newsletter__promise { flex: 1 1 100%; }
+.pk-newsletter__form > .pk-newsletter__promise { flex: 1 1 100%; margin: 4px 0 0; }
 
 .pk-newsletter__input {
   flex: 1 1 auto;
