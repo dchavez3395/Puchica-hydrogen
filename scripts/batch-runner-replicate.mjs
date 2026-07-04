@@ -251,22 +251,18 @@ async function main() {
 
     const products = JSON.parse(readFileSync(productsPath, 'utf8'));
     if (state.index >= products.length) {
-      if (state.batch === 'A') {
-        console.log('--- Batch A complete! Transitioning to Batch B. ---');
-        state.batch = 'B';
-        state.index = 0;
-        saveCheckpoint(state);
-        commitCheckpoint(state.batch, state.index, products.length, 'transitioned');
-        continue;
-      } else if (state.batch === 'B') {
-        console.log('--- Batch B complete! Transitioning to Batch C. ---');
-        state.batch = 'C';
+      const currentLetter = state.batch.toUpperCase();
+      const nextLetter = String.fromCharCode(currentLetter.charCodeAt(0) + 1);
+      const nextPath = join('work', `batch_${nextLetter.toLowerCase()}_pending.json`);
+      if (existsSync(nextPath)) {
+        console.log(`--- Batch ${currentLetter} complete! Transitioning to Batch ${nextLetter}. ---`);
+        state.batch = nextLetter;
         state.index = 0;
         saveCheckpoint(state);
         commitCheckpoint(state.batch, state.index, products.length, 'transitioned');
         continue;
       } else {
-        console.log('--- ALL BATCHES COMPLETE! ---');
+        console.log(`--- ALL BATCHES COMPLETE! No pending file found for Batch ${nextLetter} (${nextPath}) ---`);
         break;
       }
     }

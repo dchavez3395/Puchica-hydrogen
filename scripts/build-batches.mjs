@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-import { writeFileSync, mkdirSync } from 'node:fs';
+import { writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 
 const query = `
@@ -114,6 +114,16 @@ async function main() {
   // Ensure work/ exists
   mkdirSync('work', { recursive: true });
 
+  const writeIfMissing = (fileName, data) => {
+    const filePath = join('work', fileName);
+    if (existsSync(filePath)) {
+      console.log(`- [preserve] Existing file ${fileName} preserved`);
+    } else {
+      writeFileSync(filePath, JSON.stringify(data, null, 2));
+      console.log(`- [created] Created ${fileName} with ${data.length} products`);
+    }
+  };
+
   // Limit Batch C to top 100 best-sellers
   const limitedBatchC = batchC.slice(0, 100);
   // Batch D is the next 500 best-sellers
@@ -123,20 +133,24 @@ async function main() {
   // Batch F is the next 500 best-sellers
   const batchF = batchC.slice(1100, 1600);
 
-  writeFileSync(join('work', 'batch_a_pending.json'), JSON.stringify(batchA, null, 2));
-  writeFileSync(join('work', 'batch_b_pending.json'), JSON.stringify(batchB, null, 2));
-  writeFileSync(join('work', 'batch_c_pending.json'), JSON.stringify(limitedBatchC, null, 2));
-  writeFileSync(join('work', 'batch_d_pending.json'), JSON.stringify(batchD, null, 2));
-  writeFileSync(join('work', 'batch_e_pending.json'), JSON.stringify(batchE, null, 2));
-  writeFileSync(join('work', 'batch_f_pending.json'), JSON.stringify(batchF, null, 2));
+  console.log(`\nWriting/preserving batches:`);
+  writeIfMissing('batch_a_pending.json', batchA);
+  writeIfMissing('batch_b_pending.json', batchB);
+  writeIfMissing('batch_c_pending.json', limitedBatchC);
+  writeIfMissing('batch_d_pending.json', batchD);
+  writeIfMissing('batch_e_pending.json', batchE);
+  writeIfMissing('batch_f_pending.json', batchF);
 
-  console.log(`\nCategorized counts (remaining to generate):`);
-  console.log(`- Batch A (Jerseys): ${batchA.length}`);
-  console.log(`- Batch B (Rest of World Cup): ${batchB.length}`);
-  console.log(`- Batch C (Top 100 Best-Selling General): ${limitedBatchC.length}`);
-  console.log(`- Batch D (Next 500 Best-Selling General): ${batchD.length}`);
-  console.log(`- Batch E (Next 500 Best-Selling General): ${batchE.length}`);
-  console.log(`- Batch F (Next 500 Best-Selling General): ${batchF.length}`);
+  // Dynamically slice the rest of batchC into batches of 500 starting from Batch G
+  let sliceStart = 1600;
+  let batchChar = 'G';
+  while (sliceStart < batchC.length) {
+    const batchData = batchC.slice(sliceStart, sliceStart + 500);
+    const fileName = `batch_${batchChar.toLowerCase()}_pending.json`;
+    writeIfMissing(fileName, batchData);
+    sliceStart += 500;
+    batchChar = String.fromCharCode(batchChar.charCodeAt(0) + 1);
+  }
 }
 
 main().catch(console.error);
