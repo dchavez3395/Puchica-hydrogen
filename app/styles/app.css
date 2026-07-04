@@ -2894,10 +2894,10 @@ button:focus-visible,
 }
 .pk-product__title {
   font-family: var(--pk-font-display);
-  font-size: 30px;
+  font-size: 34px;
   font-weight: 700;
   letter-spacing: -0.015em;
-  line-height: 1.15;
+  line-height: 1.08;
   margin: 0;
   color: var(--pk-ink);
 }
@@ -4283,10 +4283,13 @@ button:focus-visible,
   color: var(--pk-ink);
 }
 
-/* Contact page hero tweak — bigger title for the centered variant */
-.pk-contact__hero .pk-page-head__title { font-size: 44px; }
+/* Hero: reuses the .pk-col-hero language (gradient + glow) for
+ * site-wide consistency. The hero is already styled above; we only
+ * need a tiny tweak for the contact copy. */
+.pk-contact__hero { margin-top: 4px; }
+.pk-contact__hero .pk-col-hero__title { font-size: 44px; }
 @media (max-width: 700px) {
-  .pk-contact__hero .pk-page-head__title { font-size: 30px; }
+  .pk-contact__hero .pk-col-hero__title { font-size: 30px; }
 }
 
 /* Section header pattern shared by "what to expect" + FAQ */
@@ -6157,79 +6160,82 @@ button:focus-visible,
   border-radius: 2px;
 }
 
-/*
-* ==================================================
-* Puchica — Breadcrumbs (shared)
-* ==================================================
-*/
-.pk-breadcrumbs {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 6px 8px;
-  font-size: 13px;
+/* Page header — calm cream well on the paper page (product-first
+   redesign). Replaces the old dark ink/lime "glow" hero: no gradients,
+   no hatch overlay, no blurred glows — the products are the show. */
+.pk-col-hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--pk-cream);
+  color: var(--pk-ink);
+  border: 1px solid var(--pk-line);
+  border-radius: 12px;
+  padding: 44px 40px;
+  margin: 4px 0 28px;
+  isolation: isolate;
+}
+/* Legacy variant — now identical to the base look. */
+.pk-col-hero--soft {
+  background: var(--pk-cream);
+  color: var(--pk-ink);
+  border: 1px solid var(--pk-line);
+  box-shadow: none;
+}
+/* Decorative glow spans still rendered by older routes — inert now. */
+.pk-col-hero__glow,
+.pk-col-hero__glow--ember {
+  display: none;
+}
+.pk-col-hero__eyebrow {
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 12px;
+  font-weight: 600;
   color: var(--pk-muted);
-  margin: 0 0 18px;
+  margin-bottom: 8px;
 }
-.pk-breadcrumbs a {
-  color: var(--pk-muted);
-  text-decoration: none;
-  transition: color 0.15s ease;
-}
-.pk-breadcrumbs a:hover { color: var(--pk-ember); }
-.pk-breadcrumbs__sep { opacity: 0.5; }
-.pk-breadcrumbs__current { color: var(--pk-ink); font-weight: 600; }
-
-/* Page header — clean inline title + count, no box. Matches the
-   Figma reference: breadcrumb → H1 + count on one line → content.
-   Default is left-aligned. --center variant is for 404 + contact. */
-.pk-page-head {
-  display: flex;
-  align-items: baseline;
-  gap: 14px;
-  margin: 4px 0 24px;
-  flex-wrap: wrap;
-}
-.pk-page-head__title {
+.pk-col-hero--soft .pk-col-hero__eyebrow { color: var(--pk-muted); }
+.pk-col-hero__title {
   font-family: var(--pk-font, 'Outfit', system-ui, sans-serif);
   font-size: 34px;
   font-weight: 700;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.015em;
   line-height: 1.15;
-  color: var(--pk-ink);
-  margin: 0;
+  margin: 0 0 10px;
+  color: inherit;
 }
-.pk-page-head__count {
-  font-size: 14px;
-  color: var(--pk-muted);
-  font-weight: 400;
-}
-.pk-page-head__sub {
+.pk-col-hero__sub {
   font-size: 15px;
   line-height: 1.55;
-  color: var(--pk-muted);
-  margin: 0 0 24px;
+  margin: 0;
   max-width: 620px;
+  color: var(--pk-muted);
 }
-.pk-page-head__eyebrow {
-  display: block;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--pk-ember);
-  margin: 0 0 8px;
-}
-.pk-page-head--center {
-  flex-direction: column;
+.pk-col-hero--soft .pk-col-hero__sub { color: var(--pk-muted); }
+.pk-col-hero__count {
+  display: inline-flex;
   align-items: center;
-  text-align: center;
-  gap: 8px;
+  gap: 6px;
+  margin-top: 16px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--pk-paper);
+  border: 1px solid var(--pk-line);
+  color: var(--pk-muted);
+  font-size: 13px;
+  font-weight: 600;
+  position: relative;
 }
-.pk-page-head--center .pk-page-head__sub { margin-left: auto; margin-right: auto; }
+.pk-col-hero--soft .pk-col-hero__count {
+  background: var(--pk-paper);
+  border: 1px solid var(--pk-line);
+  color: var(--pk-muted);
+}
 
 @media (max-width: 700px) {
-  .pk-page-head__title { font-size: 26px; }
+  .pk-col-hero { padding: 28px 20px; }
+  .pk-col-hero__title { font-size: 26px; }
 }
 
 /* ── 1. hero-split ─────────────────────────────────────────────── */

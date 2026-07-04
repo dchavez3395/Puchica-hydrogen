@@ -48,10 +48,12 @@ export default function CatchAllPage() {
         <span className="pk-breadcrumbs__current">{t('notfound_breadcrumb_current')}</span>
       </nav>
 
-      <header className="pk-page-head pk-page-head--center">
-        <span className="pk-page-head__eyebrow">{t('notfound_eyebrow')}</span>
-        <h1 className="pk-page-head__title">{t('notfound_title')}</h1>
-        <p className="pk-page-head__sub">
+      <header className="pk-col-hero pk-col-hero--soft">
+        <div className="pk-col-hero__glow" aria-hidden />
+        <div className="pk-col-hero__glow pk-col-hero__glow--ember" aria-hidden />
+        <span className="pk-col-hero__eyebrow">{t('notfound_eyebrow')}</span>
+        <h1 className="pk-col-hero__title">{t('notfound_title')}</h1>
+        <p className="pk-col-hero__sub">
           {t('notfound_sub', {path: <code>{pathname}</code>})}
         </p>
       </header>

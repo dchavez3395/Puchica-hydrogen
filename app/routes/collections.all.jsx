@@ -138,15 +138,14 @@ export default function Collection() {
         <span className="pk-breadcrumbs__current">{t('all_breadcrumb')}</span>
       </nav>
 
-      <header className="pk-page-head">
-        <h1 className="pk-page-head__title">{t('all_title')}</h1>
-        {count > 0 && (
-          <span className="pk-page-head__count">
-            {count} {t('col_product_plural')}
-          </span>
-        )}
+      <header className="pk-col-hero pk-col-hero--soft">
+        <div className="pk-col-hero__glow" aria-hidden />
+        <div className="pk-col-hero__glow pk-col-hero__glow--ember" aria-hidden />
+        <span className="pk-col-hero__eyebrow">{t('all_eyebrow')}</span>
+        <h1 className="pk-col-hero__title">{t('all_title')}</h1>
+        <p className="pk-col-hero__sub">{t('all_sub')}</p>
+        <span className="pk-col-hero__count">{t('col_brand_chip')}</span>
       </header>
-      <p className="pk-page-head__sub">{t('all_sub')}</p>
 
       {count === 0 ? (
         <div className="pk-empty">
