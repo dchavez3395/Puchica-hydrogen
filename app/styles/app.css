@@ -6160,6 +6160,92 @@ button:focus-visible,
   border-radius: 2px;
 }
 
+/* ════════════════════════════════════════════════════════════════
+   .pk-col-hero — inner page collection/explore header.
+   Cream paper well with a subtle radial glow. The well itself
+   carries the page identity; the eyebrow/title/sub/count inside
+   follow the same hierarchy the homepage hero uses so the page
+   header doesn't feel like a different site.
+   ════════════════════════════════════════════════════════════════ */
+.pk-col-hero {
+  background: var(--pk-cream);
+  color: var(--pk-ink);
+  border: 1px solid var(--pk-line);
+  isolation: isolate;
+  border-radius: 12px;
+  margin: 4px 0 28px;
+  padding: 44px 40px;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+.pk-col-hero__eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--pk-ember);
+  margin: 0 0 10px;
+}
+.pk-col-hero__title {
+  font-family: var(--pk-font);
+  font-size: clamp(32px, 4.5vw, 44px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--pk-ink);
+  margin: 0 0 10px;
+  max-width: 22ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+.pk-col-hero__sub {
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--pk-muted);
+  margin: 0 auto 14px;
+  max-width: 52ch;
+}
+.pk-col-hero__count {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--pk-muted);
+  background: var(--pk-paper);
+  border: 1px solid var(--pk-line);
+  border-radius: 999px;
+  padding: 6px 14px;
+  margin-top: 4px;
+}
+
+/* Decorative glows — the JSX renders two: a default and an ember
+   variant. They sit absolutely positioned behind the copy, masked
+   by the well's `overflow: hidden` and `isolation: isolate`. */
+.pk-col-hero__glow {
+  position: absolute;
+  inset: -40% -10% auto auto;
+  width: 60%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(241, 237, 227, 0.9), transparent 70%);
+  z-index: -1;
+  pointer-events: none;
+}
+.pk-col-hero__glow--ember {
+  inset: auto auto -50% -10%;
+  right: auto;
+  left: -10%;
+  bottom: -50%;
+  background: radial-gradient(circle, rgba(168, 56, 0, 0.08), transparent 70%);
+}
+@media (max-width: 700px) {
+  .pk-col-hero { padding: 32px 20px; border-radius: 10px; }
+  .pk-col-hero__glow { width: 90%; inset: -30% -5% auto auto; }
+}
+
 /* ── 1. hero-split ─────────────────────────────────────────────── */
 .pk-section--hero-split {
   background: var(--pk-paper);
