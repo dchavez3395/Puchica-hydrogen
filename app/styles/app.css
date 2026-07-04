@@ -2049,21 +2049,32 @@ button:focus-visible,
   font-size: 15px;
   font-weight: 500;
   padding: 4px 2px;
-  border-bottom: 1.5px solid transparent;
-  transition: color 0.15s ease, border-color 0.15s ease;
+  position: relative;
+  transition: color 0.15s ease;
   line-height: 1.2;
 }
-.pk-nav__link:hover { border-bottom-color: var(--pk-ink); }
-/* Active state visual is owned by the aria-current rule below — keep
-   this in sync. The old `.active` class rule has been removed to avoid
-   the double-underline bug. */
-.pk-nav__link.active { border-bottom-color: var(--pk-ink); font-weight: 600; }
+.pk-nav__link::after {
+  content: '';
+  position: absolute;
+  left: 12px; right: 12px; bottom: 0;
+  height: 2px;
+  background: var(--pk-ink);
+  border-radius: 2px;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.18s ease;
+}
+.pk-nav__link:hover::after { transform: scaleX(1); }
+/* Active state visual is owned by the aria-current rule below — the
+   single colored ::after for the active page, the single ink ::after
+   for hover. No border-bottom so the two states never stack into a
+   double underline. */
 
 /* Sale — the only colored nav item (audit §4). Ember always means
    "money" and nowhere else in the chrome uses it. */
 .pk-nav__link--sale { color: var(--pk-ember); font-weight: 600; }
-.pk-nav__link--sale:hover { border-bottom-color: var(--pk-ember); }
-.pk-nav__link--sale.active { border-bottom-color: var(--pk-ember); }
+.pk-nav__link--sale::after { background: var(--pk-ember); }
+.pk-nav__link--sale:hover::after { transform: scaleX(1); }
 
 .pk-header__ctas {
   margin-left: auto;
@@ -3563,18 +3574,16 @@ button:focus-visible,
   background: rgba(242, 235, 218, 0.98);
 }
 
-/* Active nav link */
+/* Active nav link — same ::after as the hover, but stays open
+   (scaleX(1)) and tinted ember so the current page is the only
+   coloured element in the nav. */
 .pk-nav__link[aria-current="page"] {
   color: var(--pk-ember);
-  position: relative;
+  font-weight: 600;
 }
 .pk-nav__link[aria-current="page"]::after {
-  content: '';
-  position: absolute;
-  left: 12px; right: 12px; bottom: 0;
-  height: 2px;
   background: var(--pk-ember);
-  border-radius: 2px;
+  transform: scaleX(1);
 }
 
 /* ============================================================
