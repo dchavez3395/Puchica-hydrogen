@@ -1,7 +1,6 @@
 import {useEffect, useRef, useState, useCallback} from 'react';
 import {Image} from '@shopify/hydrogen';
 import {IconChevronLeft, IconChevronRight, IconZoomIn} from '~/components/Icons';
-import {HeroParallax} from './HeroParallax';
 import {useT} from '~/lib/t';
 
 /**
@@ -11,9 +10,8 @@ import {useT} from '~/lib/t';
  * gallery is the image strip + hover magnifier.
  *
  * Visual treatment:
- *   - The hero photo is wrapped in <HeroParallax> so it drifts at
- *     0.4× scroll speed on desktop. Disabled when the user opts
- *     into reduced motion (the HeroParallax component handles this).
+ *   - Static hero photo — no parallax; motion is user-initiated only
+ *     (audit §3 motion rules).
  *   - Thumbnails live in a horizontal Embla strip BELOW the hero
  *     on every viewport — the previous vertical left-rail thumbs
  *     have been removed in favor of this single row. Embla gives
@@ -116,9 +114,6 @@ export function ProductImage({
       <div
         className="pk-product__hero-wrap"
       >
-        {/* Parallax wrap on the hero. HeroParallax no-ops cleanly on
-            touch / reduced motion. */}
-        <HeroParallax strength={0.4} className="pk-product__hero-parallax">
           <div
             ref={heroRef}
             className={
@@ -179,7 +174,6 @@ export function ProductImage({
               </>
             )}
           </div>
-        </HeroParallax>
 
         {/* Thumbnail strip — native horizontal scroll-snap row below
             the hero. On desktop the row is a flex container with

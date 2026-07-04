@@ -27,9 +27,6 @@ import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 import {puchicaMeta, canonical, SITE_URL, breadcrumbJsonLd, JsonLdScript} from '~/lib/seo';
 import {getJudgemeBadge} from '~/lib/judgeme';
 import {ReviewStars, JudgemeReviews} from '~/components/JudgemeReviews';
-import {EditorialDescription} from '~/components/EditorialDescription';
-import {SplitSection, SplitHeroImage, MosaicFromGallery} from '~/components/SplitSection';
-import {ScrollReveal} from '~/components/ScrollReveal';
 import {useT} from '~/lib/t';
 
 /** @type {Route.MetaFunction} */
@@ -133,63 +130,59 @@ export default function Product() {
         />
 
         <div className="pk-product__info">
-          {product.vendor && (
-            <ScrollReveal as="p" className="pk-product__vendor" variant="up">
-              {product.vendor}
-            </ScrollReveal>
-          )}
+          {/* Buy column in funnel order (audit §4): category → title →
+              rating → price (+ save %) → options/qty/ATC → promise →
+              trust → accordions. No scroll reveals — the buy column
+              is the money UI; it must never be hidden by an observer. */}
+          {product.productType ? (
+            <p className="pk-product__category">{product.productType}</p>
+          ) : null}
 
-          <ScrollReveal as="div" delay={60} variant="up">
-            <h1 className="pk-product__title">{title}</h1>
-          </ScrollReveal>
+          <h1 className="pk-product__title">{title}</h1>
 
-          {/* ── Price row — owns its own cluster. The free-shipping
-              progress bar used to live here but is gone: the policy
-              claim is owned by the trust block / footer copy, and
-              the per-product fill bar felt like a marketing nudge
-              rather than a fact. */}
-          <ScrollReveal
-            as="div"
-            className="pk-product__price-cluster"
-            delay={120}
-            variant="up"
-          >
+          {reviews && reviews.count > 0 ? (
+            <ReviewStars rating={reviews.rating} count={reviews.count} />
+          ) : null}
+
+          <div className="pk-product__price-cluster">
             <div className="pk-product__price-row">
               <ProductPrice
                 price={selectedVariant?.price}
                 compareAtPrice={selectedVariant?.compareAtPrice}
               />
+              {savePercent(selectedVariant) ? (
+                <span className="pk-product__badge pk-product__badge--save">
+                  {t('product_badge_save', {pct: savePercent(selectedVariant)})}
+                </span>
+              ) : null}
               {selectedVariant?.availableForSale === false && (
                 <span className="pk-product__badge pk-product__badge--sold">
                   {t('product_badge_sold_out')}
                 </span>
               )}
             </div>
-          </ScrollReveal>
+          </div>
 
-          {reviews && reviews.count > 0 ? (
-            <ScrollReveal delay={180} variant="up">
-              <ReviewStars rating={reviews.rating} count={reviews.count} />
-            </ScrollReveal>
-          ) : null}
+          <div className="pk-product__form-wrap" id="product-form">
+            <ProductForm
+              productOptions={productOptions}
+              selectedVariant={selectedVariant}
+              product={{handle: product.handle, title: product.title, featuredImage: product.featuredImage}}
+            />
+          </div>
 
-          <ScrollReveal delay={240} variant="up">
-            <div className="pk-product__form-wrap" id="product-form">
-              <ProductForm
-                productOptions={productOptions}
-                selectedVariant={selectedVariant}
-                product={{handle: product.handle, title: product.title, featuredImage: product.featuredImage}}
-              />
-            </div>
-          </ScrollReveal>
+          {/* ── Shipping promise well — the strongest care signal,
+              directly under the buy button (audit §4 buy-column order). */}
+          <div className="pk-product__promise" role="note">
+            <span className="pk-product__promise-icon" aria-hidden>
+              <IconSparkles size={16} />
+            </span>
+            <p className="pk-product__promise-text">
+              {t('product_perk_packed')}
+            </p>
+          </div>
 
-          {/* ── Trust block: 4 rows of promise, neutral hairline chips
-              (no lime-pale fill). Each row reads heading + sub-line
-              inline so the block doesn't compete with the buy form.
-              The 4th row used to live alone in a separate `.pk-product__perks`
-              list below the promise callout — keeping it stranded there
-              made the curated-pick feel like a stray orphan. It now
-              sits with the other trust promises. */}
+          {/* ── Trust block: 4 rows of promise, neutral hairline chips. */}
           <div className="pk-product__trust" aria-label={t('product_perks_aria')}>
             <div className="pk-product__trust-item">
               <span className="pk-product__trust-icon" aria-hidden>
@@ -228,107 +221,28 @@ export default function Product() {
             </div>
           </div>
 
-          {/* ── Promise callout — the brand's strongest care signal
-              lifted out of the perks list and given its own block. */}
-          <div className="pk-product__promise" role="note">
-            <span className="pk-product__promise-icon" aria-hidden>
-              <IconSparkles size={16} />
-            </span>
-            <p className="pk-product__promise-text">
-              {t('product_perk_packed')}
-            </p>
+          {/* ── Accordions — description first (it's the purchase
+              decision content), then specs, then policy copy. Inside
+              the buy column so everything a shopper needs to decide
+              lives in one scannable column (audit §4). */}
+          <div className="pk-pdetails">
+            <DetailsAccordion title={t('product_tab_description')} defaultOpen>
+              <div
+                className="pk-pdetails__desc"
+                dangerouslySetInnerHTML={{__html: descriptionHtml}}
+              />
+            </DetailsAccordion>
+            <DetailsAccordion title={t('product_tab_specs')}>
+              <Specs product={product} t={t} />
+            </DetailsAccordion>
+            <DetailsAccordion title={t('product_tab_shipping')}>
+              <Shipping t={t} />
+            </DetailsAccordion>
           </div>
+
+          <ShareRow product={product} t={t} />
         </div>
       </div>
-
-      {/* ── Editorial description — full-bleed split layout ── */}
-      <EditorialDescription
-        html={descriptionHtml}
-        productType={product.productType}
-        galleryImages={galleryImages}
-        eyebrow={t('product_desc_eyebrow')}
-      />
-
-      {/* ── Highlights — alternating split row, image left / text right.
-          Flipped from text-left to text-right so the three editorial
-          sections zigzag: editorial (text-left, images-right) →
-          highlights (image-left, text-right) → care (text-left,
-          mosaic-right). Reuses existing trust/perk copy so we don't
-          ship new i18n strings. Anchors on the second gallery image
-          (skipping the hero) and falls back to the brand-accent
-          column. */}
-      <SplitSection
-        align="right"
-        eyebrow={t('product_highlights_eyebrow')}
-        heading={product.productType || title}
-        tone="default"
-        className="pk-highlights"
-        visual={
-          galleryImages[1] ? (
-            <SplitHeroImage
-              image={galleryImages[1]}
-              fallbackAlt={title}
-            />
-          ) : (
-            <MosaicFromGallery images={galleryImages} title={title} />
-          )
-        }
-        head={
-          <ul className="pk-highlights__list">
-            <li>
-              <strong>{t('product_trust_shipping')}</strong>
-              <span>{t('product_trust_shipping_sub')}</span>
-            </li>
-            <li>
-              <strong>{t('product_trust_returns')}</strong>
-              <span>{t('product_trust_returns_sub')}</span>
-            </li>
-            <li>
-              <strong>{t('product_perk_curated')}</strong>
-            </li>
-          </ul>
-        }
-      />
-
-      {/* ── Care & shipping — alternating split row, text left /
-          mosaic right. Both Shipping and Returns live in the
-          same text column beside the mosaic so the section
-          reads as one decision unit. The previous `tail` slot
-          made Returns look like a third stray section. */}
-      <SplitSection
-        align="left"
-        eyebrow={t('product_care_eyebrow')}
-        heading={t('product_care_h')}
-        tone="inverse"
-        className="pk-care"
-        visual={
-          <MosaicFromGallery images={galleryImages} title={title} />
-        }
-        head={
-          <div className="pk-care__text">
-            <div className="pk-care__block">
-              <h3>{t('product_shipping_h')}</h3>
-              <p>{t('product_shipping_body')}</p>
-            </div>
-            <div className="pk-care__block">
-              <h3>{t('product_returns_h')}</h3>
-              <p>{t('product_returns_body')}</p>
-            </div>
-          </div>
-        }
-      />
-
-      {/* ── Details accordions (semantic <details>) ── */}
-      <ScrollReveal as="div" className="pk-pdetails" variant="up">
-        <DetailsAccordion title={t('product_tab_specs')}>
-          <Specs product={product} t={t} />
-        </DetailsAccordion>
-        <DetailsAccordion title={t('product_tab_shipping')}>
-          <Shipping t={t} />
-        </DetailsAccordion>
-      </ScrollReveal>
-
-      <ShareRow product={product} t={t} />
 
       <JudgemeReviews
         externalId={reviews?.externalId}
@@ -357,9 +271,9 @@ export default function Product() {
 }
 
 /* ── Accordion — semantic <details> so keyboard a11y comes for free ── */
-function DetailsAccordion({title, children}) {
+function DetailsAccordion({title, children, defaultOpen = false}) {
   return (
-    <details className="pk-accordion">
+    <details className="pk-accordion" open={defaultOpen || undefined}>
       <summary className="pk-accordion__trigger">
         <span>{title}</span>
         <IconChevronRight size={16} className="pk-accordion__chevron" />
@@ -367,6 +281,16 @@ function DetailsAccordion({title, children}) {
       <div className="pk-accordion__body">{children}</div>
     </details>
   );
+}
+
+/* ── Save % — sale math for the price badge. Whole percents only;
+   anything under 5% reads as noise, so it's suppressed. */
+function savePercent(variant) {
+  const price = Number(variant?.price?.amount);
+  const compare = Number(variant?.compareAtPrice?.amount);
+  if (!price || !compare || compare <= price) return null;
+  const pct = Math.round((1 - price / compare) * 100);
+  return pct >= 5 ? pct : null;
 }
 
 /* ── Specs table ── */
@@ -467,23 +391,18 @@ function Recommendations({data, t}) {
   if (!products.length) return null;
   return (
     <section className="pk-reco" aria-label={t('product_reco_title')}>
-      <ScrollReveal className="pk-reco__head">
+      <div className="pk-reco__head">
         <h2 className="pk-reco__title">{t('product_reco_title')}</h2>
         <Link to="/collections/all" className="pk-reco__see-all">
           {t('product_reco_see_all')}
           <span className="pk-reco__see-all-arrow" aria-hidden="true">→</span>
         </Link>
-      </ScrollReveal>
+      </div>
       <div className="pk-reco__grid">
-        {products.slice(0, 4).map((p, i) => (
-          <ScrollReveal
-            key={p.id}
-            delay={i * 80}
-            variant="up"
-            className="pk-reco__cell"
-          >
+        {products.slice(0, 4).map((p) => (
+          <div key={p.id} className="pk-reco__cell">
             <ProductItem product={p} />
-          </ScrollReveal>
+          </div>
         ))}
       </div>
     </section>

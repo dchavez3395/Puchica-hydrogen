@@ -3379,10 +3379,16 @@ button:focus-visible,
 }
 
 .pk-product__crumbs { padding: 0 0 18px; }
+/* Sticky gallery (audit §4): the buy column grew accordions and is
+   now the taller side, so the gallery pins while the shopper reads. */
 .pk-product__media {
-  position: relative;
+  position: sticky;
+  top: 88px;
   display: block;
   min-width: 0;
+}
+@media (max-width: 900px) {
+  .pk-product__media { position: static; }
 }
 
 /* Thumbnails — horizontal Embla strip below the hero.
@@ -3474,24 +3480,22 @@ button:focus-visible,
 
 /* Info column */
 .pk-product__info {
-  position: sticky;
-  top: 88px;
+  position: static;
   display: flex;
   flex-direction: column;
   gap: 16px;
   min-width: 0;
 }
-@media (max-width: 900px) {
-  .pk-product__info { position: static; }
-}
 
-.pk-product__vendor {
+/* Category eyebrow — muted, not ember: category is wayfinding,
+   not commercial meaning. */
+.pk-product__category {
   display: inline-block;
   text-transform: uppercase;
   letter-spacing: 0.14em;
   font-size: 12px;
-  font-weight: 700;
-  color: var(--pk-ember);
+  font-weight: 600;
+  color: var(--pk-muted);
   margin: 0;
 }
 .pk-product__title {
@@ -3738,6 +3742,9 @@ button:focus-visible,
   text-transform: uppercase;
 }
 .pk-product__badge--sold { background: #fce8e8; color: #b91c1c; }
+/* Save % — commercial meaning, so it's the one ember element in the
+   buy column besides the sale price itself. */
+.pk-product__badge--save { background: var(--pk-ember); color: #fff; }
 
 /* ── Price cluster ──
  * Wraps the price row so the price and any "sold out" badge read
@@ -3895,83 +3902,29 @@ button:focus-visible,
   flex: none;
 }
 
-/* ── pk-pdesc surface (editorial block) ──
- * The layout grid now lives in .pk-split__inner. .pk-pdesc only owns
- * its surface treatment so the editorial block keeps its cream
- * backdrop and full-bleed breakout. */
-/* Editorial body — prose lives in .pk-pdesc__body (the wrapper
- * inside SplitSection's children). */
-.pk-pdesc__body {
-  color: var(--pk-ink);
-  font-size: 16px;
-  line-height: 1.78;
-  min-width: 0;
-  overflow: hidden;
-}
-.pk-pdesc__body h1,
-.pk-pdesc__body h2,
-.pk-pdesc__body h3,
-.pk-pdesc__body h4 {
-  font-family: var(--pk-font-display);
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  margin: 28px 0 10px;
-  color: var(--pk-ink);
-}
-.pk-pdesc__body h2 { font-size: 22px; }
-.pk-pdesc__body h3 { font-size: 18px; }
-.pk-pdesc__body h4 { font-size: 16px; }
-.pk-pdesc__body p { margin: 0 0 16px; }
-.pk-pdesc__body p:first-child { margin-top: 0; }
-.pk-pdesc__body ul,
-.pk-pdesc__body ol { margin: 0 0 16px 1.4em; padding: 0; }
-.pk-pdesc__body li { margin-bottom: 6px; }
-.pk-pdesc__body strong { font-weight: 700; }
-.pk-pdesc__body a { color: var(--pk-ember); }
-.pk-pdesc__body a:hover { text-decoration: underline; }
-/* Inline <img>/<video> in the description body are extracted out
- * in JSX (Layout A) into their own `.pk-pdesc__image` chunks and
- * never rendered inside `.pk-pdesc__body`. The rules below are a
- * defensive reset for the rare case where an image slips through
- * extraction (e.g. an image NOT wrapped in `<p><b>...</b></p>`):
- * cap at full column width with rounded corners, no float. */
-.pk-pdesc__body img,
-.pk-pdesc__body video {
-  display: block;
-  max-width: 100%;
-  width: 100%;
-  height: auto;
-  border-radius: 14px;
-  margin: 20px 0;
-}
-.pk-pdesc__body iframe {
-  max-width: 100%;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  height: auto;
-  border: 0;
-  border-radius: 14px;
-  display: block;
-  margin: 20px 0;
-}
-/* Pull-quote treatment for any <blockquote> the merchant adds. */
-.pk-pdesc__body blockquote {
-  margin: 28px 0;
-  padding: 4px 0 4px 20px;
-  border-left: 2px solid var(--pk-ember);
-  font-family: var(--pk-font-display);
-  font-size: clamp(18px, 2vw, 22px);
-  font-style: italic;
-  font-weight: 500;
-  line-height: 1.4;
-  color: var(--pk-ink);
-}
 
 /* ── Details accordions ── */
 .pk-pdetails {
-  margin-top: 40px;
+  margin-top: 8px;
   border-top: 1px solid var(--pk-border);
 }
+/* Raw product description inside the first accordion. Supplier HTML
+   varies wildly, so constrain everything to the type scale. */
+.pk-pdetails__desc { font-size: 14px; line-height: 1.65; color: var(--pk-muted); }
+.pk-pdetails__desc p { margin: 0 0 10px; }
+.pk-pdetails__desc h1,
+.pk-pdetails__desc h2,
+.pk-pdetails__desc h3,
+.pk-pdetails__desc h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--pk-ink);
+  margin: 14px 0 6px;
+}
+.pk-pdetails__desc ul, .pk-pdetails__desc ol { margin: 0 0 10px; padding-left: 18px; }
+.pk-pdetails__desc li { margin-bottom: 4px; }
+.pk-pdetails__desc img { max-width: 100%; height: auto; border-radius: 8px; }
+.pk-pdetails__desc table { max-width: 100%; }
 .pk-accordion {
   border-bottom: 1px solid var(--pk-border);
 }
@@ -4156,76 +4109,6 @@ button:focus-visible,
   .pk-product__hero-zoom-hint { display: none; }
 }
 
-/* 3D toggle pill — top-right of the hero. */
-.pk-product__hero-3d-toggle {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 12px;
-  border-radius: 999px;
-  background: rgba(20, 20, 20, 0.78);
-  color: #fff;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  border: 0;
-  cursor: pointer;
-  z-index: 4;
-  backdrop-filter: blur(8px);
-  transition: background 0.15s ease, transform 0.15s ease;
-}
-.pk-product__hero-3d-toggle:hover {
-  background: rgba(20, 20, 20, 0.92);
-  transform: translateY(-1px);
-}
-.pk-product__hero-3d-toggle--active {
-  background: rgba(168, 56, 0, 0.92);
-}
-
-/* Fallback / placeholder for the 3D viewer before r3f loads, or
- * when WebGL is missing. */
-.pk-3d-placeholder,
-.pk-3d-fallback {
-  width: 100%;
-  height: 100%;
-  display: grid;
-  place-items: center;
-  background: var(--pk-surface);
-}
-.pk-3d-placeholder img,
-.pk-3d-fallback img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.pk-3d {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  cursor: grab;
-}
-.pk-3d:active { cursor: grabbing; }
-.pk-3d__hint {
-  position: absolute;
-  bottom: 12px;
-  left: 12px;
-  background: rgba(20, 20, 20, 0.78);
-  color: #fff;
-  font-size: 11px;
-  font-weight: 600;
-  padding: 5px 9px;
-  border-radius: 999px;
-  pointer-events: none;
-  letter-spacing: 0.04em;
-}
-
-/* Hide the 3D toggle and lens mode at <700px — touch devices prefer
- * the swipe gallery, not the magnifier or 3D toggle. */
 
 /*
 * ==================================================
@@ -7248,25 +7131,6 @@ button:focus-visible,
 
 
 /* ==================================================
-   Scroll Reveal - IntersectionObserver-driven animations
-   ================================================== */
-.pk-reveal {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: opacity, transform;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .pk-reveal {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-  }
-}
-
-/* ==================================================
    Collections Grid - featured cards
    ================================================== */
 .pk-collist-grid {
@@ -7951,70 +7815,13 @@ button:focus-visible,
 .pk-embla__dot.is-active { opacity: 1; transform: scale(1.4); }
 .pk-embla__dot:hover { opacity: .7; }
 
-@keyframes pk-reveal-up { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
-.pk-reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s cubic-bezier(.16,.84,.3,1), transform .6s cubic-bezier(.16,.84,.3,1); }
-.pk-reveal--left.is-visible { transform: none; }
-.pk-reveal--right { transform: translateX(24px); }
-.pk-reveal--right.is-visible { transform: none; }
-.pk-reveal--scale { transform: scale(.94); }
-.pk-reveal--scale.is-visible { transform: scale(1); }
-@media (prefers-reduced-motion: reduce) {
-  .pk-reveal, .pk-reveal--left, .pk-reveal--right, .pk-reveal--scale {
-    opacity: 1; transform: none; transition: none;
-  }
-}
-
-/* 3D product viewer */
-.pk-3d, .pk-3d-placeholder, .pk-3d-fallback {
-  position: relative; width: 100%; border-radius: var(--r-xl);
-  background: linear-gradient(180deg, var(--pk-cream) 0%, var(--pk-cream-soft) 100%);
-  overflow: hidden; display: flex; align-items: center; justify-content: center;
-  border: 1px solid var(--pk-card-border, var(--pk-cream-dark));
-}
-.pk-3d img, .pk-3d-placeholder img, .pk-3d-fallback img {
-  width: 100%; height: 100%; object-fit: cover;
-}
-.pk-3d-fallback__msg {
-  color: var(--pk-muted); font-size: 14px; text-align: center; padding: 24px;
-}
-.pk-3d__hint {
-  position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
-  font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
-  color: var(--pk-muted); background: rgba(255,255,255,.7); padding: 4px 10px;
-  border-radius: 999px; pointer-events: none;
-}
-@media (prefers-reduced-motion: reduce) {
-  .pk-3d canvas { pointer-events: none; }
-}
 
 /* ==================================================
-   PDP reboot 2026-06-29 — hero parallax + filmstrip +
-   editorial description + magnetic ATC + heart pop.
-   Styles appended at the bottom of the file so the
-   existing selectors above win specificity ties.
+   PDP gallery — filmstrip + zoom lens. (The 2026-06-29
+   parallax / editorial / magnetic layer was removed in the
+   product-first redesign; the gallery is a calm, static
+   sticky column now.)
    ================================================== */
-
-/* Hero accent — a subtle radial gradient driven by the per-product
- * accentColor metafield (set via inline --pk-product-accent).
- * Falls back to ember. Sits behind the hero photo so it doesn't
- * distract, but peeks out on the corners for a curated feel. */
-.pk-product__media {
-  --pk-product-accent: #CC4300;
-  position: relative;
-  isolation: isolate;
-}
-.pk-product__media::before {
-  content: '';
-  position: absolute;
-  inset: -10% -8% -8% -8%;
-  z-index: -1;
-  background:
-    radial-gradient(60% 50% at 15% 0%, color-mix(in srgb, var(--pk-product-accent) 18%, transparent) 0%, transparent 60%),
-    radial-gradient(50% 40% at 100% 100%, color-mix(in srgb, var(--pk-product-accent) 12%, transparent) 0%, transparent 65%);
-  filter: blur(12px);
-  opacity: 0.9;
-  pointer-events: none;
-}
 
 /* Hero wrapper that holds both the hero and (on mobile) the
  * horizontal filmstrip underneath. */
@@ -8180,618 +7987,7 @@ button:focus-visible,
   .pk-qty { order: 1; }
 }
 
-/* Editorial description — split-column layout at >= 900px.
- * Adds a brand accent bar on the left, an image mosaic (or
- * brand mark) on the right, and a tighter prose column. */
-.pk-pdesc {
-  margin-top: 56px;
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
-  padding: 80px clamp(20px, calc(50vw - 576px), 100px);
-  background: var(--pk-surface);
-  border-top: 1px solid var(--pk-border);
-  border-bottom: 1px solid var(--pk-border);
-  position: relative;
-  overflow: hidden;
-}
-/* Faint ember wash on the right side of the description block —
- * gives it a magazine-spread feel without committing to a hard
- * color. */
-.pk-pdesc::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(60% 80% at 110% 50%, rgba(168, 56, 0, 0.06), transparent 70%);
-  pointer-events: none;
-}
-
-/* Inline-media variant of the editorial block. When the merchant's
- * descriptionHtml carries <img>/<video> tags, we walk the body once
- * and emit `{kind: 'text' | 'image', html}` chunks in source order.
- * Each text chunk is paired with the image that follows it, and the
- * pair becomes one vertical section:
- *
- *   ┌─────────────────────────────────────────────────────────┐
- *   │ section 0                                              │
- *   │   h2 + intro paragraph                                 │
- *   │   image 1                                              │
- *   ├─────────────────────────────────────────────────────────┤
- *   │ section 1                                              │
- *   │   paragraph 2                                          │
- *   │   image 2                                              │
- *   ├─────────────────────────────────────────────────────────┤
- *   │ section 2                                              │
- *   │   "That's not all" + 8-bullet features list            │
- *   │   image 3                                              │
- *   ├─────────────────────────────────────────────────────────┤
- *   │ section 3 (trailing)                                   │
- *   │   SPECS heading + 12-bullet specs list (full-width)    │
- *   └─────────────────────────────────────────────────────────┘
- *
- * The image is always UNDER the h2 / paragraph that introduces
- * it, never beside it. Content is centered and capped to a
- * readable measure (720px text, 880px image). No alternating
- * side-rails, no half-empty columns.
- *
- * Mobile (<900px) drops the content cap and lets sections span
- * the full viewport width.
- */
-.pk-pdesc--zigzag {
-  /* The eyebrow + h2 used to live in a separate `.pk-pdesc__header`
-   * band above all rows. That sat as dead space and broke the
-   * rhythm — the headline should belong to the article. They now
-   * inline into the first text chunk (rendered above the first
-   * row's prose), so the section starts directly with rows. */
-}
-
-/* The h2 / eyebrow that rides along inside the first row's text
- * column. Styled the same as the original `.pk-pdesc__heading-inline`
- * rules, just so the appearance stays consistent. */
-.pk-pdesc__heading-inline {
-  margin: 0 0 14px;
-  font-family: var(--pk-font-display);
-  font-size: clamp(22px, 2.4vw, 28px);
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  line-height: 1.15;
-  color: var(--pk-ink);
-  max-width: 22ch;
-}
-.pk-pdesc__text > .pk-split__eyebrow {
-  margin: 0 0 6px;
-  position: relative;
-  padding-left: 14px;
-}
-.pk-pdesc__text > .pk-split__eyebrow::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 3px;
-  height: 14px;
-  border-radius: 2px;
-  background: linear-gradient(180deg, var(--pk-ember) 0%, transparent 100%);
-}
-
-.pk-pdesc__blocks {
-  max-width: var(--pk-inner-max);
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  /* Magazine-stack: real vertical air between each pair. */
-  gap: clamp(48px, 7vw, 96px);
-}
-/* Layout B (no inline media) uses the same container but with
- * tighter gaps since it stacks three light elements (lead, visual,
- * tail) rather than three heavy pair rows. */
-.pk-pdesc__blocks--stack {
-  gap: clamp(32px, 5vw, 56px);
-}
-.pk-pdesc__row {
-  margin: 0 auto;
-  width: 100%;
-}
-
-/* Paired-column row: text and image sit side-by-side. Even-index
- * pairs default to text-left / image-right; `.pk-pdesc__pair--flip`
- * swaps them. The two columns share a 2-up grid at the same inner
- * width cap the editorial block already uses. */
-.pk-pdesc__pair {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
-  gap: clamp(28px, 4vw, 56px);
-  align-items: center;
-}
-.pk-pdesc__pair--flip {
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
-}
-.pk-pdesc__pair--flip .pk-pdesc__col--image { order: -1; }
-
-/* Single-image orphans (e.g. an `<img>` with no preceding prose)
- * stretch to the full inner width so the visual is the focus. */
-.pk-pdesc__pair--solo {
-  grid-template-columns: minmax(0, 1fr);
-  max-width: 880px;
-  margin: 0 auto;
-  width: 100%;
-}
-
-.pk-pdesc__col { min-width: 0; }
-.pk-pdesc__col--text { max-width: 640px; }
-.pk-pdesc__col--image { width: 100%; }
-
-@media (max-width: 900px) {
-  .pk-pdesc__pair,
-  .pk-pdesc__pair--flip {
-    grid-template-columns: 1fr;
-    gap: clamp(20px, 4vw, 32px);
-  }
-  .pk-pdesc__pair--flip .pk-pdesc__col--image { order: 0; }
-  .pk-pdesc__col--text { max-width: none; }
-  .pk-pdesc__pair--solo { max-width: none; }
-}
-
-/* Image chunk: clean rounded card, full width of its content. */
-.pk-pdesc__image img {
-  display: block;
-  width: 100%;
-  height: auto;
-  border-radius: 14px;
-  border: 1px solid var(--pk-border);
-  background: var(--pk-surface-2, var(--pk-cream-soft));
-}
-
-/* ── Prose rhythm inside the text column ──
- *
- * Without explicit margins the merchant's `<p>` blocks stack
- * with no breathing room. We give each paragraph a half-line
- * of trailing space, anchor the first one to the top of the
- * column, and make sure any merchant `<h3>` opens a new visual
- * section. The list (already 2-column on desktop) keeps its
- * own treatment below. */
-.pk-pdesc__text { min-width: 0; }
-.pk-pdesc__text > p {
-  margin: 0 0 1.15em;
-  line-height: 1.7;
-  color: var(--pk-ink);
-  font-size: 16px;
-}
-.pk-pdesc__text > p:first-child { margin-top: 0; }
-.pk-pdesc__text > p:last-child { margin-bottom: 0; }
-/* Standalone paragraph that is just a leading image wrapper
- * (`<p><span><img></span></p>`) collapses to zero — the image is
- * already rendered as its own column chunk above. */
-.pk-pdesc__text > p:has(> span:only-child > img:only-child),
-.pk-pdesc__text > p:has(> b:only-child > img:only-child),
-.pk-pdesc__text > p:has(> img:only-child) {
-  margin: 0;
-  line-height: 0;
-}
-/* Merchant h3 — section subhead. Sits above a paragraph block,
- * spaced clearly so the reader can see where one idea ends and
- * the next begins. */
-.pk-pdesc__text > h3 {
-  font-family: var(--pk-font-display);
-  font-size: clamp(20px, 2.2vw, 24px);
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  line-height: 1.25;
-  color: var(--pk-ink);
-  margin: 28px 0 14px;
-}
-.pk-pdesc__text > h3:first-child { margin-top: 0; }
-.pk-pdesc__text strong { font-weight: 700; }
-.pk-pdesc__text a { color: var(--pk-ember); }
-.pk-pdesc__text a:hover { text-decoration: underline; }
-.pk-pdesc__text ul,
-.pk-pdesc__text ol {
-  margin: 18px 0 20px;
-}
-
-/* ── Bullet list treatment inside editorial text chunks ──
- *
- * The merchant body for products like Garden Hose Splitter ships
- * 8-bullet feature lists and 12-bullet SPECS lists inline. As a
- * flat single-column list those rows feel anemic — too much
- * whitespace, too little density. We turn them into a 2-column
- * grid on desktop (1-column on mobile), give each item a hairline
- * divider above it, and bump the line-height + padding so each
- * bullet reads as its own micro-block. */
-.pk-pdesc__text ul,
-.pk-pdesc__text ol {
-  list-style: none;
-  margin: 16px 0 20px;
-  padding: 0;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0 clamp(20px, 3vw, 40px);
-}
-@media (max-width: 900px) {
-  .pk-pdesc__text ul,
-  .pk-pdesc__text ol {
-    grid-template-columns: 1fr;
-  }
-}
-.pk-pdesc__text li {
-  margin: 0;
-  padding: 12px 0 12px 18px;
-  position: relative;
-  line-height: 1.55;
-  border-top: 1px solid var(--pk-border);
-}
-.pk-pdesc__text li:first-child {
-  border-top: 0;
-}
-/* Small ember dot bullet — replaces the merchant's default disc so
- * every bullet has the same weight regardless of source styling. */
-.pk-pdesc__text li::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 19px;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--pk-ember);
-  opacity: 0.85;
-}
-/* Inside the bullet, force the merchant's `<strong>` lead (e.g.
- * "MULTI SYSTEM COMPATIBILITY:") to wrap to its own line for
- * readability — without this the bold label and body text run
- * together with awkward spacing. */
-.pk-pdesc__text li p {
-  margin: 0;
-}
-.pk-pdesc__text li strong {
-  display: inline;
-  font-weight: 700;
-  color: var(--pk-ink);
-  letter-spacing: 0.01em;
-}
-
-/* ════════════════════════════════════════════════════════════════════
-   Split section — generalized two-column layout for the PDP.
-
-   Replaces the per-section `.pk-pdesc__inner` grid. Used by:
-     • Editorial description  (tone: default, align: left)
-     • Highlights             (tone: default, align: left)
-     • Care & shipping        (tone: inverse, align: right)
-
-   The grid is text + visual on desktop, single-column on mobile.
-   Tone='inverse' swaps to a dark warm-black background and inverts
-   text colors. Tone='default' sits on the page cream. Other PDP
-   sections (`.pk-pdesc`, `.pk-highlights`, `.pk-care`) own only
-   their surface treatment and section-specific content styles.
-   ════════════════════════════════════════════════════════════════════ */
-
-.pk-split {
-  margin-top: 56px;
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
-  padding: 64px clamp(20px, calc(50vw - 576px), 100px);
-  position: relative;
-  overflow: hidden;
-}
-@media (max-width: 900px) {
-  .pk-split { margin-top: 36px; padding: 40px 20px; }
-}
-
-.pk-split__inner {
-  max-width: var(--pk-inner-max);
-  margin: auto;
-  padding-top: 1rem;
-  display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-  gap: clamp(24px, 3vw, 48px);
-  align-items: start;
-  position: relative;
-}
-/* Flip the column order for right-aligned splits — visual moves
-   to the left, text to the right. */
-.pk-split--right .pk-split__inner { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); }
-.pk-split--right .pk-split__col-visual { order: -1; }
-@media (max-width: 900px) {
-  .pk-split__inner,
-  .pk-split--right .pk-split__inner { grid-template-columns: 1fr; gap: 28px; }
-  .pk-split--right .pk-split__col-visual { order: 0; }
-}
-
-.pk-split__col-text {
-  position: relative;
-  /* No ember rule here — the .pk-split__header above and the
-   * .pk-split__body-tail below each carry their own. */
-}
-
-/* Header zone — eyebrow + heading sit at full section width above
- * the side-by-side grid. Anchors the section so the alternating
- * zigzag pattern has a single editorial frame per row. */
-.pk-split__header {
-  max-width: var(--pk-inner-max);
-  margin: 0 auto clamp(28px, 3.4vw, 40px);
-  padding: 4px 0 4px 28px;
-  position: relative;
-}
-/* Editorial chapter mark — a thicker, fully-filled ember bar with
- * a small dot at the top, so the accent reads as a deliberate
- * marker rather than a stray hairline. The bar runs the full
- * height of the header (eyebrow + headline) so it visually owns
- * the section. */
-.pk-split__header::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 4px;
-  border-radius: 2px;
-  background: var(--pk-ember);
-}
-.pk-split__header::after {
-  content: '';
-  position: absolute;
-  left: -3px;
-  top: -3px;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--pk-ember);
-  box-shadow: 0 0 0 3px var(--pk-cream);
-}
-.pk-split--inverse .pk-split__header::after {
-  box-shadow: 0 0 0 3px var(--pk-surface-2, #15110d);
-}
-.pk-split__header .pk-split__eyebrow { margin: 0 0 14px; }
-.pk-split__header .pk-split__headline { margin: 0; max-width: 22ch; }
-
-/* Body tail — full-width wrap under the side-by-side grid. Visually
- * reads as "the rest of the article" — a top ember rule hints at
- * the break, then the prose flows at full column width. */
-.pk-split__body-tail {
-  max-width: var(--pk-inner-max);
-  margin: clamp(28px, 3.4vw, 40px) auto 0;
-  padding: 4px 0 4px 28px;
-  position: relative;
-}
-.pk-split__body-tail::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 4px;
-  border-radius: 2px;
-  background: var(--pk-ember);
-}
-.pk-split__body-tail::after {
-  content: '';
-  position: absolute;
-  left: -3px;
-  top: -3px;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--pk-ember);
-  box-shadow: 0 0 0 3px var(--pk-cream);
-}
-.pk-split--inverse .pk-split__body-tail::after {
-  box-shadow: 0 0 0 3px var(--pk-surface-2, #15110d);
-}
-
-.pk-split__eyebrow {
-  margin: 0 0 14px;
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-  color: var(--pk-ember);
-}
-.pk-split__headline {
-  margin: 0 0 22px;
-  font-family: var(--pk-font-display);
-  font-size: clamp(28px, 3.6vw, 40px);
-  font-weight: 700;
-  letter-spacing: -0.015em;
-  line-height: 1.05;
-  color: var(--pk-ink);
-}
-.pk-split__body {
-  color: var(--pk-ink);
-  font-size: 16px;
-  line-height: 1.78;
-  min-width: 0;
-}
-.pk-split__body p { margin: 0 0 16px; }
-.pk-split__body p:first-child { margin-top: 0; }
-.pk-split__body ul,
-.pk-split__body ol { margin: 0 0 16px 1.4em; padding: 0; }
-.pk-split__body li { margin-bottom: 6px; }
-
-.pk-split__col-visual {
-  position: relative;
-  min-height: 100%;
-  max-height: 420px;
-}
-@media (max-width: 900px) {
-  .pk-split__col-visual { max-height: none; }
-}
-
-/* Mosaic — three tiles, collapses to fewer on narrow viewports.
- * Capped to keep the side-by-side zone compact so the body tail
- * flows immediately under the visual at full width. */
-.pk-split__mosaic {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 180px 180px;
-  gap: 10px;
-  position: relative;
-}
-@media (max-width: 900px) {
-  .pk-split__mosaic {
-    grid-template-rows: 140px 140px;
-    margin-top: 8px;
-  }
-}
-.pk-split__tile {
-  position: relative;
-  overflow: hidden;
-  border-radius: 16px;
-  background: var(--pk-cream);
-  box-shadow: 0 6px 22px rgba(15, 26, 14, 0.08);
-}
-.pk-split__tile img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.pk-split__tile:hover img { transform: scale(1.04); }
-.pk-split__tile--1 { grid-column: 1; grid-row: 1 / span 2; }
-.pk-split__tile--2 { grid-column: 2; grid-row: 1; }
-.pk-split__tile--3 { grid-column: 2; grid-row: 2; }
-
-/* Single hero image — used when a section wants one big photo
- * rather than a 3-tile collage. Landscape orientation keeps the
- * side-by-side zone compact. */
-.pk-split__hero-image {
-  position: relative;
-  border-radius: 18px;
-  overflow: hidden;
-  background: var(--pk-cream);
-  box-shadow: 0 8px 28px rgba(15, 26, 14, 0.1);
-  aspect-ratio: 5 / 4;
-  max-height: 320px;
-}
-.pk-split__hero-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-/* Brand accent column — dark warm card with the wordmark.
- * Fallback when no gallery images are available. */
-.pk-split__accent {
-  background: linear-gradient(155deg, var(--pk-ink) 0%, #1d1838 100%);
-  border-radius: 22px;
-  padding: 36px 28px;
-  color: var(--pk-paper);
-  min-height: 280px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  position: relative;
-  overflow: hidden;
-}
-.pk-split__accent::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(50% 50% at 80% 20%, rgba(198, 255, 78, 0.18), transparent 65%),
-    radial-gradient(50% 50% at 20% 90%, rgba(204, 67, 0, 0.22), transparent 65%);
-  pointer-events: none;
-}
-.pk-split__brand-mark {
-  font-family: var(--pk-font-display);
-  font-size: 36px;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  position: relative;
-  z-index: 1;
-}
-
-/* Inverse tone — used by the Care & shipping section to break the
- * cream monotony and let the row alternate visually. */
-.pk-split--inverse {
-  background: linear-gradient(180deg, var(--pk-ink) 0%, var(--pk-ink-soft) 100%);
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-}
-.pk-split--inverse .pk-split__eyebrow { color: var(--pk-lime); }
-.pk-split--inverse .pk-split__headline { color: var(--pk-paper); }
-.pk-split--inverse .pk-split__body { color: rgba(244, 240, 230, 0.86); }
-.pk-split--inverse .pk-split__body-tail { color: rgba(244, 240, 230, 0.86); }
-.pk-split--inverse .pk-split__body-tail::before {
-  background: linear-gradient(180deg, var(--pk-lime) 0%, transparent 100%);
-}
-.pk-split--inverse .pk-split__mosaic {
-  background: rgba(255, 255, 255, 0.04);
-  border-radius: 18px;
-  padding: 12px;
-  gap: 10px;
-}
-
-/* ════════════════════════════════════════════════════════════════════
-   Highlights section.
-
-   Uses single hero image (or mosaic fallback) on the right.
-   Three short promise bullets on the left.
-   ════════════════════════════════════════════════════════════════════ */
-.pk-highlights__list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: 14px;
-}
-.pk-highlights__list li {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  padding: 14px 0;
-  border-top: 1px solid var(--pk-border);
-}
-.pk-highlights__list li:last-child { border-bottom: 1px solid var(--pk-border); }
-.pk-highlights__list li strong {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--pk-ink);
-  letter-spacing: -0.005em;
-}
-.pk-highlights__list li span {
-  font-size: 13px;
-  color: var(--pk-muted);
-  line-height: 1.5;
-}
-
-/* ════════════════════════════════════════════════════════════════════
-   Care & shipping section (inverse tone).
-
-   Re-presents the Shipping accordion copy in editorial voice.
-   ════════════════════════════════════════════════════════════════════ */
-.pk-care__text {
-  display: grid;
-  gap: 24px;
-}
-.pk-care__block {
-  display: grid;
-  gap: 10px;
-}
-.pk-care__block h3 {
-  margin: 0;
-  font-family: var(--pk-font-display);
-  font-size: 18px;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  color: var(--pk-paper);
-}
-.pk-care__block p {
-  margin: 0;
-  font-size: 15px;
-  line-height: 1.7;
-  color: rgba(244, 240, 230, 0.82);
-}
-/* Subtle hairline between the two text blocks on the dark
- * surface, so Shipping and Returns read as siblings in the
- * same column rather than two separate sections. */
-.pk-care__block + .pk-care__block {
-  padding-top: 24px;
-  border-top: 1px solid rgba(244, 240, 230, 0.12);
-}
-
-/* Recommendation grid — staggered fade. Each cell is a ScrollReveal
- * wrapper, so the .pk-reco__cell class just sizes the cell. */
+/* Recommendation grid cell — sizing only. */
 .pk-reco__cell { display: block; height: 100%; }
 .pk-reco__cell > * { height: 100%; }
 
@@ -8855,18 +8051,6 @@ button:focus-visible,
   transform: translateY(-1px);
 }
 
-/* Buy-box entrance — when the info column mounts, give it a
- * gentle upward float to match the hero parallax feel. */
-.pk-product__info {
-  animation: pkInfoIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-@keyframes pkInfoIn {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .pk-product__info { animation: none !important; }
-}
 
 /* ════════════════════════════════════════════════════════════════
    HOMEPAGE SECTIONS — Phase 1 redesign
