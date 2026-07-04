@@ -2490,7 +2490,7 @@ button:focus-visible,
 }
 
 @media (max-width: 700px) {
-  .pk-col-hero { padding: 28px 20px; }
+  .pk-col-hero { padding: 16px 0 12px; }
   .pk-col-hero__title { font-size: 26px; }
 }
 
@@ -4393,9 +4393,9 @@ button:focus-visible,
  * site-wide consistency. The hero is already styled above; we only
  * need a tiny tweak for the contact copy. */
 .pk-contact__hero { margin-top: 4px; }
-.pk-contact__hero .pk-col-hero__title { font-size: 44px; }
+.pk-contact__hero .pk-col-hero__title { font-size: 24px; }
 @media (max-width: 700px) {
-  .pk-contact__hero .pk-col-hero__title { font-size: 30px; }
+  .pk-contact__hero .pk-col-hero__title { font-size: 22px; }
 }
 
 /* Section header pattern shared by "what to expect" + FAQ */
@@ -6941,7 +6941,7 @@ button:focus-visible,
   gap: 6px;
   height: 34px;
   padding: 0 14px;
-  border-radius: 999px;
+  border-radius: 3px;
   border: 1.5px solid var(--pk-line);
   background: var(--pk-paper);
   color: var(--pk-ink);

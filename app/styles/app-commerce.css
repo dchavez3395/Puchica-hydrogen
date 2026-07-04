@@ -319,6 +319,56 @@
   color: var(--pk-muted);
 }
 
+/* ── Product card badges ───────────────────────────────────────── */
+.pk-card__badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 2;
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+.pk-card__badge--sale {
+  background: var(--pk-ember);
+  color: var(--pk-white);
+}
+.pk-card__badge--new-arrival {
+  background: var(--pk-ink);
+  color: var(--pk-paper);
+}
+.pk-card__badge--trending {
+  background: var(--pk-ember);
+  color: var(--pk-white);
+}
+.pk-card__badge--top-pick {
+  background: var(--pk-ink);
+  color: var(--pk-paper);
+}
+.pk-card__badge--staff-pick {
+  background: var(--pk-cream);
+  color: var(--pk-ink);
+  border: 1px solid var(--pk-line);
+}
+
+/* ── Price compare styling (sale) ──────────────────────────────── */
+.pk-card__price-compare {
+  color: var(--pk-muted);
+  font-size: 13px;
+  font-weight: 500;
+  margin-left: 4px;
+}
+.pk-card__price-cluster {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
 @media (max-width: 900px) {
   .pk-header-search { display: none; }
 }
