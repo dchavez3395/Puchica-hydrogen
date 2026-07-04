@@ -1672,20 +1672,6 @@ button:focus-visible,
   border-color: #fff;
 }
 /* Lime CTA for dark backgrounds */
-.pk-btn--spark {
-  background: var(--pk-lime);
-  color: var(--pk-ink);
-  border: 1.5px solid var(--pk-lime);
-  border-radius: 2px;
-  font-weight: 800;
-  box-shadow: none;
-}
-.pk-btn--spark:hover {
-  background: var(--pk-lime-hover);
-  border-color: var(--pk-lime-hover);
-  transform: none;
-  box-shadow: none;
-}
 /* Ember CTA - warm orange/red, intended for hero CTAs / primary
    actions on cream and ink. Variables were aliased to --pk-ink which
    silently rendered them black-on-everything. Now uses the brand
@@ -2097,11 +2083,10 @@ button:focus-visible,
   outline-offset: 2px;
 }
 .pk-icon-btn.is-active {
-  background: var(--pk-lime);
-  color: var(--pk-ink);
-  box-shadow: 0 4px 12px rgba(198,255,78,.36);
+  background: var(--pk-ink);
+  color: var(--pk-paper);
 }
-.pk-icon-btn.is-active:hover { background: var(--pk-lime-hover); color: var(--pk-ink); }
+.pk-icon-btn.is-active:hover { background: #2A2620; color: var(--pk-paper); }
 .pk-cart-badge {
   position: absolute;
   top: 4px;
@@ -2497,7 +2482,7 @@ button:focus-visible,
   box-sizing: border-box;
 }
 .pk-footer__form input::placeholder { color: rgba(242, 235, 218, 0.45); }
-.pk-footer__form input:focus { outline: none; box-shadow: 0 0 0 3px rgba(198, 255, 78, 0.35); border-color: var(--pk-lime); }
+.pk-footer__form input:focus { outline: none; box-shadow: 0 0 0 3px rgba(242, 235, 218, 0.3); border-color: var(--pk-paper); }
 .pk-footer__form button {
   flex: none;
   align-self: stretch;
@@ -2981,138 +2966,82 @@ button:focus-visible,
   font-family: var(--pk-font);
   color: var(--pk-ink);
 }
-
-/* Big page header (eyebrow + title + sub) */
+/* Page header — calm cream well on the paper page (product-first
+   redesign). Replaces the old dark ink/lime "glow" hero: no gradients,
+   no hatch overlay, no blurred glows — the products are the show. */
 .pk-col-hero {
   position: relative;
   overflow: hidden;
-  background:
-    radial-gradient(120% 80% at 0% 0%, rgba(198, 255, 78, 0.18), transparent 55%),
-    radial-gradient(90% 70% at 100% 100%, rgba(168, 56, 0, 0.28), transparent 60%),
-    linear-gradient(135deg, #0e1a0e 0%, #15241a 55%, #1c2a18 100%);
-  color: var(--pk-paper);
-  border-radius: var(--r-2xl);
-  padding: 52px 44px;
+  background: var(--pk-cream);
+  color: var(--pk-ink);
+  border: 1px solid var(--pk-line);
+  border-radius: 12px;
+  padding: 44px 40px;
   margin: 4px 0 28px;
-  box-shadow: var(--pk-sh-md);
   isolation: isolate;
 }
-.pk-col-hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image:
-    repeating-linear-gradient(
-      45deg,
-      rgba(242, 235, 218, 0.025) 0,
-      rgba(242, 235, 218, 0.025) 1px,
-      transparent 1px,
-      transparent 14px
-    );
-  pointer-events: none;
-  z-index: 0;
-}
+/* Legacy variant — now identical to the base look. */
 .pk-col-hero--soft {
-  background:
-    radial-gradient(120% 80% at 100% 0%, rgba(168, 56, 0, 0.10), transparent 55%),
-    radial-gradient(90% 70% at 0% 100%, rgba(198, 255, 78, 0.18), transparent 60%),
-    var(--pk-paper-dark);
+  background: var(--pk-cream);
   color: var(--pk-ink);
+  border: 1px solid var(--pk-line);
   box-shadow: none;
-  border: 1px solid var(--pk-border);
 }
-.pk-col-hero--soft::before {
-  background-image:
-    repeating-linear-gradient(
-      45deg,
-      rgba(61, 56, 36, 0.03) 0,
-      rgba(61, 56, 36, 0.03) 1px,
-      transparent 1px,
-      transparent 14px
-    );
+/* Decorative glow spans still rendered by older routes — inert now. */
+.pk-col-hero__glow,
+.pk-col-hero__glow--ember {
+  display: none;
 }
 .pk-col-hero__eyebrow {
   display: inline-block;
   text-transform: uppercase;
   letter-spacing: 0.14em;
   font-size: 12px;
-  font-weight: 700;
-  color: rgba(242, 235, 218, 0.65);
+  font-weight: 600;
+  color: var(--pk-muted);
   margin-bottom: 8px;
-  position: relative;
-  z-index: 1;
 }
-.pk-col-hero--soft .pk-col-hero__eyebrow { color: var(--pk-ember); }
+.pk-col-hero--soft .pk-col-hero__eyebrow { color: var(--pk-muted); }
 .pk-col-hero__title {
-  font-family: var(--pk-font-display);
-  font-size: 40px;
+  font-family: var(--pk-font, 'Outfit', system-ui, sans-serif);
+  font-size: 34px;
   font-weight: 700;
-  font-style: italic;
-  letter-spacing: -0.02em;
-  line-height: 1.05;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
   margin: 0 0 10px;
   color: inherit;
-  position: relative;
-  z-index: 1;
 }
 .pk-col-hero__sub {
-  font-size: 16px;
+  font-size: 15px;
   line-height: 1.55;
   margin: 0;
   max-width: 620px;
-  color: rgba(242, 235, 218, 0.75);
-  position: relative;
-  z-index: 1;
+  color: var(--pk-muted);
 }
 .pk-col-hero--soft .pk-col-hero__sub { color: var(--pk-muted); }
 .pk-col-hero__count {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  margin-top: 18px;
+  margin-top: 16px;
   padding: 6px 12px;
   border-radius: 999px;
-  background: rgba(242, 235, 218, 0.14);
-  border: 1px solid rgba(242, 235, 218, 0.24);
-  color: var(--pk-paper);
+  background: var(--pk-paper);
+  border: 1px solid var(--pk-line);
+  color: var(--pk-muted);
   font-size: 13px;
   font-weight: 600;
   position: relative;
-  z-index: 1;
 }
 .pk-col-hero--soft .pk-col-hero__count {
-  background: #fff;
-  border: 1px solid var(--pk-border);
+  background: var(--pk-paper);
+  border: 1px solid var(--pk-line);
   color: var(--pk-muted);
-}
-.pk-col-hero__glow {
-  position: absolute;
-  width: 480px; height: 480px;
-  right: -120px; top: -160px;
-  background: radial-gradient(circle, rgba(198, 255, 78, 0.55), transparent 65%);
-  opacity: 0.7; filter: blur(50px);
-  pointer-events: none;
-  border-radius: 50%;
-  z-index: 1;
-}
-.pk-col-hero__glow--ember {
-  width: 420px; height: 420px;
-  right: auto; left: -140px; top: auto; bottom: -180px;
-  background: radial-gradient(circle, rgba(168, 56, 0, 0.5), transparent 65%);
-  opacity: 0.6; filter: blur(60px);
-}
-.pk-col-hero--soft .pk-col-hero__glow {
-  background: radial-gradient(circle, rgba(168, 56, 0, 0.28), transparent 65%);
-  opacity: 0.55;
-}
-.pk-col-hero--soft .pk-col-hero__glow--ember {
-  background: radial-gradient(circle, rgba(198, 255, 78, 0.35), transparent 65%);
-  opacity: 0.5;
 }
 
 @media (max-width: 700px) {
-  .pk-col-hero { padding: 36px 24px; }
-  .pk-col-hero__title { font-size: 30px; }
+  .pk-col-hero { padding: 28px 20px; }
+  .pk-col-hero__title { font-size: 26px; }
 }
 
 /* Catalog body â€” sidebar + grid */
@@ -7099,10 +7028,6 @@ button:focus-visible,
 .pk-btn--primary:active {
   transform: translateY(1px);
   box-shadow: none;
-}
-.pk-btn--spark:active {
-  transform: translateY(1px);
-  box-shadow: 0 4px 10px rgba(198, 255, 78, 0.22);
 }
 .pk-btn--ghost:active {
   transform: translateY(1px);

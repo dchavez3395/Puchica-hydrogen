@@ -59,7 +59,7 @@ export default function AboutPage() {
             <span className="pk-about-hero__em">{t('about_hero_title_em')}</span>
           </h1>
           <p className="pk-about-hero__sub">{t('about_hero_sub')}</p>
-          <Link to="/collections/all" className="pk-btn pk-btn--spark pk-btn--lg">
+          <Link to="/collections/all" className="pk-btn pk-btn--ink pk-btn--lg">
             {t('about_hero_cta')}
           </Link>
         </div>
@@ -155,7 +155,7 @@ export default function AboutPage() {
           <h2 className="pk-about-cta__title">{t('about_cta_title')}</h2>
           <p className="pk-about-cta__sub">{t('about_cta_sub')}</p>
           <div className="pk-about-cta__btns">
-            <Link to="/collections/all" className="pk-btn pk-btn--spark pk-btn--lg">
+            <Link to="/collections/all" className="pk-btn pk-btn--ink pk-btn--lg">
               {t('about_cta_browse')}
             </Link>
             <Link to="/pages/contact" className="pk-btn pk-btn--ghost pk-btn--lg">
