@@ -2324,10 +2324,25 @@ button:focus-visible,
   overflow: hidden;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
-.pk-collist-card:hover { transform: translateY(-3px); box-shadow: var(--pk-sh-md); }
-.pk-collist-card:hover .pk-collist-card__media img { transform: scale(1.04); }
-.pk-collist-card__media img { transition: transform .4s ease; }
-.pk-collist-card:hover .pk-collist-card__fallback-icon { transform: scale(1.08); }
+.pk-collist-card:hover { border-color: var(--pk-ink); }
+
+
+
+.pk-collist-card__fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--pk-cream);
+}
+.pk-collist-card__fallback-text {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--pk-muted);
+  padding: 12px;
+  text-align: center;
+}
 .pk-collist-card__fallback-icon { transition: transform .3s ease; }
 .pk-collist-card__media {
   aspect-ratio: 16 / 10;
