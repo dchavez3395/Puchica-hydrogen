@@ -1,0 +1,1625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Puchica — The Good Stuff. All in One Place.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #FAF9F6;
+  --text: #1A1A1A;
+  --accent: #C8A96E;
+  --surface: #FFFFFF;
+  --border: #E8E5DF;
+  --error: #D94F4F;
+  --muted: #8A8A8A;
+  --hover-bg: #F2F0EB;
+  --font: 'Inter', -apple-system, sans-serif;
+  --container: 1280px;
+  --radius-card: 4px;
+  --radius-img: 8px;
+  --transition: 200ms ease;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== UTILITIES ===== */
+.container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.label--accent { color: var(--accent); }
+
+/* ===== ANNOUNCEMENT BAR ===== */
+.announcement {
+  background: var(--text);
+  color: var(--surface);
+  text-align: center;
+  padding: 10px 24px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.announcement span { color: var(--accent); font-weight: 600; }
+
+/* ===== HEADER ===== */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  transition: box-shadow var(--transition);
+}
+
+.header.scrolled {
+  box-shadow: 0 1px 8px rgba(0,0,0,0.06);
+}
+
+.header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  gap: 24px;
+}
+
+.header__logo {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.header__nav {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+}
+
+.header__nav a {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  text-decoration: none;
+  position: relative;
+}
+
+.header__nav a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--text);
+  transform: scaleX(0);
+  transition: transform var(--transition);
+}
+
+.header__nav a:hover::after { transform: scaleX(1); }
+
+.header__actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+  transition: background var(--transition);
+}
+
+.icon-btn:hover { background: var(--hover-bg); }
+
+.cart-btn {
+  position: relative;
+}
+
+.cart-btn__count {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: var(--accent);
+  color: var(--surface);
+  font-size: 10px;
+  font-weight: 700;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ===== MEGA MENU ===== */
+.nav-item {
+  position: relative;
+}
+
+.nav-item__trigger {
+  background: none;
+  border: none;
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 24px 0;
+}
+
+.nav-item__dropdown {
+  position: absolute;
+  top: 100%;
+  left: -24px;
+  right: -24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 32px;
+  display: none;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+}
+
+.nav-item:hover .nav-item__dropdown { display: grid; }
+
+.nav-item__col h4 {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+.nav-item__col ul { list-style: none; }
+
+.nav-item__col ul li { margin-bottom: 8px; }
+
+.nav-item__col ul a {
+  font-size: 14px;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.nav-item__col ul a:hover { color: var(--accent); }
+
+/* ===== HERO ===== */
+.hero {
+  padding: 80px 0 64px;
+  text-align: center;
+}
+
+.hero__eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+
+.hero__headline {
+  font-size: clamp(40px, 6vw, 72px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  max-width: 800px;
+  margin: 0 auto 24px;
+}
+
+.hero__sub {
+  font-size: 18px;
+  color: var(--muted);
+  max-width: 480px;
+  margin: 0 auto 40px;
+  line-height: 1.6;
+}
+
+.hero__actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 28px;
+  font-family: var(--font);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  border-radius: 0;
+  transition: all var(--transition);
+}
+
+.btn--primary {
+  background: var(--text);
+  color: var(--surface);
+}
+
+.btn--primary:hover {
+  background: #333;
+}
+
+.btn--secondary {
+  background: transparent;
+  color: var(--text);
+  border: 1.5px solid var(--text);
+}
+
+.btn--secondary:hover {
+  background: var(--text);
+  color: var(--surface);
+}
+
+.hero__trust {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.hero__trust-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hero__trust-item svg { color: var(--accent); }
+
+/* ===== MARQUEE ===== */
+.marquee {
+  background: var(--text);
+  color: var(--surface);
+  padding: 12px 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.marquee__track {
+  display: inline-flex;
+  gap: 48px;
+  animation: marquee 30s linear infinite;
+}
+
+.marquee__item {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.marquee__dot {
+  width: 4px;
+  height: 4px;
+  background: var(--accent);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ===== FEATURED COLLECTIONS ===== */
+.section {
+  padding: 80px 0;
+}
+
+.section--border {
+  border-top: 1px solid var(--border);
+}
+
+.section__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.section__header-left {}
+
+.section__title {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-top: 8px;
+}
+
+.section__link {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-bottom: 1px solid var(--text);
+  padding-bottom: 2px;
+}
+
+.collections-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+
+.collection-card {
+  position: relative;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--hover-bg);
+}
+
+.collection-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 400ms ease;
+}
+
+.collection-card:hover .collection-card__img {
+  transform: scale(1.03);
+}
+
+.collection-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(26,26,26,0.7) 0%, transparent 50%);
+  display: flex;
+  align-items: flex-end;
+  padding: 32px;
+}
+
+.collection-card__name {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--surface);
+  letter-spacing: -0.01em;
+}
+
+.collection-card__count {
+  font-size: 12px;
+  color: rgba(255,255,255,0.7);
+  margin-top: 4px;
+}
+
+/* ===== BEST SELLERS ===== */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.product-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  transition: border-color var(--transition);
+  position: relative;
+}
+
+.product-card:hover {
+  border-color: var(--text);
+}
+
+.product-card__img-wrap {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: var(--hover-bg);
+}
+
+.product-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 400ms ease;
+}
+
+.product-card:hover .product-card__img {
+  transform: scale(1.04);
+}
+
+.product-card__badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: var(--accent);
+  color: var(--surface);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 4px 8px;
+}
+
+.product-card__quick-add {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  right: 12px;
+  background: var(--text);
+  color: var(--surface);
+  font-family: var(--font);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity var(--transition), transform var(--transition);
+  text-align: center;
+}
+
+.product-card:hover .product-card__quick-add {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.product-card__info {
+  padding: 16px;
+}
+
+.product-card__collection {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.product-card__name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  text-decoration: none;
+  display: block;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+.product-card__name:hover { color: var(--accent); }
+
+.product-card__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.product-card__price {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.product-card__price--original {
+  text-decoration: line-through;
+  color: var(--muted);
+  font-weight: 400;
+  font-size: 13px;
+  margin-right: 6px;
+}
+
+.product-card__stars {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.product-card__stars svg { color: var(--accent); }
+
+/* ===== CATEGORY SPOTLIGHT ===== */
+.spotlight {
+  background: var(--text);
+  color: var(--surface);
+  padding: 80px 0;
+}
+
+.spotlight__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.spotlight__label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+
+.spotlight__title {
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+
+.spotlight__desc {
+  font-size: 16px;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.7;
+  margin-bottom: 32px;
+}
+
+.spotlight__products {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.spotlight__product {
+  text-decoration: none;
+  color: var(--surface);
+}
+
+.spotlight__product-img {
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: var(--radius-img);
+  margin-bottom: 8px;
+  transition: opacity var(--transition);
+}
+
+.spotlight__product:hover .spotlight__product-img { opacity: 0.85; }
+
+.spotlight__product-name {
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+
+.spotlight__product-price {
+  font-size: 13px;
+  color: rgba(255,255,255,0.6);
+}
+
+/* ===== NEW ARRIVALS ===== */
+.new-arrivals__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+/* ===== SOCIAL PROOF ===== */
+.social-proof {
+  padding: 80px 0;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.social-proof__stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  margin-bottom: 64px;
+}
+
+.stat {
+  background: var(--surface);
+  padding: 48px 32px;
+  text-align: center;
+}
+
+.stat__number {
+  font-size: 48px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.stat__label {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.review-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 28px;
+}
+
+.review-card__stars {
+  display: flex;
+  gap: 2px;
+  margin-bottom: 16px;
+}
+
+.review-card__text {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text);
+  margin-bottom: 20px;
+}
+
+.review-card__author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.review-card__avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--hover-bg);
+  object-fit: cover;
+}
+
+.review-card__name {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.review-card__product {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* ===== BRAND STORY ===== */
+.brand-story {
+  padding: 96px 0;
+  text-align: center;
+}
+
+.brand-story__inner {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.brand-story__label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 24px;
+}
+
+.brand-story__title {
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 24px;
+}
+
+.brand-story__text {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+/* ===== NEWSLETTER ===== */
+.newsletter {
+  background: var(--text);
+  color: var(--surface);
+  padding: 80px 0;
+}
+
+.newsletter__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 48px;
+}
+
+.newsletter__left {}
+
+.newsletter__title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.newsletter__sub {
+  font-size: 15px;
+  color: rgba(255,255,255,0.6);
+}
+
+.newsletter__form {
+  display: flex;
+  gap: 0;
+  flex: 1;
+  max-width: 480px;
+}
+
+.newsletter__input {
+  flex: 1;
+  padding: 14px 18px;
+  font-family: var(--font);
+  font-size: 14px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: var(--surface);
+  outline: none;
+  border-radius: 0;
+}
+
+.newsletter__input::placeholder { color: rgba(255,255,255,0.4); }
+
+.newsletter__input:focus {
+  border-color: var(--accent);
+}
+
+.newsletter__btn {
+  background: var(--accent);
+  color: var(--text);
+  border: none;
+  padding: 14px 24px;
+  font-family: var(--font);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background var(--transition);
+}
+
+.newsletter__btn:hover { background: #b89a5e; }
+
+/* ===== FOOTER ===== */
+.footer {
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  padding: 64px 0 32px;
+}
+
+.footer__grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px;
+  margin-bottom: 48px;
+}
+
+.footer__brand-name {
+  font-size: 20px;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+
+.footer__brand-desc {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.footer__social {
+  display: flex;
+  gap: 12px;
+}
+
+.footer__social a {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text);
+  text-decoration: none;
+  transition: all var(--transition);
+}
+
+.footer__social a:hover {
+  background: var(--text);
+  color: var(--surface);
+}
+
+.footer__col h4 {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+.footer__col ul { list-style: none; }
+
+.footer__col ul li { margin-bottom: 10px; }
+
+.footer__col ul a {
+  font-size: 14px;
+  color: var(--text);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+.footer__col ul a:hover { color: var(--accent); }
+
+.footer__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.footer__payments {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer__payment-icon {
+  width: 40px;
+  height: 26px;
+  background: var(--hover-bg);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+/* ===== SCROLL LEFT ARROW ===== */
+.scroll-nav {
+  display: flex;
+  gap: 8px;
+}
+
+.scroll-btn {
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition);
+  font-size: 18px;
+  color: var(--text);
+}
+
+.scroll-btn:hover {
+  background: var(--text);
+  color: var(--surface);
+  border-color: var(--text);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .collections-grid { grid-template-columns: repeat(2, 1fr); }
+  .products-grid { grid-template-columns: repeat(3, 1fr); }
+  .new-arrivals__grid { grid-template-columns: repeat(3, 1fr); }
+  .spotlight__inner { grid-template-columns: 1fr; gap: 48px; }
+  .spotlight__products { grid-template-columns: repeat(3, 1fr); }
+  .footer__grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+}
+
+@media (max-width: 768px) {
+  .header__nav { display: none; }
+  .hero { padding: 48px 0 40px; }
+  .hero__headline { font-size: 36px; }
+  .hero__trust { flex-direction: column; gap: 12px; }
+  .collections-grid { grid-template-columns: 1fr 1fr; gap: 2px; }
+  .products-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .new-arrivals__grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .social-proof__stats { grid-template-columns: 1fr; }
+  .reviews-grid { grid-template-columns: 1fr; }
+  .newsletter__inner { flex-direction: column; }
+  .newsletter__form { width: 100%; max-width: 100%; }
+  .footer__grid { grid-template-columns: 1fr 1fr; }
+  .footer__bottom { flex-direction: column; gap: 16px; text-align: center; }
+  .section { padding: 48px 0; }
+  .spotlight { padding: 48px 0; }
+  .spotlight__products { grid-template-columns: repeat(2, 1fr); }
+  .section__header { flex-direction: column; align-items: flex-start; gap: 16px; }
+}
+
+/* ===== PRODUCT CARD COLORS ===== */
+.color-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  display: inline-block;
+}
+
+/* ===== HOVER STATES ===== */
+a { color: inherit; }
+
+/* ===== EMPTY STATE DEMO NOTE ===== */
+.demo-note {
+  background: #FFF8E7;
+  border: 1px solid var(--accent);
+  padding: 12px 20px;
+  font-size: 13px;
+  color: var(--text);
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.demo-note svg { color: var(--accent); flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="announcement">
+  Free shipping across Canada · 30-day returns · <span>FIRST15</span> for 15% off your first order
+</div>
+
+<!-- HEADER -->
+<header class="header" id="header">
+  <div class="container">
+    <div class="header__inner">
+      <a href="#" class="header__logo">Puchica</a>
+
+      <nav class="header__nav">
+        <div class="nav-item">
+          <button class="nav-item__trigger">Shop
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+          <div class="nav-item__dropdown">
+            <div class="nav-item__col">
+              <h4>Categories</h4>
+              <ul>
+                <li><a href="#">Home & Kitchen</a></li>
+                <li><a href="#">Beauty & Grooming</a></li>
+                <li><a href="#">Electronics</a></li>
+                <li><a href="#">Pet Supplies</a></li>
+                <li><a href="#">Garden & Outdoor</a></li>
+                <li><a href="#">Health & Wellness</a></li>
+              </ul>
+            </div>
+            <div class="nav-item__col">
+              <h4>Collections</h4>
+              <ul>
+                <li><a href="#">New Arrivals</a></li>
+                <li><a href="#">Best Sellers</a></li>
+                <li><a href="#">Sale</a></li>
+                <li><a href="#">Gifts Under $25</a></li>
+                <li><a href="#">Trending Now</a></li>
+              </ul>
+            </div>
+            <div class="nav-item__col">
+              <h4>By Price</h4>
+              <ul>
+                <li><a href="#">Under $25</a></li>
+                <li><a href="#">$25 – $50</a></li>
+                <li><a href="#">$50 – $100</a></li>
+                <li><a href="#">$100+</a></li>
+              </ul>
+            </div>
+            <div class="nav-item__col">
+              <h4>Brand</h4>
+              <ul>
+                <li><a href="#">About Puchica</a></li>
+                <li><a href="#">Our Curation</a></li>
+                <li><a href="#">Sell with Us</a></li>
+                <li><a href="#">Contact</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <a href="#">New Arrivals</a>
+        <a href="#">Best Sellers</a>
+        <a href="#">Sale</a>
+      </nav>
+
+      <div class="header__actions">
+        <button class="icon-btn" aria-label="Search">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        </button>
+        <button class="icon-btn" aria-label="Account">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        </button>
+        <button class="icon-btn cart-btn" aria-label="Cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          <span class="cart-btn__count">2</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <p class="hero__eyebrow">Curated in Toronto</p>
+    <h1 class="hero__headline">The good stuff.<br>All in one place.</h1>
+    <p class="hero__sub">Thoughtfully selected products across home, beauty, tech, and more — shipped free across Canada.</p>
+    <div class="hero__actions">
+      <a href="#best-sellers" class="btn btn--primary">Shop Best Sellers</a>
+      <a href="#collections" class="btn btn--secondary">Browse Collections</a>
+    </div>
+    <div class="hero__trust">
+      <div class="hero__trust-item">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        Free shipping $75+
+      </div>
+      <div class="hero__trust-item">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1018 0 9 9 0 00-18 0"/><path d="M9 12l2 2 4-4"/></svg>
+        30-day returns
+      </div>
+      <div class="hero__trust-item">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Secure checkout
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee__track">
+    <span class="marquee__item"><span class="marquee__dot"></span> Free shipping across Canada</span>
+    <span class="marquee__item"><span class="marquee__dot"></span> 30-day returns with pre-paid labels</span>
+    <span class="marquee__item"><span class="marquee__dot"></span> Curated by our Toronto team</span>
+    <span class="marquee__item"><span class="marquee__dot"></span> New arrivals every week</span>
+    <span class="marquee__item"><span class="marquee__dot"></span> Best sellers from 12+ categories</span>
+    <span class="marquee__item"><span class="marquee__dot"></span> Free shipping across Canada</span>
+    <span class="marquee__item"><span class="marquee__dot"></span> 30-day returns with pre-paid labels</span>
+    <span class="marquee__item"><span class="marquee__dot"></span> Curated by our Toronto team</span>
+    <span class="marquee__item"><span class="marquee__dot"></span> New arrivals every week</span>
+    <span class="marquee__item"><span class="marquee__dot"></span> Best sellers from 12+ categories</span>
+  </div>
+</div>
+
+<!-- FEATURED COLLECTIONS -->
+<section class="section section--border" id="collections">
+  <div class="container">
+    <div class="section__header">
+      <div class="section__header-left">
+        <p class="label">Explore</p>
+        <h2 class="section__title">Shop by collection</h2>
+      </div>
+      <a href="#" class="section__link">View all
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <div class="collections-grid">
+      <a href="#" class="collection-card">
+        <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80" alt="Home & Kitchen" class="collection-card__img">
+        <div class="collection-card__overlay">
+          <div>
+            <h3 class="collection-card__name">Home & Kitchen</h3>
+            <p class="collection-card__count">248 products</p>
+          </div>
+        </div>
+      </a>
+      <a href="#" class="collection-card">
+        <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600&q=80" alt="Beauty & Grooming" class="collection-card__img">
+        <div class="collection-card__overlay">
+          <div>
+            <h3 class="collection-card__name">Beauty & Grooming</h3>
+            <p class="collection-card__count">312 products</p>
+          </div>
+        </div>
+      </a>
+      <a href="#" class="collection-card">
+        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&q=80" alt="Electronics" class="collection-card__img">
+        <div class="collection-card__overlay">
+          <div>
+            <h3 class="collection-card__name">Electronics</h3>
+            <p class="collection-card__count">186 products</p>
+          </div>
+        </div>
+      </a>
+      <a href="#" class="collection-card">
+        <img src="https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=600&q=80" alt="Pet Supplies" class="collection-card__img">
+        <div class="collection-card__overlay">
+          <div>
+            <h3 class="collection-card__name">Pet Supplies</h3>
+            <p class="collection-card__count">94 products</p>
+          </div>
+        </div>
+      </a>
+      <a href="#" class="collection-card">
+        <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&q=80" alt="Garden & Outdoor" class="collection-card__img">
+        <div class="collection-card__overlay">
+          <div>
+            <h3 class="collection-card__name">Garden & Outdoor</h3>
+            <p class="collection-card__count">167 products</p>
+          </div>
+        </div>
+      </a>
+      <a href="#" class="collection-card">
+        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&q=80" alt="Health & Wellness" class="collection-card__img">
+        <div class="collection-card__overlay">
+          <div>
+            <h3 class="collection-card__name">Health & Wellness</h3>
+            <p class="collection-card__count">229 products</p>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- BEST SELLERS -->
+<section class="section" id="best-sellers">
+  <div class="container">
+    <div class="section__header">
+      <div class="section__header-left">
+        <p class="label label--accent">Most loved</p>
+        <h2 class="section__title">Best sellers this week</h2>
+      </div>
+      <a href="#" class="section__link">See all
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <div class="products-grid">
+
+      <!-- Product 1 -->
+      <div class="product-card">
+        <div class="product-card__img-wrap">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=80" alt="Giant Teddy Bear" class="product-card__img">
+          <span class="product-card__badge">Best Seller</span>
+          <button class="product-card__quick-add">Quick Add</button>
+        </div>
+        <div class="product-card__info">
+          <p class="product-card__collection">Health & Wellness</p>
+          <a href="#" class="product-card__name">Giant Teddy Bear — 31.5 in / 39.4 in</a>
+          <div class="product-card__meta">
+            <span class="product-card__price">$60</span>
+            <span class="product-card__stars">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              4.8 (214)
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 2 -->
+      <div class="product-card">
+        <div class="product-card__img-wrap">
+          <img src="https://images.unsplash.com/photo-1594013627620-30e22c3f0e73?w=500&q=80" alt="Full Spectrum LED Plant Grow" class="product-card__img">
+          <button class="product-card__quick-add">Quick Add</button>
+        </div>
+        <div class="product-card__info">
+          <p class="product-card__collection">Home & Kitchen</p>
+          <a href="#" class="product-card__name">Full Spectrum Gooseneck LED Indoor Greenhouse Plant Grow</a>
+          <div class="product-card__meta">
+            <span class="product-card__price">$37</span>
+            <span class="product-card__stars">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              4.6 (89)
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 3 -->
+      <div class="product-card">
+        <div class="product-card__img-wrap">
+          <img src="https://images.unsplash.com/photo-1545558014-8692077e9b5c?w=500&q=80" alt="Cozy Oversized Blanket Hoodie" class="product-card__img">
+          <span class="product-card__badge">Trending</span>
+          <button class="product-card__quick-add">Quick Add</button>
+        </div>
+        <div class="product-card__info">
+          <p class="product-card__collection">Baby & Nursery</p>
+          <a href="#" class="product-card__name">Cozy Oversized Blanket Hoodie — 6 colors</a>
+          <div class="product-card__meta">
+            <span class="product-card__price">$38</span>
+            <span class="product-card__stars">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              4.9 (176)
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 4 -->
+      <div class="product-card">
+        <div class="product-card__img-wrap">
+          <img src="https://images.unsplash.com/photo-1585515320310-259814833e62?w=500&q=80" alt="Furniture Rollers" class="product-card__img">
+          <button class="product-card__quick-add">Quick Add</button>
+        </div>
+        <div class="product-card__info">
+          <p class="product-card__collection">Tools & Home</p>
+          <a href="#" class="product-card__name">Furniture Rollers And Lifters For Moving — Set of 4</a>
+          <div class="product-card__meta">
+            <span class="product-card__price">$25</span>
+            <span class="product-card__stars">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              4.7 (53)
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORY SPOTLIGHT -->
+<section class="spotlight">
+  <div class="container">
+    <div class="spotlight__inner">
+      <div class="spotlight__content">
+        <p class="spotlight__label">This week's focus</p>
+        <h2 class="spotlight__title">The kitchen edition.<br>24 picks for better cooking.</h2>
+        <p class="spotlight__desc">From the tools that make meal prep faster to the tableware that makes dinner feel like an occasion — all chosen because they're actually worth your counter space.</p>
+        <a href="#" class="btn btn--primary" style="background: var(--surface); color: var(--text);">Shop Kitchen</a>
+      </div>
+      <div class="spotlight__products">
+        <a href="#" class="spotlight__product">
+          <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=80" alt="Kitchen product" class="spotlight__product-img">
+          <p class="spotlight__product-name">Non-stick Silicone Cooking Set</p>
+          <p class="spotlight__product-price">$28</p>
+        </a>
+        <a href="#" class="spotlight__product">
+          <img src="https://images.unsplash.com/photo-1584269600464-37b1b58a9fe1?w=400&q=80" alt="Kitchen product" class="spotlight__product-img">
+          <p class="spotlight__product-name">Minimalist Knife Block Set</p>
+          <p class="spotlight__product-price">$65</p>
+        </a>
+        <a href="#" class="spotlight__product">
+          <img src="https://images.unsplash.com/photo-1513491070885-1aa3c87d7c6d?w=400&q=80" alt="Kitchen product" class="spotlight__product-img">
+          <p class="spotlight__product-name">Ceramic Dinner Set — 16pc</p>
+          <p class="spotlight__product-price">$89</p>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEW ARRIVALS -->
+<section class="section">
+  <div class="container">
+    <div class="section__header">
+      <div class="section__header-left">
+        <p class="label label--accent">Just landed</p>
+        <h2 class="section__title">New arrivals</h2>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <div class="scroll-nav">
+          <button class="scroll-btn" aria-label="Scroll left">‹</button>
+          <button class="scroll-btn" aria-label="Scroll right">›</button>
+        </div>
+        <a href="#" class="section__link">See all
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="new-arrivals__grid">
+
+      <div class="product-card">
+        <div class="product-card__img-wrap">
+          <img src="https://images.unsplash.com/photo-1616423640778-28d1b53229bd?w=500&q=80" alt="Lip gloss set" class="product-card__img">
+          <span class="product-card__badge">New</span>
+          <button class="product-card__quick-add">Quick Add</button>
+        </div>
+        <div class="product-card__info">
+          <p class="product-card__collection">Beauty</p>
+          <a href="#" class="product-card__name">6-Color Hydrating Lip Gloss Set — Glossy finish</a>
+          <div class="product-card__meta">
+            <span class="product-card__price">$12</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-card__img-wrap">
+          <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=500&q=80" alt="Press-on nails" class="product-card__img">
+          <span class="product-card__badge">New</span>
+          <button class="product-card__quick-add">Quick Add</button>
+        </div>
+        <div class="product-card__info">
+          <p class="product-card__collection">Beauty</p>
+          <a href="#" class="product-card__name">Short Coffin Press-On Nail Set — 24pcs, 10 colors</a>
+          <div class="product-card__meta">
+            <span class="product-card__price">$16</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-card__img-wrap">
+          <img src="https://images.unsplash.com/photo-1585421514738-01798e348b17?w=500&q=80" alt="Food storage bags" class="product-card__img">
+          <span class="product-card__badge">New</span>
+          <button class="product-card__quick-add">Quick Add</button>
+        </div>
+        <div class="product-card__info">
+          <p class="product-card__collection">Home & Kitchen</p>
+          <a href="#" class="product-card__name">Silicone Food Storage Bags — 4pk, leakproof</a>
+          <div class="product-card__meta">
+            <span class="product-card__price">$18</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-card__img-wrap">
+          <img src="https://images.unsplash.com/photo-1602523961358-f9f03dd557db?w=500&q=80" alt="Thermal printer" class="product-card__img">
+          <span class="product-card__badge">New</span>
+          <button class="product-card__quick-add">Quick Add</button>
+        </div>
+        <div class="product-card__info">
+          <p class="product-card__collection">Electronics</p>
+          <a href="#" class="product-card__name">Niimbot B1 Label Maker — Thermal, portable</a>
+          <div class="product-card__meta">
+            <span class="product-card__price">$29</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL PROOF -->
+<section class="social-proof">
+  <div class="container">
+    <div class="social-proof__stats">
+      <div class="stat">
+        <p class="stat__number">3,743</p>
+        <p class="stat__label">Curated products</p>
+      </div>
+      <div class="stat">
+        <p class="stat__number">4.8</p>
+        <p class="stat__label">Average rating</p>
+      </div>
+      <div class="stat">
+        <p class="stat__number">12k+</p>
+        <p class="stat__label">Happy Canadian customers</p>
+      </div>
+    </div>
+    <div class="section__header" style="margin-bottom:32px;">
+      <div class="section__header-left">
+        <p class="label">Real reviews</p>
+        <h2 class="section__title">What customers are saying</h2>
+      </div>
+    </div>
+    <div class="reviews-grid">
+
+      <div class="review-card">
+        <div class="review-card__stars">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <p class="review-card__text">"The Giant Teddy Bear is exactly as described — huge, soft, and well-made. Arrived in 4 days to Ontario. Will definitely be ordering more."</p>
+        <div class="review-card__author">
+          <div class="review-card__avatar" style="background:#E8DDD0;">SJ</div>
+          <div>
+            <p class="review-card__name">Sarah J.</p>
+            <p class="review-card__product">Giant Teddy Bear · Verified buyer</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-card__stars">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <p class="review-card__text">"Finally found a store with actually good kitchen gadgets, not cheap AliExpress stuff. The ceramic bowl set is beautiful. Fast shipping too."</p>
+        <div class="review-card__author">
+          <div class="review-card__avatar" style="background:#D0E8E0;">MK</div>
+          <div>
+            <p class="review-card__name">Mike K.</p>
+            <p class="review-card__product">Ceramic Bowl Set · Verified buyer</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-card__stars">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <p class="review-card__text">"These press-on nails lasted 2 weeks without chipping. Way better than the drugstore ones. The coffin shape is gorgeous. Ordering more colors."</p>
+        <div class="review-card__author">
+          <div class="review-card__avatar" style="background:#E0D0E8;">RL</div>
+          <div>
+            <p class="review-card__name">Riley L.</p>
+            <p class="review-card__product">Press-On Nail Set · Verified buyer</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- BRAND STORY -->
+<section class="brand-story">
+  <div class="container">
+    <div class="brand-story__inner">
+      <p class="brand-story__label">Our story</p>
+      <h2 class="brand-story__title">We're not another dropshipping store.</h2>
+      <p class="brand-story__text">Puchica is a Toronto-curated general store. We test every product before we list it. If it doesn't work well, look good, or last — it doesn't make the cut. That's the promise. 12,000+ Canadian customers seem to agree.</p>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter">
+  <div class="container">
+    <div class="newsletter__inner">
+      <div class="newsletter__left">
+        <h3 class="newsletter__title">10% off your first order</h3>
+        <p class="newsletter__sub">Plus early access to new arrivals and exclusive drops.</p>
+      </div>
+      <form class="newsletter__form" onsubmit="return false;">
+        <input type="email" class="newsletter__input" placeholder="Your email address">
+        <button type="submit" class="newsletter__btn">Subscribe</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <p class="footer__brand-name">Puchica</p>
+        <p class="footer__brand-desc">Toronto-curated general store. Thoughtfully selected products across home, beauty, tech, pet, and more — shipped free across Canada.</p>
+        <div class="footer__social">
+          <a href="#" aria-label="Instagram">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor"/></svg>
+          </a>
+          <a href="#" aria-label="TikTok">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.73a4.85 4.85 0 01-1.01-.04z"/></svg>
+          </a>
+          <a href="#" aria-label="Facebook">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer__col">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="#">All Products</a></li>
+          <li><a href="#">New Arrivals</a></li>
+          <li><a href="#">Best Sellers</a></li>
+          <li><a href="#">Sale</a></li>
+          <li><a href="#">Gifts Under $25</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Help</h4>
+        <ul>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Shipping Policy</a></li>
+          <li><a href="#">Refund Policy</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Track Order</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About Puchica</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Sell with Us</a></li>
+          <li><a href="#">hello@puchica.ca</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>© 2026 Puchica. All rights reserved.</p>
+      <div class="footer__payments">
+        <div class="footer__payment-icon">VISA</div>
+        <div class="footer__payment-icon">MC</div>
+        <div class="footer__payment-icon">AMEX</div>
+        <div class="footer__payment-icon">PAY</div>
+        <div class="footer__payment-icon">SHOP</div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Sticky header shadow
+const header = document.getElementById('header');
+window.addEventListener('scroll', () => {
+  header.classList.toggle('scrolled', window.scrollY > 8);
+});
+
+// Quick add buttons
+document.querySelectorAll('.product-card__quick-add').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    btn.textContent = '✓ Added';
+    btn.style.background = '#C8A96E';
+    setTimeout(() => {
+      btn.textContent = 'Quick Add';
+      btn.style.background = '';
+    }, 1500);
+  });
+});
+</script>
+
+</body>
+</html>

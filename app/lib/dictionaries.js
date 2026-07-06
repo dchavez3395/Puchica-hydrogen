@@ -18,7 +18,7 @@ export const DICTIONARIES = {
     announce_region_aria: 'Site announcements',
 
     // ── Footer ────────────────────────────────────────────────────
-    footer_tagline: '6,000+ products. Picked in Toronto. Fast shipping.',
+    footer_tagline: '3,700+ handpicked products. Ships from Canada. The good stuff. All in one place.',
     footer_accepted_payments: 'Accepted payments',
     footer_secure: 'Secure checkout by Shopify - encrypted, PCI-compliant',
     footer_shop: 'Shop',
