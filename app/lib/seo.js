@@ -109,6 +109,9 @@ export function hreflangAlternates(pathname) {
  *   canonical/og:url; omit or 'en' for the unprefixed English URL. Pass
  *   `params.locale` from the route's meta args.
  * @param {string} [opts.twitterCard] - "summary" (default) or "summary_large_image"
+ * @param {object} [opts.jsonLd]    - JSON-LD object for <script type="application/ld+json">;
+ *   pass the full object and puchicaMeta emits it under Hydrogen's official
+ *   `jsonLd` key so the SSR pipeline injects it correctly.
  */
 export function puchicaMeta({
   title,
@@ -119,6 +122,7 @@ export function puchicaMeta({
   pathname,
   langKey,
   twitterCard = 'summary',
+  jsonLd,
 } = {}) {
   const tags = [];
   if (title) tags.push({title});
@@ -152,6 +156,10 @@ export function puchicaMeta({
   if (title) tags.push({name: 'twitter:title', content: title});
   if (description) tags.push({name: 'twitter:description', content: description});
   if (image) tags.push({name: 'twitter:image', content: image});
+
+  // JSON-LD via Hydrogen's official meta field — injected by the SSR pipeline,
+  // not Shopify's platform layer (which would override a raw dangerouslySetInnerHTML).
+  if (jsonLd) tags.push({jsonLd});
 
   return tags;
 }

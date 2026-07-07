@@ -172,7 +172,7 @@ export default function Index() {
         {value: 100, label: 'Canadian', suffix: '%'},
       ]} />
 
-    </div>
+    </>
   );
 }
 
@@ -271,76 +271,16 @@ function Marquee() {
                 <span className="pk-marquee__dot"><StarGlyph size={10} style={{marginRight: 0}} /></span>{t}
               </span>
             )),
->>>>>>> 724944a (fix: update inflated stats (6,000+→3,700+, 19→25 collections) and broken home-essentials→home-kitchen links)
           )}
-        </Await>
-      </Suspense>
-
-      <Suspense fallback={null}>
-        <Await resolve={data.onSale}>
-          {(products) => (
-            <ProductRailSection
-              products={products}
-              eyebrow={t('home_rail_sale_eyebrow')}
-              heading={t('home_rail_sale_heading')}
-              seeAllLabel={t('home_rail_sale_see_all')}
-              seeAllHref="/collections/sale"
-              scrollLeftAria={t('home_rail_sale_scroll_left')}
-              scrollRightAria={t('home_rail_sale_scroll_right')}
-              variant="sale"
-            />
-          )}
-        </Await>
-      </Suspense>
-
-      <Suspense fallback={<BestSellersGrid />}>
-        <Await resolve={data.bestSellers}>
-          {(products) => <BestSellersGrid products={products ?? []} />}
-        </Await>
-      </Suspense>
-
-      <Suspense fallback={null}>
-        <Await resolve={data.forYou}>
-          {(products) => (
-            <ProductRailSection
-              products={products}
-              eyebrow={t('home_rail_foryou_eyebrow')}
-              heading={t('home_rail_foryou_heading')}
-              seeAllLabel={t('home_rail_foryou_see_all')}
-              seeAllHref="/collections/for-you"
-              scrollLeftAria={t('home_rail_foryou_scroll_left')}
-              scrollRightAria={t('home_rail_foryou_scroll_right')}
-            />
-          )}
-        </Await>
-      </Suspense>
-
-      <Suspense fallback={null}>
-        <Await resolve={data.gifts}>
-          {(products) => (
-            <ProductRailSection
-              products={products}
-              eyebrow={t('home_rail_gifts_eyebrow')}
-              heading={t('home_rail_gifts_heading')}
-              seeAllLabel={t('home_rail_gifts_see_all')}
-              seeAllHref="/collections/gifts-under-25"
-              scrollLeftAria={t('home_rail_gifts_scroll_left')}
-              scrollRightAria={t('home_rail_gifts_scroll_right')}
-            />
-          )}
-        </Await>
-      </Suspense>
-
-      <TrustBar />
-      <NewsletterFooter />
-    </>
+        </div>
+      </div>
+    </div>
   );
 }
 
-/**
- * Wrapper that renders a ProductRail inside a <section> with the
- * standard section padding + inner container.
- */
+/* ─────────────────────────────────────────────────────────────────
+   TRUST BAR + NEWSLETTER (lazy, outside Index main return)
+───────────────────────────────────────────────────────────────── */
 function ProductRailSection({
   products,
   eyebrow,
@@ -387,7 +327,8 @@ function DepartmentGridSkeleton() {
         <ul className="pk-dept-grid">
           {Array.from({length: 15}).map((_, i) => (
             <li key={`skel-${i}`} className="pk-dept-tile pk-dept-tile--skel" />
-        </div>
+          ))}
+        </ul>
       </div>
       <div className="pk-rack__track" ref={trackRef} role="list">
         {products.slice(0, 12).map((p) => (
@@ -431,9 +372,8 @@ function GiftFinder() {
               <span className="pk-gift__card-sub">{sub}</span>
               <span className="pk-gift__arrow" aria-hidden="true">→</span>
             </Link>
->>>>>>> 724944a (fix: update inflated stats (6,000+→3,700+, 19→25 collections) and broken home-essentials→home-kitchen links)
           ))}
-        </ul>
+        </div>
       </div>
     </section>
   );
@@ -914,4 +854,3 @@ const CAT_WORLD_QUERY = `#graphql
 
 /** @typedef {import('./+types/_index').Route} Route */
 /** @typedef {ReturnType<typeof useLoaderData<typeof loader>>} LoaderReturnData */
->>>>>>> 724944a (fix: update inflated stats (6,000+→3,700+, 19→25 collections) and broken home-essentials→home-kitchen links)

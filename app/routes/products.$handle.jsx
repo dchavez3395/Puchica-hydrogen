@@ -41,7 +41,67 @@ export const meta = ({data, params}) => {
     `Shop ${data.product.title} from Puchica.`;
   const image = data.product.featuredImage?.url;
   const pathname = `/products/${data.product.handle}`;
-  return puchicaMeta({title, description, image, type: 'product', pathname, langKey: params?.locale});
+
+  // Build gallery images for JSON-LD: featured + selected variant image +
+  // all gallery nodes, deduped, capped at 10. This goes into the official
+  // jsonLd meta field so Hydrogen's SEO pipeline injects it — NOT a raw
+  // dangerouslySetInnerHTML script that Shopify's platform layer overwrites.
+  const rawImages = [
+    data.product.selectedOrFirstAvailableVariant?.image,
+    data.product.featuredImage,
+    ...(data.product.images?.nodes || []),
+  ];
+  const seen = new Set();
+  const galleryUrls = rawImages
+    .filter((img) => img?.url && !seen.has(img.url) && seen.add(img.url))
+    .map((img) => img.url)
+    .slice(0, 10);
+  const price = data.product.selectedOrFirstAvailableVariant?.price;
+  const variant = data.product.selectedOrFirstAvailableVariant;
+
+  return puchicaMeta({
+    title,
+    description,
+    image,
+    type: 'product',
+    pathname,
+    langKey: params?.locale,
+    // Hydrogen's jsonLd meta field → <script type="application/ld+json">
+    // injected by Hydrogen's SSR pipeline, NOT Shopify's platform layer.
+    // Required by Google Merchant Center: top-level image on the Product.
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'Product',
+      '@id': `https://www.puchica.ca${pathname}#product`,
+      name: data.product.title,
+      description: (data.product.description || '').slice(0, 5000),
+      image: galleryUrls.length ? galleryUrls : undefined,
+      sku: variant?.sku || data.product.handle,
+      brand: {'@type': 'Brand', name: 'Puchica'},
+      seller: {'@type': 'Organization', name: 'Puchica', url: 'https://www.puchica.ca'},
+      aggregateRating:
+        data.reviews?.count > 0
+          ? {
+              '@type': 'AggregateRating',
+              ratingValue: data.reviews.rating,
+              reviewCount: data.reviews.count,
+            }
+          : undefined,
+      offers: price
+        ? {
+            '@type': 'Offer',
+            '@id': `https://www.puchica.ca${pathname}#offer`,
+            url: `https://www.puchica.ca${pathname}`,
+            priceCurrency: price.currencyCode,
+            price: price.amount,
+            availability: variant?.availableForSale
+              ? 'https://schema.org/InStock'
+              : 'https://schema.org/OutOfStock',
+            itemCondition: 'https://schema.org/NewCondition',
+          }
+        : undefined,
+    },
+  });
 };
 
 /** @param {Route.LoaderArgs} args */
@@ -94,7 +154,6 @@ export default function Product() {
 
   const {title, descriptionHtml} = product;
   const galleryImages = buildGallery(product, selectedVariant);
-  const jsonLd = buildJsonLd(product, selectedVariant, reviews, galleryImages);
 
   // Record the view for the search sheet's "recently viewed" row.
   // Keyed on product.id so variant switches don't re-record.
@@ -110,10 +169,6 @@ export default function Product() {
 
   return (
     <div className="pk-product">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{__html: JSON.stringify(jsonLd)}}
-      />
       <JsonLdScript data={breadcrumbJsonLd(buildBreadcrumbItems(product, title, t))} />
 
       <nav className="pk-breadcrumbs pk-product__crumbs" aria-label={t('breadcrumb_aria')}>

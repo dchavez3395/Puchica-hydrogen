@@ -87,9 +87,7 @@ const TAGLINES = {
   'gifts-under-25': 'Great gifts, small budget.',
 };
 
->>>>>>> 724944a (fix: update inflated stats (6,000+→3,700+, 19→25 collections) and broken home-essentials→home-kitchen links)
 export function MegaMenu({deferred, onClose}) {
-  const id = useId();
   const triggerRef = useRef(null);
   const panelRef = useRef(null);
   const [open, setOpen] = useState(false);

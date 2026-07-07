@@ -78,12 +78,6 @@ export default function AboutPage() {
             <span className="pk-about-stats__label">{label}</span>
           </div>
         ))}
-          <div key={label} className="pk-about-stats__item">
-            <strong className="pk-about-stats__num">{num}</strong>
-            <span className="pk-about-stats__label">{label}</span>
-          </div>
-        ))}
-        ))}
       </div>
 
       {/* Mission */}
