@@ -17,11 +17,12 @@ const FALLBACK_DEPARTMENTS = [
   {handle: 'electronics-accessories', color: 'cobalt', labelKey: 'home_dept_electronics'},
   {handle: 'apparel-accessories', color: 'rosa', labelKey: 'home_dept_apparel'},
   {handle: 'health-wellness', color: 'jade', labelKey: 'home_dept_health'},
-  {handle: 'pet-supplies', color: 'marigold', labelKey: 'home_dept_pet'},
-  {handle: 'sports-outdoors', color: 'violet', labelKey: 'home_dept_sports'},
+  {handle: 'pet-supplies', color: 'violet', labelKey: 'home_dept_pet'},
+  {handle: 'sports-outdoors', color: 'ember', labelKey: 'home_dept_sports'},
 ];
 
-const PALETTE = ['ember', 'cobalt', 'rosa', 'jade', 'marigold', 'violet'];
+// No marigold — the band itself is marigold, so a marigold tile would vanish.
+const PALETTE = ['ember', 'cobalt', 'rosa', 'jade', 'violet'];
 
 export function TextileShowcase({collections = []}) {
   const t = useT();

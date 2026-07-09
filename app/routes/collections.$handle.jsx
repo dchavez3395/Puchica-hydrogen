@@ -237,7 +237,12 @@ export default function Collection() {
                   </button>
                 </>
               ) : (
-                t('col_empty_restocking')
+                <>
+                  {t('col_empty_restocking')}{' '}
+                  <Link className="pk-empty__reset" to="/collections/all">
+                    {t('nav_all_products')} →
+                  </Link>
+                </>
               )}
             </p>
           </div>
