@@ -202,12 +202,15 @@ export default function Collection() {
             <span className="pk-breadcrumbs__current">{collection.title}</span>
           </nav>
 
-          <span className="pk-col-hero__eyebrow">{t('col_eyebrow')}</span>
+          <span className="pk-col-hero__eyebrow">
+            {hasNextPage
+              ? `${count}+ ${count === 1 ? t('col_product_singular') : t('col_product_plural')}`
+              : `${count} ${count === 1 ? t('col_product_singular') : t('col_product_plural')}`}
+          </span>
           <h1 className="pk-col-hero__title">{collection.title}</h1>
           {collection.description ? (
             <p className="pk-col-hero__sub">{collection.description}</p>
           ) : null}
-          <span className="pk-col-hero__count">{t('col_brand_chip')}</span>
         </div>
       </header>
 

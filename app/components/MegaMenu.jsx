@@ -204,12 +204,16 @@ function MegaMenuPanel({data, onNavigate}) {
                   sizes="280px"
                   loading="lazy"
                 />
-              ) : null}
+              ) : (
+                <span className="pk-mega__feature-img-fallback" aria-hidden="true">
+                  ★
+                </span>
+              )}
             </div>
             <p className="pk-mega__feature-eye">{t('best_sellers_eyebrow')}</p>
             <h3 className="pk-mega__feature-title">{featured.title}</h3>
             <span className="pk-mega__feature-cta">
-              {t('megamenu_tile_cta')} <span aria-hidden="true">→</span>
+              {t('megamenu_tile_cta')}
             </span>
           </Link>
         ) : null}

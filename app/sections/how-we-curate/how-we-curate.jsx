@@ -1,27 +1,26 @@
 import {useT} from '~/lib/t';
+import {IconShield, IconTag, IconTruck} from '~/components/Icons';
 
 /**
  * "Why Puchica" band — a warm cream band with three value props.
  * Honest about the model: we curate, we source, we ship fast.
- * No claims about testing every product or "no drop-shipping."
- *
- * Pure presentational — no GraphQL. Copy from i18n (home_curate_* keys).
+ * Uses icons instead of numbered steps (numbers feel AI-generated).
  */
 export function HowWeCurate() {
   const t = useT();
   const steps = [
     {
-      num: '01',
+      Icon: IconShield,
       headingKey: 'home_curate_step1_h',
       bodyKey: 'home_curate_step1_b',
     },
     {
-      num: '02',
+      Icon: IconTag,
       headingKey: 'home_curate_step2_h',
       bodyKey: 'home_curate_step2_b',
     },
     {
-      num: '03',
+      Icon: IconTruck,
       headingKey: 'home_curate_step3_h',
       bodyKey: 'home_curate_step3_b',
     },
@@ -39,17 +38,17 @@ export function HowWeCurate() {
             {t('home_curate_heading')}
           </h2>
         </div>
-        <ol className="pk-curate">
-          {steps.map((step) => (
-            <li className="pk-curate__step" key={step.num}>
-              <span className="pk-curate__num" aria-hidden="true">
-                {step.num}
+        <div className="pk-curate">
+          {steps.map(({Icon, headingKey, bodyKey}) => (
+            <div className="pk-curate__step" key={headingKey}>
+              <span className="pk-curate__icon" aria-hidden="true">
+                <Icon size={28} />
               </span>
-              <h3 className="pk-curate__h">{t(step.headingKey)}</h3>
-              <p className="pk-curate__body">{t(step.bodyKey)}</p>
-            </li>
+              <h3 className="pk-curate__h">{t(headingKey)}</h3>
+              <p className="pk-curate__body">{t(bodyKey)}</p>
+            </div>
           ))}
-        </ol>
+        </div>
       </div>
     </section>
   );

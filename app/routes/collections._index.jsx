@@ -152,9 +152,6 @@ function CollectionItem({collection, index}) {
               {categoryIcon(collection.title, {size: 64})}
             </span>
           )}
-          <span className="pk-collist-card__chip">
-            {collection.title}
-          </span>
         </div>
         <div className="pk-collist-card__body">
           <h3 className="pk-collist-card__title">{collection.title}</h3>

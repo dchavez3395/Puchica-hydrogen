@@ -4,14 +4,15 @@ import {useT} from '~/lib/t';
 /**
  * "Shop by Department" showcase — a full-width marigold-amber band
  * that highlights the store's biggest real categories with bold
- * color tiles and direct links. Replaces the textile showcase
- * (which referenced products we don't sell).
+ * color tiles and direct links.
  *
- * Uses the store's actual top collections: Home & Kitchen, Electronics,
- * Apparel, Health & Wellness, Pet Supplies, Sports & Outdoors.
- * Pure presentational — no GraphQL. Copy from i18n (home_shop_dept_*).
+ * When `collections` are passed (from the homepage loader), uses the
+ * real store collections. Falls back to hardcoded departments so the
+ * section always renders even if the query is still loading.
+ *
+ * @param {{ collections?: Array<{id: string; handle: string; title: string}> }}
  */
-const DEPARTMENTS = [
+const FALLBACK_DEPARTMENTS = [
   {handle: 'home-kitchen', color: 'ember', labelKey: 'home_dept_home'},
   {handle: 'electronics-accessories', color: 'cobalt', labelKey: 'home_dept_electronics'},
   {handle: 'apparel-accessories', color: 'rosa', labelKey: 'home_dept_apparel'},
@@ -20,8 +21,22 @@ const DEPARTMENTS = [
   {handle: 'sports-outdoors', color: 'violet', labelKey: 'home_dept_sports'},
 ];
 
-export function TextileShowcase() {
+const PALETTE = ['ember', 'cobalt', 'rosa', 'jade', 'marigold', 'violet'];
+
+export function TextileShowcase({collections = []}) {
   const t = useT();
+
+  const stalls = collections.length > 0
+    ? collections.slice(0, 8).map((col, i) => ({
+        handle: col.handle,
+        title: col.title,
+        color: PALETTE[i % PALETTE.length],
+      }))
+    : FALLBACK_DEPARTMENTS.map((d) => ({
+        ...d,
+        title: t(d.labelKey),
+      }));
+
   return (
     <section
       className="pk-section pk-section--textile-showcase"
@@ -37,7 +52,7 @@ export function TextileShowcase() {
             {t('home_shop_dept_body')}
           </p>
           <ul className="pk-dept-tiles" aria-label={t('home_shop_dept_aria')}>
-            {DEPARTMENTS.map((dept) => (
+            {stalls.map((dept) => (
               <li key={dept.handle} className="pk-dept-tile">
                 <Link
                   to={`/collections/${dept.handle}`}
@@ -45,7 +60,7 @@ export function TextileShowcase() {
                   className={`pk-dept-tile__link pk-dept-tile__link--${dept.color}`}
                 >
                   <span className="pk-dept-tile__label">
-                    {t(dept.labelKey)}
+                    {dept.title}
                   </span>
                   <span className="pk-dept-tile__arrow" aria-hidden="true">→</span>
                 </Link>

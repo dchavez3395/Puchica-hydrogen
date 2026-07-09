@@ -5,12 +5,11 @@ import {puchicaMeta, organizationJsonLd, websiteJsonLd, JsonLdScript} from '~/li
 import {
   HeroSplit,
 } from '~/sections/hero-split/hero-split';
-import {ShopByCategory} from '~/sections/shop-by-category/shop-by-category';
+import {TextileShowcase} from '~/sections/textile-showcase/textile-showcase';
 import {BestSellers} from '~/sections/best-sellers/best-sellers';
 import {LifestyleBanner} from '~/sections/lifestyle-banner/lifestyle-banner';
 import {NewArrivals} from '~/sections/new-arrivals/new-arrivals';
 import {BrandStory} from '~/sections/brand-story/brand-story';
-import {TextileShowcase} from '~/sections/textile-showcase/textile-showcase';
 import {HowWeCurate} from '~/sections/how-we-curate/how-we-curate';
 import {SportsOutdoors} from '~/sections/sports-outdoors/sports-outdoors';
 import {WorldCup} from '~/sections/world-cup/world-cup';
@@ -118,12 +117,6 @@ export default function Index() {
 
       <HeroSplit />
 
-      <Suspense fallback={null}>
-        <Await resolve={data.categories}>
-          {(nodes) => <ShopByCategory collections={nodes ?? []} />}
-        </Await>
-      </Suspense>
-
       <Suspense fallback={<BestSellers />}>
         <Await resolve={data.bestSellers}>
           {(products) => <BestSellers products={products ?? []} />}
@@ -147,9 +140,13 @@ export default function Index() {
         </Await>
       </Suspense>
 
-      <BrandStory />
+      <Suspense fallback={<TextileShowcase />}>
+        <Await resolve={data.categories}>
+          {(nodes) => <TextileShowcase collections={nodes ?? []} />}
+        </Await>
+      </Suspense>
 
-      <TextileShowcase />
+      <BrandStory />
 
       <Suspense fallback={<SportsOutdoors />}>
         <Await resolve={data.sports}>

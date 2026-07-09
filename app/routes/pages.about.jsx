@@ -3,7 +3,7 @@ import {Image} from '@shopify/hydrogen';
 import {puchicaMeta} from '~/lib/seo';
 import StarGlyph from '~/components/StarGlyph';
 import {STORE_LOGO_URL} from '~/lib/brand';
-import {IconHome, IconSparkles, IconLightbulb, IconLeaf, IconPawPrint, IconGift} from '~/components/Icons';
+import {IconHome, IconSparkles, IconLightbulb, IconLeaf, IconPawPrint, IconGift, IconShield, IconCheck, IconHeart, IconTruck} from '~/components/Icons';
 import {useT} from '~/lib/t';
 
 export const meta = ({params}) =>
@@ -22,8 +22,6 @@ export async function loader() {
 export default function AboutPage() {
   const t = useT();
 
-  // Stat tiles + category items are static structure with translated
-  // labels — pulling the strings out of JSX so the markup stays compact.
   const stats = [
     {num: t('about_stat_products_num'),  label: t('about_stat_products_label')},
     {num: t('about_stat_quality_num'),   label: t('about_stat_quality_label')},
@@ -32,9 +30,9 @@ export default function AboutPage() {
   ];
 
   const howSteps = [
-    {n: '01', title: t('about_how_1_title'), body: t('about_how_1_body')},
-    {n: '02', title: t('about_how_2_title'), body: t('about_how_2_body')},
-    {n: '03', title: t('about_how_3_title'), body: t('about_how_3_body')},
+    {icon: IconShield, title: t('about_how_1_title'), body: t('about_how_1_body')},
+    {icon: IconCheck, title: t('about_how_2_title'), body: t('about_how_2_body')},
+    {icon: IconTruck, title: t('about_how_3_title'), body: t('about_how_3_body')},
   ];
 
   const categories = [
@@ -44,6 +42,28 @@ export default function AboutPage() {
     {icon: IconLeaf,      name: t('about_cat_outdoor_name'), sub: t('about_cat_outdoor_sub')},
     {icon: IconPawPrint,  name: t('about_cat_pet_name'),     sub: t('about_cat_pet_sub')},
     {icon: IconGift,      name: t('about_cat_gift_name'),    sub: t('about_cat_gift_sub')},
+  ];
+
+  const values = [
+    {icon: IconShield, title: t('about_values_1_title'), body: t('about_values_1_body')},
+    {icon: IconCheck,   title: t('about_values_2_title'), body: t('about_values_2_body')},
+    {icon: IconHeart,   title: t('about_values_3_title'), body: t('about_values_3_body')},
+    {icon: IconTruck,   title: t('about_values_4_title'), body: t('about_values_4_body')},
+  ];
+
+  const team = [
+    {name: t('about_team_1_name'), role: t('about_team_1_role'), bio: t('about_team_1_bio'), initials: 'ML', tone: 'ember'},
+    {name: t('about_team_2_name'), role: t('about_team_2_role'), bio: t('about_team_2_bio'), initials: 'DR', tone: 'jade'},
+    {name: t('about_team_3_name'), role: t('about_team_3_role'), bio: t('about_team_3_bio'), initials: 'SM', tone: 'marigold'},
+  ];
+
+  const depts = [
+    {handle: 'home-kitchen', color: 'ember', label: t('home_dept_home')},
+    {handle: 'electronics-accessories', color: 'cobalt', label: t('home_dept_electronics')},
+    {handle: 'apparel-accessories', color: 'rosa', label: t('home_dept_apparel')},
+    {handle: 'health-wellness', color: 'jade', label: t('home_dept_health')},
+    {handle: 'pet-supplies', color: 'marigold', label: t('home_dept_pet')},
+    {handle: 'sports-outdoors', color: 'violet', label: t('home_dept_sports')},
   ];
 
   return (
@@ -102,7 +122,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-{/* How it works */}
+      {/* How it works */}
       <section className="pk-about-how">
         <div className="pk-about-how__inner">
           <div className="pk-about-how__head">
@@ -110,9 +130,9 @@ export default function AboutPage() {
             <h2 className="pk-about-how__title">{t('about_how_title')}</h2>
           </div>
           <div className="pk-about-how__steps">
-            {howSteps.map(({n, title, body}) => (
-              <div key={n} className="pk-about-how__step">
-                <span className="pk-about-how__n">{n}</span>
+            {howSteps.map(({icon: Icon, title, body}) => (
+              <div key={title} className="pk-about-how__step">
+                <span className="pk-about-how__icon" aria-hidden="true"><Icon size={26} /></span>
                 <h3 className="pk-about-how__step-title">{title}</h3>
                 <p className="pk-about-how__step-body">{body}</p>
               </div>
@@ -136,6 +156,72 @@ export default function AboutPage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Values */}
+      <section className="pk-about-values">
+        <div className="pk-about-values__inner">
+          <span className="pk-about-values__eye"><StarGlyph /> {t('about_values_eye')}</span>
+          <h2 className="pk-about-values__title">{t('about_values_title')}</h2>
+          <div className="pk-about-values__grid">
+            {values.map(({icon: Icon, title, body}) => (
+              <div key={title} className="pk-about-values__card">
+                <span className="pk-about-values__icon" aria-hidden="true"><Icon size={24} /></span>
+                <h3 className="pk-about-values__card-title">{title}</h3>
+                <p className="pk-about-values__card-body">{body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Team */}
+      <section className="pk-about-team">
+        <div className="pk-about-team__inner">
+          <span className="pk-about-team__eye"><StarGlyph /> {t('about_team_eye')}</span>
+          <h2 className="pk-about-team__title">{t('about_team_title')}</h2>
+          <div className="pk-about-team__grid">
+            {team.map(({name, role, bio, initials, tone}) => (
+              <div key={name} className="pk-about-team__card">
+                <span className={`pk-about-team__avatar pk-about-team__avatar--${tone}`} aria-hidden="true">{initials}</span>
+                <h3 className="pk-about-team__name">{name}</h3>
+                <span className="pk-about-team__role">{role}</span>
+                <p className="pk-about-team__bio">{bio}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Central American Roots — dark band */}
+      <section className="pk-about-roots">
+        <div className="pk-about-roots__inner">
+          <span className="pk-eyebrow pk-eyebrow--on-dark">{t('about_roots_eyebrow')}</span>
+          <h2 className="pk-about-roots__heading">{t('about_roots_heading')}</h2>
+          <p className="pk-about-roots__body">{t('about_roots_body')}</p>
+          <p className="pk-about-roots__signature">{t('about_roots_signature')}</p>
+        </div>
+      </section>
+
+      {/* Shop by Department — bold colored tiles */}
+      <section className="pk-about-dept">
+        <div className="pk-about-dept__inner">
+          <h2 className="pk-about-dept__title">{t('about_dept_title')}</h2>
+          <ul className="pk-dept-tiles">
+            {depts.map((dept) => (
+              <li key={dept.handle} className="pk-dept-tile">
+                <Link
+                  to={`/collections/${dept.handle}`}
+                  prefetch="intent"
+                  className={`pk-dept-tile__link pk-dept-tile__link--${dept.color}`}
+                >
+                  <span className="pk-dept-tile__label">{dept.label}</span>
+                  <span className="pk-dept-tile__arrow" aria-hidden="true">→</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 

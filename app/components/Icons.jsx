@@ -44,6 +44,13 @@ export const IconShield = (p) => (
   </Svg>
 );
 
+export const IconTag = (p) => (
+  <Svg {...p}>
+    <path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z" />
+    <circle cx="7.5" cy="7.5" r=".5" fill="currentColor" />
+  </Svg>
+);
+
 export const IconHeart = (p) => (
   <Svg {...p}>
     <path d="M19 14c1.5-1.5 3-3.4 3-5.5A4.5 4.5 0 0 0 12 5 4.5 4.5 0 0 0 2 8.5C2 11 4 13 6 14.5l6 5.5 7-6Z" />
