@@ -91,8 +91,13 @@ function generateBatchCPrompt(title, type) {
   const t = title.toLowerCase();
   
   if (t.includes('almond latte')) {
-    let item = 'iPhone case';
-    if (t.includes('ipad')) item = 'iPad case';
+    let item = 'phone case';
+    if (t.includes('iphone')) item = 'iPhone case';
+    else if (t.includes('pixel buds')) item = 'Google Pixel Buds case';
+    else if (t.includes('pixel')) item = 'Google Pixel phone case';
+    else if (t.includes('galaxy buds')) item = 'Samsung Galaxy Buds case';
+    else if (t.includes('galaxy')) item = 'Samsung Galaxy phone case';
+    else if (t.includes('ipad')) item = 'iPad case';
     else if (t.includes('kindle')) item = 'Kindle case';
     else if (t.includes('airpods')) item = 'AirPods case';
     else if (t.includes('sleeve')) item = 'laptop sleeve';
@@ -184,6 +189,8 @@ async function generateReplicateImage(refUrl, prompt) {
         version: MODEL_VERSION,
         input: {
           prompt: prompt,
+          image: refUrl,
+          strength: 0.75, // Image-to-image denoising strength (0.0 to 1.0)
           width: 1024,
           height: 1024,
           num_inference_steps: 4

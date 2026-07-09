@@ -70,3 +70,7 @@ work/temp_gen.jpg
 work/temp_ref.jpg
 work/check_*.png
 work/test_*.png
+work/*.png
+work/*.jpg
+work/*_backup.json
+work/sampled_image_comparison.json

@@ -74,8 +74,6 @@ export function ProductForm({productOptions, selectedVariant, product, onAddStar
 
   const stock = selectedVariant?.quantityAvailable;
   const lowStock = typeof stock === 'number' && stock > 0 && stock <= 5;
-  const variantPrice = parseFloat(selectedVariant?.price?.amount || '0');
-  const subtotal = variantPrice * qty;
 
   return (
     <div className="product-form" id="product-form">

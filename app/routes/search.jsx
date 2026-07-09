@@ -1,5 +1,6 @@
 import {useLoaderData} from 'react-router';
 import {getPaginationVariables, Analytics} from '@shopify/hydrogen';
+import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {SearchForm} from '~/components/SearchForm';
 import {SearchResults} from '~/components/SearchResults';
 import {getEmptyPredictiveSearchResult} from '~/lib/search';
@@ -46,6 +47,19 @@ export async function loader({request, context}) {
 }
 
 /**
+ * Trending search terms shown as chips in the zero-state (before
+ * the shopper has typed a query). These are hardcoded per the design
+ * spec — they're the most common category-level searches on the store.
+ */
+const TRENDING_SEARCHES = [
+  'Soccer jerseys',
+  'Home & Kitchen',
+  'Electronics',
+  'Pet supplies',
+  'Sale',
+];
+
+/**
  * Renders the /search route
  */
 export default function SearchPage() {
@@ -53,6 +67,8 @@ export default function SearchPage() {
   /** @type {LoaderReturnData} */
   const {type, term, result, error} = useLoaderData();
   if (type === 'predictive') return null;
+
+  const hasResults = term && result?.total;
 
   return (
     <div className="pk-search-page">
@@ -68,7 +84,7 @@ export default function SearchPage() {
         </h1>
         <SearchForm className="pk-search-page__form">
           {({inputRef}) => (
-            <div className="pk-search__form">
+            <div className="pk-search__form pk-search__form--page">
               <span className="pk-search__icon" aria-hidden>
                 <svg
                   width="18"
@@ -85,14 +101,16 @@ export default function SearchPage() {
                 </svg>
               </span>
               <input
-                className="pk-search__input"
+                className="pk-search__input pk-search__input--page"
                 defaultValue={term}
                 name="q"
                 placeholder={t('search_input_placeholder')}
                 ref={inputRef}
                 type="search"
+                // eslint-disable-next-line jsx-a11y/no-autofocus
+                autoFocus
               />
-              <button type="submit" className="pk-search__submit">
+              <button type="submit" className="pk-search__submit pk-search__submit--page">
                 {t('search_submit')}
               </button>
             </div>
@@ -100,8 +118,27 @@ export default function SearchPage() {
         </SearchForm>
       </header>
       {error && <p className="pk-search-page__error">{error}</p>}
-      {!term || !result?.total ? (
-        <SearchResults.Empty />
+      {!hasResults ? (
+        <div className="pk-search-zero">
+          <div className="pk-search-zero__label">
+            {t('search_trending_label')}
+          </div>
+          <div className="pk-search-zero__chips">
+            {TRENDING_SEARCHES.map((term) => (
+              <Link
+                key={term}
+                to={`/search?q=${encodeURIComponent(term)}`}
+                className="pk-search-zero__chip"
+                prefetch="intent"
+              >
+                {term}
+              </Link>
+            ))}
+          </div>
+          <div className="pk-search-zero__hint">
+            {t('search_zero_hint')}
+          </div>
+        </div>
       ) : (
         <SearchResults result={result} term={term}>
           {({articles, pages, products, term}) => (

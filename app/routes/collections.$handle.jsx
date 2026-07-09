@@ -174,16 +174,8 @@ export default function Collection() {
   const hasNextPage = Boolean(collection.products?.pageInfo?.hasNextPage);
 
   return (
-    <div className="pk-collection">
-      <nav className="pk-breadcrumbs" aria-label={t('breadcrumb_aria')}>
-        <Link to="/">{t('breadcrumb_home')}</Link>
-        <span className="pk-breadcrumbs__sep">/</span>
-        <Link to="/collections">{t('breadcrumb_collections')}</Link>
-        <span className="pk-breadcrumbs__sep">/</span>
-        <span className="pk-breadcrumbs__current">{collection.title}</span>
-      </nav>
-
-      <header className="pk-col-hero">
+    <div className="pk-collection pk-collection--bold">
+      <header className="pk-col-hero pk-col-hero--bold">
         {collection.image && (
           <Image
             data={collection.image}
@@ -196,45 +188,56 @@ export default function Collection() {
               width: '100%',
               height: '100%',
               objectFit: 'cover',
-              opacity: 0.18,
-              zIndex: -1,
+              opacity: 0.14,
+              zIndex: 0,
             }}
           />
         )}
-        <div className="pk-col-hero__glow" aria-hidden />
-        <div className="pk-col-hero__glow pk-col-hero__glow--ember" aria-hidden />
-        <span className="pk-col-hero__eyebrow">{t('col_eyebrow')}</span>
-        <h1 className="pk-col-hero__title">{collection.title}</h1>
-        {collection.description ? (
-          <p className="pk-col-hero__sub">{collection.description}</p>
-        ) : null}
-        <span className="pk-col-hero__count">{t('col_brand_chip')}</span>
+        <div className="pk-collection__inner">
+          <nav className="pk-breadcrumbs" aria-label={t('breadcrumb_aria')}>
+            <Link to="/">{t('breadcrumb_home')}</Link>
+            <span className="pk-breadcrumbs__sep">/</span>
+            <Link to="/collections">{t('breadcrumb_collections')}</Link>
+            <span className="pk-breadcrumbs__sep">/</span>
+            <span className="pk-breadcrumbs__current">{collection.title}</span>
+          </nav>
+
+          <span className="pk-col-hero__eyebrow">{t('col_eyebrow')}</span>
+          <h1 className="pk-col-hero__title">{collection.title}</h1>
+          {collection.description ? (
+            <p className="pk-col-hero__sub">{collection.description}</p>
+          ) : null}
+          <span className="pk-col-hero__count">{t('col_brand_chip')}</span>
+        </div>
       </header>
 
       {count === 0 ? (
-        <div className="pk-empty">
-          <p className="pk-empty__title">{t('col_empty_title')}</p>
-          <p className="pk-empty__body">
-            {hasActiveFilter ? (
-              <>
-                {t('col_empty_filtered')}{' '}
-                <button
-                  type="button"
-                  className="pk-empty__reset"
-                  onClick={() => {
-                    const next = new URLSearchParams(searchParams);
-                    next.delete('productType');
-                    next.delete('price');
-                    setSearchParams(next, {replace: true});
-                  }}
-                >
-                  {t('col_clear_filters')}
-                </button>
-              </>
-            ) : (
-              t('col_empty_restocking')
-            )}
-          </p>
+        <div className="pk-empty pk-empty--bold">
+          <div className="pk-empty__card">
+            <span className="pk-empty__icon" aria-hidden>🛒</span>
+            <p className="pk-empty__title">{t('col_empty_title')}</p>
+            <p className="pk-empty__body">
+              {hasActiveFilter ? (
+                <>
+                  {t('col_empty_filtered')}{' '}
+                  <button
+                    type="button"
+                    className="pk-empty__reset"
+                    onClick={() => {
+                      const next = new URLSearchParams(searchParams);
+                      next.delete('productType');
+                      next.delete('price');
+                      setSearchParams(next, {replace: true});
+                    }}
+                  >
+                    {t('col_clear_filters')}
+                  </button>
+                </>
+              ) : (
+                t('col_empty_restocking')
+              )}
+            </p>
+          </div>
         </div>
       ) : (
         <div className="pk-col-main">

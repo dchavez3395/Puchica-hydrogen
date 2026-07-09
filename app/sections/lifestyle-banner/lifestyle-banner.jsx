@@ -3,13 +3,11 @@ import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {useT} from '~/lib/t';
 
 /**
- * 7/5 image+copy split (image left by default). No animation,
- * no parallax. The image is now sourced from real product data
- * (a best-seller's `featuredImage`) instead of a hard-coded CDN
- * URL — the old URL was a 404 in this store, so the section was
- * rendering a broken image. Pass `image` and `link` from the
- * route loader; if `image` is missing, the section still renders
- * copy + CTA but skips the <Image>.
+ * Lifestyle banner — redesigned as a bold dark editorial band.
+ * Instead of a single logo square, it shows a category spotlight
+ * with real product imagery (if available) layered over a warm
+ * volcanic gradient. The image comes from the best-sellers data
+ * passed by the route loader.
  *
  * @param {{
  *   image?: { url: string; altText?: string; width?: number; height?: number } | null;
@@ -28,6 +26,18 @@ export function LifestyleBanner({
       aria-label={t('lifestyle_banner_aria')}
     >
       <div className="pk-section__inner pk-lifestyle">
+        <div className="pk-lifestyle__copy">
+          <span className="pk-eyebrow">{t('lifestyle_banner_eyebrow')}</span>
+          <h2 className="pk-section__h">{t('lifestyle_banner_heading')}</h2>
+          <p className="pk-lifestyle__body">{t('lifestyle_banner_body')}</p>
+          <Link
+            to={link}
+            prefetch="intent"
+            className="pk-btn pk-btn--ink pk-btn--lg"
+          >
+            {t('lifestyle_banner_cta')}
+          </Link>
+        </div>
         <div className="pk-lifestyle__media">
           {image ? (
             <Link to={link} prefetch="intent" aria-label={image.altText || ''}>
@@ -40,19 +50,14 @@ export function LifestyleBanner({
                 loading="lazy"
               />
             </Link>
-          ) : null}
-        </div>
-        <div className="pk-lifestyle__copy">
-          <span className="pk-eyebrow">{t('lifestyle_banner_eyebrow')}</span>
-          <h2 className="pk-section__h">{t('lifestyle_banner_heading')}</h2>
-          <p className="pk-lifestyle__body">{t('lifestyle_banner_body')}</p>
-          <Link
-            to={link}
-            prefetch="intent"
-            className="pk-btn pk-btn--ink pk-btn--lg"
-          >
-            {t('lifestyle_banner_cta')}
-          </Link>
+          ) : (
+            <div className="pk-lifestyle__collage" aria-hidden="true">
+              <div className="pk-lifestyle__collage-tile pk-lifestyle__collage-tile--1"></div>
+              <div className="pk-lifestyle__collage-tile pk-lifestyle__collage-tile--2"></div>
+              <div className="pk-lifestyle__collage-tile pk-lifestyle__collage-tile--3"></div>
+              <div className="pk-lifestyle__collage-tile pk-lifestyle__collage-tile--4"></div>
+            </div>
+          )}
         </div>
       </div>
     </section>

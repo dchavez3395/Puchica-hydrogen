@@ -115,96 +115,86 @@ export default function Collection() {
   const nodes = products?.nodes ?? [];
   const count = nodes.length;
   // We don't have a real totalCount on ProductConnection in the current
-  // Storefront API, so derive a "200+ products" framing from the page
-  // count and the page size. The "12 of many" phrasing sets the right
-  // expectation that the catalog is larger than the current view.
-  const pageBy = 12;
-  // When hasNextPage is true we know there's at least one more page of 12.
-  // So we can show "12 of 24+" honestly. With 18 pages at pageBy=12, we'd
-  // show "12 of 216+". Use Math.ceil with a min of 24 to keep the wording
-  // friendly when the user is on page 1.
+  // Storefront API, so derive a "N+ products" framing from the page
+  // count and the hasNextPage flag.
   const hasNextPage = Boolean(products?.pageInfo?.hasNextPage);
-  const hasPrevPage = Boolean(products?.pageInfo?.hasPreviousPage);
-  const impliedTotal =
-    hasNextPage || hasPrevPage
-      ? Math.max(count + (hasNextPage ? pageBy : 0), pageBy * 2)
-      : count;
 
   return (
-    <div className="pk-collection">
-      <nav className="pk-breadcrumbs" aria-label={t('breadcrumb_aria')}>
-        <Link to="/">{t('breadcrumb_home')}</Link>
-        <span className="pk-breadcrumbs__sep">/</span>
-        <span className="pk-breadcrumbs__current">{t('all_breadcrumb')}</span>
-      </nav>
+    <div className="pk-collection pk-collection--bold">
+      <header className="pk-col-hero pk-col-hero--bold">
+        <div className="pk-collection__inner">
+          <nav className="pk-breadcrumbs" aria-label={t('breadcrumb_aria')}>
+            <Link to="/">{t('breadcrumb_home')}</Link>
+            <span className="pk-breadcrumbs__sep">/</span>
+            <span className="pk-breadcrumbs__current">{t('all_breadcrumb')}</span>
+          </nav>
 
-      <header className="pk-col-hero pk-col-hero--soft">
-        <div className="pk-col-hero__glow" aria-hidden />
-        <div className="pk-col-hero__glow pk-col-hero__glow--ember" aria-hidden />
-        <span className="pk-col-hero__eyebrow">{t('all_eyebrow')}</span>
-        <h1 className="pk-col-hero__title">{t('all_title')}</h1>
-        <p className="pk-col-hero__sub">{t('all_sub')}</p>
-        <span className="pk-col-hero__count">{t('col_brand_chip')}</span>
+          <span className="pk-col-hero__eyebrow">{t('all_eyebrow')}</span>
+          <h1 className="pk-col-hero__title">{t('all_title')}</h1>
+          <p className="pk-col-hero__sub">{t('all_sub')}</p>
+          <span className="pk-col-hero__count">{t('col_brand_chip')}</span>
+        </div>
       </header>
 
       {count === 0 ? (
-        <div className="pk-empty">
-          <p className="pk-empty__title">{t('all_empty_title')}</p>
-          <p className="pk-empty__body">{t('all_empty_body')}</p>
+        <div className="pk-empty pk-empty--bold">
+          <div className="pk-empty__card">
+            <span className="pk-empty__icon" aria-hidden>🛒</span>
+            <p className="pk-empty__title">{t('all_empty_title')}</p>
+            <p className="pk-empty__body">{t('all_empty_body')}</p>
+          </div>
         </div>
       ) : (
-        <div className="pk-col-body" style={{gridTemplateColumns: '1fr'}}>
-          <div className="pk-col-main">
-            <div className="pk-toolbar">
-              <span className="pk-toolbar__count">
-                {hasNextPage ? (
-                  <>
-                    {t('col_count_of')} <strong>{count}+</strong>{' '}
-                    {count === 1 ? t('col_product_singular') : t('col_product_plural')}
-                  </>
-                ) : (
-                  <>
-                    <strong>{count}</strong>{' '}
-                    {count === 1 ? t('col_product_singular') : t('col_product_plural')}
-                  </>
-                )}
-              </span>
-              <label className="pk-toolbar__sort">
-                {t('col_sort_by')}
-                <select
-                  value={sortValue}
-                  onChange={(e) => {
-                    const next = new URLSearchParams(searchParams);
-                    if (e.target.value === 'featured') {
-                      next.delete('sort');
-                    } else {
-                      next.set('sort', e.target.value);
-                    }
-                    setSearchParams(next, {replace: true});
-                  }}
-                >
-                  <option value="featured">{t('col_sort_featured')}</option>
-                  <option value="best-selling">{t('col_sort_best')}</option>
-                  <option value="newest">{t('col_sort_newest')}</option>
-                  <option value="price-asc">{t('col_sort_price_asc')}</option>
-                  <option value="price-desc">{t('col_sort_price_desc')}</option>
-                </select>
-              </label>
-            </div>
-            <PaginatedResourceSection
-              connection={products}
-              resourcesClassName="pk-prod-grid"
-            >
-              {({node: product, index}) => (
-                <ProductItem
-                  key={product.id}
-                  product={product}
-                  loading={index < 8 ? 'eager' : undefined}
-                  index={index}
-                />
+        <div className="pk-col-main">
+          <div className="pk-toolbar">
+            <span className="pk-toolbar__count">
+              {hasNextPage ? (
+                <>
+                  {t('col_count_of')} <strong>{count}+</strong>{' '}
+                  {count === 1 ? t('col_product_singular') : t('col_product_plural')}
+                </>
+              ) : (
+                <>
+                  <strong>{count}</strong>{' '}
+                  {count === 1 ? t('col_product_singular') : t('col_product_plural')}
+                </>
               )}
-            </PaginatedResourceSection>
+            </span>
+            <label className="pk-toolbar__sort">
+              {t('col_sort_by')}
+              <select
+                value={sortValue}
+                onChange={(e) => {
+                  const next = new URLSearchParams(searchParams);
+                  if (e.target.value === 'featured') {
+                    next.delete('sort');
+                  } else {
+                    next.set('sort', e.target.value);
+                  }
+                  setSearchParams(next, {replace: true});
+                }}
+              >
+                <option value="featured">{t('col_sort_featured')}</option>
+                <option value="best-selling">{t('col_sort_best')}</option>
+                <option value="newest">{t('col_sort_newest')}</option>
+                <option value="price-asc">{t('col_sort_price_asc')}</option>
+                <option value="price-desc">{t('col_sort_price_desc')}</option>
+              </select>
+            </label>
           </div>
+          <PaginatedResourceSection
+            connection={products}
+            resourcesClassName="pk-prod-grid"
+          >
+            {({node: product, index}) => (
+              <ProductItem
+                key={product.id}
+                product={product}
+                loading={index < 8 ? 'eager' : undefined}
+                index={index}
+              />
+            )}
+          </PaginatedResourceSection>
         </div>
       )}
     </div>
@@ -261,26 +251,6 @@ const CATALOG_QUERY = `#graphql
   }
   ${COLLECTION_ITEM_FRAGMENT}
 `;
-
-/**
- * Build a human-friendly catalog size label.
- *  - 0 products            → "Catalog is loading"
- *  - 1 product             → "1 product"
- *  - 12 of 24+ products    → "12 of 24+ products"  (when hasNextPage)
- *  - 12 of 12 products     → "12 products"          (last page)
- *  - fallback              → "Always growing"
- */
-function formatCatalogCount(visible, implied, hasNext, t) {
-  if (!visible) return t('all_count_loading');
-  const word = visible === 1 ? t('col_product_singular') : t('col_product_plural');
-  if (hasNext && implied && implied > visible) {
-    return `${visible} ${t('col_count_of')} ${implied}+ ${word}`;
-  }
-  if (hasNext) {
-    return `${visible} ${word} ${t('col_count_and_counting')}`;
-  }
-  return `${visible} ${word}`;
-}
 
 /** @typedef {import('./+types/collections.all').Route} Route */
 /** @typedef {import('storefrontapi.generated').CollectionItemFragment} CollectionItemFragment */

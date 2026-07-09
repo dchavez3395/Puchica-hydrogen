@@ -330,10 +330,12 @@ export const HOME_BEST_SELLERS_QUERY = `#graphql
     $country: CountryCode!
     $language: LanguageCode!
   ) @inContext(country: $country, language: $language) {
-    bestSellers: collection(handle: "best-sellers") {
-      products(first: 4, sortKey: BEST_SELLING) {
-        nodes { ...HomeProduct }
-      }
+    # The "best-sellers" collection is empty in this store, so we
+    # pull from the top-level products connection sorted by
+    # BEST_SELLING. This gives us the actual top sellers across
+    # all collections instead of an empty rail.
+    bestSellers: products(first: 8, sortKey: BEST_SELLING) {
+      nodes { ...HomeProduct }
     }
   }
 `;
@@ -394,14 +396,14 @@ export const HOME_WORLD_CUP_QUERY = `#graphql
     $country: CountryCode!
     $language: LanguageCode!
   ) @inContext(country: $country, language: $language) {
-    # Filter on the Shopify tag field. The store has 5+ Canada
-    # soccer jerseys and dad caps tagged "world cup" -- the
-    # World Cup 2026 tournament is in June/July, this is timely.
-    # BEST_SELLING same reasoning as the sports rail.
+    # The store has 32+ Canada soccer jerseys and soccer gear
+    # tagged "soccer jersey", "born canadian", "canada". The old
+    # "tag:world cup" query returned 0 — no products use that tag.
+    # This query matches the real tags so jerseys actually show.
     worldCup: products(
       first: 8
       sortKey: BEST_SELLING
-      query: "tag:world cup"
+      query: "tag:soccer-jersey OR tag:born-canadian OR tag:'soccer jersey'"
     ) {
       nodes { ...HomeProduct }
     }

@@ -136,10 +136,11 @@ export function Footer({header}) {
 
         <div className="pk-footer__col">
           <h4>{t('footer_care')}</h4>
+          <Link to="/pages/about">{t('footer_about')}</Link>
           <Link to="/pages/contact">{t('footer_contact')}</Link>
-          <Link to="/search">{t('footer_search')}</Link>
+          <Link to="/pages/faq">{t('footer_faq')}</Link>
+          <Link to="/pages/shipping">{t('footer_shipping_info')}</Link>
           <Link to="/policies">{t('footer_policies')}</Link>
-          <Link to="/policies/shipping-policy">{t('footer_shipping_policy')}</Link>
           <Link to="/policies/refund-policy">{t('footer_refund_policy')}</Link>
           <Link to="/policies/terms-of-service">{t('footer_terms')}</Link>
         </div>

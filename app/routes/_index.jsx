@@ -9,6 +9,9 @@ import {ShopByCategory} from '~/sections/shop-by-category/shop-by-category';
 import {BestSellers} from '~/sections/best-sellers/best-sellers';
 import {LifestyleBanner} from '~/sections/lifestyle-banner/lifestyle-banner';
 import {NewArrivals} from '~/sections/new-arrivals/new-arrivals';
+import {BrandStory} from '~/sections/brand-story/brand-story';
+import {TextileShowcase} from '~/sections/textile-showcase/textile-showcase';
+import {HowWeCurate} from '~/sections/how-we-curate/how-we-curate';
 import {SportsOutdoors} from '~/sections/sports-outdoors/sports-outdoors';
 import {WorldCup} from '~/sections/world-cup/world-cup';
 import {TrustBar} from '~/sections/trust-bar/trust-bar';
@@ -109,20 +112,11 @@ export default function Index() {
   const data = useLoaderData();
 
   return (
-    <>
+    <div className="pk-home">
       <JsonLdScript data={organizationJsonLd({})} />
       <JsonLdScript data={websiteJsonLd({})} />
 
-      <Suspense fallback={<HeroSplit />}>
-        <Await resolve={data.bestSellers}>
-          {(products) => (
-            <HeroSplit
-              image={pickHeroImage(products)}
-              link={pickHeroLink(products)}
-            />
-          )}
-        </Await>
-      </Suspense>
+      <HeroSplit />
 
       <Suspense fallback={null}>
         <Await resolve={data.categories}>
@@ -153,6 +147,10 @@ export default function Index() {
         </Await>
       </Suspense>
 
+      <BrandStory />
+
+      <TextileShowcase />
+
       <Suspense fallback={<SportsOutdoors />}>
         <Await resolve={data.sports}>
           {(products) => <SportsOutdoors products={products ?? []} />}
@@ -165,28 +163,15 @@ export default function Index() {
         </Await>
       </Suspense>
 
+      <HowWeCurate />
+
       <TrustBar />
 
       <Reviews />
 
       <NewsletterFooter />
-    </>
+    </div>
   );
-}
-
-/**
- * Pick a hero image from the first best-seller. The hero is the
- * single most visible real-estate on the page, so we want the
- * first product's `featuredImage` (which is also the canonical
- * merchandising "best" by the collection sort).
- */
-function pickHeroImage(products) {
-  return products?.[0]?.featuredImage ?? null;
-}
-
-function pickHeroLink(products) {
-  const handle = products?.[0]?.handle;
-  return handle ? `/products/${handle}` : '/collections/best-sellers';
 }
 
 /**

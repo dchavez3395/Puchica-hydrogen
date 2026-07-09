@@ -9,17 +9,35 @@
    code should use the canonical names below.
    ──────────────────────────────────────────────────────────── */
 :root {
-  /* ── Color: ink / paper / cream commerce system ─────── */
-  --pk-ink:         #171410;   /* warm black, primary text on cream */
-  --pk-ink-hover:   #2A2620;   /* hover for ink-filled elements */
-  --pk-paper:       #FAF9F6;   /* page background */
-  --pk-cream:       #F1EDE3;   /* tile, well, hero panel fills */
-  --pk-line:        #E8E3D8;   /* borders, dividers */
-  --pk-muted:       #6E675C;   /* secondary text, 4.6:1 AA on paper */
-  --pk-ember:       #A83800;   /* sale, badges, checkout ONLY */
-  --pk-ember-hover: #8C2C00;
+  /* ── Color: "Puchica vibrante" — warm base + festival accents ───
+   * v6 direction B. Warm espresso ink on a cream-paper base, with a
+   * terracotta primary and a marigold / jade / cobalt accent family
+   * drawn from Central American textiles. Terracotta stays the
+   * commerce color (sale / checkout); the three accents are for
+   * category tiles, badges, section fills, and editorial moments. */
+  --pk-ink:         #1E1712;   /* warm espresso black, primary text */
+  --pk-ink-hover:   #332818;   /* hover for ink-filled elements */
+  --pk-paper:       #FCF7EE;   /* warm cream page background */
+  --pk-cream:       #F4E7D0;   /* tile, well, hero panel fills */
+  --pk-line:        #E9D9BE;   /* warm tan borders, dividers */
+  --pk-muted:       #6E6353;   /* secondary text, warm brown-gray */
+  --pk-ember:       #BE451E;   /* terracotta — sale, badges, checkout */
+  --pk-ember-hover: #9E3915;
   --pk-white:       #FFFFFF;
   --pk-coral:       #FF5757;   /* alert, error */
+
+  /* ── Festival accents (decorative — tiles, badges, sections) ─── */
+  --pk-marigold:       #E8A020;   /* warm yellow */
+  --pk-marigold-hover: #CC8A10;
+  --pk-marigold-ink:   #6B4A00;   /* text on marigold fills */
+  --pk-jade:           #0E7C5B;   /* deep green */
+  --pk-jade-hover:     #0B6448;
+  --pk-jade-pale:      #E2F1EA;   /* jade-tinted fill */
+  --pk-cobalt:         #1F5FA8;   /* blue */
+  --pk-cobalt-hover:   #184C86;
+  --pk-cobalt-pale:    #E5EEF8;   /* cobalt-tinted fill */
+  --pk-rosa:           #C63B6E;   /* textile pink */
+  --pk-violet:         #6D4CFF;   /* brand purple (from the logo) */
 
   /* Error / success states (cart error, notify-back, etc.) */
   --pk-error-bg:     #FFF1F1;
@@ -103,10 +121,10 @@
    * system. They now resolve to the new canonical colors so
    * the rest of app.css can keep referencing them while we
    * migrate file-by-file. New code must NOT use these. */
-  --pk-ink-soft:      var(--pk-ink-soft);
-  --pk-ink-softer:    #2A2820;
-  --pk-cream-soft:    #EDE8D8;
-  --pk-cream-dark:    #E8E3D8;   /* == --pk-line */
+  --pk-ink-soft:      #2A2118;   /* real value — was self-referencing (dropped to empty) */
+  --pk-ink-softer:    #3A2E1E;
+  --pk-cream-soft:    #EFE2C9;
+  --pk-cream-dark:    #E9D9BE;   /* == --pk-line */
 
   --pk-bg:          var(--pk-paper);
   --pk-off-white:   var(--pk-paper);
@@ -120,7 +138,7 @@
    * the h4 column headings, the secure-checkout line, etc. Mirror
    * the v5 canonical paper here so the alias block re-establishes
    * the token instead of nuking it. */
-  --pk-paper:       #FAF9F6;
+  --pk-paper:       #FCF7EE;
   --pk-paper-dark:  var(--pk-cream);
   --pk-paper-warm:  var(--pk-cream);
   --pk-bg-soft:     var(--pk-cream);
@@ -130,9 +148,9 @@
   /* v4 gradients — kept as aliases for visual continuity.
    * The hero/card gradients stay; the lime/forest/lavender/
    * violet gradients that used acid-lime are now ink. */
-  --pk-grad-hero:    linear-gradient(135deg, #171410 0%, var(--pk-ink-soft) 50%, #171410 100%);
-  --pk-grad-lime:    linear-gradient(135deg, #171410 0%, #2A2620 100%);
-  --pk-grad-card:    linear-gradient(180deg, #FAF9F6 0%, #F1EDE3 100%);
+  --pk-grad-hero:    linear-gradient(135deg, #1E1712 0%, var(--pk-ink-soft) 50%, #1E1712 100%);
+  --pk-grad-lime:    linear-gradient(135deg, #1E1712 0%, #332818 100%);
+  --pk-grad-card:    linear-gradient(180deg, #FCF7EE 0%, #F4E7D0 100%);
   --pk-grad-primary: var(--pk-grad-lime);
   --pk-grad-forest:  var(--pk-grad-hero);
   --pk-grad-ember:   var(--pk-grad-lime);
@@ -207,15 +225,48 @@ main {
   padding: 0 var(--page-gutter);
   box-sizing: border-box;
 }
-/* Homepage is full-bleed â€” bust out of the shared max-width container */
-/* Shared inner content column â€” matches header nav alignment exactly */
+
+/*
+ * Homepage is FULL-BLEED — the entire page runs edge-to-edge.
+ * We null out main's max-width and gutters when .pk-home is the
+ * direct child, so every section background fills the viewport
+ * naturally. Content is held by .pk-section__inner (max-width
+ * 1280px + gutters), not by main. This is simpler and more
+ * robust than per-section 100vw breakouts (no scrollbar math,
+ * no overflow-x hacks). Other routes (product, collection, etc.)
+ * keep main's 1280px column — only the homepage goes full-bleed.
+ */
+main:has(> .pk-home) {
+  max-width: none;
+  padding: 0;
+}
+
+/* Collection pages also go full-bleed — the collection hero
+ * runs edge-to-edge with warm gradient, content held by inner. */
+main:has(> .pk-collection),
+main:has(> .pk-about),
+main:has(> .pk-product) {
+  max-width: none;
+  padding: 0;
+}
+
+/* Shared inner content column — matches header nav alignment exactly */
 .pk-inner {
-  max-width: 1200px;
   margin: 0 auto;
   padding-left: 24px;
   padding-right: 24px;
   width: 100%;
+  max-width: var(--pk-inner-max, 1280px);
   box-sizing: border-box;
+}
+
+/* Homepage sections: full-bleed by default (main has no padding).
+ * Only the .pk-section__inner holds content at 1280px. */
+.pk-home .pk-section {
+  width: 100%;
+  margin: 0;
+  padding-top: 64px;
+  padding-bottom: 64px;
 }
 
 /* === Playful Premium Typography === */
@@ -345,7 +396,7 @@ img {
   justify-content: space-between;
   padding: 0 24px;
   flex: none;
-  background: #fff;
+  background: var(--pk-paper);
   z-index: 2;
   box-sizing: border-box;
 }
@@ -389,7 +440,7 @@ img {
   min-height: 0;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  background: #fff;
+  background: var(--pk-paper);
   color: var(--pk-ink, #160F3A);
 }
 
@@ -421,6 +472,481 @@ img {
 }
 .pk-skip-link:focus {
   top: 16px;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Puchica — Product page bold design system upgrades (v6)
+   Full-bleed warm header, warm palette, trust bar, gallery polish,
+   warm related-products band. Appended before the sr-only utility.
+   ───────────────────────────────────────────────────────────── */
+
+/* ── Full-bleed warm cream header band ──
+   Wraps the gallery + buy-box row so the hero sits on warm paper
+   with a subtle gradient texture instead of flat white. Full-bleed
+   (breaks out of main's max-width) via negative margins that match
+   the page gutters, then the inner column re-centers content. */
+.pk-product__hero-band {
+  position: relative;
+  margin: 0 calc(-1 * var(--page-gutter));
+  padding: 28px var(--page-gutter) 48px;
+  background:
+    radial-gradient(ellipse 60% 50% at 80% 0%, rgba(232, 160, 32, 0.06), transparent 60%),
+    radial-gradient(ellipse 50% 40% at 15% 100%, rgba(190, 69, 30, 0.04), transparent 55%),
+    linear-gradient(180deg, var(--pk-paper) 0%, var(--pk-cream) 100%);
+  border-bottom: 1px solid var(--pk-line);
+  isolation: isolate;
+}
+.pk-product__hero-band::before {
+  /* Subtle warm grain/texture stand-in — a faint diagonal hatch of
+     tan lines so the band reads as warm paper, not flat fill. */
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(233, 217, 190, 0.10) 0px,
+    rgba(233, 217, 190, 0.10) 1px,
+    transparent 1px,
+    transparent 9px
+  );
+  pointer-events: none;
+  z-index: -1;
+}
+.pk-product__hero-band-inner {
+  max-width: var(--pk-inner-max, 1280px);
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+/* The hero band replaces .pk-product's own top padding so the band
+   owns the header rhythm. Pull the page-level padding up so the
+   band starts at the top of the content flow. */
+.pk-product:has(.pk-product__hero-band) {
+  padding-top: 0;
+}
+@media (max-width: 900px) {
+  .pk-product__hero-band { padding: 16px var(--page-gutter) 32px; margin-bottom: 0; }
+}
+
+/* ── Breadcrumbs — warm, muted inactive crumbs ──
+   Reinforce warm tokens; the existing block already uses --pk-muted
+   for links, but bump the separator to the warm tan line color and
+   make the current crumb espresso ink for contrast on cream. */
+.pk-product__crumbs.pk-breadcrumbs {
+  margin: 0 0 18px;
+  padding: 0;
+}
+.pk-product__crumbs .pk-breadcrumbs__sep {
+  color: var(--pk-line);
+  opacity: 1;
+}
+.pk-product__crumbs .pk-breadcrumbs__current {
+  color: var(--pk-ink);
+}
+
+/* ── Product gallery — premium rounded corners + warm borders ──
+   The hero frame already uses --pk-surface / --pk-border; upgrade
+   the radius to the 2xl token and add a warm elevation shadow so
+   the image reads as a premium card on the cream band. */
+.pk-product__hero-band .pk-product__hero {
+  border: 1px solid var(--pk-line);
+  border-radius: var(--pk-r-2xl, 12px);
+  box-shadow: var(--pk-sh-2);
+  background: var(--pk-cream);
+}
+.pk-product__hero-band .pk-thumbs__item {
+  border-radius: var(--pk-r-2xl, 12px);
+  border: 2px solid var(--pk-line);
+  background: var(--pk-cream);
+}
+.pk-product__hero-band .pk-thumbs__item.is-current {
+  border-color: var(--pk-ember);
+  box-shadow: 0 0 0 1px var(--pk-ember);
+}
+
+/* ── Warm palette fixes for buy column ──
+   Variant selectors: replace cold #fff fill and indigo text with
+   warm cream/ink tokens. The existing rules use !important, so the
+   overrides here match that specificity to win on the PDP. */
+.pk-product__hero-band .pk-product .product-options-item {
+  background: var(--pk-paper) !important;
+  border: 1.5px solid var(--pk-line) !important;
+  color: var(--pk-ink) !important;
+}
+.pk-product__hero-band .pk-product .product-options-item:hover {
+  border-color: var(--pk-ember) !important;
+}
+.pk-product__hero-band .pk-product .product-options-item.is-selected {
+  border-color: var(--pk-ember) !important;
+  background: var(--pk-cream) !important;
+  color: var(--pk-ink) !important;
+  box-shadow: 0 0 0 1px var(--pk-ember);
+}
+
+/* Add-to-cart: keep the ink-filled primary but warm the hover and
+   give it a warm elevation on the cream band. */
+.pk-product__hero-band .pk-product .product-form button[type="submit"] {
+  background: var(--pk-ink);
+  color: var(--pk-paper);
+  border-radius: var(--pk-r-2xl, 12px);
+  box-shadow: var(--pk-sh-2);
+}
+.pk-product__hero-band .pk-product .product-form button[type="submit"]:hover {
+  background: var(--pk-ink-hover);
+  box-shadow: var(--pk-sh-3);
+}
+.pk-product__hero-band .pk-product .product-form button[type="submit"]:disabled {
+  background: var(--pk-cream);
+  color: var(--pk-muted);
+  box-shadow: none;
+}
+
+/* Price — keep espresso ink; the compare-at price reads as muted warm. */
+.pk-product__hero-band .pk-product__price { color: var(--pk-ink); }
+
+/* ── Trust bar — the 3 honest dropshipping promises ──
+   A horizontal badge row directly under the add-to-cart button.
+   Warm cream chips with ember icons, jade accent for the "ships"
+   signal so the three promises are scannable at a glance. Honest
+   framing: "Ships within 24 hours" (not "in stock now"), "Free
+   shipping over $75", "30-day returns". */
+.pk-product__trustbar {
+  list-style: none;
+  margin: 16px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.pk-product__trustbar-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: var(--pk-paper);
+  border: 1px solid var(--pk-line);
+  border-radius: var(--pk-r-pill, 999px);
+  font-size: 13px;
+  line-height: 1.3;
+  color: var(--pk-ink);
+  box-shadow: var(--pk-sh-1);
+}
+.pk-product__trustbar-item:nth-child(2) {
+  background: var(--pk-jade-pale, #E2F1EA);
+  border-color: var(--pk-ok-line, #B7E0C0);
+}
+.pk-product__trustbar-item:nth-child(3) {
+  background: var(--pk-ember-pale, var(--pk-cream));
+  border-color: rgba(190, 69, 30, 0.25);
+}
+.pk-product__trustbar-icon {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--pk-cream);
+  color: var(--pk-ember);
+  flex: none;
+}
+.pk-product__trustbar-item:nth-child(2) .pk-product__trustbar-icon {
+  background: var(--pk-paper);
+  color: var(--pk-jade);
+}
+.pk-product__trustbar-item:nth-child(3) .pk-product__trustbar-icon {
+  background: var(--pk-paper);
+  color: var(--pk-ember);
+}
+.pk-product__trustbar-text strong {
+  font-weight: 700;
+  letter-spacing: -0.005em;
+}
+@media (max-width: 700px) {
+  .pk-product__trustbar { gap: 8px; }
+  .pk-product__trustbar-item { flex: 1 1 calc(50% - 4px); justify-content: center; }
+  .pk-product__trustbar-item:nth-child(3) { flex: 1 1 100%; }
+}
+
+/* ── Related products — warm textured band matching homepage grids ──
+   Full-bleed cream section with the same subtle radial-glow texture
+   the homepage best-sellers section uses, so related products feel
+   like a continuation of the catalog, not a cold appendix. The
+   inner column re-centers content at 1280px. */
+.pk-reco--warm {
+  position: relative;
+  margin: 40px calc(-1 * var(--page-gutter)) 0;
+  padding: 48px var(--page-gutter) 56px;
+  background: var(--pk-paper);
+  border-top: 1px solid var(--pk-line);
+  overflow: hidden;
+  isolation: isolate;
+}
+.pk-reco--warm::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 50% 40% at 70% 20%, rgba(232, 160, 32, 0.04), transparent 60%),
+    radial-gradient(ellipse 45% 35% at 20% 100%, rgba(14, 124, 91, 0.03), transparent 55%);
+  pointer-events: none;
+  z-index: -1;
+}
+.pk-reco--warm .pk-reco__inner {
+  max-width: var(--pk-inner-max, 1280px);
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+.pk-reco--warm .pk-reco__head { margin: 0 0 20px; }
+.pk-reco--warm .pk-reco__title {
+  color: var(--pk-ink);
+}
+.pk-reco--warm .pk-reco__grid {
+  /* Override the flat grid with the same gap as homepage product grids. */
+  gap: 18px;
+}
+@media (max-width: 900px) {
+  .pk-reco--warm { margin-top: 32px; padding: 32px var(--page-gutter) 40px; }
+}
+
+/* ============================================================
+   FAQ PAGE — dedicated /pages/faq route
+   Warm hero + accordion categories + CTA + contact band.
+   ============================================================ */
+
+.pk-faq {
+  background: var(--pk-cream);
+  color: var(--pk-ink);
+}
+
+/* Hero band — mirrors the about hero's dark gradient language so the
+ * site feels coherent across the static pages. */
+.pk-faq-hero {
+  position: relative;
+  background: var(--pk-ink);
+  color: var(--pk-paper);
+  padding: 120px 0 96px;
+  overflow: hidden;
+  text-align: center;
+  width: 100%;
+}
+.pk-faq-hero__glow {
+  position: absolute;
+  top: -20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(190, 69, 30, 0.18) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+.pk-faq-hero__inner {
+  position: relative;
+  z-index: 1;
+  margin: 0 auto;
+  padding-left: 24px;
+  padding-right: 24px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.pk-faq-hero__eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--pk-paper);
+  display: block;
+  margin-bottom: 24px;
+}
+.pk-faq-hero__title {
+  font-family: var(--pk-font-display);
+  font-size: clamp(36px, 6vw, 72px);
+  font-weight: 800;
+  letter-spacing: -2.5px;
+  line-height: 1.04;
+  margin: 0 0 24px;
+  color: var(--pk-paper);
+}
+.pk-faq-hero__sub {
+  font-size: 18px;
+  color: rgba(244,240,230,0.72);
+  line-height: 1.65;
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+/* Accordion body — two-column grid of category groups on desktop,
+ * stacked single column on mobile. */
+.pk-faq-body {
+  padding: 72px 0;
+}
+.pk-faq-body__inner {
+  margin: 0 auto;
+  padding-left: 24px;
+  padding-right: 24px;
+  width: 100%;
+  max-width: 1100px;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px 48px;
+}
+.pk-faq-group__heading {
+  font-family: var(--pk-font-display);
+  font-size: clamp(20px, 2.4vw, 26px);
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: var(--pk-ink);
+  margin: 0 0 18px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--pk-ember, #BE451E);
+}
+.pk-faq-group__list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Accordion item — uses the native details/summary pattern (no JS). */
+.pk-faq-item {
+  background: var(--pk-paper);
+  border: 1px solid var(--pk-border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  transition: border-color 0.12s ease, box-shadow 0.12s ease;
+}
+.pk-faq-item[open] {
+  border-color: var(--pk-ember, #BE451E);
+  box-shadow: 0 6px 18px rgba(190, 69, 30, 0.08);
+}
+.pk-faq-item > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  font-size: 15.5px;
+  font-weight: 700;
+  color: var(--pk-ink);
+  letter-spacing: -0.005em;
+  user-select: none;
+}
+.pk-faq-item > summary::-webkit-details-marker { display: none; }
+.pk-faq-item > summary:hover { color: var(--pk-ember, #BE451E); }
+.pk-faq-item__chev {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--pk-cream);
+  color: var(--pk-ink);
+  transition: transform 0.18s ease, background 0.12s ease, color 0.12s ease;
+}
+.pk-faq-item[open] .pk-faq-item__chev {
+  transform: rotate(180deg);
+  background: var(--pk-ember, #BE451E);
+  color: var(--pk-paper);
+}
+.pk-faq-item__a {
+  margin: 0;
+  padding: 0 20px 18px;
+  color: var(--pk-muted);
+  font-size: 14.5px;
+  line-height: 1.65;
+}
+
+/* "Still have questions?" CTA band — mirrors the about CTA dark panel. */
+.pk-faq-cta {
+  background: var(--pk-ink);
+  color: var(--pk-paper);
+  padding: 88px 0;
+  text-align: center;
+  width: 100%;
+}
+.pk-faq-cta__inner {
+  margin: 0 auto;
+  padding-left: 24px;
+  padding-right: 24px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.pk-faq-cta__eye {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--pk-paper);
+  display: block;
+  margin-bottom: 20px;
+}
+.pk-faq-cta__title {
+  font-family: var(--pk-font-display);
+  font-size: clamp(28px, 4vw, 52px);
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  color: var(--pk-paper);
+  margin: 0 0 16px;
+  line-height: 1.06;
+}
+.pk-faq-cta__sub {
+  font-size: 16px;
+  color: rgba(244,240,230,0.62);
+  line-height: 1.65;
+  margin: 0 0 40px;
+}
+
+/* Contact us — warm paper section, email as the primary action. */
+.pk-faq-contact {
+  padding: 72px 0;
+  text-align: center;
+}
+.pk-faq-contact__inner {
+  margin: 0 auto;
+  padding-left: 24px;
+  padding-right: 24px;
+  width: 100%;
+  max-width: 640px;
+  box-sizing: border-box;
+}
+.pk-faq-contact__title {
+  font-family: var(--pk-font-display);
+  font-size: clamp(22px, 3vw, 32px);
+  font-weight: 800;
+  letter-spacing: -0.8px;
+  color: var(--pk-ink);
+  margin: 0 0 14px;
+}
+.pk-faq-contact__body {
+  font-size: 16px;
+  color: var(--pk-muted);
+  line-height: 1.65;
+  margin: 0 0 22px;
+}
+.pk-faq-contact__email a {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--pk-ember, #BE451E);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* FAQ responsive */
+@media (max-width: 900px) {
+  .pk-faq-body__inner { grid-template-columns: 1fr; gap: 40px; }
+}
+@media (max-width: 640px) {
+  .pk-faq-hero { padding: 88px 0 64px; }
+  .pk-faq-hero__inner { padding-left: 20px; padding-right: 20px; }
+  .pk-faq-body { padding: 56px 0; }
+  .pk-faq-body__inner { padding-left: 20px; padding-right: 20px; }
+  .pk-faq-cta { padding: 64px 0; }
+  .pk-faq-cta__inner { padding-left: 20px; padding-right: 20px; }
+  .pk-faq-contact__inner { padding-left: 20px; padding-right: 20px; }
 }
 
 .sr-only {
@@ -514,7 +1040,7 @@ button.reset:hover:not(:has(> *)) {
 */
 .header {
   align-items: center;
-  background: #fff;
+  background: var(--pk-paper);
   display: flex;
   height: var(--header-height);
   padding: 0 1rem;
@@ -809,7 +1335,7 @@ button.reset:hover:not(:has(> *)) {
   box-shadow: none;
 }
 .cart-line.is-unrecoverable .cart-line-qty__btn--plus:hover:not(:disabled) {
-  background: #fff;
+  background: var(--pk-paper);
   color: var(--pk-indigo-900, #160F3A);
   box-shadow: none;
 }
@@ -886,7 +1412,7 @@ button.reset:hover:not(:has(> *)) {
 }
 
 .cart-summary-aside {
-  background: #fff;
+  background: var(--pk-paper);
   border-top: 1px solid var(--pk-border, #E5E0F0);
   padding: 18px 20px 22px;
   /* `box-sizing: border-box` is required here so the 20px horizontal
@@ -963,7 +1489,7 @@ button.reset:hover:not(:has(> *)) {
   font: inherit;
 }
 .cart-line-qty__btn:hover:not(:disabled) {
-  background: #fff;
+  background: var(--pk-paper);
   color: var(--pk-violet-700, #4a2fd6);
   box-shadow: 0 1px 3px rgba(80, 60, 160, 0.18);
 }
@@ -1064,7 +1590,7 @@ button.reset:hover:not(:has(> *)) {
   border: 1px solid var(--pk-border, #E5E0F0);
   border-radius: 10px;
   overflow: hidden;
-  background: #fff;
+  background: var(--pk-paper);
   box-sizing: border-box;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
@@ -1082,7 +1608,7 @@ button.reset:hover:not(:has(> *)) {
   padding: 0 12px;
   font: inherit;
   font-size: 13px;
-  background: #fff;
+  background: var(--pk-paper);
   color: var(--pk-indigo-900, #160F3A);
   box-sizing: border-box;
 }
@@ -1165,7 +1691,7 @@ button.reset:hover:not(:has(> *)) {
   display: flex;
   flex-direction: column;
   height: 100%;
-  background: #fff;
+  background: var(--pk-paper);
 }
 .pk-search__form {
   display: flex;
@@ -1173,7 +1699,7 @@ button.reset:hover:not(:has(> *)) {
   gap: 8px;
   padding: 16px 20px;
   border-bottom: 1px solid var(--pk-border, #E5E0F0);
-  background: #fff;
+  background: var(--pk-paper);
   position: relative;
 }
 .pk-search__icon {
@@ -1208,7 +1734,7 @@ button.reset:hover:not(:has(> *)) {
 .pk-search__input::placeholder { color: var(--pk-muted, #6B5E4E); }
 .pk-search__input:focus {
   border-color: var(--pk-ember, #A83800);
-  background: #fff;
+  background: var(--pk-paper);
   box-shadow: 0 0 0 4px rgba(204,67,0,.14);
 }
 .pk-search__input::-webkit-search-cancel-button { display: none; }
@@ -1277,7 +1803,7 @@ button.reset:hover:not(:has(> *)) {
 
 /* Existing predictive-search inner content â€” re-skinned to fit. */
 .predictive-search {
-  background: #fff;
+  background: var(--pk-paper);
   color: var(--pk-ink, #160F3A);
   font-size: 14px;
 }
@@ -1654,7 +2180,7 @@ button:focus-visible,
   border: 1.5px solid #fff;
 }
 .pk-btn--primary-dark:hover {
-  background: #fff;
+  background: var(--pk-paper);
   color: var(--pk-ink);
   border-color: #fff;
 }
@@ -1675,7 +2201,7 @@ button:focus-visible,
   padding: 10px 20px;
 }
 .pk-btn--secondary-dark:hover {
-  background: #fff;
+  background: var(--pk-paper);
   color: var(--pk-ink);
   border-color: #fff;
 }
@@ -1761,7 +2287,7 @@ button:focus-visible,
   transform: translate(50%, -50%);
   width: 300px;
   height: 300px;
-  background: radial-gradient(circle at 35% 30%, rgba(198, 255, 78, 0.38), transparent 70%);
+  background: radial-gradient(circle at 35% 30%, rgba(232, 160, 32, 0.28), transparent 70%);
   border-radius: 50%;
   filter: blur(40px);
   opacity: 0.6;
@@ -1829,7 +2355,7 @@ button:focus-visible,
 .pk-cat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
 .pk-cat-card {
   display: flex; justify-content: space-between; align-items: stretch;
-  background: #fff;
+  background: var(--pk-paper);
   border: 1px solid var(--pk-card-border);
   border-radius: var(--pk-radius);
   padding: 20px;
@@ -1859,7 +2385,7 @@ button:focus-visible,
 .pk-card {
   border-radius: 2px;
   overflow: hidden;
-  background: #fff;
+  background: var(--pk-paper);
   border: 1px solid rgba(22,15,58,0.08);
   transition: transform 0.22s ease;
   position: relative;
@@ -2020,7 +2546,6 @@ button:focus-visible,
 .pk-header__inner {
   position: relative; /* containing block for mega-menu panel */
   height: 72px;
-  max-width: 1200px;
   margin: 0 auto;
   padding: 0 24px;
   display: flex;
@@ -2148,7 +2673,7 @@ button:focus-visible,
 
 .pk-mmenu {
   padding: 4px 8px 28px;
-  background: #fff;
+  background: var(--pk-paper);
   color: var(--pk-ink, #160F3A);
 }
 .pk-mmenu__group { padding: 18px 8px 8px; }
@@ -2224,7 +2749,7 @@ button:focus-visible,
   padding: 10px 16px;
   border-radius: var(--r-md) !important;
   border: 1.5px solid var(--pk-border) !important;
-  background: #fff;
+  background: var(--pk-paper);
   font-family: var(--pk-font);
   font-weight: 600;
   font-size: 14px;
@@ -2318,7 +2843,7 @@ button:focus-visible,
   display: block;
   text-decoration: none;
   color: var(--pk-indigo-900);
-  background: #fff;
+  background: var(--pk-paper);
   border: 1px solid var(--pk-border);
   border-radius: var(--r-xl);
   overflow: hidden;
@@ -2400,7 +2925,7 @@ button:focus-visible,
   gap: 6px 8px;
   font-size: 13px;
   color: var(--pk-muted);
-  margin: 0 0 18px;
+  margin: 18px;
 }
 .pk-breadcrumbs a {
   color: var(--pk-muted);
@@ -2507,7 +3032,6 @@ button:focus-visible,
   color: var(--pk-paper);
 }
 .pk-footer__inner {
-  max-width: 1200px;
   margin: 0 auto;
   padding: 52px 24px 36px;
   display: grid;
@@ -2578,7 +3102,6 @@ button:focus-visible,
 
 .pk-footer__bar {
   border-top: 1px solid rgba(242, 235, 218, 0.10);
-  max-width: 1200px;
   margin: 0 auto;
   padding: 18px 24px;
   display: flex;
@@ -2721,11 +3244,11 @@ button:focus-visible,
 .pk-hero__glow { position: absolute; border-radius: 50%; filter: blur(46px); pointer-events: none; z-index: 0; }
 .pk-hero__glow--a {
   width: 380px; height: 380px; right: 6%; top: -14%;
-  background: radial-gradient(circle, rgba(198, 255, 78, 0.48), transparent 70%); opacity: 0.6;
+  background: radial-gradient(circle, rgba(232, 160, 32, 0.38), transparent 70%); opacity: 0.6;
 }
 .pk-hero__glow--b {
   width: 320px; height: 320px; left: -6%; bottom: -34%;
-  background: radial-gradient(circle, rgba(198, 255, 78, 0.30), transparent 70%); opacity: 0.5;
+  background: radial-gradient(circle, rgba(190, 69, 30, 0.25), transparent 70%); opacity: 0.5;
 }
 .pk-toolbar__sort select {
   font: inherit;
@@ -2752,7 +3275,7 @@ button:focus-visible,
 
 /* Skeleton card */
 .pk-skel {
-  background: #fff;
+  background: var(--pk-paper);
   border: 1px solid var(--pk-border);
   border-radius: var(--r-lg);
   overflow: hidden;
@@ -2851,7 +3374,6 @@ button:focus-visible,
 * ==================================================
 */
 .pk-product {
-  max-width: 1200px;
   margin: 0 auto;
   padding: 28px 0 72px;
   font-family: var(--pk-font);
@@ -2956,7 +3478,7 @@ button:focus-visible,
   color: var(--pk-ink);
   box-shadow: var(--pk-sh-sm);
 }
-.pk-product__hero-nav:hover { background: #fff; color: var(--pk-ember); }
+.pk-product__hero-nav:hover { background: var(--pk-paper); color: var(--pk-ember); }
 .pk-product__hero-nav--prev { left: 10px; }
 .pk-product__hero-nav--next { right: 10px; }
 
@@ -3070,7 +3592,7 @@ button:focus-visible,
   margin-top: 24px;
   border: 1px solid var(--pk-border);
   border-radius: var(--r-xl);
-  background: #fff;
+  background: var(--pk-paper);
   overflow: hidden;
   padding-top: 0;
 }
@@ -3095,7 +3617,7 @@ button:focus-visible,
 .pk-tabs__tab[aria-selected="true"] {
   color: var(--pk-lime-dark);
   border-bottom-color: var(--pk-lime);
-  background: #fff;
+  background: var(--pk-paper);
 }
 .pk-tabs__panel {
   /* Center the description in a comfortable reading column. Supplier
@@ -3172,7 +3694,7 @@ button:focus-visible,
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: #fff;
+  background: var(--pk-paper);
   border: 1px solid var(--pk-border);
   border-radius: 999px;
   padding: 7px 12px;
@@ -3908,7 +4430,7 @@ button:focus-visible,
   height: 22px;
   padding: 0 8px;
   border-radius: 6px;
-  background: #fff;
+  background: var(--pk-paper);
   border: 1px solid var(--pk-border);
   display: grid;
   place-items: center;
@@ -4192,7 +4714,7 @@ button:focus-visible,
   justify-content: center;
   gap: 10px;
   padding: 12px 20px;
-  background: #fff;
+  background: var(--pk-paper);
   color: var(--pk-ink);
   font-size: 14px;
   font-weight: 600;
@@ -4268,7 +4790,7 @@ button:focus-visible,
   padding: 24px 22px 28px;
   min-height: 100%;
   justify-content: center;
-  background: #fff;
+  background: var(--pk-paper);
 }
 /* The HTML `hidden` attribute sets `display: none` via the user-agent
    stylesheet, but any explicit `display` on the element wins. The cart
@@ -4318,7 +4840,7 @@ button:focus-visible,
   display: grid;
   place-items: center;
   color: var(--pk-ember, #A83800);
-  background: #fff;
+  background: var(--pk-paper);
   border-radius: 999px;
   padding: 6px;
   box-shadow: 0 4px 12px rgba(204,67,0,.18);
@@ -4445,7 +4967,7 @@ button:focus-visible,
 }
 
 .pk-contact-card {
-  background: #fff;
+  background: var(--pk-paper);
   border: 1px solid var(--pk-border);
   border-radius: var(--r-xl);
   padding: 26px 24px 24px;
@@ -4531,7 +5053,7 @@ button:focus-visible,
   display: flex;
   align-items: flex-start;
   gap: 14px;
-  background: #fff;
+  background: var(--pk-paper);
   border: 1px solid var(--pk-border);
   border-radius: var(--r-xl);
   padding: 20px;
@@ -4571,7 +5093,7 @@ button:focus-visible,
   gap: 10px;
 }
 .pk-contact__faq-item {
-  background: #fff;
+  background: var(--pk-paper);
   border: 1px solid var(--pk-border);
   border-radius: var(--r-lg);
   overflow: hidden;
@@ -4742,7 +5264,7 @@ button:focus-visible,
   padding: 12px 14px;
   border-radius: 10px;
   border: 1px solid var(--pk-border, #D4C5AD);
-  background: #fff;
+  background: var(--pk-paper);
   font-size: 16px;
 }
 .pk-route-error__input:focus {
@@ -4843,7 +5365,7 @@ button:focus-visible,
   padding: 10px 12px;
   border-radius: 8px;
   border: 1px solid rgba(109, 78, 246, 0.25);
-  background: #fff;
+  background: var(--pk-paper);
   font-size: 14px;
 }
 .pk-notify-back input:focus {
@@ -4926,7 +5448,6 @@ button:focus-visible,
 
 /* ---------- Search results page ---------- */
 .pk-search-page {
-  max-width: 1200px;
   margin: 0 auto;
   padding: 28px 16px 64px;
 }
@@ -5009,7 +5530,7 @@ button:focus-visible,
   margin: 0;
   padding: 6px;
   list-style: none;
-  background: #fff;
+  background: var(--pk-paper);
   border: 1px solid var(--pk-card-border, #DDD0BA);
   border-radius: 12px;
   box-shadow: 0 16px 40px rgba(15, 26, 14, 0.14);
@@ -5078,14 +5599,13 @@ button:focus-visible,
   transform: translateX(-50%);
   width: 800px;
   height: 600px;
-  background: radial-gradient(circle, rgba(198,255,78,0.14) 0%, transparent 60%);
+  background: radial-gradient(circle, rgba(190, 69, 30, 0.18) 0%, transparent 60%);
   pointer-events: none;
   z-index: 0;
 }
 .pk-about-hero__inner {
   position: relative;
   z-index: 1;
-  max-width: 1200px;
   margin: 0 auto;
   padding-left: 24px;
   padding-right: 24px;
@@ -5183,7 +5703,6 @@ button:focus-visible,
   width: 100%;
 }
 .pk-about-mission__inner {
-  max-width: 1200px;
   margin: 0 auto;
   padding-left: 24px;
   padding-right: 24px;
@@ -5263,7 +5782,6 @@ button:focus-visible,
   width: 100%;
 }
 .pk-about-how__inner {
-  max-width: 1200px;
   margin: 0 auto;
   padding-left: 24px;
   padding-right: 24px;
@@ -5332,7 +5850,6 @@ button:focus-visible,
   width: 100%;
 }
 .pk-about-cats__inner {
-  max-width: 1200px;
   margin: 0 auto;
   padding-left: 24px;
   padding-right: 24px;
@@ -5418,7 +5935,6 @@ button:focus-visible,
   color: var(--pk-ink);
 }
 .pk-about-promise__inner {
-  max-width: 1200px;
   margin: 0 auto;
   padding-left: 24px;
   padding-right: 24px;
@@ -5451,7 +5967,6 @@ button:focus-visible,
   width: 100%;
 }
 .pk-about-cta__inner {
-  max-width: 1200px;
   margin: 0 auto;
   padding-left: 24px;
   padding-right: 24px;
@@ -5596,7 +6111,7 @@ button:focus-visible,
 }
 .pk-collist-card__count {
   font-size: 13px;
-  color: #888;
+  color: var(--pk-muted);
   margin: 0;
 }
 
@@ -5750,7 +6265,7 @@ button:focus-visible,
   flex-shrink: 0;
 }
 .pk-explore__chip:hover {
-  background: #fff;
+  background: var(--pk-paper);
   border-color: var(--pk-ink, #0F1A0E);
   transform: translateX(4px);
 }
@@ -5772,7 +6287,7 @@ button:focus-visible,
 
 /* Product card */
 .pk-explore__card {
-  background: #fff;
+  background: var(--pk-paper);
   border: 1px solid var(--pk-border, #E5E0F0);
   border-radius: 16px;
   overflow: hidden;
@@ -5837,7 +6352,7 @@ button:focus-visible,
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: #888;
+  color: var(--pk-muted);
   margin-bottom: 6px;
 }
 .pk-explore__card-title {
@@ -5887,7 +6402,7 @@ button:focus-visible,
 }
 .pk-explore__empty-body {
   font-size: 14px;
-  color: #666;
+  color: var(--pk-muted);
   margin: 0;
 }
 
@@ -6233,12 +6748,20 @@ button:focus-visible,
 
 .pk-section__h {
   font-family: var(--pk-font, 'Outfit', system-ui, sans-serif);
-  font-size: var(--pk-fs-h2, 26px);
+  font-size: clamp(26px, 3.5vw, 38px);
   font-weight: 700;
   margin: 0;
   color: var(--pk-ink);
-  line-height: 1.2;
-  letter-spacing: -0.01em;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.pk-section__sub {
+  color: var(--pk-muted);
+  font-size: var(--pk-fs-body, 15px);
+  line-height: 1.55;
+  margin: 8px 0 0;
+  max-width: 58ch;
 }
 
 .pk-section__see-all {
@@ -6268,16 +6791,29 @@ button:focus-visible,
 
 /* ── 1. hero-split ─────────────────────────────────────────────── */
 .pk-section--hero-split {
-  background: var(--pk-paper);
-  padding: 40px 0 56px;
+  background: var(--pk-cream);
+  padding: 48px 0 64px;
+  position: relative;
+}
+.pk-section--hero-split::before {
+  /* Warm textile-weave gradient stand-in (clay→marigold→jade tint).
+   * Real Antigravity image drops into this slot later. */
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg,
+    rgba(190, 69, 30, 0.04) 0%,
+    rgba(232, 160, 32, 0.03) 40%,
+    rgba(14, 124, 91, 0.03) 100%);
+  pointer-events: none;
 }
 
 .pk-hero-split {
   display: grid;
-  grid-template-columns: 5fr 7fr;
-  gap: 40px;
+  grid-template-columns: minmax(0, 4.8fr) minmax(0, 7.2fr);
+  gap: 32px;
   align-items: center;
-  min-height: 520px;
+  min-height: 500px;
 }
 
 .pk-hero-split__copy {
@@ -6288,10 +6824,10 @@ button:focus-visible,
 
 .pk-hero-split__heading {
   font-family: var(--pk-font, 'Outfit', system-ui, sans-serif);
-  font-size: var(--pk-fs-display, 52px);
-  font-weight: 700;
-  line-height: 1.02;
-  letter-spacing: -0.02em;
+  font-size: clamp(44px, 6vw, 64px);
+  font-weight: 800;
+  line-height: 0.98;
+  letter-spacing: -0.03em;
   color: var(--pk-ink);
   margin: 0;
 }
@@ -6317,11 +6853,88 @@ button:focus-visible,
   margin: 4px 0 0;
 }
 
+.pk-hero-split__stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  margin: 10px 0 0;
+  border: 1px solid var(--pk-line);
+  border-radius: var(--pk-r-lg, 8px);
+  overflow: hidden;
+  background: var(--pk-paper);
+}
+
+.pk-hero-split__stats div {
+  padding: 12px 14px;
+}
+
+.pk-hero-split__stats div + div {
+  border-left: 1px solid var(--pk-line);
+}
+
+.pk-hero-split__stats dt {
+  color: var(--pk-ink);
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1;
+  margin: 0 0 4px;
+}
+
+.pk-hero-split__stats dd {
+  color: var(--pk-muted);
+  font-size: 12px;
+  line-height: 1.25;
+  margin: 0;
+}
+
+.pk-hero-storefront {
+  background: var(--pk-white);
+  border: 1px solid var(--pk-line);
+  border-radius: var(--pk-r-2xl, 12px);
+  box-shadow: var(--pk-sh-2, 0 2px 8px rgba(23, 20, 16, 0.08));
+  overflow: hidden;
+}
+
+.pk-hero-storefront__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 56px;
+  padding: 0 18px;
+  border-bottom: 1px solid var(--pk-line);
+}
+
+.pk-hero-storefront__head span {
+  color: var(--pk-ink);
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.pk-hero-storefront__head a {
+  color: var(--pk-muted);
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.pk-hero-storefront__head a:hover {
+  color: var(--pk-ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.pk-hero-storefront__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(220px, 0.75fr);
+  gap: 0;
+}
+
 .pk-hero-split__media {
   position: relative;
   aspect-ratio: 1 / 1;
   background: var(--pk-cream);
-  border-radius: var(--pk-r-2xl, 12px);
   overflow: hidden;
 }
 
@@ -6330,6 +6943,41 @@ button:focus-visible,
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+.pk-hero-departments {
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid var(--pk-line);
+}
+
+.pk-hero-departments__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 54px;
+  padding: 0 18px;
+  color: var(--pk-ink);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 1px solid var(--pk-line);
+  transition: background 0.2s ease, padding 0.2s ease;
+}
+
+.pk-hero-departments__link:last-child {
+  border-bottom: 0;
+}
+
+.pk-hero-departments__link:hover {
+  background: var(--pk-cream);
+  padding-right: 14px;
+}
+
+.pk-hero-departments__link:focus-visible {
+  outline: var(--pk-focus-outline, 2px solid var(--pk-ink));
+  outline-offset: -2px;
 }
 
 @media (max-width: 900px) {
@@ -6344,11 +6992,347 @@ button:focus-visible,
   .pk-hero-split__media {
     aspect-ratio: 4 / 3;
   }
+  .pk-hero-storefront__grid {
+    grid-template-columns: 1fr;
+  }
+  .pk-hero-departments {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-left: 0;
+    border-top: 1px solid var(--pk-line);
+  }
+  .pk-hero-departments__link {
+    min-height: 52px;
+  }
+  .pk-hero-departments__link:nth-child(odd) {
+    border-right: 1px solid var(--pk-line);
+  }
+  .pk-hero-departments__link:nth-last-child(-n + 2) {
+    border-bottom: 0;
+  }
 }
 
-/* ── 2. shop-by-category ──────────────────────────────────────── */
+@media (max-width: 520px) {
+  .pk-hero-storefront__head {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
+    padding: 12px 16px;
+  }
+  .pk-hero-departments {
+    grid-template-columns: 1fr;
+  }
+  .pk-hero-departments__link,
+  .pk-hero-departments__link:nth-child(odd) {
+    border-right: 0;
+  }
+  .pk-hero-departments__link:nth-last-child(2) {
+    border-bottom: 1px solid var(--pk-line);
+  }
+}
+
+/* ════════════════════════════════════════════════════════════
+   HERO — "mercadito moderno" redesign (v6)
+   Bolder editorial type, a terracotta primary CTA, editorial
+   stats, and a color-coded department directory (market-stall
+   accents). These rules follow the base hero block above so they
+   win on cascade order.
+   ════════════════════════════════════════════════════════════ */
+.pk-section--hero-split {
+  background:
+    radial-gradient(130% 120% at 88% 0%, var(--pk-cream) 0%, transparent 58%),
+    var(--pk-paper);
+  padding: 64px 0 72px;
+}
+
+.pk-hero-split {
+  grid-template-columns: 1.05fr 0.95fr;
+  min-height: auto;
+  gap: 44px;
+  align-items: center;
+}
+
+.pk-hero-split__copy {
+  gap: 22px;
+  max-width: 640px;
+}
+
+/* Eyebrow becomes a terracotta pill instead of plain small caps. */
+.pk-hero-split__copy .pk-eyebrow {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 6px 13px;
+  border-radius: var(--pk-r-pill, 999px);
+  background: var(--pk-ember);
+  color: var(--pk-white);
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.pk-hero-split__heading {
+  font-size: clamp(40px, 4.8vw, 62px);
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+.pk-hero-split__body {
+  font-size: 16px;
+  max-width: 46ch;
+}
+
+/* Primary CTA is terracotta — the boldest moment on the page.
+   Secondary stays the ink outline. */
+.pk-hero-split__ctas .pk-btn--ink {
+  background: var(--pk-ember);
+  border-color: var(--pk-ember);
+  color: var(--pk-white);
+}
+.pk-hero-split__ctas .pk-btn--ink:hover {
+  background: var(--pk-ember-hover);
+  border-color: var(--pk-ember-hover);
+}
+
+/* Stats: drop the boxed frame for an editorial three-up with big
+   numerals under a single strong rule. */
+.pk-hero-split__stats {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  border-top: 2px solid var(--pk-ink);
+  padding-top: 16px;
+  margin-top: 14px;
+}
+.pk-hero-split__stats div {
+  padding: 0 18px 0 0;
+}
+.pk-hero-split__stats div + div {
+  border-left: 1px solid var(--pk-line);
+  padding-left: 18px;
+}
+.pk-hero-split__stats dt {
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+/* Directory card — warm paper with an ink header bar and a soft
+   offset block behind it (deliberate, not a soft blur). */
+.pk-hero-storefront {
+  background: var(--pk-paper);
+  border: 1.5px solid var(--pk-ink);
+  border-radius: 16px;
+  box-shadow: 12px 12px 0 var(--pk-cream);
+}
+.pk-hero-storefront__head {
+  background: var(--pk-ink);
+  border-bottom: 0;
+}
+.pk-hero-storefront__head span {
+  color: var(--pk-paper);
+}
+.pk-hero-storefront__head a {
+  color: var(--pk-cream);
+}
+.pk-hero-storefront__head a:hover {
+  color: var(--pk-white);
+}
+
+/* Color-coded department directory — each row a market-stall accent. */
+.pk-hero-departments__link {
+  border-left: 4px solid var(--pk-ember);
+  font-weight: 800;
+}
+.pk-hero-departments__link:nth-child(4n + 2) {
+  border-left-color: var(--pk-jade);
+}
+.pk-hero-departments__link:nth-child(4n + 3) {
+  border-left-color: var(--pk-cobalt);
+}
+.pk-hero-departments__link:nth-child(4n + 4) {
+  border-left-color: var(--pk-marigold);
+}
+.pk-hero-departments__link:hover {
+  background: var(--pk-cream);
+  padding-left: 22px;
+}
+
+/* ── 2. shop-by-category — mercado stalls ─────────────────────── */
 .pk-section--shop-by-category {
   background: var(--pk-cream);
+  position: relative;
+  overflow: hidden;
+}
+.pk-section--shop-by-category::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 40% 50% at 90% 10%, rgba(190, 69, 30, 0.04), transparent 60%),
+    radial-gradient(ellipse 40% 50% at 10% 90%, rgba(14, 124, 91, 0.04), transparent 55%);
+  pointer-events: none;
+}
+.pk-section--shop-by-category > .pk-section__inner { position: relative; z-index: 1; }
+
+.pk-stalls {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pk-stall {
+  list-style: none;
+}
+
+.pk-stall__link {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 152px;
+  padding: 20px;
+  border: 2px solid var(--pk-ink);
+  border-radius: 14px;
+  background: var(--pk-ember);
+  color: var(--pk-white);
+  text-decoration: none;
+  box-shadow: 8px 8px 0 var(--pk-cream);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.pk-stall__link:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 10px 10px 0 var(--pk-cream);
+}
+
+.pk-stall__link:focus-visible {
+  outline: 2px solid var(--pk-ink);
+  outline-offset: 3px;
+}
+
+.pk-stall__label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+.pk-stall__title {
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  margin: 8px 0 0;
+  line-height: 1.15;
+}
+
+.pk-stall__arrow {
+  align-self: flex-end;
+  margin-top: auto;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+/* Rotating market palette across the 8 stalls. */
+.pk-stall:nth-child(8n + 1) .pk-stall__link { background: var(--pk-ember); }
+.pk-stall:nth-child(8n + 2) .pk-stall__link { background: var(--pk-jade); }
+.pk-stall:nth-child(8n + 3) .pk-stall__link { background: var(--pk-cobalt); }
+.pk-stall:nth-child(8n + 4) .pk-stall__link {
+  background: var(--pk-marigold);
+  color: var(--pk-ink);
+}
+.pk-stall:nth-child(8n + 5) .pk-stall__link { background: var(--pk-rosa); }
+.pk-stall:nth-child(8n + 6) .pk-stall__link { background: var(--pk-violet); }
+.pk-stall:nth-child(8n + 7) .pk-stall__link { background: var(--pk-jade); }
+.pk-stall:nth-child(8n + 8) .pk-stall__link { background: var(--pk-ember); }
+
+@media (max-width: 900px) {
+  .pk-stalls { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+}
+@media (max-width: 520px) {
+  .pk-stalls { grid-template-columns: 1fr; }
+}
+
+/* ── Hero awning — color-stripe brand panel with logo sign ────── */
+.pk-hero-awning {
+  aspect-ratio: 1 / 1;
+  border: 2px solid var(--pk-ink);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 12px 12px 0 var(--pk-cream);
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  position: relative;
+  background: var(--pk-ink);
+}
+.pk-hero-awning span { display: block; }
+.pk-hero-awning span:nth-child(1) { background: var(--pk-ember); }
+.pk-hero-awning span:nth-child(2) { background: var(--pk-marigold); }
+.pk-hero-awning span:nth-child(3) { background: var(--pk-jade); }
+.pk-hero-awning span:nth-child(4) { background: var(--pk-cobalt); }
+.pk-hero-awning span:nth-child(5) { background: var(--pk-rosa); }
+.pk-hero-awning span:nth-child(6) { background: var(--pk-violet); }
+.pk-hero-awning__sign {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--pk-paper);
+  border: 2px solid var(--pk-ink);
+  border-radius: 16px;
+  padding: 24px 32px;
+  box-shadow: 6px 6px 0 rgba(23, 20, 16, 0.28);
+}
+.pk-hero-awning__logo {
+  width: 210px;
+  max-width: 44vw;
+  height: auto;
+  display: block;
+}
+@media (max-width: 900px) {
+  .pk-hero-awning { max-width: 420px; }
+}
+
+/* ── Chunky "mercado" buttons — 2px border, bold, sentence case ── */
+.pk-btn {
+  border-radius: 10px;
+  border-width: 2px;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: none;
+  padding: 14px 26px;
+}
+.pk-btn--lg { height: auto; padding: 15px 28px; border-radius: 10px; font-size: 15.5px; }
+.pk-btn--ink {
+  background: var(--pk-ink);
+  color: var(--pk-paper);
+  border-color: var(--pk-ink);
+}
+.pk-btn--ink:hover {
+  background: var(--pk-ink-hover);
+  border-color: var(--pk-ink-hover);
+  color: var(--pk-paper);
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 var(--pk-cream);
+}
+.pk-btn--outline {
+  background: transparent;
+  color: var(--pk-ink);
+  border-color: var(--pk-ink);
+}
+.pk-btn--outline:hover {
+  background: var(--pk-ink);
+  color: var(--pk-paper);
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 var(--pk-cream);
 }
 
 .pk-cat-grid {
@@ -6408,24 +7392,70 @@ button:focus-visible,
  * product image nor a collection image. A calm 1–2 letter mark
  * on cream, sized to fill the 1:1 well. Visually distinct from
  * the product-image tiles so the section never looks broken. */
-.pk-cat-tile__monogram {
+/* Logo placeholder — shown when a category has neither a product
+ * photo nor a collection image. A white Puchica logo silhouette on
+ * a rotating festival-accent block: reads as intentional brand
+ * signage, not a broken image. Only placeholder tiles get this
+ * (image tiles render an <img>, not this element). */
+.pk-cat-tile__placeholder {
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background:
-    radial-gradient(circle at 30% 20%, var(--pk-paper) 0%, transparent 55%),
-    var(--pk-cream);
+  padding: 20%;
+  box-sizing: border-box;
+  background: var(--pk-ember); /* terracotta default; rotated below */
 }
 
-.pk-cat-tile__monogram-glyph {
-  font-size: 56px;
-  font-weight: 700;
-  letter-spacing: -0.04em;
-  color: var(--pk-ink);
-  opacity: 0.18;
-  line-height: 1;
+.pk-cat-tile:nth-child(4n + 2) .pk-cat-tile__placeholder { background: var(--pk-jade); }
+.pk-cat-tile:nth-child(4n + 3) .pk-cat-tile__placeholder { background: var(--pk-cobalt); }
+.pk-cat-tile:nth-child(4n + 4) .pk-cat-tile__placeholder { background: var(--pk-marigold); }
+
+.pk-cat-tile__placeholder-logo {
+  width: 100%;
+  height: auto;
+  /* Flatten the multicolor logo to a solid white silhouette so it
+   * sits cleanly on any accent color. */
+  filter: brightness(0) invert(1);
+  opacity: 0.92;
+}
+
+/* Marigold is light — a dark silhouette stays legible on it. */
+.pk-cat-tile:nth-child(4n + 4) .pk-cat-tile__placeholder-logo {
+  filter: brightness(0);
+  opacity: 0.82;
+}
+
+/* ── Shared media placeholder ──────────────────────────────────
+ * Branded logo on an accent panel, used by the hero and lifestyle
+ * wells when the loader has no image (e.g. an empty best-sellers
+ * collection). Fills the layout on-brand instead of a blank box. */
+.pk-media-placeholder {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14%;
+  box-sizing: border-box;
+  background: var(--pk-ember);
+  border-radius: inherit;
+}
+
+.pk-media-placeholder--cobalt { background: var(--pk-cobalt); }
+.pk-media-placeholder--jade { background: var(--pk-jade); }
+
+/* The lifestyle well is a 5:4, not a square. */
+.pk-lifestyle .pk-media-placeholder { aspect-ratio: 5 / 4; }
+
+.pk-media-placeholder__logo {
+  width: 100%;
+  max-width: 360px;
+  height: auto;
+  /* Flatten the multicolor logo to a white silhouette for any accent. */
+  filter: brightness(0) invert(1);
+  opacity: 0.9;
 }
 
 .pk-cat-tile__body {
@@ -6466,7 +7496,17 @@ button:focus-visible,
 /* ── 3. best-sellers ───────────────────────────────────────────── */
 .pk-section--best-sellers {
   background: var(--pk-paper);
+  position: relative;
+  overflow: hidden;
 }
+.pk-section--best-sellers::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 50% 40% at 70% 20%, rgba(232, 160, 32, 0.03), transparent 60%);
+  pointer-events: none;
+}
+.pk-section--best-sellers > .pk-section__inner { position: relative; z-index: 1; }
 
 .pk-product-grid {
   display: grid;
@@ -6499,10 +7539,34 @@ button:focus-visible,
   }
 }
 
-/* ── 4. lifestyle-banner ───────────────────────────────────────── */
+/* ── 4. lifestyle-banner — BOLD DARK BAND ────────────────────────
+ * Full-bleed warm espresso ink with a subtle volcanic gradient
+ * texture stand-in. Light text, warm accents. This is the page's
+ * bold rhythm break — the dark band that makes the cream sections
+ * around it pop. Real duotone coffee/volcano image drops in later. */
 .pk-section--lifestyle {
-  background: var(--pk-paper);
+  background: var(--pk-ink);
+  color: var(--pk-paper);
+  position: relative;
+  overflow: hidden;
 }
+.pk-section--lifestyle::before {
+  /* Volcanic gradient stand-in: ember glow rising from the bottom-left,
+   * jade tint from the top-right. Low opacity so text stays readable.
+   * Real Antigravity duotone volcano/coffee image drops into this slot. */
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 15% 100%, rgba(190, 69, 30, 0.18), transparent 60%),
+    radial-gradient(ellipse 70% 50% at 90% 0%, rgba(14, 124, 91, 0.12), transparent 55%),
+    linear-gradient(160deg, rgba(232, 160, 32, 0.04) 0%, transparent 50%);
+  pointer-events: none;
+}
+.pk-section--lifestyle > .pk-section__inner { position: relative; z-index: 1; }
+.pk-section--lifestyle .pk-eyebrow { color: var(--pk-marigold); }
+.pk-section--lifestyle .pk-section__h { color: var(--pk-paper); }
+.pk-section--lifestyle .pk-lifestyle__body { color: rgba(252, 247, 238, 0.72); }
 
 .pk-lifestyle {
   display: grid;
@@ -6513,7 +7577,8 @@ button:focus-visible,
 
 .pk-lifestyle__media {
   aspect-ratio: 5 / 4;
-  background: var(--pk-cream);
+  background: rgba(252, 247, 238, 0.06);
+  border: 1px solid rgba(252, 247, 238, 0.12);
   border-radius: var(--pk-r-2xl, 12px);
   overflow: hidden;
 }
@@ -6523,6 +7588,34 @@ button:focus-visible,
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+/* Collage fallback — 4-tile color grid when no product image */
+.pk-lifestyle__collage {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  width: 100%;
+  height: 100%;
+  gap: 4px;
+  padding: 4px;
+  box-sizing: border-box;
+}
+.pk-lifestyle__collage-tile {
+  border-radius: 8px;
+  position: relative;
+}
+.pk-lifestyle__collage-tile--1 {
+  background: linear-gradient(135deg, var(--pk-ember), var(--pk-marigold));
+}
+.pk-lifestyle__collage-tile--2 {
+  background: linear-gradient(135deg, var(--pk-jade), var(--pk-jade-hover));
+}
+.pk-lifestyle__collage-tile--3 {
+  background: linear-gradient(135deg, var(--pk-cobalt), var(--pk-rosa));
+}
+.pk-lifestyle__collage-tile--4 {
+  background: linear-gradient(135deg, var(--pk-violet), var(--pk-ink));
 }
 
 .pk-lifestyle__copy {
@@ -6538,6 +7631,19 @@ button:focus-visible,
   color: var(--pk-muted);
   margin: 0;
   max-width: 44ch;
+}
+
+/* On the dark band the CTA inverts: cream bg, ink text */
+.pk-section--lifestyle .pk-btn--ink {
+  background: var(--pk-paper);
+  color: var(--pk-ink);
+  border-color: var(--pk-paper);
+}
+.pk-section--lifestyle .pk-btn--ink:hover {
+  background: var(--pk-marigold);
+  border-color: var(--pk-marigold);
+  color: var(--pk-ink);
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3);
 }
 
 @media (max-width: 900px) {
@@ -6653,12 +7759,12 @@ button:focus-visible,
   background: var(--pk-paper);
 }
 
-/* ── 5c. world-cup ───────────────────────────────────────────── */
+/* ── 5c. soccer jerseys (was world-cup) ─────────────────────── */
 /* Cream background with a thin ember accent stripe under the
- * heading. The World Cup 2026 is a campaign, and the audit's
- * design system allows ember for "commercial meaning" -- one
- * token application keeps it on-brand without over-saturating
- * the page. */
+ * heading. International soccer jerseys and gear — Canada,
+ * Portugal, Argentina, Brasil, Italy, Mexico, England, France.
+ * Broadened from "World Cup 2026" so it's not time-limited and
+ * can expand to other sports. */
 .pk-section--world-cup {
   background: var(--pk-cream);
   position: relative;
@@ -6672,8 +7778,7 @@ button:focus-visible,
   margin-top: 10px;
   border-radius: 2px;
 }
-/* Campaign section: the eyebrow ("Limited time") carries commercial
-   meaning, so it keeps ember while regular section eyebrows are muted. */
+/* The eyebrow carries the "rep your country" commercial vibe. */
 .pk-section--world-cup .pk-eyebrow {
   color: var(--pk-ember);
 }
@@ -6681,9 +7786,10 @@ button:focus-visible,
 /* ── 6. trust-bar ──────────────────────────────────────────────── */
 .pk-section--trust {
   background: var(--pk-paper);
-  padding: 32px 0;
+  padding: 36px 0;
   border-top: 1px solid var(--pk-line);
   border-bottom: 1px solid var(--pk-line);
+  position: relative;
 }
 
 .pk-trust {
@@ -6744,10 +7850,24 @@ button:focus-visible,
   }
 }
 
-/* ── 7. reviews ────────────────────────────────────────────────── */
+/* ── 7. reviews — warm cream with textile texture ─────────────── */
 .pk-section--reviews {
   background: var(--pk-cream);
+  position: relative;
+  overflow: hidden;
 }
+.pk-section--reviews::before {
+  /* Subtle textile-weave gradient stand-in. Real duotone textile
+   * image drops into this slot later. */
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 50% 60% at 80% 20%, rgba(232, 160, 32, 0.05), transparent 60%),
+    radial-gradient(ellipse 40% 50% at 10% 80%, rgba(190, 69, 30, 0.04), transparent 55%);
+  pointer-events: none;
+}
+.pk-section--reviews > .pk-section__inner { position: relative; z-index: 1; }
 
 .pk-reviews {
   display: grid;
@@ -6814,11 +7934,62 @@ button:focus-visible,
   }
 }
 
-/* ── 8. newsletter-footer ──────────────────────────────────────── */
+/* ── 8. newsletter-footer — BOLD TERRACOTTA BLOCK ───────────────
+ * Full-bleed terracotta (ember) block — the comp's rhythm: cream
+ * reviews above, dark footer below, terracotta sandwiched between.
+ * Light text on warm clay. Real duotone textile image drops in later. */
 .pk-section--newsletter {
+  background: var(--pk-ember);
+  color: var(--pk-paper);
+  padding: 72px 0;
+  border-top: none;
+  position: relative;
+  overflow: hidden;
+}
+.pk-section--newsletter::before {
+  /* Textile-weave gradient stand-in: warm clay base with a subtle
+   * marigold thread pattern from the top-right. */
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 80% at 100% 0%, rgba(232, 160, 32, 0.22), transparent 55%),
+    radial-gradient(ellipse 50% 70% at 0% 100%, rgba(111, 48, 29, 0.25), transparent 50%);
+  pointer-events: none;
+}
+.pk-section--newsletter > .pk-section__inner { position: relative; z-index: 1; }
+.pk-section--newsletter .pk-eyebrow { color: rgba(252, 247, 238, 0.7); }
+.pk-section--newsletter .pk-section__h { color: var(--pk-paper); }
+.pk-section--newsletter .pk-newsletter__body { color: rgba(252, 247, 238, 0.82); }
+.pk-section--newsletter .pk-newsletter__promise { color: rgba(252, 247, 238, 0.6); }
+
+/* Form fields on terracotta: translucent white fill, paper text */
+.pk-section--newsletter .pk-newsletter__input {
+  background: rgba(252, 247, 238, 0.12);
+  border-color: rgba(252, 247, 238, 0.25);
+  color: var(--pk-paper);
+}
+.pk-section--newsletter .pk-newsletter__input::placeholder {
+  color: rgba(252, 247, 238, 0.5);
+}
+.pk-section--newsletter .pk-newsletter__input:focus {
+  border-color: var(--pk-paper);
+  outline-color: var(--pk-paper);
+}
+/* Submit button inverts on terracotta: paper bg, ember text */
+.pk-section--newsletter .pk-newsletter__submit,
+.pk-section--newsletter .pk-btn--ink {
   background: var(--pk-paper);
-  padding: 64px 0;
-  border-top: 1px solid var(--pk-line);
+  color: var(--pk-ember);
+  border-color: var(--pk-paper);
+}
+.pk-section--newsletter .pk-newsletter__submit:hover,
+.pk-section--newsletter .pk-btn--ink:hover {
+  background: var(--pk-ink);
+  color: var(--pk-paper);
+  border-color: var(--pk-ink);
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
 }
 
 .pk-newsletter {
@@ -6896,6 +8067,1553 @@ button:focus-visible,
     grid-template-columns: 1fr;
     gap: 24px;
   }
+}
+
+/* ── 9. brand-story — "Puchica's roots" SOUL BAND ───────────────
+ * Full-bleed dark espresso ink with a warm volcanic gradient
+ * texture (Lake Atitlán / coffee terraces / textiles). This is
+ * the band that makes Puchica unmistakably Central American — a moment
+ * of soul between the product rails. Real duotone image drops in
+ * later; the gradient stand-in carries the warmth now. */
+.pk-section--brand-story {
+  background: var(--pk-ink);
+  color: var(--pk-paper);
+  padding: 88px 0;
+  position: relative;
+  overflow: hidden;
+}
+.pk-section--brand-story::before {
+  /* Volcanic landscape gradient stand-in:
+   *   - ember/clay glow from the bottom (volcano base)
+   *   - jade green from the top-right (Lake Atitlán)
+   *   - marigold thread from the left (textile warmth)
+   * Low opacity so text stays readable. Real Antigravity duotone
+   * coffee/volcano/textile image drops into this exact slot. */
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 90% 50% at 50% 100%, rgba(190, 69, 30, 0.20), transparent 65%),
+    radial-gradient(ellipse 60% 40% at 85% 15%, rgba(14, 124, 91, 0.15), transparent 55%),
+    radial-gradient(ellipse 40% 60% at 0% 50%, rgba(232, 160, 32, 0.06), transparent 50%);
+  pointer-events: none;
+}
+.pk-section--brand-story > .pk-section__inner { position: relative; z-index: 1; }
+
+.pk-brand-story {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+.pk-brand-story__content {
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: center;
+}
+.pk-brand-story__heading {
+  font-family: var(--pk-font, 'Outfit', system-ui, sans-serif);
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--pk-paper);
+  margin: 0;
+}
+.pk-brand-story__body {
+  font-size: 17px;
+  line-height: 1.65;
+  color: rgba(252, 247, 238, 0.75);
+  margin: 0;
+}
+.pk-brand-story__signature {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--pk-marigold);
+  margin: 8px 0 0;
+  text-transform: uppercase;
+}
+
+@media (max-width: 700px) {
+  .pk-section--brand-story { padding: 56px 0; }
+  .pk-brand-story__heading { font-size: 26px; }
+  .pk-brand-story__body { font-size: 15px; }
+}
+
+/* ── 10. coffee-spotlight — JADE BAND (Highland Coffee) ──────── */
+.pk-section--coffee-spotlight {
+  background: var(--pk-jade);
+  color: var(--pk-paper);
+  padding: 80px 0;
+  position: relative;
+  overflow: hidden;
+}
+.pk-section--coffee-spotlight::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 100%, rgba(190, 69, 30, 0.18), transparent 60%),
+    radial-gradient(ellipse 50% 40% at 90% 10%, rgba(232, 160, 32, 0.12), transparent 55%);
+  pointer-events: none;
+}
+.pk-section--coffee-spotlight > .pk-section__inner { position: relative; z-index: 1; }
+.pk-coffee-spotlight {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+.pk-coffee-spotlight__content {
+  max-width: 680px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: center;
+}
+.pk-coffee-spotlight__heading {
+  font-family: var(--pk-font);
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--pk-paper);
+  margin: 0;
+}
+.pk-coffee-spotlight__body {
+  font-size: 17px;
+  line-height: 1.65;
+  color: rgba(252, 247, 238, 0.78);
+  margin: 0;
+}
+.pk-coffee-spotlight__stats {
+  display: flex;
+  gap: 0;
+  margin-top: 16px;
+  border: 1px solid rgba(252, 247, 238, 0.2);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.pk-coffee-spotlight__stat {
+  padding: 16px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+}
+.pk-coffee-spotlight__stat + .pk-coffee-spotlight__stat {
+  border-left: 1px solid rgba(252, 247, 238, 0.15);
+}
+.pk-coffee-spotlight__stat-value {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--pk-marigold);
+  line-height: 1;
+}
+.pk-coffee-spotlight__stat-label {
+  font-size: 12px;
+  color: rgba(252, 247, 238, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+@media (max-width: 700px) {
+  .pk-section--coffee-spotlight { padding: 52px 0; }
+  .pk-coffee-spotlight__heading { font-size: 26px; }
+  .pk-coffee-spotlight__body { font-size: 15px; }
+  .pk-coffee-spotlight__stats { flex-direction: column; }
+  .pk-coffee-spotlight__stat + .pk-coffee-spotlight__stat {
+    border-left: none;
+    border-top: 1px solid rgba(252, 247, 238, 0.15);
+  }
+}
+
+/* ── 11. textile-showcase — MARIGOLD BAND (Woven by hand) ─────── */
+.pk-section--textile-showcase {
+  background: var(--pk-marigold);
+  color: var(--pk-ink);
+  padding: 80px 0;
+  position: relative;
+  overflow: hidden;
+}
+.pk-section--textile-showcase::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 70% at 100% 0%, rgba(190, 69, 30, 0.15), transparent 55%),
+    radial-gradient(ellipse 50% 60% at 0% 100%, rgba(14, 124, 91, 0.08), transparent 50%);
+  pointer-events: none;
+}
+.pk-section--textile-showcase > .pk-section__inner { position: relative; z-index: 1; }
+.pk-textile-showcase {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+.pk-textile-showcase__content {
+  max-width: 680px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+.pk-textile-showcase__heading {
+  font-family: var(--pk-font);
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--pk-ink);
+  margin: 0;
+}
+.pk-textile-showcase__body {
+  font-size: 17px;
+  line-height: 1.65;
+  color: rgba(30, 23, 18, 0.72);
+  margin: 0;
+}
+.pk-textile-showcase__patterns {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+/* Department tiles — bold color links to real collections */
+.pk-dept-tiles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  list-style: none;
+  margin: 24px 0 0;
+  padding: 0;
+  width: 100%;
+  max-width: 680px;
+}
+.pk-dept-tile { list-style: none; }
+.pk-dept-tile__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 18px;
+  border-radius: 10px;
+  border: 2px solid var(--pk-ink);
+  background: var(--pk-ink);
+  color: var(--pk-paper);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 14px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.pk-dept-tile__link:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.25);
+}
+.pk-dept-tile__link--ember { background: var(--pk-ember); border-color: var(--pk-ember); color: var(--pk-paper); }
+.pk-dept-tile__link--cobalt { background: var(--pk-cobalt); border-color: var(--pk-cobalt); color: var(--pk-paper); }
+.pk-dept-tile__link--rosa { background: var(--pk-rosa); border-color: var(--pk-rosa); color: var(--pk-paper); }
+.pk-dept-tile__link--jade { background: var(--pk-jade); border-color: var(--pk-jade); color: var(--pk-paper); }
+.pk-dept-tile__link--marigold { background: var(--pk-marigold); border-color: var(--pk-ink); color: var(--pk-ink); }
+.pk-dept-tile__link--violet { background: var(--pk-violet); border-color: var(--pk-violet); color: var(--pk-paper); }
+.pk-dept-tile__arrow { font-size: 18px; }
+@media (max-width: 700px) {
+  .pk-dept-tiles { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 700px) {
+  .pk-section--textile-showcase { padding: 52px 0; }
+  .pk-textile-showcase__heading { font-size: 26px; }
+  .pk-textile-showcase__body { font-size: 15px; }
+  .pk-textile-showcase__pattern { width: 36px; height: 36px; }
+}
+
+/* ── 12. how-we-curate — cream band with 3 steps ─────────────── */
+.pk-section--how-we-curate {
+  background: var(--pk-cream);
+  position: relative;
+  overflow: hidden;
+}
+.pk-section--how-we-curate::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 40% 50% at 80% 30%, rgba(232, 160, 32, 0.04), transparent 60%),
+    radial-gradient(ellipse 40% 50% at 20% 70%, rgba(14, 124, 91, 0.04), transparent 55%);
+  pointer-events: none;
+}
+.pk-section--how-we-curate > .pk-section__inner { position: relative; z-index: 1; }
+.pk-curate__heading {
+  font-size: clamp(26px, 3.5vw, 36px) !important;
+}
+.pk-curate {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.pk-curate__step {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.pk-curate__num {
+  font-family: var(--pk-font);
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--pk-ember);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.pk-curate__h {
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--pk-ink);
+  margin: 0;
+  line-height: 1.2;
+}
+.pk-curate__body {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--pk-muted);
+  margin: 0;
+}
+@media (max-width: 900px) {
+  .pk-curate { grid-template-columns: 1fr; gap: 24px; }
+}
+
+/* ════════════════════════════════════════════════════════════════
+   COLLECTION PAGES — Bold Design System Upgrade
+   Full-bleed headers, warm gradient textures, festival-palette
+   collection cards, and friendly empty states. Matches the
+   homepage's bold section pattern: edge-to-edge bands with content
+   held in a 1280px container.
+   ════════════════════════════════════════════════════════════════ */
+
+/* ── Full-bleed collection page wrapper ──────────────────────────
+ * When .pk-collection--bold is the direct child of <main>, null out
+ * main's max-width and padding so the header band runs edge-to-edge.
+ * Body content below the header is held by .pk-collection__inner
+ * (1280px + gutters), matching the homepage .pk-inner pattern. */
+main:has(> .pk-collection--bold) {
+  max-width: none;
+  padding: 0;
+}
+
+.pk-collection--bold {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Inner content column — mirrors .pk-inner / .pk-section__inner */
+.pk-collection__inner {
+  margin: 0 auto;
+  padding: 0 24px;
+  width: 100%;
+  max-width: var(--pk-inner-max, 1280px);
+  box-sizing: border-box;
+}
+
+/* ── Breadcrumbs (bold variant — sits inside the inner column) ── */
+.pk-collection--bold .pk-breadcrumbs {
+  margin: 18px 0;
+}
+
+/* ── Full-bleed collection hero band ────────────────────────────
+ * Edge-to-edge warm gradient texture background. Content held
+ * inside .pk-collection__inner at 1280px. Uses ::before for the
+ * radial gradient overlay (same pattern as homepage sections). */
+.pk-col-hero--bold {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: var(--pk-cream);
+  padding: 56px 0 48px;
+  isolation: isolate;
+}
+
+/* Warm radial gradient texture overlay */
+.pk-col-hero--bold::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 50% 60% at 85% 20%, rgba(190, 69, 30, 0.10), transparent 60%),
+    radial-gradient(ellipse 40% 50% at 10% 80%, rgba(14, 124, 91, 0.08), transparent 55%),
+    radial-gradient(ellipse 30% 40% at 50% 50%, rgba(232, 160, 32, 0.05), transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Optional collection image as faded background */
+.pk-col-hero--bold .pk-col-hero__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.14;
+  z-index: 0;
+}
+
+.pk-col-hero--bold > .pk-collection__inner {
+  position: relative;
+  z-index: 1;
+}
+
+.pk-col-hero--bold .pk-col-hero__eyebrow {
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--pk-ember);
+  margin-bottom: 10px;
+}
+
+.pk-col-hero--bold .pk-col-hero__title {
+  font-family: var(--pk-font, 'Outfit', system-ui, sans-serif);
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  margin: 0 0 12px;
+  color: var(--pk-ink);
+}
+
+.pk-col-hero--bold .pk-col-hero__sub {
+  font-size: 16px;
+  line-height: 1.55;
+  margin: 0 0 20px;
+  max-width: 640px;
+  color: var(--pk-muted);
+}
+
+.pk-col-hero--bold .pk-col-hero__count {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: var(--pk-paper);
+  border: 1.5px solid var(--pk-ink);
+  color: var(--pk-ink);
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow: 4px 4px 0 var(--pk-cream);
+}
+
+/* Inert glow spans from older routes — keep hidden in bold variant */
+.pk-col-hero--bold .pk-col-hero__glow,
+.pk-col-hero--bold .pk-col-hero__glow--ember {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .pk-col-hero--bold { padding: 36px 0 32px; }
+}
+
+/* ── Collection body (below header) ──────────────────────────── */
+.pk-collection--bold .pk-col-main {
+  max-width: var(--pk-inner-max, 1280px);
+  margin: 0 auto;
+  padding: 0 24px 64px;
+  box-sizing: border-box;
+}
+
+/* ── Product grid (bold variant — warm polish) ────────────────── */
+.pk-collection--bold .pk-prod-grid {
+  gap: 20px;
+}
+
+/* ── Collections list page — bold festival card grid ────────────
+ * Each collection card gets a rotating festival-palette background
+ * (ember, jade, cobalt, marigold, rosa, violet) matching the
+ * homepage category stalls. The card is a bold colored tile with
+ * white text, a 2px ink border, and a chunky cream drop shadow. */
+.pk-collist-grid--bold {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  list-style: none;
+  margin: 0;
+  padding: 0 24px 64px;
+  max-width: var(--pk-inner-max, 1280px);
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
+.pk-collist-card--bold {
+  display: block;
+  text-decoration: none;
+  border: 2px solid var(--pk-ink);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 8px 8px 0 var(--pk-cream);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  background: var(--pk-ember);
+  color: var(--pk-white);
+  min-height: 200px;
+}
+
+.pk-collist-card--bold:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 10px 10px 0 var(--pk-cream);
+}
+
+.pk-collist-card--bold:focus-visible {
+  outline: 2px solid var(--pk-ink);
+  outline-offset: 4px;
+}
+
+/* Rotating festival palette across collection cards */
+.pk-collist-card--bold:nth-child(6n + 1) { background: var(--pk-ember); color: var(--pk-white); }
+.pk-collist-card--bold:nth-child(6n + 2) { background: var(--pk-jade); color: var(--pk-white); }
+.pk-collist-card--bold:nth-child(6n + 3) { background: var(--pk-cobalt); color: var(--pk-white); }
+.pk-collist-card--bold:nth-child(6n + 4) { background: var(--pk-marigold); color: var(--pk-ink); }
+.pk-collist-card--bold:nth-child(6n + 5) { background: var(--pk-rosa); color: var(--pk-white); }
+.pk-collist-card--bold:nth-child(6n + 6) { background: var(--pk-violet); color: var(--pk-white); }
+
+/* Card media area — shows image if present, or gradient fallback */
+.pk-collist-card--bold .pk-collist-card__media {
+  aspect-ratio: 16 / 10;
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+
+.pk-collist-card--bold .pk-collist-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.pk-collist-card--bold:hover .pk-collist-card__media img {
+  transform: scale(1.06);
+}
+
+.pk-collist-card--bold .pk-collist-card__fallback-icon {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.9;
+}
+
+/* Card body — sits on the colored background */
+.pk-collist-card--bold .pk-collist-card__body {
+  padding: 16px 20px 20px;
+}
+
+.pk-collist-card--bold .pk-collist-card__title {
+  font-size: 18px;
+  font-weight: 800;
+  margin: 0 0 4px;
+  color: inherit;
+  letter-spacing: -0.01em;
+}
+
+.pk-collist-card--bold .pk-collist-card__count {
+  font-size: 13px;
+  font-weight: 600;
+  margin: 0;
+  opacity: 0.85;
+}
+
+/* Chip badge on card media */
+.pk-collist-card--bold .pk-collist-card__chip {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 2;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--pk-ink);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* Featured cards span 2 columns */
+.pk-collist-card--bold.pk-collist-card--featured {
+  grid-column: span 2;
+}
+
+@media (max-width: 900px) {
+  .pk-collist-grid--bold {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .pk-collist-card--bold.pk-collist-card--featured {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 600px) {
+  .pk-collist-grid--bold {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .pk-collist-card--bold.pk-collist-card--featured {
+    grid-column: span 1;
+  }
+}
+
+/* ── Empty state (bold variant — warm friendly message) ──────── */
+.pk-empty--bold {
+  max-width: var(--pk-inner-max, 1280px);
+  margin: 0 auto;
+  padding: 64px 24px 80px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.pk-empty--bold .pk-empty__card {
+  display: inline-block;
+  background: var(--pk-cream);
+  border: 2px dashed var(--pk-line);
+  border-radius: 16px;
+  padding: 48px 40px;
+  max-width: 480px;
+}
+
+.pk-empty--bold .pk-empty__icon {
+  font-size: 40px;
+  display: block;
+  margin-bottom: 16px;
+  opacity: 0.6;
+}
+
+.pk-empty--bold .pk-empty__title {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--pk-ink);
+  margin: 0 0 10px;
+  letter-spacing: -0.01em;
+}
+
+.pk-empty--bold .pk-empty__body {
+  font-size: 15px;
+  margin: 0;
+  line-height: 1.6;
+  color: var(--pk-muted);
+}
+
+.pk-empty--bold .pk-empty__reset {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 8px 20px;
+  border: 2px solid var(--pk-ink);
+  border-radius: 999px;
+  background: var(--pk-paper);
+  color: var(--pk-ink);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.pk-empty--bold .pk-empty__reset:hover {
+  background: var(--pk-ink);
+  color: var(--pk-paper);
+}
+
+/* ════════════════════════════════════════════════════════════════
+   CART PAGE — warm design system upgrade
+   ════════════════════════════════════════════════════════════════ */
+
+/* Warm cream background with subtle gradient texture for the cart
+   page wrapper. The .cart class is the original Hydrogen wrapper;
+   .pk-cart-page adds the warm system on top without removing any
+   existing rules. */
+.pk-cart-page {
+  background:
+    radial-gradient(ellipse 60% 40% at 50% 0%, rgba(232, 160, 32, 0.05), transparent 70%),
+    linear-gradient(180deg, var(--pk-paper) 0%, var(--pk-cream) 100%);
+  min-height: 60vh;
+  padding-bottom: 48px;
+}
+
+.pk-cart-page__inner {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 28px 20px 0;
+}
+
+.pk-cart-page__head {
+  margin-bottom: 20px;
+}
+
+.pk-cart-page__eyebrow {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--pk-ember);
+  margin-bottom: 4px;
+}
+
+.pk-cart-page__title {
+  font-size: clamp(28px, 4vw, 38px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--pk-ink);
+  margin: 0;
+}
+
+/* The page-level free shipping bar inherits the existing .pk-freeship
+   styling from CartMain, but on the page layout we want it in a
+   rounded card that sits between the header and the cart items. */
+.pk-cart-page .pk-freeship {
+  border-radius: 12px;
+  border: 1px solid var(--pk-line);
+  margin-bottom: 20px;
+}
+
+/* Trust signals row — below the checkout button / CartMain */
+.pk-cart-trust {
+  list-style: none;
+  margin: 24px auto 0;
+  padding: 16px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 24px;
+  background: var(--pk-cream);
+  border: 1px solid var(--pk-line);
+  border-radius: 12px;
+  max-width: 720px;
+}
+
+.pk-cart-trust__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--pk-muted);
+}
+
+.pk-cart-trust__icon {
+  display: inline-grid;
+  place-items: center;
+  color: var(--pk-jade);
+}
+
+/* Warm up the cart line items on the page layout — rounded corners
+   and warm borders. These override the existing .cart-line rules
+   only within the page context. */
+.pk-cart-page .cart-line {
+  padding: 16px 16px;
+  border: 1px solid var(--pk-line);
+  border-radius: 12px;
+  margin-bottom: 12px;
+  background: var(--pk-paper);
+  transition: border-color 0.15s ease;
+}
+.pk-cart-page .cart-line:hover {
+  border-color: var(--pk-ember);
+}
+.pk-cart-page .cart-line:last-child {
+  border-bottom: 1px solid var(--pk-line);
+}
+
+/* The page-level summary gets a warm card treatment */
+.pk-cart-page .cart-summary-page {
+  border-top: 2px solid var(--pk-line);
+  margin-top: 32px;
+  padding-top: 24px;
+}
+
+/* The checkout button already uses --pk-ember via .cart-summary-checkout,
+   but we make it a bit bolder on the page layout */
+.pk-cart-page .cart-summary-checkout a {
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+/* Empty cart state — warm background to match the page */
+.pk-cart-page .pk-empty-cart {
+  background: transparent;
+}
+
+@media (max-width: 700px) {
+  .pk-cart-page__inner { padding: 20px 16px 0; }
+  .pk-cart-trust { gap: 8px 16px; padding: 12px 16px; }
+  .pk-cart-trust__item { font-size: 12.5px; }
+}
+
+/* ════════════════════════════════════════════════════════════════
+   SEARCH PAGE — warm design system upgrade
+   ════════════════════════════════════════════════════════════════ */
+
+/* Warm background for the search page — not plain white */
+.pk-search-page {
+  background:
+    radial-gradient(ellipse 50% 30% at 50% 0%, rgba(232, 160, 32, 0.04), transparent 70%),
+    var(--pk-paper);
+  border-radius: 0;
+  min-height: 60vh;
+}
+
+/* Page-level search form — larger, warm-styled, bold border */
+.pk-search__form--page {
+  padding: 0;
+  border-bottom: none;
+  background: transparent;
+  margin-bottom: 8px;
+}
+
+.pk-search__input--page {
+  height: 52px;
+  font-size: 16px;
+  border: 2px solid var(--pk-line);
+  border-radius: 14px;
+  background: var(--pk-cream);
+  padding-left: 48px;
+  font-weight: 500;
+}
+.pk-search__input--page:focus {
+  border-color: var(--pk-ember);
+  background: var(--pk-paper);
+  box-shadow: 0 0 0 4px rgba(190, 69, 30, 0.12);
+}
+
+.pk-search__submit--page {
+  height: 52px;
+  font-size: 15px;
+  font-weight: 800;
+  border-radius: 14px;
+  padding: 0 24px;
+}
+
+/* Adjust search icon position for the larger input */
+.pk-search__form--page .pk-search__icon {
+  left: 16px;
+}
+
+/* Zero-state — trending search chips */
+.pk-search-zero {
+  margin-top: 40px;
+  padding: 32px 24px;
+  background: var(--pk-cream);
+  border: 1px solid var(--pk-line);
+  border-radius: 16px;
+  text-align: center;
+}
+
+.pk-search-zero__label {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--pk-muted);
+  margin-bottom: 16px;
+}
+
+.pk-search-zero__chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.pk-search-zero__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 38px;
+  padding: 0 18px;
+  border-radius: 999px;
+  border: 2px solid var(--pk-line);
+  background: var(--pk-paper);
+  color: var(--pk-ink);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+.pk-search-zero__chip:hover {
+  border-color: var(--pk-ember);
+  background: var(--pk-paper);
+  color: var(--pk-ember);
+}
+
+.pk-search-zero__hint {
+  font-size: 14px;
+  color: var(--pk-muted);
+  line-height: 1.5;
+  max-width: 440px;
+  margin: 0 auto;
+}
+
+@media (max-width: 700px) {
+  .pk-search-zero { padding: 24px 16px; margin-top: 24px; }
+  .pk-search-zero__chip { height: 34px; padding: 0 14px; font-size: 13px; }
+  .pk-search__input--page { height: 48px; font-size: 15px; }
+  .pk-search__submit--page { height: 48px; }
+}
+
+/* ════════════════════════════════════════════════════════════════
+   EXPLORE PAGE — warm design system upgrade
+   ════════════════════════════════════════════════════════════════ */
+
+/* Warm background with subtle gradient texture */
+.pk-explore--warm {
+  background:
+    radial-gradient(ellipse 50% 30% at 50% 0%, rgba(232, 160, 32, 0.04), transparent 70%),
+    radial-gradient(ellipse 40% 50% at 80% 100%, rgba(14, 124, 91, 0.03), transparent 60%),
+    var(--pk-paper);
+  border-radius: 0;
+}
+
+/* Warm hero variant — cream background instead of dark ink */
+.pk-col-hero--warm {
+  background: var(--pk-cream);
+  border: 1px solid var(--pk-line);
+  color: var(--pk-ink);
+}
+.pk-col-hero--warm .pk-col-hero__eyebrow {
+  color: var(--pk-ember);
+}
+.pk-col-hero--warm .pk-col-hero__title {
+  color: var(--pk-ink);
+}
+.pk-col-hero--warm .pk-col-hero__count {
+  background: var(--pk-paper);
+  border: 1px solid var(--pk-line);
+  color: var(--pk-muted);
+}
+
+/* Warm filter card */
+.pk-explore__filter-card--warm {
+  background: var(--pk-paper);
+  border: 1px solid var(--pk-line);
+  box-shadow: 0 4px 20px rgba(30, 23, 18, 0.04);
+}
+.pk-explore__filter-card--warm .pk-explore__filter-head {
+  border-bottom: 1px solid var(--pk-line);
+}
+.pk-explore__filter-card--warm .pk-explore__filter-clear {
+  color: var(--pk-ember);
+}
+.pk-explore__filter-card--warm .pk-explore__filter-clear:hover {
+  background: rgba(190, 69, 30, 0.08);
+}
+
+/* Warm chips */
+.pk-explore--warm .pk-explore__chip {
+  border-color: var(--pk-line);
+  background: var(--pk-paper);
+  color: var(--pk-ink);
+}
+.pk-explore--warm .pk-explore__chip:hover {
+  background: var(--pk-cream);
+  border-color: var(--pk-ink);
+}
+.pk-explore--warm .pk-explore__chip.is-active {
+  background: var(--pk-ink);
+  color: var(--pk-paper);
+  border-color: var(--pk-ink);
+}
+.pk-explore--warm .pk-explore__chip.is-active .pk-explore__chip-bullet {
+  background: var(--pk-marigold);
+}
+
+/* Warm product cards */
+.pk-explore__card--warm {
+  background: var(--pk-paper);
+  border: 1px solid var(--pk-line);
+  border-radius: 16px;
+}
+.pk-explore__card--warm:hover {
+  border-color: var(--pk-ember);
+  box-shadow: 0 12px 32px rgba(190, 69, 30, 0.08);
+}
+.pk-explore__card--warm .pk-explore__card-media {
+  background: var(--pk-cream);
+}
+.pk-explore__card--warm .pk-explore__card-placeholder {
+  background: linear-gradient(135deg, var(--pk-cream) 0%, var(--pk-line) 100%);
+}
+.pk-explore__card--warm .pk-explore__card-collection {
+  color: var(--pk-ember);
+}
+.pk-explore__card--warm .pk-explore__card-title {
+  color: var(--pk-ink);
+}
+.pk-explore__card--warm .pk-explore__card-foot {
+  border-top: 1px solid var(--pk-line);
+}
+.pk-explore__card--warm .pk-explore__card-price {
+  color: var(--pk-ember);
+  font-weight: 800;
+}
+
+/* Warm empty state */
+.pk-explore--warm .pk-explore__empty {
+  background: var(--pk-paper);
+  border: 1px dashed var(--pk-line);
+}
+.pk-explore--warm .pk-explore__empty-title {
+  color: var(--pk-ink);
+}
+.pk-explore--warm .pk-explore__empty-body {
+  color: var(--pk-muted);
+}
+
+/* ── Recently Viewed rail ─────────────────────────────────────── */
+.pk-section--recently-viewed {
+  background: var(--pk-paper);
+  padding: 56px 0;
+}
+.pk-recently-viewed__track {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  list-style: none;
+  margin: 0;
+  padding: 4px 4px 12px;
+}
+.pk-recently-viewed__track::-webkit-scrollbar { display: none; }
+.pk-recently-viewed__item {
+  flex: 0 0 200px;
+  scroll-snap-align: start;
+  list-style: none;
+}
+.pk-recently-viewed__link {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-decoration: none;
+  color: var(--pk-ink);
+}
+.pk-recently-viewed__media {
+  aspect-ratio: 1 / 1;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--pk-line);
+  background: var(--pk-cream);
+}
+.pk-recently-viewed__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+.pk-recently-viewed__link:hover .pk-recently-viewed__media img {
+  transform: scale(1.05);
+}
+.pk-recently-viewed__title {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.pk-recently-viewed__price {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--pk-ember);
+}
+
+/* ════════════════════════════════════════════════════════════════
+   SHIPPING PAGE — pk-shipping
+   Dark hero, coverage region tiles, rates cards, how-it-works
+   steps, tracking section, and CTA. Mirrors the about page
+   structure but with the pk-shipping prefix.
+   ════════════════════════════════════════════════════════════════ */
+.pk-shipping {
+  background: var(--pk-cream);
+  color: var(--pk-ink);
+}
+
+/* Hero */
+.pk-shipping-hero {
+  position: relative;
+  background: var(--pk-ink);
+  color: var(--pk-paper);
+  padding: 120px 0 96px;
+  overflow: hidden;
+  text-align: center;
+  width: 100%;
+}
+.pk-shipping-hero__glow {
+  position: absolute;
+  top: -20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(14, 124, 91, 0.22) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+.pk-shipping-hero__inner {
+  position: relative;
+  z-index: 1;
+  margin: 0 auto;
+  padding-left: 24px;
+  padding-right: 24px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.pk-shipping-hero__eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--pk-paper);
+  display: block;
+  margin-bottom: 24px;
+}
+.pk-shipping-hero__title {
+  font-family: var(--pk-font-display);
+  font-size: clamp(36px, 6vw, 72px);
+  font-weight: 800;
+  letter-spacing: -2.5px;
+  line-height: 1.04;
+  margin: 0 0 24px;
+  color: var(--pk-paper);
+}
+.pk-shipping-hero__em {
+  color: var(--pk-paper);
+}
+.pk-shipping-hero__sub {
+  font-size: 18px;
+  color: rgba(244, 240, 230, 0.72);
+  line-height: 1.65;
+  max-width: 620px;
+  margin: 0 auto 40px;
+}
+
+/* Regions grid */
+.pk-shipping-regions {
+  padding: 96px 0;
+  background: var(--pk-cream);
+  width: 100%;
+}
+.pk-shipping-regions__inner {
+  margin: 0 auto;
+  padding-left: 24px;
+  padding-right: 24px;
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 1280px;
+}
+.pk-shipping-regions__head {
+  text-align: center;
+  margin-bottom: 56px;
+}
+.pk-shipping-regions__eye {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--pk-jade);
+  display: block;
+  margin-bottom: 16px;
+}
+.pk-shipping-regions__title {
+  font-family: var(--pk-font-display);
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  line-height: 1.1;
+  margin: 0 0 16px;
+  color: var(--pk-ink);
+}
+.pk-shipping-regions__sub {
+  font-size: 17px;
+  color: var(--pk-muted);
+  line-height: 1.6;
+  max-width: 560px;
+  margin: 0 auto;
+}
+.pk-shipping-regions__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.pk-shipping-regions__tile {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 160px;
+  padding: 22px 20px;
+  border-radius: 14px;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.18s ease;
+}
+.pk-shipping-regions__tile::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.14), transparent 55%);
+  pointer-events: none;
+}
+.pk-shipping-regions__tile:hover {
+  transform: translateY(-3px);
+}
+.pk-shipping-regions__tile--ember    { background: var(--pk-ember); }
+.pk-shipping-regions__tile--jade     { background: var(--pk-jade); }
+.pk-shipping-regions__tile--cobalt   { background: var(--pk-cobalt); }
+.pk-shipping-regions__tile--marigold { background: var(--pk-marigold); color: var(--pk-marigold-ink); }
+.pk-shipping-regions__tile--rosa     { background: var(--pk-rosa); }
+.pk-shipping-regions__tile--violet   { background: var(--pk-violet); }
+.pk-shipping-regions__name {
+  font-family: var(--pk-font-display);
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1.15;
+  display: block;
+  margin-bottom: 6px;
+  position: relative;
+  z-index: 1;
+}
+.pk-shipping-regions__tag {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.45;
+  opacity: 0.88;
+  position: relative;
+  z-index: 1;
+}
+
+/* Rates */
+.pk-shipping-rates {
+  padding: 96px 0;
+  background: var(--pk-paper);
+  width: 100%;
+}
+.pk-shipping-rates__inner {
+  margin: 0 auto;
+  padding-left: 24px;
+  padding-right: 24px;
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 1200px;
+}
+.pk-shipping-rates__head {
+  text-align: center;
+  margin-bottom: 56px;
+}
+.pk-shipping-rates__eye {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--pk-ember);
+  display: block;
+  margin-bottom: 16px;
+}
+.pk-shipping-rates__title {
+  font-family: var(--pk-font-display);
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  line-height: 1.1;
+  margin: 0 0 16px;
+  color: var(--pk-ink);
+}
+.pk-shipping-rates__sub {
+  font-size: 17px;
+  color: var(--pk-muted);
+  line-height: 1.6;
+  max-width: 620px;
+  margin: 0 auto;
+}
+.pk-shipping-rates__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.pk-shipping-rates__card {
+  display: flex;
+  flex-direction: column;
+  padding: 32px 28px;
+  border-radius: 14px;
+  border: 1px solid var(--pk-line);
+  background: #fff;
+}
+.pk-shipping-rates__flag {
+  font-family: var(--pk-font-display);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  color: #fff;
+  background: var(--pk-ink);
+  border-radius: 999px;
+  padding: 5px 12px;
+  align-self: flex-start;
+  margin-bottom: 20px;
+}
+.pk-shipping-rates__card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+.pk-shipping-rates__card-title {
+  font-family: var(--pk-font-display);
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1.15;
+  margin: 0;
+  color: var(--pk-ink);
+}
+.pk-shipping-rates__badge {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #fff;
+  background: var(--pk-jade);
+  border-radius: 999px;
+  padding: 4px 10px;
+  white-space: nowrap;
+}
+.pk-shipping-rates__card-body {
+  font-size: 15px;
+  color: var(--pk-muted);
+  line-height: 1.6;
+  margin: 0 0 20px;
+}
+.pk-shipping-rates__eta {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--pk-ink);
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid var(--pk-line);
+}
+
+/* How it works */
+.pk-shipping-how {
+  padding: 96px 0;
+  background: var(--pk-cream);
+  width: 100%;
+}
+.pk-shipping-how__inner {
+  margin: 0 auto;
+  padding-left: 24px;
+  padding-right: 24px;
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 1200px;
+}
+.pk-shipping-how__head {
+  text-align: center;
+  margin-bottom: 56px;
+}
+.pk-shipping-how__eye {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--pk-jade);
+  display: block;
+  margin-bottom: 16px;
+}
+.pk-shipping-how__title {
+  font-family: var(--pk-font-display);
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  line-height: 1.1;
+  margin: 0;
+  color: var(--pk-ink);
+}
+.pk-shipping-how__steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+.pk-shipping-how__step {
+  padding: 28px 24px;
+  border-radius: 14px;
+  background: var(--pk-paper);
+  border: 1px solid var(--pk-line);
+}
+.pk-shipping-how__n {
+  font-family: var(--pk-font-display);
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: -1px;
+  color: var(--pk-ember);
+  display: block;
+  margin-bottom: 14px;
+}
+.pk-shipping-how__step-title {
+  font-family: var(--pk-font-display);
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: -0.4px;
+  line-height: 1.2;
+  margin: 0 0 10px;
+  color: var(--pk-ink);
+}
+.pk-shipping-how__step-body {
+  font-size: 15px;
+  color: var(--pk-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Tracking */
+.pk-shipping-track {
+  padding: 96px 0;
+  background: var(--pk-paper);
+  width: 100%;
+}
+.pk-shipping-track__inner {
+  margin: 0 auto;
+  padding-left: 24px;
+  padding-right: 24px;
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 56px;
+  align-items: center;
+}
+.pk-shipping-track__copy {
+  max-width: 560px;
+}
+.pk-shipping-track__eye {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--pk-ember);
+  display: block;
+  margin-bottom: 16px;
+}
+.pk-shipping-track__title {
+  font-family: var(--pk-font-display);
+  font-size: clamp(26px, 3.6vw, 40px);
+  font-weight: 800;
+  letter-spacing: -1.2px;
+  line-height: 1.1;
+  margin: 0 0 18px;
+  color: var(--pk-ink);
+}
+.pk-shipping-track__body {
+  font-size: 16px;
+  color: var(--pk-muted);
+  line-height: 1.65;
+  margin: 0 0 16px;
+}
+.pk-shipping-track__visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+}
+.pk-shipping-track__dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--pk-cream);
+  border: 3px solid var(--pk-jade);
+  flex-shrink: 0;
+}
+.pk-shipping-track__dot--end {
+  background: var(--pk-jade);
+}
+.pk-shipping-track__line {
+  flex: 1 1 auto;
+  height: 3px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--pk-jade), var(--pk-ember));
+  min-width: 40px;
+}
+
+/* CTA */
+.pk-shipping-cta {
+  padding: 96px 0;
+  background: var(--pk-ink);
+  color: var(--pk-paper);
+  text-align: center;
+  width: 100%;
+}
+.pk-shipping-cta__inner {
+  margin: 0 auto;
+  padding-left: 24px;
+  padding-right: 24px;
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 720px;
+}
+.pk-shipping-cta__title {
+  font-family: var(--pk-font-display);
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  line-height: 1.1;
+  margin: 0 0 16px;
+  color: var(--pk-paper);
+}
+.pk-shipping-cta__sub {
+  font-size: 17px;
+  color: rgba(244, 240, 230, 0.72);
+  line-height: 1.6;
+  margin: 0 0 32px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .pk-shipping-regions__grid { grid-template-columns: repeat(2, 1fr); }
+  .pk-shipping-rates__grid { grid-template-columns: 1fr; }
+  .pk-shipping-how__steps { grid-template-columns: 1fr; }
+  .pk-shipping-track__inner { grid-template-columns: 1fr; gap: 32px; }
+}
+@media (max-width: 560px) {
+  .pk-shipping-hero { padding: 88px 0 64px; }
+  .pk-shipping-hero__inner { padding-left: 20px; padding-right: 20px; }
+  .pk-shipping-regions,
+  .pk-shipping-rates,
+  .pk-shipping-how,
+  .pk-shipping-track,
+  .pk-shipping-cta { padding: 64px 0; }
+  .pk-shipping-regions__inner,
+  .pk-shipping-rates__inner,
+  .pk-shipping-how__inner,
+  .pk-shipping-track__inner,
+  .pk-shipping-cta__inner { padding-left: 20px; padding-right: 20px; }
 }
 
 /* ── Sr-only (utility) ─────────────────────────────────────────── */

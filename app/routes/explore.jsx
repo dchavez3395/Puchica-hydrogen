@@ -165,7 +165,6 @@ export default function ExplorePage() {
 
   const allProducts = Array.from(productMap.values());
   const productCount = allProducts.length;
-  const collectionCount = visibleCollections.length;
 
   // Toggle a category on/off
   function toggleCategory(handle) {
@@ -188,14 +187,14 @@ export default function ExplorePage() {
   }
 
   return (
-    <div className="pk-explore">
+    <div className="pk-explore pk-explore--warm">
       <nav className="pk-breadcrumbs" aria-label={t('breadcrumb_aria')}>
         <Link to="/">{t('explore_home')}</Link>
         <span className="pk-breadcrumbs__sep">/</span>
         <span className="pk-breadcrumbs__current">{t('explore_breadcrumb')}</span>
       </nav>
 
-      <header className="pk-col-hero">
+      <header className="pk-col-hero pk-col-hero--warm">
         <div className="pk-col-hero__glow" aria-hidden />
         <div className="pk-col-hero__glow pk-col-hero__glow--ember" aria-hidden />
         <span className="pk-col-hero__eyebrow">{t('explore_eyebrow')}</span>
@@ -205,7 +204,7 @@ export default function ExplorePage() {
 
       <div className="pk-explore__body">
         <aside className="pk-explore__filter" aria-label={t('explore_cat_filter_aria')}>
-          <div className="pk-explore__filter-card">
+          <div className="pk-explore__filter-card pk-explore__filter-card--warm">
             <div className="pk-explore__filter-head">
               <span className="pk-explore__filter-title">{t('explore_filter_title')}</span>
               {selectedCats.length > 0 && (
@@ -230,7 +229,7 @@ export default function ExplorePage() {
                     aria-pressed={isFiltered}
                   >
                     <span className="pk-explore__chip-bullet" style={{
-                      backgroundColor: isFiltered ? 'var(--pk-ember, #A83800)' : 'var(--pk-border, #E8E3D8)'
+                      backgroundColor: isFiltered ? 'var(--pk-ember)' : 'var(--pk-line)'
                     }} />
                     {handleToLabel(handle, t)}
                   </button>
@@ -258,7 +257,7 @@ export default function ExplorePage() {
           ) : (
             <div className="pk-explore__grid">
               {allProducts.map((product, index) => (
-                <div key={product.id} className="pk-explore__card">
+                <div key={product.id} className="pk-explore__card pk-explore__card--warm">
                   <Link
                     to={`/products/${product.handle}`}
                     prefetch="intent"

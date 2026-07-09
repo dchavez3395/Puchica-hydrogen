@@ -12,7 +12,7 @@ import {useT} from '~/lib/t';
  */
 export function BestSellers({products = []}) {
   const t = useT();
-  const items = products.slice(0, 4);
+  const items = products.slice(0, 8);
 
   if (!items.length) return null;
 

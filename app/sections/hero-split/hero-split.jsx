@@ -1,25 +1,14 @@
-import {Image} from '@shopify/hydrogen';
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {useT} from '~/lib/t';
+import {STORE_LOGO_URL} from '~/lib/brand';
 
 /**
- * 5/7 desktop, stacked mobile. Display heading + 1-line sub + primary
- * CTA + secondary CTA + trust line. No carousel, no autoplay, no
- * parallax — the audit calls these out as the source of poor LCP
- * on social-referral mobile traffic.
- *
- * The hero image is now sourced from real product data (a best-seller
- * `featuredImage`) rather than a hard-coded CDN URL — the previous
- * hard-coded URL was a 404 in this store, so the section was rendering
- * a broken image. If no image is supplied, the cream media well still
- * shows up so layout stays stable; we just skip the <Image>.
- *
- * @param {{
- *   image?: { url: string; altText?: string; width?: number; height?: number } | null;
- *   link?: string;
- * }}
+ * Hero — big editorial statement on the left, a color-stripe "awning"
+ * brand panel on the right with the Puchica logo on a hanging market
+ * sign. No hero image and no carousel: the awning carries brand color
+ * and identity on its own, so the hero never shows an empty well.
  */
-export function HeroSplit({image = null, link = '/collections/best-sellers'}) {
+export function HeroSplit() {
   const t = useT();
 
   return (
@@ -49,25 +38,35 @@ export function HeroSplit({image = null, link = '/collections/best-sellers'}) {
             </Link>
           </div>
           <p className="pk-hero-split__trust">{t('hero_split_trust')}</p>
+          <dl
+            className="pk-hero-split__stats"
+            aria-label={t('hero_store_stats_aria')}
+          >
+            <div>
+              <dt>6,000+</dt>
+              <dd>{t('hero_store_stat_products')}</dd>
+            </div>
+            <div>
+              <dt>8</dt>
+              <dd>{t('hero_store_stat_departments')}</dd>
+            </div>
+            <div>
+              <dt>$0</dt>
+              <dd>{t('hero_store_stat_shipping')}</dd>
+            </div>
+          </dl>
         </div>
-        <div className="pk-hero-split__media">
-          {image ? (
-            <Link
-              to={link}
-              prefetch="intent"
-              aria-label={image.altText || t('hero_split_cta_primary')}
-            >
-              <Image
-                className="pk-hero-split__img"
-                data={image}
-                alt={image.altText || ''}
-                aspectRatio="1/1"
-                sizes="(min-width: 900px) 60vw, 100vw"
-                loading="eager"
-                {...{fetchpriority: 'high'}}
-              />
-            </Link>
-          ) : null}
+
+        <div className="pk-hero-awning" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <div className="pk-hero-awning__sign">
+            <img className="pk-hero-awning__logo" src={STORE_LOGO_URL} alt="" />
+          </div>
         </div>
       </div>
     </section>

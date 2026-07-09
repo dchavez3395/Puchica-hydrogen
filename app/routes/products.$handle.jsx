@@ -28,6 +28,7 @@ import {puchicaMeta, canonical, SITE_URL, breadcrumbJsonLd, JsonLdScript} from '
 import {getJudgemeBadge} from '~/lib/judgeme';
 import {ReviewStars, JudgemeReviews} from '~/components/JudgemeReviews';
 import {recordRecentlyViewed} from '~/lib/recentlyViewed';
+import {RecentlyViewed} from '~/components/RecentlyViewed';
 import {useT} from '~/lib/t';
 
 /** @type {Route.MetaFunction} */
@@ -132,17 +133,21 @@ export default function Product() {
         <span className="pk-breadcrumbs__current">{title}</span>
       </nav>
 
-      {/* ── Top: gallery + sticky buy box ── */}
-      <div className="pk-product__top">
-        <ProductImage
-          images={galleryImages}
-          initialIndex={0}
-          productTitle={title}
-          modelUrl={product.model3dUrl?.value || null}
-          accentColor={product.accentColor?.value || null}
-        />
+      {/* ── Top: gallery + sticky buy box ──
+          Full-bleed warm cream header with subtle gradient texture so
+          the product hero sits on the warm paper, not flat white. */}
+      <div className="pk-product__hero-band">
+        <div className="pk-product__hero-band-inner">
+          <div className="pk-product__top">
+            <ProductImage
+              images={galleryImages}
+              initialIndex={0}
+              productTitle={title}
+              modelUrl={product.model3dUrl?.value || null}
+              accentColor={product.accentColor?.value || null}
+            />
 
-        <div className="pk-product__info">
+            <div className="pk-product__info">
           {/* Buy column in funnel order (audit §4): category → title →
               rating → price (+ save %) → options/qty/ATC → promise →
               trust → accordions. No scroll reveals — the buy column
@@ -183,6 +188,37 @@ export default function Product() {
               product={{handle: product.handle, title: product.title, featuredImage: product.featuredImage}}
             />
           </div>
+
+          {/* ── Trust bar — the 3 honest dropshipping promises, right
+              below the add-to-cart button. Warm-styled badges, no
+              false "in stock now" claims. This is a dropshipping
+              store, so "Ships within 24 hours" is the honest framing. */}
+          <ul className="pk-product__trustbar" aria-label={t('product_perks_aria')}>
+            <li className="pk-product__trustbar-item">
+              <span className="pk-product__trustbar-icon" aria-hidden>
+                <IconTruck size={18} />
+              </span>
+              <span className="pk-product__trustbar-text">
+                <strong>Free shipping over $75</strong>
+              </span>
+            </li>
+            <li className="pk-product__trustbar-item">
+              <span className="pk-product__trustbar-icon" aria-hidden>
+                <IconReturn size={18} />
+              </span>
+              <span className="pk-product__trustbar-text">
+                <strong>30-day returns</strong>
+              </span>
+            </li>
+            <li className="pk-product__trustbar-item">
+              <span className="pk-product__trustbar-icon" aria-hidden>
+                <IconSparkles size={18} />
+              </span>
+              <span className="pk-product__trustbar-text">
+                <strong>Ships within 24 hours</strong>
+              </span>
+            </li>
+          </ul>
 
           {/* ── Shipping promise well — the strongest care signal,
               directly under the buy button (audit §4 buy-column order). */}
@@ -254,6 +290,8 @@ export default function Product() {
           </div>
 
           <ShareRow product={product} t={t} />
+            </div>
+          </div>
         </div>
       </div>
 
@@ -263,6 +301,8 @@ export default function Product() {
       />
 
       <Recommendations data={recommendations} t={t} />
+
+      <RecentlyViewed currentHandle={product.handle} />
 
       <MobileCart product={product} selectedVariant={selectedVariant} t={t} />
 
@@ -403,7 +443,8 @@ function Recommendations({data, t}) {
   const products = data?.productRecommendations ?? [];
   if (!products.length) return null;
   return (
-    <section className="pk-reco" aria-label={t('product_reco_title')}>
+    <section className="pk-reco pk-reco--warm" aria-label={t('product_reco_title')}>
+      <div className="pk-reco__inner">
       <div className="pk-reco__head">
         <h2 className="pk-reco__title">{t('product_reco_title')}</h2>
         <Link to="/collections/all" className="pk-reco__see-all">
@@ -417,6 +458,7 @@ function Recommendations({data, t}) {
             <ProductItem product={p} />
           </div>
         ))}
+      </div>
       </div>
     </section>
   );

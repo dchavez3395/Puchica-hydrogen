@@ -58,37 +58,41 @@ export default function Collections() {
   const count = nodes.length;
 
   return (
-    <div className="pk-collection">
-      <nav
-        className="pk-breadcrumbs"
-        aria-label={t('col_index_breadcrumb_aria')}
-      >
-        <Link to="/">{t('col_index_breadcrumb_home')}</Link>
-        <span className="pk-breadcrumbs__sep">/</span>
-        <span className="pk-breadcrumbs__current">
-          {t('col_index_breadcrumb_current')}
-        </span>
-      </nav>
+    <div className="pk-collection pk-collection--bold">
+      <header className="pk-col-hero pk-col-hero--bold">
+        <div className="pk-collection__inner">
+          <nav
+            className="pk-breadcrumbs"
+            aria-label={t('col_index_breadcrumb_aria')}
+          >
+            <Link to="/">{t('col_index_breadcrumb_home')}</Link>
+            <span className="pk-breadcrumbs__sep">/</span>
+            <span className="pk-breadcrumbs__current">
+              {t('col_index_breadcrumb_current')}
+            </span>
+          </nav>
 
-      <header className="pk-col-hero">
-        <div className="pk-col-hero__glow" aria-hidden />
-        <span className="pk-col-hero__eyebrow">{t('col_index_eyebrow')}</span>
-        <h1 className="pk-col-hero__title">{t('col_index_h')}</h1>
-        <p className="pk-col-hero__sub">{t('col_index_sub')}</p>
-        {count > 0 && (
-          <span className="pk-col-hero__count">{t('col_index_count')}</span>
-        )}
+          <span className="pk-col-hero__eyebrow">{t('col_index_eyebrow')}</span>
+          <h1 className="pk-col-hero__title">{t('col_index_h')}</h1>
+          <p className="pk-col-hero__sub">{t('col_index_sub')}</p>
+          {count > 0 && (
+            <span className="pk-col-hero__count">{t('col_index_count')}</span>
+          )}
+        </div>
       </header>
 
       {count === 0 ? (
-        <div className="pk-empty">
-          <p className="pk-empty__title">{t('col_index_empty_h')}</p>
-          <p className="pk-empty__body">{t('col_index_empty_body')}</p>
+        <div className="pk-empty pk-empty--bold">
+          <div className="pk-empty__card">
+            <span className="pk-empty__icon" aria-hidden>🛒</span>
+            <p className="pk-empty__title">{t('col_index_empty_h')}</p>
+            <p className="pk-empty__body">{t('col_index_empty_body')}</p>
+          </div>
         </div>
       ) : (
         <PaginatedResourceSection
           connection={collections}
-          resourcesClassName="pk-collist-grid"
+          resourcesClassName="pk-collist-grid pk-collist-grid--bold"
         >
           {({node: collection, index}) => (
             <CollectionItem
@@ -116,7 +120,9 @@ function CollectionItem({collection, index}) {
   const image = adminImage || productImage;
   const theme = collectionTheme(collection.title);
   const isFeatured = FEATURED_HANDLES.has(collection.handle);
-  const cardClass = isFeatured ? 'pk-collist-card pk-collist-card--featured' : 'pk-collist-card';
+  const cardClass = isFeatured
+    ? 'pk-collist-card pk-collist-card--bold pk-collist-card--featured'
+    : 'pk-collist-card pk-collist-card--bold';
 
   return (
     <div className={cardClass}>
@@ -146,10 +152,7 @@ function CollectionItem({collection, index}) {
               {categoryIcon(collection.title, {size: 64})}
             </span>
           )}
-          <span
-            className="pk-collist-card__chip"
-            style={image ? undefined : {color: theme.iconColor, borderColor: theme.chipBorder, background: theme.chipBg}}
-          >
+          <span className="pk-collist-card__chip">
             {collection.title}
           </span>
         </div>

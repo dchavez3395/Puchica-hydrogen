@@ -34,6 +34,9 @@ export default [
       '**/packages/hydrogen/dist/',
       '.agents/',
       'env.d.ts',
+      '**/scripts/',
+      '**/tools/',
+      '**/*.py',
     ],
   },
   ...fixupConfigRules(
