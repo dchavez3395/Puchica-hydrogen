@@ -2654,7 +2654,7 @@ button:focus-visible,
   border-radius: 999px;
   border: none;
   background: transparent;
-  color: var(--pk-indigo-900);
+  color: var(--pk-ink);
   cursor: pointer;
   text-decoration: none;
   position: relative;
@@ -2678,8 +2678,8 @@ button:focus-visible,
   height: 18px;
   padding: 0 5px;
   border-radius: 999px;
-  background: var(--pk-lime);
-  color: var(--pk-ink);
+  background: var(--pk-ember);
+  color: var(--pk-white);
   font-size: 11px;
   font-weight: 700;
   display: grid;
