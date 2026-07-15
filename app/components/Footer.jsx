@@ -140,7 +140,7 @@ export function Footer({header}) {
           <Link to="/search">{t('footer_search')}</Link>
           <Link to="/policies">{t('footer_policies')}</Link>
           <Link to="/policies/refund-policy">{t('footer_refund_policy')}</Link>
-          <Link to="/policies/shipping-policy">Shipping</Link>
+          <Link to="/policies/shipping-policy">{t('footer_shipping_policy')}</Link>
           <Link to="/policies/terms-of-service">{t('footer_terms')}</Link>
         </div>
 
