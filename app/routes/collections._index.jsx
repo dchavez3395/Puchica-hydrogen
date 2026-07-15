@@ -12,7 +12,7 @@ export const meta = ({params}) => {
   return puchicaMeta({
     title: 'All Collections – Puchica',
     description:
-      'Browse all Puchica collections — home, kitchen, electronics, phone cases, beauty, pet supplies, and more. Free shipping across Canada, 30-day returns.',
+      'Shop Puchica by collection — Home & Kitchen, Beauty, Tech, Pet, and more curated picks. Shipping options shown at checkout, 30-day returns.',
     pathname: '/collections',
     langKey: params?.locale,
   });

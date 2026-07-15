@@ -659,7 +659,7 @@ button.reset:hover:not(:has(> *)) {
 }
 
 /* Brand banner at the top of the cart drawer. Repeats the site logo
-   and a one-line "free shipping over $50" reminder so the drawer
+   and a one-line shipping reminder so the drawer
    always carries a clear anchor back to the brand. The logo image
    is the full wordmark+bag SVG (1200x360, 3.33:1) â€” we render it
    at natural aspect (height pinned, width auto) so the entire
@@ -4653,8 +4653,9 @@ button:focus-visible,
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2px 32px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  align-items: start;
 }
 
 .pk-mega__cat {
@@ -4705,6 +4706,105 @@ button:focus-visible,
   height: 100%;
   object-fit: cover;
   display: block;
+}
+.pk-mega__tile-link {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: var(--pk-ink);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--pk-white);
+  border: 1px solid var(--pk-cream-dark);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+  height: auto;
+}
+.pk-mega__tile-link:hover,
+.pk-mega__tile-link:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 32px rgba(14, 12, 8, 0.12);
+  border-color: var(--pk-lime);
+  outline: none;
+}
+.pk-mega__tile-img {
+  width: 100%;
+  aspect-ratio: 4/5;
+  overflow: hidden;
+  background: var(--pk-off-white);
+  position: relative;
+}
+.pk-mega__tile-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.pk-mega__tile-placeholder {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, var(--pk-off-white) 0%, rgba(14, 12, 8, 0.06) 50%, var(--pk-off-white) 100%);
+  background-size: 200% 100%;
+  animation: pk-skel 1.4s ease-in-out infinite;
+}
+.pk-mega__tile-body {
+  padding: 10px 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.pk-mega__tile-title {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+  margin: 0;
+  color: var(--pk-ink);
+  line-height: 1.2;
+}
+.pk-mega__tile-tagline {
+  font-size: 12px;
+  color: var(--pk-muted);
+  margin: 0;
+  line-height: 1.35;
+}
+.pk-mega__tile-cta {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--pk-lime-dark);
+  margin-top: 4px;
+  letter-spacing: 0.02em;
+  transition: transform 0.18s ease;
+}
+.pk-mega__tile-link:hover .pk-mega__tile-cta { transform: translateX(2px); }
+
+.pk-mega__feature {
+  background: var(--pk-ink);
+  border-radius: 14px;
+  padding: 18px 18px 20px;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: var(--pk-cream);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+.pk-mega__feature:hover,
+.pk-mega__feature:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 36px rgba(14, 12, 8, 0.28);
+  outline: none;
+}
+
+@media (max-width: 700px) {
+  .pk-mega__tiles {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .pk-mega__tile-img {
+    aspect-ratio: 1 / 0.86;
+  }
+}
+.pk-mega__feature-link {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-decoration: none;
+  color: inherit;
+  height: 100%;
 }
 .pk-mega__feature-eye {
   font-size: 11px;

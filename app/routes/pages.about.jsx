@@ -167,8 +167,8 @@ export default function AboutPage() {
         <div className="pk-about-cta__inner">
           <h2 className="pk-about-cta__title">Ready to find your thing?</h2>
           <p className="pk-about-cta__sub">
-            3,700+ products. Free shipping over $50. Easy 30-day returns. Ships
-            from Canada.
+            Curated picks for everyday life. Shipping options shown at
+            checkout. 30-day returns. Secure checkout.
           </p>
           <div className="pk-about-cta__btns">
             <Link to="/collections/all" className="pk-btn pk-btn--ink pk-btn--lg">

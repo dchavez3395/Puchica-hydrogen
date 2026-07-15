@@ -223,7 +223,9 @@ function MobileMenuAside({header, megaMenu, publicStoreDomain}) {
             </Link>
           </div>
           <p className="pk-mmenu__foot">
-            {t('mobile_announce_foot')}
+            Shipping options shown at checkout
+            <StarGlyph size={10} style={{margin: '0 0.4em'}} />
+            30-day returns
           </p>
         </div>
       </Aside>

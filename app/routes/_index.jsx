@@ -845,8 +845,8 @@ function FeaturedBanner({products}) {
 function CatalogStatement() {
   return (
     <section className="pk-catalog-cta" aria-label="Explore the full catalog">
-      <p className="pk-catalog-cta__number" aria-label="Over 3,700 products">
-        3<span className="pk-catalog-cta__sup">.</span>7<span className="pk-catalog-cta__sup">k+</span>
+      <p className="pk-catalog-cta__number" aria-label="Curated catalog">
+        2k<span className="pk-catalog-cta__sup">+</span>
       </p>
       <p className="pk-catalog-cta__body">
         products. One store. Every category. We&apos;re adding more every week

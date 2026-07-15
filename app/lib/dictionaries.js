@@ -10,15 +10,10 @@
  */
 export const DICTIONARIES = {
   en: {
-    // ── Announcement bar ──────────────────────────────────────────
-    announce_offer: '15% off your first order - code FIRST15',
-    announce_freeship: 'Free shipping across Canada',
+    announce_offer: '30-day returns. See our refund policy for details.',
+    announce_freeship: 'Shipping options shown at checkout',
     announce_cta: 'Shop now',
-    offer_first15: 'New here? Take 15% off your first order with code FIRST15.',
-    announce_region_aria: 'Site announcements',
-
-    // ── Footer ────────────────────────────────────────────────────
-    footer_tagline: '3,700+ handpicked products. Ships from Canada. The good stuff. All in one place.',
+    footer_tagline: 'Curated picks for everyday life. The good stuff, all in one place.',
     footer_accepted_payments: 'Accepted payments',
     footer_secure: 'Secure checkout by Shopify - encrypted, PCI-compliant',
     footer_shop: 'Shop',
@@ -51,13 +46,10 @@ export const DICTIONARIES = {
 
   // ════════════════════════════════════════════════════════════════
   fr: {
-    announce_offer: '15 % de rabais sur votre première commande - code FIRST15',
-    announce_freeship: 'Livraison gratuite au Canada',
+    announce_offer: 'Retours sous 30 jours. Voir la politique de remboursement.',
+    announce_freeship: 'Options de livraison affichées au paiement',
     announce_cta: 'Magasiner',
-    offer_first15: 'Nouveau ici ? 15 % de rabais sur votre première commande avec le code FIRST15.',
-    announce_region_aria: 'Annonces du site',
-
-    footer_tagline: 'Plus de 6 000 produits sélectionnés. Livraison rapide. Le meilleur, tout au même endroit.',
+    footer_tagline: 'Sélection pour la vie quotidienne. Le meilleur, tout au même endroit.',
     footer_accepted_payments: 'Paiements acceptés',
     footer_secure: 'Paiement sécurisé par Shopify - chiffré et conforme PCI',
     footer_shop: 'Boutique',
@@ -91,13 +83,10 @@ export const DICTIONARIES = {
 
   // ════════════════════════════════════════════════════════════════
   es: {
-    announce_offer: '15 % de descuento en tu primer pedido - código FIRST15',
-    announce_freeship: 'Devoluciones en 30 días, sin complicaciones',
+    announce_offer: 'Devoluciones en 30 días. Ver política de reembolso.',
+    announce_freeship: 'Opciones de envío mostradas en checkout',
     announce_cta: 'Comprar ahora',
-    offer_first15: '¿Primera compra? 15 % de descuento en tu primer pedido con el código FIRST15.',
-    announce_region_aria: 'Anuncios del sitio',
-
-    footer_tagline: 'Más de 6.000 productos seleccionados. Envío rápido. Lo mejor, todo en un solo lugar.',
+    footer_tagline: 'Selección para la vida diaria. Lo mejor, todo en un solo lugar.',
     footer_accepted_payments: 'Pagos aceptados',
     footer_secure: 'Pago seguro con Shopify - cifrado y conforme con PCI',
     footer_shop: 'Tienda',
@@ -131,13 +120,10 @@ export const DICTIONARIES = {
 
   // ════════════════════════════════════════════════════════════════
   'pt-br': {
-    announce_offer: '15% de desconto no primeiro pedido - código FIRST15',
-    announce_freeship: 'Devoluções em 30 dias, sem complicações',
+    announce_offer: 'Devoluções em 30 dias. Ver política de reembolso.',
+    announce_freeship: 'Opções de envio mostradas no checkout',
     announce_cta: 'Comprar agora',
-    offer_first15: 'Primeira compra? 15% de desconto no primeiro pedido com o código FIRST15.',
-    announce_region_aria: 'Avisos do site',
-
-    footer_tagline: 'Mais de 6.000 produtos selecionados. Entrega rápida. O melhor, tudo em um só lugar.',
+    footer_tagline: 'Seleção para o dia a dia. O melhor, tudo em um só lugar.',
     footer_accepted_payments: 'Pagamentos aceitos',
     footer_secure: 'Checkout seguro pela Shopify - criptografado e em conformidade com PCI',
     footer_shop: 'Loja',
