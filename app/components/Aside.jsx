@@ -1,4 +1,4 @@
-import {createContext, useCallback, useContext, useEffect, useState} from 'react';
+import {createContext, useCallback, useContext, useEffect, useRef, useState} from 'react';
 import {useId} from 'react';
 import {useLocation} from 'react-router';
 import {useT} from '~/lib/t';
@@ -23,27 +23,66 @@ export function Aside({children, heading, type}) {
   const expanded = type === activeType;
   const id = useId();
   const t = useT();
+  const overlayRef = useRef(null);
+  const previouslyFocused = useRef(null);
 
-  // Esc closes the drawer.
+  // Esc closes the drawer + focus trap.
   useEffect(() => {
     const abortController = new AbortController();
 
     if (expanded) {
+      // Save currently focused element to restore on close
+      previouslyFocused.current = document.activeElement;
+
+      // Focus first focusable element in the drawer
+      const overlay = overlayRef.current;
+      if (overlay) {
+        const focusables = overlay.querySelectorAll(
+          'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusables.length) focusables[0].focus();
+      }
+
       document.addEventListener(
         'keydown',
         function handler(event) {
           if (event.key === 'Escape') {
             close();
           }
+          // Focus trap: Tab / Shift+Tab cycles within the dialog
+          if (event.key === 'Tab' && overlayRef.current) {
+            const focusableEls = overlayRef.current.querySelectorAll(
+              'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+            );
+            if (focusableEls.length === 0) return;
+            const first = focusableEls[0];
+            const last = focusableEls[focusableEls.length - 1];
+            if (event.shiftKey) {
+              if (document.activeElement === first) {
+                event.preventDefault();
+                last.focus();
+              }
+            } else {
+              if (document.activeElement === last) {
+                event.preventDefault();
+                first.focus();
+              }
+            }
+          }
         },
         {signal: abortController.signal},
       );
+    } else if (previouslyFocused.current) {
+      // Restore focus to the element that opened the drawer
+      previouslyFocused.current.focus();
+      previouslyFocused.current = null;
     }
     return () => abortController.abort();
   }, [close, expanded]);
 
   return (
     <div
+      ref={overlayRef}
       aria-modal
       className={`overlay ${expanded ? 'expanded' : ''}`}
       role="dialog"

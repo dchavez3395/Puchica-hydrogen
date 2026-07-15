@@ -14,7 +14,7 @@
   --pk-ink-hover:   #2A2620;   /* hover for ink-filled elements */
   --pk-paper:       #FAF9F6;   /* page background */
   --pk-cream:       #F1EDE3;   /* tile, well, hero panel fills */
-  --pk-line:        #E8E3D8;   /* borders, dividers */
+  --pk-line:        #8C8778;   /* borders, dividers — 3.4:1 on paper for WCAG 1.4.11 */
   --pk-muted:       #6E675C;   /* secondary text, 4.6:1 AA on paper */
   --pk-ember:       #A83800;   /* sale, badges, checkout ONLY */
   --pk-ember-hover: #8C2C00;
@@ -106,7 +106,7 @@
   --pk-ink-soft:      var(--pk-ink-soft);
   --pk-ink-softer:    #2A2820;
   --pk-cream-soft:    #EDE8D8;
-  --pk-cream-dark:    #E8E3D8;   /* == --pk-line */
+  --pk-cream-dark:    #8C8778;   /* == --pk-line, WCAG 1.4.11 */
 
   --pk-bg:          var(--pk-paper);
   --pk-off-white:   var(--pk-paper);
@@ -2564,7 +2564,7 @@ button:focus-visible,
   flex: 1;
   align-self: stretch;
   height: 100%;
-  border: 1px solid rgba(242, 235, 218, 0.18);
+  border: 1px solid rgba(242, 235, 218, 0.40);
   border-radius: var(--r-md);
   padding: 0 14px;
   font-family: var(--pk-font-body);
@@ -5849,7 +5849,7 @@ button:focus-visible,
   flex: 1;
   padding: 10px 12px;
   border-radius: 6px;
-  border: 1px solid rgba(109, 78, 246, 0.25);
+  border: 1px solid rgba(109, 78, 246, 0.70);
   background: #fff;
   font-size: 14px;
 }

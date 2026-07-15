@@ -96,6 +96,7 @@ function SearchAside() {
                 onChange={fetchResults}
                 onFocus={fetchResults}
                 placeholder={t('search_placeholder')}
+                aria-label={t('search_aria_submit')}
                 ref={inputRef}
                 type="search"
                 list={queriesDatalistId}

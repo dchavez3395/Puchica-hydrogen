@@ -28,6 +28,8 @@ export function NewsletterPopup() {
   const [copied, setCopied] = useState(false);
   const fetcher = useFetcher();
   const armedRef = useRef(false);
+  const dialogRef = useRef(null);
+  const previouslyFocused = useRef(null);
 
   // Only run on the client.
   useEffect(() => setMounted(true), []);
@@ -62,14 +64,57 @@ export function NewsletterPopup() {
     };
   }, [mounted]);
 
-  // Esc closes.
+  // Esc closes + focus trap.
   useEffect(() => {
     if (!open) return;
+
+    // Save focus to restore on close
+    previouslyFocused.current = document.activeElement;
+
+    // Focus first focusable element in the dialog
+    const dialog = dialogRef.current;
+    if (dialog) {
+      const focusables = dialog.querySelectorAll(
+        'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusables.length) focusables[0].focus();
+    }
+
     const onKey = (e) => {
-      if (e.key === 'Escape') dismiss();
+      if (e.key === 'Escape') {
+        dismiss();
+        return;
+      }
+      // Focus trap: Tab / Shift+Tab cycles within the dialog
+      if (e.key === 'Tab' && dialogRef.current) {
+        const focusableEls = dialogRef.current.querySelectorAll(
+          'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusableEls.length === 0) return;
+        const first = focusableEls[0];
+        const last = focusableEls[focusableEls.length - 1];
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else {
+          if (document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
+      }
     };
     document.addEventListener('keydown', onKey);
-    return () => document.removeEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      // Restore focus to the element that had it before the popup opened
+      if (previouslyFocused.current) {
+        previouslyFocused.current.focus();
+        previouslyFocused.current = null;
+      }
+    };
   }, [open]);
 
   function dismiss() {
@@ -99,6 +144,7 @@ export function NewsletterPopup() {
 
   return (
     <div
+      ref={dialogRef}
       role="dialog"
       aria-modal="true"
       aria-label={t('np_aria')}
