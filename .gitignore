@@ -70,3 +70,4 @@ work/temp_gen.jpg
 work/temp_ref.jpg
 work/check_*.png
 work/test_*.png
+scripts/feed_products.json
