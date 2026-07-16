@@ -1,5 +1,6 @@
 import {useEffect} from 'react';
 import {useAnalytics} from '@shopify/hydrogen';
+import {isBotClient} from '~/lib/bot-detection';
 
 /**
  * GoogleAnalytics4 — GA4 tracking for the headless Hydrogen storefront.
@@ -25,6 +26,12 @@ export function GoogleAnalytics4({measurementId}) {
 
   useEffect(() => {
     if (!measurementId || typeof window === 'undefined') {
+      ready();
+      return;
+    }
+
+    // Block analytics for bots — prevents inflated metrics
+    if (isBotClient()) {
       ready();
       return;
     }

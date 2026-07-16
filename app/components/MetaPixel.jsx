@@ -1,5 +1,6 @@
 import {useEffect} from 'react';
 import {useAnalytics} from '@shopify/hydrogen';
+import {isBotClient} from '~/lib/bot-detection';
 
 /**
  * MetaPixel — Facebook/Meta Pixel for the headless Hydrogen storefront.
@@ -34,6 +35,12 @@ export function MetaPixel({pixelId}) {
   useEffect(() => {
     if (!pixelId || typeof window === 'undefined') {
       // Nothing to do — still call ready() so we don't block other analytics.
+      ready();
+      return;
+    }
+
+    // Block analytics for bots — prevents inflated metrics
+    if (isBotClient()) {
       ready();
       return;
     }
