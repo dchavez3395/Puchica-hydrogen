@@ -3,6 +3,19 @@ import {Suspense} from 'react';
 import {error as logError} from '~/lib/logger';
 import {puchicaMeta, organizationJsonLd, websiteJsonLd, JsonLdScript} from '~/lib/seo';
 import {useT} from '~/lib/t';
+import {
+  IconGift,
+  IconHeart,
+  IconSparkles,
+  IconStar,
+  IconHome,
+  IconLightbulb,
+  IconLeaf,
+  IconPawPrint,
+  IconTruck,
+  IconReturn,
+  IconShield,
+} from '~/components/Icons';
 
 /* Shared hook for arrow-nav on horizontal scroll tracks */
 function useScrollNav(trackRef) {

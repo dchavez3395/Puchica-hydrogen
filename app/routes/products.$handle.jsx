@@ -22,6 +22,7 @@ import {
   IconCheck,
   IconChevronRight,
   IconSparkles,
+  IconPackage,
 } from '~/components/Icons';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 import {puchicaMeta, canonical, SITE_URL, breadcrumbJsonLd, JsonLdScript} from '~/lib/seo';
