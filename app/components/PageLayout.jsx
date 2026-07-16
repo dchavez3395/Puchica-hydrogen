@@ -96,6 +96,7 @@ function SearchAside() {
                 onChange={fetchResults}
                 onFocus={fetchResults}
                 placeholder={t('search_placeholder')}
+                aria-label={t('search_aria_submit')}
                 ref={inputRef}
                 type="search"
                 list={queriesDatalistId}
@@ -223,7 +224,9 @@ function MobileMenuAside({header, megaMenu, publicStoreDomain}) {
             </Link>
           </div>
           <p className="pk-mmenu__foot">
-            {t('mobile_announce_foot')}
+            Shipping options shown at checkout
+            <StarGlyph size={10} style={{margin: '0 0.4em'}} />
+            30-day returns
           </p>
         </div>
       </Aside>

@@ -10,7 +10,7 @@ export const meta = ({params}) =>
   puchicaMeta({
     title: 'About Puchica – The good stuff, handpicked.',
     description:
-      "We're picky about what makes the catalog. If we wouldn't buy it ourselves, it doesn't go up. 6,000+ products, handpicked with care.",
+      "Puchica is a Canadian online store with 3,700+ handpicked products across home, beauty, tech, pet, and more. We find the good stuff so you don't have to.",
     pathname: '/pages/about',
     langKey: params?.locale,
   });
@@ -66,8 +66,13 @@ export default function AboutPage() {
       </section>
 
       {/* Stats bar */}
-      <div className="pk-about-stats" aria-label={t('about_stats_aria')}>
-        {stats.map(({num, label}) => (
+      <div className="pk-about-stats" aria-label="Puchica in numbers">
+        {[
+          {num: '3,700+', label: 'Handpicked products'},
+          {num: '100%', label: 'Ships from Canada'},
+          {num: '$50+', label: 'Free shipping threshold'},
+          {num: '30 days', label: 'No-hassle returns'},
+        ].map(({num, label}) => (
           <div key={label} className="pk-about-stats__item">
             <strong className="pk-about-stats__num">{num}</strong>
             <span className="pk-about-stats__label">{label}</span>
@@ -124,9 +129,11 @@ export default function AboutPage() {
       {/* Categories */}
       <section className="pk-about-cats">
         <div className="pk-about-cats__inner">
-          <span className="pk-about-cats__eye"><StarGlyph /> {t('about_cats_eye')}</span>
-          <h2 className="pk-about-cats__title">{t('about_cats_title')}</h2>
-          <p className="pk-about-cats__sub">{t('about_cats_sub')}</p>
+          <span className="pk-about-cats__eye"><StarGlyph /> What we carry</span>
+          <h2 className="pk-about-cats__title">3,700+ products. One store.</h2>
+          <p className="pk-about-cats__sub">
+            Across every category that actually matters in your day-to-day.
+          </p>
           <div className="pk-about-cats__grid">
             {categories.map(({icon: Icon, name, sub}) => (
               <div key={name} className="pk-about-cats__item">
@@ -152,8 +159,11 @@ export default function AboutPage() {
       {/* CTA */}
       <section className="pk-about-cta">
         <div className="pk-about-cta__inner">
-          <h2 className="pk-about-cta__title">{t('about_cta_title')}</h2>
-          <p className="pk-about-cta__sub">{t('about_cta_sub')}</p>
+          <h2 className="pk-about-cta__title">Ready to find your thing?</h2>
+          <p className="pk-about-cta__sub">
+            Curated picks for everyday life. Shipping options shown at
+            checkout. 30-day returns. Secure checkout.
+          </p>
           <div className="pk-about-cta__btns">
             <Link to="/collections/all" className="pk-btn pk-btn--ink pk-btn--lg">
               {t('about_cta_browse')}

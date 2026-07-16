@@ -77,29 +77,23 @@ function trimTrailingStopword(sliced) {
  * @param {Route.LoaderArgs}
  */
 export async function loader({params, context}) {
-  const {country, language} = context.storefront.i18n;
-
-  if (!params.handle) {
+  const handle = params.handle;
+  if (!handle) {
     throw new Response('No handle was passed in', {status: 404});
   }
 
-  const policyName = params.handle.replace(/-([a-z])/g, (_, m1) =>
-    m1.toUpperCase(),
-  );
+  // Query all named policy slots and pick the one whose handle matches
+  // the URL. The store may put a shipping-style policy under the
+  // subscriptionPolicy slot instead of shippingPolicy — Shopify lets
+  // merchants configure that — so we look across all of them rather
+  // than assuming a 1:1 mapping between URL slug and Shop field name.
+  const data = await context.storefront.query(POLICY_CONTENT_QUERY);
 
-  const data = await context.storefront.query(POLICY_CONTENT_QUERY, {
-    variables: {
-      country,
-      language,
-      privacyPolicy: false,
-      shippingPolicy: false,
-      termsOfService: false,
-      refundPolicy: false,
-      [policyName]: true,
-    },
-  });
-
-  const policy = data.shop?.[policyName];
+  const policy = POLICIES_INDEX.reduce((found, key) => {
+    if (found) return found;
+    const candidate = data.shop?.[key];
+    return candidate?.handle === handle ? candidate : null;
+  }, null);
 
   if (!policy) {
     throw new Response('Could not find the policy', {status: 404});
@@ -134,7 +128,22 @@ export default function Policy() {
   );
 }
 
+// Slots on Shop that may carry a ShopPolicy. Order matches what the
+// policies index page uses. `subscriptionPolicy` is typed as
+// `ShopPolicyWithDefault` (it can fall back to Shopify's default text)
+// but at the field-selection level it exposes the same `Policy` shape.
+const POLICIES_INDEX = [
+  'privacyPolicy',
+  'shippingPolicy',
+  'termsOfService',
+  'refundPolicy',
+  'subscriptionPolicy',
+];
+
 // NOTE: https://shopify.dev/docs/api/storefront/latest/objects/Shop
+// `subscriptionPolicy` is typed as `ShopPolicyWithDefault`, which is
+// incompatible with the `ShopPolicy` fragment spread — query its
+// fields inline instead.
 const POLICY_CONTENT_QUERY = `#graphql
   fragment Policy on ShopPolicy {
     body
@@ -143,37 +152,19 @@ const POLICY_CONTENT_QUERY = `#graphql
     title
     url
   }
-  query Policy(
-    $country: CountryCode!
-    $language: LanguageCode!
-    $privacyPolicy: Boolean!
-    $refundPolicy: Boolean!
-    $shippingPolicy: Boolean!
-    $termsOfService: Boolean!) @inContext(country: $country, language: $language) {
+  query Policy {
     shop {
-      privacyPolicy @include(if: $privacyPolicy) {
-        ...Policy
-      }
-      shippingPolicy @include(if: $shippingPolicy) {
-        ...Policy
-      }
-      termsOfService @include(if: $termsOfService) {
-        ...Policy
-      }
-      refundPolicy @include(if: $refundPolicy) {
-        ...Policy
-      }
+      privacyPolicy { ...Policy }
+      shippingPolicy { ...Policy }
+      termsOfService { ...Policy }
+      refundPolicy { ...Policy }
+      subscriptionPolicy { body handle id title url }
     }
   }
 `;
 
 /**
- * @typedef {keyof Pick<
- *   Shop,
- *   'privacyPolicy' | 'shippingPolicy' | 'termsOfService' | 'refundPolicy'
- * >} SelectedPolicies
+ * @typedef {import('./+types/policies.$handle').Route} Route
  */
-
-/** @typedef {import('./+types/policies.$handle').Route} Route */
 /** @typedef {import('@shopify/hydrogen/storefront-api-types').Shop} Shop */
 /** @typedef {ReturnType<typeof useLoaderData<typeof loader>>} LoaderReturnData */

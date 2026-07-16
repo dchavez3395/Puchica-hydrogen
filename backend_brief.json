@@ -1,0 +1,12 @@
+{
+  "Q1_scope": "all",
+  "Q2_pricing": "decrease-5",
+  "Q3_min_price": "18.99",
+  "Q4_rounding": "99",
+  "Q5_status": "active",
+  "Q6_titles": "rewrite",
+  "Q7_descriptions": "rewrite",
+  "Q8_seasonal": "auto",
+  "Q9_title_format": "default",
+  "Q10_confirm": "no-scheduled"
+}

@@ -16,7 +16,7 @@ export const meta = () => {
   return puchicaMeta({
     title: 'Cart – Puchica',
     description:
-      'Your Puchica shopping cart. Free shipping across Canada, easy 30-day returns, secure checkout.',
+      'Your Puchica shopping cart. Shipping options shown at checkout, 30-day returns, secure checkout.',
     noindex: true,
     pathname: '/cart',
   });

@@ -176,6 +176,22 @@ export default function Product() {
             </div>
           </div>
 
+          {/* ── FIRST15 offer badge — surfaces the discount right at the
+              buy box so shoppers don't have to discover it in the
+              announcement bar (audit §4: offer visibility). */}
+          <div className="pk-product__offer" role="note">
+            <div className="pk-product__offer-first15">
+              <span className="pk-product__offer-tag" aria-hidden>FIRST15</span>
+              <span className="pk-product__offer-text">
+                {t('product_offer_first15_h')} — {t('product_offer_first15_body')}
+              </span>
+            </div>
+            <div className="pk-product__offer-shipping">
+              <IconTruck size={14} />
+              <span>{t('product_offer_shipping_body')}</span>
+            </div>
+          </div>
+
           <div className="pk-product__form-wrap" id="product-form">
             <ProductForm
               productOptions={productOptions}
@@ -201,36 +217,28 @@ export default function Product() {
               <span className="pk-product__trust-icon" aria-hidden>
                 <IconTruck size={16} />
               </span>
-              <span className="pk-product__trust-copy">
-                <strong>{t('product_trust_shipping')}</strong>
-                <em>{t('product_trust_shipping_sub')}</em>
-              </span>
+              <div>
+                <strong>{t('product_shipping_h')}</strong>
+                <p>{t('product_shipping_body')}</p>
+              </div>
             </div>
             <div className="pk-product__trust-item">
               <span className="pk-product__trust-icon" aria-hidden>
                 <IconReturn size={16} />
               </span>
-              <span className="pk-product__trust-copy">
-                <strong>{t('product_trust_returns')}</strong>
-                <em>{t('product_trust_returns_sub')}</em>
-              </span>
+              <div>
+                <strong>{t('product_returns_h')}</strong>
+                <p>{t('product_returns_body')}</p>
+              </div>
             </div>
             <div className="pk-product__trust-item">
               <span className="pk-product__trust-icon" aria-hidden>
                 <IconShield size={16} />
               </span>
-              <span className="pk-product__trust-copy">
-                <strong>{t('product_trust_secure')}</strong>
-                <em>{t('product_trust_secure_sub')}</em>
-              </span>
-            </div>
-            <div className="pk-product__trust-item">
-              <span className="pk-product__trust-icon" aria-hidden>
-                <IconCheck size={14} />
-              </span>
-              <span className="pk-product__trust-copy">
-                <strong>{t('product_perk_curated')}</strong>
-              </span>
+              <div>
+                <strong>{t('product_secure_h')}</strong>
+                <p>{t('product_secure_body')}</p>
+              </div>
             </div>
           </div>
 
@@ -253,7 +261,20 @@ export default function Product() {
             </DetailsAccordion>
           </div>
 
-          <ShareRow product={product} t={t} />
+          <ul className="pk-product__perks" aria-label="What's included">
+            <li>
+              <span aria-hidden><IconPackage size={16} /></span>
+              <span>Carefully packed and shipped within 1–2 business days</span>
+            </li>
+            <li>
+              <span aria-hidden><IconReturn size={16} /></span>
+              <span>30-day returns — see refund policy for details</span>
+            </li>
+            <li>
+              <span aria-hidden><IconCheck size={16} /></span>
+              <span>Curated by the Puchica team — never random</span>
+            </li>
+          </ul>
         </div>
       </div>
 
@@ -344,9 +365,24 @@ function Shipping({t}) {
       <p>{t('product_returns_body')}</p>
       <h4>{t('product_help_h')}</h4>
       <p>
-        {helpParts[0]}
-        <Link to="/pages/contact">{contactLinkText}</Link>
-        {helpParts[1] ?? ''}
+        Orders are processed within 1–2 business days. Shipping options
+        and delivery estimates are shown at checkout. You&apos;ll receive
+        a tracking link by email when your order ships. Products may be
+        fulfilled by third-party suppliers — shipping origin and timing
+        can vary by item.
+      </p>
+      <h3>Returns</h3>
+      <p>
+        If something isn&apos;t right, you have 30 days from the delivery date
+        to start a return. Email hello@puchica.ca with your order number
+        and we&apos;ll guide you through the process. Refunds are issued
+        to the original payment method within 5–7 business days of us
+        receiving the return.
+      </p>
+      <h3>Need help?</h3>
+      <p>
+        Reach us anytime via the contact page. A real person on the Puchica team
+        will get back to you within one business day.
       </p>
     </div>
   );

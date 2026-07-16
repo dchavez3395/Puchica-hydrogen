@@ -4,7 +4,8 @@ import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {getPaginationVariables, Analytics} from '@shopify/hydrogen';
 import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
-import {puchicaMeta} from '~/lib/seo';
+import {puchicaMeta, collectionJsonLd} from '~/lib/seo';
+import {JsonLdScript} from '~/components/JsonLdScript';
 import {useT} from '~/lib/t';
 import {ProductItem} from '~/components/ProductItem';
 import {diversifyByVendor} from '~/lib/diversify';
@@ -14,21 +15,26 @@ import {diversifyByVendor} from '~/lib/diversify';
  */
 export const meta = ({data, params}) => {
   const collection = data?.collection;
+  const hasProducts = data?.hasProducts ?? false;
   const t = collection?.seo?.title || collection?.title || 'Collection';
   const d =
     collection?.seo?.description ||
     collection?.description ||
-    `Shop ${t} at Puchica — curated picks with free shipping across Canada and easy 30-day returns.`;
+    `Shop ${t} at Puchica — curated picks. Shipping options shown at checkout, 30-day returns.`;
   const image = collection?.image?.url;
   const pathname = `/collections/${collection?.handle || ''}`;
-  return puchicaMeta({
-    title: `${t} – Puchica`,
-    description: d,
-    image,
-    type: 'website',
-    pathname,
-    langKey: params?.locale,
-  });
+  return [
+    ...puchicaMeta({
+      title: `${t} – Puchica`,
+      description: d,
+      image,
+      type: 'website',
+      pathname,
+      langKey: params?.locale,
+      // Noindex empty collections so they don't get indexed with thin content.
+      noindex: !hasProducts,
+    }),
+  ];
 };
 
 /**
@@ -129,7 +135,7 @@ async function loadCriticalData({context, params, request}) {
     };
   }
 
-  return {collection};
+  return {collection, hasProducts: collection.products?.nodes?.length > 0};
 }
 
 function loadDeferredData() {
@@ -138,7 +144,7 @@ function loadDeferredData() {
 
 export default function Collection() {
   /** @type {LoaderReturnData} */
-  const {collection} = useLoaderData();
+  const {collection, hasProducts} = useLoaderData();
   const t = useT();
   const [searchParams, setSearchParams] = useSearchParams();
   const sortValue = searchParams.get('sort') || 'featured';
@@ -175,6 +181,7 @@ export default function Collection() {
 
   return (
     <div className="pk-collection">
+      <JsonLdScript data={collectionJsonLd({collection, hasProducts})} />
       <nav className="pk-breadcrumbs" aria-label={t('breadcrumb_aria')}>
         <Link to="/">{t('breadcrumb_home')}</Link>
         <span className="pk-breadcrumbs__sep">/</span>
