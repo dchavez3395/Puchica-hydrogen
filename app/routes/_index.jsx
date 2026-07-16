@@ -286,6 +286,7 @@ function Hero({products}) {
                   {w}{i < line1.length - 1 ? ' ' : ''}
                 </span>
               ))}
+              {' '}
             </span>
             <span className="pk-hero2__title-row pk-hero2__title-row--em">
               {line2.map((w, i) => (
