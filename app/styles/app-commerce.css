@@ -69,7 +69,6 @@
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 1px;
-  background: var(--pk-line);
   border-bottom: 1px solid var(--pk-line);
   margin: 0 -20px;
   padding: 0 20px;
@@ -182,7 +181,7 @@
 }
 .pk-dept-tile__link:hover {
   border-color: var(--pk-ink);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(26,26,46,0.08);
   text-decoration: none;
 }
 
