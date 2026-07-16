@@ -166,6 +166,9 @@ export default function Index() {
         </Await>
       </Suspense>
 
+      {/* On-sale, best-sellers, for-you, gifts rails */}
+      <OnSaleRail data={data} t={t} />
+
       {/* Best sellers — curated best-sellers collection */}
       <Suspense fallback={null}>
         <Await resolve={data.bestPicks}>
@@ -193,7 +196,7 @@ export default function Index() {
         {value: 100, label: 'Canadian', suffix: '%'},
       ]} />
 
-    </div>
+    </>
   );
 }
 
@@ -292,11 +295,29 @@ function Marquee() {
                 <span className="pk-marquee__dot"><StarGlyph size={10} style={{marginRight: 0}} /></span>{t}
               </span>
             )),
->>>>>>> 724944a (fix: update inflated stats (6,000+→3,700+, 19→25 collections) and broken home-essentials→home-kitchen links)
           )}
-        </Await>
-      </Suspense>
+        </div>
+      </div>
 
+      <button
+        type="button"
+        className="pk-marquee__pause"
+        aria-pressed={paused}
+        onClick={() => setPaused((p) => !p)}
+        style={{position: 'absolute', left: '-9999px'}}
+      >
+        {paused ? 'Play' : 'Pause'} marquee
+      </button>
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   ON-SALE RAIL
+───────────────────────────────────────────────────────────────── */
+function OnSaleRail({data, t}) {
+  return (
+    <>
       <Suspense fallback={null}>
         <Await resolve={data.onSale}>
           {(products) => (
@@ -487,7 +508,6 @@ function DiscoverSwiper({products}) {
   const [autoPaused, setAutoPaused] = useState(false);
   const [focused, setFocused] = useState(false);
   const reducedMotion = useRef(false);
->>>>>>> 05021d7 (feat(phase-1.7): Trending Now product marquee)
 
   return (
     <section
@@ -523,18 +543,8 @@ function DepartmentGridSkeleton() {
         <ul className="pk-dept-grid">
           {Array.from({length: 15}).map((_, i) => (
             <li key={`skel-${i}`} className="pk-dept-tile pk-dept-tile--skel" />
-        </div>
-      </div>
-      <div className="pk-rack__track" ref={trackRef} role="list">
-        {products.slice(0, 12).map((p) => (
-          <Link key={p.id} to={`/products/${p.handle}`} className="pk-rack__card" role="listitem">
-            {p.featuredImage && <div className="pk-rack__img"><Image data={p.featuredImage} aspectRatio="4/5" sizes="240px" /></div>}
-            <div className="pk-rack__body">
-              <p className="pk-rack__name">{p.title}</p>
-              <div className="pk-rack__price"><Money data={p.priceRange.minVariantPrice} /></div>
-            </div>
-          </Link>
-        ))}
+          ))}
+        </ul>
       </div>
     </section>
   );
@@ -567,9 +577,8 @@ function GiftFinder() {
               <span className="pk-gift__card-sub">{sub}</span>
               <span className="pk-gift__arrow" aria-hidden="true">→</span>
             </Link>
->>>>>>> 724944a (fix: update inflated stats (6,000+→3,700+, 19→25 collections) and broken home-essentials→home-kitchen links)
           ))}
-        </ul>
+        </div>
       </div>
     </section>
   );
@@ -1048,4 +1057,3 @@ const CAT_WORLD_QUERY = `#graphql
 
 /** @typedef {import('./+types/_index').Route} Route */
 /** @typedef {ReturnType<typeof useLoaderData<typeof loader>>} LoaderReturnData */
->>>>>>> 724944a (fix: update inflated stats (6,000+→3,700+, 19→25 collections) and broken home-essentials→home-kitchen links)

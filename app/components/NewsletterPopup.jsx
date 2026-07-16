@@ -4,21 +4,21 @@ import {IconSparkles} from '~/components/Icons';
 import {useT} from '~/lib/t';
 
 /**
- * Email-capture popup that offers the WELCOME15 first-order discount.
+ * Email-capture popup that offers the FIRST15 first-order discount.
  *
  * Behavior:
  * - Appears once per visitor (a flag is stored in localStorage), after a
  *   short delay OR when the visitor moves to leave the page (exit intent).
  * - Submits to the existing `/newsletter` action, which creates a
  *   marketing-consented Shopify customer.
- * - On success it reveals the WELCOME15 code so the visitor can use it
+ * - On success it reveals the FIRST15 code so the visitor can use it
  *   immediately at checkout.
  *
  * SSR-safe: nothing renders until after mount, so server and first client
  * render match (no hydration mismatch).
  */
 const POPUP_KEY = 'pk-news-popup-v1';
-const DISCOUNT_CODE = 'WELCOME15';
+const DISCOUNT_CODE = 'FIRST15';
 const DELAY_MS = 8000;
 
 export function NewsletterPopup() {

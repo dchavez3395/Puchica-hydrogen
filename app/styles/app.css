@@ -4272,6 +4272,51 @@ button:focus-visible,
   font-weight: 600;
 }
 
+/* ── FIRST15 offer badge — sits between price and buy button */
+.pk-product__offer {
+  margin: 12px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.pk-product__offer-first15 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--pk-ember-pale, #FFF3EE);
+  border: 1px solid var(--pk-ember, #CC4300);
+  border-radius: 4px;
+}
+.pk-product__offer-tag {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: #fff;
+  background: var(--pk-ember, #CC4300);
+  padding: 3px 8px;
+  border-radius: 3px;
+  flex: none;
+}
+.pk-product__offer-text {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--pk-ink);
+  line-height: 1.4;
+}
+.pk-product__offer-shipping {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--pk-muted, #6b6b6b);
+  padding-left: 4px;
+}
+.pk-product__offer-shipping svg {
+  flex: none;
+  opacity: 0.7;
+}
+
 /* ── Perks list ──
  * Smaller, less prominent than the trust block — just a single
  * "Curated by the Puchica team" line. Same neutral chip language. */

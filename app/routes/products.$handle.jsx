@@ -176,6 +176,22 @@ export default function Product() {
             </div>
           </div>
 
+          {/* ── FIRST15 offer badge — surfaces the discount right at the
+              buy box so shoppers don't have to discover it in the
+              announcement bar (audit §4: offer visibility). */}
+          <div className="pk-product__offer" role="note">
+            <div className="pk-product__offer-first15">
+              <span className="pk-product__offer-tag" aria-hidden>FIRST15</span>
+              <span className="pk-product__offer-text">
+                {t('product_offer_first15_h')} — {t('product_offer_first15_body')}
+              </span>
+            </div>
+            <div className="pk-product__offer-shipping">
+              <IconTruck size={14} />
+              <span>{t('product_offer_shipping_body')}</span>
+            </div>
+          </div>
+
           <div className="pk-product__form-wrap" id="product-form">
             <ProductForm
               productOptions={productOptions}
@@ -201,12 +217,30 @@ export default function Product() {
               <span className="pk-product__trust-icon" aria-hidden>
                 <IconTruck size={16} />
               </span>
-              <p className="pk-reviews-stub__copy">
-                Verified buyer reviews are on the way. Your satisfaction
-                matters to us — contact us anytime with questions.
-              </p>
-            </aside>
-          )}
+              <div>
+                <strong>{t('product_shipping_h')}</strong>
+                <p>{t('product_shipping_body')}</p>
+              </div>
+            </div>
+            <div className="pk-product__trust-item">
+              <span className="pk-product__trust-icon" aria-hidden>
+                <IconReturn size={16} />
+              </span>
+              <div>
+                <strong>{t('product_returns_h')}</strong>
+                <p>{t('product_returns_body')}</p>
+              </div>
+            </div>
+            <div className="pk-product__trust-item">
+              <span className="pk-product__trust-icon" aria-hidden>
+                <IconShield size={16} />
+              </span>
+              <div>
+                <strong>{t('product_secure_h')}</strong>
+                <p>{t('product_secure_body')}</p>
+              </div>
+            </div>
+          </div>
 
           {/* ── Accordions — description first (it's the purchase
               decision content), then specs, then policy copy. Inside
@@ -350,7 +384,7 @@ function Shipping({t}) {
         Reach us anytime via the contact page. A real person on the Puchica team
         will get back to you within one business day.
       </p>
-    </>
+    </div>
   );
 }
 
