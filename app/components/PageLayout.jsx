@@ -7,6 +7,7 @@ import {Header, HeaderMenu} from '~/components/Header';
 import {CartMain} from '~/components/CartMain';
 import {NewsletterPopup} from '~/components/NewsletterPopup';
 import {IconSearch} from '~/components/Icons';
+import StarGlyph from '~/components/StarGlyph';
 import {useT} from '~/lib/t';
 import {LocaleSwitcher} from '~/components/LocaleSwitcher';
 import {

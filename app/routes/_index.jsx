@@ -1,8 +1,16 @@
-import {Await, useLoaderData} from 'react-router';
+import {Await, useLoaderData, useFetcher} from 'react-router';
 import {Suspense, useState, useEffect, useRef} from 'react';
 import {error as logError} from '~/lib/logger';
 import {puchicaMeta, organizationJsonLd, websiteJsonLd, JsonLdScript} from '~/lib/seo';
 import {useT} from '~/lib/t';
+import {
+  HOME_BEST_SELLERS_QUERY,
+  HOME_NEW_ARRIVALS_QUERY,
+  HOME_CATEGORIES_QUERY,
+  HOME_SALE_QUERY,
+  HOME_FOR_YOU_QUERY,
+  HOME_GIFTS_QUERY,
+} from '~/lib/fragments';
 import {
   IconGift,
   IconHeart,
@@ -16,8 +24,38 @@ import {
   IconReturn,
   IconShield,
 } from '~/components/Icons';
+import StarGlyph from '~/components/StarGlyph';
+import {LocalizedLink as Link} from '~/components/LocalizedLink';
+import {Image, Money} from '@shopify/hydrogen';
+import {ProductRail} from '~/components/ProductRail';
+import {BestSellersGrid} from '~/sections/best-sellers/best-sellers';
+import {DepartmentGrid} from '~/sections/department-grid/department-grid';
+import {NewsletterFooter} from '~/sections/newsletter-footer/newsletter-footer';
+import {TrustBar} from '~/sections/trust-bar/trust-bar';
 
-/* Shared hook for arrow-nav on horizontal scroll tracks */
+/* ProductRailSection wraps ProductRail in a <section> with variant class */
+function ProductRailSection({products, eyebrow, heading, seeAllLabel, seeAllHref, scrollLeftAria, scrollRightAria, variant}) {
+  const sectionClass = variant ? `pk-rail-section pk-rail-section--${variant}` : 'pk-rail-section';
+  return (
+    <section className={sectionClass}>
+      <ProductRail
+        products={products}
+        eyebrow={eyebrow}
+        heading={heading}
+        seeAllLabel={seeAllLabel}
+        seeAllHref={seeAllHref}
+        scrollLeftAria={scrollLeftAria}
+        scrollRightAria={scrollRightAria}
+      />
+    </section>
+  );
+}
+
+/* Stubs for components not yet built — render nothing so the page loads */
+function CollectionShowcase({collections}) { return null; }
+function ParallaxBanner() { return null; }
+function TrendingTicker({products}) { return null; }
+function StatsCounter({stats}) { return null; }
 function useScrollNav(trackRef) {
   const [canLeft, setCanLeft] = useState(false);
   const [canRight, setCanRight] = useState(true);
@@ -108,7 +146,20 @@ function loadDeferredData({context}) {
       return [];
     });
 
-  return {bestSellers, newArrivals, categories, onSale, forYou, gifts};
+  return {
+    bestSellers,
+    newArrivals,
+    categories,
+    onSale,
+    forYou,
+    gifts,
+    /* Fields referenced by JSX that don't have queries yet — resolve to empty */
+    trending: Promise.resolve([]),
+    catWorld: Promise.resolve(null),
+    showcaseCollections: Promise.resolve([]),
+    bestPicks: Promise.resolve([]),
+    freshFinds: Promise.resolve([]),
+  };
 }
 
 export default function Index() {
@@ -410,6 +461,7 @@ function ProductMarquee({products}) {
   const sectionRef = useRef(null);
   const [paused, setPaused] = useState(false);
   const [focused, setFocused] = useState(false);
+  const reducedMotion = useRef(false);
 
   // Read prefers-reduced-motion once on mount.
   useEffect(() => {
