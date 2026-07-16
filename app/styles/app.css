@@ -103,7 +103,6 @@
    * system. They now resolve to the new canonical colors so
    * the rest of app.css can keep referencing them while we
    * migrate file-by-file. New code must NOT use these. */
-<<<<<<< HEAD
   --pk-ink-soft:      #2D2D4A;
   --pk-ink-softer:    #3D3D5C;
   --pk-cream-soft:    #E8E4EC;
