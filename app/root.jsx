@@ -95,6 +95,7 @@ export async function loader(args) {
   return {
     ...deferredData,
     ...criticalData,
+    maintenanceMode: env.MAINTENANCE_MODE === 'true',
     publicStoreDomain: env.PUBLIC_STORE_DOMAIN,
     // Meta Pixel ID (Meta Events Manager) — enables storefront-side ad tracking.
     // No-ops until this env var is set. See app/components/MetaPixel.jsx.

@@ -1,4 +1,4 @@
-import {json, type LoaderFunctionArgs} from '@shopify/remix-oxygen';
+import {data, type LoaderFunctionArgs} from 'react-router';
 
 /**
  * Google Merchant Center product feed — `/feed.xml`
