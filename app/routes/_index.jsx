@@ -301,7 +301,7 @@ function Hero({products}) {
             Real finds from real people who give a damn.
           </p>
           <div className="pk-hero2__ctas">
-            <Link to="/collections/all" className="pk-btn pk-btn--spark pk-btn--lg">Shop now →</Link>
+            <Link to="/collections/all" className="pk-btn pk-btn--ember pk-btn--lg">Shop now →</Link>
             <Link to="/collections/all" className="pk-btn pk-btn--ghost pk-btn--lg">Browse all</Link>
           </div>
           <ul className="pk-hero2__stats" aria-label="Store highlights">
