@@ -12224,3 +12224,97 @@ main:has(> .pk-home) {
     min-width: 0;
   }
 }
+
+/* Accessibility sheet pass: WCAG 2.2 AA contrast and focus guardrails. */
+:root {
+  --pk-a11y-border: #667085;
+  --pk-a11y-border-soft: #98A2B3;
+  --pk-a11y-focus: #1F5FA8;
+  --pk-a11y-muted-on-dark: rgba(252, 247, 238, 0.78);
+  --pk-a11y-subtle-on-dark: rgba(252, 247, 238, 0.68);
+}
+
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 3px solid var(--pk-a11y-focus) !important;
+  outline-offset: 3px !important;
+  box-shadow: 0 0 0 6px rgba(31, 95, 168, 0.18) !important;
+}
+
+.pk-ann a,
+.pk-ann__inner a {
+  color: #ffffff;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+.pk-nav__link--sale,
+.pk-section__see-all,
+.pk-store-hero__departments a:hover {
+  color: #5B35E6;
+}
+
+.pk-store-hero__search,
+.pk-store-hero__departments a,
+.pk-store-hero__trust span,
+.pk-section--today-deals .pk-section__see-all,
+.pk-stall__link,
+.pk-card {
+  border-color: var(--pk-a11y-border-soft);
+}
+
+.pk-store-hero__search:focus-within,
+.pk-store-hero__departments a:focus-visible,
+.pk-store-hero__actions .pk-btn:focus-visible,
+.pk-section--today-deals .pk-section__see-all:focus-visible {
+  border-color: var(--pk-a11y-focus);
+}
+
+.pk-section--today-deals .pk-section__see-all {
+  background: #fff7fa;
+  color: #9f1239;
+}
+
+.pk-section--newsletter-footer {
+  background:
+    linear-gradient(135deg, #4f46e5 0%, #5b35e6 52%, #312e81 100%) !important;
+}
+
+.pk-section--newsletter-footer .pk-eyebrow,
+.pk-section--newsletter-footer .pk-newsletter__body,
+.pk-section--newsletter-footer .pk-newsletter__promise {
+  color: rgba(255, 255, 255, 0.84) !important;
+}
+
+.pk-footer__tagline,
+.pk-footer__newsletter p,
+.pk-footer__pay-label,
+.pk-footer__address,
+.pk-footer__secure,
+.pk-footer__stat-label {
+  color: var(--pk-a11y-muted-on-dark) !important;
+}
+
+.pk-footer__col a,
+.pk-footer__bar,
+.pk-footer__legal a {
+  color: var(--pk-a11y-subtle-on-dark) !important;
+}
+
+.pk-footer__col a:hover,
+.pk-footer__legal a:hover {
+  color: #ffffff !important;
+}
+
+.pk-footer__form input {
+  border-color: rgba(252, 247, 238, 0.42);
+}
+
+.pk-footer__form input::placeholder {
+  color: rgba(252, 247, 238, 0.72);
+}
+
+.pk-footer__pay-mark {
+  border-color: rgba(252, 247, 238, 0.46);
+  color: rgba(252, 247, 238, 0.86);
+}
