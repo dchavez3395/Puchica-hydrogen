@@ -46,7 +46,11 @@ export function HeroSplit() {
               {t('nav_sale')}
             </Link>
           </div>
-          <p className="pk-hero-split__trust">{t('hero_split_trust')}</p>
+          <div className="pk-hero-split__trust" aria-label={t('hero_store_stats_aria')}>
+            <span>{t('hero_trust_returns')}</span>
+            <span>{t('hero_trust_checkout')}</span>
+            <span>{t('hero_trust_canada')}</span>
+          </div>
           <dl
             className="pk-hero-split__stats"
             aria-label={t('hero_store_stats_aria')}
@@ -68,7 +72,10 @@ export function HeroSplit() {
 
         <div className="pk-hero-storefront">
           <div className="pk-hero-storefront__head">
-            <span>{t('home_shop_dept_eyebrow')}</span>
+            <div>
+              <span>{t('home_shop_dept_eyebrow')}</span>
+              <strong>{t('hero_storefront_title')}</strong>
+            </div>
             <Link to="/collections" prefetch="intent">
               {t('nav_all_products')}
             </Link>

@@ -1017,11 +1017,14 @@ export const DICTIONARIES = {
     // ── Homepage sections (Phase 1 redesign) ─────────────────
     hero_split_aria: 'Hero',
     hero_split_eyebrow: 'Curated in Toronto',
-    hero_split_heading: 'The good stuff, all in one place.',
-    hero_split_body: 'Shop active departments across home, beauty, tech, pet, outdoor, and more. Useful finds, clear pricing, and easy returns.',
+    hero_split_heading: 'Shop everyday finds for home, tech, pets, gifts, and more.',
+    hero_split_body: 'A cleaner way to browse useful products across the categories people actually shop. Start with a department, check new arrivals, or jump straight to deals.',
     hero_split_cta_primary: 'Shop best sellers',
     hero_split_cta_secondary: 'Browse all',
     hero_split_trust: 'Shipping options at checkout · 30-day returns · Support from real people',
+    hero_trust_returns: '30-day returns',
+    hero_trust_checkout: 'Secure Shopify checkout',
+    hero_trust_canada: 'Curated in Toronto',
     hero_showcase_bar: 'Shop by department →',
 
     shop_by_category_aria: 'Shop by category',
@@ -1127,6 +1130,7 @@ export const DICTIONARIES = {
     hero_store_stat_products: 'Catalog',
     hero_store_stat_departments: 'Departments',
     hero_store_stat_shipping: 'Shipping shown',
+    hero_storefront_title: 'Popular ways to shop',
 
     // ── Shop by category sub ──────────────────────────────────────
     shop_by_category_sub: 'Start with the departments that are live and ready to shop today.',
@@ -2114,11 +2118,14 @@ export const DICTIONARIES = {
     // ── Sections de la page d’accueil (redesign Phase 1) ─────────
     hero_split_aria: 'Hero',
     hero_split_eyebrow: 'Sélectionné à Toronto',
-    hero_split_heading: 'Le bon stock, au même endroit.',
-    hero_split_body: 'Magasinez les départements actifs : maison, beauté, tech, animaux, plein air et plus. Des trouvailles utiles, des prix clairs et des retours simples.',
+    hero_split_heading: 'Magasinez maison, tech, animaux, cadeaux et plus.',
+    hero_split_body: 'Une façon plus claire de parcourir les produits utiles dans les catégories vraiment magasinées. Commencez par un département, les nouveautés ou les offres.',
     hero_split_cta_primary: 'Voir les meilleures ventes',
     hero_split_cta_secondary: 'Tout parcourir',
     hero_split_trust: 'Options de livraison à la caisse · Retours 30 jours · Soutien humain',
+    hero_trust_returns: 'Retours 30 jours',
+    hero_trust_checkout: 'Paiement Shopify sécurisé',
+    hero_trust_canada: 'Sélectionné à Toronto',
     hero_showcase_bar: 'Magasiner par département →',
 
     shop_by_category_aria: 'Magasiner par catégorie',
@@ -2220,6 +2227,7 @@ export const DICTIONARIES = {
     hero_store_stat_products: 'Catalogue',
     hero_store_stat_departments: 'Départements',
     hero_store_stat_shipping: 'Livraison affichée',
+    hero_storefront_title: 'Façons populaires de magasiner',
     shop_by_category_sub: 'Commencez avec les départements en ligne et prêts à magasiner.',
 
 
@@ -3205,11 +3213,14 @@ export const DICTIONARIES = {
     // ── Secciones de la página de inicio (rediseño Fase 1) ──────────
     hero_split_aria: 'Hero',
     hero_split_eyebrow: 'Seleccionado en Toronto',
-    hero_split_heading: 'Lo bueno, todo en un solo lugar.',
-    hero_split_body: 'Compra departamentos activos de hogar, belleza, tecnología, mascotas, aire libre y más. Hallazgos útiles, precios claros y devoluciones sencillas.',
+    hero_split_heading: 'Compra hogar, tecnología, mascotas, regalos y más.',
+    hero_split_body: 'Una forma más clara de explorar productos útiles en categorías que la gente realmente compra. Empieza por departamento, novedades u ofertas.',
     hero_split_cta_primary: 'Ver los más vendidos',
     hero_split_cta_secondary: 'Ver todo',
     hero_split_trust: 'Opciones de envío al pagar · Devoluciones de 30 días · Soporte humano',
+    hero_trust_returns: 'Devoluciones de 30 días',
+    hero_trust_checkout: 'Pago seguro con Shopify',
+    hero_trust_canada: 'Seleccionado en Toronto',
     hero_showcase_bar: 'Comprar por departamento →',
 
     shop_by_category_aria: 'Comprar por categoría',
@@ -3311,6 +3322,7 @@ export const DICTIONARIES = {
     hero_store_stat_products: 'Catálogo',
     hero_store_stat_departments: 'Departamentos',
     hero_store_stat_shipping: 'Envío mostrado',
+    hero_storefront_title: 'Formas populares de comprar',
     shop_by_category_sub: 'Empieza por los departamentos activos y listos para comprar.',
 
 
@@ -4296,11 +4308,14 @@ export const DICTIONARIES = {
     // ── Seções da página inicial (redesign Fase 1) ────────────────
     hero_split_aria: 'Hero',
     hero_split_eyebrow: 'Selecionado em Toronto',
-    hero_split_heading: 'O bom, tudo num só lugar.',
-    hero_split_body: 'Compre departamentos ativos de casa, beleza, tech, pets, outdoor e mais. Achados úteis, preços claros e devoluções simples.',
+    hero_split_heading: 'Compre casa, tech, pets, presentes e mais.',
+    hero_split_body: 'Uma forma mais clara de navegar por produtos úteis nas categorias que as pessoas realmente compram. Comece por departamento, novidades ou ofertas.',
     hero_split_cta_primary: 'Ver mais vendidos',
     hero_split_cta_secondary: 'Ver tudo',
     hero_split_trust: 'Opções de frete no checkout · Devoluções em 30 dias · Suporte humano',
+    hero_trust_returns: 'Devoluções em 30 dias',
+    hero_trust_checkout: 'Checkout Shopify seguro',
+    hero_trust_canada: 'Selecionado em Toronto',
     hero_showcase_bar: 'Comprar por departamento →',
 
     shop_by_category_aria: 'Comprar por categoria',
@@ -4402,6 +4417,7 @@ export const DICTIONARIES = {
     hero_store_stat_products: 'Catálogo',
     hero_store_stat_departments: 'Departamentos',
     hero_store_stat_shipping: 'Frete exibido',
+    hero_storefront_title: 'Formas populares de comprar',
     shop_by_category_sub: 'Comece pelos departamentos ativos e prontos para comprar.',
 
 
