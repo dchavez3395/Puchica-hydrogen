@@ -345,7 +345,7 @@ function Toolbar({
     <div className="pk-toolbar">
       <div className="pk-toolbar__chips" aria-label={t('col_filters_aria')}>
         {showTypeChips
-          ? types.slice(0, 8).map(([name, n]) => {
+          ? types.slice(0, 5).map(([name, n]) => {
               const active = activeProductType === name;
               return (
                 <button
