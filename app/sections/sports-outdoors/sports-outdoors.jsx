@@ -1,3 +1,5 @@
+import {LocalizedLink as Link} from '~/components/LocalizedLink';
+import {ProductItem} from '~/components/ProductItem';
 import {ProductRail} from '~/components/ProductRail';
 import {useT} from '~/lib/t';
 
@@ -17,6 +19,40 @@ import {useT} from '~/lib/t';
  */
 export function SportsOutdoors({products = []}) {
   const t = useT();
+
+  if (!products.length) return null;
+
+  if (products.length <= 4) {
+    return (
+      <section
+        className="pk-section pk-section--sports pk-section--sports-static"
+        aria-label={t('sports_aria')}
+      >
+        <div className="pk-section__inner">
+          <div className="pk-section__head">
+            <div>
+              <span className="pk-eyebrow">{t('sports_eyebrow')}</span>
+              <h2 className="pk-section__h">{t('sports_heading')}</h2>
+            </div>
+            <Link
+              className="pk-section__link"
+              to="/collections/sports-outdoors"
+              prefetch="intent"
+            >
+              {t('sports_see_all')}
+            </Link>
+          </div>
+          <ul className="pk-sports-static-grid">
+            {products.map((product) => (
+              <li key={product.id}>
+                <ProductItem product={product} />
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section

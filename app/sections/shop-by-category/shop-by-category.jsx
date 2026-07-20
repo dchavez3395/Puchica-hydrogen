@@ -64,9 +64,6 @@ export function ShopByCategory({collections = []}) {
                     </span>
                     <h3 className="pk-stall__title">{collection.title}</h3>
                   </span>
-                  <span className="pk-stall__arrow" aria-hidden="true">
-                    -&gt;
-                  </span>
                 </Link>
               </li>
             );
