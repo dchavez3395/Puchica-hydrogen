@@ -113,7 +113,11 @@ export default function Index() {
       <JsonLdScript data={organizationJsonLd({})} />
       <JsonLdScript data={websiteJsonLd({})} />
 
-      <HeroSplit />
+      <Suspense fallback={<HeroSplit />}>
+        <Await resolve={data.bestSellers}>
+          {(products) => <HeroSplit products={products ?? []} />}
+        </Await>
+      </Suspense>
 
       <Suspense fallback={null}>
         <Await resolve={data.categories}>
