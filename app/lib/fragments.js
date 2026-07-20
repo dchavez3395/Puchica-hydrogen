@@ -340,6 +340,20 @@ export const HOME_BEST_SELLERS_QUERY = `#graphql
   }
 `;
 
+export const HOME_SALE_QUERY = `#graphql
+  ${HOME_PRODUCT_FRAGMENT}
+  query HomeSale(
+    $country: CountryCode!
+    $language: LanguageCode!
+  ) @inContext(country: $country, language: $language) {
+    sale: collection(handle: "sale") {
+      products(first: 8, sortKey: BEST_SELLING) {
+        nodes { ...HomeProduct }
+      }
+    }
+  }
+`;
+
 export const HOME_NEW_ARRIVALS_QUERY = `#graphql
   ${HOME_PRODUCT_FRAGMENT}
   query HomeNewArrivals(

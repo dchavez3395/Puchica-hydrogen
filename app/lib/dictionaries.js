@@ -1026,6 +1026,12 @@ export const DICTIONARIES = {
     hero_trust_checkout: 'Secure Shopify checkout',
     hero_trust_canada: 'Curated in Toronto',
     hero_showcase_bar: 'Shop by department →',
+    hero_popular_heading: 'Popular right now',
+
+    today_deals_aria: 'Today deals',
+    today_deals_eyebrow: 'Deals',
+    today_deals_heading: "Today's sharpest prices",
+    today_deals_see_all: 'Shop all deals',
 
     shop_by_category_aria: 'Shop by category',
     shop_by_category_eyebrow: 'Categories',

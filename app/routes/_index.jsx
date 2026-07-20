@@ -7,7 +7,7 @@ import {
 } from '~/sections/hero-split/hero-split';
 import {ShopByCategory} from '~/sections/shop-by-category/shop-by-category';
 import {BestSellers} from '~/sections/best-sellers/best-sellers';
-import {LifestyleBanner} from '~/sections/lifestyle-banner/lifestyle-banner';
+import {TodayDeals} from '~/sections/today-deals/today-deals';
 import {NewArrivals} from '~/sections/new-arrivals/new-arrivals';
 import {SportsOutdoors} from '~/sections/sports-outdoors/sports-outdoors';
 import {WorldCup} from '~/sections/world-cup/world-cup';
@@ -20,6 +20,7 @@ import {
   HOME_CATEGORIES_QUERY,
   HOME_SPORTS_QUERY,
   HOME_WORLD_CUP_QUERY,
+  HOME_SALE_QUERY,
 } from '~/lib/fragments';
 
 /** @type {Route.MetaFunction} */
@@ -78,6 +79,14 @@ function loadDeferredData({context}) {
       return [];
     });
 
+  const sale = context.storefront
+    .query(HOME_SALE_QUERY, {variables: {country, language}})
+    .then(unwrapProducts('sale'))
+    .catch((e) => {
+      logError('home sale query failed', e);
+      return [];
+    });
+
   const categories = context.storefront
     .query(HOME_CATEGORIES_QUERY, {variables: {country, language}})
     .then((res) => res?.categories?.nodes ?? [])
@@ -102,7 +111,7 @@ function loadDeferredData({context}) {
       return [];
     });
 
-  return {bestSellers, newArrivals, categories, sports, worldCup};
+  return {bestSellers, newArrivals, sale, categories, sports, worldCup};
 }
 
 export default function Index() {
@@ -114,8 +123,16 @@ export default function Index() {
       <JsonLdScript data={websiteJsonLd({})} />
 
       <Suspense fallback={<HeroSplit />}>
-        <Await resolve={data.bestSellers}>
-          {(products) => <HeroSplit products={products ?? []} />}
+        <Await resolve={Promise.all([data.bestSellers, data.categories])}>
+          {([products, categories]) => (
+            <HeroSplit products={products ?? []} categories={categories ?? []} />
+          )}
+        </Await>
+      </Suspense>
+
+      <Suspense fallback={null}>
+        <Await resolve={data.sale}>
+          {(products) => <TodayDeals products={products ?? []} />}
         </Await>
       </Suspense>
 
@@ -128,17 +145,6 @@ export default function Index() {
       <Suspense fallback={<BestSellers />}>
         <Await resolve={data.bestSellers}>
           {(products) => <BestSellers products={products ?? []} />}
-        </Await>
-      </Suspense>
-
-      <Suspense fallback={<LifestyleBanner />}>
-        <Await resolve={data.bestSellers}>
-          {(products) => (
-            <LifestyleBanner
-              image={pickLifestyleImage(products)}
-              link={pickLifestyleLink(products)}
-            />
-          )}
         </Await>
       </Suspense>
 
@@ -167,26 +173,6 @@ export default function Index() {
       <NewsletterFooter />
     </div>
   );
-}
-
-/**
- * Pick a lifestyle image from a *different* best-seller so the
- * hero and lifestyle never duplicate. Falls back to the second,
- * then the first, so the lifestyle section still gets an image
- * even when fewer than 3 best-sellers exist.
- */
-function pickLifestyleImage(products) {
-  return products?.[2]?.featuredImage
-    ?? products?.[1]?.featuredImage
-    ?? products?.[0]?.featuredImage
-    ?? null;
-}
-
-function pickLifestyleLink(products) {
-  const handle = products?.[2]?.handle
-    ?? products?.[1]?.handle
-    ?? products?.[0]?.handle;
-  return handle ? `/products/${handle}` : '/collections/home-kitchen';
 }
 
 /** @typedef {import('./+types/_index').Route} Route */
