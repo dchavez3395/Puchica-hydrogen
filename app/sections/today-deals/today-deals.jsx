@@ -10,7 +10,7 @@ import {useT} from '~/lib/t';
  */
 export function TodayDeals({products = []}) {
   const t = useT();
-  const items = products.slice(0, 4);
+  const items = products.slice(0, 5);
 
   if (!items.length) return null;
 

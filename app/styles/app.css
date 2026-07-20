@@ -12136,3 +12136,91 @@ main:has(> .pk-home) {
     min-height: 46px;
   }
 }
+
+/* Width consistency: homepage, header, and footer use the same retail rail. */
+:root {
+  --pk-store-gutter: clamp(18px, 4vw, 72px);
+}
+
+.pk-header__inner,
+.pk-home .pk-section__inner,
+.pk-section--hero-split .pk-section__inner,
+.pk-footer__inner,
+.pk-footer__bar {
+  width: 100%;
+  max-width: none !important;
+  padding-left: var(--pk-store-gutter) !important;
+  padding-right: var(--pk-store-gutter) !important;
+  box-sizing: border-box;
+}
+
+.pk-footer__inner,
+.pk-footer__bar {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.pk-home .pk-section__head {
+  width: 100%;
+}
+
+.pk-home .pk-product-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.pk-product-grid--deals {
+  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+}
+
+.pk-section--today-deals {
+  padding-top: 24px !important;
+}
+
+@media (max-width: 1280px) {
+  .pk-home .pk-product-grid,
+  .pk-product-grid--deals {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 860px) {
+  .pk-home .pk-product-grid,
+  .pk-product-grid--deals {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 700px) {
+  :root {
+    --pk-store-gutter: 18px;
+  }
+}
+
+/* Store hub composition: avoid the dead center gap on wide screens. */
+.pk-store-hero {
+  grid-template-columns: auto minmax(520px, 1fr) auto !important;
+  column-gap: clamp(18px, 3vw, 44px);
+}
+
+.pk-store-hero__intro {
+  min-width: 150px;
+}
+
+.pk-store-hero__search {
+  max-width: none !important;
+}
+
+.pk-store-hero__departments,
+.pk-store-hero__trust {
+  width: 100%;
+}
+
+@media (max-width: 980px) {
+  .pk-store-hero {
+    grid-template-columns: 1fr !important;
+  }
+
+  .pk-store-hero__intro {
+    min-width: 0;
+  }
+}
