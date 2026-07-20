@@ -1,21 +1,10 @@
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {useT} from '~/lib/t';
 
-const HERO_DEPARTMENTS = [
-  ['Home & Kitchen', '/collections/home-kitchen', 'Everyday home'],
-  ['Electronics', '/collections/electronics-accessories', 'Tech accessories'],
-  ['Apparel', '/collections/apparel-accessories', 'Wearable finds'],
-  ['Health & Wellness', '/collections/health-wellness', 'Care essentials'],
-  ['Pet Supplies', '/collections/pet-supplies', 'Pet picks'],
-  ['Sports & Outdoors', '/collections/sports-outdoors', 'Gear up'],
-  ['Beauty & Grooming', '/collections/beauty-personal-care', 'Self care'],
-  ['Tools & Home Improvement', '/collections/tools-home-improvement', 'Fix and upgrade'],
-];
-
 /**
- * Storefront hero: clear value prop, direct shopping paths, and a
- * department panel above the fold. Puchica is a broad ecommerce store,
- * so the hero should behave like a store entrance, not a brand poster.
+ * Storefront hero: a broad-store entrance, not a split promo panel.
+ * The first decision should be search or shop, with departments
+ * handled by the dedicated section immediately below.
  */
 export function HeroSplit() {
   const t = useT();
@@ -26,10 +15,25 @@ export function HeroSplit() {
       aria-label={t('hero_split_aria')}
     >
       <div className="pk-section__inner pk-hero-split">
-        <div className="pk-hero-split__copy">
+        <div className="pk-hero-split__content">
           <span className="pk-eyebrow">{t('hero_split_eyebrow')}</span>
           <h1 className="pk-hero-split__heading">{t('hero_split_heading')}</h1>
           <p className="pk-hero-split__body">{t('hero_split_body')}</p>
+
+          <form className="pk-hero-search" action="/search" method="get">
+            <label className="visually-hidden" htmlFor="hero-search">
+              {t('search_submit_label')}
+            </label>
+            <input
+              id="hero-search"
+              type="search"
+              name="q"
+              placeholder={t('search_placeholder')}
+              autoComplete="off"
+            />
+            <button type="submit">{t('search_submit_label')}</button>
+          </form>
+
           <div className="pk-hero-split__ctas">
             <Link
               to="/collections"
@@ -46,6 +50,22 @@ export function HeroSplit() {
               {t('nav_sale')}
             </Link>
           </div>
+
+          <nav className="pk-hero-quick" aria-label={t('hero_storefront_title')}>
+            <Link to="/collections/new-arrivals" prefetch="intent">
+              {t('nav_new_arrivals')}
+            </Link>
+            <Link to="/collections/best-sellers" prefetch="intent">
+              {t('nav_best_sellers')}
+            </Link>
+            <Link to="/collections/gifts-under-25" prefetch="intent">
+              {t('nav_gifts')}
+            </Link>
+            <Link to="/collections/home-kitchen" prefetch="intent">
+              Home & Kitchen
+            </Link>
+          </nav>
+
           <div className="pk-hero-split__trust" aria-label={t('hero_store_stats_aria')}>
             <span>{t('hero_trust_returns')}</span>
             <span>{t('hero_trust_checkout')}</span>
@@ -68,42 +88,6 @@ export function HeroSplit() {
               <dd>{t('hero_store_stat_shipping')}</dd>
             </div>
           </dl>
-        </div>
-
-        <div className="pk-hero-storefront">
-          <div className="pk-hero-storefront__head">
-            <div>
-              <span>{t('home_shop_dept_eyebrow')}</span>
-              <strong>{t('hero_storefront_title')}</strong>
-            </div>
-            <Link to="/collections" prefetch="intent">
-              {t('nav_all_products')}
-            </Link>
-          </div>
-          <div className="pk-hero-storefront__quick">
-            <Link to="/collections/new-arrivals" prefetch="intent">
-              {t('nav_new_arrivals')}
-            </Link>
-            <Link to="/collections/sale" prefetch="intent">
-              {t('nav_sale')}
-            </Link>
-            <Link to="/collections/best-sellers" prefetch="intent">
-              {t('nav_best_sellers')}
-            </Link>
-            <Link to="/collections/gifts-under-25" prefetch="intent">
-              {t('nav_gifts')}
-            </Link>
-          </div>
-          <ul className="pk-hero-storefront__departments">
-              {HERO_DEPARTMENTS.map(([label, href, hint]) => (
-                <li key={href}>
-                  <Link to={href} prefetch="intent">
-                    <span>{label}</span>
-                    <small>{hint}</small>
-                  </Link>
-                </li>
-              ))}
-          </ul>
         </div>
       </div>
     </section>
