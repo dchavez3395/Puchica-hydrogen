@@ -169,10 +169,6 @@ export default function Collection() {
       // Preference just won't persist.
     }
   };
-  // Storefront API doesn't expose a real totalCount on
-  // ProductConnection; "N+" (from hasNextPage) keeps the count honest.
-  const hasNextPage = Boolean(collection.products?.pageInfo?.hasNextPage);
-
   return (
     <div className="pk-collection pk-collection--bold">
       <header className="pk-col-hero pk-col-hero--bold">
@@ -202,11 +198,6 @@ export default function Collection() {
             <span className="pk-breadcrumbs__current">{collection.title}</span>
           </nav>
 
-          <span className="pk-col-hero__eyebrow">
-            {hasNextPage
-              ? `${count}+ ${count === 1 ? t('col_product_singular') : t('col_product_plural')}`
-              : `${count} ${count === 1 ? t('col_product_singular') : t('col_product_plural')}`}
-          </span>
           <h1 className="pk-col-hero__title">{collection.title}</h1>
           {collection.description ? (
             <p className="pk-col-hero__sub">{collection.description}</p>
@@ -251,8 +242,6 @@ export default function Collection() {
         <div className="pk-col-main">
           <Toolbar
             nodes={nodes}
-            count={count}
-            hasNextPage={hasNextPage}
             sortValue={sortValue}
             activeProductType={activeProductType}
             activePrice={activePrice}
@@ -297,8 +286,6 @@ export default function Collection() {
  */
 function Toolbar({
   nodes,
-  count,
-  hasNextPage,
   sortValue,
   activeProductType,
   activePrice,
@@ -392,10 +379,6 @@ function Toolbar({
       </div>
 
       <div className="pk-toolbar__controls">
-        <span className="pk-toolbar__count">
-          <strong>{count}{hasNextPage ? '+' : ''}</strong>{' '}
-          {count === 1 ? t('col_product_singular') : t('col_product_plural')}
-        </span>
         <label className="pk-toolbar__sort">
           {t('col_sort_by')}
           <select

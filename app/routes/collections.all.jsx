@@ -114,10 +114,6 @@ export default function Collection() {
   const sortValue = searchParams.get('sort') || 'featured';
   const nodes = products?.nodes ?? [];
   const count = nodes.length;
-  // We don't have a real totalCount on ProductConnection in the current
-  // Storefront API, so derive a "N+ products" framing from the page
-  // count and the hasNextPage flag.
-  const hasNextPage = Boolean(products?.pageInfo?.hasNextPage);
 
   return (
     <div className="pk-collection pk-collection--bold">
@@ -147,19 +143,6 @@ export default function Collection() {
       ) : (
         <div className="pk-col-main">
           <div className="pk-toolbar">
-            <span className="pk-toolbar__count">
-              {hasNextPage ? (
-                <>
-                  {t('col_count_of')} <strong>{count}+</strong>{' '}
-                  {count === 1 ? t('col_product_singular') : t('col_product_plural')}
-                </>
-              ) : (
-                <>
-                  <strong>{count}</strong>{' '}
-                  {count === 1 ? t('col_product_singular') : t('col_product_plural')}
-                </>
-              )}
-            </span>
             <label className="pk-toolbar__sort">
               {t('col_sort_by')}
               <select
