@@ -1019,6 +1019,7 @@ export const DICTIONARIES = {
     hero_split_eyebrow: 'Puchica Store',
     hero_split_heading: 'What are you shopping for today?',
     hero_split_body: 'Search the store or start with a department. New deals, best sellers, and everyday essentials are all one click away.',
+    hero_store_toolbar_heading: 'Shop Puchica',
     hero_split_cta_primary: 'Shop best sellers',
     hero_split_cta_secondary: 'Browse all',
     hero_split_trust: 'Shipping options at checkout · 30-day returns · Support from real people',
