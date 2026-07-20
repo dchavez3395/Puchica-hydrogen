@@ -1036,7 +1036,7 @@ export const DICTIONARIES = {
 
     shop_by_category_aria: 'Shop by category',
     shop_by_category_eyebrow: 'Categories',
-    shop_by_category_heading: 'Find your thing',
+    shop_by_category_heading: 'Shop by department',
     shop_by_category_shop_cta: 'Shop',
 
     best_sellers_aria: 'Best sellers',
