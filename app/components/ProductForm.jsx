@@ -205,6 +205,10 @@ export function ProductForm({productOptions, selectedVariant, product, onAddStar
       {/* First-order incentive, right under the buy button. */}
       {selectedVariant?.availableForSale ? <OfferCallout /> : null}
 
+      <p className="pk-product-form__microcopy">
+        Secure Shopify checkout. Discount codes and shipping options appear before payment.
+      </p>
+
       {/* Low-stock urgency */}
       {lowStock ? (
         <p className="pk-stock-urgency" aria-live="polite">

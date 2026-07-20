@@ -189,46 +189,41 @@ export default function Product() {
             />
           </div>
 
-          {/* ── Trust bar — the 3 honest dropshipping promises, right
-              below the add-to-cart button. Warm-styled badges, no
-              false "in stock now" claims. This is a dropshipping
-              store, so "Ships within 24 hours" is the honest framing. */}
-          <ul className="pk-product__trustbar" aria-label={t('product_perks_aria')}>
-            <li className="pk-product__trustbar-item">
-              <span className="pk-product__trustbar-icon" aria-hidden>
-                <IconTruck size={18} />
-              </span>
-              <span className="pk-product__trustbar-text">
-                <strong>Free shipping over $75</strong>
-              </span>
-            </li>
-            <li className="pk-product__trustbar-item">
-              <span className="pk-product__trustbar-icon" aria-hidden>
-                <IconReturn size={18} />
-              </span>
-              <span className="pk-product__trustbar-text">
-                <strong>30-day returns</strong>
-              </span>
-            </li>
-            <li className="pk-product__trustbar-item">
-              <span className="pk-product__trustbar-icon" aria-hidden>
-                <IconSparkles size={18} />
-              </span>
-              <span className="pk-product__trustbar-text">
-                <strong>Ships within 24 hours</strong>
-              </span>
-            </li>
-          </ul>
-
-          {/* ── Shipping promise well — the strongest care signal,
-              directly under the buy button (audit §4 buy-column order). */}
-          <div className="pk-product__promise" role="note">
-            <span className="pk-product__promise-icon" aria-hidden>
-              <IconSparkles size={16} />
-            </span>
-            <p className="pk-product__promise-text">
-              {t('product_perk_packed')}
-            </p>
+          <div className="pk-product__buyer-panel" aria-label="Buying details">
+            <div className="pk-product__buyer-panel-head">
+              <strong>Before you buy</strong>
+              <span>Clear policies, secure checkout, human support.</span>
+            </div>
+            <div className="pk-product__buyer-grid">
+              <Link to="/pages/shipping">
+                <IconTruck size={16} />
+                <span>
+                  <strong>Shipping</strong>
+                  <em>Canada free over $75</em>
+                </span>
+              </Link>
+              <Link to="/policies/refund-policy">
+                <IconReturn size={16} />
+                <span>
+                  <strong>Returns</strong>
+                  <em>30-day policy</em>
+                </span>
+              </Link>
+              <Link to="/pages/faq">
+                <IconShield size={16} />
+                <span>
+                  <strong>Checkout</strong>
+                  <em>Secured by Shopify</em>
+                </span>
+              </Link>
+              <Link to="/pages/contact">
+                <IconSparkles size={16} />
+                <span>
+                  <strong>Help</strong>
+                  <em>Real support</em>
+                </span>
+              </Link>
+            </div>
           </div>
 
           {/* ── Trust block: 4 rows of promise, neutral hairline chips. */}

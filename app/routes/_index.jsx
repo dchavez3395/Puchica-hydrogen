@@ -14,6 +14,7 @@ import {WorldCup} from '~/sections/world-cup/world-cup';
 import {TrustBar} from '~/sections/trust-bar/trust-bar';
 import {Reviews} from '~/sections/reviews/reviews';
 import {NewsletterFooter} from '~/sections/newsletter-footer/newsletter-footer';
+import {StoreConfidence} from '~/sections/store-confidence/store-confidence';
 import {
   HOME_BEST_SELLERS_QUERY,
   HOME_NEW_ARRIVALS_QUERY,
@@ -153,6 +154,8 @@ export default function Index() {
           {(products) => <NewArrivals products={products ?? []} />}
         </Await>
       </Suspense>
+
+      <StoreConfidence />
 
       <Suspense fallback={<SportsOutdoors />}>
         <Await resolve={data.sports}>
