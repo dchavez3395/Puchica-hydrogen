@@ -70,7 +70,7 @@ export const DICTIONARIES = {
     aside_heading_search: 'Search',
     aside_heading_menu: 'Menu',
     cart_loading: 'Loading cart …',
-    search_placeholder: 'Search products, collections, articles.',
+    search_placeholder: 'Search products...',
     search_aria_submit: 'Search',
     search_submit_label: 'Search',
     search_loading_for: 'Searching for “{term}”.',

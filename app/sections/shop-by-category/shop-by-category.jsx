@@ -1,23 +1,27 @@
+import {Image} from '@shopify/hydrogen';
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {useT} from '~/lib/t';
 
 /**
- * Department "stalls" — the signature of the mercadito-moderno
- * homepage. Each of the 8 top-level departments is a bold, solid
- * color block (no photo dependency), rotating through the market
- * palette: clay / jade / cobalt / marigold / rosa / violet. This
- * replaces the old photo-tile grid, so it never renders a broken
- * or empty image well.
+ * Department cards should feel like shopping entrances, not empty labels.
+ * Collection images are preferred; when Shopify collections have no image,
+ * the homepage query provides the first best-selling product image.
  *
  * @param {{
- *   collections: Array<{id: string; handle: string; title: string}>;
+ *   collections: Array<{
+ *     id: string;
+ *     handle: string;
+ *     title: string;
+ *     image?: {id: string; url: string; altText?: string; width?: number; height?: number} | null;
+ *     products?: {nodes?: Array<{featuredImage?: {id: string; url: string; altText?: string; width?: number; height?: number} | null}>};
+ *   }>;
  * }}
  */
 export function ShopByCategory({collections = []}) {
   const t = useT();
-  const stalls = collections.slice(0, 8);
+  const departments = collections.slice(0, 8);
 
-  if (!stalls.length) return null;
+  if (!departments.length) return null;
 
   return (
     <section
@@ -31,24 +35,42 @@ export function ShopByCategory({collections = []}) {
           <p className="pk-section__sub">{t('shop_by_category_sub')}</p>
         </div>
         <ul className="pk-stalls">
-          {stalls.map((col) => (
-            <li key={col.id} className="pk-stall">
-              <Link
-                to={`/collections/${col.handle}`}
-                className="pk-stall__link"
-                prefetch="intent"
-                aria-label={col.title}
-              >
-                <span className="pk-stall__label">
-                  {t('shop_by_category_shop_cta')}
-                </span>
-                <h3 className="pk-stall__title">{col.title}</h3>
-                <span className="pk-stall__arrow" aria-hidden="true">
-                  →
-                </span>
-              </Link>
-            </li>
-          ))}
+          {departments.map((collection) => {
+            const image =
+              collection.image ?? collection.products?.nodes?.[0]?.featuredImage;
+
+            return (
+              <li key={collection.id} className="pk-stall">
+                <Link
+                  to={`/collections/${collection.handle}`}
+                  className="pk-stall__link"
+                  prefetch="intent"
+                  aria-label={collection.title}
+                >
+                  {image ? (
+                    <span className="pk-stall__media" aria-hidden="true">
+                      <Image
+                        data={image}
+                        alt={image.altText || collection.title}
+                        aspectRatio="4/3"
+                        sizes="(min-width: 980px) 22vw, 50vw"
+                        loading="lazy"
+                      />
+                    </span>
+                  ) : null}
+                  <span className="pk-stall__content">
+                    <span className="pk-stall__label">
+                      {t('shop_by_category_shop_cta')}
+                    </span>
+                    <h3 className="pk-stall__title">{collection.title}</h3>
+                  </span>
+                  <span className="pk-stall__arrow" aria-hidden="true">
+                    -&gt;
+                  </span>
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </section>

@@ -10765,16 +10765,22 @@ main:has(> .pk-home) {
 }
 
 .pk-stalls {
-  gap: 14px;
+  gap: 16px;
 }
 
 .pk-stall__link,
 .pk-stall:nth-child(n) .pk-stall__link {
-  min-height: 132px;
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 118px;
+  align-items: stretch;
+  min-height: 150px;
+  padding: 0;
   border: 1px solid var(--pk-line);
   border-radius: 8px;
   background: #ffffff;
   color: var(--pk-ink);
+  overflow: hidden;
   box-shadow: 0 8px 26px rgba(16, 24, 40, 0.07);
 }
 
@@ -10790,7 +10796,35 @@ main:has(> .pk-home) {
   opacity: 1;
 }
 
+.pk-stall__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  min-width: 0;
+  padding: 18px;
+}
+
+.pk-stall__media {
+  display: block;
+  min-width: 0;
+  background: #eef2f7;
+}
+
+.pk-stall__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pk-stall__link:not(:has(.pk-stall__media)) {
+  grid-template-columns: 1fr;
+}
+
 .pk-stall__arrow {
+  position: absolute;
+  right: 16px;
+  bottom: 14px;
   color: var(--pk-ember);
 }
 
@@ -10928,10 +10962,10 @@ main:has(> .pk-home) {
 
 .pk-hero-split__content {
   display: grid;
-  grid-template-columns: minmax(340px, 0.78fr) minmax(0, 1.22fr);
+  grid-template-columns: minmax(380px, 0.88fr) minmax(360px, 0.72fr);
   align-items: center;
-  width: min(100%, 980px);
-  max-width: 1320px;
+  width: 100%;
+  max-width: 1440px;
   margin: 0 auto;
   text-align: left;
   gap: clamp(24px, 4vw, 56px);
@@ -11031,10 +11065,10 @@ main:has(> .pk-home) {
 }
 
 .pk-hero-merch {
-  display: grid;
-  grid-template-columns: minmax(240px, 1fr) minmax(220px, 0.86fr);
-  gap: 14px;
+  display: block;
   min-width: 0;
+  max-width: 520px;
+  justify-self: end;
 }
 
 .pk-hero-merch__feature,
@@ -11119,7 +11153,7 @@ main:has(> .pk-home) {
 }
 
 .pk-hero-merch__tiles {
-  display: grid;
+  display: none;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 14px;
 }
@@ -11267,8 +11301,8 @@ main:has(> .pk-home) {
 
   .pk-hero-merch {
     width: 100%;
-    grid-template-columns: 1fr;
-    gap: 10px;
+    max-width: none;
+    justify-self: stretch;
   }
 
   .pk-hero-merch__feature {
@@ -11298,5 +11332,15 @@ main:has(> .pk-home) {
   .pk-section--shop-by-category .pk-section__sub {
     max-width: none;
     margin-top: 8px;
+  }
+
+  .pk-stall__link,
+  .pk-stall:nth-child(n) .pk-stall__link {
+    grid-template-columns: minmax(0, 1fr) 112px;
+    min-height: 136px;
+  }
+
+  .pk-stall__content {
+    padding: 16px;
   }
 }

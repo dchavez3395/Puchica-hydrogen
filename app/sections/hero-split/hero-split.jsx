@@ -10,9 +10,8 @@ export function HeroSplit({products = []}) {
   const t = useT();
   const featuredProducts = products
     .filter((product) => product?.featuredImage)
-    .slice(0, 5);
+    .slice(0, 1);
   const leadProduct = featuredProducts[0];
-  const sideProducts = featuredProducts.slice(1, 5);
 
   return (
     <section
@@ -88,34 +87,6 @@ export function HeroSplit({products = []}) {
                 )}
               </span>
             </Link>
-
-            <div className="pk-hero-merch__tiles">
-              {sideProducts.map((product) => (
-                <Link
-                  key={product.id}
-                  to={`/products/${product.handle}`}
-                  prefetch="intent"
-                  className="pk-hero-merch__tile"
-                >
-                  <Image
-                    data={product.featuredImage}
-                    alt={product.featuredImage.altText || product.title}
-                    aspectRatio="1/1"
-                    sizes="(min-width: 980px) 160px, 45vw"
-                    loading="eager"
-                  />
-                  <span>{product.productType || t('nav_new_arrivals')}</span>
-                </Link>
-              ))}
-              <Link
-                to="/collections/sale"
-                prefetch="intent"
-                className="pk-hero-merch__tile pk-hero-merch__tile--deal"
-              >
-                <strong>{t('nav_sale')}</strong>
-                <span>{t('announce_cta')}</span>
-              </Link>
-            </div>
           </div>
 
           <div className="pk-hero-split__trust" aria-label={t('hero_store_stats_aria')}>
