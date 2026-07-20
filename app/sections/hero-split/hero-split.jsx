@@ -1,4 +1,3 @@
-import {Image, Money} from '@shopify/hydrogen';
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {useT} from '~/lib/t';
 
@@ -6,14 +5,11 @@ import {useT} from '~/lib/t';
  * Store-first homepage hero. The job here is not brand poetry; it is
  * orientation: search, jump into departments, and see live products fast.
  *
- * @param {{products?: Array<object>, categories?: Array<object>}}
+ * @param {{categories?: Array<object>}}
  */
-export function HeroSplit({products = [], categories = []}) {
+export function HeroSplit({categories = []}) {
   const t = useT();
-  const featuredProducts = products
-    .filter((product) => product?.featuredImage)
-    .slice(0, 4);
-  const quickDepartments = categories.slice(0, 6);
+  const quickDepartments = categories.slice(0, 8);
 
   return (
     <section
@@ -73,43 +69,6 @@ export function HeroSplit({products = [], categories = []}) {
                 </Link>
               ))}
             </nav>
-          ) : null}
-
-          {featuredProducts.length ? (
-            <div
-              className="pk-store-hero__shelf"
-              aria-label={t('hero_storefront_title')}
-            >
-              <div className="pk-store-hero__shelf-head">
-                <strong>{t('hero_popular_heading')}</strong>
-                <Link to="/collections/best-sellers" prefetch="intent">
-                  {t('best_sellers_see_all')}
-                </Link>
-              </div>
-              <ul className="pk-store-hero__products">
-                {featuredProducts.map((product) => (
-                  <li key={product.id}>
-                    <Link to={`/products/${product.handle}`} prefetch="intent">
-                      <Image
-                        data={product.featuredImage}
-                        alt={product.featuredImage.altText || product.title}
-                        aspectRatio="1/1"
-                        sizes="(min-width: 980px) 18vw, 45vw"
-                        loading="eager"
-                      />
-                      <span>
-                        <strong>{product.title}</strong>
-                        {product.priceRange?.minVariantPrice ? (
-                          <small>
-                            <Money data={product.priceRange.minVariantPrice} />
-                          </small>
-                        ) : null}
-                      </span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
           ) : null}
 
           <div className="pk-store-hero__trust" aria-label={t('hero_store_stats_aria')}>

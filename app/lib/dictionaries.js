@@ -1017,8 +1017,8 @@ export const DICTIONARIES = {
     // ── Homepage sections (Phase 1 redesign) ─────────────────
     hero_split_aria: 'Hero',
     hero_split_eyebrow: 'Puchica Store',
-    hero_split_heading: 'Shop useful finds, deals, and everyday essentials.',
-    hero_split_body: 'Discover fresh picks across home, tech, pets, wellness, gifts, and more.',
+    hero_split_heading: 'What are you shopping for today?',
+    hero_split_body: 'Search the store or start with a department. New deals, best sellers, and everyday essentials are all one click away.',
     hero_split_cta_primary: 'Shop best sellers',
     hero_split_cta_secondary: 'Browse all',
     hero_split_trust: 'Shipping options at checkout · 30-day returns · Support from real people',
