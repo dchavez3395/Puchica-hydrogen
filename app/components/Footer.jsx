@@ -108,7 +108,7 @@ export function Footer({header}) {
               editorial, not audited metrics. */}
           <div className="pk-footer__stats" aria-label={t('footer_stats_aria')}>
             <div className="pk-footer__stat">
-              <span className="pk-footer__stat-value">6,000+</span>
+              <span className="pk-footer__stat-value">Active</span>
               <span className="pk-footer__stat-label">{t('footer_stat_products')}</span>
             </div>
             <div className="pk-footer__stat">

@@ -488,17 +488,16 @@ img {
 .pk-product__hero-band {
   position: relative;
   margin: 0 calc(-1 * var(--page-gutter));
-  padding: 28px var(--page-gutter) 48px;
+  padding: 28px var(--page-gutter) 62px;
   background:
     radial-gradient(ellipse 60% 50% at 80% 0%, rgba(232, 160, 32, 0.06), transparent 60%),
     radial-gradient(ellipse 50% 40% at 15% 100%, rgba(190, 69, 30, 0.04), transparent 55%),
     linear-gradient(180deg, var(--pk-paper) 0%, var(--pk-cream) 100%);
-  border-bottom: 1px solid var(--pk-line);
+  border-bottom: none;
   isolation: isolate;
+  overflow: hidden;
 }
 .pk-product__hero-band::before {
-  /* Subtle warm grain/texture stand-in — a faint diagonal hatch of
-     tan lines so the band reads as warm paper, not flat fill. */
   content: '';
   position: absolute;
   inset: 0;
@@ -510,13 +509,33 @@ img {
     transparent 9px
   );
   pointer-events: none;
-  z-index: -1;
+  z-index: 0;
+  opacity: 0.5;
+}
+/* Festival stripe separator at bottom of product hero band */
+.pk-product__hero-band::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 14px;
+  background: repeating-linear-gradient(90deg,
+    var(--pk-ember) 0 24px,
+    var(--pk-marigold) 24px 48px,
+    var(--pk-jade) 48px 72px,
+    var(--pk-cobalt) 72px 96px,
+    var(--pk-rosa) 96px 120px,
+    var(--pk-violet) 120px 144px);
+  opacity: 1;
+  pointer-events: none;
+  z-index: 2;
 }
 .pk-product__hero-band-inner {
   max-width: var(--pk-inner-max, 1280px);
   margin: 0 auto;
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 /* The hero band replaces .pk-product's own top padding so the band
    owns the header rhythm. Pull the page-level padding up so the
@@ -4461,6 +4480,55 @@ button:focus-visible,
 }
 .pk-mega.is-open .pk-mega__chev { transform: rotate(180deg); }
 
+/* ── About dropdown (simple hover/click dropdown) ── */
+.pk-nav__dropdown {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+.pk-nav__dropdown .pk-nav__trigger {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.pk-nav__dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 180px;
+  background: var(--pk-paper);
+  border: 1px solid var(--pk-line, rgba(22,15,58,0.08));
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(23, 20, 16, 0.12);
+  padding: 8px;
+  display: none;
+  flex-direction: column;
+  gap: 2px;
+  z-index: 100;
+}
+.pk-nav__dropdown:hover .pk-nav__dropdown-menu,
+.pk-nav__dropdown:focus-within .pk-nav__dropdown-menu {
+  display: flex;
+}
+.pk-nav__dropdown-link {
+  display: block;
+  padding: 10px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--pk-ink);
+  transition: background 0.15s ease;
+}
+.pk-nav__dropdown-link:hover {
+  background: var(--pk-cream);
+}
+
 /*
 * ==================================================
 * Puchica â€” Footer micro-polish (payments + trust)
@@ -6846,22 +6914,26 @@ button:focus-visible,
   background: var(--pk-cream);
   padding: 48px 0 64px;
   position: relative;
+  overflow: hidden;
 }
 .pk-section--hero-split::before {
-  /* Warm textile-weave gradient stand-in (clay→marigold→jade tint).
-   * Real Antigravity image drops into this slot later. */
+  /* Volcanic landscape texture — faded Guatemalan sunrise with volcano
+   * silhouettes. Sits behind content at low opacity. */
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg,
-    rgba(190, 69, 30, 0.04) 0%,
-    rgba(232, 160, 32, 0.03) 40%,
-    rgba(14, 124, 91, 0.03) 100%);
+  background:
+    url('/bg-volcanic-texture.png') center bottom / cover no-repeat,
+    linear-gradient(135deg,
+      rgba(190, 69, 30, 0.04) 0%,
+      rgba(232, 160, 32, 0.03) 40%,
+      rgba(14, 124, 91, 0.03) 100%);
+  opacity: 0.5;
   pointer-events: none;
 }
-/* Bottom gradient separator — fades hero into the page body with a
- * warm ember→jade→ink tint. Sits as a thin band at the hero's
- * bottom edge, creating a visual handoff to the next section. */
+/* Bottom gradient separator — festival stripe pattern matching the
+ * collection page hero. Repeating 24px segments of the full palette
+ * (ember→marigold→jade→cobalt→rosa→violet) at full opacity. */
 .pk-section--hero-split::after {
   content: '';
   position: absolute;
@@ -6878,6 +6950,7 @@ button:focus-visible,
     var(--pk-violet) 120px 144px);
   opacity: 1;
   pointer-events: none;
+  z-index: 2;
 }
 
 .pk-hero-split {
@@ -6886,12 +6959,16 @@ button:focus-visible,
   gap: 32px;
   align-items: center;
   min-height: 500px;
+  position: relative;
+  z-index: 1;
 }
 
 .pk-hero-split__copy {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  position: relative;
+  z-index: 2;
 }
 
 .pk-hero-split__heading {
@@ -7342,6 +7419,7 @@ button:focus-visible,
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   position: relative;
+  z-index: 2;
   background: var(--pk-ink);
 }
 .pk-hero-awning span { display: block; }
@@ -7370,6 +7448,87 @@ button:focus-visible,
 }
 @media (max-width: 900px) {
   .pk-hero-awning { max-width: 420px; }
+}
+
+/* ── Hero showcase grid (ecommerce shop window) ── */
+.pk-hero-showcase {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 2px solid var(--pk-ink);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 12px 12px 0 var(--pk-cream);
+  background: var(--pk-ink);
+}
+.pk-hero-showcase__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+  background: var(--pk-ink);
+  flex: 1;
+}
+.pk-hero-showcase__tile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 22px 20px;
+  text-decoration: none;
+  min-height: 130px;
+  position: relative;
+  transition: transform 0.15s ease;
+}
+.pk-hero-showcase__tile:hover {
+  transform: scale(0.98);
+}
+.pk-hero-showcase__tile-label {
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+.pk-hero-showcase__tile-price {
+  font-size: 12px;
+  font-weight: 700;
+  opacity: 0.85;
+  margin-top: auto;
+}
+.pk-hero-showcase__tile-arrow {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  font-size: 16px;
+  font-weight: 800;
+  opacity: 0;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+.pk-hero-showcase__tile:hover .pk-hero-showcase__tile-arrow {
+  opacity: 0.7;
+  transform: translateX(2px);
+}
+.pk-hero-showcase__bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  background: var(--pk-paper);
+  border-top: 2px solid var(--pk-ink);
+}
+.pk-hero-showcase__logo {
+  height: 28px;
+  width: auto;
+  display: block;
+}
+.pk-hero-showcase__bar-text {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--pk-ink);
+}
+@media (max-width: 900px) {
+  .pk-hero-showcase { max-width: 420px; }
+  .pk-hero-showcase__grid { grid-template-columns: repeat(2, 1fr); }
+  .pk-hero-showcase__tile { min-height: 100px; padding: 16px 14px; }
+  .pk-hero-showcase__tile-label { font-size: 14px; }
 }
 
 /* ── Chunky "mercado" buttons — 2px border, bold, sentence case ── */
@@ -8019,14 +8178,18 @@ button:focus-visible,
   overflow: hidden;
 }
 .pk-section--newsletter::before {
-  /* Textile-weave gradient stand-in: warm clay base with a subtle
-   * marigold thread pattern from the top-right. */
+  /* Textile-weave + volcanic gradient:
+   *   - warm clay base with marigold thread pattern from top-right
+   *   - deep volcanic ember glow from bottom-center
+   *   - subtle jade from left (highland greenery) */
   content: '';
   position: absolute;
   inset: 0;
   background:
     radial-gradient(ellipse 60% 80% at 100% 0%, rgba(232, 160, 32, 0.22), transparent 55%),
-    radial-gradient(ellipse 50% 70% at 0% 100%, rgba(111, 48, 29, 0.25), transparent 50%);
+    radial-gradient(ellipse 50% 70% at 0% 100%, rgba(111, 48, 29, 0.25), transparent 50%),
+    radial-gradient(ellipse 40% 50% at 50% 100%, rgba(190, 69, 30, 0.15), transparent 60%),
+    linear-gradient(135deg, transparent 0%, rgba(14, 124, 91, 0.04) 50%, transparent 100%);
   pointer-events: none;
 }
 .pk-section--newsletter > .pk-section__inner { position: relative; z-index: 1; }
@@ -8155,19 +8318,18 @@ button:focus-visible,
   overflow: hidden;
 }
 .pk-section--brand-story::before {
-  /* Volcanic landscape gradient stand-in:
-   *   - ember/clay glow from the bottom (volcano base)
-   *   - jade green from the top-right (Lake Atitlán)
-   *   - marigold thread from the left (textile warmth)
-   * Low opacity so text stays readable. Real Antigravity duotone
-   * coffee/volcano/textile image drops into this exact slot. */
+  /* Mayan pyramid temple in jungle at golden hour — faded watercolor
+   * style. Layered with volcanic gradient (ember base, jade canopy,
+   * marigold thread). Low opacity so text stays readable. */
   content: '';
   position: absolute;
   inset: 0;
   background:
+    url('/bg-pyramid-temple.png') center / cover no-repeat,
     radial-gradient(ellipse 90% 50% at 50% 100%, rgba(190, 69, 30, 0.20), transparent 65%),
     radial-gradient(ellipse 60% 40% at 85% 15%, rgba(14, 124, 91, 0.15), transparent 55%),
     radial-gradient(ellipse 40% 60% at 0% 50%, rgba(232, 160, 32, 0.06), transparent 50%);
+  opacity: 0.4;
   pointer-events: none;
 }
 .pk-section--brand-story > .pk-section__inner { position: relative; z-index: 1; }
@@ -8212,6 +8374,138 @@ button:focus-visible,
   .pk-section--brand-story { padding: 56px 0; }
   .pk-brand-story__heading { font-size: 26px; }
   .pk-brand-story__body { font-size: 15px; }
+}
+
+/* ── World map ──────────────────────────────────────────────── */
+.pk-section--world-map {
+  background: var(--pk-ink);
+  color: var(--pk-paper);
+  padding: 56px 0 64px;
+  position: relative;
+  overflow: hidden;
+}
+.pk-section--world-map::before {
+  /* Volcanic gradient only — no texture image, keeps it clean on dark bg */
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 50% at 10% 100%, rgba(190, 69, 30, 0.15), transparent 60%),
+    radial-gradient(ellipse 60% 40% at 90% 0%, rgba(14, 124, 91, 0.10), transparent 55%);
+  pointer-events: none;
+}
+.pk-section--world-map > .pk-section__inner { position: relative; z-index: 1; }
+.pk-section--world-map .pk-eyebrow { color: var(--pk-marigold); }
+.pk-section--world-map .pk-section__h { color: var(--pk-paper); }
+.pk-section--world-map .pk-section__sub { color: rgba(252, 247, 238, 0.7); }
+.pk-world-map {
+  width: 100%;
+  margin: 28px auto 0;
+}
+.pk-world-map__legend {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.pk-world-map__legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(252, 247, 238, 0.75);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.pk-world-map__legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.pk-world-map__svg-wrap {
+  background: rgba(0, 0, 0, 0.25);
+  border-top: 1px solid rgba(252, 247, 238, 0.12);
+  border-bottom: 1px solid rgba(252, 247, 238, 0.12);
+  padding: 16px 24px;
+  overflow: hidden;
+  border-radius: 12px;
+}
+.pk-world-map__svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.pk-world-map__pin {
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+.pk-world-map__pin:hover .pk-world-map__pulse,
+.pk-world-map__pin.is-active .pk-world-map__pulse {
+  animation: pk-map-pulse 1.5s ease-out infinite;
+}
+@keyframes pk-map-pulse {
+  0% { transform: scale(1); opacity: 0.4; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+.pk-world-map__pin:focus-visible {
+  outline: 2px solid var(--pk-ink);
+  outline-offset: 4px;
+  border-radius: 50%;
+}
+.pk-world-map__tooltip text {
+  font-family: var(--pk-font-body, system-ui, sans-serif);
+  pointer-events: none;
+}
+
+/* Mobile: hide SVG, show list */
+.pk-world-map__list {
+  display: none;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 16px;
+}
+.pk-world-map__list-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(252, 247, 238, 0.15);
+  background: rgba(252, 247, 238, 0.06);
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--pk-paper);
+  flex-wrap: wrap;
+  max-width: 100%;
+}
+.pk-world-map__list-item.is-active {
+  border-color: var(--pk-marigold);
+  background: rgba(232, 160, 32, 0.12);
+}
+.pk-world-map__list-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.pk-world-map__list-blurb {
+  width: 100%;
+  font-size: 11px;
+  font-weight: 400;
+  color: rgba(252, 247, 238, 0.5);
+  padding-top: 4px;
+}
+
+@media (max-width: 700px) {
+  .pk-world-map__svg-wrap { display: none; }
+  .pk-world-map__list { display: flex; }
+  .pk-world-map__legend { margin-bottom: 12px; }
 }
 
 /* ── 10. coffee-spotlight — JADE BAND (Highland Coffee) ──────── */
@@ -8525,15 +8819,17 @@ main:has(> .pk-collection--bold) {
   isolation: isolate;
 }
 
-/* Warm radial gradient texture overlay */
+/* Volcanic texture + warm radial gradient overlay */
 .pk-col-hero--bold::before {
   content: '';
   position: absolute;
   inset: 0;
   background:
+    url('/bg-volcanic-texture.png') center bottom / cover no-repeat,
     radial-gradient(ellipse 50% 60% at 85% 20%, rgba(190, 69, 30, 0.10), transparent 60%),
     radial-gradient(ellipse 40% 50% at 10% 80%, rgba(14, 124, 91, 0.08), transparent 55%),
     radial-gradient(ellipse 30% 40% at 50% 50%, rgba(232, 160, 32, 0.05), transparent 50%);
+  opacity: 0.5;
   pointer-events: none;
   z-index: 0;
 }
@@ -10099,4 +10395,453 @@ main:has(> .pk-collection--bold) {
 .pk-search__recent-price {
   font-size: 13px;
   color: var(--pk-muted);
+}
+
+/* Storefront rescue pass - July 2026.
+   The previous warm cream / terracotta direction made Puchica feel like
+   an editorial mood board. This layer re-centers the UI on a full-width,
+   trustworthy ecommerce store while preserving the purple logo. */
+:root {
+  --pk-ink: #101828;
+  --pk-ink-hover: #1f2937;
+  --pk-paper: #ffffff;
+  --pk-cream: #f4f6fa;
+  --pk-line: #d9e0ea;
+  --pk-muted: #5b6676;
+  --pk-ember: #5b4dff;
+  --pk-ember-hover: #493ad8;
+  --pk-marigold: #0f766e;
+  --pk-jade: #0f766e;
+  --pk-cobalt: #2563eb;
+  --pk-rosa: #c0265a;
+  --pk-violet: #5b4dff;
+  --pk-bg: var(--pk-paper);
+  --pk-off-white: var(--pk-paper);
+  --pk-surface: var(--pk-cream);
+  --pk-border: var(--pk-line);
+  --pk-card-border: var(--pk-line);
+  --pk-cream-soft: #eef2f7;
+  --pk-cream-dark: #cbd5e1;
+  --pk-bg-soft: #f8fafc;
+  --pk-subtle: #f4f6fa;
+  --pk-muted-bg: #f4f6fa;
+  --pk-lime: #5b4dff;
+  --pk-lime-hover: #493ad8;
+  --pk-lime-pale: #eef2ff;
+  --pk-lime-dark: #493ad8;
+  --pk-spark: #5b4dff;
+  --pk-spark-hover: #493ad8;
+  --pk-spark-pale: #eef2ff;
+  --pk-violet-deep: #4b3bcc;
+  --pk-violet-pale: #eef2ff;
+  --pk-violet-card: #f4f6fa;
+  --pk-violet-border: #d9e0ea;
+  --pk-grad-hero: linear-gradient(135deg, #101828 0%, #1c2540 58%, #25314f 100%);
+  --pk-grad-card: linear-gradient(180deg, #ffffff 0%, #f4f6fa 100%);
+  --pk-focus-outline: 2px solid #5b4dff;
+}
+
+html,
+body {
+  background: var(--pk-white);
+}
+
+body > main,
+main:has(> .pk-home) {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pk-home {
+  width: 100%;
+  overflow: hidden;
+  background: var(--pk-white);
+}
+
+.pk-home .pk-section {
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.pk-section__inner,
+.pk-inner {
+  width: 100%;
+  max-width: 1440px;
+  padding-left: clamp(16px, 4vw, 64px);
+  padding-right: clamp(16px, 4vw, 64px);
+  box-sizing: border-box;
+}
+
+.pk-ann {
+  width: 100%;
+  background: #101828;
+  color: #ffffff;
+}
+
+.pk-header {
+  width: 100%;
+  background: var(--pk-white);
+  border-bottom: 1px solid var(--pk-line);
+  box-shadow: 0 1px 0 rgba(16, 24, 40, 0.04);
+}
+
+.pk-header__inner {
+  width: 100%;
+  max-width: none;
+  background: var(--pk-white);
+  padding-left: clamp(16px, 4vw, 64px);
+  padding-right: clamp(16px, 4vw, 64px);
+  box-sizing: border-box;
+}
+
+.pk-header.is-scrolled .pk-header__inner {
+  background: rgba(255, 255, 255, 0.96);
+  border-color: var(--pk-line);
+}
+
+.pk-nav__link:hover,
+.pk-mega__trigger:hover,
+.pk-icon-btn:hover {
+  color: var(--pk-ember);
+}
+
+.pk-icon-btn:hover {
+  background: #eef2ff;
+}
+
+.pk-section--hero-split {
+  background:
+    radial-gradient(760px 520px at 78% 42%, rgba(91, 77, 255, 0.22), transparent 68%),
+    linear-gradient(135deg, #101828 0%, #151b31 52%, #202945 100%);
+  color: #ffffff;
+  padding: clamp(48px, 6vw, 84px) 0;
+  overflow: hidden;
+}
+
+.pk-section--hero-split::before,
+.pk-section--hero-split::after {
+  content: none;
+  display: none;
+}
+
+.pk-hero-split {
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  gap: clamp(28px, 4vw, 64px);
+  min-height: auto;
+  align-items: center;
+}
+
+.pk-hero-split > * {
+  min-width: 0;
+}
+
+.pk-hero-split__copy {
+  max-width: 680px;
+  gap: 20px;
+}
+
+.pk-hero-split__copy .pk-eyebrow {
+  background: rgba(91, 77, 255, 0.18);
+  border: 1px solid rgba(199, 210, 254, 0.28);
+  color: #dbe4ff;
+  border-radius: 999px;
+}
+
+.pk-hero-split__heading {
+  color: #ffffff;
+  font-size: clamp(44px, 6.2vw, 86px);
+  letter-spacing: 0;
+  line-height: 0.98;
+}
+
+.pk-hero-split__body,
+.pk-hero-split__trust {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.pk-hero-split__body {
+  font-size: clamp(16px, 1.35vw, 19px);
+}
+
+.pk-hero-split__ctas .pk-btn--ink {
+  background: var(--pk-white);
+  border-color: var(--pk-white);
+  color: var(--pk-ink);
+}
+
+.pk-hero-split__ctas .pk-btn--ink:hover {
+  background: #eef2ff;
+  border-color: #eef2ff;
+  color: var(--pk-ink);
+}
+
+.pk-hero-split__ctas .pk-btn--outline {
+  border-color: rgba(255, 255, 255, 0.46);
+  color: #ffffff;
+}
+
+.pk-hero-split__ctas .pk-btn--outline:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #ffffff;
+}
+
+.pk-hero-split__stats {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  padding-top: 0;
+}
+
+.pk-hero-split__stats div {
+  padding: 13px 16px;
+}
+
+.pk-hero-split__stats div + div {
+  border-left: 1px solid rgba(255, 255, 255, 0.14);
+  padding-left: 16px;
+}
+
+.pk-hero-split__stats dt {
+  color: #ffffff;
+  font-size: clamp(20px, 2vw, 28px);
+}
+
+.pk-hero-split__stats dd {
+  color: rgba(255, 255, 255, 0.68);
+}
+
+.pk-hero-storefront {
+  background: var(--pk-white);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.28);
+  overflow: hidden;
+  min-width: 0;
+}
+
+.pk-hero-storefront__head {
+  min-height: 58px;
+  background: var(--pk-white);
+  border-bottom: 1px solid var(--pk-line);
+}
+
+.pk-hero-storefront__head span {
+  color: var(--pk-ink);
+}
+
+.pk-hero-storefront__head a {
+  color: var(--pk-ember);
+  min-width: max-content;
+}
+
+.pk-hero-storefront__quick {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  border-bottom: 1px solid var(--pk-line);
+  background: #f8fafc;
+}
+
+.pk-hero-storefront__quick a {
+  min-height: 54px;
+  display: grid;
+  place-items: center;
+  padding: 10px;
+  color: var(--pk-ink);
+  font-size: 13px;
+  font-weight: 800;
+  text-align: center;
+  text-decoration: none;
+  border-right: 1px solid var(--pk-line);
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.pk-hero-storefront__quick a:last-child {
+  border-right: 0;
+}
+
+.pk-hero-storefront__quick a:hover {
+  background: #eef2ff;
+  color: var(--pk-ember);
+}
+
+.pk-hero-storefront__departments {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pk-hero-storefront__departments li {
+  border-bottom: 1px solid var(--pk-line);
+  border-right: 1px solid var(--pk-line);
+}
+
+.pk-hero-storefront__departments li:nth-child(2n) {
+  border-right: 0;
+}
+
+.pk-hero-storefront__departments li:nth-last-child(-n + 2) {
+  border-bottom: 0;
+}
+
+.pk-hero-storefront__departments a {
+  min-height: 78px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  padding: 14px 18px;
+  color: var(--pk-ink);
+  text-decoration: none;
+  min-width: 0;
+}
+
+.pk-hero-storefront__departments a:hover {
+  background: #f8fafc;
+}
+
+.pk-hero-storefront__departments span {
+  font-size: 15px;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+
+.pk-hero-storefront__departments small {
+  color: var(--pk-muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.pk-section--shop-by-category {
+  background: #ffffff;
+}
+
+.pk-section--shop-by-category::before {
+  content: none;
+  display: none;
+}
+
+.pk-stalls {
+  gap: 14px;
+}
+
+.pk-stall__link,
+.pk-stall:nth-child(n) .pk-stall__link {
+  min-height: 132px;
+  border: 1px solid var(--pk-line);
+  border-radius: 8px;
+  background: #ffffff;
+  color: var(--pk-ink);
+  box-shadow: 0 8px 26px rgba(16, 24, 40, 0.07);
+}
+
+.pk-stall__link:hover,
+.pk-stall:nth-child(n) .pk-stall__link:hover {
+  background: #f8fafc;
+  box-shadow: 0 12px 32px rgba(16, 24, 40, 0.1);
+  transform: translateY(-2px);
+}
+
+.pk-stall__label {
+  color: var(--pk-muted);
+  opacity: 1;
+}
+
+.pk-stall__arrow {
+  color: var(--pk-ember);
+}
+
+.pk-section--best-sellers,
+.pk-section--lifestyle-banner,
+.pk-section--sports-outdoors,
+.pk-section--trust-bar {
+  background: #ffffff;
+}
+
+.pk-section--new-arrivals,
+.pk-section--world-cup,
+.pk-section--reviews {
+  background: #f8fafc;
+}
+
+.pk-section--newsletter-footer {
+  background: #101828;
+}
+
+@media (max-width: 980px) {
+  .pk-hero-split {
+    grid-template-columns: 1fr;
+  }
+
+  .pk-hero-storefront {
+    max-width: 720px;
+  }
+}
+
+@media (max-width: 640px) {
+  .pk-section__inner,
+  .pk-inner,
+  .pk-header__inner {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .pk-section--hero-split {
+    padding: 40px 0;
+  }
+
+  .pk-hero-split__heading {
+    font-size: clamp(38px, 13vw, 52px);
+  }
+
+  .pk-hero-split__stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .pk-hero-split__stats div {
+    padding: 12px 10px;
+  }
+
+  .pk-hero-split__stats dt {
+    font-size: 22px;
+  }
+
+  .pk-hero-split__stats dd {
+    font-size: 11px;
+  }
+
+  .pk-hero-storefront__quick,
+  .pk-hero-storefront__departments {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .pk-hero-split__stats div + div {
+    border-left: 1px solid rgba(255, 255, 255, 0.14);
+  }
+
+  .pk-hero-storefront__quick a,
+  .pk-hero-storefront__departments li {
+    border-left: 0;
+    border-right: 0;
+  }
+
+  .pk-hero-storefront__quick a:nth-child(odd),
+  .pk-hero-storefront__departments li:nth-child(odd) {
+    border-right: 1px solid var(--pk-line);
+  }
+
+  .pk-hero-storefront__departments li:nth-last-child(-n + 2) {
+    border-bottom: 0;
+  }
+
+  .pk-hero-storefront__departments a {
+    min-height: 86px;
+    padding: 12px 14px;
+  }
 }

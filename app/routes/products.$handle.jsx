@@ -117,27 +117,27 @@ export default function Product() {
       />
       <JsonLdScript data={breadcrumbJsonLd(buildBreadcrumbItems(product, title, t))} />
 
-      <nav className="pk-breadcrumbs pk-product__crumbs" aria-label={t('breadcrumb_aria')}>
-        <Link to="/">{t('breadcrumb_home')}</Link>
-        <span className="pk-breadcrumbs__sep">/</span>
-        <Link to="/collections/all">{t('breadcrumb_shop')}</Link>
-        {product.productType ? (
-          <>
-            <span className="pk-breadcrumbs__sep">/</span>
-            <Link to={`/collections/${productTypeSlug(product.productType)}`}>
-              {product.productType}
-            </Link>
-          </>
-        ) : null}
-        <span className="pk-breadcrumbs__sep">/</span>
-        <span className="pk-breadcrumbs__current">{title}</span>
-      </nav>
-
-      {/* ── Top: gallery + sticky buy box ──
-          Full-bleed warm cream header with subtle gradient texture so
-          the product hero sits on the warm paper, not flat white. */}
+      {/* ── Product hero band — full-bleed warm header with volcanic
+          texture, breadcrumbs, festival stripe separator. Contains
+          the breadcrumbs + gallery + buy column. */}
       <div className="pk-product__hero-band">
         <div className="pk-product__hero-band-inner">
+          <nav className="pk-breadcrumbs pk-product__crumbs" aria-label={t('breadcrumb_aria')}>
+            <Link to="/">{t('breadcrumb_home')}</Link>
+            <span className="pk-breadcrumbs__sep">/</span>
+            <Link to="/collections/all">{t('breadcrumb_shop')}</Link>
+            {product.productType ? (
+              <>
+                <span className="pk-breadcrumbs__sep">/</span>
+                <Link to={`/collections/${productTypeSlug(product.productType)}`}>
+                  {product.productType}
+                </Link>
+              </>
+            ) : null}
+            <span className="pk-breadcrumbs__sep">/</span>
+            <span className="pk-breadcrumbs__current">{title}</span>
+          </nav>
+
           <div className="pk-product__top">
             <ProductImage
               images={galleryImages}

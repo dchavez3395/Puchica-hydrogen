@@ -132,14 +132,19 @@ export function HeaderMenu({menu, megaMenu, primaryDomainUrl, viewport, publicSt
   const {close} = useAside();
   const t = useT();
 
-  // Desktop: fully controlled, commerce-first order (audit §4 nav spec):
-  // category mega menu, then the two highest-converting entries, then
-  // Sale — the only colored item in the nav, so ember keeps meaning
-  // "money" everywhere it appears.
+  // Desktop: commerce-first nav with two dropdowns:
+  // Shop (mega menu with categories + collections) and About (info pages).
   const desktopNav = [
     {id: 'dn-new', title: t('nav_new_arrivals'), url: '/collections/new-arrivals'},
     {id: 'dn-best', title: t('nav_best_sellers'), url: '/collections/best-sellers'},
     {id: 'dn-sale', title: t('nav_sale'), url: '/collections/sale', sale: true},
+  ];
+  const aboutLinks = [
+    {id: 'al-about', title: t('nav_about'), url: '/pages/about'},
+    {id: 'al-faq', title: t('nav_faq'), url: '/pages/faq'},
+    {id: 'al-shipping', title: t('nav_shipping'), url: '/pages/shipping'},
+    {id: 'al-explore', title: t('nav_explore'), url: '/explore'},
+    {id: 'al-contact', title: t('nav_contact'), url: '/pages/contact'},
   ];
   const mobileExtraNav = [
     {id: 'mn-new', title: t('nav_new_arrivals'), url: '/collections/new-arrivals'},
@@ -166,6 +171,24 @@ export function HeaderMenu({menu, megaMenu, primaryDomainUrl, viewport, publicSt
             {item.title}
           </NavLink>
         ))}
+        <div className="pk-nav__dropdown">
+          <button className="pk-nav__link pk-nav__trigger" type="button">
+            {t('nav_about')} <span aria-hidden="true">▾</span>
+          </button>
+          <div className="pk-nav__dropdown-menu">
+            {aboutLinks.map((item) => (
+              <NavLink
+                key={item.id}
+                className="pk-nav__dropdown-link"
+                to={item.url}
+                onClick={close}
+                prefetch="intent"
+              >
+                {item.title}
+              </NavLink>
+            ))}
+          </div>
+        </div>
       </nav>
     );
   }

@@ -5,12 +5,10 @@ import {puchicaMeta, organizationJsonLd, websiteJsonLd, JsonLdScript} from '~/li
 import {
   HeroSplit,
 } from '~/sections/hero-split/hero-split';
-import {TextileShowcase} from '~/sections/textile-showcase/textile-showcase';
+import {ShopByCategory} from '~/sections/shop-by-category/shop-by-category';
 import {BestSellers} from '~/sections/best-sellers/best-sellers';
 import {LifestyleBanner} from '~/sections/lifestyle-banner/lifestyle-banner';
 import {NewArrivals} from '~/sections/new-arrivals/new-arrivals';
-import {BrandStory} from '~/sections/brand-story/brand-story';
-import {HowWeCurate} from '~/sections/how-we-curate/how-we-curate';
 import {SportsOutdoors} from '~/sections/sports-outdoors/sports-outdoors';
 import {WorldCup} from '~/sections/world-cup/world-cup';
 import {TrustBar} from '~/sections/trust-bar/trust-bar';
@@ -29,7 +27,7 @@ export const meta = ({params}) => {
   return puchicaMeta({
     title: 'Puchica – The good stuff. All in one place.',
     description:
-      'Puchica: 6,000+ products across home, beauty, tech, pet, and more. Curated in Toronto. Free shipping across Canada, 30-day returns.',
+      'Puchica: active departments across home, beauty, tech, pet, outdoor, and more. Curated in Toronto. Shipping across Canada, 30-day returns.',
     pathname: '/',
     langKey: params?.locale,
   });
@@ -117,6 +115,12 @@ export default function Index() {
 
       <HeroSplit />
 
+      <Suspense fallback={null}>
+        <Await resolve={data.categories}>
+          {(nodes) => <ShopByCategory collections={nodes ?? []} />}
+        </Await>
+      </Suspense>
+
       <Suspense fallback={<BestSellers />}>
         <Await resolve={data.bestSellers}>
           {(products) => <BestSellers products={products ?? []} />}
@@ -140,14 +144,6 @@ export default function Index() {
         </Await>
       </Suspense>
 
-      <Suspense fallback={<TextileShowcase />}>
-        <Await resolve={data.categories}>
-          {(nodes) => <TextileShowcase collections={nodes ?? []} />}
-        </Await>
-      </Suspense>
-
-      <BrandStory />
-
       <Suspense fallback={<SportsOutdoors />}>
         <Await resolve={data.sports}>
           {(products) => <SportsOutdoors products={products ?? []} />}
@@ -159,8 +155,6 @@ export default function Index() {
           {(products) => <WorldCup products={products ?? []} />}
         </Await>
       </Suspense>
-
-      <HowWeCurate />
 
       <TrustBar />
 

@@ -10,7 +10,7 @@ export const meta = ({params}) =>
   puchicaMeta({
     title: 'About Puchica – The good stuff, handpicked.',
     description:
-      "We're picky about what makes the catalog. If we wouldn't buy it ourselves, it doesn't go up. 6,000+ products, handpicked with care.",
+      "We're picky about what makes the catalog. If we wouldn't buy it ourselves, it doesn't go up. Useful products, handpicked with care.",
     pathname: '/pages/about',
     langKey: params?.locale,
   });

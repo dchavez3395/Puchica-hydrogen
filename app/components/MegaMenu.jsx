@@ -23,7 +23,6 @@ import {useT} from '~/lib/t';
 // Ordered category handles (largest departments first). These must be
 // published to the Puchica Storefront channel in Shopify admin.
 const CATEGORY_HANDLES = [
-  'phone-case',
   'home-kitchen',
   'electronics-accessories',
   'apparel-accessories',
@@ -34,7 +33,6 @@ const CATEGORY_HANDLES = [
   'automotive',
   'tools-home-improvement',
   'toys-games',
-  'home-decor',
   'office-school',
   'baby-nursery',
   'outdoor-garden',
@@ -161,7 +159,6 @@ function MegaMenuPanel({data, onNavigate}) {
   const quickLinks = [
     {id: 'q-new', title: t('nav_new_arrivals'), url: '/collections/new-arrivals'},
     {id: 'q-sale', title: t('nav_sale'), url: '/collections/sale', sale: true},
-    {id: 'q-wc', title: t('world_cup_heading'), url: '/collections/world-cup'},
     {id: 'q-gifts', title: t('nav_gifts'), url: '/collections/gifts-under-25'},
     {id: 'q-all', title: t('nav_all_products'), url: '/collections/all'},
   ];

@@ -416,12 +416,12 @@ export const HOME_CATEGORIES_QUERY = `#graphql
     $country: CountryCode!
     $language: LanguageCode!
   ) @inContext(country: $country, language: $language) {
-    # 8 hard-coded top-level category handles. The Storefront API
-    # does not sort Collection by productsCount, so we list them
-    # by hand to keep the visual order stable.
+    # 8 storefront-active top-level category handles. The Storefront API
+    # does not sort Collection by productsCount, so we list them by hand
+    # to keep the visual order stable and avoid empty/deleted departments.
     categories: collections(
       first: 8
-      query: "handle:phone-case OR handle:home-kitchen OR handle:electronics-accessories OR handle:apparel-accessories OR handle:health-wellness OR handle:sports-outdoors OR handle:pet-supplies OR handle:outdoor-garden"
+      query: "handle:home-kitchen OR handle:electronics-accessories OR handle:apparel-accessories OR handle:health-wellness OR handle:sports-outdoors OR handle:pet-supplies OR handle:beauty-personal-care OR handle:tools-home-improvement"
     ) {
       nodes { ...HomeCategoryTile }
     }
