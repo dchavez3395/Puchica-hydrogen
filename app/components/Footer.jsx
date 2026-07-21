@@ -39,17 +39,6 @@ const SOCIAL = [
   },
 ].filter((s) => SOCIAL_PROFILES.includes(s.urlKey));
 
-// Payment marks as styled text "chips" — no third-party brand assets, no
-// real integration here. Real checkout is still handled by Shopify (PCI).
-const PAYMENTS = [
-  {label: 'Visa'},
-  {label: 'Mastercard'},
-  {label: 'Amex'},
-  {label: 'PayPal'},
-  {label: 'Apple Pay'},
-  {label: 'Shop Pay'},
-];
-
 /**
  * @param {FooterProps}
  */
@@ -78,17 +67,6 @@ export function Footer({header}) {
                 <Icon size={18} />
               </a>
             ))}
-          </div>
-
-          <div className="pk-footer__pay" aria-label={t('footer_payments_aria')}>
-            <span className="pk-footer__pay-label">{t('footer_accepted_payments')}</span>
-            <ul className="pk-footer__pay-list" aria-label={t('footer_payments_list_aria')}>
-              {PAYMENTS.map((p) => (
-                <li key={p.label} className="pk-footer__pay-mark">
-                  {p.label}
-                </li>
-              ))}
-            </ul>
           </div>
 
           <address className="pk-footer__address">

@@ -4574,32 +4574,6 @@ button:focus-visible,
 * Puchica â€” Footer micro-polish (payments + trust)
 * ==================================================
 */
-.pk-footer__pay {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 16px;
-}
-.pk-footer__pay-label {
-  font-size: 12px;
-  color: var(--pk-muted);
-  width: 100%;
-  margin: 0 0 2px;
-}
-.pk-footer__pay-mark {
-  height: 22px;
-  padding: 0 8px;
-  border-radius: 6px;
-  background: var(--pk-paper);
-  border: 1px solid var(--pk-border);
-  display: grid;
-  place-items: center;
-  color: var(--pk-ink);
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-}
 .pk-footer__secure {
   display: inline-flex;
   align-items: center;
@@ -5577,26 +5551,8 @@ button:focus-visible,
   padding: 0;
 }
 
-/* ---------- Footer payment chips as list ---------- */
-.pk-footer__pay-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-.pk-footer__pay-mark {
-  display: inline-block;
-  font-size: 12px;
-  font-weight: 600;
-  color: rgba(242, 235, 218, 0.6);
-  background: rgba(242, 235, 218, 0.08);
-  padding: 4px 8px;
-  border-radius: 6px;
-}
 .pk-footer__address {
-  margin-top: 14px;
+  margin-top: 20px;
   font-size: 13px;
   font-style: normal;
   color: rgba(242, 235, 218, 0.5);
@@ -12422,7 +12378,6 @@ main:has(> .pk-home) {
 
 .pk-footer__tagline,
 .pk-footer__newsletter p,
-.pk-footer__pay-label,
 .pk-footer__address,
 .pk-footer__secure,
 .pk-footer__stat-label {
@@ -12465,11 +12420,6 @@ main:has(> .pk-home) {
 .pk-footer__form button:hover {
   background: #8b7dff !important;
   border-color: #8b7dff !important;
-}
-
-.pk-footer__pay-mark {
-  border-color: #94a3b8;
-  color: #f8fafc;
 }
 
 /* Department grid refinement: compact, scannable ecommerce entrances. */
