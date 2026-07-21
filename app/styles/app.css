@@ -3390,28 +3390,69 @@ button:focus-visible,
   .pk-card--has-hover .pk-card__image--hover { display: none; }
 }
 
-/* Color swatch row. Each <li> is a 16px circle. When `swatch.color`
- * is set by the fragment, the inline style paints it. Without that,
- * the swatch falls back to a cream fill so the row is still a
- * deterministic height and doesn't shift the price/cart below. */
+/* Variant option row. These used to be anonymous dots, which made
+ * products with color/size choices look broken when Shopify had no
+ * swatch metadata. Chips keep the option name visible; color options
+ * also get a small marker when we have a swatch or a recognizable color
+ * name. */
 .pk-card__swatches {
   list-style: none;
-  margin: 4px 0 0;
+  margin: 6px 0 0;
   padding: 0;
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 5px;
+  max-height: 46px;
+  overflow: hidden;
 }
 .pk-card__swatch {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: var(--pk-cream);
-  border: 1px solid var(--pk-line);
+  min-width: 0;
+  max-width: 82px;
+  min-height: 22px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid rgba(22, 15, 58, 0.14);
+  color: var(--pk-ink);
   box-sizing: border-box;
   flex: 0 0 auto;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.2;
 }
-.pk-card__swatch:hover { transform: scale(1.1); }
+.pk-card__swatch--color::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  flex: 0 0 10px;
+  border-radius: 50%;
+  background: var(--pk-chip-color);
+  border: 1px solid rgba(22, 15, 58, 0.22);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+}
+.pk-card__swatch--color-option:not(.pk-card__swatch--color)::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  flex: 0 0 10px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #5B35E6, #08745F 52%, #C11574);
+  border: 1px solid rgba(22, 15, 58, 0.16);
+}
+.pk-card__swatch-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pk-card__swatch--more {
+  color: var(--pk-muted);
+  background: var(--pk-surface);
+}
+.pk-card__swatch:hover { border-color: rgba(91, 53, 230, 0.42); }
 @media (prefers-reduced-motion: reduce) {
   .pk-card__swatch:hover { transform: none; }
 }

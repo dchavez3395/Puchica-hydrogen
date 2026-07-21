@@ -203,6 +203,14 @@ const COLLECTION_ITEM_FRAGMENT = `#graphql
       minVariantPrice { ...MoneyCollectionItem }
       maxVariantPrice { ...MoneyCollectionItem }
     }
+    options(first: 1) {
+      name
+      values
+      optionValues {
+        name
+        swatch { color }
+      }
+    }
     variants(first: 1) {
       nodes {
         id

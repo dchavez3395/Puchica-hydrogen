@@ -493,7 +493,7 @@ export const DICTIONARIES = {
 
     // ── Product card ──────────────────────────────────────────────
     card_view_details: 'View details',
-    card_swatches_aria: 'Color options',
+    card_swatches_aria: 'Product options',
     card_quick_add_aria: 'Quick add',
 
     // ── Header / nav chrome ───────────────────────────────────────
@@ -1561,7 +1561,7 @@ export const DICTIONARIES = {
     search_pages_aria: 'Résultats de pages',
     search_products_aria: 'Résultats de produits',
     card_view_details: 'Voir les détails',
-    card_swatches_aria: 'Options de couleur',
+    card_swatches_aria: 'Options du produit',
     card_quick_add_aria: 'Ajout rapide',
 
     // ── Chrome en-tête / navigation ──────────────────────────────
@@ -2656,7 +2656,7 @@ export const DICTIONARIES = {
     search_pages_aria: 'Resultados de páginas',
     search_products_aria: 'Resultados de productos',
     card_view_details: 'Ver detalles',
-    card_swatches_aria: 'Opciones de color',
+    card_swatches_aria: 'Opciones del producto',
     card_quick_add_aria: 'Añadir rápido',
 
     // ── Chrome de encabezado / navegación ───────────────────────
@@ -3751,7 +3751,7 @@ export const DICTIONARIES = {
     search_pages_aria: 'Resultados de páginas',
     search_products_aria: 'Resultados de produtos',
     card_view_details: 'Ver detalhes',
-    card_swatches_aria: 'Opções de cor',
+    card_swatches_aria: 'Opções do produto',
     card_quick_add_aria: 'Adição rápida',
 
     // ── Chrome do cabeçalho / navegação ─────────────────────────

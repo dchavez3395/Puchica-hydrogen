@@ -181,6 +181,14 @@ const SEARCH_PRODUCT_FRAGMENT = `#graphql
       minVariantPrice { amount currencyCode }
       maxVariantPrice { amount currencyCode }
     }
+    options(first: 1) {
+      name
+      values
+      optionValues {
+        name
+        swatch { color }
+      }
+    }
     variants(first: 1) {
       nodes {
         id

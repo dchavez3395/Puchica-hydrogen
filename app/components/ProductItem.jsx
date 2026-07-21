@@ -37,19 +37,62 @@ function resolveSaleBadge(price, compareAt, t) {
   return {label: t('badge_sale'), cls: 'pk-card__badge--sale'};
 }
 
+const COLOR_NAME_MAP = {
+  beige: '#D8C3A5',
+  black: '#111827',
+  blue: '#2563EB',
+  brown: '#8B5E34',
+  clear: '#F8FAFC',
+  gold: '#C89116',
+  gray: '#6B7280',
+  green: '#15803D',
+  grey: '#6B7280',
+  ivory: '#FFF7E6',
+  navy: '#1E3A8A',
+  orange: '#EA580C',
+  pink: '#DB2777',
+  purple: '#7C3AED',
+  red: '#DC2626',
+  silver: '#A7ADB5',
+  tan: '#C19A6B',
+  white: '#FFFFFF',
+  yellow: '#CA8A04',
+};
+
+function resolveOptionColor(name, swatchColor) {
+  if (swatchColor) return swatchColor;
+  if (!name) return null;
+
+  const normalized = name.toLowerCase();
+  const match = Object.keys(COLOR_NAME_MAP).find((colorName) =>
+    normalized.includes(colorName),
+  );
+
+  return match ? COLOR_NAME_MAP[match] : null;
+}
+
 /**
- * Returns up to 6 color swatch dots for the first option when
- * it looks like a color option. Returns [] otherwise so callers
- * can `null`-check and skip rendering the row entirely.
+ * Returns compact option chips for the first real option. Product cards
+ * used to show anonymous dots when Shopify had values but no swatch
+ * color. Labels are the reliable fallback: shoppers need to know whether
+ * "more options" means Black/White, S/M/L, pack size, etc.
  */
-function resolveSwatches(options) {
+function resolveOptionChips(options) {
   if (!options?.length) return [];
   const first = options[0];
-  if (!first?.name || !/color|colour/i.test(first.name)) return [];
+  if (!first?.name || /^(title|default title)$/i.test(first.name)) return [];
+
   const values = first.optionValues?.length
     ? first.optionValues
     : (first.values || []).map((name) => ({name, swatch: null}));
-  return values.slice(0, 6);
+
+  if (values.length < 2) return [];
+
+  return values.slice(0, 4).map((value) => ({
+    name: value.name,
+    color: resolveOptionColor(value.name, value.swatch?.color),
+    isColorOption: /color|colour/i.test(first.name),
+  }));
 }
 
 /**
@@ -78,7 +121,13 @@ export function ProductItem({product, loading, dark = false}) {
   );
   const tagBadge = resolveBadge(product.tags, t);
   const badge = sale ?? tagBadge; // sale takes priority over editorial badges
-  const swatches = resolveSwatches(product.options);
+  const optionChips = resolveOptionChips(product.options);
+  const extraOptionCount = Math.max(
+    0,
+    (product.options?.[0]?.optionValues?.length ||
+      product.options?.[0]?.values?.length ||
+      0) - optionChips.length,
+  );
 
   const cardClass = `pk-card pk-card--link${dark ? ' pk-card--dark' : ''}${
     hasHover ? ' pk-card--has-hover' : ''
@@ -132,26 +181,39 @@ export function ProductItem({product, loading, dark = false}) {
         {product.productType ? (
           <span className="pk-card__vendor">{product.productType}</span>
         ) : null}
-        {swatches.length ? (
+        {optionChips.length ? (
           <ul
             className="pk-card__swatches"
             aria-label={t('card_swatches_aria')}
           >
-            {swatches.map((sw, i) => {
-              const color = sw.swatch?.color;
-              const style = color
-                ? {backgroundColor: color}
+            {optionChips.map((chip, i) => {
+              const style = chip.color
+                ? {'--pk-chip-color': chip.color}
                 : undefined;
               return (
                 <li
-                  key={sw.name ?? i}
-                  className="pk-card__swatch"
+                  key={chip.name ?? i}
+                  className={`pk-card__swatch${
+                    chip.color ? ' pk-card__swatch--color' : ''
+                  }${
+                    chip.isColorOption ? ' pk-card__swatch--color-option' : ''
+                  }`}
                   style={style}
-                  title={sw.name}
-                  aria-label={sw.name}
-                />
+                  title={chip.name}
+                  aria-label={chip.name}
+                >
+                  <span className="pk-card__swatch-label">{chip.name}</span>
+                </li>
               );
             })}
+            {extraOptionCount > 0 ? (
+              <li
+                className="pk-card__swatch pk-card__swatch--more"
+                aria-label={`${extraOptionCount} more options`}
+              >
+                +{extraOptionCount}
+              </li>
+            ) : null}
           </ul>
         ) : null}
         <div className="pk-card__price">
