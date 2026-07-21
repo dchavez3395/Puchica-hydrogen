@@ -13328,3 +13328,7 @@ main:has(> .pk-collection--bold) {
     grid-template-columns: 1fr;
   }
 }
+
+.pk-section.pk-section--newsletter .pk-eyebrow {
+  color: #ffffff !important;
+}
