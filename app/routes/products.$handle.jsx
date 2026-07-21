@@ -626,7 +626,24 @@ const RECOMMENDED_ITEM_FRAGMENT = `#graphql
         swatch { color }
       }
     }
-    variants(first: 1) { nodes { id availableForSale } }
+    variants(first: 1) {
+      nodes {
+        id
+        availableForSale
+        title
+        requiresShipping
+        image { id url altText width height }
+        price { amount currencyCode }
+        compareAtPrice { amount currencyCode }
+        selectedOptions { name value }
+        product {
+          id
+          handle
+          title
+          vendor
+        }
+      }
+    }
   }
 `;
 

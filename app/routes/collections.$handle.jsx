@@ -507,6 +507,27 @@ const PRODUCT_ITEM_FRAGMENT = `#graphql
       nodes {
         id
         availableForSale
+        title
+        requiresShipping
+        image {
+          id
+          altText
+          url
+          width
+          height
+        }
+        price { ...MoneyProductItem }
+        compareAtPrice { ...MoneyProductItem }
+        selectedOptions {
+          name
+          value
+        }
+        product {
+          id
+          handle
+          title
+          vendor
+        }
       }
     }
   }

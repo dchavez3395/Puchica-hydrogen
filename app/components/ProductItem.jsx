@@ -254,7 +254,13 @@ export function ProductItem({product, loading, dark = false}) {
         {variant ? (
           <div className="pk-card__cart">
             <AddToCartButton
-              lines={[{merchandiseId: variant.id, quantity: 1}]}
+              lines={[
+                {
+                  merchandiseId: variant.id,
+                  quantity: 1,
+                  selectedVariant: variant,
+                },
+              ]}
               disabled={!variant.availableForSale}
               onClick={(e) => {
                 e.stopPropagation();

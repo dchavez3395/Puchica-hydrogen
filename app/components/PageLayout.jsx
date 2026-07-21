@@ -1,7 +1,7 @@
-import {Await} from 'react-router';
+import {Await, useFetchers} from 'react-router';
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
-import {Suspense, useId} from 'react';
-import {Aside} from '~/components/Aside';
+import {Suspense, useCallback, useEffect, useId, useState} from 'react';
+import {Aside, useAside} from '~/components/Aside';
 import {Footer} from '~/components/Footer';
 import {Header, HeaderMenu} from '~/components/Header';
 import {CartMain} from '~/components/CartMain';
@@ -59,17 +59,87 @@ export function PageLayout({
  */
 function CartAside({cart}) {
   const t = useT();
+  const {type} = useAside();
+  const fetchers = useFetchers();
+  const [latestActionCart, setLatestActionCart] = useState(null);
+  const actionCart = [...fetchers]
+    .reverse()
+    .map((fetcher) => unwrapCartPayload(fetcher.data))
+    .find((cart) => cart?.lines?.nodes);
+
+  const refreshCart = useCallback(async () => {
+    try {
+      const response = await fetch('/cart-sync', {
+        headers: {Accept: 'application/json'},
+        cache: 'no-store',
+      });
+      if (!response.ok) return;
+      const nextCart = await response.json();
+      if (nextCart?.lines?.nodes) {
+        setLatestActionCart(nextCart);
+      }
+    } catch {
+      // The drawer can still render the root cart promise if this network
+      // refresh fails, so keep the fallback quiet.
+    }
+  }, []);
+
+  useEffect(() => {
+    if (type !== 'cart') return;
+
+    refreshCart();
+    const refreshAfterCookie = setTimeout(refreshCart, 900);
+    const refreshAfterRevalidation = setTimeout(refreshCart, 1800);
+
+    return () => {
+      clearTimeout(refreshAfterCookie);
+      clearTimeout(refreshAfterRevalidation);
+    };
+  }, [type, refreshCart]);
+
+  useEffect(() => {
+    if (actionCart) setLatestActionCart(actionCart);
+  }, [actionCart]);
+
+  useEffect(() => {
+    function handleCartUpdated(event) {
+      const nextCart = event.detail?.cart;
+      if (nextCart?.lines?.nodes) {
+        setLatestActionCart(nextCart);
+      } else {
+        refreshCart();
+      }
+    }
+
+    window.addEventListener('puchica:cart-updated', handleCartUpdated);
+    return () => {
+      window.removeEventListener('puchica:cart-updated', handleCartUpdated);
+    };
+  }, [refreshCart]);
+
   return (
     <Aside type="cart" heading={t('aside_heading_cart')}>
       <Suspense fallback={<p>{t('cart_loading')}</p>}>
         <Await resolve={cart}>
           {(cart) => {
-            return <CartMain cart={cart} layout="aside" />;
+            return (
+              <CartMain
+                cart={latestActionCart ?? actionCart ?? cart}
+                layout="aside"
+              />
+            );
           }}
         </Await>
       </Suspense>
     </Aside>
   );
+}
+
+function unwrapCartPayload(payload) {
+  if (!payload) return null;
+  const data = payload.data ?? payload;
+  const routeData = data['routes/cart']?.data ?? data['routes/cart'] ?? data;
+  return routeData.cart ?? routeData;
 }
 
 function SearchAside() {

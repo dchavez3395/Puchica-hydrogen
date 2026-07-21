@@ -1,5 +1,6 @@
 import {CartForm} from '@shopify/hydrogen';
 import {useEffect, useRef, useState} from 'react';
+import {useRevalidator} from 'react-router';
 import {useAside} from '~/components/Aside';
 import {useT} from '~/lib/t';
 
@@ -66,6 +67,7 @@ function AddToCartSubmitButton({
   const isSubmitting = fetcher.state !== 'idle';
   const isDisabled = disabled ?? isSubmitting;
   const {open} = useAside();
+  const revalidator = useRevalidator();
 
   const wasSubmittingRef = useRef(false);
 
@@ -82,11 +84,26 @@ function AddToCartSubmitButton({
     if (!wasSubmittingRef.current) return;
     wasSubmittingRef.current = false;
 
-    const result = checkAddAccepted(fetcher.data, attemptedMerchandiseIds);
+    const actionData =
+      fetcher.data?.data ??
+      fetcher.data?.['routes/cart']?.data ??
+      fetcher.data;
+    const result = checkAddAccepted(
+      actionData,
+      attemptedIdsKey.split(',').filter(Boolean),
+    );
     if (result.ok) {
       setShowAdded(true);
       setShowError(false);
       open('cart');
+      if (typeof window !== 'undefined' && actionData?.cart) {
+        window.dispatchEvent(
+          new CustomEvent('puchica:cart-updated', {
+            detail: {cart: actionData.cart},
+          }),
+        );
+      }
+      revalidator.revalidate();
       const t = setTimeout(() => setShowAdded(false), 1400);
       return () => clearTimeout(t);
     }
@@ -95,7 +112,7 @@ function AddToCartSubmitButton({
     setShowAdded(false);
     const t = setTimeout(() => setShowError(false), 3200);
     return () => clearTimeout(t);
-  }, [fetcher.state, fetcher.data, attemptedIdsKey, open]);
+  }, [fetcher.state, fetcher.data, attemptedIdsKey, open, revalidator]);
 
   const resolvedAddedLabel = addedLabel !== undefined ? addedLabel : t('atc_added');
   const label = showError

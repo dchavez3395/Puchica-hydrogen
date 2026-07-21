@@ -193,6 +193,33 @@ const SEARCH_PRODUCT_FRAGMENT = `#graphql
       nodes {
         id
         availableForSale
+        title
+        requiresShipping
+        image {
+          id
+          altText
+          url
+          width
+          height
+        }
+        price {
+          amount
+          currencyCode
+        }
+        compareAtPrice {
+          amount
+          currencyCode
+        }
+        selectedOptions {
+          name
+          value
+        }
+        product {
+          id
+          handle
+          title
+          vendor
+        }
       }
     }
   }

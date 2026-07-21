@@ -92,7 +92,15 @@ export async function action({request, context}) {
 
   const cartId = result?.cart?.id;
   const headers = cartId ? cart.setCartId(result.cart.id) : new Headers();
-  const {cart: cartResult, errors, warnings} = result;
+  const {errors, warnings} = result;
+  let cartResult = result?.cart;
+
+  // Cart mutations return a slim cart payload. Fetch the full cart after
+  // the mutation so drawers and fetcher-driven UI can render real line items
+  // immediately instead of waiting for a later page navigation.
+  if (cartId) {
+    cartResult = await cart.get({cartId, numCartLines: 100});
+  }
 
   // The Storefront API returns a `/cart/c/{token}` checkoutUrl shaped for
   // the storefront host, which 404s against Hydrogen. Pass the result
