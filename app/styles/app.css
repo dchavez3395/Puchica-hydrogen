@@ -12321,6 +12321,61 @@ main:has(> .pk-home) {
     linear-gradient(135deg, #1e1b4b 0%, #312e81 48%, #172554 100%) !important;
 }
 
+.pk-section--newsletter {
+  background:
+    radial-gradient(circle at 86% 16%, rgba(20, 184, 166, 0.24), transparent 30%),
+    linear-gradient(135deg, #1e1b4b 0%, #312e81 48%, #172554 100%) !important;
+  color: #ffffff !important;
+}
+
+.pk-section--newsletter::before {
+  display: none !important;
+}
+
+.pk-section--newsletter .pk-section__h {
+  color: #ffffff !important;
+}
+
+.pk-section--newsletter .pk-eyebrow,
+.pk-section--newsletter .pk-newsletter__body,
+.pk-section--newsletter .pk-newsletter__promise {
+  color: #e0e7ff !important;
+}
+
+.pk-section--newsletter .pk-eyebrow {
+  color: #c4b5fd !important;
+}
+
+.pk-section--newsletter .pk-newsletter__input {
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #111827 !important;
+}
+
+.pk-section--newsletter .pk-newsletter__input::placeholder {
+  color: #475569 !important;
+  opacity: 1;
+}
+
+.pk-section--newsletter .pk-newsletter__input:focus {
+  border-color: #ffffff !important;
+  box-shadow: 0 0 0 3px rgba(196, 181, 253, 0.68) !important;
+}
+
+.pk-section--newsletter .pk-newsletter__submit,
+.pk-section--newsletter .pk-btn--ink {
+  background: #ffffff !important;
+  border-color: #ffffff !important;
+  color: #312e81 !important;
+}
+
+.pk-section--newsletter .pk-newsletter__submit:hover,
+.pk-section--newsletter .pk-btn--ink:hover {
+  background: #dbeafe !important;
+  border-color: #dbeafe !important;
+  color: #1e1b4b !important;
+}
+
 .pk-section--newsletter-footer .pk-section__h {
   color: #ffffff !important;
 }
