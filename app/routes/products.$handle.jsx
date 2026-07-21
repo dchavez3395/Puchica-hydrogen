@@ -21,7 +21,6 @@ import {
   IconShare,
   IconCheck,
   IconChevronRight,
-  IconSparkles,
 } from '~/components/Icons';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 import {puchicaMeta, canonical, SITE_URL, breadcrumbJsonLd, JsonLdScript} from '~/lib/seo';
@@ -187,43 +186,6 @@ export default function Product() {
               selectedVariant={selectedVariant}
               product={{handle: product.handle, title: product.title, featuredImage: product.featuredImage}}
             />
-          </div>
-
-          <div className="pk-product__buyer-panel" aria-label="Buying details">
-            <div className="pk-product__buyer-panel-head">
-              <strong>Before you buy</strong>
-              <span>Clear policies, secure checkout, human support.</span>
-            </div>
-            <div className="pk-product__buyer-grid">
-              <Link to="/pages/shipping">
-                <IconTruck size={16} />
-                <span>
-                  <strong>Shipping</strong>
-                  <em>Canada free over $75</em>
-                </span>
-              </Link>
-              <Link to="/policies/refund-policy">
-                <IconReturn size={16} />
-                <span>
-                  <strong>Returns</strong>
-                  <em>30-day policy</em>
-                </span>
-              </Link>
-              <Link to="/pages/faq">
-                <IconShield size={16} />
-                <span>
-                  <strong>Checkout</strong>
-                  <em>Secured by Shopify</em>
-                </span>
-              </Link>
-              <Link to="/pages/contact">
-                <IconSparkles size={16} />
-                <span>
-                  <strong>Help</strong>
-                  <em>Real support</em>
-                </span>
-              </Link>
-            </div>
           </div>
 
           {/* ── Trust block: 4 rows of promise, neutral hairline chips. */}
