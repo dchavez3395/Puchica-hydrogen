@@ -12317,13 +12317,52 @@ main:has(> .pk-home) {
 
 .pk-section--newsletter-footer {
   background:
-    linear-gradient(135deg, #4f46e5 0%, #5b35e6 52%, #312e81 100%) !important;
+    radial-gradient(circle at 86% 16%, rgba(20, 184, 166, 0.24), transparent 30%),
+    linear-gradient(135deg, #1e1b4b 0%, #312e81 48%, #172554 100%) !important;
+}
+
+.pk-section--newsletter-footer .pk-section__h {
+  color: #ffffff !important;
 }
 
 .pk-section--newsletter-footer .pk-eyebrow,
 .pk-section--newsletter-footer .pk-newsletter__body,
 .pk-section--newsletter-footer .pk-newsletter__promise {
-  color: rgba(255, 255, 255, 0.84) !important;
+  color: #e0e7ff !important;
+}
+
+.pk-section--newsletter-footer .pk-eyebrow {
+  color: #c4b5fd !important;
+}
+
+.pk-section--newsletter-footer .pk-newsletter__input {
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #111827 !important;
+}
+
+.pk-section--newsletter-footer .pk-newsletter__input::placeholder {
+  color: #475569 !important;
+  opacity: 1;
+}
+
+.pk-section--newsletter-footer .pk-newsletter__input:focus {
+  border-color: #ffffff !important;
+  box-shadow: 0 0 0 3px rgba(196, 181, 253, 0.68) !important;
+}
+
+.pk-section--newsletter-footer .pk-newsletter__submit,
+.pk-section--newsletter-footer .pk-btn--ink {
+  background: #ffffff !important;
+  border-color: #ffffff !important;
+  color: #312e81 !important;
+}
+
+.pk-section--newsletter-footer .pk-newsletter__submit:hover,
+.pk-section--newsletter-footer .pk-btn--ink:hover {
+  background: #dbeafe !important;
+  border-color: #dbeafe !important;
+  color: #1e1b4b !important;
 }
 
 .pk-footer__tagline,
@@ -12332,13 +12371,13 @@ main:has(> .pk-home) {
 .pk-footer__address,
 .pk-footer__secure,
 .pk-footer__stat-label {
-  color: var(--pk-a11y-muted-on-dark) !important;
+  color: #dbe4f0 !important;
 }
 
 .pk-footer__col a,
 .pk-footer__bar,
 .pk-footer__legal a {
-  color: var(--pk-a11y-subtle-on-dark) !important;
+  color: #cbd5e1 !important;
 }
 
 .pk-footer__col a:hover,
@@ -12347,16 +12386,35 @@ main:has(> .pk-home) {
 }
 
 .pk-footer__form input {
-  border-color: rgba(252, 247, 238, 0.42);
+  background: #111827 !important;
+  border-color: #94a3b8 !important;
+  color: #f8fafc !important;
 }
 
 .pk-footer__form input::placeholder {
-  color: rgba(252, 247, 238, 0.72);
+  color: #cbd5e1 !important;
+  opacity: 1;
+}
+
+.pk-footer__form input:focus {
+  border-color: #ffffff !important;
+  box-shadow: 0 0 0 3px rgba(196, 181, 253, 0.42) !important;
+}
+
+.pk-footer__form button {
+  background: #6d5dfc !important;
+  color: #ffffff !important;
+  border-color: #6d5dfc !important;
+}
+
+.pk-footer__form button:hover {
+  background: #8b7dff !important;
+  border-color: #8b7dff !important;
 }
 
 .pk-footer__pay-mark {
-  border-color: rgba(252, 247, 238, 0.46);
-  color: rgba(252, 247, 238, 0.86);
+  border-color: #94a3b8;
+  color: #f8fafc;
 }
 
 /* Department grid refinement: compact, scannable ecommerce entrances. */
