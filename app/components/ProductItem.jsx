@@ -71,6 +71,26 @@ function resolveOptionColor(name, swatchColor) {
   return match ? COLOR_NAME_MAP[match] : null;
 }
 
+function formatOptionName(name) {
+  if (!name) return '';
+
+  const cleaned = String(name)
+    .trim()
+    .replace(/[_-]+/g, ' ')
+    .replace(/\s+/g, ' ');
+  const normalized = cleaned.toLowerCase();
+
+  if (/multi/.test(normalized) && /colou?r/.test(normalized)) {
+    return 'Multi-color';
+  }
+
+  if (cleaned.length <= 3 && cleaned === cleaned.toUpperCase()) {
+    return cleaned;
+  }
+
+  return cleaned.replace(/\b\w/g, (letter) => letter.toUpperCase());
+}
+
 /**
  * Returns compact option chips for the first real option. Product cards
  * used to show anonymous dots when Shopify had values but no swatch
@@ -89,7 +109,8 @@ function resolveOptionChips(options) {
   if (values.length < 2) return [];
 
   return values.slice(0, 4).map((value) => ({
-    name: value.name,
+    name: formatOptionName(value.name),
+    rawName: value.name,
     color: resolveOptionColor(value.name, value.swatch?.color),
     isColorOption: /color|colour/i.test(first.name),
   }));
@@ -199,8 +220,8 @@ export function ProductItem({product, loading, dark = false}) {
                     chip.isColorOption ? ' pk-card__swatch--color-option' : ''
                   }`}
                   style={style}
-                  title={chip.name}
-                  aria-label={chip.name}
+                  title={chip.rawName}
+                  aria-label={chip.rawName}
                 >
                   <span className="pk-card__swatch-label">{chip.name}</span>
                 </li>

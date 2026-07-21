@@ -3402,12 +3402,11 @@ button:focus-visible,
   display: flex;
   flex-wrap: wrap;
   gap: 5px;
-  max-height: 46px;
-  overflow: hidden;
+  overflow: visible;
 }
 .pk-card__swatch {
   min-width: 0;
-  max-width: 82px;
+  max-width: 100%;
   min-height: 22px;
   display: inline-flex;
   align-items: center;
@@ -3444,9 +3443,9 @@ button:focus-visible,
 }
 .pk-card__swatch-label {
   min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  overflow: visible;
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 .pk-card__swatch--more {
   color: var(--pk-muted);
