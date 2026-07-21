@@ -84,7 +84,11 @@ const CHECKOUT_DOMAIN = readEnv('PUBLIC_CHECKOUT_DOMAIN', 'puchica-2.myshopify.c
 const CHECKOUT_LOCALE = readEnv('PUBLIC_CHECKOUT_LOCALE', 'en-ca');
 
 // The known-bad storefront host that Hydrogen's @inContext(CA, EN) returns.
-const BAD_STOREFRONT_HOSTS = new Set(['puchica.ca', 'www.puchica.ca']);
+const BAD_STOREFRONT_HOSTS = new Set([
+  'puchica.ca',
+  'www.puchica.ca',
+  'shop.puchica.ca',
+]);
 
 export const CHECKOUT_URL_REWRITER = (url) => {
   if (!url) return url;
