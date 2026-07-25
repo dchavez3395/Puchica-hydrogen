@@ -1,0 +1,38 @@
+query ActiveProductContentAudit {
+  tShirt: product(id: "gid://shopify/Product/9326918369530") { ...ProductContent }
+  sweater: product(id: "gid://shopify/Product/9326918598906") { ...ProductContent }
+  petFoodSet: product(id: "gid://shopify/Product/9326920368378") { ...ProductContent }
+  constructionSet: product(id: "gid://shopify/Product/9326920532218") { ...ProductContent }
+  raisedPetBowl: product(id: "gid://shopify/Product/9326921187578") { ...ProductContent }
+  miniDrone: product(id: "gid://shopify/Product/9327026569466") { ...ProductContent }
+}
+
+fragment ProductContent on Product {
+  id
+  title
+  handle
+  status
+  descriptionHtml
+  tags
+  productType
+  options {
+    name
+    values
+  }
+  seo {
+    title
+    description
+  }
+  variants(first: 100) {
+    nodes {
+      title
+      sku
+      price
+      inventoryQuantity
+      selectedOptions {
+        name
+        value
+      }
+    }
+  }
+}
