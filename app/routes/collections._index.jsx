@@ -326,6 +326,8 @@ const COLLECTIONS_QUERY = `#graphql
     products(first: 1) {
       nodes {
         id
+        handle
+        availableForSale
         featuredImage {
           id
           url

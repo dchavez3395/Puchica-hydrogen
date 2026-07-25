@@ -246,6 +246,8 @@ export const MEGA_MENU_QUERY = `#graphql
     products(first: 1) {
       nodes {
         id
+        handle
+        availableForSale
         featuredImage {
           url
           altText

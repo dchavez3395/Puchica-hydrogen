@@ -119,6 +119,19 @@ export default function Collection() {
   const t = useT();
   const [searchParams, setSearchParams] = useSearchParams();
   const sortValue = searchParams.get('sort') || 'featured';
+  const catalogView = searchParams.get('view');
+  const viewCopy = {
+    'new-arrivals': {
+      eyebrow: 'Just in',
+      title: 'New arrivals',
+      sub: 'The latest additions to our active catalog, ready to browse.',
+    },
+    'best-sellers': {
+      eyebrow: 'Most loved',
+      title: 'Best sellers',
+      sub: 'Popular picks from the active Puchica catalog.',
+    },
+  }[catalogView];
   const nodes = products?.nodes ?? [];
   const count = nodes.length;
 
@@ -129,12 +142,16 @@ export default function Collection() {
           <nav className="pk-breadcrumbs" aria-label={t('breadcrumb_aria')}>
             <Link to="/">{t('breadcrumb_home')}</Link>
             <span className="pk-breadcrumbs__sep">/</span>
-            <span className="pk-breadcrumbs__current">{t('all_breadcrumb')}</span>
+            <span className="pk-breadcrumbs__current">
+              {viewCopy?.title || t('all_breadcrumb')}
+            </span>
           </nav>
 
-          <span className="pk-col-hero__eyebrow">{t('all_eyebrow')}</span>
-          <h1 className="pk-col-hero__title">{t('all_title')}</h1>
-          <p className="pk-col-hero__sub">{t('all_sub')}</p>
+          <span className="pk-col-hero__eyebrow">
+            {viewCopy?.eyebrow || t('all_eyebrow')}
+          </span>
+          <h1 className="pk-col-hero__title">{viewCopy?.title || t('all_title')}</h1>
+          <p className="pk-col-hero__sub">{viewCopy?.sub || t('all_sub')}</p>
           <span className="pk-col-hero__count">{t('col_brand_chip')}</span>
         </div>
       </header>
