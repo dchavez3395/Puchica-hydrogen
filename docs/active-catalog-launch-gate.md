@@ -12,8 +12,9 @@ not a request to publish additional products.
 - **Customer-facing catalog:** Hydrogen exposes these same six products only.
   This is a launch catalog, not confirmation that all DSers-mapped products are
   ready to sell.
-- **No active product has a Shopify SKU.** Shopify stock is not proof of a
-  valid DSers variant mapping; it is only a storefront availability value.
+- **Active variants use supplier-formatted Shopify SKUs.** A SKU alone is not
+  proof of a valid DSers option mapping or delivery promise; it still needs to
+  be checked against the selected source variant and destination.
 - **Do not start paid traffic or open another market yet.** Each active variant
   still needs a recorded DSers item + destination-specific shipping quote before
   its displayed Shopify price can be approved for contribution margin.
@@ -48,12 +49,12 @@ not a request to publish additional products.
 
 | Product | Shopify price | DSers CA cost | DSers stock | Decision |
 | --- | ---: | ---: | ---: | --- |
-| Everyday 100% Cotton T-Shirt | CA$45.99 | CA$26.82-30.39 | 37 | **Removed from Hydrogen**: max-cost markup is only 1.51x before shipping/fees. Reprice or replace. |
+| Everyday 100% Cotton T-Shirt | CA$45.99 | CA$26.82-30.39 | 37 | **Active but not promotable**: max-cost markup is only 1.51x before shipping/fees. Reprice or replace. |
 | Men's High-Neck Knit Sweater | CA$39.99 | CA$15.77-19.88 | 24,868 | Organic-only hold pending shipping and apparel sizing review. |
-| Pet Food & Water Bowl Set | CA$39.99 | CA$14.41-17.49 | 384 | Organic-only hold pending shipping; replace kitchen-oriented SEO copy. |
+| Pet Food & Water Bowl Set | CA$39.99 | CA$14.41-17.49 | 384 | Organic-only hold pending shipping; title, tags and SEO are now customer-ready. |
 | 1:64 RC Construction Vehicle Set | CA$56.99 | CA$21.93-26.40 | 70 | Organic-only hold pending shipping; verify age and safety copy. |
 | Adjustable Raised Pet Bowl Set | CA$34.99 | CA$15.30-17.54 | 14 | Organic-only hold pending shipping; replace kitchen-oriented SEO copy. |
-| Hand-Controlled Mini RC Drone | CA$17.81-51.99 | CA$7.14-20.80 | 50 | Organic-only hold pending shipping; complete SEO and remove unavailable option. |
+| Hand-Controlled Mini RC Drone | CA$17.81-51.99 | CA$7.14-20.80 | 50 | Organic-only hold pending shipping; title, tags and SEO are now customer-ready. Keep the unavailable option disabled. |
 
 All six Shopify titles have a DSers product card. This confirms product-level
 mapping, not each option-value mapping or a supplier delivery promise. These
