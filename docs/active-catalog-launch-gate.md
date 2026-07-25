@@ -38,12 +38,12 @@ not a request to publish additional products.
 
 | Product | Variants | Current Shopify price | Immediate gate |
 | --- | ---: | ---: | --- |
-| Everyday 100% Cotton T-Shirt | 18 | CA$45.99 | DSers mapping/cost/shipping and apparel sizing review. |
-| Men's High-Neck Knit Sweater | 54 | CA$39.99 | DSers mapping/cost/shipping and apparel sizing review. |
-| Pet Food & Water Bowl Set | 5 | CA$39.99 | DSers mapping/cost/shipping; replace kitchen-oriented SEO copy. |
-| 1:64 RC Construction Vehicle Set | 6 | CA$56.99 | DSers mapping/cost/shipping; verify age and safety copy. |
-| Adjustable Raised Pet Bowl Set | 4 | CA$34.99 | DSers mapping/cost/shipping; replace kitchen-oriented SEO copy. |
-| Hand-Controlled Mini RC Drone | 3 | CA$17.81–51.99 | One Shopify variant is unavailable; add SKU/mapping and complete SEO. |
+| Everyday 100% Cotton T-Shirt | 18 | CA$45.99 | Mapping not yet located in this audit; hold. |
+| Men's High-Neck Knit Sweater | 54 | CA$39.99 | Mapping not yet located in this audit; hold. |
+| Pet Food & Water Bowl Set | 5 | CA$39.99 | DSers source cost previously shown at CA$14.41–17.49; obtain per-variant shipping quote and replace kitchen-oriented SEO copy. |
+| 1:64 RC Construction Vehicle Set | 6 | CA$56.99 | DSers source cost previously shown at CA$21.93–26.40; obtain per-variant shipping quote and verify age/safety copy. |
+| Adjustable Raised Pet Bowl Set | 4 | CA$34.99 | DSers source cost CA$15.30–17.54; thin before shipping/fees, so hold from ads and obtain a quote. |
+| Hand-Controlled Mini RC Drone | 3 | CA$17.81–51.99 | DSers source cost CA$7.14–20.80; one Shopify variant unavailable; add SKU/mapping, quote shipping and complete SEO. |
 
 ### Historical DSers mapped-price snapshot (2026-07-25)
 
