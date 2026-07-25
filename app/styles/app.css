@@ -32,6 +32,7 @@
   --pk-marigold-ink:   #6B4A00;   /* text on marigold fills */
   --pk-jade:           #0E7C5B;   /* deep green */
   --pk-jade-hover:     #0B6448;
+  --pk-jade-ink:       #0B6448;   /* AA text on pale jade / lavender fills */
   --pk-jade-pale:      #E2F1EA;   /* jade-tinted fill */
   --pk-cobalt:         #1F5FA8;   /* blue */
   --pk-cobalt-hover:   #184C86;
@@ -14603,3 +14604,9 @@ main:has(> .pk-collection--bold) {
   .pk-about-v2__hero-inner { grid-template-columns: 1fr; }
   .pk-about-v2__hero-art { aspect-ratio: 1.5 / 1; }
 }
+
+/* WCAG AA: pale mint is reserved for dark fields only. On the lavender
+   roots panel, use the dedicated jade ink token (6.23:1). The signature is
+   normal-size text, so it uses a deeper violet (5.90:1) instead of #6D4CFF. */
+.pk-about-v2__roots-copy .pk-about-v2__eyebrow { color: var(--pk-jade-ink); }
+.pk-about-v2__roots-copy .pk-about-v2__signature { color: #5B35E6; }
