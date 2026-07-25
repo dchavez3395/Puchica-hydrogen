@@ -5,36 +5,51 @@ not a request to publish additional products.
 
 ## Current state
 
-- **Shopify Admin state (2026-07-25, after launch safeguards):** 6
-  active products; 62 drafts. Fifteen products were moved to draft, not deleted:
-  the five SKU-less/unverified products, two branded apparel listings, and two
-  child-oriented listings with unresolved stock/safety checks, one electrical
-  wearable pending safety and destination validation, and three products with
-  supplier/destination data exposed as customer-facing variant labels.
-- **Customer-facing launch catalog:** six approved products only. Hydrogen now
-  enforces an allowlist across homepage rails, collection pages, search, and
-  direct product URLs so an unreviewed product cannot surface from a stale
-  Storefront API response. The RC Monster Truck is now Draft because its
-  duplicate supplier variant labels and DSers validation remain unresolved.
-- All currently active products have media, but only the solar string lights
-  have received a deliberate title, description, SEO and tag pass.
+- **Shopify Admin state (re-audited 2026-07-25):** exactly six active products:
+  Everyday 100% Cotton T-Shirt; Men's High-Neck Knit Sweater; Pet Food & Water
+  Bowl Set; 1:64 RC Construction Vehicle Set; Adjustable Raised Pet Bowl Set;
+  and Hand-Controlled Mini RC Drone. All other imports must remain Draft or
+  Archived until individually cleared.
+- **Customer-facing catalog:** Hydrogen exposes these same six products only.
+  This is a launch catalog, not confirmation that all DSers-mapped products are
+  ready to sell.
+- **No active product has a Shopify SKU.** Shopify stock is not proof of a
+  valid DSers variant mapping; it is only a storefront availability value.
+- **Do not start paid traffic or open another market yet.** Each active variant
+  still needs a recorded DSers item + destination-specific shipping quote before
+  its displayed Shopify price can be approved for contribution margin.
 - The sole paid test order, Shopify **#1001** (Freeze Protection Plant Covers,
   CA$13.85 to Brandon, MB), is still unfulfilled. Its only Shopify fulfillment
   record is cancelled and has no tracking. Reconcile the DSers order path,
   supplier charge, shipping method and tracking sync before a second test or
   any traffic launch.
-- **DSers validation (2026-07-25):** the connected store has 74 mapped
+- **DSers validation (2026-07-25):** the connected store has approximately 74 mapped
   AliExpress products and no items in any actionable order state (pending,
   awaiting order/payment/shipment/fulfillment or fulfilled). The side-menu
   badge still shows one AliExpress item, but it is not an order that can be
   processed from the queue. Treat #1001 as an incomplete test, not as supplier
   fulfillment proof; do not charge a supplier or fulfill it without an explicit
   test-order decision.
-- DSers does expose live source cost, configured US/Canadian selling prices and
-  stock for its mapped products. It does **not** establish a cost or mapping for
-  the five Shopify-only default-variant products below.
+- DSers can expose live source cost, configured selling prices and stock, but
+  it does **not** establish that any current Shopify variant has a valid,
+  sellable source match until the mapping and destination quote are checked.
 
-### DSers mapped-price snapshot (2026-07-25)
+### Active catalog pricing snapshot (Shopify, re-audited 2026-07-25)
+
+| Product | Variants | Current Shopify price | Immediate gate |
+| --- | ---: | ---: | --- |
+| Everyday 100% Cotton T-Shirt | 18 | CA$45.99 | DSers mapping/cost/shipping and apparel sizing review. |
+| Men's High-Neck Knit Sweater | 54 | CA$39.99 | DSers mapping/cost/shipping and apparel sizing review. |
+| Pet Food & Water Bowl Set | 5 | CA$39.99 | DSers mapping/cost/shipping; replace kitchen-oriented SEO copy. |
+| 1:64 RC Construction Vehicle Set | 6 | CA$56.99 | DSers mapping/cost/shipping; verify age and safety copy. |
+| Adjustable Raised Pet Bowl Set | 4 | CA$34.99 | DSers mapping/cost/shipping; replace kitchen-oriented SEO copy. |
+| Hand-Controlled Mini RC Drone | 3 | CA$17.81–51.99 | One Shopify variant is unavailable; add SKU/mapping and complete SEO. |
+
+### Historical DSers mapped-price snapshot (2026-07-25)
+
+The following is retained as historical triage only. It is not a pricing
+approval for the current active catalog; approve each current variant only
+after matching the DSers source variant and destination-specific quote.
 
 The figures below are DSers' currently configured Canadian ranges, not a final
 margin calculation. They demonstrate that a source mapping exists; each
@@ -82,12 +97,10 @@ of truth for the customer-facing rate.
   advertise US or wider Western-market availability until Shopify Markets,
   shipping zones/rates, duties/taxes, and DSers supplier coverage are configured
   and a US address completes the same no-payment test.
-- **Checkout routing:** the legacy `puchica-2.myshopify.com` domain serves the
-  old Online Store theme and must never be used as a Hydrogen checkout host.
-  The storefront rewriter now fails away from that host, but launch still
-  requires a dedicated `checkout.puchica.ca` subdomain connected in Shopify
-  Domains and assigned to Shopify checkout/Online Store routing. Re-run the
-  no-payment checkout test after DNS verification before sending any traffic.
+- **Checkout routing:** `checkout.puchica.ca` now remains Shopify's checkout
+  host while the former Online Store theme root redirects to `https://puchica.ca/`.
+  The Hydrogen cart rewriter uses that checkout host. Re-run a no-payment
+  checkout test after any Markets or shipping-zone change before sending traffic.
 
 ## Hold for DSers + pricing validation
 

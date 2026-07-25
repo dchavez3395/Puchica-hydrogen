@@ -1193,7 +1193,7 @@ export const DICTIONARIES = {
   // ════════════════════════════════════════════════════════════════
   fr: {
     announce_offer: '15 % de rabais sur votre première commande, code FIRST15',
-    announce_freeship: 'Livraison gratuite au Canada',
+    announce_freeship: 'Options de livraison affichées au paiement',
     announce_cta: 'Magasiner',
     offer_first15: 'Nouveau ici ? 15 % de rabais sur votre première commande avec le code FIRST15.',
     announce_region_aria: 'Annonces du site',
@@ -2298,7 +2298,7 @@ export const DICTIONARIES = {
   // ════════════════════════════════════════════════════════════════
   es: {
     announce_offer: '15 % de descuento en tu primer pedido, código FIRST15',
-    announce_freeship: 'Devoluciones en 30 días, sin complicaciones',
+    announce_freeship: 'Las opciones de envío se muestran al finalizar la compra',
     announce_cta: 'Comprar ahora',
     offer_first15: '¿Primera compra? 15 % de descuento en tu primer pedido con el código FIRST15.',
     announce_region_aria: 'Anuncios del sitio',
@@ -3403,7 +3403,7 @@ export const DICTIONARIES = {
   // ════════════════════════════════════════════════════════════════
   'pt-br': {
     announce_offer: '15% de desconto no primeiro pedido, código FIRST15',
-    announce_freeship: 'Devoluções em 30 dias, sem complicações',
+    announce_freeship: 'Opções de envio mostradas no checkout',
     announce_cta: 'Comprar agora',
     offer_first15: 'Primeira compra? 15% de desconto no primeiro pedido com o código FIRST15.',
     announce_region_aria: 'Avisos do site',
