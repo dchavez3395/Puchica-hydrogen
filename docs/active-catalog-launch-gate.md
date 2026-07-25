@@ -37,8 +37,8 @@ not a request to publish additional products.
 
 | Product | Variants | Current Shopify price | Immediate gate |
 | --- | ---: | ---: | --- |
-| Everyday 100% Cotton T-Shirt | 18 | CA$45.99 | Mapping not yet located in this audit; hold. |
-| Men's High-Neck Knit Sweater | 54 | CA$39.99 | Mapping not yet located in this audit; hold. |
+| Everyday 100% Cotton T-Shirt | 18 | CA$45.99 | DSers source cost CA$26.82–30.39; materially too thin before shipping/fees, so hold. |
+| Men's High-Neck Knit Sweater | 54 | CA$39.99 | DSers source cost CA$15.77–19.88; apparel return risk and unquoted shipping keep it organic-only. |
 | Pet Food & Water Bowl Set | 5 | CA$39.99 | DSers source cost previously shown at CA$14.41–17.49; obtain per-variant shipping quote and replace kitchen-oriented SEO copy. |
 | 1:64 RC Construction Vehicle Set | 6 | CA$56.99 | DSers source cost previously shown at CA$21.93–26.40; obtain per-variant shipping quote and verify age/safety copy. |
 | Adjustable Raised Pet Bowl Set | 4 | CA$34.99 | DSers source cost CA$15.30–17.54; thin before shipping/fees, so hold from ads and obtain a quote. |
