@@ -8,7 +8,6 @@
  * a cached collection response.
  */
 export const LAUNCH_PRODUCT_HANDLES = new Set([
-  '100-pure-cotton-t-shirt-with-round-neck-shoulder-design-for-both-men-women-summer-solid-color-short-sleeved-casual-loose-fit',
   '2026-new-mens-high-neck-sweater-solid-color-pullover-knitted-warm-casual-turtleneck-sweatwear-woolen-mens-winter-outdoor-tops',
   '1-64-bluetooth-remote-control-crane-and-forklift-two-in-one-desktop-mini-alloy-toy-car-with-trailer-christmas-gift-in-color-box',
   'pet-supplies-cat-bowls-water-bowls-dog-bowls-tip-over-resistant-pet-bowls-height-adjustable',

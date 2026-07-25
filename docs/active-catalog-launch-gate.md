@@ -1,5 +1,4 @@
 # Active catalog launch gate — 2026-07-25
-
 Source: live Shopify Admin catalog audit. This is an operational approval list,
 not a request to publish additional products.
 
@@ -44,6 +43,22 @@ not a request to publish additional products.
 | 1:64 RC Construction Vehicle Set | 6 | CA$56.99 | DSers source cost previously shown at CA$21.93–26.40; obtain per-variant shipping quote and verify age/safety copy. |
 | Adjustable Raised Pet Bowl Set | 4 | CA$34.99 | DSers source cost CA$15.30–17.54; thin before shipping/fees, so hold from ads and obtain a quote. |
 | Hand-Controlled Mini RC Drone | 3 | CA$17.81–51.99 | DSers source cost CA$7.14–20.80; one Shopify variant unavailable; add SKU/mapping, quote shipping and complete SEO. |
+
+### DSers card snapshot (read-only, 2026-07-25)
+
+| Product | Shopify price | DSers CA cost | DSers stock | Decision |
+| --- | ---: | ---: | ---: | --- |
+| Everyday 100% Cotton T-Shirt | CA$45.99 | CA$26.82-30.39 | 37 | **Removed from Hydrogen**: max-cost markup is only 1.51x before shipping/fees. Reprice or replace. |
+| Men's High-Neck Knit Sweater | CA$39.99 | CA$15.77-19.88 | 24,868 | Organic-only hold pending shipping and apparel sizing review. |
+| Pet Food & Water Bowl Set | CA$39.99 | CA$14.41-17.49 | 384 | Organic-only hold pending shipping; replace kitchen-oriented SEO copy. |
+| 1:64 RC Construction Vehicle Set | CA$56.99 | CA$21.93-26.40 | 70 | Organic-only hold pending shipping; verify age and safety copy. |
+| Adjustable Raised Pet Bowl Set | CA$34.99 | CA$15.30-17.54 | 14 | Organic-only hold pending shipping; replace kitchen-oriented SEO copy. |
+| Hand-Controlled Mini RC Drone | CA$17.81-51.99 | CA$7.14-20.80 | 50 | Organic-only hold pending shipping; complete SEO and remove unavailable option. |
+
+All six Shopify titles have a DSers product card. This confirms product-level
+mapping, not each option-value mapping or a supplier delivery promise. These
+ratios exclude destination shipping, payment fees, discounts and refunds; none
+is approved for paid traffic.
 
 ### Historical DSers mapped-price snapshot (2026-07-25)
 
