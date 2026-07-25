@@ -17,10 +17,13 @@ const favicon = '/favicon.svg';
 import {FOOTER_QUERY, HEADER_QUERY, MEGA_MENU_QUERY} from '~/lib/fragments';
 import resetStyles from '~/styles/reset.css?url';
 import appStyles from '~/styles/app.css?url';
+import commerceStyles from '~/styles/app-commerce.css?url';
 import {PageLayout} from './components/PageLayout';
 // SmoothScroll removed in Phase 1 — Lenis was passive scroll
 // enhancement with no callers; native scroll is fine.
 import {MetaPixel} from './components/MetaPixel';
+import {CartRecoveryBanner} from './components/CartRecoveryBanner';
+import {GoogleAnalytics4} from './components/GoogleAnalytics4';
 import {error as logError} from '~/lib/logger';
 import {useT} from '~/lib/t';
 
@@ -92,10 +95,12 @@ export async function loader(args) {
   return {
     ...deferredData,
     ...criticalData,
+    maintenanceMode: env.MAINTENANCE_MODE === 'true',
     publicStoreDomain: env.PUBLIC_STORE_DOMAIN,
     // Meta Pixel ID (Meta Events Manager) — enables storefront-side ad tracking.
     // No-ops until this env var is set. See app/components/MetaPixel.jsx.
     metaPixelId: env.PUBLIC_FACEBOOK_PIXEL_ID || null,
+    ga4MeasurementId: env.PUBLIC_GA4_MEASUREMENT_ID || null,
     selectedLocale: args.context.storefront.i18n,
     shop: getShopAnalytics({
       storefront,
@@ -193,6 +198,7 @@ export function Layout({children}) {
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <link rel="stylesheet" href={resetStyles}></link>
         <link rel="stylesheet" href={appStyles}></link>
+      <link rel="stylesheet" href={commerceStyles}></link>
         {alternates.map((a) => (
           <link
             key={a.hreflang}
@@ -228,6 +234,8 @@ export default function App() {
       consent={data.consent}
     >
       <MetaPixel pixelId={data.metaPixelId} />
+      <GoogleAnalytics4 measurementId={data.ga4MeasurementId} />
+      <CartRecoveryBanner cart={data.cart} />
       <PageLayout {...data}>
         <Outlet />
       </PageLayout>

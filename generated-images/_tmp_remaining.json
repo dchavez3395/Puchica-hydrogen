@@ -1,0 +1,266 @@
+[
+  {
+    "id": "gid://shopify/Product/9257820520698",
+    "title": "Ginger Shampoo Bar",
+    "handle": "ginger-hair-growth-shampoo",
+    "productType": "Health & Wellness",
+    "image_url": "https://cdn.shopify.com/s/files/1/0842/2644/1466/files/G11_6a3e80a3-5b4d-456d-8781-6cb2b4bc9c94.jpg?v=1781217092",
+    "altText": "Ginger Shampoo Bar - alternate angle"
+  },
+  {
+    "id": "gid://shopify/Product/9257852502266",
+    "title": "Mess-Free Glass Incense Holder",
+    "handle": "glass-incense-holder-with-removable-ash-catcher",
+    "productType": "Home & Kitchen",
+    "image_url": "https://cdn.shopify.com/s/files/1/0842/2644/1466/files/glass-incense-holder-lifestyle_657727ff-a678-48b6-9b5e-bd26583c30b6.png?v=1784008344",
+    "altText": "Glass incense holder with a lit incense stick on a reading table"
+  },
+  {
+    "id": "gid://shopify/Product/9257852535034",
+    "title": "Under-Cabinet Jar Opener",
+    "handle": "glass-lid-opener",
+    "productType": "Home & Kitchen",
+    "image_url": "https://cdn.shopify.com/s/files/1/0842/2644/1466/files/under-cabinet-jar-opener-white-lifestyle_49e669ca-721e-43a4-ba4e-8193388180ca.png?v=1784002240",
+    "altText": "White and silver under-cabinet jar opener installed beneath a kitchen cabinet and used to open a jar"
+  },
+  {
+    "id": "gid://shopify/Product/9257852567802",
+    "title": "Hands-Free Reading Magnifier Glasses",
+    "handle": "glass-magnifiers-for-reading",
+    "productType": "Home & Kitchen",
+    "image_url": "https://cdn.shopify.com/s/files/1/0842/2644/1466/files/download_8a3d1ea6-b48a-475a-8de1-b951e46032a9.jpg?v=1781222949",
+    "altText": "Hands-Free Reading Magnifier Glasses - alternate angle"
+  },
+  {
+    "id": "gid://shopify/Product/9257911386362",
+    "title": "Glass Wine Aerator Decanter",
+    "handle": "glass-wine-aerator-decanter",
+    "productType": "Home & Kitchen",
+    "image_url": "https://cdn.shopify.com/s/files/1/0842/2644/1466/files/glass-wine-aerator-lifestyle_66d3a58a-e7d7-41a2-932b-0b6e575161aa.png?v=1784003221",
+    "altText": "Glass wine aerator decanter pouring red wine at a dinner table"
+  },
+  {
+    "id": "gid://shopify/Product/9257911517434",
+    "title": "Glass Pickle Strainer Jar",
+    "handle": "glass-pickle-separator-jar-with-strainer-flip",
+    "productType": "Home & Kitchen",
+    "image_url": "https://cdn.shopify.com/s/files/1/0842/2644/1466/files/71_HAH9AxYL._AC_SL1500.jpg?v=1781226772",
+    "altText": "Glass Pickle Strainer Jar - alternate angle"
+  },
+  {
+    "id": "gid://shopify/Product/9258468278522",
+    "title": "High Lumen Rechargeable Flashlight",
+    "handle": "high-lumen-rechargeable-flashlight",
+    "productType": "Sports & Outdoors",
+    "image_url": "https://cdn.shopify.com/s/files/1/0842/2644/1466/files/trch.png?v=1781272486",
+    "altText": "High Lumen Rechargeable Flashlight"
+  },
+  {
+    "id": "gid://shopify/Product/9258468344058",
+    "title": "High Pressure & Temperature Resistant Super Waterproof Tape",
+    "handle": "high-pressure-temperature-resistant-super-waterproof-tape",
+    "productType": "Office & School Supplies",
+    "image_url": "https://cdn.shopify.com/s/files/1/0842/2644/1466/files/1_dc3631d5-402c-45c9-adc7-9c655aaec875.png?v=1781272486",
+    "altText": "High Pressure & Temperature Resistant Super Waterproof Tape"
+  },
+  {
+    "id": "gid://shopify/Product/9258468606202",
+    "title": "High Pressure Shower Head With Hose",
+    "handle": "high-pressure-shower-head-with-hose",
+    "productType": "Home & Kitchen",
+    "image_url": "https://cdn.shopify.com/s/files/1/0842/2644/1466/files/Sa3d89374e3ab4b1c85095d376d4514605.jpg?v=1781272493",
+    "altText": "High Pressure Shower Head With Hose"
+  },
+  {
+    "id": "gid://shopify/Product/9258468638970",
+    "title": "High Pressure Kitchen Sink Cup Rinser",
+    "handle": "high-pressure-kitchen-sink-cup-rinser",
+    "productType": "Home & Kitchen",
+    "image_url": "https://cdn.shopify.com/s/files/1/0842/2644/1466/files/1_379e6c9c-f2d3-481f-814b-4e68f17a96c4.webp?v=1781272493",
+    "altText": "High Pressure Kitchen Sink Cup Rinser"
+  },
+  {
+    "id": "gid://shopify/Product/9258468671738",
+    "title": "High Pressure Car Foam Washer",
+    "handle": "high-pressure-car-foam-washer",
+    "productType": "Automotive",
+    "image_url": "https://cdn.shopify.com/s/files/1/0842/2644/1466/files/S921340f5766a4a78a63c3288f8e9abe8F_2024-07-05T06_17_13.150Z.png?v=1781272493",
+    "altText": "High Pressure Car Foam Washer"
+  },
+  {
+    "id": "gid://shopify/Product/9258468704506",
+    "title": "High Pressure Shower Head",
+    "handle": "high-pressure-shower-head-1",
+    "productType": "Home & Kitchen",
+    "image_url": "https://cdn.shopify.com/s/files/1/0842/2644/1466/files/imgi_1_71ls9IEM91L._AC_SL1500.jpg?v=1781272493",
+    "altText": "High Pressure Shower Head"
+  },
+  {
+    "id": "gid://shopify/Product/9258468737274",
+    "title": "High Pressure Hand Garden Pump Sprayer",
+    "handle": "high-pressure-hand-garden-pump-sprayer",
+    "productType": "Garden & Outdoor",
+    "image_url": "https://cdn.shopify.com/s/files/1/0842/2644/1466/files/download_7_1.jpg?v=1781272493",
+    "altText": "High Pressure Hand Garden Pump Sprayer"
+  },
+  {
+    "id": "gid://shopify/Product/9258468966650",
+    "title": "High Pressure Showerhead",
+    "handle": "high-pressure-showerhead",
+    "productType": "Home & Kitchen",
+    "image_url": "https://cdn.shopify.com/s/files/1/0842/2644/1466/files/image_49_608638e7-8adf-4211-b238-e93dd60ae4eb.jpg?v=1781272501",
+    "altText": "High Pressure Showerhead"
+  },
+  {
+    "id": "gid://shopify/Product/9258469327098",
+    "title": "Solar Power Bank - 26,800mAh, Dual USB, Waterproof",
+    "handle": "high-capacity-solar-power-bank-for-ultimate-independence",
+    "productType": "Electronics & Accessories",
+    "image_url": "https://cdn.shopify.com/s/files/1/0842/2644/1466/files/solar-power-bank-lifestyle_f87050ad-7f05-4320-9d2c-9d18d450998b.png?v=1784008004",
+    "altText": "Foldable solar power bank charging a phone outdoors"
+  },
+  {
+    "id": "gid://shopify/Product/9258469392634",
+    "title": "High-Altitude Extension Pruning Shears",
+    "handle": "high-altitude-extension-pruning-shears",
+    "productType": "Health & Wellness",
+    "image_url": "https://cdn.shopify.com/s/files/1/0842/2644/1466/files/C11_630bbe57-aef7-475a-ad8d-a5791bb03235.jpg?v=1781272511",
+    "altText": "High-Altitude Extension Pruning Shears"
+  },
+  {
+    "id": "gid://shopify/Product/9258469490938",
+    "title": "High-definition waterproof monocular telescope",
+    "handle": "high-definition-waterproof-monocular-telescope",
+    "productType": "Sports & Outdoors",
+    "image_url": "https://cdn.shopify.com/s/files/1/0842/2644/1466/files/R21.jpg?v=1781272511",
+    "altText": "High-definition waterproof monocular telescope"
+  },
+  {
+    "id": "gid://shopify/Product/9258469654778",
+    "title": "USB Ultrasonic Cleaner for Jewelry & Glasses (45kHz)",
+    "handle": "high-frequency-usb-ultrasonic-cleaner",
+    "productType": "Electronics & Accessories",
+    "image_url": "https://cdn.shopify.com/s/files/1/0842/2644/1466/files/J11_e1681057-f470-4a40-a359-9c2b96c33195.jpg?v=1781272519",
+    "altText": "USB Ultrasonic Cleaner for Jewelry & Glasses (45kHz)"
+  },
+  {
+    "id": "gid://shopify/Product/9258469687546",
+    "title": "High-Performance Laser Pointer",
+    "handle": "high-performance-laser-pointer",
+    "productType": "Tools & Home Improvement",
+    "image_url": "https://cdn.shopify.com/s/files/1/0842/2644/1466/files/A109_2ee26d2e-bf70-4e33-9adc-210fe3c23bd4.jpg?v=1781272518",
+    "altText": "High-Performance Laser Pointer"
+  },
+  {
+    "id": "gid://shopify/Product/9258469720314",
+    "title": "High-Pressure Air Swirl Nozzle",
+    "handle": "high-pressure-air-swirl-nozzle",
+    "productType": "Tools & Home Improvement",
+    "image_url": "https://cdn.shopify.com/s/files/1/0842/2644/1466/files/L11_68e155a1-b2ec-41e5-93a1-a756c059952a.jpg?v=1781272518",
+    "altText": "High-Pressure Air Swirl Nozzle"
+  },
+  {
+    "id": "gid://shopify/Product/9258469785850",
+    "title": "Cordless Jet Turbofan Washer & Air Blower - 1000W",
+    "handle": "high-power-jet-turbofan-portable-electric-washer",
+    "productType": "Electronics & Accessories",
+    "image_url": "https://cdn.shopify.com/s/files/1/0842/2644/1466/files/image-2025-10-10T013654.998.jpg?v=1781272519",
+    "altText": "Cordless Jet Turbofan Washer & Air Blower - 1000W"
+  },
+  {
+    "id": "gid://shopify/Product/9258470047994",
+    "title": "High-Pressure Rotating Tripod Sprinkler",
+    "handle": "high-pressure-rotating-tripod-sprinkler",
+    "productType": "Electronics & Accessories",
+    "image_url": "https://cdn.shopify.com/s/files/1/0842/2644/1466/files/tripod-sprinkler-lifestyle_c73c8221-4f90-4c30-9470-25b6fb65aaa1.png?v=1784004073",
+    "altText": "High-pressure rotating tripod sprinkler watering a lawn"
+  },
+  {
+    "id": "gid://shopify/Product/9258470146298",
+    "title": "High-Pressure Washer Spray Nozzle Car Wash Water Hose",
+    "handle": "high-pressure-washer-spray-nozzle-car-wash-water-hose-1",
+    "productType": "Automotive",
+    "image_url": "https://cdn.shopify.com/s/files/1/0842/2644/1466/files/high-pressure-washer-nozzle-lifestyle_4f5dcb9e-03c4-4c38-add6-49a78e97f3f3.png?v=1784005581",
+    "altText": "High-pressure washer nozzle cleaning a car wheel"
+  },
+  {
+    "id": "gid://shopify/Product/9258470342906",
+    "title": "High-quality 1000 m remote training collar for dogs",
+    "handle": "high-quality-1000-m-remote-training-collar-for-dogs-waterproof-rechargeable-e-collar",
+    "productType": "Pet Supplies",
+    "image_url": "https://cdn.shopify.com/s/files/1/0842/2644/1466/files/D101_c494cc9e-4ab1-4270-b981-525049a16e4c.jpg?v=1781272536",
+    "altText": "High-quality 1000 m remote training collar for dogs"
+  },
+  {
+    "id": "gid://shopify/Product/9258470408442",
+    "title": "High-Quality HD Mini Home Cinema Projector",
+    "handle": "high-quality-hd-mini-home-cinema-projector",
+    "productType": "Electronics & Accessories",
+    "image_url": "https://cdn.shopify.com/s/files/1/0842/2644/1466/files/J11_86a25e2f-606e-46bd-8ba6-52147005c5f9.jpg?v=1781272536",
+    "altText": "High-Quality HD Mini Home Cinema Projector"
+  },
+  {
+    "id": "gid://shopify/Product/9269959852282",
+    "title": "Professional Blowout Hair Styling Tool with Ionic & Heat Protection Portable for Travel, Household & Hotel Use",
+    "handle": "blowout-by-glasskinco",
+    "productType": "Beauty & Grooming",
+    "image_url": "https://cdn.shopify.com/s/files/1/0842/2644/1466/files/ezgif.com-webp-to-png_1_2.png?v=1781889842",
+    "altText": "Blowout by GlasSkinCo"
+  },
+  {
+    "id": "gid://shopify/Product/9269969355002",
+    "title": "Digital Garden Hose Water Flow Meter",
+    "handle": "rainpoint-digital-garden-hose-water-flow-meter-with-real-time-tracking-water-flow-sensor-flow-water-meter-manual-smart-hose-water-meter-for-garden-hose",
+    "productType": "Garden & Outdoor",
+    "image_url": "https://cdn.shopify.com/s/files/1/0842/2644/1466/files/hf_1783138034957_9269969355002.png?v=1783138040",
+    "altText": "Digital Garden Hose Water Flow Meter"
+  },
+  {
+    "id": "gid://shopify/Product/9269980659962",
+    "title": "LED PET Safety Halo Style Collar",
+    "handle": "led-pet-safety-halo-style-collar",
+    "productType": "Pet Supplies",
+    "image_url": "https://cdn.shopify.com/s/files/1/0842/2644/1466/files/hf_1783095800202_9269980659962.png?v=1783095804",
+    "altText": "LED PET Safety Halo Style Collar"
+  },
+  {
+    "id": "gid://shopify/Product/9269989474554",
+    "title": "Memory Foam Neck Support Pillow",
+    "handle": "lune-skincare-memory-foam-pillow",
+    "productType": "Health & Wellness",
+    "image_url": "https://cdn.shopify.com/s/files/1/0842/2644/1466/files/554WJX_White_9_jpg.jpg?v=1781890327",
+    "altText": "Lune Skincare Memory Foam Pillow, Memory Foam - detail"
+  },
+  {
+    "id": "gid://shopify/Product/9269990818042",
+    "title": "Solar Firefly LED String Lights",
+    "handle": "mini-fiery-100-lights-shine-like-firebugs-with-solar-power-2-pak",
+    "productType": "Garden & Outdoor",
+    "image_url": "https://cdn.shopify.com/s/files/1/0842/2644/1466/files/7_e9128267-bddb-4c5a-85ae-5a69384c7291.jpg?v=1781890349",
+    "altText": "Mini Fiery Lights With Solar Power"
+  },
+  {
+    "id": "gid://shopify/Product/9269991407866",
+    "title": "Cordless Handheld Mini Vacuum Cleaner",
+    "handle": "mr-dustbuster-handheld-cordless-mini-vacume-cleaner-for-car-and-home",
+    "productType": "Home & Kitchen",
+    "image_url": "https://cdn.shopify.com/s/files/1/0842/2644/1466/files/21_3793b6d4-9fba-4192-b668-94710cfac63f.jpg?v=1781890361",
+    "altText": "Mr. Dustbuster Handheld Cordless Mini Vacuum Cleaner, Cordless"
+  },
+  {
+    "id": "gid://shopify/Product/9269997797626",
+    "title": "Rope Knot Dog Chew Toy",
+    "handle": "pet-dog-cord-teether-knot-toy",
+    "productType": "Pet Supplies",
+    "image_url": "https://cdn.shopify.com/s/files/1/0842/2644/1466/files/hf_1783039188373_9269997797626.png?v=1783039195",
+    "altText": "Pet Dog Cord Teether Knot Toy"
+  },
+  {
+    "id": "gid://shopify/Product/9269999108346",
+    "title": "Portable Retro Game Console with 400 Built-In Games",
+    "handle": "portable-game-pad-with-400-games-included-additional-player-controller",
+    "productType": "Toys & Games",
+    "image_url": "https://cdn.shopify.com/s/files/1/0842/2644/1466/files/3_81013c66-3cd4-4117-af9c-c488a30af709.jpg?v=1781890492",
+    "altText": "Portable Game Pad With 400 Games Included + Additional Player Controller, Portable - in use"
+  }
+]

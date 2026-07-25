@@ -21,7 +21,15 @@ export const meta = ({params}) => {
  * All active category handles that exist in this Shopify store.
  */
 const PRODUCT_CATEGORIES = [
+  'phone-case',
   'home-kitchen',
+  'electronics-accessories',
+  'apparel-accessories',
+  'health-wellness',
+  'sports-outdoors',
+  'pet-finds',
+  'automotive',
+  'tools-home-improvement',
   'beauty-personal-care',
   'electronics-accessories',
   'pet-supplies',
@@ -43,9 +51,8 @@ function handleToAlias(handle) {
 }
 
 /**
- * Map handles to translated user-facing names.
- * @param {string} handle
- * @param {(key: string) => string} t
+ * Friendly display names for each category, derived from handle.
+ * "phone-case" → "Phone Case", "home-kitchen" → "Home Kitchen"
  */
 function handleToLabel(handle, t) {
   const CATEGORY_MAP = {

@@ -62,6 +62,29 @@ function handleFromUrl(url, {facebook = false} = {}) {
   }
 }
 
+const FAQ = [
+  {
+    q: 'Where is my order?',
+    a: 'Your tracking link is in the shipping confirmation email. If you don&apos;t see movement for several days, email us and we&apos;ll look into it with the carrier.',
+  },
+  {
+    q: 'Can I change or cancel my order?',
+    a: 'Within 2 hours of placing it, yes — just reply to your order confirmation. After that the order is being prepared for shipment and changes aren&apos;t possible, but you can start a return once it arrives.',
+  },
+  {
+    q: 'How do returns work?',
+    a: 'You have 30 days from the delivery date to start a return. Email us at hello@puchica.ca with your order number and we&apos;ll guide you through the process. Refunds are issued to the original payment method within 5–7 business days of us receiving the return.',
+  },
+  {
+    q: 'Do you ship outside Canada and the US?',
+    a: 'Right now, Canada and the US only. If you’re elsewhere and really want something, email us — we’ll see what we can do.',
+  },
+  {
+    q: 'Are the products in the photos exactly what I get?',
+    a: 'The product photos on each listing are provided by our suppliers. We review them for accuracy, but if you have a question about a specific product, email us before ordering and we&apos;ll help you out.',
+  },
+];
+
 /* ---------- inline icons (not in the shared Icons module) ---------- */
 
 function IconClock(props) {

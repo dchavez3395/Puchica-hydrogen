@@ -214,6 +214,56 @@ export function organizationJsonLd({
 }
 
 /**
+ * Build a CollectionPage JSON-LD object. Used on collection pages to help
+ * Google understand the collection's name, description, and URL.
+ *
+ * @param {object} opts
+ * @param {object} opts.collection - Storefront API collection object
+ * @param {boolean} [opts.hasProducts] - true when the collection has ≥1 products
+ */
+export function collectionJsonLd({collection, hasProducts = true}) {
+  if (!collection) return null;
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: collection.title,
+    description:
+      collection.seo?.description ||
+      collection.description ||
+      `Shop ${collection.title} at Puchica — curated picks with free shipping over $50 and easy 30-day returns.`,
+    url: canonical(`/collections/${collection.handle}`),
+    isPartOf: {
+      '@type': 'WebSite',
+      '@id': canonical('/#website'),
+      name: SITE_NAME,
+      url: SITE_URL,
+    },
+    // Omit breadcrumb/hasMap when no products to avoid thin-content issues.
+    ...(hasProducts && collection.handle !== 'all'
+      ? {
+          breadcrumb: {
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              {
+                '@type': 'ListItem',
+                position: 1,
+                name: 'Home',
+                item: SITE_URL,
+              },
+              {
+                '@type': 'ListItem',
+                position: 2,
+                name: collection.title,
+                item: canonical(`/collections/${collection.handle}`),
+              },
+            ],
+          },
+        }
+      : {}),
+  };
+}
+
+/**
  * Build a WebSite JSON-LD with a SearchAction. This is what generates
  * the Google Sitelinks Searchbox. Goes on the homepage.
  *
