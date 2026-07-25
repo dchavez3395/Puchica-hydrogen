@@ -49,6 +49,15 @@ DSers shows **54** size/colour variants and **16** mapped images. The reviewed r
 - Available variants include S, M, L, and XL in Dark Grey, Beige, and black. The product must not be merchandised until the storefront's option names, size chart, material composition, garment measurements, and care instructions have been checked against the supplier listing.
 - Keep the current product active only behind the same exact-variant Canada quote gate. A well-stocked mapped product can still lose money or create a high return rate if its size information and delivery promise are weak.
 
+## Supplier check completed: Adjustable Raised Pet Bowl Set
+
+The currently linked supplier page shows **free shipping to Canada** and an estimated delivery of **Aug 2-8** for its selected variant. That would meet the product's preliminary shipping budget, but the product is **not approved**:
+
+- The supplier page now presents Green, Blue, Yellow, Pink, and Purple.
+- The Shopify/DSers mapping presents Black, Red blue, Pink, and Purple.
+- Black and Red blue therefore cannot be treated as live supplier-valid options. The product was moved to Shopify Draft and removed from Hydrogen's launch allowlist until the mapping is rebuilt against the current supplier variants.
+- The supplier page also displayed an introductory/welcome price. That promotional price must not be used for margin calculations; use the DSers mapped source cost and a fresh selected-variant quote instead.
+
 ## Pricing rules before publishing
 
 1. Quote the exact SKU/variant for a Canadian address and record supplier shipping, delivery window, tracking availability, and stock.

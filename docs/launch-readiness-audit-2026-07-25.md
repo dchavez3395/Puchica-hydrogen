@@ -2,19 +2,19 @@
 
 ## Current operating picture
 
-- Shopify catalog: 66 products total; **2 active**, 63 draft, and 1 archived. The only customer-facing products are Men's High-Neck Knit Sweater and Adjustable Raised Pet Bowl Set.
+- Shopify catalog: 66 products total; **1 active**, 64 draft, and 1 archived. The only customer-facing product is Men's High-Neck Knit Sweater.
 - DSers: 57 AliExpress products mapped in the connected store view; zero unmapped open orders. This is a sourcing pool, not the number of products that should be published.
 - Orders: one paid, unfulfilled test order remains. Do not place or fulfill another supplier order until its DSers path, cost, shipping, and tracking handoff are confirmed.
-- Storefront: the Hydrogen launch allowlist now contains only the two active, reviewed handles. The loss-making cotton T-shirt and the safety/delivery-unreviewed drone and RC construction set were moved to Draft; their Shopify and DSers records remain intact.
+- Storefront: the Hydrogen launch allowlist now contains only the active sweater handle. The loss-making cotton T-shirt, the safety/delivery-unreviewed drone and RC construction set, and the pet bowl with stale supplier options were moved to Draft; their Shopify and DSers records remain intact.
 
 ## Current release blockers
 
 1. **Fulfillment proof**: reconcile the paid DSers test order and confirm supplier charge, Canadian shipping method, tracking sync, and customer-notification path before adding traffic.
-2. **Exact Canada supplier quotes**: both active products require an exact selected-variant Canadian supplier-shipping quote, delivery window, and tracking check before traffic or lifecycle automation is scaled.
+2. **Exact Canada supplier quote**: the active sweater requires an exact selected-variant Canadian supplier-shipping quote, delivery window, and tracking check before traffic or lifecycle automation is scaled.
 3. **Apparel return readiness**: the sweater has 54 mapped variants. Verify its size chart, material, garment measurements, and care instructions against the supplier listing before promoting it.
-4. **Pet-bowl availability**: DSers shows only 14 units for the raised pet bowl. Recheck the selected variant before every promotion and do not advertise a broad colour range that cannot be fulfilled.
+4. **Pet-bowl mapping repair**: the supplier page no longer matches Shopify/DSers options. Rebuild its current variant mapping, stock, and Canada quote before reconsidering it for launch.
 5. **Collection cleanup**: Shopify retains 11 empty legacy collections. Hydrogen filters them out of customer navigation, but archive them in Shopify only after confirming that no campaign, redirect, or external link still depends on them.
-6. **SKU integrity**: the two live products retain DSers source-format option IDs as SKUs. That is intentional for mapping; do not normalize them until DSers confirms mapping is independent of the Shopify SKU field.
+6. **SKU integrity**: the active sweater retains DSers source-format option IDs as SKUs. That is intentional for mapping; do not normalize them until DSers confirms mapping is independent of the Shopify SKU field.
 
 ## Historical pre-triage blockers (superseded)
 

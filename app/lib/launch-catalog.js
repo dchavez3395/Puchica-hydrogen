@@ -9,7 +9,6 @@
  */
 export const LAUNCH_PRODUCT_HANDLES = new Set([
   '2026-new-mens-high-neck-sweater-solid-color-pullover-knitted-warm-casual-turtleneck-sweatwear-woolen-mens-winter-outdoor-tops',
-  'pet-supplies-cat-bowls-water-bowls-dog-bowls-tip-over-resistant-pet-bowls-height-adjustable',
 ]);
 
 export function isLaunchReadyProduct(product) {
