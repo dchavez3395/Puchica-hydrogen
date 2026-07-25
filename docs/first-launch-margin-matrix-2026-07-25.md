@@ -41,6 +41,14 @@ DSers shows twelve variants, all shipping from China Mainland. The first review 
 - **Potential two-piece variants**: White, Silver, and Black two-piece sets with rod at CA$82.56 / CA$33.07-33.25 source cost. These have supplier stock above 99 and a preliminary supplier-shipping budget of about **CA$17.6**.
 - **Do not select a variant until its exact Canada quote and delivery window are captured.** Stock and mapping are positive signals, not fulfillment approval.
 
+## Variant check completed: Men's High-Neck Knit Sweater
+
+DSers shows **54** size/colour variants and **16** mapped images. The reviewed rows were all in stock (493-499 units each), so a dead mapping is not the immediate issue.
+
+- Reviewed source costs range from **CA$15.98 to CA$18.28** at the current CA$39.99 storefront price, leaving about **CA$6.12 to CA$8.42** of preliminary Canadian supplier-shipping headroom for those variants.
+- Available variants include S, M, L, and XL in Dark Grey, Beige, and black. The product must not be merchandised until the storefront's option names, size chart, material composition, garment measurements, and care instructions have been checked against the supplier listing.
+- Keep the current product active only behind the same exact-variant Canada quote gate. A well-stocked mapped product can still lose money or create a high return rate if its size information and delivery promise are weak.
+
 ## Pricing rules before publishing
 
 1. Quote the exact SKU/variant for a Canadian address and record supplier shipping, delivery window, tracking availability, and stock.
