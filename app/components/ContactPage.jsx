@@ -73,7 +73,7 @@ const FAQ = [
   },
   {
     q: 'How do returns work?',
-    a: 'You have 30 days from the delivery date to start a return. Email us at hello@puchica.ca with your order number and we&apos;ll guide you through the process. Refunds are issued to the original payment method within 5–7 business days of us receiving the return.',
+    a: 'You have 14 days from the delivery date to start a return. Email us at hello@puchica.ca with your order number and we&apos;ll guide you through the process. Refunds are issued to the original payment method within 5–7 business days of us receiving the return.',
   },
   {
     q: 'Do you ship outside Canada and the US?',

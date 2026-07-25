@@ -10,7 +10,7 @@ export const meta = ({params}) => {
   return puchicaMeta({
     title: 'Policies – Puchica',
     description:
-      'Shipping, returns, privacy, and terms for orders placed at Puchica.ca. Canadian-owned. 30-day easy returns.',
+      'Shipping, returns, privacy, and terms for orders placed at Puchica.ca. Canadian-owned. 14-day return window.',
     pathname: '/policies',
     langKey: params?.locale,
   });

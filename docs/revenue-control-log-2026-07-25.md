@@ -27,6 +27,11 @@ being validated. It is not a launch approval.
   customer-safe welcome flow.
 - **Ad draft:** marked as hold-only because its old copy contains unsupported
   catalog, rate, return, origin, and international-shipping promises.
+- **Storefront-price discrepancy:** the Construction Vehicle Set is CA$56.99
+  in Shopify Admin but renders as CA$54.14 on the live Canadian storefront
+  (a 5% difference). Treat storefront price as the customer-facing price for
+  margin calculations. Audit market price adjustments and active discounts
+  before approving any price or promotion.
 
 ## Remaining revenue gates
 
@@ -41,3 +46,5 @@ being validated. It is not a launch approval.
    and events; then build the welcome, abandoned-checkout, and post-purchase
    flows without enabling sends until a test contact passes.
 5. Enable Judge.me only with verified-purchase requests and real review data.
+6. Read-only audit Shopify Markets and active discounts before using any
+   advertised price or stacking FIRST15 with another offer.
