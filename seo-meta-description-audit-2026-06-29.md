@@ -2,7 +2,7 @@
 
 ## Summary
 
-- Active products: 5
+- Active products: 2
 - Low quality score (<60): 0
 - Too long (>160 chars): 0
 - Too short (<70 chars): 0

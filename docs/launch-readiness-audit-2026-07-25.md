@@ -2,12 +2,21 @@
 
 ## Current operating picture
 
-- Shopify catalog: 69 products total; 21 active, 47 draft, 1 archived.
+- Shopify catalog: 66 products total; **2 active**, 63 draft, and 1 archived. The only customer-facing products are Men's High-Neck Knit Sweater and Adjustable Raised Pet Bowl Set.
 - DSers: 57 AliExpress products mapped in the connected store view; zero unmapped open orders. This is a sourcing pool, not the number of products that should be published.
 - Orders: one paid, unfulfilled test order remains. Do not place or fulfill another supplier order until its DSers path, cost, shipping, and tracking handoff are confirmed.
-- Storefront: homepage categories now point only to audited, populated collections; empty-category links, the unsupported World Cup rail, and the single-product oversized Sports rail have been removed locally.
+- Storefront: the Hydrogen launch allowlist now contains only the two active, reviewed handles. The loss-making cotton T-shirt and the safety/delivery-unreviewed drone and RC construction set were moved to Draft; their Shopify and DSers records remain intact.
 
-## Release blockers
+## Current release blockers
+
+1. **Fulfillment proof**: reconcile the paid DSers test order and confirm supplier charge, Canadian shipping method, tracking sync, and customer-notification path before adding traffic.
+2. **Exact Canada supplier quotes**: both active products require an exact selected-variant Canadian supplier-shipping quote, delivery window, and tracking check before traffic or lifecycle automation is scaled.
+3. **Apparel return readiness**: the sweater has 54 mapped variants. Verify its size chart, material, garment measurements, and care instructions against the supplier listing before promoting it.
+4. **Pet-bowl availability**: DSers shows only 14 units for the raised pet bowl. Recheck the selected variant before every promotion and do not advertise a broad colour range that cannot be fulfilled.
+5. **Collection cleanup**: Shopify retains 11 empty legacy collections. Hydrogen filters them out of customer navigation, but archive them in Shopify only after confirming that no campaign, redirect, or external link still depends on them.
+6. **SKU integrity**: the two live products retain DSers source-format option IDs as SKUs. That is intentional for mapping; do not normalize them until DSers confirms mapping is independent of the Shopify SKU field.
+
+## Historical pre-triage blockers (superseded)
 
 1. **Fulfillment proof** — the paid order must be reconciled in DSers and its supplier cost, shipping method, tracking sync, and customer-notification path checked before adding traffic.
 2. **Five active products are unpublished to the online store** — Portable Mini Bag Sealer, Jade Roller Face Massager, Resistance Bands Set, Multi-Compartment Desk Organizer, and RGB LED Strip Lights. Their inventory is also placeholder-like (999) and their variants do not have supplier SKUs.
