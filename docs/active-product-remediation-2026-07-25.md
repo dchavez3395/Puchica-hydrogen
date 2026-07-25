@@ -13,7 +13,7 @@ and returns allowance, so none is approval for paid traffic.
 | Men's High-Neck Knit Sweater | CA$39.99 | CA$15.77-19.88 | 24,868 | Organic-only candidate after delivery, sizing and copy checks. |
 | Pet Food & Water Bowl Set | CA$39.99 | CA$14.41-17.49 | 384 | Organic-only candidate after copy and delivery checks. |
 | 1:64 RC Construction Vehicle Set | CA$56.99 | CA$21.93-26.40 | 70 | Organic-only candidate after model, age and delivery checks. |
-| Adjustable Raised Pet Bowl Set | CA$34.99 | CA$15.30-17.54 | 14 | Low-stock organic-only hold. |
+| Adjustable Raised Pet Bowl Set | CA$34.99 | CA$15.30-17.54 | 14 | Hidden from Hydrogen: thin margin, low stock and inadequate source proof. |
 | Hand-Controlled Mini RC Drone | CA$17.81-51.99 | CA$7.14-20.80 | 50 | Best margin shape, but keep organic-only until all source/delivery checks pass. |
 
 ## Product-specific actions
@@ -52,13 +52,28 @@ and returns allowance, so none is approval for paid traffic.
 - Replace generic RC copy with the exact included vehicle/model, controls,
   power/charging information, age guidance and dimensions.
 
-### Adjustable Raised Pet Bowl Set — organic-only hold
+### Adjustable Raised Pet Bowl Set — hold
 
 - DSers stock is only 14 across the product card; Shopify shows a smaller
   per-variant quantity set, so it needs a source refresh before promotion.
+- The inspected supplier listing has only 2 reviews and 9 sales. Its displayed
+  5.0 rating is not enough evidence for a product customers depend on daily.
 - `Red blue` is not customer-ready copy, and the SEO description is kitchen
   copy. Hold label changes until DSers variant matching is recorded.
 - Confirm bowl material, dimensions, elevated height and cleaning instructions.
+
+## Supplier listing quality checks
+
+These are source-listing signals only; they do not prove product quality or
+delivery reliability.
+
+| Product | Source signal | Clearance implication |
+| --- | --- | --- |
+| T-shirt | 4.9 / 1,022 reviews / 10,000+ sales | Strong listing history, but unit economics still fail. |
+| Sweater | 4.9 / 1,131 reviews / 5,000+ sales | Credible source history; verify composition and size chart before any claim. |
+| Raised bowl | 5.0 / 2 reviews / 9 sales | Insufficient proof; keep hidden. |
+| RC construction set | 4.8 / 887 reviews / 5,000+ sales | Stronger listing history, but source warns it is not for under-36-month children. |
+| Mini drone | 4.1 / 795 reviews / 5,000+ sales | Adequate demand but only middling quality signal; retain organic-only hold. |
 
 ### Hand-Controlled Mini RC Drone — organic-only hold
 
