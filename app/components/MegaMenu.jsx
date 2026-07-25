@@ -211,7 +211,6 @@ function MegaMenuPanel({data, onNavigate}) {
 
   const quickLinks = [
     {id: 'q-new', handle: 'new-arrivals', title: t('nav_new_arrivals'), url: '/collections/new-arrivals'},
-    {id: 'q-sale', handle: 'sale', title: t('nav_sale'), url: '/collections/sale', sale: true},
     {id: 'q-gifts', handle: 'gifts-under-25', title: t('nav_gifts'), url: '/collections/gifts-under-25'},
     {id: 'q-all', title: t('nav_all_products'), url: '/collections/all'},
   ].filter((link) => !link.handle || hasProducts(byHandle.get(link.handle)));

@@ -11,7 +11,7 @@ import {useT} from '~/lib/t';
  */
 
 const HERO_CATEGORIES = [
-  {label: 'Sale', to: '/collections/sale', badge: 'Sale'},
+  {label: 'All products', to: '/collections/all'},
   {label: 'New Arrivals', to: '/collections/new-arrivals'},
   {label: 'Home & Kitchen', to: '/collections/home-kitchen'},
   {label: 'Phone Cases', to: '/collections/phone-case'},

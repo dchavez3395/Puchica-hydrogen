@@ -40,8 +40,8 @@ export function HeroSplit({categories = []}) {
             <Link to="/collections" prefetch="viewport" className="pk-btn pk-btn--ink">
               {t('hero_split_cta_secondary')}
             </Link>
-            <Link to="/collections/sale" prefetch="viewport" className="pk-btn pk-btn--outline">
-              {t('nav_sale')}
+            <Link to="/collections/all" prefetch="viewport" className="pk-btn pk-btn--outline">
+              {t('nav_all_products')}
             </Link>
             <Link
               to="/collections/best-sellers"

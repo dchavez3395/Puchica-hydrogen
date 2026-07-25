@@ -137,13 +137,11 @@ export function HeaderMenu({menu, megaMenu, primaryDomainUrl, viewport, publicSt
   const desktopNav = [
     {id: 'dn-new', title: t('nav_new_arrivals'), url: '/collections/new-arrivals'},
     {id: 'dn-best', title: t('nav_best_sellers'), url: '/collections/best-sellers'},
-    {id: 'dn-sale', title: t('nav_sale'), url: '/collections/sale', sale: true},
     {id: 'dn-about', title: t('nav_about'), url: '/pages/about'},
   ];
   const mobileExtraNav = [
     {id: 'mn-new', title: t('nav_new_arrivals'), url: '/collections/new-arrivals'},
     {id: 'mn-best', title: t('nav_best_sellers'), url: '/collections/best-sellers'},
-    {id: 'mn-sale', title: t('nav_sale'), url: '/collections/sale'},
     {id: 'mn-explore', title: t('nav_explore'), url: '/explore'},
     {id: 'mn-about', title: t('nav_about'), url: '/pages/about'},
   ];
