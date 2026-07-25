@@ -1,74 +1,12 @@
-# Variant SKU Audit (2026-06-29)
+# Variant SKU Audit (refreshed 2026-07-25)
 
 ## Summary
 
-- Active products: 6155
-- Total variants: 13522
+- Active products: 5
+- Total variants: 33
 - Issues:
-  - `empty_sku`: 329
-  - `special_chars`: 185
-  - `dup_within_product`: 143
-  - `cross_product_dup`: 6
-  - `too_long`: 1
-
-## Products with empty SKUs
-
-These need SKUs assigned so fulfillment can track them.
-
-| handle | title | price |
-| --- | --- | ---:|
-| `1080p-night-vision-trail-camera` | 1080p HD Trail & Hunting Camera - 16MP, 0.6s Trigg | $41.80 |
-| `24oz-leak-proof-glass-hummingbird-feeder` | 24oz Leak Proof Glass Hummingbird Feeder | $49.26 |
-| `24oz-leak-proof-glass-hummingbird-feeder` | 24oz Leak Proof Glass Hummingbird Feeder | $49.26 |
-| `2pcs-shoes-washing-bag-for-laundry` | 2Pcs Shoes Washing Bag for Laundry | $41.83 |
-| `3-in-1-dog-hair-dryer-and-grooming-brush` | 3-in-1 Dog Hair Dryer, Slicker Brush & Grooming To | $44.62 |
-| `4-in-1-cutting-board-with-thawing-tray-and-knife-sharpener` | 4-in-1 Cutting Board with Thawing Tray and Knife S | $20.91 |
-| `4-in-1-cutting-board-with-thawing-tray-and-knife-sharpener` | 4-in-1 Cutting Board with Thawing Tray and Knife S | $27.88 |
-| `450ml-smart-travel-mug-with-led-display` | 450ml Smart Travel Mug with LED Display | $41.83 |
-| `4d-cloud-technology-insole-super-soft` | 4D Cloud Technology Insole - Super Soft! | $20.88 |
-| `4d-cloud-technology-insole-super-soft` | 4D Cloud Technology Insole - Super Soft! | $20.88 |
-| `4d-cloud-technology-insole-super-soft` | 4D Cloud Technology Insole - Super Soft! | $20.88 |
-| `4d-cloud-technology-insole-super-soft` | 4D Cloud Technology Insole - Super Soft! | $20.88 |
-| `5-in-1-forklift-design-wireless-charger-with-alarm-clock-and-night-light` | 5-in-1 Forklift Design MagSafe Wireless Charger wi | $46.01 |
-| `600ml-leak-proof-protein-shaker-bottle-with-mixing-ball` | 600ml Leak-Proof Protein Shaker Bottle with Stainl | $12.54 |
-| `600ml-leak-proof-protein-shaker-bottle-with-mixing-ball` | 600ml Leak-Proof Protein Shaker Bottle with Stainl | $12.54 |
-| `adjustable-dog-boots` | Adjustable Dog Boots | $27.85 |
-| `adjustable-dog-boots` | Adjustable Dog Boots | $27.85 |
-| `adjustable-dog-boots` | Adjustable Dog Boots | $27.85 |
-| `antislip-shower-mat` | Antislip Shower Mat | $41.77 |
-| `antislip-shower-mat` | Antislip Shower Mat | $41.77 |
-| `antislip-shower-mat` | Antislip Shower Mat | $41.77 |
-| `antislip-shower-mat` | Antislip Shower Mat | $41.77 |
-| `antislip-shower-mat` | Antislip Shower Mat | $41.77 |
-| `antislip-shower-mat` | Antislip Shower Mat | $41.77 |
-| `autogap-safety-fillers` | Auto Gap Safety Fillers | $55.76 |
-| `autogap-safety-fillers` | Auto Gap Safety Fillers | $55.76 |
-| `baby-blanket-1` | Baby Blanket | $19.39 |
-| `baby-blanket-1` | Baby Blanket | $19.39 |
-| `baby-blanket-1` | Baby Blanket | $19.39 |
-| `baby-blanket-1` | Baby Blanket | $19.39 |
-| `portable-air-conditioner-stand-up-room-cooler-indoor-ac-unit-windowless` | Portable Air Conditioner Stand Up Room Cooler Indo | $181.28 |
-| `best-portable-air-cooler-stand-up-room-cooler-indoor-ac-unit-windowless` | Portable Air Cooler Stand Up Room Cooler Indoor AC | $221.77 |
-| `car-dashboard-thermometer` | Car Dashboard Thermometer | $25.06 |
-| `car-door-edge-scratch-protector-strip` | Car Door Edge Scratch Protector Strip | $16.74 |
-| `car-door-edge-scratch-protector-strip` | Car Door Edge Scratch Protector Strip | $16.74 |
-| `car-door-edge-scratch-protector-strip` | Car Door Edge Scratch Protector Strip | $16.74 |
-| `car-door-edge-scratch-protector-strip` | Car Door Edge Scratch Protector Strip | $16.74 |
-| `car-door-edge-scratch-protector-strip` | Car Door Edge Scratch Protector Strip | $16.74 |
-| `car-door-edge-scratch-protector-strip` | Car Door Edge Scratch Protector Strip | $16.74 |
-| `cat-carrier-pouch` | Cat Carrier Pouch | $27.85 |
-| `cat-carrier-pouch` | Cat Carrier Pouch | $32.04 |
-| `cat-carrier-pouch` | Cat Carrier Pouch | $34.83 |
-| `cat-carrier-pouch` | Cat Carrier Pouch | $27.85 |
-| `cat-carrier-pouch` | Cat Carrier Pouch | $32.04 |
-| `cat-carrier-pouch` | Cat Carrier Pouch | $34.83 |
-| `cat-carrier-pouch` | Cat Carrier Pouch | $27.85 |
-| `cat-heating-pad-and-dog-warming-pad` | Cat Heating Pad and Dog Warming Pad | $27.85 |
-| `cat-heating-pad-and-dog-warming-pad` | Cat Heating Pad and Dog Warming Pad | $27.85 |
-| `cat-heating-pad-and-dog-warming-pad` | Cat Heating Pad and Dog Warming Pad | $27.85 |
-| `cat-heating-pad-and-dog-warming-pad` | Cat Heating Pad and Dog Warming Pad | $27.85 |
-
-_...and 279 more._
+  - `special_chars`: 33
+  - `cross_product_dup`: 2
 
 ## Cross-product duplicate SKUs
 
@@ -76,44 +14,40 @@ Same SKU used on different products — breaks fulfillment.
 
 | sku | count | products |
 | --- | ---:| --- |
-| `CHC364` | 2 | `car-heater-150w-300w-12v-ceramic-car-fan-heater`, `set-live-oct-2025-car-heater-150w-300w-12v-ceramic-car-fan-heater-copy` |
-| `CST888` | 2 | `chicken-shredder-tool`, `coffee-scale-with-timer` |
-| `Air-C GEL` | 2 | `air-c-care`, `air-c-univision` |
-| `SAS0012-09NA` | 2 | `kitta-performance-percussive-sports-therapy-massage-gun`, `kitta-performance-percussive-sports-therapy-massage-gun-by-synca-massage-chair` |
-| `SAS0020-08NA` | 2 | `kitta-performance-percussive-sports-therapy-massage-gun`, `kitta-performance-percussive-sports-therapy-massage-gun-by-synca-massage-chair` |
-| `XPRESS` | 2 | `xpress-knee-massager`, `xpress-offer` |
+| `14:175#Green` | 2 | `1-64-bluetooth-remote-control-crane-and-forklift-two-in-one-desktop-mini-alloy-toy-car-with-trailer-christmas-gift-in-color-box`, `watch-wrist-hand-controlled-induction-rc-drone-mini-rechargeable-helicopter-with-led-lights` |
+| `14:366#Yellow` | 2 | `1-64-bluetooth-remote-control-crane-and-forklift-two-in-one-desktop-mini-alloy-toy-car-with-trailer-christmas-gift-in-color-box`, `watch-wrist-hand-controlled-induction-rc-drone-mini-rechargeable-helicopter-with-led-lights` |
 
 ## SKUs with special chars (spaces/symbols)
 
 | sku | handle |
 | --- | --- |
-| `ST_10_RedmiNote11Pro+_TH` | 5am-club-xiaomi-redmi-note-11-pro-plus-case |
-| `ST_10_RedmiNote12Pro+_TH` | 5am-club-xiaomi-redmi-note-12-pro-plus-5g-case |
-| `ST_10_RedmiNote13Pro+_TH` | 5am-club-xiaomi-redmi-note-13-pro-plus-5g-case |
-| `ST_10_RedmiNote14Pro+_TH` | 5am-club-xiaomi-redmi-note-14-pro-plus-5g-case |
-| `AS_06_RedmiNote11Pro+_TH` | abyss-xiaomi-redmi-note-11-pro-plus-case |
-| `AS_06_RedmiNote12Pro+_TH` | abyss-xiaomi-redmi-note-12-pro-plus-5g-case |
-| `AS_06_RedmiNote13Pro+_TH` | abyss-xiaomi-redmi-note-13-pro-plus-5g-case |
-| `AS_06_RedmiNote14Pro+_TH` | abyss-xiaomi-redmi-note-14-pro-plus-5g-case |
-| `OH_13_RedmiNote11Pro+_TH` | academy-xiaomi-redmi-note-11-pro-plus-case |
-| `OH_13_RedmiNote13Pro+_TH` | academy-xiaomi-redmi-note-13-pro-plus-5g-case |
-| `OH_13_RedmiNote12Pro+_TH` | academy-xiaomi-redmi-note-12-pro-plus-5g-case |
-| `OH_13_RedmiNote14Pro+_TH` | academy-xiaomi-redmi-note-14-pro-plus-5g-case |
-| `UN_03_RedmiNote11Pro+_TH` | achromatic-xiaomi-redmi-note-11-pro-plus-case |
-| `UN_03_RedmiNote12Pro+_TH` | achromatic-xiaomi-redmi-note-12-pro-plus-5g-case |
-| `UN_03_RedmiNote13Pro+_TH` | achromatic-xiaomi-redmi-note-13-pro-plus-5g-case |
-| `UN_03_RedmiNote14Pro+_TH` | achromatic-xiaomi-redmi-note-14-pro-plus-5g-case |
-| `GK_11_RedmiNote11Pro+_TH` | aegean-affair-xiaomi-redmi-note-11-pro-plus-case |
-| `GK_11_RedmiNote12Pro+_TH` | aegean-affair-xiaomi-redmi-note-12-pro-plus-5g-case |
-| `GK_11_RedmiNote13Pro+_TH` | aegean-affair-xiaomi-redmi-note-13-pro-plus-5g-case |
-| `GK_11_RedmiNote14Pro+_TH` | aegean-affair-xiaomi-redmi-note-14-pro-plus-5g-case |
-| `PA_05_RedmiNote11Pro+_TH` | after-hours-xiaomi-redmi-note-11-pro-plus-case |
-| `PA_05_RedmiNote12Pro+_TH` | after-hours-xiaomi-redmi-note-12-pro-plus-5g-case |
-| `PA_05_RedmiNote14Pro+_TH` | after-hours-xiaomi-redmi-note-14-pro-plus-5g-case |
-| `PA_05_RedmiNote13Pro+_TH` | after-hours-xiaomi-redmi-note-13-pro-plus-5g-case |
-| `DN_08_RedmiNote11Pro+_TH` | afternoon-nap-xiaomi-redmi-note-11-pro-plus-case |
-| `DN_08_RedmiNote12Pro+_TH` | afternoon-nap-xiaomi-redmi-note-12-pro-plus-5g-case |
-| `DN_08_RedmiNote13Pro+_TH` | afternoon-nap-xiaomi-redmi-note-13-pro-plus-5g-case |
-| `DN_08_RedmiNote14Pro+_TH` | afternoon-nap-xiaomi-redmi-note-14-pro-plus-5g-case |
-| `BA_04_RedmiNote11Pro+_TH` | afternoon-treat-xiaomi-redmi-note-11-pro-plus-case |
-| `BA_04_RedmiNote12Pro+_TH` | afternoon-treat-xiaomi-redmi-note-12-pro-plus-5g-case |
+| `14:193#Black;5:361385` | 100-pure-cotton-t-shirt-with-round-neck-shoulder-design-for-both-men-women-summer-solid-color-short-sleeved-casual-loose-fit |
+| `14:193#Black;5:361386` | 100-pure-cotton-t-shirt-with-round-neck-shoulder-design-for-both-men-women-summer-solid-color-short-sleeved-casual-loose-fit |
+| `14:193#Black;5:100014064` | 100-pure-cotton-t-shirt-with-round-neck-shoulder-design-for-both-men-women-summer-solid-color-short-sleeved-casual-loose-fit |
+| `14:193#Black;5:4182` | 100-pure-cotton-t-shirt-with-round-neck-shoulder-design-for-both-men-women-summer-solid-color-short-sleeved-casual-loose-fit |
+| `14:193#Black;5:100014065` | 100-pure-cotton-t-shirt-with-round-neck-shoulder-design-for-both-men-women-summer-solid-color-short-sleeved-casual-loose-fit |
+| `14:771#White;5:4183` | 100-pure-cotton-t-shirt-with-round-neck-shoulder-design-for-both-men-women-summer-solid-color-short-sleeved-casual-loose-fit |
+| `14:173#Advanced Gray;5:100014064` | 100-pure-cotton-t-shirt-with-round-neck-shoulder-design-for-both-men-women-summer-solid-color-short-sleeved-casual-loose-fit |
+| `14:173#Advanced Gray;5:4182` | 100-pure-cotton-t-shirt-with-round-neck-shoulder-design-for-both-men-women-summer-solid-color-short-sleeved-casual-loose-fit |
+| `14:173#Advanced Gray;5:100014065` | 100-pure-cotton-t-shirt-with-round-neck-shoulder-design-for-both-men-women-summer-solid-color-short-sleeved-casual-loose-fit |
+| `14:771#White;5:361385` | 100-pure-cotton-t-shirt-with-round-neck-shoulder-design-for-both-men-women-summer-solid-color-short-sleeved-casual-loose-fit |
+| `14:200004890;5:100014064` | 2026-new-mens-high-neck-sweater-solid-color-pullover-knitted-warm-casual-turtleneck-sweatwear-woolen-mens-winter-outdoor-tops |
+| `14:200004890;5:100014065` | 2026-new-mens-high-neck-sweater-solid-color-pullover-knitted-warm-casual-turtleneck-sweatwear-woolen-mens-winter-outdoor-tops |
+| `14:771;5:100014065` | 2026-new-mens-high-neck-sweater-solid-color-pullover-knitted-warm-casual-turtleneck-sweatwear-woolen-mens-winter-outdoor-tops |
+| `14:200004890;5:361385` | 2026-new-mens-high-neck-sweater-solid-color-pullover-knitted-warm-casual-turtleneck-sweatwear-woolen-mens-winter-outdoor-tops |
+| `14:771;5:361386` | 2026-new-mens-high-neck-sweater-solid-color-pullover-knitted-warm-casual-turtleneck-sweatwear-woolen-mens-winter-outdoor-tops |
+| `14:771;5:361385` | 2026-new-mens-high-neck-sweater-solid-color-pullover-knitted-warm-casual-turtleneck-sweatwear-woolen-mens-winter-outdoor-tops |
+| `14:771;5:100014064` | 2026-new-mens-high-neck-sweater-solid-color-pullover-knitted-warm-casual-turtleneck-sweatwear-woolen-mens-winter-outdoor-tops |
+| `14:193;5:100014064` | 2026-new-mens-high-neck-sweater-solid-color-pullover-knitted-warm-casual-turtleneck-sweatwear-woolen-mens-winter-outdoor-tops |
+| `14:200004890;5:361386` | 2026-new-mens-high-neck-sweater-solid-color-pullover-knitted-warm-casual-turtleneck-sweatwear-woolen-mens-winter-outdoor-tops |
+| `14:350852#Caramel;5:361386` | 2026-new-mens-high-neck-sweater-solid-color-pullover-knitted-warm-casual-turtleneck-sweatwear-woolen-mens-winter-outdoor-tops |
+| `14:175#Green` | 1-64-bluetooth-remote-control-crane-and-forklift-two-in-one-desktop-mini-alloy-toy-car-with-trailer-christmas-gift-in-color-box |
+| `14:691#Excavator-Green` | 1-64-bluetooth-remote-control-crane-and-forklift-two-in-one-desktop-mini-alloy-toy-car-with-trailer-christmas-gift-in-color-box |
+| `14:366#Yellow` | 1-64-bluetooth-remote-control-crane-and-forklift-two-in-one-desktop-mini-alloy-toy-car-with-trailer-christmas-gift-in-color-box |
+| `14:10#Excavator-Yellow` | 1-64-bluetooth-remote-control-crane-and-forklift-two-in-one-desktop-mini-alloy-toy-car-with-trailer-christmas-gift-in-color-box |
+| `14:29#Dump Truck-Yellow` | 1-64-bluetooth-remote-control-crane-and-forklift-two-in-one-desktop-mini-alloy-toy-car-with-trailer-christmas-gift-in-color-box |
+| `14:193#Dump Truck-Green` | 1-64-bluetooth-remote-control-crane-and-forklift-two-in-one-desktop-mini-alloy-toy-car-with-trailer-christmas-gift-in-color-box |
+| `14:10#Purple` | pet-supplies-cat-bowls-water-bowls-dog-bowls-tip-over-resistant-pet-bowls-height-adjustable |
+| `14:175#Black` | pet-supplies-cat-bowls-water-bowls-dog-bowls-tip-over-resistant-pet-bowls-height-adjustable |
+| `14:193#Red blue` | pet-supplies-cat-bowls-water-bowls-dog-bowls-tip-over-resistant-pet-bowls-height-adjustable |
+| `14:29#Pink` | pet-supplies-cat-bowls-water-bowls-dog-bowls-tip-over-resistant-pet-bowls-height-adjustable |

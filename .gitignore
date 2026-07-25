@@ -5,6 +5,7 @@
 .env
 .env.*
 !.env.example
+.shopify-admin-token
 
 # ─── Dependencies ─────────────────────────────────────────────
 node_modules/
