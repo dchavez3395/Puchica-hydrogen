@@ -3,7 +3,7 @@
 ## Current operating picture
 
 - Shopify catalog: 69 products total; 21 active, 47 draft, 1 archived.
-- DSers: 74 AliExpress products mapped in the connected store view; zero unmapped open orders.
+- DSers: 57 AliExpress products mapped in the connected store view; zero unmapped open orders. This is a sourcing pool, not the number of products that should be published.
 - Orders: one paid, unfulfilled test order remains. Do not place or fulfill another supplier order until its DSers path, cost, shipping, and tracking handoff are confirmed.
 - Storefront: homepage categories now point only to audited, populated collections; empty-category links, the unsupported World Cup rail, and the single-product oversized Sports rail have been removed locally.
 
@@ -15,6 +15,33 @@
 4. **SEO gaps** — the Solar String Lights and Wrist-Controlled RC Drone currently have no SEO title or meta description.
 5. **Variant availability** — Baby Music Activity Gym has 13 of 14 variants at zero stock; RC Monster Truck has 3 unavailable variants; Wrist-Controlled Drone has 1 unavailable variant. Low total inventory also affects the Head Back Protector (2), Activity Gym (6), and adjustable pet bowls (15).
 6. **Collection taxonomy** — product types `Beauty`, `Office`, and `Electronics` do not naturally resolve to the intended department collection rules. The active products are still visible elsewhere, but these types need a deliberate taxonomy/tag decision before collection automation is trusted.
+
+## DSers catalog curation rule
+
+The current DSers set is a sourcing pool, not a launch catalog. A mapping only establishes a supplier connection; it does not approve a product for the storefront.
+
+Puchica should remain a focused lifestyle store rather than a general catalogue of mapped AliExpress products.
+
+### Candidate departments
+
+- **Useful home**: practical organization, lighting, small home upgrades, and desk/storage products.
+- **Everyday outdoors**: low-risk activity accessories, where supplier facts and shipping are verified.
+- **Pet essentials**: simple, non-medical pet accessories with clear sizing and no unverified safety or feeding claims.
+- **Seasonal apparel**: a deliberately small apparel edit only after sizing, material, delivery, return expectations, and Canadian landed margin are confirmed.
+
+### Exclude by default
+
+- Products with health, treatment, therapeutic, or medical claims.
+- Electrical/heated products until safety, plug/voltage, certifications, and delivery support are verified.
+- Child-safety-sensitive toys and products with age-related claims until supplier evidence is reviewed.
+- "Luxury brand", logo, or potentially counterfeit-style watches/accessories.
+- Low-trust novelty products, animal products with unclear welfare/safety implications, and items that cannot support shipping, FIRST15, fees, and a target margin.
+
+### Current examples from the mapped set
+
+- **Possible launch candidates, pending quote/content review**: Solar Fairy String Lights, Compact Manicure Set, Travel Pet Water Bottle, No-Drill Shower Shelf, Compact Bicycle Bell, Men's High-Neck Knit Sweater, Men's Cotton-Linen Wide-Leg Pants, and the active pet bowl products.
+- **Keep off the storefront until a deliberate exception is approved**: faux piercing jewelry, rabbit-fur keychains, generic/luxury-branded watches, nail-treatment items, heated clothing, cotton-swab health/beauty items, and safety-sensitive RC toys without complete supplier/shipping review.
+- **Immediate risk check**: any supplier SKU marked out of stock cannot be treated as sellable until the exact variant mapping is replaced and revalidated.
 
 ## Product-edit sequence
 
@@ -38,4 +65,3 @@ Use one controlled product as a proof run before applying the workflow to the fu
 - Direct collection fetching prevents stale/empty homepage department tiles.
 - Breadcrumb category links use real department destinations.
 - Unsupported free-shipping/Toronto/prepaid-label language was removed from the primary English storefront surfaces in this change set; older policy and translated copy remain a separate policy-verification pass.
-
