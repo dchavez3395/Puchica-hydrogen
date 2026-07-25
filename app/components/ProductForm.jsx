@@ -6,6 +6,7 @@ import {OfferCallout} from '~/components/OfferCallout';
 import {useAside} from './Aside';
 import {useT} from '~/lib/t';
 import {IconHeart, IconMinus, IconPlus} from '~/components/Icons';
+import {formatProductOptionLabel} from '~/lib/product-options';
 
 /**
  * @param {{
@@ -97,6 +98,7 @@ export function ProductForm({productOptions, selectedVariant, product, onAddStar
                   isDifferentProduct,
                   swatch,
                 } = value;
+                const label = formatProductOptionLabel(name);
 
                 if (isDifferentProduct) {
                   return (
@@ -108,7 +110,7 @@ export function ProductForm({productOptions, selectedVariant, product, onAddStar
                       replace
                       to={`/products/${handle}?${variantUriQuery}`}
                     >
-                      <ProductOptionSwatch swatch={swatch} name={name} />
+                      <ProductOptionSwatch swatch={swatch} name={name} label={label} />
                     </Link>
                   );
                 }
@@ -127,7 +129,7 @@ export function ProductForm({productOptions, selectedVariant, product, onAddStar
                       }
                     }}
                   >
-                    <ProductOptionSwatch swatch={swatch} name={name} />
+                    <ProductOptionSwatch swatch={swatch} name={name} label={label} />
                   </button>
                 );
               })}
@@ -294,17 +296,17 @@ function NotifyBackForm({variantId, productHandle}) {
   );
 }
 
-function ProductOptionSwatch({swatch, name}) {
+function ProductOptionSwatch({swatch, name, label}) {
   const image = swatch?.image?.previewImage?.url;
   const color = swatch?.color;
-  if (!image && !color) return name;
+  if (!image && !color) return label;
   return (
     <div
-      aria-label={name}
+      aria-label={label}
       className="product-option-label-swatch"
       style={{backgroundColor: color || 'transparent'}}
     >
-      {!!image && <img src={image} alt={name} />}
+      {!!image && <img src={image} alt={label} />}
     </div>
   );
 }

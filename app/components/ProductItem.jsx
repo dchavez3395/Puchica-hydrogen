@@ -4,6 +4,7 @@ import {useVariantUrl} from '~/lib/variants';
 import {AddToCartButton} from '~/components/AddToCartButton';
 import {useAside} from '~/components/Aside';
 import {useT} from '~/lib/t';
+import {formatProductOptionLabel} from '~/lib/product-options';
 
 const BADGE_TAG_MAP = {
   'new-arrival': {labelKey: 'badge_new_arrival', cls: 'pk-card__badge--new-arrival'},
@@ -71,26 +72,6 @@ function resolveOptionColor(name, swatchColor) {
   return match ? COLOR_NAME_MAP[match] : null;
 }
 
-function formatOptionName(name) {
-  if (!name) return '';
-
-  const cleaned = String(name)
-    .trim()
-    .replace(/[_-]+/g, ' ')
-    .replace(/\s+/g, ' ');
-  const normalized = cleaned.toLowerCase();
-
-  if (/multi/.test(normalized) && /colou?r/.test(normalized)) {
-    return 'Multi-color';
-  }
-
-  if (cleaned.length <= 3 && cleaned === cleaned.toUpperCase()) {
-    return cleaned;
-  }
-
-  return cleaned.replace(/\b\w/g, (letter) => letter.toUpperCase());
-}
-
 /**
  * Returns compact option chips for the first real option. Product cards
  * used to show anonymous dots when Shopify had values but no swatch
@@ -109,7 +90,7 @@ function resolveOptionChips(options) {
   if (values.length < 2) return [];
 
   return values.slice(0, 4).map((value) => ({
-    name: formatOptionName(value.name),
+    name: formatProductOptionLabel(value.name),
     rawName: value.name,
     color: resolveOptionColor(value.name, value.swatch?.color),
     isColorOption: /color|colour/i.test(first.name),
