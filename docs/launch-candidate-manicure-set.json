@@ -1,0 +1,14 @@
+{
+  "product": {
+    "id": "gid://shopify/Product/9326920859898",
+    "title": "Compact Manicure Set",
+    "handle": "compact-manicure-set",
+    "productType": "Personal Care Accessories",
+    "tags": ["grooming", "personal-care", "travel", "giftable", "launch-candidate"],
+    "descriptionHtml": "<p>A compact grooming set for everyday touch-ups at home or on the go.</p><ul><li>Portable case keeps small tools together</li><li>Select from the available tool-count and case options</li><li>A practical addition to a travel or self-care routine</li></ul><p>Tools and case details vary by selected option. Please review the product variant before ordering.</p>",
+    "seo": {
+      "title": "Compact Manicure Set with Travel Case | Puchica",
+      "description": "A portable manicure set with a compact case for everyday grooming and travel. Choose the tool-count option that suits your routine."
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "product": {
+    "id": "gid://shopify/Product/9326920433914",
+    "title": "Travel Pet Water Bottle",
+    "handle": "travel-pet-water-bottle",
+    "productType": "Pet Travel Accessories",
+    "tags": ["pet", "dog", "travel", "outdoors", "launch-candidate"],
+    "descriptionHtml": "<p>A portable water bottle for bringing water along on everyday walks and outings with your pet.</p><ul><li>Compact format for travel and outdoor routines</li><li>Designed for convenient water breaks away from home</li><li>Choose the available size or colour option that suits your routine</li></ul><p>Capacity and component details vary by selected option. Review the product variant before ordering.</p>",
+    "seo": {
+      "title": "Travel Pet Water Bottle for Walks & Outings | Puchica",
+      "description": "A portable pet water bottle for everyday walks, travel and outdoor breaks. Check the selected size and colour before ordering."
+    }
+  }
+}

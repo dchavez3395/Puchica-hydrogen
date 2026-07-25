@@ -1,0 +1,14 @@
+{
+  "product": {
+    "id": "gid://shopify/Product/9326918795514",
+    "title": "Compact Bicycle Bell",
+    "handle": "compact-bicycle-bell",
+    "productType": "Cycling Accessories",
+    "tags": ["cycling", "outdoors", "bike-accessory", "everyday-carry", "launch-candidate"],
+    "descriptionHtml": "<p>A compact bicycle bell for adding an audible signal to compatible handlebars.</p><ul><li>Small, practical accessory for everyday rides</li><li>Available in selected styles and configurations</li><li>Check the listed fit details before ordering</li></ul><p>Compatibility can vary by handlebar and selected option. Confirm the product measurements and variant details before purchase.</p>",
+    "seo": {
+      "title": "Compact Bicycle Bell for Everyday Rides | Puchica",
+      "description": "A small bicycle bell for compatible handlebars. Review the selected style and fit details before ordering."
+    }
+  }
+}
