@@ -230,7 +230,7 @@ export function collectionJsonLd({collection, hasProducts = true}) {
     description:
       collection.seo?.description ||
       collection.description ||
-      `Shop ${collection.title} at Puchica — curated picks with free shipping over $50 and easy 30-day returns.`,
+      `Shop ${collection.title} at Puchica — curated picks with shipping options confirmed at checkout.`,
     url: canonical(`/collections/${collection.handle}`),
     isPartOf: {
       '@type': 'WebSite',

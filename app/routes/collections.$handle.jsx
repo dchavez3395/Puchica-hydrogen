@@ -19,7 +19,7 @@ export const meta = ({data, params}) => {
   const d =
     collection?.seo?.description ||
     collection?.description ||
-    `Shop ${t} at Puchica — curated picks with clear shipping options and easy 30-day returns.`;
+    `Shop ${t} at Puchica — curated picks with shipping options confirmed at checkout.`;
   const image = collection?.image?.url;
   const pathname = `/collections/${collection?.handle || ''}`;
   return puchicaMeta({
