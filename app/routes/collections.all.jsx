@@ -6,6 +6,7 @@ import {puchicaMeta} from '~/lib/seo';
 import {ProductItem} from '~/components/ProductItem';
 import {useT} from '~/lib/t';
 import {diversifyByVendor} from '~/lib/diversify';
+import {filterLaunchProducts} from '~/lib/launch-catalog';
 
 /**
  * @type {Route.MetaFunction}
@@ -14,7 +15,7 @@ export const meta = ({params}) => {
   return puchicaMeta({
     title: 'All Products – Puchica',
     description:
-      'Every product in the Puchica catalog, in one place. Filter by category, sort by price or popularity, search by name. Free shipping across Canada, 30-day returns.',
+      'Every product in the Puchica catalog, in one place. Filter by category, sort by price or popularity, and search by name.',
     type: 'website',
     pathname: '/collections/all',
     langKey: params?.locale,
@@ -50,7 +51,7 @@ const DEFAULT_SORT = 'featured';
  */
 async function loadCriticalData({context, request}) {
   const {country, language} = context.storefront.i18n;
-  const paginationVariables = getPaginationVariables(request, {pageBy: 12});
+  const paginationVariables = getPaginationVariables(request, {pageBy: 100});
   const url = new URL(request.url);
   const sortValue = url.searchParams.get('sort') || DEFAULT_SORT;
   const {sortKey, reverse} = SORT_KEY_MAP[sortValue] || SORT_KEY_MAP[DEFAULT_SORT];
@@ -93,12 +94,18 @@ async function loadCriticalData({context, request}) {
   // vendor. Re-rank so adjacent products are from different vendors
   // (e.g. iPhone case, hair product, robot toy, in that order).
   // See app/lib/diversify.js.
-  const products = rawProducts?.nodes?.length > 2
+  const launchProducts = filterLaunchProducts(rawProducts?.nodes);
+  const products = launchProducts.length > 2
     ? {
         ...rawProducts,
-        nodes: diversifyByVendor(rawProducts.nodes),
+        nodes: diversifyByVendor(launchProducts),
+        pageInfo: {...rawProducts.pageInfo, hasPreviousPage: false, hasNextPage: false},
       }
-    : rawProducts;
+    : {
+        ...rawProducts,
+        nodes: launchProducts,
+        pageInfo: {...rawProducts?.pageInfo, hasPreviousPage: false, hasNextPage: false},
+      };
   return {products};
 }
 
@@ -190,6 +197,7 @@ const COLLECTION_ITEM_FRAGMENT = `#graphql
     id
     handle
     title
+    availableForSale
     productType
     tags
     featuredImage {
@@ -211,7 +219,7 @@ const COLLECTION_ITEM_FRAGMENT = `#graphql
         swatch { color }
       }
     }
-    variants(first: 1) {
+    variants(first: 100) {
       nodes {
         id
         availableForSale

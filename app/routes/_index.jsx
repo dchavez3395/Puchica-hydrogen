@@ -1,26 +1,23 @@
 import {Await, useLoaderData} from 'react-router';
 import {Suspense} from 'react';
+import {CacheNone} from '@shopify/hydrogen';
 import {error as logError} from '~/lib/logger';
 import {puchicaMeta, organizationJsonLd, websiteJsonLd, JsonLdScript} from '~/lib/seo';
 import {
   HeroSplit,
 } from '~/sections/hero-split/hero-split';
 import {ShopByCategory} from '~/sections/shop-by-category/shop-by-category';
+import {ShopByLifestyle} from '~/sections/shop-by-lifestyle/shop-by-lifestyle';
 import {BestSellers} from '~/sections/best-sellers/best-sellers';
 import {TodayDeals} from '~/sections/today-deals/today-deals';
 import {NewArrivals} from '~/sections/new-arrivals/new-arrivals';
 import {SportsOutdoors} from '~/sections/sports-outdoors/sports-outdoors';
-import {WorldCup} from '~/sections/world-cup/world-cup';
-import {TrustBar} from '~/sections/trust-bar/trust-bar';
-import {Reviews} from '~/sections/reviews/reviews';
-import {NewsletterFooter} from '~/sections/newsletter-footer/newsletter-footer';
-import {StoreConfidence} from '~/sections/store-confidence/store-confidence';
+import {filterLaunchProducts, isLaunchReadyProduct} from '~/lib/launch-catalog';
 import {
   HOME_BEST_SELLERS_QUERY,
   HOME_NEW_ARRIVALS_QUERY,
   HOME_CATEGORIES_QUERY,
   HOME_SPORTS_QUERY,
-  HOME_WORLD_CUP_QUERY,
   HOME_SALE_QUERY,
 } from '~/lib/fragments';
 
@@ -29,7 +26,7 @@ export const meta = ({params}) => {
   return puchicaMeta({
     title: 'Puchica – The good stuff. All in one place.',
     description:
-      'Puchica: active departments across home, beauty, tech, pet, outdoor, and more. Curated in Toronto. Shipping across Canada, 30-day returns.',
+      'Puchica: active departments across home, beauty, tech, pet, outdoor, and more. Clear shipping options and secure checkout.',
     pathname: '/',
     langKey: params?.locale,
   });
@@ -42,14 +39,20 @@ export async function loader(args) {
   // rails (July 2026) brings the count to 5. Each new query
   // reuses the existing HomeProduct fragment, runs in parallel
   // with the rest, and uses the deferred pattern so none of
-  // them block SSR. Trust bar, reviews, and newsletter still
-  // need no data -- they're driven by hard-coded copy and
-  // section state.
+  // them block SSR.
   return loadDeferredData(args);
 }
 
 function loadDeferredData({context}) {
   const {country, language} = context.storefront.i18n;
+  // During catalog cleanup, the homepage must reflect a product changing from
+  // Active to Draft immediately. Storefront API responses are cached by
+  // default, which can otherwise leave an unavailable product in a live rail.
+  // Revisit this once the launch catalog is stable and use a short cache TTL.
+  const catalogQueryOptions = {
+    variables: {country, language},
+    cache: CacheNone(),
+  };
 
   // Each query uses a different alias so the data object on the
   // route is self-describing. Two response shapes are in play:
@@ -63,56 +66,63 @@ function loadDeferredData({context}) {
   // order so the existing bestSellers shape keeps working.
   const unwrapProducts = (alias) => (res) =>
     res?.[alias]?.products?.nodes ?? res?.[alias]?.nodes ?? [];
+  // A collection can retain an old product briefly after it is drafted in
+  // Admin. Keep homepage rails transactional: only show a product the
+  // Storefront API currently marks as sellable.
+  const onlySellable = filterLaunchProducts;
 
   const bestSellers = context.storefront
-    .query(HOME_BEST_SELLERS_QUERY, {variables: {country, language}})
-    .then(unwrapProducts('bestSellers'))
+    .query(HOME_BEST_SELLERS_QUERY, catalogQueryOptions)
+    .then((res) => onlySellable(unwrapProducts('bestSellers')(res)))
     .catch((e) => {
       logError('home best-sellers query failed', e);
       return [];
     });
 
   const newArrivals = context.storefront
-    .query(HOME_NEW_ARRIVALS_QUERY, {variables: {country, language}})
-    .then(unwrapProducts('newArrivals'))
+    .query(HOME_NEW_ARRIVALS_QUERY, catalogQueryOptions)
+    .then((res) => onlySellable(unwrapProducts('newArrivals')(res)))
     .catch((e) => {
       logError('home new-arrivals query failed', e);
       return [];
     });
 
   const sale = context.storefront
-    .query(HOME_SALE_QUERY, {variables: {country, language}})
-    .then(unwrapProducts('sale'))
+    .query(HOME_SALE_QUERY, catalogQueryOptions)
+    .then((res) => onlySellable(unwrapProducts('sale')(res)))
     .catch((e) => {
       logError('home sale query failed', e);
       return [];
     });
 
   const categories = context.storefront
-    .query(HOME_CATEGORIES_QUERY, {variables: {country, language}})
-    .then((res) => res?.categories?.nodes ?? [])
+    .query(HOME_CATEGORIES_QUERY, catalogQueryOptions)
+    .then((res) => [
+      res?.homeKitchen,
+      res?.homeDecor,
+      res?.apparel,
+      res?.sports,
+      res?.pet,
+      res?.beauty,
+      res?.toys,
+      res?.baby,
+    ].filter((collection) =>
+      collection?.products?.nodes?.some(isLaunchReadyProduct),
+    ))
     .catch((e) => {
       logError('home categories query failed', e);
       return [];
     });
 
   const sports = context.storefront
-    .query(HOME_SPORTS_QUERY, {variables: {country, language}})
-    .then(unwrapProducts('sports'))
+    .query(HOME_SPORTS_QUERY, catalogQueryOptions)
+    .then((res) => onlySellable(unwrapProducts('sports')(res)))
     .catch((e) => {
       logError('home sports query failed', e);
       return [];
     });
 
-  const worldCup = context.storefront
-    .query(HOME_WORLD_CUP_QUERY, {variables: {country, language}})
-    .then(unwrapProducts('worldCup'))
-    .catch((e) => {
-      logError('home world-cup query failed', e);
-      return [];
-    });
-
-  return {bestSellers, newArrivals, sale, categories, sports, worldCup};
+  return {bestSellers, newArrivals, sale, categories, sports};
 }
 
 export default function Index() {
@@ -143,6 +153,8 @@ export default function Index() {
         </Await>
       </Suspense>
 
+      <ShopByLifestyle />
+
       <Suspense fallback={<BestSellers />}>
         <Await resolve={data.bestSellers}>
           {(products) => <BestSellers products={products ?? []} />}
@@ -155,25 +167,12 @@ export default function Index() {
         </Await>
       </Suspense>
 
-      <StoreConfidence />
-
       <Suspense fallback={<SportsOutdoors />}>
         <Await resolve={data.sports}>
           {(products) => <SportsOutdoors products={products ?? []} />}
         </Await>
       </Suspense>
 
-      <Suspense fallback={<WorldCup />}>
-        <Await resolve={data.worldCup}>
-          {(products) => <WorldCup products={products ?? []} />}
-        </Await>
-      </Suspense>
-
-      <TrustBar />
-
-      <Reviews />
-
-      <NewsletterFooter />
     </div>
   );
 }

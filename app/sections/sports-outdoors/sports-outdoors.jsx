@@ -20,7 +20,9 @@ import {useT} from '~/lib/t';
 export function SportsOutdoors({products = []}) {
   const t = useT();
 
-  if (!products.length) return null;
+  // A single supplier image becomes a giant, visually dominant card in the
+  // static grid. Keep this merchandising rail for an actual assortment only.
+  if (products.length < 2) return null;
 
   if (products.length <= 4) {
     return (

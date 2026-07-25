@@ -288,7 +288,7 @@ export const FOOTER_QUERY = `#graphql
  */
 const HOME_PRODUCT_FRAGMENT = `#graphql
   fragment HomeProduct on Product {
-    id handle title productType tags
+    id handle title productType tags availableForSale
     featuredImage { id url altText width height }
     images(first: 2) { nodes { id url altText width height } }
     priceRange { minVariantPrice { amount currencyCode } }
@@ -298,22 +298,20 @@ const HOME_PRODUCT_FRAGMENT = `#graphql
       values
       optionValues { name swatch { color } }
     }
-    variants(first: 1) {
-      nodes {
+    selectedOrFirstAvailableVariant {
+      id
+      availableForSale
+      title
+      requiresShipping
+      image { id url altText width height }
+      price { amount currencyCode }
+      compareAtPrice { amount currencyCode }
+      selectedOptions { name value }
+      product {
         id
-        availableForSale
+        handle
         title
-        requiresShipping
-        image { id url altText width height }
-        price { amount currencyCode }
-        compareAtPrice { amount currencyCode }
-        selectedOptions { name value }
-        product {
-          id
-          handle
-          title
-          vendor
-        }
+        vendor
       }
     }
   }
@@ -330,6 +328,7 @@ const HOME_CATEGORY_TILE_FRAGMENT = `#graphql
     # product photo. The section picks whichever is present.
     products(first: 1, sortKey: BEST_SELLING) {
       nodes {
+        availableForSale
         featuredImage {
           id url altText width height
         }
@@ -421,40 +420,22 @@ export const HOME_SPORTS_QUERY = `#graphql
   }
 `;
 
-export const HOME_WORLD_CUP_QUERY = `#graphql
-  ${HOME_PRODUCT_FRAGMENT}
-  query HomeWorldCup(
-    $country: CountryCode!
-    $language: LanguageCode!
-  ) @inContext(country: $country, language: $language) {
-    # The store has 32+ Canada soccer jerseys and soccer gear
-    # tagged "soccer jersey", "born canadian", "canada". The old
-    # "tag:world cup" query returned 0 — no products use that tag.
-    # This query matches the real tags so jerseys actually show.
-    worldCup: products(
-      first: 8
-      sortKey: BEST_SELLING
-      query: "tag:soccer-jersey OR tag:born-canadian OR tag:'soccer jersey'"
-    ) {
-      nodes { ...HomeProduct }
-    }
-  }
-`;
-
 export const HOME_CATEGORIES_QUERY = `#graphql
   ${HOME_CATEGORY_TILE_FRAGMENT}
   query HomeCategories(
     $country: CountryCode!
     $language: LanguageCode!
   ) @inContext(country: $country, language: $language) {
-    # 8 storefront-active top-level category handles. The Storefront API
-    # does not sort Collection by productsCount, so we list them by hand
-    # to keep the visual order stable and avoid empty/deleted departments.
-    categories: collections(
-      first: 8
-      query: "handle:home-kitchen OR handle:electronics-accessories OR handle:apparel-accessories OR handle:health-wellness OR handle:sports-outdoors OR handle:pet-supplies OR handle:beauty-personal-care OR handle:tools-home-improvement"
-    ) {
-      nodes { ...HomeCategoryTile }
-    }
+    # Collection search queries aren't reliable enough for a hand-curated
+    # homepage: fetch the audited handles directly so old empty collections
+    # can never reappear when Shopify changes collection ordering.
+    homeKitchen: collection(handle: "home-kitchen") { ...HomeCategoryTile }
+    homeDecor: collection(handle: "home-decor") { ...HomeCategoryTile }
+    apparel: collection(handle: "apparel-accessories") { ...HomeCategoryTile }
+    sports: collection(handle: "sports-outdoors") { ...HomeCategoryTile }
+    pet: collection(handle: "pet-supplies") { ...HomeCategoryTile }
+    beauty: collection(handle: "beauty-personal-care") { ...HomeCategoryTile }
+    toys: collection(handle: "toys-games") { ...HomeCategoryTile }
+    baby: collection(handle: "baby-nursery") { ...HomeCategoryTile }
   }
 `;

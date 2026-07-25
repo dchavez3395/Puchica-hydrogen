@@ -18,6 +18,7 @@ export function PaginatedResourceSection({
   children,
   ariaLabel,
   resourcesClassName,
+  showSummary = true,
 }) {
   return (
     <Pagination connection={connection}>
@@ -27,6 +28,7 @@ export function PaginatedResourceSection({
           connection={connection}
           ariaLabel={ariaLabel}
           resourcesClassName={resourcesClassName}
+          showSummary={showSummary}
         >
           {children}
         </PaginatedResourceContent>
@@ -41,6 +43,7 @@ function PaginatedResourceContent({
   children,
   ariaLabel,
   resourcesClassName,
+  showSummary,
 }) {
   const t = useT();
   const {
@@ -101,12 +104,13 @@ function PaginatedResourceContent({
         resourcesMarkup
       )}
 
-      <div
-        className="pk-pager"
-        role="navigation"
-        aria-label={t('pager_aria')}
-        data-loading={isLoading ? 'true' : 'false'}
-      >
+      {(showSummary || hasNextPage || hasPreviousPage || isLoading) && (
+        <div
+          className="pk-pager"
+          role="navigation"
+          aria-label={t('pager_aria')}
+          data-loading={isLoading ? 'true' : 'false'}
+        >
         <div className="pk-pager__side pk-pager__side--left">
           {hasPreviousPage ? (
             <PreviousLink className="pk-pager__prev">
@@ -156,7 +160,8 @@ function PaginatedResourceContent({
         <div className="pk-pager__side pk-pager__side--right">
           <span className="pk-pager__spacer" aria-hidden />
         </div>
-      </div>
+        </div>
+      )}
     </div>
   );
 }

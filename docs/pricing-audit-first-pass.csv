@@ -1,0 +1,32 @@
+bucket,product,dsers_ca_cost_observed,shopify_price_observed,ratio_estimate,issue_or_note,next_action
+Ad Test,Rope Knot Dog Chew Toy,CA$5.15-6.58,CA$25.71,3.9x-5.0x,Clear low-cost pet impulse item,Consider ad shortlist
+Ad Test,Under-Cabinet Jar Opener,CA$3.40,CA$23.64,7.0x,Clear kitchen problem-solver,Consider ad shortlist
+Ad Test,Ginger Shampoo Bar,CA$6.05,CA$28.58,4.7x,Low-cost self-care item,Consider ad shortlist
+Ad Test,Glass & Windshield Repair Kit,CA$5.20,CA$23.00,4.4x,Useful automotive/home repair item,Consider ad shortlist
+Ad Test,Fruit Fly Trap with Hanging Cover,CA$3.09-12.45,CA$18.99,1.5x-6.1x,Wide cost range means variant check needed,Verify default variant before ad test
+Ad Test,Fun Interactive Cat Toys,CA$13.90-14.42,CA$30.64,2.1x-2.2x,Good use case but slightly thin for ads,Organic or reprice to CA$34.99
+Ad Test,Garlic Press Rocker Set,CA$10.29,CA$23.71,2.3x,Useful but margin modest,Organic or reprice to CA$27.99
+Ad Test,Garden Hose Splitter 4 Way,CA$6.99,CA$22.27,3.2x,Seasonal garden utility,Consider ad shortlist
+Ad Test,Full Spectrum Gooseneck LED Grow Light,CA$10.87-11.01,CA$41.83,3.8x,Clear plant/home use case,Consider ad shortlist
+Ad Test,1080 Rotating Faucet Extender,CA$7.61,CA$31.99,4.2x,Clear kitchen/bath problem-solver,Consider ad shortlist
+Organic Only,High Lumen Rechargeable Flashlight,CA$15.04-23.26,CA$35.99,1.5x-2.4x,Compare-at price is lower than price,Fix compare-at and keep organic
+Organic Only,High Pressure Shower Head,CA$10.06,CA$34.83,3.5x,Potentially okay but common product,Organic first
+Organic Only,Dual-Blade Peeler,CA$8.40-8.43,CA$18.99,2.3x,Useful but thin,Organic or bundle
+Organic Only,Garden Lawn Water Sprinkler,CA$12.41,CA$27.85,2.2x,Seasonal but thin for ads,Organic first
+Organic Only,Folding Step Stool,CA$12.39-13.01,CA$23.99,1.8x-1.9x,Compare-at lower than price,Fix compare-at and avoid ads
+Organic Only,Night Driving Glasses,CA$7.15-7.43,CA$11.99,1.6x-1.7x,Too thin,Organic only or reprice
+Reprice,Fruit & Vegetable Fresh-Keep Storage Box,CA$4.78-5.39,CA$15.34,2.8x-3.2x,Low ticket may not leave enough after fees,Consider CA$19.99
+Reprice,Solar Firefly LED String Lights,CA$8.77-14.94,CA$38.65,2.6x-4.4x,Supplier SKU out of stock warning visible,Fix supplier before testing
+Reprice,High Pressure Water Gun,CA$55.74-62.44,CA$84.80,1.4x-1.5x,Too thin for paid ads,Reprice or organic only
+Reprice,High-Quality 1000m Training Collar,CA$41.42-41.53,CA$153.41,3.7x,Higher ticket trust/returns risk,Verify supplier quality before ads
+Reprice,High-Quality HD Mini Home Cinema Projector,CA$19.27,CA$125.51,6.5x,Strong margin but high return/quality risk,Verify reviews and supplier first
+Remove/Fix,Glossy Opaque Shiny H...,Cost missing,CA$25.09,n/a,Supplier product out of stock,Unpublish or remap
+Remove/Fix,Fridge Lock 2-Pack,Cost missing,CA$22.27,n/a,Supplier product out of stock,Unpublish or remap
+Remove/Fix,Fuzzy Pillow Phone Holder,Cost missing,CA$48.75,n/a,Supplier product out of stock,Unpublish or remap
+Remove/Fix,8FT LED Climbing Santa...,CA$31.31,CA$83.64,2.7x,Supplier product out of stock,Fix before seasonal use
+Remove/Fix,Hernia Belt,Multiple,unknown,n/a,Supplier SKU has changed,Remap before selling
+Remove/Fix,High-Impact RC Stunt...,CA$17.57-18.1,CA$59.93,3.3x,Supplier SKU out of stock,Fix before ads
+Remove/Fix,High-Pressure Steam...,CA$47.12-51.67,CA$96.22,1.9x-2.0x,Supplier SKU has changed,Fix/remap and likely reprice
+Remove/Fix,High-quality Integrated...,Cost missing,CA$38.99,n/a,Supplier product out of stock,Unpublish or remap
+Remove/Fix,Ergonomic Fashion...,Cost missing,CA$28.58,n/a,Supplier product not found,Unpublish or remap
+Remove/Fix,Farmhouse Christmas...,Cost missing,CA$41.83,n/a,Supplier product out of stock,Unpublish or remap

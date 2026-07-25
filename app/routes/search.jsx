@@ -7,6 +7,7 @@ import {getEmptyPredictiveSearchResult} from '~/lib/search';
 import {puchicaMeta} from '~/lib/seo';
 import {diversifyByVendor} from '~/lib/diversify';
 import {useT} from '~/lib/t';
+import {filterLaunchProducts} from '~/lib/launch-catalog';
 
 /**
  * @type {Route.MetaFunction}
@@ -167,6 +168,7 @@ const SEARCH_PRODUCT_FRAGMENT = `#graphql
     id
     handle
     title
+    availableForSale
     productType
     tags
     trackingParameters
@@ -189,7 +191,7 @@ const SEARCH_PRODUCT_FRAGMENT = `#graphql
         swatch { color }
       }
     }
-    variants(first: 1) {
+    variants(first: 100) {
       nodes {
         id
         availableForSale
@@ -341,10 +343,18 @@ async function regularSearch({request, context}) {
   // sort returns these in source order the first page is mostly
   // the same vendor. Interleave the visible products by vendor
   // so adjacent results are from different vendors.
-  if (items.products?.nodes?.length > 2) {
+  const launchProducts = filterLaunchProducts(items.products?.nodes);
+  if (launchProducts.length > 2) {
     items.products = {
       ...items.products,
-      nodes: diversifyByVendor(items.products.nodes),
+      nodes: diversifyByVendor(launchProducts),
+      pageInfo: {...items.products.pageInfo, hasPreviousPage: false, hasNextPage: false},
+    };
+  } else {
+    items.products = {
+      ...items.products,
+      nodes: launchProducts,
+      pageInfo: {...items.products?.pageInfo, hasPreviousPage: false, hasNextPage: false},
     };
   }
 
@@ -415,6 +425,7 @@ const PREDICTIVE_SEARCH_PRODUCT_FRAGMENT = `#graphql
     id
     title
     handle
+    availableForSale
     trackingParameters
     selectedOrFirstAvailableVariant(
       selectedOptions: []
@@ -526,6 +537,8 @@ async function predictiveSearch({request, context}) {
   if (!items) {
     throw new Error('No predictive search data returned from Shopify API');
   }
+
+  items.products = filterLaunchProducts(items.products);
 
   const total = Object.values(items).reduce(
     (acc, item) => acc + item.length,

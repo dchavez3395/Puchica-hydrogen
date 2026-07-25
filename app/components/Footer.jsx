@@ -1,4 +1,3 @@
-import {useFetcher} from 'react-router';
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {
   IconInstagram,
@@ -80,28 +79,6 @@ export function Footer({header}) {
             {t('footer_secure')}
           </span>
 
-          {/* Folded in from the old standalone StatsCounter section.
-              Static, no count-up animation, so it sits cleanly in the
-              footer without the IntersectionObserver. Numbers are
-              editorial, not audited metrics. */}
-          <div className="pk-footer__stats" aria-label={t('footer_stats_aria')}>
-            <div className="pk-footer__stat">
-              <span className="pk-footer__stat-value">Active</span>
-              <span className="pk-footer__stat-label">{t('footer_stat_products')}</span>
-            </div>
-            <div className="pk-footer__stat">
-              <span className="pk-footer__stat-value">19</span>
-              <span className="pk-footer__stat-label">{t('footer_stat_collections')}</span>
-            </div>
-            <div className="pk-footer__stat">
-              <span className="pk-footer__stat-value">Canada</span>
-              <span className="pk-footer__stat-label">{t('footer_stat_shipping')}</span>
-            </div>
-            <div className="pk-footer__stat">
-              <span className="pk-footer__stat-value">30</span>
-              <span className="pk-footer__stat-label">{t('footer_stat_returns')}</span>
-            </div>
-          </div>
         </div>
 
         <div className="pk-footer__col">
@@ -123,7 +100,6 @@ export function Footer({header}) {
           <Link to="/policies/terms-of-service">{t('footer_terms')}</Link>
         </div>
 
-        <Newsletter />
       </div>
 
       <div className="pk-footer__bar">
@@ -134,42 +110,6 @@ export function Footer({header}) {
         </nav>
       </div>
     </footer>
-  );
-}
-
-function Newsletter() {
-  const t = useT();
-  const fetcher = useFetcher();
-  const ok = fetcher.data?.ok;
-  const error = fetcher.data?.error;
-  const submitting = fetcher.state !== 'idle';
-
-  return (
-    <div className="pk-footer__col pk-footer__newsletter">
-      <h4>{t('footer_newsletter_title')}</h4>
-      {ok ? (
-        <p className="pk-footer__ok">{t('footer_newsletter_ok')}</p>
-      ) : (
-        <>
-          <p>{t('footer_newsletter_copy')}</p>
-          <fetcher.Form method="post" action="/newsletter" className="pk-footer__form">
-            <input
-              type="email"
-              name="email"
-              required
-              placeholder={t('footer_email_placeholder')}
-              aria-label={t('footer_newsletter_email_aria')}
-              autoComplete="email"
-              inputMode="email"
-            />
-            <button type="submit" disabled={submitting} aria-label={t('footer_newsletter_subscribe_aria')}>
-              {submitting ? t('footer_newsletter_submitting') : t('footer_newsletter_cta')}
-            </button>
-          </fetcher.Form>
-          {error ? <p className="pk-footer__err">{error}</p> : null}
-        </>
-      )}
-    </div>
   );
 }
 

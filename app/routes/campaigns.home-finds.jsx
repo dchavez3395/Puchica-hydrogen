@@ -8,7 +8,7 @@ export const meta = () => {
   return puchicaMeta({
     title: 'Useful Home Finds Under One Roof - Puchica',
     description:
-      'Shop practical home, kitchen, pet, and everyday finds from Puchica. Curated in Toronto with clear shipping, easy returns, and secure checkout.',
+      'Shop practical home, kitchen, pet, and everyday finds from Puchica with clear shipping, easy returns, and secure checkout.',
     pathname: '/campaigns/home-finds',
   });
 };
@@ -68,7 +68,7 @@ export default function HomeFindsCampaign() {
           </div>
           <ul className="pk-campaign-proof" aria-label="Store benefits">
             <li>
-              <strong>Canada shipping</strong>
+              <strong>Delivery options</strong>
               <span>Options shown at checkout</span>
             </li>
             <li>
@@ -145,7 +145,7 @@ export default function HomeFindsCampaign() {
         <div>
           <strong>Protected checkout</strong>
           <span>
-            Secure Shopify checkout, Canada shipping options, and 30-day
+            Secure Shopify checkout, delivery options at checkout, and 30-day
             returns.
           </span>
         </div>

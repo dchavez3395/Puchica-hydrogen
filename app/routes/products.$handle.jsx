@@ -9,11 +9,9 @@ import {
   getAdjacentAndFirstAvailableVariants,
   useSelectedOptionInUrlParam,
 } from '@shopify/hydrogen';
-import {error as logError} from '~/lib/logger';
 import {ProductPrice} from '~/components/ProductPrice';
 import {ProductImage} from '~/components/ProductImage';
 import {ProductForm} from '~/components/ProductForm';
-import {ProductItem} from '~/components/ProductItem';
 import {
   IconTruck,
   IconReturn,
@@ -27,8 +25,8 @@ import {puchicaMeta, canonical, SITE_URL, breadcrumbJsonLd, JsonLdScript} from '
 import {getJudgemeBadge} from '~/lib/judgeme';
 import {ReviewStars, JudgemeReviews} from '~/components/JudgemeReviews';
 import {recordRecentlyViewed} from '~/lib/recentlyViewed';
-import {RecentlyViewed} from '~/components/RecentlyViewed';
 import {useT} from '~/lib/t';
+import {isLaunchReadyProduct} from '~/lib/launch-catalog';
 
 /** @type {Route.MetaFunction} */
 export const meta = ({data, params}) => {
@@ -46,8 +44,8 @@ export const meta = ({data, params}) => {
 
 /** @param {Route.LoaderArgs} args */
 export async function loader(args) {
-  const {product, recommendations, reviews} = await loadCriticalData(args);
-  return {product, recommendations, reviews};
+  const {product, reviews} = await loadCriticalData(args);
+  return {product, reviews};
 }
 
 async function loadCriticalData({context, params, request}) {
@@ -62,23 +60,17 @@ async function loadCriticalData({context, params, request}) {
 
   const product = productResp.product;
   if (!product?.id) throw new Response(null, {status: 404});
-
-  let recs = null;
-  try {
-    recs = await storefront.query(PRODUCT_RECOMMENDATIONS_QUERY, {
-      variables: {country, language, productId: product.id},
-    });
-  } catch (recErr) {
-    logError('productRecommendations failed', recErr);
+  if (!isLaunchReadyProduct(product)) {
+    throw new Response(null, {status: 404});
   }
 
   const reviews = await getJudgemeBadge(handle);
   redirectIfHandleIsLocalized(request, {handle, data: product});
-  return {product, recommendations: recs, reviews};
+  return {product, reviews};
 }
 
 export default function Product() {
-  const {product, recommendations, reviews} = useLoaderData();
+  const {product, reviews} = useLoaderData();
   const t = useT();
 
   const selectedVariant = useOptimisticVariant(
@@ -128,7 +120,7 @@ export default function Product() {
             {product.productType ? (
               <>
                 <span className="pk-breadcrumbs__sep">/</span>
-                <Link to={`/collections/${productTypeSlug(product.productType)}`}>
+                <Link to={productTypeUrl(product.productType)}>
                   {product.productType}
                 </Link>
               </>
@@ -256,10 +248,6 @@ export default function Product() {
         externalId={reviews?.externalId}
         productTitle={product.title}
       />
-
-      <Recommendations data={recommendations} t={t} />
-
-      <RecentlyViewed currentHandle={product.handle} />
 
       <MobileCart product={product} selectedVariant={selectedVariant} t={t} />
 
@@ -395,32 +383,6 @@ function ShareRow({product, t}) {
   );
 }
 
-/* ── Recommendations ── */
-function Recommendations({data, t}) {
-  const products = data?.productRecommendations ?? [];
-  if (!products.length) return null;
-  return (
-    <section className="pk-reco pk-reco--warm" aria-label={t('product_reco_title')}>
-      <div className="pk-reco__inner">
-      <div className="pk-reco__head">
-        <h2 className="pk-reco__title">{t('product_reco_title')}</h2>
-        <Link to="/collections/all" className="pk-reco__see-all">
-          {t('product_reco_see_all')}
-          <span className="pk-reco__see-all-arrow" aria-hidden="true">→</span>
-        </Link>
-      </div>
-      <div className="pk-reco__grid">
-        {products.slice(0, 4).map((p) => (
-          <div key={p.id} className="pk-reco__cell">
-            <ProductItem product={p} />
-          </div>
-        ))}
-      </div>
-      </div>
-    </section>
-  );
-}
-
 /* ── Sticky mobile ATC ── */
 function MobileCart({product, selectedVariant, t}) {
   const ref = useRef(null);
@@ -496,15 +458,24 @@ function buildGallery(product, selectedVariant) {
 function buildBreadcrumbItems(product, title, t) {
   const items = [{name: t('breadcrumb_home'), url: '/'}, {name: t('breadcrumb_shop'), url: '/collections/all'}];
   if (product.productType) {
-    items.push({name: product.productType, url: `/collections/${productTypeSlug(product.productType)}`});
+    items.push({name: product.productType, url: productTypeUrl(product.productType)});
   }
   items.push({name: title, url: `/products/${product.handle}`});
   return items;
 }
 
-function productTypeSlug(productType) {
-  if (!productType) return 'all';
-  return productType.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'all';
+function productTypeUrl(productType) {
+  const collectionByType = {
+    'Apparel & Accessories': '/collections/apparel-accessories',
+    'Baby & Nursery': '/collections/baby-nursery',
+    'Beauty & Grooming': '/collections/beauty-personal-care',
+    'Home & Kitchen': '/collections/home-kitchen',
+    'Home Decor': '/collections/home-decor',
+    'Pet Supplies': '/collections/pet-supplies',
+    'Sports & Outdoors': '/collections/sports-outdoors',
+    'Toys & Games': '/collections/toys-games',
+  };
+  return collectionByType[productType] || `/collections/all?productType=${encodeURIComponent(productType)}`;
 }
 
 function buildJsonLd(product, selectedVariant, reviews, galleryImages) {
@@ -567,7 +538,7 @@ const PRODUCT_VARIANT_FRAGMENT = `#graphql
 
 const PRODUCT_FRAGMENT = `#graphql
   fragment Product on Product {
-    id title vendor handle descriptionHtml description productType
+    id title vendor handle descriptionHtml description productType availableForSale
     encodedVariantExistence encodedVariantAvailability
     featuredImage { id url altText width height }
     images(first: 10) {
@@ -606,56 +577,6 @@ const PRODUCT_QUERY = `#graphql
     product(handle: $handle) { ...Product }
   }
   ${PRODUCT_FRAGMENT}
-`;
-
-const RECOMMENDED_ITEM_FRAGMENT = `#graphql
-  fragment RecommendedProduct on Product {
-    id handle title productType tags
-    featuredImage { id url altText width height }
-    images(first: 2) { nodes { id url altText width height } }
-    priceRange {
-      minVariantPrice { amount currencyCode }
-      maxVariantPrice { amount currencyCode }
-    }
-    compareAtPriceRange { minVariantPrice { amount currencyCode } }
-    options(first: 1) {
-      name
-      values
-      optionValues {
-        name
-        swatch { color }
-      }
-    }
-    variants(first: 1) {
-      nodes {
-        id
-        availableForSale
-        title
-        requiresShipping
-        image { id url altText width height }
-        price { amount currencyCode }
-        compareAtPrice { amount currencyCode }
-        selectedOptions { name value }
-        product {
-          id
-          handle
-          title
-          vendor
-        }
-      }
-    }
-  }
-`;
-
-const PRODUCT_RECOMMENDATIONS_QUERY = `#graphql
-  ${RECOMMENDED_ITEM_FRAGMENT}
-  query ProductRecommendations(
-    $country: CountryCode!
-    $language: LanguageCode!
-    $productId: ID!
-  ) @inContext(country: $country, language: $language) {
-    productRecommendations(productId: $productId) { ...RecommendedProduct }
-  }
 `;
 
 /** @typedef {import('./+types/products.$handle').Route} Route */

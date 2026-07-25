@@ -8,6 +8,7 @@ import {puchicaMeta} from '~/lib/seo';
 import {useT} from '~/lib/t';
 import {ProductItem} from '~/components/ProductItem';
 import {diversifyByVendor} from '~/lib/diversify';
+import {filterLaunchProducts} from '~/lib/launch-catalog';
 
 /**
  * @type {Route.MetaFunction}
@@ -18,7 +19,7 @@ export const meta = ({data, params}) => {
   const d =
     collection?.seo?.description ||
     collection?.description ||
-    `Shop ${t} at Puchica — curated picks with free shipping across Canada and easy 30-day returns.`;
+    `Shop ${t} at Puchica — curated picks with clear shipping options and easy 30-day returns.`;
   const image = collection?.image?.url;
   const pathname = `/collections/${collection?.handle || ''}`;
   return puchicaMeta({
@@ -75,7 +76,7 @@ async function loadCriticalData({context, params, request}) {
   const {handle} = params;
   const {storefront} = context;
   const {country, language} = storefront.i18n;
-  const paginationVariables = getPaginationVariables(request, {pageBy: 12});
+  const paginationVariables = getPaginationVariables(request, {pageBy: 100});
   const url = new URL(request.url);
 
   if (!params.handle) throw redirect('/collections');
@@ -122,10 +123,18 @@ async function loadCriticalData({context, params, request}) {
   // same vendor — the page reads as one long list of the same
   // brand. Re-rank the page so adjacent products are from different
   // vendors. See app/lib/diversify.js.
-  if (collection.products?.nodes?.length > 2) {
+  const launchProducts = filterLaunchProducts(collection.products?.nodes);
+  if (launchProducts.length > 2) {
     collection.products = {
       ...collection.products,
-      nodes: diversifyByVendor(collection.products.nodes),
+      nodes: diversifyByVendor(launchProducts),
+      pageInfo: {...collection.products.pageInfo, hasPreviousPage: false, hasNextPage: false},
+    };
+  } else {
+    collection.products = {
+      ...collection.products,
+      nodes: launchProducts,
+      pageInfo: {...collection.products?.pageInfo, hasPreviousPage: false, hasNextPage: false},
     };
   }
 
@@ -459,6 +468,7 @@ const PRODUCT_ITEM_FRAGMENT = `#graphql
     id
     handle
     title
+    availableForSale
     productType
     tags
     featuredImage {
@@ -503,7 +513,7 @@ const PRODUCT_ITEM_FRAGMENT = `#graphql
         }
       }
     }
-    variants(first: 1) {
+    variants(first: 100) {
       nodes {
         id
         availableForSale

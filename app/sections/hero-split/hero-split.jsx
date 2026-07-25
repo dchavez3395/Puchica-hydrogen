@@ -69,11 +69,6 @@ export function HeroSplit({categories = []}) {
             </nav>
           ) : null}
 
-          <div className="pk-store-hero__trust" aria-label={t('hero_store_stats_aria')}>
-            <span>{t('hero_trust_returns')}</span>
-            <span>{t('hero_trust_checkout')}</span>
-            <span>{t('hero_trust_canada')}</span>
-          </div>
         </div>
       </div>
     </section>

@@ -5,7 +5,7 @@ const items = [
   {
     icon: IconTruck,
     title: 'Shipping is clear before you pay',
-    body: 'Free Canada shipping over $75, with final delivery options shown at checkout.',
+    body: 'Delivery availability, timing, and cost are confirmed at checkout for your destination.',
     link: '/pages/shipping',
     cta: 'Shipping details',
   },

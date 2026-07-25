@@ -25,11 +25,10 @@
  *
  * ## Control surface (env vars, set in `.env`)
  *
- *   - `PUBLIC_CHECKOUT_DOMAIN` (default: `puchica-2.myshopify.com`)
- *       The myshopify.com host that actually serves checkout. We
- *       historically hardcoded this; making it env-driven means a
- *       store-rename or duplicate-store migration can't silently
- *       break checkout.
+ *   - `PUBLIC_CHECKOUT_DOMAIN` (default: `checkout.puchica.ca`)
+ *       The dedicated Shopify checkout host. Keeping this env-driven means
+ *       a future domain migration can't silently send shoppers to the
+ *       storefront or retired Online Store theme.
  *   - `PUBLIC_CHECKOUT_LOCALE` (default: `en-ca`)
  *       The locale segment in the working checkout path. Should match
  *       the cart's `@inContext` (country, language). When multi-locale
@@ -80,7 +79,22 @@ function readEnv(key, fallback) {
   return fallback;
 }
 
-const CHECKOUT_DOMAIN = readEnv('PUBLIC_CHECKOUT_DOMAIN', 'puchica-2.myshopify.com');
+const CANONICAL_CHECKOUT_DOMAIN = 'checkout.puchica.ca';
+const LEGACY_PRIMARY_DOMAIN = 'ug91ve-sz.myshopify.com';
+const RETIRED_CHECKOUT_DOMAIN = 'puchica-2.myshopify.com';
+const configuredCheckoutDomain = readEnv(
+  'PUBLIC_CHECKOUT_DOMAIN',
+  CANONICAL_CHECKOUT_DOMAIN,
+);
+
+// Neither historical myshopify.com domain is an acceptable checkout host for
+// Hydrogen. Preserve an explicitly configured future checkout subdomain, but
+// fail safely to the dedicated checkout host when old Oxygen variables remain.
+const CHECKOUT_DOMAIN =
+  configuredCheckoutDomain === RETIRED_CHECKOUT_DOMAIN ||
+  configuredCheckoutDomain === LEGACY_PRIMARY_DOMAIN
+    ? CANONICAL_CHECKOUT_DOMAIN
+    : configuredCheckoutDomain;
 const CHECKOUT_LOCALE = readEnv('PUBLIC_CHECKOUT_LOCALE', 'en-ca');
 
 // The known-bad storefront host that Hydrogen's @inContext(CA, EN) returns.

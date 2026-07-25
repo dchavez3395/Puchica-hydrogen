@@ -3,8 +3,8 @@ import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {getPaginationVariables, Image} from '@shopify/hydrogen';
 import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
 import {puchicaMeta} from '~/lib/seo';
-import {categoryIcon} from '~/components/Icons';
 import {useT} from '~/lib/t';
+import {filterLaunchProducts} from '~/lib/launch-catalog';
 
 /**
  * @type {Route.MetaFunction}
@@ -13,7 +13,7 @@ export const meta = ({params}) => {
   return puchicaMeta({
     title: 'Collections – Puchica',
     description:
-      'Shop Puchica by collection — 19 categories across home, beauty, tech, pet, apparel, health, and more. Free shipping across Canada, easy 30-day returns.',
+      'Shop Puchica by collection — active departments across home, beauty, tech, pet, apparel, health, and more.',
     pathname: '/collections',
     langKey: params?.locale,
   });
@@ -47,15 +47,31 @@ function loadDeferredData() {
   return {};
 }
 
-// Collections that get larger grid cells (featured merchandising)
-const FEATURED_HANDLES = new Set(['best-sellers', 'trending-finds', 'gifts-under-25']);
+// Editorial collections are navigation routes rather than departments. Their
+// product thumbnail is often arbitrary (or a supplier/logo image), so they
+// intentionally use the card's colour field instead of borrowed product art.
+const EDITORIAL_HANDLES = new Set([
+  'best-sellers',
+  'trending-finds',
+  'gifts-under-25',
+  'for-you',
+  'sale',
+  'new-arrivals',
+]);
 
 export default function Collections() {
   /** @type {LoaderReturnData} */
   const {collections} = useLoaderData();
   const t = useT();
   const nodes = collections?.nodes ?? [];
-  const count = nodes.length;
+  // Shopify retains a collection after its last product is removed. Do not
+  // send people into a dead-end page: the desktop Shop menu follows the same
+  // rule, so the collection index needs to use the same storefront-safe set.
+  const activeNodes = nodes.filter(
+    (collection) => filterLaunchProducts(collection?.products?.nodes).length > 0,
+  );
+  const activeCollections = {...collections, nodes: activeNodes};
+  const count = activeNodes.length;
 
   return (
     <div className="pk-collection pk-collection--bold">
@@ -75,9 +91,6 @@ export default function Collections() {
           <span className="pk-col-hero__eyebrow">{t('col_index_eyebrow')}</span>
           <h1 className="pk-col-hero__title">{t('col_index_h')}</h1>
           <p className="pk-col-hero__sub">{t('col_index_sub')}</p>
-          {count > 0 && (
-            <span className="pk-col-hero__count">{t('col_index_count')}</span>
-          )}
         </div>
       </header>
 
@@ -91,8 +104,9 @@ export default function Collections() {
         </div>
       ) : (
         <PaginatedResourceSection
-          connection={collections}
+          connection={activeCollections}
           resourcesClassName="pk-collist-grid pk-collist-grid--bold"
+          showSummary={false}
         >
           {({node: collection, index}) => (
             <CollectionItem
@@ -117,12 +131,10 @@ function CollectionItem({collection, index}) {
   const t = useT();
   const adminImage = collection?.image;
   const productImage = collection?.products?.nodes?.[0]?.featuredImage;
-  const image = adminImage || productImage;
+  const isEditorial = EDITORIAL_HANDLES.has(collection.handle);
+  const image = adminImage || (isEditorial ? null : productImage);
   const theme = collectionTheme(collection.title);
-  const isFeatured = FEATURED_HANDLES.has(collection.handle);
-  const cardClass = isFeatured
-    ? 'pk-collist-card pk-collist-card--bold pk-collist-card--featured'
-    : 'pk-collist-card pk-collist-card--bold';
+  const cardClass = 'pk-collist-card pk-collist-card--bold';
 
   return (
     <div className={cardClass}>
@@ -144,13 +156,7 @@ function CollectionItem({collection, index}) {
               sizes="(min-width: 45em) 400px, 100vw"
             />
           ) : (
-            <span
-              className="pk-collist-card__fallback-icon"
-              aria-hidden
-              style={{color: theme.iconColor}}
-            >
-              {categoryIcon(collection.title, {size: 64})}
-            </span>
+            <span className="pk-collist-card__fallback" aria-hidden />
           )}
         </div>
         <div className="pk-collist-card__body">

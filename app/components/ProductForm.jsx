@@ -23,6 +23,9 @@ export function ProductForm({productOptions, selectedVariant, product, onAddStar
   const [saved, setSaved] = useState(false);
   const [savePop, setSavePop] = useState(false);
   const popTimerRef = useRef(null);
+  // This property is intentionally absent from the launch catalog. A product
+  // can only expose the control after a real provider has been integrated.
+  const backInStockIsConfigured = product?.backInStockProvider === 'klaviyo';
 
   // Reset qty when variant changes
   useEffect(() => {
@@ -114,7 +117,7 @@ export function ProductForm({productOptions, selectedVariant, product, onAddStar
                     type="button"
                     className={`product-options-item${exists && !selected ? ' link' : ''}${selected ? ' is-selected' : ''}${available ? '' : ' is-unavailable'}`}
                     key={option.name + name}
-                    disabled={!exists}
+                    disabled={!exists || !available}
                     onClick={() => {
                       if (!selected) {
                         void navigate(`?${variantUriQuery}`, {
@@ -217,7 +220,10 @@ export function ProductForm({productOptions, selectedVariant, product, onAddStar
         </p>
       ) : null}
 
-      {selectedVariant && !selectedVariant.availableForSale ? (
+      {/* Do not collect emails until the Klaviyo back-in-stock flow persists
+          and sends them. A success state without delivery is worse than no
+          control at all. */}
+      {backInStockIsConfigured && selectedVariant && !selectedVariant.availableForSale ? (
         <NotifyBackForm variantId={selectedVariant.id} productHandle={product?.handle} />
       ) : null}
     </div>

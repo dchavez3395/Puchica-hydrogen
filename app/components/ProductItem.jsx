@@ -131,7 +131,10 @@ export function ProductItem({product, loading, dark = false}) {
   const t = useT();
   const {open} = useAside();
 
-  const variant = product.variants?.nodes?.[0];
+  const variant =
+    product.selectedOrFirstAvailableVariant ??
+    product.variants?.nodes?.find((node) => node?.availableForSale) ??
+    product.variants?.nodes?.[0];
   const featured = product.featuredImage;
   const hoverImage = product.images?.nodes?.[1] ?? null;
   const hasHover = !!hoverImage && hoverImage.id !== featured?.id;

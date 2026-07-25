@@ -4,7 +4,9 @@ import {useT} from '~/lib/t';
 
 /**
  * Top-of-page retail shelf. Sale products deserve a fixed grid here:
- * shoppers can immediately scan real merchandise without carousel chrome.
+ * shoppers can immediately scan real merchandise without carousel chrome. A
+ * deal shelf needs enough choice to be useful; a single markdown item belongs
+ * on its product page, not in a full-width homepage section.
  *
  * @param {{products: Array<object>}}
  */
@@ -12,7 +14,7 @@ export function TodayDeals({products = []}) {
   const t = useT();
   const items = products.slice(0, 5);
 
-  if (!items.length) return null;
+  if (items.length < 3) return null;
 
   return (
     <section

@@ -19,6 +19,7 @@ import {Await} from 'react-router';
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {Image} from '@shopify/hydrogen';
 import {useT} from '~/lib/t';
+import {filterLaunchProducts} from '~/lib/launch-catalog';
 
 // Ordered category handles (largest departments first). These must be
 // published to the Puchica Storefront channel in Shopify admin.
@@ -149,19 +150,24 @@ function MegaMenuPanel({data, onNavigate}) {
   if (!nodes?.length) return <MegaMenuError />;
 
   const byHandle = new Map(nodes.map((c) => [c.handle, c]));
+  // A collection can remain published after its last product is removed.
+  // Only expose departments that have a real storefront product, otherwise
+  // the primary navigation creates a frustrating dead end.
+  const hasProducts = (collection) =>
+    filterLaunchProducts(collection?.products?.nodes).length > 0;
   const categories = CATEGORY_HANDLES.map((h) => byHandle.get(h)).filter(
-    Boolean,
+    hasProducts,
   );
   const featured = byHandle.get('best-sellers');
   const featuredImage =
     featured?.image || featured?.products?.nodes?.[0]?.featuredImage;
 
   const quickLinks = [
-    {id: 'q-new', title: t('nav_new_arrivals'), url: '/collections/new-arrivals'},
-    {id: 'q-sale', title: t('nav_sale'), url: '/collections/sale', sale: true},
-    {id: 'q-gifts', title: t('nav_gifts'), url: '/collections/gifts-under-25'},
+    {id: 'q-new', handle: 'new-arrivals', title: t('nav_new_arrivals'), url: '/collections/new-arrivals'},
+    {id: 'q-sale', handle: 'sale', title: t('nav_sale'), url: '/collections/sale', sale: true},
+    {id: 'q-gifts', handle: 'gifts-under-25', title: t('nav_gifts'), url: '/collections/gifts-under-25'},
     {id: 'q-all', title: t('nav_all_products'), url: '/collections/all'},
-  ];
+  ].filter((link) => !link.handle || hasProducts(byHandle.get(link.handle)));
 
   return (
     <>
