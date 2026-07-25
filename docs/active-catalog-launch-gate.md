@@ -111,6 +111,17 @@ matched source variant plus its destination-specific shipping charge.
 
 ### Destination quote evidence
 
+**US-source observations (July 25; not a Canada approval):**
+
+| Product / selected source variant | Destination configured on source page | Item cost | Shipping method and cost | Result |
+| --- | --- | ---: | --- | --- |
+| 1:64 RC Construction Vehicle Set / Dump Truck-Yellow | United States | US$15.55 | AliExpress Selection Standard, US$1.99 | The source shipping amount is below the conservative CA shipping cap *if* it held for Canada, but Canada was not selected or quoted. Keep on hold. |
+| Adjustable Raised Pet Bowl Set / Red blue | United States | US$10.85 | AliExpress Selection Standard, US$1.99 | Appears compatible with the narrow cap for this one variant only. Canada, other variants, and delivery window remain unverified. Keep organic-only hold. |
+
+AliExpress showed its destination selector set to **United States** during both
+observations. Currency display alone is not destination evidence. Do not reuse
+these shipping figures for Canadian margin calculations or customer promises.
+
 **Solar Fairy String Lights decision (July 25):** moved to Draft after the
 observed US supplier quote showed the live selling price did not clear the
 contribution-margin rule after shipping and payment fees. Reprice only from
