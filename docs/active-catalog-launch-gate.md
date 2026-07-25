@@ -61,6 +61,30 @@ mapping, not each option-value mapping or a supplier delivery promise. These
 ratios exclude destination shipping, payment fees, discounts and refunds; none
 is approved for paid traffic.
 
+### Effective Canadian price and supplier-shipping screen
+
+Shopify Markets applies a **-5% Canada catalog adjustment** to the prices in
+Admin. `FIRST15` then reduces the adjusted price by a further 15%. The screen
+below assumes both apply, a 3.5% + CA$0.30 payment fee, and a 20% contribution
+margin target before advertising. The final column is the *maximum supplier
+shipping cost* that the highest observed source-cost variant could absorb.
+It intentionally excludes customer-paid shipping, so it is conservative for
+multi-item carts and standard-rate orders.
+
+| Product | Effective product revenue after Canada + FIRST15 | Conservative max source shipping | Gate |
+| --- | ---: | ---: | --- |
+| Everyday 100% Cotton T-Shirt | CA$37.14 | **-CA$2.28** | Cannot clear the target even with free source shipping. Keep out of promotion; replace or reprice. |
+| Men's High-Neck Knit Sweater | CA$32.29 | CA$4.52 | Quote only if the exact sellable variant ships below the cap; apparel return risk remains. |
+| Pet Food & Water Bowl Set | CA$32.29 | CA$6.91 | Worth a Canada quote; do not feature or advertise until it clears. |
+| 1:64 RC Construction Vehicle Set | CA$46.02 | CA$8.51 | Worth a Canada quote, subject to child-product and delivery review. |
+| Adjustable Raised Pet Bowl Set | CA$28.25 | CA$3.77 | Too tight for paid traffic; only viable if source shipping is very low. |
+| Hand-Controlled Mini RC Drone (Yellow/Red price band) | CA$14.38–14.64 | about CA$3.56–3.77 | Low-ticket, variant-sensitive hold; do not assume the unavailable Green variant is viable. |
+
+The active Canadian checkout rates are CA$7.99 Standard below CA$75, free
+Standard at CA$75+, and CA$20 Express. Those customer-facing rates are not a
+substitute for supplier shipping quotes; record both sides of the order before
+approving a product.
+
 ### Historical DSers mapped-price snapshot (2026-07-25)
 
 The following is retained as historical triage only. It is not a pricing

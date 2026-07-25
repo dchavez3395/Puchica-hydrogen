@@ -32,6 +32,11 @@ being validated. It is not a launch approval.
   (a 5% difference). Treat storefront price as the customer-facing price for
   margin calculations. Audit market price adjustments and active discounts
   before approving any price or promotion.
+- **Verified pricing configuration:** the Canada catalog has a -5% overall
+  adjustment and no fixed product prices. `FIRST15` is the only active
+  discount. Checkout currently offers CA$7.99 Standard below CA$75, free
+  Standard at CA$75+, and CA$20 Express. This confirms the storefront price
+  math but not supplier shipping, which remains the individual launch gate.
 
 ## Remaining revenue gates
 
