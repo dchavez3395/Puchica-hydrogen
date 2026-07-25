@@ -19,7 +19,7 @@ Formula: `shipping budget = (listed price x 0.95 x 0.85 x 0.765) - CA$0.30 - hig
 
 | Candidate | Current DSers listed price | Highest displayed source cost | Maximum Canadian supplier shipping | Decision before an exact quote |
 | --- | ---: | ---: | ---: | --- |
-| No-Drill Shower Shelf | CA$44.48-83.05 | CA$33.25 | -CA$6.07 at low tier; CA$17.77 at high tier | Do not use the low-priced variants. Review each high-tier variant separately. |
+| No-Drill Shower Shelf | CA$44.48-83.05 | CA$33.25 | -CA$6.07 at low tier; CA$17.77 at high tier | Do not use the low-priced variants. Review stocked rod variants separately. |
 | Solar Fairy String Lights | CA$13.24-25.66 | CA$10.27 | -CA$2.39 to CA$5.29 | Only possible at higher-priced variants or as a paid-shipping/add-on item. |
 | Compact Manicure Set | CA$9.46-18.81 | CA$7.54 | -CA$2.00 to CA$3.78 | Do not lead with it; only retain a variant that clears the quote gate. |
 | Travel Pet Water Bottle | CA$12.55-12.80 | CA$5.13 | CA$2.32-2.48 | Viable only if the supplier's Canadian delivery is unusually economical. |
@@ -31,6 +31,15 @@ Formula: `shipping budget = (listed price x 0.95 x 0.85 x 0.765) - CA$0.30 - hig
 | Adjustable Raised Pet Bowl Set | CA$34.99 | CA$17.54 | CA$3.78 | Existing active product; low-stock and Canadian shipping validation are mandatory. |
 
 Negative numbers mean the product cannot reach the 20% merchandise-margin target even with free supplier shipping at that displayed price/cost combination.
+
+## Variant check completed: No-Drill Shower Shelf
+
+DSers shows twelve variants, all shipping from China Mainland. The first review produced this safe merchandising rule:
+
+- **Exclude Black**: current Shopify price CA$44.48, source cost CA$17.81, and supplier stock **0**.
+- **Potential single-shelf variants**: White with Rod at CA$47.96 / CA$19.21 source cost, Black with Rod at CA$47.96 / CA$19.21, and Silver with Rod at CA$48.21 / CA$19.31. Each has supplier stock above 980 and a preliminary supplier-shipping budget of about **CA$10**.
+- **Potential two-piece variants**: White, Silver, and Black two-piece sets with rod at CA$82.56 / CA$33.07-33.25 source cost. These have supplier stock above 99 and a preliminary supplier-shipping budget of about **CA$17.6**.
+- **Do not select a variant until its exact Canada quote and delivery window are captured.** Stock and mapping are positive signals, not fulfillment approval.
 
 ## Pricing rules before publishing
 
