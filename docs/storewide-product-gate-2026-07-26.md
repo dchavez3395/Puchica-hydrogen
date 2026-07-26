@@ -6,46 +6,35 @@ Read-only Shopify Admin snapshot. This is an operating ledger, not a launch appr
 
 - Products audited: 66
 - Variants audited: 933
-- Active launch-gated products: 24
+- Active launch-gated products: 9
 
 ### By Shopify status
 
-- ACTIVE: 26
+- ACTIVE: 19
 - ARCHIVED: 1
-- DRAFT: 39
+- DRAFT: 46
 
 ### By gate decision
 
-- DRAFT_QUOTE_AND_CONTENT_REVIEW: 12
+- DRAFT_QUOTE_AND_CONTENT_REVIEW: 18
 - HOLD_MAPPING_REQUIRED: 5
 - HOLD_REPRICE_OR_REJECT: 2
 - HOLD_RISK_REVIEW: 25
-- LIVE_QUOTE_AND_CONTENT_REVIEW: 2
-- LIVE_QUOTE_REQUIRED: 20
+- LIVE_QUOTE_REQUIRED: 9
+- REVIEW_VISIBILITY_AND_TAGS: 7
 
 ## Quote-first queue
 
 | product | variants | worst CA shipping cap | next action |
 | --- | ---: | ---: | --- |
-| Adjustable Raised Pet Bowl Set | 4 | 0.54 | Capture exact Canada DSers quote; approve, reprice, or remove launch tag. |
 | Adjustable Rhinestone Ring | 2 | 4.07 | Capture exact Canada DSers quote; approve, reprice, or remove launch tag. |
-| Breezy Everyday Pants | 28 | 2.61 | Capture exact Canada DSers quote; approve, reprice, or remove launch tag. |
 | Car Sun Visor Organizer | 3 | 4.34 | Capture exact Canada DSers quote; approve, reprice, or remove launch tag. |
 | Compact Bicycle Bell | 6 | 3.77 | Capture exact Canada DSers quote; approve, reprice, or remove launch tag. |
-| Compact Manicure Set | 7 | 0.89 | Capture exact Canada DSers quote; approve, reprice, or remove launch tag. |
 | Everyday Carabiner Clip Set | 2 | 4.52 | Capture exact Canada DSers quote; approve, reprice, or remove launch tag. |
 | Everyday Fleece Joggers | 21 | 3.24 | Capture exact Canada DSers quote; approve, reprice, or remove launch tag. |
 | Everyday Performance Shorts | 21 | 4.00 | Capture exact Canada DSers quote; approve, reprice, or remove launch tag. |
-| Everyday Polarized Sunglasses | 3 | 3.29 | Capture exact Canada DSers quote; approve, reprice, or remove launch tag. |
-| Everyday Zip Hoodie | 18 | 2.66 | Capture exact Canada DSers quote; approve, reprice, or remove launch tag. |
 | Long-Handle Bottle Brush | 2 | 3.31 | Capture exact Canada DSers quote; approve, reprice, or remove launch tag. |
-| Long-Sleeve Performance Tee | 35 | 2.39 | Capture exact Canada DSers quote; approve, reprice, or remove launch tag. |
 | Men's Cotton-Linen Wide-Leg Pants | 100 | 4.14 | Capture exact Canada DSers quote; approve, reprice, or remove launch tag. |
-| Men's High-Neck Knit Sweater | 54 | 0.85 | Capture exact Canada DSers quote; approve, reprice, or remove launch tag. |
-| Multi-Use Organizer Hooks | 4 | 2.87 | Capture exact Canada DSers quote; approve, reprice, or remove launch tag. |
-| No-Drill Shower Shelf | 12 | 5.28 | Capture exact Canada DSers quote; approve, reprice, or remove launch tag. |
-| Outdoor Cycling Sunglasses | 30 | 1.76 | Capture exact Canada DSers quote; approve, reprice, or remove launch tag. |
-| Quick-Dry Training Shorts | 54 | 2.09 | Capture exact Canada DSers quote; approve, reprice, or remove launch tag. |
 | Travel Pet Water Bottle | 3 | 5.08 | Capture exact Canada DSers quote; approve, reprice, or remove launch tag. |
 
 ## Hold-first queue
@@ -53,7 +42,7 @@ Read-only Shopify Admin snapshot. This is an operating ledger, not a launch appr
 | product | status | decision | risk / issue |
 | --- | --- | --- | --- |
 | Bath Toy Storage Mesh | ACTIVE | HOLD_RISK_REVIEW | child_safety |
-| Solar Fairy String Lights for Outdoor Decor | ACTIVE | HOLD_RISK_REVIEW | electrical |
+| Solar Fairy String Lights for Outdoor Decor | DRAFT | HOLD_RISK_REVIEW | electrical |
 | Everyday 100% Cotton T-Shirt | ACTIVE | HOLD_REPRICE_OR_REJECT | Reprice, change variant/supplier, bundle, or reject before launch. |
 | Everyday Pullover Hoodie | ACTIVE | HOLD_REPRICE_OR_REJECT | Reprice, change variant/supplier, bundle, or reject before launch. |
 | USB Heated Cushion 43x43cm Electric Blanket | ARCHIVED | HOLD_RISK_REVIEW | electrical |
