@@ -178,7 +178,7 @@ def write_markdown(path: Path, rows: list[dict], run_date: str) -> None:
         '## Drafts and holds',
         '',
     ])
-    for stream in ('C1_DRAFT_REVIEW_BATCH', 'C2_DRAFT_REPRICE_CONTENT_REVIEW', 'C3_DRAFT_CONTENT_REVIEW', 'H1_RISK_HOLD', 'H2_MAPPING_REPAIR', 'H3_REPRICE_OR_REJECT', 'Z_REVIEW_MANUALLY'):
+    for stream in ('C1_DRAFT_REVIEW_BATCH', 'C2_DRAFT_REPRICE_CONTENT_REVIEW', 'C3_DRAFT_CONTENT_REVIEW', 'H1_RISK_HOLD', 'H4_DRAFT_CANADA_FAIL_EXCLUDED', 'H2_MAPPING_REPAIR', 'H3_REPRICE_OR_REJECT', 'Z_REVIEW_MANUALLY'):
         batch = grouped.get(stream, [])
         if not batch:
             continue
@@ -275,6 +275,25 @@ def main() -> None:
                 })
         elif (
             row['status'] == 'DRAFT'
+            and row['decision'] == 'DRAFT_QUOTE_AND_CONTENT_REVIEW'
+            and us
+            and us['canada_quoted'] == us['rows']
+            and us['canada_failures'] == us['rows']
+        ):
+            out.update({
+                'priority': 55,
+                'workstream': 'H4_DRAFT_CANADA_FAIL_EXCLUDED',
+                'decision': 'DRAFT_CANADA_QUOTE_FAIL_KEEP_EXCLUDED',
+                'work_reason': (
+                    'Every mapped variant row fails the Canada supplier-shipping or margin gate.'
+                ),
+                'operator_next_action': (
+                    'Keep excluded; replace supplier or reprice before spending time on US quotes or activation.'
+                ),
+            })
+        elif (
+            row['status'] == 'DRAFT'
+            and row['decision'] == 'DRAFT_QUOTE_AND_CONTENT_REVIEW'
             and us
             and us['canada_quoted'] == us['rows']
             and us['quoted'] == us['rows']
