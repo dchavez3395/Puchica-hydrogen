@@ -64,7 +64,7 @@ def write_markdown(path: Path, rows: list[dict], audit_date: str) -> None:
     ]
     for (country, title), group in sorted(by_product.items()):
         failing = [r for r in group if r['price_action_required'] == 'yes']
-        current = [Decimal(r['current_storefront_price']) for r in group if r['current_storefront_price']]
+        current = [Decimal(part) for r in group if r['current_storefront_price'] for part in r['current_storefront_price'].split('~')]
         actions = [Decimal(r['recommended_action_price']) for r in group]
         current_range = '' if not current else f"{q2(min(current))}~{q2(max(current))}"
         action_range = f"{q2(min(actions))}~{q2(max(actions))}"

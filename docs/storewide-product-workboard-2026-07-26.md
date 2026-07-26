@@ -8,8 +8,7 @@ This board turns the Shopify Admin product gate into the order of operations for
 - C3_DRAFT_CONTENT_REVIEW: 1
 - C5_DRAFT_US_READY_MARKET_BLOCKED: 3
 - C6_DRAFT_REMEDIATED_REVIEW: 8
-- D1_US_MARGIN_PENDING: 3
-- D2_US_PRICE_PASSES_MARKET_BLOCKED: 14
+- D4_US_CHECKOUT_CONFIRMED: 17
 - H1_RISK_HOLD: 23
 - H2_CONFIRMED_UNMAPPED: 1
 - H2_MAPPING_SYNC_REQUIRED: 2
@@ -47,9 +46,6 @@ For each quoted product, record separate exact DSers/AliExpress Canada and US it
 
 | product | variants | decision | action |
 | --- | --- | --- | --- |
-| Everyday Fleece Joggers | 21 | US_QUOTE_COMPLETE_MARGIN_PENDING | Validate USD storefront price, landed contribution, checkout delivery, and live US availability. |
-| Multi-Use Organizer Hooks | 4 | US_QUOTE_COMPLETE_MARGIN_PENDING | Validate USD storefront price, landed contribution, checkout delivery, and live US availability. |
-| Everyday Zip Hoodie | 18 | US_QUOTE_COMPLETE_MARGIN_PENDING | Validate USD storefront price, landed contribution, checkout delivery, and live US availability. |
 
 ## Drafts and holds
 
@@ -85,25 +81,6 @@ For each quoted product, record separate exact DSers/AliExpress Canada and US it
 | Men's High-Neck Base-Layer Top | DRAFT | 42 | adult_apparel | Keep Draft; replace or separate Coffee / 3L and verify textile specifications before activation. |
 | Children's Solid-Color Tights | DRAFT | 39 | child_apparel | Keep Draft; replace or separate the failing variant and complete children's textile/compliance review. |
 | Children's Foot Measuring Gauge | DRAFT | 5 | child_content | Keep Draft; replace or separate Blue and verify measurement accuracy before activation. |
-
-### D2_US_PRICE_PASSES_MARKET_BLOCKED
-
-| product | status | variants | issue | action |
-| --- | --- | --- | --- | --- |
-| Travel Pet Water Bottle | ACTIVE | 3 |  | Resolve the Managed Markets/storefront availability blocker, then verify live US product visibility and checkout delivery. |
-| Everyday Carabiner Clip Set | ACTIVE | 2 |  | Resolve the Managed Markets/storefront availability blocker, then verify live US product visibility and checkout delivery. |
-| Car Sun Visor Organizer | ACTIVE | 3 |  | Resolve the Managed Markets/storefront availability blocker, then verify live US product visibility and checkout delivery. |
-| Men's Cotton-Linen Wide-Leg Pants | ACTIVE | 100 |  | Resolve the Managed Markets/storefront availability blocker, then verify live US product visibility and checkout delivery. |
-| Adjustable Rhinestone Ring | ACTIVE | 2 |  | Resolve the Managed Markets/storefront availability blocker, then verify live US product visibility and checkout delivery. |
-| Everyday Performance Shorts | ACTIVE | 21 |  | Resolve the Managed Markets/storefront availability blocker, then verify live US product visibility and checkout delivery. |
-| Compact Bicycle Bell | ACTIVE | 6 |  | Resolve the Managed Markets/storefront availability blocker, then verify live US product visibility and checkout delivery. |
-| Long-Handle Bottle Brush | ACTIVE | 2 |  | Resolve the Managed Markets/storefront availability blocker, then verify live US product visibility and checkout delivery. |
-| Everyday Polarized Sunglasses | ACTIVE | 3 |  | Resolve the Managed Markets/storefront availability blocker, then verify live US product visibility and checkout delivery. |
-| Quick-Dry Training Shorts | ACTIVE | 54 |  | Resolve the Managed Markets/storefront availability blocker, then verify live US product visibility and checkout delivery. |
-| Breezy Everyday Pants | ACTIVE | 28 |  | Resolve the Managed Markets/storefront availability blocker, then verify live US product visibility and checkout delivery. |
-| Men's High-Neck Knit Sweater | ACTIVE | 54 |  | Resolve the Managed Markets/storefront availability blocker, then verify live US product visibility and checkout delivery. |
-| Everyday Printed Joggers | ACTIVE | 18 |  | Resolve the Managed Markets/storefront availability blocker, then verify live US product visibility and checkout delivery. |
-| Long-Sleeve Performance Tee | ACTIVE | 35 |  | Resolve the Managed Markets/storefront availability blocker, then verify live US product visibility and checkout delivery. |
 
 ### H1_RISK_HOLD
 

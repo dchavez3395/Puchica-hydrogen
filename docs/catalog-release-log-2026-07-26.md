@@ -136,3 +136,16 @@ Later product-by-product Canada and U.S. quote work supersedes the initial 26-pr
 - No active launch variant remains below the observed CA$3.03 Canada shipping floor.
 
 The earlier published-product list is retained as historical evidence, not the current launch assortment.
+## Full active-catalog U.S. checkout confirmation
+
+The final active gate contains 17 products and 374 variants. U.S. margin validation was completed for the remaining three products:
+
+- `Everyday Fleece Joggers`: 11 below-floor sellable variants received a US$26.99 fixed catalog price; all 20 sellable variants now meet the floor.
+- `Everyday Zip Hoodie`: all 17 sellable variants received a US$34.99 fixed catalog price.
+- `Multi-Use Organizer Hooks`: existing US$14.99–15.49 fixed prices already exceed the US$10.99 floor.
+
+All three products were restored to the Puchica U.S. catalog. Their known no-U.S.-shipping variants remain inventory-zero and unavailable.
+
+A combined live checkout containing one sellable variant from every active product initially exposed an inactive `Free Shipping Over $75` method, creating a rate gap above CA$74.99. The existing method was activated without changing its CA$75 threshold or zero price. The same 17-product cart was then re-tested using a non-personal New York destination and returned `Free Shipping Over $75` as a real delivery method.
+
+The 17-product active gate is now confirmed for Canada economics, U.S. supplier service, U.S. pricing, U.S. catalog availability, and live U.S. checkout delivery.
