@@ -32,6 +32,13 @@ The product remains Draft and held even for the seven shipping-passing SKUs. Act
 3. Obtain labeling and children's apparel flammability evidence.
 4. Remove or substantiate ambiguous cosplay and costume claims.
 
-## Remaining store-level blocker
+## Store-level fulfillment blocker resolved
 
-Supplier-level repairs do not resolve the live U.S. checkout. A fresh `Travel Pet Water Bottle` checkout with a non-personal New York address still returned **Shipping not available**. The U.S. launch remains blocked by Managed Markets / Global-e fulfillment mode until the merchant chooses between disabling Managed Markets for the U.S. or moving fulfillment to a compatible path.
+Managed Markets was turned off on 2026-07-26 after Shopify confirmed that Managed Markets orders could be fulfilled only with Global-e labels and rates. That path was incompatible with direct DSers supplier fulfillment.
+
+The Canada, U.S., and United Kingdom markets remain active under standard Shopify Markets. The U.S. shipping zone was simplified to:
+
+- Standard Shipping: CA$7.99 for orders below CA$75 (displayed as US$6.00 in the U.S. checkout test).
+- Free Shipping Over $75.
+
+The duplicate Standard International rate and the unsupported 1–2 business-day Express International promise were removed. A fresh `Travel Pet Water Bottle` checkout using a non-personal New York address returned one real shipping method, `Standard Shipping` at US$6.00. The prior `Shipping not available` blocker is resolved.
