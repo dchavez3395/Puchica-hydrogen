@@ -68,3 +68,11 @@ Shopify also stores a CAD unit cost for all 497 live variants. Using the custome
 | Margin review | Everyday Pullover Hoodie; Everyday 100% Cotton T-Shirt |
 
 The two margin-review products were removed from `puchica-launch-ready` on 2026-07-26, so Hydrogen will not sell them until a Canada shipping quote proves that the final contribution is viable. This leaves 24 products in the live launch gate. The other 24 have passed only a **pre-shipping** screen; they still need their exact Canadian delivery quote before paid acquisition is enabled.
+
+### Quote decision rule
+
+For each exact mapped variant, use this conservative decision rule:
+
+`Canada shipping cap = (price × 0.85 × 0.971 − CA$0.30) − unit cost − (price × 0.30)`
+
+The result is the most shipping the variant can absorb while retaining a 30% contribution after `FIRST15` and estimated card fees, before taxes. The *worst* variant cap must be met or the product remains on hold. Current caps range from CA$0.54 (Raised Pet Bowl Set) to CA$5.28 (No-Drill Shower Shelf); several products therefore need either a low Canada shipping quote, a price/variant change, or removal from launch.
