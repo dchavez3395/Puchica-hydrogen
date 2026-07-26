@@ -1,6 +1,6 @@
 import {useLoaderData, useSearchParams} from 'react-router';
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
-import {getPaginationVariables} from '@shopify/hydrogen';
+import {CacheNone, getPaginationVariables} from '@shopify/hydrogen';
 import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
 import {puchicaMeta} from '~/lib/seo';
 import {ProductItem} from '~/components/ProductItem';
@@ -77,6 +77,7 @@ async function loadCriticalData({context, request}) {
 
   const [{products: rawProducts}] = await Promise.all([
     context.storefront.query(CATALOG_QUERY, {
+      cache: CacheNone(),
       variables: {
         country,
         language,

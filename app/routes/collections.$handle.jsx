@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import {redirect, useLoaderData, useSearchParams} from 'react-router';
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
-import {getPaginationVariables, Analytics, Image} from '@shopify/hydrogen';
+import {Analytics, CacheNone, getPaginationVariables, Image} from '@shopify/hydrogen';
 import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 import {puchicaMeta} from '~/lib/seo';
@@ -106,7 +106,7 @@ async function loadCriticalData({context, params, request}) {
   };
 
   const [{collection}] = await Promise.all([
-    storefront.query(COLLECTION_QUERY, {variables}),
+    storefront.query(COLLECTION_QUERY, {cache: CacheNone(), variables}),
   ]);
 
   if (!collection) {

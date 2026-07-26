@@ -1,5 +1,5 @@
 import {useLoaderData} from 'react-router';
-import {getPaginationVariables, Analytics} from '@shopify/hydrogen';
+import {Analytics, CacheNone, getPaginationVariables} from '@shopify/hydrogen';
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {SearchForm} from '~/components/SearchForm';
 import {SearchResults} from '~/components/SearchResults';
@@ -331,6 +331,7 @@ async function regularSearch({request, context}) {
 
   // Search articles, pages, and products for the `q` term
   const {errors, ...items} = await storefront.query(SEARCH_QUERY, {
+    cache: CacheNone(),
     variables: {...variables, country, language, term},
   });
 
@@ -517,6 +518,7 @@ async function predictiveSearch({request, context}) {
   const {predictiveSearch: items, errors} = await storefront.query(
     PREDICTIVE_SEARCH_QUERY,
     {
+      cache: CacheNone(),
       variables: {
         // customize search options as needed
         country,

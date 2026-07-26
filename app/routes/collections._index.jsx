@@ -1,6 +1,6 @@
 import {useLoaderData} from 'react-router';
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
-import {getPaginationVariables, Image} from '@shopify/hydrogen';
+import {CacheNone, getPaginationVariables, Image} from '@shopify/hydrogen';
 import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
 import {puchicaMeta} from '~/lib/seo';
 import {useT} from '~/lib/t';
@@ -37,6 +37,7 @@ async function loadCriticalData({context, request}) {
 
   const [{collections}] = await Promise.all([
     context.storefront.query(COLLECTIONS_QUERY, {
+      cache: CacheNone(),
       variables: {country, language, ...paginationVariables},
     }),
   ]);

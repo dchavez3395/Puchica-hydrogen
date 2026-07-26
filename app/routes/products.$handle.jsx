@@ -4,6 +4,7 @@ import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {
   getSelectedProductOptions,
   Analytics,
+  CacheNone,
   useOptimisticVariant,
   getProductOptions,
   getAdjacentAndFirstAvailableVariants,
@@ -55,6 +56,7 @@ async function loadCriticalData({context, params, request}) {
   const {country, language} = storefront.i18n;
 
   const productResp = await storefront.query(PRODUCT_QUERY, {
+    cache: CacheNone(),
     variables: {country, handle, language, selectedOptions: getSelectedProductOptions(request)},
   });
 
