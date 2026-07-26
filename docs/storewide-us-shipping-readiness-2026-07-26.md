@@ -34,12 +34,16 @@ The following additional US supplier checks were completed:
 - `Long-Handle Bottle Brush`: both mapped variants returned US$1.99 shipping, 7~11 days, tracking available.
 - `Multi-Use Organizer Hooks`: brown, pink, and light blue returned US$1.99 shipping with tracking; black returned **No Shipping** to the United States.
 - `Everyday Zip Hoodie`: representative black, grey, and white SKUs returned US$1.99 shipping in 7~12 days with tracking; the exact `XL / Grey` supplier SKU returned **No Shipping** to the United States.
+- `Everyday Performance Shorts`: five representative black, white, and grey size samples returned US$1.99 shipping in 7~13 days with tracking.
+- `Breezy Everyday Pants`: five representative dark-grey and dark-blue size samples returned US$1.99 shipping in 8~13 days with tracking.
+- `Quick-Dry Training Shorts`: four representative black/blue size samples returned US$1.99 shipping in 7~13 days with tracking; the exact `XXXL / 61620lan` supplier SKU returned **No Shipping** to the United States.
+- `Everyday Fleece Joggers`: four representative navy/grey size samples returned US$1.99 shipping in 7~12 days with tracking; the sellable `3XL / Navy` supplier SKU returned **No Shipping** to the United States.
 
-The seven fully shipping-passing products are marked `PASS_SHIPPING_PENDING_US_STOREFRONT_PRICE`, not fully approved, until US storefront prices and contribution are available after the Managed Markets conflict is resolved.
+Nine products have fully passing sampled shipping sets. `Quick-Dry Training Shorts` is also U.S.-eligible because its only observed no-shipping SKU is already disabled with zero inventory; all sampled sellable groups passed. Passing rows remain pending U.S. storefront price and contribution validation after the Managed Markets conflict is resolved.
 
-`Precision Nail Clippers` was removed from the dedicated US publication (`gid://shopify/Publication/215035183354`) on 2026-07-26. `Multi-Use Organizer Hooks` was also excluded from `Puchica US Catalog` because Shopify catalog inclusion is product-level and its black variant cannot ship to the United States. The mixed-shipping `Everyday Zip Hoodie` was subsequently excluded for the same product-level reason. Shopify Admin verification shows the U.S. catalog now has 62 included products; these three products are absent from the Included view. Their viable Canadian listings remain unchanged.
+`Precision Nail Clippers` was removed from the dedicated US publication (`gid://shopify/Publication/215035183354`) on 2026-07-26. `Multi-Use Organizer Hooks` was also excluded from `Puchica US Catalog` because Shopify catalog inclusion is product-level and its black variant cannot ship to the United States. The mixed-shipping `Everyday Zip Hoodie` was subsequently excluded for the same product-level reason. `Quick-Dry Training Shorts` remains included because its failed `XXXL / 61620lan` variant is already unavailable for sale with zero inventory. Everyday Fleece Joggers was also excluded because its failing 3XL / Navy variant remains sellable in Canada. Shopify Admin verification shows the U.S. catalog has 61 included products; Precision Nail Clippers, Multi-Use Organizer Hooks, Everyday Zip Hoodie, and Everyday Fleece Joggers are absent from the Included view. Their viable Canadian listings remain unchanged.
 
-Current U.S. quote evidence covers 45 mapped variant rows across 10 products: 41 shipping passes (including representative-sample rows) and 4 no-shipping failures.
+Current U.S. quote evidence covers 169 mapped variant rows across 14 products: 163 shipping passes (including representative-sample rows) and 6 no-shipping failures.
 
 ## Product approval rule
 
