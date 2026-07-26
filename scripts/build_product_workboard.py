@@ -178,7 +178,7 @@ def write_markdown(path: Path, rows: list[dict], run_date: str) -> None:
         '## Drafts and holds',
         '',
     ])
-    for stream in ('C1_DRAFT_REVIEW_BATCH', 'C2_DRAFT_REPRICE_CONTENT_REVIEW', 'C3_DRAFT_CONTENT_REVIEW', 'C4_DRAFT_US_ONLY_REVIEW', 'H1_RISK_HOLD', 'H4_DRAFT_CANADA_FAIL_EXCLUDED', 'H2_MAPPING_REPAIR', 'H2_CONFIRMED_UNMAPPED', 'H3_REPRICE_OR_REJECT', 'Z_REVIEW_MANUALLY'):
+    for stream in ('C1_DRAFT_REVIEW_BATCH', 'C2_DRAFT_REPRICE_CONTENT_REVIEW', 'C3_DRAFT_CONTENT_REVIEW', 'C4_DRAFT_US_ONLY_REVIEW', 'H1_RISK_HOLD', 'H4_DRAFT_CANADA_FAIL_EXCLUDED', 'H2_MAPPING_REPAIR', 'H2_CONFIRMED_UNMAPPED', 'H3_REPRICE_OR_REJECT', 'H3_PRICING_DEFINED_QUOTE_PENDING', 'Z_REVIEW_MANUALLY'):
         batch = grouped.get(stream, [])
         if not batch:
             continue
@@ -218,6 +218,19 @@ def main() -> None:
     content_reviews = {row['handle']: row for row in read_csv(review_path)} if review_path.exists() else {}
     mapping_path = docs_dir / f'storewide-mapping-resolution-{args.date}.csv'
     mapping_reviews = {row['handle']: row for row in read_csv(mapping_path)} if mapping_path.exists() else {}
+    pricing_path = docs_dir / f'storewide-pricing-actions-{args.date}.csv'
+    pricing_summary = {}
+    if pricing_path.exists():
+        for price_row in read_csv(pricing_path):
+            key = (price_row['handle'], price_row['country'])
+            item = pricing_summary.setdefault(key, {'rows': 0, 'actions': 0, 'prices': [], 'action_prices': []})
+            item['rows'] += 1
+            action_required = price_row['price_action_required'] == 'yes'
+            item['actions'] += action_required
+            action_price = float(price_row['recommended_action_price'])
+            item['prices'].append(action_price)
+            if action_required:
+                item['action_prices'].append(action_price)
 
     out_rows = []
     for row in rows:
@@ -345,6 +358,46 @@ def main() -> None:
                         'Complete content/compliance review and contribution validation before activation.'
                     ),
                 })
+        canada_price = pricing_summary.get((row['handle'], 'CA'))
+        us_price = pricing_summary.get((row['handle'], 'US'))
+        if canada_price and out['workstream'] == 'H3_REPRICE_OR_REJECT':
+            low = min(canada_price['action_prices'])
+            high = max(canada_price['action_prices'])
+            out.update({
+                'priority': 59,
+                'workstream': 'H3_PRICING_DEFINED_QUOTE_PENDING',
+                'decision': 'PRICING_FLOOR_DEFINED_QUOTE_PENDING',
+                'work_reason': (
+                    f"{canada_price['actions']} of {canada_price['rows']} variants require a price increase; "
+                    f"the CA action range is ${low:.2f}~${high:.2f} using the observed shipping floor."
+                ),
+                'operator_next_action': (
+                    'Keep excluded; apply/approve the pricing actions, then obtain exact Canada and US DSers quotes before activation.'
+                ),
+            })
+        elif canada_price and out['workstream'] == 'C2_DRAFT_REPRICE_CONTENT_REVIEW':
+            action_prices = canada_price['action_prices']
+            out.update({
+                'decision': 'DRAFT_REPRICE_AMOUNTS_DEFINED',
+                'work_reason': (
+                    f"Both-country quotes are complete; {canada_price['actions']} of {canada_price['rows']} variants "
+                    f"need Canada prices up to ${max(action_prices):.2f}."
+                ),
+                'operator_next_action': (
+                    'Apply/approve the variant pricing actions, clean title/content, then recalculate contribution before activation.'
+                ),
+            })
+        elif us_price and out['workstream'] == 'C4_DRAFT_US_ONLY_REVIEW':
+            floor = max(us_price['prices'])
+            out.update({
+                'decision': 'DRAFT_US_ONLY_PRICE_FLOOR_DEFINED',
+                'work_reason': (
+                    f"Canada remains excluded; verified US shipping supports a conservative minimum action price of US${floor:.2f}."
+                ),
+                'operator_next_action': (
+                    f"Verify the actual US storefront price is at least US${floor:.2f}, then complete content/policy and checkout review before US-only activation."
+                ),
+            })
         review = content_reviews.get(row['handle'])
         if review and review['disposition'] == 'HOLD_CONTENT_COMPLIANCE_REVIEW':
             combined_flags = sorted(set(filter(None, (row['risk_flags'] + ';' + review['risk_flags']).split(';'))))

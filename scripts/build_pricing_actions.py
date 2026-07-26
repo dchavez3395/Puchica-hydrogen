@@ -1,0 +1,148 @@
+#!/usr/bin/env python3
+"""Build explicit Canada and US pricing actions from the product gate and quote ledger."""
+from __future__ import annotations
+
+import argparse
+import csv
+from decimal import Decimal, ROUND_CEILING, ROUND_HALF_UP
+from pathlib import Path
+
+DISCOUNT_RATE = Decimal('0.85')
+PAYMENT_KEEP_RATE = Decimal('0.971')
+PAYMENT_FIXED_FEE = Decimal('0.30')
+TARGET_MARGIN = Decimal('0.30')
+NET_PRICE_FACTOR = (DISCOUNT_RATE * PAYMENT_KEEP_RATE) - TARGET_MARGIN
+CANADA_SHIPPING_FLOOR = Decimal('3.03')
+
+
+def read_csv(path: Path) -> list[dict]:
+    with path.open(encoding='utf-8-sig', newline='') as f:
+        return list(csv.DictReader(f))
+
+
+def q2(value: Decimal) -> str:
+    return str(value.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP))
+
+
+def minimum_price(cost: Decimal, shipping: Decimal) -> Decimal:
+    return (cost + shipping + PAYMENT_FIXED_FEE) / NET_PRICE_FACTOR
+
+
+def retail_99(value: Decimal) -> Decimal:
+    return (value + Decimal('0.01')).to_integral_value(rounding=ROUND_CEILING) - Decimal('0.01')
+
+
+def upper_us_cost(value: str) -> Decimal:
+    cleaned = (value or '').replace('US$', '').strip()
+    return Decimal(cleaned.split('~')[-1])
+
+
+def write_csv(path: Path, rows: list[dict]) -> None:
+    with path.open('w', encoding='utf-8', newline='') as f:
+        writer = csv.DictWriter(f, fieldnames=list(rows[0].keys()), quoting=csv.QUOTE_ALL, lineterminator='\n')
+        writer.writeheader()
+        writer.writerows(rows)
+
+
+def write_markdown(path: Path, rows: list[dict], audit_date: str) -> None:
+    by_product: dict[tuple[str, str], list[dict]] = {}
+    for row in rows:
+        by_product.setdefault((row['country'], row['product_title']), []).append(row)
+    lines = [
+        f'# Storewide pricing actions ? {audit_date}', '',
+        'This ledger converts verified cost and shipping evidence into minimum prices under the existing gate assumptions.', '',
+        '## Assumptions', '',
+        '- First-order collected price: 85% of storefront price.',
+        '- Variable payment fee: 2.9%; fixed payment fee: CA/US$0.30.',
+        '- Target contribution after supplier cost and shipping: 30% of storefront price.',
+        f'- Net price factor available for supplier cost, shipping, and fixed fee: {NET_PRICE_FACTOR}.',
+        '- Minimum price formula: `(supplier cost + shipping + 0.30) / 0.52535`.',
+        '- Recommended action price rounds upward to a `.99` ending.', '',
+        '## Product actions', '',
+        '| country | product | rows | failing rows | current price range | minimum / action price | disposition |',
+        '| --- | --- | ---: | ---: | --- | --- | --- |',
+    ]
+    for (country, title), group in sorted(by_product.items()):
+        failing = [r for r in group if r['price_action_required'] == 'yes']
+        current = [Decimal(r['current_storefront_price']) for r in group if r['current_storefront_price']]
+        actions = [Decimal(r['recommended_action_price']) for r in group]
+        current_range = '' if not current else f"{q2(min(current))}~{q2(max(current))}"
+        action_range = f"{q2(min(actions))}~{q2(max(actions))}"
+        dispositions = '; '.join(sorted(set(r['disposition'] for r in group)))
+        safe_title = title.replace('|', '\|')
+        lines.append(f'| {country} | {safe_title} | {len(group)} | {len(failing)} | {current_range} | {action_range} | {dispositions} |')
+    lines += ['', '## Operating rule', '', 'A calculated price floor does not activate a product. Mapping, stock, content/compliance, country shipping, checkout, and storefront visibility must still pass.']
+    path.write_text('\n'.join(lines) + '\n', encoding='utf-8')
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--date', required=True)
+    parser.add_argument('--docs-dir', default='docs')
+    args = parser.parse_args()
+    docs = Path(args.docs_dir)
+    quotes = read_csv(docs / f'storewide-variant-quote-worksheet-{args.date}.csv')
+    gate = {row['handle']: row for row in read_csv(docs / f'storewide-product-gate-{args.date}.csv')}
+    rows: list[dict] = []
+
+    canada_targets = {
+        'mens-casual-sports-hoodie-spring-autumn-fashion-solid-color-long-sleeved-pullover-with-arm-pocket-and-pull-rope-plus-size': 'PLANNING_FLOOR_QUOTE_PENDING',
+        '100-pure-cotton-t-shirt-with-round-neck-shoulder-design-for-both-men-women-summer-solid-color-short-sleeved-casual-loose-fit': 'PLANNING_FLOOR_QUOTE_PENDING',
+        '2024-mens-print-pants-autumn-winter-new-in-mens-clothing-trousers-sport-jogging-fitness-running-trousers-harajuku-streetwear': 'VERIFIED_CANADA_QUOTE',
+    }
+    for quote in quotes:
+        handle = quote['handle']
+        if handle not in canada_targets:
+            continue
+        cost = Decimal(quote['unit_cost'])
+        current = Decimal(quote['price'])
+        shipping = Decimal(quote['quote_shipping_cost']) if quote['quote_shipping_cost'] not in ('', 'NO_SHIPPING') else CANADA_SHIPPING_FLOOR
+        floor = minimum_price(cost, shipping)
+        action_required = current < floor
+        recommended = retail_99(floor) if action_required else current
+        rows.append({
+            'country': 'CA', 'product_title': quote['product_title'], 'handle': handle,
+            'variant_title': quote['variant_title'], 'sku': quote['sku'],
+            'current_storefront_price': q2(current), 'supplier_cost_basis': q2(cost),
+            'shipping_cost_basis': q2(shipping), 'shipping_evidence': canada_targets[handle],
+            'minimum_price': q2(floor), 'recommended_action_price': q2(recommended),
+            'price_change': q2(max(Decimal('0'), recommended - current)),
+            'price_action_required': 'yes' if action_required else 'no',
+            'quote_result': quote['quote_result'],
+            'disposition': 'REPRICE_THEN_REVIEW' if action_required else 'PRICE_PASSES_CURRENT_GATE',
+            'formula': '(supplier_cost + shipping + 0.30) / 0.52535',
+        })
+
+    us_handles = {
+        '3pcs-set-men-business-watches-casual-leather-band-analog-males-quartz-watch-necklace-bracelet-set',
+        '1-2pcs-men-business-watches-fashion-mens-steel-band-quartz-watch-with-bracelet-box-not-included',
+        '6-piece-set-of-fashion-electronic-watch-necklace-earrings-ring-set-for-teenagers-boys-and-girls-the-best-choice-for-frien-watch-for-women-women-watches',
+    }
+    for handle in sorted(us_handles):
+        product_rows = [r for r in quotes if r['handle'] == handle]
+        if not product_rows:
+            raise RuntimeError(f'No quote rows for {handle}')
+        cost = max(upper_us_cost(r['us_quote_item_cost']) for r in product_rows)
+        shipping = max(Decimal(r['us_quote_shipping_cost'].replace('US$', '')) for r in product_rows)
+        floor = minimum_price(cost, shipping)
+        recommended = retail_99(floor)
+        rows.append({
+            'country': 'US', 'product_title': product_rows[0]['product_title'], 'handle': handle,
+            'variant_title': 'ALL MAPPED VARIANTS (CONSERVATIVE MAX COST)', 'sku': '',
+            'current_storefront_price': '', 'supplier_cost_basis': q2(cost),
+            'shipping_cost_basis': q2(shipping), 'shipping_evidence': 'VERIFIED_US_QUOTE',
+            'minimum_price': q2(floor), 'recommended_action_price': q2(recommended),
+            'price_change': '', 'price_action_required': 'yes',
+            'quote_result': ';'.join(sorted(set(r['us_quote_result'] for r in product_rows))),
+            'disposition': 'USD_STOREFRONT_PRICE_VALIDATION_REQUIRED',
+            'formula': '(supplier_cost + shipping + 0.30) / 0.52535',
+        })
+
+    rows.sort(key=lambda r: (r['country'], r['product_title'].lower(), r['variant_title'].lower()))
+    write_csv(docs / f'storewide-pricing-actions-{args.date}.csv', rows)
+    write_markdown(docs / f'storewide-pricing-actions-{args.date}.md', rows, args.date)
+    print(f'Pricing rows: {len(rows)}')
+
+
+if __name__ == '__main__':
+    main()

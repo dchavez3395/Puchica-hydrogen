@@ -11,7 +11,7 @@ This board turns the Shopify Admin product gate into the order of operations for
 - D1_US_MARGIN_PENDING: 13
 - H1_RISK_HOLD: 30
 - H2_CONFIRMED_UNMAPPED: 5
-- H3_REPRICE_OR_REJECT: 2
+- H3_PRICING_DEFINED_QUOTE_PENDING: 2
 - H4_DRAFT_CANADA_FAIL_EXCLUDED: 5
 
 ## Do first
@@ -76,15 +76,15 @@ For each quoted product, record separate exact DSers/AliExpress Canada and US it
 
 | product | status | variants | issue | action |
 | --- | --- | --- | --- | --- |
-| 2024 Mens Print Pants Autumn/Winter New In Men's Clothing Trousers Sport Jogging Fitness Running Trousers Harajuku Streetwear | DRAFT | 18 |  | Reprice failing variants, clean title/content, verify contribution, then reconsider activation. |
+| 2024 Mens Print Pants Autumn/Winter New In Men's Clothing Trousers Sport Jogging Fitness Running Trousers Harajuku Streetwear | DRAFT | 18 |  | Apply/approve the variant pricing actions, clean title/content, then recalculate contribution before activation. |
 
 ### C4_DRAFT_US_ONLY_REVIEW
 
 | product | status | variants | issue | action |
 | --- | --- | --- | --- | --- |
-| 3PCS/Set Men Business Watches Casual Leather Band Analog Male's Quartz Watch Necklace Bracelet Set | DRAFT | 5 |  | Keep excluded from Canada; validate USD pricing, contribution, content, and policy risk before US-only activation. |
-| 1/2PCS Men Business Watches Fashion Men's Steel Band Quartz Watch with Bracelet（Box not Included） | DRAFT | 4 |  | Keep excluded from Canada; validate USD pricing, contribution, content, and policy risk before US-only activation. |
-| Digital Watch & Jewellery Gift Set | DRAFT | 4 | hygiene_beauty | Keep excluded from Canada; validate USD pricing, contribution, content, and policy risk before US-only activation. |
+| 3PCS/Set Men Business Watches Casual Leather Band Analog Male's Quartz Watch Necklace Bracelet Set | DRAFT | 5 |  | Verify the actual US storefront price is at least US$11.99, then complete content/policy and checkout review before US-only activation. |
+| 1/2PCS Men Business Watches Fashion Men's Steel Band Quartz Watch with Bracelet（Box not Included） | DRAFT | 4 |  | Verify the actual US storefront price is at least US$12.99, then complete content/policy and checkout review before US-only activation. |
+| Digital Watch & Jewellery Gift Set | DRAFT | 4 | hygiene_beauty | Verify the actual US storefront price is at least US$26.99, then complete content/policy and checkout review before US-only activation. |
 
 ### H1_RISK_HOLD
 
@@ -141,12 +141,12 @@ For each quoted product, record separate exact DSers/AliExpress Canada and US it
 | Custom Neon Sign | DRAFT | 1 |  | Keep Draft and excluded. Archive if unwanted, or deliberately import/map a verified supplier before quoting. |
 | Portable Mini Bag Sealer — Handheld Heat Sealer | DRAFT | 1 |  | Keep Draft and excluded. Archive if unwanted, or deliberately import/map a verified supplier before quoting. |
 
-### H3_REPRICE_OR_REJECT
+### H3_PRICING_DEFINED_QUOTE_PENDING
 
 | product | status | variants | issue | action |
 | --- | --- | --- | --- | --- |
-| Everyday Pullover Hoodie | DRAFT | 48 |  | Reprice, change variant/supplier, bundle, or reject before launch. |
-| Everyday 100% Cotton T-Shirt | DRAFT | 18 |  | Reprice, change variant/supplier, bundle, or reject before launch. |
+| Everyday Pullover Hoodie | DRAFT | 48 |  | Keep excluded; apply/approve the pricing actions, then obtain exact Canada and US DSers quotes before activation. |
+| Everyday 100% Cotton T-Shirt | DRAFT | 18 |  | Keep excluded; apply/approve the pricing actions, then obtain exact Canada and US DSers quotes before activation. |
 
 ## Completion rule
 
