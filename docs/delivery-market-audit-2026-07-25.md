@@ -6,6 +6,7 @@
 - **Disabled Markets:** U.S., Australia and New Zealand, and LaTam. The U.S. is therefore not a live customer market, regardless of delivery-rate records.
 - **General delivery profile location:** `woodland`.
 - **No active launch products:** delivery settings must not be used as evidence that a mapped DSers product can be sold or delivered.
+- **Shipping policy corrected on 2026-07-25:** removed the unverified 1–2 business-day processing promise. The policy now states that preparation time varies by item, destination, and supplier availability, with options and estimates confirmed at checkout.
 
 ## Active checkout rates found in the General profile
 
