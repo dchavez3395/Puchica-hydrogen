@@ -415,7 +415,7 @@ def main() -> None:
         if us_catalog_review and out['workstream'] == 'D1_US_MARGIN_PENDING':
             observed = us_catalog_review['observed_us_price_range']
             floor = us_catalog_review['conservative_minimum_price']
-            if us_catalog_review['verdict'] == 'PASS_CONSERVATIVE_US_MARGIN_FLOOR':
+            if us_catalog_review['verdict'].startswith('PASS_'):
                 out.update({
                     'priority': 41,
                     'workstream': 'D2_US_PRICE_PASSES_MARKET_BLOCKED',

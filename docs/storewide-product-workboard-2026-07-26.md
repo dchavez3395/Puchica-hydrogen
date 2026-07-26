@@ -8,8 +8,7 @@ This board turns the Shopify Admin product gate into the order of operations for
 - C1_DRAFT_REVIEW_BATCH: 3
 - C2_DRAFT_REPRICE_CONTENT_REVIEW: 1
 - C4_DRAFT_US_ONLY_REVIEW: 3
-- D2_US_PRICE_PASSES_MARKET_BLOCKED: 9
-- D3_US_VARIANT_PRICE_MAPPING_REQUIRED: 4
+- D2_US_PRICE_PASSES_MARKET_BLOCKED: 13
 - H1_RISK_HOLD: 30
 - H2_CONFIRMED_UNMAPPED: 5
 - H3_PRICING_DEFINED_QUOTE_PENDING: 2
@@ -83,19 +82,14 @@ For each quoted product, record separate exact DSers/AliExpress Canada and US it
 | Car Sun Visor Organizer | ACTIVE | 3 |  | Resolve the Managed Markets/storefront availability blocker, then verify live US product visibility and checkout delivery. |
 | Men's Cotton-Linen Wide-Leg Pants | ACTIVE | 100 |  | Resolve the Managed Markets/storefront availability blocker, then verify live US product visibility and checkout delivery. |
 | Adjustable Rhinestone Ring | ACTIVE | 2 |  | Resolve the Managed Markets/storefront availability blocker, then verify live US product visibility and checkout delivery. |
+| Everyday Performance Shorts | ACTIVE | 21 |  | Resolve the Managed Markets/storefront availability blocker, then verify live US product visibility and checkout delivery. |
 | Compact Bicycle Bell | ACTIVE | 6 |  | Resolve the Managed Markets/storefront availability blocker, then verify live US product visibility and checkout delivery. |
 | Long-Handle Bottle Brush | ACTIVE | 2 |  | Resolve the Managed Markets/storefront availability blocker, then verify live US product visibility and checkout delivery. |
 | Everyday Polarized Sunglasses | ACTIVE | 3 |  | Resolve the Managed Markets/storefront availability blocker, then verify live US product visibility and checkout delivery. |
 | Quick-Dry Training Shorts | ACTIVE | 54 |  | Resolve the Managed Markets/storefront availability blocker, then verify live US product visibility and checkout delivery. |
-
-### D3_US_VARIANT_PRICE_MAPPING_REQUIRED
-
-| product | status | variants | issue | action |
-| --- | --- | --- | --- | --- |
-| Everyday Performance Shorts | ACTIVE | 21 |  | Match each variant price to its supplier cost or set an adequate US price override; keep US activation withheld meanwhile. |
-| Breezy Everyday Pants | ACTIVE | 28 |  | Match each variant price to its supplier cost or set an adequate US price override; keep US activation withheld meanwhile. |
-| Men's High-Neck Knit Sweater | ACTIVE | 54 |  | Match each variant price to its supplier cost or set an adequate US price override; keep US activation withheld meanwhile. |
-| Long-Sleeve Performance Tee | ACTIVE | 35 |  | Match each variant price to its supplier cost or set an adequate US price override; keep US activation withheld meanwhile. |
+| Breezy Everyday Pants | ACTIVE | 28 |  | Resolve the Managed Markets/storefront availability blocker, then verify live US product visibility and checkout delivery. |
+| Men's High-Neck Knit Sweater | ACTIVE | 54 |  | Resolve the Managed Markets/storefront availability blocker, then verify live US product visibility and checkout delivery. |
+| Long-Sleeve Performance Tee | ACTIVE | 35 |  | Resolve the Managed Markets/storefront availability blocker, then verify live US product visibility and checkout delivery. |
 
 ### H1_RISK_HOLD
 

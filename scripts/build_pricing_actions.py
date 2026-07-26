@@ -171,6 +171,21 @@ def main() -> None:
             'formula': '(supplier_cost + shipping + 0.30) / 0.52535',
         })
 
+    catalog_path = docs / f'storewide-us-catalog-price-validation-{args.date}.csv'
+    if catalog_path.exists():
+        catalog_reviews = {r['handle']: r for r in read_csv(catalog_path)}
+        for row in rows:
+            review = catalog_reviews.get(row['handle'])
+            if row['disposition'] == 'ACTIVE_US_PRICE_VALIDATION_REQUIRED' and review and review['verdict'].startswith('PASS_'):
+                row['current_storefront_price'] = review['observed_us_price_range']
+                row['price_change'] = '0.00'
+                row['price_action_required'] = 'no'
+                row['disposition'] = (
+                    'ACTIVE_US_FIXED_OVERRIDE_VALIDATED'
+                    if review['verdict'] == 'PASS_FIXED_US_PRICE_OVERRIDE'
+                    else 'ACTIVE_US_PRICE_VALIDATED'
+                )
+
     rows.sort(key=lambda r: (r['country'], r['product_title'].lower(), r['variant_title'].lower()))
     write_csv(docs / f'storewide-pricing-actions-{args.date}.csv', rows)
     write_markdown(docs / f'storewide-pricing-actions-{args.date}.md', rows, args.date)
