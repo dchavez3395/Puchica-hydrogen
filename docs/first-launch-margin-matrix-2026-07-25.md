@@ -26,7 +26,7 @@ Formula: `shipping budget = (listed price x 0.95 x 0.85 x 0.765) - CA$0.30 - hig
 | Compact Bicycle Bell | CA$6.50-9.49 | CA$3.79 | -CA$0.07 to CA$1.77 | Add-on only; not viable as a standalone hero product at these prices. |
 | Long-Handle Silicone Bottle Brush | CA$3.66-6.72 | CA$2.71 | -CA$0.75 to CA$1.14 | Add-on only. It should not be independently launched without repricing or a bundle. |
 | Men's High-Neck Knit Sweater | CA$39.99 | CA$19.88 | CA$4.52 | Draft. DSers now reports `Variants (0)`; repair mapping before any quote or margin decision. |
-| Men's Cotton-Linen Wide-Leg Pants | CA$39.40 | CA$16.29 | CA$7.75 | Strongest apparel candidate on preliminary economics; still requires material, sizing, and Canadian delivery proof. |
+| Men's Cotton-Linen Wide-Leg Pants | CA$39.40 | CA$16.29 | CA$7.75 | Draft. Strong preliminary economics, but DSers currently reports `Variants (0)`; repair mapping before any quote or content decision. |
 | Men's Casual Sports Hoodie | CA$54.99 | CA$29.11 | CA$4.56 | Quote must be low; retain only if sizing/quality presentation is credible. |
 | Adjustable Raised Pet Bowl Set | CA$34.99 | CA$17.54 | CA$3.78 | Existing active product; low-stock and Canadian shipping validation are mandatory. |
 
@@ -69,6 +69,6 @@ The currently linked supplier page shows **free shipping to Canada** and an esti
 ## Immediate queue after quotes
 
 1. Repair the sweater and raised-pet-bowl mappings before requesting any more supplier quotes.
-2. Prioritize cotton-linen pants and the high-tier shower-shelf variants because they have the most workable preliminary shipping headroom.
+2. Once mapping is repaired, prioritize cotton-linen pants and the high-tier shower-shelf variants because they have the most workable preliminary shipping headroom.
 3. Treat lights, manicure, pet bottle, bell, and bottle brush as optional add-ons until their landed economics are verified.
 4. Keep the launch assortment at six to ten coherent products; do not mirror all 57 DSers mappings into Shopify.
