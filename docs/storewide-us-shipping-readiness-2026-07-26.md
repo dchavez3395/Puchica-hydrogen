@@ -38,12 +38,15 @@ The following additional US supplier checks were completed:
 - `Breezy Everyday Pants`: five representative dark-grey and dark-blue size samples returned US$1.99 shipping in 8~13 days with tracking.
 - `Quick-Dry Training Shorts`: four representative black/blue size samples returned US$1.99 shipping in 7~13 days with tracking; the exact `XXXL / 61620lan` supplier SKU returned **No Shipping** to the United States.
 - `Everyday Fleece Joggers`: four representative navy/grey size samples returned US$1.99 shipping in 7~12 days with tracking; the sellable `3XL / Navy` supplier SKU returned **No Shipping** to the United States.
+- `Long-Sleeve Performance Tee`: four representative grey/black-green size samples returned US$1.99 shipping in 9~14 days with tracking; the no-shipping `XXXL / Light Gray` SKU was already disabled with zero inventory.
+- `Men's Cotton-Linen Wide-Leg Pants`: five representative samples across both visible style groups returned US$1.99 shipping in 7~14 days with tracking.
+- `Men's High-Neck Knit Sweater`: four representative dark-grey/beige size samples returned US$1.99 shipping in 9~14 days with tracking; the no-shipping `S / Dark Grey` SKU was already disabled with zero inventory.
 
-Nine products have fully passing sampled shipping sets. `Quick-Dry Training Shorts` is also U.S.-eligible because its only observed no-shipping SKU is already disabled with zero inventory; all sampled sellable groups passed. Passing rows remain pending U.S. storefront price and contribution validation after the Managed Markets conflict is resolved.
+Ten products have fully passing sampled shipping sets. `Quick-Dry Training Shorts`, `Long-Sleeve Performance Tee`, and `Men's High-Neck Knit Sweater` are also U.S.-eligible because each observed no-shipping SKU is already disabled with zero inventory; all sampled sellable groups passed. Passing rows remain pending U.S. storefront price and contribution validation after the Managed Markets conflict is resolved.
 
 `Precision Nail Clippers` was removed from the dedicated US publication (`gid://shopify/Publication/215035183354`) on 2026-07-26. `Multi-Use Organizer Hooks` was also excluded from `Puchica US Catalog` because Shopify catalog inclusion is product-level and its black variant cannot ship to the United States. The mixed-shipping `Everyday Zip Hoodie` was subsequently excluded for the same product-level reason. `Quick-Dry Training Shorts` remains included because its failed `XXXL / 61620lan` variant is already unavailable for sale with zero inventory. Everyday Fleece Joggers was also excluded because its failing 3XL / Navy variant remains sellable in Canada. Shopify Admin verification shows the U.S. catalog has 61 included products; Precision Nail Clippers, Multi-Use Organizer Hooks, Everyday Zip Hoodie, and Everyday Fleece Joggers are absent from the Included view. Their viable Canadian listings remain unchanged.
 
-Current U.S. quote evidence covers 169 mapped variant rows across 14 products: 163 shipping passes (including representative-sample rows) and 6 no-shipping failures.
+All 17 active launch products now have U.S. quote evidence. The worksheet covers all 358 active launch variant rows: 350 shipping passes (including representative-sample rows) and 8 exact no-shipping failures. Thirteen products have a sellable U.S. variant set; four remain excluded at product level because a no-shipping variant is still sellable in Canada.
 
 ## Product approval rule
 

@@ -4,9 +4,9 @@ This board turns the Shopify Admin product gate into the order of operations for
 
 ## Current board
 
-- B1_QUOTE_QUICK_WINS: 9
-- B2_QUOTE_HIGH_VARIANT: 8
+- A3_US_MARKET_EXCLUDED: 4
 - C1_DRAFT_REVIEW_BATCH: 17
+- D1_US_MARGIN_PENDING: 13
 - H1_RISK_HOLD: 25
 - H2_MAPPING_REPAIR: 5
 - H3_REPRICE_OR_REJECT: 2
@@ -17,6 +17,10 @@ These are the live-store controls to handle before promotion or ad spend.
 
 | product | status | decision | reason | action |
 | --- | --- | --- | --- | --- |
+| Precision Nail Clippers | ACTIVE | US_QUOTE_COMPLETE_US_EXCLUDED | 1 sellable variant(s) cannot ship to the US; keep the product excluded from the US catalog while preserving Canada. | Replace or separate the failing supplier variant before restoring this product to the US catalog. |
+| Everyday Fleece Joggers | ACTIVE | US_QUOTE_COMPLETE_US_EXCLUDED | 1 sellable variant(s) cannot ship to the US; keep the product excluded from the US catalog while preserving Canada. | Replace or separate the failing supplier variant before restoring this product to the US catalog. |
+| Multi-Use Organizer Hooks | ACTIVE | US_QUOTE_COMPLETE_US_EXCLUDED | 1 sellable variant(s) cannot ship to the US; keep the product excluded from the US catalog while preserving Canada. | Replace or separate the failing supplier variant before restoring this product to the US catalog. |
+| Everyday Zip Hoodie | ACTIVE | US_QUOTE_COMPLETE_US_EXCLUDED | 1 sellable variant(s) cannot ship to the US; keep the product excluded from the US catalog while preserving Canada. | Replace or separate the failing supplier variant before restoring this product to the US catalog. |
 
 ## Quote batches
 
@@ -26,33 +30,34 @@ For each quoted product, record separate exact DSers/AliExpress Canada and US it
 
 | product | variants | cap | risk | action |
 | --- | --- | --- | --- | --- |
-| Travel Pet Water Bottle | 3 | 5.08 |  | Quote exact Canada and US delivery; approve only if both destinations pass. |
-| Everyday Carabiner Clip Set | 2 | 4.52 |  | Quote exact Canada and US delivery; approve only if both destinations pass. |
-| Car Sun Visor Organizer | 3 | 4.34 |  | Quote exact Canada and US delivery; approve only if both destinations pass. |
-| Adjustable Rhinestone Ring | 2 | 4.07 |  | Quote exact Canada and US delivery; approve only if both destinations pass. |
-| Compact Bicycle Bell | 6 | 3.77 |  | Quote exact Canada and US delivery; approve only if both destinations pass. |
-| Long-Handle Bottle Brush | 2 | 3.31 |  | Quote exact Canada and US delivery; approve only if both destinations pass. |
-| Everyday Polarized Sunglasses | 3 | 3.29 |  | Quote exact Canada and US delivery; approve only if both destinations pass. |
-| Precision Nail Clippers | 2 | 3.27 | hygiene_beauty | Quote exact Canada and US delivery; approve only if both destinations pass. |
-| Multi-Use Organizer Hooks | 4 | 3.14 |  | Quote exact Canada and US delivery; approve only if both destinations pass. |
 
 ### B2_QUOTE_HIGH_VARIANT
 
 | product | variants | cap | risk | action |
 | --- | --- | --- | --- | --- |
-| Men's Cotton-Linen Wide-Leg Pants | 100 | 4.14 |  | Quote worst-margin and top-selling option groups; reduce option complexity if needed. |
-| Everyday Performance Shorts | 21 | 4.00 |  | Quote worst-margin and top-selling option groups; reduce option complexity if needed. |
-| Everyday Fleece Joggers | 21 | 3.24 |  | Quote worst-margin and top-selling option groups; reduce option complexity if needed. |
-| Quick-Dry Training Shorts | 54 | 3.14 |  | Quote worst-margin and top-selling option groups; reduce option complexity if needed. |
-| Everyday Zip Hoodie | 18 | 3.12 |  | Quote worst-margin and top-selling option groups; reduce option complexity if needed. |
-| Breezy Everyday Pants | 28 | 3.10 |  | Quote worst-margin and top-selling option groups; reduce option complexity if needed. |
-| Men's High-Neck Knit Sweater | 54 | 3.07 |  | Quote worst-margin and top-selling option groups; reduce option complexity if needed. |
-| Long-Sleeve Performance Tee | 35 | 3.03 |  | Quote worst-margin and top-selling option groups; reduce option complexity if needed. |
 
 ### B3_QUOTE_TIGHT_MARGIN
 
 | product | variants | cap | risk | action |
 | --- | --- | --- | --- | --- |
+
+## US margin and storefront validation
+
+| product | variants | decision | action |
+| --- | --- | --- | --- |
+| Travel Pet Water Bottle | 3 | US_QUOTE_COMPLETE_MARGIN_PENDING | Validate USD storefront price, landed contribution, checkout delivery, and live US availability. |
+| Everyday Carabiner Clip Set | 2 | US_QUOTE_COMPLETE_MARGIN_PENDING | Validate USD storefront price, landed contribution, checkout delivery, and live US availability. |
+| Car Sun Visor Organizer | 3 | US_QUOTE_COMPLETE_MARGIN_PENDING | Validate USD storefront price, landed contribution, checkout delivery, and live US availability. |
+| Men's Cotton-Linen Wide-Leg Pants | 100 | US_QUOTE_COMPLETE_MARGIN_PENDING | Validate USD storefront price, landed contribution, checkout delivery, and live US availability. |
+| Adjustable Rhinestone Ring | 2 | US_QUOTE_COMPLETE_MARGIN_PENDING | Validate USD storefront price, landed contribution, checkout delivery, and live US availability. |
+| Everyday Performance Shorts | 21 | US_QUOTE_COMPLETE_MARGIN_PENDING | Validate USD storefront price, landed contribution, checkout delivery, and live US availability. |
+| Compact Bicycle Bell | 6 | US_QUOTE_COMPLETE_MARGIN_PENDING | Validate USD storefront price, landed contribution, checkout delivery, and live US availability. |
+| Long-Handle Bottle Brush | 2 | US_QUOTE_COMPLETE_MARGIN_PENDING | Validate USD storefront price, landed contribution, checkout delivery, and live US availability. |
+| Everyday Polarized Sunglasses | 3 | US_QUOTE_COMPLETE_MARGIN_PENDING | Validate USD storefront price, landed contribution, checkout delivery, and live US availability. |
+| Quick-Dry Training Shorts | 54 | US_QUOTE_COMPLETE_MARGIN_PENDING | Validate USD storefront price, landed contribution, checkout delivery, and live US availability. |
+| Breezy Everyday Pants | 28 | US_QUOTE_COMPLETE_MARGIN_PENDING | Validate USD storefront price, landed contribution, checkout delivery, and live US availability. |
+| Men's High-Neck Knit Sweater | 54 | US_QUOTE_COMPLETE_MARGIN_PENDING | Validate USD storefront price, landed contribution, checkout delivery, and live US availability. |
+| Long-Sleeve Performance Tee | 35 | US_QUOTE_COMPLETE_MARGIN_PENDING | Validate USD storefront price, landed contribution, checkout delivery, and live US availability. |
 
 ## Drafts and holds
 

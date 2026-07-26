@@ -10,6 +10,34 @@ from pathlib import Path
 LIVE_QUOTE_DECISIONS = {'LIVE_QUOTE_REQUIRED', 'LIVE_QUOTE_AND_CONTENT_REVIEW'}
 
 
+def us_quote_summary(rows: list[dict]) -> dict[str, dict[str, int]]:
+    summary: dict[str, dict[str, int]] = {}
+    for row in rows:
+        if row.get('status') != 'ACTIVE' or row.get('launch_tag') != 'yes':
+            continue
+        product = row['product_title']
+        item = summary.setdefault(product, {
+            'rows': 0,
+            'quoted': 0,
+            'failures': 0,
+            'sellable_failures': 0,
+        })
+        item['rows'] += 1
+        result = row.get('us_quote_result', '')
+        if result:
+            item['quoted'] += 1
+        if result.startswith('FAIL'):
+            item['failures'] += 1
+            available = row.get('available_for_sale', '').lower() == 'true'
+            try:
+                inventory = int(row.get('inventory_quantity', '0'))
+            except ValueError:
+                inventory = 0
+            if available and inventory > 0:
+                item['sellable_failures'] += 1
+    return summary
+
+
 def money_key(value: str) -> float:
     try:
         return float(value)
@@ -130,6 +158,18 @@ def write_markdown(path: Path, rows: list[dict], run_date: str) -> None:
         lines.append('')
 
     lines.extend([
+        '## US margin and storefront validation',
+        '',
+    ])
+    lines.extend(table(grouped.get('D1_US_MARGIN_PENDING', []), [
+        ('product', 'title'),
+        ('variants', 'variant_count'),
+        ('decision', 'decision'),
+        ('action', 'operator_next_action'),
+    ]))
+    lines.append('')
+
+    lines.extend([
         '## Drafts and holds',
         '',
     ])
@@ -167,6 +207,8 @@ def main() -> None:
     docs_dir = Path(args.docs_dir)
     gate_path = docs_dir / f'storewide-product-gate-{args.date}.csv'
     rows = read_csv(gate_path)
+    quote_path = docs_dir / f'storewide-variant-quote-worksheet-{args.date}.csv'
+    quote_summary = us_quote_summary(read_csv(quote_path)) if quote_path.exists() else {}
 
     out_rows = []
     for row in rows:
@@ -199,6 +241,33 @@ def main() -> None:
             'work_reason': reason,
             'operator_next_action': operator_action,
         }
+        us = quote_summary.get(row['title'])
+        if row['active_launch_gate'] == 'yes' and us and us['quoted'] == us['rows']:
+            if us['sellable_failures']:
+                out.update({
+                    'priority': 3,
+                    'workstream': 'A3_US_MARKET_EXCLUDED',
+                    'decision': 'US_QUOTE_COMPLETE_US_EXCLUDED',
+                    'work_reason': (
+                        f"{us['sellable_failures']} sellable variant(s) cannot ship to the US; "
+                        'keep the product excluded from the US catalog while preserving Canada.'
+                    ),
+                    'operator_next_action': (
+                        'Replace or separate the failing supplier variant before restoring this product to the US catalog.'
+                    ),
+                })
+            else:
+                out.update({
+                    'priority': 40,
+                    'workstream': 'D1_US_MARGIN_PENDING',
+                    'decision': 'US_QUOTE_COMPLETE_MARGIN_PENDING',
+                    'work_reason': (
+                        'Canada and US supplier quote evidence is complete for the sellable variant set.'
+                    ),
+                    'operator_next_action': (
+                        'Validate USD storefront price, landed contribution, checkout delivery, and live US availability.'
+                    ),
+                })
         out_rows.append(out)
 
     out_rows.sort(key=lambda r: (
