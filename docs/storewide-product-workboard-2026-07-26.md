@@ -5,12 +5,12 @@ This board turns the Shopify Admin product gate into the order of operations for
 ## Current board
 
 - B1_QUOTE_QUICK_WINS: 9
-- B2_QUOTE_HIGH_VARIANT: 4
+- B2_QUOTE_HIGH_VARIANT: 5
 - C1_DRAFT_REVIEW_BATCH: 18
 - H1_RISK_HOLD: 25
 - H2_MAPPING_REPAIR: 5
 - H3_REPRICE_OR_REJECT: 2
-- Z_REVIEW_MANUALLY: 3
+- Z_REVIEW_MANUALLY: 2
 
 ## Do first
 
@@ -45,6 +45,7 @@ For each quoted product, record exact DSers/AliExpress Canada item cost, shippin
 | Everyday Performance Shorts | 21 | 4.00 |  | Quote worst-margin and top-selling option groups; reduce option complexity if needed. |
 | Everyday Fleece Joggers | 21 | 3.24 |  | Quote worst-margin and top-selling option groups; reduce option complexity if needed. |
 | Everyday Zip Hoodie | 18 | 3.12 |  | Quote worst-margin and top-selling option groups; reduce option complexity if needed. |
+| Breezy Everyday Pants | 28 | 3.10 |  | Quote worst-margin and top-selling option groups; reduce option complexity if needed. |
 
 ### B3_QUOTE_TIGHT_MARGIN
 
@@ -127,7 +128,6 @@ For each quoted product, record exact DSers/AliExpress Canada item cost, shippin
 
 | product | status | variants | issue | action |
 | --- | --- | --- | --- | --- |
-| Breezy Everyday Pants | ACTIVE | 28 |  | Check status, launch tag, and collection visibility. |
 | Long-Sleeve Performance Tee | ACTIVE | 35 |  | Check status, launch tag, and collection visibility. |
 | Men's High-Neck Knit Sweater | ACTIVE | 54 |  | Check status, launch tag, and collection visibility. |
 

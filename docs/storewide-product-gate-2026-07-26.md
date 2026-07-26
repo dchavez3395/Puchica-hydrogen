@@ -6,7 +6,7 @@ Read-only Shopify Admin snapshot. This is an operating ledger, not a launch appr
 
 - Products audited: 66
 - Variants audited: 933
-- Active launch-gated products: 13
+- Active launch-gated products: 14
 
 ### By Shopify status
 
@@ -20,8 +20,8 @@ Read-only Shopify Admin snapshot. This is an operating ledger, not a launch appr
 - HOLD_MAPPING_REQUIRED: 5
 - HOLD_REPRICE_OR_REJECT: 2
 - HOLD_RISK_REVIEW: 25
-- LIVE_QUOTE_REQUIRED: 13
-- REVIEW_VISIBILITY_AND_TAGS: 3
+- LIVE_QUOTE_REQUIRED: 14
+- REVIEW_VISIBILITY_AND_TAGS: 2
 
 ## Quote-first queue
 
@@ -29,6 +29,7 @@ Read-only Shopify Admin snapshot. This is an operating ledger, not a launch appr
 | --- | ---: | ---: | --- |
 | Precision Nail Clippers | 2 | 3.27 | Approved with Blue disabled for no Canada shipping; monitor Red single inventory (2 units). |
 | Adjustable Rhinestone Ring | 2 | 4.07 | Capture exact Canada DSers quote; approve, reprice, or remove launch tag. |
+| Breezy Everyday Pants | 28 | 3.10 | Approved after repricing three variants and disabling 4XL / 709-shenhui for no Canada shipping; monitor tight-margin and low-stock variants. |
 | Car Sun Visor Organizer | 3 | 4.34 | Capture exact Canada DSers quote; approve, reprice, or remove launch tag. |
 | Compact Bicycle Bell | 6 | 3.77 | Capture exact Canada DSers quote; approve, reprice, or remove launch tag. |
 | Everyday Carabiner Clip Set | 2 | 4.52 | Capture exact Canada DSers quote; approve, reprice, or remove launch tag. |
