@@ -31,11 +31,11 @@ export function HeroSplit({categories = []}) {
               {t('hero_split_cta_secondary')}
             </Link>
             <Link
-              to="/collections/best-sellers"
+              to="#launch-picks"
               prefetch="viewport"
               className="pk-btn pk-btn--outline"
             >
-              {t('nav_best_sellers')}
+              {t('best_sellers_heading')}
             </Link>
           </div>
 

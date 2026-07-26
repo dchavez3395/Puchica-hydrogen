@@ -351,11 +351,9 @@ export const HOME_BEST_SELLERS_QUERY = `#graphql
     $country: CountryCode!
     $language: LanguageCode!
   ) @inContext(country: $country, language: $language) {
-    # The "best-sellers" collection is empty in this store, so we
-    # pull from the top-level products connection sorted by
-    # BEST_SELLING. This gives us the actual top sellers across
-    # all collections instead of an empty rail.
-    bestSellers: products(first: 8, sortKey: BEST_SELLING) {
+    # Pull the verified launch catalog; the loader selects and orders the
+    # focused hero set by stable product ID.
+    bestSellers: products(first: 100, query: "tag:puchica-launch-ready") {
       nodes { ...HomeProduct }
     }
   }

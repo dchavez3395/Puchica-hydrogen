@@ -4,8 +4,8 @@ import {useT} from '~/lib/t';
 
 /**
  * Eyebrow + h2 + "See all →" + 4-up <ProductItem> grid.
- * Best-sellers come from the `best-sellers` collection sorted
- * by BEST_SELLING. The grid stays at 4 across on desktop, 2 across
+ * Launch picks are explicitly merchandised while the store is too new for
+ * sales-based ranking. The grid stays at 4 across on desktop, 2 across
  * on mobile — same layout the rest of the storefront uses.
  *
  * @param {{ products: Array<object> }}
@@ -18,6 +18,7 @@ export function BestSellers({products = []}) {
 
   return (
     <section
+      id="launch-picks"
       className="pk-section pk-section--best-sellers"
       aria-label={t('best_sellers_aria')}
     >
@@ -28,7 +29,7 @@ export function BestSellers({products = []}) {
             <h2 className="pk-section__h">{t('best_sellers_heading')}</h2>
           </div>
           <Link
-            to="/collections/best-sellers"
+            to="/collections/all"
             prefetch="intent"
             className="pk-section__see-all"
           >

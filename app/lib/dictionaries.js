@@ -1065,7 +1065,7 @@ export const DICTIONARIES = {
     hero_split_aria: 'Hero',
     hero_split_eyebrow: 'Puchica Store',
     hero_split_heading: 'What are you shopping for today?',
-    hero_split_body: 'Search the store or start with a department. New deals, best sellers, and everyday essentials are all one click away.',
+    hero_split_body: 'Start with a short list of useful everyday problem-solvers, selected for clear value and verified Canada and US delivery.',
     hero_store_toolbar_heading: 'Shop Puchica',
     hero_split_cta_primary: 'Shop best sellers',
     hero_split_cta_secondary: 'Browse all',
@@ -1086,10 +1086,10 @@ export const DICTIONARIES = {
     shop_by_category_heading: 'Shop by department',
     shop_by_category_shop_cta: 'Shop',
 
-    best_sellers_aria: 'Best sellers',
-    best_sellers_eyebrow: 'Most loved',
-    best_sellers_heading: 'Best sellers this week',
-    best_sellers_see_all: 'See all',
+    best_sellers_aria: 'Puchica launch picks',
+    best_sellers_eyebrow: 'A focused place to start',
+    best_sellers_heading: 'Puchica launch picks',
+    best_sellers_see_all: 'Browse all verified products',
 
     lifestyle_banner_aria: 'Lifestyle',
     lifestyle_banner_eyebrow: 'Slow living',

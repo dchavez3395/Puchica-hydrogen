@@ -13,6 +13,19 @@ import {TodayDeals} from '~/sections/today-deals/today-deals';
 import {NewArrivals} from '~/sections/new-arrivals/new-arrivals';
 import {SportsOutdoors} from '~/sections/sports-outdoors/sports-outdoors';
 import {filterLaunchProducts, isLaunchReadyProduct} from '~/lib/launch-catalog';
+const LAUNCH_HERO_PRODUCT_IDS = [
+  'gid://shopify/Product/9326920433914', // Travel Pet Water Bottle
+  'gid://shopify/Product/9326918271226', // Car Sun Visor Organizer
+  'gid://shopify/Product/9326917419258', // Long-Handle Bottle Brush
+  'gid://shopify/Product/9326917452026', // Multi-Use Organizer Hooks
+  'gid://shopify/Product/9326919418106', // Everyday Carabiner Clip Set
+];
+
+function selectLaunchHeroes(products) {
+  const byId = new Map(products.map((product) => [product.id, product]));
+  return LAUNCH_HERO_PRODUCT_IDS.map((id) => byId.get(id)).filter(Boolean);
+}
+
 import {
   HOME_BEST_SELLERS_QUERY,
   HOME_NEW_ARRIVALS_QUERY,
@@ -73,7 +86,9 @@ function loadDeferredData({context}) {
 
   const bestSellers = context.storefront
     .query(HOME_BEST_SELLERS_QUERY, catalogQueryOptions)
-    .then((res) => onlySellable(unwrapProducts('bestSellers')(res)))
+    .then((res) =>
+      selectLaunchHeroes(onlySellable(unwrapProducts('bestSellers')(res))),
+    )
     .catch((e) => {
       logError('home best-sellers query failed', e);
       return [];
