@@ -32,6 +32,7 @@ export default [
       '**/*.generated.d.ts',
       '**/.react-router/',
       '**/packages/hydrogen/dist/',
+      '.tmp-radiant-theme/',
       '.agents/',
       'env.d.ts',
       '**/scripts/',
@@ -236,6 +237,13 @@ export default [
   ...compat.extends('plugin:jest/recommended').map((config) => ({
     ...config,
     files: ['**/*.test.*'],
+    settings: {
+      ...config.settings,
+      // This storefront uses the Jest lint rules for test syntax without
+      // installing Jest itself. Pin the rule semantics so ESLint does not
+      // attempt package-version auto-detection.
+      jest: {version: 29},
+    },
   })),
   {
     files: ['**/*.test.*'],
