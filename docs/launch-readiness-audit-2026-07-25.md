@@ -4,12 +4,12 @@
 
 - Shopify catalog: 66 products total; **0 active**, 65 draft, and 1 archived. The customer-facing catalog is intentionally paused while fulfillment records are repaired.
 - DSers: 57 AliExpress products appear in the connected store view, but direct checks of both the sweater and cotton-linen pants currently show `Variants (0)` in their DSers detail records. Treat this as a catalogue-wide mapping-repair blocker, not proof that any product is fulfilment-ready.
-- Orders: one paid, unfulfilled test order remains. Do not place or fulfill another supplier order until its DSers path, cost, shipping, and tracking handoff are confirmed.
+- Orders: Shopify test order **#1001** (CA$13.85) was paid through PayPal, then staff-cancelled on 2026-07-15. It was never fulfilled or tracked. Two CA$13.85 PayPal refund attempts are recorded as failed, so payment/refund resolution needs owner review before another test is run.
 - Storefront: the Hydrogen launch allowlist is intentionally empty. The loss-making cotton T-shirt, the safety/delivery-unreviewed drone and RC construction set, the pet bowl with stale supplier options, and the sweater with no DSers variant mappings were moved to Draft; their Shopify and DSers records remain intact.
 
 ## Current release blockers
 
-1. **Fulfillment proof**: reconcile the paid DSers test order and confirm supplier charge, Canadian shipping method, tracking sync, and customer-notification path before adding traffic.
+1. **Payment + fulfillment proof**: resolve or verify the failed refunds on cancelled Shopify test order #1001, then run a controlled non-customer test that confirms supplier charge, Canadian shipping method, tracking sync, and customer-notification path before adding traffic.
 2. **DSers mapping repair**: direct checks of the sweater and cotton-linen pants both report `Variants (0)` despite displaying cost ranges. Rebuild and save exact variant maps across the prospective launch queue before treating displayed prices, stock, or fulfilment paths as real.
 3. **Exact Canada supplier quote**: obtain an exact selected-variant Canadian supplier-shipping quote, delivery window, and tracking check only after each product's DSers mapping is confirmed.
 4. **Apparel return readiness**: verify the sweater's size chart, material, garment measurements, and care instructions against the supplier listing before promoting it.
