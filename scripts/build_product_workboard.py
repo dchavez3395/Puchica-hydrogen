@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 """Create a storewide product operating board from the launch gate CSV."""
 from __future__ import annotations
 
@@ -178,7 +178,7 @@ def write_markdown(path: Path, rows: list[dict], run_date: str) -> None:
         '## Drafts and holds',
         '',
     ])
-    for stream in ('C1_DRAFT_REVIEW_BATCH', 'C2_DRAFT_REPRICE_CONTENT_REVIEW', 'C3_DRAFT_CONTENT_REVIEW', 'C4_DRAFT_US_ONLY_REVIEW', 'C5_DRAFT_US_READY_MARKET_BLOCKED', 'D2_US_PRICE_PASSES_MARKET_BLOCKED', 'D3_US_VARIANT_PRICE_MAPPING_REQUIRED', 'H1_RISK_HOLD', 'H4_DRAFT_CANADA_FAIL_EXCLUDED', 'H2_MAPPING_REPAIR', 'H2_CONFIRMED_UNMAPPED', 'H3_REPRICE_OR_REJECT', 'H3_PRICING_DEFINED_QUOTE_PENDING', 'Z_REVIEW_MANUALLY'):
+    for stream in ('C1_DRAFT_REVIEW_BATCH', 'C2_DRAFT_REPRICE_CONTENT_REVIEW', 'C3_DRAFT_CONTENT_REVIEW', 'C4_DRAFT_US_ONLY_REVIEW', 'C5_DRAFT_US_READY_MARKET_BLOCKED', 'C6_DRAFT_REMEDIATED_REVIEW', 'D2_US_PRICE_PASSES_MARKET_BLOCKED', 'D3_US_VARIANT_PRICE_MAPPING_REQUIRED', 'H1_RISK_HOLD', 'H4_DRAFT_CANADA_FAIL_EXCLUDED', 'H2_MAPPING_REPAIR', 'H2_CONFIRMED_UNMAPPED', 'H3_REPRICE_OR_REJECT', 'H3_PRICING_DEFINED_QUOTE_PENDING', 'Z_REVIEW_MANUALLY'):
         batch = grouped.get(stream, [])
         if not batch:
             continue
@@ -237,6 +237,12 @@ def main() -> None:
     us_readiness_reviews = (
         {row['handle']: row for row in read_csv(us_readiness_path)}
         if us_readiness_path.exists()
+        else {}
+    )
+    remediation_path = docs_dir / f'storewide-draft-remediation-{args.date}.csv'
+    remediation_reviews = (
+        {row['handle']: row for row in read_csv(remediation_path)}
+        if remediation_path.exists()
         else {}
     )
 
@@ -551,6 +557,21 @@ def main() -> None:
                 'decision': 'REJECT_CONTENT_COMPLIANCE',
                 'work_reason': review['reason'],
                 'operator_next_action': review['required_evidence'],
+            })
+        remediation = remediation_reviews.get(row['handle'])
+        if (
+            remediation
+            and remediation['pricing_verified'] == 'yes'
+            and remediation['content_ready'] == 'yes'
+            and remediation['taxonomy_ready'] == 'yes'
+        ):
+            out.update({
+                'priority': 49,
+                'workstream': 'C6_DRAFT_REMEDIATED_REVIEW',
+                'title': remediation['live_title'],
+                'decision': 'DRAFT_PRICE_CONTENT_TAXONOMY_VERIFIED',
+                'work_reason': remediation['remaining_gate'],
+                'operator_next_action': remediation['next_action'],
             })
         mapping_review = mapping_reviews.get(row['handle'])
         if mapping_review and mapping_review['disposition'] == 'CONFIRMED_UNMAPPED_KEEP_EXCLUDED':

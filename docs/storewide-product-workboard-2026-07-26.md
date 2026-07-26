@@ -5,12 +5,12 @@ This board turns the Shopify Admin product gate into the order of operations for
 ## Current board
 
 - A3_US_MARKET_EXCLUDED: 4
-- C2_DRAFT_REPRICE_CONTENT_REVIEW: 7
+- C2_DRAFT_REPRICE_CONTENT_REVIEW: 1
 - C5_DRAFT_US_READY_MARKET_BLOCKED: 3
+- C6_DRAFT_REMEDIATED_REVIEW: 8
 - D2_US_PRICE_PASSES_MARKET_BLOCKED: 14
 - H1_RISK_HOLD: 22
 - H2_CONFIRMED_UNMAPPED: 5
-- H3_REPRICE_OR_REJECT: 2
 - H4_DRAFT_CANADA_FAIL_EXCLUDED: 5
 - H5_CONFIRMED_CONTENT_COMPLIANCE_REJECT: 4
 
@@ -56,12 +56,6 @@ For each quoted product, record separate exact DSers/AliExpress Canada and US it
 | product | status | variants | issue | action |
 | --- | --- | --- | --- | --- |
 | New Girl Dresses Princess Costume Kids Mermaid Cosplay Costume Kids Carnival Birthday Party Prom Costume Party Dresses For girls | DRAFT | 20 | child_apparel | Quote Canada and US; verify textile composition, sizing, flammability/labeling evidence, and remove ambiguous cosplay claims before activation. |
-| Windproof Infant Stroller Gloves Children's Outdoor Sports Mittens Cartoon Printed Hands Warmer Scooter Accessory for Winter | DRAFT | 4 | child_apparel | Quote Canada and US; verify material, sizing, attachment design, warnings, and textile labeling before activation. |
-| 300/280/200/100Pcs Washer Copper Sealing Solid Gasket Washer Sump Plug Oil For Boat Crush Flat Seal Ring Tool | DRAFT | 4 |  | Quote Canada and US, verify material/dimensions and fitment copy, then apply the normal margin gate. |
-| Thermal Underwear Tops Men Winter Clothes Thermal Shirt Autumn Men's Winter Tights High Neck Thin Slim Fit Long Sleeve T-shirt | DRAFT | 42 | adult_apparel | Quote Canada and US; before activation verify fiber content, size chart, care, origin, textile labeling, and remove unsupported thermal-performance wording. |
-| Summer Men's Shorts Cool Sportswear Running Sport Shorts Casual Bottoms Gym Fitness Training Jogging Short Pants Men Black Gray | DRAFT | 72 | adult_apparel | Quote Canada and US; before activation verify fiber content, size chart, care, origin, textile labeling, and remove unsupported cooling/performance claims. |
-| Summer Spring Candy Color Kids Pantyhose Ballet Dance Tights for Girls Stocking Children Velvet Solid White Pantyhose | DRAFT | 39 | child_apparel | Quote Canada and US; before activation verify fiber content, sizing, care, origin, and applicable children's textile labeling. |
-| Kids Toddler Foot Measure Gauge Shoes Size Measuring Ruler Tool Baby Boy Girl Children's Foot Length Measuring Ruler Fittings | DRAFT | 5 | child_content | Quote Canada and US, verify measurement scale/accuracy and age-appropriate copy, then apply the normal margin gate. |
 
 ### C5_DRAFT_US_READY_MARKET_BLOCKED
 
@@ -70,6 +64,19 @@ For each quoted product, record separate exact DSers/AliExpress Canada and US it
 | Quartz Watch, Bracelet & Necklace Set | DRAFT | 5 |  | Keep Draft until the Managed Markets US checkout blocker is resolved; then verify live US-only visibility and delivery before activation. |
 | Stainless-Steel Quartz Watch & Bracelet | DRAFT | 4 |  | Keep Draft until the Managed Markets US checkout blocker is resolved; then verify live US-only visibility and delivery before activation. |
 | Digital Watch & Jewellery Gift Set | DRAFT | 4 | hygiene_beauty | Keep Draft until the Managed Markets US checkout blocker is resolved; then verify live US-only visibility and delivery before activation. |
+
+### C6_DRAFT_REMEDIATED_REVIEW
+
+| product | status | variants | issue | action |
+| --- | --- | --- | --- | --- |
+| Printed Children's Winter Mittens | DRAFT | 4 | child_apparel | Keep Draft; replace or separate C/E/F and complete children's textile/compliance review. |
+| Copper Washer Assortment | DRAFT | 4 |  | Keep Draft; replace or separate the 200-piece option and verify dimensions/material before activation. |
+| Men's High-Neck Base-Layer Top | DRAFT | 42 | adult_apparel | Keep Draft; replace or separate Coffee / 3L and verify textile specifications before activation. |
+| Men's Everyday Shorts | DRAFT | 72 | adult_apparel | Keep Draft; replace or separate the failing variant and verify textile specifications before activation. |
+| Children's Solid-Color Tights | DRAFT | 39 | child_apparel | Keep Draft; replace or separate the failing variant and complete children's textile/compliance review. |
+| Children's Foot Measuring Gauge | DRAFT | 5 | child_content | Keep Draft; replace or separate Blue and verify measurement accuracy before activation. |
+| Everyday Pullover Hoodie | DRAFT | 48 |  | Keep Draft until storefront and checkout validation pass; then decide activation. |
+| Everyday Crew-Neck T-Shirt | DRAFT | 18 |  | Keep Draft; replace or separate the no-Canada-shipping variant and verify textile facts before activation. |
 
 ### D2_US_PRICE_PASSES_MARKET_BLOCKED
 
@@ -136,13 +143,6 @@ For each quoted product, record separate exact DSers/AliExpress Canada and US it
 | 6-Piece Silicone Spatula Set | DRAFT | 1 |  | Keep Draft and excluded. Archive if unwanted, or deliberately import/map a verified supplier before quoting. |
 | Custom Neon Sign | DRAFT | 1 |  | Keep Draft and excluded. Archive if unwanted, or deliberately import/map a verified supplier before quoting. |
 | Portable Mini Bag Sealer — Handheld Heat Sealer | DRAFT | 1 |  | Keep Draft and excluded. Archive if unwanted, or deliberately import/map a verified supplier before quoting. |
-
-### H3_REPRICE_OR_REJECT
-
-| product | status | variants | issue | action |
-| --- | --- | --- | --- | --- |
-| Everyday Pullover Hoodie | DRAFT | 48 |  | Reprice, change variant/supplier, bundle, or reject before launch. |
-| Everyday 100% Cotton T-Shirt | DRAFT | 18 |  | Reprice, change variant/supplier, bundle, or reject before launch. |
 
 ## Completion rule
 

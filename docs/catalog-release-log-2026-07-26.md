@@ -17,6 +17,17 @@ The earlier 26-product baseline below records the state before the storewide des
 The same checkout returned `Shipping not available` after switching to a valid non-personal U.S. test destination. U.S. delivery therefore remains blocked by the documented Managed Markets/Global-e fulfillment-mode conflict.
 
 
+## Verified Draft remediation
+
+Eight quote-complete Draft products were remediated in Shopify without activation:
+
+- 196 variant prices were changed from verified Canada quote economics and 232 variants were re-read with zero price mismatches;
+- unsupported supplier, material, performance, warehouse, guarantee, and composition claims were removed;
+- customer-facing titles, descriptions, SEO, product types, and Shopify taxonomy were corrected; and
+- all eight products remained `DRAFT`.
+
+Nine individual Canada no-shipping variants across seven of the products still require supplier replacement or separation. Product-specific textile, measurement, dimensional, storefront, and checkout gates also remain. The authoritative record is `storewide-draft-remediation-2026-07-26.csv`; these products are remediated, not launch-approved.
+
 ## U.S.-only draft preparation
 
 Three Canada-failing products now have complete passing U.S. supplier quotes and customer-ready Shopify content/taxonomy, but remain `DRAFT` and untagged:
@@ -86,7 +97,7 @@ The 26 active products all have inventory tracking enabled and DSers-style optio
 
 ## Canada pre-shipping margin screen
 
-The first Canada supplier-optimizer check confirmed that DSers can return destination-specific supplier cost, shipping, delivery days, sale count, and reliability data for **Canada**. The sample supplier offers an 7–8 day Canada delivery estimate with US$1.99–2.15 shipping; that is the evidence standard for the rest of the audit.
+The first Canada supplier-optimizer check confirmed that DSers can return destination-specific supplier cost, shipping, delivery days, sale count, and reliability data for **Canada**. The sample supplier offers a 7–8 day Canada delivery estimate with US$1.99–2.15 shipping; that is the evidence standard for the rest of the audit.
 
 Shopify also stores a CAD unit cost for all 497 live variants. Using the customer price after `FIRST15`, less an estimated 2.9% payment fee and CA$0.30 fixed fee, **before shipping and taxes**, the worst variant of each product was screened as follows:
 

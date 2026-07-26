@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 """Build explicit Canada and US pricing actions from the product gate and quote ledger."""
 from __future__ import annotations
 
@@ -89,6 +89,20 @@ def main() -> None:
         'mens-casual-sports-hoodie-spring-autumn-fashion-solid-color-long-sleeved-pullover-with-arm-pocket-and-pull-rope-plus-size': 'VERIFIED_CANADA_DSERs_QUOTE',
         '100-pure-cotton-t-shirt-with-round-neck-shoulder-design-for-both-men-women-summer-solid-color-short-sleeved-casual-loose-fit': 'VERIFIED_CANADA_DSERs_QUOTE',
         '2024-mens-print-pants-autumn-winter-new-in-mens-clothing-trousers-sport-jogging-fitness-running-trousers-harajuku-streetwear': 'VERIFIED_CANADA_QUOTE',
+        'windproof-infant-stroller-gloves-childrens-outdoor-sports-mittens-cartoon-printed-hands-warmer-scooter-accessory-for-winter': 'VERIFIED_CANADA_DSERs_QUOTE',
+        'kids-toddler-foot-measure-gauge-shoes-size-measuring-ruler-tool-baby-boy-girl-childrens-foot-length-measuring-ruler-fittings': 'VERIFIED_CANADA_DSERs_QUOTE',
+        '300-280-200-100pcs-washer-copper-sealing-solid-gasket-washer-sump-plug-oil-for-boat-crush-flat-seal-ring-tool': 'VERIFIED_CANADA_DSERs_QUOTE',
+        'summer-spring-candy-color-kids-pantyhose-ballet-dance-tights-for-girls-stocking-children-velvet-solid-white-pantyhose': 'VERIFIED_CANADA_DSERs_QUOTE',
+        'thermal-underwear-tops-men-winter-clothes-thermal-shirt-autumn-mens-winter-tights-high-neck-thin-slim-fit-long-sleeve-t-shirt': 'VERIFIED_CANADA_DSERs_QUOTE',
+        'summer-mens-shorts-cool-sportswear-running-sport-shorts-casual-bottoms-gym-fitness-training-jogging-short-pants-men-black-gray': 'VERIFIED_CANADA_DSERs_QUOTE',
+    }
+    no_shipping_withhold_handles = {
+        'windproof-infant-stroller-gloves-childrens-outdoor-sports-mittens-cartoon-printed-hands-warmer-scooter-accessory-for-winter',
+        'kids-toddler-foot-measure-gauge-shoes-size-measuring-ruler-tool-baby-boy-girl-childrens-foot-length-measuring-ruler-fittings',
+        '300-280-200-100pcs-washer-copper-sealing-solid-gasket-washer-sump-plug-oil-for-boat-crush-flat-seal-ring-tool',
+        'summer-spring-candy-color-kids-pantyhose-ballet-dance-tights-for-girls-stocking-children-velvet-solid-white-pantyhose',
+        'thermal-underwear-tops-men-winter-clothes-thermal-shirt-autumn-mens-winter-tights-high-neck-thin-slim-fit-long-sleeve-t-shirt',
+        'summer-mens-shorts-cool-sportswear-running-sport-shorts-casual-bottoms-gym-fitness-training-jogging-short-pants-men-black-gray',
     }
     canada_fixed_group_prices = {
         '2024-mens-print-pants-autumn-winter-new-in-mens-clothing-trousers-sport-jogging-fitness-running-trousers-harajuku-streetwear': {
@@ -108,6 +122,19 @@ def main() -> None:
         original_price = Decimal(quote['price'])
         size = quote['variant_title'].split(' / ', 1)[0]
         current = canada_fixed_group_prices.get(handle, {}).get(size, original_price)
+        if handle in no_shipping_withhold_handles and quote['quote_result'] == 'FAIL_NO_SHIPPING':
+            rows.append({
+                'country': 'CA', 'product_title': quote['product_title'], 'handle': handle,
+                'variant_title': quote['variant_title'], 'sku': quote['sku'],
+                'current_storefront_price': q2(current), 'supplier_cost_basis': q2(cost),
+                'shipping_cost_basis': '', 'shipping_evidence': canada_targets[handle],
+                'minimum_price': '', 'recommended_action_price': q2(current),
+                'price_change': '0.00', 'price_action_required': 'no',
+                'quote_result': quote['quote_result'],
+                'disposition': 'DISABLE_CA_VARIANT_NO_SHIPPING',
+                'formula': '',
+            })
+            continue
         shipping = Decimal(quote['quote_shipping_cost']) if quote['quote_shipping_cost'] not in ('', 'NO_SHIPPING') else CANADA_SHIPPING_FLOOR
         floor = minimum_price(cost, shipping)
         action_required = current < floor
