@@ -34,6 +34,7 @@ This ledger converts verified cost and shipping evidence into minimum prices und
 | US | Everyday Performance Shorts | 1 | 0 | 34.99~34.99 | 34.99~34.99 | ACTIVE_US_FIXED_OVERRIDE_VALIDATED |
 | US | Everyday Polarized Sunglasses | 1 | 0 | 21.70~21.70 | 20.99~20.99 | ACTIVE_US_PRICE_VALIDATED |
 | US | Everyday Printed Joggers | 1 | 0 | 19.99~19.99 | 18.99~18.99 | ACTIVE_US_FIXED_OVERRIDE_VALIDATED |
+| US | Everyday Pullover Hoodie | 1 | 0 | 59.99~59.99 | 59.99~59.99 | ACTIVE_US_FIXED_OVERRIDE_VALIDATED |
 | US | Everyday Zip Hoodie | 1 | 0 | 34.99~34.99 | 34.99~34.99 | ACTIVE_US_FIXED_OVERRIDE_VALIDATED |
 | US | Long-Handle Bottle Brush | 1 | 0 | 8.68~8.68 | 7.99~7.99 | ACTIVE_US_PRICE_VALIDATED |
 | US | Long-Sleeve Performance Tee | 1 | 0 | 19.99~19.99 | 19.99~19.99 | ACTIVE_US_FIXED_OVERRIDE_VALIDATED |

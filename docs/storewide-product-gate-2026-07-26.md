@@ -6,20 +6,20 @@ Read-only Shopify Admin snapshot. This is an operating ledger, not a launch appr
 
 - Products audited: 66
 - Variants audited: 933
-- Active launch-gated products: 17
+- Active launch-gated products: 18
 
 ### By Shopify status
 
-- ACTIVE: 17
+- ACTIVE: 18
 - ARCHIVED: 1
-- DRAFT: 48
+- DRAFT: 47
 
 ### By gate decision
 
-- DRAFT_QUOTE_AND_CONTENT_REVIEW: 18
+- DRAFT_QUOTE_AND_CONTENT_REVIEW: 17
 - HOLD_MAPPING_REQUIRED: 5
 - HOLD_RISK_REVIEW: 26
-- LIVE_QUOTE_REQUIRED: 17
+- LIVE_QUOTE_REQUIRED: 18
 
 ## Quote-first queue
 
@@ -34,6 +34,7 @@ Read-only Shopify Admin snapshot. This is an operating ledger, not a launch appr
 | Everyday Performance Shorts | 21 | 4.00 | Capture exact Canada and US DSers quotes; approve, reprice, or remove launch tag. |
 | Everyday Polarized Sunglasses | 3 | 3.29 | Capture exact Canada and US DSers quotes; approve, reprice, or remove launch tag. |
 | Everyday Printed Joggers | 18 | 3.05 | Capture exact Canada and US DSers quotes; approve, reprice, or remove launch tag. |
+| Everyday Pullover Hoodie | 48 | 3.04 | Capture exact Canada and US DSers quotes; approve, reprice, or remove launch tag. |
 | Everyday Zip Hoodie | 18 | 3.12 | Capture exact Canada and US DSers quotes; approve, reprice, or remove launch tag. |
 | Long-Handle Bottle Brush | 2 | 3.31 | Capture exact Canada and US DSers quotes; approve, reprice, or remove launch tag. |
 | Long-Sleeve Performance Tee | 35 | 3.03 | Capture exact Canada and US DSers quotes; approve, reprice, or remove launch tag. |

@@ -162,3 +162,15 @@ Nine known destination-failing variants across seven remediated Draft products w
 - Printed Children's Winter Mittens — `C`, `E`, and `F`
 
 These controls advance fulfillment readiness but do not clear outstanding material, measurement, sizing, textile-labeling, or children's-product evidence gates. All seven parent products remain Draft.
+## Product 18 activated
+
+`Everyday Pullover Hoodie` completed its remaining launch gates and was activated:
+
+- all 48 variants retain verified Canada and U.S. supplier-service evidence;
+- Canada pricing had already been remediated and re-read;
+- all 48 U.S. catalog prices were fixed and re-read at the conservative US$59.99 maximum-cost floor;
+- product status changed to `ACTIVE`, `puchica-launch-ready` was added, and Online Store, Puchica Storefront, and Puchica U.S. Catalog publication were confirmed;
+- Canadian checkout returned Standard Shipping at CA$7.99; and
+- U.S. checkout returned Free Shipping Over $75.
+
+The confirmed active launch gate is now 18 products.

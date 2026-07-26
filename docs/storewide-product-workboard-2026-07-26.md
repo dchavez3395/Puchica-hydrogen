@@ -7,8 +7,8 @@ This board turns the Shopify Admin product gate into the order of operations for
 - C2_DRAFT_REPRICE_CONTENT_REVIEW: 1
 - C3_DRAFT_CONTENT_REVIEW: 1
 - C5_DRAFT_US_READY_MARKET_BLOCKED: 3
-- C6_DRAFT_REMEDIATED_REVIEW: 8
-- D4_US_CHECKOUT_CONFIRMED: 17
+- C6_DRAFT_REMEDIATED_REVIEW: 7
+- D4_US_CHECKOUT_CONFIRMED: 18
 - H1_RISK_HOLD: 23
 - H2_CONFIRMED_UNMAPPED: 1
 - H2_MAPPING_SYNC_REQUIRED: 2
@@ -75,7 +75,6 @@ For each quoted product, record separate exact DSers/AliExpress Canada and US it
 | --- | --- | --- | --- | --- |
 | Copper Washer Assortment | DRAFT | 4 |  | Keep Draft; replace or separate the 200-piece option and verify dimensions/material before activation. |
 | Everyday Crew-Neck T-Shirt | DRAFT | 18 |  | Keep Draft; replace or separate the no-Canada-shipping variant and verify textile facts before activation. |
-| Everyday Pullover Hoodie | DRAFT | 48 |  | Keep Draft until storefront and checkout validation pass; then decide activation. |
 | Printed Children's Winter Mittens | DRAFT | 4 | child_apparel | Keep Draft; replace or separate C/E/F and complete children's textile/compliance review. |
 | Men's Everyday Shorts | DRAFT | 72 | adult_apparel | Keep Draft; replace or separate the failing variant and verify textile specifications before activation. |
 | Men's High-Neck Base-Layer Top | DRAFT | 42 | adult_apparel | Keep Draft; replace or separate Coffee / 3L and verify textile specifications before activation. |

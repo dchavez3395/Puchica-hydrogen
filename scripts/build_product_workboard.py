@@ -515,7 +515,7 @@ def main() -> None:
         if (
             row['status'] == 'ACTIVE'
             and checkout_review
-            and checkout_review['verdict'] == 'PASS_FULL_ACTIVE_CART_US_CHECKOUT'
+            and checkout_review['verdict'].startswith('PASS_')
         ):
             out.update({
                 'priority': 39,
@@ -584,7 +584,8 @@ def main() -> None:
             })
         remediation = remediation_reviews.get(row['handle'])
         if (
-            remediation
+            row['status'] == 'DRAFT'
+            and remediation
             and remediation['pricing_verified'] == 'yes'
             and remediation['content_ready'] == 'yes'
             and remediation['taxonomy_ready'] == 'yes'
