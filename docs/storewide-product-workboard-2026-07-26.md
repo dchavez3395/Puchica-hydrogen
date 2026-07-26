@@ -6,7 +6,7 @@ This board turns the Shopify Admin product gate into the order of operations for
 
 - A3_US_MARKET_EXCLUDED: 4
 - C1_DRAFT_REVIEW_BATCH: 7
-- C4_DRAFT_US_ONLY_REVIEW: 3
+- C5_DRAFT_US_READY_MARKET_BLOCKED: 3
 - D2_US_PRICE_PASSES_MARKET_BLOCKED: 14
 - H1_RISK_HOLD: 22
 - H2_CONFIRMED_UNMAPPED: 5
@@ -63,13 +63,13 @@ For each quoted product, record separate exact DSers/AliExpress Canada and US it
 | Summer Spring Candy Color Kids Pantyhose Ballet Dance Tights for Girls Stocking Children Velvet Solid White Pantyhose | DRAFT | 39 | child_apparel | Quote Canada and US; before activation verify fiber content, sizing, care, origin, and applicable children's textile labeling. |
 | Kids Toddler Foot Measure Gauge Shoes Size Measuring Ruler Tool Baby Boy Girl Children's Foot Length Measuring Ruler Fittings | DRAFT | 5 | child_content | Quote Canada and US, verify measurement scale/accuracy and age-appropriate copy, then apply the normal margin gate. |
 
-### C4_DRAFT_US_ONLY_REVIEW
+### C5_DRAFT_US_READY_MARKET_BLOCKED
 
 | product | status | variants | issue | action |
 | --- | --- | --- | --- | --- |
-| Quartz Watch, Bracelet & Necklace Set | DRAFT | 5 |  | Save and re-read a fixed US catalog price of at least US$11.99; keep Draft until the Managed Markets US checkout blocker is resolved and live delivery passes. |
-| Stainless-Steel Quartz Watch & Bracelet | DRAFT | 4 |  | Save and re-read a fixed US catalog price of at least US$12.99; keep Draft until the Managed Markets US checkout blocker is resolved and live delivery passes. |
-| Digital Watch & Jewellery Gift Set | DRAFT | 4 | hygiene_beauty | Save and re-read a fixed US catalog price of at least US$26.99; keep Draft until the Managed Markets US checkout blocker is resolved and live delivery passes. |
+| Quartz Watch, Bracelet & Necklace Set | DRAFT | 5 |  | Keep Draft until the Managed Markets US checkout blocker is resolved; then verify live US-only visibility and delivery before activation. |
+| Stainless-Steel Quartz Watch & Bracelet | DRAFT | 4 |  | Keep Draft until the Managed Markets US checkout blocker is resolved; then verify live US-only visibility and delivery before activation. |
+| Digital Watch & Jewellery Gift Set | DRAFT | 4 | hygiene_beauty | Keep Draft until the Managed Markets US checkout blocker is resolved; then verify live US-only visibility and delivery before activation. |
 
 ### D2_US_PRICE_PASSES_MARKET_BLOCKED
 

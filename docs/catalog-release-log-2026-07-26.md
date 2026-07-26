@@ -25,7 +25,7 @@ Three Canada-failing products now have complete passing U.S. supplier quotes and
 - `Stainless-Steel Quartz Watch & Bracelet` - conservative U.S. floor US$12.99; and
 - `Digital Watch & Jewellery Gift Set` - conservative U.S. floor US$26.99.
 
-Their fixed U.S.-catalog prices are not recorded as verified: the first value was entered but not re-read after browser control failed, and the other two were not applied. All three remain excluded until a fixed price is saved and re-read and the Managed Markets U.S. checkout returns a real shipping method. See `storewide-us-only-candidate-readiness-2026-07-26.csv`.
+Fixed U.S.-catalog prices were applied to every mapped variant and re-read through Admin GraphQL at US$11.99, US$12.99, and US$26.99 respectively. All three remain excluded until the Managed Markets U.S. checkout returns a real shipping method and U.S.-only storefront delivery is verified. See `storewide-us-only-candidate-readiness-2026-07-26.csv`.
 
 
 ## Verified live baseline

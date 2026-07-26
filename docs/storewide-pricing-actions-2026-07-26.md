@@ -22,7 +22,7 @@ This ledger converts verified cost and shipping evidence into minimum prices und
 | US | Breezy Everyday Pants | 1 | 0 | 21.99~21.99 | 21.99~21.99 | ACTIVE_US_FIXED_OVERRIDE_VALIDATED |
 | US | Car Sun Visor Organizer | 1 | 0 | 10.85~10.85 | 8.99~8.99 | ACTIVE_US_PRICE_VALIDATED |
 | US | Compact Bicycle Bell | 1 | 0 | 10.85~10.85 | 9.99~9.99 | ACTIVE_US_PRICE_VALIDATED |
-| US | Digital Watch & Jewellery Gift Set | 1 | 1 |  | 26.99~26.99 | USD_STOREFRONT_PRICE_VALIDATION_REQUIRED |
+| US | Digital Watch & Jewellery Gift Set | 1 | 0 | 26.99~26.99 | 26.99~26.99 | DRAFT_US_FIXED_OVERRIDE_VALIDATED |
 | US | Everyday Carabiner Clip Set | 1 | 0 | 10.85~10.85 | 8.99~8.99 | ACTIVE_US_PRICE_VALIDATED |
 | US | Everyday Performance Shorts | 1 | 0 | 34.99~34.99 | 34.99~34.99 | ACTIVE_US_FIXED_OVERRIDE_VALIDATED |
 | US | Everyday Polarized Sunglasses | 1 | 0 | 21.70~21.70 | 20.99~20.99 | ACTIVE_US_PRICE_VALIDATED |
@@ -31,9 +31,9 @@ This ledger converts verified cost and shipping evidence into minimum prices und
 | US | Long-Sleeve Performance Tee | 1 | 0 | 19.99~19.99 | 19.99~19.99 | ACTIVE_US_FIXED_OVERRIDE_VALIDATED |
 | US | Men's Cotton-Linen Wide-Leg Pants | 1 | 0 | 28.51~28.51 | 25.99~25.99 | ACTIVE_US_PRICE_VALIDATED |
 | US | Men's High-Neck Knit Sweater | 1 | 0 | 30.99~30.99 | 30.99~30.99 | ACTIVE_US_FIXED_OVERRIDE_VALIDATED |
-| US | Quartz Watch, Bracelet & Necklace Set | 1 | 1 |  | 11.99~11.99 | USD_STOREFRONT_PRICE_VALIDATION_REQUIRED |
+| US | Quartz Watch, Bracelet & Necklace Set | 1 | 0 | 11.99~11.99 | 11.99~11.99 | DRAFT_US_FIXED_OVERRIDE_VALIDATED |
 | US | Quick-Dry Training Shorts | 1 | 0 | 18.81~18.81 | 17.99~17.99 | ACTIVE_US_PRICE_VALIDATED |
-| US | Stainless-Steel Quartz Watch & Bracelet | 1 | 1 |  | 12.99~12.99 | USD_STOREFRONT_PRICE_VALIDATION_REQUIRED |
+| US | Stainless-Steel Quartz Watch & Bracelet | 1 | 0 | 12.99~12.99 | 12.99~12.99 | DRAFT_US_FIXED_OVERRIDE_VALIDATED |
 | US | Travel Pet Water Bottle | 1 | 0 | 14.46~14.46 | 11.99~11.99 | ACTIVE_US_PRICE_VALIDATED |
 
 ## Operating rule
