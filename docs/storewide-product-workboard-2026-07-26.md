@@ -5,8 +5,8 @@ This board turns the Shopify Admin product gate into the order of operations for
 ## Current board
 
 - B1_QUOTE_QUICK_WINS: 9
-- B2_QUOTE_HIGH_VARIANT: 7
-- C1_DRAFT_REVIEW_BATCH: 18
+- B2_QUOTE_HIGH_VARIANT: 8
+- C1_DRAFT_REVIEW_BATCH: 17
 - H1_RISK_HOLD: 25
 - H2_MAPPING_REPAIR: 5
 - H3_REPRICE_OR_REJECT: 2
@@ -43,6 +43,7 @@ For each quoted product, record exact DSers/AliExpress Canada item cost, shippin
 | Men's Cotton-Linen Wide-Leg Pants | 100 | 4.14 |  | Quote worst-margin and top-selling option groups; reduce option complexity if needed. |
 | Everyday Performance Shorts | 21 | 4.00 |  | Quote worst-margin and top-selling option groups; reduce option complexity if needed. |
 | Everyday Fleece Joggers | 21 | 3.24 |  | Quote worst-margin and top-selling option groups; reduce option complexity if needed. |
+| Quick-Dry Training Shorts | 54 | 3.14 |  | Quote worst-margin and top-selling option groups; reduce option complexity if needed. |
 | Everyday Zip Hoodie | 18 | 3.12 |  | Quote worst-margin and top-selling option groups; reduce option complexity if needed. |
 | Breezy Everyday Pants | 28 | 3.10 |  | Quote worst-margin and top-selling option groups; reduce option complexity if needed. |
 | Men's High-Neck Knit Sweater | 54 | 3.07 |  | Quote worst-margin and top-selling option groups; reduce option complexity if needed. |
@@ -62,7 +63,6 @@ For each quoted product, record exact DSers/AliExpress Canada item cost, shippin
 | No-Drill Shower Shelf | DRAFT | 12 |  | Repair/verify mapping, quote Canada, review content, then decide whether to tag. |
 | 2024 Mens Print Pants Autumn/Winter New In Men's Clothing Trousers Sport Jogging Fitness Running Trousers Harajuku Streetwear | DRAFT | 18 |  | Repair/verify mapping, quote Canada, review content, then decide whether to tag. |
 | Pet Supplies Duck Goose Shoes Pet Cole Foot Poultry Boots Pet Duck Boots with Protective Soles Protective Shoe Set Pet Products | DRAFT | 9 |  | Repair/verify mapping, quote Canada, review content, then decide whether to tag. |
-| Quick-Dry Training Shorts | DRAFT | 54 |  | Repair/verify mapping, quote Canada, review content, then decide whether to tag. |
 | Outdoor Cycling Sunglasses | DRAFT | 30 |  | Repair/verify mapping, quote Canada, review content, then decide whether to tag. |
 | Thermal Underwear Tops Men Winter Clothes Thermal Shirt Autumn Men's Winter Tights High Neck Thin Slim Fit Long Sleeve T-shirt | DRAFT | 42 |  | Repair/verify mapping, quote Canada, review content, then decide whether to tag. |
 | Summer Men's Shorts Cool Sportswear Running Sport Shorts Casual Bottoms Gym Fitness Training Jogging Short Pants Men Black Gray | DRAFT | 72 |  | Repair/verify mapping, quote Canada, review content, then decide whether to tag. |

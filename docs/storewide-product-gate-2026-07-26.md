@@ -6,21 +6,21 @@ Read-only Shopify Admin snapshot. This is an operating ledger, not a launch appr
 
 - Products audited: 66
 - Variants audited: 933
-- Active launch-gated products: 16
+- Active launch-gated products: 17
 
 ### By Shopify status
 
-- ACTIVE: 17
+- ACTIVE: 18
 - ARCHIVED: 1
-- DRAFT: 48
+- DRAFT: 47
 
 ### By gate decision
 
-- DRAFT_QUOTE_AND_CONTENT_REVIEW: 18
+- DRAFT_QUOTE_AND_CONTENT_REVIEW: 17
 - HOLD_MAPPING_REQUIRED: 5
 - HOLD_REPRICE_OR_REJECT: 2
 - HOLD_RISK_REVIEW: 25
-- LIVE_QUOTE_REQUIRED: 16
+- LIVE_QUOTE_REQUIRED: 17
 
 ## Quote-first queue
 
@@ -41,6 +41,7 @@ Read-only Shopify Admin snapshot. This is an operating ledger, not a launch appr
 | Men's Cotton-Linen Wide-Leg Pants | 100 | 4.14 | Capture exact Canada DSers quote; approve, reprice, or remove launch tag. |
 | Men's High-Neck Knit Sweater | 54 | 3.07 | Approved after repricing 17 variants and disabling S / Dark Grey for no Canada shipping; monitor tight-margin and low-stock variants. |
 | Multi-Use Organizer Hooks | 4 | 3.14 | Approved after repricing Pink to CA$15.49; monitor low-stock Brown and Light Blue variants. |
+| Quick-Dry Training Shorts | 54 | 3.14 | Approved after normalizing all variants to CA$25.99 and disabling XXXL / 61620lan for no Canada shipping; monitor low-stock variants. |
 | Travel Pet Water Bottle | 3 | 5.08 | Capture exact Canada DSers quote; approve, reprice, or remove launch tag. |
 
 ## Hold-first queue
