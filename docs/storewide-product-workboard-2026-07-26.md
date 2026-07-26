@@ -4,13 +4,13 @@ This board turns the Shopify Admin product gate into the order of operations for
 
 ## Current board
 
-- B1_QUOTE_QUICK_WINS: 8
-- B2_QUOTE_HIGH_VARIANT: 3
+- B1_QUOTE_QUICK_WINS: 9
+- B2_QUOTE_HIGH_VARIANT: 4
 - C1_DRAFT_REVIEW_BATCH: 18
 - H1_RISK_HOLD: 25
 - H2_MAPPING_REPAIR: 5
 - H3_REPRICE_OR_REJECT: 2
-- Z_REVIEW_MANUALLY: 5
+- Z_REVIEW_MANUALLY: 3
 
 ## Do first
 
@@ -34,6 +34,7 @@ For each quoted product, record exact DSers/AliExpress Canada item cost, shippin
 | Compact Bicycle Bell | 6 | 3.77 |  | Quote exact Canada delivery first; approve if shipping is at or below cap. |
 | Long-Handle Bottle Brush | 2 | 3.31 |  | Quote exact Canada delivery first; approve if shipping is at or below cap. |
 | Everyday Polarized Sunglasses | 3 | 3.29 |  | Quote exact Canada delivery first; approve if shipping is at or below cap. |
+| Precision Nail Clippers | 2 | 3.27 | hygiene_beauty | Quote exact Canada delivery first; approve if shipping is at or below cap. |
 | Multi-Use Organizer Hooks | 4 | 3.14 |  | Quote exact Canada delivery first; approve if shipping is at or below cap. |
 
 ### B2_QUOTE_HIGH_VARIANT
@@ -43,6 +44,7 @@ For each quoted product, record exact DSers/AliExpress Canada item cost, shippin
 | Men's Cotton-Linen Wide-Leg Pants | 100 | 4.14 |  | Quote worst-margin and top-selling option groups; reduce option complexity if needed. |
 | Everyday Performance Shorts | 21 | 4.00 |  | Quote worst-margin and top-selling option groups; reduce option complexity if needed. |
 | Everyday Fleece Joggers | 21 | 3.24 |  | Quote worst-margin and top-selling option groups; reduce option complexity if needed. |
+| Everyday Zip Hoodie | 18 | 3.12 |  | Quote worst-margin and top-selling option groups; reduce option complexity if needed. |
 
 ### B3_QUOTE_TIGHT_MARGIN
 
@@ -125,8 +127,6 @@ For each quoted product, record exact DSers/AliExpress Canada item cost, shippin
 
 | product | status | variants | issue | action |
 | --- | --- | --- | --- | --- |
-| Precision Nail Clippers | ACTIVE | 2 | hygiene_beauty | Check status, launch tag, and collection visibility. |
-| Everyday Zip Hoodie | ACTIVE | 18 |  | Check status, launch tag, and collection visibility. |
 | Breezy Everyday Pants | ACTIVE | 28 |  | Check status, launch tag, and collection visibility. |
 | Long-Sleeve Performance Tee | ACTIVE | 35 |  | Check status, launch tag, and collection visibility. |
 | Men's High-Neck Knit Sweater | ACTIVE | 54 |  | Check status, launch tag, and collection visibility. |

@@ -6,7 +6,7 @@ Read-only Shopify Admin snapshot. This is an operating ledger, not a launch appr
 
 - Products audited: 66
 - Variants audited: 933
-- Active launch-gated products: 11
+- Active launch-gated products: 13
 
 ### By Shopify status
 
@@ -20,13 +20,14 @@ Read-only Shopify Admin snapshot. This is an operating ledger, not a launch appr
 - HOLD_MAPPING_REQUIRED: 5
 - HOLD_REPRICE_OR_REJECT: 2
 - HOLD_RISK_REVIEW: 25
-- LIVE_QUOTE_REQUIRED: 11
-- REVIEW_VISIBILITY_AND_TAGS: 5
+- LIVE_QUOTE_REQUIRED: 13
+- REVIEW_VISIBILITY_AND_TAGS: 3
 
 ## Quote-first queue
 
 | product | variants | worst CA shipping cap | next action |
 | --- | ---: | ---: | --- |
+| Precision Nail Clippers | 2 | 3.27 | Approved with Blue disabled for no Canada shipping; monitor Red single inventory (2 units). |
 | Adjustable Rhinestone Ring | 2 | 4.07 | Capture exact Canada DSers quote; approve, reprice, or remove launch tag. |
 | Car Sun Visor Organizer | 3 | 4.34 | Capture exact Canada DSers quote; approve, reprice, or remove launch tag. |
 | Compact Bicycle Bell | 6 | 3.77 | Capture exact Canada DSers quote; approve, reprice, or remove launch tag. |
@@ -34,6 +35,7 @@ Read-only Shopify Admin snapshot. This is an operating ledger, not a launch appr
 | Everyday Fleece Joggers | 21 | 3.24 | Capture exact Canada DSers quote; approve, reprice, or remove launch tag. |
 | Everyday Performance Shorts | 21 | 4.00 | Capture exact Canada DSers quote; approve, reprice, or remove launch tag. |
 | Everyday Polarized Sunglasses | 3 | 3.29 | Approved tight-margin launch; monitor Canada shipping and recheck if supplier pricing changes. |
+| Everyday Zip Hoodie | 18 | 3.12 | Approved after repricing XL / Grey to CA$24.49; monitor low-stock variants and supplier pricing. |
 | Long-Handle Bottle Brush | 2 | 3.31 | Capture exact Canada DSers quote; approve, reprice, or remove launch tag. |
 | Men's Cotton-Linen Wide-Leg Pants | 100 | 4.14 | Capture exact Canada DSers quote; approve, reprice, or remove launch tag. |
 | Multi-Use Organizer Hooks | 4 | 3.14 | Approved after repricing Pink to CA$15.49; monitor low-stock Brown and Light Blue variants. |
