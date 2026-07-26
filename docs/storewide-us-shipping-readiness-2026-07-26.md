@@ -24,7 +24,16 @@ Treat US launch availability as **BLOCKED_BY_MANAGED_MARKETS_FULFILLMENT_MODE**.
 - `Travel Pet Water Bottle`: all three mapped colors returned AliExpress Selection Standard from CN, US$1.99 shipping, 7~12 days, tracking available; supplier cost range US$3.49~3.56 and DSers aggregate stock 23.
 - `Everyday Carabiner Clip Set`: both mapped variants returned AliExpress Selection Standard from CN, US$1.99 shipping, 7~12 days, tracking available; supplier cost range US$2.07~2.08 and DSers aggregate stock 47.
 
-Both products are marked `PASS_SHIPPING_PENDING_US_STOREFRONT_PRICE`, not fully approved, until US storefront prices and contribution are available after the Managed Markets conflict is resolved.
+The following additional US supplier checks were completed:
+
+- `Compact Bicycle Bell`: all six mapped colors returned US$1.99 shipping, 7~13 days, tracking available.
+- `Car Sun Visor Organizer`: all three mapped colors returned US$1.99 shipping, 7~11 days, tracking available.
+- `Adjustable Rhinestone Ring`: both mapped styles returned US$1.99 shipping, 7~12 days, tracking available.
+- `Precision Nail Clippers`: both `blue` and `Red single` returned **No Shipping** to the United States.
+
+The five passing products are marked `PASS_SHIPPING_PENDING_US_STOREFRONT_PRICE`, not fully approved, until US storefront prices and contribution are available after the Managed Markets conflict is resolved.
+
+`Precision Nail Clippers` was removed from the dedicated US publication (`gid://shopify/Publication/215035183354`) on 2026-07-26. Verification shows 16 products remain in that publication, Precision Nail Clippers is absent, and its viable Canadian product remains available in the Canada Storefront context.
 
 ## Product approval rule
 
