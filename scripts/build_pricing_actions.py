@@ -90,12 +90,24 @@ def main() -> None:
         '100-pure-cotton-t-shirt-with-round-neck-shoulder-design-for-both-men-women-summer-solid-color-short-sleeved-casual-loose-fit': 'PLANNING_FLOOR_QUOTE_PENDING',
         '2024-mens-print-pants-autumn-winter-new-in-mens-clothing-trousers-sport-jogging-fitness-running-trousers-harajuku-streetwear': 'VERIFIED_CANADA_QUOTE',
     }
+    canada_fixed_group_prices = {
+        '2024-mens-print-pants-autumn-winter-new-in-mens-clothing-trousers-sport-jogging-fitness-running-trousers-harajuku-streetwear': {
+            'M': Decimal('28.02'),
+            'XXXL': Decimal('26.99'),
+            'XXL': Decimal('25.99'),
+            'XL': Decimal('27.53'),
+            'S': Decimal('24.99'),
+            'L': Decimal('25.99'),
+        },
+    }
     for quote in quotes:
         handle = quote['handle']
         if handle not in canada_targets:
             continue
         cost = Decimal(quote['unit_cost'])
-        current = Decimal(quote['price'])
+        original_price = Decimal(quote['price'])
+        size = quote['variant_title'].split(' / ', 1)[0]
+        current = canada_fixed_group_prices.get(handle, {}).get(size, original_price)
         shipping = Decimal(quote['quote_shipping_cost']) if quote['quote_shipping_cost'] not in ('', 'NO_SHIPPING') else CANADA_SHIPPING_FLOOR
         floor = minimum_price(cost, shipping)
         action_required = current < floor
@@ -109,7 +121,11 @@ def main() -> None:
             'price_change': q2(max(Decimal('0'), recommended - current)),
             'price_action_required': 'yes' if action_required else 'no',
             'quote_result': quote['quote_result'],
-            'disposition': 'REPRICE_THEN_REVIEW' if action_required else 'PRICE_PASSES_CURRENT_GATE',
+            'disposition': (
+                'CANADA_FIXED_PRICE_VALIDATED'
+                if handle in canada_fixed_group_prices and not action_required
+                else ('REPRICE_THEN_REVIEW' if action_required else 'PRICE_PASSES_CURRENT_GATE')
+            ),
             'formula': '(supplier_cost + shipping + 0.30) / 0.52535',
         })
 

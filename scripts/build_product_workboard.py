@@ -379,16 +379,29 @@ def main() -> None:
             })
         elif canada_price and out['workstream'] == 'C2_DRAFT_REPRICE_CONTENT_REVIEW':
             action_prices = canada_price['action_prices']
-            out.update({
-                'decision': 'DRAFT_REPRICE_AMOUNTS_DEFINED',
-                'work_reason': (
-                    f"Both-country quotes are complete; {canada_price['actions']} of {canada_price['rows']} variants "
-                    f"need Canada prices up to ${max(action_prices):.2f}."
-                ),
-                'operator_next_action': (
-                    'Apply/approve the variant pricing actions, clean title/content, then recalculate contribution before activation.'
-                ),
-            })
+            if canada_price['actions'] == 0:
+                out.update({
+                    'priority': 46,
+                    'workstream': 'C3_DRAFT_CONTENT_REVIEW',
+                    'decision': 'DRAFT_PRICING_APPLIED_CONTENT_REVIEW',
+                    'work_reason': (
+                        f"Both-country quotes are complete and all {canada_price['rows']} Canada prices now clear the margin gate."
+                    ),
+                    'operator_next_action': (
+                        'Assign the Shopify product category, then verify Canada/US storefront visibility and checkout delivery before activation.'
+                    ),
+                })
+            else:
+                out.update({
+                    'decision': 'DRAFT_REPRICE_AMOUNTS_DEFINED',
+                    'work_reason': (
+                        f"Both-country quotes are complete; {canada_price['actions']} of {canada_price['rows']} variants "
+                        f"need Canada prices up to ${max(action_prices):.2f}."
+                    ),
+                    'operator_next_action': (
+                        'Apply/approve the variant pricing actions, clean title/content, then recalculate contribution before activation.'
+                    ),
+                })
         elif us_price and out['workstream'] == 'D1_US_MARGIN_PENDING':
             floor = max(us_price['prices'])
             out.update({

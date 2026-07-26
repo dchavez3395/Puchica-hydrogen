@@ -6,7 +6,7 @@ This board turns the Shopify Admin product gate into the order of operations for
 
 - A3_US_MARKET_EXCLUDED: 4
 - C1_DRAFT_REVIEW_BATCH: 8
-- C2_DRAFT_REPRICE_CONTENT_REVIEW: 1
+- C3_DRAFT_CONTENT_REVIEW: 1
 - C4_DRAFT_US_ONLY_REVIEW: 3
 - D2_US_PRICE_PASSES_MARKET_BLOCKED: 13
 - H1_RISK_HOLD: 21
@@ -65,11 +65,11 @@ For each quoted product, record separate exact DSers/AliExpress Canada and US it
 | 2023 Fashion Men Watches Luxury Brand Fashion Mens Quartz Watch Luminous Hands Male Clock Big Dial Waterproof Man Wristwatch | DRAFT | 9 |  | Repair/verify mapping, quote Canada and US, review content, then decide whether to tag. |
 | Kids Toddler Foot Measure Gauge Shoes Size Measuring Ruler Tool Baby Boy Girl Children's Foot Length Measuring Ruler Fittings | DRAFT | 5 | child_content | Quote Canada and US, verify measurement scale/accuracy and age-appropriate copy, then apply the normal margin gate. |
 
-### C2_DRAFT_REPRICE_CONTENT_REVIEW
+### C3_DRAFT_CONTENT_REVIEW
 
 | product | status | variants | issue | action |
 | --- | --- | --- | --- | --- |
-| 2024 Mens Print Pants Autumn/Winter New In Men's Clothing Trousers Sport Jogging Fitness Running Trousers Harajuku Streetwear | DRAFT | 18 |  | Apply/approve the variant pricing actions, clean title/content, then recalculate contribution before activation. |
+| Everyday Printed Joggers | DRAFT | 18 |  | Assign the Shopify product category, then verify Canada/US storefront visibility and checkout delivery before activation. |
 
 ### C4_DRAFT_US_ONLY_REVIEW
 
