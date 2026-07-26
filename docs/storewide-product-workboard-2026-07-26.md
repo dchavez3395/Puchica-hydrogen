@@ -5,10 +5,10 @@ This board turns the Shopify Admin product gate into the order of operations for
 ## Current board
 
 - A3_US_MARKET_EXCLUDED: 4
-- C1_DRAFT_REVIEW_BATCH: 8
+- C1_DRAFT_REVIEW_BATCH: 7
 - C4_DRAFT_US_ONLY_REVIEW: 3
 - D2_US_PRICE_PASSES_MARKET_BLOCKED: 14
-- H1_RISK_HOLD: 21
+- H1_RISK_HOLD: 22
 - H2_CONFIRMED_UNMAPPED: 5
 - H3_PRICING_DEFINED_QUOTE_PENDING: 2
 - H4_DRAFT_CANADA_FAIL_EXCLUDED: 5
@@ -58,10 +58,9 @@ For each quoted product, record separate exact DSers/AliExpress Canada and US it
 | New Girl Dresses Princess Costume Kids Mermaid Cosplay Costume Kids Carnival Birthday Party Prom Costume Party Dresses For girls | DRAFT | 20 | child_apparel | Quote Canada and US; verify textile composition, sizing, flammability/labeling evidence, and remove ambiguous cosplay claims before activation. |
 | Windproof Infant Stroller Gloves Children's Outdoor Sports Mittens Cartoon Printed Hands Warmer Scooter Accessory for Winter | DRAFT | 4 | child_apparel | Quote Canada and US; verify material, sizing, attachment design, warnings, and textile labeling before activation. |
 | 300/280/200/100Pcs Washer Copper Sealing Solid Gasket Washer Sump Plug Oil For Boat Crush Flat Seal Ring Tool | DRAFT | 4 |  | Quote Canada and US, verify material/dimensions and fitment copy, then apply the normal margin gate. |
-| Thermal Underwear Tops Men Winter Clothes Thermal Shirt Autumn Men's Winter Tights High Neck Thin Slim Fit Long Sleeve T-shirt | DRAFT | 42 |  | Repair/verify mapping, quote Canada and US, review content, then decide whether to tag. |
-| Summer Men's Shorts Cool Sportswear Running Sport Shorts Casual Bottoms Gym Fitness Training Jogging Short Pants Men Black Gray | DRAFT | 72 |  | Repair/verify mapping, quote Canada and US, review content, then decide whether to tag. |
+| Thermal Underwear Tops Men Winter Clothes Thermal Shirt Autumn Men's Winter Tights High Neck Thin Slim Fit Long Sleeve T-shirt | DRAFT | 42 | adult_apparel | Quote Canada and US; before activation verify fiber content, size chart, care, origin, textile labeling, and remove unsupported thermal-performance wording. |
+| Summer Men's Shorts Cool Sportswear Running Sport Shorts Casual Bottoms Gym Fitness Training Jogging Short Pants Men Black Gray | DRAFT | 72 | adult_apparel | Quote Canada and US; before activation verify fiber content, size chart, care, origin, textile labeling, and remove unsupported cooling/performance claims. |
 | Summer Spring Candy Color Kids Pantyhose Ballet Dance Tights for Girls Stocking Children Velvet Solid White Pantyhose | DRAFT | 39 | child_apparel | Quote Canada and US; before activation verify fiber content, sizing, care, origin, and applicable children's textile labeling. |
-| 2023 Fashion Men Watches Luxury Brand Fashion Mens Quartz Watch Luminous Hands Male Clock Big Dial Waterproof Man Wristwatch | DRAFT | 9 |  | Repair/verify mapping, quote Canada and US, review content, then decide whether to tag. |
 | Kids Toddler Foot Measure Gauge Shoes Size Measuring Ruler Tool Baby Boy Girl Children's Foot Length Measuring Ruler Fittings | DRAFT | 5 | child_content | Quote Canada and US, verify measurement scale/accuracy and age-appropriate copy, then apply the normal margin gate. |
 
 ### C4_DRAFT_US_ONLY_REVIEW
@@ -112,6 +111,7 @@ For each quoted product, record separate exact DSers/AliExpress Canada and US it
 | 15cm Women's Rabbit Fur Keychain Bag Car Pendant Jewelry Decoration Fashionable Accessory for Bags And Gifts | DRAFT | 11 | animal_derived | Verified material/species origin, lawful sourcing/import evidence, and accurate disclosure; otherwise reject. |
 | Summer Men's MJ Michael Jackson Printed 100%CottonNeutral | DRAFT | 7 | likely_ip | Documented authorization or licensed supplier provenance; otherwise reject. |
 | Women Fake Piercing Nose Ring Hoop Septum Piercing Nose Clip Rock HipHoop Stainless Steel Magnet Fashion Body Jewelry Wholesale | DRAFT | 5 | hygiene_beauty | Material composition, nickel/heavy-metal compliance evidence, and cleaned customer-facing content. |
+| 2023 Fashion Men Watches Luxury Brand Fashion Mens Quartz Watch Luminous Hands Male Clock Big Dial Waterproof Man Wristwatch | DRAFT | 9 | ambiguous_brand_claim;unsupported_water_resistance_claim | Keep Draft; remove or substantiate waterproof/luminous/brand claims, verify battery/material specifications and labeling, then reconsider for quoting. |
 | Nail Glue Phototherapy Pen UV Gel Brush Pen Acrylic Nail Art Painting Drawing Liner Brush Manicure Professionnel Brushes Tool | DRAFT | 2 | chemical_cosmetic;hygiene_beauty | Supplier ingredient/SDS and compliant labeling evidence, or confirmed non-chemical brush-only mapping. |
 | 9 Heated Vest Zones Electric Heated Jackets Men Women | DRAFT | 12 | electrical | Keep held until safety/claims/IP/compliance review is complete. |
 | Cute Duck Night Light | DRAFT | 1 | child_safety | Keep held until safety/claims/IP/compliance review is complete. |
