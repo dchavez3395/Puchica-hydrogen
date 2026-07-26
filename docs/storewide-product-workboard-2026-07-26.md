@@ -20,21 +20,21 @@ These are the live-store controls to handle before promotion or ad spend.
 
 ## Quote batches
 
-For each quoted product, record exact DSers/AliExpress Canada item cost, shipping cost, delivery window, service, stock, and pass/fail in the variant worksheet.
+For each quoted product, record separate exact DSers/AliExpress Canada and US item cost, shipping cost, delivery window, service, stock, and pass/fail in the variant worksheet.
 
 ### B1_QUOTE_QUICK_WINS
 
 | product | variants | cap | risk | action |
 | --- | --- | --- | --- | --- |
-| Travel Pet Water Bottle | 3 | 5.08 |  | Quote exact Canada delivery first; approve if shipping is at or below cap. |
-| Everyday Carabiner Clip Set | 2 | 4.52 |  | Quote exact Canada delivery first; approve if shipping is at or below cap. |
-| Car Sun Visor Organizer | 3 | 4.34 |  | Quote exact Canada delivery first; approve if shipping is at or below cap. |
-| Adjustable Rhinestone Ring | 2 | 4.07 |  | Quote exact Canada delivery first; approve if shipping is at or below cap. |
-| Compact Bicycle Bell | 6 | 3.77 |  | Quote exact Canada delivery first; approve if shipping is at or below cap. |
-| Long-Handle Bottle Brush | 2 | 3.31 |  | Quote exact Canada delivery first; approve if shipping is at or below cap. |
-| Everyday Polarized Sunglasses | 3 | 3.29 |  | Quote exact Canada delivery first; approve if shipping is at or below cap. |
-| Precision Nail Clippers | 2 | 3.27 | hygiene_beauty | Quote exact Canada delivery first; approve if shipping is at or below cap. |
-| Multi-Use Organizer Hooks | 4 | 3.14 |  | Quote exact Canada delivery first; approve if shipping is at or below cap. |
+| Travel Pet Water Bottle | 3 | 5.08 |  | Quote exact Canada and US delivery; approve only if both destinations pass. |
+| Everyday Carabiner Clip Set | 2 | 4.52 |  | Quote exact Canada and US delivery; approve only if both destinations pass. |
+| Car Sun Visor Organizer | 3 | 4.34 |  | Quote exact Canada and US delivery; approve only if both destinations pass. |
+| Adjustable Rhinestone Ring | 2 | 4.07 |  | Quote exact Canada and US delivery; approve only if both destinations pass. |
+| Compact Bicycle Bell | 6 | 3.77 |  | Quote exact Canada and US delivery; approve only if both destinations pass. |
+| Long-Handle Bottle Brush | 2 | 3.31 |  | Quote exact Canada and US delivery; approve only if both destinations pass. |
+| Everyday Polarized Sunglasses | 3 | 3.29 |  | Quote exact Canada and US delivery; approve only if both destinations pass. |
+| Precision Nail Clippers | 2 | 3.27 | hygiene_beauty | Quote exact Canada and US delivery; approve only if both destinations pass. |
+| Multi-Use Organizer Hooks | 4 | 3.14 |  | Quote exact Canada and US delivery; approve only if both destinations pass. |
 
 ### B2_QUOTE_HIGH_VARIANT
 
@@ -60,23 +60,23 @@ For each quoted product, record exact DSers/AliExpress Canada item cost, shippin
 
 | product | status | variants | issue | action |
 | --- | --- | --- | --- | --- |
-| No-Drill Shower Shelf | DRAFT | 12 |  | Repair/verify mapping, quote Canada, review content, then decide whether to tag. |
-| 2024 Mens Print Pants Autumn/Winter New In Men's Clothing Trousers Sport Jogging Fitness Running Trousers Harajuku Streetwear | DRAFT | 18 |  | Repair/verify mapping, quote Canada, review content, then decide whether to tag. |
-| Pet Supplies Duck Goose Shoes Pet Cole Foot Poultry Boots Pet Duck Boots with Protective Soles Protective Shoe Set Pet Products | DRAFT | 9 |  | Repair/verify mapping, quote Canada, review content, then decide whether to tag. |
-| Outdoor Cycling Sunglasses | DRAFT | 30 |  | Repair/verify mapping, quote Canada, review content, then decide whether to tag. |
-| Thermal Underwear Tops Men Winter Clothes Thermal Shirt Autumn Men's Winter Tights High Neck Thin Slim Fit Long Sleeve T-shirt | DRAFT | 42 |  | Repair/verify mapping, quote Canada, review content, then decide whether to tag. |
-| Summer Men's Shorts Cool Sportswear Running Sport Shorts Casual Bottoms Gym Fitness Training Jogging Short Pants Men Black Gray | DRAFT | 72 |  | Repair/verify mapping, quote Canada, review content, then decide whether to tag. |
-| 3PCS/Set Men Business Watches Casual Leather Band Analog Male's Quartz Watch Necklace Bracelet Set | DRAFT | 5 |  | Repair/verify mapping, quote Canada, review content, then decide whether to tag. |
-| Magnetic Hair Clip | DRAFT | 5 | hygiene_beauty | Repair/verify mapping, quote Canada, review content, then decide whether to tag. |
-| 1/2PCS Men Business Watches Fashion Men's Steel Band Quartz Watch with Bracelet（Box not Included） | DRAFT | 4 |  | Repair/verify mapping, quote Canada, review content, then decide whether to tag. |
-| 15cm Women's Rabbit Fur Keychain Bag Car Pendant Jewelry Decoration Fashionable Accessory for Bags And Gifts | DRAFT | 11 |  | Repair/verify mapping, quote Canada, review content, then decide whether to tag. |
-| Compact Manicure Set | DRAFT | 7 |  | Repair/verify mapping, quote Canada, review content, then decide whether to tag. |
-| Summer Men's MJ Michael Jackson Printed 100%CottonNeutral | DRAFT | 7 |  | Repair/verify mapping, quote Canada, review content, then decide whether to tag. |
-| Adjustable Raised Pet Bowl Set | DRAFT | 4 |  | Repair/verify mapping, quote Canada, review content, then decide whether to tag. |
-| Women Fake Piercing Nose Ring Hoop Septum Piercing Nose Clip Rock HipHoop Stainless Steel Magnet Fashion Body Jewelry Wholesale | DRAFT | 5 |  | Repair/verify mapping, quote Canada, review content, then decide whether to tag. |
-| 2023 Fashion Men Watches Luxury Brand Fashion Mens Quartz Watch Luminous Hands Male Clock Big Dial Waterproof Man Wristwatch | DRAFT | 9 |  | Repair/verify mapping, quote Canada, review content, then decide whether to tag. |
-| Digital Watch & Jewellery Gift Set | DRAFT | 4 | hygiene_beauty | Repair/verify mapping, quote Canada, review content, then decide whether to tag. |
-| Nail Glue Phototherapy Pen UV Gel Brush Pen Acrylic Nail Art Painting Drawing Liner Brush Manicure Professionnel Brushes Tool | DRAFT | 2 | hygiene_beauty | Repair/verify mapping, quote Canada, review content, then decide whether to tag. |
+| No-Drill Shower Shelf | DRAFT | 12 |  | Repair/verify mapping, quote Canada and US, review content, then decide whether to tag. |
+| 2024 Mens Print Pants Autumn/Winter New In Men's Clothing Trousers Sport Jogging Fitness Running Trousers Harajuku Streetwear | DRAFT | 18 |  | Repair/verify mapping, quote Canada and US, review content, then decide whether to tag. |
+| Pet Supplies Duck Goose Shoes Pet Cole Foot Poultry Boots Pet Duck Boots with Protective Soles Protective Shoe Set Pet Products | DRAFT | 9 |  | Repair/verify mapping, quote Canada and US, review content, then decide whether to tag. |
+| Outdoor Cycling Sunglasses | DRAFT | 30 |  | Repair/verify mapping, quote Canada and US, review content, then decide whether to tag. |
+| Thermal Underwear Tops Men Winter Clothes Thermal Shirt Autumn Men's Winter Tights High Neck Thin Slim Fit Long Sleeve T-shirt | DRAFT | 42 |  | Repair/verify mapping, quote Canada and US, review content, then decide whether to tag. |
+| Summer Men's Shorts Cool Sportswear Running Sport Shorts Casual Bottoms Gym Fitness Training Jogging Short Pants Men Black Gray | DRAFT | 72 |  | Repair/verify mapping, quote Canada and US, review content, then decide whether to tag. |
+| 3PCS/Set Men Business Watches Casual Leather Band Analog Male's Quartz Watch Necklace Bracelet Set | DRAFT | 5 |  | Repair/verify mapping, quote Canada and US, review content, then decide whether to tag. |
+| Magnetic Hair Clip | DRAFT | 5 | hygiene_beauty | Repair/verify mapping, quote Canada and US, review content, then decide whether to tag. |
+| 1/2PCS Men Business Watches Fashion Men's Steel Band Quartz Watch with Bracelet（Box not Included） | DRAFT | 4 |  | Repair/verify mapping, quote Canada and US, review content, then decide whether to tag. |
+| 15cm Women's Rabbit Fur Keychain Bag Car Pendant Jewelry Decoration Fashionable Accessory for Bags And Gifts | DRAFT | 11 |  | Repair/verify mapping, quote Canada and US, review content, then decide whether to tag. |
+| Compact Manicure Set | DRAFT | 7 |  | Repair/verify mapping, quote Canada and US, review content, then decide whether to tag. |
+| Summer Men's MJ Michael Jackson Printed 100%CottonNeutral | DRAFT | 7 |  | Repair/verify mapping, quote Canada and US, review content, then decide whether to tag. |
+| Adjustable Raised Pet Bowl Set | DRAFT | 4 |  | Repair/verify mapping, quote Canada and US, review content, then decide whether to tag. |
+| Women Fake Piercing Nose Ring Hoop Septum Piercing Nose Clip Rock HipHoop Stainless Steel Magnet Fashion Body Jewelry Wholesale | DRAFT | 5 |  | Repair/verify mapping, quote Canada and US, review content, then decide whether to tag. |
+| 2023 Fashion Men Watches Luxury Brand Fashion Mens Quartz Watch Luminous Hands Male Clock Big Dial Waterproof Man Wristwatch | DRAFT | 9 |  | Repair/verify mapping, quote Canada and US, review content, then decide whether to tag. |
+| Digital Watch & Jewellery Gift Set | DRAFT | 4 | hygiene_beauty | Repair/verify mapping, quote Canada and US, review content, then decide whether to tag. |
+| Nail Glue Phototherapy Pen UV Gel Brush Pen Acrylic Nail Art Painting Drawing Liner Brush Manicure Professionnel Brushes Tool | DRAFT | 2 | hygiene_beauty | Repair/verify mapping, quote Canada and US, review content, then decide whether to tag. |
 
 ### H1_RISK_HOLD
 
@@ -127,4 +127,4 @@ For each quoted product, record exact DSers/AliExpress Canada item cost, shippin
 
 ## Completion rule
 
-A product is done only after it has one final state: approved launch with quote evidence, organic-only with reason, draft-later with missing proof, hard hold/reject, or archived.
+A product is done only after it has one final state: approved launch with Canada and US quote evidence, organic-only with reason, draft-later with missing proof, hard hold/reject, or archived.

@@ -251,6 +251,12 @@ def main() -> None:
                 'quote_service': '',
                 'quote_stock': '',
                 'quote_result': '',
+                'us_quote_item_cost': '',
+                'us_quote_shipping_cost': '',
+                'us_quote_delivery_window': '',
+                'us_quote_service': '',
+                'us_quote_stock': '',
+                'us_quote_result': '',
                 'notes': '',
             })
 
@@ -279,9 +285,9 @@ def main() -> None:
 
 def next_action(decision: str) -> str:
     return {
-        'LIVE_QUOTE_REQUIRED': 'Capture exact Canada DSers quote; approve, reprice, or remove launch tag.',
-        'LIVE_QUOTE_AND_CONTENT_REVIEW': 'Capture exact Canada quote and verify claims/content before promotion.',
-        'DRAFT_QUOTE_AND_CONTENT_REVIEW': 'Repair/verify mapping, quote Canada, review content, then decide whether to tag.',
+        'LIVE_QUOTE_REQUIRED': 'Capture exact Canada and US DSers quotes; approve, reprice, or remove launch tag.',
+        'LIVE_QUOTE_AND_CONTENT_REVIEW': 'Capture exact Canada and US quotes and verify claims/content before promotion.',
+        'DRAFT_QUOTE_AND_CONTENT_REVIEW': 'Repair/verify mapping, quote Canada and US, review content, then decide whether to tag.',
         'HOLD_RISK_REVIEW': 'Keep held until safety/claims/IP/compliance review is complete.',
         'HOLD_MAPPING_REQUIRED': 'Do not quote yet; repair DSers mapping/SKU first.',
         'HOLD_COST_MISSING': 'Record Shopify unit cost or DSers source cost before pricing.',

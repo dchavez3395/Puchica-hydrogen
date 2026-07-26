@@ -111,7 +111,7 @@ def write_markdown(path: Path, rows: list[dict], run_date: str) -> None:
         '',
         '## Quote batches',
         '',
-        'For each quoted product, record exact DSers/AliExpress Canada item cost, shipping cost, delivery window, service, stock, and pass/fail in the variant worksheet.',
+        'For each quoted product, record separate exact DSers/AliExpress Canada and US item cost, shipping cost, delivery window, service, stock, and pass/fail in the variant worksheet.',
         '',
     ])
     for stream in ('B1_QUOTE_QUICK_WINS', 'B2_QUOTE_HIGH_VARIANT', 'B3_QUOTE_TIGHT_MARGIN'):
@@ -153,7 +153,7 @@ def write_markdown(path: Path, rows: list[dict], run_date: str) -> None:
     lines.extend([
         '## Completion rule',
         '',
-        'A product is done only after it has one final state: approved launch with quote evidence, organic-only with reason, draft-later with missing proof, hard hold/reject, or archived.',
+        'A product is done only after it has one final state: approved launch with Canada and US quote evidence, organic-only with reason, draft-later with missing proof, hard hold/reject, or archived.',
     ])
     path.write_text('\n'.join(lines), encoding='utf-8')
 
@@ -177,11 +177,13 @@ def main() -> None:
         elif stream == 'A2_REMOVE_OR_REPRICE_ACTIVE':
             operator_action = 'Remove launch-ready tag, reprice, bundle, or reject.'
         elif stream == 'B1_QUOTE_QUICK_WINS':
-            operator_action = 'Quote exact Canada delivery first; approve if shipping is at or below cap.'
+            operator_action = 'Quote exact Canada and US delivery; approve only if both destinations pass.'
         elif stream == 'B2_QUOTE_HIGH_VARIANT':
             operator_action = 'Quote worst-margin and top-selling option groups; reduce option complexity if needed.'
         elif stream == 'B3_QUOTE_TIGHT_MARGIN':
-            operator_action = 'Quote before promotion; expect reprice/reject if shipping is not near-free.'
+            operator_action = 'Quote both destinations before promotion; expect reprice/reject if shipping is not near-free.'
+        elif stream == 'C1_DRAFT_REVIEW_BATCH':
+            operator_action = 'Repair/verify mapping, quote Canada and US, review content, then decide whether to tag.'
 
         out = {
             'priority': priority,
