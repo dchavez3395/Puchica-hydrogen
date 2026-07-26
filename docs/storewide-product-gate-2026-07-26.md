@@ -6,7 +6,7 @@ Read-only Shopify Admin snapshot. This is an operating ledger, not a launch appr
 
 - Products audited: 66
 - Variants audited: 933
-- Active launch-gated products: 15
+- Active launch-gated products: 16
 
 ### By Shopify status
 
@@ -20,8 +20,7 @@ Read-only Shopify Admin snapshot. This is an operating ledger, not a launch appr
 - HOLD_MAPPING_REQUIRED: 5
 - HOLD_REPRICE_OR_REJECT: 2
 - HOLD_RISK_REVIEW: 25
-- LIVE_QUOTE_REQUIRED: 15
-- REVIEW_VISIBILITY_AND_TAGS: 1
+- LIVE_QUOTE_REQUIRED: 16
 
 ## Quote-first queue
 
@@ -40,6 +39,7 @@ Read-only Shopify Admin snapshot. This is an operating ledger, not a launch appr
 | Long-Handle Bottle Brush | 2 | 3.31 | Capture exact Canada DSers quote; approve, reprice, or remove launch tag. |
 | Long-Sleeve Performance Tee | 35 | 3.03 | Approved after repricing 16 variants and disabling XXXL / Light Gray for no Canada shipping; monitor tight-margin and low-stock variants. |
 | Men's Cotton-Linen Wide-Leg Pants | 100 | 4.14 | Capture exact Canada DSers quote; approve, reprice, or remove launch tag. |
+| Men's High-Neck Knit Sweater | 54 | 3.07 | Approved after repricing 17 variants and disabling S / Dark Grey for no Canada shipping; monitor tight-margin and low-stock variants. |
 | Multi-Use Organizer Hooks | 4 | 3.14 | Approved after repricing Pink to CA$15.49; monitor low-stock Brown and Light Blue variants. |
 | Travel Pet Water Bottle | 3 | 5.08 | Capture exact Canada DSers quote; approve, reprice, or remove launch tag. |
 

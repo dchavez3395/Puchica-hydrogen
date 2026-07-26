@@ -5,12 +5,11 @@ This board turns the Shopify Admin product gate into the order of operations for
 ## Current board
 
 - B1_QUOTE_QUICK_WINS: 9
-- B2_QUOTE_HIGH_VARIANT: 6
+- B2_QUOTE_HIGH_VARIANT: 7
 - C1_DRAFT_REVIEW_BATCH: 18
 - H1_RISK_HOLD: 25
 - H2_MAPPING_REPAIR: 5
 - H3_REPRICE_OR_REJECT: 2
-- Z_REVIEW_MANUALLY: 1
 
 ## Do first
 
@@ -46,6 +45,7 @@ For each quoted product, record exact DSers/AliExpress Canada item cost, shippin
 | Everyday Fleece Joggers | 21 | 3.24 |  | Quote worst-margin and top-selling option groups; reduce option complexity if needed. |
 | Everyday Zip Hoodie | 18 | 3.12 |  | Quote worst-margin and top-selling option groups; reduce option complexity if needed. |
 | Breezy Everyday Pants | 28 | 3.10 |  | Quote worst-margin and top-selling option groups; reduce option complexity if needed. |
+| Men's High-Neck Knit Sweater | 54 | 3.07 |  | Quote worst-margin and top-selling option groups; reduce option complexity if needed. |
 | Long-Sleeve Performance Tee | 35 | 3.03 |  | Quote worst-margin and top-selling option groups; reduce option complexity if needed. |
 
 ### B3_QUOTE_TIGHT_MARGIN
@@ -124,12 +124,6 @@ For each quoted product, record exact DSers/AliExpress Canada item cost, shippin
 | --- | --- | --- | --- | --- |
 | Everyday Pullover Hoodie | DRAFT | 48 |  | Reprice, change variant/supplier, bundle, or reject before launch. |
 | Everyday 100% Cotton T-Shirt | DRAFT | 18 |  | Reprice, change variant/supplier, bundle, or reject before launch. |
-
-### Z_REVIEW_MANUALLY
-
-| product | status | variants | issue | action |
-| --- | --- | --- | --- | --- |
-| Men's High-Neck Knit Sweater | ACTIVE | 54 |  | Check status, launch tag, and collection visibility. |
 
 ## Completion rule
 
