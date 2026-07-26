@@ -125,3 +125,14 @@ This is not a blanket launch approval. The same review surfaced an explicitly **
 - keep only the vetted 24-product launch gate customer-facing;
 - check mapped availability and a Canada destination quote before any paid traffic or promotion;
 - replace or hold a product immediately if a mapped supplier SKU becomes unavailable or fails the shipping-cap rule.
+
+## Final gate correction
+
+Later product-by-product Canada and U.S. quote work supersedes the initial 26-product baseline. The current live gate is 17 active launch-tagged products with 374 variants.
+
+- Eight tight-margin variants across `Long-Sleeve Performance Tee` and `Men's High-Neck Knit Sweater` were repriced and re-read; their Canada shipping caps are now CA$3.21–CA$3.27.
+- `Precision Nail Clippers` was moved to Draft and its launch tag removed because both mapped variants fail U.S. shipping.
+- The only three U.S.-no-service SKUs still inside active products have inventory zero and are unavailable for sale.
+- No active launch variant remains below the observed CA$3.03 Canada shipping floor.
+
+The earlier published-product list is retained as historical evidence, not the current launch assortment.

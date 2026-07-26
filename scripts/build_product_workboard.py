@@ -582,6 +582,30 @@ def main() -> None:
                 'work_reason': mapping_review['evidence'],
                 'operator_next_action': mapping_review['operator_next_action'],
             })
+        elif mapping_review and mapping_review['disposition'] == 'MAPPED_SYNC_REQUIRED':
+            out.update({
+                'priority': 69,
+                'workstream': 'H2_MAPPING_SYNC_REQUIRED',
+                'decision': 'MAPPED_AND_QUOTED_SYNC_REQUIRED',
+                'work_reason': mapping_review['evidence'],
+                'operator_next_action': mapping_review['operator_next_action'],
+            })
+        elif mapping_review and mapping_review['disposition'] == 'MAPPED_REPLACEMENT_REQUIRED':
+            out.update({
+                'priority': 56,
+                'workstream': 'H4_MAPPED_SUPPLIER_REPLACEMENT',
+                'decision': 'MAPPED_SUPPLIER_REPLACEMENT_REQUIRED',
+                'work_reason': mapping_review['evidence'],
+                'operator_next_action': mapping_review['operator_next_action'],
+            })
+        elif mapping_review and mapping_review['disposition'] == 'MAPPED_RISK_HOLD':
+            out.update({
+                'priority': 80,
+                'workstream': 'H1_RISK_HOLD',
+                'decision': 'MAPPED_SHIPPING_PASS_RISK_HOLD',
+                'work_reason': mapping_review['evidence'],
+                'operator_next_action': mapping_review['operator_next_action'],
+            })
         out_rows.append(out)
 
     out_rows.sort(key=lambda r: (

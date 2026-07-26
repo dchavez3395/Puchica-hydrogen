@@ -42,3 +42,25 @@ The Canada, U.S., and United Kingdom markets remain active under standard Shopif
 - Free Shipping Over $75.
 
 The duplicate Standard International rate and the unsupported 1–2 business-day Express International promise were removed. A fresh `Travel Pet Water Bottle` checkout using a non-personal New York address returned one real shipping method, `Standard Shipping` at US$6.00. The prior `Shipping not available` blocker is resolved.
+
+## Final active-catalog economics and controls
+
+Eight active variants that fell below the observed CA$3.03 shipping floor were repriced and re-read in Shopify. The two affected products are `Long-Sleeve Performance Tee` and `Men's High-Neck Knit Sweater`; all eight rows now clear the Canada margin gate with shipping caps from CA$3.21 to CA$3.27.
+
+`Precision Nail Clippers` was moved to `DRAFT` and had `puchica-launch-ready` removed because neither mapped supplier SKU ships to the United States.
+
+The remaining active launch gate contains 17 products and 374 variants. No active variant is below the Canada shipping-margin floor. Three mapped SKUs still have no U.S. supplier service, but all three are unavailable for sale with inventory zero:
+
+- `Everyday Fleece Joggers` — `3XL / Navy`
+- `Everyday Zip Hoodie` — `XL / Grey`
+- `Multi-Use Organizer Hooks` — `2PCS Black`
+
+The affected products remain viable for Canada and the United States through their other sellable variants.
+
+## Replacement-supplier search results
+
+No safe supplier replacement was applied in this batch:
+
+- `Portable Mini Bag Sealer`: searched candidates were approximately US$6.51 and US$10.82 before destination shipping against a CA$9.99 storefront price, so neither can meet the margin gate. Keep Draft and replace or reject.
+- `RGB LED Strip Lights`: the imported candidate was materially weaker than the current supplier (21 sales and 3.3 rating versus about 10,000 sales and 4.4 rating) and was rejected. Keep Draft under the electrical-compliance and Canada-shipping holds.
+- `Multi-Compartment Desk Organizer`: exact mapped blue SKU passes tracked Canada and U.S. shipping at US$1.99, but Shopify still reports blank SKU, CA$0 unit cost, and placeholder inventory 999. Keep Draft until supplier metadata and inventory synchronization are verified.

@@ -4,15 +4,17 @@ This board turns the Shopify Admin product gate into the order of operations for
 
 ## Current board
 
-- A3_US_MARKET_EXCLUDED: 1
 - C2_DRAFT_REPRICE_CONTENT_REVIEW: 1
+- C3_DRAFT_CONTENT_REVIEW: 1
 - C5_DRAFT_US_READY_MARKET_BLOCKED: 3
 - C6_DRAFT_REMEDIATED_REVIEW: 8
 - D1_US_MARGIN_PENDING: 3
 - D2_US_PRICE_PASSES_MARKET_BLOCKED: 14
-- H1_RISK_HOLD: 22
-- H2_CONFIRMED_UNMAPPED: 5
+- H1_RISK_HOLD: 23
+- H2_CONFIRMED_UNMAPPED: 1
+- H2_MAPPING_SYNC_REQUIRED: 2
 - H4_DRAFT_CANADA_FAIL_EXCLUDED: 5
+- H4_MAPPED_SUPPLIER_REPLACEMENT: 1
 - H5_CONFIRMED_CONTENT_COMPLIANCE_REJECT: 4
 
 ## Do first
@@ -21,7 +23,6 @@ These are the live-store controls to handle before promotion or ad spend.
 
 | product | status | decision | reason | action |
 | --- | --- | --- | --- | --- |
-| Precision Nail Clippers | ACTIVE | US_QUOTE_COMPLETE_US_EXCLUDED | 1 sellable variant(s) cannot ship to the US; keep the product excluded from the US catalog while preserving Canada. | Replace or separate the failing supplier variant before restoring this product to the US catalog. |
 
 ## Quote batches
 
@@ -58,6 +59,12 @@ For each quoted product, record separate exact DSers/AliExpress Canada and US it
 | --- | --- | --- | --- | --- |
 | New Girl Dresses Princess Costume Kids Mermaid Cosplay Costume Kids Carnival Birthday Party Prom Costume Party Dresses For girls | DRAFT | 20 | child_apparel | Quote Canada and US; verify textile composition, sizing, flammability/labeling evidence, and remove ambiguous cosplay claims before activation. |
 
+### C3_DRAFT_CONTENT_REVIEW
+
+| product | status | variants | issue | action |
+| --- | --- | --- | --- | --- |
+| Precision Nail Clippers | DRAFT | 2 | hygiene_beauty | Complete content/compliance review and contribution validation before activation. |
+
 ### C5_DRAFT_US_READY_MARKET_BLOCKED
 
 | product | status | variants | issue | action |
@@ -70,14 +77,14 @@ For each quoted product, record separate exact DSers/AliExpress Canada and US it
 
 | product | status | variants | issue | action |
 | --- | --- | --- | --- | --- |
-| Printed Children's Winter Mittens | DRAFT | 4 | child_apparel | Keep Draft; replace or separate C/E/F and complete children's textile/compliance review. |
 | Copper Washer Assortment | DRAFT | 4 |  | Keep Draft; replace or separate the 200-piece option and verify dimensions/material before activation. |
-| Men's High-Neck Base-Layer Top | DRAFT | 42 | adult_apparel | Keep Draft; replace or separate Coffee / 3L and verify textile specifications before activation. |
+| Everyday Crew-Neck T-Shirt | DRAFT | 18 |  | Keep Draft; replace or separate the no-Canada-shipping variant and verify textile facts before activation. |
+| Everyday Pullover Hoodie | DRAFT | 48 |  | Keep Draft until storefront and checkout validation pass; then decide activation. |
+| Printed Children's Winter Mittens | DRAFT | 4 | child_apparel | Keep Draft; replace or separate C/E/F and complete children's textile/compliance review. |
 | Men's Everyday Shorts | DRAFT | 72 | adult_apparel | Keep Draft; replace or separate the failing variant and verify textile specifications before activation. |
+| Men's High-Neck Base-Layer Top | DRAFT | 42 | adult_apparel | Keep Draft; replace or separate Coffee / 3L and verify textile specifications before activation. |
 | Children's Solid-Color Tights | DRAFT | 39 | child_apparel | Keep Draft; replace or separate the failing variant and complete children's textile/compliance review. |
 | Children's Foot Measuring Gauge | DRAFT | 5 | child_content | Keep Draft; replace or separate Blue and verify measurement accuracy before activation. |
-| Everyday Pullover Hoodie | DRAFT | 48 |  | Keep Draft until storefront and checkout validation pass; then decide activation. |
-| Everyday Crew-Neck T-Shirt | DRAFT | 18 |  | Keep Draft; replace or separate the no-Canada-shipping variant and verify textile facts before activation. |
 
 ### D2_US_PRICE_PASSES_MARKET_BLOCKED
 
@@ -106,11 +113,12 @@ For each quoted product, record separate exact DSers/AliExpress Canada and US it
 | 1:16 Remote-Control Monster Truck | DRAFT | 6 | child_safety | Keep held until safety/claims/IP/compliance review is complete. |
 | Resistance Bands Set - Exercise & Fitness | DRAFT | 1 | child_safety;medical_health | Keep held until safety/claims/IP/compliance review is complete. |
 | Head Back Protector Baby Protect Pillow Learn Walk Head | DRAFT | 1 | child_safety | Keep held until safety/claims/IP/compliance review is complete. |
+| Jade Roller Face Massager | DRAFT | 1 | hygiene_beauty | Keep Draft for hygiene/beauty review and supplier-metadata synchronization; do not activate from shipping evidence alone. |
 | 21 Heated Vest Zones Electric Heated Jackets Men Women Sportswear Heated Coat Graphene Heat Coat USB Heating Jacket For Camping | DRAFT | 32 | electrical | Keep held until safety/claims/IP/compliance review is complete. |
 | Baby Music Activity Gym Rug Play Mat Newborn Carpet Pedal | DRAFT | 14 | child_safety | Keep held until safety/claims/IP/compliance review is complete. |
 | ZWN 2.4G Remote Control Excavator Dump Truck RC Model Car Toy Professional Alloy Plastic Simulation Construction Vehicle for Kid | DRAFT | 6 | child_safety | Keep held until safety/claims/IP/compliance review is complete. |
 | 1:64 RC Construction Vehicle Set | DRAFT | 6 | child_safety | Keep held until safety/claims/IP/compliance review is complete. |
-| Bath Toy Storage Mesh | DRAFT | 4 | child_safety | Drafted on 2026-07-26; keep excluded until safety/claims/IP/compliance review is complete. |
+| Bath Toy Storage Mesh | DRAFT | 4 | child_safety | Keep held until safety/claims/IP/compliance review is complete. |
 | 1PCS Baby Anti-Fall Head Protection Pillow, Breathable Toddler Safety Cushion, Soft Head Guard Pad for Kids Learning to Walk, Sh | DRAFT | 4 | child_safety | Keep held until safety/claims/IP/compliance review is complete. |
 | Pet Supplies Duck Goose Shoes Pet Cole Foot Poultry Boots Pet Duck Boots with Protective Soles Protective Shoe Set Pet Products | DRAFT | 9 | animal_welfare | Species-specific sizing, material, supervision, and welfare/safe-use evidence before reconsideration. |
 | Hand-Controlled Mini RC Drone | DRAFT | 3 | child_safety;electrical | Keep held until safety/claims/IP/compliance review is complete. |
@@ -139,11 +147,7 @@ For each quoted product, record separate exact DSers/AliExpress Canada and US it
 
 | product | status | variants | issue | action |
 | --- | --- | --- | --- | --- |
-| Multi-Compartment Desk Organizer | DRAFT | 1 |  | Keep Draft and excluded. Archive if unwanted, or deliberately import/map a verified supplier before quoting. |
-| Jade Roller Face Massager | DRAFT | 1 | hygiene_beauty | Keep Draft and excluded. Archive if unwanted, or deliberately import/map a verified supplier before quoting. |
-| 6-Piece Silicone Spatula Set | DRAFT | 1 |  | Keep Draft and excluded. Archive if unwanted, or deliberately import/map a verified supplier before quoting. |
 | Custom Neon Sign | DRAFT | 1 |  | Keep Draft and excluded. Archive if unwanted, or deliberately import/map a verified supplier before quoting. |
-| Portable Mini Bag Sealer — Handheld Heat Sealer | DRAFT | 1 |  | Keep Draft and excluded. Archive if unwanted, or deliberately import/map a verified supplier before quoting. |
 
 ## Completion rule
 
