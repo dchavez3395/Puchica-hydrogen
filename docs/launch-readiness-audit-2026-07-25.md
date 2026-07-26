@@ -2,19 +2,20 @@
 
 ## Current operating picture
 
-- Shopify catalog: 66 products total; **1 active**, 64 draft, and 1 archived. The only customer-facing product is Men's High-Neck Knit Sweater.
+- Shopify catalog: 66 products total; **0 active**, 65 draft, and 1 archived. The customer-facing catalog is intentionally paused while fulfillment records are repaired.
 - DSers: 57 AliExpress products mapped in the connected store view; zero unmapped open orders. This is a sourcing pool, not the number of products that should be published.
 - Orders: one paid, unfulfilled test order remains. Do not place or fulfill another supplier order until its DSers path, cost, shipping, and tracking handoff are confirmed.
-- Storefront: the Hydrogen launch allowlist now contains only the active sweater handle. The loss-making cotton T-shirt, the safety/delivery-unreviewed drone and RC construction set, and the pet bowl with stale supplier options were moved to Draft; their Shopify and DSers records remain intact.
+- Storefront: the Hydrogen launch allowlist is intentionally empty. The loss-making cotton T-shirt, the safety/delivery-unreviewed drone and RC construction set, the pet bowl with stale supplier options, and the sweater with no DSers variant mappings were moved to Draft; their Shopify and DSers records remain intact.
 
 ## Current release blockers
 
 1. **Fulfillment proof**: reconcile the paid DSers test order and confirm supplier charge, Canadian shipping method, tracking sync, and customer-notification path before adding traffic.
-2. **Exact Canada supplier quote**: the active sweater requires an exact selected-variant Canadian supplier-shipping quote, delivery window, and tracking check before traffic or lifecycle automation is scaled.
-3. **Apparel return readiness**: the sweater has 54 mapped variants. Verify its size chart, material, garment measurements, and care instructions against the supplier listing before promoting it.
-4. **Pet-bowl mapping repair**: the supplier page no longer matches Shopify/DSers options. Rebuild its current variant mapping, stock, and Canada quote before reconsidering it for launch.
-5. **Collection cleanup**: Shopify retains 11 empty legacy collections. Hydrogen filters them out of customer navigation, but archive them in Shopify only after confirming that no campaign, redirect, or external link still depends on them.
-6. **SKU integrity**: the active sweater retains DSers source-format option IDs as SKUs. That is intentional for mapping; do not normalize them until DSers confirms mapping is independent of the Shopify SKU field.
+2. **Sweater mapping repair**: DSers currently reports `Variants (0)` for the sweater record despite displaying a cost range. Rebuild and save the exact variant map before treating its prices, stock, or fulfilment path as real.
+3. **Exact Canada supplier quote**: obtain an exact selected-variant Canadian supplier-shipping quote, delivery window, and tracking check only after each product's DSers mapping is confirmed.
+4. **Apparel return readiness**: verify the sweater's size chart, material, garment measurements, and care instructions against the supplier listing before promoting it.
+5. **Pet-bowl mapping repair**: the supplier page no longer matches Shopify/DSers options. Rebuild its current variant mapping, stock, and Canada quote before reconsidering it for launch.
+6. **Collection cleanup**: Shopify retains 11 empty legacy collections. Hydrogen filters them out of customer navigation, but archive them in Shopify only after confirming that no campaign, redirect, or external link still depends on them.
+7. **SKU integrity**: preserve supplier-format option IDs until DSers confirms mapping is independent of the Shopify SKU field.
 
 ## Historical pre-triage blockers (superseded)
 
@@ -48,7 +49,7 @@ Puchica should remain a focused lifestyle store rather than a general catalogue 
 
 ### Current examples from the mapped set
 
-- **Possible launch candidates, pending quote/content review**: Solar Fairy String Lights, Compact Manicure Set, Travel Pet Water Bottle, No-Drill Shower Shelf, Compact Bicycle Bell, Men's High-Neck Knit Sweater, Men's Cotton-Linen Wide-Leg Pants, and the active pet bowl products.
+- **Possible launch candidates, pending mapping/quote/content review**: Solar Fairy String Lights, Compact Manicure Set, Travel Pet Water Bottle, No-Drill Shower Shelf, Compact Bicycle Bell, Men's High-Neck Knit Sweater, Men's Cotton-Linen Wide-Leg Pants, and the pet bowl products.
 - **Keep off the storefront until a deliberate exception is approved**: faux piercing jewelry, rabbit-fur keychains, generic/luxury-branded watches, nail-treatment items, heated clothing, cotton-swab health/beauty items, and safety-sensitive RC toys without complete supplier/shipping review.
 - **Immediate risk check**: any supplier SKU marked out of stock cannot be treated as sellable until the exact variant mapping is replaced and revalidated.
 

@@ -25,7 +25,7 @@ Formula: `shipping budget = (listed price x 0.95 x 0.85 x 0.765) - CA$0.30 - hig
 | Travel Pet Water Bottle | CA$12.55-12.80 | CA$5.13 | CA$2.32-2.48 | Viable only if the supplier's Canadian delivery is unusually economical. |
 | Compact Bicycle Bell | CA$6.50-9.49 | CA$3.79 | -CA$0.07 to CA$1.77 | Add-on only; not viable as a standalone hero product at these prices. |
 | Long-Handle Silicone Bottle Brush | CA$3.66-6.72 | CA$2.71 | -CA$0.75 to CA$1.14 | Add-on only. It should not be independently launched without repricing or a bundle. |
-| Men's High-Neck Knit Sweater | CA$39.99 | CA$19.88 | CA$4.52 | Existing active product; validate exact Canadian shipping and size/return risk. |
+| Men's High-Neck Knit Sweater | CA$39.99 | CA$19.88 | CA$4.52 | Draft. DSers now reports `Variants (0)`; repair mapping before any quote or margin decision. |
 | Men's Cotton-Linen Wide-Leg Pants | CA$39.40 | CA$16.29 | CA$7.75 | Strongest apparel candidate on preliminary economics; still requires material, sizing, and Canadian delivery proof. |
 | Men's Casual Sports Hoodie | CA$54.99 | CA$29.11 | CA$4.56 | Quote must be low; retain only if sizing/quality presentation is credible. |
 | Adjustable Raised Pet Bowl Set | CA$34.99 | CA$17.54 | CA$3.78 | Existing active product; low-stock and Canadian shipping validation are mandatory. |
@@ -43,11 +43,11 @@ DSers shows twelve variants, all shipping from China Mainland. The first review 
 
 ## Variant check completed: Men's High-Neck Knit Sweater
 
-DSers shows **54** size/colour variants and **16** mapped images. The reviewed rows were all in stock (493-499 units each), so a dead mapping is not the immediate issue.
+An earlier DSers review displayed **54** size/colour rows and **16** images, but the current product-detail record reports **`Variants (0)`**. Treat the existing mapping as broken until DSers shows a saved, selectable variant map again.
 
 - Reviewed source costs range from **CA$15.98 to CA$18.28** at the current CA$39.99 storefront price, leaving about **CA$6.12 to CA$8.42** of preliminary Canadian supplier-shipping headroom for those variants.
 - Available variants include S, M, L, and XL in Dark Grey, Beige, and black. The product must not be merchandised until the storefront's option names, size chart, material composition, garment measurements, and care instructions have been checked against the supplier listing.
-- Keep the current product active only behind the same exact-variant Canada quote gate. A well-stocked mapped product can still lose money or create a high return rate if its size information and delivery promise are weak.
+- The product is Shopify Draft and absent from the Hydrogen launch allowlist. Do not reactivate it until DSers shows saved mappings and an exact selected-variant Canada quote clears the gate.
 
 ## Supplier check completed: Adjustable Raised Pet Bowl Set
 
@@ -68,7 +68,7 @@ The currently linked supplier page shows **free shipping to Canada** and an esti
 
 ## Immediate queue after quotes
 
-1. Approve the two existing active products only if their exact Canadian quote passes: sweater and raised pet bowl.
+1. Repair the sweater and raised-pet-bowl mappings before requesting any more supplier quotes.
 2. Prioritize cotton-linen pants and the high-tier shower-shelf variants because they have the most workable preliminary shipping headroom.
 3. Treat lights, manicure, pet bottle, bell, and bottle brush as optional add-ons until their landed economics are verified.
 4. Keep the launch assortment at six to ten coherent products; do not mirror all 57 DSers mappings into Shopify.

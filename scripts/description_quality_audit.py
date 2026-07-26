@@ -91,7 +91,8 @@ def main():
     print(f'  Low quality (score <50): {sum(1 for r in rows if r["quality_score"] < 50)}')
     print(f'  Medium (50-69): {sum(1 for r in rows if 50 <= r["quality_score"] < 70)}')
     print(f'  High (70+): {sum(1 for r in rows if r["quality_score"] >= 70)}')
-    print(f'  Median description length: {statistics.median(r["desc_len"] for r in rows):.0f} chars')
+    median_length = statistics.median(r["desc_len"] for r in rows) if rows else 0
+    print(f'  Median description length: {median_length:.0f} chars')
 
     # Per-category breakdown
     out = []
@@ -103,7 +104,7 @@ def main():
     out.append(f'- Low quality (<50): {sum(1 for r in rows if r["quality_score"] < 50)}')
     out.append(f'- Medium (50-69): {sum(1 for r in rows if 50 <= r["quality_score"] < 70)}')
     out.append(f'- High (70+): {sum(1 for r in rows if r["quality_score"] >= 70)}')
-    out.append(f'- Median description length: {statistics.median(r["desc_len"] for r in rows):.0f} chars')
+    out.append(f'- Median description length: {median_length:.0f} chars')
     out.append('')
 
     out.append('## By category')

@@ -7,9 +7,11 @@
  * collection, search result, or merchandising rail just because it remains in
  * a cached collection response.
  */
-export const LAUNCH_PRODUCT_HANDLES = new Set([
-  '2026-new-mens-high-neck-sweater-solid-color-pullover-knitted-warm-casual-turtleneck-sweatwear-woolen-mens-winter-outdoor-tops',
-]);
+// Keep this deliberately empty until at least one product has a complete
+// DSers variant map, a selected-variant Canadian delivery quote, and a
+// verified storefront record. An empty set is safer than exposing a product
+// that cannot be fulfilled.
+export const LAUNCH_PRODUCT_HANDLES = new Set();
 
 export function isLaunchReadyProduct(product) {
   return Boolean(
