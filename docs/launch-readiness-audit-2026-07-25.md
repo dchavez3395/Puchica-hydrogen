@@ -2,10 +2,10 @@
 
 ## Current operating picture
 
-- Shopify catalog: 66 products total; **0 active**, 65 draft, and 1 archived. The customer-facing catalog is intentionally paused while fulfillment records are repaired.
+- Shopify catalog: 66 products total; **1 active**, 64 draft, and 1 archived. The customer-facing catalog currently contains the existing Men's High-Neck Knit Sweater while DSers mapping review continues.
 - DSers: 57 AliExpress products appear in the connected store view, but direct checks of both the sweater and cotton-linen pants currently show `Variants (0)` in their DSers detail records. Treat this as a catalogue-wide mapping-repair blocker, not proof that any product is fulfilment-ready.
 - Orders: Shopify test order **#1001** (CA$13.85) was paid through PayPal, then staff-cancelled on 2026-07-15. It was never fulfilled or tracked. Two CA$13.85 PayPal refund attempts are recorded as failed, so payment/refund resolution needs owner review before another test is run.
-- Storefront: the Hydrogen launch allowlist is intentionally empty. The loss-making cotton T-shirt, the safety/delivery-unreviewed drone and RC construction set, the pet bowl with stale supplier options, and the sweater with no DSers variant mappings were moved to Draft; their Shopify and DSers records remain intact.
+- Storefront: the Hydrogen launch allowlist contains the existing sweater handle. The loss-making cotton T-shirt, the safety/delivery-unreviewed drone and RC construction set, and the pet bowl with stale supplier options remain Draft; their Shopify and DSers records remain intact. The DSers `Variants (0)` detail view is a review signal to investigate, not by itself proof that the existing sweater link is unusable.
 
 ## Current release blockers
 

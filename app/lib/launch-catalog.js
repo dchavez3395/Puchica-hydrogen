@@ -7,11 +7,12 @@
  * collection, search result, or merchandising rail just because it remains in
  * a cached collection response.
  */
-// Keep this deliberately empty until at least one product has a complete
-// DSers variant map, a selected-variant Canadian delivery quote, and a
-// verified storefront record. An empty set is safer than exposing a product
-// that cannot be fulfilled.
-export const LAUNCH_PRODUCT_HANDLES = new Set();
+// Keep the live edit deliberately narrow while supplier validation continues.
+// The sweater is restored as the existing DSers-linked storefront product;
+// do not add newly imported products here until they pass the launch review.
+export const LAUNCH_PRODUCT_HANDLES = new Set([
+  '2026-new-mens-high-neck-sweater-solid-color-pullover-knitted-warm-casual-turtleneck-sweatwear-woolen-mens-winter-outdoor-tops',
+]);
 
 export function isLaunchReadyProduct(product) {
   return Boolean(

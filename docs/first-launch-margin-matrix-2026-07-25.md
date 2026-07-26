@@ -25,7 +25,7 @@ Formula: `shipping budget = (listed price x 0.95 x 0.85 x 0.765) - CA$0.30 - hig
 | Travel Pet Water Bottle | CA$12.55-12.80 | CA$5.13 | CA$2.32-2.48 | Viable only if the supplier's Canadian delivery is unusually economical. |
 | Compact Bicycle Bell | CA$6.50-9.49 | CA$3.79 | -CA$0.07 to CA$1.77 | Add-on only; not viable as a standalone hero product at these prices. |
 | Long-Handle Silicone Bottle Brush | CA$3.66-6.72 | CA$2.71 | -CA$0.75 to CA$1.14 | Add-on only. It should not be independently launched without repricing or a bundle. |
-| Men's High-Neck Knit Sweater | CA$39.99 | CA$19.88 | CA$4.52 | Draft. DSers now reports `Variants (0)`; repair mapping before any quote or margin decision. |
+| Men's High-Neck Knit Sweater | CA$39.99 | CA$19.88 | CA$4.52 | Restored as the existing live product while mapping review continues. Do not use the `Variants (0)` detail view alone as conclusive proof of a broken link. |
 | Men's Cotton-Linen Wide-Leg Pants | CA$39.40 | CA$16.29 | CA$7.75 | Draft. Strong preliminary economics, but DSers currently reports `Variants (0)`; repair mapping before any quote or content decision. |
 | Men's Casual Sports Hoodie | CA$54.99 | CA$29.11 | CA$4.56 | Quote must be low; retain only if sizing/quality presentation is credible. |
 | Adjustable Raised Pet Bowl Set | CA$34.99 | CA$17.54 | CA$3.78 | Existing active product; low-stock and Canadian shipping validation are mandatory. |
@@ -47,7 +47,7 @@ An earlier DSers review displayed **54** size/colour rows and **16** images, but
 
 - Reviewed source costs range from **CA$15.98 to CA$18.28** at the current CA$39.99 storefront price, leaving about **CA$6.12 to CA$8.42** of preliminary Canadian supplier-shipping headroom for those variants.
 - Available variants include S, M, L, and XL in Dark Grey, Beige, and black. The product must not be merchandised until the storefront's option names, size chart, material composition, garment measurements, and care instructions have been checked against the supplier listing.
-- The product is Shopify Draft and absent from the Hydrogen launch allowlist. Do not reactivate it until DSers shows saved mappings and an exact selected-variant Canada quote clears the gate.
+- The product is restored to Shopify Active and the Hydrogen launch allowlist. Keep traffic controlled while the exact selected-variant Canada quote and DSers mapping detail are independently verified.
 
 ## Supplier check completed: Adjustable Raised Pet Bowl Set
 
