@@ -33,12 +33,13 @@ The following additional US supplier checks were completed:
 - `Everyday Polarized Sunglasses`: all three mapped variants returned US$1.99 shipping with tracking; black and silver quoted 7~11 days, while gold quoted 9~14 days.
 - `Long-Handle Bottle Brush`: both mapped variants returned US$1.99 shipping, 7~11 days, tracking available.
 - `Multi-Use Organizer Hooks`: brown, pink, and light blue returned US$1.99 shipping with tracking; black returned **No Shipping** to the United States.
+- `Everyday Zip Hoodie`: representative black, grey, and white SKUs returned US$1.99 shipping in 7~12 days with tracking; the exact `XL / Grey` supplier SKU returned **No Shipping** to the United States.
 
 The seven fully shipping-passing products are marked `PASS_SHIPPING_PENDING_US_STOREFRONT_PRICE`, not fully approved, until US storefront prices and contribution are available after the Managed Markets conflict is resolved.
 
-`Precision Nail Clippers` was removed from the dedicated US publication (`gid://shopify/Publication/215035183354`) on 2026-07-26. `Multi-Use Organizer Hooks` was also excluded from `Puchica US Catalog` because Shopify catalog inclusion is product-level and its black variant cannot ship to the United States. Shopify Admin verification shows the U.S. catalog now has 63 included products, and the Excluded view contains both products. Their viable Canadian listings remain unchanged.
+`Precision Nail Clippers` was removed from the dedicated US publication (`gid://shopify/Publication/215035183354`) on 2026-07-26. `Multi-Use Organizer Hooks` was also excluded from `Puchica US Catalog` because Shopify catalog inclusion is product-level and its black variant cannot ship to the United States. The mixed-shipping `Everyday Zip Hoodie` was subsequently excluded for the same product-level reason. Shopify Admin verification shows the U.S. catalog now has 62 included products; these three products are absent from the Included view. Their viable Canadian listings remain unchanged.
 
-Current U.S. quote evidence covers 27 mapped variant rows across 9 products: 24 shipping passes and 3 no-shipping failures.
+Current U.S. quote evidence covers 45 mapped variant rows across 10 products: 41 shipping passes (including representative-sample rows) and 4 no-shipping failures.
 
 ## Product approval rule
 
