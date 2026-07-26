@@ -6,7 +6,7 @@ Read-only Shopify Admin snapshot. This is an operating ledger, not a launch appr
 
 - Products audited: 66
 - Variants audited: 933
-- Active launch-gated products: 10
+- Active launch-gated products: 11
 
 ### By Shopify status
 
@@ -20,8 +20,8 @@ Read-only Shopify Admin snapshot. This is an operating ledger, not a launch appr
 - HOLD_MAPPING_REQUIRED: 5
 - HOLD_REPRICE_OR_REJECT: 2
 - HOLD_RISK_REVIEW: 25
-- LIVE_QUOTE_REQUIRED: 10
-- REVIEW_VISIBILITY_AND_TAGS: 6
+- LIVE_QUOTE_REQUIRED: 11
+- REVIEW_VISIBILITY_AND_TAGS: 5
 
 ## Quote-first queue
 
@@ -36,6 +36,7 @@ Read-only Shopify Admin snapshot. This is an operating ledger, not a launch appr
 | Everyday Polarized Sunglasses | 3 | 3.29 | Approved tight-margin launch; monitor Canada shipping and recheck if supplier pricing changes. |
 | Long-Handle Bottle Brush | 2 | 3.31 | Capture exact Canada DSers quote; approve, reprice, or remove launch tag. |
 | Men's Cotton-Linen Wide-Leg Pants | 100 | 4.14 | Capture exact Canada DSers quote; approve, reprice, or remove launch tag. |
+| Multi-Use Organizer Hooks | 4 | 3.14 | Approved after repricing Pink to CA$15.49; monitor low-stock Brown and Light Blue variants. |
 | Travel Pet Water Bottle | 3 | 5.08 | Capture exact Canada DSers quote; approve, reprice, or remove launch tag. |
 
 ## Hold-first queue

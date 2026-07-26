@@ -4,13 +4,13 @@ This board turns the Shopify Admin product gate into the order of operations for
 
 ## Current board
 
-- B1_QUOTE_QUICK_WINS: 7
+- B1_QUOTE_QUICK_WINS: 8
 - B2_QUOTE_HIGH_VARIANT: 3
 - C1_DRAFT_REVIEW_BATCH: 18
 - H1_RISK_HOLD: 25
 - H2_MAPPING_REPAIR: 5
 - H3_REPRICE_OR_REJECT: 2
-- Z_REVIEW_MANUALLY: 6
+- Z_REVIEW_MANUALLY: 5
 
 ## Do first
 
@@ -34,6 +34,7 @@ For each quoted product, record exact DSers/AliExpress Canada item cost, shippin
 | Compact Bicycle Bell | 6 | 3.77 |  | Quote exact Canada delivery first; approve if shipping is at or below cap. |
 | Long-Handle Bottle Brush | 2 | 3.31 |  | Quote exact Canada delivery first; approve if shipping is at or below cap. |
 | Everyday Polarized Sunglasses | 3 | 3.29 |  | Quote exact Canada delivery first; approve if shipping is at or below cap. |
+| Multi-Use Organizer Hooks | 4 | 3.14 |  | Quote exact Canada delivery first; approve if shipping is at or below cap. |
 
 ### B2_QUOTE_HIGH_VARIANT
 
@@ -125,7 +126,6 @@ For each quoted product, record exact DSers/AliExpress Canada item cost, shippin
 | product | status | variants | issue | action |
 | --- | --- | --- | --- | --- |
 | Precision Nail Clippers | ACTIVE | 2 | hygiene_beauty | Check status, launch tag, and collection visibility. |
-| Multi-Use Organizer Hooks | ACTIVE | 4 |  | Check status, launch tag, and collection visibility. |
 | Everyday Zip Hoodie | ACTIVE | 18 |  | Check status, launch tag, and collection visibility. |
 | Breezy Everyday Pants | ACTIVE | 28 |  | Check status, launch tag, and collection visibility. |
 | Long-Sleeve Performance Tee | ACTIVE | 35 |  | Check status, launch tag, and collection visibility. |
