@@ -1,6 +1,6 @@
 # Storewide U.S. catalog price validation ? 2026-07-26
 
-Observed directly in Shopify Admin catalog `Puchica US Catalog` (`103822819578`), assigned to the U.S. market with no overall adjustment. Four conservative price exceptions were resolved with fixed U.S.-catalog prices.
+Observed directly in Shopify Admin catalog `Puchica US Catalog` (`103822819578`), assigned to the U.S. market with no overall adjustment. 5 conservative price exceptions were resolved with fixed U.S.-catalog prices.
 
 | product | observed/fixed USD price | conservative floor | override | verdict |
 | --- | ---: | ---: | --- | --- |
@@ -11,6 +11,7 @@ Observed directly in Shopify Admin catalog `Puchica US Catalog` (`103822819578`)
 | Everyday Carabiner Clip Set | 10.85 | 8.99 | no | PASS_CONSERVATIVE_US_MARGIN_FLOOR |
 | Everyday Performance Shorts | 34.99 | 34.99 | yes | PASS_FIXED_US_PRICE_OVERRIDE |
 | Everyday Polarized Sunglasses | 21.70 | 20.99 | no | PASS_CONSERVATIVE_US_MARGIN_FLOOR |
+| Everyday Printed Joggers | 19.99 | 18.99 | yes | PASS_FIXED_US_PRICE_OVERRIDE |
 | Long-Handle Bottle Brush | 8.68 | 7.99 | no | PASS_CONSERVATIVE_US_MARGIN_FLOOR |
 | Long-Sleeve Performance Tee | 19.99 | 19.99 | yes | PASS_FIXED_US_PRICE_OVERRIDE |
 | Men's Cotton-Linen Wide-Leg Pants | 28.51 | 25.99 | no | PASS_CONSERVATIVE_US_MARGIN_FLOOR |
@@ -21,5 +22,5 @@ Observed directly in Shopify Admin catalog `Puchica US Catalog` (`103822819578`)
 ## Interpretation
 
 - `PASS_CONSERVATIVE_US_MARGIN_FLOOR`: the lowest displayed U.S. catalog price is at or above the maximum-cost conservative floor.
-- `PASS_FIXED_US_PRICE_OVERRIDE`: a fixed U.S.-catalog price was saved at the conservative floor and re-read successfully.
+- `PASS_FIXED_US_PRICE_OVERRIDE`: a fixed U.S.-catalog price was saved at or above the conservative floor and re-read successfully.
 - Price validation does not override the existing Managed Markets/storefront availability blocker.

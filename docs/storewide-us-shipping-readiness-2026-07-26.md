@@ -50,6 +50,17 @@ All 13 U.S.-eligible products now also pass the conservative price and contribut
 
 All 17 active launch products now have U.S. quote evidence. The worksheet covers all 358 active launch variant rows: 350 shipping passes (including representative-sample rows) and 8 exact no-shipping failures. Thirteen products have a sellable U.S. variant set; four remain excluded at product level because a no-shipping variant is still sellable in Canada.
 
+## Live checkout verification ? Everyday Printed Joggers
+
+After the product passed both supplier-quote sets and its Canadian and U.S. price floors, Shopify was updated to `ACTIVE`, tagged `puchica-launch-ready`, published to Puchica Storefront, and given a fixed U.S.-catalog price of US$19.99.
+
+- Canadian product page: pass.
+- Canadian cart: pass.
+- Canadian checkout using a non-personal Winnipeg test address: Standard Shipping CA$7.99 and Express CA$20.00.
+- U.S. checkout using a non-personal New York test address: **Shipping not available**.
+
+This live checkout result confirms that supplier-level U.S. shipping eligibility and catalog pricing are not sufficient while Managed Markets controls the U.S. fulfillment path.
+
 ## Product approval rule
 
 A mapped product can be marked dual-country approved only when all of the following are true:

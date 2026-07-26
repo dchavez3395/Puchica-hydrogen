@@ -1,4 +1,21 @@
-# Catalog Release Log — 2026-07-26
+# Catalog Release Log ? 2026-07-26
+
+## Current audited launch state
+
+The earlier 26-product baseline below records the state before the storewide destination-shipping and compliance gate removed failing products. The current authoritative workboard contains **18 active launch-tagged products**: 14 with passing U.S. supplier-shipping and price evidence, and 4 kept out of the U.S. catalog because at least one sellable variant cannot ship there.
+
+`Everyday Printed Joggers` became the first additional audited promotion beyond the original 17-product working set. On 2026-07-26 it was:
+
+- renamed and given customer-ready product copy;
+- assigned to `Apparel & Accessories > Clothing > Pants > Joggers`;
+- repriced across all 18 variants so the Canadian margin gate passes;
+- set `ACTIVE`, tagged `puchica-launch-ready`, and published to Online Store and Puchica Storefront;
+- verified on its live Canadian product page, all-products collection, and cart;
+- verified in Canadian checkout with Standard Shipping at CA$7.99 and Express at CA$20.00; and
+- assigned a fixed US$19.99 U.S.-catalog price, above its conservative US$18.99 floor.
+
+The same checkout returned `Shipping not available` after switching to a valid non-personal U.S. test destination. U.S. delivery therefore remains blocked by the documented Managed Markets/Global-e fulfillment-mode conflict.
+
 
 ## Verified live baseline
 
