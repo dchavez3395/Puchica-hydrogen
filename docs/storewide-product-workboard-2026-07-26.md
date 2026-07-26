@@ -4,13 +4,13 @@ This board turns the Shopify Admin product gate into the order of operations for
 
 ## Current board
 
-- B1_QUOTE_QUICK_WINS: 6
+- B1_QUOTE_QUICK_WINS: 7
 - B2_QUOTE_HIGH_VARIANT: 3
 - C1_DRAFT_REVIEW_BATCH: 18
 - H1_RISK_HOLD: 25
 - H2_MAPPING_REPAIR: 5
 - H3_REPRICE_OR_REJECT: 2
-- Z_REVIEW_MANUALLY: 7
+- Z_REVIEW_MANUALLY: 6
 
 ## Do first
 
@@ -33,6 +33,7 @@ For each quoted product, record exact DSers/AliExpress Canada item cost, shippin
 | Adjustable Rhinestone Ring | 2 | 4.07 |  | Quote exact Canada delivery first; approve if shipping is at or below cap. |
 | Compact Bicycle Bell | 6 | 3.77 |  | Quote exact Canada delivery first; approve if shipping is at or below cap. |
 | Long-Handle Bottle Brush | 2 | 3.31 |  | Quote exact Canada delivery first; approve if shipping is at or below cap. |
+| Everyday Polarized Sunglasses | 3 | 3.29 |  | Quote exact Canada delivery first; approve if shipping is at or below cap. |
 
 ### B2_QUOTE_HIGH_VARIANT
 
@@ -116,14 +117,13 @@ For each quoted product, record exact DSers/AliExpress Canada item cost, shippin
 
 | product | status | variants | issue | action |
 | --- | --- | --- | --- | --- |
-| Everyday Pullover Hoodie | ACTIVE | 48 |  | Reprice, change variant/supplier, bundle, or reject before launch. |
-| Everyday 100% Cotton T-Shirt | ACTIVE | 18 |  | Reprice, change variant/supplier, bundle, or reject before launch. |
+| Everyday Pullover Hoodie | DRAFT | 48 |  | Reprice, change variant/supplier, bundle, or reject before launch. |
+| Everyday 100% Cotton T-Shirt | DRAFT | 18 |  | Reprice, change variant/supplier, bundle, or reject before launch. |
 
 ### Z_REVIEW_MANUALLY
 
 | product | status | variants | issue | action |
 | --- | --- | --- | --- | --- |
-| Everyday Polarized Sunglasses | ACTIVE | 3 |  | Check status, launch tag, and collection visibility. |
 | Precision Nail Clippers | ACTIVE | 2 | hygiene_beauty | Check status, launch tag, and collection visibility. |
 | Multi-Use Organizer Hooks | ACTIVE | 4 |  | Check status, launch tag, and collection visibility. |
 | Everyday Zip Hoodie | ACTIVE | 18 |  | Check status, launch tag, and collection visibility. |

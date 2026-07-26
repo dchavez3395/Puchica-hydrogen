@@ -6,13 +6,13 @@ Read-only Shopify Admin snapshot. This is an operating ledger, not a launch appr
 
 - Products audited: 66
 - Variants audited: 933
-- Active launch-gated products: 9
+- Active launch-gated products: 10
 
 ### By Shopify status
 
-- ACTIVE: 19
+- ACTIVE: 17
 - ARCHIVED: 1
-- DRAFT: 46
+- DRAFT: 48
 
 ### By gate decision
 
@@ -20,8 +20,8 @@ Read-only Shopify Admin snapshot. This is an operating ledger, not a launch appr
 - HOLD_MAPPING_REQUIRED: 5
 - HOLD_REPRICE_OR_REJECT: 2
 - HOLD_RISK_REVIEW: 25
-- LIVE_QUOTE_REQUIRED: 9
-- REVIEW_VISIBILITY_AND_TAGS: 7
+- LIVE_QUOTE_REQUIRED: 10
+- REVIEW_VISIBILITY_AND_TAGS: 6
 
 ## Quote-first queue
 
@@ -33,6 +33,7 @@ Read-only Shopify Admin snapshot. This is an operating ledger, not a launch appr
 | Everyday Carabiner Clip Set | 2 | 4.52 | Capture exact Canada DSers quote; approve, reprice, or remove launch tag. |
 | Everyday Fleece Joggers | 21 | 3.24 | Capture exact Canada DSers quote; approve, reprice, or remove launch tag. |
 | Everyday Performance Shorts | 21 | 4.00 | Capture exact Canada DSers quote; approve, reprice, or remove launch tag. |
+| Everyday Polarized Sunglasses | 3 | 3.29 | Approved tight-margin launch; monitor Canada shipping and recheck if supplier pricing changes. |
 | Long-Handle Bottle Brush | 2 | 3.31 | Capture exact Canada DSers quote; approve, reprice, or remove launch tag. |
 | Men's Cotton-Linen Wide-Leg Pants | 100 | 4.14 | Capture exact Canada DSers quote; approve, reprice, or remove launch tag. |
 | Travel Pet Water Bottle | 3 | 5.08 | Capture exact Canada DSers quote; approve, reprice, or remove launch tag. |
@@ -43,8 +44,8 @@ Read-only Shopify Admin snapshot. This is an operating ledger, not a launch appr
 | --- | --- | --- | --- |
 | Bath Toy Storage Mesh | ACTIVE | HOLD_RISK_REVIEW | child_safety |
 | Solar Fairy String Lights for Outdoor Decor | DRAFT | HOLD_RISK_REVIEW | electrical |
-| Everyday 100% Cotton T-Shirt | ACTIVE | HOLD_REPRICE_OR_REJECT | Reprice, change variant/supplier, bundle, or reject before launch. |
-| Everyday Pullover Hoodie | ACTIVE | HOLD_REPRICE_OR_REJECT | Reprice, change variant/supplier, bundle, or reject before launch. |
+| Everyday 100% Cotton T-Shirt | DRAFT | HOLD_REPRICE_OR_REJECT | Reprice, change variant/supplier, bundle, or reject before launch. |
+| Everyday Pullover Hoodie | DRAFT | HOLD_REPRICE_OR_REJECT | Reprice, change variant/supplier, bundle, or reject before launch. |
 | USB Heated Cushion 43x43cm Electric Blanket | ARCHIVED | HOLD_RISK_REVIEW | electrical |
 | 6-Piece Silicone Spatula Set | DRAFT | HOLD_MAPPING_REQUIRED | Do not quote yet; repair DSers mapping/SKU first. |
 | Custom Neon Sign | DRAFT | HOLD_MAPPING_REQUIRED | Do not quote yet; repair DSers mapping/SKU first. |
