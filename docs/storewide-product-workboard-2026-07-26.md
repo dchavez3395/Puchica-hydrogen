@@ -4,10 +4,11 @@ This board turns the Shopify Admin product gate into the order of operations for
 
 ## Current board
 
-- A3_US_MARKET_EXCLUDED: 4
+- A3_US_MARKET_EXCLUDED: 1
 - C2_DRAFT_REPRICE_CONTENT_REVIEW: 1
 - C5_DRAFT_US_READY_MARKET_BLOCKED: 3
 - C6_DRAFT_REMEDIATED_REVIEW: 8
+- D1_US_MARGIN_PENDING: 3
 - D2_US_PRICE_PASSES_MARKET_BLOCKED: 14
 - H1_RISK_HOLD: 22
 - H2_CONFIRMED_UNMAPPED: 5
@@ -21,9 +22,6 @@ These are the live-store controls to handle before promotion or ad spend.
 | product | status | decision | reason | action |
 | --- | --- | --- | --- | --- |
 | Precision Nail Clippers | ACTIVE | US_QUOTE_COMPLETE_US_EXCLUDED | 1 sellable variant(s) cannot ship to the US; keep the product excluded from the US catalog while preserving Canada. | Replace or separate the failing supplier variant before restoring this product to the US catalog. |
-| Everyday Fleece Joggers | ACTIVE | US_QUOTE_COMPLETE_US_EXCLUDED | 1 sellable variant(s) cannot ship to the US; keep the product excluded from the US catalog while preserving Canada. | Replace or separate the failing supplier variant before restoring this product to the US catalog. |
-| Multi-Use Organizer Hooks | ACTIVE | US_QUOTE_COMPLETE_US_EXCLUDED | 1 sellable variant(s) cannot ship to the US; keep the product excluded from the US catalog while preserving Canada. | Replace or separate the failing supplier variant before restoring this product to the US catalog. |
-| Everyday Zip Hoodie | ACTIVE | US_QUOTE_COMPLETE_US_EXCLUDED | 1 sellable variant(s) cannot ship to the US; keep the product excluded from the US catalog while preserving Canada. | Replace or separate the failing supplier variant before restoring this product to the US catalog. |
 
 ## Quote batches
 
@@ -48,6 +46,9 @@ For each quoted product, record separate exact DSers/AliExpress Canada and US it
 
 | product | variants | decision | action |
 | --- | --- | --- | --- |
+| Everyday Fleece Joggers | 21 | US_QUOTE_COMPLETE_MARGIN_PENDING | Validate USD storefront price, landed contribution, checkout delivery, and live US availability. |
+| Multi-Use Organizer Hooks | 4 | US_QUOTE_COMPLETE_MARGIN_PENDING | Validate USD storefront price, landed contribution, checkout delivery, and live US availability. |
+| Everyday Zip Hoodie | 18 | US_QUOTE_COMPLETE_MARGIN_PENDING | Validate USD storefront price, landed contribution, checkout delivery, and live US availability. |
 
 ## Drafts and holds
 

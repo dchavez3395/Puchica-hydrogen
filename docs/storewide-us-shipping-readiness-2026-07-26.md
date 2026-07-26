@@ -42,13 +42,13 @@ The following additional US supplier checks were completed:
 - `Men's Cotton-Linen Wide-Leg Pants`: five representative samples across both visible style groups returned US$1.99 shipping in 7~14 days with tracking.
 - `Men's High-Neck Knit Sweater`: four representative dark-grey/beige size samples returned US$1.99 shipping in 9~14 days with tracking; the no-shipping `S / Dark Grey` SKU was already disabled with zero inventory.
 
-Ten products have fully passing sampled shipping sets. `Quick-Dry Training Shorts`, `Long-Sleeve Performance Tee`, and `Men's High-Neck Knit Sweater` are also U.S.-eligible because each observed no-shipping SKU is already disabled with zero inventory; all sampled sellable groups passed.
+Ten products have fully passing sampled shipping sets. `Quick-Dry Training Shorts`, `Long-Sleeve Performance Tee`, and `Men's High-Neck Knit Sweater` are also U.S.-eligible because each observed no-shipping SKU is already disabled with zero inventory; all sampled sellable groups passed. On 2026-07-26, the exact no-US-shipping variants for `Everyday Fleece Joggers` (`3XL / Navy`), `Multi-Use Organizer Hooks` (`2PCS Black`), and `Everyday Zip Hoodie` (`XL / Grey`) were also set to zero inventory with overselling denied. Their remaining sellable variants retain passing U.S. quote evidence.
 
 All 14 U.S.-eligible active products now also pass the conservative price and contribution gate. Nine clear their calculated U.S. floors without an override. Five have fixed U.S.-catalog-only prices without changing Canadian pricing: `Breezy Everyday Pants` US$21.99, `Everyday Performance Shorts` US$34.99, `Men's High-Neck Knit Sweater` US$30.99, `Long-Sleeve Performance Tee` US$19.99, and `Everyday Printed Joggers` US$19.99. Three additional U.S.-only Draft candidates have verified fixed prices but remain blocked from activation. Price evidence is recorded in `storewide-us-catalog-price-validation-2026-07-26.csv`.
 
-`Precision Nail Clippers` was removed from the dedicated US publication (`gid://shopify/Publication/215035183354`) on 2026-07-26. `Multi-Use Organizer Hooks` was also excluded from `Puchica US Catalog` because Shopify catalog inclusion is product-level and its black variant cannot ship to the United States. The mixed-shipping `Everyday Zip Hoodie` was subsequently excluded for the same product-level reason. `Quick-Dry Training Shorts` remains included because its failed `XXXL / 61620lan` variant is already unavailable for sale with zero inventory. Everyday Fleece Joggers was also excluded because its failing 3XL / Navy variant remains sellable in Canada. Shopify Admin verification shows the U.S. catalog has 62 included products; Precision Nail Clippers, Multi-Use Organizer Hooks, Everyday Zip Hoodie, and Everyday Fleece Joggers are absent from the Included view. Their viable Canadian listings remain unchanged.
+`Precision Nail Clippers` remains removed from the dedicated US publication (`gid://shopify/Publication/215035183354`) because its only sellable variant still has no U.S. shipping. After disabling the three exact failing variants listed above, `Everyday Fleece Joggers`, `Multi-Use Organizer Hooks`, and `Everyday Zip Hoodie` were restored to `Puchica US Catalog`. A live Shopify Admin read-back of the Excluded products view showed only `Precision Nail Clippers`. The viable Canadian listings for all four products remain unchanged.
 
-All 18 active launch products now have U.S. quote evidence. The worksheet covers all 376 active launch variant rows: 368 shipping passes (including representative-sample rows) and 8 exact no-shipping failures. Fourteen products have a sellable U.S. variant set; four remain excluded at product level because a no-shipping variant is still sellable in Canada.
+All 18 active launch products now have U.S. quote evidence. The worksheet covers all 376 active launch variant rows: 368 shipping passes (including representative-sample rows) and 8 exact no-shipping failures. Seventeen products now have a sellable U.S. variant set; only `Precision Nail Clippers` remains excluded at product level.
 
 ## Live checkout verification ? Everyday Printed Joggers
 
@@ -60,6 +60,12 @@ After the product passed both supplier-quote sets and its Canadian and U.S. pric
 - U.S. checkout using a non-personal New York test address: **Shipping not available**.
 
 This live checkout result confirms that supplier-level U.S. shipping eligibility and catalog pricing are not sufficient while Managed Markets controls the U.S. fulfillment path.
+
+## Fresh U.S. checkout re-test - Travel Pet Water Bottle
+
+After the three variant-level repairs, a fresh checkout was run with Travel Pet Water Bottle using a non-personal New York test address. Shopify again returned **Shipping not available**. No order or payment was submitted.
+
+This confirms the remaining blocker is market-level fulfillment configuration, not the repaired products or their DSers supplier quotes.
 
 ## Product approval rule
 
