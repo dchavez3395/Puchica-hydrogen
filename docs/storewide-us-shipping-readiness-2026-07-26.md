@@ -5,7 +5,9 @@
 - The dedicated `U.S` market (`gid://shopify/Market/40405303546`) was changed from `DRAFT` to `ACTIVE` on 2026-07-26.
 - The General delivery profile already contains a `US Cross-border` zone for country `US`.
 - Active methods in that zone include `Standard International`, `Express International`, and `Standard Shipping`.
-- The shared `Shopify Catalog` is Active and associates the U.S. market with the existing product publication.
+- The original shared `Shopify Catalog` used a CAD price list, which conflicted with the US/USD buyer context.
+- A dedicated zero-adjustment USD price list (`gid://shopify/PriceList/22620078330`) and active `Puchica US Catalog` (`gid://shopify/MarketCatalog/103822819578`) were created for the U.S. market.
+- The U.S. market was removed from the shared CAD catalog; Canada and the UK remain attached to it.
 
 ## Verification result
 
@@ -13,7 +15,16 @@
 - Default Storefront API context: products returned.
 - United States Storefront API context immediately after activation: **0 products returned**.
 
-The Admin configuration is therefore necessary but not yet sufficient proof that a US buyer can purchase. Treat US launch availability as **PENDING_STOREFRONT_CATALOG_VERIFICATION** until the US Storefront API context returns the intended launch products and checkout delivery options are verified.
+Shopify Admin now resolves the dedicated USD catalog and its completed 17-product publication for a US buyer. However, the U.S. market is also marked `Managed`, and its Managed Markets eligibility panel reports **0 of 17 supported**. Managed Markets requires fulfillment through Global-e labels/rates; the launch catalog is fulfilled by DSers suppliers, primarily from China. The US Storefront API therefore still returns zero products.
+
+Treat US launch availability as **BLOCKED_BY_MANAGED_MARKETS_FULFILLMENT_MODE**. The next configuration decision is to deactivate Managed Markets for the U.S. market and use Puchica's existing US Cross-border delivery profile, or replace DSers fulfillment with a Managed Markets-compatible fulfillment path. Deactivation changes merchant-of-record, duties/tax handling, carrier rates, and compliance responsibility, so it requires explicit merchant approval.
+
+## US supplier quotes captured
+
+- `Travel Pet Water Bottle`: all three mapped colors returned AliExpress Selection Standard from CN, US$1.99 shipping, 7~12 days, tracking available; supplier cost range US$3.49~3.56 and DSers aggregate stock 23.
+- `Everyday Carabiner Clip Set`: both mapped variants returned AliExpress Selection Standard from CN, US$1.99 shipping, 7~12 days, tracking available; supplier cost range US$2.07~2.08 and DSers aggregate stock 47.
+
+Both products are marked `PASS_SHIPPING_PENDING_US_STOREFRONT_PRICE`, not fully approved, until US storefront prices and contribution are available after the Managed Markets conflict is resolved.
 
 ## Product approval rule
 
