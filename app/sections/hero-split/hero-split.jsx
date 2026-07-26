@@ -19,7 +19,11 @@ export function HeroSplit({categories = []}) {
       <div className="pk-section__inner">
         <div className="pk-store-hero">
           <div className="pk-store-hero__intro">
+            <span className="pk-store-hero__eyebrow">
+              {t('hero_split_eyebrow')}
+            </span>
             <h1 className="pk-store-hero__heading">{t('hero_store_toolbar_heading')}</h1>
+            <p className="pk-store-hero__body">{t('hero_split_body')}</p>
           </div>
 
           <form className="pk-store-hero__search" action="/search" method="get">
@@ -39,9 +43,6 @@ export function HeroSplit({categories = []}) {
           <div className="pk-store-hero__actions">
             <Link to="/collections" prefetch="viewport" className="pk-btn pk-btn--ink">
               {t('hero_split_cta_secondary')}
-            </Link>
-            <Link to="/collections/all" prefetch="viewport" className="pk-btn pk-btn--outline">
-              {t('nav_all_products')}
             </Link>
             <Link
               to="/collections/best-sellers"
