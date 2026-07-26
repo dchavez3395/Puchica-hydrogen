@@ -178,7 +178,7 @@ def write_markdown(path: Path, rows: list[dict], run_date: str) -> None:
         '## Drafts and holds',
         '',
     ])
-    for stream in ('C1_DRAFT_REVIEW_BATCH', 'C2_DRAFT_REPRICE_CONTENT_REVIEW', 'C3_DRAFT_CONTENT_REVIEW', 'C4_DRAFT_US_ONLY_REVIEW', 'H1_RISK_HOLD', 'H4_DRAFT_CANADA_FAIL_EXCLUDED', 'H2_MAPPING_REPAIR', 'H3_REPRICE_OR_REJECT', 'Z_REVIEW_MANUALLY'):
+    for stream in ('C1_DRAFT_REVIEW_BATCH', 'C2_DRAFT_REPRICE_CONTENT_REVIEW', 'C3_DRAFT_CONTENT_REVIEW', 'C4_DRAFT_US_ONLY_REVIEW', 'H1_RISK_HOLD', 'H4_DRAFT_CANADA_FAIL_EXCLUDED', 'H2_MAPPING_REPAIR', 'H2_CONFIRMED_UNMAPPED', 'H3_REPRICE_OR_REJECT', 'Z_REVIEW_MANUALLY'):
         batch = grouped.get(stream, [])
         if not batch:
             continue
@@ -216,6 +216,8 @@ def main() -> None:
     quote_state = build_quote_summary(read_csv(quote_path)) if quote_path.exists() else {}
     review_path = docs_dir / f'storewide-content-compliance-review-{args.date}.csv'
     content_reviews = {row['handle']: row for row in read_csv(review_path)} if review_path.exists() else {}
+    mapping_path = docs_dir / f'storewide-mapping-resolution-{args.date}.csv'
+    mapping_reviews = {row['handle']: row for row in read_csv(mapping_path)} if mapping_path.exists() else {}
 
     out_rows = []
     for row in rows:
@@ -353,6 +355,15 @@ def main() -> None:
                 'decision': 'HOLD_CONTENT_COMPLIANCE_REVIEW',
                 'work_reason': review['reason'],
                 'operator_next_action': review['required_evidence'],
+            })
+        mapping_review = mapping_reviews.get(row['handle'])
+        if mapping_review and mapping_review['disposition'] == 'CONFIRMED_UNMAPPED_KEEP_EXCLUDED':
+            out.update({
+                'priority': 71,
+                'workstream': 'H2_CONFIRMED_UNMAPPED',
+                'decision': 'CONFIRMED_UNMAPPED_KEEP_EXCLUDED',
+                'work_reason': mapping_review['evidence'],
+                'operator_next_action': mapping_review['operator_next_action'],
             })
         out_rows.append(out)
 

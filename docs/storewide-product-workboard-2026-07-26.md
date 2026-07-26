@@ -10,7 +10,7 @@ This board turns the Shopify Admin product gate into the order of operations for
 - C4_DRAFT_US_ONLY_REVIEW: 3
 - D1_US_MARGIN_PENDING: 13
 - H1_RISK_HOLD: 30
-- H2_MAPPING_REPAIR: 5
+- H2_CONFIRMED_UNMAPPED: 5
 - H3_REPRICE_OR_REJECT: 2
 - H4_DRAFT_CANADA_FAIL_EXCLUDED: 5
 
@@ -131,15 +131,15 @@ For each quoted product, record separate exact DSers/AliExpress Canada and US it
 | Compact Manicure Set | DRAFT | 7 |  | Keep excluded; replace supplier or reprice before spending time on US quotes or activation. |
 | Adjustable Raised Pet Bowl Set | DRAFT | 4 |  | Keep excluded; replace supplier or reprice before spending time on US quotes or activation. |
 
-### H2_MAPPING_REPAIR
+### H2_CONFIRMED_UNMAPPED
 
 | product | status | variants | issue | action |
 | --- | --- | --- | --- | --- |
-| Multi-Compartment Desk Organizer | DRAFT | 1 |  | Do not quote yet; repair DSers mapping/SKU first. |
-| Jade Roller Face Massager | DRAFT | 1 | hygiene_beauty | Do not quote yet; repair DSers mapping/SKU first. |
-| 6-Piece Silicone Spatula Set | DRAFT | 1 |  | Do not quote yet; repair DSers mapping/SKU first. |
-| Custom Neon Sign | DRAFT | 1 |  | Do not quote yet; repair DSers mapping/SKU first. |
-| Portable Mini Bag Sealer — Handheld Heat Sealer | DRAFT | 1 |  | Do not quote yet; repair DSers mapping/SKU first. |
+| Multi-Compartment Desk Organizer | DRAFT | 1 |  | Keep Draft and excluded. Archive if unwanted, or deliberately import/map a verified supplier before quoting. |
+| Jade Roller Face Massager | DRAFT | 1 | hygiene_beauty | Keep Draft and excluded. Archive if unwanted, or deliberately import/map a verified supplier before quoting. |
+| 6-Piece Silicone Spatula Set | DRAFT | 1 |  | Keep Draft and excluded. Archive if unwanted, or deliberately import/map a verified supplier before quoting. |
+| Custom Neon Sign | DRAFT | 1 |  | Keep Draft and excluded. Archive if unwanted, or deliberately import/map a verified supplier before quoting. |
+| Portable Mini Bag Sealer — Handheld Heat Sealer | DRAFT | 1 |  | Keep Draft and excluded. Archive if unwanted, or deliberately import/map a verified supplier before quoting. |
 
 ### H3_REPRICE_OR_REJECT
 
