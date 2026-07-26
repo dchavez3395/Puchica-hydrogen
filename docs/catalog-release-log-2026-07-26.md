@@ -76,3 +76,13 @@ For each exact mapped variant, use this conservative decision rule:
 `Canada shipping cap = (price × 0.85 × 0.971 − CA$0.30) − unit cost − (price × 0.30)`
 
 The result is the most shipping the variant can absorb while retaining a 30% contribution after `FIRST15` and estimated card fees, before taxes. The *worst* variant cap must be met or the product remains on hold. Current caps range from CA$0.54 (Raised Pet Bowl Set) to CA$5.28 (No-Drill Shower Shelf); several products therefore need either a low Canada shipping quote, a price/variant change, or removal from launch.
+
+## DSers mapping verification
+
+On 2026-07-26, the connected Puchica DSers store (`ug91ve-sz`) was checked directly in **My Products**. It contains **57 mapped AliExpress products**; the initial empty state was a delayed list render, not an unmapped-store condition. The list exposes mapped product costs, customer prices, stock, supplier-management controls, and an `Unmapped(0)` tab, confirming that the DSers-to-Shopify fulfilment relationship exists for this catalogue.
+
+This is not a blanket launch approval. The same review surfaced an explicitly **out-of-stock supplier SKU** in the broader mapped pool, while several products have low stock or economics that still require exact destination quotes. The working release rule remains:
+
+- keep only the vetted 24-product launch gate customer-facing;
+- check mapped availability and a Canada destination quote before any paid traffic or promotion;
+- replace or hold a product immediately if a mapped supplier SKU becomes unavailable or fails the shipping-cap rule.
