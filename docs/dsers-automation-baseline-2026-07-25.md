@@ -24,7 +24,7 @@
 
 ## Build order
 
-1. Audit and repair the first 6–10 products’ mappings and their Canada quotes.
+1. Audit and repair an initial validation cohort’s mappings and Canada quotes, then scale through the full approved lifestyle assortment in batches; the cohort is not the store’s catalog ceiling.
 2. Add Canada-specific shipping rules only after the selected suppliers’ services and costs are known.
 3. Run a controlled paid test on one approved product, then confirm the DSers order, supplier charge, tracking sync, and notification sequence.
-4. Only then widen the catalog and enable the U.S. market; do not rely on the generic global shipping rule for a Western-market launch.
+4. Use that proof to expand the catalog in verified batches and enable the U.S. market; do not rely on the generic global shipping rule for a Western-market launch.

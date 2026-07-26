@@ -7,7 +7,7 @@ Puchica will launch as a focused useful-lifestyle shop with a small, credible as
 
 No product moves live until its exact variant has a Canadian supplier-shipping quote, a positive margin after the Canada price adjustment, FIRST15, payment fees, and checkout shipping, and complete storefront content.
 
-## First launch queue — maximum 10 products
+## Initial validation cohort — not a catalog cap
 
 | Product | Department | Why it belongs | Status |
 | --- | --- | --- | --- |
@@ -22,7 +22,7 @@ No product moves live until its exact variant has a Canadian supplier-shipping q
 | Men's Casual Sports Hoodie | Seasonal apparel | Consider only as part of a small three-piece apparel edit | Draft; quote and size/material review required |
 | Adjustable Raised Pet Bowl Set | Pet essentials | Existing mapped practical product | Active; low stock and tight-margin shipping validation required |
 
-The storefront should not show every approved product at once. Start with 6–10 products that work together, then expand only after the test order, delivery promise, and early conversion data are sound.
+The first cohort exists to prove the order-to-fulfilment path, not to limit the business to a tiny catalog. Build toward a 30+ product lifestyle assortment across coherent departments, releasing approved products in batches as their exact variants, supplier shipping, margin, content, tags, and collection placement are verified. Do not bulk-publish untouched imports; do not artificially stop after the first cohort either.
 
 ## Hold — do not publish without a specific exception
 
@@ -43,7 +43,7 @@ The storefront should not show every approved product at once. Start with 6–10
 
 ## Operational sequence
 
-1. Verify Canada landed cost and estimated delivery for the first launch queue.
+1. Verify Canada landed cost and estimated delivery for the initial cohort, then repeat the same gate for every subsequent batch.
 2. Remove duplicate/poor-fit items from consideration; do not delete DSers mappings until a replacement or historical reference is unnecessary.
 3. Prepare approved candidates as Shopify drafts with clean titles, approved claims only, images, tags, collections, SEO, and raw DSers option mapping retained.
 4. Run the existing paid test order through fulfillment and tracking before adding traffic or enabling automated marketing.

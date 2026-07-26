@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This is the commercial gate for the ten-product DSers launch queue. A product is **not approved to publish** until its exact chosen variant has a Canadian supplier shipping quote, delivery estimate, and a result at or below the shipping budget in this table.
+This is the commercial gate for the initial DSers validation cohort and every later catalog batch. A product is **not approved to publish** until its exact chosen variant has a Canadian supplier shipping quote, delivery estimate, and a result at or below the shipping budget in this table.
 
 ## Assumptions used for the preliminary screen
 
@@ -71,4 +71,4 @@ The currently linked supplier page shows **free shipping to Canada** and an esti
 1. Repair the sweater and raised-pet-bowl mappings before requesting any more supplier quotes.
 2. Once mapping is repaired, prioritize cotton-linen pants and the high-tier shower-shelf variants because they have the most workable preliminary shipping headroom.
 3. Treat lights, manicure, pet bottle, bell, and bottle brush as optional add-ons until their landed economics are verified.
-4. Keep the launch assortment at six to ten coherent products; do not mirror all 57 DSers mappings into Shopify.
+4. Build a 30+ product lifestyle assortment in verified batches. Do not bulk-publish untouched imports, but do not treat the initial cohort as the catalog ceiling.
