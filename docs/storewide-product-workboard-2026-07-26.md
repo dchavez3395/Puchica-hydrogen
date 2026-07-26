@@ -5,7 +5,8 @@ This board turns the Shopify Admin product gate into the order of operations for
 ## Current board
 
 - A3_US_MARKET_EXCLUDED: 4
-- C1_DRAFT_REVIEW_BATCH: 17
+- C1_DRAFT_REVIEW_BATCH: 16
+- C2_DRAFT_REPRICE_CONTENT_REVIEW: 1
 - D1_US_MARGIN_PENDING: 13
 - H1_RISK_HOLD: 25
 - H2_MAPPING_REPAIR: 5
@@ -66,7 +67,6 @@ For each quoted product, record separate exact DSers/AliExpress Canada and US it
 | product | status | variants | issue | action |
 | --- | --- | --- | --- | --- |
 | No-Drill Shower Shelf | DRAFT | 12 |  | Repair/verify mapping, quote Canada and US, review content, then decide whether to tag. |
-| 2024 Mens Print Pants Autumn/Winter New In Men's Clothing Trousers Sport Jogging Fitness Running Trousers Harajuku Streetwear | DRAFT | 18 |  | Repair/verify mapping, quote Canada and US, review content, then decide whether to tag. |
 | Pet Supplies Duck Goose Shoes Pet Cole Foot Poultry Boots Pet Duck Boots with Protective Soles Protective Shoe Set Pet Products | DRAFT | 9 |  | Repair/verify mapping, quote Canada and US, review content, then decide whether to tag. |
 | Outdoor Cycling Sunglasses | DRAFT | 30 |  | Repair/verify mapping, quote Canada and US, review content, then decide whether to tag. |
 | Thermal Underwear Tops Men Winter Clothes Thermal Shirt Autumn Men's Winter Tights High Neck Thin Slim Fit Long Sleeve T-shirt | DRAFT | 42 |  | Repair/verify mapping, quote Canada and US, review content, then decide whether to tag. |
@@ -82,6 +82,12 @@ For each quoted product, record separate exact DSers/AliExpress Canada and US it
 | 2023 Fashion Men Watches Luxury Brand Fashion Mens Quartz Watch Luminous Hands Male Clock Big Dial Waterproof Man Wristwatch | DRAFT | 9 |  | Repair/verify mapping, quote Canada and US, review content, then decide whether to tag. |
 | Digital Watch & Jewellery Gift Set | DRAFT | 4 | hygiene_beauty | Repair/verify mapping, quote Canada and US, review content, then decide whether to tag. |
 | Nail Glue Phototherapy Pen UV Gel Brush Pen Acrylic Nail Art Painting Drawing Liner Brush Manicure Professionnel Brushes Tool | DRAFT | 2 | hygiene_beauty | Repair/verify mapping, quote Canada and US, review content, then decide whether to tag. |
+
+### C2_DRAFT_REPRICE_CONTENT_REVIEW
+
+| product | status | variants | issue | action |
+| --- | --- | --- | --- | --- |
+| 2024 Mens Print Pants Autumn/Winter New In Men's Clothing Trousers Sport Jogging Fitness Running Trousers Harajuku Streetwear | DRAFT | 18 |  | Reprice failing variants, clean title/content, verify contribution, then reconsider activation. |
 
 ### H1_RISK_HOLD
 

@@ -10,19 +10,24 @@ from pathlib import Path
 LIVE_QUOTE_DECISIONS = {'LIVE_QUOTE_REQUIRED', 'LIVE_QUOTE_AND_CONTENT_REVIEW'}
 
 
-def us_quote_summary(rows: list[dict]) -> dict[str, dict[str, int]]:
+def build_quote_summary(rows: list[dict]) -> dict[str, dict[str, int]]:
     summary: dict[str, dict[str, int]] = {}
     for row in rows:
-        if row.get('status') != 'ACTIVE' or row.get('launch_tag') != 'yes':
-            continue
         product = row['product_title']
         item = summary.setdefault(product, {
             'rows': 0,
+            'canada_quoted': 0,
+            'canada_failures': 0,
             'quoted': 0,
             'failures': 0,
             'sellable_failures': 0,
         })
         item['rows'] += 1
+        canada_result = row.get('quote_result', '')
+        if canada_result:
+            item['canada_quoted'] += 1
+        if canada_result.startswith('FAIL'):
+            item['canada_failures'] += 1
         result = row.get('us_quote_result', '')
         if result:
             item['quoted'] += 1
@@ -173,7 +178,7 @@ def write_markdown(path: Path, rows: list[dict], run_date: str) -> None:
         '## Drafts and holds',
         '',
     ])
-    for stream in ('C1_DRAFT_REVIEW_BATCH', 'H1_RISK_HOLD', 'H2_MAPPING_REPAIR', 'H3_REPRICE_OR_REJECT', 'Z_REVIEW_MANUALLY'):
+    for stream in ('C1_DRAFT_REVIEW_BATCH', 'C2_DRAFT_REPRICE_CONTENT_REVIEW', 'C3_DRAFT_CONTENT_REVIEW', 'H1_RISK_HOLD', 'H2_MAPPING_REPAIR', 'H3_REPRICE_OR_REJECT', 'Z_REVIEW_MANUALLY'):
         batch = grouped.get(stream, [])
         if not batch:
             continue
@@ -208,7 +213,7 @@ def main() -> None:
     gate_path = docs_dir / f'storewide-product-gate-{args.date}.csv'
     rows = read_csv(gate_path)
     quote_path = docs_dir / f'storewide-variant-quote-worksheet-{args.date}.csv'
-    quote_summary = us_quote_summary(read_csv(quote_path)) if quote_path.exists() else {}
+    quote_state = build_quote_summary(read_csv(quote_path)) if quote_path.exists() else {}
 
     out_rows = []
     for row in rows:
@@ -241,7 +246,7 @@ def main() -> None:
             'work_reason': reason,
             'operator_next_action': operator_action,
         }
-        us = quote_summary.get(row['title'])
+        us = quote_state.get(row['title'])
         if row['active_launch_gate'] == 'yes' and us and us['quoted'] == us['rows']:
             if us['sellable_failures']:
                 out.update({
@@ -266,6 +271,35 @@ def main() -> None:
                     ),
                     'operator_next_action': (
                         'Validate USD storefront price, landed contribution, checkout delivery, and live US availability.'
+                    ),
+                })
+        elif (
+            row['status'] == 'DRAFT'
+            and us
+            and us['canada_quoted'] == us['rows']
+            and us['quoted'] == us['rows']
+        ):
+            if us['canada_failures']:
+                out.update({
+                    'priority': 45,
+                    'workstream': 'C2_DRAFT_REPRICE_CONTENT_REVIEW',
+                    'decision': 'DRAFT_QUOTE_COMPLETE_REPRICE_REQUIRED',
+                    'work_reason': (
+                        f"Both-country quote evidence is complete, but {us['canada_failures']} variant row(s) "
+                        'fail the Canada shipping allowance.'
+                    ),
+                    'operator_next_action': (
+                        'Reprice failing variants, clean title/content, verify contribution, then reconsider activation.'
+                    ),
+                })
+            else:
+                out.update({
+                    'priority': 46,
+                    'workstream': 'C3_DRAFT_CONTENT_REVIEW',
+                    'decision': 'DRAFT_QUOTE_COMPLETE_CONTENT_REVIEW',
+                    'work_reason': 'Both-country quote evidence is complete and shipping economics pass.',
+                    'operator_next_action': (
+                        'Complete content/compliance review and contribution validation before activation.'
                     ),
                 })
         out_rows.append(out)
