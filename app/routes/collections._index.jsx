@@ -97,7 +97,6 @@ export default function Collections() {
       {count === 0 ? (
         <div className="pk-empty pk-empty--bold">
           <div className="pk-empty__card">
-            <span className="pk-empty__icon" aria-hidden>🛒</span>
             <p className="pk-empty__title">{t('col_index_empty_h')}</p>
             <p className="pk-empty__body">{t('col_index_empty_body')}</p>
           </div>

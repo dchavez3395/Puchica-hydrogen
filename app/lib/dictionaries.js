@@ -436,10 +436,10 @@ export const DICTIONARIES = {
 
     // ── Collection page ───────────────────────────────────────────
     col_eyebrow: 'Collection',
-    col_empty_title: 'Nothing here just yet',
+    col_empty_title: 'This edit is being prepared',
     col_empty_filtered: 'No products match these filters.',
     col_clear_filters: 'Clear filters',
-    col_empty_restocking: "We're restocking this collection. Check back soon, or browse the rest of the shop.",
+    col_empty_restocking: "We're validating the next edit before it goes live. Check back soon, or browse the rest of the shop.",
     col_showing: 'Showing',
     col_showing_more: 'so far, load more below',
     col_product_singular: 'product',
@@ -469,8 +469,8 @@ export const DICTIONARIES = {
     all_eyebrow: 'The full shop',
     all_title: 'All products',
     all_sub: 'The complete Puchica catalog, every curated pick in one place. Filter by category from the sidebar, or use the search bar up top.',
-    all_empty_title: 'No products to show',
-    all_empty_body: 'The catalog is loading. If this persists, try refreshing.',
+    all_empty_title: 'A considered edit is on its way',
+    all_empty_body: 'We are validating the next selection before it goes live. Join the list for the first look.',
     all_count_loading: 'Catalog is loading',
 
     // ── Product page ──────────────────────────────────────────────
@@ -779,8 +779,8 @@ export const DICTIONARIES = {
     col_index_h: 'All collections',
     col_index_sub: "Pick a category and dig in. Every collection is hand-curated, we'd only keep what we'd use ourselves.",
     col_index_count: 'Puchica',
-    col_index_empty_h: 'No collections yet',
-    col_index_empty_body: 'Collections will appear here as we add them.',
+    col_index_empty_h: 'The next edit is being prepared',
+    col_index_empty_body: 'Collections return as soon as the next products pass our fulfilment checks.',
     col_index_card_cta: 'Shop the collection →',
 
     // ── Policies index ───────────────────────────────────────────
