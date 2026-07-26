@@ -178,7 +178,7 @@ def write_markdown(path: Path, rows: list[dict], run_date: str) -> None:
         '## Drafts and holds',
         '',
     ])
-    for stream in ('C1_DRAFT_REVIEW_BATCH', 'C2_DRAFT_REPRICE_CONTENT_REVIEW', 'C3_DRAFT_CONTENT_REVIEW', 'C4_DRAFT_US_ONLY_REVIEW', 'D2_US_PRICE_PASSES_MARKET_BLOCKED', 'D3_US_VARIANT_PRICE_MAPPING_REQUIRED', 'H1_RISK_HOLD', 'H4_DRAFT_CANADA_FAIL_EXCLUDED', 'H2_MAPPING_REPAIR', 'H2_CONFIRMED_UNMAPPED', 'H3_REPRICE_OR_REJECT', 'H3_PRICING_DEFINED_QUOTE_PENDING', 'Z_REVIEW_MANUALLY'):
+    for stream in ('C1_DRAFT_REVIEW_BATCH', 'C2_DRAFT_REPRICE_CONTENT_REVIEW', 'C3_DRAFT_CONTENT_REVIEW', 'C4_DRAFT_US_ONLY_REVIEW', 'C5_DRAFT_US_READY_MARKET_BLOCKED', 'D2_US_PRICE_PASSES_MARKET_BLOCKED', 'D3_US_VARIANT_PRICE_MAPPING_REQUIRED', 'H1_RISK_HOLD', 'H4_DRAFT_CANADA_FAIL_EXCLUDED', 'H2_MAPPING_REPAIR', 'H2_CONFIRMED_UNMAPPED', 'H3_REPRICE_OR_REJECT', 'H3_PRICING_DEFINED_QUOTE_PENDING', 'Z_REVIEW_MANUALLY'):
         batch = grouped.get(stream, [])
         if not batch:
             continue
@@ -233,6 +233,12 @@ def main() -> None:
                 item['action_prices'].append(action_price)
     us_catalog_path = docs_dir / f'storewide-us-catalog-price-validation-{args.date}.csv'
     us_catalog_reviews = {row['handle']: row for row in read_csv(us_catalog_path)} if us_catalog_path.exists() else {}
+    us_readiness_path = docs_dir / f'storewide-us-only-candidate-readiness-{args.date}.csv'
+    us_readiness_reviews = (
+        {row['handle']: row for row in read_csv(us_readiness_path)}
+        if us_readiness_path.exists()
+        else {}
+    )
 
     out_rows = []
     for row in rows:
@@ -415,31 +421,68 @@ def main() -> None:
             })
         elif us_price and out['workstream'] == 'C4_DRAFT_US_ONLY_REVIEW':
             floor = max(us_price['prices'])
-            out.update({
-                'decision': 'DRAFT_US_ONLY_PRICE_FLOOR_DEFINED',
-                'work_reason': (
-                    f"Canada remains excluded; verified US shipping supports a conservative minimum action price of US${floor:.2f}."
-                ),
-                'operator_next_action': (
-                    f"Verify the actual US storefront price is at least US${floor:.2f}, then complete content/policy and checkout review before US-only activation."
-                ),
-            })
+            readiness = us_readiness_reviews.get(row['handle'])
+            if readiness and readiness['content_ready'] == 'yes':
+                out.update({
+                    'decision': 'DRAFT_US_CONTENT_READY_PRICE_PENDING',
+                    'work_reason': (
+                        f"Canada remains excluded; US shipping and content/taxonomy pass, while the fixed US${floor:.2f} "
+                        'catalog price still requires a confirmed save and read-back.'
+                    ),
+                    'operator_next_action': (
+                        f"Save and re-read a fixed US catalog price of at least US${floor:.2f}; keep Draft until "
+                        'the Managed Markets US checkout blocker is resolved and live delivery passes.'
+                    ),
+                })
+            else:
+                out.update({
+                    'decision': 'DRAFT_US_ONLY_PRICE_FLOOR_DEFINED',
+                    'work_reason': (
+                        f"Canada remains excluded; verified US shipping supports a conservative minimum action price of US${floor:.2f}."
+                    ),
+                    'operator_next_action': (
+                        f"Verify the actual US storefront price is at least US${floor:.2f}, then complete content/policy and checkout review before US-only activation."
+                    ),
+                })
         us_catalog_review = us_catalog_reviews.get(row['handle'])
-        if us_catalog_review and out['workstream'] == 'D1_US_MARGIN_PENDING':
+        us_readiness_review = us_readiness_reviews.get(row['handle'])
+        if (
+            us_catalog_review
+            and out['workstream'] in {'D1_US_MARGIN_PENDING', 'C4_DRAFT_US_ONLY_REVIEW'}
+            and (
+                out['workstream'] != 'C4_DRAFT_US_ONLY_REVIEW'
+                or (us_readiness_review and us_readiness_review['content_ready'] == 'yes')
+            )
+        ):
             observed = us_catalog_review['observed_us_price_range']
             floor = us_catalog_review['conservative_minimum_price']
             if us_catalog_review['verdict'].startswith('PASS_'):
-                out.update({
-                    'priority': 41,
-                    'workstream': 'D2_US_PRICE_PASSES_MARKET_BLOCKED',
-                    'decision': 'US_PRICE_AND_SHIPPING_PASS_MARKET_ACTIVATION_BLOCKED',
-                    'work_reason': (
-                        f"US shipping passes and the Shopify catalog price {observed} clears the conservative US${floor} floor."
-                    ),
-                    'operator_next_action': (
-                        'Resolve the Managed Markets/storefront availability blocker, then verify live US product visibility and checkout delivery.'
-                    ),
-                })
+                if out['workstream'] == 'C4_DRAFT_US_ONLY_REVIEW':
+                    out.update({
+                        'priority': 48,
+                        'workstream': 'C5_DRAFT_US_READY_MARKET_BLOCKED',
+                        'decision': 'DRAFT_US_PRICE_CONTENT_READY_MARKET_BLOCKED',
+                        'work_reason': (
+                            f"Canada remains excluded; US shipping and the fixed Shopify catalog price {observed} "
+                            f"clear the conservative US${floor} floor."
+                        ),
+                        'operator_next_action': (
+                            'Keep Draft until the Managed Markets US checkout blocker is resolved; '
+                            'then verify live US-only visibility and delivery before activation.'
+                        ),
+                    })
+                else:
+                    out.update({
+                        'priority': 41,
+                        'workstream': 'D2_US_PRICE_PASSES_MARKET_BLOCKED',
+                        'decision': 'US_PRICE_AND_SHIPPING_PASS_MARKET_ACTIVATION_BLOCKED',
+                        'work_reason': (
+                            f"US shipping passes and the Shopify catalog price {observed} clears the conservative US${floor} floor."
+                        ),
+                        'operator_next_action': (
+                            'Resolve the Managed Markets/storefront availability blocker, then verify live US product visibility and checkout delivery.'
+                        ),
+                    })
             elif us_catalog_review['verdict'] == 'REVIEW_VARIANT_PRICE_COST_MAPPING':
                 out.update({
                     'priority': 42,

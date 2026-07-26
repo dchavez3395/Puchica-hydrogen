@@ -68,9 +68,9 @@ For each quoted product, record separate exact DSers/AliExpress Canada and US it
 
 | product | status | variants | issue | action |
 | --- | --- | --- | --- | --- |
-| 3PCS/Set Men Business Watches Casual Leather Band Analog Male's Quartz Watch Necklace Bracelet Set | DRAFT | 5 |  | Verify the actual US storefront price is at least US$11.99, then complete content/policy and checkout review before US-only activation. |
-| 1/2PCS Men Business Watches Fashion Men's Steel Band Quartz Watch with Bracelet（Box not Included） | DRAFT | 4 |  | Verify the actual US storefront price is at least US$12.99, then complete content/policy and checkout review before US-only activation. |
-| Digital Watch & Jewellery Gift Set | DRAFT | 4 | hygiene_beauty | Verify the actual US storefront price is at least US$26.99, then complete content/policy and checkout review before US-only activation. |
+| Quartz Watch, Bracelet & Necklace Set | DRAFT | 5 |  | Save and re-read a fixed US catalog price of at least US$11.99; keep Draft until the Managed Markets US checkout blocker is resolved and live delivery passes. |
+| Stainless-Steel Quartz Watch & Bracelet | DRAFT | 4 |  | Save and re-read a fixed US catalog price of at least US$12.99; keep Draft until the Managed Markets US checkout blocker is resolved and live delivery passes. |
+| Digital Watch & Jewellery Gift Set | DRAFT | 4 | hygiene_beauty | Save and re-read a fixed US catalog price of at least US$26.99; keep Draft until the Managed Markets US checkout blocker is resolved and live delivery passes. |
 
 ### D2_US_PRICE_PASSES_MARKET_BLOCKED
 

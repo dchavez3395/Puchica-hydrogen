@@ -192,15 +192,29 @@ def main() -> None:
         catalog_reviews = {r['handle']: r for r in read_csv(catalog_path)}
         for row in rows:
             review = catalog_reviews.get(row['handle'])
-            if row['disposition'] == 'ACTIVE_US_PRICE_VALIDATION_REQUIRED' and review and review['verdict'].startswith('PASS_'):
+            if (
+                row['disposition'] in {
+                    'ACTIVE_US_PRICE_VALIDATION_REQUIRED',
+                    'USD_STOREFRONT_PRICE_VALIDATION_REQUIRED',
+                }
+                and review
+                and review['verdict'].startswith('PASS_')
+            ):
                 row['current_storefront_price'] = review['observed_us_price_range']
                 row['price_change'] = '0.00'
                 row['price_action_required'] = 'no'
-                row['disposition'] = (
-                    'ACTIVE_US_FIXED_OVERRIDE_VALIDATED'
-                    if review['verdict'] == 'PASS_FIXED_US_PRICE_OVERRIDE'
-                    else 'ACTIVE_US_PRICE_VALIDATED'
-                )
+                if row['disposition'] == 'USD_STOREFRONT_PRICE_VALIDATION_REQUIRED':
+                    row['disposition'] = (
+                        'DRAFT_US_FIXED_OVERRIDE_VALIDATED'
+                        if review['verdict'] == 'PASS_FIXED_US_PRICE_OVERRIDE'
+                        else 'DRAFT_US_PRICE_VALIDATED'
+                    )
+                else:
+                    row['disposition'] = (
+                        'ACTIVE_US_FIXED_OVERRIDE_VALIDATED'
+                        if review['verdict'] == 'PASS_FIXED_US_PRICE_OVERRIDE'
+                        else 'ACTIVE_US_PRICE_VALIDATED'
+                    )
 
     rows.sort(key=lambda r: (r['country'], r['product_title'].lower(), r['variant_title'].lower()))
     write_csv(docs / f'storewide-pricing-actions-{args.date}.csv', rows)

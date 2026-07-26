@@ -17,6 +17,17 @@ The earlier 26-product baseline below records the state before the storewide des
 The same checkout returned `Shipping not available` after switching to a valid non-personal U.S. test destination. U.S. delivery therefore remains blocked by the documented Managed Markets/Global-e fulfillment-mode conflict.
 
 
+## U.S.-only draft preparation
+
+Three Canada-failing products now have complete passing U.S. supplier quotes and customer-ready Shopify content/taxonomy, but remain `DRAFT` and untagged:
+
+- `Quartz Watch, Bracelet & Necklace Set` - conservative U.S. floor US$11.99;
+- `Stainless-Steel Quartz Watch & Bracelet` - conservative U.S. floor US$12.99; and
+- `Digital Watch & Jewellery Gift Set` - conservative U.S. floor US$26.99.
+
+Their fixed U.S.-catalog prices are not recorded as verified: the first value was entered but not re-read after browser control failed, and the other two were not applied. All three remain excluded until a fixed price is saved and re-read and the Managed Markets U.S. checkout returns a real shipping method. See `storewide-us-only-candidate-readiness-2026-07-26.csv`.
+
+
 ## Verified live baseline
 
 The initial inventory blocker is cleared. Shopify has 26 `ACTIVE` products tagged `puchica-launch-ready`, published to the **Puchica Storefront** sales channel. On 2026-07-26 the current tag-based catalog build was deployed to Oxygen production and `https://puchica.ca/collections/all` was verified to render all 26 launch products.
