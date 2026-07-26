@@ -8,8 +8,8 @@
 | Multi-Use Organizer Hooks | `2PCS Black` has no U.S. shipping | Inventory set to 0; overselling denied; state re-read | Included |
 | Everyday Zip Hoodie | `XL / Grey` has no U.S. shipping | Inventory set to 0; overselling denied; state re-read | Included |
 | Precision Nail Clippers | Both supplier SKUs have no U.S. shipping; `Red single` remains the only sellable Canadian variant | Keep product U.S.-excluded; source an exact replacement AliExpress product and remap before inclusion | Excluded |
-| Portable Mini Bag Sealer — Handheld Heat Sealer | Product was absent from DSers | Imported and manually mapped to exact AliExpress supplier 1005012108377337, white variant; U.S. quote US.87 + US.99, 6–11 days, stock 140 | Draft; Canada quote pending |
-| 6-Piece Silicone Spatula Set | Product was absent from DSers | Imported and manually mapped to exact AliExpress supplier 1005012286537204, black variant matching Shopify image; U.S. quote US.58 + US.99, 7–13 days, stock 1,000 | Draft; Canada quote pending |
+| Portable Mini Bag Sealer — Handheld Heat Sealer | Product was absent from DSers | Imported and manually mapped to exact AliExpress supplier 1005012108377337, white variant; U.S. quote US$2.87 + US$1.99, 6–11 days, stock 140 | Draft; Canada quote pending |
+| 6-Piece Silicone Spatula Set | Product was absent from DSers | Imported and manually mapped to exact AliExpress supplier 1005012286537204, black variant matching Shopify image; U.S. quote US$9.58 + US$1.99, 7–13 days, stock 1,000 | Draft; Canada quote pending |
 
 ## Newly imported products
 
