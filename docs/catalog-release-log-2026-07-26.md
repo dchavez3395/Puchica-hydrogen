@@ -174,3 +174,11 @@ These controls advance fulfillment readiness but do not clear outstanding materi
 - U.S. checkout returned Free Shipping Over $75.
 
 The confirmed active launch gate is now 18 products.
+## Products 19 and 20 activated
+
+Two additional low-risk remediated Drafts completed the full launch gate:
+
+- `Copper Washer Assortment`: the Canada-failing 200-piece option remains inventory-zero and unavailable; the three passing variants received conservative U.S. prices of US$16.99 and US$45.99, and representative Canada/U.S. checkouts returned real rates.
+- `Children's Foot Measuring Gauge`: unsupported accuracy/material claims were absent from the customer copy; the Canada-failing blue option remains inventory-zero and unavailable; four passing variants received US$9.99–11.99 prices, and representative Canada/U.S. checkouts returned real rates.
+
+Both products are Active, launch-tagged, and published to Online Store, Puchica Storefront, and the U.S. catalog. The CA/U.S. checkout-confirmed launch gate is now 20 products.

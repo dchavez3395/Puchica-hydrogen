@@ -6,20 +6,20 @@ Read-only Shopify Admin snapshot. This is an operating ledger, not a launch appr
 
 - Products audited: 66
 - Variants audited: 933
-- Active launch-gated products: 18
+- Active launch-gated products: 20
 
 ### By Shopify status
 
-- ACTIVE: 18
+- ACTIVE: 20
 - ARCHIVED: 1
-- DRAFT: 47
+- DRAFT: 45
 
 ### By gate decision
 
-- DRAFT_QUOTE_AND_CONTENT_REVIEW: 17
+- DRAFT_QUOTE_AND_CONTENT_REVIEW: 16
 - HOLD_MAPPING_REQUIRED: 5
 - HOLD_RISK_REVIEW: 26
-- LIVE_QUOTE_REQUIRED: 18
+- LIVE_QUOTE_REQUIRED: 19
 
 ## Quote-first queue
 
@@ -29,6 +29,7 @@ Read-only Shopify Admin snapshot. This is an operating ledger, not a launch appr
 | Breezy Everyday Pants | 28 | 3.10 | Capture exact Canada and US DSers quotes; approve, reprice, or remove launch tag. |
 | Car Sun Visor Organizer | 3 | 4.34 | Capture exact Canada and US DSers quotes; approve, reprice, or remove launch tag. |
 | Compact Bicycle Bell | 6 | 3.77 | Capture exact Canada and US DSers quotes; approve, reprice, or remove launch tag. |
+| Copper Washer Assortment | 4 | 3.24 | Capture exact Canada and US DSers quotes; approve, reprice, or remove launch tag. |
 | Everyday Carabiner Clip Set | 2 | 4.52 | Capture exact Canada and US DSers quotes; approve, reprice, or remove launch tag. |
 | Everyday Fleece Joggers | 21 | 3.24 | Capture exact Canada and US DSers quotes; approve, reprice, or remove launch tag. |
 | Everyday Performance Shorts | 21 | 4.00 | Capture exact Canada and US DSers quotes; approve, reprice, or remove launch tag. |
@@ -48,6 +49,7 @@ Read-only Shopify Admin snapshot. This is an operating ledger, not a launch appr
 
 | product | status | decision | risk / issue |
 | --- | --- | --- | --- |
+| Children's Foot Measuring Gauge | ACTIVE | HOLD_RISK_REVIEW | child_safety |
 | USB Heated Cushion 43x43cm Electric Blanket | ARCHIVED | HOLD_RISK_REVIEW | electrical |
 | 6-Piece Silicone Spatula Set | DRAFT | HOLD_MAPPING_REQUIRED | Do not quote yet; repair DSers mapping/SKU first. |
 | Custom Neon Sign | DRAFT | HOLD_MAPPING_REQUIRED | Do not quote yet; repair DSers mapping/SKU first. |
@@ -63,7 +65,6 @@ Read-only Shopify Admin snapshot. This is an operating ledger, not a launch appr
 | Baby head pillow anti-fall device Head protective pad summer anti-bump head learning to walk baby four seasons toddler hat | DRAFT | HOLD_RISK_REVIEW | child_safety |
 | Baby Music Activity Gym Rug Play Mat Newborn Carpet Pedal | DRAFT | HOLD_RISK_REVIEW | child_safety |
 | Bath Toy Storage Mesh | DRAFT | HOLD_RISK_REVIEW | child_safety |
-| Children's Foot Measuring Gauge | DRAFT | HOLD_RISK_REVIEW | child_safety |
 | Children's Solid-Color Tights | DRAFT | HOLD_RISK_REVIEW | child_safety |
 | Cute Duck Night Light | DRAFT | HOLD_RISK_REVIEW | child_safety |
 | Halloween Elsa Dress for Girls Children Party Princess Costume Kids Disguise with Long Cloak Girl Snow Queen Carnival Clothes | DRAFT | HOLD_RISK_REVIEW | child_safety;likely_ip |

@@ -27,7 +27,9 @@ This ledger converts verified cost and shipping evidence into minimum prices und
 | US | Adjustable Rhinestone Ring | 1 | 0 | 10.85~10.85 | 9.99~9.99 | ACTIVE_US_PRICE_VALIDATED |
 | US | Breezy Everyday Pants | 1 | 0 | 21.99~21.99 | 21.99~21.99 | ACTIVE_US_FIXED_OVERRIDE_VALIDATED |
 | US | Car Sun Visor Organizer | 1 | 0 | 10.85~10.85 | 8.99~8.99 | ACTIVE_US_PRICE_VALIDATED |
+| US | Children's Foot Measuring Gauge | 1 | 0 | 9.99~11.99 | 11.99~11.99 | ACTIVE_US_PRICE_VALIDATED |
 | US | Compact Bicycle Bell | 1 | 0 | 10.85~10.85 | 9.99~9.99 | ACTIVE_US_PRICE_VALIDATED |
+| US | Copper Washer Assortment | 1 | 0 | 16.99~45.99 | 45.99~45.99 | ACTIVE_US_PRICE_VALIDATED |
 | US | Digital Watch & Jewellery Gift Set | 1 | 0 | 26.99~26.99 | 26.99~26.99 | DRAFT_US_FIXED_OVERRIDE_VALIDATED |
 | US | Everyday Carabiner Clip Set | 1 | 0 | 10.85~10.85 | 8.99~8.99 | ACTIVE_US_PRICE_VALIDATED |
 | US | Everyday Fleece Joggers | 1 | 0 | 26.99~39.98 | 26.99~26.99 | ACTIVE_US_FIXED_OVERRIDE_VALIDATED |

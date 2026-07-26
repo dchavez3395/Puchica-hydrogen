@@ -85,7 +85,7 @@ def workstream(row: dict) -> tuple[str, int, str]:
 
 
 def read_csv(path: Path) -> list[dict]:
-    with path.open(encoding='utf-8', newline='') as f:
+    with path.open(encoding='utf-8-sig', newline='') as f:
         return list(csv.DictReader(f))
 
 
@@ -529,7 +529,7 @@ def main() -> None:
                     'Launch gate complete; monitor supplier stock, destination quotes, and checkout rates.'
                 ),
             })
-        review = content_reviews.get(row['handle'])
+        review = content_reviews.get(row['handle']) if row['status'] == 'DRAFT' else None
         if review and review['disposition'] == 'HOLD_CONTENT_COMPLIANCE_REVIEW':
             combined_flags = sorted(set(filter(None, (row['risk_flags'] + ';' + review['risk_flags']).split(';'))))
             out.update({

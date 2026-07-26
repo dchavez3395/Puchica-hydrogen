@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import re
 from decimal import Decimal, ROUND_CEILING, ROUND_HALF_UP
 from pathlib import Path
 
@@ -35,6 +36,12 @@ def retail_99(value: Decimal) -> Decimal:
 def upper_us_cost(value: str) -> Decimal:
     cleaned = (value or '').replace('US$', '').strip()
     return Decimal(cleaned.split('~')[-1])
+
+def upper_us_shipping(value: str) -> Decimal:
+    amounts = re.findall(r'\d+(?:\.\d+)?', value or '')
+    if not amounts:
+        return Decimal('0')
+    return max(Decimal(amount) for amount in amounts)
 
 
 def write_csv(path: Path, rows: list[dict]) -> None:
@@ -166,7 +173,7 @@ def main() -> None:
         if not product_rows:
             raise RuntimeError(f'No quote rows for {handle}')
         cost = max(upper_us_cost(r['us_quote_item_cost']) for r in product_rows if r['us_quote_item_cost'])
-        shipping = max(Decimal(r['us_quote_shipping_cost'].replace('US$', '')) for r in product_rows if r['us_quote_shipping_cost'].startswith('US$'))
+        shipping = max(upper_us_shipping(r['us_quote_shipping_cost']) for r in product_rows if r['us_quote_shipping_cost'] and 'NO SHIPPING' not in r['us_quote_shipping_cost'])
         floor = minimum_price(cost, shipping)
         recommended = retail_99(floor)
         rows.append({
@@ -195,11 +202,11 @@ def main() -> None:
         if sellable_failure:
             continue
         cost_rows = [r for r in product_rows if r['us_quote_item_cost']]
-        shipping_rows = [r for r in product_rows if r['us_quote_shipping_cost'].startswith('US$')]
+        shipping_rows = [r for r in product_rows if r['us_quote_shipping_cost'] and 'NO SHIPPING' not in r['us_quote_shipping_cost']]
         if not cost_rows or not shipping_rows:
             raise RuntimeError(f'Incomplete active US cost evidence for {handle}')
         cost = max(upper_us_cost(r['us_quote_item_cost']) for r in cost_rows)
-        shipping = max(Decimal(r['us_quote_shipping_cost'].replace('US$', '')) for r in shipping_rows)
+        shipping = max(upper_us_shipping(r['us_quote_shipping_cost']) for r in shipping_rows)
         floor = minimum_price(cost, shipping)
         recommended = retail_99(floor)
         rows.append({
