@@ -2,7 +2,7 @@
 
 ## Verified live baseline
 
-The initial inventory blocker is cleared. Shopify has 16 `ACTIVE` products tagged `puchica-launch-ready`, published to the **Puchica Storefront** sales channel, and confirmed visible in the local Hydrogen catalog after Storefront availability refreshed.
+The initial inventory blocker is cleared. Shopify has 23 `ACTIVE` products tagged `puchica-launch-ready`, published to the **Puchica Storefront** sales channel. The 16-product release was confirmed visible in the local Hydrogen catalog after Storefront availability refreshed; the seven-product utility batch is awaiting the same normal Storefront cache refresh.
 
 ## Published mapped products
 
@@ -22,6 +22,13 @@ The initial inventory blocker is cleared. Shopify has 16 `ACTIVE` products tagge
 - Quick-Dry Training Shorts
 - Everyday Fleece Joggers
 - Long-Sleeve Performance Tee
+- Long-Handle Bottle Brush
+- Multi-Use Organizer Hooks
+- Precision Nail Clippers
+- Car Sun Visor Organizer
+- Compact Bicycle Bell
+- Travel Pet Water Bottle
+- Everyday Carabiner Clip Set
 
 ## Gate still in force
 
