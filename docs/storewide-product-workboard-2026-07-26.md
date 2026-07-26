@@ -93,7 +93,7 @@ For each quoted product, record exact DSers/AliExpress Canada item cost, shippin
 | Halloween Elsa Dress for Girls Children Party Princess Costume Kids Disguise with Long Cloak Girl Snow Queen Carnival Clothes | DRAFT | 29 | child_safety | Keep held until safety/claims/IP/compliance review is complete. |
 | New Girl Dresses Princess Costume Kids Mermaid Cosplay Costume Kids Carnival Birthday Party Prom Costume Party Dresses For girls | DRAFT | 20 | child_safety | Keep held until safety/claims/IP/compliance review is complete. |
 | 1:64 RC Construction Vehicle Set | DRAFT | 6 | child_safety | Keep held until safety/claims/IP/compliance review is complete. |
-| Bath Toy Storage Mesh | ACTIVE | 4 | child_safety | Keep held until safety/claims/IP/compliance review is complete. |
+| Bath Toy Storage Mesh | DRAFT | 4 | child_safety | Drafted on 2026-07-26; keep excluded until safety/claims/IP/compliance review is complete. |
 | 1PCS Baby Anti-Fall Head Protection Pillow, Breathable Toddler Safety Cushion, Soft Head Guard Pad for Kids Learning to Walk, Sh | DRAFT | 4 | child_safety | Keep held until safety/claims/IP/compliance review is complete. |
 | Windproof Infant Stroller Gloves Children's Outdoor Sports Mittens Cartoon Printed Hands Warmer Scooter Accessory for Winter | DRAFT | 4 | child_safety | Keep held until safety/claims/IP/compliance review is complete. |
 | Hand-Controlled Mini RC Drone | DRAFT | 3 | child_safety;electrical | Keep held until safety/claims/IP/compliance review is complete. |

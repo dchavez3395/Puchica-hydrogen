@@ -10,9 +10,9 @@ Read-only Shopify Admin snapshot. This is an operating ledger, not a launch appr
 
 ### By Shopify status
 
-- ACTIVE: 18
+- ACTIVE: 17
 - ARCHIVED: 1
-- DRAFT: 47
+- DRAFT: 48
 
 ### By gate decision
 
@@ -48,7 +48,7 @@ Read-only Shopify Admin snapshot. This is an operating ledger, not a launch appr
 
 | product | status | decision | risk / issue |
 | --- | --- | --- | --- |
-| Bath Toy Storage Mesh | ACTIVE | HOLD_RISK_REVIEW | child_safety |
+| Bath Toy Storage Mesh | DRAFT | HOLD_RISK_REVIEW | child_safety |
 | Solar Fairy String Lights for Outdoor Decor | DRAFT | HOLD_RISK_REVIEW | electrical |
 | Everyday 100% Cotton T-Shirt | DRAFT | HOLD_REPRICE_OR_REJECT | Reprice, change variant/supplier, bundle, or reject before launch. |
 | Everyday Pullover Hoodie | DRAFT | HOLD_REPRICE_OR_REJECT | Reprice, change variant/supplier, bundle, or reject before launch. |
