@@ -5,13 +5,13 @@ This board turns the Shopify Admin product gate into the order of operations for
 ## Current board
 
 - A3_US_MARKET_EXCLUDED: 4
-- C1_DRAFT_REVIEW_BATCH: 11
+- C1_DRAFT_REVIEW_BATCH: 9
 - C2_DRAFT_REPRICE_CONTENT_REVIEW: 1
 - D1_US_MARGIN_PENDING: 13
 - H1_RISK_HOLD: 25
 - H2_MAPPING_REPAIR: 5
 - H3_REPRICE_OR_REJECT: 2
-- H4_DRAFT_CANADA_FAIL_EXCLUDED: 5
+- H4_DRAFT_CANADA_FAIL_EXCLUDED: 7
 
 ## Do first
 
@@ -70,8 +70,6 @@ For each quoted product, record separate exact DSers/AliExpress Canada and US it
 | Pet Supplies Duck Goose Shoes Pet Cole Foot Poultry Boots Pet Duck Boots with Protective Soles Protective Shoe Set Pet Products | DRAFT | 9 |  | Repair/verify mapping, quote Canada and US, review content, then decide whether to tag. |
 | Thermal Underwear Tops Men Winter Clothes Thermal Shirt Autumn Men's Winter Tights High Neck Thin Slim Fit Long Sleeve T-shirt | DRAFT | 42 |  | Repair/verify mapping, quote Canada and US, review content, then decide whether to tag. |
 | Summer Men's Shorts Cool Sportswear Running Sport Shorts Casual Bottoms Gym Fitness Training Jogging Short Pants Men Black Gray | DRAFT | 72 |  | Repair/verify mapping, quote Canada and US, review content, then decide whether to tag. |
-| 3PCS/Set Men Business Watches Casual Leather Band Analog Male's Quartz Watch Necklace Bracelet Set | DRAFT | 5 |  | Repair/verify mapping, quote Canada and US, review content, then decide whether to tag. |
-| 1/2PCS Men Business Watches Fashion Men's Steel Band Quartz Watch with Bracelet（Box not Included） | DRAFT | 4 |  | Repair/verify mapping, quote Canada and US, review content, then decide whether to tag. |
 | 15cm Women's Rabbit Fur Keychain Bag Car Pendant Jewelry Decoration Fashionable Accessory for Bags And Gifts | DRAFT | 11 |  | Repair/verify mapping, quote Canada and US, review content, then decide whether to tag. |
 | Summer Men's MJ Michael Jackson Printed 100%CottonNeutral | DRAFT | 7 |  | Repair/verify mapping, quote Canada and US, review content, then decide whether to tag. |
 | Women Fake Piercing Nose Ring Hoop Septum Piercing Nose Clip Rock HipHoop Stainless Steel Magnet Fashion Body Jewelry Wholesale | DRAFT | 5 |  | Repair/verify mapping, quote Canada and US, review content, then decide whether to tag. |
@@ -121,7 +119,9 @@ For each quoted product, record separate exact DSers/AliExpress Canada and US it
 | --- | --- | --- | --- | --- |
 | No-Drill Shower Shelf | DRAFT | 12 |  | Keep excluded; replace supplier or reprice before spending time on US quotes or activation. |
 | Outdoor Cycling Sunglasses | DRAFT | 30 |  | Keep excluded; replace supplier or reprice before spending time on US quotes or activation. |
+| 3PCS/Set Men Business Watches Casual Leather Band Analog Male's Quartz Watch Necklace Bracelet Set | DRAFT | 5 |  | Keep excluded; replace supplier or reprice before spending time on US quotes or activation. |
 | Magnetic Hair Clip | DRAFT | 5 | hygiene_beauty | Keep excluded; replace supplier or reprice before spending time on US quotes or activation. |
+| 1/2PCS Men Business Watches Fashion Men's Steel Band Quartz Watch with Bracelet（Box not Included） | DRAFT | 4 |  | Keep excluded; replace supplier or reprice before spending time on US quotes or activation. |
 | Compact Manicure Set | DRAFT | 7 |  | Keep excluded; replace supplier or reprice before spending time on US quotes or activation. |
 | Adjustable Raised Pet Bowl Set | DRAFT | 4 |  | Keep excluded; replace supplier or reprice before spending time on US quotes or activation. |
 

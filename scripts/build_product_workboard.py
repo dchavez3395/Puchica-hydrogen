@@ -13,7 +13,7 @@ LIVE_QUOTE_DECISIONS = {'LIVE_QUOTE_REQUIRED', 'LIVE_QUOTE_AND_CONTENT_REVIEW'}
 def build_quote_summary(rows: list[dict]) -> dict[str, dict[str, int]]:
     summary: dict[str, dict[str, int]] = {}
     for row in rows:
-        product = row['product_title']
+        product = row['handle']
         item = summary.setdefault(product, {
             'rows': 0,
             'canada_quoted': 0,
@@ -246,7 +246,7 @@ def main() -> None:
             'work_reason': reason,
             'operator_next_action': operator_action,
         }
-        us = quote_state.get(row['title'])
+        us = quote_state.get(row['handle'])
         if row['active_launch_gate'] == 'yes' and us and us['quoted'] == us['rows']:
             if us['sellable_failures']:
                 out.update({
