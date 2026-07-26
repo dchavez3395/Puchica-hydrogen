@@ -1,4 +1,22 @@
-﻿import {adminGraphQL} from './shopify-oauth.mjs';
+import {readFile} from 'node:fs/promises';
+
+async function adminGraphQL(query, variables) {
+  const tokenData = JSON.parse(await readFile('.shopify-admin-token', 'utf8'));
+  if (!tokenData.access_token || tokenData.expires_at * 1000 <= Date.now()) {
+    throw new Error('The cached Shopify Admin token is missing or expired.');
+  }
+  const domain = process.env.PUBLIC_STORE_DOMAIN || 'ug91ve-sz.myshopify.com';
+  const response = await fetch(`https://${domain}/admin/api/2026-04/graphql.json`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Shopify-Access-Token': tokenData.access_token,
+    },
+    body: JSON.stringify({query, variables}),
+  });
+  if (!response.ok) throw new Error(`Shopify Admin HTTP ${response.status}`);
+  return response.json();
+}
 
 const HERO_TAG = 'puchica-hero';
 const heroes = [
@@ -11,6 +29,7 @@ const heroes = [
 const findTaggedProducts=`query FindLaunchHeroes($query:String!){products(first:100,query:$query){nodes{id title tags}}}`;
 const removeTags=`mutation RemoveHeroTag($id:ID!,$tags:[String!]!){tagsRemove(id:$id,tags:$tags){node{id} userErrors{field message}}}`;
 const updateProduct=`mutation UpdateLaunchHero($input:ProductInput!){productUpdate(input:$input){product{id title handle descriptionHtml tags} userErrors{field message}}}`;
+const addTags=`mutation AddHeroTag($id:ID!,$tags:[String!]!){tagsAdd(id:$id,tags:$tags){node{id ... on Product{title handle tags}} userErrors{field message}}}`;
 function assertResponse(response,field){if(response?.errors?.length)throw new Error(JSON.stringify(response.errors));const errors=response?.data?.[field]?.userErrors??[];if(errors.length)throw new Error(JSON.stringify(errors));return response.data[field];}
-async function main(){const dryRun=!process.argv.includes('--apply');const currentResponse=await adminGraphQL(findTaggedProducts,{query:`tag:${HERO_TAG}`});if(currentResponse?.errors?.length)throw new Error(JSON.stringify(currentResponse.errors));const current=currentResponse?.data?.products?.nodes??[];const targetIds=new Set(heroes.map((hero)=>hero.id));const stale=current.filter((product)=>!targetIds.has(product.id));console.log(`${dryRun?'DRY RUN':'APPLY'}: ${heroes.length} launch heroes`);console.log(`Existing tagged products: ${current.length}; stale tags: ${stale.length}`);for(const product of stale){console.log(`Remove ${HERO_TAG}: ${product.title}`);if(!dryRun){const response=await adminGraphQL(removeTags,{id:product.id,tags:[HERO_TAG]});assertResponse(response,'tagsRemove');}}for(const hero of heroes){console.log(`Update hero: ${hero.title}`);if(!dryRun){const response=await adminGraphQL(updateProduct,{input:{id:hero.id,descriptionHtml:hero.descriptionHtml,tags:[HERO_TAG]}});const result=assertResponse(response,'productUpdate');console.log(`  ${result.product.handle}: ${result.product.tags.join(', ')}`);}}}
+async function main(){const dryRun=!process.argv.includes('--apply');const currentResponse=await adminGraphQL(findTaggedProducts,{query:`tag:${HERO_TAG}`});if(currentResponse?.errors?.length)throw new Error(JSON.stringify(currentResponse.errors));const current=currentResponse?.data?.products?.nodes??[];const targetIds=new Set(heroes.map((hero)=>hero.id));const stale=current.filter((product)=>!targetIds.has(product.id));console.log(`${dryRun?'DRY RUN':'APPLY'}: ${heroes.length} launch heroes`);console.log(`Existing tagged products: ${current.length}; stale tags: ${stale.length}`);for(const product of stale){console.log(`Remove ${HERO_TAG}: ${product.title}`);if(!dryRun){const response=await adminGraphQL(removeTags,{id:product.id,tags:[HERO_TAG]});assertResponse(response,'tagsRemove');}}for(const hero of heroes){console.log(`Update hero: ${hero.title}`);if(!dryRun){const response=await adminGraphQL(updateProduct,{input:{id:hero.id,descriptionHtml:hero.descriptionHtml}});assertResponse(response,'productUpdate');const tagResponse=await adminGraphQL(addTags,{id:hero.id,tags:[HERO_TAG]});const result=assertResponse(tagResponse,'tagsAdd');console.log(`  ${result.node.handle}: ${result.node.tags.join(', ')}`);}}}
 main().catch((error)=>{console.error(error);process.exitCode=1;});
