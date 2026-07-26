@@ -2,7 +2,7 @@
 
 ## Verified live baseline
 
-The initial inventory blocker is cleared. Shopify has 23 `ACTIVE` products tagged `puchica-launch-ready`, published to the **Puchica Storefront** sales channel. The 16-product release was confirmed visible in the local Hydrogen catalog after Storefront availability refreshed; the seven-product utility batch is awaiting the same normal Storefront cache refresh.
+The initial inventory blocker is cleared. Shopify has 23 `ACTIVE` products tagged `puchica-launch-ready`, published to the **Puchica Storefront** sales channel. On 2026-07-26 the current tag-based catalog build was deployed to Oxygen production and `https://puchica.ca/collections/all` was verified to render all 23 launch products.
 
 ## Published mapped products
 
