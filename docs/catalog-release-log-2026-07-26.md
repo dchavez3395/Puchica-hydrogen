@@ -2,7 +2,7 @@
 
 ## Verified live baseline
 
-The initial inventory blocker is cleared. Shopify has 23 `ACTIVE` products tagged `puchica-launch-ready`, published to the **Puchica Storefront** sales channel. On 2026-07-26 the current tag-based catalog build was deployed to Oxygen production and `https://puchica.ca/collections/all` was verified to render all 23 launch products.
+The initial inventory blocker is cleared. Shopify has 26 `ACTIVE` products tagged `puchica-launch-ready`, published to the **Puchica Storefront** sales channel. On 2026-07-26 the current tag-based catalog build was deployed to Oxygen production and `https://puchica.ca/collections/all` was verified to render all 26 launch products.
 
 ## Published mapped products
 
@@ -29,6 +29,9 @@ The initial inventory blocker is cleared. Shopify has 23 `ACTIVE` products tagge
 - Compact Bicycle Bell
 - Travel Pet Water Bottle
 - Everyday Carabiner Clip Set
+- Everyday Polarized Sunglasses
+- Adjustable Rhinestone Ring
+- Bath Toy Storage Mesh
 
 ## Gate still in force
 
