@@ -540,7 +540,7 @@ const PRODUCT_VARIANT_FRAGMENT = `#graphql
 
 const PRODUCT_FRAGMENT = `#graphql
   fragment Product on Product {
-    id title vendor handle descriptionHtml description productType availableForSale
+    id title vendor handle descriptionHtml description productType tags availableForSale
     encodedVariantExistence encodedVariantAvailability
     featuredImage { id url altText width height }
     images(first: 10) {
