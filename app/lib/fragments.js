@@ -293,7 +293,10 @@ const HOME_PRODUCT_FRAGMENT = `#graphql
     id handle title productType tags availableForSale
     featuredImage { id url altText width height }
     images(first: 2) { nodes { id url altText width height } }
-    priceRange { minVariantPrice { amount currencyCode } }
+    priceRange {
+      minVariantPrice { amount currencyCode }
+      maxVariantPrice { amount currencyCode }
+    }
     compareAtPriceRange { minVariantPrice { amount currencyCode } }
     options(first: 1) {
       name

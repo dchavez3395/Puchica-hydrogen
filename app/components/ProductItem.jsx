@@ -124,6 +124,11 @@ export function ProductItem({product, loading, dark = false}) {
     product.compareAtPriceRange?.minVariantPrice,
     t,
   );
+  const hasPriceRange =
+    product.priceRange?.minVariantPrice?.amount &&
+    product.priceRange?.maxVariantPrice?.amount &&
+    Number(product.priceRange.minVariantPrice.amount) !==
+      Number(product.priceRange.maxVariantPrice.amount);
   const tagBadge = resolveBadge(product.tags, t);
   const badge = sale ?? tagBadge; // sale takes priority over editorial badges
   const optionChips = resolveOptionChips(product.options);
@@ -224,6 +229,9 @@ export function ProductItem({product, loading, dark = false}) {
         <div className="pk-card__price">
           {sale ? (
             <span className="pk-card__price-cluster">
+              {hasPriceRange ? (
+                <span className="pk-card__price-from">{t('product_price_from')}</span>
+              ) : null}
               <Money data={product.priceRange.minVariantPrice} />
               <s className="pk-card__price-compare">
                 <Money
@@ -232,7 +240,12 @@ export function ProductItem({product, loading, dark = false}) {
               </s>
             </span>
           ) : (
-            <Money data={product.priceRange.minVariantPrice} />
+            <>
+              {hasPriceRange ? (
+                <span className="pk-card__price-from">{t('product_price_from')}</span>
+              ) : null}
+              <Money data={product.priceRange.minVariantPrice} />
+            </>
           )}
         </div>
         {variant ? (

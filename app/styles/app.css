@@ -2479,6 +2479,7 @@ button:focus-visible,
   min-height: calc(2 * 1.3em); }
 .pk-card__vendor { color: var(--pk-muted); font-size: 12px; margin: 0; }
 .pk-card__price { font-weight: 800; font-size: 16px; margin-top: 2px; color: inherit; }
+.pk-card__price-from { font-size: 0.75em; font-weight: 700; opacity: 0.72; margin-right: 0.25rem; }
 .pk-card__rating { display: flex; align-items: center; gap: 6px; font-size: 12px; }
 .pk-stars { color: #f5b301; letter-spacing: 1px; }
 
