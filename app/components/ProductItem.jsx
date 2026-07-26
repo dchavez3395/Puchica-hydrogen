@@ -4,7 +4,6 @@ import {useVariantUrl} from '~/lib/variants';
 import {AddToCartButton} from '~/components/AddToCartButton';
 import {useAside} from '~/components/Aside';
 import {useT} from '~/lib/t';
-import {formatProductOptionLabel} from '~/lib/product-options';
 
 const BADGE_TAG_MAP = {
   'new-arrival': {labelKey: 'badge_new_arrival', cls: 'pk-card__badge--new-arrival'},
@@ -38,63 +37,42 @@ function resolveSaleBadge(price, compareAt, t) {
   return {label: t('badge_sale'), cls: 'pk-card__badge--sale'};
 }
 
-const COLOR_NAME_MAP = {
-  beige: '#D8C3A5',
-  black: '#111827',
-  blue: '#2563EB',
-  brown: '#8B5E34',
-  clear: '#F8FAFC',
-  gold: '#C89116',
-  gray: '#6B7280',
-  green: '#15803D',
-  grey: '#6B7280',
-  ivory: '#FFF7E6',
-  navy: '#1E3A8A',
-  orange: '#EA580C',
-  pink: '#DB2777',
-  purple: '#7C3AED',
-  red: '#DC2626',
-  silver: '#A7ADB5',
-  tan: '#C19A6B',
-  white: '#FFFFFF',
-  yellow: '#CA8A04',
-};
-
-function resolveOptionColor(name, swatchColor) {
-  if (swatchColor) return swatchColor;
-  if (!name) return null;
-
-  const normalized = name.toLowerCase();
-  const match = Object.keys(COLOR_NAME_MAP).find((colorName) =>
-    normalized.includes(colorName),
-  );
-
-  return match ? COLOR_NAME_MAP[match] : null;
-}
-
-/**
- * Returns compact option chips for the first real option. Product cards
- * used to show anonymous dots when Shopify had values but no swatch
- * color. Labels are the reliable fallback: shoppers need to know whether
- * "more options" means Black/White, S/M/L, pack size, etc.
- */
-function resolveOptionChips(options) {
+function resolvePrimaryOption(options) {
   if (!options?.length) return [];
   const first = options[0];
-  if (!first?.name || /^(title|default title)$/i.test(first.name)) return [];
+  if (!first?.name || /^(title|default title)$/i.test(first.name)) return null;
 
   const values = first.optionValues?.length
     ? first.optionValues
     : (first.values || []).map((name) => ({name, swatch: null}));
 
-  if (values.length < 2) return [];
+  if (values.length < 2) return null;
 
-  return values.slice(0, 4).map((value) => ({
-    name: formatProductOptionLabel(value.name),
-    rawName: value.name,
-    color: resolveOptionColor(value.name, value.swatch?.color),
-    isColorOption: /color|colour/i.test(first.name),
-  }));
+  return {
+    name: first.name,
+    values,
+  };
+}
+
+function pluralizeOptionName(name) {
+  if (/colou?r/i.test(name)) return 'colors';
+  if (/size/i.test(name)) return 'sizes';
+  if (/style/i.test(name)) return 'styles';
+  if (/pack/i.test(name)) return 'packs';
+  if (/set/i.test(name)) return 'sets';
+  return 'options';
+}
+
+function resolveOptionSummary(product, variantCount) {
+  const primaryOption = resolvePrimaryOption(product.options);
+
+  if (primaryOption) {
+    const label = pluralizeOptionName(primaryOption.name);
+    return `${primaryOption.values.length} ${label} available`;
+  }
+
+  if (variantCount > 1) return 'Multiple options available';
+  return null;
 }
 
 /**
@@ -118,6 +96,9 @@ export function ProductItem({product, loading, dark = false}) {
     product.variants?.nodes?.[0];
   const featured = product.featuredImage;
   const hoverImage = product.images?.nodes?.[1] ?? null;
+  const variantCount = product.variants?.nodes?.length ?? 0;
+  const hasChoices =
+    variantCount > 1 || Boolean(resolvePrimaryOption(product.options));
   const hasHover = !!hoverImage && hoverImage.id !== featured?.id;
   const sale = resolveSaleBadge(
     product.priceRange?.minVariantPrice,
@@ -131,13 +112,7 @@ export function ProductItem({product, loading, dark = false}) {
       Number(product.priceRange.maxVariantPrice.amount);
   const tagBadge = resolveBadge(product.tags, t);
   const badge = sale ?? tagBadge; // sale takes priority over editorial badges
-  const optionChips = resolveOptionChips(product.options);
-  const extraOptionCount = Math.max(
-    0,
-    (product.options?.[0]?.optionValues?.length ||
-      product.options?.[0]?.values?.length ||
-      0) - optionChips.length,
-  );
+  const optionSummary = resolveOptionSummary(product, variantCount);
 
   const cardClass = `pk-card pk-card--link${dark ? ' pk-card--dark' : ''}${
     hasHover ? ' pk-card--has-hover' : ''
@@ -191,40 +166,8 @@ export function ProductItem({product, loading, dark = false}) {
         {product.productType ? (
           <span className="pk-card__vendor">{product.productType}</span>
         ) : null}
-        {optionChips.length ? (
-          <ul
-            className="pk-card__swatches"
-            aria-label={t('card_swatches_aria')}
-          >
-            {optionChips.map((chip, i) => {
-              const style = chip.color
-                ? {'--pk-chip-color': chip.color}
-                : undefined;
-              return (
-                <li
-                  key={chip.name ?? i}
-                  className={`pk-card__swatch${
-                    chip.color ? ' pk-card__swatch--color' : ''
-                  }${
-                    chip.isColorOption ? ' pk-card__swatch--color-option' : ''
-                  }`}
-                  style={style}
-                  title={chip.rawName}
-                  aria-label={chip.rawName}
-                >
-                  <span className="pk-card__swatch-label">{chip.name}</span>
-                </li>
-              );
-            })}
-            {extraOptionCount > 0 ? (
-              <li
-                className="pk-card__swatch pk-card__swatch--more"
-                aria-label={`${extraOptionCount} more options`}
-              >
-                +{extraOptionCount}
-              </li>
-            ) : null}
-          </ul>
+        {optionSummary ? (
+          <span className="pk-card__option-summary">{optionSummary}</span>
         ) : null}
         <div className="pk-card__price">
           {sale ? (
@@ -248,7 +191,11 @@ export function ProductItem({product, loading, dark = false}) {
             </>
           )}
         </div>
-        {variant ? (
+        {hasChoices ? (
+          <Link to={variantUrl} className="pk-card__viewbtn" prefetch="intent">
+            {t('card_choose_options')}
+          </Link>
+        ) : variant ? (
           <div className="pk-card__cart">
             <AddToCartButton
               lines={[

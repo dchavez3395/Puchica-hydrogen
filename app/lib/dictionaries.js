@@ -539,6 +539,7 @@ export const DICTIONARIES = {
 
     // ── Product card ──────────────────────────────────────────────
     card_view_details: 'View details',
+    card_choose_options: 'Choose options',
     card_swatches_aria: 'Product options',
     card_quick_add_aria: 'Quick add',
 
@@ -1608,6 +1609,7 @@ export const DICTIONARIES = {
     search_pages_aria: 'Résultats de pages',
     search_products_aria: 'Résultats de produits',
     card_view_details: 'Voir les détails',
+    card_choose_options: 'Choisir les options',
     card_swatches_aria: 'Options du produit',
     card_quick_add_aria: 'Ajout rapide',
 
@@ -2714,6 +2716,7 @@ export const DICTIONARIES = {
     search_pages_aria: 'Resultados de páginas',
     search_products_aria: 'Resultados de productos',
     card_view_details: 'Ver detalles',
+    card_choose_options: 'Elegir opciones',
     card_swatches_aria: 'Opciones del producto',
     card_quick_add_aria: 'Añadir rápido',
 
@@ -3820,6 +3823,7 @@ export const DICTIONARIES = {
     search_pages_aria: 'Resultados de páginas',
     search_products_aria: 'Resultados de produtos',
     card_view_details: 'Ver detalhes',
+    card_choose_options: 'Escolher opções',
     card_swatches_aria: 'Opções do produto',
     card_quick_add_aria: 'Adição rápida',
 

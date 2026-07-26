@@ -13346,6 +13346,7 @@ main:has(> .pk-collection--bold) {
 .pk-card__body {
   gap: 7px !important;
   padding: 14px !important;
+  min-height: 0 !important;
 }
 
 .pk-card__title {
@@ -13363,15 +13364,36 @@ main:has(> .pk-collection--bold) {
 .pk-card__price {
   color: #101828 !important;
   font-size: 16px !important;
+  margin-top: 4px !important;
+}
+
+.pk-card__option-summary {
+  display: block;
+  min-height: 17px;
+  color: #667085;
+  font-size: 12px;
+  font-weight: 750;
+  line-height: 1.35;
 }
 
 .pk-card__cart {
-  padding-top: 8px !important;
+  margin-top: auto !important;
+  padding-top: 0 !important;
+}
+
+.pk-card__viewbtn {
+  margin-top: auto !important;
 }
 
 .pk-card__cart button[type="submit"],
 .pk-card__viewbtn {
+  box-sizing: border-box !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 100% !important;
   min-height: 38px;
+  padding: 10px 12px !important;
   border-radius: 8px !important;
   border-color: #101828 !important;
   background: #101828 !important;
@@ -13393,10 +13415,9 @@ main:has(> .pk-collection--bold) {
   color: #667085 !important;
 }
 
-/* Keep every product tile structurally identical. Grid and rail wrappers
- * stretch to the tallest card in their row; the card/body pair must opt into
- * that height so title length, option chips, and price states never cause
- * misaligned buy buttons. */
+/* Product cards should align like retail tiles, but the only variable-option
+ * content shown in-grid is the one-line summary above. The full choice flow
+ * happens on the product page. */
 .pk-product-grid__item > .pk-card,
 .pk-rail__item > .pk-card,
 .pk-sports-static-grid > li > .pk-card,
@@ -13404,8 +13425,18 @@ main:has(> .pk-collection--bold) {
   height: 100%;
 }
 
+.pk-product-grid__item,
+.pk-rail__item,
+.pk-sports-static-grid > li {
+  align-self: stretch;
+  display: flex;
+}
+
 .pk-card__body {
-  min-height: 154px;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 0;
 }
 
 /* Collection pages: compact retail header, not a decorative landing-page hero. */
@@ -13848,8 +13879,8 @@ main:has(> .pk-collection--bold) {
 
 .pk-store-hero {
   display: grid;
-  grid-template-columns: minmax(230px, 0.58fr) minmax(0, 1.42fr) !important;
-  gap: 16px clamp(26px, 4vw, 56px);
+  grid-template-columns: minmax(260px, 0.72fr) minmax(260px, 1fr) !important;
+  gap: 18px clamp(28px, 5vw, 72px);
   align-items: center;
 }
 
@@ -13887,8 +13918,31 @@ main:has(> .pk-collection--bold) {
 }
 
 .pk-store-hero__search {
+  display: none !important;
+}
+
+.pk-store-hero__actions {
   grid-column: 2 / 3;
   grid-row: 1;
+  gap: 12px;
+  justify-content: flex-start;
+  align-self: center;
+}
+
+.pk-store-hero__actions .pk-btn {
+  min-height: 48px;
+  padding: 0 22px;
+  border-radius: 999px;
+}
+
+.pk-store-hero__actions .pk-btn--outline {
+  background: transparent;
+  border-color: #667085;
+  color: #101828;
+}
+
+/* Legacy hero search rules kept inert in case older routes render the block. */
+.pk-store-hero__search {
   min-height: 58px;
   border-color: #98a2b3;
   border-radius: 12px;
@@ -13903,25 +13957,6 @@ main:has(> .pk-collection--bold) {
 .pk-store-hero__search button {
   min-width: 132px;
   background: #101828;
-}
-
-.pk-store-hero__actions {
-  grid-column: 2 / 3;
-  grid-row: 2;
-  gap: 10px;
-  justify-content: flex-start;
-}
-
-.pk-store-hero__actions .pk-btn {
-  min-height: 42px;
-  padding: 0 16px;
-  border-radius: 999px;
-}
-
-.pk-store-hero__actions .pk-btn--outline {
-  background: transparent;
-  border-color: #667085;
-  color: #101828;
 }
 
 .pk-store-hero__departments {
@@ -13963,7 +13998,6 @@ main:has(> .pk-collection--bold) {
   }
 
   .pk-store-hero__intro,
-  .pk-store-hero__search,
   .pk-store-hero__actions,
   .pk-store-hero__departments {
     grid-column: 1 / -1;
@@ -13978,10 +14012,10 @@ main:has(> .pk-collection--bold) {
   .pk-section--hero-split { padding: 18px 0 20px !important; }
   .pk-store-hero__intro { padding-left: 14px; }
   .pk-store-hero__heading { font-size: clamp(30px, 10vw, 40px); }
-  .pk-store-hero__search { grid-template-columns: minmax(0, 1fr) 104px; }
-  .pk-store-hero__search input,
-  .pk-store-hero__search button { min-height: 52px; }
-  .pk-store-hero__search button { min-width: 0; }
+  .pk-store-hero__actions .pk-btn {
+    min-height: 44px;
+    padding: 0 16px;
+  }
 }
 
 /* Collection index: an even department grid, not a masonry feed. Editorial

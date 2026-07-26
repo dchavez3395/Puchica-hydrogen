@@ -26,20 +26,6 @@ export function HeroSplit({categories = []}) {
             <p className="pk-store-hero__body">{t('hero_split_body')}</p>
           </div>
 
-          <form className="pk-store-hero__search" action="/search" method="get">
-            <label className="visually-hidden" htmlFor="hero-search">
-              {t('search_submit_label')}
-            </label>
-            <input
-              id="hero-search"
-              type="search"
-              name="q"
-              placeholder={t('search_placeholder')}
-              autoComplete="off"
-            />
-            <button type="submit">{t('search_submit_label')}</button>
-          </form>
-
           <div className="pk-store-hero__actions">
             <Link to="/collections" prefetch="viewport" className="pk-btn pk-btn--ink">
               {t('hero_split_cta_secondary')}
