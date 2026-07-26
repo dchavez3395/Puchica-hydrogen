@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """Create a storewide product operating board from the launch gate CSV."""
 from __future__ import annotations
 
@@ -368,7 +368,11 @@ def main() -> None:
                 })
         canada_price = pricing_summary.get((row['handle'], 'CA'))
         us_price = pricing_summary.get((row['handle'], 'US'))
-        if canada_price and out['workstream'] == 'H3_REPRICE_OR_REJECT':
+        if (
+            canada_price
+            and out['workstream'] == 'H3_REPRICE_OR_REJECT'
+            and not (us and us['canada_quoted'] == us['rows'] and us['quoted'] == us['rows'])
+        ):
             low = min(canada_price['action_prices'])
             high = max(canada_price['action_prices'])
             out.update({
@@ -507,14 +511,37 @@ def main() -> None:
                 'operator_next_action': review['required_evidence'],
             })
         elif review and review['disposition'] == 'CLEARED_TO_QUOTE':
-            out.update({
-                'priority': 50,
-                'workstream': 'C1_DRAFT_REVIEW_BATCH',
-                'risk_flags': review['risk_flags'],
-                'decision': 'DRAFT_QUOTE_AND_CONTENT_REVIEW',
-                'work_reason': review['reason'],
-                'operator_next_action': review['required_evidence'],
-            })
+            if us and us['canada_quoted'] == us['rows'] and us['quoted'] == us['rows']:
+                if us['canada_failures']:
+                    out.update({
+                        'priority': 45,
+                        'workstream': 'C2_DRAFT_REPRICE_CONTENT_REVIEW',
+                        'risk_flags': review['risk_flags'],
+                        'decision': 'DRAFT_QUOTE_COMPLETE_REPRICE_REQUIRED',
+                        'work_reason': (
+                            f"Both-country quote evidence is complete, but {us['canada_failures']} variant row(s) "
+                            'fail the Canada shipping allowance.'
+                        ),
+                        'operator_next_action': review['required_evidence'],
+                    })
+                else:
+                    out.update({
+                        'priority': 46,
+                        'workstream': 'C3_DRAFT_CONTENT_REVIEW',
+                        'risk_flags': review['risk_flags'],
+                        'decision': 'DRAFT_QUOTE_COMPLETE_CONTENT_REVIEW',
+                        'work_reason': 'Both-country quote evidence is complete and shipping economics pass.',
+                        'operator_next_action': review['required_evidence'],
+                    })
+            else:
+                out.update({
+                    'priority': 50,
+                    'workstream': 'C1_DRAFT_REVIEW_BATCH',
+                    'risk_flags': review['risk_flags'],
+                    'decision': 'DRAFT_QUOTE_AND_CONTENT_REVIEW',
+                    'work_reason': review['reason'],
+                    'operator_next_action': review['required_evidence'],
+                })
         elif review and review['disposition'] == 'REJECT_CONTENT_COMPLIANCE':
             combined_flags = sorted(set(filter(None, (row['risk_flags'] + ';' + review['risk_flags']).split(';'))))
             out.update({

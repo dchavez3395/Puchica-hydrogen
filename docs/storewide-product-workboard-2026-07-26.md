@@ -5,12 +5,12 @@ This board turns the Shopify Admin product gate into the order of operations for
 ## Current board
 
 - A3_US_MARKET_EXCLUDED: 4
-- C1_DRAFT_REVIEW_BATCH: 7
+- C2_DRAFT_REPRICE_CONTENT_REVIEW: 7
 - C5_DRAFT_US_READY_MARKET_BLOCKED: 3
 - D2_US_PRICE_PASSES_MARKET_BLOCKED: 14
 - H1_RISK_HOLD: 22
 - H2_CONFIRMED_UNMAPPED: 5
-- H3_PRICING_DEFINED_QUOTE_PENDING: 2
+- H3_REPRICE_OR_REJECT: 2
 - H4_DRAFT_CANADA_FAIL_EXCLUDED: 5
 - H5_CONFIRMED_CONTENT_COMPLIANCE_REJECT: 4
 
@@ -51,7 +51,7 @@ For each quoted product, record separate exact DSers/AliExpress Canada and US it
 
 ## Drafts and holds
 
-### C1_DRAFT_REVIEW_BATCH
+### C2_DRAFT_REPRICE_CONTENT_REVIEW
 
 | product | status | variants | issue | action |
 | --- | --- | --- | --- | --- |
@@ -137,12 +137,12 @@ For each quoted product, record separate exact DSers/AliExpress Canada and US it
 | Custom Neon Sign | DRAFT | 1 |  | Keep Draft and excluded. Archive if unwanted, or deliberately import/map a verified supplier before quoting. |
 | Portable Mini Bag Sealer — Handheld Heat Sealer | DRAFT | 1 |  | Keep Draft and excluded. Archive if unwanted, or deliberately import/map a verified supplier before quoting. |
 
-### H3_PRICING_DEFINED_QUOTE_PENDING
+### H3_REPRICE_OR_REJECT
 
 | product | status | variants | issue | action |
 | --- | --- | --- | --- | --- |
-| Everyday Pullover Hoodie | DRAFT | 48 |  | Keep excluded; apply/approve the pricing actions, then obtain exact Canada and US DSers quotes before activation. |
-| Everyday 100% Cotton T-Shirt | DRAFT | 18 |  | Keep excluded; apply/approve the pricing actions, then obtain exact Canada and US DSers quotes before activation. |
+| Everyday Pullover Hoodie | DRAFT | 48 |  | Reprice, change variant/supplier, bundle, or reject before launch. |
+| Everyday 100% Cotton T-Shirt | DRAFT | 18 |  | Reprice, change variant/supplier, bundle, or reject before launch. |
 
 ## Completion rule
 
