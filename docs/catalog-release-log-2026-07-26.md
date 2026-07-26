@@ -55,3 +55,16 @@ The 26 active products all have inventory tracking enabled and DSers-style optio
 - Review variable-price products before paid traffic. The largest storefront price ranges currently occur on the No-Drill Shower Shelf, performance apparel, Solar Fairy String Lights, Compact Manicure Set, and magnetic hair clips.
 - Keep child-safety, medical/hygiene, electrical/heated, likely-IP, and novelty products in draft even though they remain mapped.
 - Promote only the few remaining drafts that pass a product-by-product margin, delivery, image, and policy check; do not inflate the assortment by publishing mapped imports indiscriminately.
+
+## Canada pre-shipping margin screen
+
+The first Canada supplier-optimizer check confirmed that DSers can return destination-specific supplier cost, shipping, delivery days, sale count, and reliability data for **Canada**. The sample supplier offers an 7–8 day Canada delivery estimate with US$1.99–2.15 shipping; that is the evidence standard for the rest of the audit.
+
+Shopify also stores a CAD unit cost for all 497 live variants. Using the customer price after `FIRST15`, less an estimated 2.9% payment fee and CA$0.30 fixed fee, **before shipping and taxes**, the worst variant of each product was screened as follows:
+
+| Result | Products |
+| --- | --- |
+| Pass (30%+ contribution before shipping) | 24 products |
+| Margin review | Everyday Pullover Hoodie; Everyday 100% Cotton T-Shirt |
+
+The two margin-review products were removed from `puchica-launch-ready` on 2026-07-26, so Hydrogen will not sell them until a Canada shipping quote proves that the final contribution is viable. This leaves 24 products in the live launch gate. The other 24 have passed only a **pre-shipping** screen; they still need their exact Canadian delivery quote before paid acquisition is enabled.
