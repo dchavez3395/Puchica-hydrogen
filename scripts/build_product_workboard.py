@@ -450,6 +450,25 @@ def main() -> None:
                 'work_reason': review['reason'],
                 'operator_next_action': review['required_evidence'],
             })
+        elif review and review['disposition'] == 'CLEARED_TO_QUOTE':
+            out.update({
+                'priority': 50,
+                'workstream': 'C1_DRAFT_REVIEW_BATCH',
+                'risk_flags': review['risk_flags'],
+                'decision': 'DRAFT_QUOTE_AND_CONTENT_REVIEW',
+                'work_reason': review['reason'],
+                'operator_next_action': review['required_evidence'],
+            })
+        elif review and review['disposition'] == 'REJECT_CONTENT_COMPLIANCE':
+            combined_flags = sorted(set(filter(None, (row['risk_flags'] + ';' + review['risk_flags']).split(';'))))
+            out.update({
+                'priority': 82,
+                'workstream': 'H5_CONFIRMED_CONTENT_COMPLIANCE_REJECT',
+                'risk_flags': ';'.join(combined_flags),
+                'decision': 'REJECT_CONTENT_COMPLIANCE',
+                'work_reason': review['reason'],
+                'operator_next_action': review['required_evidence'],
+            })
         mapping_review = mapping_reviews.get(row['handle'])
         if mapping_review and mapping_review['disposition'] == 'CONFIRMED_UNMAPPED_KEEP_EXCLUDED':
             out.update({

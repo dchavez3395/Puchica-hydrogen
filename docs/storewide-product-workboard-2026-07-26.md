@@ -5,14 +5,15 @@ This board turns the Shopify Admin product gate into the order of operations for
 ## Current board
 
 - A3_US_MARKET_EXCLUDED: 4
-- C1_DRAFT_REVIEW_BATCH: 3
+- C1_DRAFT_REVIEW_BATCH: 8
 - C2_DRAFT_REPRICE_CONTENT_REVIEW: 1
 - C4_DRAFT_US_ONLY_REVIEW: 3
 - D2_US_PRICE_PASSES_MARKET_BLOCKED: 13
-- H1_RISK_HOLD: 30
+- H1_RISK_HOLD: 21
 - H2_CONFIRMED_UNMAPPED: 5
 - H3_PRICING_DEFINED_QUOTE_PENDING: 2
 - H4_DRAFT_CANADA_FAIL_EXCLUDED: 5
+- H5_CONFIRMED_CONTENT_COMPLIANCE_REJECT: 4
 
 ## Do first
 
@@ -55,9 +56,14 @@ For each quoted product, record separate exact DSers/AliExpress Canada and US it
 
 | product | status | variants | issue | action |
 | --- | --- | --- | --- | --- |
+| New Girl Dresses Princess Costume Kids Mermaid Cosplay Costume Kids Carnival Birthday Party Prom Costume Party Dresses For girls | DRAFT | 20 | child_apparel | Quote Canada and US; verify textile composition, sizing, flammability/labeling evidence, and remove ambiguous cosplay claims before activation. |
+| Windproof Infant Stroller Gloves Children's Outdoor Sports Mittens Cartoon Printed Hands Warmer Scooter Accessory for Winter | DRAFT | 4 | child_apparel | Quote Canada and US; verify material, sizing, attachment design, warnings, and textile labeling before activation. |
+| 300/280/200/100Pcs Washer Copper Sealing Solid Gasket Washer Sump Plug Oil For Boat Crush Flat Seal Ring Tool | DRAFT | 4 |  | Quote Canada and US, verify material/dimensions and fitment copy, then apply the normal margin gate. |
 | Thermal Underwear Tops Men Winter Clothes Thermal Shirt Autumn Men's Winter Tights High Neck Thin Slim Fit Long Sleeve T-shirt | DRAFT | 42 |  | Repair/verify mapping, quote Canada and US, review content, then decide whether to tag. |
 | Summer Men's Shorts Cool Sportswear Running Sport Shorts Casual Bottoms Gym Fitness Training Jogging Short Pants Men Black Gray | DRAFT | 72 |  | Repair/verify mapping, quote Canada and US, review content, then decide whether to tag. |
+| Summer Spring Candy Color Kids Pantyhose Ballet Dance Tights for Girls Stocking Children Velvet Solid White Pantyhose | DRAFT | 39 | child_apparel | Quote Canada and US; before activation verify fiber content, sizing, care, origin, and applicable children's textile labeling. |
 | 2023 Fashion Men Watches Luxury Brand Fashion Mens Quartz Watch Luminous Hands Male Clock Big Dial Waterproof Man Wristwatch | DRAFT | 9 |  | Repair/verify mapping, quote Canada and US, review content, then decide whether to tag. |
+| Kids Toddler Foot Measure Gauge Shoes Size Measuring Ruler Tool Baby Boy Girl Children's Foot Length Measuring Ruler Fittings | DRAFT | 5 | child_content | Quote Canada and US, verify measurement scale/accuracy and age-appropriate copy, then apply the normal margin gate. |
 
 ### C2_DRAFT_REPRICE_CONTENT_REVIEW
 
@@ -97,30 +103,21 @@ For each quoted product, record separate exact DSers/AliExpress Canada and US it
 | --- | --- | --- | --- | --- |
 | RGB LED Strip Lights 5m-30m with APP Control | DRAFT | 1 | electrical | Keep held until safety/claims/IP/compliance review is complete. |
 | 1:16 Remote-Control Monster Truck | DRAFT | 6 | child_safety | Keep held until safety/claims/IP/compliance review is complete. |
-| New Heated Rivalry Hockey Jersey Long Sleeves Tee Men's | DRAFT | 21 | electrical | Keep held until safety/claims/IP/compliance review is complete. |
 | Resistance Bands Set - Exercise & Fitness | DRAFT | 1 | child_safety;medical_health | Keep held until safety/claims/IP/compliance review is complete. |
 | Head Back Protector Baby Protect Pillow Learn Walk Head | DRAFT | 1 | child_safety | Keep held until safety/claims/IP/compliance review is complete. |
 | 21 Heated Vest Zones Electric Heated Jackets Men Women Sportswear Heated Coat Graphene Heat Coat USB Heating Jacket For Camping | DRAFT | 32 | electrical | Keep held until safety/claims/IP/compliance review is complete. |
 | Baby Music Activity Gym Rug Play Mat Newborn Carpet Pedal | DRAFT | 14 | child_safety | Keep held until safety/claims/IP/compliance review is complete. |
 | ZWN 2.4G Remote Control Excavator Dump Truck RC Model Car Toy Professional Alloy Plastic Simulation Construction Vehicle for Kid | DRAFT | 6 | child_safety | Keep held until safety/claims/IP/compliance review is complete. |
-| Halloween Elsa Dress for Girls Children Party Princess Costume Kids Disguise with Long Cloak Girl Snow Queen Carnival Clothes | DRAFT | 29 | child_safety | Keep held until safety/claims/IP/compliance review is complete. |
-| New Girl Dresses Princess Costume Kids Mermaid Cosplay Costume Kids Carnival Birthday Party Prom Costume Party Dresses For girls | DRAFT | 20 | child_safety | Keep held until safety/claims/IP/compliance review is complete. |
 | 1:64 RC Construction Vehicle Set | DRAFT | 6 | child_safety | Keep held until safety/claims/IP/compliance review is complete. |
 | Bath Toy Storage Mesh | DRAFT | 4 | child_safety | Drafted on 2026-07-26; keep excluded until safety/claims/IP/compliance review is complete. |
 | 1PCS Baby Anti-Fall Head Protection Pillow, Breathable Toddler Safety Cushion, Soft Head Guard Pad for Kids Learning to Walk, Sh | DRAFT | 4 | child_safety | Keep held until safety/claims/IP/compliance review is complete. |
 | Pet Supplies Duck Goose Shoes Pet Cole Foot Poultry Boots Pet Duck Boots with Protective Soles Protective Shoe Set Pet Products | DRAFT | 9 | animal_welfare | Species-specific sizing, material, supervision, and welfare/safe-use evidence before reconsideration. |
-| Windproof Infant Stroller Gloves Children's Outdoor Sports Mittens Cartoon Printed Hands Warmer Scooter Accessory for Winter | DRAFT | 4 | child_safety | Keep held until safety/claims/IP/compliance review is complete. |
 | Hand-Controlled Mini RC Drone | DRAFT | 3 | child_safety;electrical | Keep held until safety/claims/IP/compliance review is complete. |
-| 300/280/200/100Pcs Washer Copper Sealing Solid Gasket Washer Sump Plug Oil For Boat Crush Flat Seal Ring Tool | DRAFT | 4 | electrical | Keep held until safety/claims/IP/compliance review is complete. |
 | Baby head pillow anti-fall device Head protective pad summer anti-bump head learning to walk baby four seasons toddler hat | DRAFT | 4 | child_safety | Keep held until safety/claims/IP/compliance review is complete. |
 | Solar Fairy String Lights for Outdoor Decor | DRAFT | 11 | electrical | Keep held until safety/claims/IP/compliance review is complete. |
-| 1-20Packs 100Pcs/Pack Wooden Sticks Baby Cotton Swabs Cleaning of Ears Tampons Health Beauty Cotton Swab Cleaning Cotton Buds | DRAFT | 13 | child_safety;medical_health;hygiene_beauty | Keep held until safety/claims/IP/compliance review is complete. |
 | 15cm Women's Rabbit Fur Keychain Bag Car Pendant Jewelry Decoration Fashionable Accessory for Bags And Gifts | DRAFT | 11 | animal_derived | Verified material/species origin, lawful sourcing/import evidence, and accurate disclosure; otherwise reject. |
-| Summer Spring Candy Color Kids Pantyhose Ballet Dance Tights for Girls Stocking Children Velvet Solid White Pantyhose | DRAFT | 39 | child_safety | Keep held until safety/claims/IP/compliance review is complete. |
 | Summer Men's MJ Michael Jackson Printed 100%CottonNeutral | DRAFT | 7 | likely_ip | Documented authorization or licensed supplier provenance; otherwise reject. |
-| Rhinitis Nasal Irrigator Washing for Children Silicone Baby Nasal Aspirator Syringe Baby Nose Cleaner Kids Nasal Washer Reusable | DRAFT | 16 | child_safety | Keep held until safety/claims/IP/compliance review is complete. |
 | Women Fake Piercing Nose Ring Hoop Septum Piercing Nose Clip Rock HipHoop Stainless Steel Magnet Fashion Body Jewelry Wholesale | DRAFT | 5 | hygiene_beauty | Material composition, nickel/heavy-metal compliance evidence, and cleaned customer-facing content. |
-| Kids Toddler Foot Measure Gauge Shoes Size Measuring Ruler Tool Baby Boy Girl Children's Foot Length Measuring Ruler Fittings | DRAFT | 5 | child_safety | Keep held until safety/claims/IP/compliance review is complete. |
 | Nail Glue Phototherapy Pen UV Gel Brush Pen Acrylic Nail Art Painting Drawing Liner Brush Manicure Professionnel Brushes Tool | DRAFT | 2 | chemical_cosmetic;hygiene_beauty | Supplier ingredient/SDS and compliant labeling evidence, or confirmed non-chemical brush-only mapping. |
 | 9 Heated Vest Zones Electric Heated Jackets Men Women | DRAFT | 12 | electrical | Keep held until safety/claims/IP/compliance review is complete. |
 | Cute Duck Night Light | DRAFT | 1 | child_safety | Keep held until safety/claims/IP/compliance review is complete. |
