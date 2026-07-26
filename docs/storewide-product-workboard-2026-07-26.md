@@ -8,7 +8,8 @@ This board turns the Shopify Admin product gate into the order of operations for
 - C1_DRAFT_REVIEW_BATCH: 3
 - C2_DRAFT_REPRICE_CONTENT_REVIEW: 1
 - C4_DRAFT_US_ONLY_REVIEW: 3
-- D1_US_MARGIN_PENDING: 13
+- D2_US_PRICE_PASSES_MARKET_BLOCKED: 9
+- D3_US_VARIANT_PRICE_MAPPING_REQUIRED: 4
 - H1_RISK_HOLD: 30
 - H2_CONFIRMED_UNMAPPED: 5
 - H3_PRICING_DEFINED_QUOTE_PENDING: 2
@@ -48,19 +49,6 @@ For each quoted product, record separate exact DSers/AliExpress Canada and US it
 
 | product | variants | decision | action |
 | --- | --- | --- | --- |
-| Travel Pet Water Bottle | 3 | US_MARGIN_FLOOR_DEFINED_MARKET_VALIDATION_PENDING | Verify the actual US storefront price is at least US$11.99, then test US catalog visibility, checkout delivery, and contribution. |
-| Everyday Carabiner Clip Set | 2 | US_MARGIN_FLOOR_DEFINED_MARKET_VALIDATION_PENDING | Verify the actual US storefront price is at least US$8.99, then test US catalog visibility, checkout delivery, and contribution. |
-| Car Sun Visor Organizer | 3 | US_MARGIN_FLOOR_DEFINED_MARKET_VALIDATION_PENDING | Verify the actual US storefront price is at least US$8.99, then test US catalog visibility, checkout delivery, and contribution. |
-| Men's Cotton-Linen Wide-Leg Pants | 100 | US_MARGIN_FLOOR_DEFINED_MARKET_VALIDATION_PENDING | Verify the actual US storefront price is at least US$25.99, then test US catalog visibility, checkout delivery, and contribution. |
-| Adjustable Rhinestone Ring | 2 | US_MARGIN_FLOOR_DEFINED_MARKET_VALIDATION_PENDING | Verify the actual US storefront price is at least US$9.99, then test US catalog visibility, checkout delivery, and contribution. |
-| Everyday Performance Shorts | 21 | US_MARGIN_FLOOR_DEFINED_MARKET_VALIDATION_PENDING | Verify the actual US storefront price is at least US$34.99, then test US catalog visibility, checkout delivery, and contribution. |
-| Compact Bicycle Bell | 6 | US_MARGIN_FLOOR_DEFINED_MARKET_VALIDATION_PENDING | Verify the actual US storefront price is at least US$9.99, then test US catalog visibility, checkout delivery, and contribution. |
-| Long-Handle Bottle Brush | 2 | US_MARGIN_FLOOR_DEFINED_MARKET_VALIDATION_PENDING | Verify the actual US storefront price is at least US$7.99, then test US catalog visibility, checkout delivery, and contribution. |
-| Everyday Polarized Sunglasses | 3 | US_MARGIN_FLOOR_DEFINED_MARKET_VALIDATION_PENDING | Verify the actual US storefront price is at least US$20.99, then test US catalog visibility, checkout delivery, and contribution. |
-| Quick-Dry Training Shorts | 54 | US_MARGIN_FLOOR_DEFINED_MARKET_VALIDATION_PENDING | Verify the actual US storefront price is at least US$17.99, then test US catalog visibility, checkout delivery, and contribution. |
-| Breezy Everyday Pants | 28 | US_MARGIN_FLOOR_DEFINED_MARKET_VALIDATION_PENDING | Verify the actual US storefront price is at least US$21.99, then test US catalog visibility, checkout delivery, and contribution. |
-| Men's High-Neck Knit Sweater | 54 | US_MARGIN_FLOOR_DEFINED_MARKET_VALIDATION_PENDING | Verify the actual US storefront price is at least US$30.99, then test US catalog visibility, checkout delivery, and contribution. |
-| Long-Sleeve Performance Tee | 35 | US_MARGIN_FLOOR_DEFINED_MARKET_VALIDATION_PENDING | Verify the actual US storefront price is at least US$19.99, then test US catalog visibility, checkout delivery, and contribution. |
 
 ## Drafts and holds
 
@@ -85,6 +73,29 @@ For each quoted product, record separate exact DSers/AliExpress Canada and US it
 | 3PCS/Set Men Business Watches Casual Leather Band Analog Male's Quartz Watch Necklace Bracelet Set | DRAFT | 5 |  | Verify the actual US storefront price is at least US$11.99, then complete content/policy and checkout review before US-only activation. |
 | 1/2PCS Men Business Watches Fashion Men's Steel Band Quartz Watch with Bracelet（Box not Included） | DRAFT | 4 |  | Verify the actual US storefront price is at least US$12.99, then complete content/policy and checkout review before US-only activation. |
 | Digital Watch & Jewellery Gift Set | DRAFT | 4 | hygiene_beauty | Verify the actual US storefront price is at least US$26.99, then complete content/policy and checkout review before US-only activation. |
+
+### D2_US_PRICE_PASSES_MARKET_BLOCKED
+
+| product | status | variants | issue | action |
+| --- | --- | --- | --- | --- |
+| Travel Pet Water Bottle | ACTIVE | 3 |  | Resolve the Managed Markets/storefront availability blocker, then verify live US product visibility and checkout delivery. |
+| Everyday Carabiner Clip Set | ACTIVE | 2 |  | Resolve the Managed Markets/storefront availability blocker, then verify live US product visibility and checkout delivery. |
+| Car Sun Visor Organizer | ACTIVE | 3 |  | Resolve the Managed Markets/storefront availability blocker, then verify live US product visibility and checkout delivery. |
+| Men's Cotton-Linen Wide-Leg Pants | ACTIVE | 100 |  | Resolve the Managed Markets/storefront availability blocker, then verify live US product visibility and checkout delivery. |
+| Adjustable Rhinestone Ring | ACTIVE | 2 |  | Resolve the Managed Markets/storefront availability blocker, then verify live US product visibility and checkout delivery. |
+| Compact Bicycle Bell | ACTIVE | 6 |  | Resolve the Managed Markets/storefront availability blocker, then verify live US product visibility and checkout delivery. |
+| Long-Handle Bottle Brush | ACTIVE | 2 |  | Resolve the Managed Markets/storefront availability blocker, then verify live US product visibility and checkout delivery. |
+| Everyday Polarized Sunglasses | ACTIVE | 3 |  | Resolve the Managed Markets/storefront availability blocker, then verify live US product visibility and checkout delivery. |
+| Quick-Dry Training Shorts | ACTIVE | 54 |  | Resolve the Managed Markets/storefront availability blocker, then verify live US product visibility and checkout delivery. |
+
+### D3_US_VARIANT_PRICE_MAPPING_REQUIRED
+
+| product | status | variants | issue | action |
+| --- | --- | --- | --- | --- |
+| Everyday Performance Shorts | ACTIVE | 21 |  | Match each variant price to its supplier cost or set an adequate US price override; keep US activation withheld meanwhile. |
+| Breezy Everyday Pants | ACTIVE | 28 |  | Match each variant price to its supplier cost or set an adequate US price override; keep US activation withheld meanwhile. |
+| Men's High-Neck Knit Sweater | ACTIVE | 54 |  | Match each variant price to its supplier cost or set an adequate US price override; keep US activation withheld meanwhile. |
+| Long-Sleeve Performance Tee | ACTIVE | 35 |  | Match each variant price to its supplier cost or set an adequate US price override; keep US activation withheld meanwhile. |
 
 ### H1_RISK_HOLD
 

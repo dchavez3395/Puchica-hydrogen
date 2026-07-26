@@ -178,7 +178,7 @@ def write_markdown(path: Path, rows: list[dict], run_date: str) -> None:
         '## Drafts and holds',
         '',
     ])
-    for stream in ('C1_DRAFT_REVIEW_BATCH', 'C2_DRAFT_REPRICE_CONTENT_REVIEW', 'C3_DRAFT_CONTENT_REVIEW', 'C4_DRAFT_US_ONLY_REVIEW', 'H1_RISK_HOLD', 'H4_DRAFT_CANADA_FAIL_EXCLUDED', 'H2_MAPPING_REPAIR', 'H2_CONFIRMED_UNMAPPED', 'H3_REPRICE_OR_REJECT', 'H3_PRICING_DEFINED_QUOTE_PENDING', 'Z_REVIEW_MANUALLY'):
+    for stream in ('C1_DRAFT_REVIEW_BATCH', 'C2_DRAFT_REPRICE_CONTENT_REVIEW', 'C3_DRAFT_CONTENT_REVIEW', 'C4_DRAFT_US_ONLY_REVIEW', 'D2_US_PRICE_PASSES_MARKET_BLOCKED', 'D3_US_VARIANT_PRICE_MAPPING_REQUIRED', 'H1_RISK_HOLD', 'H4_DRAFT_CANADA_FAIL_EXCLUDED', 'H2_MAPPING_REPAIR', 'H2_CONFIRMED_UNMAPPED', 'H3_REPRICE_OR_REJECT', 'H3_PRICING_DEFINED_QUOTE_PENDING', 'Z_REVIEW_MANUALLY'):
         batch = grouped.get(stream, [])
         if not batch:
             continue
@@ -231,6 +231,8 @@ def main() -> None:
             item['prices'].append(action_price)
             if action_required:
                 item['action_prices'].append(action_price)
+    us_catalog_path = docs_dir / f'storewide-us-catalog-price-validation-{args.date}.csv'
+    us_catalog_reviews = {row['handle']: row for row in read_csv(us_catalog_path)} if us_catalog_path.exists() else {}
 
     out_rows = []
     for row in rows:
@@ -409,6 +411,34 @@ def main() -> None:
                     f"Verify the actual US storefront price is at least US${floor:.2f}, then complete content/policy and checkout review before US-only activation."
                 ),
             })
+        us_catalog_review = us_catalog_reviews.get(row['handle'])
+        if us_catalog_review and out['workstream'] == 'D1_US_MARGIN_PENDING':
+            observed = us_catalog_review['observed_us_price_range']
+            floor = us_catalog_review['conservative_minimum_price']
+            if us_catalog_review['verdict'] == 'PASS_CONSERVATIVE_US_MARGIN_FLOOR':
+                out.update({
+                    'priority': 41,
+                    'workstream': 'D2_US_PRICE_PASSES_MARKET_BLOCKED',
+                    'decision': 'US_PRICE_AND_SHIPPING_PASS_MARKET_ACTIVATION_BLOCKED',
+                    'work_reason': (
+                        f"US shipping passes and the Shopify catalog price {observed} clears the conservative US${floor} floor."
+                    ),
+                    'operator_next_action': (
+                        'Resolve the Managed Markets/storefront availability blocker, then verify live US product visibility and checkout delivery.'
+                    ),
+                })
+            elif us_catalog_review['verdict'] == 'REVIEW_VARIANT_PRICE_COST_MAPPING':
+                out.update({
+                    'priority': 42,
+                    'workstream': 'D3_US_VARIANT_PRICE_MAPPING_REQUIRED',
+                    'decision': 'US_CONSERVATIVE_MARGIN_REVIEW_REQUIRED',
+                    'work_reason': (
+                        f"The Shopify catalog range {observed} starts below the conservative US${floor} maximum-cost floor."
+                    ),
+                    'operator_next_action': (
+                        'Match each variant price to its supplier cost or set an adequate US price override; keep US activation withheld meanwhile.'
+                    ),
+                })
         review = content_reviews.get(row['handle'])
         if review and review['disposition'] == 'HOLD_CONTENT_COMPLIANCE_REVIEW':
             combined_flags = sorted(set(filter(None, (row['risk_flags'] + ';' + review['risk_flags']).split(';'))))
