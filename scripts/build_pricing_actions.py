@@ -122,8 +122,8 @@ def main() -> None:
         product_rows = [r for r in quotes if r['handle'] == handle]
         if not product_rows:
             raise RuntimeError(f'No quote rows for {handle}')
-        cost = max(upper_us_cost(r['us_quote_item_cost']) for r in product_rows)
-        shipping = max(Decimal(r['us_quote_shipping_cost'].replace('US$', '')) for r in product_rows)
+        cost = max(upper_us_cost(r['us_quote_item_cost']) for r in product_rows if r['us_quote_item_cost'])
+        shipping = max(Decimal(r['us_quote_shipping_cost'].replace('US$', '')) for r in product_rows if r['us_quote_shipping_cost'].startswith('US$'))
         floor = minimum_price(cost, shipping)
         recommended = retail_99(floor)
         rows.append({
@@ -135,6 +135,39 @@ def main() -> None:
             'price_change': '', 'price_action_required': 'yes',
             'quote_result': ';'.join(sorted(set(r['us_quote_result'] for r in product_rows))),
             'disposition': 'USD_STOREFRONT_PRICE_VALIDATION_REQUIRED',
+            'formula': '(supplier_cost + shipping + 0.30) / 0.52535',
+        })
+
+    active_groups: dict[str, list[dict]] = {}
+    for quote in quotes:
+        if quote['status'] == 'ACTIVE' and quote['launch_tag'] == 'yes' and quote['us_quote_result']:
+            active_groups.setdefault(quote['handle'], []).append(quote)
+    for handle, product_rows in sorted(active_groups.items()):
+        sellable_failure = any(
+            r['us_quote_result'].startswith('FAIL')
+            and r['available_for_sale'].lower() == 'true'
+            and int(r['inventory_quantity'] or 0) > 0
+            for r in product_rows
+        )
+        if sellable_failure:
+            continue
+        cost_rows = [r for r in product_rows if r['us_quote_item_cost']]
+        shipping_rows = [r for r in product_rows if r['us_quote_shipping_cost'].startswith('US$')]
+        if not cost_rows or not shipping_rows:
+            raise RuntimeError(f'Incomplete active US cost evidence for {handle}')
+        cost = max(upper_us_cost(r['us_quote_item_cost']) for r in cost_rows)
+        shipping = max(Decimal(r['us_quote_shipping_cost'].replace('US$', '')) for r in shipping_rows)
+        floor = minimum_price(cost, shipping)
+        recommended = retail_99(floor)
+        rows.append({
+            'country': 'US', 'product_title': product_rows[0]['product_title'], 'handle': handle,
+            'variant_title': 'ACTIVE SELLABLE SET (CONSERVATIVE MAX COST)', 'sku': '',
+            'current_storefront_price': '', 'supplier_cost_basis': q2(cost),
+            'shipping_cost_basis': q2(shipping), 'shipping_evidence': 'VERIFIED_US_ACTIVE_QUOTE_SET',
+            'minimum_price': q2(floor), 'recommended_action_price': q2(recommended),
+            'price_change': '', 'price_action_required': 'yes',
+            'quote_result': ';'.join(sorted(set(r['us_quote_result'] for r in product_rows))),
+            'disposition': 'ACTIVE_US_PRICE_VALIDATION_REQUIRED',
             'formula': '(supplier_cost + shipping + 0.30) / 0.52535',
         })
 

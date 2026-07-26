@@ -20,7 +20,20 @@ This ledger converts verified cost and shipping evidence into minimum prices und
 | CA | Everyday Pullover Hoodie | 48 | 22 | 54.99~54.99 | 54.99~61.99 | PRICE_PASSES_CURRENT_GATE; REPRICE_THEN_REVIEW |
 | US | 1/2PCS Men Business Watches Fashion Men's Steel Band Quartz Watch with Bracelet?Box not Included? | 1 | 1 |  | 12.99~12.99 | USD_STOREFRONT_PRICE_VALIDATION_REQUIRED |
 | US | 3PCS/Set Men Business Watches Casual Leather Band Analog Male's Quartz Watch Necklace Bracelet Set | 1 | 1 |  | 11.99~11.99 | USD_STOREFRONT_PRICE_VALIDATION_REQUIRED |
+| US | Adjustable Rhinestone Ring | 1 | 1 |  | 9.99~9.99 | ACTIVE_US_PRICE_VALIDATION_REQUIRED |
+| US | Breezy Everyday Pants | 1 | 1 |  | 21.99~21.99 | ACTIVE_US_PRICE_VALIDATION_REQUIRED |
+| US | Car Sun Visor Organizer | 1 | 1 |  | 8.99~8.99 | ACTIVE_US_PRICE_VALIDATION_REQUIRED |
+| US | Compact Bicycle Bell | 1 | 1 |  | 9.99~9.99 | ACTIVE_US_PRICE_VALIDATION_REQUIRED |
 | US | Digital Watch & Jewellery Gift Set | 1 | 1 |  | 26.99~26.99 | USD_STOREFRONT_PRICE_VALIDATION_REQUIRED |
+| US | Everyday Carabiner Clip Set | 1 | 1 |  | 8.99~8.99 | ACTIVE_US_PRICE_VALIDATION_REQUIRED |
+| US | Everyday Performance Shorts | 1 | 1 |  | 34.99~34.99 | ACTIVE_US_PRICE_VALIDATION_REQUIRED |
+| US | Everyday Polarized Sunglasses | 1 | 1 |  | 20.99~20.99 | ACTIVE_US_PRICE_VALIDATION_REQUIRED |
+| US | Long-Handle Bottle Brush | 1 | 1 |  | 7.99~7.99 | ACTIVE_US_PRICE_VALIDATION_REQUIRED |
+| US | Long-Sleeve Performance Tee | 1 | 1 |  | 19.99~19.99 | ACTIVE_US_PRICE_VALIDATION_REQUIRED |
+| US | Men's Cotton-Linen Wide-Leg Pants | 1 | 1 |  | 25.99~25.99 | ACTIVE_US_PRICE_VALIDATION_REQUIRED |
+| US | Men's High-Neck Knit Sweater | 1 | 1 |  | 30.99~30.99 | ACTIVE_US_PRICE_VALIDATION_REQUIRED |
+| US | Quick-Dry Training Shorts | 1 | 1 |  | 17.99~17.99 | ACTIVE_US_PRICE_VALIDATION_REQUIRED |
+| US | Travel Pet Water Bottle | 1 | 1 |  | 11.99~11.99 | ACTIVE_US_PRICE_VALIDATION_REQUIRED |
 
 ## Operating rule
 

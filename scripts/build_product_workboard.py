@@ -387,6 +387,17 @@ def main() -> None:
                     'Apply/approve the variant pricing actions, clean title/content, then recalculate contribution before activation.'
                 ),
             })
+        elif us_price and out['workstream'] == 'D1_US_MARGIN_PENDING':
+            floor = max(us_price['prices'])
+            out.update({
+                'decision': 'US_MARGIN_FLOOR_DEFINED_MARKET_VALIDATION_PENDING',
+                'work_reason': (
+                    f"US shipping evidence and a conservative margin floor are complete; the minimum action price is US${floor:.2f}."
+                ),
+                'operator_next_action': (
+                    f"Verify the actual US storefront price is at least US${floor:.2f}, then test US catalog visibility, checkout delivery, and contribution."
+                ),
+            })
         elif us_price and out['workstream'] == 'C4_DRAFT_US_ONLY_REVIEW':
             floor = max(us_price['prices'])
             out.update({

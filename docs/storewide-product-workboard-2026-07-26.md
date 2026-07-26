@@ -48,19 +48,19 @@ For each quoted product, record separate exact DSers/AliExpress Canada and US it
 
 | product | variants | decision | action |
 | --- | --- | --- | --- |
-| Travel Pet Water Bottle | 3 | US_QUOTE_COMPLETE_MARGIN_PENDING | Validate USD storefront price, landed contribution, checkout delivery, and live US availability. |
-| Everyday Carabiner Clip Set | 2 | US_QUOTE_COMPLETE_MARGIN_PENDING | Validate USD storefront price, landed contribution, checkout delivery, and live US availability. |
-| Car Sun Visor Organizer | 3 | US_QUOTE_COMPLETE_MARGIN_PENDING | Validate USD storefront price, landed contribution, checkout delivery, and live US availability. |
-| Men's Cotton-Linen Wide-Leg Pants | 100 | US_QUOTE_COMPLETE_MARGIN_PENDING | Validate USD storefront price, landed contribution, checkout delivery, and live US availability. |
-| Adjustable Rhinestone Ring | 2 | US_QUOTE_COMPLETE_MARGIN_PENDING | Validate USD storefront price, landed contribution, checkout delivery, and live US availability. |
-| Everyday Performance Shorts | 21 | US_QUOTE_COMPLETE_MARGIN_PENDING | Validate USD storefront price, landed contribution, checkout delivery, and live US availability. |
-| Compact Bicycle Bell | 6 | US_QUOTE_COMPLETE_MARGIN_PENDING | Validate USD storefront price, landed contribution, checkout delivery, and live US availability. |
-| Long-Handle Bottle Brush | 2 | US_QUOTE_COMPLETE_MARGIN_PENDING | Validate USD storefront price, landed contribution, checkout delivery, and live US availability. |
-| Everyday Polarized Sunglasses | 3 | US_QUOTE_COMPLETE_MARGIN_PENDING | Validate USD storefront price, landed contribution, checkout delivery, and live US availability. |
-| Quick-Dry Training Shorts | 54 | US_QUOTE_COMPLETE_MARGIN_PENDING | Validate USD storefront price, landed contribution, checkout delivery, and live US availability. |
-| Breezy Everyday Pants | 28 | US_QUOTE_COMPLETE_MARGIN_PENDING | Validate USD storefront price, landed contribution, checkout delivery, and live US availability. |
-| Men's High-Neck Knit Sweater | 54 | US_QUOTE_COMPLETE_MARGIN_PENDING | Validate USD storefront price, landed contribution, checkout delivery, and live US availability. |
-| Long-Sleeve Performance Tee | 35 | US_QUOTE_COMPLETE_MARGIN_PENDING | Validate USD storefront price, landed contribution, checkout delivery, and live US availability. |
+| Travel Pet Water Bottle | 3 | US_MARGIN_FLOOR_DEFINED_MARKET_VALIDATION_PENDING | Verify the actual US storefront price is at least US$11.99, then test US catalog visibility, checkout delivery, and contribution. |
+| Everyday Carabiner Clip Set | 2 | US_MARGIN_FLOOR_DEFINED_MARKET_VALIDATION_PENDING | Verify the actual US storefront price is at least US$8.99, then test US catalog visibility, checkout delivery, and contribution. |
+| Car Sun Visor Organizer | 3 | US_MARGIN_FLOOR_DEFINED_MARKET_VALIDATION_PENDING | Verify the actual US storefront price is at least US$8.99, then test US catalog visibility, checkout delivery, and contribution. |
+| Men's Cotton-Linen Wide-Leg Pants | 100 | US_MARGIN_FLOOR_DEFINED_MARKET_VALIDATION_PENDING | Verify the actual US storefront price is at least US$25.99, then test US catalog visibility, checkout delivery, and contribution. |
+| Adjustable Rhinestone Ring | 2 | US_MARGIN_FLOOR_DEFINED_MARKET_VALIDATION_PENDING | Verify the actual US storefront price is at least US$9.99, then test US catalog visibility, checkout delivery, and contribution. |
+| Everyday Performance Shorts | 21 | US_MARGIN_FLOOR_DEFINED_MARKET_VALIDATION_PENDING | Verify the actual US storefront price is at least US$34.99, then test US catalog visibility, checkout delivery, and contribution. |
+| Compact Bicycle Bell | 6 | US_MARGIN_FLOOR_DEFINED_MARKET_VALIDATION_PENDING | Verify the actual US storefront price is at least US$9.99, then test US catalog visibility, checkout delivery, and contribution. |
+| Long-Handle Bottle Brush | 2 | US_MARGIN_FLOOR_DEFINED_MARKET_VALIDATION_PENDING | Verify the actual US storefront price is at least US$7.99, then test US catalog visibility, checkout delivery, and contribution. |
+| Everyday Polarized Sunglasses | 3 | US_MARGIN_FLOOR_DEFINED_MARKET_VALIDATION_PENDING | Verify the actual US storefront price is at least US$20.99, then test US catalog visibility, checkout delivery, and contribution. |
+| Quick-Dry Training Shorts | 54 | US_MARGIN_FLOOR_DEFINED_MARKET_VALIDATION_PENDING | Verify the actual US storefront price is at least US$17.99, then test US catalog visibility, checkout delivery, and contribution. |
+| Breezy Everyday Pants | 28 | US_MARGIN_FLOOR_DEFINED_MARKET_VALIDATION_PENDING | Verify the actual US storefront price is at least US$21.99, then test US catalog visibility, checkout delivery, and contribution. |
+| Men's High-Neck Knit Sweater | 54 | US_MARGIN_FLOOR_DEFINED_MARKET_VALIDATION_PENDING | Verify the actual US storefront price is at least US$30.99, then test US catalog visibility, checkout delivery, and contribution. |
+| Long-Sleeve Performance Tee | 35 | US_MARGIN_FLOOR_DEFINED_MARKET_VALIDATION_PENDING | Verify the actual US storefront price is at least US$19.99, then test US catalog visibility, checkout delivery, and contribution. |
 
 ## Drafts and holds
 
