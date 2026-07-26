@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """Build explicit Canada and US pricing actions from the product gate and quote ledger."""
 from __future__ import annotations
 
@@ -86,8 +86,8 @@ def main() -> None:
     rows: list[dict] = []
 
     canada_targets = {
-        'mens-casual-sports-hoodie-spring-autumn-fashion-solid-color-long-sleeved-pullover-with-arm-pocket-and-pull-rope-plus-size': 'PLANNING_FLOOR_QUOTE_PENDING',
-        '100-pure-cotton-t-shirt-with-round-neck-shoulder-design-for-both-men-women-summer-solid-color-short-sleeved-casual-loose-fit': 'PLANNING_FLOOR_QUOTE_PENDING',
+        'mens-casual-sports-hoodie-spring-autumn-fashion-solid-color-long-sleeved-pullover-with-arm-pocket-and-pull-rope-plus-size': 'VERIFIED_CANADA_DSERs_QUOTE',
+        '100-pure-cotton-t-shirt-with-round-neck-shoulder-design-for-both-men-women-summer-solid-color-short-sleeved-casual-loose-fit': 'VERIFIED_CANADA_DSERs_QUOTE',
         '2024-mens-print-pants-autumn-winter-new-in-mens-clothing-trousers-sport-jogging-fitness-running-trousers-harajuku-streetwear': 'VERIFIED_CANADA_QUOTE',
     }
     canada_fixed_group_prices = {
