@@ -33,10 +33,13 @@ HIGH_RISK_PATTERNS = {
     'child_safety': re.compile(r'\b(baby|infant|toddler|child|children|kids?|toy|rc|drone)\b', re.I),
     'medical_health': re.compile(r'\b(medical|therapy|therapeutic|pain|cure|treatment|orthopedic|posture|blood|health)\b', re.I),
     'electrical': re.compile(r'\b(electric|heated|heating|led|usb|battery|rechargeable|voltage|plug|laser)\b', re.I),
-    'hygiene_beauty': re.compile(r'\b(ear|nail|skin|face|facial|beauty|razor|hair|teeth|oral|hygiene)\b', re.I),
-    'likely_ip': re.compile(r'\b(disney|pokemon|mario|nike|adidas|apple|iphone|marvel|lego|barbie)\b', re.I),
+    'hygiene_beauty': re.compile(r'\b(ear|nail|skin|face|facial|beauty|razor|hair|teeth|oral|hygiene|piercing|nose ring|body jewelry)\b', re.I),
+    'likely_ip': re.compile(r'\b(disney|pokemon|mario|nike|adidas|apple|iphone|marvel|lego|barbie|michael jackson|elsa)\b', re.I),
+    'chemical_cosmetic': re.compile(r'\b(nail glue|uv gel|acrylic nail|cosmetic adhesive)\b', re.I),
+    'animal_derived': re.compile(r'\b(rabbit fur|mink fur|real fur)\b', re.I),
+    'animal_welfare': re.compile(r'\b(duck shoes|goose shoes|poultry boots)\b', re.I),
 }
-HARD_RISK_FLAGS = {'child_safety', 'medical_health', 'electrical', 'likely_ip'}
+HARD_RISK_FLAGS = {'child_safety', 'medical_health', 'electrical', 'likely_ip', 'chemical_cosmetic'}
 
 
 def money(value) -> Decimal | None:

@@ -178,7 +178,7 @@ def write_markdown(path: Path, rows: list[dict], run_date: str) -> None:
         '## Drafts and holds',
         '',
     ])
-    for stream in ('C1_DRAFT_REVIEW_BATCH', 'C2_DRAFT_REPRICE_CONTENT_REVIEW', 'C3_DRAFT_CONTENT_REVIEW', 'H1_RISK_HOLD', 'H4_DRAFT_CANADA_FAIL_EXCLUDED', 'H2_MAPPING_REPAIR', 'H3_REPRICE_OR_REJECT', 'Z_REVIEW_MANUALLY'):
+    for stream in ('C1_DRAFT_REVIEW_BATCH', 'C2_DRAFT_REPRICE_CONTENT_REVIEW', 'C3_DRAFT_CONTENT_REVIEW', 'C4_DRAFT_US_ONLY_REVIEW', 'H1_RISK_HOLD', 'H4_DRAFT_CANADA_FAIL_EXCLUDED', 'H2_MAPPING_REPAIR', 'H3_REPRICE_OR_REJECT', 'Z_REVIEW_MANUALLY'):
         batch = grouped.get(stream, [])
         if not batch:
             continue
@@ -214,6 +214,8 @@ def main() -> None:
     rows = read_csv(gate_path)
     quote_path = docs_dir / f'storewide-variant-quote-worksheet-{args.date}.csv'
     quote_state = build_quote_summary(read_csv(quote_path)) if quote_path.exists() else {}
+    review_path = docs_dir / f'storewide-content-compliance-review-{args.date}.csv'
+    content_reviews = {row['handle']: row for row in read_csv(review_path)} if review_path.exists() else {}
 
     out_rows = []
     for row in rows:
@@ -279,6 +281,26 @@ def main() -> None:
             and us
             and us['canada_quoted'] == us['rows']
             and us['canada_failures'] == us['rows']
+            and us['quoted'] == us['rows']
+            and us['failures'] == 0
+        ):
+            out.update({
+                'priority': 47,
+                'workstream': 'C4_DRAFT_US_ONLY_REVIEW',
+                'decision': 'DRAFT_US_ONLY_CANDIDATE',
+                'work_reason': (
+                    'Every mapped variant fails the Canada gate, but the complete US shipping sample passes.'
+                ),
+                'operator_next_action': (
+                    'Keep excluded from Canada; validate USD pricing, contribution, content, and policy risk before US-only activation.'
+                ),
+            })
+        elif (
+            row['status'] == 'DRAFT'
+            and row['decision'] == 'DRAFT_QUOTE_AND_CONTENT_REVIEW'
+            and us
+            and us['canada_quoted'] == us['rows']
+            and us['canada_failures'] == us['rows']
         ):
             out.update({
                 'priority': 55,
@@ -321,6 +343,17 @@ def main() -> None:
                         'Complete content/compliance review and contribution validation before activation.'
                     ),
                 })
+        review = content_reviews.get(row['handle'])
+        if review and review['disposition'] == 'HOLD_CONTENT_COMPLIANCE_REVIEW':
+            combined_flags = sorted(set(filter(None, (row['risk_flags'] + ';' + review['risk_flags']).split(';'))))
+            out.update({
+                'priority': 80,
+                'workstream': 'H1_RISK_HOLD',
+                'risk_flags': ';'.join(combined_flags),
+                'decision': 'HOLD_CONTENT_COMPLIANCE_REVIEW',
+                'work_reason': review['reason'],
+                'operator_next_action': review['required_evidence'],
+            })
         out_rows.append(out)
 
     out_rows.sort(key=lambda r: (
