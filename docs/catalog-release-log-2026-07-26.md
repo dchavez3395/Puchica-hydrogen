@@ -149,3 +149,16 @@ All three products were restored to the Puchica U.S. catalog. Their known no-U.S
 A combined live checkout containing one sellable variant from every active product initially exposed an inactive `Free Shipping Over $75` method, creating a rate gap above CA$74.99. The existing method was activated without changing its CA$75 threshold or zero price. The same 17-product cart was then re-tested using a non-personal New York destination and returned `Free Shipping Over $75` as a real delivery method.
 
 The 17-product active gate is now confirmed for Canada economics, U.S. supplier service, U.S. pricing, U.S. catalog availability, and live U.S. checkout delivery.
+## Draft no-shipping variant controls
+
+Nine known destination-failing variants across seven remediated Draft products were set to inventory zero with overselling denied and re-read through Admin GraphQL. This safely separates the failing variants without discarding their passing sibling variants:
+
+- Children's Foot Measuring Gauge — `blue`
+- Children's Solid-Color Tights — `Pink / 1 to 2 Yrs / China Mainland`
+- Copper Washer Assortment — `200Pcs M5-M14`
+- Everyday Crew-Neck T-Shirt — `Black / L`
+- Men's Everyday Shorts — `XXXL / Dark Blue 001`
+- Men's High-Neck Base-Layer Top — `Coffee / 3L`
+- Printed Children's Winter Mittens — `C`, `E`, and `F`
+
+These controls advance fulfillment readiness but do not clear outstanding material, measurement, sizing, textile-labeling, or children's-product evidence gates. All seven parent products remain Draft.
