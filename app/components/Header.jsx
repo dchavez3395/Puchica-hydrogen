@@ -413,7 +413,6 @@ function buildFallbackHeaderMenu(t) {
       {id: '1', resourceId: null, tags: [], title: t('nav_shop_all'), type: 'HTTP', url: '/collections/all', items: []},
       {id: '2', resourceId: null, tags: [], title: t('nav_best_sellers_short'), type: 'HTTP', url: '/collections/best-sellers', items: []},
       {id: '3', resourceId: null, tags: [], title: t('nav_new_arrivals_short'), type: 'HTTP', url: '/collections/new-arrivals', items: []},
-      {id: '4', resourceId: null, tags: [], title: t('nav_gift_guide'), type: 'HTTP', url: '/collections/all?price=25-50', items: []},
       {id: '5', resourceId: null, tags: [], title: t('nav_about_short'), type: 'HTTP', url: '/pages/about', items: []},
       {id: '6', resourceId: null, tags: [], title: t('nav_contact_short'), type: 'HTTP', url: '/pages/contact', items: []},
     ],

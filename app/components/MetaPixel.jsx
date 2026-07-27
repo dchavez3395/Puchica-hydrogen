@@ -45,7 +45,6 @@ export function MetaPixel({pixelId}) {
       return;
     }
 
-    loadFbq(pixelId);
 
     const allowed = () => {
       try {
@@ -54,6 +53,12 @@ export function MetaPixel({pixelId}) {
         return true;
       }
     };
+    const loadTrackerIfAllowed = () => {
+      if (allowed()) loadFbq(pixelId);
+    };
+    loadTrackerIfAllowed();
+    document.addEventListener('visitorConsentCollected', loadTrackerIfAllowed);
+
     const track = (event, payload) => {
       if (!window.fbq || !allowed()) return;
       try {

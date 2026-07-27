@@ -39,53 +39,6 @@ const CATEGORY_HANDLES = [
   'outdoor-garden',
 ];
 
-const FEATURED_CATEGORIES = ['best-sellers', 'trending-finds', 'gifts-under-25'];
-
-// Map handles to the GraphQL alias keys used in MEGA_MENU_QUERY.
-const ALIAS_MAP = {
-  'phone-case': 'phoneCase',
-  'home-kitchen': 'homeKitchen',
-  'electronics-accessories': 'electronicsAccessories',
-  'apparel-accessories': 'apparelAccessories',
-  'health-wellness': 'healthWellness',
-  'sports-outdoors': 'sportsOutdoors',
-  'pet-finds': 'petFinds',
-  'automotive': 'automotive',
-  'tools-home-improvement': 'toolsHomeImprovement',
-  'beauty-personal-care': 'beautyPersonalCare',
-  'toys-games': 'toysGames',
-  'home-decor': 'homeDecor',
-  'office-school-supplies': 'officeSchoolSupplies',
-  'baby-nursery': 'babyNursery',
-  'outdoor-garden': 'outdoorGarden',
-  'best-sellers': 'bestSellers',
-  'trending-finds': 'trendingFinds',
-  'gifts-under-25': 'giftsUnder25',
-};
-
-// Curated copy for each category. Tone: short, no filler, sentence case.
-// "tagline" is the single-eyebrow line that appears under the category name.
-const TAGLINES = {
-  'phone-case': 'Cases, grips, protection.',
-  'home-kitchen': 'Kitchen, storage, decor.',
-  'electronics-accessories': 'Cables, chargers, mounts.',
-  'apparel-accessories': 'Bags, hats, wearables.',
-  'health-wellness': 'Skin, scent, grooming.',
-  'sports-outdoors': 'Gear, fitness, fan shop.',
-  'pet-finds': 'Toys, beds, things for them.',
-  'automotive': 'Interior, tools, gadgets.',
-  'tools-home-improvement': 'Fix, build, organize.',
-  'beauty-personal-care': 'Makeup, nails, self-care.',
-  'toys-games': 'Play, learn, collect.',
-  'home-decor': 'Wall, light, accents.',
-  'office-school-supplies': 'Desk, paper, must-haves.',
-  'baby-nursery': 'Feeding, decor, comfort.',
-  'outdoor-garden': 'Garden, patio, outdoor.',
-  'best-sellers': 'Top picks everyone loves.',
-  'trending-finds': 'What is hot right now.',
-  'gifts-under-25': 'Great gifts, small budget.',
-};
-
 export function MegaMenu({deferred, onClose}) {
   const id = useId();
   const triggerRef = useRef(null);
@@ -211,7 +164,6 @@ function MegaMenuPanel({data, onNavigate}) {
 
   const quickLinks = [
     {id: 'q-new', handle: 'new-arrivals', title: t('nav_new_arrivals'), url: '/collections/new-arrivals'},
-    {id: 'q-gifts', handle: 'gifts-under-25', title: t('nav_gifts'), url: '/collections/gifts-under-25'},
     {id: 'q-all', title: t('nav_all_products'), url: '/collections/all'},
   ].filter((link) => !link.handle || hasProducts(byHandle.get(link.handle)));
 
@@ -260,7 +212,9 @@ function MegaMenuPanel({data, onNavigate}) {
               )}
             </div>
             <p className="pk-mega__feature-eye">{t('best_sellers_eyebrow')}</p>
-            <h3 className="pk-mega__feature-title">{featured.title}</h3>
+            <h3 className="pk-mega__feature-title">
+              {t('best_sellers_heading')}
+            </h3>
             <span className="pk-mega__feature-cta">
               {t('megamenu_tile_cta')}
             </span>

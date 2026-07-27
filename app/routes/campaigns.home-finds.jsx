@@ -2,13 +2,14 @@ import {Image} from '@shopify/hydrogen';
 import {Link, useLoaderData} from 'react-router';
 import {ProductItem} from '~/components/ProductItem';
 import {puchicaMeta} from '~/lib/seo';
+import {filterLaunchProducts} from '~/lib/launch-catalog';
 
 /** @type {Route.MetaFunction} */
 export const meta = () => {
   return puchicaMeta({
     title: 'Useful Home Finds Under One Roof - Puchica',
     description:
-      'Shop practical home, kitchen, pet, and everyday finds from Puchica with clear shipping, easy returns, and secure checkout.',
+      'Shop practical home, kitchen, pet, and everyday finds from Puchica with clear delivery information, published policies, and secure checkout.',
     pathname: '/campaigns/home-finds',
   });
 };
@@ -22,22 +23,19 @@ export async function loader({context}) {
   });
 
   return {
-    heroProducts: data?.heroProducts?.products?.nodes ?? [],
-    homeProducts: data?.homeProducts?.products?.nodes ?? [],
-    petProducts: data?.petProducts?.products?.nodes ?? [],
-    dealProducts: data?.dealProducts?.products?.nodes ?? [],
+    heroProducts: filterLaunchProducts(data?.heroProducts?.products?.nodes ?? []),
+    homeProducts: filterLaunchProducts(data?.homeProducts?.products?.nodes ?? []),
+    petProducts: filterLaunchProducts(data?.petProducts?.products?.nodes ?? []),
   };
 }
 
 export default function HomeFindsCampaign() {
-  const {heroProducts, homeProducts, petProducts, dealProducts} =
-    useLoaderData();
-  const heroPrimary = heroProducts[0] ?? homeProducts[0] ?? dealProducts[0];
+  const {heroProducts, homeProducts, petProducts} = useLoaderData();
+  const heroPrimary = heroProducts[0] ?? homeProducts[0];
   const heroTiles = [
     heroProducts[1],
     heroProducts[2],
     petProducts[0],
-    dealProducts[0],
   ].filter(Boolean);
 
   return (
@@ -49,8 +47,8 @@ export default function HomeFindsCampaign() {
             Practical finds for the rooms you use every day.
           </h1>
           <p>
-            Start with our most useful home, kitchen, pet, and deal picks. Real
-            products, clear prices, secure Shopify checkout, and 14-day returns.
+            Start with our most useful home, kitchen, pet, and everyday picks. Real
+            products, clear prices, secure Shopify checkout, and published policies.
           </p>
           <div className="pk-campaign-hero__actions">
             <a
@@ -72,8 +70,8 @@ export default function HomeFindsCampaign() {
               <span>Options shown at checkout</span>
             </li>
             <li>
-              <strong>14-day returns</strong>
-              <span>Policy details before you buy</span>
+              <strong>Published policies</strong>
+              <span>Review details before you buy</span>
             </li>
             <li>
               <strong>Secure checkout</strong>
@@ -132,7 +130,7 @@ export default function HomeFindsCampaign() {
         <div>
           <strong>Useful first</strong>
           <span>
-            Practical home, kitchen, pet, and deal picks you can understand
+            Practical home, kitchen, pet, and everyday picks you can understand
             quickly.
           </span>
         </div>
@@ -145,8 +143,8 @@ export default function HomeFindsCampaign() {
         <div>
           <strong>Protected checkout</strong>
           <span>
-            Secure Shopify checkout, delivery options at checkout, and 14-day
-            returns.
+            Secure Shopify checkout, delivery options at checkout, and published
+            policy details.
           </span>
         </div>
       </section>
@@ -170,7 +168,7 @@ export default function HomeFindsCampaign() {
           <h2 id="campaign-angle-title">Small fixes for everyday life.</h2>
           <p>
             Start with products that solve familiar little problems around the
-            home, then branch into pet supplies, deals, and seasonal finds when
+            home, then branch into pet supplies, everyday finds, and seasonal picks when
             you are ready to browse.
           </p>
         </div>
@@ -203,15 +201,6 @@ export default function HomeFindsCampaign() {
         products={petProducts}
         ctaTo="/collections/pet-supplies"
         ctaLabel="Shop Pet Supplies"
-      />
-
-      <CampaignProductSection
-        eyebrow="Deals"
-        title="Sharp prices for testing intent"
-        body="A deal rail gives curious shoppers a lower-friction path when they are not ready to search the full catalog."
-        products={dealProducts}
-        ctaTo="/collections/sale"
-        ctaLabel="Shop Sale"
       />
     </main>
   );
@@ -346,11 +335,6 @@ const CAMPAIGN_HOME_FINDS_QUERY = `#graphql
       }
     }
     petProducts: collection(handle: "pet-supplies") {
-      products(first: 8, sortKey: BEST_SELLING) {
-        nodes { ...CampaignProduct }
-      }
-    }
-    dealProducts: collection(handle: "sale") {
       products(first: 8, sortKey: BEST_SELLING) {
         nodes { ...CampaignProduct }
       }

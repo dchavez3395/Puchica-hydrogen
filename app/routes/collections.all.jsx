@@ -127,10 +127,10 @@ export default function Collection() {
       title: 'New arrivals',
       sub: 'The latest additions to our active catalog, ready to browse.',
     },
-    'best-sellers': {
-      eyebrow: 'Most loved',
-      title: 'Best sellers',
-      sub: 'Popular picks from the active Puchica catalog.',
+    'launch-picks': {
+      eyebrow: 'Start here',
+      title: 'Launch picks',
+      sub: 'A focused selection from the active Puchica catalog.',
     },
   }[catalogView];
   const nodes = products?.nodes ?? [];

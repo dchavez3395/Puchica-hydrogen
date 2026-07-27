@@ -18,6 +18,7 @@
  */
 
 import {describe, it, expect, vi, beforeEach, afterEach} from 'vitest';
+import React from 'react';
 
 // Mock the @shopify/hydrogen analytics hook
 const mockSubscribe = vi.fn();
@@ -211,6 +212,7 @@ describe('Build Verification', () => {
     // Check that analytics code is bundled
     expect(content).toContain('fbevents'); // Meta Pixel loader
     expect(content).toContain('googletagmanager'); // GA4 loader
-    expect(content).toContain('isBotClient'); // Bot detection
+    expect(content).toContain('visitorConsentCollected'); // Consent-gated loader
+    expect(content).toContain('headless'); // Bot-detection signature survives minification
   });
 });

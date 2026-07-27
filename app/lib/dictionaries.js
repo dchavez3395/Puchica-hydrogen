@@ -1138,7 +1138,7 @@ export const DICTIONARIES = {
 
     home_newsletter_aria: 'Newsletter',
     home_newsletter_eyebrow: 'Join the list',
-    home_newsletter_heading: 'Get 10% off your first order',
+    home_newsletter_heading: 'Get 15% off your first order',
     home_newsletter_body: 'New drops, restocks, and the occasional sale, straight to your inbox, never spam.',
     home_newsletter_placeholder: 'you@example.com',
     home_newsletter_submit: 'Subscribe',
@@ -1615,7 +1615,7 @@ export const DICTIONARIES = {
 
     // ── Chrome en-tête / navigation ──────────────────────────────
     nav_shop_all: 'Tout magasiner',
-    nav_best_sellers_short: 'Meilleures ventes',
+    nav_best_sellers_short: 'Sélection de lancement',
     nav_new_arrivals_short: 'Nouveautés',
     nav_gift_guide: 'Idées cadeaux',
     nav_about_short: 'À propos',
@@ -2251,7 +2251,7 @@ export const DICTIONARIES = {
 
     home_newsletter_aria: 'Infolettre',
     home_newsletter_eyebrow: 'Rejoignez la liste',
-    home_newsletter_heading: 'Obtenez 10 % sur votre première commande',
+    home_newsletter_heading: 'Obtenez 15 % sur votre première commande',
     home_newsletter_body: 'Nouveautés, réassorts et ventes occasionnelles, dans votre boîte, jamais de spam.',
     home_newsletter_placeholder: 'vous@exemple.com',
     home_newsletter_submit: 'S’abonner',
@@ -2722,7 +2722,7 @@ export const DICTIONARIES = {
 
     // ── Chrome de encabezado / navegación ───────────────────────
     nav_shop_all: 'Comprar todo',
-    nav_best_sellers_short: 'Más vendidos',
+    nav_best_sellers_short: 'Selección de lanzamiento',
     nav_new_arrivals_short: 'Novedades',
     nav_gift_guide: 'Guía de regalos',
     nav_about_short: 'Nosotros',
@@ -3358,7 +3358,7 @@ export const DICTIONARIES = {
 
     home_newsletter_aria: 'Boletín',
     home_newsletter_eyebrow: 'Únete a la lista',
-    home_newsletter_heading: 'Obtén 10% en tu primer pedido',
+    home_newsletter_heading: 'Obtén 15% en tu primer pedido',
     home_newsletter_body: 'Novedades, reposiciones y ofertas ocasionales, directo a tu correo, sin spam.',
     home_newsletter_placeholder: 'tu@ejemplo.com',
     home_newsletter_submit: 'Suscribirse',
@@ -3829,7 +3829,7 @@ export const DICTIONARIES = {
 
     // ── Chrome do cabeçalho / navegação ─────────────────────────
     nav_shop_all: 'Comprar tudo',
-    nav_best_sellers_short: 'Mais vendidos',
+    nav_best_sellers_short: 'Seleção de lançamento',
     nav_new_arrivals_short: 'Novidades',
     nav_gift_guide: 'Guia de presentes',
     nav_about_short: 'Sobre',
@@ -4465,7 +4465,7 @@ export const DICTIONARIES = {
 
     home_newsletter_aria: 'Newsletter',
     home_newsletter_eyebrow: 'Junte-se à lista',
-    home_newsletter_heading: 'Ganhe 10% no seu primeiro pedido',
+    home_newsletter_heading: 'Ganhe 15% no seu primeiro pedido',
     home_newsletter_body: 'Novidades, reposições e promoções ocasionais, direto no seu e-mail, sem spam.',
     home_newsletter_placeholder: 'voce@exemplo.com',
     home_newsletter_submit: 'Inscrever',

@@ -11,7 +11,8 @@
     "lint": "eslint --no-error-on-unmatched-pattern .",
     "codegen": "shopify hydrogen codegen && react-router typegen",
     "reset-inventory": "node --env-file=.env scripts/reset-inventory.mjs",
-    "update-images": "node --env-file=.env scripts/batch-update-images.mjs"
+    "update-images": "node --env-file=.env scripts/batch-update-images.mjs",
+    "test": "vitest run"
   },
   "prettier": "@shopify/prettier-config",
   "dependencies": {
@@ -58,7 +59,8 @@
     "graphql-config": "^5.0.3",
     "prettier": "^3.4.2",
     "typescript": "^5.9.2",
-    "vite": "^8.0.1"
+    "vite": "^8.0.1",
+    "vitest": "^4.1.10"
   },
   "engines": {
     "node": "^22 || ^24"

@@ -8,7 +8,7 @@ import {redirect} from 'react-router';
  * @param {Route.LoaderArgs}
  */
 export async function loader() {
-  return redirect('/collections/all?sort=best-selling&view=best-sellers');
+  return redirect('/collections/all?view=launch-picks');
 }
 
 export default function BestSellersRedirect() {

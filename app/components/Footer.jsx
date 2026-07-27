@@ -85,8 +85,7 @@ export function Footer({header}) {
           <h4>{t('footer_shop')}</h4>
           <Link to="/collections/all">{t('nav_all_products')}</Link>
           <Link to="/collections/best-sellers">{t('nav_best_sellers')}</Link>
-          <Link to="/collections/trending-finds">{t('nav_trending')}</Link>
-          <Link to="/collections/gifts-under-25">{t('nav_gifts')}</Link>
+          <Link to="/collections/new-arrivals">{t('nav_new_arrivals')}</Link>
         </div>
 
         <div className="pk-footer__col">

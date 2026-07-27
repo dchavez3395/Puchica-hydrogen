@@ -36,7 +36,6 @@ export function GoogleAnalytics4({measurementId}) {
       return;
     }
 
-    loadGtag(measurementId);
 
     const allowed = () => {
       try {
@@ -45,6 +44,12 @@ export function GoogleAnalytics4({measurementId}) {
         return true;
       }
     };
+
+    const loadTrackerIfAllowed = () => {
+      if (allowed()) loadGtag(measurementId);
+    };
+    loadTrackerIfAllowed();
+    document.addEventListener('visitorConsentCollected', loadTrackerIfAllowed);
 
     const track = (event, params = {}) => {
       if (!window.gtag || !allowed()) return;

@@ -110,7 +110,7 @@ export function ProductForm({productOptions, selectedVariant, product, onAddStar
                       replace
                       to={`/products/${handle}?${variantUriQuery}`}
                     >
-                      <ProductOptionSwatch swatch={swatch} name={name} label={label} />
+                      <ProductOptionSwatch swatch={swatch} label={label} />
                     </Link>
                   );
                 }
@@ -129,7 +129,7 @@ export function ProductForm({productOptions, selectedVariant, product, onAddStar
                       }
                     }}
                   >
-                    <ProductOptionSwatch swatch={swatch} name={name} label={label} />
+                    <ProductOptionSwatch swatch={swatch} label={label} />
                   </button>
                 );
               })}
@@ -296,7 +296,7 @@ function NotifyBackForm({variantId, productHandle}) {
   );
 }
 
-function ProductOptionSwatch({swatch, name, label}) {
+function ProductOptionSwatch({swatch, label}) {
   const image = swatch?.image?.previewImage?.url;
   const color = swatch?.color;
   if (!image && !color) return label;

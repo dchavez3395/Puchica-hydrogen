@@ -9,7 +9,6 @@ import {
 import {ShopByCategory} from '~/sections/shop-by-category/shop-by-category';
 import {ShopByLifestyle} from '~/sections/shop-by-lifestyle/shop-by-lifestyle';
 import {BestSellers} from '~/sections/best-sellers/best-sellers';
-import {TodayDeals} from '~/sections/today-deals/today-deals';
 import {NewArrivals} from '~/sections/new-arrivals/new-arrivals';
 import {SportsOutdoors} from '~/sections/sports-outdoors/sports-outdoors';
 import {filterLaunchProducts, isLaunchReadyProduct} from '~/lib/launch-catalog';
@@ -31,7 +30,6 @@ import {
   HOME_NEW_ARRIVALS_QUERY,
   HOME_CATEGORIES_QUERY,
   HOME_SPORTS_QUERY,
-  HOME_SALE_QUERY,
 } from '~/lib/fragments';
 
 /** @type {Route.MetaFunction} */
@@ -102,14 +100,6 @@ function loadDeferredData({context}) {
       return [];
     });
 
-  const sale = context.storefront
-    .query(HOME_SALE_QUERY, catalogQueryOptions)
-    .then((res) => onlySellable(unwrapProducts('sale')(res)))
-    .catch((e) => {
-      logError('home sale query failed', e);
-      return [];
-    });
-
   const categories = context.storefront
     .query(HOME_CATEGORIES_QUERY, catalogQueryOptions)
     .then((res) => [
@@ -137,7 +127,7 @@ function loadDeferredData({context}) {
       return [];
     });
 
-  return {bestSellers, newArrivals, sale, categories, sports};
+  return {bestSellers, newArrivals, categories, sports};
 }
 
 export default function Index() {
@@ -156,11 +146,6 @@ export default function Index() {
         </Await>
       </Suspense>
 
-      <Suspense fallback={null}>
-        <Await resolve={data.sale}>
-          {(products) => <TodayDeals products={products ?? []} />}
-        </Await>
-      </Suspense>
 
       <Suspense fallback={null}>
         <Await resolve={data.categories}>

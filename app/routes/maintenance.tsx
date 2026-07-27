@@ -35,7 +35,7 @@ export default function MaintenancePage() {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="robots" content="noindex, nofollow" />
-        <title>{storeName} — We'll be right back</title>
+        <title>{`${storeName} — We'll be right back`}</title>
         <style dangerouslySetInnerHTML={{__html: STYLES}} />
       </head>
       <body>
