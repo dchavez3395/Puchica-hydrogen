@@ -12,9 +12,15 @@ _Updated 2026-07-26 after the storewide product, shipping, and checkout gate._
   - Multi-Use Organizer Hooks
   - Everyday Carabiner Clip Set
 - The remaining classified products are not assumed launch-ready.
-- Canada and U.S. checkout both return real shipping methods.
+- Canada and U.S. checkout both return real shipping methods. The 2026-07-26
+  regression reached the payment step without placing an order: Canada showed
+  CA$7.99 Standard and CA$20.00 Express; the U.S. showed US$6.00 Standard.
 - No paid fulfillment test has been submitted.
-- Storefront GA4 and Meta Pixel IDs are not configured in Oxygen production.
+- Shopify new-order email and mobile staff notifications are enabled for all orders.
+- Google Analytics is active in the Google & YouTube channel. Meta Pixel data
+  sharing is set to Maximum; an ad account is not connected.
+- All 20 launch products are published to Google & YouTube. Google Merchant
+  Center ingestion is still processing and may take up to three days.
 
 ## Non-negotiable order of operations
 

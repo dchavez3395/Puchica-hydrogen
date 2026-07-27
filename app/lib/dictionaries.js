@@ -44,7 +44,7 @@ export const DICTIONARIES = {
 
     // ── Nav ───────────────────────────────────────────────────────
     nav_all_products: 'All Products',
-    nav_best_sellers: 'Best Sellers',
+    nav_best_sellers: 'Launch Picks',
     nav_trending: 'Trending Now',
     nav_gifts: 'Gifts Under $25',
     nav_shop: 'Shop',
@@ -545,7 +545,7 @@ export const DICTIONARIES = {
 
     // ── Header / nav chrome ───────────────────────────────────────
     nav_shop_all: 'Shop All',
-    nav_best_sellers_short: 'Best Sellers',
+    nav_best_sellers_short: 'Launch Picks',
     nav_new_arrivals_short: 'New Arrivals',
     nav_gift_guide: 'Gift Guide',
     nav_about_short: 'About',
@@ -560,7 +560,7 @@ export const DICTIONARIES = {
     pillnav_home_kitchen: 'Home & Kitchen',
     pillnav_outdoor: 'Outdoor',
     pillnav_categories: 'Categories',
-    pillnav_best_sellers: 'Best Sellers',
+    pillnav_best_sellers: 'Launch Picks',
     pillnav_about_us: 'About us',
 
     // ── Parallax banner (homepage brand band) ─────────────────────
@@ -1226,7 +1226,7 @@ export const DICTIONARIES = {
     footer_privacy: 'Politique de confidentialité',
 
     nav_all_products: 'Tous les produits',
-    nav_best_sellers: 'Meilleures ventes',
+    nav_best_sellers: 'Sélection de lancement',
     nav_trending: 'Tendances',
     nav_gifts: 'Cadeaux à moins de 25 $',
     nav_shop: 'Boutique',
@@ -1650,7 +1650,7 @@ export const DICTIONARIES = {
     pillnav_home_kitchen: 'Maison & Cuisine',
     pillnav_outdoor: 'Extérieur',
     pillnav_categories: 'Catégories',
-    pillnav_best_sellers: 'Meilleures ventes',
+    pillnav_best_sellers: 'Sélection de lancement',
     pillnav_about_us: 'À propos',
 
     // ── Bannière parallax (bandeau d’accueil) ───────────────────
@@ -2189,10 +2189,10 @@ export const DICTIONARIES = {
     shop_by_category_heading: 'Trouvez votre bonheur',
     shop_by_category_shop_cta: 'Magasiner',
 
-    best_sellers_aria: 'Meilleures ventes',
-    best_sellers_eyebrow: 'Les plus aimés',
-    best_sellers_heading: 'Meilleures ventes de la semaine',
-    best_sellers_see_all: 'Tout voir',
+    best_sellers_aria: 'Sélection de lancement Puchica',
+    best_sellers_eyebrow: 'Un point clair pour commencer',
+    best_sellers_heading: 'Sélection de lancement Puchica',
+    best_sellers_see_all: 'Voir tous les produits vérifiés',
 
     lifestyle_banner_aria: 'Art de vivre',
     lifestyle_shop_eyebrow: 'Explorer',
@@ -2333,7 +2333,7 @@ export const DICTIONARIES = {
     footer_privacy: 'Política de privacidad',
 
     nav_all_products: 'Todos los productos',
-    nav_best_sellers: 'Más vendidos',
+    nav_best_sellers: 'Selección de lanzamiento',
     nav_trending: 'Tendencias',
     nav_gifts: 'Regalos por menos de $25',
     nav_shop: 'Tienda',
@@ -2757,7 +2757,7 @@ export const DICTIONARIES = {
     pillnav_home_kitchen: 'Hogar & Cocina',
     pillnav_outdoor: 'Exterior',
     pillnav_categories: 'Categorías',
-    pillnav_best_sellers: 'Más vendidos',
+    pillnav_best_sellers: 'Selección de lanzamiento',
     pillnav_about_us: 'Sobre nosotros',
 
     // ── Banner de paralaje (banda de marca en el inicio) ───────
@@ -3296,10 +3296,10 @@ export const DICTIONARIES = {
     shop_by_category_heading: 'Encuentra lo tuyo',
     shop_by_category_shop_cta: 'Comprar',
 
-    best_sellers_aria: 'Más vendidos',
-    best_sellers_eyebrow: 'Los más amados',
-    best_sellers_heading: 'Más vendidos de la semana',
-    best_sellers_see_all: 'Ver todo',
+    best_sellers_aria: 'Selección de lanzamiento de Puchica',
+    best_sellers_eyebrow: 'Un lugar claro para empezar',
+    best_sellers_heading: 'Selección de lanzamiento de Puchica',
+    best_sellers_see_all: 'Ver todos los productos verificados',
 
     lifestyle_banner_aria: 'Estilo de vida',
     lifestyle_shop_eyebrow: 'Explorar',
@@ -3440,7 +3440,7 @@ export const DICTIONARIES = {
     footer_privacy: 'Política de privacidade',
 
     nav_all_products: 'Todos os produtos',
-    nav_best_sellers: 'Mais vendidos',
+    nav_best_sellers: 'Seleção de lançamento',
     nav_trending: 'Em alta',
     nav_gifts: 'Presentes até $25',
     nav_shop: 'Loja',
@@ -3864,7 +3864,7 @@ export const DICTIONARIES = {
     pillnav_home_kitchen: 'Casa & Cozinha',
     pillnav_outdoor: 'Ar livre',
     pillnav_categories: 'Categorias',
-    pillnav_best_sellers: 'Mais vendidos',
+    pillnav_best_sellers: 'Seleção de lançamento',
     pillnav_about_us: 'Sobre nós',
 
     // ── Banner de paralaxe (faixa da marca no início) ──────────
@@ -4403,10 +4403,10 @@ export const DICTIONARIES = {
     shop_by_category_heading: 'Encontre o seu',
     shop_by_category_shop_cta: 'Comprar',
 
-    best_sellers_aria: 'Mais vendidos',
-    best_sellers_eyebrow: 'Os mais amados',
-    best_sellers_heading: 'Mais vendidos da semana',
-    best_sellers_see_all: 'Ver tudo',
+    best_sellers_aria: 'Seleção de lançamento da Puchica',
+    best_sellers_eyebrow: 'Um ponto claro para começar',
+    best_sellers_heading: 'Seleção de lançamento da Puchica',
+    best_sellers_see_all: 'Ver todos os produtos verificados',
 
     lifestyle_banner_aria: 'Estilo de vida',
     lifestyle_shop_eyebrow: 'Explorar',
