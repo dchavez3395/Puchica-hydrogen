@@ -13,6 +13,8 @@ import {
 import {ProductPrice} from '~/components/ProductPrice';
 import {ProductImage} from '~/components/ProductImage';
 import {ProductForm} from '~/components/ProductForm';
+import {AddToCartButton} from '~/components/AddToCartButton';
+import {useAside} from '~/components/Aside';
 import {
   IconTruck,
   IconReturn,
@@ -89,6 +91,7 @@ export default function Product() {
   const {title, descriptionHtml} = product;
   const galleryImages = buildGallery(product, selectedVariant);
   const jsonLd = buildJsonLd(product, selectedVariant, reviews, galleryImages);
+  const collection = productCollection(product);
 
   // Record the view for the search sheet's "recently viewed" row.
   // Keyed on product.id so variant switches don't re-record.
@@ -119,12 +122,10 @@ export default function Product() {
             <Link to="/">{t('breadcrumb_home')}</Link>
             <span className="pk-breadcrumbs__sep">/</span>
             <Link to="/collections/all">{t('breadcrumb_shop')}</Link>
-            {product.productType ? (
+            {collection ? (
               <>
                 <span className="pk-breadcrumbs__sep">/</span>
-                <Link to={productTypeUrl(product.productType)}>
-                  {product.productType}
-                </Link>
+                <Link to={collection.url}>{collection.name}</Link>
               </>
             ) : null}
             <span className="pk-breadcrumbs__sep">/</span>
@@ -389,6 +390,7 @@ function ShareRow({product, t}) {
 function MobileCart({product, selectedVariant, t}) {
   const ref = useRef(null);
   const [visible, setVisible] = useState(false);
+  const {open} = useAside();
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -416,6 +418,7 @@ function MobileCart({product, selectedVariant, t}) {
       className="pk-mob-cart"
       data-visible={visible ? 'true' : 'false'}
       aria-hidden={!visible}
+      inert={visible ? undefined : ''}
     >
       <div className="pk-mob-cart__left">
         <p className="pk-mob-cart__title">{product.title}</p>
@@ -426,19 +429,20 @@ function MobileCart({product, selectedVariant, t}) {
           />
         </span>
       </div>
-      <button
-        type="button"
+      <AddToCartButton
         className="pk-btn pk-btn--primary pk-mob-cart__btn"
-        onClick={() => {
-          const form = document.getElementById('product-form');
-          if (form instanceof HTMLElement) {
-            form.scrollIntoView({behavior: 'smooth', block: 'center'});
-            window.setTimeout(() => form.querySelector('button[type="submit"]')?.click(), 280);
-          }
-        }}
+        disabled={!selectedVariant.availableForSale}
+        onClick={() => open('cart')}
+        lines={[
+          {
+            merchandiseId: selectedVariant.id,
+            quantity: 1,
+            selectedVariant,
+          },
+        ]}
       >
         {selectedVariant.availableForSale ? t('product_add_to_cart') : t('product_sold_out')}
-      </button>
+      </AddToCartButton>
     </div>
   );
 }
@@ -459,27 +463,25 @@ function buildGallery(product, selectedVariant) {
 
 function buildBreadcrumbItems(product, title, t) {
   const items = [{name: t('breadcrumb_home'), url: '/'}, {name: t('breadcrumb_shop'), url: '/collections/all'}];
-  if (product.productType) {
-    items.push({name: product.productType, url: productTypeUrl(product.productType)});
-  }
+  const collection = productCollection(product);
+  if (collection) items.push(collection);
   items.push({name: title, url: `/products/${product.handle}`});
   return items;
 }
 
-function productTypeUrl(productType) {
-  const collectionByType = {
-    'Apparel & Accessories': '/collections/apparel-accessories',
-    'Baby & Nursery': '/collections/baby-nursery',
-    'Beauty & Grooming': '/collections/beauty-personal-care',
-    'Home & Kitchen': '/collections/home-kitchen',
-    'Home Decor': '/collections/home-decor',
-    'Pet Supplies': '/collections/pet-supplies',
-    'Sports & Outdoors': '/collections/sports-outdoors',
-    'Toys & Games': '/collections/toys-games',
-  };
-  return collectionByType[productType] || `/collections/all?productType=${encodeURIComponent(productType)}`;
+function productCollection(product) {
+  const tags = new Set(product?.tags || []);
+  const collections = [
+    ['puchica-collection-activewear', 'Activewear', '/collections/activewear'],
+    ['puchica-collection-on-the-go', 'On the Go', '/collections/on-the-go'],
+    ['puchica-collection-accessories', 'Everyday Accessories', '/collections/everyday-accessories'],
+    ['puchica-collection-practical-tools', 'Practical Tools', '/collections/practical-tools'],
+  ];
+  for (const [tag, name, url] of collections) {
+    if (tags.has(tag)) return {name, url};
+  }
+  return null;
 }
-
 function buildJsonLd(product, selectedVariant, reviews, galleryImages) {
   const productUrl = canonical(`/products/${product.handle}`);
   const price = selectedVariant?.price;
