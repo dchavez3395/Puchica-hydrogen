@@ -7,7 +7,6 @@ import {
   HeroSplit,
 } from '~/sections/hero-split/hero-split';
 import {ShopByCategory} from '~/sections/shop-by-category/shop-by-category';
-import {ShopByLifestyle} from '~/sections/shop-by-lifestyle/shop-by-lifestyle';
 import {BestSellers} from '~/sections/best-sellers/best-sellers';
 import {NewArrivals} from '~/sections/new-arrivals/new-arrivals';
 import {SportsOutdoors} from '~/sections/sports-outdoors/sports-outdoors';
@@ -153,7 +152,6 @@ export default function Index() {
         </Await>
       </Suspense>
 
-      <ShopByLifestyle />
 
       <Suspense fallback={<BestSellers />}>
         <Await resolve={data.bestSellers}>
