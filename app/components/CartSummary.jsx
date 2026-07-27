@@ -46,15 +46,16 @@ export function CartSummary({cart, layout, hasCheckoutableItems = true}) {
       <CartCheckoutActions
         checkoutUrl={CHECKOUT_URL_REWRITER(cart?.checkoutUrl)}
         disabled={!hasCheckoutableItems}
+        cart={cart}
       />
     </div>
   );
 }
 
 /**
- * @param {{checkoutUrl?: string; disabled?: boolean}}
+ * @param {{checkoutUrl?: string; disabled?: boolean; cart?: CartApiQueryFragment}}
  */
-function CartCheckoutActions({checkoutUrl, disabled = false}) {
+function CartCheckoutActions({checkoutUrl, disabled = false, cart}) {
   const t = useT();
   if (!checkoutUrl) return null;
 
@@ -66,7 +67,15 @@ function CartCheckoutActions({checkoutUrl, disabled = false}) {
         aria-disabled={disabled || undefined}
         className={disabled ? 'is-disabled' : undefined}
         onClick={(e) => {
-          if (disabled) e.preventDefault();
+          if (disabled) {
+            e.preventDefault();
+            return;
+          }
+          window.dispatchEvent(
+            new CustomEvent('puchica:checkout-started', {
+              detail: {cart},
+            }),
+          );
         }}
       >
         {disabled

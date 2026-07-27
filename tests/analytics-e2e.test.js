@@ -160,7 +160,7 @@ describe('Analytics Event Mapping', () => {
       'page_viewed': 'PageView',
       'product_viewed': 'ViewContent',
       'product_added_to_cart': 'AddToCart',
-      'cart_viewed': 'InitiateCheckout',
+      'puchica:checkout-started': 'InitiateCheckout',
     };
     
     // Purchase fires on Shopify checkout domain, not here
@@ -168,7 +168,7 @@ describe('Analytics Event Mapping', () => {
       'page_viewed': 'PageView',
       'product_viewed': 'ViewContent',
       'product_added_to_cart': 'AddToCart',
-      'cart_viewed': 'InitiateCheckout',
+      'puchica:checkout-started': 'InitiateCheckout',
     });
   });
 
@@ -177,7 +177,8 @@ describe('Analytics Event Mapping', () => {
       'page_viewed': 'page_view',
       'product_viewed': 'view_item',
       'product_added_to_cart': 'add_to_cart',
-      'cart_viewed': 'begin_checkout',
+      'cart_viewed': 'view_cart',
+      'puchica:checkout-started': 'begin_checkout',
     };
     
     // Purchase fires on Shopify checkout domain via Shopify's native GA4
@@ -185,7 +186,8 @@ describe('Analytics Event Mapping', () => {
       'page_viewed': 'page_view',
       'product_viewed': 'view_item',
       'product_added_to_cart': 'add_to_cart',
-      'cart_viewed': 'begin_checkout',
+      'cart_viewed': 'view_cart',
+      'puchica:checkout-started': 'begin_checkout',
     });
   });
 });

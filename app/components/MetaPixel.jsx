@@ -93,15 +93,21 @@ export function MetaPixel({pixelId}) {
       });
     });
 
-    subscribe('cart_viewed', (data) => {
+    const onCheckoutStarted = (event) => {
+      const cart = event?.detail?.cart;
       track('InitiateCheckout', {
-        value: Number(data?.cart?.cost?.totalAmount?.amount) || undefined,
-        currency: data?.cart?.cost?.totalAmount?.currencyCode,
-        num_items: data?.cart?.totalQuantity || undefined,
+        value: Number(cart?.cost?.totalAmount?.amount) || undefined,
+        currency: cart?.cost?.totalAmount?.currencyCode,
+        num_items: cart?.totalQuantity || undefined,
       });
-    });
+    };
+    window.addEventListener('puchica:checkout-started', onCheckoutStarted);
 
     ready();
+    return () => {
+      document.removeEventListener('visitorConsentCollected', loadTrackerIfAllowed);
+      window.removeEventListener('puchica:checkout-started', onCheckoutStarted);
+    };
   }, [pixelId, subscribe, register, canTrack, ready]);
 
   return null;

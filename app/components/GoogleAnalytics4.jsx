@@ -12,7 +12,7 @@ import {isBotClient} from '~/lib/bot-detection';
  * SETUP: add your GA4 Measurement ID as PUBLIC_GA4_MEASUREMENT_ID in
  * Oxygen env vars + local .env. Until set, this component is a no-op.
  *
- * EVENTS: page_view, view_item, add_to_cart, begin_checkout
+ * EVENTS: page_view, view_item, add_to_cart, view_cart, begin_checkout
  * Purchase fires on the Shopify checkout domain via Shopify's native
  * GA4 integration — not here.
  *
@@ -99,14 +99,28 @@ export function GoogleAnalytics4({measurementId}) {
     });
 
     subscribe('cart_viewed', (data) => {
-      track('begin_checkout', {
+      track('view_cart', {
         currency: data?.cart?.cost?.totalAmount?.currencyCode || 'CAD',
         value: Number(data?.cart?.cost?.totalAmount?.amount) || 0,
         num_items: data?.cart?.totalQuantity || 0,
       });
     });
 
+    const onCheckoutStarted = (event) => {
+      const cart = event?.detail?.cart;
+      track('begin_checkout', {
+        currency: cart?.cost?.totalAmount?.currencyCode || 'CAD',
+        value: Number(cart?.cost?.totalAmount?.amount) || 0,
+        num_items: cart?.totalQuantity || 0,
+      });
+    };
+    window.addEventListener('puchica:checkout-started', onCheckoutStarted);
+
     ready();
+    return () => {
+      document.removeEventListener('visitorConsentCollected', loadTrackerIfAllowed);
+      window.removeEventListener('puchica:checkout-started', onCheckoutStarted);
+    };
   }, [measurementId, subscribe, register, canTrack, ready]);
 
   return null;
