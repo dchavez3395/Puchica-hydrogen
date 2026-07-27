@@ -40,6 +40,21 @@ These are merchandising approvals based on available evidence. They do not prove
 - Corrected localized document-language and Open Graph locale output.
 - Added customer-support procedures and a complete test-order validation runbook.
 - Passed the automated storefront test suite and production build.
+- Deployed commit `0a32f0c` to Shopify Oxygen production.
+
+## Production verification
+
+- Launch Picks: 8 products.
+- Activewear: 10 products.
+- On the Go: 5 products.
+- Everyday Accessories: 4 products.
+- Practical Tools: 3 products.
+- English, French, Spanish, and Brazilian Portuguese routes emit the intended HTML and Open Graph locales.
+- The old Best Sellers URL redirects to Launch Picks.
+- Search returns Compact Bicycle Bell for `bell` and does not expose No-Drill Shower Shelf for `shower shelf`.
+- Compact Bicycle Bell has an enabled add-to-cart control.
+- Cart, Shopify customer-account login, and the styled not-found route load successfully.
+- All 20 launch-ready products are published to Puchica Storefront, Online Store, Google & YouTube, and Facebook & Instagram.
 
 ## What remains unproven until purchase
 
