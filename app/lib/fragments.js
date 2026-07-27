@@ -351,9 +351,9 @@ export const HOME_BEST_SELLERS_QUERY = `#graphql
     $country: CountryCode!
     $language: LanguageCode!
   ) @inContext(country: $country, language: $language) {
-    # Pull the verified launch catalog; the loader selects and orders the
+    # Pull the focused featured launch assortment; the loader selects and orders the
     # focused hero set by stable product ID.
-    bestSellers: products(first: 100, query: "tag:puchica-launch-ready") {
+    bestSellers: products(first: 100, query: "tag:puchica-launch-featured") {
       nodes { ...HomeProduct }
     }
   }
@@ -432,13 +432,9 @@ export const HOME_CATEGORIES_QUERY = `#graphql
     # Collection search queries aren't reliable enough for a hand-curated
     # homepage: fetch the audited handles directly so old empty collections
     # can never reappear when Shopify changes collection ordering.
-    homeKitchen: collection(handle: "home-kitchen") { ...HomeCategoryTile }
-    homeDecor: collection(handle: "home-decor") { ...HomeCategoryTile }
-    apparel: collection(handle: "apparel-accessories") { ...HomeCategoryTile }
-    sports: collection(handle: "sports-outdoors") { ...HomeCategoryTile }
-    pet: collection(handle: "pet-supplies") { ...HomeCategoryTile }
-    beauty: collection(handle: "beauty-personal-care") { ...HomeCategoryTile }
-    toys: collection(handle: "toys-games") { ...HomeCategoryTile }
-    baby: collection(handle: "baby-nursery") { ...HomeCategoryTile }
+    activewear: collection(handle: "activewear") { ...HomeCategoryTile }
+    onTheGo: collection(handle: "on-the-go") { ...HomeCategoryTile }
+    accessories: collection(handle: "everyday-accessories") { ...HomeCategoryTile }
+    practicalTools: collection(handle: "practical-tools") { ...HomeCategoryTile }
   }
 `;

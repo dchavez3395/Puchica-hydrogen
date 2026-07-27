@@ -24,19 +24,10 @@ import {filterLaunchProducts} from '~/lib/launch-catalog';
 // Ordered category handles (largest departments first). These must be
 // published to the Puchica Storefront channel in Shopify admin.
 const CATEGORY_HANDLES = [
-  'home-kitchen',
-  'electronics-accessories',
-  'apparel-accessories',
-  'health-wellness',
-  'sports-outdoors',
-  'pet-supplies',
-  'beauty-personal-care',
-  'automotive',
-  'tools-home-improvement',
-  'toys-games',
-  'office-school',
-  'baby-nursery',
-  'outdoor-garden',
+  'activewear',
+  'on-the-go',
+  'everyday-accessories',
+  'practical-tools',
 ];
 
 export function MegaMenu({deferred, onClose}) {
@@ -158,7 +149,7 @@ function MegaMenuPanel({data, onNavigate}) {
   const categories = CATEGORY_HANDLES.map((h) => byHandle.get(h)).filter(
     hasProducts,
   );
-  const featured = byHandle.get('best-sellers');
+  const featured = byHandle.get('launch-picks');
   const featuredImage =
     featured?.image || featured?.products?.nodes?.[0]?.featuredImage;
 
@@ -192,7 +183,7 @@ function MegaMenuPanel({data, onNavigate}) {
         </nav>
         {featured ? (
           <Link
-            to="/collections/best-sellers"
+            to="/collections/launch-picks"
             prefetch="intent"
             className="pk-mega__feature"
             onClick={onNavigate}

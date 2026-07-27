@@ -14,6 +14,10 @@ const DEPARTMENT_COPY = {
   'gifts-under-25': 'Budget-friendly gifts and small wins.',
   'trending-now': 'Products shoppers are checking out right now.',
   'trending-finds': 'Products shoppers are checking out right now.',
+  activewear: 'Performance layers, shorts, joggers, and casual apparel.',
+  'on-the-go': 'Travel, cycling, driving, and carry-along essentials.',
+  'everyday-accessories': 'Small, useful accessories for everyday routines.',
+  'practical-tools': 'Cleaning, measuring, and workshop helpers.',
 };
 
 /**

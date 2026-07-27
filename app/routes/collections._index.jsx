@@ -53,6 +53,7 @@ function loadDeferredData() {
 // intentionally use the card's colour field instead of borrowed product art.
 const EDITORIAL_HANDLES = new Set([
   'best-sellers',
+  'launch-picks',
   'trending-finds',
   'gifts-under-25',
   'for-you',

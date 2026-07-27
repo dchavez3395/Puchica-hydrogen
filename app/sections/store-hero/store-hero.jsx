@@ -24,11 +24,11 @@ const HERO_CATEGORIES = [
   {label: 'Toys & Games', to: '/collections/toys-games'},
   {label: 'Automotive', to: '/collections/automotive'},
   {label: 'Gifts Under $25', to: '/collections/gifts-under-25'},
-  {label: 'Best Sellers', to: '/collections/best-sellers'},
+  {label: 'Best Sellers', to: '/collections/launch-picks'},
 ];
 
 const QUICK_LINKS = [
-  {label: 'Best Sellers', to: '/collections/best-sellers'},
+  {label: 'Best Sellers', to: '/collections/launch-picks'},
   {label: 'Trending Now', to: '/collections/trending-finds'},
   {label: 'For You', to: '/collections/for-you'},
   {label: 'Shop All', to: '/collections/all'},

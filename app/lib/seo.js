@@ -145,7 +145,8 @@ export function puchicaMeta({
     tags.push({property: 'og:url', content: href});
     tags.push({tagName: 'link', rel: 'canonical', href});
   }
-  if (OG_LOCALE) tags.push({property: 'og:locale', content: OG_LOCALE});
+  const pageLocale = {fr: 'fr_CA', es: 'es_CA', 'pt-br': 'pt_BR'}[langKey] || OG_LOCALE;
+  if (pageLocale) tags.push({property: 'og:locale', content: pageLocale});
 
   // Twitter
   tags.push({name: 'twitter:card', content: twitterCard});

@@ -39,6 +39,7 @@ const PRODUCT_CATEGORIES = [
 const ALL_COLLECTION_HANDLES = [
   ...PRODUCT_CATEGORIES,
   'best-sellers',
+  'launch-picks',
   'trending-finds',
   'gifts-under-25',
 ];

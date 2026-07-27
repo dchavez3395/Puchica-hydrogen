@@ -242,7 +242,7 @@ function CartEmpty({hidden = false}) {
             {t('cart_empty_cta_shop')} <span aria-hidden>→</span>
           </Link>
           <Link
-            to="/collections/best-sellers"
+            to="/collections/launch-picks"
             onClick={close}
             prefetch="intent"
             className="pk-btn pk-btn--secondary pk-btn--lg"

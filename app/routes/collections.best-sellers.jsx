@@ -2,13 +2,12 @@ import {redirect} from 'react-router';
 
 /**
  * The Shopify "best-sellers" collection is not the source of truth for the
- * current launch catalog. Route this durable public URL to the approved
- * catalog, ordered by Shopify's best-selling signal instead.
+ * current launch catalog. Route this durable public URL to the evidence-ranked Launch Picks collection.
  *
  * @param {Route.LoaderArgs}
  */
 export async function loader() {
-  return redirect('/collections/all?view=launch-picks');
+  return redirect('/collections/launch-picks');
 }
 
 export default function BestSellersRedirect() {

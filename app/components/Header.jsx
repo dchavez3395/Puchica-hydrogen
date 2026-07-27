@@ -136,12 +136,12 @@ export function HeaderMenu({menu, megaMenu, primaryDomainUrl, viewport, publicSt
   // top-level item is a direct destination, so the header stays predictable.
   const desktopNav = [
     {id: 'dn-new', title: t('nav_new_arrivals'), url: '/collections/new-arrivals'},
-    {id: 'dn-best', title: t('nav_best_sellers'), url: '/collections/best-sellers'},
+    {id: 'dn-best', title: t('nav_best_sellers'), url: '/collections/launch-picks'},
     {id: 'dn-about', title: t('nav_about'), url: '/pages/about'},
   ];
   const mobileExtraNav = [
     {id: 'mn-new', title: t('nav_new_arrivals'), url: '/collections/new-arrivals'},
-    {id: 'mn-best', title: t('nav_best_sellers'), url: '/collections/best-sellers'},
+    {id: 'mn-best', title: t('nav_best_sellers'), url: '/collections/launch-picks'},
     {id: 'mn-explore', title: t('nav_explore'), url: '/explore'},
     {id: 'mn-about', title: t('nav_about'), url: '/pages/about'},
   ];
@@ -411,7 +411,7 @@ function buildFallbackHeaderMenu(t) {
     id: 'gid://shopify/Menu/199655587896',
     items: [
       {id: '1', resourceId: null, tags: [], title: t('nav_shop_all'), type: 'HTTP', url: '/collections/all', items: []},
-      {id: '2', resourceId: null, tags: [], title: t('nav_best_sellers_short'), type: 'HTTP', url: '/collections/best-sellers', items: []},
+      {id: '2', resourceId: null, tags: [], title: t('nav_best_sellers_short'), type: 'HTTP', url: '/collections/launch-picks', items: []},
       {id: '3', resourceId: null, tags: [], title: t('nav_new_arrivals_short'), type: 'HTTP', url: '/collections/new-arrivals', items: []},
       {id: '5', resourceId: null, tags: [], title: t('nav_about_short'), type: 'HTTP', url: '/pages/about', items: []},
       {id: '6', resourceId: null, tags: [], title: t('nav_contact_short'), type: 'HTTP', url: '/pages/contact', items: []},

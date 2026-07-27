@@ -76,7 +76,7 @@ export default function CatchAllPage() {
             >
               <li>
                 <Link
-                  to="/collections/best-sellers"
+                  to="/collections/launch-picks"
                   prefetch="intent"
                   style={{fontWeight: 600}}
                 >

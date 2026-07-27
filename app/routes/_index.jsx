@@ -14,9 +14,9 @@ import {filterLaunchProducts, isLaunchReadyProduct} from '~/lib/launch-catalog';
 const LAUNCH_HERO_PRODUCT_IDS = [
   'gid://shopify/Product/9326920433914', // Travel Pet Water Bottle
   'gid://shopify/Product/9326918271226', // Car Sun Visor Organizer
-  'gid://shopify/Product/9326917419258', // Long-Handle Bottle Brush
-  'gid://shopify/Product/9326917452026', // Multi-Use Organizer Hooks
+  'gid://shopify/Product/9326918795514', // Compact Bicycle Bell
   'gid://shopify/Product/9326919418106', // Everyday Carabiner Clip Set
+  'gid://shopify/Product/9326918205690', // Adjustable Rhinestone Ring
 ];
 
 function selectLaunchHeroes(products) {
@@ -102,14 +102,10 @@ function loadDeferredData({context}) {
   const categories = context.storefront
     .query(HOME_CATEGORIES_QUERY, catalogQueryOptions)
     .then((res) => [
-      res?.homeKitchen,
-      res?.homeDecor,
-      res?.apparel,
-      res?.sports,
-      res?.pet,
-      res?.beauty,
-      res?.toys,
-      res?.baby,
+      res?.activewear,
+      res?.onTheGo,
+      res?.accessories,
+      res?.practicalTools,
     ].filter((collection) =>
       collection?.products?.nodes?.some(isLaunchReadyProduct),
     ))
