@@ -11,17 +11,11 @@ import {BestSellers} from '~/sections/best-sellers/best-sellers';
 import {NewArrivals} from '~/sections/new-arrivals/new-arrivals';
 import {SportsOutdoors} from '~/sections/sports-outdoors/sports-outdoors';
 import {filterLaunchProducts, isLaunchReadyProduct} from '~/lib/launch-catalog';
-const LAUNCH_HERO_PRODUCT_IDS = [
-  'gid://shopify/Product/9326920433914', // Travel Pet Water Bottle
-  'gid://shopify/Product/9326918271226', // Car Sun Visor Organizer
-  'gid://shopify/Product/9326917419258', // Long-Handle Bottle Brush
-  'gid://shopify/Product/9326917452026', // Multi-Use Organizer Hooks
-  'gid://shopify/Product/9326919418106', // Everyday Carabiner Clip Set
-];
-
 function selectLaunchHeroes(products) {
-  const byId = new Map(products.map((product) => [product.id, product]));
-  return LAUNCH_HERO_PRODUCT_IDS.map((id) => byId.get(id)).filter(Boolean);
+  // The Shopify launch-ready tag is the source of truth. Taking the first
+  // sellable products keeps the hero populated as the approved catalog
+  // changes, without coupling the deployment to stale product IDs.
+  return products.slice(0, 5);
 }
 
 import {

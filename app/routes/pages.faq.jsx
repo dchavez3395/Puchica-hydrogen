@@ -13,7 +13,7 @@ export const meta = ({params}) =>
   puchicaMeta({
     title: 'Frequently Asked Questions – Puchica',
     description:
-      'Answers to common questions about orders, shipping, returns, products, and your Puchica account. Still stuck? Email us — a real person usually replies within one business day.',
+      'Answers to common questions about U.S. delivery, orders, returns, products, and your Puchica account. Still stuck? Email us and we will reply as soon as we can.',
     pathname: '/pages/faq',
     langKey: params?.locale,
   });

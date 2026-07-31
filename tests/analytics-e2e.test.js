@@ -17,6 +17,7 @@
  * 6. Event payloads have the correct shape (content_ids, value, currency, etc.)
  */
 
+import React from 'react';
 import {describe, it, expect, vi, beforeEach, afterEach} from 'vitest';
 import React from 'react';
 

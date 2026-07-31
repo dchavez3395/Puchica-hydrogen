@@ -14012,9 +14012,15 @@ main:has(> .pk-collection--bold) {
   .pk-section--hero-split { padding: 18px 0 20px !important; }
   .pk-store-hero__intro { padding-left: 14px; }
   .pk-store-hero__heading { font-size: clamp(30px, 10vw, 40px); }
+  .pk-store-hero__actions {
+    flex-wrap: wrap;
+    overflow-x: visible;
+  }
   .pk-store-hero__actions .pk-btn {
+    height: auto;
     min-height: 44px;
-    padding: 0 16px;
+    padding: 10px 16px;
+    white-space: normal;
   }
 }
 

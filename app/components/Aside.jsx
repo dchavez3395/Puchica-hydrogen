@@ -24,6 +24,7 @@ export function Aside({children, heading, type}) {
   const id = useId();
   const t = useT();
   const overlayRef = useRef(null);
+  const closeButtonRef = useRef(null);
   const previouslyFocused = useRef(null);
 
   // Esc closes the drawer + focus trap.
@@ -34,14 +35,8 @@ export function Aside({children, heading, type}) {
       // Save currently focused element to restore on close
       previouslyFocused.current = document.activeElement;
 
-      // Focus first focusable element in the drawer
-      const overlay = overlayRef.current;
-      if (overlay) {
-        const focusables = overlay.querySelectorAll(
-          'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
-        );
-        if (focusables.length) focusables[0].focus();
-      }
+      // Put initial focus on the visible close control, not the transparent backdrop.
+      closeButtonRef.current?.focus();
 
       document.addEventListener(
         'keydown',
@@ -83,16 +78,27 @@ export function Aside({children, heading, type}) {
   return (
     <div
       ref={overlayRef}
-      aria-modal
+      aria-hidden={!expanded}
+      aria-modal={expanded || undefined}
       className={`overlay ${expanded ? 'expanded' : ''}`}
       role="dialog"
       aria-labelledby={id}
     >
-      <button className="close-outside" onClick={close} aria-label={t('aside_close_drawer')} />
+      <button
+        aria-hidden="true"
+        className="close-outside"
+        onClick={close}
+        tabIndex={-1}
+      />
       <aside>
         <header>
           <h3 id={id}>{heading}</h3>
-          <button className="close reset" onClick={close} aria-label={t('aside_close')}>
+          <button
+            ref={closeButtonRef}
+            className="close reset"
+            onClick={close}
+            aria-label={t('aside_close')}
+          >
             &times;
           </button>
         </header>
