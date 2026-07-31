@@ -298,7 +298,7 @@ function NotifyBackForm({variantId, productHandle}) {
   );
 }
 
-function ProductOptionSwatch({swatch, name, label}) {
+function ProductOptionSwatch({swatch, label}) {
   const image = swatch?.image?.previewImage?.url;
   const color = swatch?.color;
   if (!image && !color) return label;

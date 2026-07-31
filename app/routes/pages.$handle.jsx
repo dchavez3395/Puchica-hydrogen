@@ -12,7 +12,7 @@ import {ContactPage} from '~/components/ContactPage';
  * the standard `seo`-then-body-derived title/description.
  */
 const CONTACT_DESCRIPTION =
-  'Get in touch with the Puchica team. Email, Instagram DM, or Facebook — a real person usually replies within one business day.';
+  'Get in touch with Puchica about an order, product, or policy. We will reply as soon as we can.';
 
 export const meta = ({data, params}) => {
   const page = data?.page;

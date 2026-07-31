@@ -37,42 +37,17 @@ function resolveSaleBadge(price, compareAt, t) {
   return {label: t('badge_sale'), cls: 'pk-card__badge--sale'};
 }
 
-function resolvePrimaryOption(options) {
-  if (!options?.length) return [];
-  const first = options[0];
-  if (!first?.name || /^(title|default title)$/i.test(first.name)) return null;
+function resolveOptionSummary(variant) {
+  const values = variant?.selectedOptions
+    ?.filter(
+      ({name, value}) =>
+        value &&
+        !/^(title|default title)$/i.test(name || '') &&
+        !/^default title$/i.test(value),
+    )
+    .map(({value}) => value);
 
-  const values = first.optionValues?.length
-    ? first.optionValues
-    : (first.values || []).map((name) => ({name, swatch: null}));
-
-  if (values.length < 2) return null;
-
-  return {
-    name: first.name,
-    values,
-  };
-}
-
-function pluralizeOptionName(name) {
-  if (/colou?r/i.test(name)) return 'colors';
-  if (/size/i.test(name)) return 'sizes';
-  if (/style/i.test(name)) return 'styles';
-  if (/pack/i.test(name)) return 'packs';
-  if (/set/i.test(name)) return 'sets';
-  return 'options';
-}
-
-function resolveOptionSummary(product, variantCount) {
-  const primaryOption = resolvePrimaryOption(product.options);
-
-  if (primaryOption) {
-    const label = pluralizeOptionName(primaryOption.name);
-    return `${primaryOption.values.length} ${label} available`;
-  }
-
-  if (variantCount > 1) return 'Multiple options available';
-  return null;
+  return values?.length ? values.join(' / ') : null;
 }
 
 /**
@@ -96,23 +71,23 @@ export function ProductItem({product, loading, dark = false}) {
     product.variants?.nodes?.[0];
   const featured = product.featuredImage;
   const hoverImage = product.images?.nodes?.[1] ?? null;
-  const variantCount = product.variants?.nodes?.length ?? 0;
-  const hasChoices =
-    variantCount > 1 || Boolean(resolvePrimaryOption(product.options));
+  const availableVariants =
+    product.variants?.nodes?.filter((node) => node?.availableForSale) ?? [];
+  const hasChoices = availableVariants.length > 1;
   const hasHover = !!hoverImage && hoverImage.id !== featured?.id;
-  const sale = resolveSaleBadge(
-    product.priceRange?.minVariantPrice,
-    product.compareAtPriceRange?.minVariantPrice,
-    t,
-  );
-  const hasPriceRange =
+  const displayPrice = variant?.price ?? product.priceRange?.minVariantPrice;
+  const displayCompareAtPrice =
+    variant?.compareAtPrice ?? product.compareAtPriceRange?.minVariantPrice;
+  const sale = resolveSaleBadge(displayPrice, displayCompareAtPrice, t);
+  const hasFallbackPriceRange =
+    !variant?.price &&
     product.priceRange?.minVariantPrice?.amount &&
     product.priceRange?.maxVariantPrice?.amount &&
     Number(product.priceRange.minVariantPrice.amount) !==
       Number(product.priceRange.maxVariantPrice.amount);
   const tagBadge = resolveBadge(product.tags, t);
   const badge = sale ?? tagBadge; // sale takes priority over editorial badges
-  const optionSummary = resolveOptionSummary(product, variantCount);
+  const optionSummary = resolveOptionSummary(variant);
 
   const cardClass = `pk-card pk-card--link${dark ? ' pk-card--dark' : ''}${
     hasHover ? ' pk-card--has-hover' : ''
@@ -172,22 +147,20 @@ export function ProductItem({product, loading, dark = false}) {
         <div className="pk-card__price">
           {sale ? (
             <span className="pk-card__price-cluster">
-              {hasPriceRange ? (
+              {hasFallbackPriceRange ? (
                 <span className="pk-card__price-from">{t('product_price_from')}</span>
               ) : null}
-              <Money data={product.priceRange.minVariantPrice} />
+              <Money data={displayPrice} />
               <s className="pk-card__price-compare">
-                <Money
-                  data={product.compareAtPriceRange.minVariantPrice}
-                />
+                <Money data={displayCompareAtPrice} />
               </s>
             </span>
           ) : (
             <>
-              {hasPriceRange ? (
+              {hasFallbackPriceRange ? (
                 <span className="pk-card__price-from">{t('product_price_from')}</span>
               ) : null}
-              <Money data={product.priceRange.minVariantPrice} />
+              <Money data={displayPrice} />
             </>
           )}
         </div>

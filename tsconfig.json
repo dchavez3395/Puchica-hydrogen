@@ -1,0 +1,24 @@
+{
+  "extends": "./jsconfig.json",
+  "compilerOptions": {
+    "allowJs": true,
+    "jsx": "react-jsx",
+    "noEmit": true,
+    "types": ["@shopify/oxygen-workers-types", "vite/client"]
+  },
+  "include": [
+    "env.d.ts",
+    "app/**/*.js",
+    "app/**/*.jsx",
+    "app/**/*.ts",
+    "app/**/*.tsx",
+    "app/**/*.d.ts",
+    "*.js",
+    "*.jsx",
+    "*.ts",
+    "*.tsx",
+    "*.d.ts",
+    ".graphqlrc.js",
+    ".react-router/types/**/*"
+  ]
+}

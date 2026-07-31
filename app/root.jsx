@@ -13,6 +13,7 @@ import {
   useRouteLoaderData,
 } from 'react-router';
 import {hreflangAlternates} from '~/lib/seo';
+import {parseLocaleFromPath} from '~/lib/i18n';
 const favicon = '/favicon.svg';
 import {FOOTER_QUERY, HEADER_QUERY, MEGA_MENU_QUERY} from '~/lib/fragments';
 import resetStyles from '~/styles/reset.css?url';
@@ -187,12 +188,14 @@ function loadDeferredData({context}) {
 export function Layout({children}) {
   const nonce = useNonce();
   const {pathname} = useLocation();
+  const {langKey} = parseLocaleFromPath(pathname);
+  const documentLanguage = langKey === 'pt-br' ? 'pt-BR' : langKey;
   // Reciprocal hreflang alternates for all four languages + x-default, keyed to
   // the current path. Correct now that the /fr, /es, /pt-br routes resolve.
   const alternates = hreflangAlternates(pathname);
 
   return (
-    <html lang="en-CA">
+    <html lang={documentLanguage}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />

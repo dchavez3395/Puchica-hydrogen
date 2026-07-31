@@ -20,12 +20,10 @@ export async function loader() {
 export default function ShippingPage() {
   const t = useT();
 
-  // These are launch priorities, not an assertion that all destinations or
-  // products are currently deliverable. Checkout remains the source of truth.
+  // The storefront is intentionally U.S.-only for launch. Checkout remains
+  // the source of truth for product-level availability, cost, and timing.
   const regions = [
-    {name: t('ship_market_ca_name'), detail: t('ship_market_ca_detail'), color: 'ember'},
     {name: t('ship_market_us_name'), detail: t('ship_market_us_detail'), color: 'jade'},
-    {name: t('ship_market_next_name'), detail: t('ship_market_next_detail'), color: 'cobalt'},
   ];
 
   const rates = [

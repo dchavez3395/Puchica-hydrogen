@@ -11,7 +11,7 @@ const items = [
   },
   {
     icon: IconReturn,
-    title: '14-day returns',
+    title: 'See return policy',
     body: 'Not the right fit? Start with the refund policy and contact support if anything arrives wrong.',
     link: '/policies/refund-policy',
     cta: 'Refund policy',

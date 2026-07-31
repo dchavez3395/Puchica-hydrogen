@@ -50,7 +50,7 @@ export default function HomeFindsCampaign() {
           </h1>
           <p>
             Start with our most useful home, kitchen, pet, and deal picks. Real
-            products, clear prices, secure Shopify checkout, and 14-day returns.
+            products, clear prices, secure Shopify checkout, and a clearly linked return policy.
           </p>
           <div className="pk-campaign-hero__actions">
             <a
@@ -72,7 +72,7 @@ export default function HomeFindsCampaign() {
               <span>Options shown at checkout</span>
             </li>
             <li>
-              <strong>14-day returns</strong>
+              <strong>Return policy available</strong>
               <span>Policy details before you buy</span>
             </li>
             <li>
@@ -145,8 +145,7 @@ export default function HomeFindsCampaign() {
         <div>
           <strong>Protected checkout</strong>
           <span>
-            Secure Shopify checkout, delivery options at checkout, and 14-day
-            returns.
+            Secure Shopify checkout, delivery options at checkout, and a return policy linked before checkout.
           </span>
         </div>
       </section>
@@ -299,7 +298,7 @@ const CAMPAIGN_PRODUCT_FRAGMENT = `#graphql
         }
       }
     }
-    variants(first: 1) {
+    variants(first: 100) {
       nodes {
         id
         availableForSale

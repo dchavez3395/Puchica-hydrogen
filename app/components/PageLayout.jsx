@@ -295,7 +295,7 @@ function MobileMenuAside({header, megaMenu, publicStoreDomain}) {
           <p className="pk-mmenu__foot">
             Shipping options shown at checkout
             <StarGlyph size={10} style={{margin: '0 0.4em'}} />
-            14-day returns
+            See return policy
           </p>
         </div>
       </Aside>
