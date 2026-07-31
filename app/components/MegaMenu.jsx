@@ -131,7 +131,7 @@ export function MegaMenu({deferred, onClose}) {
         role="region"
         aria-label={t('megamenu_panel_aria')}
         aria-hidden={open ? 'false' : 'true'}
-        inert={!open}
+        inert={open ? undefined : ''}
       >
         <div className="pk-mega__inner">
           <Suspense fallback={<MegaMenuSkeleton />}>
