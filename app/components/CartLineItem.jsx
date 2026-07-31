@@ -249,6 +249,13 @@ function CartLineRemoveSubmitButton({fetcher, disabled, productTitle}) {
     <button
       disabled={disabled || isSubmitting}
       type="submit"
+      onClick={() => {
+        for (const delay of [700, 1500]) {
+          window.setTimeout(() => {
+            window.dispatchEvent(new CustomEvent('puchica:cart-updated'));
+          }, delay);
+        }
+      }}
       className="cart-line-remove"
       aria-label={t('cart_qty_remove_aria') + ': ' + productTitle}
     >
