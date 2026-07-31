@@ -109,6 +109,7 @@ export function ProductForm({productOptions, selectedVariant, product, onAddStar
                       preventScrollReset
                       replace
                       to={`/products/${handle}?${variantUriQuery}`}
+                      aria-current={selected ? 'true' : undefined}
                     >
                       <ProductOptionSwatch swatch={swatch} label={label} />
                     </Link>
@@ -120,6 +121,7 @@ export function ProductForm({productOptions, selectedVariant, product, onAddStar
                     className={`product-options-item${exists && !selected ? ' link' : ''}${selected ? ' is-selected' : ''}${available ? '' : ' is-unavailable'}`}
                     key={option.name + name}
                     disabled={!exists || !available}
+                    aria-pressed={selected}
                     onClick={() => {
                       if (!selected) {
                         void navigate(`?${variantUriQuery}`, {

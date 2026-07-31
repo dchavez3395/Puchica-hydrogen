@@ -429,6 +429,7 @@ function MobileCart({product, selectedVariant, t}) {
       <button
         type="button"
         className="pk-btn pk-btn--primary pk-mob-cart__btn"
+        tabIndex={visible ? 0 : -1}
         onClick={() => {
           const form = document.getElementById('product-form');
           if (form instanceof HTMLElement) {
