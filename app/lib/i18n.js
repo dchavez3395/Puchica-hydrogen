@@ -119,7 +119,7 @@ const COUNTRY_DEFAULT_LANG = {
 
 export const LOCALE_COOKIE = 'pk_locale';
 
-const DEFAULT_LOCALE = {language: 'EN', country: 'CA'};
+const DEFAULT_LOCALE = {language: 'EN', country: 'US'};
 
 function readCookie(request, name) {
   const header = request.headers.get('Cookie') || '';
@@ -128,15 +128,14 @@ function readCookie(request, name) {
 }
 
 /**
- * Buyer country from Oxygen's geo header (ISO 3166-1 alpha-2). Falls back to CA.
- * @param {Request} request
+ * Buyer country for Storefront API context.
+ *
+ * Shopify currently exposes only the US market. Pinning the context to US keeps
+ * product availability, currency, cart, and checkout behavior consistent for
+ * every request instead of asking the API for inactive markets based on IP.
  */
-function buyerCountry(request) {
-  const c =
-    request.headers.get('oxygen-buyer-country') ||
-    request.headers.get('Oxygen-Buyer-Country') ||
-    '';
-  return c ? c.toUpperCase() : DEFAULT_LOCALE.country;
+function buyerCountry() {
+  return DEFAULT_LOCALE.country;
 }
 
 /**

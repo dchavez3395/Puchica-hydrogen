@@ -1065,7 +1065,7 @@ export const DICTIONARIES = {
     hero_split_aria: 'Hero',
     hero_split_eyebrow: 'Puchica Store',
     hero_split_heading: 'What are you shopping for today?',
-    hero_split_body: 'Start with a short list of useful everyday problem-solvers, selected for clear value and verified Canada and US delivery.',
+    hero_split_body: 'Start with a short list of useful everyday problem-solvers, selected for clear value and verified US delivery.',
     hero_store_toolbar_heading: 'Shop Puchica',
     hero_split_cta_primary: 'Shop best sellers',
     hero_split_cta_secondary: 'Browse all',

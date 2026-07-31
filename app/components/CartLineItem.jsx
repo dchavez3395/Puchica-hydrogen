@@ -88,7 +88,11 @@ export function CartLineItem({layout, line, childrenMap}) {
                 </li>
               ))}
           </ul>
-          <CartLineQuantity line={line} isUnrecoverable={isUnrecoverable} />
+          <CartLineQuantity
+            line={line}
+            isUnrecoverable={isUnrecoverable}
+            productTitle={product.title}
+          />
         </div>
       </div>
 
@@ -117,9 +121,9 @@ export function CartLineItem({layout, line, childrenMap}) {
  * Provides the controls to update the quantity of a line item in the cart.
  * These controls are disabled when the line item is new, and the server
  * hasn't yet responded that it was successfully added to the cart.
- * @param {{line: CartLine; isUnrecoverable?: boolean}}
+ * @param {{line: CartLine; isUnrecoverable?: boolean; productTitle: string}}
  */
-function CartLineQuantity({line, isUnrecoverable = false}) {
+function CartLineQuantity({line, isUnrecoverable = false, productTitle}) {
   const t = useT();
   if (!line || typeof line?.quantity === 'undefined') return null;
   const {id: lineId, quantity, isOptimistic} = line;
@@ -132,11 +136,15 @@ function CartLineQuantity({line, isUnrecoverable = false}) {
 
   return (
     <div className="cart-line-qty">
-      <div className="cart-line-qty__stepper" role="group" aria-label={t('cart_qty_aria')}>
+      <div
+        className="cart-line-qty__stepper"
+        role="group"
+        aria-label={t('cart_qty_aria') + ': ' + productTitle}
+      >
         <CartLineUpdateButton lines={[{id: lineId, quantity: prevQuantity}]}>
           <button
             className="cart-line-qty__btn cart-line-qty__btn--minus"
-            aria-label={t('cart_qty_dec_aria')}
+            aria-label={t('cart_qty_dec_aria') + ': ' + productTitle}
             disabled={quantity <= 1 || !!isOptimistic}
             name="decrease-quantity"
             value={prevQuantity}
@@ -153,7 +161,7 @@ function CartLineQuantity({line, isUnrecoverable = false}) {
         <CartLineUpdateButton lines={[{id: lineId, quantity: nextQuantity}]}>
           <button
             className="cart-line-qty__btn cart-line-qty__btn--plus"
-            aria-label={t('cart_qty_inc_aria')}
+            aria-label={t('cart_qty_inc_aria') + ': ' + productTitle}
             name="increase-quantity"
             value={nextQuantity}
             type="submit"
@@ -165,7 +173,11 @@ function CartLineQuantity({line, isUnrecoverable = false}) {
           </button>
         </CartLineUpdateButton>
       </div>
-      <CartLineRemoveButton lineIds={[lineId]} disabled={!!isOptimistic} />
+      <CartLineRemoveButton
+        lineIds={[lineId]}
+        disabled={!!isOptimistic}
+        productTitle={productTitle}
+      />
     </div>
   );
 }
@@ -177,9 +189,10 @@ function CartLineQuantity({line, isUnrecoverable = false}) {
  * @param {{
  *   lineIds: string[];
  *   disabled: boolean;
+ *   productTitle: string;
  * }}
  */
-function CartLineRemoveButton({lineIds, disabled}) {
+function CartLineRemoveButton({lineIds, disabled, productTitle}) {
   const t = useT();
   return (
     <CartForm
@@ -192,7 +205,7 @@ function CartLineRemoveButton({lineIds, disabled}) {
         disabled={disabled}
         type="submit"
         className="cart-line-remove"
-        aria-label={t('cart_qty_remove_aria')}
+        aria-label={t('cart_qty_remove_aria') + ': ' + productTitle}
       >
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
           <path d="M3 6h18M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2M6 6l1 14a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-14" />

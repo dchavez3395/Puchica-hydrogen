@@ -29,7 +29,7 @@
  *       The dedicated Shopify checkout host. Keeping this env-driven means
  *       a future domain migration can't silently send shoppers to the
  *       storefront or retired Online Store theme.
- *   - `PUBLIC_CHECKOUT_LOCALE` (default: `en-ca`)
+ *   - `PUBLIC_CHECKOUT_LOCALE` (default: `en-us`)
  *       The locale segment in the working checkout path. Should match
  *       the cart's `@inContext` (country, language). When multi-locale
  *       ships, this should be derived per-request, not env.
@@ -95,9 +95,9 @@ const CHECKOUT_DOMAIN =
   configuredCheckoutDomain === LEGACY_PRIMARY_DOMAIN
     ? CANONICAL_CHECKOUT_DOMAIN
     : configuredCheckoutDomain;
-const CHECKOUT_LOCALE = readEnv('PUBLIC_CHECKOUT_LOCALE', 'en-ca');
+const CHECKOUT_LOCALE = readEnv('PUBLIC_CHECKOUT_LOCALE', 'en-us');
 
-// The known-bad storefront host that Hydrogen's @inContext(CA, EN) returns.
+// Storefront hosts that must not receive Shopify's /cart/c/{token} path.
 const BAD_STOREFRONT_HOSTS = new Set([
   'puchica.ca',
   'www.puchica.ca',
@@ -134,8 +134,7 @@ export const CHECKOUT_URL_REWRITER = (url) => {
   }
   const cartToken = cartTokenMatch[1];
 
-  // Build the working checkout URL. `en-ca` matches the @inContext the
-  // Hydrogen storefront uses (see app/lib/context.js: i18n: EN, country: CA).
+  // Build the working checkout URL. `en-us` matches the only active market.
   // If/when we add more locales, this should consult the cart's @inContext.
   const rewritten = new URL(
     `https://${CHECKOUT_DOMAIN}/checkouts/cn/${encodeURIComponent(cartToken)}/${CHECKOUT_LOCALE}`,
