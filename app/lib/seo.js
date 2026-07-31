@@ -170,7 +170,7 @@ export function puchicaMeta({
  *
  * @param {Array<{name: string, url: string}>} items
  */
-export function breadcrumbJsonLd(items) {
+export function breadcrumbJsonLd(items, langKey = 'en') {
   if (!Array.isArray(items) || items.length === 0) return null;
   return {
     '@context': 'https://schema.org',
@@ -179,7 +179,7 @@ export function breadcrumbJsonLd(items) {
       '@type': 'ListItem',
       position: idx + 1,
       name: item.name,
-      item: canonical(item.url),
+      item: canonical(localizePath(item.url, langKey)),
     })),
   };
 }

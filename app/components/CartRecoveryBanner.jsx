@@ -1,5 +1,6 @@
 import {useEffect, useState} from 'react';
-import {Link} from 'react-router';
+import {LocalizedLink as Link} from '~/components/LocalizedLink';
+import {useT} from '~/lib/t';
 
 /**
  * CartRecoveryBanner — shows a dismissible "welcome back" banner when a
@@ -12,6 +13,7 @@ import {Link} from 'react-router';
  * @param {{cart: {totalQuantity?: number, lines?: {nodes: Array<{merchandise: {product: {handle: string, title: string}, image: {url: string, altText: string} | null}, quantity: number}>}}}} props
  */
 export function CartRecoveryBanner({cart}) {
+  const t = useT();
   const [show, setShow] = useState(false);
 
   useEffect(() => {
@@ -79,7 +81,10 @@ export function CartRecoveryBanner({cart}) {
       )}
       <div style={{flex: 1, minWidth: 0}}>
         <p style={{margin: 0, fontWeight: 600, fontSize: '14px'}}>
-          Welcome back! You have {itemCount} item{itemCount > 1 ? 's' : ''} in your cart.
+          {t(
+            itemCount === 1 ? 'cart_recovery_one' : 'cart_recovery_many',
+            {count: itemCount},
+          )}
         </p>
         {productTitle && (
           <p style={{margin: '2px 0 0', fontSize: '13px', color: 'var(--color-muted, #6b7280)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>
@@ -96,13 +101,13 @@ export function CartRecoveryBanner({cart}) {
             color: 'var(--color-teal, #0d9488)',
           }}
         >
-          Complete your order →
+          {t('cart_recovery_cta')} <span aria-hidden>→</span>
         </Link>
       </div>
       <button
         type="button"
         onClick={dismiss}
-        aria-label="Dismiss cart reminder"
+        aria-label={t('cart_recovery_dismiss')}
         style={{
           background: 'none',
           border: 'none',

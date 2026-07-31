@@ -71,7 +71,7 @@ export function GoogleAnalytics4({measurementId}) {
       const p = data?.products?.[0];
       if (!p) return;
       track('view_item', {
-        currency: data?.shop?.currency || p?.currency || 'CAD',
+        currency: p?.currency || data?.shop?.currency || 'USD',
         value: Number(p?.price) || 0,
         items: [{
           item_id: p?.id,
@@ -86,14 +86,20 @@ export function GoogleAnalytics4({measurementId}) {
       const line = data?.currentLine || data?.cart?.lines?.nodes?.[0];
       const merch = line?.merchandise;
       if (!merch) return;
+      const quantity = data?.currentLine
+        ? Math.max(
+            (data.currentLine.quantity || 0) - (data?.prevLine?.quantity || 0),
+            1,
+          )
+        : line?.quantity || 1;
       track('add_to_cart', {
-        currency: merch?.price?.currencyCode || 'CAD',
-        value: (Number(merch?.price?.amount) || 0) * (line?.quantity || 1),
+        currency: merch?.price?.currencyCode || 'USD',
+        value: (Number(merch?.price?.amount) || 0) * quantity,
         items: [{
           item_id: merch?.product?.id,
           item_name: merch?.product?.title,
           price: Number(merch?.price?.amount) || 0,
-          quantity: line?.quantity || 1,
+          quantity,
         }],
       });
     });

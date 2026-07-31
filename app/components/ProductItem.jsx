@@ -184,9 +184,14 @@ export function ProductItem({product, loading, dark = false}) {
                 open('cart');
               }}
             >
-              {variant.availableForSale
-                ? t('product_add_to_cart')
-                : t('product_sold_out')}
+              {variant.availableForSale ? (
+                <>
+                  {t('product_add_to_cart')}
+                  <span className="sr-only">: {product.title}</span>
+                </>
+              ) : (
+                t('product_sold_out')
+              )}
             </AddToCartButton>
           </div>
         ) : (

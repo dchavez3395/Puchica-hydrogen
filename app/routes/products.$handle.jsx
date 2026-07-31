@@ -1,5 +1,5 @@
 import {useEffect, useRef, useState} from 'react';
-import {useLoaderData} from 'react-router';
+import {useLoaderData, useParams} from 'react-router';
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {
   getSelectedProductOptions,
@@ -28,6 +28,7 @@ import {ReviewStars, JudgemeReviews} from '~/components/JudgemeReviews';
 import {recordRecentlyViewed} from '~/lib/recentlyViewed';
 import {useT} from '~/lib/t';
 import {isLaunchReadyProduct} from '~/lib/launch-catalog';
+import {localizePath} from '~/lib/i18n';
 
 /** @type {Route.MetaFunction} */
 export const meta = ({data, params}) => {
@@ -73,6 +74,8 @@ async function loadCriticalData({context, params, request}) {
 
 export default function Product() {
   const {product, reviews} = useLoaderData();
+  const {locale} = useParams();
+  const langKey = locale || 'en';
   const t = useT();
 
   const selectedVariant = useOptimisticVariant(
@@ -88,7 +91,13 @@ export default function Product() {
 
   const {title, descriptionHtml} = product;
   const galleryImages = buildGallery(product, selectedVariant);
-  const jsonLd = buildJsonLd(product, selectedVariant, reviews, galleryImages);
+  const jsonLd = buildJsonLd(
+    product,
+    selectedVariant,
+    reviews,
+    galleryImages,
+    langKey,
+  );
 
   // Record the view for the search sheet's "recently viewed" row.
   // Keyed on product.id so variant switches don't re-record.
@@ -108,7 +117,9 @@ export default function Product() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{__html: JSON.stringify(jsonLd)}}
       />
-      <JsonLdScript data={breadcrumbJsonLd(buildBreadcrumbItems(product, title, t))} />
+      <JsonLdScript
+        data={breadcrumbJsonLd(buildBreadcrumbItems(product, title, t), langKey)}
+      />
 
       {/* ── Product hero band — full-bleed warm header with volcanic
           texture, breadcrumbs, festival stripe separator. Contains
@@ -259,6 +270,7 @@ export default function Product() {
             id: product.id,
             title: product.title,
             price: selectedVariant?.price?.amount || '0',
+            currency: selectedVariant?.price?.currencyCode || 'USD',
             vendor: product.vendor,
             variantId: selectedVariant?.id || '',
             variantTitle: selectedVariant?.title || '',
@@ -482,8 +494,16 @@ function productTypeUrl(productType) {
   return collectionByType[productType] || `/collections/all?productType=${encodeURIComponent(productType)}`;
 }
 
-function buildJsonLd(product, selectedVariant, reviews, galleryImages) {
-  const productUrl = canonical(`/products/${product.handle}`);
+function buildJsonLd(
+  product,
+  selectedVariant,
+  reviews,
+  galleryImages,
+  langKey = 'en',
+) {
+  const productUrl = canonical(
+    localizePath(`/products/${product.handle}`, langKey),
+  );
   const price = selectedVariant?.price;
   // Expose the full gallery (deduped, capped) so Google rich results / Merchant
   // listings can show multiple images — falls back to the featured image.

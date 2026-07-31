@@ -77,19 +77,27 @@ export function MetaPixel({pixelId}) {
         content_ids: p?.id ? [p.id] : undefined,
         content_name: p?.title,
         value: Number(p?.price) || undefined,
-        currency: data?.shop?.currency || p?.currency,
+        currency: p?.currency || data?.shop?.currency || 'USD',
       });
     });
 
     subscribe('product_added_to_cart', (data) => {
       const line = data?.currentLine || data?.cart?.lines?.nodes?.[0];
       const merch = line?.merchandise;
+      if (!merch) return;
+      const quantity = data?.currentLine
+        ? Math.max(
+            (data.currentLine.quantity || 0) - (data?.prevLine?.quantity || 0),
+            1,
+          )
+        : line?.quantity || 1;
       track('AddToCart', {
         content_type: 'product',
         content_ids: merch?.product?.id ? [merch.product.id] : undefined,
         content_name: merch?.product?.title,
-        value: (Number(merch?.price?.amount) || 0) * (line?.quantity || 1) || undefined,
-        currency: merch?.price?.currencyCode,
+        value: (Number(merch?.price?.amount) || 0) * quantity || undefined,
+        currency: merch?.price?.currencyCode || 'USD',
+        num_items: quantity,
       });
     });
 
