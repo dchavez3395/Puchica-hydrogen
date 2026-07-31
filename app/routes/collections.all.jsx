@@ -6,7 +6,7 @@ import {puchicaMeta} from '~/lib/seo';
 import {ProductItem} from '~/components/ProductItem';
 import {useT} from '~/lib/t';
 import {diversifyByVendor} from '~/lib/diversify';
-import {filterLaunchProducts} from '~/lib/launch-catalog';
+import {filterLaunchProducts, sortLaunchProducts} from '~/lib/launch-catalog';
 
 /**
  * @type {Route.MetaFunction}
@@ -15,7 +15,7 @@ export const meta = ({params}) => {
   return puchicaMeta({
     title: 'All Products – Puchica',
     description:
-      'Every product in the Puchica catalog, in one place. Filter by category, sort by price or popularity, and search by name.',
+      'Browse the complete active Puchica launch catalog: 10 useful travel and organization products available for U.S. delivery.',
     type: 'website',
     pathname: '/collections/all',
     langKey: params?.locale,
@@ -96,10 +96,12 @@ async function loadCriticalData({context, request}) {
   // (e.g. iPhone case, hair product, robot toy, in that order).
   // See app/lib/diversify.js.
   const launchProducts = filterLaunchProducts(rawProducts?.nodes);
+  const merchandisedProducts =
+    sortValue === DEFAULT_SORT ? sortLaunchProducts(launchProducts) : launchProducts;
   const products = launchProducts.length > 2
     ? {
         ...rawProducts,
-        nodes: diversifyByVendor(launchProducts),
+        nodes: diversifyByVendor(merchandisedProducts),
         pageInfo: {...rawProducts.pageInfo, hasPreviousPage: false, hasNextPage: false},
       }
     : {

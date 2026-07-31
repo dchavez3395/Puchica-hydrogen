@@ -10,12 +10,16 @@ import {ShopByCategory} from '~/sections/shop-by-category/shop-by-category';
 import {BestSellers} from '~/sections/best-sellers/best-sellers';
 import {NewArrivals} from '~/sections/new-arrivals/new-arrivals';
 import {SportsOutdoors} from '~/sections/sports-outdoors/sports-outdoors';
-import {filterLaunchProducts, isLaunchReadyProduct} from '~/lib/launch-catalog';
+import {
+  filterLaunchProducts,
+  isLaunchReadyProduct,
+  sortLaunchProducts,
+} from '~/lib/launch-catalog';
 function selectLaunchHeroes(products) {
   // The Shopify launch-ready tag is the source of truth. Taking the first
   // sellable products keeps the hero populated as the approved catalog
   // changes, without coupling the deployment to stale product IDs.
-  return products.slice(0, 5);
+  return sortLaunchProducts(products).slice(0, 5);
 }
 
 import {
@@ -30,7 +34,7 @@ export const meta = ({params}) => {
   return puchicaMeta({
     title: 'Puchica – The good stuff. All in one place.',
     description:
-      'Puchica: active departments across home, beauty, tech, pet, outdoor, and more. Clear shipping options and secure checkout.',
+      'Shop a focused U.S. catalog of useful travel and organization finds with clear product details and secure Shopify checkout.',
     pathname: '/',
     langKey: params?.locale,
   });

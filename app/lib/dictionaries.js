@@ -15,6 +15,7 @@ export const DICTIONARIES = {
     announce_freeship: 'Shipping options shown at checkout',
     announce_cta: 'Shop now',
     offer_first15: 'New here? Take 15% off your first order with code FIRST15.',
+    offer_apply_first15: 'Apply code',
     announce_region_aria: 'Site announcements',
 
     // ── Footer ────────────────────────────────────────────────────
@@ -1204,6 +1205,7 @@ export const DICTIONARIES = {
     announce_freeship: 'Options de livraison affichées au paiement',
     announce_cta: 'Magasiner',
     offer_first15: 'Nouveau ici ? 15 % de rabais sur votre première commande avec le code FIRST15.',
+    offer_apply_first15: 'Appliquer',
     announce_region_aria: 'Annonces du site',
 
     footer_tagline: 'Trouvailles utiles. Sélectionné à Toronto. Livraison claire.',
@@ -2204,8 +2206,8 @@ export const DICTIONARIES = {
     // ── Sections de la page d’accueil (redesign Phase 1) ─────────
     hero_split_aria: 'Hero',
     hero_split_eyebrow: 'Boutique Puchica',
-    hero_split_heading: 'Magasinez maison, tech, animaux, cadeaux et plus.',
-    hero_split_body: 'Une façon plus claire de parcourir les produits utiles dans les catégories vraiment magasinées. Commencez par un département, les nouveautés ou les offres.',
+    hero_split_heading: 'Que cherchez-vous aujourd’hui ?',
+    hero_split_body: 'Commencez par une courte sélection de solutions pratiques du quotidien, choisies pour leur valeur claire et leur livraison vérifiée aux États-Unis.',
     hero_split_cta_primary: 'Voir les meilleures ventes',
     hero_split_cta_secondary: 'Tout parcourir',
     hero_split_trust: 'Shipping at checkout - Return policy available',
@@ -2335,6 +2337,7 @@ export const DICTIONARIES = {
     announce_freeship: 'Las opciones de envío se muestran al finalizar la compra',
     announce_cta: 'Comprar ahora',
     offer_first15: '¿Primera compra? 15 % de descuento en tu primer pedido con el código FIRST15.',
+    offer_apply_first15: 'Aplicar código',
     announce_region_aria: 'Anuncios del sitio',
 
     footer_tagline: 'Hallazgos útiles. Seleccionado en Toronto. Envío claro.',
@@ -3335,8 +3338,8 @@ export const DICTIONARIES = {
     // ── Secciones de la página de inicio (rediseño Fase 1) ──────────
     hero_split_aria: 'Hero',
     hero_split_eyebrow: 'Tienda Puchica',
-    hero_split_heading: 'Compra hogar, tecnología, mascotas, regalos y más.',
-    hero_split_body: 'Una forma más clara de explorar productos útiles en categorías que la gente realmente compra. Empieza por departamento, novedades u ofertas.',
+    hero_split_heading: '¿Qué buscas hoy?',
+    hero_split_body: 'Empieza con una selección breve de soluciones prácticas para el día a día, elegidas por su valor claro y entrega verificada en Estados Unidos.',
     hero_split_cta_primary: 'Ver los más vendidos',
     hero_split_cta_secondary: 'Ver todo',
     hero_split_trust: 'Shipping at checkout - Return policy available',
@@ -3466,6 +3469,7 @@ export const DICTIONARIES = {
     announce_freeship: 'Opções de envio mostradas no checkout',
     announce_cta: 'Comprar agora',
     offer_first15: 'Primeira compra? 15% de desconto no primeiro pedido com o código FIRST15.',
+    offer_apply_first15: 'Aplicar código',
     announce_region_aria: 'Avisos do site',
 
     footer_tagline: 'Achados úteis. Selecionado em Toronto. Frete claro.',
@@ -4466,8 +4470,8 @@ export const DICTIONARIES = {
     // ── Seções da página inicial (redesign Fase 1) ────────────────
     hero_split_aria: 'Hero',
     hero_split_eyebrow: 'Loja Puchica',
-    hero_split_heading: 'Compre casa, tech, pets, presentes e mais.',
-    hero_split_body: 'Uma forma mais clara de navegar por produtos úteis nas categorias que as pessoas realmente compram. Comece por departamento, novidades ou ofertas.',
+    hero_split_heading: 'O que você procura hoje?',
+    hero_split_body: 'Comece com uma seleção curta de soluções práticas para o dia a dia, escolhidas pelo valor claro e pela entrega verificada nos Estados Unidos.',
     hero_split_cta_primary: 'Ver mais vendidos',
     hero_split_cta_secondary: 'Ver tudo',
     hero_split_trust: 'Shipping at checkout - Return policy available',
