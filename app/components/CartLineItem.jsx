@@ -1,4 +1,6 @@
 import {CartForm, Image} from '@shopify/hydrogen';
+import {useEffect, useRef} from 'react';
+import {useRevalidator} from 'react-router';
 import {useVariantUrl} from '~/lib/variants';
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {ProductPrice} from './ProductPrice';
@@ -193,7 +195,6 @@ function CartLineQuantity({line, isUnrecoverable = false, productTitle}) {
  * }}
  */
 function CartLineRemoveButton({lineIds, disabled, productTitle}) {
-  const t = useT();
   return (
     <CartForm
       fetcherKey={getUpdateKey(lineIds)}
@@ -201,18 +202,57 @@ function CartLineRemoveButton({lineIds, disabled, productTitle}) {
       action={CartForm.ACTIONS.LinesRemove}
       inputs={{lineIds}}
     >
-      <button
-        disabled={disabled}
-        type="submit"
-        className="cart-line-remove"
-        aria-label={t('cart_qty_remove_aria') + ': ' + productTitle}
-      >
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
-          <path d="M3 6h18M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2M6 6l1 14a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-14" />
-        </svg>
-        {t('cart_qty_remove')}
-      </button>
+      {(fetcher) => (
+        <CartLineRemoveSubmitButton
+          fetcher={fetcher}
+          disabled={disabled}
+          productTitle={productTitle}
+        />
+      )}
     </CartForm>
+  );
+}
+
+function CartLineRemoveSubmitButton({fetcher, disabled, productTitle}) {
+  const t = useT();
+  const revalidator = useRevalidator();
+  const wasSubmittingRef = useRef(false);
+  const isSubmitting = fetcher.state !== 'idle';
+
+  useEffect(() => {
+    if (isSubmitting) {
+      wasSubmittingRef.current = true;
+      return;
+    }
+    if (!wasSubmittingRef.current || !fetcher.data) return;
+    wasSubmittingRef.current = false;
+
+    const actionData =
+      fetcher.data?.data ??
+      fetcher.data?.['routes/cart']?.data ??
+      fetcher.data;
+    if (typeof window !== 'undefined' && actionData?.cart) {
+      window.dispatchEvent(
+        new CustomEvent('puchica:cart-updated', {
+          detail: {cart: actionData.cart},
+        }),
+      );
+    }
+    revalidator.revalidate();
+  }, [fetcher.data, isSubmitting, revalidator]);
+
+  return (
+    <button
+      disabled={disabled || isSubmitting}
+      type="submit"
+      className="cart-line-remove"
+      aria-label={t('cart_qty_remove_aria') + ': ' + productTitle}
+    >
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
+        <path d="M3 6h18M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2M6 6l1 14a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-14" />
+      </svg>
+      {t('cart_qty_remove')}
+    </button>
   );
 }
 
