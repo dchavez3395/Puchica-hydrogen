@@ -310,7 +310,6 @@ function Specs({product, t}) {
   const rows = [
     product.vendor && [t('product_spec_vendor'), product.vendor],
     product.productType && [t('product_spec_category'), product.productType],
-    product.handle && [t('product_spec_sku'), product.handle.toUpperCase()],
   ].filter(Boolean);
 
   if (rows.length === 0) {

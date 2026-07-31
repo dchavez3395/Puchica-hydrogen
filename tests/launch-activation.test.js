@@ -29,6 +29,10 @@ describe('launch activation', () => {
     expect(products).toEqual(original);
   });
 
+  it('keeps customer-facing launch handles concise', () => {
+    expect(FEATURED_LAUNCH_HANDLES.every((handle) => handle.length < 60)).toBe(true);
+  });
+
   it('provides a one-click FIRST15 route from the offer callout', () => {
     const source = readFileSync(
       new URL('../app/components/OfferCallout.jsx', import.meta.url),
@@ -37,5 +41,16 @@ describe('launch activation', () => {
 
     expect(source).toContain('/discount/FIRST15?redirect=');
     expect(source).toContain("t('offer_apply_first15')");
+  });
+
+  it('only presents cart recovery for a restored cart and below drawer overlays', () => {
+    const source = readFileSync(
+      new URL('../app/components/CartRecoveryBanner.jsx', import.meta.url),
+      'utf8',
+    );
+
+    expect(source).toContain('restoredWithItems');
+    expect(source).toContain("location.pathname.endsWith('/cart')");
+    expect(source).toContain('zIndex: 900');
   });
 });

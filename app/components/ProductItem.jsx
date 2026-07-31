@@ -2,7 +2,6 @@ import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {Image, Money} from '@shopify/hydrogen';
 import {useVariantUrl} from '~/lib/variants';
 import {AddToCartButton} from '~/components/AddToCartButton';
-import {useAside} from '~/components/Aside';
 import {useT} from '~/lib/t';
 
 const BADGE_TAG_MAP = {
@@ -63,7 +62,6 @@ function resolveOptionSummary(variant) {
 export function ProductItem({product, loading, dark = false}) {
   const variantUrl = useVariantUrl(product.handle);
   const t = useT();
-  const {open} = useAside();
 
   const variant =
     product.selectedOrFirstAvailableVariant ??
@@ -179,10 +177,7 @@ export function ProductItem({product, loading, dark = false}) {
                 },
               ]}
               disabled={!variant.availableForSale}
-              onClick={(e) => {
-                e.stopPropagation();
-                open('cart');
-              }}
+              onClick={(e) => e.stopPropagation()}
             >
               {variant.availableForSale ? (
                 <>

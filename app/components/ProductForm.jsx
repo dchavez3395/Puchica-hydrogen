@@ -3,7 +3,6 @@ import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {useState, useEffect, useRef} from 'react';
 import {AddToCartButton} from './AddToCartButton';
 import {OfferCallout} from '~/components/OfferCallout';
-import {useAside} from './Aside';
 import {useT} from '~/lib/t';
 import {IconHeart, IconMinus, IconPlus} from '~/components/Icons';
 import {formatProductOptionLabel} from '~/lib/product-options';
@@ -18,7 +17,6 @@ import {formatProductOptionLabel} from '~/lib/product-options';
  */
 export function ProductForm({productOptions, selectedVariant, product, onAddStart}) {
   const navigate = useNavigate();
-  const {open} = useAside();
   const t = useT();
   const [qty, setQty] = useState(1);
   const [saved, setSaved] = useState(false);
@@ -172,7 +170,6 @@ export function ProductForm({productOptions, selectedVariant, product, onAddStar
             onClick={(e) => {
               e.stopPropagation();
               onAddStart?.();
-              open('cart');
             }}
             lines={
               selectedVariant

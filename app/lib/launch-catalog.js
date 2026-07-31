@@ -13,16 +13,16 @@
 export const LAUNCH_READY_TAG = 'puchica-launch-ready';
 
 export const FEATURED_LAUNCH_HANDLES = [
-  'lcd-digital-luggage-scale-50kg-x-10g-portable-electronic-scale-weight-balance-suitcase-travel-bag-hanging-steelyard-hook-scale',
+  'pocket-luggage-scale-50kg',
   'travel-cable-organizer-pouch',
-  '6-8p-travel-bag-set-organizer-clothes-luggage-travel-organizer-blanket-shoes-organizers-suitcase-pouch-packing-cubes-storage-bag',
+  'gray-8-piece-packing-organizer-set',
   '24-piece-drawer-organizer-tray-set',
   'wheeled-under-sink-organizer-bin',
   'double-layer-cable-organizer-case',
-  'travel-compression-packing-cubes-suitcase-luggage-organizer-set-zipper-foldable-storage-bag-for-clothes-shoes-travel-accessories',
-  '1pc-creative-toothpaste-tube-squeezer-simple-toothpaste-roller-stainless-steel-labor-saving-toothpaste-tube-wringer-presser',
-  'cable-organizer-cord-management-wire-holder-flexible-usb-cable-winder-tidy-silicone-clips-for-mouse-keyboard-earphone-protector',
-  'toocki-cable-organizer-management-wire-holder-flexible-usb-cable-silicone-winder-clip-for-mouse-keyboard-earphone-cord-protector',
+  'red-5-piece-compression-packing-cubes',
+  'stainless-steel-tube-squeezer',
+  'white-five-slot-cable-organizer-strip',
+  'toocki-five-clip-cable-organizer',
 ];
 
 const FEATURED_LAUNCH_RANK = new Map(

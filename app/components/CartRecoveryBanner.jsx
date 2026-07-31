@@ -1,4 +1,5 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
+import {useLocation} from 'react-router';
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {useT} from '~/lib/t';
 
@@ -14,22 +15,32 @@ import {useT} from '~/lib/t';
  */
 export function CartRecoveryBanner({cart}) {
   const t = useT();
+  const location = useLocation();
   const [show, setShow] = useState(false);
+  const restoredWithItems = useRef(Boolean(cart?.totalQuantity)).current;
 
   useEffect(() => {
-    if (!cart || typeof window === 'undefined') return;
+    if (!cart || typeof window === 'undefined') return undefined;
+
+    // This is recovery UI, not an add-to-cart confirmation. Only show it when
+    // the component mounted with a pre-existing cart, and never over the cart
+    // page itself.
+    if (!restoredWithItems || location.pathname.endsWith('/cart')) {
+      setShow(false);
+      return undefined;
+    }
 
     const totalQuantity = cart.totalQuantity || 0;
-    if (totalQuantity === 0) return;
+    if (totalQuantity === 0) return undefined;
 
     // Only show once per browser session
     const dismissed = sessionStorage.getItem('cart_recovery_dismissed');
-    if (dismissed) return;
+    if (dismissed) return undefined;
 
     // Small delay so it doesn't flash during SSR hydration
     const timer = setTimeout(() => setShow(true), 1200);
     return () => clearTimeout(timer);
-  }, [cart]);
+  }, [cart, location.pathname, restoredWithItems]);
 
   const dismiss = () => {
     setShow(false);
@@ -59,7 +70,7 @@ export function CartRecoveryBanner({cart}) {
         right: '16px',
         maxWidth: '480px',
         margin: '0 auto',
-        zIndex: 9999,
+        zIndex: 900,
         background: 'var(--color-surface, #fff)',
         border: '1px solid var(--color-border, #e5e5e5)',
         borderRadius: '12px',
