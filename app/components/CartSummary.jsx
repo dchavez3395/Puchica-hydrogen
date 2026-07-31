@@ -5,6 +5,21 @@ import {CHECKOUT_URL_REWRITER} from '~/lib/checkout';
 import {useT} from '~/lib/t';
 import {OfferCallout} from '~/components/OfferCallout';
 
+const DISABLED_CHECKOUT_STYLE = {
+  display: 'block',
+  width: '100%',
+  padding: '14px 16px',
+  border: 0,
+  borderRadius: 10,
+  background: 'var(--pk-paper-dark, #E8DFCB)',
+  color: 'var(--pk-muted)',
+  fontSize: 15,
+  fontWeight: 800,
+  letterSpacing: '0.02em',
+  textAlign: 'center',
+  cursor: 'not-allowed',
+};
+
 /**
  * @param {CartSummaryProps}
  */
@@ -57,7 +72,31 @@ export function CartSummary({cart, layout, hasCheckoutableItems = true}) {
 function CartCheckoutActions({checkoutUrl, disabled = false, cart}) {
   const t = useT();
   const {publish, shop, prevCart} = useAnalytics();
-  if (!checkoutUrl) return null;
+  if (!checkoutUrl) {
+    // Empty and ghost carts intentionally have no checkout action. A cart
+    // with checkoutable items is different: keep the missing URL visible as
+    // a recoverable error so the shopper is not left at a dead end.
+    if (disabled) return null;
+
+    return (
+      <div className="cart-summary-checkout">
+        <button
+          type="button"
+          disabled
+          className="is-disabled"
+          style={DISABLED_CHECKOUT_STYLE}
+        >
+          {t('cart_summary_checkout_unavailable_btn')}
+        </button>
+        <p className="pk-cart-error" role="status">
+          {t('cart_summary_checkout_unavailable_help')}{' '}
+          <button type="button" onClick={() => window.location.reload()}>
+            {t('cart_summary_checkout_retry')}
+          </button>
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className="cart-summary-checkout">
