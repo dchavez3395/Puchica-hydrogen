@@ -78,7 +78,7 @@ export default function ShippingPage() {
             {t('ship_hero_cta')}
             </Link>
             <a href="#delivery-check" className="pk-shipping-hero__jump">
-              See how delivery is confirmed <span aria-hidden="true">↓</span>
+              {t('ship_hero_jump')} <span aria-hidden="true">↓</span>
             </a>
           </div>
         </div>
