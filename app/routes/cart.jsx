@@ -1,5 +1,5 @@
 import {useLoaderData, data} from 'react-router';
-import {CartForm} from '@shopify/hydrogen';
+import {Analytics, CartForm} from '@shopify/hydrogen';
 import {CartMain} from '~/components/CartMain';
 import {puchicaMeta} from '~/lib/seo';
 import {CHECKOUT_URL_REWRITER} from '~/lib/checkout';
@@ -156,6 +156,7 @@ export default function Cart() {
         </header>
 
         <CartMain layout="page" cart={cart} />
+        <Analytics.CartView />
       </div>
     </div>
   );

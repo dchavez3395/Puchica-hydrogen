@@ -43,6 +43,20 @@ describe('launch activation', () => {
     expect(source).toContain("t('offer_apply_first15')");
   });
 
+  it('keeps cart adjustments behind accessible native disclosures', () => {
+    const source = readFileSync(
+      new URL('../app/components/CartSummary.jsx', import.meta.url),
+      'utf8',
+    );
+
+    expect(source.match(/<details className="cart-summary-disclosure">/g)).toHaveLength(2);
+    expect(source).toContain('<summary>{t(\'cart_summary_promo_label\')}</summary>');
+    expect(source).toContain('<summary>{t(\'cart_summary_gift_label\')}</summary>');
+    expect(source.indexOf('<CartCheckoutActions')).toBeLessThan(
+      source.indexOf('<CartDiscounts'),
+    );
+  });
+
   it('only presents cart recovery for a restored cart and below drawer overlays', () => {
     const source = readFileSync(
       new URL('../app/components/CartRecoveryBanner.jsx', import.meta.url),
@@ -52,5 +66,15 @@ describe('launch activation', () => {
     expect(source).toContain('restoredWithItems');
     expect(source).toContain("location.pathname.endsWith('/cart')");
     expect(source).toContain('zIndex: 900');
+  });
+
+  it('publishes one Hydrogen cart-view event from the direct cart route', () => {
+    const source = readFileSync(
+      new URL('../app/routes/cart.jsx', import.meta.url),
+      'utf8',
+    );
+
+    expect(source).toContain("import {Analytics, CartForm} from '@shopify/hydrogen'");
+    expect(source.match(/<Analytics\.CartView\s*\/>/g)).toHaveLength(1);
   });
 });
