@@ -31,6 +31,12 @@ export function CartSummary({cart, layout, hasCheckoutableItems = true}) {
           )}
         </dd>
       </dl>
+      {hasCheckoutableItems ? <OfferCallout style={{margin: '0 0 12px'}} /> : null}
+      <CartCheckoutActions
+        checkoutUrl={CHECKOUT_URL_REWRITER(cart?.checkoutUrl)}
+        disabled={!hasCheckoutableItems}
+        cart={cart}
+      />
       <CartDiscounts
         discountCodes={cart?.discountCodes}
         discountsHeadingId={discountsHeadingId}
@@ -40,12 +46,6 @@ export function CartSummary({cart, layout, hasCheckoutableItems = true}) {
         giftCardCodes={cart?.appliedGiftCards}
         giftCardHeadingId={giftCardHeadingId}
         giftCardInputId={giftCardInputId}
-      />
-      {hasCheckoutableItems ? <OfferCallout style={{margin: '0 0 12px'}} /> : null}
-      <CartCheckoutActions
-        checkoutUrl={CHECKOUT_URL_REWRITER(cart?.checkoutUrl)}
-        disabled={!hasCheckoutableItems}
-        cart={cart}
       />
     </div>
   );
@@ -133,12 +133,15 @@ function CartDiscounts({
       ?.map(({code}) => code) || [];
 
   return (
-    <section aria-label={t('cart_summary_discounts_aria')}>
+    <section
+      className="cart-summary-adjustment"
+      aria-label={t('cart_summary_discounts_aria')}
+    >
       {/* Have existing discount, display it with a remove option */}
       <dl hidden={!codes.length}>
         <div>
           <dt id={discountsHeadingId}>{t('cart_summary_discounts_h')}</dt>
-          <UpdateDiscountForm>
+          <UpdateDiscountForm discountCodes={[]}>
             <div
               className="cart-discount"
               role="group"
@@ -154,45 +157,48 @@ function CartDiscounts({
         </div>
       </dl>
 
-      {/* Show an input to apply a discount */}
-      <UpdateDiscountForm discountCodes={codes}>
-        {(fetcher) => {
-          const hasInapplicableCode =
-            fetcher.state === 'idle' &&
-            fetcher.data?.cart?.discountCodes?.some(
-              (discount) => !discount.applicable,
-            );
-          return (
-            <>
-              <div className="cart-summary-field">
-                <label htmlFor={discountCodeInputId}>
-                  {t('cart_summary_promo_label')}
-                </label>
-                <div className="cart-summary-field__row">
-                  <input
-                    id={discountCodeInputId}
-                    type="text"
-                    name="discountCode"
-                    placeholder={t('cart_summary_promo_placeholder')}
-                  />
-                  <button
-                    type="submit"
-                    aria-label={t('cart_summary_promo_apply_aria')}
-                  >
-                    {t('cart_summary_promo_apply')}
-                  </button>
+      {/* Keep optional entry compact so subtotal and checkout remain primary. */}
+      <details className="cart-summary-disclosure">
+        <summary>{t('cart_summary_promo_label')}</summary>
+        <UpdateDiscountForm discountCodes={codes}>
+          {(fetcher) => {
+            const hasInapplicableCode =
+              fetcher.state === 'idle' &&
+              fetcher.data?.cart?.discountCodes?.some(
+                (discount) => !discount.applicable,
+              );
+            return (
+              <>
+                <div className="cart-summary-field">
+                  <label htmlFor={discountCodeInputId}>
+                    {t('cart_summary_promo_label')}
+                  </label>
+                  <div className="cart-summary-field__row">
+                    <input
+                      id={discountCodeInputId}
+                      type="text"
+                      name="discountCode"
+                      placeholder={t('cart_summary_promo_placeholder')}
+                    />
+                    <button
+                      type="submit"
+                      aria-label={t('cart_summary_promo_apply_aria')}
+                    >
+                      {t('cart_summary_promo_apply')}
+                    </button>
+                  </div>
                 </div>
-              </div>
-              <CartActionErrors
-                errors={fetcher.data?.errors}
-                fallback={
-                  hasInapplicableCode ? t('cart_summary_promo_invalid') : null
-                }
-              />
-            </>
-          );
-        }}
-      </UpdateDiscountForm>
+                <CartActionErrors
+                  errors={fetcher.data?.errors}
+                  fallback={
+                    hasInapplicableCode ? t('cart_summary_promo_invalid') : null
+                  }
+                />
+              </>
+            );
+          }}
+        </UpdateDiscountForm>
+      </details>
     </section>
   );
 }
@@ -275,7 +281,10 @@ function CartGiftCard({giftCardCodes, giftCardHeadingId, giftCardInputId}) {
   };
 
   return (
-    <section aria-label={t('cart_summary_gift_aria')}>
+    <section
+      className="cart-summary-adjustment"
+      aria-label={t('cart_summary_gift_aria')}
+    >
       {giftCardCodes && giftCardCodes.length > 0 && (
         <dl>
           <dt id={giftCardHeadingId}>{t('cart_summary_gift_h')}</dt>
@@ -302,27 +311,32 @@ function CartGiftCard({giftCardCodes, giftCardHeadingId, giftCardInputId}) {
         </dl>
       )}
 
-      <AddGiftCardForm fetcherKey="gift-card-add">
-        <div className="cart-summary-field">
-          <label htmlFor={giftCardInputId}>{t('cart_summary_gift_label')}</label>
-          <div className="cart-summary-field__row">
-            <input
-              id={giftCardInputId}
-              type="text"
-              name="giftCardCode"
-              placeholder={t('cart_summary_gift_placeholder')}
-              ref={giftCardCodeInput}
-            />
-            <button
-              type="submit"
-              disabled={giftCardAddFetcher.state !== 'idle'}
-              aria-label={t('cart_summary_gift_apply_aria')}
-            >
-              {t('cart_summary_gift_apply')}
-            </button>
+      <details className="cart-summary-disclosure">
+        <summary>{t('cart_summary_gift_label')}</summary>
+        <AddGiftCardForm fetcherKey="gift-card-add">
+          <div className="cart-summary-field">
+            <label htmlFor={giftCardInputId}>
+              {t('cart_summary_gift_label')}
+            </label>
+            <div className="cart-summary-field__row">
+              <input
+                id={giftCardInputId}
+                type="text"
+                name="giftCardCode"
+                placeholder={t('cart_summary_gift_placeholder')}
+                ref={giftCardCodeInput}
+              />
+              <button
+                type="submit"
+                disabled={giftCardAddFetcher.state !== 'idle'}
+                aria-label={t('cart_summary_gift_apply_aria')}
+              >
+                {t('cart_summary_gift_apply')}
+              </button>
+            </div>
           </div>
-        </div>
-      </AddGiftCardForm>
+        </AddGiftCardForm>
+      </details>
     </section>
   );
 }

@@ -1591,6 +1591,34 @@ button.reset:hover:not(:has(> *)) {
   background: transparent;
   border-radius: 0;
 }
+.cart-summary-adjustment {
+  margin: 14px 0 0;
+}
+.cart-summary-disclosure {
+  border-top: 1px solid var(--pk-border, #E5E0F0);
+  padding-top: 10px;
+}
+.cart-summary-disclosure summary {
+  box-sizing: border-box;
+  color: var(--pk-indigo-700, #4a3f7a);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+  list-style-position: inside;
+  min-height: 40px;
+  padding: 8px 0;
+}
+.cart-summary-disclosure summary:hover {
+  color: var(--pk-ember-hover, #A83800);
+}
+.cart-summary-disclosure summary:focus-visible {
+  border-radius: 4px;
+  outline: 2px solid var(--pk-ember, #A83800);
+  outline-offset: 3px;
+}
+.cart-summary-disclosure[open] summary {
+  margin-bottom: 8px;
+}
 .cart-summary-field {
   display: flex;
   flex-direction: column;
