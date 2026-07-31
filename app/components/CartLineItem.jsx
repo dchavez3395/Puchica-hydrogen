@@ -231,10 +231,14 @@ function CartLineRemoveSubmitButton({fetcher, disabled, productTitle}) {
       fetcher.data?.data ??
       fetcher.data?.['routes/cart']?.data ??
       fetcher.data;
-    if (typeof window !== 'undefined' && actionData?.cart) {
+    const nextCart =
+      actionData?.cart ??
+      actionData?.data?.cart ??
+      actionData?.['routes/cart']?.data?.cart;
+    if (typeof window !== 'undefined') {
       window.dispatchEvent(
         new CustomEvent('puchica:cart-updated', {
-          detail: {cart: actionData.cart},
+          detail: {cart: nextCart},
         }),
       );
     }
