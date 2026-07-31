@@ -43,6 +43,8 @@ export default async function handleRequest(
       'https://cdn.shopify.com',
       'https://cdn.judge.me',
       'https://cdnwidget.judge.me',
+      'https://www.googletagmanager.com',
+      'https://connect.facebook.net',
     ],
     connectSrc: [
       "'self'",
@@ -50,6 +52,9 @@ export default async function handleRequest(
       'https://cdnwidget.judge.me',
       'https://api.judge.me',
       'https://cache.judge.me',
+      'https://www.google-analytics.com',
+      'https://region1.google-analytics.com',
+      'https://www.facebook.com',
     ],
     imgSrc: [
       "'self'",
@@ -57,6 +62,8 @@ export default async function handleRequest(
       'https://cdn.shopify.com',
       'https://cdn.judge.me',
       'https://judgeme.imgix.net',
+      'https://www.google-analytics.com',
+      'https://www.facebook.com',
     ],
     frameSrc: ["'self'", 'https://cdn.judge.me'],
   });

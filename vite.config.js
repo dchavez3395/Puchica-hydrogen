@@ -3,9 +3,19 @@ import {hydrogen} from '@shopify/hydrogen/vite';
 import {oxygen} from '@shopify/mini-oxygen/vite';
 import {reactRouter} from '@react-router/dev/vite';
 import {fileURLToPath} from 'node:url';
+import {readFile} from 'node:fs/promises';
 
+const windowsRouteQueryLoader = {
+  name: 'windows-route-query-loader',
+  enforce: 'pre',
+  async load(id) {
+    const suffix = '?__react-router-build-client-route';
+    if (process.platform !== 'win32' || !id.endsWith(suffix)) return null;
+    return readFile(id.slice(0, -suffix.length), 'utf8');
+  },
+};
 export default defineConfig({
-  plugins: [hydrogen(), oxygen(), reactRouter()],
+  plugins: [windowsRouteQueryLoader, hydrogen(), oxygen(), reactRouter()],
   resolve: {
     tsconfigPaths: true,
     alias: {

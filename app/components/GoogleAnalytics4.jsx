@@ -88,7 +88,7 @@ export function GoogleAnalytics4({measurementId}) {
       if (!merch) return;
       track('add_to_cart', {
         currency: merch?.price?.currencyCode || 'CAD',
-        value: Number(merch?.price?.amount) || 0,
+        value: (Number(merch?.price?.amount) || 0) * (line?.quantity || 1),
         items: [{
           item_id: merch?.product?.id,
           item_name: merch?.product?.title,
@@ -99,8 +99,16 @@ export function GoogleAnalytics4({measurementId}) {
     });
 
     subscribe('cart_viewed', (data) => {
+      track('view_cart', {
+        currency: data?.cart?.cost?.totalAmount?.currencyCode || 'USD',
+        value: Number(data?.cart?.cost?.totalAmount?.amount) || 0,
+        num_items: data?.cart?.totalQuantity || 0,
+      });
+    });
+
+    subscribe('checkout_started', (data) => {
       track('begin_checkout', {
-        currency: data?.cart?.cost?.totalAmount?.currencyCode || 'CAD',
+        currency: data?.cart?.cost?.totalAmount?.currencyCode || 'USD',
         value: Number(data?.cart?.cost?.totalAmount?.amount) || 0,
         num_items: data?.cart?.totalQuantity || 0,
       });

@@ -1,7 +1,9 @@
+import {Suspense} from 'react';
 import {Analytics, getShopAnalytics, useNonce} from '@shopify/hydrogen';
 import {
   Form,
   Link,
+  Await,
   Outlet,
   useRouteError,
   isRouteErrorResponse,
@@ -242,7 +244,11 @@ export default function App() {
     >
       <MetaPixel pixelId={data.metaPixelId} />
       <GoogleAnalytics4 measurementId={data.ga4MeasurementId} />
-      <CartRecoveryBanner cart={data.cart} />
+      <Suspense fallback={null}>
+        <Await resolve={data.cart}>
+          {(cart) => <CartRecoveryBanner cart={cart} />}
+        </Await>
+      </Suspense>
       <PageLayout {...data}>
         <Outlet />
       </PageLayout>

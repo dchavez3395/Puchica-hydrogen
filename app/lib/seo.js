@@ -27,7 +27,7 @@ import {parseLocaleFromPath, localizePath} from '~/lib/i18n';
  * so all canonicals / og:url / sitemap URLs already point at the
  * correct destination.
  */
-export const SITE_URL = 'https://www.puchica.ca';
+export const SITE_URL = 'https://puchica.ca';
 
 /** Default OG image — the brand logo, served from the Shopify CDN. */
 export const DEFAULT_OG_IMAGE = STORE_LOGO_URL;
@@ -36,7 +36,12 @@ export const DEFAULT_OG_IMAGE = STORE_LOGO_URL;
 export const SITE_NAME = 'Puchica';
 
 /** Locale — matches the hard-coded i18n in app/lib/context.js (EN/CA). */
-export const OG_LOCALE = 'en_CA';
+const OG_LOCALES = {
+  en: 'en_US',
+  fr: 'fr_FR',
+  es: 'es_ES',
+  'pt-br': 'pt_BR',
+};
 
 /**
  * Build an absolute canonical URL from a pathname.
@@ -145,7 +150,10 @@ export function puchicaMeta({
     tags.push({property: 'og:url', content: href});
     tags.push({tagName: 'link', rel: 'canonical', href});
   }
-  if (OG_LOCALE) tags.push({property: 'og:locale', content: OG_LOCALE});
+  tags.push({
+    property: 'og:locale',
+    content: OG_LOCALES[langKey] || OG_LOCALES.en,
+  });
 
   // Twitter
   tags.push({name: 'twitter:card', content: twitterCard});

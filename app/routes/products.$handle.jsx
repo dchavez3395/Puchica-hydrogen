@@ -502,7 +502,10 @@ function buildJsonLd(product, selectedVariant, reviews, galleryImages) {
         ? [product.featuredImage.url]
         : undefined,
     sku: selectedVariant?.sku || product.handle,
-    brand: {'@type': 'Brand', name: 'Puchica'},
+    brand:
+      product.vendor && product.vendor !== 'Puchica'
+        ? {'@type': 'Brand', name: product.vendor}
+        : undefined,
     seller: {'@type': 'Organization', name: 'Puchica', url: SITE_URL},
     aggregateRating: reviews?.count > 0
       ? {'@type': 'AggregateRating', ratingValue: reviews.rating, reviewCount: reviews.count}

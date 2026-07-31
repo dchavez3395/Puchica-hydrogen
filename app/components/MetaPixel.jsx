@@ -59,10 +59,10 @@ export function MetaPixel({pixelId}) {
     loadTrackerIfAllowed();
     document.addEventListener('visitorConsentCollected', loadTrackerIfAllowed);
 
-    const track = (event, payload) => {
+    const track = (event, payload, custom = false) => {
       if (!window.fbq || !allowed()) return;
       try {
-        window.fbq('track', event, payload);
+        window.fbq(custom ? 'trackCustom' : 'track', event, payload);
       } catch {
         /* never let analytics break the page */
       }
@@ -88,12 +88,20 @@ export function MetaPixel({pixelId}) {
         content_type: 'product',
         content_ids: merch?.product?.id ? [merch.product.id] : undefined,
         content_name: merch?.product?.title,
-        value: Number(merch?.price?.amount) || undefined,
+        value: (Number(merch?.price?.amount) || 0) * (line?.quantity || 1) || undefined,
         currency: merch?.price?.currencyCode,
       });
     });
 
     subscribe('cart_viewed', (data) => {
+      track('ViewCart', {
+        value: Number(data?.cart?.cost?.totalAmount?.amount) || undefined,
+        currency: data?.cart?.cost?.totalAmount?.currencyCode,
+        num_items: data?.cart?.totalQuantity || undefined,
+      }, true);
+    });
+
+    subscribe('checkout_started', (data) => {
       track('InitiateCheckout', {
         value: Number(data?.cart?.cost?.totalAmount?.amount) || undefined,
         currency: data?.cart?.cost?.totalAmount?.currencyCode,
