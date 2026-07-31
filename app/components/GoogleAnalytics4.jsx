@@ -1,4 +1,4 @@
-import {useEffect} from 'react';
+import {useEffect, useMemo} from 'react';
 import {useAnalytics} from '@shopify/hydrogen';
 import {isBotClient} from '~/lib/bot-detection';
 
@@ -20,9 +20,13 @@ import {isBotClient} from '~/lib/bot-detection';
  */
 export function GoogleAnalytics4({measurementId}) {
   const {subscribe, register, canTrack} = useAnalytics();
-  const {ready} = typeof register === 'function'
-    ? register('Google Analytics 4')
-    : {ready: () => {}};
+  const {ready} = useMemo(
+    () =>
+      typeof register === 'function'
+        ? register('Google Analytics 4')
+        : {ready: () => {}},
+    [register],
+  );
 
   useEffect(() => {
     if (!measurementId || typeof window === 'undefined') {
@@ -36,7 +40,6 @@ export function GoogleAnalytics4({measurementId}) {
       return;
     }
 
-
     const allowed = () => {
       try {
         return typeof canTrack === 'function' ? canTrack() : true;
@@ -45,7 +48,9 @@ export function GoogleAnalytics4({measurementId}) {
       }
     };
 
+    let active = true;
     const loadTrackerIfAllowed = () => {
+      if (!active) return;
       if (allowed()) loadGtag(measurementId);
     };
     loadTrackerIfAllowed();
@@ -60,68 +65,86 @@ export function GoogleAnalytics4({measurementId}) {
       }
     };
 
-    subscribe('page_viewed', () => {
-      track('page_view', {
-        page_location: window.location.href,
-        page_title: document.title,
-      });
-    });
+    // Hydrogen currently deduplicates subscriptions and returns void. This
+    // wider local type also supports cleanup if a future release returns one.
+    const subscribeWithCleanup = /** @type {AnalyticsSubscribe} */ (subscribe);
+    const unsubscribe = [
+      subscribeWithCleanup('page_viewed', () => {
+        track('page_view', {
+          page_location: window.location.href,
+          page_title: document.title,
+        });
+      }),
 
-    subscribe('product_viewed', (data) => {
-      const p = data?.products?.[0];
-      if (!p) return;
-      track('view_item', {
-        currency: p?.currency || data?.shop?.currency || 'USD',
-        value: Number(p?.price) || 0,
-        items: [{
-          item_id: p?.id,
-          item_name: p?.title,
-          price: Number(p?.price) || 0,
-          quantity: 1,
-        }],
-      });
-    });
+      subscribeWithCleanup('product_viewed', (data) => {
+        const p = data?.products?.[0];
+        if (!p) return;
+        track('view_item', {
+          currency: p?.currency || data?.shop?.currency || 'USD',
+          value: Number(p?.price) || 0,
+          items: [
+            {
+              item_id: p?.id,
+              item_name: p?.title,
+              price: Number(p?.price) || 0,
+              quantity: 1,
+            },
+          ],
+        });
+      }),
 
-    subscribe('product_added_to_cart', (data) => {
-      const line = data?.currentLine || data?.cart?.lines?.nodes?.[0];
-      const merch = line?.merchandise;
-      if (!merch) return;
-      const quantity = data?.currentLine
-        ? Math.max(
-            (data.currentLine.quantity || 0) - (data?.prevLine?.quantity || 0),
-            1,
-          )
-        : line?.quantity || 1;
-      track('add_to_cart', {
-        currency: merch?.price?.currencyCode || 'USD',
-        value: (Number(merch?.price?.amount) || 0) * quantity,
-        items: [{
-          item_id: merch?.product?.id,
-          item_name: merch?.product?.title,
-          price: Number(merch?.price?.amount) || 0,
-          quantity,
-        }],
-      });
-    });
+      subscribeWithCleanup('product_added_to_cart', (data) => {
+        const line = data?.currentLine || data?.cart?.lines?.nodes?.[0];
+        const merch = line?.merchandise;
+        if (!merch) return;
+        const quantity = data?.currentLine
+          ? Math.max(
+              (data.currentLine.quantity || 0) -
+                (data?.prevLine?.quantity || 0),
+              1,
+            )
+          : line?.quantity || 1;
+        track('add_to_cart', {
+          currency: merch?.price?.currencyCode || 'USD',
+          value: (Number(merch?.price?.amount) || 0) * quantity,
+          items: [
+            {
+              item_id: merch?.product?.id,
+              item_name: merch?.product?.title,
+              price: Number(merch?.price?.amount) || 0,
+              quantity,
+            },
+          ],
+        });
+      }),
 
-    subscribe('cart_viewed', (data) => {
-      track('view_cart', {
-        currency: data?.cart?.cost?.totalAmount?.currencyCode || 'USD',
-        value: Number(data?.cart?.cost?.totalAmount?.amount) || 0,
-        num_items: data?.cart?.totalQuantity || 0,
-      });
-    });
+      subscribeWithCleanup('cart_viewed', (data) => {
+        track('view_cart', {
+          currency: data?.cart?.cost?.totalAmount?.currencyCode || 'USD',
+          value: Number(data?.cart?.cost?.totalAmount?.amount) || 0,
+          num_items: data?.cart?.totalQuantity || 0,
+        });
+      }),
 
-    subscribe('checkout_started', (data) => {
-      track('begin_checkout', {
-        currency: data?.cart?.cost?.totalAmount?.currencyCode || 'USD',
-        value: Number(data?.cart?.cost?.totalAmount?.amount) || 0,
-        num_items: data?.cart?.totalQuantity || 0,
-      });
-    });
+      subscribeWithCleanup('checkout_started', (data) => {
+        track('begin_checkout', {
+          currency: data?.cart?.cost?.totalAmount?.currencyCode || 'USD',
+          value: Number(data?.cart?.cost?.totalAmount?.amount) || 0,
+          num_items: data?.cart?.totalQuantity || 0,
+        });
+      }),
+    ].filter((cleanup) => typeof cleanup === 'function');
 
     ready();
-  }, [measurementId, subscribe, register, canTrack, ready]);
+    return () => {
+      active = false;
+      document.removeEventListener(
+        'visitorConsentCollected',
+        loadTrackerIfAllowed,
+      );
+      unsubscribe.forEach((cleanup) => cleanup());
+    };
+  }, [measurementId, subscribe, canTrack, ready]);
 
   return null;
 }
@@ -148,3 +171,5 @@ function loadGtag(measurementId) {
     send_page_view: false, // We handle page_view manually via subscribe
   });
 }
+
+/** @typedef {(event: string, callback: (data: any) => void) => void | (() => void)} AnalyticsSubscribe */

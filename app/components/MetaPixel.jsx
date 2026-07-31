@@ -1,4 +1,4 @@
-import {useEffect} from 'react';
+import {useEffect, useMemo} from 'react';
 import {useAnalytics} from '@shopify/hydrogen';
 import {isBotClient} from '~/lib/bot-detection';
 
@@ -28,9 +28,13 @@ export function MetaPixel({pixelId}) {
   // register() tells Hydrogen's analytics to wait for this integration's
   // subscriptions before flushing buffered events; ready() releases it.
   // Guarded so a Hydrogen API mismatch can never crash the root layout.
-  const {ready} = typeof register === 'function'
-    ? register('Meta Pixel')
-    : {ready: () => {}};
+  const {ready} = useMemo(
+    () =>
+      typeof register === 'function'
+        ? register('Meta Pixel')
+        : {ready: () => {}},
+    [register],
+  );
 
   useEffect(() => {
     if (!pixelId || typeof window === 'undefined') {
@@ -45,7 +49,6 @@ export function MetaPixel({pixelId}) {
       return;
     }
 
-
     const allowed = () => {
       try {
         return typeof canTrack === 'function' ? canTrack() : true;
@@ -53,7 +56,9 @@ export function MetaPixel({pixelId}) {
         return true;
       }
     };
+    let active = true;
     const loadTrackerIfAllowed = () => {
+      if (!active) return;
       if (allowed()) loadFbq(pixelId);
     };
     loadTrackerIfAllowed();
@@ -68,57 +73,75 @@ export function MetaPixel({pixelId}) {
       }
     };
 
-    subscribe('page_viewed', () => track('PageView'));
+    // Hydrogen currently deduplicates subscriptions and returns void. This
+    // wider local type also supports cleanup if a future release returns one.
+    const subscribeWithCleanup = /** @type {AnalyticsSubscribe} */ (subscribe);
+    const unsubscribe = [
+      subscribeWithCleanup('page_viewed', () => track('PageView')),
 
-    subscribe('product_viewed', (data) => {
-      const p = data?.products?.[0];
-      track('ViewContent', {
-        content_type: 'product',
-        content_ids: p?.id ? [p.id] : undefined,
-        content_name: p?.title,
-        value: Number(p?.price) || undefined,
-        currency: p?.currency || data?.shop?.currency || 'USD',
-      });
-    });
+      subscribeWithCleanup('product_viewed', (data) => {
+        const p = data?.products?.[0];
+        track('ViewContent', {
+          content_type: 'product',
+          content_ids: p?.id ? [p.id] : undefined,
+          content_name: p?.title,
+          value: Number(p?.price) || undefined,
+          currency: p?.currency || data?.shop?.currency || 'USD',
+        });
+      }),
 
-    subscribe('product_added_to_cart', (data) => {
-      const line = data?.currentLine || data?.cart?.lines?.nodes?.[0];
-      const merch = line?.merchandise;
-      if (!merch) return;
-      const quantity = data?.currentLine
-        ? Math.max(
-            (data.currentLine.quantity || 0) - (data?.prevLine?.quantity || 0),
-            1,
-          )
-        : line?.quantity || 1;
-      track('AddToCart', {
-        content_type: 'product',
-        content_ids: merch?.product?.id ? [merch.product.id] : undefined,
-        content_name: merch?.product?.title,
-        value: (Number(merch?.price?.amount) || 0) * quantity || undefined,
-        currency: merch?.price?.currencyCode || 'USD',
-        num_items: quantity,
-      });
-    });
+      subscribeWithCleanup('product_added_to_cart', (data) => {
+        const line = data?.currentLine || data?.cart?.lines?.nodes?.[0];
+        const merch = line?.merchandise;
+        if (!merch) return;
+        const quantity = data?.currentLine
+          ? Math.max(
+              (data.currentLine.quantity || 0) -
+                (data?.prevLine?.quantity || 0),
+              1,
+            )
+          : line?.quantity || 1;
+        track('AddToCart', {
+          content_type: 'product',
+          content_ids: merch?.product?.id ? [merch.product.id] : undefined,
+          content_name: merch?.product?.title,
+          value: (Number(merch?.price?.amount) || 0) * quantity || undefined,
+          currency: merch?.price?.currencyCode || 'USD',
+          num_items: quantity,
+        });
+      }),
 
-    subscribe('cart_viewed', (data) => {
-      track('ViewCart', {
-        value: Number(data?.cart?.cost?.totalAmount?.amount) || undefined,
-        currency: data?.cart?.cost?.totalAmount?.currencyCode,
-        num_items: data?.cart?.totalQuantity || undefined,
-      }, true);
-    });
+      subscribeWithCleanup('cart_viewed', (data) => {
+        track(
+          'ViewCart',
+          {
+            value: Number(data?.cart?.cost?.totalAmount?.amount) || undefined,
+            currency: data?.cart?.cost?.totalAmount?.currencyCode,
+            num_items: data?.cart?.totalQuantity || undefined,
+          },
+          true,
+        );
+      }),
 
-    subscribe('checkout_started', (data) => {
-      track('InitiateCheckout', {
-        value: Number(data?.cart?.cost?.totalAmount?.amount) || undefined,
-        currency: data?.cart?.cost?.totalAmount?.currencyCode,
-        num_items: data?.cart?.totalQuantity || undefined,
-      });
-    });
+      subscribeWithCleanup('checkout_started', (data) => {
+        track('InitiateCheckout', {
+          value: Number(data?.cart?.cost?.totalAmount?.amount) || undefined,
+          currency: data?.cart?.cost?.totalAmount?.currencyCode,
+          num_items: data?.cart?.totalQuantity || undefined,
+        });
+      }),
+    ].filter((cleanup) => typeof cleanup === 'function');
 
     ready();
-  }, [pixelId, subscribe, register, canTrack, ready]);
+    return () => {
+      active = false;
+      document.removeEventListener(
+        'visitorConsentCollected',
+        loadTrackerIfAllowed,
+      );
+      unsubscribe.forEach((cleanup) => cleanup());
+    };
+  }, [pixelId, subscribe, canTrack, ready]);
 
   return null;
 }
@@ -127,9 +150,7 @@ export function MetaPixel({pixelId}) {
 function loadFbq(pixelId) {
   if (window.fbq) return;
   const n = (window.fbq = function () {
-    n.callMethod
-      ? n.callMethod.apply(n, arguments)
-      : n.queue.push(arguments);
+    n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
   });
   if (!window._fbq) window._fbq = n;
   n.push = n;
@@ -142,3 +163,5 @@ function loadFbq(pixelId) {
   document.head.appendChild(s);
   window.fbq('init', pixelId);
 }
+
+/** @typedef {(event: string, callback: (data: any) => void) => void | (() => void)} AnalyticsSubscribe */
