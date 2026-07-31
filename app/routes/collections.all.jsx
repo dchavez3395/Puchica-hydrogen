@@ -101,7 +101,10 @@ async function loadCriticalData({context, request}) {
   const products = launchProducts.length > 2
     ? {
         ...rawProducts,
-        nodes: diversifyByVendor(merchandisedProducts),
+        nodes:
+          sortValue === DEFAULT_SORT
+            ? merchandisedProducts
+            : diversifyByVendor(merchandisedProducts),
         pageInfo: {...rawProducts.pageInfo, hasPreviousPage: false, hasNextPage: false},
       }
     : {
