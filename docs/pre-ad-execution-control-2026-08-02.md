@@ -75,6 +75,13 @@ not a paid hero, because the cheapest DSers rows do not expose exact pack count
 and the US$29.99–33.49 retail band leaves insufficient absolute contribution.
 See `docs/bundle-product-screen-2026-08-02.md`.
 
+A subsequent differentiated-product screen rejected a modular pegboard system
+for excessive shipping, a fold-away wall hamper for a collapsed public price
+ceiling despite usable Canada/U.S. routes, and an expandable microwave shelf
+because supplier cost met or exceeded current mass-market retail. No product
+advanced and no import or commercial action occurred. See
+`docs/differentiated-product-screen-2026-08-02.md`.
+
 ## P0 gate 0 — mandatory Manitoba seller disclosures
 
 Puchica is operated from Manitoba, so the Internet Agreements Regulation is a

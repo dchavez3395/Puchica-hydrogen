@@ -18,6 +18,12 @@ The two-tier under-sink organizer, vacuum-bag sets, rotating countertop
 organizers, closet hangers, and hanging organizers are not advancing as paid
 hero products on the present evidence.
 
+A later differentiated-product pass also rejected a modular wall-mounted
+pegboard set for US$119.06 U.S. shipping, a wall-mounted foldable laundry
+hamper for a collapsed public price ceiling, and an expandable microwave shelf
+for landed cost above current mass-market retail. See
+`docs/differentiated-product-screen-2026-08-02.md`.
+
 No product was imported, mapped, ordered, paid for, or added to a live campaign
 during this screen. Paid media remains `PAID_HOLD`.
 
@@ -36,6 +42,9 @@ during this screen. Paid media remains `PAID_HOLD`.
 | Vacuum storage bags | U.S. options exist | Strong commodity demand | Canada-filtered DSers keyword screen returned no usable result; pump variants add electrical/quality risk | REJECT_CURRENT_ROUTE |
 | Hanging / over-door organizer | Weak DSers depth | Familiar category | Observed example carried about US$19.07 shipping against a US$9.93–13.71 item range | REJECT_CURRENT_ROUTE |
 | Drawer dividers | No usable DSers keyword result | Familiar commodity | Supplier route and differentiation unproven | PARK |
+| Modular wall-mounted pegboard set | Search route only | Visually demonstrable but large | US$27.97 item plus US$119.06 U.S. shipping | REJECT_SHIPPING |
+| Wall-mounted foldable laundry hamper | Strongest visual row showed both-market Selection Standard | Public Canada comparator observed at CA$6.73 | Workable landed cost but no credible paid retail ceiling | REJECT_PRICE_CEILING |
+| Expandable microwave/counter shelf | U.S. route visible | Walmart comparators around US$23.99–34.00 | DSers item cost started around US$31–34 before fees and reserve | REJECT_LANDED_COST_AND_RATING |
 
 ## Magnetic-rack supplier preflight
 
