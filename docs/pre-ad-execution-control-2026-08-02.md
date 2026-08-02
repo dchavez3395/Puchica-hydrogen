@@ -381,6 +381,12 @@ contribution below 30%. The first five genuine orders remain manual review.
 Complete one row per exact variant and market in one currency. Unknown is not
 zero.
 
+Detailed price benchmarking, authenticated DSers evidence, margin sensitivity,
+all-in cost ceilings, and customs/fee controls are maintained in
+[`unit-economics-price-control-2026-08-02.md`](./unit-economics-price-control-2026-08-02.md).
+That file is subordinate to this release gate but is the current economics
+worksheet for activation decisions.
+
 | Field | U.S. red 5PCS evidence | Canada red 5PCS evidence |
 | --- | ---: | ---: |
 | Merchandise price | US$52.00 | CA$71.45 |
@@ -417,6 +423,13 @@ initial target CAC = 0.70 × C
 At current provisional U.S. assumptions, a 15% reserve produces about US$20.01
 contribution, 38.5% margin, and a US$14.01 target CAC before unknown duties,
 handling, packaging, automation, or app costs. This is not a passed row.
+
+The August 2 market benchmark places a credible lead-offer band near
+US$47–49 / CA$66–69. At US$49, the provisional full-price margin is about
+35.8% before unknowns; applying 15% off reduces it to about 27.6%. At the
+current Canadian price, 15% off produces about 28.8% under the conservative fee
+assumption. Therefore `FIRST15`, if active, is a P0 economics failure until it
+is disabled/restricted or exact landed costs prove a different result.
 
 PASS requires every cost, at least 30% worse-destination contribution, any live
 promotion still clearing 30%, a daily cap no greater than 70% of evidenced
