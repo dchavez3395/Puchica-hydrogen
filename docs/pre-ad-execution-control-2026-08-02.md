@@ -20,6 +20,10 @@ this file controls when a status, cap, or instruction conflicts.
 - The first paid offer is **not selected**. The former Red 5-Piece Compression
   Packing Cube lead is rejected because its mapped supplier has no Canadian
   route, and the first replacement lead was a three-piece product mismatch.
+- The current all-hands product review is consolidated in
+  `docs/all-hands-hero-product-shortlist-2026-08-02.md`. The adjustable
+  cookware/lid rack is a dual-market supplier lead only; no candidate has passed
+  the exact-SKU, differentiation, worse-market economics, and IP gates.
 - DSers remains the sole automation platform for supplier validation. Do not
   add AutoDS during this proof cycle.
 

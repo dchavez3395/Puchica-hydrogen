@@ -27,6 +27,11 @@ for landed cost above current mass-market retail. See
 No product was imported, mapped, ordered, paid for, or added to a live campaign
 during this screen. Paid media remains `PAID_HOLD`.
 
+The subsequent cross-functional reconciliation is recorded in
+`docs/all-hands-hero-product-shortlist-2026-08-02.md`. It keeps every candidate
+on hold and elevates the adjustable cookware/lid rack only to a supplier lead,
+not an approved offer.
+
 ## Screening matrix
 
 | Candidate | Canada/U.S. route | Demand / price signal | Economics signal | Current disposition |
