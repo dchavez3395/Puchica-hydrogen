@@ -97,12 +97,12 @@ export async function loader(args) {
     storefront.i18n,
     criticalData.header?.localization,
   );
-  // Shopify Customer Events already supplies the native Meta and Google app
-  // pixels for this store. Keep the custom loaders off unless those native
-  // integrations are intentionally disconnected; running both would duplicate
-  // the same commerce events.
-  const customAnalyticsEnabled =
-    env.PUBLIC_CUSTOM_ANALYTICS_ENABLED === 'true';
+  // Analytics ownership is intentionally split. Shopify owns checkout-side
+  // Google events and the current Meta browser/server integration. The optional
+  // GA4 storefront bridge emits only Hydrogen product and cart events.
+  const customMetaEnabled = env.PUBLIC_CUSTOM_META_ENABLED === 'true';
+  const ga4StorefrontEnabled =
+    env.PUBLIC_GA4_STOREFRONT_EVENTS_ENABLED === 'true';
 
   return {
     ...deferredData,
@@ -111,10 +111,10 @@ export async function loader(args) {
     publicStoreDomain: env.PUBLIC_STORE_DOMAIN,
     // Meta Pixel ID (Meta Events Manager) — enables storefront-side ad tracking.
     // No-ops until this env var is set. See app/components/MetaPixel.jsx.
-    metaPixelId: customAnalyticsEnabled
+    metaPixelId: customMetaEnabled
       ? env.PUBLIC_FACEBOOK_PIXEL_ID || null
       : null,
-    ga4MeasurementId: customAnalyticsEnabled
+    ga4MeasurementId: ga4StorefrontEnabled
       ? env.PUBLIC_GA4_MEASUREMENT_ID || null
       : null,
     selectedLocale,

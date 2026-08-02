@@ -114,10 +114,7 @@ export function runLaunchChecks() {
   );
   const serverSource = readSource('app', 'entry.server.jsx');
 
-  for (const [name, source] of [
-    ['Meta Pixel', metaPixelSource],
-    ['GA4', ga4Source],
-  ]) {
+  for (const [name, source] of [['Meta Pixel', metaPixelSource]]) {
     if (source.includes("subscribe('cart_viewed'")) {
       failures.push(`${name} still treats a cart view as a checkout start.`);
     }
@@ -141,6 +138,30 @@ export function runLaunchChecks() {
     if (!source.includes('cartAnalyticsItems(cart)')) {
       failures.push(`${name} does not emit variant-level checkout items.`);
     }
+  }
+
+  if (ga4Source.includes("subscribe('cart_viewed'")) {
+    failures.push('GA4 still treats a cart view as a checkout start.');
+  }
+  for (const event of ['product_viewed', 'product_added_to_cart']) {
+    if (!ga4Source.includes(`subscribe('${event}'`)) {
+      failures.push(`GA4 does not subscribe to ${event}.`);
+    }
+  }
+  for (const checkoutOwnedEvent of ['page_viewed', 'custom_checkout_started']) {
+    if (ga4Source.includes(`subscribe('${checkoutOwnedEvent}'`)) {
+      failures.push(
+        `GA4 storefront bridge duplicates checkout-owned ${checkoutOwnedEvent}.`,
+      );
+    }
+  }
+  if (!ga4Source.includes('send_page_view: false')) {
+    failures.push('GA4 storefront bridge does not suppress automatic page views.');
+  }
+  if (!ga4Source.includes('analyticsItemId(p)')) {
+    failures.push(
+      'GA4 does not use the selected Shopify variant as the product-view item ID.',
+    );
   }
 
   if (!cartSummarySource.includes("publish('custom_checkout_started'")) {

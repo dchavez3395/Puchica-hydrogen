@@ -50,6 +50,11 @@ This does not prove the native pixel is broken, because the Overview retains
 recent Browser + Server history, but it does mean exact live Test Events proof
 is still missing.
 
+A second labelled production journey after the production record reconciled
+again loaded the exact red five-piece set, added it to cart, and reached
+checkout. Test Events still showed no live rows after the observation window,
+so this remains a measurement hold rather than a transient-dashboard issue.
+
 ## GA4
 
 - Authenticated property: Puchica.
@@ -62,6 +67,9 @@ is still missing.
 - `add_to_cart` and `view_item` did not appear in the visible Realtime event
   table during the observation window, so full per-action GA4 proof remains
   incomplete.
+- A second production journey increased the visible Checkout page count and
+  again surfaced `begin_checkout` and `page_view`, but still did not surface
+  `view_item` or `add_to_cart` in the visible Realtime event table.
 
 ## Duplicate-tracking prevention
 
@@ -90,9 +98,13 @@ remain the intended owners of commerce measurement.
 - A live cart contained the exact red five-piece packing-cube set at $53 USD and
   handed off to `checkout.puchica.ca`. Checkout offered both Canada and the
   United States as delivery countries.
-- Shopify Admin's overview initially rendered its older `5fa190a` production
-  card while the live site reflected the reviewed release. Treat the admin
-  release-record mismatch as a reconciliation item before paid activation.
+- Shopify Admin now shows production deployment `#5151585` as Current,
+  Complete, and Ready on exact commit `6698f9c`. The earlier `5fa190a` card was
+  a transient or historical view and is no longer an active release blocker.
+- GitHub `origin/main` does not yet contain the reviewed production line. Keep
+  automated production deployment disabled until the histories are reconciled
+  and verified in preview, because deploying `origin/main` directly could
+  overwrite the accepted storefront.
 
 ## Gate decision
 
@@ -108,5 +120,5 @@ remain the intended owners of commerce measurement.
 - GA4 full per-action realtime proof: HOLD (`view_item` and `add_to_cart` were
   not visible).
 - Production storefront and no-order checkout path: PASS.
-- Paid activation: HOLD pending the Oxygen admin record reconciliation, Meta
-  live-event proof, GA4 upstream-event proof, and explicit spend approval.
+- Paid activation: HOLD pending Git-history reconciliation, Meta live-event
+  proof, GA4 upstream-event proof, and explicit spend approval.

@@ -52,21 +52,34 @@ test('storefront copy avoids unsupported no-surprise-fee promises', () => {
   );
 });
 
-test('custom analytics stay behind an explicit duplicate-tracking guard', async () => {
-  const [component, root, envExample] = await Promise.all([
+test('Meta and GA4 use separate explicit ownership guards', async () => {
+  const [metaComponent, ga4Component, root, envExample] = await Promise.all([
     readFile(new URL('../app/components/MetaPixel.jsx', import.meta.url), 'utf8'),
+    readFile(
+      new URL('../app/components/GoogleAnalytics4.jsx', import.meta.url),
+      'utf8',
+    ),
     readFile(new URL('../app/root.jsx', import.meta.url), 'utf8'),
     readFile(new URL('../.env.example', import.meta.url), 'utf8'),
   ]);
 
-  for (const source of [component, root, envExample]) {
+  for (const source of [metaComponent, root, envExample]) {
     assert.match(source, /PUBLIC_FACEBOOK_PIXEL_ID/);
     assert.doesNotMatch(source, /PUBLIC_META_PIXEL_ID/);
   }
 
-  assert.match(root, /PUBLIC_CUSTOM_ANALYTICS_ENABLED === 'true'/);
-  assert.match(envExample, /PUBLIC_CUSTOM_ANALYTICS_ENABLED="false"/);
-  assert.match(envExample, /same commerce events can be counted twice/);
+  assert.match(root, /PUBLIC_CUSTOM_META_ENABLED === 'true'/);
+  assert.match(root, /PUBLIC_GA4_STOREFRONT_EVENTS_ENABLED === 'true'/);
+  assert.match(envExample, /PUBLIC_CUSTOM_META_ENABLED="false"/);
+  assert.match(
+    envExample,
+    /PUBLIC_GA4_STOREFRONT_EVENTS_ENABLED="false"/,
+  );
+  assert.match(ga4Component, /send_page_view: false/);
+  assert.match(ga4Component, /subscribe\('product_viewed'/);
+  assert.match(ga4Component, /subscribe\('product_added_to_cart'/);
+  assert.doesNotMatch(ga4Component, /subscribe\('page_viewed'/);
+  assert.doesNotMatch(ga4Component, /subscribe\('custom_checkout_started'/);
 });
 
 test('refund policy route presents the fail-safe summary before Admin policy HTML', async () => {
