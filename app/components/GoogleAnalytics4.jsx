@@ -1,7 +1,7 @@
 import {useEffect, useRef} from 'react';
 import {useAnalytics} from '@shopify/hydrogen';
 import {isBotClient} from '~/lib/bot-detection';
-import {analyticsItemId, cartAnalyticsItems} from '~/lib/analytics-items';
+import {analyticsItemId} from '~/lib/analytics-items';
 
 /**
  * GoogleAnalytics4 — GA4 tracking for the headless Hydrogen storefront.
@@ -13,9 +13,8 @@ import {analyticsItemId, cartAnalyticsItems} from '~/lib/analytics-items';
  * SETUP: add your GA4 Measurement ID as PUBLIC_GA4_MEASUREMENT_ID in
  * Oxygen env vars + local .env. Until set, this component is a no-op.
  *
- * EVENTS: page_view, view_item, add_to_cart, begin_checkout
- * Purchase fires on the Shopify checkout domain via Shopify's native
- * GA4 integration — not here.
+ * EVENTS: view_item and add_to_cart only. Shopify's native Google integration
+ * owns checkout-side page_view, begin_checkout, and purchase events.
  *
  * @param {{measurementId?: string | null}} props
  * @returns {null}
@@ -66,13 +65,6 @@ export function GoogleAnalytics4({measurementId}) {
       }
     };
 
-    subscribe('page_viewed', () => {
-      track('page_view', {
-        page_location: window.location.href,
-        page_title: document.title,
-      });
-    });
-
     subscribe('product_viewed', (data) => {
       const p = data?.products?.[0];
       if (!p) return;
@@ -117,21 +109,6 @@ export function GoogleAnalytics4({measurementId}) {
       });
     });
 
-    subscribe('custom_checkout_started', (data) => {
-      const cart = readField(data, 'cart');
-      const totalAmount = readField(readField(cart, 'cost'), 'totalAmount');
-      const currency = readField(totalAmount, 'currencyCode');
-      const value = Number(readField(totalAmount, 'amount'));
-      const items = cartAnalyticsItems(cart);
-      if (!currency || !Number.isFinite(value)) return;
-      track('begin_checkout', {
-        currency,
-        value,
-        num_items: readField(cart, 'totalQuantity') || 0,
-        items,
-      });
-    });
-
     ready();
   }, [measurementId, subscribe, canTrack, ready]);
 
@@ -161,9 +138,4 @@ function loadGtag(measurementId) {
   Reflect.apply(gtag, null, ['js', new Date()]);
   Reflect.apply(gtag, null, ['config', measurementId, {send_page_view: false}]);
   return gtag;
-}
-
-function readField(value, key) {
-  if (!value || typeof value !== 'object') return undefined;
-  return Reflect.get(value, key);
 }
