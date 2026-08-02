@@ -58,11 +58,13 @@ Authenticated DSers screening on August 2 produced the first viable replacement
 category: accordion document organizers. Item `1005010145905527` (zippered,
 13-pocket A4) and item `1005010531361199` (labeled multi-compartment A4) both
 showed AliExpress Selection Standard routes to Canada and the United States.
-They remain secondary candidates. A later visual supplier screen advanced a
-four-piece magnetic refrigerator-rack set as the stronger paid-acquisition
-lead because common Canada/U.S. routes and the attainable retail band leave
-more potential contribution. It remains `LEAD_PENDING_EXACT_OPTION_PROOF`; no
-product is selected and no import, mapping, order or payment was made. See
+They remain secondary candidates. A later visual supplier screen temporarily
+advanced a four-piece magnetic refrigerator-rack concept, but exact-title
+follow-up showed that the attractive low-cost rows were not proven to be the
+four-piece option. Explicit multi-piece listings ranged as high as US$75–93.
+That concept is downgraded to `VARIANT_MISMATCH_RISK`; the paid-acquisition lead
+is reopened. No product is selected and no import, mapping, order or payment
+was made. See
 `docs/hero-product-screening-2026-08-02.md` and
 `docs/greenfield-supplier-evidence-2026-08-02.md`.
 

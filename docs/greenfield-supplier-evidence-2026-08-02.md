@@ -101,9 +101,12 @@ States, including a 90-sale row with an item range of US$10.01–17.27, US$1.99
 U.S. shipping and US$2.16 Canadian shipping. Other common rows clustered near
 US$13.22–14.33 plus the country shipping charge, with seven displayed days.
 
-This category is now the discovery lead because it has a stronger attainable
-price and visual advertising problem/solution than the accordion organizer.
-It remains `LEAD_PENDING_EXACT_OPTION_PROOF`: the broad DSers rows may mix pack
-sizes and configurations, and no exact four-piece option, SKU, stock, address
-quote, import, order or payment has been approved. See
+This category initially became the discovery lead because it appeared to have
+a stronger attainable price and visual advertising problem/solution than the
+accordion organizer. Exact-title follow-up did not prove that the low visual-
+match costs belonged to the four-piece option: explicit 1/2/4-piece listings
+carried ranges as high as US$75–93. It is now downgraded to
+`VARIANT_MISMATCH_RISK`, and the paid-product search is reopened. No exact
+four-piece option, SKU, stock, address quote, import, order or payment has been
+approved. See
 `docs/hero-product-screening-2026-08-02.md`.

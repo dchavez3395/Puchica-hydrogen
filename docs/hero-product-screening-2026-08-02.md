@@ -2,8 +2,11 @@
 
 ## Decision
 
-The current discovery lead is a **four-piece magnetic refrigerator spice-rack
-organizer set**. It advances as `LEAD_PENDING_EXACT_OPTION_PROOF`; it is not an
+The paid-acquisition lead is **reopened**. The four-piece magnetic refrigerator
+spice-rack concept is downgraded to `VARIANT_MISMATCH_RISK`: its attractive
+DSers visual-match costs were not proven to belong to the four-piece option.
+Explicit 1/2/4-piece listings carried ranges as high as US$75–93, which cannot
+be reconciled with the public four-piece retail benchmark. It is not an
 approved product, supplier, price, import, or advertising offer.
 
 The accordion document organizer remains a secondary organic, bundle, or
@@ -11,8 +14,9 @@ upsell candidate. It is not the paid-acquisition lead because its low selling
 price leaves too little room for customer-acquisition cost after supplier cost,
 payment fees, and a return/problem reserve.
 
-The two-tier under-sink organizer, vacuum-bag sets, and hanging organizers are
-not advancing as hero products on the present evidence.
+The two-tier under-sink organizer, vacuum-bag sets, rotating countertop
+organizers, closet hangers, and hanging organizers are not advancing as paid
+hero products on the present evidence.
 
 No product was imported, mapped, ordered, paid for, or added to a live campaign
 during this screen. Paid media remains `PAID_HOLD`.
@@ -21,7 +25,9 @@ during this screen. Paid media remains `PAID_HOLD`.
 
 | Candidate | Canada/U.S. route | Demand / price signal | Economics signal | Current disposition |
 | --- | --- | --- | --- | --- |
-| Four-piece magnetic refrigerator rack | Country-level DSers visual matches in both markets; strongest common rows show Selection Standard, 7 days, US$1.99 U.S. / US$2.16 Canada shipping | Public four-piece listings commonly sit around US$36–50; visually demonstrable small-space problem | Several common DSers rows land near US$15–16 before missing costs; one 90-sale route spans roughly US$12.17–19.43 landed by market | **LEAD_PENDING_EXACT_OPTION_PROOF** |
+| Four-piece magnetic refrigerator rack | Country-level DSers visual matches in both markets; strongest common rows show Selection Standard routes | Public four-piece listings commonly sit around US$36–50; visually demonstrable small-space problem | Low visual-match rows appear to represent single racks; explicit 1/2/4-piece listings span to US$75–93 before shipping | **VARIANT_MISMATCH_RISK — DOWNGRADED** |
+| 360-degree rotating countertop organizer | Common Selection Standard routes in both markets; established visual matches include 243–245 sales | Walmart U.S. comparable tiers currently US$14.99–17; Walmart Canada comparable organizers currently CA$21.99–25.32 | Conservative exact-listing cost produces roughly 26% Canada / 31% U.S. contribution at the observed retail band before missing costs | SECONDARY_ORGANIC_ONLY |
+| Five-piece cascading closet hanger set | DSers search showed an explicit five-piece set with 900 orders and 4.9 rating; optimizer showed both-market Selection Standard routes | Public U.S. five-piece comparator is US$12.20; Canadian two- and three-pack comparators cluster near CA$21–22 | Supplier cost plus shipping leaves too little absolute contribution for paid acquisition at competitive retail | SECONDARY_ORGANIC_ONLY |
 | Zippered accordion file organizer | Country-level Selection Standard route in both markets | Useful but lower-AOV and less visually immediate | Illustrative margins are only about 32–33% before missing costs | SECONDARY_ONLY |
 | Two-tier pull-out under-sink organizer | Country-level route in both markets | Proven category, but strong public price pressure around US$32–35 for comparable organizers | DSers matched range lands around US$21.45–31.94; upper variants cannot compete and even the low end is thin at common retail prices | REJECT_AS_PAID_HERO unless a differentiated exact option changes the math |
 | Vacuum storage bags | U.S. options exist | Strong commodity demand | Canada-filtered DSers keyword screen returned no usable result; pump variants add electrical/quality risk | REJECT_CURRENT_ROUTE |
@@ -52,12 +58,19 @@ The same visual search displayed the corresponding common routes:
 - US$13.22–14.33 item + US$2.16 Selection Standard, 7 days, 17 displayed sales.
 - US$10.01–17.27 item + US$2.16 Selection Standard, 7 days, 90 displayed sales.
 
-The 90-sale row has the best history in the common-route subset, but its price
-range may contain different pack sizes or configurations. Do not use its low
-price in a margin sheet until the exact four-piece black option and supplier SKU
-are visible and stocked for both countries.
+An exact-title search found item `1005011940350596` with 104 orders, 4.9 rating,
+US$8.02–17.13 item range and US$1.99 U.S. shipping, but the title did not state
+a pack count. An explicit `1/2/4pcs` item, `1005012181315010`, showed only six
+orders and a US$10.53–75.03 range. Other four-pack searches returned ranges as
+high as US$92.62. The evidence therefore does not support assigning the low
+visual-match cost to the four-piece offer.
 
-## Provisional commercial threshold
+A later image match produced a fixed US$12.64 row with 407 sales, six displayed
+days, and US$1.99 U.S. / US$2.16 Canadian shipping. That is useful evidence for
+a single magnetic-rack category, not proof of a four-piece set. Do not use it
+in four-piece economics.
+
+## Provisional commercial threshold — magnetic concept only
 
 The public reference band supports testing a normal retail hypothesis near
 US$39.99–44.99 only if the exact four-piece product is comparable. At US$39.99,
@@ -83,6 +96,45 @@ Public comparison references captured during screening:
 Observed prices can change and are not a substitute for a comparable-product
 benchmark immediately before pricing approval.
 
+## Alternative-candidate screen
+
+### Rotating countertop organizer
+
+DSers item `1005007934200711` displayed US$6.25–6.43, US$1.99 U.S. shipping,
+50 orders and a 4.7 rating. Visual matches included established common routes
+with 243–245 sales, roughly US$4.83–7.01 item cost, US$1.99 U.S. shipping and
+US$2.16 Canadian shipping, with six or seven displayed days.
+
+The product clears the supplier-route screen but fails the paid-price screen.
+Current Walmart comparators are US$14.99–17 for two- or three-tier versions and
+CA$21.99–25.32 for Canadian comparators. At those prices, a conservative
+exact-listing landed cost leaves only about 31% U.S. and 26% Canadian
+contribution before app allocation, FX, support, chargebacks, taxes, and paid
+acquisition. It remains viable only for organic merchandising or a materially
+differentiated exact version.
+
+References:
+
+- `https://www.walmart.com/ip/12283004101`
+- `https://www.walmart.com/ip/12280467437`
+- `https://www.walmart.ca/en/ip/360-Rotating-Makeup-Organizer-and-Storage-COOLBEAR-Spinning-Cosmetic-Organizer-with-6-Adjustable-Layers-Fits-Skincare-Perfume-Clear-Acrylic/3WEKENZCT5ES`
+- `https://www.walmart.ca/en/ip/360-Rotating-Makeup-Organizer-High-Capacity-Countertop-Vanity-Organizers-2-Tier-Spinning-Skincare-Storage/18NC1MSE65N0`
+
+### Five-piece cascading closet hangers
+
+DSers item `1005010446371271` explicitly displayed a five-piece set at US$7.51,
+US$1.99 U.S. shipping, 900 orders and a 4.9 rating. Supplier Optimizer showed a
+corresponding fixed US$7.51 + US$2.16 Canadian route, but its displayed sales
+history did not reconcile with the catalog card. Other established image
+matches cost more. Public price pressure is severe: a current U.S. five-piece
+comparator is US$12.20, while Canadian two- and three-pack comparators sit near
+CA$21–22. This is not a paid-ad hero.
+
+References:
+
+- `https://business.walmart.com/ip/Metal-Cascading-Space-Saving-Closet-Hangers-5pc-Set/130649713`
+- `https://ca.style.yahoo.com/tight-on-closet-space-these-best-selling-hangers-are-a-fantastic-solution--and-theyre-48-off-on-amazon-canada-172829900.html`
+
 ## Exact-proof checklist
 
 - [ ] Open the strongest established supplier listing without relying on a
@@ -101,6 +153,9 @@ benchmark immediately before pricing approval.
 - [ ] Review supplier images and claims for copying, translation, safety, and
       quality risks before creating a Puchica listing or creative.
 
-Only after every box passes may the lead move to `PRODUCT_SELECTED`, at which
-point page copy, images, creative concepts, and measurement QA can be built for
-that exact SKU. Importing or paying still requires separate owner authority.
+No current candidate may move to `PRODUCT_SELECTED`. Discovery should now
+prioritize either (a) an explicit high-value configuration with a normal retail
+price above roughly US$40 and worse-market landed cost below US$16–18, or (b) a
+single-supplier bundle whose exact combined shipping and automation mapping can
+be proven. Page copy and creative follow only after that gate. Importing or
+paying still requires separate owner authority.
