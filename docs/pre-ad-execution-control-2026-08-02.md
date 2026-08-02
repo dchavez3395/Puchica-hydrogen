@@ -58,8 +58,12 @@ Authenticated DSers screening on August 2 produced the first viable replacement
 category: accordion document organizers. Item `1005010145905527` (zippered,
 13-pocket A4) and item `1005010531361199` (labeled multi-compartment A4) both
 showed AliExpress Selection Standard routes to Canada and the United States.
-They remain `SHORTLIST_PENDING_VARIANT_STOCK_PROOF`; no product is selected and
-no import, mapping, order or payment was made. See
+They remain secondary candidates. A later visual supplier screen advanced a
+four-piece magnetic refrigerator-rack set as the stronger paid-acquisition
+lead because common Canada/U.S. routes and the attainable retail band leave
+more potential contribution. It remains `LEAD_PENDING_EXACT_OPTION_PROOF`; no
+product is selected and no import, mapping, order or payment was made. See
+`docs/hero-product-screening-2026-08-02.md` and
 `docs/greenfield-supplier-evidence-2026-08-02.md`.
 
 ## P0 gate 0 — mandatory Manitoba seller disclosures
