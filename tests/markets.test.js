@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   getLocaleFromRequest,
+  marketCompactLabel,
   marketDisplayLabel,
   resolveStorefrontLocale,
 } from '../app/lib/i18n.js';
@@ -68,6 +69,17 @@ test('currency labels come from Storefront API data, never the country configura
   assert.equal(
     marketDisplayLabel({country: 'CA', currency: 'CAD', language: 'FR'}),
     'CA · CAD · FR',
+  );
+});
+
+test('compact header labels omit currency without changing resolved market data', () => {
+  assert.equal(
+    marketCompactLabel({country: 'CA', currency: 'CAD', language: 'EN'}),
+    'CA · EN',
+  );
+  assert.equal(
+    marketCompactLabel({country: 'US', currency: 'USD', language: 'FR'}),
+    'US · FR',
   );
 });
 

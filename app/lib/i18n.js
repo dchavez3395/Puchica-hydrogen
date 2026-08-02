@@ -221,3 +221,16 @@ export function marketDisplayLabel(locale) {
     .toUpperCase();
   return [country, locale?.currency, language].filter(Boolean).join(' · ');
 }
+
+/**
+ * Compact label for the header trigger. Currency remains visible beside every
+ * price, in the expanded selector, and in the trigger's accessible name.
+ * @param {{country?: string, language?: string}} locale
+ */
+export function marketCompactLabel(locale) {
+  const country = locale?.country || DEFAULT_LOCALE.country;
+  const language = String(locale?.language || DEFAULT_LOCALE.language)
+    .replace('_BR', '')
+    .toUpperCase();
+  return [country, language].filter(Boolean).join(' · ');
+}

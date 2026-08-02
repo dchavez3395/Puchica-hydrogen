@@ -1,8 +1,9 @@
-import {useEffect, useRef, useState} from 'react';
+import {useEffect, useId, useRef, useState} from 'react';
 import {useFetcher, useRouteLoaderData} from 'react-router';
 import {
   LANGUAGE_KEYS,
   localizePath,
+  marketCompactLabel,
   marketDisplayLabel,
 } from '~/lib/i18n';
 import {useT} from '~/lib/t';
@@ -30,6 +31,7 @@ export function LocaleSwitcher() {
   const currentLang = root?.selectedLocale?.language || 'EN';
   const currentCountry = root?.selectedLocale?.country || 'CA';
   const currentKey = LANGUAGE_KEYS[currentLang] || 'en';
+  const currentSelection = marketDisplayLabel(root?.selectedLocale);
   const availableMarkets = new Map(
     (root?.selectedLocale?.availableMarkets || []).map((market) => [
       market.country,
@@ -38,7 +40,9 @@ export function LocaleSwitcher() {
   );
 
   const [open, setOpen] = useState(false);
+  const selectorId = useId();
   const ref = useRef(null);
+  const triggerRef = useRef(null);
   const fetcher = useFetcher();
   const isSwitching = fetcher.state !== 'idle';
 
@@ -47,8 +51,17 @@ export function LocaleSwitcher() {
     const onDown = (e) => {
       if (ref.current && !ref.current.contains(e.target)) setOpen(false);
     };
+    const onKeyDown = (e) => {
+      if (e.key !== 'Escape') return;
+      setOpen(false);
+      triggerRef.current?.focus();
+    };
     document.addEventListener('mousedown', onDown);
-    return () => document.removeEventListener('mousedown', onDown);
+    document.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.removeEventListener('mousedown', onDown);
+      document.removeEventListener('keydown', onKeyDown);
+    };
   }, [open]);
 
   function choose(key) {
@@ -77,12 +90,14 @@ export function LocaleSwitcher() {
   return (
     <div className="pk-locale" ref={ref}>
       <button
+        ref={triggerRef}
         type="button"
         className="pk-icon-btn pk-locale__btn"
-        aria-haspopup="true"
+        aria-haspopup="dialog"
+        aria-controls={selectorId}
         aria-expanded={open}
         aria-busy={isSwitching}
-        aria-label={t('locale_change_aria')}
+        aria-label={`${t('locale_change_aria')}: ${currentSelection}`}
         disabled={isSwitching}
         onClick={() => setOpen((v) => !v)}
       >
@@ -104,14 +119,19 @@ export function LocaleSwitcher() {
         <span className="pk-locale__code">
           {isSwitching
             ? t('locale_switching')
-            : marketDisplayLabel(root?.selectedLocale)}
+            : marketCompactLabel(root?.selectedLocale)}
         </span>
       </button>
       <span className="sr-only" role="status" aria-live="polite">
         {isSwitching ? t('locale_switching_status') : ''}
       </span>
       {open && (
-        <div className="pk-locale__menu" role="menu">
+        <div
+          id={selectorId}
+          className="pk-locale__menu"
+          role="dialog"
+          aria-label={t('locale_change_aria')}
+        >
           <div className="pk-locale__group">
             <p className="pk-locale__label">{t('locale_market_label')}</p>
             {MARKET_ORDER.map((country) => {
@@ -121,8 +141,7 @@ export function LocaleSwitcher() {
                 <button
                   key={country}
                   type="button"
-                  role="menuitemradio"
-                  aria-checked={country === currentCountry}
+                  aria-pressed={country === currentCountry}
                   aria-disabled={!isAvailable}
                   disabled={!isAvailable}
                   className={
@@ -145,8 +164,7 @@ export function LocaleSwitcher() {
               <button
                 key={key}
                 type="button"
-                role="menuitemradio"
-                aria-checked={key === currentKey}
+                aria-pressed={key === currentKey}
                 className={
                   'pk-locale__item' + (key === currentKey ? ' is-active' : '')
                 }

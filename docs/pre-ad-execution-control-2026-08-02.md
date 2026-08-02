@@ -38,7 +38,7 @@ general approvals do not authorize spend.
 | Meta | HOLD | Shopify integration and historical events | Fresh Test Events, Purchase, CAPI/deduplication acceptance |
 | Privacy policy | PARTIAL | Owner converted Shopify Admin from the automated template to the reviewed manual static policy on August 2, 2026 | Deploy and live-verify the no-cache/raw-template safeguard; designate a privacy official; complete seller disclosures and consent review |
 | Shipping policy | PARTIAL | Owner published the reviewed replacement on August 2, 2026; “no surprise fees” was removed | Evidence-supported delivery date/method and owner decision for duties, brokerage, refused delivery, and uncollected destination charges |
-| Refund policy | FAIL / BLOCKED_OWNER | Draft and operating choices are documented | Owner has not accepted the return-cost/process rules or published the replacement; storefront return claims remain unsupported until resolved |
+| Refund policy | PASS / LIVE_VERIFIED | Owner approved the operating model; reviewed replacement was saved in Shopify Admin and live-verified on August 2, 2026; Shopify's separate self-serve return window was aligned from 14 to 30 days | Support must still authorize the method and destination or no-return resolution for each case before instructing a customer to ship |
 | Economics | HOLD | Provisional U.S. item and country-level shipping costs | Address-level costs, actual fees, duties, handling, apps, reserve |
 | DSers operations | HOLD | DSers selected; auto-pay not approved | Exact mapping, sync, duplicate prevention, tracking, notifications |
 | Creative | HOLD | Review concepts and source-faithful draft | Final exact-product accessible creative set |
@@ -87,8 +87,12 @@ review the implementation; this control is not legal advice.
 These drafts are operational copy, not legal advice. They avoid unknown
 addresses, unsupported guarantees, and raw Shopify Liquid. The Privacy and
 Shipping drafts were published manually in Shopify Admin on August 2, 2026.
-The Refund draft was not published because the required owner decisions remain
-open. Admin publication alone is not a full live PASS: each policy must be
+The owner approved the Refund operating model and the reviewed replacement was
+saved in Shopify Admin on August 2, 2026. The public storefront initially served
+the superseded July 15 policy, then propagated the replacement; the August 2
+body was live-verified with the approved return-shipping language and no old
+date. Shopify's separate self-serve return rule was also changed from 14 to 30
+days and saved successfully. Each policy must continue to be
 served through the deployed storefront, be cache-current, contain no template
 code, agree with checkout/operations, and include the Gate 0 disclosures.
 
@@ -98,7 +102,7 @@ code, agree with checkout/operations, and include the Gate 0 disclosures.
 | --- | --- | --- | --- |
 | Privacy | Automated Shopify policy replaced with reviewed manual static policy on August 2 | PARTIAL | Deploy and verify the raw-Liquid fallback/no-cache behavior; add designated privacy official and required seller contact; verify consent/data disclosures |
 | Shipping | Reviewed replacement published on August 2 | PARTIAL | Add evidence-supported delivery date/method and accepted duties, brokerage, refused-delivery, and uncollected-charge responsibility |
-| Refund | No publication | FAIL / BLOCKED_OWNER | Owner accepts return-cost/process rules and real operational return destination/no-return process; then publish and live-verify |
+| Refund | Reviewed replacement saved in Shopify Admin; public route and approved language live-verified; self-serve return window aligned to 30 days on August 2 | PASS | Maintain the contact-first, case-specific destination/no-return operating control; never direct a customer to an unapproved address |
 
 ### Privacy Policy — paste-ready replacement
 
@@ -243,9 +247,11 @@ For an approved change-of-mind return, the customer is responsible for the retur
 
 Damaged, defective, or incorrect items
 
-Contact us promptly with photos of the product, packaging, and shipping label. If Puchica confirms that the item arrived damaged, defective, or incorrect, Puchica will provide the approved resolution and will not require the customer to pay an authorized return-shipping cost. Depending on the circumstances, the resolution may be a replacement, refund, partial refund, or instructions for an authorized return. Do not discard or ship the item until instructed.
+Contact us promptly with photos of the product, packaging, and shipping label. If Puchica confirms that the item arrived damaged, defective, or incorrect, Puchica will provide the approved resolution. If Puchica requires an authorized return for a confirmed issue, Puchica will pay or reimburse the approved return-shipping cost. Depending on the circumstances, the resolution may be a replacement, refund, partial refund, or instructions for an authorized return. Do not discard or ship the item until instructed.
 
 Review and approval
+
+Puchica will tell you whether a return is required. If it is, we will provide the approved return method and destination for that case. Some confirmed issues may be resolved without requiring the item to be returned. Do not ship the item to the address on the parcel unless Puchica specifically authorizes that destination.
 
 After an authorized return is received, when a return is required, we inspect it and notify you whether the refund is approved. Puchica may request additional information reasonably needed to verify an order or claim. This policy does not limit rights that cannot be excluded under applicable law.
 
@@ -496,8 +502,8 @@ reliable, and actual CAC is no more than 70% of actual contribution.
 | O2 | Supply current business address and mailing address if different | Manitoba pre-contract disclosure requires real addresses | Never use `R2P 2X1`; no order or mail authorization |
 | O3 | Supply monitored customer-service phone number | Required seller contact cannot be invented | Information and publication approval only |
 | O4 | Designate the privacy official by name or public-facing title and contact | PIPEDA accountability requires a responsible contact | Privacy-role decision only |
-| O5 | Accept return-cost rule and real return destination/no-return process | Repo cannot choose a destination or financial policy | Decision only; no return/refund issued |
-| O6 | Publish Refund replacement and live-verify all three policies | Shopify bodies control live pages; Privacy/Shipping are published but still PARTIAL | Publication only after owner review |
+| O5 | COMPLETE — approved August 2, 2026: customer pays approved change-of-mind return shipping; Puchica pays or reimburses approved confirmed-issue return shipping; contact-first per-case destination/no-return resolution | Owner decision recorded; no return/refund issued | No further owner decision required for this rule |
+| O6 | COMPLETE for Refund — replacement saved and live-verified; separate Shopify self-serve return rule aligned to 30 days on August 2 | Privacy and Shipping remain PARTIAL for their separately listed missing disclosures and operational decisions | Recheck all policies after the next production deployment; no further Refund publication action currently required |
 | O7 | Decide who pays duties, brokerage, and destination charges and what happens on refused delivery | Shipping draft currently discloses possibility but not operational responsibility | Financial/operations decision only |
 | O8 | Approve evidence-supported delivery date/range and method per route | Manitoba disclosure and customer promise require evidence | No order; no unsupported guarantee |
 | O9 | Provide authenticated Shopify/DSers access during evidence capture | Mapping/rates live in private systems | Read/no-payment only |
