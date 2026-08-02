@@ -19,6 +19,10 @@ The immediate commercial position is:
   strip, and eight-piece organizer set from paid traffic;
 - do not treat customer shipping collected at checkout as profit until its fee,
   refund, and fulfillment treatment is reconciled.
+- use a DDU/DAP-style operating model: the customer pays duties, brokerage, and
+  destination charges that are not collected at checkout. Puchica must disclose
+  this before payment and still model refusal, return-to-sender, and chargeback
+  exposure separately.
 
 ## Authenticated DSers evidence
 
@@ -26,6 +30,14 @@ Read-only Supplier Optimizer evidence was captured for the Shopify image hash
 `S429d800afd8741a78092f1cff17ae074r`, associated with the red five-piece
 packing-cube workflow. The matching result showed 359 sales and 4.8 displayed
 rating. Nothing was imported, mapped, ordered, or paid for.
+
+DSers `My Products` also confirmed the mapped supplier product
+`1005008568050448`, DSers store-product ID `2083036447075794944`, displayed
+stock of 1,024, and a CA$6.15–28.61 cost range. The exact `5PCS Set Red` cost is
+still not exposed in the read-only DSers card. The DSers account contains 13
+store products: 12 AliExpress-mapped and one unmapped product. The unmapped item
+is `Everyday Tech Pouch - Supplier Rejected`, with no cost and CA$0.00 displayed
+price; it must remain excluded from the storefront and any automation.
 
 | Market | Displayed item range | Shipping | Service | Days | Status |
 | --- | ---: | ---: | --- | ---: | --- |
@@ -46,22 +58,27 @@ below exclude customer shipping revenue and use a 15% refund/problem reserve.
 
 | Scenario | Net merchandise | Assumed payment fee | Provisional supply | 15% reserve | Contribution before unknowns | Margin | Gate |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |
-| US current full price | US$52.00 | 2.9% + $0.30 = $1.81 | $22.38 | $7.80 | $20.01 | 38.5% | HOLD |
-| US recommended $49 | US$49.00 | 2.9% + $0.30 = $1.72 | $22.38 | $7.35 | $17.55 | 35.8% | HOLD |
-| US recommended $47 | US$47.00 | 2.9% + $0.30 = $1.66 | $22.38 | $7.05 | $15.91 | 33.8% | HOLD |
-| US $49 with 15% off | US$41.65 | 2.9% + $0.30 = $1.51 | $22.38 | $6.25 | $11.51 | 27.6% | FAIL |
-| CA current full price | CA$71.45 | conservative 3.5% + $0.30 = $2.80 | $31.72 | $10.72 | $26.21 | 36.7% | HOLD |
-| CA recommended $69 | CA$69.00 | conservative 3.5% + $0.30 = $2.72 | $31.72 | $10.35 | $24.22 | 35.1% | HOLD |
-| CA recommended $66 | CA$66.00 | conservative 3.5% + $0.30 = $2.61 | $31.72 | $9.90 | $21.77 | 33.0% | HOLD |
-| CA current with 15% off | CA$60.73 | conservative 3.5% + $0.30 = $2.43 | $31.72 | $9.11 | $17.48 | 28.8% | FAIL |
+| US current full price | US$52.00 | 2.8% + $0.30 base = $1.76 | $22.38 | $7.80 | $20.06 | 38.6% | HOLD |
+| US recommended $49 | US$49.00 | 2.8% + $0.30 base = $1.67 | $22.38 | $7.35 | $17.60 | 35.9% | HOLD |
+| US recommended $47 | US$47.00 | 2.8% + $0.30 base = $1.62 | $22.38 | $7.05 | $15.95 | 33.9% | HOLD |
+| US $49 with 15% off | US$41.65 | 2.8% + $0.30 base = $1.47 | $22.38 | $6.25 | $11.56 | 27.7% | FAIL |
+| CA current full price | CA$71.45 | 2.8% + $0.30 = $2.30 | $31.72 | $10.72 | $26.71 | 37.4% | HOLD |
+| CA recommended $69 | CA$69.00 | 2.8% + $0.30 = $2.23 | $31.72 | $10.35 | $24.70 | 35.8% | HOLD |
+| CA recommended $66 | CA$66.00 | 2.8% + $0.30 = $2.15 | $31.72 | $9.90 | $22.03 | 33.4% | HOLD |
+| CA current with 15% off | CA$60.73 | 2.8% + $0.30 = $2.00 | $31.72 | $9.11 | $17.90 | 29.5% | FAIL |
+
+The 2.8% + CA$0.30 online card rate is verified from the authenticated Shopify
+Basic plan screen. U.S.-currency conversion/payout charges remain additional
+unknowns, so the U.S. rows use the verified rate as a base rather than a final
+processor total.
 
 The current full-price cube offer has a plausible cushion. The low end of the
 recommended retail band does not leave much room for duty, brokerage, FX,
 automation, or support. A sitewide 15% discount fails the 30% gate in the
 illustrated US$49 and current-price Canadian cases. Repository history says
-`FIRST15` was active, while the current control says promotions are not
-approved; the Shopify Admin state must be verified and the discount disabled or
-restricted before launch.
+`FIRST15` is verified active in Shopify Admin, applies 15% to the entire order
+for all customers, and has zero recorded uses. It must be disabled or restricted
+before launch unless exact economics prove the resulting offer still passes.
 
 ## Retail price benchmark
 
@@ -86,7 +103,9 @@ Lead-offer anchors: [BAGSMART compression cubes](https://www.bagsmart.com/produc
 
 ## Maximum all-in variable-cost ceilings
 
-These ceilings are the maximum total of supplier item, supplier shipping,
+These ceilings are conservative planning limits calculated before the verified
+fee refresh; they must be regenerated in the final activation worksheet. They
+are the maximum total of supplier item, supplier shipping,
 duty, import tax treated as cost, brokerage, FX, automation, packaging,
 handling, and other per-order variable costs that can be tolerated while still
 leaving a 30% pre-ad contribution margin. They use current prices, no promotion,
@@ -133,17 +152,37 @@ and [Shopify international pricing fees](https://help.shopify.com/en/manual/inte
 Maintain enough cash for the first five supplier charges, one full
 refund/replacement, and one chargeback. This is separate from ad budget.
 
+Verified recurring-cost state on August 2:
+
+- Shopify Basic is CA$1/month until September 12, 2026, then displays
+  CA$49/month;
+- Judge.me is in a free trial until August 7, 2026, then displays approximately
+  CA$21.03 every 30 days;
+- DSers is on the free Basic plan. Official DSers pricing confirms Basic is
+  free: [DSers plans](https://www.dsers.com/pricing).
+
+At steady state, the known Shopify plus Judge.me baseline is about CA$70.03 per
+month before domains, payment/conversion fees, advertising, tax, or any other
+app. Allocate this across a conservative delivered-order count; do not bury it
+inside product cost or treat it as zero.
+
 ## Required proof before a paid test
 
-- [ ] Verify or disable/restrict `FIRST15` in Shopify Admin and reconcile all
-      remaining storefront references.
+- [x] Verify `FIRST15` state in Shopify Admin: active, 15% off the entire order,
+      all customers, zero uses.
+- [ ] Disable or restrict `FIRST15` and reconcile all remaining storefront
+      references before launch.
 - [ ] Capture exact `5PCS Set Red` option/SKU, ordinary price, stock, tracked
       service, and final supplier checkout total.
 - [ ] Capture address-level US quotes for ZIP 10001 and 90001.
 - [ ] Capture approved non-personal Manitoba and Ontario quote destinations;
       never use former postal code `R2P 2X1`.
 - [ ] Determine DDP versus DDU/DAP and importer of record for each route.
-- [ ] Capture actual payment, FX, payout, automation, app, and chargeback fees.
+- [x] Record owner decision: customer pays duties, brokerage, and destination
+      charges not collected at checkout (DDU/DAP-style model).
+- [x] Capture base online card fee, Shopify plan, Judge.me, and DSers plan.
+- [ ] Capture U.S. currency-conversion/payout, PayPal, refund, and chargeback
+      fee treatment.
 - [ ] Prove the worse destination remains at or above 30% contribution with no
       blank cost.
 - [ ] Repeat the same evidence capture for the under-sink bin and cable pouch

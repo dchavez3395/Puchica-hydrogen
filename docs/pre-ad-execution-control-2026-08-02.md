@@ -37,7 +37,7 @@ general approvals do not authorize spend.
 | GA4 | PASS for pre-purchase | Production `view_item`, `add_to_cart`, checkout, and page-view evidence | Fresh Purchase and UTM persistence |
 | Meta | HOLD | Shopify integration and historical events | Fresh Test Events, Purchase, CAPI/deduplication acceptance |
 | Privacy policy | PARTIAL | Owner converted Shopify Admin from the automated template to the reviewed manual static policy on August 2, 2026 | Deploy and live-verify the no-cache/raw-template safeguard; designate a privacy official; complete seller disclosures and consent review |
-| Shipping policy | PARTIAL | Owner published the reviewed replacement on August 2, 2026; “no surprise fees” was removed | Evidence-supported delivery date/method and owner decision for duties, brokerage, refused delivery, and uncollected destination charges |
+| Shipping policy | PARTIAL | Owner published the reviewed replacement on August 2, 2026; “no surprise fees” was removed; owner decided customers pay duties, brokerage, and destination charges not collected at checkout | Publish/verify that decision; add evidence-supported delivery date/method and refused-delivery treatment |
 | Refund policy | PASS / LIVE_VERIFIED | Owner approved the operating model; reviewed replacement was saved in Shopify Admin and live-verified on August 2, 2026; Shopify's separate self-serve return window was aligned from 14 to 30 days | Support must still authorize the method and destination or no-return resolution for each case before instructing a customer to ship |
 | Economics | HOLD | Provisional U.S. item and country-level shipping costs | Address-level costs, actual fees, duties, handling, apps, reserve |
 | DSers operations | HOLD | DSers selected; auto-pay not approved | Exact mapping, sync, duplicate prevention, tracking, notifications |
@@ -101,7 +101,7 @@ code, agree with checkout/operations, and include the Gate 0 disclosures.
 | Policy | Admin action | Current gate | Required to pass |
 | --- | --- | --- | --- |
 | Privacy | Automated Shopify policy replaced with reviewed manual static policy on August 2 | PARTIAL | Deploy and verify the raw-Liquid fallback/no-cache behavior; add designated privacy official and required seller contact; verify consent/data disclosures |
-| Shipping | Reviewed replacement published on August 2 | PARTIAL | Add evidence-supported delivery date/method and accepted duties, brokerage, refused-delivery, and uncollected-charge responsibility |
+| Shipping | Reviewed replacement published on August 2; customer duty responsibility decided August 2 | PARTIAL | Publish/verify customer-paid destination-charge wording; add evidence-supported delivery date/method and refused-delivery treatment |
 | Refund | Reviewed replacement saved in Shopify Admin; public route and approved language live-verified; self-serve return window aligned to 30 days on August 2 | PASS | Maintain the contact-first, case-specific destination/no-return operating control; never direct a customer to an unapproved address |
 
 ### Privacy Policy — paste-ready replacement
@@ -209,7 +209,7 @@ Orders may be fulfilled by third-party supply partners and may ship from locatio
 
 Taxes, duties, and destination charges
 
-Taxes and shipping charges collected by Shopify are shown before payment. Duties, import charges, brokerage, or other destination-specific charges may depend on the products, order, and destination. When a charge is not collected at checkout, it may be assessed separately by the carrier or destination authority where permitted by law. Contact hello@puchica.ca before ordering if you need help understanding the checkout presentation.
+Taxes and shipping charges collected by Shopify are shown before payment. The customer is responsible for duties, import charges, brokerage, or other destination-specific charges that are not collected at checkout. These charges may be assessed separately by the carrier or destination authority where permitted by law. Contact hello@puchica.ca before ordering if you need help understanding the checkout presentation.
 
 Tracking
 
@@ -391,22 +391,25 @@ worksheet for activation decisions.
 | --- | ---: | ---: |
 | Merchandise price | US$52.00 | CA$71.45 |
 | Promotion | Not approved | Not approved |
-| Payment fee | 2.9% + US$0.30 assumption; verify | Missing |
+| Payment fee | Shopify Basic base rate 2.8% + CA$0.30 verified; U.S. conversion/payout treatment missing | Shopify Basic 2.8% + CA$0.30 online verified |
 | Item cost | US$20.39 country-level | CA$28.93 equivalent country-level |
 | Destination shipping | US$1.99 country-level only | Approx. CA$2.79 equivalent, country-level only |
-| Duties/brokerage/import | Missing | Missing |
-| Automation/order charge | Missing | Missing |
+| Duties/brokerage/import | Customer pays charges not collected at checkout; refusal/return exposure missing | Customer pays charges not collected at checkout; refusal/return exposure missing |
+| Automation/order charge | DSers Basic verified free; supplier/order charges still verify | DSers Basic verified free; supplier/order charges still verify |
 | Handling/packaging | Missing | Missing |
-| App allocation | Missing | Missing |
+| App allocation | Shopify CA$49/month after Sept. 12 + Judge.me about CA$21.03/30 days after Aug. 7; allocation missing | Same |
 | Return/refund reserve | Use 15% planning case pending evidence | Use 15% planning case pending evidence |
 | Customer shipping retained | Exclude until proven | Exclude CA$7.99 until net treatment proven |
 | Status | HOLD | HOLD |
 
 Authenticated Shopify Admin verification on August 2 confirmed that Shopify
-Payments is accepting payments and payouts, the payout account is CAD, and
-PayPal Express is active. Shopify displayed only an upgrade prompt rather than
-the store's exact card-processing percentage/fixed fee on the reviewed screen,
-so the payment-fee rows remain assumptions and the economics gate remains HOLD.
+Payments is accepting payments and payouts, the payout account is CAD, PayPal
+Express is active, and the Basic plan's online card rate is 2.8% + CA$0.30.
+The plan is CA$1/month until September 12, then displays CA$49/month. Judge.me
+displays a free trial until August 7 followed by approximately CA$21.03 every
+30 days. DSers is on its free Basic plan. U.S. currency conversion, payout,
+PayPal, refund, and chargeback treatment remain missing, so the economics gate
+remains HOLD.
 
 ```text
 R = merchandise price × (1 - promotion rate)
@@ -426,10 +429,11 @@ handling, packaging, automation, or app costs. This is not a passed row.
 
 The August 2 market benchmark places a credible lead-offer band near
 US$47–49 / CA$66–69. At US$49, the provisional full-price margin is about
-35.8% before unknowns; applying 15% off reduces it to about 27.6%. At the
-current Canadian price, 15% off produces about 28.8% under the conservative fee
-assumption. Therefore `FIRST15`, if active, is a P0 economics failure until it
-is disabled/restricted or exact landed costs prove a different result.
+35.9% before unknowns under the verified base card rate; applying 15% off
+reduces it to about 27.7%. At the current Canadian price, 15% off produces about
+29.5%. `FIRST15` was verified active for all customers with zero recorded uses,
+so it is a P0 economics failure until disabled/restricted or exact landed costs
+prove a different result.
 
 PASS requires every cost, at least 30% worse-destination contribution, any live
 promotion still clearing 30%, a daily cap no greater than 70% of evidenced
@@ -517,7 +521,7 @@ reliable, and actual CAC is no more than 70% of actual contribution.
 | O4 | Designate the privacy official by name or public-facing title and contact | PIPEDA accountability requires a responsible contact | Privacy-role decision only |
 | O5 | COMPLETE — approved August 2, 2026: customer pays approved change-of-mind return shipping; Puchica pays or reimburses approved confirmed-issue return shipping; contact-first per-case destination/no-return resolution | Owner decision recorded; no return/refund issued | No further owner decision required for this rule |
 | O6 | COMPLETE for Refund — replacement saved and live-verified; separate Shopify self-serve return rule aligned to 30 days on August 2 | Privacy and Shipping remain PARTIAL for their separately listed missing disclosures and operational decisions | Recheck all policies after the next production deployment; no further Refund publication action currently required |
-| O7 | Decide who pays duties, brokerage, and destination charges and what happens on refused delivery | Shipping draft currently discloses possibility but not operational responsibility | Financial/operations decision only |
+| O7 | PARTIAL — owner decided August 2 that customers pay duties, brokerage, and destination charges not collected at checkout; refused-delivery cost/refund treatment remains to decide | Duty responsibility is recorded; refusal and return-to-sender exposure cannot be inferred | No further duty decision; refused-delivery decision still required |
 | O8 | Approve evidence-supported delivery date/range and method per route | Manitoba disclosure and customer promise require evidence | No order; no unsupported guarantee |
 | O9 | Provide authenticated Shopify/DSers access during evidence capture | Mapping/rates live in private systems | Read/no-payment only |
 | O10 | Approve non-personal quote postal codes if more than a code is required | Never reuse or ship to the former `R2P 2X1` address | Quote only |
