@@ -5,12 +5,33 @@ import {useT} from '~/lib/t';
 
 export const meta = ({params}) =>
   puchicaMeta({
-    title: 'About Puchica | Useful finds, thoughtfully chosen',
-    description:
-      'Puchica is a Canadian-owned lifestyle shop for useful finds, clear shopping, and a catalog that stays easy to explore.',
+    ...(ABOUT_META[params?.locale || 'en'] || ABOUT_META.en),
     pathname: '/pages/about',
     langKey: params?.locale,
   });
+
+const ABOUT_META = {
+  en: {
+    title: 'About Puchica | A focused organization shop',
+    description:
+      'Meet Puchica, a Canadian-owned shop building a focused collection of practical organizers for small homes, cables, and travel.',
+  },
+  fr: {
+    title: 'À propos de Puchica | Une boutique d’organisation ciblée',
+    description:
+      'Découvrez Puchica, une boutique canadienne qui rassemble des organisateurs pratiques pour la maison, les câbles et les voyages.',
+  },
+  es: {
+    title: 'Sobre Puchica | Una tienda de organización práctica',
+    description:
+      'Conoce Puchica, una tienda canadiense con una selección enfocada de organizadores para el hogar, los cables y los viajes.',
+  },
+  'pt-br': {
+    title: 'Sobre a Puchica | Uma loja de organização prática',
+    description:
+      'Conheça a Puchica, uma loja canadense com uma seleção focada de organizadores para casa, cabos e viagens.',
+  },
+};
 
 export async function loader() {
   return {};
@@ -19,116 +40,189 @@ export async function loader() {
 export default function AboutPage() {
   const t = useT();
   const principles = [
-    {kicker: 'Browse', title: t('about_how_1_title'), body: t('about_how_1_body')},
-    {kicker: 'Checkout', title: t('about_how_2_title'), body: t('about_how_2_body')},
-    {kicker: 'Care', title: t('about_how_3_title'), body: t('about_how_3_body')},
+    {
+      number: '01',
+      title: t('about_how_1_title'),
+      body: t('about_how_1_body'),
+    },
+    {
+      number: '02',
+      title: t('about_how_2_title'),
+      body: t('about_how_2_body'),
+    },
+    {
+      number: '03',
+      title: t('about_how_3_title'),
+      body: t('about_how_3_body'),
+    },
   ];
-  const departments = [
-    {handle: 'home-kitchen', label: t('home_dept_home'), tone: 'violet'},
-    {handle: 'apparel-accessories', label: t('home_dept_apparel'), tone: 'ember'},
-    {handle: 'health-wellness', label: t('home_dept_health'), tone: 'jade'},
-    {handle: 'pet-supplies', label: t('home_dept_pet'), tone: 'cobalt'},
+  const destinations = [
+    {
+      url: '/campaigns/home-finds#shop-organizers',
+      label: t('about_shop_home_title'),
+      body: t('about_shop_home_body'),
+    },
+    {
+      url: '/campaigns/home-finds#shop-organizers',
+      label: t('about_shop_cable_title'),
+      body: t('about_shop_cable_body'),
+    },
+    {
+      url: '/campaigns/home-finds#travel-organizers',
+      label: t('about_shop_travel_title'),
+      body: t('about_shop_travel_body'),
+    },
   ];
 
   return (
-    <div className="pk-about-v2">
-      <section className="pk-about-v2__hero">
-        <div className="pk-about-v2__hero-inner">
-          <div className="pk-about-v2__hero-copy">
-            <span className="pk-about-v2__eyebrow">{t('about_hero_eyebrow')}</span>
-            <h1>{t('about_hero_title_main')} <em>{t('about_hero_title_em')}</em></h1>
-            <p>{t('about_hero_sub')}</p>
-            <div className="pk-about-v2__hero-actions">
-              <Link to="/collections/all" className="pk-btn pk-btn--paper pk-btn--lg">
-                {t('about_hero_cta')}
-              </Link>
-              <Link to="/pages/shipping" className="pk-about-v2__text-link">
-                Shipping &amp; delivery <span aria-hidden="true">→</span>
-              </Link>
-            </div>
-          </div>
-          <div className="pk-about-v2__hero-art">
-            <Image
-              src="/about/hero-still-life.webp"
-              alt="A thoughtful collection of everyday objects on a warm textile"
-              width={1376}
-              height={768}
-              sizes="(min-width: 900px) 48vw, 100vw"
-              loading="eager"
-            />
+    <div className="pk-about-v3">
+      <section className="pk-about-v3__hero">
+        <div className="pk-about-v3__hero-copy">
+          <span className="pk-about-v3__eyebrow">
+            {t('about_hero_eyebrow')}
+          </span>
+          <h1>
+            {t('about_hero_title_main')} <em>{t('about_hero_title_em')}</em>
+          </h1>
+          <p>{t('about_hero_sub')}</p>
+          <div className="pk-about-v3__actions">
+            <Link
+              to="/campaigns/home-finds#shop-organizers"
+              className="pk-btn pk-btn--primary pk-btn--lg"
+            >
+              {t('about_hero_cta')}
+            </Link>
+            <Link to="/pages/shipping" className="pk-about-v3__text-link">
+              {t('footer_shipping_info')} <span aria-hidden="true">→</span>
+            </Link>
           </div>
         </div>
-      </section>
 
-      <section className="pk-about-v2__intro">
-        <div>
-          <span className="pk-about-v2__eyebrow pk-about-v2__eyebrow--ink">{t('about_mission_eye')}</span>
-          <h2>{t('about_mission_title')}</h2>
-        </div>
-        <div className="pk-about-v2__intro-copy">
-          <p>{t('about_mission_body_1')}</p>
-          <p>{t('about_mission_body_2')}</p>
-        </div>
-      </section>
-
-      <section className="pk-about-v2__principles">
-        <div className="pk-about-v2__section-head">
-          <span className="pk-about-v2__eyebrow">{t('about_how_eye')}</span>
-          <h2>{t('about_how_title')}</h2>
-        </div>
-        <div className="pk-about-v2__principle-grid">
-          {principles.map(({kicker, title, body}) => (
-            <article key={title} className="pk-about-v2__principle">
-              <span className="pk-about-v2__principle-kicker">{kicker}</span>
-              <h3>{title}</h3>
-              <p>{body}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="pk-about-v2__roots">
-        <div className="pk-about-v2__roots-art">
+        <figure className="pk-about-v3__hero-figure">
           <Image
-            src="/about/roots-textile.webp"
-            alt="Handwoven Central American textile and ceramic craft"
-            width={768}
-            height={960}
-            sizes="(min-width: 900px) 42vw, 100vw"
-            loading="lazy"
+            src="/lifestyle/organization-hero-v2.webp"
+            alt={t('about_hero_image_alt')}
+            width={1536}
+            height={1024}
+            sizes="(min-width: 900px) 54vw, 100vw"
+            loading="eager"
           />
-        </div>
-        <div className="pk-about-v2__roots-copy">
-          <span className="pk-about-v2__eyebrow">{t('about_roots_eyebrow')}</span>
-          <h2>{t('about_roots_heading')}</h2>
-          <p>{t('about_roots_body')}</p>
-          <p className="pk-about-v2__signature">{t('about_roots_signature')}</p>
-        </div>
+          <figcaption>{t('about_hero_caption')}</figcaption>
+        </figure>
       </section>
 
-      <section className="pk-about-v2__shop">
-        <div className="pk-about-v2__section-head">
-          <span className="pk-about-v2__eyebrow pk-about-v2__eyebrow--ink">Keep exploring</span>
-          <h2>Start where it fits your day.</h2>
+      <section className="pk-about-v3__shop">
+        <div className="pk-about-v3__shop-head">
+          <div className="pk-about-v3__section-heading">
+            <span className="pk-about-v3__eyebrow">{t('about_shop_eye')}</span>
+            <h2>{t('about_shop_title')}</h2>
+          </div>
+          <Link
+            to="/campaigns/home-finds#shop-organizers"
+            className="pk-about-v3__text-link"
+          >
+            {t('about_shop_all')} <span aria-hidden="true">→</span>
+          </Link>
         </div>
-        <ul className="pk-about-v2__department-list">
-          {departments.map(({handle, label, tone}) => (
-            <li key={handle}>
-              <Link to={`/collections/${handle}`} prefetch="intent" className={`pk-about-v2__department pk-about-v2__department--${tone}`}>
-                <span>{label}</span><span aria-hidden="true">→</span>
+        <ul className="pk-about-v3__shop-grid">
+          {destinations.map(({url, label, body}) => (
+            <li key={`${url}-${label}`}>
+              <Link
+                to={url}
+                prefetch="intent"
+                className="pk-about-v3__shop-card"
+              >
+                <span className="pk-about-v3__shop-arrow" aria-hidden="true">
+                  ↗
+                </span>
+                <h3>{label}</h3>
+                <p>{body}</p>
               </Link>
             </li>
           ))}
         </ul>
       </section>
 
-      <section className="pk-about-v2__cta">
-        <span className="pk-about-v2__eyebrow">Puchica</span>
-        <h2>{t('about_cta_title')}</h2>
-        <p>{t('about_cta_sub')}</p>
-        <Link to="/collections/all" className="pk-btn pk-btn--paper pk-btn--lg">
-          {t('about_cta_browse')}
-        </Link>
+      <section className="pk-about-v3__story">
+        <div className="pk-about-v3__story-heading">
+          <span className="pk-about-v3__eyebrow">{t('about_mission_eye')}</span>
+          <h2>{t('about_mission_title')}</h2>
+        </div>
+        <div className="pk-about-v3__story-copy">
+          <p>{t('about_mission_body_1')}</p>
+          <p>{t('about_mission_body_2')}</p>
+          <p className="pk-about-v3__callout">
+            {t('about_mission_card_text')}
+          </p>
+        </div>
+      </section>
+
+      <section className="pk-about-v3__standards">
+        <div className="pk-about-v3__section-heading">
+          <span className="pk-about-v3__eyebrow">{t('about_how_eye')}</span>
+          <h2>{t('about_how_title')}</h2>
+          <p>{t('about_standards_intro')}</p>
+        </div>
+        <ol className="pk-about-v3__standards-grid">
+          {principles.map(({number, title, body}) => (
+            <li key={number} className="pk-about-v3__standard">
+              <span>{number}</span>
+              <h3>{title}</h3>
+              <p>{body}</p>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section className="pk-about-v3__roots">
+        <div className="pk-about-v3__roots-art">
+          <Image
+            src="/about/roots-textile.webp"
+            alt={t('about_roots_image_alt')}
+            width={768}
+            height={960}
+            sizes="(min-width: 900px) 42vw, 100vw"
+            loading="lazy"
+          />
+        </div>
+        <div className="pk-about-v3__roots-copy">
+          <span className="pk-about-v3__eyebrow">
+            {t('about_roots_eyebrow')}
+          </span>
+          <h2>{t('about_roots_heading')}</h2>
+          <p>{t('about_roots_body')}</p>
+          <p className="pk-about-v3__signature">{t('about_roots_signature')}</p>
+        </div>
+      </section>
+
+      <section className="pk-about-v3__now">
+        <div className="pk-about-v3__now-copy">
+          <span className="pk-about-v3__eyebrow">{t('about_now_eye')}</span>
+          <h2>{t('about_now_title')}</h2>
+          <p>{t('about_now_body')}</p>
+          <a href="mailto:hello@puchica.ca">{t('about_now_email')}</a>
+        </div>
+        <div className="pk-about-v3__delivery-panel">
+          <div className="pk-about-v3__delivery-head">
+            <span aria-hidden="true" />
+            <strong>{t('about_delivery_panel_title')}</strong>
+          </div>
+          <ol className="pk-about-v3__delivery-steps">
+            {[1, 2, 3].map((step) => (
+              <li key={step}>
+                <span aria-hidden="true">{step}</span>
+                <div>
+                  <strong>{t(`about_delivery_step_${step}_title`)}</strong>
+                  <p>{t(`about_delivery_step_${step}_body`)}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+          <p className="pk-about-v3__delivery-note">
+            <span aria-hidden="true">✓</span>
+            {t('about_delivery_note')}
+          </p>
+        </div>
       </section>
     </div>
   );

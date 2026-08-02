@@ -1,13 +1,5 @@
 # Delivery and market audit — 2026-07-25
 
-## 2026-07-26 live resolution
-
-- Canada, U.S., and United Kingdom are active Shopify Markets.
-- Managed Markets / Global-e was turned off because its label-only fulfillment requirement was incompatible with DSers supplier fulfillment.
-- The U.S. zone now has one standard paid rate and one free-shipping threshold: Standard Shipping at CA$7.99 below CA$75, and free shipping at CA$75 and above.
-- Duplicate U.S. Standard International pricing and the unverified 1–2 business-day Express International promise were removed.
-- A fresh Hydrogen-to-Shopify checkout for `Travel Pet Water Bottle` at a non-personal New York address returned `Standard Shipping` at US$6.00.
-- Supplier-level gates still apply: no product becomes sellable merely because the market and checkout route work.
 ## Verified current state
 
 - **Enabled Shopify Markets:** Canada (primary) and United Kingdom.

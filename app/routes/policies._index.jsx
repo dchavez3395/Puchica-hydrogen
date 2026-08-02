@@ -10,7 +10,7 @@ export const meta = ({params}) => {
   return puchicaMeta({
     title: 'Policies – Puchica',
     description:
-      'Shipping, returns, privacy, and terms for U.S. orders placed at Puchica.ca. Canadian-owned and supplier-fulfilled; see each policy for details.',
+      'Read Puchica policies covering shipping, returns, privacy, and terms of service.',
     pathname: '/policies',
     langKey: params?.locale,
   });
@@ -21,7 +21,9 @@ export const meta = ({params}) => {
  */
 export async function loader({context}) {
   const {country, language} = context.storefront.i18n;
-  const data = await context.storefront.query(POLICIES_QUERY, {variables: {country, language}});
+  const data = await context.storefront.query(POLICIES_QUERY, {
+    variables: {country, language},
+  });
 
   const shopPolicies = data.shop;
   const policies = [
@@ -53,9 +55,16 @@ export default function Policies() {
       <ul className="pk-policies-index__list">
         {policies.map((policy) => (
           <li key={policy.id}>
-            <Link to={`/policies/${policy.handle}`} className="pk-policies-index__link">
-              <span className="pk-policies-index__link-title">{policy.title}</span>
-              <span className="pk-policies-index__link-arrow" aria-hidden>→</span>
+            <Link
+              to={`/policies/${policy.handle}`}
+              className="pk-policies-index__link"
+            >
+              <span className="pk-policies-index__link-title">
+                {policy.title}
+              </span>
+              <span className="pk-policies-index__link-arrow" aria-hidden>
+                →
+              </span>
             </Link>
           </li>
         ))}

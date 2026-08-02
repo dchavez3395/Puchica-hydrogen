@@ -1,6 +1,7 @@
 import {useLoaderData, useSearchParams} from 'react-router';
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
-import {Image, Money} from '@shopify/hydrogen';
+import {Image} from '@shopify/hydrogen';
+import {CurrencyMoney} from '~/components/CurrencyMoney';
 import {puchicaMeta} from '~/lib/seo';
 import {useT} from '~/lib/t';
 
@@ -292,7 +293,9 @@ export default function ExplorePage() {
                       <div className="pk-explore__card-foot">
                         <span className="pk-explore__card-price">
                           {product.priceRange?.minVariantPrice ? (
-                            <Money data={product.priceRange.minVariantPrice} />
+                            <CurrencyMoney
+                              data={product.priceRange.minVariantPrice}
+                            />
                           ) : null}
                         </span>
                       </div>

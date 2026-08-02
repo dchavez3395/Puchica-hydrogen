@@ -1,5 +1,5 @@
 import {useLoaderData} from 'react-router';
-import {Analytics, CacheNone, getPaginationVariables} from '@shopify/hydrogen';
+import {getPaginationVariables, Analytics} from '@shopify/hydrogen';
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {SearchForm} from '~/components/SearchForm';
 import {SearchResults} from '~/components/SearchResults';
@@ -22,7 +22,7 @@ export const meta = ({data, params}) => {
     title: term ? `Search: ${term} – Puchica` : 'Search – Puchica',
     description: term
       ? `Search results for "${term}" across the Puchica catalog.`
-      : 'Search the Puchica catalog for curated picks across home, kitchen, beauty, tech, pet, and more.',
+      : 'Search practical organizers for small spaces, cables, packing, luggage, and everyday carry.',
     noindex: true,
     pathname: '/search',
     langKey: params?.locale,
@@ -39,12 +39,15 @@ export async function loader({request, context}) {
     ? predictiveSearch({request, context})
     : regularSearch({request, context});
 
-  searchPromise.catch((error) => {
+  return await searchPromise.catch((error) => {
     console.error(error);
-    return {term: '', result: null, error: error.message};
+    return {
+      type: isPredictive ? 'predictive' : 'regular',
+      term: '',
+      result: null,
+      error: 'Search is temporarily unavailable. Please try again.',
+    };
   });
-
-  return await searchPromise;
 }
 
 /**
@@ -53,11 +56,11 @@ export async function loader({request, context}) {
  * spec — they're the most common category-level searches on the store.
  */
 const TRENDING_SEARCHES = [
-  'Soccer jerseys',
-  'Home & Kitchen',
-  'Electronics',
-  'Pet supplies',
-  'Sale',
+  'Under sink organizer',
+  'Cable organizer',
+  'Packing cubes',
+  'Drawer organizer',
+  'Bathroom organizer',
 ];
 
 /**
@@ -76,9 +79,7 @@ export default function SearchPage() {
       <header className="pk-search-page__head">
         <h1 className="pk-search-page__title">
           {term ? (
-            <>
-              {t('search_results_h', {term: `“${term}”`})}
-            </>
+            <>{t('search_results_h', {term: `“${term}”`})}</>
           ) : (
             t('search_results_h_fallback')
           )}
@@ -111,7 +112,10 @@ export default function SearchPage() {
                 // eslint-disable-next-line jsx-a11y/no-autofocus
                 autoFocus
               />
-              <button type="submit" className="pk-search__submit pk-search__submit--page">
+              <button
+                type="submit"
+                className="pk-search__submit pk-search__submit--page"
+              >
                 {t('search_submit')}
               </button>
             </div>
@@ -136,9 +140,7 @@ export default function SearchPage() {
               </Link>
             ))}
           </div>
-          <div className="pk-search-zero__hint">
-            {t('search_zero_hint')}
-          </div>
+          <div className="pk-search-zero__hint">{t('search_zero_hint')}</div>
         </div>
       ) : (
         <SearchResults result={result} term={term}>
@@ -331,7 +333,6 @@ async function regularSearch({request, context}) {
 
   // Search articles, pages, and products for the `q` term
   const {errors, ...items} = await storefront.query(SEARCH_QUERY, {
-    cache: CacheNone(),
     variables: {...variables, country, language, term},
   });
 
@@ -349,13 +350,21 @@ async function regularSearch({request, context}) {
     items.products = {
       ...items.products,
       nodes: diversifyByVendor(launchProducts),
-      pageInfo: {...items.products.pageInfo, hasPreviousPage: false, hasNextPage: false},
+      pageInfo: {
+        ...items.products.pageInfo,
+        hasPreviousPage: false,
+        hasNextPage: false,
+      },
     };
   } else {
     items.products = {
       ...items.products,
       nodes: launchProducts,
-      pageInfo: {...items.products?.pageInfo, hasPreviousPage: false, hasNextPage: false},
+      pageInfo: {
+        ...items.products?.pageInfo,
+        hasPreviousPage: false,
+        hasNextPage: false,
+      },
     };
   }
 
@@ -426,6 +435,7 @@ const PREDICTIVE_SEARCH_PRODUCT_FRAGMENT = `#graphql
     id
     title
     handle
+    tags
     availableForSale
     trackingParameters
     selectedOrFirstAvailableVariant(
@@ -518,7 +528,6 @@ async function predictiveSearch({request, context}) {
   const {predictiveSearch: items, errors} = await storefront.query(
     PREDICTIVE_SEARCH_QUERY,
     {
-      cache: CacheNone(),
       variables: {
         // customize search options as needed
         country,

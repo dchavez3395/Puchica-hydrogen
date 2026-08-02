@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import {redirect, useLoaderData, useSearchParams} from 'react-router';
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
-import {Analytics, CacheNone, getPaginationVariables, Image} from '@shopify/hydrogen';
+import {getPaginationVariables, Analytics, Image} from '@shopify/hydrogen';
 import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 import {puchicaMeta} from '~/lib/seo';
@@ -106,7 +106,7 @@ async function loadCriticalData({context, params, request}) {
   };
 
   const [{collection}] = await Promise.all([
-    storefront.query(COLLECTION_QUERY, {cache: CacheNone(), variables}),
+    storefront.query(COLLECTION_QUERY, {variables}),
   ]);
 
   if (!collection) {
@@ -261,6 +261,7 @@ export default function Collection() {
           />
           <PaginatedResourceSection
             connection={collection.products}
+            showSummary={false}
             resourcesClassName={
               'pk-prod-grid' + (density === 3 ? ' pk-prod-grid--3' : '')
             }
@@ -269,7 +270,7 @@ export default function Collection() {
               <ProductItem
                 key={product.id}
                 product={product}
-                loading={index < 8 ? 'eager' : undefined}
+                loading={index < 2 ? 'eager' : 'lazy'}
               />
             )}
           </PaginatedResourceSection>

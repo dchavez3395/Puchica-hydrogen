@@ -1,5 +1,3 @@
-import {useLocation} from 'react-router';
-import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {useT} from '~/lib/t';
 import {IconGift} from '~/components/Icons';
 
@@ -19,9 +17,6 @@ import {IconGift} from '~/components/Icons';
  */
 export function OfferCallout({style}) {
   const t = useT();
-  const location = useLocation();
-  const returnTo = `${location.pathname}${location.search}`;
-  const applyUrl = `/discount/FIRST15?redirect=${encodeURIComponent(returnTo)}`;
   return (
     <div
       role="note"
@@ -41,21 +36,8 @@ export function OfferCallout({style}) {
         ...style,
       }}
     >
-      <IconGift size={18} />
-      <span style={{flex: 1}}>{t('offer_first15')}</span>
-      <Link
-        to={applyUrl}
-        prefetch="intent"
-        style={{
-          flex: '0 0 auto',
-          color: '#321F9F',
-          fontWeight: 800,
-          textDecoration: 'underline',
-          textUnderlineOffset: 3,
-        }}
-      >
-        {t('offer_apply_first15')}
-      </Link>
+      <IconGift size={18} aria-hidden />
+      <span>{t('offer_first15')}</span>
     </div>
   );
 }

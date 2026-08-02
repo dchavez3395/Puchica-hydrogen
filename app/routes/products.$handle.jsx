@@ -1,24 +1,23 @@
-import {useEffect, useRef, useState} from 'react';
-import {useLoaderData, useParams} from 'react-router';
+import {useEffect, useState} from 'react';
+import {useLoaderData} from 'react-router';
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {
   getSelectedProductOptions,
   Analytics,
-  CacheNone,
   useOptimisticVariant,
   getProductOptions,
   getAdjacentAndFirstAvailableVariants,
   useSelectedOptionInUrlParam,
+  Image,
 } from '@shopify/hydrogen';
 import {ProductPrice} from '~/components/ProductPrice';
 import {ProductImage} from '~/components/ProductImage';
 import {ProductForm} from '~/components/ProductForm';
+import {AddToCartButton} from '~/components/AddToCartButton';
 import {
   IconTruck,
   IconReturn,
   IconShield,
-  IconShare,
-  IconCheck,
   IconChevronRight,
 } from '~/components/Icons';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
@@ -28,17 +27,21 @@ import {ReviewStars, JudgemeReviews} from '~/components/JudgemeReviews';
 import {recordRecentlyViewed} from '~/lib/recentlyViewed';
 import {useT} from '~/lib/t';
 import {isLaunchReadyProduct} from '~/lib/launch-catalog';
-import {localizePath} from '~/lib/i18n';
+import {presentProductTitle} from '~/lib/product-presentation';
 
 /** @type {Route.MetaFunction} */
 export const meta = ({data, params}) => {
   if (!data?.product) return [{title: 'Puchica'}];
   const seo = data.product.seo || {};
+  const productTitle = presentProductTitle(data.product.title);
+  const storedDescription = seo.description || '';
   const title = seo.title || `${data.product.title} – Puchica`;
   const description =
-    seo.description ||
+    (/u\.?s\.? shipping only/i.test(storedDescription)
+      ? ''
+      : storedDescription) ||
     (data.product.description || '').slice(0, 160) ||
-    `Shop ${data.product.title} from Puchica.`;
+    `Shop ${productTitle} from Puchica. Shipping options for Canada and the United States are shown at checkout.`;
   const image = data.product.featuredImage?.url;
   const pathname = `/products/${data.product.handle}`;
   return puchicaMeta({title, description, image, type: 'product', pathname, langKey: params?.locale});
@@ -57,7 +60,6 @@ async function loadCriticalData({context, params, request}) {
   const {country, language} = storefront.i18n;
 
   const productResp = await storefront.query(PRODUCT_QUERY, {
-    cache: CacheNone(),
     variables: {country, handle, language, selectedOptions: getSelectedProductOptions(request)},
   });
 
@@ -74,9 +76,8 @@ async function loadCriticalData({context, params, request}) {
 
 export default function Product() {
   const {product, reviews} = useLoaderData();
-  const {locale} = useParams();
-  const langKey = locale || 'en';
   const t = useT();
+  const need = getProductNeed(product, t);
 
   const selectedVariant = useOptimisticVariant(
     product.selectedOrFirstAvailableVariant,
@@ -90,14 +91,10 @@ export default function Product() {
   });
 
   const {title, descriptionHtml} = product;
+  const displayTitle = presentProductTitle(title, selectedVariant);
+  const summary = productSummary(product.description);
   const galleryImages = buildGallery(product, selectedVariant);
-  const jsonLd = buildJsonLd(
-    product,
-    selectedVariant,
-    reviews,
-    galleryImages,
-    langKey,
-  );
+  const jsonLd = buildJsonLd(product, selectedVariant, reviews, galleryImages);
 
   // Record the view for the search sheet's "recently viewed" row.
   // Keyed on product.id so variant switches don't re-record.
@@ -117,9 +114,7 @@ export default function Product() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{__html: JSON.stringify(jsonLd)}}
       />
-      <JsonLdScript
-        data={breadcrumbJsonLd(buildBreadcrumbItems(product, title, t), langKey)}
-      />
+      <JsonLdScript data={breadcrumbJsonLd(buildBreadcrumbItems(product, displayTitle, t))} />
 
       {/* ── Product hero band — full-bleed warm header with volcanic
           texture, breadcrumbs, festival stripe separator. Contains
@@ -130,19 +125,32 @@ export default function Product() {
             <Link to="/">{t('breadcrumb_home')}</Link>
             <span className="pk-breadcrumbs__sep">/</span>
             <Link to="/collections/all">{t('breadcrumb_shop')}</Link>
-            {product.productType ? (
+            {need ? (
               <>
                 <span className="pk-breadcrumbs__sep">/</span>
-                <Link to={productTypeUrl(product.productType)}>
-                  {product.productType}
-                </Link>
+                <Link to={need.url}>{need.label}</Link>
               </>
             ) : null}
             <span className="pk-breadcrumbs__sep">/</span>
-            <span className="pk-breadcrumbs__current">{title}</span>
+            <span className="pk-breadcrumbs__current">{displayTitle}</span>
           </nav>
 
           <div className="pk-product__top">
+            <div className="pk-product__mobile-heading">
+              {need ? (
+                <p className="pk-product__category">{need.label}</p>
+              ) : null}
+              <h1 className="pk-product__title">{displayTitle}</h1>
+              {reviews && reviews.count > 0 ? (
+                <ReviewStars rating={reviews.rating} count={reviews.count} />
+              ) : null}
+              <div className="pk-product__price-row">
+                <ProductPrice
+                  price={selectedVariant?.price}
+                  compareAtPrice={selectedVariant?.compareAtPrice}
+                />
+              </div>
+            </div>
             <ProductImage
               images={galleryImages}
               initialIndex={0}
@@ -152,19 +160,22 @@ export default function Product() {
             />
 
             <div className="pk-product__info">
+          <div className="pk-product__desktop-heading">
           {/* Buy column in funnel order (audit §4): category → title →
               rating → price (+ save %) → options/qty/ATC → promise →
               trust → accordions. No scroll reveals — the buy column
               is the money UI; it must never be hidden by an observer. */}
-          {product.productType ? (
-            <p className="pk-product__category">{product.productType}</p>
+          {need ? (
+            <p className="pk-product__category">{need.label}</p>
           ) : null}
 
-          <h1 className="pk-product__title">{title}</h1>
+          <h1 className="pk-product__title">{displayTitle}</h1>
 
           {reviews && reviews.count > 0 ? (
             <ReviewStars rating={reviews.rating} count={reviews.count} />
           ) : null}
+
+          {summary ? <p className="pk-product__lede">{summary}</p> : null}
 
           <div className="pk-product__price-cluster">
             <div className="pk-product__price-row">
@@ -184,6 +195,11 @@ export default function Product() {
               )}
             </div>
           </div>
+          </div>
+
+          {summary ? (
+            <p className="pk-product__lede pk-product__lede--mobile">{summary}</p>
+          ) : null}
 
           <div className="pk-product__form-wrap" id="product-form">
             <ProductForm
@@ -222,45 +238,56 @@ export default function Product() {
                 <em>{t('product_trust_secure_sub')}</em>
               </span>
             </div>
-            <div className="pk-product__trust-item">
-              <span className="pk-product__trust-icon" aria-hidden>
-                <IconCheck size={14} />
-              </span>
-              <span className="pk-product__trust-copy">
-                <strong>{t('product_perk_curated')}</strong>
-              </span>
-            </div>
           </div>
 
           {/* ── Accordions — description first (it's the purchase
               decision content), then specs, then policy copy. Inside
               the buy column so everything a shopper needs to decide
               lives in one scannable column (audit §4). */}
-          <div className="pk-pdetails">
-            <DetailsAccordion title={t('product_tab_description')} defaultOpen>
-              <div
-                className="pk-pdetails__desc"
-                dangerouslySetInnerHTML={{__html: descriptionHtml}}
-              />
-            </DetailsAccordion>
-            <DetailsAccordion title={t('product_tab_specs')}>
-              <Specs product={product} t={t} />
-            </DetailsAccordion>
-            <DetailsAccordion title={t('product_tab_shipping')}>
-              <Shipping t={t} />
-            </DetailsAccordion>
-          </div>
-
-          <ShareRow product={product} t={t} />
             </div>
           </div>
         </div>
       </div>
 
-      <JudgemeReviews
-        externalId={reviews?.externalId}
-        productTitle={product.title}
-      />
+      <section className="pk-product__details-section" aria-labelledby="product-details-heading">
+        <div className="pk-product__details-story">
+          <div className="pk-product__details-intro">
+            <p className="pk-product__category">{need?.label || t('breadcrumb_shop')}</p>
+            <h2 id="product-details-heading">{t('product_story_title')}</h2>
+            {galleryImages[1] ? (
+              <div className="pk-product__details-visual">
+                <Image
+                  data={galleryImages[1]}
+                  alt={galleryImages[1].altText || displayTitle}
+                  aspectRatio="4/3"
+                  sizes="(min-width: 60em) 34rem, 100vw"
+                  loading="lazy"
+                />
+              </div>
+            ) : null}
+          </div>
+          <div className="pk-pdetails">
+            <div className="pk-product__description-card">
+              <div
+                className="pk-pdetails__desc"
+                dangerouslySetInnerHTML={{__html: descriptionHtml}}
+              />
+            </div>
+          </div>
+          <div className="pk-product__details-shipping">
+            <DetailsAccordion title={t('product_tab_shipping')}>
+              <Shipping t={t} />
+            </DetailsAccordion>
+          </div>
+        </div>
+      </section>
+
+      {reviews?.count > 0 ? (
+        <JudgemeReviews
+          externalId={reviews.externalId}
+          productTitle={product.title}
+        />
+      ) : null}
 
       <MobileCart product={product} selectedVariant={selectedVariant} t={t} />
 
@@ -270,7 +297,6 @@ export default function Product() {
             id: product.id,
             title: product.title,
             price: selectedVariant?.price?.amount || '0',
-            currency: selectedVariant?.price?.currencyCode || 'USD',
             vendor: product.vendor,
             variantId: selectedVariant?.id || '',
             variantTitle: selectedVariant?.title || '',
@@ -288,7 +314,9 @@ function DetailsAccordion({title, children, defaultOpen = false}) {
     <details className="pk-accordion" open={defaultOpen || undefined}>
       <summary className="pk-accordion__trigger">
         <span>{title}</span>
-        <IconChevronRight size={16} className="pk-accordion__chevron" />
+        <span className="pk-accordion__indicator" aria-hidden="true">
+          <IconChevronRight size={18} className="pk-accordion__chevron" />
+        </span>
       </summary>
       <div className="pk-accordion__body">{children}</div>
     </details>
@@ -306,29 +334,6 @@ function savePercent(variant) {
 }
 
 /* ── Specs table ── */
-function Specs({product, t}) {
-  const rows = [
-    product.vendor && [t('product_spec_vendor'), product.vendor],
-    product.productType && [t('product_spec_category'), product.productType],
-  ].filter(Boolean);
-
-  if (rows.length === 0) {
-    return <p className="pk-pdetails__empty">{t('product_specs_empty')}</p>;
-  }
-  return (
-    <table className="pk-pdetails__table">
-      <tbody>
-        {rows.map(([label, value]) => (
-          <tr key={label}>
-            <th scope="row">{label}</th>
-            <td>{value}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  );
-}
-
 /* ── Shipping & Returns copy ── */
 function Shipping({t}) {
   const helpBody = t('product_help_body');
@@ -350,55 +355,8 @@ function Shipping({t}) {
   );
 }
 
-/* ── Share ── */
-function ShareRow({product, t}) {
-  const [copied, setCopied] = useState(false);
-  const url = typeof window !== 'undefined' ? window.location.href : '';
-  // The Web Share API label must be resolved AFTER mount. Checking
-  // navigator.share during render makes the server ("Copy link") and client
-  // ("Share") disagree, which triggers a hydration mismatch that forces the
-  // ENTIRE root to re-render on the client. Start false (matches SSR), upgrade
-  // after hydration.
-  const [canShare, setCanShare] = useState(false);
-  useEffect(() => {
-    setCanShare(typeof navigator !== 'undefined' && !!navigator.share);
-  }, []);
-
-  const onShare = async () => {
-    if (typeof navigator !== 'undefined' && navigator.share) {
-      try {
-        await navigator.share({title: product.title, url});
-      } catch {
-        // User-cancelled or share API unavailable — fall through to the
-        // clipboard branch below.
-      }
-    } else {
-      try {
-        await navigator.clipboard.writeText(url);
-        setCopied(true);
-        setTimeout(() => setCopied(false), 1800);
-      } catch {
-        // Clipboard write blocked (insecure context / permission denied).
-        // Fall back silently — the share row still renders the link.
-      }
-    }
-  };
-
-  return (
-    <div className="pk-share">
-      <span>{t('product_share_label')}</span>
-      <button type="button" className="pk-share__btn" onClick={onShare}>
-        <IconShare size={14} />
-        {canShare ? t('product_share_btn') : t('product_copy_link')}
-      </button>
-      {copied && <span className="pk-share__copied">{t('product_link_copied')}</span>}
-    </div>
-  );
-}
-
 /* ── Sticky mobile ATC ── */
 function MobileCart({product, selectedVariant, t}) {
-  const ref = useRef(null);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -419,15 +377,10 @@ function MobileCart({product, selectedVariant, t}) {
     return () => window.removeEventListener('scroll', onScroll);
   }, [product.id, selectedVariant?.id]);
 
-  if (!selectedVariant) return null;
+  if (!selectedVariant || !visible) return null;
 
   return (
-    <div
-      ref={ref}
-      className="pk-mob-cart"
-      data-visible={visible ? 'true' : 'false'}
-      aria-hidden={!visible}
-    >
+    <div className="pk-mob-cart" data-visible="true">
       <div className="pk-mob-cart__left">
         <p className="pk-mob-cart__title">{product.title}</p>
         <span className="pk-mob-cart__price">
@@ -437,21 +390,19 @@ function MobileCart({product, selectedVariant, t}) {
           />
         </span>
       </div>
-      <button
-        type="button"
-        className="pk-btn pk-btn--primary pk-mob-cart__btn"
-        disabled={!selectedVariant.availableForSale}
-        tabIndex={visible ? 0 : -1}
-        onClick={() => {
-          const form = document.getElementById('product-form');
-          if (form instanceof HTMLElement) {
-            form.scrollIntoView({behavior: 'smooth', block: 'center'});
-            window.setTimeout(() => form.querySelector('button[type="submit"]')?.click(), 280);
-          }
-        }}
+      <div className="pk-mob-cart__btn">
+        <AddToCartButton
+          disabled={!selectedVariant.availableForSale}
+          lines={selectedVariant.availableForSale ? [{
+            merchandiseId: selectedVariant.id,
+            quantity: 1,
+            selectedVariant,
+          }] : []}
+          addedLabel={null}
       >
         {selectedVariant.availableForSale ? t('product_add_to_cart') : t('product_sold_out')}
-      </button>
+        </AddToCartButton>
+      </div>
     </div>
   );
 }
@@ -472,37 +423,43 @@ function buildGallery(product, selectedVariant) {
 
 function buildBreadcrumbItems(product, title, t) {
   const items = [{name: t('breadcrumb_home'), url: '/'}, {name: t('breadcrumb_shop'), url: '/collections/all'}];
-  if (product.productType) {
-    items.push({name: product.productType, url: productTypeUrl(product.productType)});
+  const need = getProductNeed(product, t);
+  if (need) {
+    items.push({name: need.label, url: need.url});
   }
   items.push({name: title, url: `/products/${product.handle}`});
   return items;
 }
 
-function productTypeUrl(productType) {
-  const collectionByType = {
-    'Apparel & Accessories': '/collections/apparel-accessories',
-    'Baby & Nursery': '/collections/baby-nursery',
-    'Beauty & Grooming': '/collections/beauty-personal-care',
-    'Home & Kitchen': '/collections/home-kitchen',
-    'Home Decor': '/collections/home-decor',
-    'Pet Supplies': '/collections/pet-supplies',
-    'Sports & Outdoors': '/collections/sports-outdoors',
-    'Toys & Games': '/collections/toys-games',
+function getProductNeed(product, t) {
+  const haystack = `${product?.productType || ''} ${product?.title || ''}`;
+  if (/cable|cord|charger|electronic/i.test(haystack)) {
+    return {
+      label: t('megamenu_intent_cable_title'),
+      url: '/search?q=cable%20organizer',
+    };
+  }
+  if (/travel|packing|luggage|bag|pouch/i.test(haystack)) {
+    return {
+      label: t('megamenu_intent_travel_title'),
+      url: '/search?q=packing%20cubes',
+    };
+  }
+  return {
+    label: t('megamenu_intent_home_title'),
+    url: '/search?q=under%20sink%20organizer',
   };
-  return collectionByType[productType] || `/collections/all?productType=${encodeURIComponent(productType)}`;
 }
 
-function buildJsonLd(
-  product,
-  selectedVariant,
-  reviews,
-  galleryImages,
-  langKey = 'en',
-) {
-  const productUrl = canonical(
-    localizePath(`/products/${product.handle}`, langKey),
-  );
+function productSummary(description) {
+  const clean = String(description || '').replace(/\s+/g, ' ').trim();
+  if (!clean) return '';
+  const firstSentence = clean.match(/^.*?[.!?](?:\s|$)/)?.[0]?.trim();
+  return firstSentence || clean.slice(0, 180).trim();
+}
+
+function buildJsonLd(product, selectedVariant, reviews, galleryImages) {
+  const productUrl = canonical(`/products/${product.handle}`);
   const price = selectedVariant?.price;
   // Expose the full gallery (deduped, capped) so Google rich results / Merchant
   // listings can show multiple images — falls back to the featured image.
@@ -521,10 +478,6 @@ function buildJsonLd(
         ? [product.featuredImage.url]
         : undefined,
     sku: selectedVariant?.sku || product.handle,
-    brand:
-      product.vendor && product.vendor !== 'Puchica'
-        ? {'@type': 'Brand', name: product.vendor}
-        : undefined,
     seller: {'@type': 'Organization', name: 'Puchica', url: SITE_URL},
     aggregateRating: reviews?.count > 0
       ? {'@type': 'AggregateRating', ratingValue: reviews.rating, reviewCount: reviews.count}
@@ -564,7 +517,7 @@ const PRODUCT_VARIANT_FRAGMENT = `#graphql
 
 const PRODUCT_FRAGMENT = `#graphql
   fragment Product on Product {
-    id title vendor handle descriptionHtml description productType tags availableForSale
+    id title vendor handle descriptionHtml description productType availableForSale tags
     encodedVariantExistence encodedVariantAvailability
     featuredImage { id url altText width height }
     images(first: 10) {

@@ -1,30 +1,16 @@
-import {CartForm, Money, useAnalytics} from '@shopify/hydrogen';
+import {CartForm, useAnalytics} from '@shopify/hydrogen';
+import {CurrencyMoney} from '~/components/CurrencyMoney';
 import {useEffect, useId, useRef, useState} from 'react';
-import {useFetcher} from 'react-router';
+import {useActionData, useFetcher, useRouteLoaderData} from 'react-router';
 import {CHECKOUT_URL_REWRITER} from '~/lib/checkout';
 import {useT} from '~/lib/t';
-import {OfferCallout} from '~/components/OfferCallout';
-
-const DISABLED_CHECKOUT_STYLE = {
-  display: 'block',
-  width: '100%',
-  padding: '14px 16px',
-  border: 0,
-  borderRadius: 10,
-  background: 'var(--pk-paper-dark, #E8DFCB)',
-  color: 'var(--pk-muted)',
-  fontSize: 15,
-  fontWeight: 800,
-  letterSpacing: '0.02em',
-  textAlign: 'center',
-  cursor: 'not-allowed',
-};
 
 /**
  * @param {CartSummaryProps}
  */
 export function CartSummary({cart, layout, hasCheckoutableItems = true}) {
   const t = useT();
+  const rootData = useRouteLoaderData('root');
   const className =
     layout === 'page' ? 'cart-summary-page' : 'cart-summary-aside';
   const summaryId = useId();
@@ -40,58 +26,50 @@ export function CartSummary({cart, layout, hasCheckoutableItems = true}) {
         <dt>{t('cart_summary_subtotal')}</dt>
         <dd>
           {cart?.cost?.subtotalAmount?.amount ? (
-            <Money data={cart?.cost?.subtotalAmount} />
+            <CurrencyMoney data={cart?.cost?.subtotalAmount} />
           ) : (
             '-'
           )}
         </dd>
       </dl>
-      {hasCheckoutableItems ? <OfferCallout style={{margin: '0 0 12px'}} /> : null}
-      <CartCheckoutActions
-        checkoutUrl={CHECKOUT_URL_REWRITER(cart?.checkoutUrl)}
-        disabled={!hasCheckoutableItems}
-        cart={cart}
-      />
       <CartDiscounts
         discountCodes={cart?.discountCodes}
         discountsHeadingId={discountsHeadingId}
         discountCodeInputId={discountCodeInputId}
       />
+      <CartActionErrors />
       <CartGiftCard
         giftCardCodes={cart?.appliedGiftCards}
         giftCardHeadingId={giftCardHeadingId}
         giftCardInputId={giftCardInputId}
+      />
+      <CartCheckoutActions
+        cart={cart}
+        checkoutUrl={CHECKOUT_URL_REWRITER(cart?.checkoutUrl, {
+          ...rootData?.selectedLocale,
+          checkoutDomain: rootData?.consent?.checkoutDomain,
+        })}
+        disabled={!hasCheckoutableItems}
       />
     </div>
   );
 }
 
 /**
- * @param {{checkoutUrl?: string; disabled?: boolean; cart?: CartApiQueryFragment}}
+ * @param {{cart?: CartApiQueryFragment; checkoutUrl?: string; disabled?: boolean}}
  */
-function CartCheckoutActions({checkoutUrl, disabled = false, cart}) {
+function CartCheckoutActions({cart, checkoutUrl, disabled = false}) {
   const t = useT();
-  const {publish, shop, prevCart} = useAnalytics();
+  const {publish} = useAnalytics();
   if (!checkoutUrl) {
-    // Empty and ghost carts intentionally have no checkout action. A cart
-    // with checkoutable items is different: keep the missing URL visible as
-    // a recoverable error so the shopper is not left at a dead end.
     if (disabled) return null;
 
     return (
       <div className="cart-summary-checkout">
-        <button
-          type="button"
-          disabled
-          className="is-disabled"
-          style={DISABLED_CHECKOUT_STYLE}
-        >
-          {t('cart_summary_checkout_unavailable_btn')}
-        </button>
         <p className="pk-cart-error" role="status">
-          {t('cart_summary_checkout_unavailable_help')}{' '}
+          {t('cart_checkout_unavailable')}{' '}
           <button type="button" onClick={() => window.location.reload()}>
-            {t('cart_summary_checkout_retry')}
+            {t('cart_checkout_retry')}
           </button>
         </p>
       </div>
@@ -110,21 +88,16 @@ function CartCheckoutActions({checkoutUrl, disabled = false, cart}) {
             e.preventDefault();
             return;
           }
-          publish('checkout_started', {
-            cart,
-            prevCart,
-            shop,
-            url: window.location.href || '',
-          });
+          publish('custom_checkout_started', {cart});
         }}
       >
-        {disabled
-          ? t('cart_summary_empty_btn')
-          : (
-            <>
-              {t('cart_summary_checkout_btn')} <span aria-hidden>&rarr;</span>
-            </>
-          )}
+        {disabled ? (
+          t('cart_summary_empty_btn')
+        ) : (
+          <>
+            {t('cart_summary_checkout_btn')} <span aria-hidden>&rarr;</span>
+          </>
+        )}
       </a>
     </div>
   );
@@ -137,18 +110,19 @@ function CartCheckoutActions({checkoutUrl, disabled = false, cart}) {
  * things like "promo code not valid" disappeared). Renders nothing
  * if there's nothing to show.
  */
-function CartActionErrors({errors, fallback}) {
-  const message = Array.isArray(errors)
-    ? errors
-        .map((error) =>
-          typeof error === 'string' ? error : error?.message,
-        )
-        .filter(Boolean)[0]
-    : null;
-  if (!message && !fallback) return null;
+function CartActionErrors() {
+  const actionData = useActionData();
+  const errors = actionData?.errors;
+  if (!Array.isArray(errors) || errors.length === 0) return null;
+  // The Hydrogen Cart helpers return errors as either strings or
+  // `{message, code, field}` objects depending on the action.
+  const message = errors
+    .map((e) => (typeof e === 'string' ? e : e?.message))
+    .filter(Boolean)[0];
+  if (!message) return null;
   return (
     <p className="pk-cart-error" role="alert">
-      {message || fallback}
+      {message}
     </p>
   );
 }
@@ -172,10 +146,7 @@ function CartDiscounts({
       ?.map(({code}) => code) || [];
 
   return (
-    <section
-      className="cart-summary-adjustment"
-      aria-label={t('cart_summary_discounts_aria')}
-    >
+    <section aria-label={t('cart_summary_discounts_aria')}>
       {/* Have existing discount, display it with a remove option */}
       <dl hidden={!codes.length}>
         <div>
@@ -188,7 +159,10 @@ function CartDiscounts({
             >
               <code>{codes?.join(', ')}</code>
               &nbsp;
-              <button type="submit" aria-label={t('cart_summary_remove_discount')}>
+              <button
+                type="submit"
+                aria-label={t('cart_summary_remove_discount')}
+              >
                 {t('cart_summary_remove')}
               </button>
             </div>
@@ -196,48 +170,28 @@ function CartDiscounts({
         </div>
       </dl>
 
-      {/* Keep optional entry compact so subtotal and checkout remain primary. */}
-      <details className="cart-summary-disclosure">
-        <summary>{t('cart_summary_promo_label')}</summary>
-        <UpdateDiscountForm discountCodes={codes}>
-          {(fetcher) => {
-            const hasInapplicableCode =
-              fetcher.state === 'idle' &&
-              fetcher.data?.cart?.discountCodes?.some(
-                (discount) => !discount.applicable,
-              );
-            return (
-              <>
-                <div className="cart-summary-field">
-                  <label htmlFor={discountCodeInputId}>
-                    {t('cart_summary_promo_label')}
-                  </label>
-                  <div className="cart-summary-field__row">
-                    <input
-                      id={discountCodeInputId}
-                      type="text"
-                      name="discountCode"
-                      placeholder={t('cart_summary_promo_placeholder')}
-                    />
-                    <button
-                      type="submit"
-                      aria-label={t('cart_summary_promo_apply_aria')}
-                    >
-                      {t('cart_summary_promo_apply')}
-                    </button>
-                  </div>
-                </div>
-                <CartActionErrors
-                  errors={fetcher.data?.errors}
-                  fallback={
-                    hasInapplicableCode ? t('cart_summary_promo_invalid') : null
-                  }
-                />
-              </>
-            );
-          }}
-        </UpdateDiscountForm>
-      </details>
+      {/* Show an input to apply a discount */}
+      <UpdateDiscountForm discountCodes={codes}>
+        <div className="cart-summary-field">
+          <label htmlFor={discountCodeInputId}>
+            {t('cart_summary_promo_label')}
+          </label>
+          <div className="cart-summary-field__row">
+            <input
+              id={discountCodeInputId}
+              type="text"
+              name="discountCode"
+              placeholder={t('cart_summary_promo_placeholder')}
+            />
+            <button
+              type="submit"
+              aria-label={t('cart_summary_promo_apply_aria')}
+            >
+              {t('cart_summary_promo_apply')}
+            </button>
+          </div>
+        </div>
+      </UpdateDiscountForm>
     </section>
   );
 }
@@ -257,9 +211,7 @@ function UpdateDiscountForm({discountCodes, children}) {
         discountCodes: discountCodes || [],
       }}
     >
-      {(fetcher) =>
-        typeof children === 'function' ? children(fetcher) : children
-      }
+      {children}
     </CartForm>
   );
 }
@@ -320,10 +272,7 @@ function CartGiftCard({giftCardCodes, giftCardHeadingId, giftCardInputId}) {
   };
 
   return (
-    <section
-      className="cart-summary-adjustment"
-      aria-label={t('cart_summary_gift_aria')}
-    >
+    <section aria-label={t('cart_summary_gift_aria')}>
       {giftCardCodes && giftCardCodes.length > 0 && (
         <dl>
           <dt id={giftCardHeadingId}>{t('cart_summary_gift_h')}</dt>
@@ -343,39 +292,36 @@ function CartGiftCard({giftCardCodes, giftCardHeadingId, giftCardInputId}) {
               >
                 <code>***{giftCard.lastCharacters}</code>
                 &nbsp;
-                <Money data={giftCard.amountUsed} />
+                <CurrencyMoney data={giftCard.amountUsed} />
               </RemoveGiftCardForm>
             </dd>
           ))}
         </dl>
       )}
 
-      <details className="cart-summary-disclosure">
-        <summary>{t('cart_summary_gift_label')}</summary>
-        <AddGiftCardForm fetcherKey="gift-card-add">
-          <div className="cart-summary-field">
-            <label htmlFor={giftCardInputId}>
-              {t('cart_summary_gift_label')}
-            </label>
-            <div className="cart-summary-field__row">
-              <input
-                id={giftCardInputId}
-                type="text"
-                name="giftCardCode"
-                placeholder={t('cart_summary_gift_placeholder')}
-                ref={giftCardCodeInput}
-              />
-              <button
-                type="submit"
-                disabled={giftCardAddFetcher.state !== 'idle'}
-                aria-label={t('cart_summary_gift_apply_aria')}
-              >
-                {t('cart_summary_gift_apply')}
-              </button>
-            </div>
+      <AddGiftCardForm fetcherKey="gift-card-add">
+        <div className="cart-summary-field">
+          <label htmlFor={giftCardInputId}>
+            {t('cart_summary_gift_label')}
+          </label>
+          <div className="cart-summary-field__row">
+            <input
+              id={giftCardInputId}
+              type="text"
+              name="giftCardCode"
+              placeholder={t('cart_summary_gift_placeholder')}
+              ref={giftCardCodeInput}
+            />
+            <button
+              type="submit"
+              disabled={giftCardAddFetcher.state !== 'idle'}
+              aria-label={t('cart_summary_gift_apply_aria')}
+            >
+              {t('cart_summary_gift_apply')}
+            </button>
           </div>
-        </AddGiftCardForm>
-      </details>
+        </div>
+      </AddGiftCardForm>
     </section>
   );
 }

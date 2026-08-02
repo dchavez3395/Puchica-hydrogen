@@ -30,8 +30,14 @@ export async function getJudgemeBadge(handle) {
     `&shop_domain=${JUDGEME_SHOP_DOMAIN}` +
     `&handle=${encodeURIComponent(handle)}`;
 
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 1600);
+
   try {
-    const res = await fetch(url, {headers: {accept: 'application/json'}});
+    const res = await fetch(url, {
+      headers: {accept: 'application/json'},
+      signal: controller.signal,
+    });
     if (!res.ok) return null;
     const data = await res.json();
     const badge = String(data?.badge || '');
@@ -46,5 +52,7 @@ export async function getJudgemeBadge(handle) {
     return {rating: rating || 0, count: count || 0, externalId};
   } catch {
     return null;
+  } finally {
+    clearTimeout(timeout);
   }
 }

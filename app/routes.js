@@ -1,9 +1,7 @@
 import {flatRoutes} from '@react-router/fs-routes';
 import {hydrogenRoutes} from '@shopify/hydrogen';
 
-const fileRoutes = (await flatRoutes()).filter(
-  (route) => route.file !== 'routes/feed-resource.jsx',
-);
+const fileRoutes = await flatRoutes();
 
 export default hydrogenRoutes([
   // URL-based locales: every file route is mounted under an OPTIONAL `:locale?`
@@ -20,10 +18,7 @@ export default hydrogenRoutes([
   {
     path: ':locale?',
     file: 'components/LocaleBoundary.jsx',
-    children: [
-      ...fileRoutes,
-      {path: 'feed.xml', file: 'routes/feed-resource.jsx'},
-    ],
+    children: fileRoutes,
   },
 ]);
 

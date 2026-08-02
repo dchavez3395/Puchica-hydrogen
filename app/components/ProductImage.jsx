@@ -1,6 +1,6 @@
-import {useEffect, useRef, useState, useCallback} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {Image} from '@shopify/hydrogen';
-import {IconChevronLeft, IconChevronRight, IconZoomIn} from '~/components/Icons';
+import {IconChevronLeft, IconChevronRight} from '~/components/Icons';
 import {useT} from '~/lib/t';
 
 /**
@@ -46,8 +46,6 @@ export function ProductImage({
   const [index, setIndex] = useState(
     Math.min(Math.max(0, initialIndex), Math.max(0, list.length - 1)),
   );
-  const [zoom, setZoom] = useState(null); // {x, y} pointer pos, or null
-  const heroRef = useRef(null);
 
   // Sync the active thumbnail into view when it changes (native
   // scroll-snap strip — replaces the Embla carousel that used to
@@ -67,21 +65,10 @@ export function ProductImage({
 
   useEffect(() => {
     setIndex(0);
-    setZoom(null);
   }, [imageKey]);
 
   // Pointer handlers — defined unconditionally so the hook order is
   // stable. They no-op when there's no hero yet.
-  const onHeroPointerMove = useCallback((e) => {
-    if (e.pointerType !== 'mouse') return;
-    const rect = heroRef.current?.getBoundingClientRect();
-    if (!rect) return;
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    setZoom({x: Math.max(0, Math.min(100, x)), y: Math.max(0, Math.min(100, y))});
-  }, []);
-  const onHeroPointerLeave = useCallback(() => setZoom(null), []);
-
   if (list.length === 0) {
     return <div className="pk-product__hero" aria-hidden />;
   }
@@ -90,18 +77,7 @@ export function ProductImage({
   const go = (delta) => setIndex((i) => (i + delta + list.length) % list.length);
 
   // Aspect-ratio derivation (unchanged).
-  const nW = current.width;
-  const nH = current.height;
-  let heroRatio;
-  if (nW && nH) {
-    const sourceRatio = nW / nH;
-    if (sourceRatio < 0.95) heroRatio = sourceRatio;
-    else if (sourceRatio > 1.05) heroRatio = 1;
-    else heroRatio = 4 / 5;
-  } else {
-    heroRatio = 1;
-  }
-  const heroStyle = {aspectRatio: heroRatio.toFixed(4)};
+  const heroRatio = 1;
 
   // Inline accent color CSS variable — drives the subtle gradient
   // behind the hero. Falls back to brand ember if no metafield.
@@ -114,45 +90,15 @@ export function ProductImage({
       <div
         className="pk-product__hero-wrap"
       >
-          <div
-            ref={heroRef}
-            className={
-              'pk-product__hero' +
-              (zoom ? ' is-zooming' : '')
-            }
-            style={heroStyle}
-            onPointerMove={onHeroPointerMove}
-            onPointerLeave={onHeroPointerLeave}
-          >
+          <div className="pk-product__hero">
             <Image
               alt={current.altText || productTitle || t('pdp_img_alt_fallback')}
               data={current}
               aspectRatio={`${Math.round(heroRatio * 1000)}/1000`}
-              crop="top"
               sizes="(min-width: 60em) 600px, 100vw"
               loading={index === 0 ? 'eager' : 'lazy'}
               className="pk-product__hero-img"
             />
-            {zoom && (
-              <div
-                className="pk-product__hero-lens"
-                aria-hidden
-                style={{
-                  left: `${zoom.x}%`,
-                  top: `${zoom.y}%`,
-                  backgroundImage: `url(${current.url})`,
-                  backgroundPosition: `${zoom.x}% ${zoom.y}%`,
-                }}
-              />
-            )}
-
-            {list.length > 0 && (
-              <span className="pk-product__hero-zoom-hint" aria-hidden>
-                <IconZoomIn size={14} />
-                {t('pdp_zoom_hint')}
-              </span>
-            )}
-
             {list.length > 1 && (
               <>
                 <button
@@ -201,7 +147,7 @@ export function ProductImage({
                       data={img}
                       aspectRatio="1/1"
                       sizes="(max-width: 700px) 90px, 80px"
-                      loading={i < 4 ? 'eager' : 'lazy'}
+                      loading="lazy"
                     />
                   </button>
                 </li>

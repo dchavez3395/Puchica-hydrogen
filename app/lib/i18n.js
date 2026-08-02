@@ -35,6 +35,16 @@ export const LANGUAGE_KEYS = {
   PT_BR: 'pt-br',
 };
 
+// Puchica operates one North American storefront with two independently
+// priced buyer markets. The selected country drives Storefront API pricing,
+// currency, product availability, and the cart buyer identity.
+export const MARKETS = {
+  CA: {},
+  US: {},
+};
+
+export const MARKET_COOKIE = 'pk_market';
+
 /**
  * URL-based locales.
  *
@@ -119,7 +129,7 @@ const COUNTRY_DEFAULT_LANG = {
 
 export const LOCALE_COOKIE = 'pk_locale';
 
-const DEFAULT_LOCALE = {language: 'EN', country: 'US'};
+const DEFAULT_LOCALE = {language: 'EN', country: 'CA'};
 
 function readCookie(request, name) {
   const header = request.headers.get('Cookie') || '';
@@ -128,14 +138,19 @@ function readCookie(request, name) {
 }
 
 /**
- * Buyer country for Storefront API context.
- *
- * Shopify currently exposes only the US market. Pinning the context to US keeps
- * product availability, currency, cart, and checkout behavior consistent for
- * every request instead of asking the API for inactive markets based on IP.
+ * Supported buyer country from a saved choice or Oxygen geo. Falls back to CA.
+ * @param {Request} request
  */
-function buyerCountry() {
-  return DEFAULT_LOCALE.country;
+function buyerCountry(request) {
+  const chosen = readCookie(request, MARKET_COOKIE)?.toUpperCase();
+  if (chosen && MARKETS[chosen]) return chosen;
+
+  const geoCountry =
+    request.headers.get('oxygen-buyer-country') ||
+    request.headers.get('Oxygen-Buyer-Country') ||
+    '';
+  const country = geoCountry.toUpperCase();
+  return MARKETS[country] ? country : DEFAULT_LOCALE.country;
 }
 
 /**
@@ -159,4 +174,50 @@ export function getLocaleFromRequest(request) {
     // 4. English
     DEFAULT_LOCALE.language;
   return {language, country};
+}
+
+/**
+ * Reconcile the requested country with the market Shopify actually resolved.
+ * Storefront API can silently fall back to another market when the requested
+ * country is not published to the current storefront. Never infer currency
+ * from a country code; only surface the currency returned by Shopify.
+ *
+ * @param {{language?: string, country?: string}} requestedLocale
+ * @param {{
+ *   country?: {isoCode?: string, currency?: {isoCode?: string}};
+ *   availableCountries?: Array<{isoCode?: string, currency?: {isoCode?: string}}>;
+ * } | null | undefined} localization
+ */
+export function resolveStorefrontLocale(requestedLocale, localization) {
+  const requestedCountry = String(
+    requestedLocale?.country || DEFAULT_LOCALE.country,
+  ).toUpperCase();
+  const resolvedCountry = String(
+    localization?.country?.isoCode || requestedCountry,
+  ).toUpperCase();
+  const currency = localization?.country?.currency?.isoCode || null;
+  const availableMarkets = (localization?.availableCountries || [])
+    .filter((country) => MARKETS[country?.isoCode])
+    .map((country) => ({
+      country: country.isoCode,
+      currency: country.currency?.isoCode || null,
+    }));
+
+  return {
+    language: requestedLocale?.language || DEFAULT_LOCALE.language,
+    country: resolvedCountry,
+    currency,
+    requestedCountry,
+    marketFallback: resolvedCountry !== requestedCountry,
+    availableMarkets,
+  };
+}
+
+/** @param {{country?: string, currency?: string | null, language?: string}} locale */
+export function marketDisplayLabel(locale) {
+  const country = locale?.country || DEFAULT_LOCALE.country;
+  const language = String(locale?.language || DEFAULT_LOCALE.language)
+    .replace('_BR', '')
+    .toUpperCase();
+  return [country, locale?.currency, language].filter(Boolean).join(' · ');
 }

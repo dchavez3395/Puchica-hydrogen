@@ -1,17 +1,18 @@
 {
+  "extends": "./jsconfig.json",
   "compilerOptions": {
     "allowJs": true,
-    "checkJs": false,
-    "target": "ES2022",
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
     "jsx": "react-jsx",
-    "baseUrl": ".",
-    "paths": {
-      "~/*": ["app/*"]
-    },
-    "types": ["@shopify/oxygen-workers-types"]
+    "noEmit": true
   },
-  "include": ["app/**/*", "tests/**/*", "env.d.ts", ".react-router/types/**/*"],
-  "exclude": ["node_modules", "dist"]
+  "include": [
+    "env.d.ts",
+    "app/**/*",
+    "tests/**/*",
+    "*.js",
+    "*.jsx",
+    "*.ts",
+    "*.tsx",
+    ".react-router/types/**/*"
+  ]
 }

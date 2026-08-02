@@ -1,5 +1,10 @@
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
-import {IconReturn, IconShield, IconSparkles, IconTruck} from '~/components/Icons';
+import {
+  IconReturn,
+  IconShield,
+  IconSparkles,
+  IconTruck,
+} from '~/components/Icons';
 
 const items = [
   {
@@ -11,7 +16,7 @@ const items = [
   },
   {
     icon: IconReturn,
-    title: 'See return policy',
+    title: '30-day returns',
     body: 'Not the right fit? Start with the refund policy and contact support if anything arrives wrong.',
     link: '/policies/refund-policy',
     cta: 'Refund policy',
@@ -34,21 +39,29 @@ const items = [
 
 export function StoreConfidence() {
   return (
-    <section className="pk-section pk-section--store-confidence" aria-label="Why shop Puchica">
+    <section
+      className="pk-section pk-section--store-confidence"
+      aria-label="Why shop Puchica"
+    >
       <div className="pk-section__inner">
         <div className="pk-confidence">
           <div className="pk-confidence__copy">
             <span className="pk-eyebrow">Why shop here</span>
             <h2>Built to feel like a real store, not a mystery checkout.</h2>
             <p>
-              Puchica is a broad everyday store, so trust matters. Start with active
-              departments, see clear policies, and check out through Shopify when you
-              find the right thing.
+              Puchica is a broad everyday store, so trust matters. Start with
+              active departments, see clear policies, and check out through
+              Shopify when you find the right thing.
             </p>
           </div>
           <div className="pk-confidence__grid">
             {items.map(({icon: Icon, title, body, link, cta}) => (
-              <Link key={title} to={link} className="pk-confidence__card" prefetch="intent">
+              <Link
+                key={title}
+                to={link}
+                className="pk-confidence__card"
+                prefetch="intent"
+              >
                 <span className="pk-confidence__icon" aria-hidden="true">
                   <Icon size={20} />
                 </span>

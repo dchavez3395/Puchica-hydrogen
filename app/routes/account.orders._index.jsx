@@ -6,10 +6,10 @@ import {
 } from 'react-router';
 import {useRef} from 'react';
 import {
-  Money,
   getPaginationVariables,
   flattenConnection,
 } from '@shopify/hydrogen';
+import {CurrencyMoney} from '~/components/CurrencyMoney';
 import {
   buildOrderSearchQuery,
   parseOrderFilters,
@@ -220,7 +220,7 @@ function OrderItem({order}) {
         )}
         <p>{order.financialStatus}</p>
         {fulfillmentStatus && <p>{fulfillmentStatus}</p>}
-        <Money data={order.totalPrice} />
+        <CurrencyMoney data={order.totalPrice} />
         <Link to={`/account/orders/${btoa(order.id)}`}>{t('account_orders_view')}</Link>
       </fieldset>
       <br />

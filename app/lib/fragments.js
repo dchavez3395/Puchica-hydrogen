@@ -214,7 +214,20 @@ export const HEADER_QUERY = `#graphql
     }
   }
   query Header(
-    $headerMenuHandle: String!) {
+    $headerMenuHandle: String!
+    $country: CountryCode!
+    $language: LanguageCode!
+  ) @inContext(country: $country, language: $language) {
+    localization {
+      country {
+        isoCode
+        currency { isoCode }
+      }
+      availableCountries {
+        isoCode
+        currency { isoCode }
+      }
+    }
     shop {
       ...Shop
     }
@@ -247,6 +260,7 @@ export const MEGA_MENU_QUERY = `#graphql
       nodes {
         id
         handle
+        tags
         availableForSale
         featuredImage {
           url
@@ -262,7 +276,10 @@ export const MEGA_MENU_QUERY = `#graphql
   # the ordered handle array in MegaMenu.jsx — not a query change.
   # (Collections must be published to the Puchica Storefront channel
   # to appear here — that's a Shopify admin publication, not code.)
-  query MegaMenu {
+  query MegaMenu(
+    $country: CountryCode!
+    $language: LanguageCode!
+  ) @inContext(country: $country, language: $language) {
     collections(first: 30) {
       nodes { ...MegaCategory }
     }
@@ -302,19 +319,6 @@ const HOME_PRODUCT_FRAGMENT = `#graphql
       name
       values
       optionValues { name swatch { color } }
-    }
-    variants(first: 100) {
-      nodes {
-        id
-        availableForSale
-        title
-        requiresShipping
-        image { id url altText width height }
-        price { amount currencyCode }
-        compareAtPrice { amount currencyCode }
-        selectedOptions { name value }
-        product { id handle title vendor }
-      }
     }
     selectedOrFirstAvailableVariant {
       id
@@ -364,9 +368,11 @@ export const HOME_BEST_SELLERS_QUERY = `#graphql
     $country: CountryCode!
     $language: LanguageCode!
   ) @inContext(country: $country, language: $language) {
-    # Pull the verified launch catalog; the loader selects and orders the
-    # focused hero set by stable product ID.
-    bestSellers: products(first: 100, query: "tag:puchica-launch-ready") {
+    # The "best-sellers" collection is empty in this store, so we
+    # pull from the top-level products connection sorted by
+    # BEST_SELLING. This gives us the actual top sellers across
+    # all collections instead of an empty rail.
+    bestSellers: products(first: 8, sortKey: BEST_SELLING) {
       nodes { ...HomeProduct }
     }
   }

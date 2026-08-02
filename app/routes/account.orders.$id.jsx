@@ -1,5 +1,6 @@
 import {redirect, useLoaderData} from 'react-router';
-import {Money, Image} from '@shopify/hydrogen';
+import {Image} from '@shopify/hydrogen';
+import {CurrencyMoney} from '~/components/CurrencyMoney';
 import {CUSTOMER_ORDER_QUERY} from '~/graphql/customer-account/CustomerOrderQuery';
 import {useT} from '~/lib/t';
 
@@ -112,7 +113,7 @@ export default function OrderRoute() {
                   {discountPercentage ? (
                     <span>{t('account_order_discount_line', {pct: discountPercentage})}</span>
                   ) : (
-                    discountValue && <Money data={discountValue} />
+                    discountValue && <CurrencyMoney data={discountValue} />
                   )}
                 </td>
               </tr>
@@ -125,7 +126,7 @@ export default function OrderRoute() {
                 <p>{t('account_order_subtotal')}</p>
               </th>
               <td>
-                <Money data={order.subtotal} />
+                <CurrencyMoney data={order.subtotal} />
               </td>
             </tr>
             <tr>
@@ -136,7 +137,7 @@ export default function OrderRoute() {
                 <p>{t('account_order_tax')}</p>
               </th>
               <td>
-                <Money data={order.totalTax} />
+                <CurrencyMoney data={order.totalTax} />
               </td>
             </tr>
             <tr>
@@ -147,7 +148,7 @@ export default function OrderRoute() {
                 <p>{t('account_order_total')}</p>
               </th>
               <td>
-                <Money data={order.totalPrice} />
+                <CurrencyMoney data={order.totalPrice} />
               </td>
             </tr>
           </tfoot>
@@ -207,11 +208,11 @@ function OrderLineRow({lineItem}) {
         </div>
       </td>
       <td>
-        <Money data={lineItem.price} />
+        <CurrencyMoney data={lineItem.price} />
       </td>
       <td>{lineItem.quantity}</td>
       <td>
-        <Money data={lineItem.totalDiscount} />
+        <CurrencyMoney data={lineItem.totalDiscount} />
       </td>
     </tr>
   );

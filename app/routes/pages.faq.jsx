@@ -3,17 +3,11 @@ import {puchicaMeta} from '~/lib/seo';
 import StarGlyph from '~/components/StarGlyph';
 import {useT} from '~/lib/t';
 
-/**
- * Support email shown in the "Contact us" section. Same address the
- * contact page uses — keep in sync with ContactPage.jsx's CONTACT_EMAIL.
- */
-const CONTACT_EMAIL = 'hello@puchica.ca';
-
 export const meta = ({params}) =>
   puchicaMeta({
     title: 'Frequently Asked Questions – Puchica',
     description:
-      'Answers to common questions about U.S. delivery, orders, returns, products, and your Puchica account. Still stuck? Email us and we will reply as soon as we can.',
+      'Answers about Puchica products, orders, shipping, returns, and accounts.',
     pathname: '/pages/faq',
     langKey: params?.locale,
   });
@@ -93,7 +87,16 @@ export default function FaqPage() {
                     <summary>
                       <span>{item.q}</span>
                       <span className="pk-faq-item__chev" aria-hidden="true">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
                           <path d="M6 9l6 6 6-6" />
                         </svg>
                       </span>
@@ -110,23 +113,17 @@ export default function FaqPage() {
       {/* Still have questions? CTA band */}
       <section className="pk-faq-cta">
         <div className="pk-faq-cta__inner">
-          <span className="pk-faq-cta__eye"><StarGlyph /> {t('faq_cta_eyebrow')}</span>
+          <span className="pk-faq-cta__eye">
+            <StarGlyph /> {t('faq_cta_eyebrow')}
+          </span>
           <h2 className="pk-faq-cta__title">{t('faq_cta_title')}</h2>
           <p className="pk-faq-cta__sub">{t('faq_cta_sub')}</p>
-          <Link to="/pages/contact" className="pk-btn pk-btn--primary pk-btn--lg">
+          <Link
+            to="/pages/contact"
+            className="pk-btn pk-btn--primary pk-btn--lg"
+          >
             {t('faq_cta_button')}
           </Link>
-        </div>
-      </section>
-
-      {/* Contact us */}
-      <section className="pk-faq-contact" aria-label={t('faq_contact_aria')}>
-        <div className="pk-faq-contact__inner">
-          <h2 className="pk-faq-contact__title">{t('faq_contact_title')}</h2>
-          <p className="pk-faq-contact__body">{t('faq_contact_body')}</p>
-          <p className="pk-faq-contact__email">
-            <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
-          </p>
         </div>
       </section>
     </div>

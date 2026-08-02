@@ -1,5 +1,10 @@
 # Puchica — Facebook Traffic Campaign Strategy
 
+> **SUPERSEDED — DO NOT EXECUTE.** This plan optimizes for Traffic and predates
+> the current product-route, contribution, fulfillment, and event-verification
+> gates. Use `docs/ad-ready-launch-master-plan-2026-08-01.md`. The first paid
+> test, if approved, uses Meta Sales/Purchase for one verified offer and market.
+
 ## Status: Ready to Execute (Pending Meta Pixel ID)
 
 **Prerequisites:**

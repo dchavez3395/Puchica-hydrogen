@@ -13,7 +13,10 @@ import {CHECKOUT_URL_REWRITER} from '~/lib/checkout';
 export async function loader({context}) {
   const cart = await context.cart.get();
   if (cart?.checkoutUrl) {
-    cart.checkoutUrl = CHECKOUT_URL_REWRITER(cart.checkoutUrl);
+    cart.checkoutUrl = CHECKOUT_URL_REWRITER(cart.checkoutUrl, {
+      ...context.storefront.i18n,
+      checkoutDomain: context.env.PUBLIC_CHECKOUT_DOMAIN,
+    });
   }
 
   return Response.json(cart ?? null, {

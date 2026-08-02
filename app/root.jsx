@@ -1,9 +1,7 @@
-import {Suspense} from 'react';
 import {Analytics, getShopAnalytics, useNonce} from '@shopify/hydrogen';
 import {
   Form,
   Link,
-  Await,
   Outlet,
   useRouteError,
   isRouteErrorResponse,
@@ -15,9 +13,10 @@ import {
   useRouteLoaderData,
 } from 'react-router';
 import {hreflangAlternates} from '~/lib/seo';
-import {parseLocaleFromPath} from '~/lib/i18n';
 const favicon = '/favicon.svg';
 import {FOOTER_QUERY, HEADER_QUERY, MEGA_MENU_QUERY} from '~/lib/fragments';
+import {resolveStorefrontLocale} from '~/lib/i18n';
+import {filterLaunchProducts} from '~/lib/launch-catalog';
 import resetStyles from '~/styles/reset.css?url';
 import appStyles from '~/styles/app.css?url';
 import commerceStyles from '~/styles/app-commerce.css?url';
@@ -94,6 +93,16 @@ export async function loader(args) {
   const criticalData = await loadCriticalData(args);
 
   const {storefront, env} = args.context;
+  const selectedLocale = resolveStorefrontLocale(
+    storefront.i18n,
+    criticalData.header?.localization,
+  );
+  // Shopify Customer Events already supplies the native Meta and Google app
+  // pixels for this store. Keep the custom loaders off unless those native
+  // integrations are intentionally disconnected; running both would duplicate
+  // the same commerce events.
+  const customAnalyticsEnabled =
+    env.PUBLIC_CUSTOM_ANALYTICS_ENABLED === 'true';
 
   return {
     ...deferredData,
@@ -102,20 +111,24 @@ export async function loader(args) {
     publicStoreDomain: env.PUBLIC_STORE_DOMAIN,
     // Meta Pixel ID (Meta Events Manager) — enables storefront-side ad tracking.
     // No-ops until this env var is set. See app/components/MetaPixel.jsx.
-    metaPixelId: env.PUBLIC_FACEBOOK_PIXEL_ID || null,
-    ga4MeasurementId: env.PUBLIC_GA4_MEASUREMENT_ID || null,
-    selectedLocale: args.context.storefront.i18n,
+    metaPixelId: customAnalyticsEnabled
+      ? env.PUBLIC_FACEBOOK_PIXEL_ID || null
+      : null,
+    ga4MeasurementId: customAnalyticsEnabled
+      ? env.PUBLIC_GA4_MEASUREMENT_ID || null
+      : null,
+    selectedLocale,
     shop: getShopAnalytics({
       storefront,
       publicStorefrontId: env.PUBLIC_STOREFRONT_ID,
     }),
     consent: {
-      checkoutDomain: env.PUBLIC_CHECKOUT_DOMAIN || env.PUBLIC_STORE_DOMAIN || '',
+      checkoutDomain: env.PUBLIC_CHECKOUT_DOMAIN || 'checkout.puchica.ca',
       storefrontAccessToken: env.PUBLIC_STOREFRONT_API_TOKEN,
       withPrivacyBanner: true,
       // localize the privacy banner
-      country: args.context.storefront.i18n.country,
-      language: args.context.storefront.i18n.language,
+      country: selectedLocale.country,
+      language: selectedLocale.language,
     },
   };
 }
@@ -127,12 +140,15 @@ export async function loader(args) {
  */
 async function loadCriticalData({context}) {
   const {storefront} = context;
+  const {country, language} = storefront.i18n;
 
   const [header] = await Promise.all([
     storefront.query(HEADER_QUERY, {
       cache: storefront.CacheLong(),
       variables: {
         headerMenuHandle: 'main-menu', // Adjust to your header menu handle
+        country,
+        language,
       },
     }),
     // Add other queries here, so that they are loaded in parallel
@@ -149,6 +165,7 @@ async function loadCriticalData({context}) {
  */
 function loadDeferredData({context}) {
   const {storefront, customerAccount, cart} = context;
+  const {country, language} = storefront.i18n;
 
   // defer the footer query (below the fold)
   const footer = storefront
@@ -170,7 +187,9 @@ function loadDeferredData({context}) {
   const megaMenu = storefront
     .query(MEGA_MENU_QUERY, {
       cache: storefront.CacheLong(),
+      variables: {country, language},
     })
+    .then(filterMegaMenuProducts)
     .catch((error) => {
       logError('deferred mega-menu query failed', error);
       return null;
@@ -184,14 +203,40 @@ function loadDeferredData({context}) {
   };
 }
 
+function filterMegaMenuProducts(data) {
+  const collections = data?.collections;
+  if (!collections?.nodes) return data;
+
+  return {
+    ...data,
+    collections: {
+      ...collections,
+      nodes: collections.nodes.map((collection) => ({
+        ...collection,
+        products: {
+          ...collection.products,
+          nodes: filterLaunchProducts(collection.products?.nodes),
+        },
+      })),
+    },
+  };
+}
+
 /**
  * @param {{children?: React.ReactNode}}
  */
 export function Layout({children}) {
   const nonce = useNonce();
   const {pathname} = useLocation();
-  const {langKey} = parseLocaleFromPath(pathname);
-  const documentLanguage = langKey === 'pt-br' ? 'pt-BR' : langKey;
+  const rootData = useRouteLoaderData('root');
+  const language = rootData?.selectedLocale?.language || 'EN';
+  const country = rootData?.selectedLocale?.country || 'US';
+  const normalizedLanguage = language.toLowerCase().replace('_', '-');
+  const documentLanguage = normalizedLanguage.includes('-')
+    ? normalizedLanguage.replace(/-([a-z]{2})$/, (_, region) =>
+        `-${region.toUpperCase()}`,
+      )
+    : `${normalizedLanguage}-${country}`;
   // Reciprocal hreflang alternates for all four languages + x-default, keyed to
   // the current path. Correct now that the /fr, /es, /pt-br routes resolve.
   const alternates = hreflangAlternates(pathname);
@@ -201,13 +246,9 @@ export function Layout({children}) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
-        <meta
-          name="google-site-verification"
-          content="qOuvIeYy4PXBg33-YZZqWfpfsbNfp28YUrFzSEWZ_Ss"
-        />
         <link rel="stylesheet" href={resetStyles}></link>
         <link rel="stylesheet" href={appStyles}></link>
-      <link rel="stylesheet" href={commerceStyles}></link>
+        <link rel="stylesheet" href={commerceStyles}></link>
         {alternates.map((a) => (
           <link
             key={a.hreflang}
@@ -244,11 +285,7 @@ export default function App() {
     >
       <MetaPixel pixelId={data.metaPixelId} />
       <GoogleAnalytics4 measurementId={data.ga4MeasurementId} />
-      <Suspense fallback={null}>
-        <Await resolve={data.cart}>
-          {(cart) => <CartRecoveryBanner cart={cart} />}
-        </Await>
-      </Suspense>
+      <CartRecoveryBanner cart={data.cart} />
       <PageLayout {...data}>
         <Outlet />
       </PageLayout>
@@ -285,7 +322,11 @@ export function ErrorBoundary() {
   }
 
   // Log once. The logger no-ops in production, so this is dev-only.
-  logError('route error', {status: errorStatus, error: rawError, route: undefined});
+  logError('route error', {
+    status: errorStatus,
+    error: rawError,
+    route: undefined,
+  });
 
   const isNotFound = errorStatus === 404;
   const heading = isNotFound ? t('err_404_h') : t('err_500_h');
@@ -326,13 +367,18 @@ export function ErrorBoundary() {
           <Link to="/" className="pk-btn pk-btn--primary pk-btn--lg">
             {t('err_home')}
           </Link>
-          <Link to="/collections/all" className="pk-btn pk-btn--ghost pk-btn--lg">
+          <Link
+            to="/collections/all"
+            className="pk-btn pk-btn--ghost pk-btn--lg"
+          >
             {t('err_browse')}
           </Link>
         </div>
 
         <p className="pk-route-error__contact">
-          {t('err_contact', {email: <a href="mailto:hello@puchica.ca">hello@puchica.ca</a>})}
+          {t('err_contact', {
+            email: <a href="mailto:hello@puchica.ca">hello@puchica.ca</a>,
+          })}
         </p>
       </div>
     </div>

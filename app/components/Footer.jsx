@@ -60,9 +60,18 @@ export function Footer({header}) {
             />
           </Link>
           <p className="pk-footer__tagline">{t('footer_tagline')}</p>
-          <div className="pk-footer__social" aria-label={t('footer_social_aria')}>
+          <div
+            className="pk-footer__social"
+            aria-label={t('footer_social_aria')}
+          >
             {SOCIAL.map(({Icon, labelKey, urlKey, handle}) => (
-              <a key={labelKey} href={urlKey} aria-label={`${t(labelKey)} (${handle})`} target="_blank" rel="noopener noreferrer">
+              <a
+                key={labelKey}
+                href={urlKey}
+                aria-label={`${t(labelKey)} (${handle})`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <Icon size={18} />
               </a>
             ))}
@@ -75,17 +84,26 @@ export function Footer({header}) {
           </address>
 
           <span className="pk-footer__secure">
-            <span aria-hidden><IconShield size={14} /></span>
+            <span aria-hidden>
+              <IconShield size={14} />
+            </span>
             {t('footer_secure')}
           </span>
-
         </div>
 
         <div className="pk-footer__col">
           <h4>{t('footer_shop')}</h4>
           <Link to="/collections/all">{t('nav_all_products')}</Link>
-          <Link to="/collections/best-sellers">{t('nav_best_sellers')}</Link>
           <Link to="/collections/new-arrivals">{t('nav_new_arrivals')}</Link>
+          <Link to="/search?q=under%20sink%20organizer">
+            {t('megamenu_intent_home_title')}
+          </Link>
+          <Link to="/search?q=cable%20organizer">
+            {t('megamenu_intent_cable_title')}
+          </Link>
+          <Link to="/search?q=packing%20cubes">
+            {t('megamenu_intent_travel_title')}
+          </Link>
         </div>
 
         <div className="pk-footer__col">
@@ -96,14 +114,17 @@ export function Footer({header}) {
           <Link to="/pages/shipping">{t('footer_shipping_info')}</Link>
           <Link to="/policies">{t('footer_policies')}</Link>
           <Link to="/policies/refund-policy">{t('footer_refund_policy')}</Link>
-          <Link to="/policies/shipping-policy">{t('footer_shipping_policy')}</Link>
+          <Link to="/policies/shipping-policy">
+            {t('footer_shipping_policy')}
+          </Link>
           <Link to="/policies/terms-of-service">{t('footer_terms')}</Link>
         </div>
-
       </div>
 
       <div className="pk-footer__bar">
-        <span>{t('footer_copyright', {year})} {t('footer_rights')}</span>
+        <span>
+          {t('footer_copyright', {year})} {t('footer_rights')}
+        </span>
         <nav className="pk-footer__legal" aria-label={t('footer_legal_aria')}>
           <Link to="/policies/privacy-policy">{t('footer_privacy')}</Link>
           <Link to="/policies">{t('footer_policies')}</Link>

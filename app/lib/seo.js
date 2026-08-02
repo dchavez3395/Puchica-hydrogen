@@ -20,12 +20,9 @@ import {parseLocaleFromPath, localizePath} from '~/lib/i18n';
  * (`env.PUBLIC_STORE_DOMAIN`) — that one is the *.myshopify.com URL
  * Shopify uses internally and would point Google at the wrong place.
  *
- * Apex (`puchica.ca`) is the marketing / brand host and currently serves
- * the legacy Express theme. Hydrogen (the styled storefront) is on
- * `www.puchica.ca`. The apex will 301-redirect to `www` once the edge
- * redirect is in place (see memory/puchica-dns-state-2026-06-18.md),
- * so all canonicals / og:url / sitemap URLs already point at the
- * correct destination.
+ * The apex (`puchica.ca`) is the live primary storefront. The `www` host
+ * redirects to it, so canonicals, Open Graph URLs, and structured data use
+ * the apex consistently.
  */
 export const SITE_URL = 'https://puchica.ca';
 
@@ -37,11 +34,15 @@ export const SITE_NAME = 'Puchica';
 
 /** Locale — matches the hard-coded i18n in app/lib/context.js (EN/CA). */
 const OG_LOCALES = {
-  en: 'en_US',
-  fr: 'fr_FR',
-  es: 'es_ES',
+  en: 'en_CA',
+  fr: 'fr_CA',
+  es: 'es_US',
   'pt-br': 'pt_BR',
 };
+
+function ogLocale(langKey) {
+  return OG_LOCALES[String(langKey || 'en').toLowerCase()] || OG_LOCALES.en;
+}
 
 /**
  * Build an absolute canonical URL from a pathname.
@@ -150,10 +151,7 @@ export function puchicaMeta({
     tags.push({property: 'og:url', content: href});
     tags.push({tagName: 'link', rel: 'canonical', href});
   }
-  tags.push({
-    property: 'og:locale',
-    content: OG_LOCALES[langKey] || OG_LOCALES.en,
-  });
+  tags.push({property: 'og:locale', content: ogLocale(langKey)});
 
   // Twitter
   tags.push({name: 'twitter:card', content: twitterCard});
@@ -170,7 +168,7 @@ export function puchicaMeta({
  *
  * @param {Array<{name: string, url: string}>} items
  */
-export function breadcrumbJsonLd(items, langKey = 'en') {
+export function breadcrumbJsonLd(items) {
   if (!Array.isArray(items) || items.length === 0) return null;
   return {
     '@context': 'https://schema.org',
@@ -179,7 +177,7 @@ export function breadcrumbJsonLd(items, langKey = 'en') {
       '@type': 'ListItem',
       position: idx + 1,
       name: item.name,
-      item: canonical(localizePath(item.url, langKey)),
+      item: canonical(item.url),
     })),
   };
 }

@@ -1,6 +1,7 @@
 import {useFetcher} from 'react-router';
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
-import {Image, Money} from '@shopify/hydrogen';
+import {Image} from '@shopify/hydrogen';
+import {CurrencyMoney} from '~/components/CurrencyMoney';
 import {useRef, useEffect, useState} from 'react';
 import {
   getEmptyPredictiveSearchResult,
@@ -202,7 +203,7 @@ function SearchResultsPredictiveProducts({term, products, closeSearch}) {
                 )}
                 <div>
                   <p>{product.title}</p>
-                  <small>{price && <Money data={price} />}</small>
+                  <small>{price && <CurrencyMoney data={price} />}</small>
                 </div>
               </Link>
             </li>
@@ -317,7 +318,7 @@ function SearchZeroState({closeSearch}) {
                   <span className="pk-search__recent-title">{p.title}</span>
                   {p.price ? (
                     <span className="pk-search__recent-price">
-                      <Money data={p.price} />
+                      <CurrencyMoney data={p.price} />
                     </span>
                   ) : null}
                 </Link>

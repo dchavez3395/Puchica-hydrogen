@@ -1,6 +1,6 @@
 import {useLoaderData} from 'react-router';
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
-import {CacheNone, getPaginationVariables, Image} from '@shopify/hydrogen';
+import {getPaginationVariables, Image} from '@shopify/hydrogen';
 import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
 import {puchicaMeta} from '~/lib/seo';
 import {useT} from '~/lib/t';
@@ -11,9 +11,9 @@ import {filterLaunchProducts} from '~/lib/launch-catalog';
  */
 export const meta = ({params}) => {
   return puchicaMeta({
-    title: 'Collections – Puchica',
+    title: 'Organization collections – Puchica',
     description:
-      'Shop Puchica by collection — active departments across home, beauty, tech, pet, apparel, health, and more.',
+      'Browse practical organizers for small homes, cables, packing, luggage, and everyday carry.',
     pathname: '/collections',
     langKey: params?.locale,
   });
@@ -37,7 +37,6 @@ async function loadCriticalData({context, request}) {
 
   const [{collections}] = await Promise.all([
     context.storefront.query(COLLECTIONS_QUERY, {
-      cache: CacheNone(),
       variables: {country, language, ...paginationVariables},
     }),
   ]);
@@ -69,7 +68,8 @@ export default function Collections() {
   // send people into a dead-end page: the desktop Shop menu follows the same
   // rule, so the collection index needs to use the same storefront-safe set.
   const activeNodes = nodes.filter(
-    (collection) => filterLaunchProducts(collection?.products?.nodes).length > 0,
+    (collection) =>
+      filterLaunchProducts(collection?.products?.nodes).length > 0,
   );
   const activeCollections = {...collections, nodes: activeNodes};
   const count = activeNodes.length;
@@ -176,7 +176,8 @@ function collectionTheme(title = '') {
   const t = title.toLowerCase();
   if (t.includes('pet')) {
     return {
-      gradient: 'linear-gradient(135deg, #DFF7E5 0%, #B8E8C8 50%, #8DD7A6 100%)',
+      gradient:
+        'linear-gradient(135deg, #DFF7E5 0%, #B8E8C8 50%, #8DD7A6 100%)',
       iconColor: '#1E7A45',
       chipBg: 'rgba(255,255,255,.85)',
       chipBorder: 'rgba(30,122,69,.25)',
@@ -184,15 +185,22 @@ function collectionTheme(title = '') {
   }
   if (t.includes('home') || t.includes('kitchen') || t.includes('house')) {
     return {
-      gradient: 'linear-gradient(135deg, #FFE9D6 0%, #FFCDA0 50%, #FFB079 100%)',
+      gradient:
+        'linear-gradient(135deg, #FFE9D6 0%, #FFCDA0 50%, #FFB079 100%)',
       iconColor: '#9A4A14',
       chipBg: 'rgba(255,255,255,.85)',
       chipBorder: 'rgba(154,74,20,.22)',
     };
   }
-  if (t.includes('beauty') || t.includes('personal') || t.includes('grooming') || t.includes('skincare')) {
+  if (
+    t.includes('beauty') ||
+    t.includes('personal') ||
+    t.includes('grooming') ||
+    t.includes('skincare')
+  ) {
     return {
-      gradient: 'linear-gradient(135deg, #FFE0EC 0%, #FFB8D2 50%, #FF8FB6 100%)',
+      gradient:
+        'linear-gradient(135deg, #FFE0EC 0%, #FFB8D2 50%, #FF8FB6 100%)',
       iconColor: '#9B2A5C',
       chipBg: 'rgba(255,255,255,.85)',
       chipBorder: 'rgba(155,42,92,.22)',
@@ -200,7 +208,8 @@ function collectionTheme(title = '') {
   }
   if (t.includes('tech') || t.includes('gadget') || t.includes('electronic')) {
     return {
-      gradient: 'linear-gradient(135deg, #DDEAFD 0%, #B6CDF8 50%, #8BB1F1 100%)',
+      gradient:
+        'linear-gradient(135deg, #DDEAFD 0%, #B6CDF8 50%, #8BB1F1 100%)',
       iconColor: '#1F4BAA',
       chipBg: 'rgba(255,255,255,.85)',
       chipBorder: 'rgba(31,75,170,.22)',
@@ -208,7 +217,8 @@ function collectionTheme(title = '') {
   }
   if (t.includes('outdoor') || t.includes('garden') || t.includes('sport')) {
     return {
-      gradient: 'linear-gradient(135deg, #E0F4EC 0%, #B0E0CB 50%, #7DCAA9 100%)',
+      gradient:
+        'linear-gradient(135deg, #E0F4EC 0%, #B0E0CB 50%, #7DCAA9 100%)',
       iconColor: '#0F6B4A',
       chipBg: 'rgba(255,255,255,.85)',
       chipBorder: 'rgba(15,107,74,.22)',
@@ -216,15 +226,21 @@ function collectionTheme(title = '') {
   }
   if (t.includes('phone')) {
     return {
-      gradient: 'linear-gradient(135deg, #E8E0F8 0%, #C4B4E8 50%, #9A86D4 100%)',
+      gradient:
+        'linear-gradient(135deg, #E8E0F8 0%, #C4B4E8 50%, #9A86D4 100%)',
       iconColor: '#4B2EAA',
       chipBg: 'rgba(255,255,255,.85)',
       chipBorder: 'rgba(75,46,170,.22)',
     };
   }
-  if (t.includes('apparel') || t.includes('clothing') || t.includes('fashion')) {
+  if (
+    t.includes('apparel') ||
+    t.includes('clothing') ||
+    t.includes('fashion')
+  ) {
     return {
-      gradient: 'linear-gradient(135deg, #F0E0F0 0%, #D8B8D8 50%, #B89AB8 100%)',
+      gradient:
+        'linear-gradient(135deg, #F0E0F0 0%, #D8B8D8 50%, #B89AB8 100%)',
       iconColor: '#7A2A6A',
       chipBg: 'rgba(255,255,255,.85)',
       chipBorder: 'rgba(122,42,106,.22)',
@@ -232,7 +248,8 @@ function collectionTheme(title = '') {
   }
   if (t.includes('health') || t.includes('wellness') || t.includes('massage')) {
     return {
-      gradient: 'linear-gradient(135deg, #E0F0F8 0%, #B0D8E8 50%, #80C0D8 100%)',
+      gradient:
+        'linear-gradient(135deg, #E0F0F8 0%, #B0D8E8 50%, #80C0D8 100%)',
       iconColor: '#0A4B7A',
       chipBg: 'rgba(255,255,255,.85)',
       chipBorder: 'rgba(10,75,122,.22)',
@@ -240,7 +257,8 @@ function collectionTheme(title = '') {
   }
   if (t.includes('automotive') || t.includes('car') || t.includes('vehicle')) {
     return {
-      gradient: 'linear-gradient(135deg, #E8E8E8 0%, #C0C0C0 50%, #989898 100%)',
+      gradient:
+        'linear-gradient(135deg, #E8E8E8 0%, #C0C0C0 50%, #989898 100%)',
       iconColor: '#333333',
       chipBg: 'rgba(255,255,255,.85)',
       chipBorder: 'rgba(51,51,51,.22)',
@@ -248,7 +266,8 @@ function collectionTheme(title = '') {
   }
   if (t.includes('tool') || t.includes('improvement')) {
     return {
-      gradient: 'linear-gradient(135deg, #FFF0D8 0%, #FFD8A0 50%, #E8B060 100%)',
+      gradient:
+        'linear-gradient(135deg, #FFF0D8 0%, #FFD8A0 50%, #E8B060 100%)',
       iconColor: '#8A5A0E',
       chipBg: 'rgba(255,255,255,.85)',
       chipBorder: 'rgba(138,90,14,.22)',
@@ -256,7 +275,8 @@ function collectionTheme(title = '') {
   }
   if (t.includes('toy') || t.includes('game')) {
     return {
-      gradient: 'linear-gradient(135deg, #FFE8E0 0%, #FFB8A0 50%, #FF8870 100%)',
+      gradient:
+        'linear-gradient(135deg, #FFE8E0 0%, #FFB8A0 50%, #FF8870 100%)',
       iconColor: '#AA3A1E',
       chipBg: 'rgba(255,255,255,.85)',
       chipBorder: 'rgba(170,58,30,.22)',
@@ -264,15 +284,21 @@ function collectionTheme(title = '') {
   }
   if (t.includes('decor') || t.includes('decorat')) {
     return {
-      gradient: 'linear-gradient(135deg, #F8E8D8 0%, #E8C8A8 50%, #D0A878 100%)',
+      gradient:
+        'linear-gradient(135deg, #F8E8D8 0%, #E8C8A8 50%, #D0A878 100%)',
       iconColor: '#7A4A0E',
       chipBg: 'rgba(255,255,255,.85)',
       chipBorder: 'rgba(122,74,14,.22)',
     };
   }
-  if (t.includes('office') || t.includes('school') || t.includes('stationery')) {
+  if (
+    t.includes('office') ||
+    t.includes('school') ||
+    t.includes('stationery')
+  ) {
     return {
-      gradient: 'linear-gradient(135deg, #E8E8F8 0%, #C0C0E8 50%, #9898D4 100%)',
+      gradient:
+        'linear-gradient(135deg, #E8E8F8 0%, #C0C0E8 50%, #9898D4 100%)',
       iconColor: '#2A2AAA',
       chipBg: 'rgba(255,255,255,.85)',
       chipBorder: 'rgba(42,42,170,.22)',
@@ -280,7 +306,8 @@ function collectionTheme(title = '') {
   }
   if (t.includes('baby') || t.includes('nursery') || t.includes('infant')) {
     return {
-      gradient: 'linear-gradient(135deg, #E0F0FF 0%, #B0D8FF 50%, #80C0FF 100%)',
+      gradient:
+        'linear-gradient(135deg, #E0F0FF 0%, #B0D8FF 50%, #80C0FF 100%)',
       iconColor: '#0A4BAA',
       chipBg: 'rgba(255,255,255,.85)',
       chipBorder: 'rgba(10,75,170,.22)',
@@ -288,15 +315,22 @@ function collectionTheme(title = '') {
   }
   if (t.includes('gift')) {
     return {
-      gradient: 'linear-gradient(135deg, #FFF1D6 0%, #FFD89C 50%, #FFBE66 100%)',
+      gradient:
+        'linear-gradient(135deg, #FFF1D6 0%, #FFD89C 50%, #FFBE66 100%)',
       iconColor: '#8A5A0E',
       chipBg: 'rgba(255,255,255,.85)',
       chipBorder: 'rgba(138,90,14,.22)',
     };
   }
-  if (t.includes('new') || t.includes('feature') || t.includes('trending') || t.includes('best')) {
+  if (
+    t.includes('new') ||
+    t.includes('feature') ||
+    t.includes('trending') ||
+    t.includes('best')
+  ) {
     return {
-      gradient: 'linear-gradient(135deg, #FFF0E8 0%, #FFCFB0 50%, #CC4300 100%)',
+      gradient:
+        'linear-gradient(135deg, #FFF0E8 0%, #FFCFB0 50%, #CC4300 100%)',
       iconColor: '#CC4300',
       chipBg: 'rgba(255,255,255,.85)',
       chipBorder: 'rgba(204,67,0,.22)',
@@ -327,6 +361,7 @@ const COLLECTIONS_QUERY = `#graphql
       nodes {
         id
         handle
+        tags
         availableForSale
         featuredImage {
           id

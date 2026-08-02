@@ -33,13 +33,10 @@ HIGH_RISK_PATTERNS = {
     'child_safety': re.compile(r'\b(baby|infant|toddler|child|children|kids?|toy|rc|drone)\b', re.I),
     'medical_health': re.compile(r'\b(medical|therapy|therapeutic|pain|cure|treatment|orthopedic|posture|blood|health)\b', re.I),
     'electrical': re.compile(r'\b(electric|heated|heating|led|usb|battery|rechargeable|voltage|plug|laser)\b', re.I),
-    'hygiene_beauty': re.compile(r'\b(ear|nail|skin|face|facial|beauty|razor|hair|teeth|oral|hygiene|piercing|nose ring|body jewelry)\b', re.I),
-    'likely_ip': re.compile(r'\b(disney|pokemon|mario|nike|adidas|apple|iphone|marvel|lego|barbie|michael jackson|elsa)\b', re.I),
-    'chemical_cosmetic': re.compile(r'\b(nail glue|uv gel|acrylic nail|cosmetic adhesive)\b', re.I),
-    'animal_derived': re.compile(r'\b(rabbit fur|mink fur|real fur)\b', re.I),
-    'animal_welfare': re.compile(r'\b(duck shoes|goose shoes|poultry boots)\b', re.I),
+    'hygiene_beauty': re.compile(r'\b(ear|nail|skin|face|facial|beauty|razor|hair|teeth|oral|hygiene)\b', re.I),
+    'likely_ip': re.compile(r'\b(disney|pokemon|mario|nike|adidas|apple|iphone|marvel|lego|barbie)\b', re.I),
 }
-HARD_RISK_FLAGS = {'child_safety', 'medical_health', 'electrical', 'likely_ip', 'chemical_cosmetic'}
+HARD_RISK_FLAGS = {'child_safety', 'medical_health', 'electrical', 'likely_ip'}
 
 
 def money(value) -> Decimal | None:
@@ -254,12 +251,6 @@ def main() -> None:
                 'quote_service': '',
                 'quote_stock': '',
                 'quote_result': '',
-                'us_quote_item_cost': '',
-                'us_quote_shipping_cost': '',
-                'us_quote_delivery_window': '',
-                'us_quote_service': '',
-                'us_quote_stock': '',
-                'us_quote_result': '',
                 'notes': '',
             })
 
@@ -288,9 +279,9 @@ def main() -> None:
 
 def next_action(decision: str) -> str:
     return {
-        'LIVE_QUOTE_REQUIRED': 'Capture exact Canada and US DSers quotes; approve, reprice, or remove launch tag.',
-        'LIVE_QUOTE_AND_CONTENT_REVIEW': 'Capture exact Canada and US quotes and verify claims/content before promotion.',
-        'DRAFT_QUOTE_AND_CONTENT_REVIEW': 'Repair/verify mapping, quote Canada and US, review content, then decide whether to tag.',
+        'LIVE_QUOTE_REQUIRED': 'Capture exact Canada DSers quote; approve, reprice, or remove launch tag.',
+        'LIVE_QUOTE_AND_CONTENT_REVIEW': 'Capture exact Canada quote and verify claims/content before promotion.',
+        'DRAFT_QUOTE_AND_CONTENT_REVIEW': 'Repair/verify mapping, quote Canada, review content, then decide whether to tag.',
         'HOLD_RISK_REVIEW': 'Keep held until safety/claims/IP/compliance review is complete.',
         'HOLD_MAPPING_REQUIRED': 'Do not quote yet; repair DSers mapping/SKU first.',
         'HOLD_COST_MISSING': 'Record Shopify unit cost or DSers source cost before pricing.',

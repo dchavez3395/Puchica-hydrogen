@@ -1,6 +1,7 @@
-import {useEffect, useMemo} from 'react';
+import {useEffect, useRef} from 'react';
 import {useAnalytics} from '@shopify/hydrogen';
 import {isBotClient} from '~/lib/bot-detection';
+import {analyticsItemId, cartAnalyticsItems} from '~/lib/analytics-items';
 
 /**
  * GoogleAnalytics4 — GA4 tracking for the headless Hydrogen storefront.
@@ -17,18 +18,24 @@ import {isBotClient} from '~/lib/bot-detection';
  * GA4 integration — not here.
  *
  * @param {{measurementId?: string | null}} props
+ * @returns {null}
  */
 export function GoogleAnalytics4({measurementId}) {
   const {subscribe, register, canTrack} = useAnalytics();
-  const {ready} = useMemo(
-    () =>
+  const registration = useRef(null);
+  const installed = useRef(false);
+  if (!registration.current) {
+    registration.current =
       typeof register === 'function'
         ? register('Google Analytics 4')
-        : {ready: () => {}},
-    [register],
-  );
+        : {ready: () => {}};
+  }
+  const {ready} = registration.current;
 
   useEffect(() => {
+    if (installed.current) return;
+    installed.current = true;
+
     if (!measurementId || typeof window === 'undefined') {
       ready();
       return;
@@ -42,108 +49,90 @@ export function GoogleAnalytics4({measurementId}) {
 
     const allowed = () => {
       try {
-        return typeof canTrack === 'function' ? canTrack() : true;
+        return typeof canTrack === 'function' ? canTrack() : false;
       } catch {
-        return true;
+        return false;
       }
     };
 
-    let active = true;
-    const loadTrackerIfAllowed = () => {
-      if (!active) return;
-      if (allowed()) loadGtag(measurementId);
-    };
-    loadTrackerIfAllowed();
-    document.addEventListener('visitorConsentCollected', loadTrackerIfAllowed);
-
     const track = (event, params = {}) => {
-      if (!window.gtag || !allowed()) return;
+      if (!allowed()) return;
       try {
-        window.gtag('event', event, params);
+        const gtag = loadGtag(measurementId);
+        if (typeof gtag !== 'function') return;
+        gtag('event', event, params);
       } catch {
         /* never let analytics break the page */
       }
     };
 
-    // Hydrogen currently deduplicates subscriptions and returns void. This
-    // wider local type also supports cleanup if a future release returns one.
-    const subscribeWithCleanup = /** @type {AnalyticsSubscribe} */ (subscribe);
-    const unsubscribe = [
-      subscribeWithCleanup('page_viewed', () => {
-        track('page_view', {
-          page_location: window.location.href,
-          page_title: document.title,
-        });
-      }),
+    subscribe('page_viewed', () => {
+      track('page_view', {
+        page_location: window.location.href,
+        page_title: document.title,
+      });
+    });
 
-      subscribeWithCleanup('product_viewed', (data) => {
-        const p = data?.products?.[0];
-        if (!p) return;
-        track('view_item', {
-          currency: p?.currency || data?.shop?.currency || 'USD',
-          value: Number(p?.price) || 0,
-          items: [
-            {
-              item_id: p?.id,
-              item_name: p?.title,
-              price: Number(p?.price) || 0,
-              quantity: 1,
-            },
-          ],
-        });
-      }),
+    subscribe('product_viewed', (data) => {
+      const p = data?.products?.[0];
+      if (!p) return;
+      const currency = data?.shop?.currency || p?.currency;
+      const value = Number(p?.price);
+      if (!currency || !Number.isFinite(value)) return;
+      track('view_item', {
+        currency,
+        value,
+        items: [
+          {
+            item_id: analyticsItemId(p),
+            item_name: p?.title,
+            price: value,
+            quantity: 1,
+          },
+        ],
+      });
+    });
 
-      subscribeWithCleanup('product_added_to_cart', (data) => {
-        const line = data?.currentLine || data?.cart?.lines?.nodes?.[0];
-        const merch = line?.merchandise;
-        if (!merch) return;
-        const quantity = data?.currentLine
-          ? Math.max(
-              (data.currentLine.quantity || 0) -
-                (data?.prevLine?.quantity || 0),
-              1,
-            )
-          : line?.quantity || 1;
-        track('add_to_cart', {
-          currency: merch?.price?.currencyCode || 'USD',
-          value: (Number(merch?.price?.amount) || 0) * quantity,
-          items: [
-            {
-              item_id: merch?.product?.id,
-              item_name: merch?.product?.title,
-              price: Number(merch?.price?.amount) || 0,
-              quantity,
-            },
-          ],
-        });
-      }),
+    subscribe('product_added_to_cart', (data) => {
+      const line = data?.currentLine || data?.cart?.lines?.nodes?.[0];
+      const merch = line?.merchandise;
+      if (!merch) return;
+      const currency = merch?.price?.currencyCode;
+      const unitPrice = Number(merch?.price?.amount);
+      const previousQuantity = Number(data?.prevLine?.quantity) || 0;
+      const currentQuantity = Number(line?.quantity) || 1;
+      const quantity = Math.max(1, currentQuantity - previousQuantity);
+      if (!currency || !Number.isFinite(unitPrice)) return;
+      track('add_to_cart', {
+        currency,
+        value: unitPrice * quantity,
+        items: [
+          {
+            item_id: merch?.id,
+            item_name: merch?.product?.title,
+            price: unitPrice,
+            quantity,
+          },
+        ],
+      });
+    });
 
-      subscribeWithCleanup('cart_viewed', (data) => {
-        track('view_cart', {
-          currency: data?.cart?.cost?.totalAmount?.currencyCode || 'USD',
-          value: Number(data?.cart?.cost?.totalAmount?.amount) || 0,
-          num_items: data?.cart?.totalQuantity || 0,
-        });
-      }),
-
-      subscribeWithCleanup('checkout_started', (data) => {
-        track('begin_checkout', {
-          currency: data?.cart?.cost?.totalAmount?.currencyCode || 'USD',
-          value: Number(data?.cart?.cost?.totalAmount?.amount) || 0,
-          num_items: data?.cart?.totalQuantity || 0,
-        });
-      }),
-    ].filter((cleanup) => typeof cleanup === 'function');
+    subscribe('custom_checkout_started', (data) => {
+      const cart = readField(data, 'cart');
+      const totalAmount = readField(readField(cart, 'cost'), 'totalAmount');
+      const currency = readField(totalAmount, 'currencyCode');
+      const value = Number(readField(totalAmount, 'amount'));
+      const items = cartAnalyticsItems(cart);
+      if (!currency || !Number.isFinite(value)) return;
+      track('begin_checkout', {
+        currency,
+        value,
+        num_items: readField(cart, 'totalQuantity') || 0,
+        items,
+      });
+    });
 
     ready();
-    return () => {
-      active = false;
-      document.removeEventListener(
-        'visitorConsentCollected',
-        loadTrackerIfAllowed,
-      );
-      unsubscribe.forEach((cleanup) => cleanup());
-    };
   }, [measurementId, subscribe, canTrack, ready]);
 
   return null;
@@ -153,7 +142,8 @@ export function GoogleAnalytics4({measurementId}) {
  * Standard gtag.js loader (idempotent).
  */
 function loadGtag(measurementId) {
-  if (window.gtag) return;
+  const existingGtag = Reflect.get(window, 'gtag');
+  if (typeof existingGtag === 'function') return existingGtag;
 
   // Load the gtag script
   const script = document.createElement('script');
@@ -162,14 +152,18 @@ function loadGtag(measurementId) {
   document.head.appendChild(script);
 
   // Initialize
-  window.dataLayer = window.dataLayer || [];
-  window.gtag = function () {
-    window.dataLayer.push(arguments);
-  };
-  window.gtag('js', new Date());
-  window.gtag('config', measurementId, {
-    send_page_view: false, // We handle page_view manually via subscribe
-  });
+  const dataLayer = Reflect.get(window, 'dataLayer') || [];
+  Reflect.set(window, 'dataLayer', dataLayer);
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  Reflect.set(window, 'gtag', gtag);
+  Reflect.apply(gtag, null, ['js', new Date()]);
+  Reflect.apply(gtag, null, ['config', measurementId, {send_page_view: false}]);
+  return gtag;
 }
 
-/** @typedef {(event: string, callback: (data: any) => void) => void | (() => void)} AnalyticsSubscribe */
+function readField(value, key) {
+  if (!value || typeof value !== 'object') return undefined;
+  return Reflect.get(value, key);
+}

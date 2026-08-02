@@ -1,14 +1,26 @@
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
-import {Image, Money} from '@shopify/hydrogen';
+import {Image} from '@shopify/hydrogen';
+import {CurrencyMoney} from '~/components/CurrencyMoney';
 import {useVariantUrl} from '~/lib/variants';
 import {AddToCartButton} from '~/components/AddToCartButton';
+import {useAside} from '~/components/Aside';
 import {useT} from '~/lib/t';
+import {
+  presentProductDepartment,
+  presentProductTitle,
+} from '~/lib/product-presentation';
 
 const BADGE_TAG_MAP = {
-  'new-arrival': {labelKey: 'badge_new_arrival', cls: 'pk-card__badge--new-arrival'},
-  'top-pick':    {labelKey: 'badge_top_pick',    cls: 'pk-card__badge--top-pick'},
-  'trending':    {labelKey: 'badge_trending',    cls: 'pk-card__badge--trending'},
-  'staff-pick':  {labelKey: 'badge_staff_pick',  cls: 'pk-card__badge--staff-pick'},
+  'new-arrival': {
+    labelKey: 'badge_new_arrival',
+    cls: 'pk-card__badge--new-arrival',
+  },
+  'top-pick': {labelKey: 'badge_top_pick', cls: 'pk-card__badge--top-pick'},
+  trending: {labelKey: 'badge_trending', cls: 'pk-card__badge--trending'},
+  'staff-pick': {
+    labelKey: 'badge_staff_pick',
+    cls: 'pk-card__badge--staff-pick',
+  },
 };
 
 function resolveBadge(tags, t) {
@@ -36,17 +48,91 @@ function resolveSaleBadge(price, compareAt, t) {
   return {label: t('badge_sale'), cls: 'pk-card__badge--sale'};
 }
 
-function resolveOptionSummary(variant) {
-  const values = variant?.selectedOptions
-    ?.filter(
-      ({name, value}) =>
-        value &&
-        !/^(title|default title)$/i.test(name || '') &&
-        !/^default title$/i.test(value),
-    )
-    .map(({value}) => value);
+/**
+ * @param {Array<any> | undefined} options
+ * @param {Array<any>} availableVariants
+ * @returns {{name: string, values: Array<any>} | null}
+ */
+function resolvePrimaryOption(options, availableVariants = []) {
+  if (!options?.length) return null;
+  const first = options[0];
+  if (!first?.name || /^(title|default title)$/i.test(first.name)) return null;
 
-  return values?.length ? values.join(' / ') : null;
+  let values = first.optionValues?.length
+    ? first.optionValues
+    : (first.values || []).map((name) => ({name, swatch: null}));
+
+  if (availableVariants.length) {
+    const availableValues = new Set(
+      availableVariants.flatMap((variant) =>
+        (variant.selectedOptions || [])
+          .filter((option) => option.name === first.name)
+          .map((option) => option.value),
+      ),
+    );
+    values = values.filter((value) => availableValues.has(value.name));
+  }
+
+  if (values.length < 2) return null;
+
+  return {
+    name: first.name,
+    values,
+  };
+}
+
+function pluralizeOptionName(name) {
+  if (/colou?r/i.test(name)) return 'colors';
+  if (/size/i.test(name)) return 'sizes';
+  if (/style/i.test(name)) return 'styles';
+  if (/pack/i.test(name)) return 'packs';
+  if (/set/i.test(name)) return 'sets';
+  return 'options';
+}
+
+/** @param {any} product @param {Array<any>} availableVariants */
+function resolveOptionSummary(product, availableVariants) {
+  const primaryOption = resolvePrimaryOption(
+    product.options,
+    availableVariants,
+  );
+
+  if (primaryOption) {
+    const label = pluralizeOptionName(primaryOption.name);
+    return `${primaryOption.values.length} ${label} available`;
+  }
+
+  if (availableVariants.length > 1) return 'Multiple options available';
+  return null;
+}
+
+/** @param {any} product @param {Array<any>} availableVariants */
+function resolveAvailablePriceRange(product, availableVariants) {
+  const priced = availableVariants
+    .map((variant) => variant?.price)
+    .filter((price) => price?.amount && price?.currencyCode);
+  if (!priced.length) return product.priceRange;
+
+  const sorted = [...priced].sort(
+    (a, b) => Number(a.amount) - Number(b.amount),
+  );
+  return {
+    minVariantPrice: sorted[0],
+    maxVariantPrice: sorted[sorted.length - 1],
+  };
+}
+
+/** @param {Array<any>} availableVariants */
+function resolveAvailableCompareAtPrice(availableVariants) {
+  const valid = availableVariants
+    .filter(
+      (variant) =>
+        Number(variant?.compareAtPrice?.amount) >
+        Number(variant?.price?.amount),
+    )
+    .map((variant) => variant.compareAtPrice)
+    .sort((a, b) => Number(a.amount) - Number(b.amount));
+  return valid[0] ?? null;
 }
 
 /**
@@ -62,30 +148,34 @@ function resolveOptionSummary(variant) {
 export function ProductItem({product, loading, dark = false}) {
   const variantUrl = useVariantUrl(product.handle);
   const t = useT();
+  const {open} = useAside();
 
-  const variant =
-    product.selectedOrFirstAvailableVariant ??
-    product.variants?.nodes?.find((node) => node?.availableForSale) ??
-    product.variants?.nodes?.[0];
+  const availableVariants = (product.variants?.nodes ?? []).filter(
+    (node) => node?.availableForSale,
+  );
+  const selectedVariant = product.selectedOrFirstAvailableVariant;
+  const variant = selectedVariant?.availableForSale
+    ? selectedVariant
+    : (availableVariants[0] ?? selectedVariant ?? product.variants?.nodes?.[0]);
   const featured = product.featuredImage;
   const hoverImage = product.images?.nodes?.[1] ?? null;
-  const availableVariants =
-    product.variants?.nodes?.filter((node) => node?.availableForSale) ?? [];
-  const hasChoices = availableVariants.length > 1;
+  const priceRange = resolveAvailablePriceRange(product, availableVariants);
+  const compareAtPrice = resolveAvailableCompareAtPrice(availableVariants);
+  const hasChoices =
+    availableVariants.length > 1 ||
+    Boolean(resolvePrimaryOption(product.options, availableVariants));
   const hasHover = !!hoverImage && hoverImage.id !== featured?.id;
-  const displayPrice = variant?.price ?? product.priceRange?.minVariantPrice;
-  const displayCompareAtPrice =
-    variant?.compareAtPrice ?? product.compareAtPriceRange?.minVariantPrice;
-  const sale = resolveSaleBadge(displayPrice, displayCompareAtPrice, t);
-  const hasFallbackPriceRange =
-    !variant?.price &&
-    product.priceRange?.minVariantPrice?.amount &&
-    product.priceRange?.maxVariantPrice?.amount &&
-    Number(product.priceRange.minVariantPrice.amount) !==
-      Number(product.priceRange.maxVariantPrice.amount);
+  const sale = resolveSaleBadge(priceRange?.minVariantPrice, compareAtPrice, t);
+  const hasPriceRange =
+    priceRange?.minVariantPrice?.amount &&
+    priceRange?.maxVariantPrice?.amount &&
+    Number(priceRange.minVariantPrice.amount) !==
+      Number(priceRange.maxVariantPrice.amount);
   const tagBadge = resolveBadge(product.tags, t);
   const badge = sale ?? tagBadge; // sale takes priority over editorial badges
-  const optionSummary = resolveOptionSummary(variant);
+  const optionSummary = resolveOptionSummary(product, availableVariants);
+  const displayTitle = presentProductTitle(product.title, variant);
+  const department = presentProductDepartment(product, t);
 
   const cardClass = `pk-card pk-card--link${dark ? ' pk-card--dark' : ''}${
     hasHover ? ' pk-card--has-hover' : ''
@@ -94,7 +184,10 @@ export function ProductItem({product, loading, dark = false}) {
   return (
     <div className={cardClass}>
       {badge && (
-        <span className={`pk-card__badge ${badge.cls}`} aria-label={badge.label}>
+        <span
+          className={`pk-card__badge ${badge.cls}`}
+          aria-label={badge.label}
+        >
           {badge.label}
         </span>
       )}
@@ -102,13 +195,13 @@ export function ProductItem({product, loading, dark = false}) {
         className="pk-card__media"
         to={variantUrl}
         prefetch="intent"
-        aria-label={product.title}
+        aria-label={displayTitle}
       >
         {featured ? (
           <>
             <Image
               className="pk-card__image pk-card__image--primary"
-              alt={featured.altText || product.title}
+              alt={featured.altText || displayTitle}
               aspectRatio="1/1"
               data={featured}
               loading={loading}
@@ -117,7 +210,7 @@ export function ProductItem({product, loading, dark = false}) {
             {hasHover ? (
               <Image
                 className="pk-card__image pk-card__image--hover"
-                alt={hoverImage.altText || product.title}
+                alt={hoverImage.altText || displayTitle}
                 aspectRatio="1/1"
                 data={hoverImage}
                 loading="lazy"
@@ -134,31 +227,33 @@ export function ProductItem({product, loading, dark = false}) {
       </Link>
       <div className="pk-card__body">
         <Link to={variantUrl} className="pk-card__title" prefetch="intent">
-          {product.title}
+          {displayTitle}
         </Link>
-        {product.productType ? (
-          <span className="pk-card__vendor">{product.productType}</span>
-        ) : null}
+        <span className="pk-card__vendor">{department}</span>
         {optionSummary ? (
           <span className="pk-card__option-summary">{optionSummary}</span>
         ) : null}
         <div className="pk-card__price">
           {sale ? (
             <span className="pk-card__price-cluster">
-              {hasFallbackPriceRange ? (
-                <span className="pk-card__price-from">{t('product_price_from')}</span>
+              {hasPriceRange ? (
+                <span className="pk-card__price-from">
+                  {t('product_price_from')}
+                </span>
               ) : null}
-              <Money data={displayPrice} />
+              <CurrencyMoney data={priceRange.minVariantPrice} />
               <s className="pk-card__price-compare">
-                <Money data={displayCompareAtPrice} />
+                <CurrencyMoney data={compareAtPrice} />
               </s>
             </span>
           ) : (
             <>
-              {hasFallbackPriceRange ? (
-                <span className="pk-card__price-from">{t('product_price_from')}</span>
+              {hasPriceRange ? (
+                <span className="pk-card__price-from">
+                  {t('product_price_from')}
+                </span>
               ) : null}
-              <Money data={displayPrice} />
+              <CurrencyMoney data={priceRange.minVariantPrice} />
             </>
           )}
         </div>
@@ -177,16 +272,14 @@ export function ProductItem({product, loading, dark = false}) {
                 },
               ]}
               disabled={!variant.availableForSale}
-              onClick={(e) => e.stopPropagation()}
+              onClick={(e) => {
+                e.stopPropagation();
+                open('cart');
+              }}
             >
-              {variant.availableForSale ? (
-                <>
-                  {t('product_add_to_cart')}
-                  <span className="sr-only">: {product.title}</span>
-                </>
-              ) : (
-                t('product_sold_out')
-              )}
+              {variant.availableForSale
+                ? t('product_add_to_cart')
+                : t('product_sold_out')}
             </AddToCartButton>
           </div>
         ) : (

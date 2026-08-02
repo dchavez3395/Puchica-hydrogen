@@ -1,90 +1,79 @@
-# Puchica First-Sale Launch Kit
+# Puchica — First-Sale Launch Kit
 
-_Updated 2026-07-26 after the storewide product, shipping, and checkout gate._
+_Prepared 2026-07-01. Companion to the store diagnosis._
 
-## Current launch position
+## The one-line diagnosis
 
-- 20 products are in the verified launch catalog.
-- Five low-complexity products lead storefront discovery:
-  - Travel Pet Water Bottle
-  - Car Sun Visor Organizer
-  - Long-Handle Bottle Brush
-  - Multi-Use Organizer Hooks
-  - Everyday Carabiner Clip Set
-- The remaining classified products are not assumed launch-ready.
-- Canada and U.S. checkout both return real shipping methods. The 2026-07-26
-  regression reached the payment step without placing an order: Canada showed
-  CA$7.99 Standard and CA$20.00 Express; the U.S. showed US$6.00 Standard.
-- No paid fulfillment test has been submitted.
-- Shopify new-order email and mobile staff notifications are enabled for all orders.
-- Google Analytics is active in the Google & YouTube channel. Meta Pixel data
-  sharing is set to Maximum; an ad account is not connected.
-- All 20 launch products are published to Google & YouTube. Google Merchant
-  Center ingestion is still processing and may take up to three days.
+Your store **works** (checkout + payments verified end-to-end). Your **traffic
+doesn't convert because it's the wrong traffic** — 1,315 Facebook sessions
+produced 0 add-to-carts, while homepage visitors add to cart at ~12%. Fix the
+offer (done), point *real* humans at the store, and you have a real shot.
 
-## Non-negotiable order of operations
+## What's already live
 
-1. Configure measurement before buying traffic.
-2. Verify `page_view`, `view_item`, `add_to_cart`, and `begin_checkout`.
-3. Run one unpaid end-to-end checkout regression in Canada and the U.S.
-4. Place one controlled fulfillment test order only after the owner approves the product, destination, payment method, and maximum total.
-5. Test demand with one hero product and one audience at a time.
+- **`FIRST15`** — 15% off, all products, no minimum, active now.
+- Storefront copy updated to advertise **free shipping on everything** + FIRST15
+  (deploys with your next push).
 
-## First demand experiment
+## Do first (or the offer is a lie)
 
-Start with the Travel Pet Water Bottle. It has a clear use case, three variants, verified Canada/U.S. shipping, and a visual demonstration suitable for short-form creative.
+1. **Shopify → Settings → Shipping and delivery → set every zone's rate to Free.**
+   The site now advertises free shipping; checkout must match.
+2. **Settings → Checkout → Abandoned checkouts → turn on automatic emails.**
+3. **Settings → check the online-store password page is OFF** (49 sessions hit
+   `/password` — make sure no sales channel routes buyers to a locked store).
+4. **Facebook Ads Manager** — audit the audience. 0 engagement from 1,315 clicks
+   means junk traffic or a creative/landing mismatch. Don't scale it until a
+   test set actually adds to cart.
 
-### Offer
+## Products to feature in the promo
 
-- Landing destination: the product page or `/#launch-picks`.
-- Use the existing `FIRST15` code only while it remains active and its post-discount margin is still within the product gate.
-- Never advertise free shipping. Current verified checkout rates are:
-  - Canada: CA$7.99 Standard; CA$20.00 Express.
-  - U.S.: US$6.00 Standard for the tested single-product cart.
+Pick **visual, giftable, impulse** items — they stop the scroll on social and
+justify an instant buy. Lead with:
 
-### Creative test
+- **Astronaut Galaxy Light Projector** — CA$34.41 (was $66.23). Verified, on
+  sale, extremely visual, gifty. This is your hero.
+- 2–3 more in the same vein from your catalog (star/galaxy projectors, giant
+  plushies, blanket hoodie, aesthetic humidifiers, LED/mood lighting). Confirm
+  price + stock before featuring.
 
-Produce three simple variations from the same product demonstration:
+**Rule of thumb:** if it looks amazing in a 3-second video and costs under ~$40,
+it's a social winner. Cabinet hinges convert (niche high-intent) but won't stop
+a scroll — keep those for search, not social.
 
-1. Problem: carrying a separate bowl and bottle on a walk.
-2. Use: show the product being carried, opened, and offered to a pet.
-3. Context: walk, road trip, or park outing.
+**Where to send the click:** your **homepage** or a single curated collection —
+*not* deep product pages. Homepage converts at 12%; ad-linked product pages
+converted at ~0%.
 
-Avoid leakproof, food-grade, capacity, temperature, or performance claims unless the supplier evidence is recorded in the product gate.
+## Launch post copy (drop-in)
 
-## Measurement and stop/go thresholds
+### Facebook / Instagram (caption)
+> We finally opened the doors. 🚪✨
+> Puchica — 6,000+ genuinely good finds for your home, life, and everyone on
+> your list. Picked in Toronto, shipped free, no drama.
+>
+> 🎁 Free shipping on everything
+> 🏷️ 15% off your first order — code **FIRST15**
+> ↩️ 30-day returns, no fine print
+>
+> Start here → puchica.ca
 
-Run the first test until it reaches either 300 qualified landing-page sessions or CA$100 in spend, whichever happens first.
+### TikTok / Reels (hook + on-screen text)
+> Hook (first 2s): "POV: you found the store that has *everything* worth buying."
+> On-screen: Galaxy projector transforming a room → "$34, ships free"
+> End card: "FIRST15 = 15% off your first order · puchica.ca"
 
-| Signal | Continue | Investigate | Stop or change |
-| --- | ---: | ---: | ---: |
-| Product-view to add-to-cart | 5%+ | 2–4.9% | under 2% |
-| Add-to-cart to checkout start | 35%+ | 20–34.9% | under 20% |
-| Checkout start to purchase | 25%+ | 10–24.9% | under 10% |
-| Purchase conversion | 1.5%+ | 0.5–1.49% | under 0.5% |
+### Short punchy version (Stories / X)
+> New store, real finds, zero shipping fees. 🇨🇦
+> 15% off your first order: **FIRST15** → puchica.ca
 
-Do not diagnose a product from clicks alone. If tracking is absent or duplicate, pause spend until measurement is repaired.
+## The honest priority order
 
-## Controlled fulfillment test
+1. Make shipping free in admin + deploy the copy. _(economics)_
+2. Fix or pause the Facebook spend; find one channel that sends humans who add to
+   cart. _(traffic quality — this is the real blocker)_
+3. Run the promo above to the homepage with a scroll-stopping product. _(demand)_
+4. Abandoned-cart email caught the stragglers. _(recovery)_
 
-Use one hero variant with healthy supplier stock. Before placing the order, record:
-
-- Shopify order total and currency;
-- customer-visible shipping service and estimate;
-- DSers order import time;
-- supplier mapping and selected variant;
-- whether DSers can submit the order without remapping;
-- tracking-number sync back to Shopify;
-- actual dispatch and delivery dates;
-- packaging, product condition, and claim accuracy.
-
-The test is successful only when the order completes this full loop. A mapped SKU and a checkout shipping rate do not prove automatic fulfillment on their own.
-
-## Next product decision
-
-After the first test has enough sessions:
-
-- keep the Travel Pet Water Bottle if it meets the continue thresholds;
-- change the creative or landing page if engagement is healthy but add-to-cart is weak;
-- move to the Car Sun Visor Organizer only after the first product has a clear result;
-- do not broaden paid traffic across all 20 products simultaneously.
+SEO/hreflang (the earlier work) pays off over months — keep it, but it is not
+your first-sale lever.

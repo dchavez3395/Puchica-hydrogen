@@ -99,12 +99,15 @@ export async function loader({params, context}) {
     throw new Response('Could not find the policy', {status: 404});
   }
 
-  return {policy};
+  return {
+    policy,
+    isRefundPolicy: data.shop?.refundPolicy?.id === policy.id,
+  };
 }
 
 export default function Policy() {
   /** @type {LoaderReturnData} */
-  const {policy} = useLoaderData();
+  const {policy, isRefundPolicy} = useLoaderData();
   const t = useT();
 
   return (
@@ -118,6 +121,22 @@ export default function Policy() {
           <header className="pk-policy__head">
             <h1>{policy.title}</h1>
           </header>
+          {isRefundPolicy ? (
+            <section
+              className="pk-policy__body"
+              aria-labelledby="refund-summary-title"
+            >
+              <h2 id="refund-summary-title">{t('refund_summary_title')}</h2>
+              <p>{t('refund_summary_start')}</p>
+              <ul>
+                <li>{t('refund_summary_shipping')}</li>
+                <li>{t('refund_summary_timing')}</li>
+              </ul>
+              <p>
+                <strong>{t('refund_summary_control')}</strong>
+              </p>
+            </section>
+          ) : null}
           <div
             className="pk-policy__body"
             dangerouslySetInnerHTML={{__html: policy.body}}

@@ -1,3 +1,4 @@
+import {useEffect, useState} from 'react';
 import {useLoaderData, useSearchParams} from 'react-router';
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {CacheNone, getPaginationVariables} from '@shopify/hydrogen';
@@ -6,16 +7,16 @@ import {puchicaMeta} from '~/lib/seo';
 import {ProductItem} from '~/components/ProductItem';
 import {useT} from '~/lib/t';
 import {diversifyByVendor} from '~/lib/diversify';
-import {filterLaunchProducts, sortLaunchProducts} from '~/lib/launch-catalog';
+import {filterLaunchProducts} from '~/lib/launch-catalog';
 
 /**
  * @type {Route.MetaFunction}
  */
 export const meta = ({params}) => {
   return puchicaMeta({
-    title: 'All Products – Puchica',
+    title: 'Shop Organizers – Puchica',
     description:
-      'Browse the complete active Puchica launch catalog: 10 useful travel and organization products available for U.S. delivery.',
+      'Shop Puchica’s focused collection of home, cable, and travel organizers. Compare available options and sort by price or newest.',
     type: 'website',
     pathname: '/collections/all',
     langKey: params?.locale,
@@ -51,10 +52,11 @@ const DEFAULT_SORT = 'featured';
  */
 async function loadCriticalData({context, request}) {
   const {country, language} = context.storefront.i18n;
-  const paginationVariables = getPaginationVariables(request, {pageBy: 100});
+  const paginationVariables = getPaginationVariables(request, {pageBy: 24});
   const url = new URL(request.url);
   const sortValue = url.searchParams.get('sort') || DEFAULT_SORT;
-  const {sortKey, reverse} = SORT_KEY_MAP[sortValue] || SORT_KEY_MAP[DEFAULT_SORT];
+  const {sortKey, reverse} =
+    SORT_KEY_MAP[sortValue] || SORT_KEY_MAP[DEFAULT_SORT];
 
   // Note: we deliberately do NOT apply a `?price=` filter here. The
   // top-level `QueryRoot.products` connection does not accept a
@@ -96,22 +98,13 @@ async function loadCriticalData({context, request}) {
   // (e.g. iPhone case, hair product, robot toy, in that order).
   // See app/lib/diversify.js.
   const launchProducts = filterLaunchProducts(rawProducts?.nodes);
-  const merchandisedProducts =
-    sortValue === DEFAULT_SORT ? sortLaunchProducts(launchProducts) : launchProducts;
-  const products = launchProducts.length > 2
-    ? {
-        ...rawProducts,
-        nodes:
-          sortValue === DEFAULT_SORT
-            ? merchandisedProducts
-            : diversifyByVendor(merchandisedProducts),
-        pageInfo: {...rawProducts.pageInfo, hasPreviousPage: false, hasNextPage: false},
-      }
-    : {
-        ...rawProducts,
-        nodes: launchProducts,
-        pageInfo: {...rawProducts?.pageInfo, hasPreviousPage: false, hasNextPage: false},
-      };
+  const products = {
+    ...rawProducts,
+    nodes:
+      launchProducts.length > 2
+        ? diversifyByVendor(launchProducts)
+        : launchProducts,
+  };
   return {products};
 }
 
@@ -128,18 +121,38 @@ export default function Collection() {
   const catalogView = searchParams.get('view');
   const viewCopy = {
     'new-arrivals': {
-      eyebrow: 'Just in',
-      title: 'New arrivals',
-      sub: 'The latest additions to our active catalog, ready to browse.',
+      eyebrow: t('new_arrivals_eyebrow'),
+      title: t('new_arrivals_heading'),
+      sub: t('all_sub'),
     },
-    'launch-picks': {
-      eyebrow: 'Start here',
-      title: 'Launch picks',
-      sub: 'A focused selection from the active Puchica catalog.',
+    'best-sellers': {
+      eyebrow: t('best_sellers_eyebrow'),
+      title: t('nav_best_sellers'),
+      sub: t('megamenu_tagline_best_sellers'),
     },
   }[catalogView];
   const nodes = products?.nodes ?? [];
   const count = nodes.length;
+  const [density, setDensityState] = useState(4);
+
+  useEffect(() => {
+    try {
+      if (Number(localStorage.getItem('pk:grid-density')) === 3) {
+        setDensityState(3);
+      }
+    } catch {
+      // localStorage blocked — keep the default.
+    }
+  }, []);
+
+  const setDensity = (nextDensity) => {
+    setDensityState(nextDensity);
+    try {
+      localStorage.setItem('pk:grid-density', String(nextDensity));
+    } catch {
+      // The preference remains valid for this visit even if it cannot persist.
+    }
+  };
 
   return (
     <div className="pk-collection pk-collection--bold">
@@ -156,9 +169,10 @@ export default function Collection() {
           <span className="pk-col-hero__eyebrow">
             {viewCopy?.eyebrow || t('all_eyebrow')}
           </span>
-          <h1 className="pk-col-hero__title">{viewCopy?.title || t('all_title')}</h1>
+          <h1 className="pk-col-hero__title">
+            {viewCopy?.title || t('all_title')}
+          </h1>
           <p className="pk-col-hero__sub">{viewCopy?.sub || t('all_sub')}</p>
-          <span className="pk-col-hero__count">{t('col_brand_chip')}</span>
         </div>
       </header>
 
@@ -171,38 +185,77 @@ export default function Collection() {
         </div>
       ) : (
         <div className="pk-col-main">
-          <div className="pk-toolbar">
-            <label className="pk-toolbar__sort">
-              {t('col_sort_by')}
-              <select
-                value={sortValue}
-                onChange={(e) => {
-                  const next = new URLSearchParams(searchParams);
-                  if (e.target.value === 'featured') {
-                    next.delete('sort');
-                  } else {
-                    next.set('sort', e.target.value);
-                  }
-                  setSearchParams(next, {replace: true});
-                }}
+          <div className="pk-toolbar pk-toolbar--catalog">
+            <span className="pk-toolbar__count">
+              {t('col_showing')}:{' '}
+              <strong>{viewCopy?.title || t('all_breadcrumb')}</strong>
+            </span>
+            <div className="pk-toolbar__controls">
+              <label className="pk-toolbar__sort">
+                {t('col_sort_by')}
+                <select
+                  value={sortValue}
+                  onChange={(e) => {
+                    const next = new URLSearchParams(searchParams);
+                    if (e.target.value === 'featured') {
+                      next.delete('sort');
+                    } else {
+                      next.set('sort', e.target.value);
+                    }
+                    setSearchParams(next, {replace: true});
+                  }}
+                >
+                  <option value="featured">{t('col_sort_featured')}</option>
+                  <option value="best-selling">{t('col_sort_best')}</option>
+                  <option value="newest">{t('col_sort_newest')}</option>
+                  <option value="price-asc">{t('col_sort_price_asc')}</option>
+                  <option value="price-desc">{t('col_sort_price_desc')}</option>
+                </select>
+              </label>
+              <div
+                className="pk-toolbar__density"
+                role="group"
+                aria-label={t('col_density_aria')}
               >
-                <option value="featured">{t('col_sort_featured')}</option>
-                <option value="best-selling">{t('col_sort_best')}</option>
-                <option value="newest">{t('col_sort_newest')}</option>
-                <option value="price-asc">{t('col_sort_price_asc')}</option>
-                <option value="price-desc">{t('col_sort_price_desc')}</option>
-              </select>
-            </label>
+                <button
+                  type="button"
+                  className={
+                    'pk-toolbar__density-btn' +
+                    (density === 3 ? ' is-active' : '')
+                  }
+                  aria-pressed={density === 3}
+                  aria-label={t('col_density_3_aria')}
+                  onClick={() => setDensity(3)}
+                >
+                  <DensityIcon cols={3} />
+                </button>
+                <button
+                  type="button"
+                  className={
+                    'pk-toolbar__density-btn' +
+                    (density === 4 ? ' is-active' : '')
+                  }
+                  aria-pressed={density === 4}
+                  aria-label={t('col_density_4_aria')}
+                  onClick={() => setDensity(4)}
+                >
+                  <DensityIcon cols={4} />
+                </button>
+              </div>
+            </div>
           </div>
           <PaginatedResourceSection
             connection={products}
-            resourcesClassName="pk-prod-grid"
+            showSummary={false}
+            resourcesClassName={
+              'pk-prod-grid' + (density === 3 ? ' pk-prod-grid--3' : '')
+            }
           >
             {({node: product, index}) => (
               <ProductItem
                 key={product.id}
                 product={product}
-                loading={index < 8 ? 'eager' : undefined}
+                loading={index < 2 ? 'eager' : 'lazy'}
                 index={index}
               />
             )}
@@ -210,6 +263,27 @@ export default function Collection() {
         </div>
       )}
     </div>
+  );
+}
+
+function DensityIcon({cols}) {
+  const width = 16;
+  const gap = 2;
+  const cell = (width - gap * (cols - 1)) / cols;
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+      {Array.from({length: cols}, (_, index) => (
+        <rect
+          key={index}
+          x={index * (cell + gap)}
+          y="2"
+          width={cell}
+          height="12"
+          rx="1"
+          fill="currentColor"
+        />
+      ))}
+    </svg>
   );
 }
 
@@ -281,7 +355,7 @@ const CATALOG_QUERY = `#graphql
     $endCursor: String
     $sortKey: ProductSortKeys
     $reverse: Boolean) @inContext(country: $country, language: $language) {
-    products(first: $first, last: $last, before: $startCursor, after: $endCursor, sortKey: $sortKey, reverse: $reverse) {
+    products(first: $first, last: $last, before: $startCursor, after: $endCursor, sortKey: $sortKey, reverse: $reverse, query: "tag:puchica-launch-ready") {
       nodes { ...CollectionItem }
       pageInfo {
         hasPreviousPage

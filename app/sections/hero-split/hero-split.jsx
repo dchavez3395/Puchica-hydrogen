@@ -22,7 +22,7 @@ export function HeroSplit({categories = []}) {
             <span className="pk-store-hero__eyebrow">
               {t('hero_split_eyebrow')}
             </span>
-            <h1 className="pk-store-hero__heading">{t('hero_split_heading')}</h1>
+            <h1 className="pk-store-hero__heading">{t('hero_store_toolbar_heading')}</h1>
             <p className="pk-store-hero__body">{t('hero_split_body')}</p>
           </div>
 
@@ -31,11 +31,11 @@ export function HeroSplit({categories = []}) {
               {t('hero_split_cta_secondary')}
             </Link>
             <Link
-              to="#launch-picks"
+              to="/collections/best-sellers"
               prefetch="viewport"
               className="pk-btn pk-btn--outline"
             >
-              {t('best_sellers_heading')}
+              {t('nav_best_sellers')}
             </Link>
           </div>
 

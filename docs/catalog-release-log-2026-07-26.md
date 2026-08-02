@@ -1,43 +1,4 @@
-# Catalog Release Log ? 2026-07-26
-
-## Current audited launch state
-
-The earlier 26-product baseline below records the state before the storewide destination-shipping and compliance gate removed failing products. The current authoritative workboard contains **18 active launch-tagged products**: 14 with passing U.S. supplier-shipping and price evidence, and 4 kept out of the U.S. catalog because at least one sellable variant cannot ship there.
-
-`Everyday Printed Joggers` became the first additional audited promotion beyond the original 17-product working set. On 2026-07-26 it was:
-
-- renamed and given customer-ready product copy;
-- assigned to `Apparel & Accessories > Clothing > Pants > Joggers`;
-- repriced across all 18 variants so the Canadian margin gate passes;
-- set `ACTIVE`, tagged `puchica-launch-ready`, and published to Online Store and Puchica Storefront;
-- verified on its live Canadian product page, all-products collection, and cart;
-- verified in Canadian checkout with Standard Shipping at CA$7.99 and Express at CA$20.00; and
-- assigned a fixed US$19.99 U.S.-catalog price, above its conservative US$18.99 floor.
-
-The same checkout returned `Shipping not available` after switching to a valid non-personal U.S. test destination. U.S. delivery therefore remains blocked by the documented Managed Markets/Global-e fulfillment-mode conflict.
-
-
-## Verified Draft remediation
-
-Eight quote-complete Draft products were remediated in Shopify without activation:
-
-- 196 variant prices were changed from verified Canada quote economics and 232 variants were re-read with zero price mismatches;
-- unsupported supplier, material, performance, warehouse, guarantee, and composition claims were removed;
-- customer-facing titles, descriptions, SEO, product types, and Shopify taxonomy were corrected; and
-- all eight products remained `DRAFT`.
-
-Nine individual Canada no-shipping variants across seven of the products still require supplier replacement or separation. Product-specific textile, measurement, dimensional, storefront, and checkout gates also remain. The authoritative record is `storewide-draft-remediation-2026-07-26.csv`; these products are remediated, not launch-approved.
-
-## U.S.-only draft preparation
-
-Three Canada-failing products now have complete passing U.S. supplier quotes and customer-ready Shopify content/taxonomy, but remain `DRAFT` and untagged:
-
-- `Quartz Watch, Bracelet & Necklace Set` - conservative U.S. floor US$11.99;
-- `Stainless-Steel Quartz Watch & Bracelet` - conservative U.S. floor US$12.99; and
-- `Digital Watch & Jewellery Gift Set` - conservative U.S. floor US$26.99.
-
-Fixed U.S.-catalog prices were applied to every mapped variant and re-read through Admin GraphQL at US$11.99, US$12.99, and US$26.99 respectively. All three remain excluded until the Managed Markets U.S. checkout returns a real shipping method and U.S.-only storefront delivery is verified. See `storewide-us-only-candidate-readiness-2026-07-26.csv`.
-
+# Catalog Release Log — 2026-07-26
 
 ## Verified live baseline
 
@@ -97,7 +58,7 @@ The 26 active products all have inventory tracking enabled and DSers-style optio
 
 ## Canada pre-shipping margin screen
 
-The first Canada supplier-optimizer check confirmed that DSers can return destination-specific supplier cost, shipping, delivery days, sale count, and reliability data for **Canada**. The sample supplier offers a 7–8 day Canada delivery estimate with US$1.99–2.15 shipping; that is the evidence standard for the rest of the audit.
+The first Canada supplier-optimizer check confirmed that DSers can return destination-specific supplier cost, shipping, delivery days, sale count, and reliability data for **Canada**. The sample supplier offers an 7–8 day Canada delivery estimate with US$1.99–2.15 shipping; that is the evidence standard for the rest of the audit.
 
 Shopify also stores a CAD unit cost for all 497 live variants. Using the customer price after `FIRST15`, less an estimated 2.9% payment fee and CA$0.30 fixed fee, **before shipping and taxes**, the worst variant of each product was screened as follows:
 
@@ -125,60 +86,3 @@ This is not a blanket launch approval. The same review surfaced an explicitly **
 - keep only the vetted 24-product launch gate customer-facing;
 - check mapped availability and a Canada destination quote before any paid traffic or promotion;
 - replace or hold a product immediately if a mapped supplier SKU becomes unavailable or fails the shipping-cap rule.
-
-## Final gate correction
-
-Later product-by-product Canada and U.S. quote work supersedes the initial 26-product baseline. The current live gate is 17 active launch-tagged products with 374 variants.
-
-- Eight tight-margin variants across `Long-Sleeve Performance Tee` and `Men's High-Neck Knit Sweater` were repriced and re-read; their Canada shipping caps are now CA$3.21–CA$3.27.
-- `Precision Nail Clippers` was moved to Draft and its launch tag removed because both mapped variants fail U.S. shipping.
-- The only three U.S.-no-service SKUs still inside active products have inventory zero and are unavailable for sale.
-- No active launch variant remains below the observed CA$3.03 Canada shipping floor.
-
-The earlier published-product list is retained as historical evidence, not the current launch assortment.
-## Full active-catalog U.S. checkout confirmation
-
-The final active gate contains 17 products and 374 variants. U.S. margin validation was completed for the remaining three products:
-
-- `Everyday Fleece Joggers`: 11 below-floor sellable variants received a US$26.99 fixed catalog price; all 20 sellable variants now meet the floor.
-- `Everyday Zip Hoodie`: all 17 sellable variants received a US$34.99 fixed catalog price.
-- `Multi-Use Organizer Hooks`: existing US$14.99–15.49 fixed prices already exceed the US$10.99 floor.
-
-All three products were restored to the Puchica U.S. catalog. Their known no-U.S.-shipping variants remain inventory-zero and unavailable.
-
-A combined live checkout containing one sellable variant from every active product initially exposed an inactive `Free Shipping Over $75` method, creating a rate gap above CA$74.99. The existing method was activated without changing its CA$75 threshold or zero price. The same 17-product cart was then re-tested using a non-personal New York destination and returned `Free Shipping Over $75` as a real delivery method.
-
-The 17-product active gate is now confirmed for Canada economics, U.S. supplier service, U.S. pricing, U.S. catalog availability, and live U.S. checkout delivery.
-## Draft no-shipping variant controls
-
-Nine known destination-failing variants across seven remediated Draft products were set to inventory zero with overselling denied and re-read through Admin GraphQL. This safely separates the failing variants without discarding their passing sibling variants:
-
-- Children's Foot Measuring Gauge — `blue`
-- Children's Solid-Color Tights — `Pink / 1 to 2 Yrs / China Mainland`
-- Copper Washer Assortment — `200Pcs M5-M14`
-- Everyday Crew-Neck T-Shirt — `Black / L`
-- Men's Everyday Shorts — `XXXL / Dark Blue 001`
-- Men's High-Neck Base-Layer Top — `Coffee / 3L`
-- Printed Children's Winter Mittens — `C`, `E`, and `F`
-
-These controls advance fulfillment readiness but do not clear outstanding material, measurement, sizing, textile-labeling, or children's-product evidence gates. All seven parent products remain Draft.
-## Product 18 activated
-
-`Everyday Pullover Hoodie` completed its remaining launch gates and was activated:
-
-- all 48 variants retain verified Canada and U.S. supplier-service evidence;
-- Canada pricing had already been remediated and re-read;
-- all 48 U.S. catalog prices were fixed and re-read at the conservative US$59.99 maximum-cost floor;
-- product status changed to `ACTIVE`, `puchica-launch-ready` was added, and Online Store, Puchica Storefront, and Puchica U.S. Catalog publication were confirmed;
-- Canadian checkout returned Standard Shipping at CA$7.99; and
-- U.S. checkout returned Free Shipping Over $75.
-
-The confirmed active launch gate is now 18 products.
-## Products 19 and 20 activated
-
-Two additional low-risk remediated Drafts completed the full launch gate:
-
-- `Copper Washer Assortment`: the Canada-failing 200-piece option remains inventory-zero and unavailable; the three passing variants received conservative U.S. prices of US$16.99 and US$45.99, and representative Canada/U.S. checkouts returned real rates.
-- `Children's Foot Measuring Gauge`: unsupported accuracy/material claims were absent from the customer copy; the Canada-failing blue option remains inventory-zero and unavailable; four passing variants received US$9.99–11.99 prices, and representative Canada/U.S. checkouts returned real rates.
-
-Both products are Active, launch-tagged, and published to Online Store, Puchica Storefront, and the U.S. catalog. The CA/U.S. checkout-confirmed launch gate is now 20 products.

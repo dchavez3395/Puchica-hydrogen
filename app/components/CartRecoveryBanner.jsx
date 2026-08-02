@@ -1,7 +1,5 @@
-import {useEffect, useRef, useState} from 'react';
-import {useLocation} from 'react-router';
-import {LocalizedLink as Link} from '~/components/LocalizedLink';
-import {useT} from '~/lib/t';
+import {useEffect, useState} from 'react';
+import {Link} from 'react-router';
 
 /**
  * CartRecoveryBanner — shows a dismissible "welcome back" banner when a
@@ -14,33 +12,22 @@ import {useT} from '~/lib/t';
  * @param {{cart: {totalQuantity?: number, lines?: {nodes: Array<{merchandise: {product: {handle: string, title: string}, image: {url: string, altText: string} | null}, quantity: number}>}}}} props
  */
 export function CartRecoveryBanner({cart}) {
-  const t = useT();
-  const location = useLocation();
   const [show, setShow] = useState(false);
-  const restoredWithItems = useRef(Boolean(cart?.totalQuantity)).current;
 
   useEffect(() => {
-    if (!cart || typeof window === 'undefined') return undefined;
-
-    // This is recovery UI, not an add-to-cart confirmation. Only show it when
-    // the component mounted with a pre-existing cart, and never over the cart
-    // page itself.
-    if (!restoredWithItems || location.pathname.endsWith('/cart')) {
-      setShow(false);
-      return undefined;
-    }
+    if (!cart || typeof window === 'undefined') return;
 
     const totalQuantity = cart.totalQuantity || 0;
-    if (totalQuantity === 0) return undefined;
+    if (totalQuantity === 0) return;
 
     // Only show once per browser session
     const dismissed = sessionStorage.getItem('cart_recovery_dismissed');
-    if (dismissed) return undefined;
+    if (dismissed) return;
 
     // Small delay so it doesn't flash during SSR hydration
     const timer = setTimeout(() => setShow(true), 1200);
     return () => clearTimeout(timer);
-  }, [cart, location.pathname, restoredWithItems]);
+  }, [cart]);
 
   const dismiss = () => {
     setShow(false);
@@ -70,7 +57,7 @@ export function CartRecoveryBanner({cart}) {
         right: '16px',
         maxWidth: '480px',
         margin: '0 auto',
-        zIndex: 900,
+        zIndex: 9999,
         background: 'var(--color-surface, #fff)',
         border: '1px solid var(--color-border, #e5e5e5)',
         borderRadius: '12px',
@@ -92,13 +79,20 @@ export function CartRecoveryBanner({cart}) {
       )}
       <div style={{flex: 1, minWidth: 0}}>
         <p style={{margin: 0, fontWeight: 600, fontSize: '14px'}}>
-          {t(
-            itemCount === 1 ? 'cart_recovery_one' : 'cart_recovery_many',
-            {count: itemCount},
-          )}
+          Welcome back! You have {itemCount} item{itemCount > 1 ? 's' : ''} in
+          your cart.
         </p>
         {productTitle && (
-          <p style={{margin: '2px 0 0', fontSize: '13px', color: 'var(--color-muted, #6b7280)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>
+          <p
+            style={{
+              margin: '2px 0 0',
+              fontSize: '13px',
+              color: 'var(--color-muted, #6b7280)',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+            }}
+          >
             {productTitle}
           </p>
         )}
@@ -112,13 +106,13 @@ export function CartRecoveryBanner({cart}) {
             color: 'var(--color-teal, #0d9488)',
           }}
         >
-          {t('cart_recovery_cta')} <span aria-hidden>→</span>
+          Complete your order →
         </Link>
       </div>
       <button
         type="button"
         onClick={dismiss}
-        aria-label={t('cart_recovery_dismiss')}
+        aria-label="Dismiss cart reminder"
         style={{
           background: 'none',
           border: 'none',
