@@ -52,7 +52,7 @@ test('storefront copy avoids unsupported no-surprise-fee promises', () => {
   );
 });
 
-test('Meta Pixel environment documentation matches runtime configuration', async () => {
+test('custom analytics stay behind an explicit duplicate-tracking guard', async () => {
   const [component, root, envExample] = await Promise.all([
     readFile(new URL('../app/components/MetaPixel.jsx', import.meta.url), 'utf8'),
     readFile(new URL('../app/root.jsx', import.meta.url), 'utf8'),
@@ -63,6 +63,10 @@ test('Meta Pixel environment documentation matches runtime configuration', async
     assert.match(source, /PUBLIC_FACEBOOK_PIXEL_ID/);
     assert.doesNotMatch(source, /PUBLIC_META_PIXEL_ID/);
   }
+
+  assert.match(root, /PUBLIC_CUSTOM_ANALYTICS_ENABLED === 'true'/);
+  assert.match(envExample, /PUBLIC_CUSTOM_ANALYTICS_ENABLED="false"/);
+  assert.match(envExample, /same commerce events can be counted twice/);
 });
 
 test('refund policy route presents the fail-safe summary before Admin policy HTML', async () => {

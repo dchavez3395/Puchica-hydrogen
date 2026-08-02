@@ -97,6 +97,12 @@ export async function loader(args) {
     storefront.i18n,
     criticalData.header?.localization,
   );
+  // Shopify Customer Events already supplies the native Meta and Google app
+  // pixels for this store. Keep the custom loaders off unless those native
+  // integrations are intentionally disconnected; running both would duplicate
+  // the same commerce events.
+  const customAnalyticsEnabled =
+    env.PUBLIC_CUSTOM_ANALYTICS_ENABLED === 'true';
 
   return {
     ...deferredData,
@@ -105,8 +111,12 @@ export async function loader(args) {
     publicStoreDomain: env.PUBLIC_STORE_DOMAIN,
     // Meta Pixel ID (Meta Events Manager) — enables storefront-side ad tracking.
     // No-ops until this env var is set. See app/components/MetaPixel.jsx.
-    metaPixelId: env.PUBLIC_FACEBOOK_PIXEL_ID || null,
-    ga4MeasurementId: env.PUBLIC_GA4_MEASUREMENT_ID || null,
+    metaPixelId: customAnalyticsEnabled
+      ? env.PUBLIC_FACEBOOK_PIXEL_ID || null
+      : null,
+    ga4MeasurementId: customAnalyticsEnabled
+      ? env.PUBLIC_GA4_MEASUREMENT_ID || null
+      : null,
     selectedLocale,
     shop: getShopAnalytics({
       storefront,
