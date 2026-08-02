@@ -28,8 +28,11 @@ this file controls when a status, cap, or instruction conflicts.
   evidence showed C$34.55 as an explicit welcome-only price and C$73.52 crossed
   out; the welcome price is not repeat-order economics and already exceeds the
   landed-cost target before unknown costs. The search is reopened.
-- DSers remains the sole automation platform for supplier validation. Do not
-  add AutoDS during this proof cycle.
+- DSers remains the current installed supplier-validation platform. Do not add
+  AutoDS during this proof cycle. The subsequent sourcing-pivot decision in
+  `docs/sourcing-pivot-decision-2026-08-02.md` authorizes no installation but
+  proposes a Shopify Collective Canada Discovery audit, followed only if needed
+  by free DropCommerce and Syncee catalog audits.
 
 Paid activation requires every P0 gate below to pass and a new, explicit owner
 approval of the exact market, creative set, daily cap, and total cap. Previous
