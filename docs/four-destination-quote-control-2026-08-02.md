@@ -63,3 +63,32 @@ Conservative current all-in landed-cost ceilings:
 No shipping, untracked service, changed mapping, a blank cost, or an uncertain
 route is `HOLD`, not an estimated pass. `FIRST15` must remain inactive.
 
+## Authenticated DSers result — 2026-08-02
+
+Captured at `2026-08-02T18:50:26Z` from DSers **My Products → Shipping info**.
+No order, checkout, saved address, recipient, phone number, mapping change, or
+payment was created.
+
+DSers confirmed the mapped supplier item `1005008568050448` and the exact
+selected SKU `5PCS Set Red`. The current My Products card displayed supplier
+stock `1,023`, a US$4.38–20.39 item-cost range, and a CA$6.15–28.61 converted
+cost range. The range is not an exact-option item-cost quote.
+
+| Requested destination | DSers input scope | Exact-SKU result | Decision |
+| --- | --- | --- | --- |
+| Winnipeg, MB R3B 1B9 | Canada only | `No Shipping` | `HOLD_NO_ROUTE` |
+| Toronto, ON M5H 2N2 | Canada only | `No Shipping` | `HOLD_NO_ROUTE` |
+| ZIP 10001 | United States only | AliExpress Selection Standard; ships from CN; free shipping; 7–12 days; tracking available | `ADDRESS_LEVEL_QUOTE_BLOCKED` |
+| ZIP 90001 | United States only | Same country-level result | `ADDRESS_LEVEL_QUOTE_BLOCKED` |
+
+The Shipping info tool accepts a **country**, not a city, postal code, ZIP code,
+or street address. It therefore cannot produce four destination-specific rows.
+The Canadian result is a hard route failure for this supplier SKU. The U.S.
+result is useful country-level preflight evidence, but it does not satisfy the
+two-ZIP gate and does not prove the exact item cost, duties, brokerage,
+return-to-sender exposure, or final landed charge.
+
+Operational consequence: do not advertise this exact packing-cube offer in
+Canada. Keep paid traffic off in both countries until the supplier route is
+replaced or independently verified at the required destination level and the
+economics are recalculated from complete charges.

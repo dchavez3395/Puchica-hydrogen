@@ -51,6 +51,27 @@ conversion record uses approximately **CA$31.72**. Neither amount proves duty,
 tax, brokerage, entry fees, remote-area fees, tracking, importer of record, or
 the actual checkout charge for a destination.
 
+### Exact mapped-SKU route correction — 2026-08-02
+
+Authenticated DSers **My Products → Shipping info** was subsequently checked
+for supplier item `1005008568050448` with the exact `5PCS Set Red` SKU selected.
+This higher-quality route evidence supersedes the optimizer's generic shipping
+rows:
+
+- **Canada:** `No Shipping`. There is no saleable Canadian route for this exact
+  supplier SKU, so the Canadian margin scenarios below are hypothetical only
+  and cannot authorize a launch.
+- **United States:** AliExpress Selection Standard, ships from CN, free
+  shipping, 7–12 days, tracking available. This is country-level only; DSers
+  exposes no ZIP field in the Shipping info tool.
+- **Current card evidence:** supplier stock `1,023`; US$4.38–20.39 cost range;
+  CA$6.15–28.61 converted range. The exact red-set item cost remains unknown.
+
+Do not silently replace the old US$1.99 shipping assumption with zero in a final
+margin model. The newly displayed free-shipping route is not ZIP-specific, and
+the exact item price and other landed charges remain unresolved. Keep every
+scenario `HOLD` until those fields are proven.
+
 ## Lead-offer provisional economics
 
 Unknown costs are deliberately shown as missing, not zero. The calculations

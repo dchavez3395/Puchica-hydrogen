@@ -304,6 +304,24 @@ Use the exact mapped red five-piece option and ordinary supplier pricing.
 | CA | Owner-approved Manitoba postal code | Prior public-address checkout showed CA$7.99 customer shipping | US$20.62 item + US$1.99 estimated shipping; country-level; seven-day estimate | Missing | Missing | HOLD |
 | CA | Owner-approved Ontario postal code | Not captured | Same country-level record | Missing | Missing | HOLD |
 
+### Exact mapped-SKU Shipping info refresh — 2026-08-02
+
+At `2026-08-02T18:50:26Z`, authenticated DSers **My Products → Shipping info**
+was checked without creating an order or entering recipient data. The selected
+supplier SKU was `5PCS Set Red` on supplier item `1005008568050448`.
+
+| Market | DSers destination scope | Exact-SKU route | Result |
+| --- | --- | --- | --- |
+| Canada | Country only | `No Shipping` | Canada paid and organic promotion HOLD for this offer |
+| United States | Country only | AliExpress Selection Standard; CN origin; free shipping; 7–12 days; tracking available | Preflight only; two-ZIP evidence still blocked |
+
+DSers exposes no city, postal-code, or ZIP input in this tool. Winnipeg and
+Toronto therefore share the failed Canada result, while ZIP 10001 and ZIP 90001
+cannot be distinguished. Record the U.S. rows as `ADDRESS_LEVEL_QUOTE_BLOCKED`,
+not as passed quotes. The My Products card displayed supplier stock `1,023`
+and a US$4.38–20.39 item-cost range; the exact red-set item price remains
+unproven. No paid activation is authorized.
+
 For each destination record the timestamp, evidence link, Shopify variant,
 DSers/supplier IDs, mapped option/SKU, destination postal code without excess
 personal data, ordinary item price, shipping, currency, ship-from, stock,
