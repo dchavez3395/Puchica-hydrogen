@@ -30,9 +30,10 @@ this file controls when a status, cap, or instruction conflicts.
   landed-cost target before unknown costs. The search is reopened.
 - DSers remains the current installed supplier-validation platform. Do not add
   AutoDS during this proof cycle. The subsequent sourcing-pivot decision in
-  `docs/sourcing-pivot-decision-2026-08-02.md` authorizes no installation but
-  proposes a Shopify Collective Canada Discovery audit, followed only if needed
-  by free DropCommerce and Syncee catalog audits.
+  `docs/sourcing-pivot-decision-2026-08-02.md` records the owner-authorized free
+  Shopify Collective installation and Canada Discovery audit. No supplier is
+  connected and no product is imported. Free DropCommerce and Syncee catalog
+  audits remain fallbacks only.
 
 Paid activation requires every P0 gate below to pass and a new, explicit owner
 approval of the exact market, creative set, daily cap, and total cap. Previous

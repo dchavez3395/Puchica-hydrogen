@@ -70,7 +70,28 @@ current 2.8% + C$0.30 payment planning fee and 15% reserve:
 The practical Collective gate is therefore 50% margin for most US$55-70 heroes.
 Forty percent is acceptable only near US$80 with proven shipping economics.
 
-Status: `COLLECTIVE_CANADA_BLOCKED_PENDING_PRIVATE_DISCOVERY`.
+### Installation and first Discovery pass
+
+The owner authorized installation after reviewing the scope. Shopify Collective
+was installed successfully on August 2, 2026. No supplier was connected and no
+product was imported, published, or ordered.
+
+The private Canadian Discovery catalog loaded without an eligibility warning.
+Initial searches for `travel organizer`, `packing cubes`, and `organizer` showed
+poor search relevance and no qualifying hero product. Representative results
+included:
+
+- Cotopaxi Kapai 3L Hip Pack at C$59.99 with 10% margin;
+- Greenwood Leather Regina duffle at C$279.95 with 15% margin;
+- Oh Sew! Organized Stash n Store at C$21.99 with 15% margin;
+- Wrench Modular Magnetic Organizers at C$20.99 with 20% margin;
+- unrelated search matches with margins up to 40%.
+
+These results fail the Puchica paid-acquisition margin/AOV gate. Collective
+remains installed for a structured filter/supplier audit, but the first search
+does not produce an approved product.
+
+Status: `COLLECTIVE_INSTALLED_DISCOVERY_ACTIVE_NO_PRODUCT_SELECTED`.
 
 ## Alternative supplier routes
 
@@ -140,11 +161,13 @@ reassess desk/cable reset without rebuilding the entire storefront first.
 
 ## Owner decision required
 
-The next step requires authorization to install **Shopify Collective only** for
-a private Discovery catalog audit. Installation grants the app access to store,
-customer, order, product, analytics, settings, and payment-related data described
-on its Shopify App Store listing. Approval to install is not approval to connect
-a supplier, import a product, activate a trial, publish, order, or spend.
+Installation of **Shopify Collective only** was authorized and completed. That
+approval did not authorize connecting a supplier, importing a product, activating
+a trial, publishing, ordering, or spending. Those boundaries remain in force.
+
+The next work is a structured Discovery audit using margin, destination,
+tracking, category, and retail-price filters. A supplier connection or product
+import still requires a separate exact-product decision.
 
 Before using any supplier, verify current Shopify Payments classification and
 Collective retailer eligibility. Do not change the owner from `Individual` to a
