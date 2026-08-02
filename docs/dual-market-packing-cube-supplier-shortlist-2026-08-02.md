@@ -6,8 +6,7 @@ The current mapped supplier item `1005008568050448` remains rejected for the
 core launch because the exact `5PCS Set Red` SKU returned `No Shipping` to
 Canada.
 
-One replacement candidate is worth exact-variant review, but it is **not yet
-approved or mapped**:
+One replacement candidate was reviewed and is now **rejected**:
 
 - AliExpress item: `1005005283270949`
 - Listing title: `Luggage Cubes Organizer Portable Travel Storage Bag
@@ -31,7 +30,19 @@ Maximum displayed item plus shipping is provisionally US$15.03 before tax,
 duty, brokerage, payment, FX, handling, support, returns, or advertising. Do not
 use this number as final landed cost.
 
-## Unresolved approval gates
+## Owner screenshot review
+
+The owner supplied a live AliExpress screenshot. It showed a red selection with
+three packing cubes, not the required five-piece set. The page also displayed a
+temporary C$8.53 `Welcome deal`, tax excluded, free shipping to the selected
+Canadian context, an Aug 10–17 delivery display, 4.8 rating and 345 sold.
+
+The promotional welcome price is not normal-price evidence, and the three-piece
+configuration is not equivalent to the storefront's five-piece offer.
+Candidate `1005005283270949` is therefore `REJECT_PRODUCT_MISMATCH` and must not
+be imported or mapped to Shopify variant `49961853026554`.
+
+## Failed approval gates
 
 - exact five-piece red option exists and matches the storefront offer
 - exact supplier SKU and ordinary option price
@@ -43,15 +54,11 @@ use this number as final landed cost.
 - returns, importer, duty, brokerage, and return-to-sender exposure
 
 Direct inspection of the AliExpress listing was blocked by the browser security
-policy. No workaround was attempted. Nothing was imported, remapped, ordered,
-or paid for. The candidate must remain `SHORTLIST_PENDING_VARIANT_PROOF` until
-the exact option can be reviewed through an approved surface or manually by the
-owner.
+policy, so the owner screenshot supplied the missing product evidence. Nothing
+was imported, remapped, ordered, or paid for.
 
 ## Next action
 
-Open the candidate listing manually and confirm whether it offers a red
-five-piece compression set. If it does, capture the option name/SKU, price and
-stock, then use DSers Shipping info for Canada and the United States before any
-mapping change. If it does not, reject it and continue with the next established
-Supplier Optimizer candidate.
+Do not continue forcing packing cubes. Reopen product selection across the
+small-space organization niche and advance only concepts that can support a
+normal-price, tracked, profitable Canada-and-U.S. exact SKU.

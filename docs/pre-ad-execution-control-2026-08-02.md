@@ -17,10 +17,11 @@ this file controls when a status, cap, or instruction conflicts.
 - A sample is not required for the zero-spend gates. Launching without one
   makes the first genuine customer order a manually monitored product and
   fulfillment proof; it does not permit quality claims.
-- The only possible first paid offer is the Red 5-Piece Compression Packing
-  Cube Set, option `5PCS Set Red`, Shopify variant `49961853026554`.
-- DSers is the sole automation owner for that variant. Do not add AutoDS during
-  this proof cycle.
+- The first paid offer is **not selected**. The former Red 5-Piece Compression
+  Packing Cube lead is rejected because its mapped supplier has no Canadian
+  route, and the first replacement lead was a three-piece product mismatch.
+- DSers remains the sole automation platform for supplier validation. Do not
+  add AutoDS during this proof cycle.
 
 Paid activation requires every P0 gate below to pass and a new, explicit owner
 approval of the exact market, creative set, daily cap, and total cap. Previous
@@ -31,7 +32,7 @@ general approvals do not authorize spend.
 | Workstream | Status | Verified | Not yet verified |
 | --- | --- | --- | --- |
 | Markets | PASS for availability | Canada/CAD and U.S./USD storefront contexts and checkout handoff | Supplier delivery to each address |
-| Lead product | PROVISIONAL | Exact variant, price, and country-level DSers evidence | Address-level route, tracking, delivered quality, final landed cost |
+| Lead product | REOPENED | The packing-cube supplier and first replacement were rejected with evidence | Select a new exact product that passes Canada and U.S. fulfillment, margin, quality-risk, and creative gates |
 | Canada checkout | PARTIAL PASS | No-payment Manitoba Shopify checkout showed CA$7.99 shipping | Supplier quotes to Manitoba and Ontario |
 | U.S. checkout | PARTIAL PASS | U.S. market and checkout available | Supplier quotes to ZIP 10001 and ZIP 90001 |
 | GA4 | PASS for pre-purchase | Production `view_item`, `add_to_cart`, checkout, and page-view evidence | Fresh Purchase and UTM persistence |
@@ -43,6 +44,15 @@ general approvals do not authorize spend.
 | DSers operations | HOLD | DSers selected; auto-pay not approved | Exact mapping, sync, duplicate prevention, tracking, notifications |
 | Creative | HOLD | Review concepts and source-faithful draft | Final exact-product accessible creative set |
 | Paid media | BLOCKED | No spend authorized | All P0 gates and explicit owner approval |
+
+### Greenfield product decision
+
+Puchica is committed to the small-space organization niche, not to any current
+SKU. Existing products have no preference over new products. Product discovery
+must start with customer problem, dual-market route, normal-price margin and
+quality risk; storefront redesign and creative production follow only after an
+exact product passes those gates. See
+`docs/greenfield-product-discovery-sprint-2026-08-02.md`.
 
 ## P0 gate 0 — mandatory Manitoba seller disclosures
 
