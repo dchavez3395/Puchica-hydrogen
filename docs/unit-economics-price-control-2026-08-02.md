@@ -75,10 +75,10 @@ processor total.
 The current full-price cube offer has a plausible cushion. The low end of the
 recommended retail band does not leave much room for duty, brokerage, FX,
 automation, or support. A sitewide 15% discount fails the 30% gate in the
-illustrated US$49 and current-price Canadian cases. Repository history says
-`FIRST15` is verified active in Shopify Admin, applies 15% to the entire order
-for all customers, and has zero recorded uses. It must be disabled or restricted
-before launch unless exact economics prove the resulting offer still passes.
+illustrated US$49 and current-price Canadian cases. On August 2, 2026,
+`FIRST15` was verified expired/inactive in Shopify Admin with zero recorded uses.
+Do not reactivate or replace it unless exact economics prove the resulting offer
+still passes.
 
 ## Retail price benchmark
 
@@ -169,10 +169,9 @@ do not bury it inside product cost or treat it as zero.
 
 ## Required proof before a paid test
 
-- [x] Verify `FIRST15` state in Shopify Admin: active, 15% off the entire order,
-      all customers, zero uses.
-- [ ] Disable or restrict `FIRST15` and reconcile all remaining storefront
-      references before launch.
+- [x] Verify `FIRST15` state in Shopify Admin: expired/inactive, zero uses.
+- [x] Disable `FIRST15`; the rendered storefront does not advertise it. Keep
+      dormant promotional components unmounted or neutralize them before reuse.
 - [ ] Capture exact `5PCS Set Red` option/SKU, ordinary price, stock, tracked
       service, and final supplier checkout total.
 - [ ] Capture address-level US quotes for ZIP 10001 and 90001.

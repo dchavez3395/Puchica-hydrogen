@@ -432,9 +432,10 @@ The August 2 market benchmark places a credible lead-offer band near
 US$47–49 / CA$66–69. At US$49, the provisional full-price margin is about
 35.9% before unknowns under the verified base card rate; applying 15% off
 reduces it to about 27.7%. At the current Canadian price, 15% off produces about
-29.5%. `FIRST15` was verified active for all customers with zero recorded uses,
-so it is a P0 economics failure until disabled/restricted or exact landed costs
-prove a different result.
+29.5%. `FIRST15` was verified expired/inactive in Shopify Admin with zero
+recorded uses on August 2, 2026. This P0 margin leak is closed; it must not be
+reactivated or replaced unless exact landed costs prove the discounted offer
+still clears the gate.
 
 PASS requires every cost, at least 30% worse-destination contribution, any live
 promotion still clearing 30%, a daily cap no greater than 70% of evidenced
