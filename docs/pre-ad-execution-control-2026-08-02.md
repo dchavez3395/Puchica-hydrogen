@@ -335,6 +335,21 @@ not as passed quotes. The My Products card displayed supplier stock `1,023`
 and a US$4.38–20.39 item-cost range; the exact red-set item price remains
 unproven. No paid activation is authorized.
 
+### Dual-market replacement search — 2026-08-02
+
+Authenticated DSers Supplier Optimizer identified AliExpress item
+`1005005283270949` as the strongest current established-sales shortlist lead.
+It displayed US$11.22–13.04 plus US$1.99 AliExpress Selection Standard shipping
+and seven displayed days for both Canada and the United States, with 194 sales
+and 4.7 / 4.7 / 4.8 / 4.8 supplier signals. DSers warns that optimizer data may
+be incorrect, so this is not a passed quote.
+
+The exact red five-piece variant, price, stock and destination-level route could
+not be proven without direct listing inspection, which the browser security
+policy blocked. No bypass, import, remap, order, or payment was attempted. Keep
+the candidate `SHORTLIST_PENDING_VARIANT_PROOF`; see
+`docs/dual-market-packing-cube-supplier-shortlist-2026-08-02.md`.
+
 For each destination record the timestamp, evidence link, Shopify variant,
 DSers/supplier IDs, mapped option/SKU, destination postal code without excess
 personal data, ordinary item price, shipping, currency, ship-from, stock,
