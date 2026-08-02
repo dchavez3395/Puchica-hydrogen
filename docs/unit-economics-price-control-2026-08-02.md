@@ -156,15 +156,16 @@ Verified recurring-cost state on August 2:
 
 - Shopify Basic is CA$1/month until September 12, 2026, then displays
   CA$49/month;
-- Judge.me is in a free trial until August 7, 2026, then displays approximately
-  CA$21.03 every 30 days;
+- Judge.me Awesome was downgraded successfully to the Forever Free plan on
+  August 2, 2026. The scheduled US$15 charge for August 7 was cancelled and the
+  app remains installed;
 - DSers is on the free Basic plan. Official DSers pricing confirms Basic is
   free: [DSers plans](https://www.dsers.com/pricing).
 
-At steady state, the known Shopify plus Judge.me baseline is about CA$70.03 per
-month before domains, payment/conversion fees, advertising, tax, or any other
-app. Allocate this across a conservative delivered-order count; do not bury it
-inside product cost or treat it as zero.
+At steady state, the known Shopify plus Judge.me baseline is now CA$49 per month
+after September 12, before domains, payment/conversion fees, advertising, tax,
+or any other app. Allocate this across a conservative delivered-order count;
+do not bury it inside product cost or treat it as zero.
 
 ## Required proof before a paid test
 

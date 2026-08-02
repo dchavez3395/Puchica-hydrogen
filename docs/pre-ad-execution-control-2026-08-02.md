@@ -397,7 +397,7 @@ worksheet for activation decisions.
 | Duties/brokerage/import | Customer pays charges not collected at checkout; refusal/return exposure missing | Customer pays charges not collected at checkout; refusal/return exposure missing |
 | Automation/order charge | DSers Basic verified free; supplier/order charges still verify | DSers Basic verified free; supplier/order charges still verify |
 | Handling/packaging | Missing | Missing |
-| App allocation | Shopify CA$49/month after Sept. 12 + Judge.me about CA$21.03/30 days after Aug. 7; allocation missing | Same |
+| App allocation | Shopify CA$49/month after Sept. 12; Judge.me verified on Forever Free after August 2 downgrade; allocation missing | Same |
 | Return/refund reserve | Use 15% planning case pending evidence | Use 15% planning case pending evidence |
 | Customer shipping retained | Exclude until proven | Exclude CA$7.99 until net treatment proven |
 | Status | HOLD | HOLD |
@@ -405,11 +405,12 @@ worksheet for activation decisions.
 Authenticated Shopify Admin verification on August 2 confirmed that Shopify
 Payments is accepting payments and payouts, the payout account is CAD, PayPal
 Express is active, and the Basic plan's online card rate is 2.8% + CA$0.30.
-The plan is CA$1/month until September 12, then displays CA$49/month. Judge.me
-displays a free trial until August 7 followed by approximately CA$21.03 every
-30 days. DSers is on its free Basic plan. U.S. currency conversion, payout,
-PayPal, refund, and chargeback treatment remain missing, so the economics gate
-remains HOLD.
+The plan is CA$1/month until September 12, then displays CA$49/month. Judge.me's
+Awesome plan was downgraded successfully to Forever Free on August 2; its
+scheduled US$15 August 7 charge was cancelled while the app remained installed.
+DSers is on its free Basic plan. U.S. currency conversion, payout, PayPal,
+refund, and chargeback treatment remain missing, so the economics gate remains
+HOLD.
 
 ```text
 R = merchandise price × (1 - promotion rate)
