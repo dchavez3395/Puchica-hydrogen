@@ -52,6 +52,24 @@ backup concepts rather than automatic hero products.
 4. **Under-sink pull-out organizer** — preserve as a high-visual backup, but
    reject quickly if dimensional or shipping economics are weak.
 
+## Supplier screening result — August 2
+
+The accordion document organizer is now the first category to clear the
+country-level Canada/U.S. route screen. Two exact AliExpress item records were
+found in authenticated DSers:
+
+- `1005010145905527`: zippered 13-pocket A4 organizer; US$7.01–8.04;
+  292 sales; 4.9 rating; US$1.99 U.S. / US$2.16 Canada Selection Standard;
+  six displayed days.
+- `1005010531361199`: labeled multi-compartment A4 organizer;
+  US$4.11–4.58; 48 sales; 4.8 rating; US$1.99 U.S. / US$2.16 Canada
+  Selection Standard; seven displayed days.
+
+Both remain `SHORTLIST_PENDING_VARIANT_STOCK_PROOF`; DSers country-level rows
+do not prove an exact option, stock, tracking or address-level delivery.
+Commercial and competitor evidence is recorded in
+`docs/greenfield-supplier-evidence-2026-08-02.md`.
+
 ## Evidence required before storefront work
 
 For the top three concepts, capture at least two established supplier candidates
