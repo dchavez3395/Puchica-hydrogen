@@ -1,10 +1,12 @@
 import {data, type LoaderFunctionArgs} from 'react-router';
+import {filterLaunchProducts, LAUNCH_READY_TAG} from '~/lib/launch-catalog';
 
 /**
  * Google Merchant Center product feed — `/feed.xml`
  *
- * Generates a Google Shopping-compatible XML product feed from all
- * products published to the Storefront API.
+ * Generates a Google Shopping-compatible XML product feed from products that
+ * passed Puchica's shared launch gate. Shopify publication alone is not enough:
+ * the explicit launch tag and operational-hold list both apply here.
  *
  * GMC feed spec: https://support.google.com/merchants/answer/7052112
  *
@@ -16,8 +18,8 @@ export async function loader({context}: LoaderFunctionArgs) {
 
   const {products} = await storefront.query(
     `#graphql
-    query ProductFeed {
-      products(first: 250, sortKey: TITLE) {
+    query ProductFeed($query: String!) {
+      products(first: 250, sortKey: TITLE, query: $query) {
         edges {
           node {
             title
@@ -25,6 +27,7 @@ export async function loader({context}: LoaderFunctionArgs) {
             description
             productType
             tags
+            availableForSale
             featuredImage { url }
             onlineStoreUrl
             variants(first: 20) {
@@ -45,33 +48,46 @@ export async function loader({context}: LoaderFunctionArgs) {
         }
       }
     }`,
-    {cache: storefront.CacheShort()},
+    {
+      cache: storefront.CacheShort(),
+      variables: {query: `tag:${LAUNCH_READY_TAG}`},
+    },
   );
 
   const SITE_URL = 'https://puchica.ca';
-  const currency = 'CAD';
+  const launchProducts = filterLaunchProducts(
+    products.edges.map(({node}) => node),
+  );
 
-  const items = products.edges.map(({node: product}) => {
+  const items = launchProducts.map((product) => {
     const url = `${SITE_URL}/products/${product.handle}`;
     const image = product.featuredImage?.url || '';
     const title = xmlEscape(product.title);
     const description = xmlEscape(stripHtml(product.description || ''));
     const category = xmlEscape(product.productType || '');
     const id = product.handle;
-    const price = product.priceRange?.minVariantPrice?.amount || '0.00';
+    // Feed one exact, sellable variant per launch-approved product. Do not let
+    // an unavailable first variant make an otherwise valid product look out of
+    // stock, and never emit a product with no sellable variant.
+    const firstVariant = product.variants.edges
+      .map(({node}) => node)
+      .find((variant) => variant.availableForSale);
+    if (!firstVariant) return null;
 
-    // Use first variant as the main item (Google Shopping can handle item groups later)
-    const firstVariant = product.variants.edges[0]?.node;
+    const price = firstVariant.price?.amount || '0.00';
+    const currency = firstVariant.price?.currencyCode || 'CAD';
     const sku = xmlEscape(firstVariant?.sku || product.handle);
-    const availability = firstVariant?.availableForSale
-      ? 'in stock'
-      : 'out of stock';
+    const availability = 'in stock';
 
     // Check for sale price (compareAtPrice > price)
     const compareAt = firstVariant?.compareAtPrice?.amount;
+    const regularPrice =
+      compareAt && Number(compareAt) > Number(price)
+        ? compareAt
+        : price;
     const salePriceEl =
       compareAt && Number(compareAt) > Number(price)
-        ? `    <g:sale_price>${compareAt}</g:sale_price>\n`
+        ? `    <g:sale_price>${price} ${currency}</g:sale_price>\n`
         : '';
 
     // Tags → custom labels (up to 5)
@@ -88,7 +104,7 @@ export async function loader({context}: LoaderFunctionArgs) {
     <g:link>${url}</g:link>
     <g:image_link>${image}</g:image_link>
     <g:availability>${availability}</g:availability>
-    <g:price>${price} ${currency}</g:price>
+    <g:price>${regularPrice} ${currency}</g:price>
 ${salePriceEl}    <g:brand>Puchica</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
     <g:product_type>${category}</g:product_type>
@@ -96,7 +112,7 @@ ${salePriceEl}    <g:brand>Puchica</g:brand>
     <g:mpn>${sku}</g:mpn>
 ${customLabels}
   </item>`;
-  });
+  }).filter(Boolean);
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">

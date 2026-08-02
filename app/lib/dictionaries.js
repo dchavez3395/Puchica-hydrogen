@@ -13,12 +13,12 @@ export const DICTIONARIES = {
     // ── Announcement bar ──────────────────────────────────────────
     announce_offer: '15% off your first order, code FIRST15',
     announce_freeship: 'Shipping options shown at checkout',
-    announce_cta: 'Shop now',
+    announce_cta: 'Shop organizers',
     offer_first15: 'New here? Take 15% off your first order with code FIRST15.',
     announce_region_aria: 'Site announcements',
 
     // ── Footer ────────────────────────────────────────────────────
-    footer_tagline: 'Useful finds. Clear shipping. Secure checkout.',
+    footer_tagline: 'Organizers for small homes and life on the go.',
     footer_accepted_payments: 'Accepted payments',
     footer_secure: 'Secure checkout by Shopify, encrypted, PCI-compliant',
     footer_shop: 'Shop',
@@ -33,7 +33,8 @@ export const DICTIONARIES = {
     footer_refund_policy: 'Refund Policy',
     footer_terms: 'Terms of Service',
     footer_newsletter_title: 'Join our newsletter',
-    footer_newsletter_copy: 'Exclusive offers and new arrivals, straight to your inbox.',
+    footer_newsletter_copy:
+      'Exclusive offers and new arrivals, straight to your inbox.',
     footer_email_placeholder: 'Enter your email',
     footer_newsletter_email_aria: 'Email address',
     footer_newsletter_subscribe_aria: 'Subscribe',
@@ -45,7 +46,7 @@ export const DICTIONARIES = {
     // ── Nav ───────────────────────────────────────────────────────
     nav_all_products: 'All Products',
     nav_best_sellers: 'Best Sellers',
-    nav_trending: 'Trending Now',
+    nav_trending: 'Cable organization',
     nav_gifts: 'Gifts Under $25',
     nav_shop: 'Shop',
     nav_new_arrivals: 'New Arrivals',
@@ -70,7 +71,7 @@ export const DICTIONARIES = {
     aside_heading_search: 'Search',
     aside_heading_menu: 'Menu',
     cart_loading: 'Loading cart …',
-    search_placeholder: 'Search products...',
+    search_placeholder: 'Search organizers by room or use',
     search_aria_submit: 'Search',
     search_submit_label: 'Search',
     search_loading_for: 'Searching for “{term}”.',
@@ -83,13 +84,14 @@ export const DICTIONARIES = {
     mobile_customer_care: 'Customer Care',
     mobile_contact_us: 'Contact us',
     mobile_all_policies: 'All policies',
-    mobile_announce_foot: 'Shipping options at checkout · 14-day returns',
+    mobile_announce_foot: 'Shipping shown at checkout · 30-day returns',
     mobile_announce_foot_sep: ' · ',
     // Product page trust labels
     // Mega menu category taglines (translated FR/ES/PT as a follow-up pass)
     megamenu_tagline_phone_case: 'Cases, grips, protection.',
-    megamenu_tagline_home_essentials: 'Kitchen, storage, decor.',
-    megamenu_tagline_home_kitchen: 'Kitchen, storage, decor.',
+    megamenu_tagline_home_essentials:
+      'Compact storage and everyday organization.',
+    megamenu_tagline_home_kitchen: 'Compact storage and kitchen organization.',
     megamenu_tagline_electronics_accessories: 'Cables, chargers, mounts.',
     megamenu_tagline_apparel_accessories: 'Bags, hats, wearables.',
     megamenu_tagline_health_wellness: 'Skin, scent, grooming.',
@@ -109,9 +111,10 @@ export const DICTIONARIES = {
     megamenu_tagline_gifts_under_25: 'Great gifts, small budget.',
 
     // ── Hero ──────────────────────────────────────────────────────
-    hero_eyebrow: 'From Canada, To the World!',
-    hero_title: 'Everything worth buying.',
-    hero_sub: 'Useful finds across home, beauty, tech, pet, and more. Clear product details, transparent checkout, and support when you need it.',
+    hero_eyebrow: 'Organization for small spaces',
+    hero_title: 'Make room for what matters.',
+    hero_sub:
+      'Practical organizers and space-saving fixes for compact homes, daily routines, and life on the go.',
     hero_cta_shop: 'Shop now →',
     hero_cta_browse: 'Browse all',
     hero_stat_products: 'Products',
@@ -123,13 +126,13 @@ export const DICTIONARIES = {
     hero_featured_text: 'Featured: {title}',
 
     // ── Ticker / Marquee ──────────────────────────────────────────
-    ticker_products: 'Active catalog',
-    ticker_new_drops: 'New drops weekly',
-    ticker_free_shipping: 'Shipping options at checkout',
-    ticker_returns: '14-day returns',
+    ticker_products: 'Small-space solutions',
+    ticker_new_drops: 'Everyday fixes that earn their space',
+    ticker_free_shipping: 'Shipping shown at checkout',
+    ticker_returns: '30-day returns',
     ticker_ships: 'Order tracking available',
-    ticker_handpicked: 'Handpicked, never random',
-    ticker_real_value: 'Canadian support · Always on',
+    ticker_handpicked: 'Practical, space-conscious picks',
+    ticker_real_value: 'Focused launch collection',
     ticker_secure: 'Secure checkout',
 
     // ── Discover swiper ───────────────────────────────────────────
@@ -162,13 +165,17 @@ export const DICTIONARIES = {
     mood_section_aria: 'Shop by lifestyle',
     lifestyle_shop_eyebrow: 'Explore',
     lifestyle_shop_heading: 'Shop by lifestyle',
-    lifestyle_shop_sub: 'Start with the moment, then find the category that fits.',
-    lifestyle_shop_home_title: 'Home refresh',
-    lifestyle_shop_home_body: 'Useful upgrades for the rooms and routines you use every day.',
+    lifestyle_shop_sub:
+      'Start with the moment, then find the category that fits.',
+    lifestyle_shop_home_title: 'Small space, smarter setup',
+    lifestyle_shop_home_body:
+      'Compact organizers that bring order to daily routines without permanent changes.',
     lifestyle_shop_motion_title: 'Everyday motion',
-    lifestyle_shop_motion_body: 'Practical finds for getting out the door, staying organized, and moving well.',
+    lifestyle_shop_motion_body:
+      'Practical finds for getting out the door, staying organized, and moving well.',
     lifestyle_shop_family_title: 'Play & family',
-    lifestyle_shop_family_body: 'Thoughtful picks for playtime, little routines, and shared moments.',
+    lifestyle_shop_family_body:
+      'Thoughtful picks for playtime, little routines, and shared moments.',
     lifestyle_shop_cta: 'Shop the edit →',
     review_section_aria: 'Customer reviews',
     fresh_section_aria: 'Fresh finds',
@@ -180,10 +187,11 @@ export const DICTIONARIES = {
     newsletter_section_aria: 'Newsletter signup',
 
     // ── Shipping reach ────────────────────────────────────────────
-    ship_eyebrow: 'Where we ship',
-    ship_title: 'We ship anywhere.',
-    ship_sub: "We deliver to countries around the world. Wherever you are, we'll get your order to you.",
-    ship_cta: 'Ask about your country',
+    ship_eyebrow: 'Delivery details',
+    ship_title: 'Delivery details before you pay.',
+    ship_sub:
+      'Availability, cost, and timing are confirmed at checkout for the items and destination in your cart.',
+    ship_cta: 'View shipping details',
     ship_section_aria: 'Shipping destinations',
     ship_compact_title: 'Coverage by region',
     ship_cities_label: 'cities',
@@ -195,100 +203,129 @@ export const DICTIONARIES = {
     ship_region_me: 'Middle East',
     ship_region_af: 'Africa',
     ship_region_oc: 'Oceania',
-    ship_region_na_sub: 'Canada & the U.S.',
-    ship_region_sa_sub: 'From Mexico to Argentina',
-    ship_region_uk_sub: 'England, Scotland, Wales, NI',
-    ship_region_eu_sub: 'Continental Europe',
-    ship_region_ap_sub: 'Japan, AU, SG, and more',
-    ship_region_me_sub: 'UAE, Saudi, Israel, Qatar',
-    ship_region_af_sub: 'From Morocco to South Africa',
-    ship_region_oc_sub: 'Australia, NZ, Fiji',
+    ship_region_na_sub: 'Availability varies by destination',
+    ship_region_sa_sub: 'Not currently promoted',
+    ship_region_uk_sub: 'Availability varies by cart',
+    ship_region_eu_sub: 'Not currently promoted',
+    ship_region_ap_sub: 'Not currently promoted',
+    ship_region_me_sub: 'Not currently promoted',
+    ship_region_af_sub: 'Not currently promoted',
+    ship_region_oc_sub: 'Not currently promoted',
 
     // ── Shipping page ─────────────────────────────────────────────
     ship_hero_eyebrow: 'Shipping & Delivery',
     ship_hero_title_main: 'Shipping &',
     ship_hero_title_em: 'Delivery.',
-    ship_hero_sub: 'Delivery availability, timing, and cost are confirmed at checkout for the destination and items in your cart.',
-    ship_hero_cta: 'Shop the catalog',
-    ship_launch_hero_sub: 'Delivery availability, timing, and cost are confirmed at checkout for the destination and items in your cart.',
-    ship_launch_regions_eye: 'Launch markets',
-    ship_launch_regions_title: 'Availability is checked market by market.',
-    ship_launch_regions_sub: 'We enable destinations only when mapped suppliers can support the order reliably.',
+    ship_hero_sub:
+      'Delivery availability, cost, and timing are confirmed at checkout for the items and destination in your cart.',
+    ship_hero_cta: 'Shop organizers',
+    ship_launch_hero_sub:
+      'One North American storefront with market-specific pricing and delivery options confirmed at checkout.',
+    ship_jump: 'See how delivery is confirmed',
+    ship_launch_regions_eye: 'North American storefront',
+    ship_launch_regions_title: 'Two markets. One focused shop.',
+    ship_launch_regions_sub:
+      'Choose Canada or the United States to view market pricing. Delivery still depends on the selected items and address.',
     ship_launch_rates_eye: 'Before you pay',
-    ship_launch_rates_title: 'Clear options for your order.',
-    ship_launch_rates_sub: 'Checkout shows delivery availability for your selected items and destination before payment.',
+    ship_launch_rates_title: 'Check delivery before payment',
+    ship_launch_rates_sub:
+      'Checkout shows delivery availability for your selected items and destination before payment.',
     ship_launch_how_eye: 'How it works',
     ship_launch_how_title: 'Order with the details in view.',
     ship_launch_how_1_title: 'Choose your items',
-    ship_launch_how_1_body: 'Add the product and variant you want to your cart, then continue to secure checkout.',
+    ship_launch_how_1_body:
+      'Add the product and variant you want to your cart, then continue to secure checkout.',
     ship_launch_how_2_title: 'Review delivery at checkout',
-    ship_launch_how_2_body: 'Enter your destination to see whether a delivery option is available for your order before payment.',
+    ship_launch_how_2_body:
+      'Enter your destination to see whether a delivery option is available for your order before payment.',
     ship_launch_how_3_title: 'Receive order updates',
-    ship_launch_how_3_body: 'We send confirmation after checkout and provide available fulfillment updates as your order progresses.',
+    ship_launch_how_3_body:
+      'We send confirmation after checkout and provide available fulfillment updates as your order progresses.',
     ship_launch_track_eye: 'After your order',
     ship_launch_track_title: 'Support when you need it.',
-    ship_launch_track_body_1: 'Order confirmation is sent after checkout. Delivery updates and tracking depend on the service available for your order.',
-    ship_launch_track_body_2: 'If you need help with an order, contact support with your order number and we will review the available details with you.',
+    ship_launch_track_body_1:
+      'Order confirmation is sent after checkout. Delivery updates and tracking depend on the service available for your order.',
+    ship_launch_track_body_2:
+      'If you need help with an order, contact support with your order number and we will review the available details with you.',
     footer_stat_delivery: 'Delivery options',
-    ship_market_ca_name: 'Canada',
-    ship_market_ca_detail: 'Delivery availability is confirmed at checkout for the items in your cart.',
-    ship_market_us_name: 'United Kingdom',
-    ship_market_us_detail: 'Delivery availability is confirmed at checkout for the items in your cart.',
-    ship_market_next_name: 'More markets in validation',
-    ship_market_next_detail: 'We add a market only when mapped suppliers can support it reliably.',
+    ship_market_ca_name: 'Canada · CAD',
+    ship_market_ca_detail:
+      'CAD storefront pricing; checkout confirms whether the selected items can be delivered.',
+    ship_market_us_name: 'United States · USD',
+    ship_market_us_detail:
+      'USD storefront pricing; checkout confirms whether the selected items can be delivered.',
+    ship_market_next_name: 'Canada and other markets',
+    ship_market_next_detail:
+      'We’re still confirming reliable product coverage before promoting these destinations.',
     ship_check_destination_title: 'Check your destination',
-    ship_check_destination_body: 'Enter your delivery address at checkout to see the options available for your order.',
+    ship_check_destination_body:
+      'Enter your delivery address at checkout to see the options available for your order.',
     ship_check_destination_eta: 'Availability shown before payment',
     ship_check_items_title: 'Check the items in your cart',
-    ship_check_items_body: 'Shipping options can differ by product, variant, and destination. The checkout result applies to your selected order.',
+    ship_check_items_body:
+      'Shipping options can differ by product, variant, and destination. The checkout result applies to your selected order.',
     ship_check_items_eta: 'No delivery promise until checkout confirms it',
     ship_check_tracking_title: 'Follow your order',
-    ship_check_tracking_body: 'When a tracked service is available, tracking details are sent after the order has shipped.',
+    ship_check_tracking_body:
+      'When a tracked service is available, tracking details are sent after the order has shipped.',
     ship_check_tracking_eta: 'See the shipping policy for support details',
     ship_regions_eye: 'Where we ship',
-    ship_regions_title: 'Coverage across 8 regions.',
-    ship_regions_sub: 'We deliver to countries around the world. Pick a region to see what lands at your door.',
+    ship_regions_title: 'Coverage expands only after validation.',
+    ship_regions_sub:
+      'We only promote destinations after product-level delivery and supplier coverage are confirmed.',
     ship_rates_eye: 'Shipping rates',
-    ship_rates_title: 'Fast, fair shipping.',
-    ship_rates_sub: 'Estimated delivery times and free shipping thresholds. Final cost is calculated at checkout based on weight and destination.',
+    ship_rates_title: 'Clear shipping before payment.',
+    ship_rates_sub:
+      'Checkout confirms available services, cost, and timing for your selected items and destination.',
     ship_rates_canada_flag: 'CA',
     ship_rates_canada_title: 'Canada',
-    ship_rates_canada_body: 'Free standard shipping on orders over $75. Flat-rate shipping below the threshold.',
-    ship_rates_canada_eta: '2–5 business days',
-    ship_rates_canada_badge: 'Free over $75',
+    ship_rates_canada_body:
+      'Available shipping services and costs are shown at checkout for the selected order.',
+    ship_rates_canada_eta: 'Delivery estimate shown at checkout',
+    ship_rates_canada_badge: '',
     ship_rates_us_flag: 'US',
     ship_rates_us_title: 'United States',
-    ship_rates_us_body: 'Standard and expedited options. Duties and taxes calculated at checkout.',
-    ship_rates_us_eta: '5–9 business days',
+    ship_rates_us_body:
+      'Availability depends on the selected items, cart, and destination.',
+    ship_rates_us_eta: 'Confirm at checkout',
     ship_rates_us_badge: '',
     ship_rates_intl_flag: 'INTL',
     ship_rates_intl_title: 'International',
-    ship_rates_intl_body: 'We ship to 8 regions worldwide. Carriers vary by destination and service.',
-    ship_rates_intl_eta: '7–21 business days',
+    ship_rates_intl_body:
+      'International delivery is not currently promoted. Confirm availability at checkout before ordering.',
+    ship_rates_intl_eta: 'No general delivery promise',
     ship_rates_intl_badge: '',
     ship_how_eye: 'How it works',
-    ship_how_title: 'Order today, on its way tomorrow.',
+    ship_how_title: 'Review the details before ordering.',
     ship_how_1_title: 'Place your order',
-    ship_how_1_body: "Browse the catalog, add to cart, and check out securely. You'll get an order confirmation right away.",
-    ship_how_2_title: 'We process within 24 hours',
-    ship_how_2_body: "Our team picks, packs, and ships your order within one business day. You'll get a shipping confirmation with tracking.",
+    ship_how_1_body:
+      "Browse the catalog, add to cart, and check out securely. You'll get an order confirmation right away.",
+    ship_how_2_title: 'Your order is processed',
+    ship_how_2_body:
+      'Processing and delivery timing depend on the selected product and service. Available updates are sent as fulfillment progresses.',
     ship_how_3_title: 'Delivered to your door',
-    ship_how_3_body: 'Your order arrives within the estimated window for your region. Canada usually 2–5 days; international 7–21.',
+    ship_how_3_body:
+      'Use the delivery estimate shown at checkout for your selected items and address.',
     ship_track_eye: 'Tracking your order',
-    ship_track_title: 'Know exactly where your package is.',
-    ship_track_body_1: 'Every order ships with a tracking number. We email it to you the moment your order leaves our warehouse, usually within one business day of checkout.',
-    ship_track_body_2: 'Click the tracking link in your email, or log in to your account and head to your order history to see live status updates from the carrier.',
+    ship_track_title: 'Follow available order updates.',
+    ship_track_body_1:
+      'When a tracked service is available, tracking details are sent after the order ships.',
+    ship_track_body_2:
+      'Use the link in your shipping email or contact support with your order number if you need help.',
     ship_track_cta: 'Contact support',
     ship_cta_title: 'Ready to order?',
-    ship_cta_sub: 'Browse the active catalog with shipping options shown at checkout.',
-    ship_cta_browse: 'Shop all products',
+    ship_cta_sub:
+      'Shop organizers and confirm delivery for your address at checkout.',
+    ship_cta_browse: 'Shop all organizers',
 
     // ── Matchmaker ────────────────────────────────────────────────
     match_eyebrow: 'Discovery Matchmaker',
     match_title: 'Puchica Match.',
-    match_sub: 'Swipe right on something you like. Swipe up to buy it on the spot. Swipe left to move on. Your cart\u2019s the only relationship here.',
+    match_sub:
+      'Swipe right on something you like. Swipe up to buy it on the spot. Swipe left to move on. Your cart\u2019s the only relationship here.',
     match_empty_title: 'No more items today!',
-    match_empty_body: 'That\u2019s the deck. You liked {count} things. Want another round?',
+    match_empty_body:
+      'That\u2019s the deck. You liked {count} things. Want another round?',
     match_reset: 'Swipe Again',
     match_browse: 'Browse All',
     match_stamp_like: 'LIKE',
@@ -302,7 +339,8 @@ export const DICTIONARIES = {
     // ── Gift finder ───────────────────────────────────────────────
     gift_eyebrow: 'Gift ideas',
     gift_title: 'Pick a budget. We\u2019ll do the rest.',
-    gift_sub: 'Whether it\u2019s a stocking stuffer or the kind of present that ends up being talked about at dinner.',
+    gift_sub:
+      'Whether it\u2019s a stocking stuffer or the kind of present that ends up being talked about at dinner.',
     gift_under25_label: 'Under $25',
     gift_under25_sub: 'Stocking-stuffer energy.',
     gift_25_50_label: '$25 – $50',
@@ -339,52 +377,61 @@ export const DICTIONARIES = {
 
     // ── Shop by mood ──────────────────────────────────────────────
     mood_eyebrow: 'Made for your life',
-    mood_title: 'Three rooms in your life. Stuff that fits.',
+    mood_title: 'Small spaces. Smarter routines.',
     mood_home_label: 'Home & Living',
     mood_home_title: 'Your room, working harder.',
-    mood_home_sub: 'Storage, decor, kitchen things. We picked them because we\u2019d want them.',
+    mood_home_sub:
+      'Storage and organization that help compact rooms work harder.',
     mood_home_cta: 'See what\u2019s in there →',
     mood_beauty_label: 'Beauty & Self-Care',
-    mood_beauty_title: 'Stuff that doesn\u2019t make your skin angry.',
-    mood_beauty_sub: 'Skincare, hair, body. We test it before it goes up.',
+    mood_beauty_title: 'Keep daily essentials in order.',
+    mood_beauty_sub:
+      'Compact storage for personal-care routines at home or away.',
     mood_beauty_cta: 'See what\u2019s in there →',
     mood_tech_label: 'Tech & Gadgets',
     mood_tech_title: 'Stuff that makes existing tech less annoying.',
-    mood_tech_sub: 'Accessories, cables, the small things that fix daily frustrations.',
+    mood_tech_sub:
+      'Accessories, cables, the small things that fix daily frustrations.',
     mood_tech_cta: 'See what\u2019s in there →',
 
     // ── Reviews / testimonials ────────────────────────────────────
-    review_eyebrow: 'What people are saying',
-    review_title: 'What shoppers say.',
-    review_1_quote: 'Ordered three times in the past month. Quality is consistently great and shipping is fast.',
-    review_2_quote: 'Found exactly what I was looking for, and way more. This is my new go-to for home stuff.',
-    review_3_quote: 'The curation is genuinely good. Everything feels like it was picked by someone who has taste.',
+    review_eyebrow: 'How we choose',
+    review_title: 'The standard for every product.',
+    review_1_quote:
+      'It should solve a clear organization problem in a small space.',
+    review_2_quote:
+      'It should be simple to understand, size, and use in a daily routine.',
+    review_3_quote:
+      'Its supplier route and delivery details should be verified before promotion.',
 
     // ── Featured banner (best sellers) ───────────────────────────
     banner_eyebrow: 'Best Sellers',
-    banner_title: 'The reorder list.',
-    banner_sub: 'The products our customers come back for. Sometimes as gifts.',
+    banner_title: 'Start with the focused collection.',
+    banner_sub:
+      'Practical organization products selected for the current launch.',
     banner_cta: 'See all',
 
     // ── Catalog statement ─────────────────────────────────────────
-    catalog_body: 'Thousands of products, ALL hand picked by humans, not A.I.',
+    catalog_body:
+      'A focused collection of practical organization products for small spaces.',
     catalog_cta_browse: 'Browse everything →',
     catalog_cta_search: 'Search the catalog',
 
     // ── Trust / value props ───────────────────────────────────────
-    trust_shipping_title: 'Free shipping',
-    trust_shipping_sub: 'Across Canada',
-    trust_returns_title: '14-day returns',
-    trust_returns_sub: 'No questions, no hassle',
+    trust_shipping_title: 'Clear shipping',
+    trust_shipping_sub: 'Confirmed at checkout',
+    trust_returns_title: '30-day returns',
+    trust_returns_sub: 'See policy for eligibility',
     trust_secure_title: 'Secure checkout',
     trust_secure_sub: 'Encrypted & PCI-compliant',
-    trust_handpicked_title: 'Handpicked only',
-    trust_handpicked_sub: 'Curated, never random',
+    trust_handpicked_title: 'Focused collection',
+    trust_handpicked_sub: 'Built around organization',
 
     // ── Newsletter band ───────────────────────────────────────────
     newsletter_pill: 'Join the club',
     newsletter_title: 'New stuff, before the site gets it.',
-    newsletter_sub: 'New arrivals, the picks that actually move, and the occasional discount code. About one email a week.',
+    newsletter_sub:
+      'New arrivals, the picks that actually move, and the occasional discount code. About one email a week.',
     newsletter_done: "You're in! Check your inbox.",
     newsletter_email_label: 'Email address',
     newsletter_placeholder: 'your@email.com',
@@ -411,7 +458,8 @@ export const DICTIONARIES = {
     explore_filter_title: 'Filter by Category',
     explore_filter_clear: 'Clear all',
     explore_empty_title: 'No products found',
-    explore_empty_body: 'Try adjusting your active category selections or clear the filters.',
+    explore_empty_body:
+      'Try adjusting your active category selections or clear the filters.',
     explore_empty_reset: 'Reset Filters',
     explore_view_details: 'View Details',
     explore_cat_home: 'Home & Kitchen',
@@ -423,9 +471,10 @@ export const DICTIONARIES = {
     // ── Shared breadcrumbs ────────────────────────────────────────
     breadcrumb_aria: 'Breadcrumb',
     col_filters_aria: 'Filters',
-    search_trending_label: 'Trending searches',
+    search_trending_label: 'Shop by need',
     search_recent_label: 'Recently viewed',
-    search_trending_terms: 'home kitchen, electronics, pet toys, massage gun, garden tools, gifts under 25',
+    search_trending_terms:
+      'under sink organizer, cable organizer, packing cubes, travel organizer, drawer organizer, bathroom organizer',
     col_density_aria: 'Grid density',
     col_density_3_aria: 'Show 3 per row',
     col_density_4_aria: 'Show 4 per row',
@@ -436,17 +485,18 @@ export const DICTIONARIES = {
 
     // ── Collection page ───────────────────────────────────────────
     col_eyebrow: 'Collection',
-    col_empty_title: 'This edit is being prepared',
+    col_empty_title: 'Nothing matches yet',
     col_empty_filtered: 'No products match these filters.',
     col_clear_filters: 'Clear filters',
-    col_empty_restocking: "We're validating the next edit before it goes live. Check back soon, or browse the rest of the shop.",
+    col_empty_restocking:
+      'This collection is still being built. Browse all organizers or check back soon.',
     col_showing: 'Showing',
     col_showing_more: 'so far, load more below',
     col_product_singular: 'product',
     col_product_plural: 'products',
     col_sort_by: 'Sort by',
     col_sort_featured: 'Featured',
-    col_sort_best: 'Best selling',
+    col_sort_best: 'Sorted by sales',
     col_sort_newest: 'Newest',
     col_sort_price_asc: 'Price: low to high',
     col_sort_price_desc: 'Price: high to low',
@@ -465,54 +515,62 @@ export const DICTIONARIES = {
     col_brand_chip: 'Puchica',
 
     // ── All products page ─────────────────────────────────────────
-    all_breadcrumb: 'All Products',
-    all_eyebrow: 'The full shop',
-    all_title: 'All products',
-    all_sub: 'The complete Puchica catalog, every curated pick in one place. Filter by category from the sidebar, or use the search bar up top.',
-    all_empty_title: 'A considered edit is on its way',
-    all_empty_body: 'We are validating the next selection before it goes live. Join the list for the first look.',
+    all_breadcrumb: 'All organizers',
+    all_eyebrow: 'Shop by need',
+    all_title: 'Shop organizers',
+    all_sub:
+      'Browse organizers for small homes, cables, packing, and everyday travel.',
+    all_empty_title: 'New organizers are on the way',
+    all_empty_body:
+      'We’re adding products for home, cables, and travel. Check back soon.',
     all_count_loading: 'Catalog is loading',
 
     // ── Product page ──────────────────────────────────────────────
     product_trust_shipping: 'Shipping shown at checkout',
     product_trust_shipping_sub: 'for your destination',
-    product_trust_returns: '14-day return window',
+    product_trust_returns: '30-day return window',
     product_trust_returns_sub: 'see policy for eligibility',
     product_trust_secure: 'Secure checkout',
     product_trust_secure_sub: 'encrypted & PCI-compliant',
-    product_desc_eyebrow: 'About this product',
+    product_desc_eyebrow: 'How it helps',
     product_reco_see_all: 'See all',
     product_perks_aria: 'Shipping & service promises',
-    product_highlights_eyebrow: 'Why this product',
-    product_care_eyebrow: 'Care & shipping',
-    product_care_h: 'Built to last, packed with care',
+    product_highlights_eyebrow: 'Useful details',
+    product_care_eyebrow: 'Before you order',
+    product_care_h: 'What to know before you order',
     product_stock_low: 'Only {stock} left',
     product_badge_sold_out: 'Sold out',
     product_badge_save: 'Save {pct}%',
-    product_reviews_stub: 'Reviews from verified buyers will appear here as they are collected.',
+    product_reviews_stub:
+      'Reviews from verified buyers will appear here as they are collected.',
     product_perk_packed: 'Delivery options confirmed at checkout',
     product_perk_return: 'Review the refund policy before ordering',
-    product_perk_curated: 'Product details and options shown before checkout',
+    product_perk_curated:
+      'Choose your size, color, or set before adding to cart',
     product_tab_description: 'Description',
+    product_story_title: 'Why it earns its space.',
     product_tab_specs: 'Specifications',
     product_tab_shipping: 'Shipping & Returns',
     product_desc_empty: 'No additional description for this product.',
-    product_spec_vendor: 'Vendor',
+    product_spec_vendor: 'Brand',
     product_spec_category: 'Category',
-    product_spec_sku: 'SKU',
+    product_spec_sku: 'Product code',
     product_specs_empty: 'No specifications available for this product.',
     product_shipping_h: 'Shipping',
-    product_shipping_body: "Delivery availability, timing, and cost are confirmed at checkout for your selected items and destination. When a tracked service is available, tracking details are sent after the supplier ships your order.",
+    product_shipping_body:
+      'Delivery availability, timing, and cost are confirmed at checkout for your selected items and destination. When a tracked service is available, tracking details are sent after the supplier ships your order.',
     product_returns_h: 'Returns',
-    product_returns_body: "Review the refund policy before ordering. Return eligibility and instructions depend on the item and order; contact support with your order number if you need help.",
+    product_returns_body:
+      'Review the refund policy before ordering. Return eligibility and instructions depend on the item and order; contact support with your order number if you need help.',
     product_help_h: 'Need help?',
-    product_help_body: 'Reach us anytime via the contact page. A real person on the Puchica team will get back to you within one business day.',
+    product_help_body:
+      'Reach us through the contact page with your product or order question and the details we need to help.',
     product_help_contact_link: 'contact page',
     product_share_label: 'Share:',
     product_share_btn: 'Share',
     product_copy_link: 'Copy link',
     product_link_copied: 'Link copied',
-    product_reco_title: 'You might also like',
+    product_reco_title: 'More ways to get organized',
     product_recently_viewed_title: 'Recently viewed',
     product_add_to_cart: 'Add to cart',
     product_price_from: 'From',
@@ -555,6 +613,17 @@ export const DICTIONARIES = {
     megamenu_error_body: "We couldn't load the categories just now.",
     megamenu_error_cta: 'Browse everything →',
     megamenu_tile_cta: 'Shop →',
+    megamenu_intent_heading: 'Organize by need',
+    megamenu_intent_home_title: 'Home reset',
+    megamenu_intent_home_body: 'Drawers, cabinets, counters, and small spaces.',
+    megamenu_intent_cable_title: 'Cable control',
+    megamenu_intent_cable_body: 'Keep cords and everyday tech easy to find.',
+    megamenu_intent_travel_title: 'Travel organization',
+    megamenu_intent_travel_body: 'Packing, luggage, and everyday carry.',
+    megamenu_edit_eyebrow: 'Start here',
+    megamenu_edit_title: 'Organizers for the spaces that get messy fastest.',
+    megamenu_edit_body:
+      'Shop solutions for under-sink storage, cables, packing, and everyday carry.',
     pillnav_aria: 'Page sections',
     pillnav_trending: 'Trending',
     pillnav_home_kitchen: 'Home & Kitchen',
@@ -578,12 +647,14 @@ export const DICTIONARIES = {
     showcase_heading: 'Explore by category',
     showcase_sub: '{count} collections. {pct}% of the catalog covered.',
     showcase_eyebrow: 'Collection {n}',
-    showcase_desc: 'Discover our {title} selection, handpicked products with free shipping across Canada.',
+    showcase_desc:
+      'Discover our {title} selection, with delivery details confirmed for your cart at checkout.',
     showcase_cta: 'Shop {title} →',
 
     // ── 404 / catch-all ───────────────────────────────────────────
     notfound_title: "We couldn't find that page",
-    notfound_sub: 'The link {path} doesn’t exist on Puchica. It may have been moved, renamed, or never existed. Try one of these instead:',
+    notfound_sub:
+      'The link {path} doesn’t exist on Puchica. It may have been moved, renamed, or never existed. Try one of these instead:',
     notfound_popular: 'Popular collections',
     notfound_best: 'Best sellers →',
     notfound_new: 'New arrivals →',
@@ -604,21 +675,24 @@ export const DICTIONARIES = {
     pdp_3d_hint: 'Drag to rotate · scroll to zoom',
     cart_heading_aria: 'Line items',
     cart_remove_region_aria: 'Remove from cart',
-    cart_empty_title: 'Your cart is empty',
-    cart_empty_body: "Nothing here yet, let’s find something you’ll love. Our curated picks change often, so it’s worth a look.",
-    cart_empty_cta_shop: 'Shop the catalog',
-    cart_empty_cta_best: 'See best sellers',
+    cart_empty_title: 'Ready to organize something?',
+    cart_empty_body: 'Start with an organizer for home, cables, or travel.',
+    cart_empty_cta_shop: 'Shop organizers',
+    cart_empty_cta_best: 'Start with home reset',
     cart_empty_perks_aria: 'Why shop with us',
     cart_empty_perk_shipping: 'Shipping options shown at checkout',
-    cart_empty_perk_returns: '14-day returns',
-    cart_ghost_notice: "These items aren't available in your region right now. Remove them to clear your cart.",
-    cart_freeship_progress_remaining: 'Add {amount} for free shipping',
-    cart_freeship_progress_done: "You've earned free shipping",
-    cart_freeship_threshold_label: 'Free shipping on orders over {threshold}',
-    cart_summary_title: 'Totals',
+    cart_empty_perk_returns: '30-day returns',
+    cart_ghost_notice:
+      "These items aren't available in your region right now. Remove them to clear your cart.",
+    cart_freeship_progress_remaining: 'Shipping is confirmed at checkout',
+    cart_freeship_progress_done: 'Shipping is confirmed at checkout',
+    cart_freeship_threshold_label: 'Final shipping options appear at checkout',
+    cart_summary_title: 'Order summary',
     cart_summary_subtotal: 'Subtotal',
-    cart_summary_empty_btn: 'Add an item to check out',
+    cart_summary_empty_btn: 'Add an organizer to continue',
     cart_summary_checkout_btn: 'Continue to Checkout',
+    cart_checkout_unavailable:
+      'Checkout is temporarily unavailable. Refresh your cart and try again.',
     cart_summary_discounts_aria: 'Discounts',
     cart_summary_discounts_h: 'Discounts',
     cart_summary_remove_discount: 'Remove discount',
@@ -680,31 +754,41 @@ export const DICTIONARIES = {
     // ── Aside / drawer chrome ─────────────────────────────────────
     aside_close_drawer: 'Close drawer',
     aside_close: 'Close',
-    locale_change_aria: 'Change language',
+    locale_change_aria: 'Change market or language',
+    locale_switching: 'Switching…',
+    locale_switching_status: 'Updating market and currency.',
+    locale_market_label: 'Market',
+    locale_market_ca: 'Canada',
+    locale_market_us: 'United States',
+    locale_market_unavailable: 'Unavailable',
+    locale_language_label: 'Language',
+    mobile_market_language: 'Market & language',
     skip_to_content: 'Skip to main content',
 
     // ── Root ErrorBoundary / 404 / search in error UI ────────────
     err_404_h: "We couldn't find that page",
     err_500_h: 'Something went wrong on our end',
-    err_404_body: 'The link may be broken, or the page may have moved. Try a search, or head back to the shop.',
-    err_500_body: 'We hit an unexpected error rendering this page. Try again, or browse the catalog below.',
-    err_search_aria: 'Search the shop',
-    err_search_placeholder: 'Search the shop…',
+    err_404_body:
+      'That page may have moved. Search for an organizer or return to the shop.',
+    err_500_body:
+      'We couldn’t load this page. Try again, or continue shopping.',
+    err_search_aria: 'Search organizers',
+    err_search_placeholder: 'Search organizers…',
     err_search_btn: 'Search',
     err_home: 'Back to home',
-    err_browse: 'Browse all products',
-    err_contact: "Still stuck? Email {email} and we'll help.",
+    err_browse: 'Shop organizers',
+    err_contact: 'Need help? Email {email}.',
 
     // ── Footer (rest of footer chrome; some already exist) ────────
     footer_social_aria: 'Social links',
     footer_payments_aria: 'Accepted payment methods',
     footer_payments_list_aria: 'Payment methods',
-    footer_address: 'Puchica · Toronto, ON, Canada',
+    footer_address: 'Puchica · Canada',
     footer_email: 'hello@puchica.ca',
     footer_stats_aria: 'Store highlights',
     footer_stat_products: 'Catalog',
     footer_stat_collections: 'Collections',
-    footer_stat_shipping: 'Free shipping',
+    footer_stat_shipping: 'Checkout shipping',
     footer_stat_returns: 'Day returns',
     footer_copyright: '© {year} Puchica.',
     footer_legal_aria: 'Legal',
@@ -712,7 +796,6 @@ export const DICTIONARIES = {
     social_instagram: 'Instagram',
     social_facebook: 'Facebook',
     social_tiktok: 'TikTok',
-
 
     // ── Judgeme reviews ───────────────────────────────────────────
     reviews_section_aria: 'Customer reviews',
@@ -726,12 +809,14 @@ export const DICTIONARIES = {
     np_close_backdrop: 'Close',
     np_close_x: 'Close',
     np_success_h: "You're in!",
-    np_success_body: "Here's 15% off your first order. Use this code at checkout:",
+    np_success_body:
+      "Here's 15% off your first order. Use this code at checkout:",
     np_copy_btn: 'Copied!',
     np_copy_hint: 'Tap to copy',
     np_success_cta: 'Start shopping →',
     np_form_h: 'Get 15% off your first order',
-    np_form_body: "Join the list for new drops and members-only deals. We'll send your code right away. No spam, unsubscribe anytime.",
+    np_form_body:
+      "Join the list for new drops and members-only deals. We'll send your code right away. No spam, unsubscribe anytime.",
     np_email_placeholder: 'you@email.com',
     np_email_aria: 'Email address',
     np_joining: 'Joining…',
@@ -740,37 +825,38 @@ export const DICTIONARIES = {
 
     // ── ProductItem card (badges, placeholder) ────────────────────
     badge_new_arrival: 'New Arrival',
-    badge_top_pick: 'Top Pick',
-    badge_trending: 'Trending',
-    badge_staff_pick: 'Staff Pick',
+    badge_top_pick: 'Featured',
+    badge_trending: 'Featured',
+    badge_staff_pick: 'Puchica pick',
     badge_sale: 'Sale',
     badge_new: 'New',
-    badge_best_seller: 'Best seller',
+    badge_best_seller: 'Featured',
 
     // ── Search route + predictive ────────────────────────────────
     search_results_h: 'Results for {term}',
     search_results_h_fallback: 'Search',
     search_input_placeholder: 'Search products…',
     search_submit: 'Search',
-    search_zero_hint: 'Search by keyword, or browse our most popular categories above.',
+    search_zero_hint:
+      'Search by keyword, or browse our most popular categories above.',
     pred_articles: 'Articles',
     pred_collections: 'Collections',
     pred_pages: 'Pages',
-    pred_products: 'Products',
+    pred_products: 'Organizers',
     pred_empty_title: 'Start typing to search',
-    pred_empty_body: 'Try categories like "best sellers", "home", or specific product names.',
-    pred_pill_best: 'Best sellers',
+    pred_empty_body: 'Try under sink, cables, packing, or travel.',
+    pred_pill_best: 'Featured',
     pred_pill_all: 'All categories',
     pred_pill_new: 'New arrivals',
-    pred_no_results_h: 'No results for "{term}"',
-    pred_no_results_body: 'Try a different keyword or browse the most-loved picks.',
+    pred_no_results_h: 'No organizers matched “{term}”.',
+    pred_no_results_body: 'Try under sink, cables, packing, or travel.',
 
     // ── Cart page h1 ──────────────────────────────────────────────
     cart_page_h: 'Cart',
     cart_page_eyebrow: 'Your cart',
     cart_trust_aria: 'Why shop with us',
-    cart_trust_returns: '14-day returns',
-    cart_trust_shipping: 'Ships within 24 hours',
+    cart_trust_returns: '30-day returns',
+    cart_trust_shipping: 'Delivery shown at checkout',
     cart_trust_secure: 'Secure checkout',
 
     // ── Collections index page ───────────────────────────────────
@@ -779,18 +865,29 @@ export const DICTIONARIES = {
     col_index_breadcrumb_current: 'Collections',
     col_index_eyebrow: 'Browse',
     col_index_h: 'All collections',
-    col_index_sub: "Pick a category and dig in. Every collection is hand-curated, we'd only keep what we'd use ourselves.",
+    col_index_sub: 'Browse organizers by room, problem, or everyday use.',
     col_index_count: 'Puchica',
     col_index_empty_h: 'The next edit is being prepared',
-    col_index_empty_body: 'Collections return as soon as the next products pass our fulfilment checks.',
+    col_index_empty_body:
+      'Collections return as soon as the next products pass our fulfilment checks.',
     col_index_card_cta: 'Shop the collection →',
 
     // ── Policies index ───────────────────────────────────────────
     policies_h: 'Policies',
-    policies_sub: 'Shipping, returns, privacy, and terms for orders at Puchica.',
+    policies_sub:
+      'Shipping, returns, privacy, and terms for orders at Puchica.',
 
     // ── Policy detail back-link ──────────────────────────────────
     policy_back: 'Back to Policies',
+    refund_summary_title: 'Before you send a return',
+    refund_summary_start:
+      'Contact us within 30 days of delivery. Do not mail an item until we confirm eligibility and provide the return instructions and address.',
+    refund_summary_shipping:
+      'Return-shipping responsibility depends on the reason for the return and the full refund policy. If an item arrives damaged or incorrect, contact us promptly with the order details.',
+    refund_summary_timing:
+      'Approved refunds are issued to the original payment method after the returned item is received and reviewed. Bank processing time can vary.',
+    refund_summary_control:
+      'This summary does not replace the full Shopify policy below, which controls if there is any difference.',
 
     // ── Blogs index ──────────────────────────────────────────────
     blogs_h: 'Blogs',
@@ -869,11 +966,12 @@ export const DICTIONARIES = {
     account_order_status_link: 'View Order Status →',
 
     // ── About page ────────────────────────────────────────────────
-    about_hero_eyebrow: 'Our story',
-    about_hero_title_main: 'Useful finds.',
-    about_hero_title_em: 'Thoughtfully chosen.',
-    about_hero_sub: "Puchica is a Canadian-owned lifestyle store for everyday things that make life a little easier, more useful, or simply more fun.",
-    about_hero_cta: 'Start shopping →',
+    about_hero_eyebrow: 'About Puchica',
+    about_hero_title_main: 'We’re building the organization shop',
+    about_hero_title_em: 'we wanted to find.',
+    about_hero_sub:
+      'Puchica is a Canadian-owned small business focused on the drawers, cabinets, cables, and bags that make everyday life feel harder than it should. We are starting narrow, with practical organizers chosen for everyday spaces.',
+    about_hero_cta: 'Shop the launch collection →',
     about_stats_aria: 'Puchica in numbers',
     about_stat_products_num: 'Active',
     about_stat_products_label: 'Handpicked products',
@@ -881,24 +979,32 @@ export const DICTIONARIES = {
     about_stat_quality_label: 'Quality-checked',
     about_stat_shipping_num: '$0',
     about_stat_shipping_label: 'Shipping across Canada',
-    about_stat_returns_num: '14 days',
+    about_stat_returns_num: '30 days',
     about_stat_returns_label: 'No-hassle returns',
-    about_mission_eye: 'Why we exist',
-    about_mission_title: 'A better store starts with a quieter catalog.',
-    about_mission_body_1: 'We keep the shopping experience focused on things that are useful, giftable, and easy to understand. The goal is simple: less digging, more good finds.',
-    about_mission_body_2: 'Puchica brings together products from selected supplier partners in one place, with straightforward product information and a catalog that stays easy to browse.',
-    about_mission_card_text: 'We evaluate thousands of products. Only the ones worth your money make it through.',
-    about_how_eye: 'How we curate',
-    about_how_title: 'Shopping should feel considered.',
-    about_how_1_title: 'Easy to browse',
-    about_how_1_body: 'We organize the store around real-life needs, so you can get from “I need that” to a useful option without the endless scroll.',
-    about_how_2_title: 'Clear before checkout',
-    about_how_2_body: 'Product choices and delivery availability are shown where they matter. Checkout confirms the options for your order and destination.',
-    about_how_3_title: 'Help stays human',
-    about_how_3_body: 'Questions before or after an order are welcome. Our support team is here to help when you need a hand.',
+    about_mission_eye: 'Why we started',
+    about_mission_title:
+      'The problem wasn’t finding more products. It was finding the right one.',
+    about_mission_body_1:
+      'Online shopping can turn a simple problem into hours of scrolling through near-identical products, vague descriptions, and options that are hard to compare.',
+    about_mission_body_2:
+      'Puchica takes the opposite approach. We keep the catalog focused on practical organization, explain what each item is for, and make the important choices visible before checkout.',
+    about_mission_card_text:
+      'Useful first. Clear before checkout. Worth the space it takes.',
+    about_how_eye: 'How we choose',
+    about_how_title: 'A product needs a reason to be here.',
+    about_how_1_title: 'Solves a specific problem',
+    about_how_1_body:
+      'We start with a clear job: make a cabinet easier to use, keep a cable within reach, or make packing less chaotic.',
+    about_how_2_title: 'Works with limited space',
+    about_how_2_body:
+      'The launch catalog focuses on compact, straightforward products for renters, apartment dwellers, and anyone short on storage.',
+    about_how_3_title: 'Easy to understand before buying',
+    about_how_3_body:
+      'We aim to show the purpose, available dimensions, materials, and options clearly. Delivery availability, cost, and timing are confirmed at checkout.',
     about_cats_eye: 'What we carry',
     about_cats_title: 'Useful finds. One store.',
-    about_cats_sub: 'Across every category that actually matters in your day-to-day.',
+    about_cats_sub:
+      'Across every category that actually matters in your day-to-day.',
     about_cat_home_name: 'Home & Living',
     about_cat_home_sub: 'Organization, decor, kitchen',
     about_cat_beauty_name: 'Beauty & Self-Care',
@@ -911,12 +1017,14 @@ export const DICTIONARIES = {
     about_cat_pet_sub: 'Toys, gear, grooming',
     about_cat_gift_name: 'Gifts',
     about_cat_gift_sub: 'For everyone on your list',
-    about_promise_quote: "Every Puchica product has been thoroughly tested by our team. Providing the most curated selection of products that we can find. If we wouldn't use it ourselves, it won't be Puchica.",
-    about_promise_attr: 'The Puchica team, Toronto ON',
-    about_cta_title: 'Ready to find your thing?',
+    about_promise_quote:
+      "Every Puchica product has been thoroughly tested by our team. Providing the most curated selection of products that we can find. If we wouldn't use it ourselves, it won't be Puchica.",
+    about_promise_attr: 'The Puchica team, Canada',
+    about_cta_title: 'Ready to make space for calmer days?',
     about_dept_title: 'Browse the store',
-    about_cta_sub: 'Useful products, a focused catalog, and delivery options confirmed at checkout.',
-    about_cta_browse: 'Browse everything →',
+    about_cta_sub:
+      'Start with one drawer, cabinet, cable pile, or bag that never seems to stay sorted.',
+    about_cta_browse: 'Shop all organizers →',
     about_cta_contact: 'Get in touch',
 
     // ── About page, new sections (story timeline, values, team, roots, departments) ──
@@ -925,51 +1033,102 @@ export const DICTIONARIES = {
     about_story_sub: 'A few moments that got us here.',
     about_story_1_year: '2021',
     about_story_1_title: 'It started with a "puchica"',
-    about_story_1_body: 'A small idea born in Toronto: build a store where everything is worth buying. No filler, no junk, no algorithm picks.',
+    about_story_1_body:
+      'A Canadian-owned shop built around a simple idea: sell fewer products that solve clear everyday problems.',
     about_story_2_year: '2022',
-    about_story_2_title: 'First 1,000 products',
-    about_story_2_body: 'We built a vetted supplier network and curated our first thousand picks across home, beauty, tech, and pet.',
+    about_story_2_title: 'Learning what focus requires',
+    about_story_2_body:
+      'A broad catalog made it harder to explain why each product belonged. We began narrowing around practical organization.',
     about_story_3_year: '2024',
-    about_story_3_title: 'A cleaner catalog, rebuilt with care',
-    about_story_3_body: 'The catalog is being tightened around active, shoppable products that are easier to browse and backed by a clear 14-day return policy.',
+    about_story_3_title: 'A focused organization shop',
+    about_story_3_body:
+      'The catalog is being rebuilt around practical organization products with clear delivery details and a 30-day return policy.',
     about_story_4_year: 'Today',
-    about_story_4_title: 'Roots across the Americas',
-    about_story_4_body: 'From a Toronto home base to shoppers across the Americas and beyond, the mission stays the same: the good stuff, handpicked.',
+    about_story_4_title: 'Proof before expansion',
+    about_story_4_body:
+      'We are proving a focused assortment and verified supplier routes before expanding the catalog or promotion.',
 
     about_values_eye: 'What we stand for',
     about_values_title: 'Our values.',
     about_values_sub: 'The rules behind every pick we make.',
     about_values_1_title: 'Curated, not crowded',
-    about_values_1_body: 'We say no to far more than we say yes to. A smaller, better catalog beats a giant, mediocre one.',
+    about_values_1_body:
+      'We say no to far more than we say yes to. A smaller, better catalog beats a giant, mediocre one.',
     about_values_2_title: 'Fair prices always',
-    about_values_2_body: 'No fake markdowns, no mystery markups. The price you see is honest, and the value is real.',
+    about_values_2_body:
+      'No fake markdowns, no mystery markups. The price you see is honest, and the value is real.',
     about_values_3_title: 'Soul over trends',
-    about_values_3_body: 'We pick things that last and matter, not whatever the algorithm is pushing this week.',
+    about_values_3_body:
+      'We pick things that last and matter, not whatever the algorithm is pushing this week.',
     about_values_4_title: 'Ships from trusted partners',
-    about_values_4_body: 'Every order ships from a vetted partner within 24 hours, with a pre-paid return label in every box.',
+    about_values_4_body:
+      'Products ship from supply partners. Delivery timing and available tracking are confirmed for the selected order.',
 
     about_team_eye: 'Who we are',
     about_team_title: 'Real people, real picks.',
-    about_team_sub: 'A small team in Toronto, behind every product that makes the cut.',
-    about_team_1_name: 'Mariana L.',
-    about_team_1_role: 'Founder & Curator',
-    about_team_1_bio: 'Started Puchica after years of online shopping frustration. Now leads curation and supplier relationships.',
-    about_team_2_name: 'Diego R.',
-    about_team_2_role: 'Operations Lead',
-    about_team_2_bio: 'Keeps the supplier network running and every order shipping on time. The reason your package arrives fast.',
-    about_team_3_name: 'Sofía M.',
-    about_team_3_role: 'Community & Care',
-    about_team_3_bio: 'Answers your questions, listens to your feedback, and makes sure the store keeps getting better.',
+    about_team_sub:
+      'A small Canadian business behind every product that makes the cut.',
+    about_team_1_name: 'Product curation',
+    about_team_1_role: 'What earns a place',
+    about_team_1_bio:
+      'We look for products that solve a clear organization problem and make sense in a focused collection.',
+    about_team_2_name: 'Operations',
+    about_team_2_role: 'Supplier and delivery checks',
+    about_team_2_bio:
+      'Focuses on supplier mapping, product availability, and the delivery information shown before purchase.',
+    about_team_3_name: 'Customer care',
+    about_team_3_role: 'Questions and order support',
+    about_team_3_bio:
+      'Contact us with the product or order details you need help with and we will review them with you.',
 
     about_roots_aria: 'Our Central American roots',
-    about_roots_eyebrow: 'Raíces centroamericanas',
-    about_roots_heading: 'Puchica is a Central American word for a Central American feeling.',
-    about_roots_body: '“Puchica” is the word you say when something surprises you, when something is surprisingly good, unexpectedly delightful, the kind of thing that makes you stop and look twice. That feeling is what we want every product in this store to give you. We carry that Central American spirit of warmth, craft, and pride into everything we curate, wherever it ships from.',
-    about_roots_signature: 'From our family to your doorstep',
+    about_roots_eyebrow: 'Where the name comes from',
+    about_roots_heading: 'Puchica starts with a feeling of useful surprise.',
+    about_roots_body:
+      '“Puchica” is a familiar Central American expression of surprise—the kind of reaction an unexpectedly clever solution can earn. That spirit shapes the brand: practical finds that solve an everyday annoyance without adding more clutter.',
+    about_roots_signature: 'Canadian owned. Practical organization, thoughtfully chosen.',
+    about_hero_caption: 'Built around the places that get messy first.',
+    about_hero_image_alt:
+      'A warm, compact kitchen with open cabinets and everyday storage',
+    about_roots_image_alt:
+      'Colorful woven textile and a painted ceramic vessel',
+    about_standards_intro:
+      'A smaller catalog only works when the reason for each product is easy to explain.',
+    about_shop_eye: 'Shop by need',
+    about_shop_title: 'Start with one space that keeps getting in the way.',
+    about_shop_home_title: 'Home reset',
+    about_shop_cable_title: 'Cable control',
+    about_shop_travel_title: 'Travel organization',
+    about_shop_home_body:
+      'Drawers, cabinets, counters, and awkward corners.',
+    about_shop_cable_body:
+      'Chargers, cords, and the small tech that wanders.',
+    about_shop_travel_body: 'Packing, luggage, and everyday carry.',
+    about_shop_all: 'Shop all organizers',
+    about_now_eye: 'Delivery, made clearer',
+    about_now_title: 'See your delivery options before you pay.',
+    about_now_body:
+      'Shipping origin and timing can vary by item and address. Checkout shows the options available for your order before payment.',
+    about_now_email: 'Questions? Email hello@puchica.ca',
+    about_delivery_panel_title: 'Checkout delivery preview',
+    about_delivery_step_1_title: 'Choose an item',
+    about_delivery_step_1_body: 'Add an organizer and enter your address.',
+    about_delivery_step_2_title: 'See available options',
+    about_delivery_step_2_body: 'Checkout calculates the choices for that order.',
+    about_delivery_step_3_title: 'Review before payment',
+    about_delivery_step_3_body: 'Compare the available timing and cost.',
+    about_delivery_note: 'Delivery details shown before payment',
+    about_fact_based_label: 'Based in',
+    about_fact_based_value: 'Canada',
+    about_fact_market_label: 'Current focus',
+    about_fact_market_value: 'U.S. customers',
+    about_fact_delivery_label: 'Before payment',
+    about_fact_delivery_value: 'Delivery options shown at checkout',
 
     about_depts_eye: 'Keep exploring',
     about_depts_title: 'Shop by department.',
-    about_depts_sub: 'Every category, curated with the same care. Pick where you want to start.',
+    about_depts_sub:
+      'Every category, curated with the same care. Pick where you want to start.',
     about_depts_shop_cta: 'Shop →',
     about_depts_home: 'Home & Living',
     about_depts_beauty: 'Beauty & Self-Care',
@@ -980,99 +1139,122 @@ export const DICTIONARIES = {
 
     // ── Contact page ──────────────────────────────────────────────
     contact_hero_eyebrow: 'Get in touch',
-    contact_hero_title: 'We’re here to help.',
-    contact_hero_sub: 'Questions about an order, a product, or anything else? Pick the channel that works for you, a real person on the Puchica team will get back to you, usually within one business day.',
+    contact_hero_title: 'How can we help?',
+    contact_hero_sub:
+      'For order help, include your order number. For a product question, include the product name or link.',
     contact_channels_aria: 'Ways to reach us',
     contact_ig_title: 'DM on Instagram',
-    contact_ig_body: 'Fastest for a quick question. We check DMs throughout the day.',
+    contact_ig_body: 'Follow product demos and organization ideas.',
     contact_ig_fallback: 'Instagram',
     contact_fb_title: 'Message on Facebook',
-    contact_fb_body: 'Another easy way to reach us. Same team, same response time.',
+    contact_fb_body: 'Follow product updates and organization ideas.',
     contact_fb_fallback: 'Facebook',
     contact_tiktok_title: 'Find us on TikTok',
-    contact_tiktok_body: 'New finds, behind-the-scenes, and the occasional unboxing.',
+    contact_tiktok_body: 'Product demos and organization ideas.',
     contact_tiktok_fallback: 'TikTok',
     contact_promises_aria: 'What to expect',
     contact_promises_eyebrow: 'What to expect',
-    contact_promises_title: 'Real people, fast replies',
-    contact_promise_1_strong: 'Real person on the team',
-    contact_promise_1_body: 'No bots, no auto-replies. Every message lands with a person.',
-    contact_promise_2_strong: 'Usually within one business day',
-    contact_promise_2_body: 'Often faster. Worst case: one business day, weekdays 9–5 ET.',
-    contact_promise_3_strong: 'Order help every day',
-    contact_promise_3_body: 'Tracking questions, returns, address changes, yes, on weekends too.',
+    contact_promises_title: 'Help us find the answer faster',
+    contact_promise_1_strong: 'Include the key details',
+    contact_promise_1_body:
+      'Include your order number, product link, and what you need help with.',
+    contact_promise_2_strong: 'Allow two business days',
+    contact_promise_2_body:
+      'We aim to reply within two business days. Supplier or carrier checks can take longer.',
+    contact_promise_3_strong: 'We confirm what is possible',
+    contact_promise_3_body:
+      'Changes, cancellations, and returns depend on order status and the applicable policy.',
     contact_faq_aria: 'Common questions',
     contact_faq_eyebrow: 'Common questions',
     contact_faq_title: 'The short version',
     contact_faq_1_q: 'Where is my order?',
-    contact_faq_1_a: 'Your tracking link is in the shipping confirmation email, usually within 1–2 business days of ordering. If tracking shows no movement for 5+ business days, email us and we’ll chase it down.',
+    contact_faq_1_a:
+      'When tracking is available, the link is included in your shipping confirmation. Email us with your order number if you need help.',
     contact_faq_2_q: 'Can I change or cancel my order?',
-    contact_faq_2_a: 'Within 2 hours of placing it, yes, just reply to your order confirmation. After that the order is being prepared for shipment and changes aren’t possible, but returns are always free once it arrives.',
+    contact_faq_2_a:
+      'Contact us as soon as possible with your order number. We will confirm whether the supplier has started processing it and what options remain.',
     contact_faq_3_q: 'How do returns work?',
-    contact_faq_3_a: 'A pre-paid return label ships in every box. Repack the item, peel the label, drop it off. Refunds land on the original payment method within 5–7 business days of us receiving it.',
+    contact_faq_3_a:
+      'Contact us within 30 days of delivery. Do not mail an item until we confirm eligibility and provide instructions. Return-shipping responsibility depends on the reason and the refund policy.',
     contact_faq_4_q: 'Where do you ship?',
-    contact_faq_4_a: 'Anywhere. We deliver to countries around the world, for a specific country, just email us and we’ll confirm.',
+    contact_faq_4_a:
+      'Canada and the United States are selectable storefront markets. Delivery still varies by product and address, so checkout must confirm the selected cart before payment.',
     contact_faq_5_q: 'Are the products in the photos exactly what I get?',
-    contact_faq_5_a: 'Yes. The product photos on each listing are the actual product we ship, what you see is what you get.',
-    contact_faq_foot: 'Don’t see your question? {email}, we read everything.',
-    contact_faq_foot_link: 'Email us',
+    contact_faq_5_a:
+      'Review the photos, selected variant, dimensions, and description on the product page. Contact us before ordering if any detail is unclear.',
     contact_cta_title: 'Still have a question?',
-    contact_cta_body: 'Drop us a line. We read every message and we’re happy to help.',
+    contact_cta_body:
+      'Email is best for order-specific help. We aim to reply within two business days.',
     contact_cta_button: 'Email {email}',
 
     // ── FAQ page (dedicated /pages/faq route) ───────────────────
     faq_accordion_aria: 'Frequently asked questions',
     faq_hero_eyebrow: 'Help center',
     faq_hero_title: 'Frequently Asked Questions',
-    faq_hero_sub: 'Quick answers to the questions we hear most, about orders, returns, products, and your account.',
+    faq_hero_sub: 'Answers about delivery, returns, products, and accounts.',
     faq_cat_orders: 'Orders & Shipping',
     faq_cat_returns: 'Returns & Refunds',
     faq_cat_products: 'Products',
     faq_cat_account: 'Account',
     faq_orders_1_q: 'How long does shipping take?',
-    faq_orders_1_a: 'Orders ship within 1–2 business days. Delivery is typically 3–7 business days within Canada and 7–14 business days to the US. International orders vary by destination, usually 10–21 business days.',
+    faq_orders_1_a:
+      'Processing and delivery timing vary by product. Enter your address at checkout to review the available delivery estimate before payment.',
     faq_orders_2_q: 'Do you ship internationally?',
-    faq_orders_2_a: 'Yes. We ship to countries around the world. For a specific country, just email us and we’ll confirm rates and timing before you order.',
+    faq_orders_2_a:
+      'Canada and the United States are selectable storefront markets. A market selection does not guarantee every item can be delivered; checkout confirms the selected cart and address before payment.',
     faq_orders_3_q: 'How do I track my order?',
-    faq_orders_3_a: 'Your tracking link is in the shipping confirmation email, usually within 1–2 business days of ordering. If tracking shows no movement for 5+ business days, email us and we’ll chase it down.',
+    faq_orders_3_a:
+      'When a tracked service is available, the tracking link is included in your shipping confirmation. Contact us with your order number if you need help.',
     faq_orders_4_q: 'What are your shipping rates?',
-    faq_orders_4_a: 'Shipping is free across Canada on orders over $75. Under $75 it’s a flat $7.95. US orders are a flat $14.95. International rates are calculated at checkout based on destination and weight.',
+    faq_orders_4_a:
+      'Shipping services, cost, and delivery timing are confirmed at checkout for the selected items and destination.',
     faq_returns_1_q: 'What is your return policy?',
-    faq_returns_1_a: 'We offer 14-day returns on unused items in their original packaging. If something arrives damaged or wrong, we’ll make it right, no return needed for our mistake.',
+    faq_returns_1_a:
+      'Contact us within 30 days of delivery. Eligibility depends on the item, its condition, and the refund policy. Contact us promptly if an item arrives damaged or incorrect.',
     faq_returns_2_q: 'How do I start a return?',
-    faq_returns_2_a: 'A pre-paid return label ships in every box. Repack the item, peel the label, drop it off at any carrier location. No need to email us first.',
+    faq_returns_2_a:
+      'Contact us with your order number and reason for the return. Do not mail anything until we confirm eligibility and provide the return address. Return-shipping responsibility depends on the reason and the refund policy.',
     faq_returns_3_q: 'When will I get my refund?',
-    faq_returns_3_a: 'Refunds land on the original payment method within 5–7 business days of us receiving the returned item. You’ll get a confirmation email the moment it’s processed.',
-    faq_products_1_q: 'Are your products authentic?',
-    faq_products_1_a: 'Yes. Every product we list is sourced directly from the brand or an authorized distributor. We never sell counterfeits, if we wouldn’t buy it ourselves, it doesn’t go up.',
+    faq_returns_3_a:
+      'Approved refunds are issued to the original payment method after the returned item is received and reviewed. Bank processing time can vary.',
+    faq_products_1_q: 'Where can I find product details?',
+    faq_products_1_a:
+      'Check the product page for available options, dimensions, materials, and what is included. Contact us if a detail is missing.',
     faq_products_2_q: 'Where do your products come from?',
-    faq_products_2_a: 'We source from brands and distributors across North and Central America, with a focus on makers and goods that are hard to find in big-box stores. The product photos on each listing are the actual product we ship.',
-    faq_products_3_q: 'Do you have products from Central America?',
-    faq_products_3_a: 'Yes. We actively stock products from Central American makers, snacks, crafts, textiles, beauty, and more. Browse the collection or email us if you’re looking for something specific.',
-    faq_account_1_q: 'How do I create an account?',
-    faq_account_1_a: 'Click “Account” in the header and choose “Create account.” You’ll need an email and a password. An account lets you track orders, save addresses, and check out faster.',
-    faq_account_2_q: 'How do I reset my password?',
-    faq_account_2_a: 'On the login page, click “Forgot password?” and enter your email. We’ll send a reset link that’s valid for 30 minutes. If you don’t see it, check your spam folder.',
-    faq_cta_eyebrow: 'Still stuck?',
+    faq_products_2_a:
+      'We work with third-party suppliers, and product origin can vary by item. Contact us if you need a specific origin detail before ordering.',
+    faq_products_3_q: 'How do I choose the right option?',
+    faq_products_3_a:
+      'Check the selected size, color, quantity, and set before adding the item to your cart.',
+    faq_account_1_q: 'How do I access my account?',
+    faq_account_1_a:
+      'Choose Account, enter your email, and follow the sign-in steps. From your account, you can view orders and manage saved details.',
+    faq_account_2_q: 'I can’t sign in. What should I do?',
+    faq_account_2_a:
+      'Request a new sign-in code or link from the Account page, then check your spam folder. Contact us if it still doesn’t arrive.',
+    faq_cta_eyebrow: 'Need more help?',
     faq_cta_title: 'Still have questions?',
-    faq_cta_sub: 'We read every message and a real person usually replies within one business day.',
+    faq_cta_sub:
+      'Send the product or order details with your question. We aim to reply within two business days.',
     faq_cta_button: 'Contact us',
     faq_contact_aria: 'Contact us',
     faq_contact_title: 'Contact us',
-    faq_contact_body: 'Can’t find what you’re looking for? Email us, we’re happy to help with orders, returns, products, or anything else.',
+    faq_contact_body:
+      'Can’t find what you’re looking for? Email us, we’re happy to help with orders, returns, products, or anything else.',
 
     // ── Homepage sections (Phase 1 redesign) ─────────────────
     hero_split_aria: 'Hero',
-    hero_split_eyebrow: 'Puchica Store',
-    hero_split_heading: 'What are you shopping for today?',
-    hero_split_body: 'Search the store or start with a department. New deals, best sellers, and everyday essentials are all one click away.',
+    hero_split_eyebrow: 'Organization for small spaces',
+    hero_split_heading: 'Make room for what matters.',
+    hero_split_body:
+      'Practical organizers for compact homes, everyday routines, and life on the go.',
     hero_store_toolbar_heading: 'Shop Puchica',
     hero_split_cta_primary: 'Shop best sellers',
     hero_split_cta_secondary: 'Browse all',
-    hero_split_trust: 'Shipping options at checkout · 14-day returns · Support from real people',
-    hero_trust_returns: '14-day returns',
+    hero_split_trust: 'Shipping shown at checkout · 30-day returns',
+    hero_trust_returns: '30-day returns',
     hero_trust_checkout: 'Secure Shopify checkout',
-    hero_trust_canada: 'Small, active catalog',
+    hero_trust_canada: 'Focused launch catalog',
     hero_showcase_bar: 'Shop by department →',
     hero_popular_heading: 'Popular right now',
 
@@ -1092,10 +1274,11 @@ export const DICTIONARIES = {
     best_sellers_see_all: 'See all',
 
     lifestyle_banner_aria: 'Lifestyle',
-    lifestyle_banner_eyebrow: 'Slow living',
-    lifestyle_banner_heading: "Find your next favourite thing.",
-    lifestyle_banner_body: "From the kitchen to the trail, from your desk to your wardrobe, Puchica brings you the stuff that makes everyday better. Free shipping over $75.",
-    lifestyle_banner_cta: "Shop all collections",
+    lifestyle_banner_eyebrow: 'Small-space living',
+    lifestyle_banner_heading: 'More function. Less clutter.',
+    lifestyle_banner_body:
+      'Organizers and everyday problem-solvers that earn their place in a compact home or travel bag.',
+    lifestyle_banner_cta: 'Shop organization',
 
     new_arrivals_aria: 'New arrivals',
     new_arrivals_eyebrow: 'Just landed',
@@ -1120,26 +1303,30 @@ export const DICTIONARIES = {
     trust_bar_aria: 'Why shop with us',
     trust_bar_shipping_h: 'Clear shipping',
     trust_bar_shipping_sub: 'Options and costs shown at checkout',
-    trust_bar_returns_h: '14-day returns',
+    trust_bar_returns_h: '30-day returns',
     trust_bar_returns_sub: 'See the policy before you order',
     trust_bar_curated_h: 'Active catalog',
     trust_bar_curated_sub: 'Products ready to shop today',
 
     home_reviews_aria: 'Customer reviews',
-    home_reviews_eyebrow: 'Loved by 12,000+ shoppers',
-    home_reviews_heading: 'What customers say',
-    home_reviews_verified: 'Verified buyer',
-    home_reviews_quote_1_text: 'I keep coming back. The quality is consistent, shipping is fast, and returns are painless.',
-    home_reviews_quote_1_author: 'Maya R. Toronto',
-    home_reviews_quote_2_text: 'Found a gift here I couldn’t find anywhere else. The packaging felt thoughtful.',
-    home_reviews_quote_2_author: 'James P. Vancouver',
-    home_reviews_quote_3_text: 'Customer service actually replies. I had a question about a product and got a real answer the same day.',
-    home_reviews_quote_3_author: 'Sophie L. Montréal',
+    home_reviews_eyebrow: 'Our product standard',
+    home_reviews_heading: 'Every pick should earn its space',
+    home_reviews_verified: 'What we look for',
+    home_reviews_quote_1_text:
+      'Solves a clear organization problem without requiring permanent changes.',
+    home_reviews_quote_1_author: 'Practical',
+    home_reviews_quote_2_text:
+      'Fits compact counters, cabinets, drawers, or everyday routines.',
+    home_reviews_quote_2_author: 'Space-conscious',
+    home_reviews_quote_3_text:
+      'Easy to understand, useful to demonstrate, and worth the price.',
+    home_reviews_quote_3_author: 'Straightforward',
 
     home_newsletter_aria: 'Newsletter',
     home_newsletter_eyebrow: 'Join the list',
     home_newsletter_heading: 'Get 10% off your first order',
-    home_newsletter_body: 'New drops, restocks, and the occasional sale, straight to your inbox, never spam.',
+    home_newsletter_body:
+      'New drops, restocks, and the occasional sale, straight to your inbox, never spam.',
     home_newsletter_placeholder: 'you@example.com',
     home_newsletter_submit: 'Subscribe',
     home_newsletter_promise: 'No spam. Unsubscribe anytime.',
@@ -1148,37 +1335,43 @@ export const DICTIONARIES = {
     home_roots_aria: 'Our roots',
     home_roots_eyebrow: "Puchica's roots",
     home_roots_heading: 'From Central America to the world.',
-    home_roots_body: "Puchica — that's what you say when something catches you off guard. A sunrise over Lake Atitlán. Coffee grown on volcanic slopes. Textiles woven the same way for three generations in the Guatemalan highlands. From Antigua to Honduras, we bring that feeling to customers around the globe.",
+    home_roots_body:
+      "Puchica — that's what you say when something catches you off guard. A sunrise over Lake Atitlán. Coffee grown on volcanic slopes. Textiles woven the same way for three generations in the Guatemalan highlands. From Antigua to Honduras, we bring that feeling to customers around the globe.",
     home_roots_signature: 'Hecho con alma · Made with soul',
 
     // ── World map ─────────────────────────────────────────────────
     world_map_aria: 'Countries we serve',
-    world_map_eyebrow: 'Worldwide',
-    world_map_heading: 'From our roots to your door.',
-    world_map_sub: 'Puchica ships to customers around the globe. Tap a pin to see what connects us.',
+    world_map_eyebrow: 'Market validation',
+    world_map_heading: 'Verified routes before expansion.',
+    world_map_sub:
+      'Product availability varies by destination. Checkout confirms delivery for the selected cart.',
 
     // ── Shop by department ────────────────────────────────────────
-    home_shop_dept_aria: "Shop by department",
-    home_shop_dept_eyebrow: "Browse the store",
-    home_shop_dept_heading: "Active departments. Real shopping paths.",
-    home_shop_dept_body: "From home essentials to the latest electronics, Puchica brings you the best of every category, curated, priced fair, and shipped fast.",
-    home_dept_home: "Home & Kitchen",
-    home_dept_electronics: "Electronics",
-    home_dept_apparel: "Apparel",
-    home_dept_health: "Health & Wellness",
-    home_dept_pet: "Pet Supplies",
-    home_dept_sports: "Sports & Outdoors",
+    home_shop_dept_aria: 'Shop by department',
+    home_shop_dept_eyebrow: 'Start with organization',
+    home_shop_dept_heading: 'Practical fixes for compact homes.',
+    home_shop_dept_body:
+      'We are narrowing Puchica around practical storage, travel organization, and space-saving everyday solutions.',
+    home_dept_home: 'Home & Kitchen',
+    home_dept_electronics: 'Electronics',
+    home_dept_apparel: 'Apparel',
+    home_dept_health: 'Health & Wellness',
+    home_dept_pet: 'Pet Supplies',
+    home_dept_sports: 'Sports & Outdoors',
 
     // ── Why Puchica ────────────────────────────────────────────────
     home_curate_aria: 'How we curate',
-    home_curate_eyebrow: "Why Puchica",
-    home_curate_heading: "The good stuff, without the guesswork.",
-    home_curate_step1_h: "We curate from trusted suppliers.",
-    home_curate_step1_b: "We partner with vetted suppliers across the globe to bring you products worth your money, no sifting through thousands of listings.",
-    home_curate_step2_h: "We price it fair.",
-    home_curate_step2_b: "No mystery markups, no surprise fees. What you see is what you pay, and we keep our prices competitive across every category.",
-    home_curate_step3_h: "We ship it fast.",
-    home_curate_step3_b: 'Shipping options are confirmed at checkout for the selected items and destination. Questions before or after an order are always welcome.',
+    home_curate_eyebrow: 'Why Puchica',
+    home_curate_heading: 'Useful enough to earn its space.',
+    home_curate_step1_h: 'We start with a real organization problem.',
+    home_curate_step1_b:
+      'Each promoted item should save space, reduce friction, or make a daily routine easier.',
+    home_curate_step2_h: 'We price it fair.',
+    home_curate_step2_b:
+      'We compare the price with the delivered cost and only promote products that can support a sustainable offer.',
+    home_curate_step3_h: 'We show delivery details before payment.',
+    home_curate_step3_b:
+      'Shipping availability, cost, and timing are confirmed at checkout for the selected items and destination.',
 
     // ── Hero stats ────────────────────────────────────────────────
     hero_store_stat_products: 'Catalog',
@@ -1187,9 +1380,8 @@ export const DICTIONARIES = {
     hero_storefront_title: 'Popular ways to shop',
 
     // ── Shop by category sub ──────────────────────────────────────
-    shop_by_category_sub: 'Start with the departments that are live and ready to shop today.',
-
-
+    shop_by_category_sub:
+      'Start with the departments that are live and ready to shop today.',
   },
 
   // ════════════════════════════════════════════════════════════════
@@ -1197,10 +1389,12 @@ export const DICTIONARIES = {
     announce_offer: '15 % de rabais sur votre première commande, code FIRST15',
     announce_freeship: 'Options de livraison affichées au paiement',
     announce_cta: 'Magasiner',
-    offer_first15: 'Nouveau ici ? 15 % de rabais sur votre première commande avec le code FIRST15.',
+    offer_first15:
+      'Nouveau ici ? 15 % de rabais sur votre première commande avec le code FIRST15.',
     announce_region_aria: 'Annonces du site',
 
-    footer_tagline: 'Trouvailles utiles. Sélectionné à Toronto. Livraison claire.',
+    footer_tagline:
+      'Trouvailles utiles. Sélectionné à Toronto. Livraison claire.',
     footer_accepted_payments: 'Paiements acceptés',
     footer_secure: 'Paiement sécurisé par Shopify, chiffré et conforme PCI',
     footer_shop: 'Boutique',
@@ -1211,14 +1405,15 @@ export const DICTIONARIES = {
     footer_contact: 'Contactez-nous',
     footer_search: 'Recherche',
     footer_policies: 'Politiques',
-    footer_shipping_policy: "Politique d’expédition",
+    footer_shipping_policy: 'Politique d’expédition',
     footer_refund_policy: 'Politique de remboursement',
-    footer_terms: "Conditions d’utilisation",
+    footer_terms: 'Conditions d’utilisation',
     footer_newsletter_title: 'Abonnez-vous à notre infolettre',
-    footer_newsletter_copy: 'Offres exclusives et nouveautés, directement dans votre boîte de réception.',
+    footer_newsletter_copy:
+      'Offres exclusives et nouveautés, directement dans votre boîte de réception.',
     footer_email_placeholder: 'Entrez votre courriel',
     footer_newsletter_email_aria: 'Adresse courriel',
-    footer_newsletter_subscribe_aria: 'S\'abonner',
+    footer_newsletter_subscribe_aria: "S'abonner",
     footer_newsletter_submitting: '…',
 
     footer_newsletter_ok: 'Merci, vous êtes inscrit.',
@@ -1249,7 +1444,8 @@ export const DICTIONARIES = {
 
     hero_eyebrow: 'Sélection curatée · Gratuit au Canada',
     hero_title: 'Des trouvailles qui comptent.',
-    hero_sub: 'Des trouvailles utiles pour la maison, la beauté, la tech et plus. De vraies découvertes par de vraies personnes.',
+    hero_sub:
+      'Des trouvailles utiles pour la maison, la beauté, la tech et plus. De vraies découvertes par de vraies personnes.',
     hero_cta_shop: 'Magasiner →',
     hero_cta_browse: 'Tout parcourir',
     hero_stat_products: 'Produits',
@@ -1263,7 +1459,7 @@ export const DICTIONARIES = {
     ticker_products: 'Catalogue actif',
     ticker_new_drops: 'Nouveautés chaque semaine',
     ticker_free_shipping: 'Livraison gratuite au Canada',
-    ticker_returns: 'Retours sous 14 jours',
+    ticker_returns: 'Retours sous 30 jours',
     ticker_ships: 'Livraison rapide',
     ticker_handpicked: 'Sélectionné, jamais aléatoire',
     ticker_real_value: 'Vraie valeur. Vraies trouvailles.',
@@ -1308,7 +1504,8 @@ export const DICTIONARIES = {
     // ── Shipping reach ────────────────────────────────────────────
     ship_eyebrow: 'Où nous livrons',
     ship_title: 'Nous livrons partout.',
-    ship_sub: "Nous livrons dans des pays du monde entier. Où que vous soyez, nous vous apporterons votre commande.",
+    ship_sub:
+      'Nous livrons dans des pays du monde entier. Où que vous soyez, nous vous apporterons votre commande.',
     ship_cta: 'Demander pour votre pays',
     ship_section_aria: 'Destinations de livraison',
     ship_compact_title: 'Couverture par région',
@@ -1334,54 +1531,97 @@ export const DICTIONARIES = {
     ship_hero_eyebrow: 'Livraison & Expédition',
     ship_hero_title_main: 'Livraison &',
     ship_hero_title_em: 'Expédition.',
-    ship_hero_sub: 'Les options, les délais et les coûts de livraison sont confirmés au paiement selon les articles et la destination.',
+    ship_hero_sub:
+      'Les options, les délais et les coûts de livraison sont confirmés au paiement selon les articles et la destination.',
     ship_hero_cta: 'Voir le catalogue',
+    ship_launch_hero_sub:
+      'Une seule boutique nord-américaine avec des prix adaptés au marché et des options de livraison confirmées au paiement.',
+    ship_jump: 'Voir comment la livraison est confirmée',
+    ship_launch_regions_eye: 'Boutique nord-américaine',
+    ship_launch_regions_title: 'Deux marchés. Une boutique ciblée.',
+    ship_launch_regions_sub:
+      'Choisissez le Canada ou les États-Unis pour afficher les prix du marché. La livraison dépend toujours des articles et de l’adresse.',
+    ship_launch_rates_eye: 'Avant de payer',
+    ship_launch_rates_title: 'Vérifiez la livraison avant le paiement',
+    ship_launch_rates_sub:
+      'Le paiement affiche les options disponibles pour les articles et la destination sélectionnés.',
+    ship_market_ca_name: 'Canada · CAD',
+    ship_market_ca_detail:
+      'Prix en CAD; le paiement confirme si les articles sélectionnés peuvent être livrés.',
+    ship_market_us_name: 'États-Unis · USD',
+    ship_market_us_detail:
+      'Prix en USD; le paiement confirme si les articles sélectionnés peuvent être livrés.',
+    ship_check_destination_title: 'Vérifiez votre destination',
+    ship_check_destination_body:
+      'Entrez votre adresse au paiement pour voir les options disponibles pour votre commande.',
+    ship_check_destination_eta: 'Disponibilité affichée avant le paiement',
+    ship_check_items_title: 'Vérifiez les articles du panier',
+    ship_check_items_body:
+      'Les options peuvent varier selon le produit, la variante et la destination.',
+    ship_check_items_eta: 'Le paiement confirme les options de la commande',
+    ship_check_tracking_title: 'Suivez votre commande',
+    ship_check_tracking_body:
+      'Lorsqu’un service suivi est disponible, les détails sont envoyés après l’expédition.',
+    ship_check_tracking_eta: 'Consultez la politique d’expédition pour obtenir de l’aide',
     ship_regions_eye: 'Où nous livrons',
-    ship_regions_title: 'Couverture dans 8 régions.',
-    ship_regions_sub: 'Nous livrons dans des pays du monde entier. Choisissez une région pour voir ce qui arrive chez vous.',
+    ship_regions_title: 'La couverture s’étend après validation.',
+    ship_regions_sub:
+      'Nous ne mettons en avant une destination qu’après confirmation de la couverture du produit et du fournisseur.',
     ship_rates_eye: 'Tarifs de livraison',
-    ship_rates_title: 'Livraison rapide et équitable.',
-    ship_rates_sub: 'Délais de livraison estimés et seuils de livraison gratuite. Le coût final est calculé au paiement selon le poids et la destination.',
+    ship_rates_title: 'Livraison claire avant le paiement.',
+    ship_rates_sub:
+      'Le paiement confirme les services, le coût et l’estimation pour les articles et l’adresse sélectionnés.',
     ship_rates_canada_flag: 'CA',
     ship_rates_canada_title: 'Canada',
-    ship_rates_canada_body: 'Livraison standard gratuite pour les commandes de plus de 75 $. Tarif forfaitaire en dessous du seuil.',
-    ship_rates_canada_eta: '2 à 5 jours ouvrables',
-    ship_rates_canada_badge: 'Gratuit dès 75 $',
+    ship_rates_canada_body:
+      'Les services et coûts disponibles sont affichés au paiement pour la commande sélectionnée.',
+    ship_rates_canada_eta: 'Estimation affichée au paiement',
+    ship_rates_canada_badge: '',
     ship_rates_us_flag: 'US',
     ship_rates_us_title: 'États-Unis',
-    ship_rates_us_body: 'Options standard et express. Droits et taxes calculés au paiement.',
-    ship_rates_us_eta: '5 à 9 jours ouvrables',
+    ship_rates_us_body:
+      'La disponibilité dépend des articles, du panier et de la destination.',
+    ship_rates_us_eta: 'À confirmer au paiement',
     ship_rates_us_badge: '',
     ship_rates_intl_flag: 'INTL',
     ship_rates_intl_title: 'International',
-    ship_rates_intl_body: 'Nous livrons dans 8 régions du monde. Les transporteurs varient selon la destination et le service.',
-    ship_rates_intl_eta: '7 à 21 jours ouvrables',
+    ship_rates_intl_body:
+      'La livraison internationale n’est pas actuellement mise en avant. Confirmez sa disponibilité au paiement.',
+    ship_rates_intl_eta: 'Aucune promesse générale de livraison',
     ship_rates_intl_badge: '',
     ship_how_eye: 'Comment ça marche',
-    ship_how_title: "Commandez aujourd'hui, expédié demain.",
+    ship_how_title: 'Vérifiez les détails avant de commander.',
     ship_how_1_title: 'Passez votre commande',
-    ship_how_1_body: 'Parcourez le catalogue, ajoutez au panier et payez en toute sécurité. Vous recevrez une confirmation immédiate.',
-    ship_how_2_title: 'Traitement sous 24 heures',
-    ship_how_2_body: "Notre équipe prépare et expédie votre commande en un jour ouvrable. Vous recevrez une confirmation d'expédition avec le suivi.",
+    ship_how_1_body:
+      'Parcourez le catalogue, ajoutez au panier et payez en toute sécurité. Vous recevrez une confirmation immédiate.',
+    ship_how_2_title: 'Votre commande est traitée',
+    ship_how_2_body:
+      'Les délais de traitement et de livraison dépendent du produit et du service sélectionnés. Les mises à jour disponibles sont envoyées au fil du traitement.',
     ship_how_3_title: 'Livré à votre porte',
-    ship_how_3_body: 'Votre commande arrive dans le délai estimé de votre région. Canada généralement 2 à 5 jours; international 7 à 21.',
+    ship_how_3_body:
+      'Utilisez l’estimation affichée au paiement pour les articles et l’adresse sélectionnés.',
     ship_track_eye: 'Suivre votre commande',
-    ship_track_title: 'Sachez exactement où se trouve votre colis.',
-    ship_track_body_1: "Chaque commande est expédiée avec un numéro de suivi. Nous vous l'envoyons par e-mail dès que votre commande quitte l'entrepôt, généralement en un jour ouvrable après le paiement.",
-    ship_track_body_2: "Cliquez sur le lien de suivi dans votre e-mail, ou connectez-vous à votre compte et consultez l'historique des commandes pour voir les statuts en direct du transporteur.",
+    ship_track_title: 'Suivez les mises à jour disponibles.',
+    ship_track_body_1:
+      'Lorsqu’un service suivi est disponible, les détails sont envoyés après l’expédition.',
+    ship_track_body_2:
+      'Utilisez le lien du courriel d’expédition ou contactez le support avec votre numéro de commande.',
     ship_track_cta: 'Contacter le support',
     ship_cta_title: 'Prêt à commander ?',
-    ship_cta_sub: 'Parcourez plus de 6 000 produits avec livraison gratuite partout au Canada dès 75 $.',
+    ship_cta_sub:
+      'Magasinez les organisateurs et confirmez la livraison pour votre adresse au paiement.',
     ship_cta_browse: 'Voir tous les produits',
 
     match_eyebrow: 'Découverte personnalisée',
     match_title: 'Puchica Match.',
-    match_sub: 'Glissez à droite pour <strong>Aimer</strong>, à gauche pour <strong>Passer</strong>, ou vers le haut pour <strong>Super Glissement &amp; Ajouter au panier</strong> !',
-    match_empty_title: "Plus d’articles pour aujourd’hui !",
-    match_empty_body: 'Vous avez parcouru tous les articles tendance et en avez aimé {count}.',
+    match_sub:
+      'Glissez à droite pour <strong>Aimer</strong>, à gauche pour <strong>Passer</strong>, ou vers le haut pour <strong>Super Glissement &amp; Ajouter au panier</strong> !',
+    match_empty_title: 'Plus d’articles pour aujourd’hui !',
+    match_empty_body:
+      'Vous avez parcouru tous les articles tendance et en avez aimé {count}.',
     match_reset: 'Recommencer',
     match_browse: 'Tout parcourir',
-    match_stamp_like: "J’AIME",
+    match_stamp_like: 'J’AIME',
     match_stamp_nope: 'NON',
     match_stamp_super: 'SUPER AJP',
 
@@ -1390,7 +1630,8 @@ export const DICTIONARIES = {
 
     gift_eyebrow: 'Idées cadeaux',
     gift_title: 'Trouvez le cadeau parfait.',
-    gift_sub: 'Plus de 6 000 options pour tous les budgets. Quelque chose pour chacun sur votre liste.',
+    gift_sub:
+      'Plus de 6 000 options pour tous les budgets. Quelque chose pour chacun sur votre liste.',
     gift_under25_label: 'Moins de 25 $',
     gift_under25_sub: 'Petits plaisirs, grands sourires',
     gift_25_50_label: '25 $ – 50 $',
@@ -1415,7 +1656,7 @@ export const DICTIONARIES = {
     cat_eyebrow: 'Magasiner par catégorie',
     cat_title: 'Trouvez votre truc.',
     cat_home_tagline: 'Votre espace, sublimé.',
-    cat_beauty_tagline: "Ressentez-le de l’intérieur.",
+    cat_beauty_tagline: 'Ressentez-le de l’intérieur.',
     cat_tech_tagline: 'Plus intelligent, chaque jour.',
     cat_outdoor_tagline: 'Sortez en plein air.',
     cat_pet_tagline: 'Ils méritent ce qu’il y a de mieux.',
@@ -1427,35 +1668,43 @@ export const DICTIONARIES = {
     mood_title: 'Magasinez comme vous vivez.',
     mood_home_label: 'Maison & Décoration',
     mood_home_title: 'Votre maison mérite mieux.',
-    mood_home_sub: 'Rangement, déco, ustensiles de cuisine, tout pour rendre votre espace intentionnel.',
+    mood_home_sub:
+      'Rangement, déco, ustensiles de cuisine, tout pour rendre votre espace intentionnel.',
     mood_home_cta: 'Améliorez votre espace →',
     mood_beauty_label: 'Beauté & Soins',
     mood_beauty_title: 'Prenez soin de vous.',
-    mood_beauty_sub: 'Soins de la peau, bien-être et produits de soin personnel qui fonctionnent vraiment, choisis par des gens qui les utilisent.',
+    mood_beauty_sub:
+      'Soins de la peau, bien-être et produits de soin personnel qui fonctionnent vraiment, choisis par des gens qui les utilisent.',
     mood_beauty_cta: 'Gâtez-vous →',
     mood_tech_label: 'Techno & Gadgets',
     mood_tech_title: 'Travaillez mieux, jouez plus fort.',
-    mood_tech_sub: 'Accessoires, outils et gadgets qui améliorent vraiment votre quotidien. Sans artifice.',
+    mood_tech_sub:
+      'Accessoires, outils et gadgets qui améliorent vraiment votre quotidien. Sans artifice.',
     mood_tech_cta: 'Chargez-vous →',
 
     review_eyebrow: 'Ce que les gens disent',
     review_title: 'De vrais acheteurs. De vraies opinions.',
-    review_1_quote: 'Commandé trois fois au cours du dernier mois. La qualité est toujours excellente et la livraison est rapide.',
-    review_2_quote: "J’ai trouvé exactement ce que je cherchais, et bien plus encore. C’est ma nouvelle adresse préférée pour la maison.",
-    review_3_quote: "La sélection est vraiment bonne. Tout semble avoir été choisi par quelqu’un qui a du goût.",
+    review_1_quote:
+      'Commandé trois fois au cours du dernier mois. La qualité est toujours excellente et la livraison est rapide.',
+    review_2_quote:
+      'J’ai trouvé exactement ce que je cherchais, et bien plus encore. C’est ma nouvelle adresse préférée pour la maison.',
+    review_3_quote:
+      'La sélection est vraiment bonne. Tout semble avoir été choisi par quelqu’un qui a du goût.',
 
     banner_eyebrow: 'Meilleures ventes',
     banner_title: 'Ceux dont les gens ne peuvent plus se passer.',
-    banner_sub: 'Essayés, recommandés et offerts en cadeaux. Ce sont les produits qui méritent leur place sur la liste chaque semaine.',
+    banner_sub:
+      'Essayés, recommandés et offerts en cadeaux. Ce sont les produits qui méritent leur place sur la liste chaque semaine.',
     banner_cta: 'Voir toutes les meilleures ventes',
 
-    catalog_body: "produits. Une seule boutique. Toutes les catégories. Nous en ajoutons chaque semaine, il y a toujours quelque chose de nouveau à découvrir.",
+    catalog_body:
+      'produits. Une seule boutique. Toutes les catégories. Nous en ajoutons chaque semaine, il y a toujours quelque chose de nouveau à découvrir.',
     catalog_cta_browse: 'Tout parcourir →',
     catalog_cta_search: 'Rechercher dans le catalogue',
 
     trust_shipping_title: 'Livraison gratuite',
     trust_shipping_sub: 'Sur les commandes de plus de 50 $',
-    trust_returns_title: 'Retours sous 14 jours',
+    trust_returns_title: 'Retours sous 30 jours',
     trust_returns_sub: 'Sans question, sans tracas',
     trust_secure_title: 'Paiement sécurisé',
     trust_secure_sub: 'Chiffré et conforme PCI',
@@ -1464,12 +1713,13 @@ export const DICTIONARIES = {
 
     newsletter_pill: 'Rejoignez le club',
     newsletter_title: 'Recevez les bons produits en premier.',
-    newsletter_sub: "Nouveautés, offres exclusives et coups de cœur introuvables ailleurs, directement dans votre boîte. Pas de spam, désabonnez-vous à tout moment.",
+    newsletter_sub:
+      'Nouveautés, offres exclusives et coups de cœur introuvables ailleurs, directement dans votre boîte. Pas de spam, désabonnez-vous à tout moment.',
     newsletter_done: 'Vous êtes inscrit ! Vérifiez votre boîte de réception.',
     newsletter_email_label: 'Adresse courriel',
     newsletter_placeholder: 'votre@courriel.com',
     newsletter_joining: 'Inscription…',
-    newsletter_subscribe: "S’abonner",
+    newsletter_subscribe: 'S’abonner',
 
     counter_products: 'Produits',
     counter_collections: 'Collections',
@@ -1489,7 +1739,8 @@ export const DICTIONARIES = {
     explore_filter_title: 'Filtrer par catégorie',
     explore_filter_clear: 'Tout effacer',
     explore_empty_title: 'Aucun produit trouvé',
-    explore_empty_body: 'Essayez de modifier vos sélections de catégories ou effacez les filtres.',
+    explore_empty_body:
+      'Essayez de modifier vos sélections de catégories ou effacez les filtres.',
     explore_empty_reset: 'Réinitialiser les filtres',
     explore_view_details: 'Voir les détails',
     explore_cat_home: 'Maison & Cuisine',
@@ -1502,7 +1753,8 @@ export const DICTIONARIES = {
     col_filters_aria: 'Filtres',
     search_trending_label: 'Recherches populaires',
     search_recent_label: 'Vus récemment',
-    search_trending_terms: 'maison cuisine, électronique, jouets animaux, pistolet de massage, outils jardin, cadeaux moins de 25',
+    search_trending_terms:
+      'maison cuisine, électronique, jouets animaux, pistolet de massage, outils jardin, cadeaux moins de 25',
     col_density_aria: 'Densité de la grille',
     col_density_3_aria: 'Afficher 3 par rangée',
     col_density_4_aria: 'Afficher 4 par rangée',
@@ -1515,9 +1767,10 @@ export const DICTIONARIES = {
     col_empty_title: 'Rien ici pour le moment',
     col_empty_filtered: 'Aucun produit ne correspond à ces filtres.',
     col_clear_filters: 'Effacer les filtres',
-    col_empty_restocking: 'Nous réapprovisionnons cette collection. Revenez bientôt ou parcourez le reste de la boutique.',
+    col_empty_restocking:
+      'Nous réapprovisionnons cette collection. Revenez bientôt ou parcourez le reste de la boutique.',
     col_showing: 'Affichage de',
-    col_showing_more: "jusqu’ici, voir plus bas",
+    col_showing_more: 'jusqu’ici, voir plus bas',
     col_product_singular: 'produit',
     col_product_plural: 'produits',
     col_sort_by: 'Trier par',
@@ -1543,14 +1796,16 @@ export const DICTIONARIES = {
     all_breadcrumb: 'Tous les produits',
     all_eyebrow: 'La boutique complète',
     all_title: 'Tous les produits',
-    all_sub: 'Le catalogue complet Puchica, chaque produit sélectionné au même endroit. Filtrez par catégorie ou utilisez la barre de recherche.',
+    all_sub:
+      'Le catalogue complet Puchica, chaque produit sélectionné au même endroit. Filtrez par catégorie ou utilisez la barre de recherche.',
     all_empty_title: 'Aucun produit à afficher',
-    all_empty_body: 'Le catalogue se charge. Si le problème persiste, actualisez la page.',
+    all_empty_body:
+      'Le catalogue se charge. Si le problème persiste, actualisez la page.',
     all_count_loading: 'Catalogue en cours de chargement',
 
     product_trust_shipping: 'Livraison affichée au paiement',
     product_trust_shipping_sub: 'pour votre destination',
-    product_trust_returns: 'Délai de retour de 14 jours',
+    product_trust_returns: 'Délai de retour de 30 jours',
     product_trust_secure: 'Paiement sécurisé',
     product_trust_returns_sub: 'voir la politique pour l’admissibilité',
     product_trust_secure_sub: 'chiffré et conforme PCI',
@@ -1563,11 +1818,14 @@ export const DICTIONARIES = {
     product_stock_low: 'Plus que {stock} en inventaire',
     product_badge_sold_out: 'Rupture de stock',
     product_badge_save: 'Économisez {pct}%',
-    product_reviews_stub: 'Les avis de clients vérifiés apparaîtront ici au fur et à mesure qu’ils seront recueillis.',
+    product_reviews_stub:
+      'Les avis de clients vérifiés apparaîtront ici au fur et à mesure qu’ils seront recueillis.',
     product_perk_packed: 'Options de livraison confirmées au paiement',
-    product_perk_return: 'Consultez la politique de remboursement avant de commander',
-    product_perk_curated: "Sélectionné par l’équipe Puchica, jamais aléatoire",
+    product_perk_return:
+      'Consultez la politique de remboursement avant de commander',
+    product_perk_curated: 'Sélectionné par l’équipe Puchica, jamais aléatoire',
     product_tab_description: 'Description',
+    product_story_title: 'Pourquoi il mérite sa place.',
     product_tab_specs: 'Caractéristiques',
     product_tab_shipping: 'Livraison & Retours',
     product_desc_empty: 'Aucune description supplémentaire pour ce produit.',
@@ -1576,11 +1834,14 @@ export const DICTIONARIES = {
     product_spec_sku: 'SKU',
     product_specs_empty: 'Aucune caractéristique disponible pour ce produit.',
     product_shipping_h: 'Livraison',
-    product_shipping_body: 'La disponibilité, les délais et le coût de livraison sont confirmés au paiement selon les articles sélectionnés et votre destination. Lorsqu’un service avec suivi est offert, les détails de suivi sont envoyés après l’expédition par le fournisseur.',
+    product_shipping_body:
+      'La disponibilité, les délais et le coût de livraison sont confirmés au paiement selon les articles sélectionnés et votre destination. Lorsqu’un service avec suivi est offert, les détails de suivi sont envoyés après l’expédition par le fournisseur.',
     product_returns_h: 'Retours',
-    product_returns_body: 'Consultez la politique de remboursement avant de commander. L’admissibilité au retour et les instructions dépendent de l’article et de la commande; contactez le soutien avec votre numéro de commande si vous avez besoin d’aide.',
+    product_returns_body:
+      'Consultez la politique de remboursement avant de commander. L’admissibilité au retour et les instructions dépendent de l’article et de la commande; contactez le soutien avec votre numéro de commande si vous avez besoin d’aide.',
     product_help_h: 'Besoin d’aide ?',
-    product_help_body: "Contactez-nous à tout moment via la page de contact. Un membre réel de l’équipe Puchica vous répondra dans un délai d’un jour ouvrable.",
+    product_help_body:
+      'Envoyez votre question sur le produit ou la commande avec les détails nécessaires pour vous aider.',
     product_help_contact_link: 'page de contact',
     product_share_label: 'Partager :',
     product_share_btn: 'Partager',
@@ -1594,8 +1855,9 @@ export const DICTIONARIES = {
     product_notify_label: 'Me notifier quand disponible',
     product_notify_placeholder: 'vous@exemple.com',
     product_notify_btn: 'Me notifier',
-    product_notify_ok: 'Merci, nous vous enverrons un courriel quand ce sera disponible.',
-    product_notify_error: "Quelque chose s’est mal passé. Veuillez réessayer.",
+    product_notify_ok:
+      'Merci, nous vous enverrons un courriel quand ce sera disponible.',
+    product_notify_error: 'Quelque chose s’est mal passé. Veuillez réessayer.',
 
     atc_added: 'Ajouté ✓',
     atc_out_of_stock: 'Rupture de stock',
@@ -1622,7 +1884,8 @@ export const DICTIONARIES = {
     nav_contact_short: 'Contact',
     megamenu_trigger: 'Boutique',
     megamenu_panel_aria: 'Magasiner par catégorie',
-    megamenu_error_body: "Nous n'avons pas pu charger les catégories pour le moment.",
+    megamenu_error_body:
+      "Nous n'avons pas pu charger les catégories pour le moment.",
     megamenu_error_cta: 'Tout parcourir →',
     megamenu_tile_cta: 'Magasiner →',
     megamenu_tagline_phone_case: 'Coques, prises, protection.',
@@ -1668,12 +1931,14 @@ export const DICTIONARIES = {
     showcase_heading: 'Explorez par catégorie',
     showcase_sub: '{count} collections. {pct} % du catalogue couvert.',
     showcase_eyebrow: 'Collection {n}',
-    showcase_desc: 'Découvrez notre sélection de {title}, produits triés sur le volet avec livraison gratuite dès 50 $.',
+    showcase_desc:
+      'Découvrez notre sélection de {title}, produits triés sur le volet avec livraison gratuite dès 50 $.',
     showcase_cta: 'Magasiner {title} →',
 
     // ── 404 / route catch-all ─────────────────────────────────
     notfound_title: "Nous n'avons pas trouvé cette page",
-    notfound_sub: "Le lien {path} n'existe pas sur Puchica. Il a peut-être été déplacé, renommé, ou n'a jamais existé. Essayez plutôt l'une de ces options :",
+    notfound_sub:
+      "Le lien {path} n'existe pas sur Puchica. Il a peut-être été déplacé, renommé, ou n'a jamais existé. Essayez plutôt l'une de ces options :",
     notfound_popular: 'Collections populaires',
     notfound_best: 'Meilleures ventes →',
     notfound_new: 'Nouveautés →',
@@ -1695,20 +1960,26 @@ export const DICTIONARIES = {
     cart_heading_aria: 'Articles',
     cart_remove_region_aria: 'Retirer du panier',
     cart_empty_title: 'Votre panier est vide',
-    cart_empty_body: 'Rien pour l’instant, trouvons quelque chose que vous aimerez. Nos trouvailles changent souvent, ça vaut le coup d’œil.',
+    cart_empty_body:
+      'Rien pour l’instant, trouvons quelque chose que vous aimerez. Nos trouvailles changent souvent, ça vaut le coup d’œil.',
     cart_empty_cta_shop: 'Parcourir le catalogue',
     cart_empty_cta_best: 'Voir les meilleures ventes',
     cart_empty_perks_aria: 'Pourquoi magasiner avec nous',
     cart_empty_perk_shipping: 'Options de livraison affichées au paiement',
-    cart_empty_perk_returns: 'Retours sous 14 jours',
-    cart_ghost_notice: "Ces articles ne sont pas disponibles dans votre région pour le moment. Retirez-les pour vider votre panier.",
-    cart_freeship_progress_remaining: 'Ajoutez {amount} pour la livraison gratuite',
+    cart_empty_perk_returns: 'Retours sous 30 jours',
+    cart_ghost_notice:
+      'Ces articles ne sont pas disponibles dans votre région pour le moment. Retirez-les pour vider votre panier.',
+    cart_freeship_progress_remaining:
+      'Ajoutez {amount} pour la livraison gratuite',
     cart_freeship_progress_done: 'Vous avez la livraison gratuite',
-    cart_freeship_threshold_label: 'Livraison gratuite pour les commandes de plus de {threshold}',
+    cart_freeship_threshold_label:
+      'Livraison gratuite pour les commandes de plus de {threshold}',
     cart_summary_title: 'Totaux',
     cart_summary_subtotal: 'Sous-total',
     cart_summary_empty_btn: 'Ajoutez un article pour passer à la caisse',
     cart_summary_checkout_btn: 'Passer à la caisse',
+    cart_checkout_unavailable:
+      'Le paiement est temporairement indisponible. Actualisez votre panier et réessayez.',
     cart_summary_discounts_aria: 'Remises',
     cart_summary_discounts_h: 'Remises',
     cart_summary_remove_discount: 'Retirer la remise',
@@ -1723,7 +1994,8 @@ export const DICTIONARIES = {
     cart_summary_gift_placeholder: 'Entrez le code de la carte-cadeau',
     cart_summary_gift_apply_aria: 'Appliquer la carte-cadeau',
     cart_summary_gift_apply: 'Appliquer',
-    cart_summary_remove_gift_aria: 'Retirer la carte-cadeau se terminant par {last}',
+    cart_summary_remove_gift_aria:
+      'Retirer la carte-cadeau se terminant par {last}',
     cart_qty_aria: 'Quantité',
     cart_qty_dec_aria: 'Diminuer la quantité',
     cart_qty_inc_aria: 'Augmenter la quantité',
@@ -1770,20 +2042,30 @@ export const DICTIONARIES = {
     // ── Chrome des tiroirs ──────────────────────────────────────
     aside_close_drawer: 'Fermer le tiroir',
     aside_close: 'Fermer',
-    locale_change_aria: 'Changer de langue',
+    locale_change_aria: 'Changer de marché ou de langue',
+    locale_switching: 'Changement…',
+    locale_switching_status: 'Mise à jour du marché et de la devise.',
+    locale_market_label: 'Marché',
+    locale_market_ca: 'Canada',
+    locale_market_us: 'États-Unis',
+    locale_market_unavailable: 'Indisponible',
+    locale_language_label: 'Langue',
+    mobile_market_language: 'Marché et langue',
     skip_to_content: 'Passer au contenu principal',
 
     // ── ErrorBoundary racine / 404 / recherche dans l’erreur ───
     err_404_h: "Nous n'avons pas trouvé cette page",
     err_500_h: "Une erreur s'est produite de notre côté",
-    err_404_body: 'Le lien est peut-être brisé ou la page a été déplacée. Essayez une recherche ou retournez à la boutique.',
-    err_500_body: "Une erreur inattendue s'est produite lors du rendu de cette page. Réessayez ou parcourez le catalogue ci-dessous.",
+    err_404_body:
+      'Le lien est peut-être brisé ou la page a été déplacée. Essayez une recherche ou retournez à la boutique.',
+    err_500_body:
+      "Une erreur inattendue s'est produite lors du rendu de cette page. Réessayez ou parcourez le catalogue ci-dessous.",
     err_search_aria: 'Rechercher dans la boutique',
     err_search_placeholder: 'Rechercher dans la boutique…',
     err_search_btn: 'Rechercher',
     err_home: 'Retour à l’accueil',
     err_browse: 'Parcourir tous les produits',
-    err_contact: "Toujours bloqué·e ? Écrivez à {email} et nous vous aiderons.",
+    err_contact: 'Toujours bloqué·e ? Écrivez à {email} et nous vous aiderons.',
 
     // ── Pied de page (suite) ────────────────────────────────────
     footer_social_aria: 'Réseaux sociaux',
@@ -1826,12 +2108,14 @@ export const DICTIONARIES = {
     np_close_backdrop: 'Fermer',
     np_close_x: 'Fermer',
     np_success_h: 'Vous êtes inscrit·e !',
-    np_success_body: 'Voici 15 % de rabais sur votre première commande. Utilisez ce code à la caisse :',
+    np_success_body:
+      'Voici 15 % de rabais sur votre première commande. Utilisez ce code à la caisse :',
     np_copy_btn: 'Copié !',
     np_copy_hint: 'Touchez pour copier',
     np_success_cta: 'Commencer à magasiner →',
     np_form_h: 'Obtenez 15 % de rabais sur votre première commande',
-    np_form_body: "Rejoignez la liste pour les nouveautés et les offres réservées aux membres. Nous vous enverrons votre code immédiatement. Pas de spam, désabonnez-vous à tout moment.",
+    np_form_body:
+      'Rejoignez la liste pour les nouveautés et les offres réservées aux membres. Nous vous enverrons votre code immédiatement. Pas de spam, désabonnez-vous à tout moment.',
     np_email_placeholder: 'vous@courriel.com',
     np_email_aria: 'Adresse courriel',
     np_joining: 'Inscription…',
@@ -1852,24 +2136,27 @@ export const DICTIONARIES = {
     search_results_h_fallback: 'Recherche',
     search_input_placeholder: 'Rechercher des produits…',
     search_submit: 'Rechercher',
-    search_zero_hint: 'Recherchez par mot-clé ou parcourez nos catégories populaires ci-dessus.',
+    search_zero_hint:
+      'Recherchez par mot-clé ou parcourez nos catégories populaires ci-dessus.',
     pred_articles: 'Articles',
     pred_collections: 'Collections',
     pred_pages: 'Pages',
     pred_products: 'Produits',
     pred_empty_title: 'Commencez à taper pour rechercher',
-    pred_empty_body: 'Essayez des catégories comme « meilleures ventes », « maison » ou des noms de produits précis.',
+    pred_empty_body:
+      'Essayez des catégories comme « meilleures ventes », « maison » ou des noms de produits précis.',
     pred_pill_best: 'Meilleures ventes',
     pred_pill_all: 'Toutes les catégories',
     pred_pill_new: 'Nouveautés',
     pred_no_results_h: 'Aucun résultat pour « {term} »',
-    pred_no_results_body: 'Essayez un autre mot-clé ou parcourez les coups de cœur.',
+    pred_no_results_body:
+      'Essayez un autre mot-clé ou parcourez les coups de cœur.',
 
     // ── H1 de la page Panier ────────────────────────────────────
     cart_page_h: 'Panier',
     cart_page_eyebrow: 'Votre panier',
     cart_trust_aria: 'Pourquoi magasiner chez nous',
-    cart_trust_returns: 'Retours sous 14 jours',
+    cart_trust_returns: 'Retours sous 30 jours',
     cart_trust_shipping: 'Expédition sous 24 h',
     cart_trust_secure: 'Paiement sécurisé',
 
@@ -1879,18 +2166,30 @@ export const DICTIONARIES = {
     col_index_breadcrumb_current: 'Collections',
     col_index_eyebrow: 'Parcourir',
     col_index_h: 'Toutes les collections',
-    col_index_sub: "Choisissez une catégorie et explorez. Chaque collection est soigneusement sélectionnée, nous ne gardons que ce que nous utiliserions nous-mêmes.",
+    col_index_sub:
+      'Choisissez une catégorie et explorez. Chaque collection est soigneusement sélectionnée, nous ne gardons que ce que nous utiliserions nous-mêmes.',
     col_index_count: 'Puchica',
     col_index_empty_h: 'Aucune collection pour l’instant',
-    col_index_empty_body: 'Les collections apparaîtront ici à mesure que nous les ajouterons.',
+    col_index_empty_body:
+      'Les collections apparaîtront ici à mesure que nous les ajouterons.',
     col_index_card_cta: 'Magasiner la collection →',
 
     // ── Index des politiques ────────────────────────────────────
     policies_h: 'Politiques',
-    policies_sub: 'Livraison, retours, confidentialité et conditions pour les commandes chez Puchica.',
+    policies_sub:
+      'Livraison, retours, confidentialité et conditions pour les commandes chez Puchica.',
 
     // ── Lien retour des politiques ──────────────────────────────
     policy_back: 'Retour aux politiques',
+    refund_summary_title: 'Avant d’expédier un retour',
+    refund_summary_start:
+      'Contactez-nous dans les 30 jours suivant la livraison. N’expédiez rien avant la confirmation de l’admissibilité, des instructions et de l’adresse de retour.',
+    refund_summary_shipping:
+      'La responsabilité des frais de retour dépend du motif et de la politique complète. Si un article arrive endommagé ou incorrect, écrivez-nous rapidement avec les détails de la commande.',
+    refund_summary_timing:
+      'Les remboursements approuvés sont versés sur le mode de paiement original après réception et examen du retour. Le délai bancaire peut varier.',
+    refund_summary_control:
+      'Ce résumé ne remplace pas la politique Shopify complète ci-dessous, qui prévaut en cas de différence.',
 
     // ── Index des blogs ─────────────────────────────────────────
     blogs_h: 'Blogues',
@@ -1934,7 +2233,8 @@ export const DICTIONARIES = {
     account_address_default_label: 'Définir comme adresse par défaut',
     account_orders_h: 'Commandes',
     account_orders_meta: 'Commandes',
-    account_orders_empty_filtered: 'Aucune commande ne correspond à votre recherche.',
+    account_orders_empty_filtered:
+      'Aucune commande ne correspond à votre recherche.',
     account_orders_empty_filtered_cta: 'Effacer les filtres →',
     account_orders_empty: "Vous n'avez pas encore passé de commande.",
     account_orders_empty_cta: 'Commencer à magasiner →',
@@ -1970,10 +2270,11 @@ export const DICTIONARIES = {
 
     // ── Page À propos ──────────────────────────────────────────────
     about_hero_eyebrow: 'Notre histoire',
-    about_hero_title_main: 'Des produits de qualité.',
-    about_hero_title_em: 'Sélectionnés pour VOUS.',
-    about_hero_sub: "Puchica est une boutique canadienne axée sur les trouvailles sélectionnées. Nous passons au crible des milliers de produits pour vous.",
-    about_hero_cta: 'Commencer à magasiner →',
+    about_hero_title_main: 'Moins de désordre.',
+    about_hero_title_em: 'Plus d’espace pour respirer.',
+    about_hero_sub:
+      'Puchica est une petite entreprise canadienne qui propose des organisateurs pratiques pour les petits espaces, la technologie du quotidien et les voyages.',
+    about_hero_cta: 'Voir la collection de lancement →',
     about_stats_aria: 'Puchica en chiffres',
     about_stat_products_num: 'Actif',
     about_stat_products_label: 'Produits sélectionnés',
@@ -1981,24 +2282,32 @@ export const DICTIONARIES = {
     about_stat_quality_label: 'Contrôle qualité',
     about_stat_shipping_num: '50 $+',
     about_stat_shipping_label: 'Livraison au Canada',
-    about_stat_returns_num: '14 jours',
+    about_stat_returns_num: '30 jours',
     about_stat_returns_label: 'Retours sans tracas',
     about_mission_eye: 'Pourquoi nous existons',
-    about_mission_title: 'Il y a beaucoup de produits. La plupart sont oubliables.',
-    about_mission_body_1: "Nous les passons en revue pour vous. Chacun reçoit un vrai examen : fonctionne-t-il, vaut-il son prix, l’utiliserions-nous nous-mêmes. Si la réponse est non à l’une de ces questions, il ne va pas au catalogue.",
-    about_mission_body_2: "Puchica est une boutique canadienne. Nous travaillons directement avec un réseau sélectionné de fournisseurs pour vous offrir un large choix sans compromettre la qualité. Vous obtenez une sélection véritable, pas un coup de dés sur ce qui pourrait se vendre.",
-    about_mission_card_text: "Nous évaluons des milliers de produits. Seuls ceux qui valent votre argent passent la barre.",
-    about_how_eye: 'Comment nous sélectionnons',
-    about_how_title: 'Chaque produit mérite sa place.',
-    about_how_1_title: 'Nous le trouvons',
-    about_how_1_body: "Notre équipe vérifie constamment les nouveaux produits, salons professionnels, fournisseurs, médias sociaux. Aucun algorithme ne décide de ce qui est mis en ligne.",
-    about_how_2_title: 'Nous le testons',
-    about_how_2_body: "Est-ce que ça fonctionne. Est-ce que ça vaut le prix. Est-ce que nous l’utiliserions. Si la réponse est non, ça ne passe pas.",
-    about_how_3_title: 'Vous le recevez',
-    about_how_3_body: "S’il passe, il est en boutique. Livré directement chez vous, avec une étiquette de retour prépayée dans chaque boîte.",
+    about_mission_title:
+      'Dans un petit espace, chaque objet mal rangé prend plus de place.',
+    about_mission_body_1:
+      'Un tiroir encombré, un câble emmêlé ou un sac trop rempli peut compliquer une journée ordinaire. Puchica aide à résoudre ces petits problèmes récurrents.',
+    about_mission_body_2:
+      'Notre catalogue reste volontairement ciblé : organisation de la maison, gestion des câbles et voyage. Moins de catégories signifie que chaque produit doit avoir une utilité claire.',
+    about_mission_card_text:
+      'Utile d’abord. Clair avant le paiement. À la hauteur de l’espace occupé.',
+    about_how_eye: 'Ce qui mérite une place',
+    about_how_title: 'Chaque produit doit justifier l’espace qu’il occupe.',
+    about_how_1_title: 'Résout un problème précis',
+    about_how_1_body:
+      'Nous cherchons des organisateurs au rôle clair : faciliter l’usage d’une armoire, garder un câble à portée ou simplifier les bagages.',
+    about_how_2_title: 'Convient aux espaces limités',
+    about_how_2_body:
+      'Nous privilégions les produits compacts et simples qui aident à mieux utiliser l’espace déjà disponible.',
+    about_how_3_title: 'Clair avant l’achat',
+    about_how_3_body:
+      'Le produit doit avoir un usage, des détails et des options compréhensibles. La disponibilité, le coût et le délai de livraison sont confirmés au paiement.',
     about_cats_eye: 'Ce que nous offrons',
     about_cats_title: 'Des trouvailles utiles. Une seule boutique.',
-    about_cats_sub: 'Dans toutes les catégories qui comptent vraiment au quotidien.',
+    about_cats_sub:
+      'Dans toutes les catégories qui comptent vraiment au quotidien.',
     about_cat_home_name: 'Maison & Déco',
     about_cat_home_sub: 'Rangement, déco, cuisine',
     about_cat_beauty_name: 'Beauté & Soins',
@@ -2011,12 +2320,15 @@ export const DICTIONARIES = {
     about_cat_pet_sub: 'Jouets, équipement, toilettage',
     about_cat_gift_name: 'Cadeaux',
     about_cat_gift_sub: 'Pour tous ceux sur votre liste',
-    about_promise_quote: "Chaque produit Puchica a été soigneusement testé par notre équipe. Nous offrons la sélection la plus soignée de produits que nous puissions trouver. Si nous ne l’utiliserions pas nous-mêmes, ce ne sera pas Puchica.",
+    about_promise_quote:
+      'Chaque produit Puchica a été soigneusement testé par notre équipe. Nous offrons la sélection la plus soignée de produits que nous puissions trouver. Si nous ne l’utiliserions pas nous-mêmes, ce ne sera pas Puchica.',
     about_promise_attr: 'L’équipe Puchica, Toronto ON',
-    about_cta_title: 'Prêt·e à trouver votre truc ?',
+    about_cta_title:
+      'Prêt·e à faire de la place pour des journées plus calmes ?',
     about_dept_title: 'Parcourir la boutique',
-    about_cta_sub: 'Des produits utiles, choisis par des humains. Prix clairs, retours sous 14 jours, livraison rapide.',
-    about_cta_browse: 'Tout parcourir →',
+    about_cta_sub:
+      'Commencez par un tiroir, une armoire, un amas de câbles ou un sac qui ne reste jamais rangé.',
+    about_cta_browse: 'Voir tous les organisateurs →',
     about_cta_contact: 'Nous joindre',
 
     // ── Page About, nouvelles sections (chronologie, valeurs, équipe, racines, départements) ──
@@ -2025,51 +2337,102 @@ export const DICTIONARIES = {
     about_story_sub: 'Quelques moments qui nous ont menés ici.',
     about_story_1_year: '2021',
     about_story_1_title: 'Tout a commencé par un « puchica »',
-    about_story_1_body: 'Une petite idée née à Toronto : créer une boutique où tout mérite d’être acheté. Pas de remplissage, pas de déchets, pas de choix par algorithme.',
+    about_story_1_body:
+      'Une petite idée née à Toronto : créer une boutique où tout mérite d’être acheté. Pas de remplissage, pas de déchets, pas de choix par algorithme.',
     about_story_2_year: '2022',
     about_story_2_title: 'Les 1 000 premiers produits',
-    about_story_2_body: 'Nous avons bâti un réseau de fournisseurs vérifiés et sélectionné nos mille premières trouvailles, maison, beauté, techno, animaux.',
+    about_story_2_body:
+      'Nous avons bâti un réseau de fournisseurs vérifiés et sélectionné nos mille premières trouvailles, maison, beauté, techno, animaux.',
     about_story_3_year: '2024',
     about_story_3_title: 'Un catalogue plus clair, rebâti avec soin',
-    about_story_3_body: 'Le catalogue est resserré autour de produits actifs, faciles à magasiner et couverts par une politique de retour claire de 14 jours.',
+    about_story_3_body:
+      'Le catalogue est resserré autour de produits actifs, faciles à magasiner et couverts par une politique de retour claire de 30 jours.',
     about_story_4_year: 'Aujourd’hui',
     about_story_4_title: 'Des racines across the Americas',
-    about_story_4_body: 'D’une base à Toronto jusqu’aux acheteurs across the Americas, la mission reste la même : le bon truc, choisi à la main.',
+    about_story_4_body:
+      'D’une base à Toronto jusqu’aux acheteurs across the Americas, la mission reste la même : le bon truc, choisi à la main.',
 
     about_values_eye: 'Ce que nous défendons',
     about_values_title: 'Nos valeurs.',
     about_values_sub: 'Les règles derrière chaque choix que nous faisons.',
     about_values_1_title: 'Sélectionné, pas encombré',
-    about_values_1_body: 'Nous disons non à bien plus de choses qu’on dit oui. Un catalogue plus petit et meilleur vaut mieux qu’un géant médiocre.',
+    about_values_1_body:
+      'Nous disons non à bien plus de choses qu’on dit oui. Un catalogue plus petit et meilleur vaut mieux qu’un géant médiocre.',
     about_values_2_title: 'Toujours des prix justes',
-    about_values_2_body: 'Pas de fausses remises, pas de majorations mystère. Le prix que vous voyez est honnête, et la valeur est réelle.',
+    about_values_2_body:
+      'Pas de fausses remises, pas de majorations mystère. Le prix que vous voyez est honnête, et la valeur est réelle.',
     about_values_3_title: 'L’âme avant les tendances',
-    about_values_3_body: 'On choisit des choses qui durent et comptent, pas ce que l’algorithme pousse cette semaine.',
+    about_values_3_body:
+      'On choisit des choses qui durent et comptent, pas ce que l’algorithme pousse cette semaine.',
     about_values_4_title: 'Expédié par des partenaires de confiance',
-    about_values_4_body: 'Chaque commande part d’un partenaire vérifié sous 24 h, avec une étiquette de retour prépayée dans chaque boîte.',
+    about_values_4_body:
+      'Chaque commande part d’un partenaire vérifié sous 24 h, avec une étiquette de retour prépayée dans chaque boîte.',
 
     about_team_eye: 'Qui nous sommes',
     about_team_title: 'Des gens réels, des choix réels.',
-    about_team_sub: 'Une petite équipe à Toronto, derrière chaque produit qui passe le filtre.',
+    about_team_sub:
+      'Une petite équipe à Toronto, derrière chaque produit qui passe le filtre.',
     about_team_1_name: 'Mariana L.',
     about_team_1_role: 'Fondatrice & Curatrice',
-    about_team_1_bio: 'A lancé Puchica après des années de frustration en ligne. Dirige maintenant la curation et les relations fournisseurs.',
+    about_team_1_bio:
+      'A lancé Puchica après des années de frustration en ligne. Dirige maintenant la curation et les relations fournisseurs.',
     about_team_2_name: 'Diego R.',
     about_team_2_role: 'Responsable des opérations',
-    about_team_2_bio: 'Garde le réseau de fournisseurs en marche et s’assure que chaque commande parte à temps. La raison pour laquelle votre colis arrive vite.',
+    about_team_2_bio:
+      'Garde le réseau de fournisseurs en marche et s’assure que chaque commande parte à temps. La raison pour laquelle votre colis arrive vite.',
     about_team_3_name: 'Sofía M.',
     about_team_3_role: 'Communauté & Service',
-    about_team_3_bio: 'Répond à vos questions, écoute vos retours et s’assure que la boutique ne cesse de s’améliorer.',
+    about_team_3_bio:
+      'Répond à vos questions, écoute vos retours et s’assure que la boutique ne cesse de s’améliorer.',
 
     about_roots_aria: 'Nos racines centroaméricaines',
-    about_roots_eyebrow: 'Raíces centroamericanas',
-    about_roots_heading: 'Puchica est un mot centroaméricain pour un sentiment centroaméricain.',
-    about_roots_body: '« Puchica », c’est le mot que l’on dit quand quelque chose vous surprend, quand c’est étonnamment bon, délicieusement inattendu, le genre de chose qui vous fait marquer un arrêt et regarder deux fois. Ce sentiment, c’est ce que nous voulons que chaque produit de cette boutique vous donne. Nous portons cet esprit centroaméricain de chaleur, de savoir-faire et de fierté dans tout ce que nous sélectionnons, d’où que ce soit expédié.',
-    about_roots_signature: 'De notre famille à votre seuil',
+    about_roots_eyebrow: 'L’origine du nom',
+    about_roots_heading: 'Puchica commence par un sentiment de surprise utile.',
+    about_roots_body:
+      '« Puchica » est une expression centroaméricaine familière de surprise, comme la réaction que peut provoquer une solution étonnamment astucieuse. Cet esprit guide la marque : des objets pratiques qui règlent un irritant quotidien sans ajouter de désordre.',
+    about_roots_signature: 'Entreprise canadienne. Une organisation pratique, choisie avec soin.',
+    about_hero_caption: 'Pensé pour les endroits qui se désorganisent en premier.',
+    about_hero_image_alt:
+      'Une petite cuisine chaleureuse avec des armoires ouvertes et du rangement quotidien',
+    about_roots_image_alt:
+      'Un textile tissé coloré et un récipient en céramique peinte',
+    about_standards_intro:
+      'Un petit catalogue ne fonctionne que si la raison d’être de chaque produit est claire.',
+    about_shop_eye: 'Magasiner selon le besoin',
+    about_shop_title: 'Commencez par l’espace qui vous complique la vie.',
+    about_shop_home_title: 'Rangement à la maison',
+    about_shop_cable_title: 'Gestion des câbles',
+    about_shop_travel_title: 'Organisation de voyage',
+    about_shop_home_body:
+      'Tiroirs, armoires, comptoirs et coins difficiles.',
+    about_shop_cable_body:
+      'Chargeurs, cordons et petits appareils qui se déplacent.',
+    about_shop_travel_body: 'Bagages, rangement et essentiels du quotidien.',
+    about_shop_all: 'Voir tous les organisateurs',
+    about_now_eye: 'Une livraison plus claire',
+    about_now_title: 'Voyez vos options de livraison avant de payer.',
+    about_now_body:
+      'L’origine et le délai d’expédition peuvent varier selon l’article et l’adresse. Le paiement affiche les options disponibles pour votre commande avant la transaction.',
+    about_now_email: 'Des questions? Écrivez à hello@puchica.ca',
+    about_delivery_panel_title: 'Aperçu de livraison au paiement',
+    about_delivery_step_1_title: 'Choisissez un article',
+    about_delivery_step_1_body: 'Ajoutez un organisateur et entrez votre adresse.',
+    about_delivery_step_2_title: 'Voyez les options disponibles',
+    about_delivery_step_2_body: 'Le paiement calcule les choix pour cette commande.',
+    about_delivery_step_3_title: 'Vérifiez avant de payer',
+    about_delivery_step_3_body: 'Comparez le délai et le coût disponibles.',
+    about_delivery_note: 'Détails de livraison affichés avant le paiement',
+    about_fact_based_label: 'Établie au',
+    about_fact_based_value: 'Canada',
+    about_fact_market_label: 'Marché actuel',
+    about_fact_market_value: 'Clients aux États-Unis',
+    about_fact_delivery_label: 'Avant le paiement',
+    about_fact_delivery_value: 'Options de livraison affichées au paiement',
 
     about_depts_eye: 'Continuez à explorer',
     about_depts_title: 'Magasiner par département.',
-    about_depts_sub: 'Chaque catégorie, sélectionnée avec le même soin. Choisissez par où commencer.',
+    about_depts_sub:
+      'Chaque catégorie, sélectionnée avec le même soin. Choisissez par où commencer.',
     about_depts_shop_cta: 'Magasiner →',
     about_depts_home: 'Maison & Déco',
     about_depts_beauty: 'Beauté & Soins',
@@ -2081,91 +2444,119 @@ export const DICTIONARIES = {
     // ── Page Contact ──────────────────────────────────────────────
     contact_hero_eyebrow: 'Nous joindre',
     contact_hero_title: 'Nous sommes là pour aider.',
-    contact_hero_sub: 'Des questions sur une commande, un produit ou autre ? Choisissez le canal qui vous convient, une vraie personne de l’équipe Puchica vous répondra, généralement dans un délai d’un jour ouvrable.',
+    contact_hero_sub:
+      'Pour une commande, indiquez votre numéro de commande. Pour un produit, ajoutez son nom ou son lien.',
     contact_channels_aria: 'Façons de nous joindre',
     contact_ig_title: 'DM sur Instagram',
-    contact_ig_body: 'Le plus rapide pour une question rapide. Nous consultons les DM toute la journée.',
+    contact_ig_body:
+      'Suivez nos démonstrations de produits et nos idées d’organisation.',
     contact_ig_fallback: 'Instagram',
     contact_fb_title: 'Message sur Facebook',
-    contact_fb_body: 'Une autre façon simple de nous joindre. Même équipe, même délai de réponse.',
+    contact_fb_body:
+      'Suivez les nouveautés produits et nos idées d’organisation.',
     contact_fb_fallback: 'Facebook',
     contact_tiktok_title: 'Retrouvez-nous sur TikTok',
-    contact_tiktok_body: 'Nouvelles trouvailles, coulisses et déballages occasionnels.',
+    contact_tiktok_body:
+      'Nouvelles trouvailles, coulisses et déballages occasionnels.',
     contact_tiktok_fallback: 'TikTok',
     contact_promises_aria: 'À quoi s’attendre',
     contact_promises_eyebrow: 'À quoi s’attendre',
-    contact_promises_title: 'De vraies personnes, des réponses rapides',
-    contact_promise_1_strong: 'Une vraie personne dans l’équipe',
-    contact_promise_1_body: 'Pas de robots, pas de réponses automatiques. Chaque message arrive à une personne.',
-    contact_promise_2_strong: 'Habituellement sous un jour ouvrable',
-    contact_promise_2_body: 'Souvent plus rapide. Au pire : un jour ouvrable, du lundi au vendredi, 9 h à 17 h HE.',
-    contact_promise_3_strong: 'Aide aux commandes tous les jours',
-    contact_promise_3_body: 'Suivi, retours, changements d’adresse, oui, aussi la fin de semaine.',
+    contact_promises_title: 'Aidez-nous à trouver la bonne réponse',
+    contact_promise_1_strong: 'Ajoutez les détails utiles',
+    contact_promise_1_body:
+      'Indiquez le numéro de commande, le lien du produit et votre question.',
+    contact_promise_2_strong: 'Prévoyez deux jours ouvrables',
+    contact_promise_2_body:
+      'Nous visons une réponse sous deux jours ouvrables. Une vérification auprès du fournisseur ou du transporteur peut prendre plus de temps.',
+    contact_promise_3_strong: 'Nous confirmons les options possibles',
+    contact_promise_3_body:
+      'Les modifications, annulations et retours dépendent de l’état de la commande et de la politique applicable.',
     contact_faq_aria: 'Questions fréquentes',
     contact_faq_eyebrow: 'Questions fréquentes',
     contact_faq_title: 'La version courte',
     contact_faq_1_q: 'Où est ma commande ?',
-    contact_faq_1_a: 'Votre lien de suivi est dans le courriel de confirmation d’expédition, généralement dans un délai de 1 à 2 jours ouvrables après la commande. Si le suivi ne montre aucun mouvement pendant 5 jours ouvrables ou plus, écrivez-nous et nous irons voir.',
+    contact_faq_1_a:
+      'Lorsqu’un service avec suivi est offert, le lien figure dans votre courriel de confirmation d’expédition. Écrivez-nous avec votre numéro de commande si vous avez besoin d’aide.',
     contact_faq_2_q: 'Puis-je modifier ou annuler ma commande ?',
-    contact_faq_2_a: 'Dans les 2 heures suivant la commande, oui, il suffit de répondre à votre confirmation de commande. Après cela, la commande est en cours de préparation pour l’expédition et les modifications ne sont plus possibles, mais les retours sont toujours gratuits à l’arrivée.',
+    contact_faq_2_a:
+      'Contactez-nous dès que possible avec votre numéro de commande. Nous confirmerons si le fournisseur a commencé à la traiter et quelles options sont encore possibles.',
     contact_faq_3_q: 'Comment fonctionnent les retours ?',
-    contact_faq_3_a: 'Une étiquette de retour prépayée est incluse dans chaque boîte. Remballez l’article, décollez l’étiquette, déposez le colis. Le remboursement arrive sur le mode de paiement original dans un délai de 5 à 7 jours ouvrables après réception.',
+    contact_faq_3_a:
+      'Contactez-nous dans les 30 jours suivant la livraison. N’expédiez rien avant confirmation de l’admissibilité et des instructions. La responsabilité des frais de retour dépend du motif et de la politique de remboursement.',
     contact_faq_4_q: 'Où livrez-vous ?',
-    contact_faq_4_a: 'Partout. Nous livrons dans des pays du monde entier, pour un pays spécifique, écrivez-nous et nous vous confirmerons.',
-    contact_faq_5_q: 'Les produits sur les photos sont-ils exactement ce que je reçois ?',
-    contact_faq_5_a: 'Oui. Les photos de produits sur chaque fiche sont le produit réel que nous expédions, ce que vous voyez est ce que vous obtenez.',
-    contact_faq_foot: 'Vous ne voyez pas votre question ? {email}, nous lisons tout.',
-    contact_faq_foot_link: 'Écrivez-nous',
+    contact_faq_4_a:
+      'Le Canada et les États-Unis sont des marchés sélectionnables. La livraison varie selon le produit et l’adresse; le paiement doit confirmer le panier avant le règlement.',
+    contact_faq_5_q:
+      'Les produits sur les photos sont-ils exactement ce que je reçois ?',
+    contact_faq_5_a:
+      'Consultez les photos, la variante choisie, les dimensions et la description. Écrivez-nous avant de commander si un détail n’est pas clair.',
     contact_cta_title: 'Vous avez encore une question ?',
-    contact_cta_body: 'Écrivez-nous. Nous lisons chaque message et nous sommes heureux d’aider.',
+    contact_cta_body:
+      'Le courriel est préférable pour une commande. Nous visons une réponse sous deux jours ouvrables.',
     contact_cta_button: 'Écrire à {email}',
 
     // ── Page FAQ (route dédiée /pages/faq) ──────────────────────
     faq_accordion_aria: 'Questions fréquentes',
     faq_hero_eyebrow: 'Centre d’aide',
     faq_hero_title: 'Questions fréquentes',
-    faq_hero_sub: 'Des réponses rapides aux questions que nous entendons le plus, commandes, retours, produits et votre compte.',
+    faq_hero_sub:
+      'Des réponses rapides aux questions que nous entendons le plus, commandes, retours, produits et votre compte.',
     faq_cat_orders: 'Commandes & Livraison',
     faq_cat_returns: 'Retours & Remboursements',
     faq_cat_products: 'Produits',
     faq_cat_account: 'Compte',
     faq_orders_1_q: 'Combien de temps prend la livraison ?',
-    faq_orders_1_a: 'Les commandes sont expédiées sous 1 à 2 jours ouvrables. La livraison prend généralement 3 à 7 jours ouvrables au Canada et 7 à 14 jours ouvrables vers les États-Unis. Les commandes internationales varient selon la destination, généralement 10 à 21 jours ouvrables.',
+    faq_orders_1_a:
+      'Les délais de traitement et de livraison varient selon le produit. Entrez votre adresse au paiement pour consulter l’estimation disponible avant de payer.',
     faq_orders_2_q: 'Livrez-vous à l’international ?',
-    faq_orders_2_a: 'Oui. Nous livrons dans des pays du monde entier. Pour un pays spécifique, écrivez-nous et nous confirmerons les tarifs et les délais avant que vous commandiez.',
+    faq_orders_2_a:
+      'Le Canada et les États-Unis sont des marchés sélectionnables. Ce choix ne garantit pas la livraison de chaque article; le paiement confirme le panier et l’adresse avant le règlement.',
     faq_orders_3_q: 'Comment puis-je suivre ma commande ?',
-    faq_orders_3_a: 'Votre lien de suivi est dans le courriel de confirmation d’expédition, généralement dans un délai de 1 à 2 jours ouvrables après la commande. Si le suivi ne montre aucun mouvement pendant 5 jours ouvrables ou plus, écrivez-nous et nous irons voir.',
+    faq_orders_3_a:
+      'Lorsqu’un service avec suivi est offert, le lien figure dans votre courriel de confirmation d’expédition. Contactez-nous avec votre numéro de commande si vous avez besoin d’aide.',
     faq_orders_4_q: 'Quels sont vos frais de livraison ?',
-    faq_orders_4_a: 'La livraison est gratuite partout au Canada pour les commandes de plus de 75 $. En dessous, c’est un tarif forfaitaire de 7,95 $. Les commandes vers les États-Unis sont à 14,95 $ forfaitaires. Les tarifs internationaux sont calculés à la caisse selon la destination et le poids.',
+    faq_orders_4_a:
+      'Les services, le coût et les délais de livraison sont confirmés au paiement selon les articles sélectionnés et la destination.',
     faq_returns_1_q: 'Quelle est votre politique de retour ?',
-    faq_returns_1_a: 'Nous offrons des retours sous 14 jours sur les articles inutilisés dans leur emballage d’origine. Si un article arrive endommagé ou erroné, nous corrigerons le tir, aucun retour nécessaire pour notre erreur.',
+    faq_returns_1_a:
+      'Contactez-nous dans les 30 jours suivant la livraison. L’admissibilité dépend de l’article, de son état et de la politique de remboursement. Écrivez-nous rapidement si l’article est endommagé ou incorrect.',
     faq_returns_2_q: 'Comment démarrer un retour ?',
-    faq_returns_2_a: 'Une étiquette de retour prépayée est incluse dans chaque boîte. Remballez l’article, décollez l’étiquette, déposez le colis à n’importe quel point de collecte. Pas besoin de nous écrire d’abord.',
+    faq_returns_2_a:
+      'Écrivez-nous avec le numéro de commande et le motif. N’expédiez rien avant confirmation de l’admissibilité et de l’adresse de retour. La responsabilité des frais dépend du motif et de la politique.',
     faq_returns_3_q: 'Quand recevrai-je mon remboursement ?',
-    faq_returns_3_a: 'Le remboursement arrive sur le mode de paiement original dans un délai de 5 à 7 jours ouvrables après réception de l’article retourné. Vous recevrez un courriel de confirmation dès qu’il sera traité.',
-    faq_products_1_q: 'Vos produits sont-ils authentiques ?',
-    faq_products_1_a: 'Oui. Chaque produit que nous listons est sourcé directement auprès de la marque ou d’un distributeur agréé. Nous ne vendons jamais de contrefaçons, si nous ne l’achèterions pas nous-mêmes, ça ne passe pas.',
+    faq_returns_3_a:
+      'Les remboursements approuvés sont versés sur le mode de paiement original après réception et examen de l’article retourné. Le délai de traitement bancaire peut varier.',
+    faq_products_1_q: 'Où trouver les détails du produit ?',
+    faq_products_1_a:
+      'Consultez la page du produit pour les options, dimensions, matériaux et le contenu. Contactez-nous si un détail manque.',
     faq_products_2_q: 'D’où viennent vos produits ?',
-    faq_products_2_a: 'Nous sourçons auprès de marques et de distributeurs d’Amérique du Nord et centrale, avec un accent sur les créateurs et les produits difficiles à trouver dans les grandes surfaces. Les photos de produits sur chaque fiche sont le produit réel que nous expédions.',
-    faq_products_3_q: 'Avez-vous des produits d’Amérique centrale ?',
-    faq_products_3_a: 'Oui. Nous stockons activement des produits de créateurs d’Amérique centrale, collations, artisanat, textiles, beauté et plus. Parcourez la collection ou écrivez-nous si vous cherchez quelque chose de précis.',
-    faq_account_1_q: 'Comment créer un compte ?',
-    faq_account_1_a: 'Cliquez sur « Compte » dans l’en-tête et choisissez « Créer un compte ». Il vous faut un courriel et un mot de passe. Un compte vous permet de suivre les commandes, d’enregistrer des adresses et de payer plus vite.',
-    faq_account_2_q: 'Comment réinitialiser mon mot de passe ?',
-    faq_account_2_a: 'Sur la page de connexion, cliquez sur « Mot de passe oublié ? » et entrez votre courriel. Nous enverrons un lien de réinitialisation valide 30 minutes. Si vous ne le voyez pas, vérifiez vos courriels indésirables.',
+    faq_products_2_a:
+      'Nous travaillons avec des fournisseurs tiers et l’origine peut varier selon l’article. Contactez-nous avant de commander si vous avez besoin d’un détail précis.',
+    faq_products_3_q: 'Comment choisir la bonne option ?',
+    faq_products_3_a:
+      'Vérifiez la taille, la couleur, la quantité et l’ensemble sélectionnés avant d’ajouter l’article au panier.',
+    faq_account_1_q: 'Comment accéder à mon compte ?',
+    faq_account_1_a:
+      'Choisissez Compte, entrez votre courriel et suivez les étapes de connexion. Vous pourrez consulter vos commandes et gérer les renseignements enregistrés.',
+    faq_account_2_q: 'Je n’arrive pas à me connecter. Que faire ?',
+    faq_account_2_a:
+      'Demandez un nouveau code ou lien depuis la page Compte, puis vérifiez vos courriels indésirables. Contactez-nous s’il n’arrive toujours pas.',
     faq_cta_eyebrow: 'Toujours coincé ?',
     faq_cta_title: 'Vous avez encore une question ?',
-    faq_cta_sub: 'Nous lisons chaque message et une personne réelle répond généralement sous un jour ouvrable.',
+    faq_cta_sub:
+      'Envoyez les détails du produit ou de la commande. Nous visons une réponse sous deux jours ouvrables.',
     faq_cta_button: 'Nous contacter',
     faq_contact_aria: 'Nous contacter',
     faq_contact_title: 'Nous contacter',
-    faq_contact_body: 'Vous ne trouvez pas ce que vous cherchez ? Écrivez-nous, nous sommes heureux d’aider avec les commandes, les retours, les produits ou autre chose.',
+    faq_contact_body:
+      'Vous ne trouvez pas ce que vous cherchez ? Écrivez-nous, nous sommes heureux d’aider avec les commandes, les retours, les produits ou autre chose.',
 
     aside_heading_cart: 'Panier',
     aside_heading_search: 'Recherche',
     aside_heading_menu: 'Menu',
     cart_loading: 'Chargement du panier…',
-    search_placeholder: 'Rechercher des produits, des collections, des articles.',
+    search_placeholder:
+      'Rechercher des produits, des collections, des articles.',
     search_aria_submit: 'Rechercher',
     search_submit_label: 'Rechercher',
     search_loading_for: 'Recherche de « {term} »…',
@@ -2175,11 +2566,13 @@ export const DICTIONARIES = {
     hero_split_aria: 'Hero',
     hero_split_eyebrow: 'Boutique Puchica',
     hero_split_heading: 'Magasinez maison, tech, animaux, cadeaux et plus.',
-    hero_split_body: 'Une façon plus claire de parcourir les produits utiles dans les catégories vraiment magasinées. Commencez par un département, les nouveautés ou les offres.',
+    hero_split_body:
+      'Une façon plus claire de parcourir les produits utiles dans les catégories vraiment magasinées. Commencez par un département, les nouveautés ou les offres.',
     hero_split_cta_primary: 'Voir les meilleures ventes',
     hero_split_cta_secondary: 'Tout parcourir',
-    hero_split_trust: 'Options de livraison à la caisse · Retours sous 14 jours · Soutien humain',
-    hero_trust_returns: 'Retours sous 14 jours',
+    hero_split_trust:
+      'Options de livraison à la caisse · Retours sous 30 jours · Soutien humain',
+    hero_trust_returns: 'Retours sous 30 jours',
     hero_trust_checkout: 'Paiement Shopify sécurisé',
     hero_trust_canada: 'Petit catalogue actif',
     hero_showcase_bar: 'Magasiner par département →',
@@ -2197,18 +2590,23 @@ export const DICTIONARIES = {
     lifestyle_banner_aria: 'Art de vivre',
     lifestyle_shop_eyebrow: 'Explorer',
     lifestyle_shop_heading: 'Magasiner par style de vie',
-    lifestyle_shop_sub: 'Commencez par le moment, puis trouvez la catégorie qui vous convient.',
+    lifestyle_shop_sub:
+      'Commencez par le moment, puis trouvez la catégorie qui vous convient.',
     lifestyle_shop_home_title: 'Rafraîchir la maison',
-    lifestyle_shop_home_body: 'Des améliorations utiles pour les pièces et les routines de chaque jour.',
+    lifestyle_shop_home_body:
+      'Des améliorations utiles pour les pièces et les routines de chaque jour.',
     lifestyle_shop_motion_title: 'Au quotidien',
-    lifestyle_shop_motion_body: 'Des trouvailles pratiques pour sortir, rester organisé et bouger.',
+    lifestyle_shop_motion_body:
+      'Des trouvailles pratiques pour sortir, rester organisé et bouger.',
     lifestyle_shop_family_title: 'Jeu et famille',
-    lifestyle_shop_family_body: 'Des choix réfléchis pour le jeu, les petites routines et les moments partagés.',
+    lifestyle_shop_family_body:
+      'Des choix réfléchis pour le jeu, les petites routines et les moments partagés.',
     lifestyle_shop_cta: 'Voir la sélection →',
     lifestyle_banner_eyebrow: 'Slow living',
-    lifestyle_banner_heading: "Trouvez votre prochain coup de cœur.",
-    lifestyle_banner_body: "De la cuisine au sentier, du bureau à la garde-robe, Puchica vous apporte ce qui rend chaque jour meilleur. Livraison gratuite dès 75 $.",
-    lifestyle_banner_cta: "Toutes les collections",
+    lifestyle_banner_heading: 'Trouvez votre prochain coup de cœur.',
+    lifestyle_banner_body:
+      'De la cuisine au sentier, du bureau à la garde-robe, Puchica vous apporte ce qui rend chaque jour meilleur. Livraison gratuite dès 75 $.',
+    lifestyle_banner_cta: 'Toutes les collections',
 
     new_arrivals_aria: 'Nouveautés',
     new_arrivals_eyebrow: 'Tout neufs',
@@ -2222,10 +2620,10 @@ export const DICTIONARIES = {
     sports_heading: 'Sports & plein air',
     sports_see_all: 'Magasiner',
 
-    world_cup_aria: "Maillots et équipement de soccer",
-    world_cup_eyebrow: "Représentez votre pays",
-    world_cup_heading: "Le maillot de chez vous, où que ce soit.",
-    world_cup_see_all: "Voir tout le soccer",
+    world_cup_aria: 'Maillots et équipement de soccer',
+    world_cup_eyebrow: 'Représentez votre pays',
+    world_cup_heading: 'Le maillot de chez vous, où que ce soit.',
+    world_cup_see_all: 'Voir tout le soccer',
 
     rail_scroll_left: 'Défiler à gauche',
     rail_scroll_right: 'Défiler à droite',
@@ -2233,7 +2631,7 @@ export const DICTIONARIES = {
     trust_bar_aria: 'Pourquoi magasiner chez nous',
     trust_bar_shipping_h: 'Livraison claire',
     trust_bar_shipping_sub: 'Options et coûts affichés à la caisse',
-    trust_bar_returns_h: 'Retours sous 14 jours',
+    trust_bar_returns_h: 'Retours sous 30 jours',
     trust_bar_returns_sub: 'Consultez la politique avant de commander',
     trust_bar_curated_h: 'Catalogue actif',
     trust_bar_curated_sub: 'Produits prêts à acheter aujourd’hui',
@@ -2242,69 +2640,80 @@ export const DICTIONARIES = {
     home_reviews_eyebrow: 'Aimé par plus de 12 000 acheteurs',
     home_reviews_heading: 'Ce que disent nos clients',
     home_reviews_verified: 'Acheteur vérifié',
-    home_reviews_quote_1_text: 'Je reviens sans cesse. La qualité est constante, la livraison rapide, et les retours sont simples.',
+    home_reviews_quote_1_text:
+      'Je reviens sans cesse. La qualité est constante, la livraison rapide, et les retours sont simples.',
     home_reviews_quote_1_author: 'Maya R. Toronto',
-    home_reviews_quote_2_text: 'J’ai trouvé un cadeau introuvable ailleurs. L’emballage était soigné.',
+    home_reviews_quote_2_text:
+      'J’ai trouvé un cadeau introuvable ailleurs. L’emballage était soigné.',
     home_reviews_quote_2_author: 'James P. Vancouver',
-    home_reviews_quote_3_text: 'Le service client répond vraiment. J’avais une question et j’ai eu une vraie réponse le jour même.',
+    home_reviews_quote_3_text:
+      'Le service client répond vraiment. J’avais une question et j’ai eu une vraie réponse le jour même.',
     home_reviews_quote_3_author: 'Sophie L. Montréal',
 
     home_newsletter_aria: 'Infolettre',
     home_newsletter_eyebrow: 'Rejoignez la liste',
     home_newsletter_heading: 'Obtenez 10 % sur votre première commande',
-    home_newsletter_body: 'Nouveautés, réassorts et ventes occasionnelles, dans votre boîte, jamais de spam.',
+    home_newsletter_body:
+      'Nouveautés, réassorts et ventes occasionnelles, dans votre boîte, jamais de spam.',
     home_newsletter_placeholder: 'vous@exemple.com',
     home_newsletter_submit: 'S’abonner',
     home_newsletter_promise: 'Pas de spam. Désabonnement en un clic.',
 
     home_roots_aria: 'Nos racines',
-    home_roots_eyebrow: "Les racines de Puchica",
+    home_roots_eyebrow: 'Les racines de Puchica',
     home_roots_heading: "D'Amérique centrale au monde entier.",
-    home_roots_body: "Puchica, c'est ce qu'on dit quand quelque chose vous surprend. Un lever de soleil sur le lac Atitlán. Du café cultivé sur les pentes volcaniques. Des textiles tissés de la même manière depuis trois générations dans les hautes terres du Guatemala. D'Antigua au Honduras, nous apportons ce sentiment aux clients du monde entier.",
+    home_roots_body:
+      "Puchica, c'est ce qu'on dit quand quelque chose vous surprend. Un lever de soleil sur le lac Atitlán. Du café cultivé sur les pentes volcaniques. Des textiles tissés de la même manière depuis trois générations dans les hautes terres du Guatemala. D'Antigua au Honduras, nous apportons ce sentiment aux clients du monde entier.",
     home_roots_signature: 'Hecho con alma · Fait avec âme',
 
     // ── World map ─────────────────────────────────────────────────
     world_map_aria: 'Pays que nous servons',
     world_map_eyebrow: 'Mondial',
-    world_map_heading: "De nos racines à votre porte.",
-    world_map_sub: "Puchica livre aux clients du monde entier. Touchez un repère pour voir ce qui nous relie.",
+    world_map_heading: 'De nos racines à votre porte.',
+    world_map_sub:
+      'Puchica livre aux clients du monde entier. Touchez un repère pour voir ce qui nous relie.',
 
-    home_shop_dept_aria: "Magasiner par département",
-    home_shop_dept_eyebrow: "Parcourir le magasin",
+    home_shop_dept_aria: 'Magasiner par département',
+    home_shop_dept_eyebrow: 'Parcourir le magasin',
     home_shop_dept_heading: "Départements actifs. Vrais chemins d'achat.",
-    home_shop_dept_body: "De l'essentiel maison aux derniers gadgets, Puchica vous offre le meilleur de chaque catégorie, choisi, prix juste, livré vite.",
-    home_dept_home: "Maison & Cuisine",
-    home_dept_electronics: "Électronique",
-    home_dept_apparel: "Vêtements",
-    home_dept_health: "Santé & Soins",
-    home_dept_pet: "Animaux",
-    home_dept_sports: "Sports & Plein air",
+    home_shop_dept_body:
+      "De l'essentiel maison aux derniers gadgets, Puchica vous offre le meilleur de chaque catégorie, choisi, prix juste, livré vite.",
+    home_dept_home: 'Maison & Cuisine',
+    home_dept_electronics: 'Électronique',
+    home_dept_apparel: 'Vêtements',
+    home_dept_health: 'Santé & Soins',
+    home_dept_pet: 'Animaux',
+    home_dept_sports: 'Sports & Plein air',
 
-    home_curate_aria: "Notre sélection",
-    home_curate_eyebrow: "Pourquoi Puchica",
-    home_curate_heading: "Le bon stock, sans le casse-tête.",
-    home_curate_step1_h: "On sélectionne auprès de fournisseurs de confiance.",
-    home_curate_step1_b: "Nous travaillons avec des fournisseurs vérifiés partout dans le monde pour vous offrir des produits qui valent votre argent.",
-    home_curate_step2_h: "On prix juste.",
-    home_curate_step2_b: "Pas de majorations mystère, pas de frais surprises. Ce que vous voyez est ce que vous payez.",
-    home_curate_step3_h: "On livre vite.",
-    home_curate_step3_b: 'Les options de livraison sont confirmées au paiement selon les articles et la destination. Notre équipe est là pour vous aider avant ou après la commande.',
+    home_curate_aria: 'Notre sélection',
+    home_curate_eyebrow: 'Pourquoi Puchica',
+    home_curate_heading: 'Le bon stock, sans le casse-tête.',
+    home_curate_step1_h: 'On sélectionne auprès de fournisseurs de confiance.',
+    home_curate_step1_b:
+      'Nous travaillons avec des fournisseurs vérifiés partout dans le monde pour vous offrir des produits qui valent votre argent.',
+    home_curate_step2_h: 'On prix juste.',
+    home_curate_step2_b:
+      'Nous comparons le prix au coût livré et ne mettons en avant que les produits pouvant soutenir une offre viable.',
+    home_curate_step3_h: 'On livre vite.',
+    home_curate_step3_b:
+      'Les options de livraison sont confirmées au paiement selon les articles et la destination. Notre équipe est là pour vous aider avant ou après la commande.',
 
     hero_store_stat_products: 'Catalogue',
     hero_store_stat_departments: 'Départements',
     hero_store_stat_shipping: 'Livraison affichée',
     hero_storefront_title: 'Façons populaires de magasiner',
-    shop_by_category_sub: 'Commencez avec les départements en ligne et prêts à magasiner.',
-
-
+    shop_by_category_sub:
+      'Commencez avec les départements en ligne et prêts à magasiner.',
   },
 
   // ════════════════════════════════════════════════════════════════
   es: {
     announce_offer: '15 % de descuento en tu primer pedido, código FIRST15',
-    announce_freeship: 'Las opciones de envío se muestran al finalizar la compra',
+    announce_freeship:
+      'Las opciones de envío se muestran al finalizar la compra',
     announce_cta: 'Comprar ahora',
-    offer_first15: '¿Primera compra? 15 % de descuento en tu primer pedido con el código FIRST15.',
+    offer_first15:
+      '¿Primera compra? 15 % de descuento en tu primer pedido con el código FIRST15.',
     announce_region_aria: 'Anuncios del sitio',
 
     footer_tagline: 'Hallazgos útiles. Seleccionado en Toronto. Envío claro.',
@@ -2322,7 +2731,8 @@ export const DICTIONARIES = {
     footer_refund_policy: 'Política de reembolso',
     footer_terms: 'Términos del servicio',
     footer_newsletter_title: 'Unéte a nuestro boletín',
-    footer_newsletter_copy: 'Ofertas exclusivas y novedades, directamente en tu correo.',
+    footer_newsletter_copy:
+      'Ofertas exclusivas y novedades, directamente en tu correo.',
     footer_email_placeholder: 'Ingresa tu correo',
     footer_newsletter_email_aria: 'Correo electrónico',
     footer_newsletter_subscribe_aria: 'Suscribirse',
@@ -2356,7 +2766,8 @@ export const DICTIONARIES = {
 
     hero_eyebrow: 'Selección curada · Gratis en Canadá',
     hero_title: 'Todo lo que vale.',
-    hero_sub: 'Hallazgos útiles para hogar, belleza, tecnología, mascotas y más. Selecciones reales de personas reales.',
+    hero_sub:
+      'Hallazgos útiles para hogar, belleza, tecnología, mascotas y más. Selecciones reales de personas reales.',
     hero_cta_shop: 'Comprar ahora →',
     hero_cta_browse: 'Ver todo',
     hero_stat_products: 'Productos',
@@ -2370,7 +2781,7 @@ export const DICTIONARIES = {
     ticker_products: 'Catálogo activo',
     ticker_new_drops: 'Novedades cada semana',
     ticker_free_shipping: 'Envío gratis en Canadá',
-    ticker_returns: 'Devoluciones en 14 días',
+    ticker_returns: 'Devoluciones en 30 días',
     ticker_ships: 'Envío rápido',
     ticker_handpicked: 'Seleccionado, nunca aleatorio',
     ticker_real_value: 'Valor real. Hallazgos reales.',
@@ -2415,7 +2826,8 @@ export const DICTIONARIES = {
     // ── Shipping reach ────────────────────────────────────────────
     ship_eyebrow: 'A dónde enviamos',
     ship_title: 'Enviamos a cualquier parte.',
-    ship_sub: 'Enviamos a países de todo el mundo. Estés donde estés, te haremos llegar tu pedido.',
+    ship_sub:
+      'Enviamos a países de todo el mundo. Estés donde estés, te haremos llegar tu pedido.',
     ship_cta: 'Pregunta por tu país',
     ship_section_aria: 'Destinos de envío',
     ship_compact_title: 'Cobertura por región',
@@ -2441,51 +2853,94 @@ export const DICTIONARIES = {
     ship_hero_eyebrow: 'Envío y Entrega',
     ship_hero_title_main: 'Envío y',
     ship_hero_title_em: 'Entrega.',
-    ship_hero_sub: 'La disponibilidad, los plazos y el coste de entrega se confirman al finalizar la compra según los artículos y el destino.',
+    ship_hero_sub:
+      'La disponibilidad, los plazos y el coste de entrega se confirman al finalizar la compra según los artículos y el destino.',
     ship_hero_cta: 'Ver el catálogo',
+    ship_launch_hero_sub:
+      'Una sola tienda norteamericana con precios según el mercado y opciones de entrega confirmadas al pagar.',
+    ship_jump: 'Ver cómo se confirma la entrega',
+    ship_launch_regions_eye: 'Tienda norteamericana',
+    ship_launch_regions_title: 'Dos mercados. Una tienda enfocada.',
+    ship_launch_regions_sub:
+      'Elige Canadá o Estados Unidos para ver los precios del mercado. La entrega aún depende de los artículos y la dirección.',
+    ship_launch_rates_eye: 'Antes de pagar',
+    ship_launch_rates_title: 'Comprueba la entrega antes del pago',
+    ship_launch_rates_sub:
+      'El pago muestra las opciones disponibles para los artículos y el destino seleccionados.',
+    ship_market_ca_name: 'Canadá · CAD',
+    ship_market_ca_detail:
+      'Precios en CAD; el checkout confirma si los artículos seleccionados pueden entregarse.',
+    ship_market_us_name: 'Estados Unidos · USD',
+    ship_market_us_detail:
+      'Precios en USD; el checkout confirma si los artículos seleccionados pueden entregarse.',
+    ship_check_destination_title: 'Comprueba tu destino',
+    ship_check_destination_body:
+      'Ingresa tu dirección al pagar para ver las opciones disponibles para tu pedido.',
+    ship_check_destination_eta: 'Disponibilidad visible antes del pago',
+    ship_check_items_title: 'Revisa los artículos del carrito',
+    ship_check_items_body:
+      'Las opciones pueden variar según el producto, la variante y el destino.',
+    ship_check_items_eta: 'El pago confirma las opciones del pedido',
+    ship_check_tracking_title: 'Sigue tu pedido',
+    ship_check_tracking_body:
+      'Cuando haya un servicio con seguimiento, recibirás los detalles después del envío.',
+    ship_check_tracking_eta: 'Consulta la política de envíos para obtener ayuda',
     ship_regions_eye: 'A dónde enviamos',
-    ship_regions_title: 'Cobertura en 8 regiones.',
-    ship_regions_sub: 'Enviamos a países de todo el mundo. Elige una región para ver qué llega a tu puerta.',
+    ship_regions_title: 'La cobertura se amplía tras la validación.',
+    ship_regions_sub:
+      'Solo promocionamos destinos después de confirmar la cobertura del producto y del proveedor.',
     ship_rates_eye: 'Tarifas de envío',
-    ship_rates_title: 'Envío rápido y justo.',
-    ship_rates_sub: 'Tiempos de entrega estimados y umbrales de envío gratis. El costo final se calcula en el pago según el peso y el destino.',
+    ship_rates_title: 'Envío claro antes del pago.',
+    ship_rates_sub:
+      'El checkout confirma los servicios, el costo y la estimación para los artículos y la dirección seleccionados.',
     ship_rates_canada_flag: 'CA',
     ship_rates_canada_title: 'Canadá',
-    ship_rates_canada_body: 'Envío estándar gratis en pedidos superiores a $75. Tarifa plana por debajo del umbral.',
-    ship_rates_canada_eta: '2 a 5 días hábiles',
-    ship_rates_canada_badge: 'Gratis desde $75',
+    ship_rates_canada_body:
+      'Los servicios y costos disponibles se muestran al pagar para el pedido seleccionado.',
+    ship_rates_canada_eta: 'Estimación mostrada al pagar',
+    ship_rates_canada_badge: '',
     ship_rates_us_flag: 'US',
     ship_rates_us_title: 'Estados Unidos',
-    ship_rates_us_body: 'Opciones estándar y exprés. Derechos e impuestos calculados en el pago.',
-    ship_rates_us_eta: '5 a 9 días hábiles',
+    ship_rates_us_body:
+      'La disponibilidad depende de los artículos, el carrito y el destino.',
+    ship_rates_us_eta: 'Confirmar al pagar',
     ship_rates_us_badge: '',
     ship_rates_intl_flag: 'INTL',
     ship_rates_intl_title: 'Internacional',
-    ship_rates_intl_body: 'Enviamos a 8 regiones del mundo. Los transportistas varían según el destino y el servicio.',
-    ship_rates_intl_eta: '7 a 21 días hábiles',
+    ship_rates_intl_body:
+      'La entrega internacional no se promociona actualmente. Confirma la disponibilidad al pagar.',
+    ship_rates_intl_eta: 'Sin promesa general de entrega',
     ship_rates_intl_badge: '',
     ship_how_eye: 'Cómo funciona',
-    ship_how_title: 'Pide hoy, enviado mañana.',
+    ship_how_title: 'Revisa los detalles antes de pedir.',
     ship_how_1_title: 'Haz tu pedido',
-    ship_how_1_body: 'Explora el catálogo, añade al carrito y paga de forma segura. Recibirás una confirmación de pedido al instante.',
-    ship_how_2_title: 'Procesamos en 24 horas',
-    ship_how_2_body: 'Nuestro equipo prepara y envía tu pedido en un día hábil. Recibirás una confirmación de envío con seguimiento.',
+    ship_how_1_body:
+      'Explora el catálogo, añade al carrito y paga de forma segura. Recibirás una confirmación de pedido al instante.',
+    ship_how_2_title: 'Tu pedido se procesa',
+    ship_how_2_body:
+      'Los tiempos de procesamiento y entrega dependen del producto y servicio seleccionados. Las actualizaciones disponibles se envían durante el proceso.',
     ship_how_3_title: 'Entregado en tu puerta',
-    ship_how_3_body: 'Tu pedido llega dentro del plazo estimado de tu región. Canadá generalmente 2 a 5 días; internacional 7 a 21.',
+    ship_how_3_body:
+      'Usa la estimación mostrada al pagar para los artículos y la dirección seleccionados.',
     ship_track_eye: 'Rastrea tu pedido',
-    ship_track_title: 'Sab exactamente dónde está tu paquete.',
-    ship_track_body_1: 'Cada pedido se envía con un número de seguimiento. Te lo enviamos por correo en cuanto tu pedido sale del almacén, generalmente en un día hábil tras el pago.',
-    ship_track_body_2: 'Haz clic en el enlace de seguimiento en tu correo, o inicia sesión en tu cuenta y ve al historial de pedidos para ver el estado en vivo del transportista.',
+    ship_track_title: 'Sigue las actualizaciones disponibles.',
+    ship_track_body_1:
+      'Cuando haya un servicio con seguimiento, los datos se enviarán después del envío.',
+    ship_track_body_2:
+      'Usa el enlace del correo de envío o contacta al soporte con tu número de pedido.',
     ship_track_cta: 'Contactar soporte',
     ship_cta_title: '¿Listo para pedir?',
-    ship_cta_sub: 'Explora más de 6.000 productos con envío gratis en Canadá en pedidos superiores a $75.',
+    ship_cta_sub:
+      'Compra organizadores y confirma la entrega para tu dirección al pagar.',
     ship_cta_browse: 'Ver todos los productos',
 
     match_eyebrow: 'Descubrimiento personalizado',
     match_title: 'Puchica Match.',
-    match_sub: 'Desliza a la derecha para <strong>Me gusta</strong>, a la izquierda para <strong>Pasar</strong>, o hacia arriba para <strong>Super Deslizamiento &amp; Añadir al carrito</strong>!',
+    match_sub:
+      'Desliza a la derecha para <strong>Me gusta</strong>, a la izquierda para <strong>Pasar</strong>, o hacia arriba para <strong>Super Deslizamiento &amp; Añadir al carrito</strong>!',
     match_empty_title: '¡No hay más artículos por hoy!',
-    match_empty_body: 'Has visto todos los artículos de tendencia y te han gustado {count}.',
+    match_empty_body:
+      'Has visto todos los artículos de tendencia y te han gustado {count}.',
     match_reset: 'Volver a deslizar',
     match_browse: 'Ver todo',
     match_stamp_like: 'ME GUSTA',
@@ -2497,7 +2952,8 @@ export const DICTIONARIES = {
 
     gift_eyebrow: 'Ideas de regalo',
     gift_title: 'Encuentra el regalo perfecto.',
-    gift_sub: 'Más de 6.000 opciones para todos los presupuestos. Algo para cada persona en tu lista.',
+    gift_sub:
+      'Más de 6.000 opciones para todos los presupuestos. Algo para cada persona en tu lista.',
     gift_under25_label: 'Menos de $25',
     gift_under25_sub: 'Pequeños gustos, grandes sonrisas',
     gift_25_50_label: '$25 – $50',
@@ -2515,7 +2971,8 @@ export const DICTIONARIES = {
     // ── For You ───────────────────────────────────────────────────
     foryou_eyebrow: 'Seleccionado para ti',
     foryou_title: 'Imagínalo así.',
-    foryou_sub: 'Una selección con estilo propio, cada foto creada para estos productos.',
+    foryou_sub:
+      'Una selección con estilo propio, cada foto creada para estos productos.',
     foryou_cta: 'Ver la selección',
     foryou_section_aria: 'Vitrina Para ti',
 
@@ -2534,35 +2991,43 @@ export const DICTIONARIES = {
     mood_title: 'Compra como vives.',
     mood_home_label: 'Hogar & Decoración',
     mood_home_title: 'Tu hogar merece más.',
-    mood_home_sub: 'Almacenamiento, decoración, utensilios de cocina, todo para que tu espacio se sienta intencional.',
+    mood_home_sub:
+      'Almacenamiento, decoración, utensilios de cocina, todo para que tu espacio se sienta intencional.',
     mood_home_cta: 'Mejora tu espacio →',
     mood_beauty_label: 'Belleza & Cuidado personal',
     mood_beauty_title: 'Cuídate.',
-    mood_beauty_sub: 'Productos de cuidado de la piel, bienestar y cuidado personal que realmente funcionan, elegidos por personas que los usan.',
+    mood_beauty_sub:
+      'Productos de cuidado de la piel, bienestar y cuidado personal que realmente funcionan, elegidos por personas que los usan.',
     mood_beauty_cta: 'Date un gusto →',
     mood_tech_label: 'Tech & Gadgets',
     mood_tech_title: 'Trabaja mejor, juega más duro.',
-    mood_tech_sub: 'Accesorios, herramientas y gadgets que mejoran genuinamente tu día. Sin trucos.',
+    mood_tech_sub:
+      'Accesorios, herramientas y gadgets que mejoran genuinamente tu día. Sin trucos.',
     mood_tech_cta: 'Poténciate →',
 
     review_eyebrow: 'Lo que dice la gente',
     review_title: 'Compradores reales. Opiniones reales.',
-    review_1_quote: 'Pedí tres veces en el último mes. La calidad es siempre excelente y el envío es rápido.',
-    review_2_quote: 'Encontré exactamente lo que buscaba, y mucho más. Es mi nuevo lugar favorito para el hogar.',
-    review_3_quote: 'La selección es genuinamente buena. Todo parece haber sido elegido por alguien con buen gusto.',
+    review_1_quote:
+      'Pedí tres veces en el último mes. La calidad es siempre excelente y el envío es rápido.',
+    review_2_quote:
+      'Encontré exactamente lo que buscaba, y mucho más. Es mi nuevo lugar favorito para el hogar.',
+    review_3_quote:
+      'La selección es genuinamente buena. Todo parece haber sido elegido por alguien con buen gusto.',
 
     banner_eyebrow: 'Más vendidos',
     banner_title: 'Los que la gente no puede dejar de comprar.',
-    banner_sub: 'Probados, pedidos de nuevo y regalados a todos sus conocidos. Estos son los productos que ganan su lugar en la lista cada semana.',
+    banner_sub:
+      'Probados, pedidos de nuevo y regalados a todos sus conocidos. Estos son los productos que ganan su lugar en la lista cada semana.',
     banner_cta: 'Ver todos los más vendidos',
 
-    catalog_body: 'productos. Una sola tienda. Cada categoría. Añadimos más cada semana, siempre hay algo nuevo que descubrir.',
+    catalog_body:
+      'productos. Una sola tienda. Cada categoría. Añadimos más cada semana, siempre hay algo nuevo que descubrir.',
     catalog_cta_browse: 'Ver todo →',
     catalog_cta_search: 'Buscar en el catálogo',
 
     trust_shipping_title: 'Envío gratis',
     trust_shipping_sub: 'En pedidos a Canadá',
-    trust_returns_title: 'Devoluciones en 14 días',
+    trust_returns_title: 'Devoluciones en 30 días',
     trust_returns_sub: 'Sin preguntas, sin complicaciones',
     trust_secure_title: 'Pago seguro',
     trust_secure_sub: 'Cifrado y conforme con PCI',
@@ -2571,7 +3036,8 @@ export const DICTIONARIES = {
 
     newsletter_pill: 'Unéte al club',
     newsletter_title: 'Recibe lo mejor primero.',
-    newsletter_sub: 'Novedades, ofertas exclusivas y picks que no encontrarás en otro lugar, directo a tu correo. Sin spam, cancela cuando quieras.',
+    newsletter_sub:
+      'Novedades, ofertas exclusivas y picks que no encontrarás en otro lugar, directo a tu correo. Sin spam, cancela cuando quieras.',
     newsletter_done: '¡Ya estás dentro! Revisa tu bandeja de entrada.',
     newsletter_email_label: 'Correo electrónico',
     newsletter_placeholder: 'tu@correo.com',
@@ -2596,7 +3062,8 @@ export const DICTIONARIES = {
     explore_filter_title: 'Filtrar por categoría',
     explore_filter_clear: 'Borrar todo',
     explore_empty_title: 'No se encontraron productos',
-    explore_empty_body: 'Intenta ajustar tus categorías seleccionadas o borra los filtros.',
+    explore_empty_body:
+      'Intenta ajustar tus categorías seleccionadas o borra los filtros.',
     explore_empty_reset: 'Restablecer filtros',
     explore_view_details: 'Ver detalles',
     explore_cat_home: 'Hogar & Cocina',
@@ -2609,7 +3076,8 @@ export const DICTIONARIES = {
     col_filters_aria: 'Filtros',
     search_trending_label: 'Búsquedas populares',
     search_recent_label: 'Vistos recientemente',
-    search_trending_terms: 'hogar cocina, electrónica, juguetes para mascotas, pistola de masaje, herramientas jardín, regalos bajo 25',
+    search_trending_terms:
+      'hogar cocina, electrónica, juguetes para mascotas, pistola de masaje, herramientas jardín, regalos bajo 25',
     col_density_aria: 'Densidad de la cuadrícula',
     col_density_3_aria: 'Mostrar 3 por fila',
     col_density_4_aria: 'Mostrar 4 por fila',
@@ -2622,7 +3090,8 @@ export const DICTIONARIES = {
     col_empty_title: 'Nada aquí todavía',
     col_empty_filtered: 'Ningún producto coincide con estos filtros.',
     col_clear_filters: 'Borrar filtros',
-    col_empty_restocking: 'Estamos reabasteciendo esta colección. Vuelve pronto o explora el resto de la tienda.',
+    col_empty_restocking:
+      'Estamos reabasteciendo esta colección. Vuelve pronto o explora el resto de la tienda.',
     col_showing: 'Mostrando',
     col_showing_more: 'hasta ahora, carga más abajo',
     col_product_singular: 'producto',
@@ -2650,15 +3119,18 @@ export const DICTIONARIES = {
     all_breadcrumb: 'Todos los productos',
     all_eyebrow: 'La tienda completa',
     all_title: 'Todos los productos',
-    all_sub: 'El catálogo completo de Puchica, cada selección curada en un solo lugar. Filtra por categoría o usa la barra de búsqueda.',
+    all_sub:
+      'El catálogo completo de Puchica, cada selección curada en un solo lugar. Filtra por categoría o usa la barra de búsqueda.',
     all_empty_title: 'No hay productos para mostrar',
-    all_empty_body: 'El catálogo está cargando. Si el problema persiste, intenta recargar.',
+    all_empty_body:
+      'El catálogo está cargando. Si el problema persiste, intenta recargar.',
     all_count_loading: 'Catálogo cargando',
 
     product_trust_shipping: 'Envío mostrado al pagar',
     product_trust_shipping_sub: 'para tu destino',
-    product_trust_returns: 'Plazo de devolución de 14 días',
-    product_trust_returns_sub: 'consulta la política para conocer la elegibilidad',
+    product_trust_returns: 'Plazo de devolución de 30 días',
+    product_trust_returns_sub:
+      'consulta la política para conocer la elegibilidad',
     product_trust_secure: 'Pago seguro',
     product_trust_secure_sub: 'cifrado y cumple PCI',
     product_desc_eyebrow: 'Acerca de este producto',
@@ -2670,24 +3142,30 @@ export const DICTIONARIES = {
     product_stock_low: 'Solo quedan {stock}',
     product_badge_sold_out: 'Agotado',
     product_badge_save: 'Ahorra {pct}%',
-    product_reviews_stub: 'Las reseñas de clientes verificados aparecerán aquí a medida que se recopilen.',
+    product_reviews_stub:
+      'Las reseñas de clientes verificados aparecerán aquí a medida que se recopilen.',
     product_perk_packed: 'Opciones de envío confirmadas al pagar',
     product_perk_return: 'Revisa la política de reembolso antes de ordenar',
     product_perk_curated: 'Seleccionado por el equipo Puchica, nunca aleatorio',
     product_tab_description: 'Descripción',
+    product_story_title: 'Por qué merece su espacio.',
     product_tab_specs: 'Especificaciones',
     product_tab_shipping: 'Envío & Devoluciones',
     product_desc_empty: 'Sin descripción adicional para este producto.',
     product_spec_vendor: 'Proveedor',
     product_spec_category: 'Categoría',
     product_spec_sku: 'SKU',
-    product_specs_empty: 'No hay especificaciones disponibles para este producto.',
+    product_specs_empty:
+      'No hay especificaciones disponibles para este producto.',
     product_shipping_h: 'Envío',
-    product_shipping_body: 'La disponibilidad, el plazo y el costo de envío se confirman al pagar según los artículos seleccionados y tu destino. Cuando haya un servicio con seguimiento, los detalles se envían después de que el proveedor despache tu pedido.',
+    product_shipping_body:
+      'La disponibilidad, el plazo y el costo de envío se confirman al pagar según los artículos seleccionados y tu destino. Cuando haya un servicio con seguimiento, los detalles se envían después de que el proveedor despache tu pedido.',
     product_returns_h: 'Devoluciones',
-    product_returns_body: 'Revisa la política de reembolso antes de ordenar. La elegibilidad y las instrucciones de devolución dependen del artículo y del pedido; contacta a soporte con tu número de pedido si necesitas ayuda.',
+    product_returns_body:
+      'Revisa la política de reembolso antes de ordenar. La elegibilidad y las instrucciones de devolución dependen del artículo y del pedido; contacta a soporte con tu número de pedido si necesitas ayuda.',
     product_help_h: '¿Necesitas ayuda?',
-    product_help_body: 'Contáctanos en cualquier momento desde la página de contacto. Una persona real del equipo Puchica te responderá en un día hábil.',
+    product_help_body:
+      'Envía tu pregunta sobre el producto o pedido con los detalles que necesitamos para ayudarte.',
     product_help_contact_link: 'página de contacto',
     product_share_label: 'Compartir:',
     product_share_btn: 'Compartir',
@@ -2701,7 +3179,8 @@ export const DICTIONARIES = {
     product_notify_label: 'Notificarme cuando esté disponible',
     product_notify_placeholder: 'tu@correo.com',
     product_notify_btn: 'Notificarme',
-    product_notify_ok: 'Gracias, te avisaremos por correo cuando vuelva a estar disponible.',
+    product_notify_ok:
+      'Gracias, te avisaremos por correo cuando vuelva a estar disponible.',
     product_notify_error: 'Algo salió mal. Por favor intenta de nuevo.',
 
     atc_added: 'Agregado ✓',
@@ -2746,7 +3225,8 @@ export const DICTIONARIES = {
     megamenu_tagline_beauty_personal_care: 'Maquillaje, uñas, autocuidado.',
     megamenu_tagline_toys_games: 'Jugar, aprender, coleccionar.',
     megamenu_tagline_home_decor: 'Pared, luz, acentos.',
-    megamenu_tagline_office_school_supplies: 'Escritorio, papel, imprescindibles.',
+    megamenu_tagline_office_school_supplies:
+      'Escritorio, papel, imprescindibles.',
     megamenu_tagline_baby_nursery: 'Alimentación, decoración, confort.',
     megamenu_tagline_outdoor_garden: 'Jardín, patio, exterior.',
     megamenu_tagline_best_sellers: 'Los favoritos de todos.',
@@ -2775,12 +3255,14 @@ export const DICTIONARIES = {
     showcase_heading: 'Explorar por categoría',
     showcase_sub: '{count} colecciones. {pct} % del catálogo cubierto.',
     showcase_eyebrow: 'Colección {n}',
-    showcase_desc: 'Descubre nuestra selección de {title}, productos seleccionados con envío gratis en Canadá.',
+    showcase_desc:
+      'Descubre nuestra selección de {title}, productos seleccionados con envío gratis en Canadá.',
     showcase_cta: 'Comprar {title} →',
 
     // ── 404 / ruta catch-all ────────────────────────────────────
     notfound_title: 'No pudimos encontrar esa página',
-    notfound_sub: 'El enlace {path} no existe en Puchica. Puede haber sido movido, renombrado, o nunca existió. Prueba una de estas opciones:',
+    notfound_sub:
+      'El enlace {path} no existe en Puchica. Puede haber sido movido, renombrado, o nunca existió. Prueba una de estas opciones:',
     notfound_popular: 'Colecciones populares',
     notfound_best: 'Más vendidos →',
     notfound_new: 'Novedades →',
@@ -2802,20 +3284,25 @@ export const DICTIONARIES = {
     cart_heading_aria: 'Artículos',
     cart_remove_region_aria: 'Quitar del carrito',
     cart_empty_title: 'Tu carrito está vacío',
-    cart_empty_body: 'Nada aquí todavía, encontremos algo que te encante. Nuestras selecciones cambian seguido, vale la pena echar un vistazo.',
+    cart_empty_body:
+      'Nada aquí todavía, encontremos algo que te encante. Nuestras selecciones cambian seguido, vale la pena echar un vistazo.',
     cart_empty_cta_shop: 'Ver el catálogo',
     cart_empty_cta_best: 'Ver más vendidos',
     cart_empty_perks_aria: 'Por qué comprar con nosotros',
     cart_empty_perk_shipping: 'Opciones de envío mostradas al pagar',
-    cart_empty_perk_returns: 'Devoluciones en 14 días',
-    cart_ghost_notice: 'Estos artículos no están disponibles en tu región ahora. Quítalos para vaciar tu carrito.',
+    cart_empty_perk_returns: 'Devoluciones en 30 días',
+    cart_ghost_notice:
+      'Estos artículos no están disponibles en tu región ahora. Quítalos para vaciar tu carrito.',
     cart_freeship_progress_remaining: 'Añade {amount} para envío gratis',
     cart_freeship_progress_done: 'Has conseguido envío gratis',
-    cart_freeship_threshold_label: 'Envío gratis en pedidos superiores a {threshold}',
+    cart_freeship_threshold_label:
+      'Envío gratis en pedidos superiores a {threshold}',
     cart_summary_title: 'Totales',
     cart_summary_subtotal: 'Subtotal',
     cart_summary_empty_btn: 'Agrega un artículo para pagar',
     cart_summary_checkout_btn: 'Continuar al pago',
+    cart_checkout_unavailable:
+      'El pago no está disponible temporalmente. Actualiza el carrito e inténtalo de nuevo.',
     cart_summary_discounts_aria: 'Descuentos',
     cart_summary_discounts_h: 'Descuentos',
     cart_summary_remove_discount: 'Quitar descuento',
@@ -2830,7 +3317,8 @@ export const DICTIONARIES = {
     cart_summary_gift_placeholder: 'Ingresa el código de la tarjeta',
     cart_summary_gift_apply_aria: 'Aplicar tarjeta de regalo',
     cart_summary_gift_apply: 'Aplicar',
-    cart_summary_remove_gift_aria: 'Quitar tarjeta de regalo terminada en {last}',
+    cart_summary_remove_gift_aria:
+      'Quitar tarjeta de regalo terminada en {last}',
     cart_qty_aria: 'Cantidad',
     cart_qty_dec_aria: 'Disminuir cantidad',
     cart_qty_inc_aria: 'Aumentar cantidad',
@@ -2877,14 +3365,24 @@ export const DICTIONARIES = {
     // ── Chrome de cajones ───────────────────────────────────────
     aside_close_drawer: 'Cerrar cajón',
     aside_close: 'Cerrar',
-    locale_change_aria: 'Cambiar idioma',
+    locale_change_aria: 'Cambiar mercado o idioma',
+    locale_switching: 'Cambiando…',
+    locale_switching_status: 'Actualizando el mercado y la moneda.',
+    locale_market_label: 'Mercado',
+    locale_market_ca: 'Canadá',
+    locale_market_us: 'Estados Unidos',
+    locale_market_unavailable: 'No disponible',
+    locale_language_label: 'Idioma',
+    mobile_market_language: 'Mercado e idioma',
     skip_to_content: 'Saltar al contenido principal',
 
     // ── ErrorBoundary raíz / 404 / búsqueda en error ──────────
     err_404_h: 'No pudimos encontrar esa página',
     err_500_h: 'Algo salió mal de nuestro lado',
-    err_404_body: 'El enlace puede estar roto, o la página puede haberse movido. Prueba buscar, o vuelve a la tienda.',
-    err_500_body: 'Tuvimos un error inesperado al renderizar esta página. Inténtalo de nuevo o explora el catálogo abajo.',
+    err_404_body:
+      'El enlace puede estar roto, o la página puede haberse movido. Prueba buscar, o vuelve a la tienda.',
+    err_500_body:
+      'Tuvimos un error inesperado al renderizar esta página. Inténtalo de nuevo o explora el catálogo abajo.',
     err_search_aria: 'Buscar en la tienda',
     err_search_placeholder: 'Buscar en la tienda…',
     err_search_btn: 'Buscar',
@@ -2933,12 +3431,14 @@ export const DICTIONARIES = {
     np_close_backdrop: 'Cerrar',
     np_close_x: 'Cerrar',
     np_success_h: '¡Ya estás dentro!',
-    np_success_body: 'Aquí tienes 15 % de descuento en tu primer pedido. Usa este código en el pago:',
+    np_success_body:
+      'Aquí tienes 15 % de descuento en tu primer pedido. Usa este código en el pago:',
     np_copy_btn: '¡Copiado!',
     np_copy_hint: 'Toca para copiar',
     np_success_cta: 'Empezar a comprar →',
     np_form_h: 'Obtén 15 % de descuento en tu primer pedido',
-    np_form_body: 'Únete a la lista para novedades y ofertas solo para miembros. Te enviaremos tu código de inmediato. Sin spam, cancela cuando quieras.',
+    np_form_body:
+      'Únete a la lista para novedades y ofertas solo para miembros. Te enviaremos tu código de inmediato. Sin spam, cancela cuando quieras.',
     np_email_placeholder: 'tu@correo.com',
     np_email_aria: 'Correo electrónico',
     np_joining: 'Uniéndome…',
@@ -2959,24 +3459,27 @@ export const DICTIONARIES = {
     search_results_h_fallback: 'Buscar',
     search_input_placeholder: 'Buscar productos…',
     search_submit: 'Buscar',
-    search_zero_hint: 'Busca por palabra clave o explora nuestras categorías más populares arriba.',
+    search_zero_hint:
+      'Busca por palabra clave o explora nuestras categorías más populares arriba.',
     pred_articles: 'Artículos',
     pred_collections: 'Colecciones',
     pred_pages: 'Páginas',
     pred_products: 'Productos',
     pred_empty_title: 'Empieza a escribir para buscar',
-    pred_empty_body: 'Prueba categorías como "más vendidos", "hogar" o nombres específicos de productos.',
+    pred_empty_body:
+      'Prueba categorías como "más vendidos", "hogar" o nombres específicos de productos.',
     pred_pill_best: 'Más vendidos',
     pred_pill_all: 'Todas las categorías',
     pred_pill_new: 'Novedades',
     pred_no_results_h: 'Sin resultados para "{term}"',
-    pred_no_results_body: 'Prueba otra palabra clave o explora los más queridos.',
+    pred_no_results_body:
+      'Prueba otra palabra clave o explora los más queridos.',
 
     // ── H1 de la página del carrito ─────────────────────────────
     cart_page_h: 'Carrito',
     cart_page_eyebrow: 'Tu carrito',
     cart_trust_aria: 'Por qué comprar con nosotros',
-    cart_trust_returns: 'Devoluciones en 14 días',
+    cart_trust_returns: 'Devoluciones en 30 días',
     cart_trust_shipping: 'Envío en 24 horas',
     cart_trust_secure: 'Pago seguro',
 
@@ -2986,18 +3489,30 @@ export const DICTIONARIES = {
     col_index_breadcrumb_current: 'Colecciones',
     col_index_eyebrow: 'Explorar',
     col_index_h: 'Todas las colecciones',
-    col_index_sub: 'Elige una categoría y sumérgete. Cada colección está seleccionada a mano, solo dejamos lo que usaríamos nosotros mismos.',
+    col_index_sub:
+      'Elige una categoría y sumérgete. Cada colección está seleccionada a mano, solo dejamos lo que usaríamos nosotros mismos.',
     col_index_count: 'Puchica',
     col_index_empty_h: 'Aún no hay colecciones',
-    col_index_empty_body: 'Las colecciones aparecerán aquí a medida que las agreguemos.',
+    col_index_empty_body:
+      'Las colecciones aparecerán aquí a medida que las agreguemos.',
     col_index_card_cta: 'Comprar la colección →',
 
     // ── Índice de políticas ─────────────────────────────────────
     policies_h: 'Políticas',
-    policies_sub: 'Envío, devoluciones, privacidad y términos para pedidos en Puchica.',
+    policies_sub:
+      'Envío, devoluciones, privacidad y términos para pedidos en Puchica.',
 
     // ── Enlace de vuelta de políticas ───────────────────────────
     policy_back: 'Volver a Políticas',
+    refund_summary_title: 'Antes de enviar una devolución',
+    refund_summary_start:
+      'Contáctanos dentro de los 30 días posteriores a la entrega. No envíes nada hasta que confirmemos la elegibilidad, las instrucciones y la dirección de devolución.',
+    refund_summary_shipping:
+      'La responsabilidad del envío de devolución depende del motivo y de la política completa. Si un artículo llega dañado o incorrecto, escríbenos pronto con los datos del pedido.',
+    refund_summary_timing:
+      'Los reembolsos aprobados se envían al método de pago original después de recibir y revisar la devolución. El plazo bancario puede variar.',
+    refund_summary_control:
+      'Este resumen no reemplaza la política completa de Shopify que aparece abajo y que prevalece si existe alguna diferencia.',
 
     // ── Índice de blogs ─────────────────────────────────────────
     blogs_h: 'Blogs',
@@ -3041,7 +3556,8 @@ export const DICTIONARIES = {
     account_address_default_label: 'Establecer como dirección predeterminada',
     account_orders_h: 'Pedidos',
     account_orders_meta: 'Pedidos',
-    account_orders_empty_filtered: 'No se encontraron pedidos que coincidan con tu búsqueda.',
+    account_orders_empty_filtered:
+      'No se encontraron pedidos que coincidan con tu búsqueda.',
     account_orders_empty_filtered_cta: 'Borrar filtros →',
     account_orders_empty: 'Aún no has hecho ningún pedido.',
     account_orders_empty_cta: 'Empezar a comprar →',
@@ -3077,10 +3593,11 @@ export const DICTIONARIES = {
 
     // ── Página Nosotros ───────────────────────────────────────────
     about_hero_eyebrow: 'Nuestra historia',
-    about_hero_title_main: 'Productos de calidad.',
-    about_hero_title_em: 'Seleccionados para TI.',
-    about_hero_sub: 'Puchica es una tienda canadiense centrada en hallazgos curados. Revisamos miles de productos para que tú no tengas que hacerlo.',
-    about_hero_cta: 'Empezar a comprar →',
+    about_hero_title_main: 'Menos desorden.',
+    about_hero_title_em: 'Más espacio para respirar.',
+    about_hero_sub:
+      'Puchica es una pequeña empresa canadiense con organizadores prácticos para espacios pequeños, tecnología cotidiana y viajes.',
+    about_hero_cta: 'Ver la colección de lanzamiento →',
     about_stats_aria: 'Puchica en números',
     about_stat_products_num: 'Activo',
     about_stat_products_label: 'Productos seleccionados',
@@ -3088,21 +3605,28 @@ export const DICTIONARIES = {
     about_stat_quality_label: 'Control de calidad',
     about_stat_shipping_num: '$0',
     about_stat_shipping_label: 'Envío a Canadá',
-    about_stat_returns_num: '14 días',
+    about_stat_returns_num: '30 días',
     about_stat_returns_label: 'Devoluciones sin complicaciones',
     about_mission_eye: 'Por qué existimos',
-    about_mission_title: 'Hay muchos productos. La mayoría son olvidables.',
-    about_mission_body_1: 'Los revisamos por ti. Cada uno recibe una mirada honesta: ¿funciona?, ¿vale lo que cuesta?, ¿lo usaríamos nosotros? Si la respuesta es no a cualquiera de esas, no entra al catálogo.',
-    about_mission_body_2: 'Puchica es una tienda canadiense. Trabajamos directamente con una red seleccionada de proveedores para ofrecerte una amplia variedad sin comprometer la calidad. Obtienes una selección real, curada, en lugar de una apuesta a lo que podría venderse.',
-    about_mission_card_text: 'Evaluamos miles de productos. Solo los que valen tu dinero pasan el filtro.',
-    about_how_eye: 'Cómo seleccionamos',
-    about_how_title: 'Cada producto se gana su lugar.',
-    about_how_1_title: 'Lo encontramos',
-    about_how_1_body: 'Nuestro equipo revisa nuevos productos constantemente, ferias, proveedores, redes sociales. Ningún algoritmo decide qué se sube.',
-    about_how_2_title: 'Lo probamos',
-    about_how_2_body: '¿Funciona? ¿Vale lo que cuesta? ¿Lo usaríamos nosotros? Si alguna respuesta es no, no pasa el corte.',
-    about_how_3_title: 'Lo recibes',
-    about_how_3_body: 'Si pasa, está en la tienda. Llega directo a tu puerta, con una etiqueta de devolución prepagada en cada caja.',
+    about_mission_title:
+      'En un espacio pequeño, cada cosa fuera de lugar se siente más grande.',
+    about_mission_body_1:
+      'Un cajón lleno, un cable enredado o una maleta sobrecargada puede complicar un día normal. Puchica ayuda a resolver esos pequeños problemas repetidos.',
+    about_mission_body_2:
+      'Mantenemos el catálogo intencionalmente enfocado: organización del hogar, control de cables y viajes. Menos categorías significa que cada producto debe tener una función clara.',
+    about_mission_card_text:
+      'Útil primero. Claro antes del pago. Vale el espacio que ocupa.',
+    about_how_eye: 'Qué merece un lugar',
+    about_how_title: 'Cada producto debe justificar el espacio que ocupa.',
+    about_how_1_title: 'Resuelve un problema específico',
+    about_how_1_body:
+      'Buscamos organizadores con una función clara: facilitar el uso de un gabinete, mantener un cable a mano o simplificar el equipaje.',
+    about_how_2_title: 'Funciona en espacios limitados',
+    about_how_2_body:
+      'Priorizamos productos compactos y sencillos que ayudan a aprovechar mejor el espacio disponible.',
+    about_how_3_title: 'Fácil de entender antes de comprar',
+    about_how_3_body:
+      'El producto debe tener un propósito, detalles y opciones claros. La disponibilidad, el costo y el plazo de entrega se confirman al pagar.',
     about_cats_eye: 'Lo que ofrecemos',
     about_cats_title: 'Hallazgos útiles. Una sola tienda.',
     about_cats_sub: 'En cada categoría que realmente importa en tu día a día.',
@@ -3118,12 +3642,14 @@ export const DICTIONARIES = {
     about_cat_pet_sub: 'Juguetes, equipo, aseo',
     about_cat_gift_name: 'Regalos',
     about_cat_gift_sub: 'Para todos en tu lista',
-    about_promise_quote: 'Cada producto Puchica ha sido probado a fondo por nuestro equipo. Ofrecemos la selección más curada de productos que podamos encontrar. Si no lo usaríamos nosotros, no será Puchica.',
+    about_promise_quote:
+      'Cada producto Puchica ha sido probado a fondo por nuestro equipo. Ofrecemos la selección más curada de productos que podamos encontrar. Si no lo usaríamos nosotros, no será Puchica.',
     about_promise_attr: 'El equipo Puchica, Toronto ON',
-    about_cta_title: '¿Listo para encontrar lo tuyo?',
+    about_cta_title: '¿Listo para hacer espacio para días más tranquilos?',
     about_dept_title: 'Explorar la tienda',
-    about_cta_sub: 'Productos útiles, elegidos por humanos. Precios claros, devoluciones de 14 días, entrega rápida.',
-    about_cta_browse: 'Ver todo →',
+    about_cta_sub:
+      'Empieza con un cajón, gabinete, montón de cables o maleta que nunca parece mantenerse en orden.',
+    about_cta_browse: 'Ver todos los organizadores →',
     about_cta_contact: 'Contáctanos',
 
     // ── Página About, nuevas secciones (cronología, valores, equipo, raíces, departamentos) ──
@@ -3132,51 +3658,102 @@ export const DICTIONARIES = {
     about_story_sub: 'Algunos momentos que nos trajeron hasta aquí.',
     about_story_1_year: '2021',
     about_story_1_title: 'Empezó con un "puchica"',
-    about_story_1_body: 'Una pequeña idea nacida en Toronto: crear una tienda donde todo valga la pena comprar. Nada de relleno, nada de basura, nada de elecciones por algoritmo.',
+    about_story_1_body:
+      'Una pequeña idea nacida en Toronto: crear una tienda donde todo valga la pena comprar. Nada de relleno, nada de basura, nada de elecciones por algoritmo.',
     about_story_2_year: '2022',
     about_story_2_title: 'Los primeros 1.000 productos',
-    about_story_2_body: 'Construimos una red de proveedores verificados y curamos nuestros primeros mil hallazgos: hogar, belleza, tecnología, mascotas.',
+    about_story_2_body:
+      'Construimos una red de proveedores verificados y curamos nuestros primeros mil hallazgos: hogar, belleza, tecnología, mascotas.',
     about_story_3_year: '2024',
     about_story_3_title: 'Un catálogo más claro, reconstruido con cuidado',
-    about_story_3_body: 'El catálogo se está ajustando alrededor de productos activos, fáciles de comprar y respaldados por una política de devolución clara de 14 días.',
+    about_story_3_body:
+      'El catálogo se está ajustando alrededor de productos activos, fáciles de comprar y respaldados por una política de devolución clara de 30 días.',
     about_story_4_year: 'Hoy',
     about_story_4_title: 'Raíces en las Américas',
-    about_story_4_body: 'Desde nuestra base en Toronto hasta compradores en toda las Américas, la misión sigue siendo la misma: lo bueno, elegido a mano.',
+    about_story_4_body:
+      'Desde nuestra base en Toronto hasta compradores en toda las Américas, la misión sigue siendo la misma: lo bueno, elegido a mano.',
 
     about_values_eye: 'Lo que defendemos',
     about_values_title: 'Nuestros valores.',
     about_values_sub: 'Las reglas detrás de cada elección que hacemos.',
     about_values_1_title: 'Curado, no abarrotado',
-    about_values_1_body: 'Decimos que no a mucho más de lo que decimos que sí. Un catálogo más pequeño y mejor le gana a uno gigante y mediocre.',
+    about_values_1_body:
+      'Decimos que no a mucho más de lo que decimos que sí. Un catálogo más pequeño y mejor le gana a uno gigante y mediocre.',
     about_values_2_title: 'Precios justos siempre',
-    about_values_2_body: 'Sin rebajas falsas, sin márgenes misteriosos. El precio que ves es honesto, y el valor es real.',
+    about_values_2_body:
+      'Sin rebajas falsas, sin márgenes misteriosos. El precio que ves es honesto, y el valor es real.',
     about_values_3_title: 'Alma antes que tendencias',
-    about_values_3_body: 'Elegimos cosas que duran e importan, no lo que el algoritmo empuja esta semana.',
+    about_values_3_body:
+      'Elegimos cosas que duran e importan, no lo que el algoritmo empuja esta semana.',
     about_values_4_title: 'Enviado por socios de confianza',
-    about_values_4_body: 'Cada pedido sale de un socio verificado en 24 horas, con una etiqueta de devolución prepagada en cada caja.',
+    about_values_4_body:
+      'Cada pedido sale de un socio verificado en 24 horas, con una etiqueta de devolución prepagada en cada caja.',
 
     about_team_eye: 'Quiénes somos',
     about_team_title: 'Personas reales, selecciones reales.',
-    about_team_sub: 'Un equipo pequeño en Toronto, detrás de cada producto que pasa el filtro.',
+    about_team_sub:
+      'Un equipo pequeño en Toronto, detrás de cada producto que pasa el filtro.',
     about_team_1_name: 'Mariana L.',
     about_team_1_role: 'Fundadora y Curadora',
-    about_team_1_bio: 'Lanzó Puchica tras años de frustración comprando en línea. Ahora lidera la curación y las relaciones con proveedores.',
+    about_team_1_bio:
+      'Lanzó Puchica tras años de frustración comprando en línea. Ahora lidera la curación y las relaciones con proveedores.',
     about_team_2_name: 'Diego R.',
     about_team_2_role: 'Líder de Operaciones',
-    about_team_2_bio: 'Mantiene la red de proveedores funcionando y cada pedido enviado a tiempo. La razón por la que tu paquete llega rápido.',
+    about_team_2_bio:
+      'Mantiene la red de proveedores funcionando y cada pedido enviado a tiempo. La razón por la que tu paquete llega rápido.',
     about_team_3_name: 'Sofía M.',
     about_team_3_role: 'Comunidad y Atención',
-    about_team_3_bio: 'Responde tus preguntas, escucha tus comentarios y se asegura de que la tienda siga mejorando.',
+    about_team_3_bio:
+      'Responde tus preguntas, escucha tus comentarios y se asegura de que la tienda siga mejorando.',
 
     about_roots_aria: 'Nuestras raíces centroamericanas',
-    about_roots_eyebrow: 'Raíces centroamericanas',
-    about_roots_heading: 'Puchica es una palabra centroamericana para un sentimiento centroamericano.',
-    about_roots_body: '“Puchica” es la palabra que dices cuando algo te sorprende, cuando es sorprendentemente bueno, inesperadamente delicioso, el tipo de cosa que te hace detenerte y mirar dos veces. Ese sentimiento es lo que queremos que cada producto de esta tienda te dé. Llevamos ese espíritu centroamericano de calidez, oficio y orgullo en todo lo que curamos, venga de donde venga.',
-    about_roots_signature: 'De nuestra familia a tu puerta',
+    about_roots_eyebrow: 'De dónde viene el nombre',
+    about_roots_heading: 'Puchica empieza con una sensación de sorpresa útil.',
+    about_roots_body:
+      '“Puchica” es una expresión centroamericana familiar de sorpresa, como la reacción que puede provocar una solución inesperadamente ingeniosa. Ese espíritu guía la marca: objetos prácticos que resuelven una molestia cotidiana sin añadir más desorden.',
+    about_roots_signature: 'Empresa canadiense. Organización práctica, elegida con cuidado.',
+    about_hero_caption: 'Pensado para los lugares que se desordenan primero.',
+    about_hero_image_alt:
+      'Una cocina pequeña y cálida con gabinetes abiertos y almacenamiento cotidiano',
+    about_roots_image_alt:
+      'Un tejido colorido y una vasija de cerámica pintada',
+    about_standards_intro:
+      'Un catálogo pequeño solo funciona si la razón de cada producto es fácil de explicar.',
+    about_shop_eye: 'Compra según tu necesidad',
+    about_shop_title: 'Empieza por el espacio que siempre estorba.',
+    about_shop_home_title: 'Orden en casa',
+    about_shop_cable_title: 'Control de cables',
+    about_shop_travel_title: 'Organización de viaje',
+    about_shop_home_body:
+      'Cajones, gabinetes, encimeras y rincones difíciles.',
+    about_shop_cable_body:
+      'Cargadores, cables y pequeños dispositivos que se pierden.',
+    about_shop_travel_body: 'Equipaje, organización y artículos de uso diario.',
+    about_shop_all: 'Ver todos los organizadores',
+    about_now_eye: 'Entrega más clara',
+    about_now_title: 'Consulta tus opciones de entrega antes de pagar.',
+    about_now_body:
+      'El origen y el tiempo de envío pueden variar según el artículo y la dirección. El pago muestra las opciones disponibles para tu pedido antes de realizar el cobro.',
+    about_now_email: '¿Preguntas? Escribe a hello@puchica.ca',
+    about_delivery_panel_title: 'Vista previa de entrega',
+    about_delivery_step_1_title: 'Elige un artículo',
+    about_delivery_step_1_body: 'Añade un organizador e ingresa tu dirección.',
+    about_delivery_step_2_title: 'Consulta las opciones',
+    about_delivery_step_2_body: 'El pago calcula las alternativas para ese pedido.',
+    about_delivery_step_3_title: 'Revisa antes de pagar',
+    about_delivery_step_3_body: 'Compara el tiempo y el costo disponibles.',
+    about_delivery_note: 'Detalles de entrega visibles antes del pago',
+    about_fact_based_label: 'Ubicada en',
+    about_fact_based_value: 'Canadá',
+    about_fact_market_label: 'Mercado actual',
+    about_fact_market_value: 'Clientes en Estados Unidos',
+    about_fact_delivery_label: 'Antes del pago',
+    about_fact_delivery_value: 'Opciones de entrega visibles al finalizar la compra',
 
     about_depts_eye: 'Sigue explorando',
     about_depts_title: 'Comprar por departamento.',
-    about_depts_sub: 'Cada categoría, curada con el mismo cuidado. Elige por dónde empezar.',
+    about_depts_sub:
+      'Cada categoría, curada con el mismo cuidado. Elige por dónde empezar.',
     about_depts_shop_cta: 'Comprar →',
     about_depts_home: 'Hogar y Decoración',
     about_depts_beauty: 'Belleza y Cuidado',
@@ -3188,85 +3765,112 @@ export const DICTIONARIES = {
     // ── Página de contacto ────────────────────────────────────────
     contact_hero_eyebrow: 'Contáctanos',
     contact_hero_title: 'Estamos aquí para ayudar.',
-    contact_hero_sub: '¿Preguntas sobre un pedido, un producto o cualquier otra cosa? Elige el canal que te funcione, una persona real del equipo Puchica te responderá, generalmente en un día hábil.',
+    contact_hero_sub:
+      'Para ayuda con un pedido, incluye el número. Para un producto, incluye el nombre o enlace.',
     contact_channels_aria: 'Formas de contactarnos',
     contact_ig_title: 'DM en Instagram',
-    contact_ig_body: 'Lo más rápido para una pregunta rápida. Revisamos los DM durante todo el día.',
+    contact_ig_body:
+      'Sigue demostraciones de productos e ideas de organización.',
     contact_ig_fallback: 'Instagram',
     contact_fb_title: 'Mensaje en Facebook',
-    contact_fb_body: 'Otra forma fácil de contactarnos. Mismo equipo, mismo tiempo de respuesta.',
+    contact_fb_body:
+      'Sigue novedades de productos e ideas de organización.',
     contact_fb_fallback: 'Facebook',
     contact_tiktok_title: 'Encuéntranos en TikTok',
-    contact_tiktok_body: 'Nuevos hallazgos, detrás de cámaras y unboxing ocasional.',
+    contact_tiktok_body:
+      'Nuevos hallazgos, detrás de cámaras y unboxing ocasional.',
     contact_tiktok_fallback: 'TikTok',
     contact_promises_aria: 'Qué esperar',
     contact_promises_eyebrow: 'Qué esperar',
-    contact_promises_title: 'Personas reales, respuestas rápidas',
-    contact_promise_1_strong: 'Persona real en el equipo',
-    contact_promise_1_body: 'Sin bots, sin respuestas automáticas. Cada mensaje llega a una persona.',
-    contact_promise_2_strong: 'Generalmente en un día hábil',
-    contact_promise_2_body: 'A menudo más rápido. En el peor caso: un día hábil, de lunes a viernes de 9 a 5 ET.',
-    contact_promise_3_strong: 'Ayuda con pedidos todos los días',
-    contact_promise_3_body: 'Preguntas de seguimiento, devoluciones, cambios de dirección, sí, también los fines de semana.',
+    contact_promises_title: 'Ayúdanos a encontrar la respuesta correcta',
+    contact_promise_1_strong: 'Incluye los datos clave',
+    contact_promise_1_body:
+      'Incluye el número de pedido, el enlace del producto y tu pregunta.',
+    contact_promise_2_strong: 'Espera dos días hábiles',
+    contact_promise_2_body:
+      'Intentamos responder en dos días hábiles. Las consultas al proveedor o transportista pueden tardar más.',
+    contact_promise_3_strong: 'Confirmamos lo que es posible',
+    contact_promise_3_body:
+      'Los cambios, cancelaciones y devoluciones dependen del estado del pedido y de la política aplicable.',
     contact_faq_aria: 'Preguntas comunes',
     contact_faq_eyebrow: 'Preguntas comunes',
     contact_faq_title: 'La versión corta',
     contact_faq_1_q: '¿Dónde está mi pedido?',
-    contact_faq_1_a: 'Tu enlace de seguimiento está en el correo de confirmación de envío, generalmente en 1–2 días hábiles después de pedir. Si el seguimiento no muestra movimiento durante 5+ días hábiles, escríbenos y lo investigaremos.',
+    contact_faq_1_a:
+      'Cuando haya un servicio con seguimiento, el enlace se incluirá en el correo de confirmación de envío. Escríbenos con tu número de pedido si necesitas ayuda.',
     contact_faq_2_q: '¿Puedo cambiar o cancelar mi pedido?',
-    contact_faq_2_a: 'Dentro de las 2 horas de haberlo hecho, sí, solo responde a tu confirmación de pedido. Después de eso, el pedido se está preparando para el envío y los cambios no son posibles, pero las devoluciones siempre son gratuitas una vez que llegue.',
+    contact_faq_2_a:
+      'Contáctanos lo antes posible con tu número de pedido. Confirmaremos si el proveedor ya empezó a procesarlo y qué opciones siguen disponibles.',
     contact_faq_3_q: '¿Cómo funcionan las devoluciones?',
-    contact_faq_3_a: 'Una etiqueta de devolución prepagada se envía en cada caja. Reempaca el artículo, despega la etiqueta, entrégalo. Los reembolsos llegan al método de pago original en 5–7 días hábiles después de recibirlo.',
+    contact_faq_3_a:
+      'Contáctanos dentro de los 30 días posteriores a la entrega. No envíes nada hasta que confirmemos la elegibilidad y las instrucciones. La responsabilidad del envío de devolución depende del motivo y de la política.',
     contact_faq_4_q: '¿A dónde envían?',
-    contact_faq_4_a: 'A cualquier parte. Enviamos a países de todo el mundo, para un país específico, escríbenos y te confirmaremos.',
-    contact_faq_5_q: '¿Los productos en las fotos son exactamente lo que recibiré?',
-    contact_faq_5_a: 'Sí. Las fotos de productos en cada ficha son el producto real que enviamos, lo que ves es lo que recibes.',
-    contact_faq_foot: '¿No ves tu pregunta? {email}, leemos todo.',
-    contact_faq_foot_link: 'Escríbenos',
+    contact_faq_4_a:
+      'Canadá y Estados Unidos son mercados seleccionables. La entrega aún depende del producto y la dirección; el checkout debe confirmar el carrito antes del pago.',
+    contact_faq_5_q:
+      '¿Los productos en las fotos son exactamente lo que recibiré?',
+    contact_faq_5_a:
+      'Revisa las fotos, la variante seleccionada, las dimensiones y la descripción. Escríbenos antes de pedir si algún detalle no está claro.',
     contact_cta_title: '¿Aún tienes una pregunta?',
-    contact_cta_body: 'Escríbenos. Leemos cada mensaje y estamos felices de ayudar.',
+    contact_cta_body:
+      'El correo es la mejor opción para pedidos. Intentamos responder en dos días hábiles.',
     contact_cta_button: 'Escribir a {email}',
 
     // ── Página FAQ (ruta dedicada /pages/faq) ───────────────────
     faq_accordion_aria: 'Preguntas frecuentes',
     faq_hero_eyebrow: 'Centro de ayuda',
     faq_hero_title: 'Preguntas frecuentes',
-    faq_hero_sub: 'Respuestas rápidas a las preguntas que más escuchamos, pedidos, devoluciones, productos y tu cuenta.',
+    faq_hero_sub:
+      'Respuestas rápidas a las preguntas que más escuchamos, pedidos, devoluciones, productos y tu cuenta.',
     faq_cat_orders: 'Pedidos y envío',
     faq_cat_returns: 'Devoluciones y reembolsos',
     faq_cat_products: 'Productos',
     faq_cat_account: 'Cuenta',
     faq_orders_1_q: '¿Cuánto tarda el envío?',
-    faq_orders_1_a: 'Los pedidos se envían en 1–2 días hábiles. La entrega suele tomar 3–7 días hábiles dentro de Canadá y 7–14 días hábiles a Estados Unidos. Los pedidos internacionales varían según el destino, generalmente 10–21 días hábiles.',
+    faq_orders_1_a:
+      'Los tiempos de procesamiento y entrega varían según el producto. Introduce tu dirección al pagar para consultar la estimación disponible antes del pago.',
     faq_orders_2_q: '¿Envían a nivel internacional?',
-    faq_orders_2_a: 'Sí. Enviamos a países de todo el mundo. Para un país específico, escríbenos y te confirmaremos las tarifas y los tiempos antes de pedir.',
+    faq_orders_2_a:
+      'Canadá y Estados Unidos son mercados seleccionables. La selección no garantiza que todos los artículos puedan entregarse; el checkout confirma el carrito y la dirección antes del pago.',
     faq_orders_3_q: '¿Cómo rastreo mi pedido?',
-    faq_orders_3_a: 'Tu enlace de seguimiento está en el correo de confirmación de envío, generalmente en 1–2 días hábiles después de pedir. Si el seguimiento no muestra movimiento durante 5+ días hábiles, escríbenos y lo investigaremos.',
+    faq_orders_3_a:
+      'Cuando haya un servicio con seguimiento, el enlace se incluirá en el correo de confirmación de envío. Contáctanos con tu número de pedido si necesitas ayuda.',
     faq_orders_4_q: '¿Cuáles son sus tarifas de envío?',
-    faq_orders_4_a: 'El envío es gratuito en todo Canadá para pedidos superiores a $75. Por debajo de $75 es una tarifa plana de $7.95. Los pedidos a Estados Unidos son una tarifa plana de $14.95. Las tarifas internacionales se calculan en el checkout según el destino y el peso.',
+    faq_orders_4_a:
+      'Los servicios, el costo y el tiempo de entrega se confirman al pagar según los artículos seleccionados y el destino.',
     faq_returns_1_q: '¿Cuál es su política de devoluciones?',
-    faq_returns_1_a: 'Ofrecemos devoluciones de 14 días en artículos sin usar en su empaque original. Si algo llega dañado o incorrecto, lo solucionamos, no se necesita devolución por nuestro error.',
+    faq_returns_1_a:
+      'Contáctanos dentro de los 30 días posteriores a la entrega. La elegibilidad depende del artículo, su estado y la política de reembolso. Escríbenos pronto si llega dañado o incorrecto.',
     faq_returns_2_q: '¿Cómo inicio una devolución?',
-    faq_returns_2_a: 'Una etiqueta de devolución prepagada se envía en cada caja. Reempaca el artículo, despega la etiqueta, entrégalo en cualquier punto de recogida. No necesitas escribirnos primero.',
+    faq_returns_2_a:
+      'Escríbenos con el número de pedido y el motivo. No envíes nada hasta que confirmemos la elegibilidad y la dirección. La responsabilidad del envío depende del motivo y de la política.',
     faq_returns_3_q: '¿Cuándo recibiré mi reembolso?',
-    faq_returns_3_a: 'Los reembolsos llegan al método de pago original en 5–7 días hábiles después de recibir el artículo devuelto. Te llegará un correo de confirmación en cuanto se procese.',
-    faq_products_1_q: '¿Sus productos son auténticos?',
-    faq_products_1_a: 'Sí. Cada producto que listamos proviene directamente de la marca o de un distribuidor autorizado. Nunca vendemos falsificaciones, si no lo compraríamos nosotros mismos, no entra.',
+    faq_returns_3_a:
+      'Los reembolsos aprobados se envían al método de pago original después de recibir y revisar el artículo devuelto. El tiempo de procesamiento bancario puede variar.',
+    faq_products_1_q: '¿Dónde encuentro los detalles del producto?',
+    faq_products_1_a:
+      'Revisa la página del producto para ver opciones, dimensiones, materiales y lo que incluye. Contáctanos si falta algún detalle.',
     faq_products_2_q: '¿De dónde vienen sus productos?',
-    faq_products_2_a: 'Sourcing de marcas y distribuidores de Norte y Centroamérica, con foco en creadores y productos difíciles de encontrar en grandes cadenas. Las fotos de productos en cada ficha son el producto real que enviamos.',
-    faq_products_3_q: '¿Tienen productos de Centroamérica?',
-    faq_products_3_a: 'Sí. Stockeamos activamente productos de creadores centroamericanos, snacks, artesanías, textiles, belleza y más. Explora la colección o escríbenos si buscas algo específico.',
-    faq_account_1_q: '¿Cómo creo una cuenta?',
-    faq_account_1_a: 'Haz clic en “Cuenta” en el encabezado y elige “Crear cuenta”. Necesitas un correo y una contraseña. Una cuenta te permite rastrear pedidos, guardar direcciones y pagar más rápido.',
-    faq_account_2_q: '¿Cómo restablezco mi contraseña?',
-    faq_account_2_a: 'En la página de inicio de sesión, haz clic en “¿Olvidaste tu contraseña?” y escribe tu correo. Enviaremos un enlace de restablecimiento válido por 30 minutos. Si no lo ves, revisa tu carpeta de spam.',
+    faq_products_2_a:
+      'Trabajamos con proveedores externos y el origen puede variar según el artículo. Contáctanos antes de pedir si necesitas un dato específico.',
+    faq_products_3_q: '¿Cómo elijo la opción correcta?',
+    faq_products_3_a:
+      'Revisa la talla, el color, la cantidad y el conjunto seleccionados antes de agregar el artículo al carrito.',
+    faq_account_1_q: '¿Cómo accedo a mi cuenta?',
+    faq_account_1_a:
+      'Elige Cuenta, ingresa tu correo y sigue los pasos de inicio de sesión. Desde tu cuenta puedes ver pedidos y administrar los datos guardados.',
+    faq_account_2_q: 'No puedo iniciar sesión. ¿Qué hago?',
+    faq_account_2_a:
+      'Solicita un nuevo código o enlace desde la página Cuenta y revisa la carpeta de spam. Contáctanos si todavía no llega.',
     faq_cta_eyebrow: '¿Aún con dudas?',
     faq_cta_title: '¿Aún tienes preguntas?',
-    faq_cta_sub: 'Leemos cada mensaje y una persona real suele responder en un día hábil.',
+    faq_cta_sub:
+      'Envía los detalles del producto o pedido. Intentamos responder en dos días hábiles.',
     faq_cta_button: 'Contáctanos',
     faq_contact_aria: 'Contáctanos',
     faq_contact_title: 'Contáctanos',
-    faq_contact_body: '¿No encuentras lo que buscas? Escríbenos, estamos felices de ayudar con pedidos, devoluciones, productos o cualquier otra cosa.',
+    faq_contact_body:
+      '¿No encuentras lo que buscas? Escríbenos, estamos felices de ayudar con pedidos, devoluciones, productos o cualquier otra cosa.',
 
     aside_heading_cart: 'Carrito',
     aside_heading_search: 'Buscar',
@@ -3282,11 +3886,13 @@ export const DICTIONARIES = {
     hero_split_aria: 'Hero',
     hero_split_eyebrow: 'Tienda Puchica',
     hero_split_heading: 'Compra hogar, tecnología, mascotas, regalos y más.',
-    hero_split_body: 'Una forma más clara de explorar productos útiles en categorías que la gente realmente compra. Empieza por departamento, novedades u ofertas.',
+    hero_split_body:
+      'Una forma más clara de explorar productos útiles en categorías que la gente realmente compra. Empieza por departamento, novedades u ofertas.',
     hero_split_cta_primary: 'Ver los más vendidos',
     hero_split_cta_secondary: 'Ver todo',
-    hero_split_trust: 'Opciones de envío al pagar · Devoluciones de 14 días · Soporte humano',
-    hero_trust_returns: 'Devoluciones de 14 días',
+    hero_split_trust:
+      'Opciones de envío al pagar · Devoluciones de 30 días · Soporte humano',
+    hero_trust_returns: 'Devoluciones de 30 días',
     hero_trust_checkout: 'Pago seguro con Shopify',
     hero_trust_canada: 'Catálogo pequeño y activo',
     hero_showcase_bar: 'Comprar por departamento →',
@@ -3304,18 +3910,23 @@ export const DICTIONARIES = {
     lifestyle_banner_aria: 'Estilo de vida',
     lifestyle_shop_eyebrow: 'Explorar',
     lifestyle_shop_heading: 'Comprar por estilo de vida',
-    lifestyle_shop_sub: 'Empieza por el momento y encuentra la categoría que encaja.',
+    lifestyle_shop_sub:
+      'Empieza por el momento y encuentra la categoría que encaja.',
     lifestyle_shop_home_title: 'Renueva tu hogar',
-    lifestyle_shop_home_body: 'Mejoras útiles para los espacios y rutinas de todos los días.',
+    lifestyle_shop_home_body:
+      'Mejoras útiles para los espacios y rutinas de todos los días.',
     lifestyle_shop_motion_title: 'Movimiento diario',
-    lifestyle_shop_motion_body: 'Hallazgos prácticos para salir, organizarte y moverte mejor.',
+    lifestyle_shop_motion_body:
+      'Hallazgos prácticos para salir, organizarte y moverte mejor.',
     lifestyle_shop_family_title: 'Juego y familia',
-    lifestyle_shop_family_body: 'Opciones pensadas para jugar, las pequeñas rutinas y los momentos compartidos.',
+    lifestyle_shop_family_body:
+      'Opciones pensadas para jugar, las pequeñas rutinas y los momentos compartidos.',
     lifestyle_shop_cta: 'Ver la selección →',
     lifestyle_banner_eyebrow: 'Vida tranquila',
-    lifestyle_banner_heading: "Encuentra tu próximo favorito.",
-    lifestyle_banner_body: "De la cocina al sendero, de tu escritorio a tu armario, Puchica te trae lo que hace cada día mejor. Envío gratis sobre $75.",
-    lifestyle_banner_cta: "Todas las colecciones",
+    lifestyle_banner_heading: 'Encuentra tu próximo favorito.',
+    lifestyle_banner_body:
+      'De la cocina al sendero, de tu escritorio a tu armario, Puchica te trae lo que hace cada día mejor. Envío gratis sobre $75.',
+    lifestyle_banner_cta: 'Todas las colecciones',
 
     new_arrivals_aria: 'Novedades',
     new_arrivals_eyebrow: 'Recién llegados',
@@ -3340,7 +3951,7 @@ export const DICTIONARIES = {
     trust_bar_aria: 'Por qué comprar con nosotros',
     trust_bar_shipping_h: 'Envío claro',
     trust_bar_shipping_sub: 'Opciones y costos al finalizar la compra',
-    trust_bar_returns_h: 'Devoluciones en 14 días',
+    trust_bar_returns_h: 'Devoluciones en 30 días',
     trust_bar_returns_sub: 'Consulta la política antes de comprar',
     trust_bar_curated_h: 'Catálogo activo',
     trust_bar_curated_sub: 'Productos listos para comprar hoy',
@@ -3349,61 +3960,70 @@ export const DICTIONARIES = {
     home_reviews_eyebrow: 'Amado por más de 12,000 compradores',
     home_reviews_heading: 'Lo que dicen nuestros clientes',
     home_reviews_verified: 'Comprador verificado',
-    home_reviews_quote_1_text: 'Sigo volviendo. La calidad es constante, el envío rápido y las devoluciones sin complicaciones.',
+    home_reviews_quote_1_text:
+      'Sigo volviendo. La calidad es constante, el envío rápido y las devoluciones sin complicaciones.',
     home_reviews_quote_1_author: 'Maya R. Toronto',
-    home_reviews_quote_2_text: 'Encontré un regalo que no hallé en ningún otro sitio. El empaque se sentía pensado.',
+    home_reviews_quote_2_text:
+      'Encontré un regalo que no hallé en ningún otro sitio. El empaque se sentía pensado.',
     home_reviews_quote_2_author: 'James P. Vancouver',
-    home_reviews_quote_3_text: 'El servicio al cliente realmente responde. Hice una pregunta y obtuve respuesta el mismo día.',
+    home_reviews_quote_3_text:
+      'El servicio al cliente realmente responde. Hice una pregunta y obtuve respuesta el mismo día.',
     home_reviews_quote_3_author: 'Sophie L. Montréal',
 
     home_newsletter_aria: 'Boletín',
     home_newsletter_eyebrow: 'Únete a la lista',
     home_newsletter_heading: 'Obtén 10% en tu primer pedido',
-    home_newsletter_body: 'Novedades, reposiciones y ofertas ocasionales, directo a tu correo, sin spam.',
+    home_newsletter_body:
+      'Novedades, reposiciones y ofertas ocasionales, directo a tu correo, sin spam.',
     home_newsletter_placeholder: 'tu@ejemplo.com',
     home_newsletter_submit: 'Suscribirse',
     home_newsletter_promise: 'Sin spam. Cancela cuando quieras.',
 
     home_roots_aria: 'Nuestras raíces',
-    home_roots_eyebrow: "Las raíces de Puchica",
-    home_roots_heading: "De Centroamérica al mundo.",
-    home_roots_body: "Puchica, así se dice cuando algo te sorprende. Un amanecer sobre el lago Atitlán. Café cultivado en laderas volcánicas. Textiles tejidos de la misma forma por tres generaciones en los altiplanos de Guatemala. De Antigua a Honduras, traemos ese sentimiento a clientes de todo el mundo.",
+    home_roots_eyebrow: 'Las raíces de Puchica',
+    home_roots_heading: 'De Centroamérica al mundo.',
+    home_roots_body:
+      'Puchica, así se dice cuando algo te sorprende. Un amanecer sobre el lago Atitlán. Café cultivado en laderas volcánicas. Textiles tejidos de la misma forma por tres generaciones en los altiplanos de Guatemala. De Antigua a Honduras, traemos ese sentimiento a clientes de todo el mundo.',
     home_roots_signature: 'Hecho con alma · Made with soul',
 
     // ── World map ─────────────────────────────────────────────────
     world_map_aria: 'Países que servimos',
     world_map_eyebrow: 'Mundial',
     world_map_heading: 'De nuestras raíces a tu puerta.',
-    world_map_sub: 'Puchica envía a clientes de todo el mundo. Toca un pin para ver qué nos conecta.',
+    world_map_sub:
+      'Puchica envía a clientes de todo el mundo. Toca un pin para ver qué nos conecta.',
 
-    home_shop_dept_aria: "Comprar por departamento",
-    home_shop_dept_eyebrow: "Explorar la tienda",
-    home_shop_dept_heading: "Departamentos activos. Rutas reales de compra.",
-    home_shop_dept_body: "De lo esencial para el hogar hasta los últimos gadgets, Puchica te ofrece lo mejor de cada categoría, seleccionado, precio justo, envío rápido.",
-    home_dept_home: "Hogar & Cocina",
-    home_dept_electronics: "Electrónica",
-    home_dept_apparel: "Ropa",
-    home_dept_health: "Salud & Bienestar",
-    home_dept_pet: "Mascotas",
-    home_dept_sports: "Deportes & Aire Libre",
+    home_shop_dept_aria: 'Comprar por departamento',
+    home_shop_dept_eyebrow: 'Explorar la tienda',
+    home_shop_dept_heading: 'Departamentos activos. Rutas reales de compra.',
+    home_shop_dept_body:
+      'De lo esencial para el hogar hasta los últimos gadgets, Puchica te ofrece lo mejor de cada categoría, seleccionado, precio justo, envío rápido.',
+    home_dept_home: 'Hogar & Cocina',
+    home_dept_electronics: 'Electrónica',
+    home_dept_apparel: 'Ropa',
+    home_dept_health: 'Salud & Bienestar',
+    home_dept_pet: 'Mascotas',
+    home_dept_sports: 'Deportes & Aire Libre',
 
     home_curate_aria: 'Cómo seleccionamos',
-    home_curate_eyebrow: "Por qué Puchica",
-    home_curate_heading: "Lo bueno, sin complicaciones.",
-    home_curate_step1_h: "Seleccionamos de proveedores de confianza.",
-    home_curate_step1_b: "Trabajamos con proveedores verificados en todo el mundo para ofrecerte productos que valgan tu dinero.",
-    home_curate_step2_h: "Precio justo.",
-    home_curate_step2_b: "Sin recargos misteriosos, sin sorpresas. Lo que ves es lo que pagas.",
-    home_curate_step3_h: "Envío rápido.",
-    home_curate_step3_b: 'Las opciones de envío se confirman al pagar según los artículos y el destino. Nuestro equipo puede ayudarte antes o después de tu pedido.',
+    home_curate_eyebrow: 'Por qué Puchica',
+    home_curate_heading: 'Lo bueno, sin complicaciones.',
+    home_curate_step1_h: 'Seleccionamos de proveedores de confianza.',
+    home_curate_step1_b:
+      'Trabajamos con proveedores verificados en todo el mundo para ofrecerte productos que valgan tu dinero.',
+    home_curate_step2_h: 'Precio justo.',
+    home_curate_step2_b:
+      'Comparamos el precio con el costo de entrega y solo destacamos productos que pueden sostener una oferta viable.',
+    home_curate_step3_h: 'Envío rápido.',
+    home_curate_step3_b:
+      'Las opciones de envío se confirman al pagar según los artículos y el destino. Nuestro equipo puede ayudarte antes o después de tu pedido.',
 
     hero_store_stat_products: 'Catálogo',
     hero_store_stat_departments: 'Departamentos',
     hero_store_stat_shipping: 'Envío mostrado',
     hero_storefront_title: 'Formas populares de comprar',
-    shop_by_category_sub: 'Empieza por los departamentos activos y listos para comprar.',
-
-
+    shop_by_category_sub:
+      'Empieza por los departamentos activos y listos para comprar.',
   },
 
   // ════════════════════════════════════════════════════════════════
@@ -3411,12 +4031,14 @@ export const DICTIONARIES = {
     announce_offer: '15% de desconto no primeiro pedido, código FIRST15',
     announce_freeship: 'Opções de envio mostradas no checkout',
     announce_cta: 'Comprar agora',
-    offer_first15: 'Primeira compra? 15% de desconto no primeiro pedido com o código FIRST15.',
+    offer_first15:
+      'Primeira compra? 15% de desconto no primeiro pedido com o código FIRST15.',
     announce_region_aria: 'Avisos do site',
 
     footer_tagline: 'Achados úteis. Selecionado em Toronto. Frete claro.',
     footer_accepted_payments: 'Pagamentos aceitos',
-    footer_secure: 'Checkout seguro pela Shopify, criptografado e em conformidade com PCI',
+    footer_secure:
+      'Checkout seguro pela Shopify, criptografado e em conformidade com PCI',
     footer_shop: 'Loja',
     footer_care: 'Atendimento ao cliente',
     footer_about: 'Sobre nós',
@@ -3429,7 +4051,8 @@ export const DICTIONARIES = {
     footer_refund_policy: 'Política de reembolso',
     footer_terms: 'Termos de serviço',
     footer_newsletter_title: 'Assine nossa newsletter',
-    footer_newsletter_copy: 'Ofertas exclusivas e novidades, direto no seu e-mail.',
+    footer_newsletter_copy:
+      'Ofertas exclusivas e novidades, direto no seu e-mail.',
     footer_email_placeholder: 'Digite seu e-mail',
     footer_newsletter_email_aria: 'Endereço de e-mail',
     footer_newsletter_subscribe_aria: 'Inscrever-se',
@@ -3463,7 +4086,8 @@ export const DICTIONARIES = {
 
     hero_eyebrow: 'Seleção curada · Grátis no Canadá',
     hero_title: 'Tudo que importa.',
-    hero_sub: 'Achados úteis para casa, beleza, tech, pets e muito mais. Seleções reais de pessoas reais.',
+    hero_sub:
+      'Achados úteis para casa, beleza, tech, pets e muito mais. Seleções reais de pessoas reais.',
     hero_cta_shop: 'Comprar agora →',
     hero_cta_browse: 'Ver tudo',
     hero_stat_products: 'Produtos',
@@ -3477,7 +4101,7 @@ export const DICTIONARIES = {
     ticker_products: 'Catálogo ativo',
     ticker_new_drops: 'Novidades toda semana',
     ticker_free_shipping: 'Frete grátis no Canadá',
-    ticker_returns: 'Devoluções em 14 dias',
+    ticker_returns: 'Devoluções em 30 dias',
     ticker_ships: 'Entrega rápida',
     ticker_handpicked: 'Selecionado, nunca aleatório',
     ticker_real_value: 'Valor real. Descobertas reais.',
@@ -3522,7 +4146,8 @@ export const DICTIONARIES = {
     // ── Shipping reach ────────────────────────────────────────────
     ship_eyebrow: 'Para onde enviamos',
     ship_title: 'Enviamos para qualquer lugar.',
-    ship_sub: 'Enviamos para países do mundo inteiro. Onde quer que você esteja, nós levamos o seu pedido até você.',
+    ship_sub:
+      'Enviamos para países do mundo inteiro. Onde quer que você esteja, nós levamos o seu pedido até você.',
     ship_cta: 'Pergunte sobre o seu país',
     ship_section_aria: 'Destinos de envio',
     ship_compact_title: 'Cobertura por região',
@@ -3548,49 +4173,91 @@ export const DICTIONARIES = {
     ship_hero_eyebrow: 'Envio e Entrega',
     ship_hero_title_main: 'Envio e',
     ship_hero_title_em: 'Entrega.',
-    ship_hero_sub: 'A disponibilidade, os prazos e os custos de entrega são confirmados no checkout conforme os itens e o destino.',
+    ship_hero_sub:
+      'A disponibilidade, os prazos e os custos de entrega são confirmados no checkout conforme os itens e o destino.',
     ship_hero_cta: 'Ver o catálogo',
+    ship_launch_hero_sub:
+      'Uma única loja norte-americana com preços por mercado e opções de entrega confirmadas no checkout.',
+    ship_jump: 'Veja como a entrega é confirmada',
+    ship_launch_regions_eye: 'Loja norte-americana',
+    ship_launch_regions_title: 'Dois mercados. Uma loja focada.',
+    ship_launch_regions_sub:
+      'Escolha Canadá ou Estados Unidos para ver os preços do mercado. A entrega ainda depende dos itens e do endereço.',
+    ship_launch_rates_eye: 'Antes de pagar',
+    ship_launch_rates_title: 'Confira a entrega antes do pagamento',
+    ship_launch_rates_sub:
+      'O checkout mostra as opções disponíveis para os itens e o destino selecionados.',
+    ship_market_ca_name: 'Canadá · CAD',
+    ship_market_ca_detail:
+      'Preços em CAD; o checkout confirma se os itens selecionados podem ser entregues.',
+    ship_market_us_name: 'Estados Unidos · USD',
+    ship_market_us_detail:
+      'Preços em USD; o checkout confirma se os itens selecionados podem ser entregues.',
+    ship_check_destination_title: 'Confira seu destino',
+    ship_check_destination_body:
+      'Informe seu endereço no checkout para ver as opções disponíveis para o pedido.',
+    ship_check_destination_eta: 'Disponibilidade exibida antes do pagamento',
+    ship_check_items_title: 'Confira os itens do carrinho',
+    ship_check_items_body:
+      'As opções podem variar conforme o produto, a variante e o destino.',
+    ship_check_items_eta: 'O checkout confirma as opções do pedido',
+    ship_check_tracking_title: 'Acompanhe seu pedido',
+    ship_check_tracking_body:
+      'Quando houver serviço com rastreio, os detalhes serão enviados após o despacho.',
+    ship_check_tracking_eta: 'Consulte a política de envio para obter ajuda',
     ship_regions_eye: 'Para onde enviamos',
-    ship_regions_title: 'Cobertura em 8 regiões.',
-    ship_regions_sub: 'Enviamos para países do mundo inteiro. Escolha uma região para ver o que chega na sua porta.',
+    ship_regions_title: 'A cobertura aumenta após validação.',
+    ship_regions_sub:
+      'Só promovemos destinos após confirmar a cobertura do produto e do fornecedor.',
     ship_rates_eye: 'Taxas de envio',
-    ship_rates_title: 'Envio rápido e justo.',
-    ship_rates_sub: 'Prazos de entrega estimados e limites de frete grátis. O custo final é calculado no checkout com base no peso e no destino.',
+    ship_rates_title: 'Envio claro antes do pagamento.',
+    ship_rates_sub:
+      'O checkout confirma os serviços, o custo e a estimativa para os itens e o endereço selecionados.',
     ship_rates_canada_flag: 'CA',
     ship_rates_canada_title: 'Canadá',
-    ship_rates_canada_body: 'Frete padrão grátis em pedidos acima de $75. Taxa fixa abaixo do limite.',
-    ship_rates_canada_eta: '2 a 5 dias úteis',
-    ship_rates_canada_badge: 'Grátis acima de $75',
+    ship_rates_canada_body:
+      'Os serviços e custos disponíveis são mostrados no checkout para o pedido selecionado.',
+    ship_rates_canada_eta: 'Estimativa mostrada no checkout',
+    ship_rates_canada_badge: '',
     ship_rates_us_flag: 'US',
     ship_rates_us_title: 'Estados Unidos',
-    ship_rates_us_body: 'Opções padrão e expressa. Taxas e impostos calculados no checkout.',
-    ship_rates_us_eta: '5 a 9 dias úteis',
+    ship_rates_us_body:
+      'A disponibilidade depende dos itens, do carrinho e do destino.',
+    ship_rates_us_eta: 'Confirme no checkout',
     ship_rates_us_badge: '',
     ship_rates_intl_flag: 'INTL',
     ship_rates_intl_title: 'Internacional',
-    ship_rates_intl_body: 'Enviamos para 8 regiões do mundo. As transportadoras variam conforme o destino e o serviço.',
-    ship_rates_intl_eta: '7 a 21 dias úteis',
+    ship_rates_intl_body:
+      'A entrega internacional não é promovida atualmente. Confirme a disponibilidade no checkout.',
+    ship_rates_intl_eta: 'Sem promessa geral de entrega',
     ship_rates_intl_badge: '',
     ship_how_eye: 'Como funciona',
-    ship_how_title: 'Peça hoje, enviado amanhã.',
+    ship_how_title: 'Confira os detalhes antes de pedir.',
     ship_how_1_title: 'Faça seu pedido',
-    ship_how_1_body: 'Navegue pelo catálogo, adicione ao carrinho e finalize com segurança. Você receberá uma confirmação de pedido imediatamente.',
-    ship_how_2_title: 'Processamos em 24 horas',
-    ship_how_2_body: 'Nossa equipe separa e envia seu pedido em um dia útil. Você receberá uma confirmação de envio com rastreio.',
+    ship_how_1_body:
+      'Navegue pelo catálogo, adicione ao carrinho e finalize com segurança. Você receberá uma confirmação de pedido imediatamente.',
+    ship_how_2_title: 'Seu pedido é processado',
+    ship_how_2_body:
+      'Os prazos de processamento e entrega dependem do produto e do serviço escolhidos. As atualizações disponíveis são enviadas durante o processo.',
     ship_how_3_title: 'Entregue na sua porta',
-    ship_how_3_body: 'Seu pedido chega dentro do prazo estimado da sua região. Canadá geralmente 2 a 5 dias; internacional 7 a 21.',
+    ship_how_3_body:
+      'Use a estimativa mostrada no checkout para os itens e o endereço selecionados.',
     ship_track_eye: 'Rastreie seu pedido',
-    ship_track_title: 'Saiba exatamente onde está seu pacote.',
-    ship_track_body_1: 'Cada pedido é enviado com um número de rastreio. Nós o enviamos por e-mail assim que seu pedido sai do armazém, geralmente em um dia útil após o pagamento.',
-    ship_track_body_2: 'Clique no link de rastreio no seu e-mail, ou acesse sua conta e vá ao histórico de pedidos para ver o status ao vivo da transportadora.',
+    ship_track_title: 'Acompanhe as atualizações disponíveis.',
+    ship_track_body_1:
+      'Quando houver um serviço com rastreamento, os detalhes serão enviados após o despacho.',
+    ship_track_body_2:
+      'Use o link no e-mail de envio ou fale com o suporte informando o número do pedido.',
     ship_track_cta: 'Contatar suporte',
     ship_cta_title: 'Pronto para pedir?',
-    ship_cta_sub: 'Navegue por mais de 6.000 produtos com frete grátis no Canadá em pedidos acima de $75.',
+    ship_cta_sub:
+      'Compre organizadores e confirme a entrega para seu endereço no checkout.',
     ship_cta_browse: 'Ver todos os produtos',
 
     match_eyebrow: 'Descoberta personalizada',
     match_title: 'Puchica Match.',
-    match_sub: 'Deslize para a direita para <strong>Curtir</strong>, para a esquerda para <strong>Passar</strong>, ou para cima para <strong>Super Deslize &amp; Adicionar ao carrinho</strong>!',
+    match_sub:
+      'Deslize para a direita para <strong>Curtir</strong>, para a esquerda para <strong>Passar</strong>, ou para cima para <strong>Super Deslize &amp; Adicionar ao carrinho</strong>!',
     match_empty_title: 'Não há mais itens por hoje!',
     match_empty_body: 'Você viu todos os itens em alta e curtiu {count} deles.',
     match_reset: 'Deslizar novamente',
@@ -3604,7 +4271,8 @@ export const DICTIONARIES = {
 
     gift_eyebrow: 'Ideias de presente',
     gift_title: 'Encontre o presente perfeito.',
-    gift_sub: 'Mais de 6.000 opções para todos os orçamentos. Algo para cada pessoa na sua lista.',
+    gift_sub:
+      'Mais de 6.000 opções para todos os orçamentos. Algo para cada pessoa na sua lista.',
     gift_under25_label: 'Menos de $25',
     gift_under25_sub: 'Pequenos mimos, grandes sorrisos',
     gift_25_50_label: '$25 – $50',
@@ -3622,7 +4290,8 @@ export const DICTIONARIES = {
     // ── For You ───────────────────────────────────────────────────
     foryou_eyebrow: 'Selecionado para você',
     foryou_title: 'Imagine assim.',
-    foryou_sub: 'Uma curadoria com estilo próprio, cada foto feita para estes produtos.',
+    foryou_sub:
+      'Uma curadoria com estilo próprio, cada foto feita para estes produtos.',
     foryou_cta: 'Ver a seleção',
     foryou_section_aria: 'Vitrine Para você',
 
@@ -3641,35 +4310,43 @@ export const DICTIONARIES = {
     mood_title: 'Compre do jeito que você vive.',
     mood_home_label: 'Casa & Decoração',
     mood_home_title: 'Sua casa merece mais.',
-    mood_home_sub: 'Armazenamento, decoração, utensilios de cozinha, tudo para tornar seu espaço intencional.',
+    mood_home_sub:
+      'Armazenamento, decoração, utensilios de cozinha, tudo para tornar seu espaço intencional.',
     mood_home_cta: 'Melhore seu espaço →',
     mood_beauty_label: 'Beleza & Cuidado pessoal',
     mood_beauty_title: 'Cuide-se.',
-    mood_beauty_sub: 'Produtos de skincare, bem-estar e cuidado pessoal que realmente funcionam, escolhidos por quem os usa.',
+    mood_beauty_sub:
+      'Produtos de skincare, bem-estar e cuidado pessoal que realmente funcionam, escolhidos por quem os usa.',
     mood_beauty_cta: 'Se presenteie →',
     mood_tech_label: 'Tech & Gadgets',
     mood_tech_title: 'Trabalhe melhor, jogue mais forte.',
-    mood_tech_sub: 'Acessórios, ferramentas e gadgets que genuinamente melhoram seu dia. Sem enganação.',
+    mood_tech_sub:
+      'Acessórios, ferramentas e gadgets que genuinamente melhoram seu dia. Sem enganação.',
     mood_tech_cta: 'Potencialize-se →',
 
     review_eyebrow: 'O que as pessoas dizem',
     review_title: 'Compradores reais. Opiniões reais.',
-    review_1_quote: 'Fiz três pedidos no último mês. A qualidade é sempre ótima e a entrega é rápida.',
-    review_2_quote: 'Encontrei exatamente o que procurava, e muito mais. Este é meu novo lugar favorito para coisas de casa.',
-    review_3_quote: 'A curadoria é genuinamente boa. Tudo parece ter sido escolhido por alguém com bom gosto.',
+    review_1_quote:
+      'Fiz três pedidos no último mês. A qualidade é sempre ótima e a entrega é rápida.',
+    review_2_quote:
+      'Encontrei exatamente o que procurava, e muito mais. Este é meu novo lugar favorito para coisas de casa.',
+    review_3_quote:
+      'A curadoria é genuinamente boa. Tudo parece ter sido escolhido por alguém com bom gosto.',
 
     banner_eyebrow: 'Mais vendidos',
     banner_title: 'Os que as pessoas não param de comprar.',
-    banner_sub: 'Testados, pedidos novamente e presenteados a todos que conhecem. Estes são os produtos que merecem seu lugar na lista toda semana.',
+    banner_sub:
+      'Testados, pedidos novamente e presenteados a todos que conhecem. Estes são os produtos que merecem seu lugar na lista toda semana.',
     banner_cta: 'Ver todos os mais vendidos',
 
-    catalog_body: 'produtos. Uma só loja. Todas as categorias. Adicionamos mais toda semana, sempre há algo novo para descobrir.',
+    catalog_body:
+      'produtos. Uma só loja. Todas as categorias. Adicionamos mais toda semana, sempre há algo novo para descobrir.',
     catalog_cta_browse: 'Ver tudo →',
     catalog_cta_search: 'Buscar no catálogo',
 
     trust_shipping_title: 'Frete grátis',
     trust_shipping_sub: 'Em pedidos para o Canadá',
-    trust_returns_title: 'Devoluções em 14 dias',
+    trust_returns_title: 'Devoluções em 30 dias',
     trust_returns_sub: 'Sem perguntas, sem complicações',
     trust_secure_title: 'Checkout seguro',
     trust_secure_sub: 'Criptografado e em conformidade PCI',
@@ -3678,7 +4355,8 @@ export const DICTIONARIES = {
 
     newsletter_pill: 'Entre no clube',
     newsletter_title: 'Receba o melhor primeiro.',
-    newsletter_sub: 'Novidades, ofertas exclusivas e picks que você não encontrará em outro lugar, direto na sua caixa. Sem spam, cancele quando quiser.',
+    newsletter_sub:
+      'Novidades, ofertas exclusivas e picks que você não encontrará em outro lugar, direto na sua caixa. Sem spam, cancele quando quiser.',
     newsletter_done: 'Você está dentro! Verifique sua caixa de entrada.',
     newsletter_email_label: 'Endereço de e-mail',
     newsletter_placeholder: 'seu@email.com',
@@ -3704,7 +4382,8 @@ export const DICTIONARIES = {
     explore_filter_title: 'Filtrar por categoria',
     explore_filter_clear: 'Limpar tudo',
     explore_empty_title: 'Nenhum produto encontrado',
-    explore_empty_body: 'Tente ajustar suas seleções de categoria ou limpe os filtros.',
+    explore_empty_body:
+      'Tente ajustar suas seleções de categoria ou limpe os filtros.',
     explore_empty_reset: 'Redefinir filtros',
     explore_view_details: 'Ver detalhes',
     explore_cat_home: 'Casa & Cozinha',
@@ -3717,7 +4396,8 @@ export const DICTIONARIES = {
     col_filters_aria: 'Filtros',
     search_trending_label: 'Buscas populares',
     search_recent_label: 'Vistos recentemente',
-    search_trending_terms: 'casa cozinha, eletrônicos, brinquedos para pets, massageador, ferramentas jardim, presentes até 25',
+    search_trending_terms:
+      'casa cozinha, eletrônicos, brinquedos para pets, massageador, ferramentas jardim, presentes até 25',
     col_density_aria: 'Densidade da grade',
     col_density_3_aria: 'Mostrar 3 por linha',
     col_density_4_aria: 'Mostrar 4 por linha',
@@ -3729,7 +4409,8 @@ export const DICTIONARIES = {
     col_empty_title: 'Nada aqui ainda',
     col_empty_filtered: 'Nenhum produto corresponde a esses filtros.',
     col_clear_filters: 'Limpar filtros',
-    col_empty_restocking: 'Estamos reabastecendo esta coleção. Volte em breve ou explore o resto da loja.',
+    col_empty_restocking:
+      'Estamos reabastecendo esta coleção. Volte em breve ou explore o resto da loja.',
     col_showing: 'Mostrando',
     col_showing_more: 'até agora, carregue mais abaixo',
     col_product_singular: 'produto',
@@ -3757,14 +4438,16 @@ export const DICTIONARIES = {
     all_breadcrumb: 'Todos os produtos',
     all_eyebrow: 'A loja completa',
     all_title: 'Todos os produtos',
-    all_sub: 'O catálogo completo da Puchica, cada seleção curada em um só lugar. Filtre por categoria ou use a barra de busca.',
+    all_sub:
+      'O catálogo completo da Puchica, cada seleção curada em um só lugar. Filtre por categoria ou use a barra de busca.',
     all_empty_title: 'Nenhum produto para exibir',
-    all_empty_body: 'O catálogo está carregando. Se o problema persistir, tente atualizar a página.',
+    all_empty_body:
+      'O catálogo está carregando. Se o problema persistir, tente atualizar a página.',
     all_count_loading: 'Catálogo carregando',
 
     product_trust_shipping: 'Frete exibido no checkout',
     product_trust_shipping_sub: 'para o seu destino',
-    product_trust_returns: 'Janela de devolução de 14 dias',
+    product_trust_returns: 'Janela de devolução de 30 dias',
     product_trust_returns_sub: 'consulte a política para elegibilidade',
     product_trust_secure: 'Checkout seguro',
     product_trust_secure_sub: 'criptografado e em conformidade com PCI',
@@ -3777,11 +4460,13 @@ export const DICTIONARIES = {
     product_stock_low: 'Restam apenas {stock}',
     product_badge_sold_out: 'Esgotado',
     product_badge_save: 'Economize {pct}%',
-    product_reviews_stub: 'As avaliações de clientes verificados aparecerão aqui à medida que forem coletadas.',
+    product_reviews_stub:
+      'As avaliações de clientes verificados aparecerão aqui à medida que forem coletadas.',
     product_perk_packed: 'Opções de envio confirmadas no checkout',
     product_perk_return: 'Leia a política de reembolso antes de pedir',
     product_perk_curated: 'Curado pela equipe Puchica, nunca aleatório',
     product_tab_description: 'Descrição',
+    product_story_title: 'Por que merece seu espaço.',
     product_tab_specs: 'Especificações',
     product_tab_shipping: 'Envio & Devoluções',
     product_desc_empty: 'Sem descrição adicional para este produto.',
@@ -3790,11 +4475,14 @@ export const DICTIONARIES = {
     product_spec_sku: 'SKU',
     product_specs_empty: 'Nenhuma especificação disponível para este produto.',
     product_shipping_h: 'Envio',
-    product_shipping_body: 'A disponibilidade, o prazo e o custo de envio são confirmados no checkout para os itens e o destino selecionados. Quando houver serviço com rastreamento, os detalhes são enviados após o fornecedor despachar o pedido.',
+    product_shipping_body:
+      'A disponibilidade, o prazo e o custo de envio são confirmados no checkout para os itens e o destino selecionados. Quando houver serviço com rastreamento, os detalhes são enviados após o fornecedor despachar o pedido.',
     product_returns_h: 'Devoluções',
-    product_returns_body: 'Leia a política de reembolso antes de pedir. A elegibilidade e as instruções de devolução dependem do item e do pedido; fale com o suporte e informe seu número de pedido se precisar de ajuda.',
+    product_returns_body:
+      'Leia a política de reembolso antes de pedir. A elegibilidade e as instruções de devolução dependem do item e do pedido; fale com o suporte e informe seu número de pedido se precisar de ajuda.',
     product_help_h: 'Precisa de ajuda?',
-    product_help_body: 'Entre em contato a qualquer momento pela página de contato. Uma pessoa real da equipe Puchica responderá em até um dia útil.',
+    product_help_body:
+      'Envie sua dúvida sobre o produto ou pedido com os detalhes necessários para ajudarmos.',
     product_help_contact_link: 'página de contato',
     product_share_label: 'Compartilhar:',
     product_share_btn: 'Compartilhar',
@@ -3808,7 +4496,8 @@ export const DICTIONARIES = {
     product_notify_label: 'Notificar-me quando disponível',
     product_notify_placeholder: 'seu@email.com',
     product_notify_btn: 'Notificar-me',
-    product_notify_ok: 'Obrigado, avisaremos quando estiver disponível novamente.',
+    product_notify_ok:
+      'Obrigado, avisaremos quando estiver disponível novamente.',
     product_notify_error: 'Algo deu errado. Por favor, tente novamente.',
 
     atc_added: 'Adicionado ✓',
@@ -3882,12 +4571,14 @@ export const DICTIONARIES = {
     showcase_heading: 'Explore por categoria',
     showcase_sub: '{count} coleções. {pct} % do catálogo coberto.',
     showcase_eyebrow: 'Coleção {n}',
-    showcase_desc: 'Descubra nossa seleção de {title}, produtos curados com frete grátis no Canadá.',
+    showcase_desc:
+      'Descubra nossa seleção de {title}, produtos curados com frete grátis no Canadá.',
     showcase_cta: 'Comprar {title} →',
 
     // ── 404 / rota catch-all ────────────────────────────────────
     notfound_title: 'Não encontramos essa página',
-    notfound_sub: 'O link {path} não existe na Puchica. Pode ter sido movido, renomeado, ou nunca existiu. Tente uma destas opções:',
+    notfound_sub:
+      'O link {path} não existe na Puchica. Pode ter sido movido, renomeado, ou nunca existiu. Tente uma destas opções:',
     notfound_popular: 'Coleções populares',
     notfound_best: 'Mais vendidos →',
     notfound_new: 'Novidades →',
@@ -3909,20 +4600,25 @@ export const DICTIONARIES = {
     cart_heading_aria: 'Itens',
     cart_remove_region_aria: 'Remover do carrinho',
     cart_empty_title: 'Seu carrinho está vazio',
-    cart_empty_body: 'Nada aqui ainda, vamos encontrar algo que você vai amar. Nossas seleções mudam sempre, vale a pena dar uma olhada.',
+    cart_empty_body:
+      'Nada aqui ainda, vamos encontrar algo que você vai amar. Nossas seleções mudam sempre, vale a pena dar uma olhada.',
     cart_empty_cta_shop: 'Ver o catálogo',
     cart_empty_cta_best: 'Ver mais vendidos',
     cart_empty_perks_aria: 'Por que comprar com a gente',
     cart_empty_perk_shipping: 'Opções de entrega exibidas no checkout',
-    cart_empty_perk_returns: 'Devoluções em 14 dias',
-    cart_ghost_notice: 'Estes itens não estão disponíveis na sua região agora. Remova-os para esvaziar o carrinho.',
+    cart_empty_perk_returns: 'Devoluções em 30 dias',
+    cart_ghost_notice:
+      'Estes itens não estão disponíveis na sua região agora. Remova-os para esvaziar o carrinho.',
     cart_freeship_progress_remaining: 'Adicione {amount} para frete grátis',
     cart_freeship_progress_done: 'Você ganhou frete grátis',
-    cart_freeship_threshold_label: 'Frete grátis em pedidos acima de {threshold}',
+    cart_freeship_threshold_label:
+      'Frete grátis em pedidos acima de {threshold}',
     cart_summary_title: 'Totais',
     cart_summary_subtotal: 'Subtotal',
     cart_summary_empty_btn: 'Adicione um item para finalizar',
     cart_summary_checkout_btn: 'Continuar para o pagamento',
+    cart_checkout_unavailable:
+      'O pagamento está temporariamente indisponível. Atualize o carrinho e tente novamente.',
     cart_summary_discounts_aria: 'Descontos',
     cart_summary_discounts_h: 'Descontos',
     cart_summary_remove_discount: 'Remover desconto',
@@ -3937,7 +4633,8 @@ export const DICTIONARIES = {
     cart_summary_gift_placeholder: 'Digite o código do cartão',
     cart_summary_gift_apply_aria: 'Aplicar cartão-presente',
     cart_summary_gift_apply: 'Aplicar',
-    cart_summary_remove_gift_aria: 'Remover cartão-presente terminado em {last}',
+    cart_summary_remove_gift_aria:
+      'Remover cartão-presente terminado em {last}',
     cart_qty_aria: 'Quantidade',
     cart_qty_dec_aria: 'Diminuir quantidade',
     cart_qty_inc_aria: 'Aumentar quantidade',
@@ -3984,14 +4681,24 @@ export const DICTIONARIES = {
     // ── Chrome das gavetas ──────────────────────────────────────
     aside_close_drawer: 'Fechar gaveta',
     aside_close: 'Fechar',
-    locale_change_aria: 'Mudar idioma',
+    locale_change_aria: 'Mudar mercado ou idioma',
+    locale_switching: 'Alterando…',
+    locale_switching_status: 'Atualizando o mercado e a moeda.',
+    locale_market_label: 'Mercado',
+    locale_market_ca: 'Canadá',
+    locale_market_us: 'Estados Unidos',
+    locale_market_unavailable: 'Indisponível',
+    locale_language_label: 'Idioma',
+    mobile_market_language: 'Mercado e idioma',
     skip_to_content: 'Pular para o conteúdo principal',
 
     // ── ErrorBoundary raiz / 404 / busca em erro ──────────────
     err_404_h: 'Não encontramos essa página',
     err_500_h: 'Algo deu errado do nosso lado',
-    err_404_body: 'O link pode estar quebrado, ou a página pode ter sido movida. Tente uma busca ou volte para a loja.',
-    err_500_body: 'Tivemos um erro inesperado ao renderizar esta página. Tente de novo, ou explore o catálogo abaixo.',
+    err_404_body:
+      'O link pode estar quebrado, ou a página pode ter sido movida. Tente uma busca ou volte para a loja.',
+    err_500_body:
+      'Tivemos um erro inesperado ao renderizar esta página. Tente de novo, ou explore o catálogo abaixo.',
     err_search_aria: 'Buscar na loja',
     err_search_placeholder: 'Buscar na loja…',
     err_search_btn: 'Buscar',
@@ -4040,12 +4747,14 @@ export const DICTIONARIES = {
     np_close_backdrop: 'Fechar',
     np_close_x: 'Fechar',
     np_success_h: 'Você está dentro!',
-    np_success_body: 'Aqui está 15% de desconto no seu primeiro pedido. Use este código no pagamento:',
+    np_success_body:
+      'Aqui está 15% de desconto no seu primeiro pedido. Use este código no pagamento:',
     np_copy_btn: 'Copiado!',
     np_copy_hint: 'Toque para copiar',
     np_success_cta: 'Comece a comprar →',
     np_form_h: 'Ganhe 15% de desconto no primeiro pedido',
-    np_form_body: 'Entre na lista para novidades e ofertas só para membros. Enviaremos seu código na hora. Sem spam, cancele quando quiser.',
+    np_form_body:
+      'Entre na lista para novidades e ofertas só para membros. Enviaremos seu código na hora. Sem spam, cancele quando quiser.',
     np_email_placeholder: 'seu@email.com',
     np_email_aria: 'Endereço de e-mail',
     np_joining: 'Entrando…',
@@ -4066,24 +4775,27 @@ export const DICTIONARIES = {
     search_results_h_fallback: 'Buscar',
     search_input_placeholder: 'Buscar produtos…',
     search_submit: 'Buscar',
-    search_zero_hint: 'Busque por palavra-chave ou navegue pelas nossas categorias mais populares acima.',
+    search_zero_hint:
+      'Busque por palavra-chave ou navegue pelas nossas categorias mais populares acima.',
     pred_articles: 'Artigos',
     pred_collections: 'Coleções',
     pred_pages: 'Páginas',
     pred_products: 'Produtos',
     pred_empty_title: 'Comece a digitar para buscar',
-    pred_empty_body: 'Tente categorias como "mais vendidos", "casa" ou nomes específicos de produtos.',
+    pred_empty_body:
+      'Tente categorias como "mais vendidos", "casa" ou nomes específicos de produtos.',
     pred_pill_best: 'Mais vendidos',
     pred_pill_all: 'Todas as categorias',
     pred_pill_new: 'Novidades',
     pred_no_results_h: 'Sem resultados para "{term}"',
-    pred_no_results_body: 'Tente outra palavra-chave ou explore os mais amados.',
+    pred_no_results_body:
+      'Tente outra palavra-chave ou explore os mais amados.',
 
     // ── H1 da página do carrinho ────────────────────────────────
     cart_page_h: 'Carrinho',
     cart_page_eyebrow: 'Seu carrinho',
     cart_trust_aria: 'Por que comprar com a gente',
-    cart_trust_returns: 'Devoluções em 14 dias',
+    cart_trust_returns: 'Devoluções em 30 dias',
     cart_trust_shipping: 'Envio em 24 horas',
     cart_trust_secure: 'Pagamento seguro',
 
@@ -4093,18 +4805,30 @@ export const DICTIONARIES = {
     col_index_breadcrumb_current: 'Coleções',
     col_index_eyebrow: 'Explorar',
     col_index_h: 'Todas as coleções',
-    col_index_sub: 'Escolha uma categoria e mergulhe. Cada coleção é curada a mão, só mantemos o que usaríamos nós mesmos.',
+    col_index_sub:
+      'Escolha uma categoria e mergulhe. Cada coleção é curada a mão, só mantemos o que usaríamos nós mesmos.',
     col_index_count: 'Puchica',
     col_index_empty_h: 'Ainda não há coleções',
-    col_index_empty_body: 'As coleções aparecerão aqui conforme forem adicionadas.',
+    col_index_empty_body:
+      'As coleções aparecerão aqui conforme forem adicionadas.',
     col_index_card_cta: 'Comprar a coleção →',
 
     // ── Índice de políticas ─────────────────────────────────────
     policies_h: 'Políticas',
-    policies_sub: 'Envio, devoluções, privacidade e termos para pedidos na Puchica.',
+    policies_sub:
+      'Envio, devoluções, privacidade e termos para pedidos na Puchica.',
 
     // ── Link de volta das políticas ─────────────────────────────
     policy_back: 'Voltar para Políticas',
+    refund_summary_title: 'Antes de enviar uma devolução',
+    refund_summary_start:
+      'Entre em contato dentro de 30 dias após a entrega. Não envie nada antes de confirmarmos a elegibilidade, as instruções e o endereço de devolução.',
+    refund_summary_shipping:
+      'A responsabilidade pelo frete de devolução depende do motivo e da política completa. Se um item chegar danificado ou incorreto, escreva logo com os dados do pedido.',
+    refund_summary_timing:
+      'Os reembolsos aprovados são enviados ao método de pagamento original após o recebimento e a análise da devolução. O prazo bancário pode variar.',
+    refund_summary_control:
+      'Este resumo não substitui a política completa da Shopify abaixo, que prevalece se houver alguma diferença.',
 
     // ── Índice de blogs ─────────────────────────────────────────
     blogs_h: 'Blogs',
@@ -4184,10 +4908,11 @@ export const DICTIONARIES = {
 
     // ── Página Sobre ──────────────────────────────────────────────
     about_hero_eyebrow: 'Nossa história',
-    about_hero_title_main: 'Produtos de qualidade.',
-    about_hero_title_em: 'Selecionados para VOCÊ.',
-    about_hero_sub: 'A Puchica é uma loja canadense focada em descobertas curadas. Nós avaliamos milhares de produtos para que você não precise fazer isso.',
-    about_hero_cta: 'Comece a comprar →',
+    about_hero_title_main: 'Menos bagunça.',
+    about_hero_title_em: 'Mais espaço para respirar.',
+    about_hero_sub:
+      'A Puchica é uma pequena empresa canadense com organizadores práticos para espaços pequenos, tecnologia do dia a dia e viagens.',
+    about_hero_cta: 'Ver a coleção de lançamento →',
     about_stats_aria: 'Puchica em números',
     about_stat_products_num: 'Ativo',
     about_stat_products_label: 'Produtos selecionados',
@@ -4195,24 +4920,32 @@ export const DICTIONARIES = {
     about_stat_quality_label: 'Controle de qualidade',
     about_stat_shipping_num: '$0',
     about_stat_shipping_label: 'Frete no Canadá',
-    about_stat_returns_num: '14 dias',
+    about_stat_returns_num: '30 dias',
     about_stat_returns_label: 'Devoluções sem complicação',
     about_mission_eye: 'Por que existimos',
-    about_mission_title: 'Existem muitos produtos. A maioria é esquecível.',
-    about_mission_body_1: 'Nós filtramos tudo para você. Cada um recebe uma análise honesta: funciona? Vale o preço? Usaríamos nós mesmos? Se a resposta for não para qualquer uma dessas, não entra no catálogo.',
-    about_mission_body_2: 'A Puchica é uma loja canadense. Trabalhamos diretamente com uma rede selecionada de fornecedores para trazer uma ampla variedade sem comprometer a qualidade. Você recebe uma seleção real, curada, em vez de um palpite sobre o que pode vender.',
-    about_mission_card_text: 'Avaliamos milhares de produtos. Só passam os que valem o seu dinheiro.',
-    about_how_eye: 'Como selecionamos',
-    about_how_title: 'Cada produto ganha seu lugar.',
-    about_how_1_title: 'Encontramos',
-    about_how_1_body: 'Nossa equipe confere novos produtos o tempo todo, feiras, fornecedores, redes sociais. Nenhum algoritmo decide o que entra.',
-    about_how_2_title: 'Testamos',
-    about_how_2_body: 'Funciona? Vale o preço? Usaríamos? Se alguma resposta for não, não passa.',
-    about_how_3_title: 'Você recebe',
-    about_how_3_body: 'Se passa, está na loja. Entregue na sua porta, com etiqueta de devolução pré-paga em cada caixa.',
+    about_mission_title:
+      'Em um espaço pequeno, cada coisa fora do lugar parece maior.',
+    about_mission_body_1:
+      'Uma gaveta cheia, um cabo enrolado ou uma mala lotada pode complicar um dia comum. A Puchica ajuda a resolver esses pequenos problemas recorrentes.',
+    about_mission_body_2:
+      'Mantemos o catálogo intencionalmente focado: organização da casa, controle de cabos e viagens. Menos categorias significa que cada produto precisa ter uma função clara.',
+    about_mission_card_text:
+      'Útil primeiro. Claro antes do pagamento. Vale o espaço que ocupa.',
+    about_how_eye: 'O que merece um lugar',
+    about_how_title: 'Cada produto deve justificar o espaço que ocupa.',
+    about_how_1_title: 'Resolve um problema específico',
+    about_how_1_body:
+      'Buscamos organizadores com uma função clara: facilitar o uso de um armário, manter um cabo ao alcance ou simplificar a bagagem.',
+    about_how_2_title: 'Funciona em espaços limitados',
+    about_how_2_body:
+      'Priorizamos produtos compactos e simples que ajudam a aproveitar melhor o espaço disponível.',
+    about_how_3_title: 'Fácil de entender antes da compra',
+    about_how_3_body:
+      'O produto precisa ter um propósito, detalhes e opções claros. A disponibilidade, o custo e o prazo de entrega são confirmados no checkout.',
     about_cats_eye: 'O que oferecemos',
     about_cats_title: 'Achados úteis. Uma só loja.',
-    about_cats_sub: 'Em todas as categorias que realmente importam no seu dia a dia.',
+    about_cats_sub:
+      'Em todas as categorias que realmente importam no seu dia a dia.',
     about_cat_home_name: 'Casa & Decoração',
     about_cat_home_sub: 'Organização, decoração, cozinha',
     about_cat_beauty_name: 'Beleza & Cuidados',
@@ -4225,12 +4958,14 @@ export const DICTIONARIES = {
     about_cat_pet_sub: 'Brinquedos, equipamentos, higiene',
     about_cat_gift_name: 'Presentes',
     about_cat_gift_sub: 'Para todos na sua lista',
-    about_promise_quote: 'Cada produto Puchica foi testado a fundo pela nossa equipe. Oferecemos a seleção mais curada de produtos que conseguimos encontrar. Se não usaríamos nós mesmos, não será Puchica.',
+    about_promise_quote:
+      'Cada produto Puchica foi testado a fundo pela nossa equipe. Oferecemos a seleção mais curada de produtos que conseguimos encontrar. Se não usaríamos nós mesmos, não será Puchica.',
     about_promise_attr: 'Equipe Puchica, Toronto ON',
-    about_cta_title: 'Pronto para encontrar o seu?',
+    about_cta_title: 'Pronto para abrir espaço para dias mais tranquilos?',
     about_dept_title: 'Explorar a loja',
-    about_cta_sub: 'Produtos úteis, escolhidos por humanos. Preços claros, devoluções em 14 dias, entrega rápida.',
-    about_cta_browse: 'Ver tudo →',
+    about_cta_sub:
+      'Comece por uma gaveta, armário, pilha de cabos ou mala que nunca parece ficar organizada.',
+    about_cta_browse: 'Ver todos os organizadores →',
     about_cta_contact: 'Fale conosco',
 
     // ── Página About, novas seções (linha do tempo, valores, equipe, raízes, departamentos) ──
@@ -4239,51 +4974,102 @@ export const DICTIONARIES = {
     about_story_sub: 'Alguns momentos que nos trouxeram até aqui.',
     about_story_1_year: '2021',
     about_story_1_title: 'Começou com um "puchica"',
-    about_story_1_body: 'Uma pequena ideia nascida em Toronto: criar uma loja onde tudo valha a pena comprar. Sem enrolação, sem lixo, sem escolhas por algoritmo.',
+    about_story_1_body:
+      'Uma pequena ideia nascida em Toronto: criar uma loja onde tudo valha a pena comprar. Sem enrolação, sem lixo, sem escolhas por algoritmo.',
     about_story_2_year: '2022',
     about_story_2_title: 'Os primeiros 1.000 produtos',
-    about_story_2_body: 'Construímos uma rede de fornecedores verificados e curamos nossos primeiros mil achados: casa, beleza, tech, pets.',
+    about_story_2_body:
+      'Construímos uma rede de fornecedores verificados e curamos nossos primeiros mil achados: casa, beleza, tech, pets.',
     about_story_3_year: '2024',
     about_story_3_title: 'Um catálogo mais claro, reconstruído com cuidado',
-    about_story_3_body: 'O catálogo está sendo ajustado em torno de produtos ativos, fáceis de comprar e apoiados por uma política clara de devolução em 14 dias.',
+    about_story_3_body:
+      'O catálogo está sendo ajustado em torno de produtos ativos, fáceis de comprar e apoiados por uma política clara de devolução em 30 dias.',
     about_story_4_year: 'Hoje',
     about_story_4_title: 'Raízes pelas Américas',
-    about_story_4_body: 'De uma base em Toronto até compradores por toda as Américas, a missão continua a mesma: o que é bom, escolhido à mão.',
+    about_story_4_body:
+      'De uma base em Toronto até compradores por toda as Américas, a missão continua a mesma: o que é bom, escolhido à mão.',
 
     about_values_eye: 'O que defendemos',
     about_values_title: 'Nossos valores.',
     about_values_sub: 'As regras por trás de cada escolha que fazemos.',
     about_values_1_title: 'Curado, não lotado',
-    about_values_1_body: 'Dizemos não a muito mais do que dizemos sim. Um catálogo menor e melhor vence um gigante e medíocre.',
+    about_values_1_body:
+      'Dizemos não a muito mais do que dizemos sim. Um catálogo menor e melhor vence um gigante e medíocre.',
     about_values_2_title: 'Preços justos sempre',
-    about_values_2_body: 'Sem descontos falsos, sem margens misteriosas. O preço que você vê é honesto, e o valor é real.',
+    about_values_2_body:
+      'Sem descontos falsos, sem margens misteriosas. O preço que você vê é honesto, e o valor é real.',
     about_values_3_title: 'Alma acima de tendências',
-    about_values_3_body: 'Escolhemos coisas que duram e importam, não o que o algoritmo está empurrando esta semana.',
+    about_values_3_body:
+      'Escolhemos coisas que duram e importam, não o que o algoritmo está empurrando esta semana.',
     about_values_4_title: 'Enviado por parceiros de confiança',
-    about_values_4_body: 'Cada pedido sai de um parceiro verificado em 24 horas, com uma etiqueta de devolução pré-paga em cada caixa.',
+    about_values_4_body:
+      'Cada pedido sai de um parceiro verificado em 24 horas, com uma etiqueta de devolução pré-paga em cada caixa.',
 
     about_team_eye: 'Quem somos',
     about_team_title: 'Pessoas reais, escolhas reais.',
-    about_team_sub: 'Uma equipe pequena em Toronto, por trás de cada produto que passa no filtro.',
+    about_team_sub:
+      'Uma equipe pequena em Toronto, por trás de cada produto que passa no filtro.',
     about_team_1_name: 'Mariana L.',
     about_team_1_role: 'Fundadora & Curadora',
-    about_team_1_bio: 'Lançou a Puchica após anos de frustração comprando online. Agora lidera a curadoria e as relações com fornecedores.',
+    about_team_1_bio:
+      'Lançou a Puchica após anos de frustração comprando online. Agora lidera a curadoria e as relações com fornecedores.',
     about_team_2_name: 'Diego R.',
     about_team_2_role: 'Líder de Operações',
-    about_team_2_bio: 'Mantém a rede de fornecedores funcionando e cada pedido enviado no prazo. O motivo de o seu pacote chegar rápido.',
+    about_team_2_bio:
+      'Mantém a rede de fornecedores funcionando e cada pedido enviado no prazo. O motivo de o seu pacote chegar rápido.',
     about_team_3_name: 'Sofía M.',
     about_team_3_role: 'Comunidade & Atendimento',
-    about_team_3_bio: 'Responde às suas perguntas, ouve o seu feedback e garante que a loja continue melhorando.',
+    about_team_3_bio:
+      'Responde às suas perguntas, ouve o seu feedback e garante que a loja continue melhorando.',
 
     about_roots_aria: 'Nossas raízes centro-americanas',
-    about_roots_eyebrow: 'Raíces centroamericanas',
-    about_roots_heading: 'Puchica é uma palavra centro-americana para um sentimento centro-americano.',
-    about_roots_body: '“Puchica” é a palavra que você diz quando algo te surpreende, quando é surpreendentemente bom, inesperadamente delicioso, o tipo de coisa que te faz parar e olhar duas vezes. Esse sentimento é o que queremos que cada produto desta loja te dê. Levamos esse espírito centro-americano de calor, ofício e orgulho em tudo o que curamos, de onde quer que seja enviado.',
-    about_roots_signature: 'Da nossa família até a sua porta',
+    about_roots_eyebrow: 'De onde vem o nome',
+    about_roots_heading: 'Puchica começa com uma sensação de surpresa útil.',
+    about_roots_body:
+      '“Puchica” é uma expressão centro-americana familiar de surpresa, como a reação que uma solução inesperadamente inteligente pode provocar. Esse espírito orienta a marca: itens práticos que resolvem um incômodo cotidiano sem criar mais bagunça.',
+    about_roots_signature: 'Empresa canadense. Organização prática, escolhida com cuidado.',
+    about_hero_caption: 'Pensado para os lugares que ficam bagunçados primeiro.',
+    about_hero_image_alt:
+      'Uma cozinha pequena e acolhedora com armários abertos e organização cotidiana',
+    about_roots_image_alt:
+      'Um tecido colorido e um recipiente de cerâmica pintada',
+    about_standards_intro:
+      'Um catálogo menor só funciona quando o motivo de cada produto é fácil de explicar.',
+    about_shop_eye: 'Compre por necessidade',
+    about_shop_title: 'Comece pelo espaço que sempre atrapalha.',
+    about_shop_home_title: 'Organização da casa',
+    about_shop_cable_title: 'Organização de cabos',
+    about_shop_travel_title: 'Organização de viagem',
+    about_shop_home_body:
+      'Gavetas, armários, bancadas e cantos difíceis.',
+    about_shop_cable_body:
+      'Carregadores, cabos e pequenos aparelhos que somem.',
+    about_shop_travel_body: 'Bagagem, organização e itens do dia a dia.',
+    about_shop_all: 'Ver todos os organizadores',
+    about_now_eye: 'Entrega mais clara',
+    about_now_title: 'Veja suas opções de entrega antes de pagar.',
+    about_now_body:
+      'A origem e o prazo de envio podem variar conforme o item e o endereço. O checkout mostra as opções disponíveis para o pedido antes do pagamento.',
+    about_now_email: 'Dúvidas? Escreva para hello@puchica.ca',
+    about_delivery_panel_title: 'Prévia de entrega no checkout',
+    about_delivery_step_1_title: 'Escolha um item',
+    about_delivery_step_1_body: 'Adicione um organizador e informe seu endereço.',
+    about_delivery_step_2_title: 'Veja as opções disponíveis',
+    about_delivery_step_2_body: 'O checkout calcula as alternativas para o pedido.',
+    about_delivery_step_3_title: 'Revise antes de pagar',
+    about_delivery_step_3_body: 'Compare o prazo e o custo disponíveis.',
+    about_delivery_note: 'Detalhes de entrega exibidos antes do pagamento',
+    about_fact_based_label: 'Localizada no',
+    about_fact_based_value: 'Canadá',
+    about_fact_market_label: 'Mercado atual',
+    about_fact_market_value: 'Clientes nos Estados Unidos',
+    about_fact_delivery_label: 'Antes do pagamento',
+    about_fact_delivery_value: 'Opções de entrega exibidas no checkout',
 
     about_depts_eye: 'Continue explorando',
     about_depts_title: 'Comprar por departamento.',
-    about_depts_sub: 'Cada categoria, curada com o mesmo cuidado. Escolha por onde começar.',
+    about_depts_sub:
+      'Cada categoria, curada com o mesmo cuidado. Escolha por onde começar.',
     about_depts_shop_cta: 'Comprar →',
     about_depts_home: 'Casa & Decoração',
     about_depts_beauty: 'Beleza & Cuidados',
@@ -4295,85 +5081,111 @@ export const DICTIONARIES = {
     // ── Página de contato ─────────────────────────────────────────
     contact_hero_eyebrow: 'Fale conosco',
     contact_hero_title: 'Estamos aqui para ajudar.',
-    contact_hero_sub: 'Dúvidas sobre um pedido, um produto ou qualquer outra coisa? Escolha o canal que funciona para você, uma pessoa real da equipe Puchica responderá, geralmente em um dia útil.',
+    contact_hero_sub:
+      'Para ajuda com um pedido, inclua o número. Para um produto, inclua o nome ou link.',
     contact_channels_aria: 'Formas de entrar em contato',
     contact_ig_title: 'DM no Instagram',
-    contact_ig_body: 'O mais rápido para uma pergunta rápida. A gente confere as DMs o dia todo.',
+    contact_ig_body:
+      'Acompanhe demonstrações de produtos e ideias de organização.',
     contact_ig_fallback: 'Instagram',
     contact_fb_title: 'Mensagem no Facebook',
-    contact_fb_body: 'Outra forma fácil de falar com a gente. Mesma equipe, mesmo tempo de resposta.',
+    contact_fb_body:
+      'Acompanhe novidades de produtos e ideias de organização.',
     contact_fb_fallback: 'Facebook',
     contact_tiktok_title: 'Nos encontre no TikTok',
-    contact_tiktok_body: 'Novas descobertas, bastidores e unboxings de vez em quando.',
+    contact_tiktok_body:
+      'Novas descobertas, bastidores e unboxings de vez em quando.',
     contact_tiktok_fallback: 'TikTok',
     contact_promises_aria: 'O que esperar',
     contact_promises_eyebrow: 'O que esperar',
-    contact_promises_title: 'Pessoas reais, respostas rápidas',
-    contact_promise_1_strong: 'Pessoa real na equipe',
-    contact_promise_1_body: 'Sem bots, sem respostas automáticas. Cada mensagem chega a uma pessoa.',
-    contact_promise_2_strong: 'Geralmente em um dia útil',
-    contact_promise_2_body: 'Frequentemente mais rápido. No pior caso: um dia útil, de segunda a sexta, 9h às 17h ET.',
-    contact_promise_3_strong: 'Ajuda com pedidos todos os dias',
-    contact_promise_3_body: 'Perguntas de rastreamento, devoluções, mudanças de endereço, sim, também nos fins de semana.',
+    contact_promises_title: 'Ajude-nos a encontrar a resposta certa',
+    contact_promise_1_strong: 'Inclua os dados principais',
+    contact_promise_1_body:
+      'Inclua o número do pedido, o link do produto e sua pergunta.',
+    contact_promise_2_strong: 'Aguarde dois dias úteis',
+    contact_promise_2_body:
+      'Buscamos responder em até dois dias úteis. Consultas ao fornecedor ou transportador podem levar mais tempo.',
+    contact_promise_3_strong: 'Confirmamos o que é possível',
+    contact_promise_3_body:
+      'Alterações, cancelamentos e devoluções dependem do status do pedido e da política aplicável.',
     contact_faq_aria: 'Perguntas comuns',
     contact_faq_eyebrow: 'Perguntas comuns',
     contact_faq_title: 'A versão curta',
     contact_faq_1_q: 'Onde está meu pedido?',
-    contact_faq_1_a: 'Seu link de rastreamento está no e-mail de confirmação de envio, geralmente em 1–2 dias úteis após o pedido. Se o rastreamento não mostrar movimento por 5+ dias úteis, escreva para nós e vamos investigar.',
+    contact_faq_1_a:
+      'Quando houver um serviço com rastreamento, o link será incluído no e-mail de confirmação de envio. Escreva para nós com o número do pedido se precisar de ajuda.',
     contact_faq_2_q: 'Posso alterar ou cancelar meu pedido?',
-    contact_faq_2_a: 'Em até 2 horas depois de fazer o pedido, sim, basta responder à confirmação do pedido. Depois disso, o pedido está sendo preparado para envio e alterações não são possíveis, mas devoluções são sempre gratuitas quando chegar.',
+    contact_faq_2_a:
+      'Entre em contato o mais rápido possível com o número do pedido. Confirmaremos se o fornecedor já começou a processá-lo e quais opções ainda estão disponíveis.',
     contact_faq_3_q: 'Como funcionam as devoluções?',
-    contact_faq_3_a: 'Uma etiqueta de devolução pré-paga vem em cada caixa. Reembale o item, destaque a etiqueta, entregue. O reembolso cai no método de pagamento original em 5–7 dias úteis após o recebimento.',
+    contact_faq_3_a:
+      'Entre em contato dentro de 30 dias após a entrega. Não envie nada antes de confirmarmos a elegibilidade e as instruções. A responsabilidade pelo frete depende do motivo e da política.',
     contact_faq_4_q: 'Para onde vocês enviam?',
-    contact_faq_4_a: 'Para qualquer lugar. Enviamos para países do mundo inteiro, para um país específico, escreva para nós e confirmaremos.',
+    contact_faq_4_a:
+      'Canadá e Estados Unidos são mercados selecionáveis. A entrega ainda depende do produto e endereço; o checkout deve confirmar o carrinho antes do pagamento.',
     contact_faq_5_q: 'Os produtos nas fotos são exatamente o que vou receber?',
-    contact_faq_5_a: 'Sim. As fotos de produtos em cada ficha são o produto real que enviamos, o que você vê é o que você recebe.',
-    contact_faq_foot: 'Não vê sua pergunta? {email}, lemos tudo.',
-    contact_faq_foot_link: 'Escreva para nós',
+    contact_faq_5_a:
+      'Confira as fotos, a variante escolhida, as dimensões e a descrição. Escreva antes de pedir se algum detalhe não estiver claro.',
     contact_cta_title: 'Ainda tem uma pergunta?',
-    contact_cta_body: 'Escreva para a gente. Lemos cada mensagem e ficamos felizes em ajudar.',
+    contact_cta_body:
+      'O e-mail é melhor para pedidos. Buscamos responder em até dois dias úteis.',
     contact_cta_button: 'Escrever para {email}',
 
     // ── Página FAQ (rota dedicada /pages/faq) ──────────────────
     faq_accordion_aria: 'Perguntas frequentes',
     faq_hero_eyebrow: 'Central de ajuda',
     faq_hero_title: 'Perguntas frequentes',
-    faq_hero_sub: 'Respostas rápidas para as perguntas que mais ouvimos, pedidos, devoluções, produtos e sua conta.',
+    faq_hero_sub:
+      'Respostas rápidas para as perguntas que mais ouvimos, pedidos, devoluções, produtos e sua conta.',
     faq_cat_orders: 'Pedidos e envio',
     faq_cat_returns: 'Devoluções e reembolsos',
     faq_cat_products: 'Produtos',
     faq_cat_account: 'Conta',
     faq_orders_1_q: 'Quanto tempo leva o envio?',
-    faq_orders_1_a: 'Os pedidos são enviados em 1–2 dias úteis. A entrega geralmente leva 3–7 dias úteis dentro do Canadá e 7–14 dias úteis para os Estados Unidos. Pedidos internacionais variam conforme o destino, geralmente 10–21 dias úteis.',
+    faq_orders_1_a:
+      'Os prazos de processamento e entrega variam conforme o produto. Informe seu endereço no checkout para consultar a estimativa disponível antes do pagamento.',
     faq_orders_2_q: 'Vocês enviam internacionalmente?',
-    faq_orders_2_a: 'Sim. Enviamos para países do mundo inteiro. Para um país específico, escreva para nós e confirmaremos as taxas e os prazos antes de você pedir.',
+    faq_orders_2_a:
+      'Canadá e Estados Unidos são mercados selecionáveis. A seleção não garante a entrega de todos os itens; o checkout confirma o carrinho e o endereço antes do pagamento.',
     faq_orders_3_q: 'Como rastrear meu pedido?',
-    faq_orders_3_a: 'Seu link de rastreamento está no e-mail de confirmação de envio, geralmente em 1–2 dias úteis após o pedido. Se o rastreamento não mostrar movimento por 5+ dias úteis, escreva para nós e vamos investigar.',
+    faq_orders_3_a:
+      'Quando houver um serviço com rastreamento, o link será incluído no e-mail de confirmação de envio. Entre em contato com o número do pedido se precisar de ajuda.',
     faq_orders_4_q: 'Quais são as taxas de envio?',
-    faq_orders_4_a: 'O envio é gratuito em todo o Canadá para pedidos acima de $75. Abaixo de $75 é uma taxa fixa de $7.95. Pedidos para os Estados Unidos são uma taxa fixa de $14.95. Taxas internacionais são calculadas no checkout conforme destino e peso.',
+    faq_orders_4_a:
+      'Os serviços, o custo e o prazo de entrega são confirmados no checkout conforme os itens selecionados e o destino.',
     faq_returns_1_q: 'Qual é a política de devoluções?',
-    faq_returns_1_a: 'Oferecemos devoluções em 14 dias para itens não usados na embalagem original. Se algo chegar danificado ou errado, resolveremos, sem necessidade de devolução para erro nosso.',
+    faq_returns_1_a:
+      'Entre em contato dentro de 30 dias após a entrega. A elegibilidade depende do item, do estado e da política de reembolso. Escreva logo se chegar danificado ou incorreto.',
     faq_returns_2_q: 'Como iniciar uma devolução?',
-    faq_returns_2_a: 'Uma etiqueta de devolução pré-paga vem em cada caixa. Reembale o item, destaque a etiqueta, entregue em qualquer ponto de coleta. Não precisa escrever para nós antes.',
+    faq_returns_2_a:
+      'Escreva com o número do pedido e o motivo. Não envie nada antes de confirmarmos a elegibilidade e o endereço. A responsabilidade pelo frete depende do motivo e da política.',
     faq_returns_3_q: 'Quando receberei meu reembolso?',
-    faq_returns_3_a: 'O reembolso cai no método de pagamento original em 5–7 dias úteis após o recebimento do item devolvido. Você receberá um e-mail de confirmação assim que for processado.',
-    faq_products_1_q: 'Seus produtos são autênticos?',
-    faq_products_1_a: 'Sim. Cada produto que listamos é adquirido diretamente da marca ou de um distribuidor autorizado. Nunca vendemos falsificações, se não compraríamos nós mesmos, não entra.',
+    faq_returns_3_a:
+      'Os reembolsos aprovados são enviados ao método de pagamento original após o recebimento e a análise do item devolvido. O prazo de processamento bancário pode variar.',
+    faq_products_1_q: 'Onde encontro os detalhes do produto?',
+    faq_products_1_a:
+      'Confira a página do produto para ver opções, dimensões, materiais e o que está incluído. Fale conosco se faltar algum detalhe.',
     faq_products_2_q: 'De onde vêm seus produtos?',
-    faq_products_2_a: 'Sourcing de marcas e distribuidores da América do Norte e Central, com foco em criadores e produtos difíceis de encontrar em grandes redes. As fotos de produtos em cada ficha são o produto real que enviamos.',
-    faq_products_3_q: 'Vocês têm produtos da América Central?',
-    faq_products_3_a: 'Sim. Estocamos ativamente produtos de criadores centro-americanos, snacks, artesanato, têxteis, beleza e mais. Explore a coleção ou escreva para nós se procura algo específico.',
-    faq_account_1_q: 'Como criar uma conta?',
-    faq_account_1_a: 'Clique em “Conta” no cabeçalho e escolha “Criar conta”. Você precisa de um e-mail e uma senha. Uma conta permite rastrear pedidos, guardar endereços e pagar mais rápido.',
-    faq_account_2_q: 'Como redefinir minha senha?',
-    faq_account_2_a: 'Na página de login, clique em “Esqueceu a senha?” e digite seu e-mail. Enviaremos um link de redefinição válido por 30 minutos. Se não vir, verifique sua pasta de spam.',
+    faq_products_2_a:
+      'Trabalhamos com fornecedores terceiros e a origem pode variar por item. Fale conosco antes de pedir se precisar de uma informação específica.',
+    faq_products_3_q: 'Como escolho a opção correta?',
+    faq_products_3_a:
+      'Confira o tamanho, a cor, a quantidade e o conjunto selecionados antes de adicionar o item ao carrinho.',
+    faq_account_1_q: 'Como acesso minha conta?',
+    faq_account_1_a:
+      'Escolha Conta, digite seu e-mail e siga as etapas de acesso. Na conta, você pode ver pedidos e gerenciar os dados salvos.',
+    faq_account_2_q: 'Não consigo entrar. O que faço?',
+    faq_account_2_a:
+      'Peça um novo código ou link na página Conta e verifique a pasta de spam. Fale conosco se ainda não chegar.',
     faq_cta_eyebrow: 'Ainda com dúvidas?',
     faq_cta_title: 'Ainda tem perguntas?',
-    faq_cta_sub: 'Lemos cada mensagem e uma pessoa real geralmente responde em um dia útil.',
+    faq_cta_sub:
+      'Envie os detalhes do produto ou pedido. Buscamos responder em até dois dias úteis.',
     faq_cta_button: 'Fale conosco',
     faq_contact_aria: 'Fale conosco',
     faq_contact_title: 'Fale conosco',
-    faq_contact_body: 'Não encontra o que procura? Escreva para nós, ficamos felizes em ajudar com pedidos, devoluções, produtos ou qualquer outra coisa.',
+    faq_contact_body:
+      'Não encontra o que procura? Escreva para nós, ficamos felizes em ajudar com pedidos, devoluções, produtos ou qualquer outra coisa.',
 
     aside_heading_cart: 'Carrinho',
     aside_heading_search: 'Pesquisar',
@@ -4389,11 +5201,13 @@ export const DICTIONARIES = {
     hero_split_aria: 'Hero',
     hero_split_eyebrow: 'Loja Puchica',
     hero_split_heading: 'Compre casa, tech, pets, presentes e mais.',
-    hero_split_body: 'Uma forma mais clara de navegar por produtos úteis nas categorias que as pessoas realmente compram. Comece por departamento, novidades ou ofertas.',
+    hero_split_body:
+      'Uma forma mais clara de navegar por produtos úteis nas categorias que as pessoas realmente compram. Comece por departamento, novidades ou ofertas.',
     hero_split_cta_primary: 'Ver mais vendidos',
     hero_split_cta_secondary: 'Ver tudo',
-    hero_split_trust: 'Opções de frete no checkout · Devoluções em 14 dias · Suporte humano',
-    hero_trust_returns: 'Devoluções em 14 dias',
+    hero_split_trust:
+      'Opções de frete no checkout · Devoluções em 30 dias · Suporte humano',
+    hero_trust_returns: 'Devoluções em 30 dias',
     hero_trust_checkout: 'Checkout Shopify seguro',
     hero_trust_canada: 'Catálogo pequeno e ativo',
     hero_showcase_bar: 'Comprar por departamento →',
@@ -4413,16 +5227,20 @@ export const DICTIONARIES = {
     lifestyle_shop_heading: 'Comprar por estilo de vida',
     lifestyle_shop_sub: 'Comece pelo momento e encontre a categoria ideal.',
     lifestyle_shop_home_title: 'Renove a casa',
-    lifestyle_shop_home_body: 'Melhorias úteis para os ambientes e rotinas de todos os dias.',
+    lifestyle_shop_home_body:
+      'Melhorias úteis para os ambientes e rotinas de todos os dias.',
     lifestyle_shop_motion_title: 'Movimento diário',
-    lifestyle_shop_motion_body: 'Achados práticos para sair, se organizar e se movimentar melhor.',
+    lifestyle_shop_motion_body:
+      'Achados práticos para sair, se organizar e se movimentar melhor.',
     lifestyle_shop_family_title: 'Brincadeira e família',
-    lifestyle_shop_family_body: 'Escolhas pensadas para brincar, pequenas rotinas e momentos compartilhados.',
+    lifestyle_shop_family_body:
+      'Escolhas pensadas para brincar, pequenas rotinas e momentos compartilhados.',
     lifestyle_shop_cta: 'Ver a seleção →',
     lifestyle_banner_eyebrow: 'Vida lenta',
-    lifestyle_banner_heading: "Encontre seu próximo favorito.",
-    lifestyle_banner_body: "Da cozinha à trilha, do escritório ao guarda-roupa, a Puchica traz o que faz cada dia melhor. Frete grátis acima de $75.",
-    lifestyle_banner_cta: "Todas as coleções",
+    lifestyle_banner_heading: 'Encontre seu próximo favorito.',
+    lifestyle_banner_body:
+      'Da cozinha à trilha, do escritório ao guarda-roupa, a Puchica traz o que faz cada dia melhor. Frete grátis acima de $75.',
+    lifestyle_banner_cta: 'Todas as coleções',
 
     new_arrivals_aria: 'Novidades',
     new_arrivals_eyebrow: 'Acabou de chegar',
@@ -4436,10 +5254,10 @@ export const DICTIONARIES = {
     sports_heading: 'Esportes e ar livre',
     sports_see_all: 'Comprar esportes',
 
-    world_cup_aria: "Camisas e equipamento de futebol",
-    world_cup_eyebrow: "Represente seu país",
-    world_cup_heading: "A camisa da sua terra, onde quer que seja.",
-    world_cup_see_all: "Ver todo o futebol",
+    world_cup_aria: 'Camisas e equipamento de futebol',
+    world_cup_eyebrow: 'Represente seu país',
+    world_cup_heading: 'A camisa da sua terra, onde quer que seja.',
+    world_cup_see_all: 'Ver todo o futebol',
 
     rail_scroll_left: 'Rolar para a esquerda',
     rail_scroll_right: 'Rolar para a direita',
@@ -4447,7 +5265,7 @@ export const DICTIONARIES = {
     trust_bar_aria: 'Por que comprar conosco',
     trust_bar_shipping_h: 'Frete claro',
     trust_bar_shipping_sub: 'Opções e custos exibidos no checkout',
-    trust_bar_returns_h: 'Devoluções em 14 dias',
+    trust_bar_returns_h: 'Devoluções em 30 dias',
     trust_bar_returns_sub: 'Consulte a política antes de comprar',
     trust_bar_curated_h: 'Catálogo ativo',
     trust_bar_curated_sub: 'Produtos prontos para comprar hoje',
@@ -4456,60 +5274,69 @@ export const DICTIONARIES = {
     home_reviews_eyebrow: 'Amado por mais de 12.000 compradores',
     home_reviews_heading: 'O que nossos clientes dizem',
     home_reviews_verified: 'Comprador verificado',
-    home_reviews_quote_1_text: 'Volto sempre. A qualidade é constante, o envio é rápido e as devoluções são simples.',
+    home_reviews_quote_1_text:
+      'Volto sempre. A qualidade é constante, o envio é rápido e as devoluções são simples.',
     home_reviews_quote_1_author: 'Maya R. Toronto',
-    home_reviews_quote_2_text: 'Encontrei um presente que não achei em nenhum outro lugar. A embalagem parecia pensada nos mínimos detalhes.',
+    home_reviews_quote_2_text:
+      'Encontrei um presente que não achei em nenhum outro lugar. A embalagem parecia pensada nos mínimos detalhes.',
     home_reviews_quote_2_author: 'James P. Vancouver',
-    home_reviews_quote_3_text: 'O atendimento responde mesmo. Tive uma dúvida e recebi uma resposta de verdade no mesmo dia.',
+    home_reviews_quote_3_text:
+      'O atendimento responde mesmo. Tive uma dúvida e recebi uma resposta de verdade no mesmo dia.',
     home_reviews_quote_3_author: 'Sophie L. Montréal',
 
     home_newsletter_aria: 'Newsletter',
     home_newsletter_eyebrow: 'Junte-se à lista',
     home_newsletter_heading: 'Ganhe 10% no seu primeiro pedido',
-    home_newsletter_body: 'Novidades, reposições e promoções ocasionais, direto no seu e-mail, sem spam.',
+    home_newsletter_body:
+      'Novidades, reposições e promoções ocasionais, direto no seu e-mail, sem spam.',
     home_newsletter_placeholder: 'voce@exemplo.com',
     home_newsletter_submit: 'Inscrever',
     home_newsletter_promise: 'Sem spam. Cancele quando quiser.',
 
     home_roots_aria: 'Nossas raízes',
-    home_roots_eyebrow: "As raízes da Puchica",
-    home_roots_heading: "Da América Central ao mundo.",
-    home_roots_body: "Puchica, é o que se diz quando algo te pega de surpresa. Um nascer do sol sobre o lago Atitlán. Café cultivado em encostas vulcânicas. Têxteis tecidos da mesma forma há três gerações nas terras altas da Guatemala. De Antigua a Honduras, trazemos esse sentimento para clientes do mundo todo.",
+    home_roots_eyebrow: 'As raízes da Puchica',
+    home_roots_heading: 'Da América Central ao mundo.',
+    home_roots_body:
+      'Puchica, é o que se diz quando algo te pega de surpresa. Um nascer do sol sobre o lago Atitlán. Café cultivado em encostas vulcânicas. Têxteis tecidos da mesma forma há três gerações nas terras altas da Guatemala. De Antigua a Honduras, trazemos esse sentimento para clientes do mundo todo.',
     home_roots_signature: 'Hecho con alma · Feito com alma',
 
     // ── World map ─────────────────────────────────────────────────
     world_map_aria: 'Países que atendemos',
     world_map_eyebrow: 'Mundial',
     world_map_heading: 'De nossas raízes à sua porta.',
-    world_map_sub: 'Puchica envia para clientes do mundo todo. Toque num pino para ver o que nos conecta.',
+    world_map_sub:
+      'Puchica envia para clientes do mundo todo. Toque num pino para ver o que nos conecta.',
 
-    home_shop_dept_aria: "Comprar por departamento",
-    home_shop_dept_eyebrow: "Explorar a loja",
-    home_shop_dept_heading: "Departamentos ativos. Caminhos reais de compra.",
-    home_shop_dept_body: "Do essencial para casa aos últimos gadgets, a Puchica traz o melhor de cada categoria, selecionado, preço justo, entrega rápida.",
-    home_dept_home: "Casa & Cozinha",
-    home_dept_electronics: "Eletrônicos",
-    home_dept_apparel: "Roupas",
-    home_dept_health: "Saúde & Bem-estar",
-    home_dept_pet: "Pets",
-    home_dept_sports: "Esportes & Ar Livre",
+    home_shop_dept_aria: 'Comprar por departamento',
+    home_shop_dept_eyebrow: 'Explorar a loja',
+    home_shop_dept_heading: 'Departamentos ativos. Caminhos reais de compra.',
+    home_shop_dept_body:
+      'Do essencial para casa aos últimos gadgets, a Puchica traz o melhor de cada categoria, selecionado, preço justo, entrega rápida.',
+    home_dept_home: 'Casa & Cozinha',
+    home_dept_electronics: 'Eletrônicos',
+    home_dept_apparel: 'Roupas',
+    home_dept_health: 'Saúde & Bem-estar',
+    home_dept_pet: 'Pets',
+    home_dept_sports: 'Esportes & Ar Livre',
 
-    home_curate_aria: "Como selecionamos",
-    home_curate_eyebrow: "Por que Puchica",
-    home_curate_heading: "O que vale, sem complicação.",
-    home_curate_step1_h: "Selecionamos de fornecedores de confiança.",
-    home_curate_step1_b: "Trabalhamos com fornecedores verificados em todo o mundo para trazer produtos que valem seu dinheiro.",
-    home_curate_step2_h: "Preço justo.",
-    home_curate_step2_b: "Sem aumentos misteriosos, sem surpresas. O que você vê é o que você paga.",
-    home_curate_step3_h: "Entrega rápida.",
-    home_curate_step3_b: 'As opções de entrega são confirmadas no checkout conforme os itens e o destino. Nossa equipe pode ajudar antes ou depois do pedido.',
+    home_curate_aria: 'Como selecionamos',
+    home_curate_eyebrow: 'Por que Puchica',
+    home_curate_heading: 'O que vale, sem complicação.',
+    home_curate_step1_h: 'Selecionamos de fornecedores de confiança.',
+    home_curate_step1_b:
+      'Trabalhamos com fornecedores verificados em todo o mundo para trazer produtos que valem seu dinheiro.',
+    home_curate_step2_h: 'Preço justo.',
+    home_curate_step2_b:
+      'Comparamos o preço com o custo de entrega e só destacamos produtos que podem sustentar uma oferta viável.',
+    home_curate_step3_h: 'Entrega rápida.',
+    home_curate_step3_b:
+      'As opções de entrega são confirmadas no checkout conforme os itens e o destino. Nossa equipe pode ajudar antes ou depois do pedido.',
 
     hero_store_stat_products: 'Catálogo',
     hero_store_stat_departments: 'Departamentos',
     hero_store_stat_shipping: 'Frete exibido',
     hero_storefront_title: 'Formas populares de comprar',
-    shop_by_category_sub: 'Comece pelos departamentos ativos e prontos para comprar.',
-
-
+    shop_by_category_sub:
+      'Comece pelos departamentos ativos e prontos para comprar.',
   },
 };

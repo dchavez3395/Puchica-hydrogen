@@ -4,6 +4,13 @@ import {CartMain} from '~/components/CartMain';
 import {puchicaMeta} from '~/lib/seo';
 import {CHECKOUT_URL_REWRITER} from '~/lib/checkout';
 import {useT} from '~/lib/t';
+import {assertLaunchReadyLines, safeInternalRedirect} from '~/lib/cart-safety';
+import {
+  cartBuyerCountryNeedsSync,
+  cartBuyerCountrySyncFailed,
+  cartCheckoutCountry,
+  resolveCartBuyerCountry,
+} from '~/lib/cart-market';
 
 /**
  * @type {Route.MetaFunction}
@@ -31,7 +38,7 @@ export const headers = ({actionHeaders}) => actionHeaders;
  * @param {Route.ActionArgs}
  */
 export async function action({request, context}) {
-  const {cart} = context;
+  const {cart, storefront} = context;
 
   const formData = await request.formData();
 
@@ -45,9 +52,43 @@ export async function action({request, context}) {
   let result;
 
   switch (action) {
-    case CartForm.ACTIONS.LinesAdd:
-      result = await cart.addLines(inputs.lines);
+    case CartForm.ACTIONS.LinesAdd: {
+      const desiredCountry = await resolveCartBuyerCountry(storefront);
+      const existingCart = cart.getCartId() ? await cart.get() : null;
+
+      if (cartBuyerCountryNeedsSync(existingCart, desiredCountry)) {
+        const marketResult = await cart.updateBuyerIdentity({
+          countryCode: desiredCountry,
+        });
+        // Hydrogen's default mutation fragment can omit buyerIdentity even
+        // when the update succeeds. Re-read the full cart query fragment
+        // before deciding whether the market synchronization actually landed.
+        const syncedCart = marketResult?.errors?.length
+          ? marketResult?.cart
+          : await cart.get();
+        const verifiedMarketResult = {...marketResult, cart: syncedCart};
+
+        if (cartBuyerCountrySyncFailed(verifiedMarketResult, desiredCountry)) {
+          status = 409;
+          result = {
+            ...verifiedMarketResult,
+            errors: [
+              ...(verifiedMarketResult?.errors || []),
+              {
+                message:
+                  'Your cart market could not be updated. Refresh the page and try again.',
+              },
+            ],
+          };
+          break;
+        }
+      }
+
+      result = await cart.addLines(
+        await assertLaunchReadyLines(storefront, inputs.lines),
+      );
       break;
+    }
     case CartForm.ACTIONS.LinesUpdate:
       result = await cart.updateLines(inputs.lines);
       break;
@@ -109,11 +150,19 @@ export async function action({request, context}) {
   // app/lib/checkout.js (the other is CartSummary, which also rewrites
   // the same field for the drawer view).
   if (cartResult && cartResult.checkoutUrl) {
-    cartResult.checkoutUrl = CHECKOUT_URL_REWRITER(cartResult.checkoutUrl);
+    const checkoutCountry = cartCheckoutCountry(
+      cartResult,
+      storefront.i18n.country,
+    );
+    cartResult.checkoutUrl = CHECKOUT_URL_REWRITER(cartResult.checkoutUrl, {
+      language: storefront.i18n.language,
+      country: checkoutCountry,
+      checkoutDomain: context.env.PUBLIC_CHECKOUT_DOMAIN,
+    });
   }
 
-  const redirectTo = formData.get('redirectTo') ?? null;
-  if (typeof redirectTo === 'string') {
+  const redirectTo = safeInternalRedirect(formData.get('redirectTo'));
+  if (redirectTo) {
     status = 303;
     headers.set('Location', redirectTo);
   }
@@ -151,7 +200,9 @@ export default function Cart() {
     <div className="cart pk-cart-page">
       <div className="pk-cart-page__inner">
         <header className="pk-cart-page__head">
-          <span className="pk-cart-page__eyebrow">{t('cart_page_eyebrow')}</span>
+          <span className="pk-cart-page__eyebrow">
+            {t('cart_page_eyebrow')}
+          </span>
           <h1 className="pk-cart-page__title">{t('cart_page_h')}</h1>
         </header>
 

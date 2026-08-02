@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react';
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
-import {Image, Money} from '@shopify/hydrogen';
+import {Image} from '@shopify/hydrogen';
+import {CurrencyMoney} from '~/components/CurrencyMoney';
 import {getRecentlyViewed} from '~/lib/recentlyViewed';
 import {useT} from '~/lib/t';
 
@@ -62,7 +63,7 @@ export function RecentlyViewed({currentHandle}) {
                 <span className="pk-recently-viewed__title">{item.title}</span>
                 {item.price && (
                   <span className="pk-recently-viewed__price">
-                    <Money data={item.price} />
+                    <CurrencyMoney data={item.price} />
                   </span>
                 )}
               </Link>

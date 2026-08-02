@@ -36,6 +36,7 @@ export class AppSession {
         httpOnly: true,
         path: '/',
         sameSite: 'lax',
+        secure: new URL(request.url).protocol === 'https:',
         secrets,
       },
     });

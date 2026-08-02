@@ -10,9 +10,10 @@ import {useT} from '~/lib/t';
 /**
  * Returns a map of all line items and their children.
  * @param {CartLine[]} lines
- * @return {import("/Users/danielc/puchica-storefront/app/components/CartMain").LineItemChildrenMap}
+ * @return {LineItemChildrenMap}
  */
 function getLineItemChildrenMap(lines) {
+  /** @type {LineItemChildrenMap} */
   const children = {};
   for (const line of lines) {
     if ('parentRelationship' in line && line.parentRelationship?.parent) {
@@ -20,7 +21,7 @@ function getLineItemChildrenMap(lines) {
       if (!children[parentId]) children[parentId] = [];
       children[parentId].push(line);
     }
-    if ('lineComponents' in line) {
+    if ('lineComponents' in line && Array.isArray(line.lineComponents)) {
       const lineChildren = getLineItemChildrenMap(line.lineComponents);
       for (const [parentId, childIds] of Object.entries(lineChildren)) {
         if (!children[parentId]) children[parentId] = [];
@@ -99,9 +100,11 @@ export function CartMain({layout, cart: originalCart}) {
         {cartHasItems ? <CartBrandHeader /> : null}
         <section
           className={className}
-          aria-label={layout === 'page' ? t('cart_page_aria') : t('cart_section_aria')}
+          aria-label={
+            layout === 'page' ? t('cart_page_aria') : t('cart_section_aria')
+          }
         >
-          <CartEmpty hidden={cartHasItems} layout={layout} />
+          <CartEmpty hidden={cartHasItems} />
           <div className="cart-details">
             <p id="cart-lines" className="sr-only">
               {t('cart_heading_aria')}
@@ -129,10 +132,12 @@ export function CartMain({layout, cart: originalCart}) {
   return (
     <section
       className={className}
-      aria-label={layout === 'page' ? t('cart_page_aria') : t('cart_section_aria')}
+      aria-label={
+        layout === 'page' ? t('cart_page_aria') : t('cart_section_aria')
+      }
     >
       {layout === 'aside' && cartHasItems ? <CartBrandHeader /> : null}
-      <CartEmpty hidden={cartHasItems} layout={layout} />
+      <CartEmpty hidden={cartHasItems} />
       <div className="cart-details">
         <p id="cart-lines" className="sr-only">
           {t('cart_heading_aria')}
@@ -205,7 +210,6 @@ function CartBrandHeader() {
 /**
  * @param {{
  *   hidden: boolean;
- *   layout?: CartMainProps['layout'];
  * }}
  */
 function CartEmpty({hidden = false}) {
@@ -242,7 +246,7 @@ function CartEmpty({hidden = false}) {
             {t('cart_empty_cta_shop')} <span aria-hidden>→</span>
           </Link>
           <Link
-            to="/collections/best-sellers"
+            to="/search?q=under%20sink%20organizer"
             onClick={close}
             prefetch="intent"
             className="pk-btn pk-btn--secondary pk-btn--lg"
@@ -250,13 +254,20 @@ function CartEmpty({hidden = false}) {
             {t('cart_empty_cta_best')}
           </Link>
         </div>
-        <ul className="pk-empty-cart__perks" aria-label={t('cart_empty_perks_aria')}>
+        <ul
+          className="pk-empty-cart__perks"
+          aria-label={t('cart_empty_perks_aria')}
+        >
           <li>
-            <span aria-hidden><IconTruck size={16} /></span>
+            <span aria-hidden>
+              <IconTruck size={16} />
+            </span>
             {t('cart_empty_perk_shipping')}
           </li>
           <li>
-            <span aria-hidden><IconReturn size={16} /></span>
+            <span aria-hidden>
+              <IconReturn size={16} />
+            </span>
             {t('cart_empty_perk_returns')}
           </li>
         </ul>

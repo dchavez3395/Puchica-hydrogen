@@ -1,4 +1,4 @@
-import {Money} from '@shopify/hydrogen';
+import {CurrencyMoney} from '~/components/CurrencyMoney';
 import {useT} from '~/lib/t';
 
 /**
@@ -19,13 +19,13 @@ export function ProductPrice({price, compareAtPrice}) {
     <div aria-label={t('product_price_aria')} className="product-price" role="group">
       {hasRealSale ? (
         <div className="product-price-on-sale">
-          {price ? <Money data={price} /> : null}
+          {price ? <CurrencyMoney data={price} /> : null}
           <s>
-            <Money data={compareAtPrice} />
+            <CurrencyMoney data={compareAtPrice} />
           </s>
         </div>
       ) : price ? (
-        <Money data={price} />
+        <CurrencyMoney data={price} />
       ) : (
         <span>&nbsp;</span>
       )}

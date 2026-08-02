@@ -1,5 +1,9 @@
 import {redirect} from 'react-router';
 import {CHECKOUT_URL_REWRITER} from '~/lib/checkout';
+import {
+  assertLaunchReadyLines,
+  parseCartPermalinkLines,
+} from '~/lib/cart-safety';
 
 /**
  * Automatically creates a new cart based on the URL and redirects straight to checkout.
@@ -21,19 +25,14 @@ import {CHECKOUT_URL_REWRITER} from '~/lib/checkout';
  * @param {Route.LoaderArgs}
  */
 export async function loader({request, context, params}) {
-  const {cart} = context;
+  const {cart, storefront} = context;
   const {lines} = params;
   if (!lines) return redirect('/cart');
-  const linesMap = lines.split(',').map((line) => {
-    const lineDetails = line.split(':');
-    const variantId = lineDetails[0];
-    const quantity = parseInt(lineDetails[1], 10);
-
-    return {
-      merchandiseId: `gid://shopify/ProductVariant/${variantId}`,
-      quantity,
-    };
-  });
+  const parsedLines = parseCartPermalinkLines(lines);
+  if (!parsedLines) {
+    throw new Response('Invalid cart link.', {status: 400});
+  }
+  const linesMap = await assertLaunchReadyLines(storefront, parsedLines);
 
   const url = new URL(request.url);
   const searchParams = new URLSearchParams(url.search);
@@ -60,7 +59,14 @@ export async function loader({request, context, params}) {
 
   // redirect to checkout
   if (cartResult.checkoutUrl) {
-    return redirect(CHECKOUT_URL_REWRITER(cartResult.checkoutUrl), {headers});
+    const checkoutUrl = CHECKOUT_URL_REWRITER(cartResult.checkoutUrl, {
+      ...storefront.i18n,
+      checkoutDomain: context.env.PUBLIC_CHECKOUT_DOMAIN,
+    });
+    if (!checkoutUrl) {
+      throw new Response('Checkout temporarily unavailable.', {status: 503});
+    }
+    return redirect(checkoutUrl, {headers});
   } else {
     throw new Error('No checkout URL found');
   }

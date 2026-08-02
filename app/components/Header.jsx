@@ -9,7 +9,6 @@ import {useAside} from '~/components/Aside';
 import {STORE_LOGO_URL} from '~/lib/brand';
 import {LocaleSwitcher} from '~/components/LocaleSwitcher';
 import {useT} from '~/lib/t';
-import StarGlyph from '~/components/StarGlyph';
 import {MegaMenu} from '~/components/MegaMenu';
 import {IconSearch} from '~/components/Icons';
 
@@ -17,12 +16,18 @@ import {IconSearch} from '~/components/Icons';
 // `shop.brand.logo.image.url` if set under Settings > Brand, otherwise
 // it falls back to STORE_LOGO_URL from app/lib/brand.js.
 
-const ANNOUNCEMENT_KEY = 'pk-ann-dismissed-v3';
+const ANNOUNCEMENT_KEY = 'pk-ann-dismissed-v4';
 
 /**
  * @param {HeaderProps}
  */
-export function Header({header, isLoggedIn, cart, publicStoreDomain, megaMenu}) {
+export function Header({
+  header,
+  isLoggedIn,
+  cart,
+  publicStoreDomain,
+  megaMenu,
+}) {
   const {shop, menu} = header;
   // Close any open drawer when the user clicks the logo to go home.
   // The route-change effect in Aside.Provider also handles this, but
@@ -93,13 +98,15 @@ function AnnouncementBar() {
   }, []);
 
   return (
-    <div className="pk-ann" data-hidden={hidden ? 'true' : 'false'} role="region" aria-label={t('announce_region_aria')}>
+    <div
+      className="pk-ann"
+      data-hidden={hidden ? 'true' : 'false'}
+      role="region"
+      aria-label={t('announce_region_aria')}
+    >
       <div className="pk-ann__inner">
         <span>
-          {t('announce_offer')}
-          <StarGlyph size={10} style={{margin: '0 0.4em'}} />
           {t('announce_freeship')}
-          <StarGlyph size={10} style={{margin: '0 0.4em'}} />
           <Link to="/collections" prefetch="intent" style={{marginLeft: 6}}>
             {t('announce_cta')}
           </Link>
@@ -118,7 +125,16 @@ function AnnouncementBar() {
           }
         }}
       >
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          aria-hidden
+        >
           <path d="M6 6l12 12M18 6 6 18" />
         </svg>
       </button>
@@ -126,24 +142,56 @@ function AnnouncementBar() {
   );
 }
 
-export function HeaderMenu({menu, megaMenu, primaryDomainUrl, viewport, publicStoreDomain}) {
-  const className =
-    viewport === 'desktop' ? 'pk-nav' : 'pk-nav pk-nav--mobile';
+export function HeaderMenu({
+  menu,
+  megaMenu,
+  primaryDomainUrl,
+  viewport,
+  publicStoreDomain,
+}) {
+  const className = viewport === 'desktop' ? 'pk-nav' : 'pk-nav pk-nav--mobile';
   const {close} = useAside();
   const t = useT();
 
   // Desktop uses one purposeful dropdown: Shop is the catalog hub. Every other
   // top-level item is a direct destination, so the header stays predictable.
   const desktopNav = [
-    {id: 'dn-new', title: t('nav_new_arrivals'), url: '/collections/new-arrivals'},
-    {id: 'dn-best', title: t('nav_best_sellers'), url: '/collections/best-sellers'},
+    {
+      id: 'dn-new',
+      title: t('nav_new_arrivals'),
+      url: '/collections/new-arrivals',
+    },
     {id: 'dn-about', title: t('nav_about'), url: '/pages/about'},
   ];
   const mobileExtraNav = [
-    {id: 'mn-new', title: t('nav_new_arrivals'), url: '/collections/new-arrivals'},
-    {id: 'mn-best', title: t('nav_best_sellers'), url: '/collections/best-sellers'},
-    {id: 'mn-explore', title: t('nav_explore'), url: '/explore'},
+    {
+      id: 'mn-new',
+      title: t('nav_new_arrivals'),
+      url: '/collections/new-arrivals',
+    },
+    {
+      id: 'mn-best',
+      title: t('nav_best_sellers'),
+      url: '/collections/best-sellers',
+    },
     {id: 'mn-about', title: t('nav_about'), url: '/pages/about'},
+  ];
+  const mobileNeedNav = [
+    {
+      id: 'mn-home-reset',
+      title: t('megamenu_intent_home_title'),
+      url: '/search?q=under%20sink%20organizer',
+    },
+    {
+      id: 'mn-cable-control',
+      title: t('megamenu_intent_cable_title'),
+      url: '/search?q=cable%20organizer',
+    },
+    {
+      id: 'mn-travel-organization',
+      title: t('megamenu_intent_travel_title'),
+      url: '/search?q=packing%20cubes',
+    },
   ];
 
   if (viewport === 'desktop') {
@@ -153,9 +201,7 @@ export function HeaderMenu({menu, megaMenu, primaryDomainUrl, viewport, publicSt
         {desktopNav.map((item) => (
           <NavLink
             key={item.id}
-            className={
-              'pk-nav__link' + (item.sale ? ' pk-nav__link--sale' : '')
-            }
+            className="pk-nav__link"
             to={item.url}
             onClick={close}
             prefetch="intent"
@@ -171,33 +217,58 @@ export function HeaderMenu({menu, megaMenu, primaryDomainUrl, viewport, publicSt
 
   // Mobile: Shopify admin menu as source of truth, filtered + augmented.
   const shopifyItems = (menu || buildFallbackHeaderMenu(t)).items;
-  const shopifyPaths = new Set(
-    shopifyItems
-      .filter((i) => i.url)
-      .map((i) => {
-        try { return new URL(i.url, 'https://x').pathname; }
-        catch { return i.url; }
-      }),
-  );
-  const mobileExtras = mobileExtraNav.filter((e) => !shopifyPaths.has(e.url));
   const mobileItems = shopifyItems.filter((i) => {
     if (!i.url) return false;
     try {
       const path = new URL(i.url, 'https://x').pathname;
-      return path !== '/' && path !== '/collections/all';
-    } catch { return true; }
+      return (
+        path !== '/' &&
+        path !== '/collections/all' &&
+        path !== '/collections/new-arrivals' &&
+        path !== '/collections/best-sellers' &&
+        path !== '/pages/about' &&
+        path !== '/pages/contact' &&
+        path !== '/explore'
+      );
+    } catch {
+      return true;
+    }
   });
 
   return (
     <nav className={className} role="navigation">
+      <span className="pk-nav__section-label">{t('nav_shop')}</span>
       <NavLink
         className="pk-nav__link"
         to="/collections/all"
         onClick={close}
         prefetch="intent"
       >
-        {t('nav_shop')}
+        {t('all_breadcrumb')}
       </NavLink>
+      {mobileNeedNav.map((item) => (
+        <NavLink
+          key={item.id}
+          className="pk-nav__link"
+          to={item.url}
+          onClick={close}
+          prefetch="intent"
+        >
+          {item.title}
+        </NavLink>
+      ))}
+      <span className="pk-nav__section-label">{t('nav_explore')}</span>
+      {mobileExtraNav.map((item) => (
+        <NavLink
+          key={item.id}
+          className="pk-nav__link"
+          to={item.url}
+          onClick={close}
+          prefetch="intent"
+        >
+          {item.title}
+        </NavLink>
+      ))}
       {mobileItems.map((item) => {
         if (!item.url) return null;
         const url =
@@ -219,17 +290,6 @@ export function HeaderMenu({menu, megaMenu, primaryDomainUrl, viewport, publicSt
           </NavLink>
         );
       })}
-      {mobileExtras.map((e) => (
-        <NavLink
-          key={e.id}
-          className="pk-nav__link"
-          to={e.url}
-          onClick={close}
-          prefetch="intent"
-        >
-          {e.title}
-        </NavLink>
-      ))}
     </nav>
   );
 }
@@ -269,7 +329,12 @@ function HeaderCtas({isLoggedIn, cart}) {
     <div className="pk-header__ctas">
       <LocaleSwitcher />
       <SearchToggle />
-      <NavLink prefetch="intent" to="/account" className="pk-icon-btn pk-account-btn" aria-label={t('header_account_aria')}>
+      <NavLink
+        prefetch="intent"
+        to="/account"
+        className="pk-icon-btn pk-account-btn"
+        aria-label={t('header_account_aria')}
+      >
         <Suspense fallback={<IconUser />}>
           <Await resolve={isLoggedIn} errorElement={<IconUser />}>
             {() => <IconUser />}
@@ -287,9 +352,7 @@ function HeaderMenuMobileToggle() {
   const isOpen = type === 'mobile';
   return (
     <button
-      className={
-        'pk-icon-btn pk-header__burger' + (isOpen ? ' is-active' : '')
-      }
+      className={'pk-icon-btn pk-header__burger' + (isOpen ? ' is-active' : '')}
       aria-label={isOpen ? t('header_menu_close') : t('header_menu_open')}
       aria-expanded={isOpen ? 'true' : 'false'}
       onClick={(e) => {
@@ -353,7 +416,9 @@ function CartBadge({count}) {
       }}
     >
       <IconCart />
-      {count !== null && count > 0 && <span className="pk-cart-badge">{count}</span>}
+      {count !== null && count > 0 && (
+        <span className="pk-cart-badge">{count}</span>
+      )}
     </a>
   );
 }
@@ -380,7 +445,17 @@ function CartBanner() {
 /* ---------- Lucide-style icons (24px, 2px stroke) ---------- */
 function IconUser() {
   return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+    <svg
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
       <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
       <circle cx="12" cy="7" r="4" />
     </svg>
@@ -388,7 +463,17 @@ function IconUser() {
 }
 function IconCart() {
   return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+    <svg
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
       <circle cx="8" cy="21" r="1" />
       <circle cx="19" cy="21" r="1" />
       <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
@@ -397,7 +482,16 @@ function IconCart() {
 }
 function IconMenu() {
   return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
+    <svg
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      aria-hidden
+    >
       <path d="M4 6h16M4 12h16M4 18h16" />
     </svg>
   );
@@ -407,19 +501,37 @@ function IconMenu() {
 // store hasn't configured a navigation menu). Titles are produced per-locale
 // from the dictionary so translated storefronts see translated fallbacks.
 function buildFallbackHeaderMenu(t) {
-  return {
+  return /** @type {any} */ ({
     id: 'gid://shopify/Menu/199655587896',
     items: [
-      {id: '1', resourceId: null, tags: [], title: t('nav_shop_all'), type: 'HTTP', url: '/collections/all', items: []},
-      {id: '2', resourceId: null, tags: [], title: t('nav_best_sellers_short'), type: 'HTTP', url: '/collections/best-sellers', items: []},
-      {id: '3', resourceId: null, tags: [], title: t('nav_new_arrivals_short'), type: 'HTTP', url: '/collections/new-arrivals', items: []},
-      {id: '4', resourceId: null, tags: [], title: t('nav_gift_guide'), type: 'HTTP', url: '/collections/all?price=25-50', items: []},
-      {id: '5', resourceId: null, tags: [], title: t('nav_about_short'), type: 'HTTP', url: '/pages/about', items: []},
-      {id: '6', resourceId: null, tags: [], title: t('nav_contact_short'), type: 'HTTP', url: '/pages/contact', items: []},
+      {
+        id: '1',
+        title: t('nav_shop_all'),
+        url: '/collections/all',
+      },
+      {
+        id: '2',
+        title: t('nav_new_arrivals_short'),
+        url: '/collections/new-arrivals',
+      },
+      {
+        id: '4',
+        title: t('nav_gift_guide'),
+        url: '/collections/all?price=25-50',
+      },
+      {
+        id: '5',
+        title: t('nav_about_short'),
+        url: '/pages/about',
+      },
+      {
+        id: '6',
+        title: t('nav_contact_short'),
+        url: '/pages/contact',
+      },
     ],
-  };
+  });
 }
-
 
 /** @typedef {'desktop' | 'mobile'} Viewport */
 /**

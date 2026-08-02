@@ -1,0 +1,18 @@
+{
+  "extends": "./jsconfig.json",
+  "compilerOptions": {
+    "allowJs": true,
+    "jsx": "react-jsx",
+    "noEmit": true
+  },
+  "include": [
+    "env.d.ts",
+    "app/**/*",
+    "tests/**/*",
+    "*.js",
+    "*.jsx",
+    "*.ts",
+    "*.tsx",
+    ".react-router/types/**/*"
+  ]
+}

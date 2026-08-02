@@ -12,9 +12,25 @@
 // deploy, while preserving the same customer-facing safety gate.
 export const LAUNCH_READY_TAG = 'puchica-launch-ready';
 
+// Temporary operational hold: the exact mapped 24-piece variant returned no
+// United States shipping route in DSers on 2026-08-01. Keep it out of every
+// customer-facing launch surface until a replacement route passes the quote
+// and fulfillment gates.
+export const OPERATIONAL_HOLD_HANDLES = new Set([
+  '24-piece-drawer-organizer-tray-set',
+  // Brand/IP authorization has not been established for the supplier-branded
+  // Toocki listing. It cannot enter organic or paid discovery while held.
+  'toocki-five-clip-cable-organizer',
+  // Battery type, transport constraints, accuracy, instructions, and claims
+  // remain unverified for this scale.
+  'pocket-luggage-scale-50kg',
+]);
+
 export function isLaunchReadyProduct(product) {
   return Boolean(
-    product?.availableForSale && product?.tags?.includes(LAUNCH_READY_TAG),
+    product?.availableForSale &&
+    product?.tags?.includes(LAUNCH_READY_TAG) &&
+    !OPERATIONAL_HOLD_HANDLES.has(product?.handle),
   );
 }
 

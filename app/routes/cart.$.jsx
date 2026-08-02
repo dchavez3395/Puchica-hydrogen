@@ -66,7 +66,7 @@ import {warn} from '~/lib/logger';
 /**
  * @param {Route.LoaderArgs}
  */
-export async function loader({request, params}) {
+export async function loader({request, context, params}) {
   const splat = params['*'] ?? '';
   const permalinkMatch = splat.match(/^c\/([A-Za-z0-9_-]{4,256})\/?$/);
   if (!permalinkMatch) {
@@ -81,11 +81,17 @@ export async function loader({request, params}) {
   // rewriter's BAD_STOREFRONT_HOSTS check fires regardless of which host
   // Hydrogen was reached on (production, preview, *.myshopify.dev).
   const incoming = new URL(request.url);
-  const permalinkUrl = new URL(`/cart/c/${permalinkMatch[1]}`, 'https://puchica.ca');
+  const permalinkUrl = new URL(
+    `/cart/c/${permalinkMatch[1]}`,
+    'https://puchica.ca',
+  );
   // Mirror the source query string (key, _s, _y, discount, etc.).
   permalinkUrl.search = incoming.search;
 
-  const rewritten = CHECKOUT_URL_REWRITER(permalinkUrl.toString());
+  const rewritten = CHECKOUT_URL_REWRITER(permalinkUrl.toString(), {
+    ...context.storefront.i18n,
+    checkoutDomain: context.env.PUBLIC_CHECKOUT_DOMAIN,
+  });
 
   if (!rewritten || rewritten === permalinkUrl.toString()) {
     // Rewriter bailed — drift, unknown shape, or missing env. Don't

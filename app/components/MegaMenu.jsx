@@ -2,7 +2,7 @@
  * MegaMenu -- Shop dropdown panel for the desktop header.
  *
  * Audit §4 layout: a full-width paper panel with the category link
- * columns on the left, one featured Best Sellers tile on the right,
+ * columns on the left, one featured organization tile on the right,
  * and a quick-links footer (New arrivals / Sale / World Cup / Gifts /
  * All products). Sale is the only colored link — ember, same as the
  * top nav — so the color keeps meaning "money".
@@ -17,74 +17,30 @@
 import {Suspense, useEffect, useId, useRef, useState} from 'react';
 import {Await} from 'react-router';
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
-import {Image} from '@shopify/hydrogen';
 import {useT} from '~/lib/t';
-import {filterLaunchProducts} from '~/lib/launch-catalog';
 
 // Ordered category handles (largest departments first). These must be
 // published to the Puchica Storefront channel in Shopify admin.
-const CATEGORY_HANDLES = [
-  'home-kitchen',
-  'electronics-accessories',
-  'apparel-accessories',
-  'health-wellness',
-  'sports-outdoors',
-  'pet-supplies',
-  'beauty-personal-care',
-  'automotive',
-  'tools-home-improvement',
-  'toys-games',
-  'office-school',
-  'baby-nursery',
-  'outdoor-garden',
+const SHOPPING_INTENTS = [
+  {
+    id: 'home-reset',
+    titleKey: 'megamenu_intent_home_title',
+    bodyKey: 'megamenu_intent_home_body',
+    query: 'under sink organizer',
+  },
+  {
+    id: 'cable-control',
+    titleKey: 'megamenu_intent_cable_title',
+    bodyKey: 'megamenu_intent_cable_body',
+    query: 'cable organizer',
+  },
+  {
+    id: 'travel-order',
+    titleKey: 'megamenu_intent_travel_title',
+    bodyKey: 'megamenu_intent_travel_body',
+    query: 'packing cubes',
+  },
 ];
-
-const FEATURED_CATEGORIES = ['best-sellers', 'trending-finds', 'gifts-under-25'];
-
-// Map handles to the GraphQL alias keys used in MEGA_MENU_QUERY.
-const ALIAS_MAP = {
-  'phone-case': 'phoneCase',
-  'home-kitchen': 'homeKitchen',
-  'electronics-accessories': 'electronicsAccessories',
-  'apparel-accessories': 'apparelAccessories',
-  'health-wellness': 'healthWellness',
-  'sports-outdoors': 'sportsOutdoors',
-  'pet-finds': 'petFinds',
-  'automotive': 'automotive',
-  'tools-home-improvement': 'toolsHomeImprovement',
-  'beauty-personal-care': 'beautyPersonalCare',
-  'toys-games': 'toysGames',
-  'home-decor': 'homeDecor',
-  'office-school-supplies': 'officeSchoolSupplies',
-  'baby-nursery': 'babyNursery',
-  'outdoor-garden': 'outdoorGarden',
-  'best-sellers': 'bestSellers',
-  'trending-finds': 'trendingFinds',
-  'gifts-under-25': 'giftsUnder25',
-};
-
-// Curated copy for each category. Tone: short, no filler, sentence case.
-// "tagline" is the single-eyebrow line that appears under the category name.
-const TAGLINES = {
-  'phone-case': 'Cases, grips, protection.',
-  'home-kitchen': 'Kitchen, storage, decor.',
-  'electronics-accessories': 'Cables, chargers, mounts.',
-  'apparel-accessories': 'Bags, hats, wearables.',
-  'health-wellness': 'Skin, scent, grooming.',
-  'sports-outdoors': 'Gear, fitness, fan shop.',
-  'pet-finds': 'Toys, beds, things for them.',
-  'automotive': 'Interior, tools, gadgets.',
-  'tools-home-improvement': 'Fix, build, organize.',
-  'beauty-personal-care': 'Makeup, nails, self-care.',
-  'toys-games': 'Play, learn, collect.',
-  'home-decor': 'Wall, light, accents.',
-  'office-school-supplies': 'Desk, paper, must-haves.',
-  'baby-nursery': 'Feeding, decor, comfort.',
-  'outdoor-garden': 'Garden, patio, outdoor.',
-  'best-sellers': 'Top picks everyone loves.',
-  'trending-finds': 'What is hot right now.',
-  'gifts-under-25': 'Great gifts, small budget.',
-};
 
 export function MegaMenu({deferred, onClose}) {
   const id = useId();
@@ -153,8 +109,13 @@ export function MegaMenu({deferred, onClose}) {
         aria-expanded={open ? 'true' : 'false'}
         aria-controls={id}
         aria-haspopup="true"
-        onClick={() => setOpen((o) => !o)}
-        onFocus={handleEnter}
+        onClick={() => setOpen(true)}
+        onFocus={(event) => {
+          // Pointer clicks focus the button before firing onClick. Opening on
+          // every focus made that same click immediately toggle the menu shut.
+          // Keyboard focus still opens the menu for tab navigation.
+          if (event.currentTarget.matches(':focus-visible')) handleEnter();
+        }}
       >
         {t('megamenu_trigger')}
         <svg
@@ -191,81 +152,56 @@ export function MegaMenu({deferred, onClose}) {
   );
 }
 
+/** @param {{data: any; onNavigate: () => void}} props */
 function MegaMenuPanel({data, onNavigate}) {
   const t = useT();
-  const nodes = data?.collections?.nodes;
-  if (!nodes?.length) return <MegaMenuError />;
-
-  const byHandle = new Map(nodes.map((c) => [c.handle, c]));
-  // A collection can remain published after its last product is removed.
-  // Only expose departments that have a real storefront product, otherwise
-  // the primary navigation creates a frustrating dead end.
-  const hasProducts = (collection) =>
-    filterLaunchProducts(collection?.products?.nodes).length > 0;
-  const categories = CATEGORY_HANDLES.map((h) => byHandle.get(h)).filter(
-    hasProducts,
-  );
-  const featured = byHandle.get('best-sellers');
-  const featuredImage =
-    featured?.image || featured?.products?.nodes?.[0]?.featuredImage;
+  void data;
 
   const quickLinks = [
-    {id: 'q-new', handle: 'new-arrivals', title: t('nav_new_arrivals'), url: '/collections/new-arrivals'},
-    {id: 'q-gifts', handle: 'gifts-under-25', title: t('nav_gifts'), url: '/collections/gifts-under-25'},
-    {id: 'q-all', title: t('nav_all_products'), url: '/collections/all'},
-  ].filter((link) => !link.handle || hasProducts(byHandle.get(link.handle)));
+    {
+      id: 'q-all',
+      title: t('all_breadcrumb'),
+      url: '/collections/all',
+    },
+    {
+      id: 'q-best',
+      title: t('nav_best_sellers'),
+      url: '/collections/best-sellers',
+    },
+  ];
 
   return (
     <>
       <div className="pk-mega__grid">
-        <nav
-          className="pk-mega__cats"
-          aria-label={t('shop_by_category_aria')}
-        >
-          <p className="pk-mega__label">{t('shop_by_category_heading')}</p>
+        <nav className="pk-mega__cats" aria-label={t('megamenu_panel_aria')}>
+          <p className="pk-mega__label">{t('megamenu_intent_heading')}</p>
           <ul className="pk-mega__list">
-            {categories.map((c) => (
-              <li key={c.id}>
+            {SHOPPING_INTENTS.map((intent) => (
+              <li key={intent.id}>
                 <Link
-                  to={`/collections/${c.handle}`}
+                  to={`/search?q=${encodeURIComponent(intent.query)}`}
                   prefetch="intent"
                   className="pk-mega__cat"
                   onClick={onNavigate}
                 >
-                  {c.title}
+                  <strong>{t(intent.titleKey)}</strong>
+                  <span>{t(intent.bodyKey)}</span>
                 </Link>
               </li>
             ))}
           </ul>
         </nav>
-        {featured ? (
-          <Link
-            to="/collections/best-sellers"
-            prefetch="intent"
-            className="pk-mega__feature"
-            onClick={onNavigate}
-          >
-            <div className="pk-mega__feature-img">
-              {featuredImage ? (
-                <Image
-                  data={featuredImage}
-                  aspectRatio="1/1"
-                  sizes="280px"
-                  loading="lazy"
-                />
-              ) : (
-                <span className="pk-mega__feature-img-fallback" aria-hidden="true">
-                  ★
-                </span>
-              )}
-            </div>
-            <p className="pk-mega__feature-eye">{t('best_sellers_eyebrow')}</p>
-            <h3 className="pk-mega__feature-title">{featured.title}</h3>
-            <span className="pk-mega__feature-cta">
-              {t('megamenu_tile_cta')}
-            </span>
-          </Link>
-        ) : null}
+        <Link
+          to="/campaigns/home-finds"
+          prefetch="intent"
+          className="pk-mega__feature"
+          onClick={onNavigate}
+        >
+          <p className="pk-mega__feature-eye">{t('megamenu_edit_eyebrow')}</p>
+          <h3 className="pk-mega__feature-title">{t('megamenu_edit_title')}</h3>
+          <p className="pk-mega__feature-copy">{t('megamenu_edit_body')}</p>
+          <span className="pk-mega__feature-cta">{t('megamenu_tile_cta')}</span>
+        </Link>
       </div>
       <div className="pk-mega__quick">
         {quickLinks.map((q) => (
@@ -273,9 +209,7 @@ function MegaMenuPanel({data, onNavigate}) {
             key={q.id}
             to={q.url}
             prefetch="intent"
-            className={
-              'pk-mega__quick-link' + (q.sale ? ' pk-mega__quick-link--sale' : '')
-            }
+            className="pk-mega__quick-link"
             onClick={onNavigate}
           >
             {q.title}
@@ -291,8 +225,8 @@ function MegaMenuSkeleton() {
     <div className="pk-mega__grid" aria-hidden>
       <div className="pk-mega__cats">
         <ul className="pk-mega__list">
-          {CATEGORY_HANDLES.map((handle) => (
-            <li key={handle}>
+          {SHOPPING_INTENTS.map((intent) => (
+            <li key={intent.id}>
               <span className="pk-mega__cat pk-mega__cat--skel">&nbsp;</span>
             </li>
           ))}

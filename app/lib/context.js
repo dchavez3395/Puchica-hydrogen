@@ -37,6 +37,7 @@ export async function createHydrogenRouterContext(
     AppSession.init(request, [env.SESSION_SECRET]),
   ]);
 
+  const i18n = getLocaleFromRequest(request);
   const hydrogenContext = createHydrogenContext(
     {
       env,
@@ -44,10 +45,11 @@ export async function createHydrogenRouterContext(
       cache,
       waitUntil,
       session,
-      // Per-visitor locale: country (from Oxygen geo) drives currency/market,
-      // language (cookie override, else country default) drives translated
-      // content. Falls back to EN/CA. See app/lib/i18n.js.
-      i18n: getLocaleFromRequest(request),
+      // Per-visitor locale: the shopper's market choice (or Oxygen geo on a
+      // first visit) drives currency and cart buyer identity. Language uses a
+      // separate cookie override. Both safely fall back to EN/CA.
+      i18n,
+      buyerIdentity: {countryCode: i18n.country},
       cart: {
         queryFragment: CART_QUERY_FRAGMENT,
       },

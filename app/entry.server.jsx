@@ -19,7 +19,10 @@ export default async function handleRequest(
 ) {
   const {nonce, header, NonceProvider} = createContentSecurityPolicy({
     shop: {
-      checkoutDomain: context.env.PUBLIC_CHECKOUT_DOMAIN || context.env.PUBLIC_STORE_DOMAIN || '',
+      checkoutDomain:
+        context.env.PUBLIC_CHECKOUT_DOMAIN ||
+        context.env.PUBLIC_STORE_DOMAIN ||
+        '',
       storeDomain: context.env.PUBLIC_STORE_DOMAIN,
     },
     styleSrc: [
@@ -29,11 +32,7 @@ export default async function handleRequest(
       'https://fonts.googleapis.com',
       'https://cdn.judge.me',
     ],
-    fontSrc: [
-      "'self'",
-      'https://fonts.gstatic.com',
-      'data:',
-    ],
+    fontSrc: ["'self'", 'https://fonts.gstatic.com', 'data:'],
     // Judge.me reviews widget — its script/API/images were being blocked by the
     // CSP (default-src had no judge.me entry), so reviews never rendered.
     // createContentSecurityPolicy merges these with Hydrogen's secure defaults
@@ -43,6 +42,8 @@ export default async function handleRequest(
       'https://cdn.shopify.com',
       'https://cdn.judge.me',
       'https://cdnwidget.judge.me',
+      'https://connect.facebook.net',
+      'https://www.googletagmanager.com',
     ],
     connectSrc: [
       "'self'",
@@ -50,6 +51,10 @@ export default async function handleRequest(
       'https://cdnwidget.judge.me',
       'https://api.judge.me',
       'https://cache.judge.me',
+      'https://www.facebook.com',
+      'https://www.google-analytics.com',
+      'https://region1.google-analytics.com',
+      'https://www.googletagmanager.com',
     ],
     imgSrc: [
       "'self'",
@@ -57,6 +62,8 @@ export default async function handleRequest(
       'https://cdn.shopify.com',
       'https://cdn.judge.me',
       'https://judgeme.imgix.net',
+      'https://www.facebook.com',
+      'https://www.google-analytics.com',
     ],
     frameSrc: ["'self'", 'https://cdn.judge.me'],
   });
@@ -85,6 +92,11 @@ export default async function handleRequest(
 
   responseHeaders.set('Content-Type', 'text/html');
   responseHeaders.set('Content-Security-Policy', header);
+  responseHeaders.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+  responseHeaders.set(
+    'Permissions-Policy',
+    'camera=(), microphone=(), geolocation=()',
+  );
 
   return new Response(body, {
     headers: responseHeaders,

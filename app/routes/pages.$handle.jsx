@@ -12,7 +12,7 @@ import {ContactPage} from '~/components/ContactPage';
  * the standard `seo`-then-body-derived title/description.
  */
 const CONTACT_DESCRIPTION =
-  'Get in touch with the Puchica team. Email, Instagram DM, or Facebook — a real person usually replies within one business day.';
+  'Contact Puchica for help with products, orders, shipping, or returns.';
 
 export const meta = ({data, params}) => {
   const page = data?.page;
@@ -34,7 +34,9 @@ export const meta = ({data, params}) => {
     .replace(/<[^>]+>/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
-  const description = (page?.seo?.description || plain.slice(0, 160)) ||
+  const description =
+    page?.seo?.description ||
+    plain.slice(0, 160) ||
     `Read ${title} on Puchica.`;
   return puchicaMeta({
     title: `${title} – Puchica`,

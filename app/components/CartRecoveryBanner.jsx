@@ -43,7 +43,6 @@ export function CartRecoveryBanner({cart}) {
   const itemCount = cart.totalQuantity;
   const firstLine = cart.lines?.nodes?.[0];
   const productTitle = firstLine?.merchandise?.product?.title;
-  const productHandle = firstLine?.merchandise?.product?.handle;
   const productImage = firstLine?.merchandise?.image;
 
   return (
@@ -80,10 +79,20 @@ export function CartRecoveryBanner({cart}) {
       )}
       <div style={{flex: 1, minWidth: 0}}>
         <p style={{margin: 0, fontWeight: 600, fontSize: '14px'}}>
-          Welcome back! You have {itemCount} item{itemCount > 1 ? 's' : ''} in your cart.
+          Welcome back! You have {itemCount} item{itemCount > 1 ? 's' : ''} in
+          your cart.
         </p>
         {productTitle && (
-          <p style={{margin: '2px 0 0', fontSize: '13px', color: 'var(--color-muted, #6b7280)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>
+          <p
+            style={{
+              margin: '2px 0 0',
+              fontSize: '13px',
+              color: 'var(--color-muted, #6b7280)',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+            }}
+          >
             {productTitle}
           </p>
         )}

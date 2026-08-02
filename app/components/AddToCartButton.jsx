@@ -65,7 +65,7 @@ function AddToCartSubmitButton({
   const [showAdded, setShowAdded] = useState(false);
   const [showError, setShowError] = useState(false);
   const isSubmitting = fetcher.state !== 'idle';
-  const isDisabled = disabled ?? isSubmitting;
+  const isDisabled = Boolean(disabled) || isSubmitting;
   const {open} = useAside();
   const revalidator = useRevalidator();
 
@@ -130,6 +130,7 @@ function AddToCartSubmitButton({
         type="submit"
         onClick={onClick}
         disabled={isDisabled}
+        aria-busy={isSubmitting}
         className={
           'pk-atc' +
           (isSubmitting ? ' pk-atc--loading' : '') +

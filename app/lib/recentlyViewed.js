@@ -10,7 +10,9 @@
  *     price: {amount, currencyCode} | null, at: epoch-ms }
  */
 
-const KEY = 'pk:recently-viewed';
+// v2 retires snapshots from the former general-store catalog. Those products
+// are no longer launch-visible and their cached image URLs can be stale.
+const KEY = 'pk:recently-viewed:v2';
 const MAX = 8;
 
 export function recordRecentlyViewed(product) {
@@ -28,7 +30,10 @@ export function recordRecentlyViewed(product) {
           }
         : null,
       price: product.price
-        ? {amount: product.price.amount, currencyCode: product.price.currencyCode}
+        ? {
+            amount: product.price.amount,
+            currencyCode: product.price.currencyCode,
+          }
         : null,
       at: Date.now(),
     };

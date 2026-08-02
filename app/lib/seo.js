@@ -20,14 +20,11 @@ import {parseLocaleFromPath, localizePath} from '~/lib/i18n';
  * (`env.PUBLIC_STORE_DOMAIN`) — that one is the *.myshopify.com URL
  * Shopify uses internally and would point Google at the wrong place.
  *
- * Apex (`puchica.ca`) is the marketing / brand host and currently serves
- * the legacy Express theme. Hydrogen (the styled storefront) is on
- * `www.puchica.ca`. The apex will 301-redirect to `www` once the edge
- * redirect is in place (see memory/puchica-dns-state-2026-06-18.md),
- * so all canonicals / og:url / sitemap URLs already point at the
- * correct destination.
+ * The apex (`puchica.ca`) is the live primary storefront. The `www` host
+ * redirects to it, so canonicals, Open Graph URLs, and structured data use
+ * the apex consistently.
  */
-export const SITE_URL = 'https://www.puchica.ca';
+export const SITE_URL = 'https://puchica.ca';
 
 /** Default OG image — the brand logo, served from the Shopify CDN. */
 export const DEFAULT_OG_IMAGE = STORE_LOGO_URL;
@@ -36,7 +33,16 @@ export const DEFAULT_OG_IMAGE = STORE_LOGO_URL;
 export const SITE_NAME = 'Puchica';
 
 /** Locale — matches the hard-coded i18n in app/lib/context.js (EN/CA). */
-export const OG_LOCALE = 'en_CA';
+const OG_LOCALES = {
+  en: 'en_CA',
+  fr: 'fr_CA',
+  es: 'es_US',
+  'pt-br': 'pt_BR',
+};
+
+function ogLocale(langKey) {
+  return OG_LOCALES[String(langKey || 'en').toLowerCase()] || OG_LOCALES.en;
+}
 
 /**
  * Build an absolute canonical URL from a pathname.
@@ -145,7 +151,7 @@ export function puchicaMeta({
     tags.push({property: 'og:url', content: href});
     tags.push({tagName: 'link', rel: 'canonical', href});
   }
-  if (OG_LOCALE) tags.push({property: 'og:locale', content: OG_LOCALE});
+  tags.push({property: 'og:locale', content: ogLocale(langKey)});
 
   // Twitter
   tags.push({name: 'twitter:card', content: twitterCard});

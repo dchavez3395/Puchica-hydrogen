@@ -3,7 +3,7 @@ import {IconTruck, IconReturn, IconHome} from '~/components/Icons';
 
 /**
  * 3-column trust strip. Each item is icon + heading + caption.
- * Defaults: checkout-visible shipping / 14-day returns / small catalog.
+ * Defaults: checkout-visible shipping / 30-day returns / small catalog.
  *
  * Pure presentational; no GraphQL, no settings. Lives in
  * `app/sections/` so the merchant can later move it into the

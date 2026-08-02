@@ -1,7 +1,7 @@
 /**
  * Rich contact page. Renders inside the generic `pages.$handle` route when
  * the merchant's page handle is `contact` — we ignore the (empty) Shopify
- * body and lay out the contact channels, response-time promise, and FAQ
+ * body and lay out the contact channels, support expectations, and FAQ
  * ourselves.
  *
  * Why no contact form: a working form needs a backend (Resend, Postmark,
@@ -62,34 +62,22 @@ function handleFromUrl(url, {facebook = false} = {}) {
   }
 }
 
-const FAQ = [
-  {
-    q: 'Where is my order?',
-    a: 'Your tracking link is in the shipping confirmation email. If you don&apos;t see movement for several days, email us and we&apos;ll look into it with the carrier.',
-  },
-  {
-    q: 'Can I change or cancel my order?',
-    a: 'Within 2 hours of placing it, yes — just reply to your order confirmation. After that the order is being prepared for shipment and changes aren&apos;t possible, but you can start a return once it arrives.',
-  },
-  {
-    q: 'How do returns work?',
-    a: 'You have 14 days from the delivery date to start a return. Email us at hello@puchica.ca with your order number and we&apos;ll guide you through the process. Refunds are issued to the original payment method within 5–7 business days of us receiving the return.',
-  },
-  {
-    q: 'Do you ship outside Canada and the US?',
-    a: 'Right now, Canada and the US only. If you’re elsewhere and really want something, email us — we’ll see what we can do.',
-  },
-  {
-    q: 'Are the products in the photos exactly what I get?',
-    a: 'The product photos on each listing are provided by our suppliers. We review them for accuracy, but if you have a question about a specific product, email us before ordering and we&apos;ll help you out.',
-  },
-];
-
 /* ---------- inline icons (not in the shared Icons module) ---------- */
 
 function IconClock(props) {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" {...props}>
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      {...props}
+    >
       <circle cx="12" cy="12" r="9" />
       <path d="M12 7v5l3 2" />
     </svg>
@@ -97,7 +85,18 @@ function IconClock(props) {
 }
 function IconArrowRight(props) {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" {...props}>
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      {...props}
+    >
       <path d="M5 12h14" />
       <path d="m13 5 7 7-7 7" />
     </svg>
@@ -133,7 +132,9 @@ export function ContactPage() {
        * padding handled by the .pk-col-hero media query already). */}
       <header className="pk-col-hero pk-contact__hero">
         <span className="pk-col-hero__glow" aria-hidden="true" />
-        <span className="pk-col-hero__eyebrow">{t('contact_hero_eyebrow')}</span>
+        <span className="pk-col-hero__eyebrow">
+          {t('contact_hero_eyebrow')}
+        </span>
         <h1 className="pk-col-hero__title">{t('contact_hero_title')}</h1>
         <p className="pk-col-hero__sub">{t('contact_hero_sub')}</p>
       </header>
@@ -141,7 +142,10 @@ export function ContactPage() {
       {/* Contact channels — three social cards, one per platform. Email
        * lives at the bottom of the page (the "Still have a question?"
        * CTA below) so the channel row stays uniform. */}
-      <section className="pk-contact__channels" aria-label={t('contact_channels_aria')}>
+      <section
+        className="pk-contact__channels"
+        aria-label={t('contact_channels_aria')}
+      >
         {instagram ? (
           <article className="pk-contact-card">
             <div className="pk-contact-card__icon" aria-hidden="true">
@@ -185,7 +189,9 @@ export function ContactPage() {
             <div className="pk-contact-card__icon" aria-hidden="true">
               <IconTiktok size={22} />
             </div>
-            <h2 className="pk-contact-card__title">{t('contact_tiktok_title')}</h2>
+            <h2 className="pk-contact-card__title">
+              {t('contact_tiktok_title')}
+            </h2>
             <p className="pk-contact-card__body">{t('contact_tiktok_body')}</p>
             <a
               className="pk-contact-card__cta"
@@ -205,10 +211,17 @@ export function ContactPage() {
 
       {/* What to expect — three short reassurance chips. Renders as a
        * flex row on desktop, wraps on mobile. */}
-      <section className="pk-contact__promises" aria-label={t('contact_promises_aria')}>
+      <section
+        className="pk-contact__promises"
+        aria-label={t('contact_promises_aria')}
+      >
         <h2 className="pk-contact__section-head">
-          <span className="pk-contact__eyebrow">{t('contact_promises_eyebrow')}</span>
-          <span className="pk-contact__title">{t('contact_promises_title')}</span>
+          <span className="pk-contact__eyebrow">
+            {t('contact_promises_eyebrow')}
+          </span>
+          <span className="pk-contact__title">
+            {t('contact_promises_title')}
+          </span>
         </h2>
         <ul className="pk-contact__promises-list">
           <li>
@@ -241,10 +254,12 @@ export function ContactPage() {
         </ul>
       </section>
 
-{/* FAQ — single column, generous spacing, Q in violet accent. */}
+      {/* FAQ — single column, generous spacing, Q in violet accent. */}
       <section className="pk-contact__faq" aria-label={t('contact_faq_aria')}>
         <h2 className="pk-contact__section-head">
-          <span className="pk-contact__eyebrow">{t('contact_faq_eyebrow')}</span>
+          <span className="pk-contact__eyebrow">
+            {t('contact_faq_eyebrow')}
+          </span>
           <span className="pk-contact__title">{t('contact_faq_title')}</span>
         </h2>
         <div className="pk-contact__faq-list">
@@ -260,11 +275,6 @@ export function ContactPage() {
             </details>
           ))}
         </div>
-        <p className="pk-contact__faq-foot">
-          {t('contact_faq_foot', {email: (
-            <a key="email" href={`mailto:${CONTACT_EMAIL}`}>{t('contact_faq_foot_link')}</a>
-          )})}
-        </p>
       </section>
 
       {/* Bottom CTA — final nudge, mirrors the hero. */}

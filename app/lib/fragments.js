@@ -214,7 +214,20 @@ export const HEADER_QUERY = `#graphql
     }
   }
   query Header(
-    $headerMenuHandle: String!) {
+    $headerMenuHandle: String!
+    $country: CountryCode!
+    $language: LanguageCode!
+  ) @inContext(country: $country, language: $language) {
+    localization {
+      country {
+        isoCode
+        currency { isoCode }
+      }
+      availableCountries {
+        isoCode
+        currency { isoCode }
+      }
+    }
     shop {
       ...Shop
     }
@@ -247,6 +260,7 @@ export const MEGA_MENU_QUERY = `#graphql
       nodes {
         id
         handle
+        tags
         availableForSale
         featuredImage {
           url
@@ -262,7 +276,10 @@ export const MEGA_MENU_QUERY = `#graphql
   # the ordered handle array in MegaMenu.jsx — not a query change.
   # (Collections must be published to the Puchica Storefront channel
   # to appear here — that's a Shopify admin publication, not code.)
-  query MegaMenu {
+  query MegaMenu(
+    $country: CountryCode!
+    $language: LanguageCode!
+  ) @inContext(country: $country, language: $language) {
     collections(first: 30) {
       nodes { ...MegaCategory }
     }

@@ -1,150 +1,104 @@
-/**
- * Rewrites a Cart.checkoutUrl so it actually serves checkout.
- *
- * ## Why this exists
- *
- * `Cart.checkoutUrl` from the Storefront API is meant to be a URL the user
- * follows straight into Shopify's hosted checkout. The path is conventionally
- * `/cart/c/{token}?key=…` and the host is whatever the store has configured
- * as the "primary storefront domain" for the cart's `@inContext` (country,
- * language) combination.
- *
- * For Puchica, the Storefront API returns checkoutUrl with host `puchica.ca`
- * (the storefront's custom domain, served by Hydrogen on Oxygen) and the
- * `/cart/c/{token}?…` path. Two problems:
- *
- *   1. `puchica.ca/cart/c/{token}` hits the Hydrogen app, which has no
- *      `/cart/c/{token}` route, so it 404s.
- *   2. `puchica-2.myshopify.com/cart/c/{token}` (the actual primary domain)
- *      302-redirects to `puchica.ca/cart/c/{token}` for the same reason.
- *
- * The store's working checkout URL is on a different host AND a different
- * path: `https://{PUBLIC_CHECKOUT_DOMAIN}/checkouts/cn/{token}/{locale}?…`.
- * That URL returns 200 and serves the real Express checkout (Shop Pay /
- * PayPal / G Pay / shipping / payment).
- *
- * ## Control surface (env vars, set in `.env`)
- *
- *   - `PUBLIC_CHECKOUT_DOMAIN` (default: `checkout.puchica.ca`)
- *       The dedicated Shopify checkout host. Keeping this env-driven means
- *       a future domain migration can't silently send shoppers to the
- *       storefront or retired Online Store theme.
- *   - `PUBLIC_CHECKOUT_LOCALE` (default: `en-ca`)
- *       The locale segment in the working checkout path. Should match
- *       the cart's `@inContext` (country, language). When multi-locale
- *       ships, this should be derived per-request, not env.
- *
- * ## Self-observability
- *
- * In development only, the rewriter logs a warning when the input URL
- * looks like the known-bad storefront host but doesn't match the
- * `/cart/c/{token}` shape. This catches drift early (someone changed
- * the Storefront API path convention, or Markets flipped a domain)
- * without spamming the shopper's DevTools in production.
- *
- * ## Resolution
- *
- * On `www.puchica.ca` Hydrogen is live and the Storefront API still returns
- * the same `/cart/c/{token}` checkoutUrl shape. The Hydrogen worker has no
- * `/cart/c/{token}` route, so the rewriter below is still required even
- * with the apex→www redirect in place. Once the Markets/Domains config in
- * Shopify admin is corrected so the Storefront API returns the working
- * URL directly (or the Hydrogen worker is updated to handle `/cart/c/{token}`
- * and proxy to the checkout host), set `CHECKOUT_URL_REWRITER` to the
- * identity function `url => url` and this becomes a no-op. The two callers
- * (`CartSummary`, `cart.jsx` action) won't need changes.
- *
- * @param {string | null | undefined} url  The Cart.checkoutUrl value.
- * @returns {string | null | undefined}    A URL that actually serves checkout,
- *   or the input if it was null/undefined/empty or already correct.
- */
-
-import {warn} from '~/lib/logger';
-
-// Read once at module load. Hydrogen surfaces these from `.env` into
-// `process.env` (Oxygen) and `import.meta.env` (Vite dev). We try
-// `import.meta.env` first because Vite tree-shakes it correctly in
-// dev/test, and fall back to `process.env` for the Oxygen runtime
-// where `import.meta.env` may not be hydrated for non-VITE_ vars.
-function readEnv(key, fallback) {
-  try {
-    const v = import.meta.env?.[key];
-    if (v) return v;
-  } catch {
-    /* import.meta.env unavailable */
-  }
-  if (typeof process !== 'undefined' && process.env && process.env[key]) {
-    return process.env[key];
-  }
-  return fallback;
-}
+import {warn} from './logger.js';
 
 const CANONICAL_CHECKOUT_DOMAIN = 'checkout.puchica.ca';
-const LEGACY_PRIMARY_DOMAIN = 'ug91ve-sz.myshopify.com';
-const RETIRED_CHECKOUT_DOMAIN = 'puchica-2.myshopify.com';
-const configuredCheckoutDomain = readEnv(
-  'PUBLIC_CHECKOUT_DOMAIN',
-  CANONICAL_CHECKOUT_DOMAIN,
-);
-
-// Neither historical myshopify.com domain is an acceptable checkout host for
-// Hydrogen. Preserve an explicitly configured future checkout subdomain, but
-// fail safely to the dedicated checkout host when old Oxygen variables remain.
-const CHECKOUT_DOMAIN =
-  configuredCheckoutDomain === RETIRED_CHECKOUT_DOMAIN ||
-  configuredCheckoutDomain === LEGACY_PRIMARY_DOMAIN
-    ? CANONICAL_CHECKOUT_DOMAIN
-    : configuredCheckoutDomain;
-const CHECKOUT_LOCALE = readEnv('PUBLIC_CHECKOUT_LOCALE', 'en-ca');
-
-// The known-bad storefront host that Hydrogen's @inContext(CA, EN) returns.
-const BAD_STOREFRONT_HOSTS = new Set([
+const LEGACY_CHECKOUT_DOMAINS = new Set([
+  'ug91ve-sz.myshopify.com',
+  'puchica-2.myshopify.com',
+]);
+const STOREFRONT_DOMAINS = new Set([
   'puchica.ca',
   'www.puchica.ca',
   'shop.puchica.ca',
+  // Shopify currently shapes Cart.checkoutUrl on this store-owned domain.
+  // It is accepted only as a cart-permalink source and is always rewritten
+  // onto the dedicated checkout host before it reaches a shopper.
+  'puchica.shop',
+  'www.puchica.shop',
 ]);
 
-export const CHECKOUT_URL_REWRITER = (url) => {
+/**
+ * @typedef {{
+ *   checkoutDomain?: string,
+ *   country?: string,
+ *   language?: string,
+ * }} CheckoutRewriteOptions
+ */
+
+/**
+ * Convert Shopify's Hydrogen cart permalink into the dedicated checkout URL.
+ * Unknown hosts, malformed paths, and non-HTTPS destinations fail closed.
+ * Locale and configuration are supplied per request so Markets context is
+ * preserved instead of being frozen at module load.
+ *
+ * @param {string | null | undefined} url
+ * @param {CheckoutRewriteOptions} [options]
+ * @returns {string | null | undefined}
+ */
+export function CHECKOUT_URL_REWRITER(
+  url,
+  options = /** @type {CheckoutRewriteOptions} */ ({}),
+) {
   if (!url) return url;
+
+  const resolvedOptions = {
+    checkoutDomain: undefined,
+    country: undefined,
+    language: undefined,
+    ...options,
+  };
 
   let parsed;
   try {
     parsed = new URL(url);
   } catch {
-    // Not a parseable URL — return as-is and let the browser handle it.
-    return url;
+    return null;
   }
 
-  if (!BAD_STOREFRONT_HOSTS.has(parsed.host)) {
-    // Not the storefront host — leave it alone (e.g. already on a checkout host).
-    return url;
+  if (parsed.protocol !== 'https:') return null;
+
+  const configuredDomain = String(
+    resolvedOptions.checkoutDomain || CANONICAL_CHECKOUT_DOMAIN,
+  ).toLowerCase();
+  const checkoutDomain = LEGACY_CHECKOUT_DOMAINS.has(configuredDomain)
+    ? CANONICAL_CHECKOUT_DOMAIN
+    : configuredDomain;
+
+  if (parsed.hostname === checkoutDomain) return parsed.toString();
+  // Shopify can return the cart permalink on either the public storefront
+  // host or the store's historical `myshopify.com` host. Both are trusted
+  // inputs, but neither is sent to the shopper directly: the token is always
+  // moved onto the dedicated, approved checkout domain below.
+  const isApprovedCartHost =
+    STOREFRONT_DOMAINS.has(parsed.hostname) ||
+    LEGACY_CHECKOUT_DOMAINS.has(parsed.hostname);
+  if (!isApprovedCartHost) {
+    warn('checkout rewriter rejected unapproved host', {
+      host: parsed.hostname,
+    });
+    return null;
   }
 
-  // Extract the cart token from /cart/c/{token}.
-  const cartTokenMatch = parsed.pathname.match(/^\/cart\/c\/([^/]+)\/?$/);
-  if (!cartTokenMatch) {
-    // Same host as the storefront but a path we don't recognize. This
-    // is the drift case: the Storefront API changed shape, or someone
-    // wired a different route. Log once so it's visible in dev.
-    warn(
-      'checkout rewriter bypass: host matches storefront but path shape unexpected',
-      {host: parsed.host, pathname: parsed.pathname},
-    );
-    return url;
-  }
-  const cartToken = cartTokenMatch[1];
-
-  // Build the working checkout URL. `en-ca` matches the @inContext the
-  // Hydrogen storefront uses (see app/lib/context.js: i18n: EN, country: CA).
-  // If/when we add more locales, this should consult the cart's @inContext.
-  const rewritten = new URL(
-    `https://${CHECKOUT_DOMAIN}/checkouts/cn/${encodeURIComponent(cartToken)}/${CHECKOUT_LOCALE}`,
+  const tokenMatch = parsed.pathname.match(
+    /^\/cart\/c\/([A-Za-z0-9_-]{4,256})\/?$/,
   );
+  if (!tokenMatch) {
+    warn('checkout rewriter rejected unexpected path', {
+      host: parsed.hostname,
+      pathname: parsed.pathname,
+    });
+    return null;
+  }
 
-  // Preserve the query string (key, _s, _y, discount, etc.).
+  const language = String(resolvedOptions.language || 'EN')
+    .toLowerCase()
+    .replace('_', '-');
+  const country = String(resolvedOptions.country || 'US').toLowerCase();
+  const locale = `${language}-${country}`;
+  const rewritten = new URL(
+    `https://${checkoutDomain}/checkouts/cn/${encodeURIComponent(tokenMatch[1])}/${locale}`,
+  );
   parsed.searchParams.forEach((value, key) => {
     rewritten.searchParams.append(key, value);
   });
-
   return rewritten.toString();
-};
+}

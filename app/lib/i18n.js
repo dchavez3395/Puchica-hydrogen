@@ -35,6 +35,16 @@ export const LANGUAGE_KEYS = {
   PT_BR: 'pt-br',
 };
 
+// Puchica operates one North American storefront with two independently
+// priced buyer markets. The selected country drives Storefront API pricing,
+// currency, product availability, and the cart buyer identity.
+export const MARKETS = {
+  CA: {},
+  US: {},
+};
+
+export const MARKET_COOKIE = 'pk_market';
+
 /**
  * URL-based locales.
  *
@@ -128,15 +138,19 @@ function readCookie(request, name) {
 }
 
 /**
- * Buyer country from Oxygen's geo header (ISO 3166-1 alpha-2). Falls back to CA.
+ * Supported buyer country from a saved choice or Oxygen geo. Falls back to CA.
  * @param {Request} request
  */
 function buyerCountry(request) {
-  const c =
+  const chosen = readCookie(request, MARKET_COOKIE)?.toUpperCase();
+  if (chosen && MARKETS[chosen]) return chosen;
+
+  const geoCountry =
     request.headers.get('oxygen-buyer-country') ||
     request.headers.get('Oxygen-Buyer-Country') ||
     '';
-  return c ? c.toUpperCase() : DEFAULT_LOCALE.country;
+  const country = geoCountry.toUpperCase();
+  return MARKETS[country] ? country : DEFAULT_LOCALE.country;
 }
 
 /**
@@ -160,4 +174,50 @@ export function getLocaleFromRequest(request) {
     // 4. English
     DEFAULT_LOCALE.language;
   return {language, country};
+}
+
+/**
+ * Reconcile the requested country with the market Shopify actually resolved.
+ * Storefront API can silently fall back to another market when the requested
+ * country is not published to the current storefront. Never infer currency
+ * from a country code; only surface the currency returned by Shopify.
+ *
+ * @param {{language?: string, country?: string}} requestedLocale
+ * @param {{
+ *   country?: {isoCode?: string, currency?: {isoCode?: string}};
+ *   availableCountries?: Array<{isoCode?: string, currency?: {isoCode?: string}}>;
+ * } | null | undefined} localization
+ */
+export function resolveStorefrontLocale(requestedLocale, localization) {
+  const requestedCountry = String(
+    requestedLocale?.country || DEFAULT_LOCALE.country,
+  ).toUpperCase();
+  const resolvedCountry = String(
+    localization?.country?.isoCode || requestedCountry,
+  ).toUpperCase();
+  const currency = localization?.country?.currency?.isoCode || null;
+  const availableMarkets = (localization?.availableCountries || [])
+    .filter((country) => MARKETS[country?.isoCode])
+    .map((country) => ({
+      country: country.isoCode,
+      currency: country.currency?.isoCode || null,
+    }));
+
+  return {
+    language: requestedLocale?.language || DEFAULT_LOCALE.language,
+    country: resolvedCountry,
+    currency,
+    requestedCountry,
+    marketFallback: resolvedCountry !== requestedCountry,
+    availableMarkets,
+  };
+}
+
+/** @param {{country?: string, currency?: string | null, language?: string}} locale */
+export function marketDisplayLabel(locale) {
+  const country = locale?.country || DEFAULT_LOCALE.country;
+  const language = String(locale?.language || DEFAULT_LOCALE.language)
+    .replace('_BR', '')
+    .toUpperCase();
+  return [country, locale?.currency, language].filter(Boolean).join(' · ');
 }

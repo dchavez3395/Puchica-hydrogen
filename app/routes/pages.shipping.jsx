@@ -3,6 +3,7 @@ import {puchicaMeta} from '~/lib/seo';
 import StarGlyph from '~/components/StarGlyph';
 import {IconBag, IconPackage, IconTruck} from '~/components/Icons';
 import {useT} from '~/lib/t';
+import {useRouteLoaderData} from 'react-router';
 
 export const meta = ({params}) =>
   puchicaMeta({
@@ -19,14 +20,17 @@ export async function loader() {
 
 export default function ShippingPage() {
   const t = useT();
+  const root = useRouteLoaderData('root');
 
-  // These are launch priorities, not an assertion that all destinations or
-  // products are currently deliverable. Checkout remains the source of truth.
-  const regions = [
-    {name: t('ship_market_ca_name'), detail: t('ship_market_ca_detail'), color: 'ember'},
-    {name: t('ship_market_us_name'), detail: t('ship_market_us_detail'), color: 'jade'},
-    {name: t('ship_market_next_name'), detail: t('ship_market_next_detail'), color: 'cobalt'},
-  ];
+  // Only present markets Shopify actually publishes to this storefront.
+  // Delivery remains cart-and-address specific even inside an available market.
+  const regions = (root?.selectedLocale?.availableMarkets || [])
+    .filter((market) => market.country === 'CA' || market.country === 'US')
+    .map((market) => ({
+      name: `${t(`locale_market_${market.country.toLowerCase()}`)} · ${market.currency}`,
+      detail: `${market.currency} · ${t('ship_check_destination_eta')}`,
+      color: market.country === 'CA' ? 'ember' : 'jade',
+    }));
 
   const rates = [
     {
@@ -80,7 +84,7 @@ export default function ShippingPage() {
             {t('ship_hero_cta')}
             </Link>
             <a href="#delivery-check" className="pk-shipping-hero__jump">
-              See how delivery is confirmed <span aria-hidden="true">↓</span>
+              {t('ship_jump')} <span aria-hidden="true">↓</span>
             </a>
           </div>
         </div>
@@ -97,9 +101,15 @@ export default function ShippingPage() {
               <StarGlyph /> {t('ship_launch_regions_eye')}
             </span>
             <h2 className="pk-shipping-regions__title">
-              {t('ship_launch_regions_title')}
+              {regions.length > 1
+                ? t('ship_launch_regions_title')
+                : t('ship_launch_regions_eye')}
             </h2>
-            <p className="pk-shipping-regions__sub">{t('ship_launch_regions_sub')}</p>
+            <p className="pk-shipping-regions__sub">
+              {regions.length > 1
+                ? t('ship_launch_regions_sub')
+                : t('ship_launch_rates_sub')}
+            </p>
           </div>
           <div className="pk-shipping-regions__grid">
             {regions.map(({name, detail, color}) => (

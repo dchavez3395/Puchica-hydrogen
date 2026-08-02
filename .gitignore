@@ -32,6 +32,7 @@ storefrontapi.generated.d.ts
 # ─── Tooling lockfiles / scratch ─────────────────────────────
 # Local plugin cache + plugin lock — keep out of source control.
 .agents/
+.codex-work/
 skills-lock.json
 .agent.lock
 CLAUDE.local.md

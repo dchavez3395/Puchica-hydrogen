@@ -1,5 +1,9 @@
 # Puchica UI baseline
 
+The project-wide source hierarchy and release requirements are defined in
+`docs/puchica-operating-quality-gates.md`. This file remains the compact design
+system implementation baseline.
+
 This is the local implementation baseline for the storefront. It is aligned to
 the linked **Project Accessibility Sheets** WCAG 2.2 template; it is not a
 claim that the site has completed a formal accessibility audit.

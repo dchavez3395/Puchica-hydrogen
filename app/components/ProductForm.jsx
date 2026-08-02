@@ -1,11 +1,9 @@
 import {useNavigate} from 'react-router';
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
-import {useState, useEffect, useRef} from 'react';
+import {useState, useEffect} from 'react';
 import {AddToCartButton} from './AddToCartButton';
-import {OfferCallout} from '~/components/OfferCallout';
-import {useAside} from './Aside';
 import {useT} from '~/lib/t';
-import {IconHeart, IconMinus, IconPlus} from '~/components/Icons';
+import {IconMinus, IconPlus} from '~/components/Icons';
 import {formatProductOptionLabel} from '~/lib/product-options';
 
 /**
@@ -16,14 +14,15 @@ import {formatProductOptionLabel} from '~/lib/product-options';
  *   onAddStart?: () => void;
  * }}
  */
-export function ProductForm({productOptions, selectedVariant, product, onAddStart}) {
+export function ProductForm({
+  productOptions,
+  selectedVariant,
+  product,
+  onAddStart,
+}) {
   const navigate = useNavigate();
-  const {open} = useAside();
   const t = useT();
   const [qty, setQty] = useState(1);
-  const [saved, setSaved] = useState(false);
-  const [savePop, setSavePop] = useState(false);
-  const popTimerRef = useRef(null);
   // This property is intentionally absent from the launch catalog. A product
   // can only expose the control after a real provider has been integrated.
   const backInStockIsConfigured = product?.backInStockProvider === 'klaviyo';
@@ -33,61 +32,21 @@ export function ProductForm({productOptions, selectedVariant, product, onAddStar
     setQty(1);
   }, [selectedVariant?.id]);
 
-  // Wishlist persistence (per-handle). localStorage so it survives reloads.
-  useEffect(() => {
-    if (typeof window === 'undefined' || !product?.handle) return;
-    try {
-      const list = JSON.parse(localStorage.getItem('pk:wishlist') || '[]');
-      setSaved(list.includes(product.handle));
-    } catch {
-      // Corrupted wishlist entry — fall back to "not saved" rather
-      // than crashing the page.
-    }
-  }, [product?.handle]);
-
-  const toggleSave = () => {
-    if (typeof window === 'undefined' || !product?.handle) return;
-    try {
-      const list = JSON.parse(localStorage.getItem('pk:wishlist') || '[]');
-      const next = saved
-        ? list.filter((h) => h !== product.handle)
-        : [...list, product.handle];
-      localStorage.setItem('pk:wishlist', JSON.stringify(next));
-      setSaved(!saved);
-      // Trigger the pop animation, suppressed if the user prefers reduced
-      // motion. CSS handles the keyframe; we just toggle the class.
-      if (typeof window !== 'undefined') {
-        const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
-        if (!reduced.matches) {
-          setSavePop(true);
-          if (popTimerRef.current) clearTimeout(popTimerRef.current);
-          popTimerRef.current = setTimeout(() => setSavePop(false), 420);
-        }
-      }
-    } catch {
-      // localStorage may be blocked (private mode, quota exceeded).
-      // Swallow so the toggle still updates UI state.
-    }
-  };
-
-  // Cleanup the pop timer if the component unmounts while a pop is
-  // still scheduled.
-  useEffect(() => () => {
-    if (popTimerRef.current) clearTimeout(popTimerRef.current);
-  }, []);
-
   const stock = selectedVariant?.quantityAvailable;
   const lowStock = typeof stock === 'number' && stock > 0 && stock <= 5;
 
   return (
-    <div className="product-form" id="product-form">
+    <div className="product-form">
       {productOptions.map((option) => {
-        if (option.optionValues.length === 1) return null;
+        const visibleValues = option.optionValues.filter(
+          (value) => value.selected || value.available,
+        );
+        if (visibleValues.length <= 1) return null;
         return (
           <fieldset className="product-options" key={option.name}>
             <legend className="product-options__legend">{option.name}</legend>
             <div className="product-options-grid">
-              {option.optionValues.map((value) => {
+              {visibleValues.map((value) => {
                 const {
                   name,
                   handle,
@@ -103,14 +62,20 @@ export function ProductForm({productOptions, selectedVariant, product, onAddStar
                 if (isDifferentProduct) {
                   return (
                     <Link
-                      className={'product-options-item' + (selected ? ' is-selected' : '') + (available ? '' : ' is-unavailable')}
+                      className={
+                        'product-options-item' +
+                        (selected ? ' is-selected' : '') +
+                        (available ? '' : ' is-unavailable')
+                      }
                       key={option.name + name}
                       prefetch="intent"
                       preventScrollReset
                       replace
                       to={`/products/${handle}?${variantUriQuery}`}
+                      aria-current={selected ? 'true' : undefined}
+                      aria-disabled={!available}
                     >
-                      <ProductOptionSwatch swatch={swatch} name={name} label={label} />
+                      <ProductOptionSwatch swatch={swatch} label={label} />
                     </Link>
                   );
                 }
@@ -120,6 +85,7 @@ export function ProductForm({productOptions, selectedVariant, product, onAddStar
                     className={`product-options-item${exists && !selected ? ' link' : ''}${selected ? ' is-selected' : ''}${available ? '' : ' is-unavailable'}`}
                     key={option.name + name}
                     disabled={!exists || !available}
+                    aria-pressed={selected}
                     onClick={() => {
                       if (!selected) {
                         void navigate(`?${variantUriQuery}`, {
@@ -129,7 +95,7 @@ export function ProductForm({productOptions, selectedVariant, product, onAddStar
                       }
                     }}
                   >
-                    <ProductOptionSwatch swatch={swatch} name={name} label={label} />
+                    <ProductOptionSwatch swatch={swatch} label={label} />
                   </button>
                 );
               })}
@@ -170,7 +136,6 @@ export function ProductForm({productOptions, selectedVariant, product, onAddStar
             onClick={(e) => {
               e.stopPropagation();
               onAddStart?.();
-              open('cart');
             }}
             lines={
               selectedVariant
@@ -190,28 +155,10 @@ export function ProductForm({productOptions, selectedVariant, product, onAddStar
           </AddToCartButton>
         </div>
 
-        {product?.handle ? (
-          <button
-            type="button"
-            className={
-              'pk-save' +
-              (saved ? ' is-saved' : '') +
-              (savePop ? ' pk-save--pop' : '')
-            }
-            onClick={toggleSave}
-            aria-pressed={saved}
-            aria-label={saved ? t('product_unsave_aria') : t('product_save_aria')}
-          >
-            <IconHeart size={16} />
-          </button>
-        ) : null}
       </div>
 
-      {/* First-order incentive, right under the buy button. */}
-      {selectedVariant?.availableForSale ? <OfferCallout /> : null}
-
       <p className="pk-product-form__microcopy">
-        Secure Shopify checkout. Discount codes and shipping options appear before payment.
+        {t('product_trust_secure')} · {t('product_trust_shipping')}
       </p>
 
       {/* Low-stock urgency */}
@@ -225,8 +172,13 @@ export function ProductForm({productOptions, selectedVariant, product, onAddStar
       {/* Do not collect emails until the Klaviyo back-in-stock flow persists
           and sends them. A success state without delivery is worse than no
           control at all. */}
-      {backInStockIsConfigured && selectedVariant && !selectedVariant.availableForSale ? (
-        <NotifyBackForm variantId={selectedVariant.id} productHandle={product?.handle} />
+      {backInStockIsConfigured &&
+      selectedVariant &&
+      !selectedVariant.availableForSale ? (
+        <NotifyBackForm
+          variantId={selectedVariant.id}
+          productHandle={product?.handle}
+        />
       ) : null}
     </div>
   );
@@ -296,7 +248,7 @@ function NotifyBackForm({variantId, productHandle}) {
   );
 }
 
-function ProductOptionSwatch({swatch, name, label}) {
+function ProductOptionSwatch({swatch, label}) {
   const image = swatch?.image?.previewImage?.url;
   const color = swatch?.color;
   if (!image && !color) return label;

@@ -30,10 +30,16 @@ export function PageLayout({
   const t = useT();
   return (
     <Aside.Provider>
-      <a href="#main-content" className="pk-skip-link">{t('skip_to_content')}</a>
+      <a href="#main-content" className="pk-skip-link">
+        {t('skip_to_content')}
+      </a>
       <CartAside cart={cart} />
       <SearchAside />
-      <MobileMenuAside header={header} megaMenu={megaMenu} publicStoreDomain={publicStoreDomain} />
+      <MobileMenuAside
+        header={header}
+        megaMenu={megaMenu}
+        publicStoreDomain={publicStoreDomain}
+      />
       {header && (
         <Header
           header={header}
@@ -43,7 +49,9 @@ export function PageLayout({
           megaMenu={megaMenu}
         />
       )}
-      <main id="main-content" tabIndex={-1}>{children}</main>
+      <main id="main-content" tabIndex={-1}>
+        {children}
+      </main>
       <Footer
         footer={footer}
         header={header}
@@ -197,7 +205,12 @@ function SearchAside() {
               }
 
               if (!total) {
-                return <SearchResultsPredictive.Empty term={term} closeSearch={closeSearch} />;
+                return (
+                  <SearchResultsPredictive.Empty
+                    term={term}
+                    closeSearch={closeSearch}
+                  />
+                );
               }
 
               return (
@@ -277,7 +290,9 @@ function MobileMenuAside({header, megaMenu, publicStoreDomain}) {
               <span aria-hidden>→</span>
             </Link>
             <div className="pk-mmenu__locale">
-              <span className="pk-mmenu__locale-label">{t('mobile_language')}</span>
+              <span className="pk-mmenu__locale-label">
+                {t('mobile_market_language')}
+              </span>
               <LocaleSwitcher />
             </div>
           </div>
@@ -295,7 +310,7 @@ function MobileMenuAside({header, megaMenu, publicStoreDomain}) {
           <p className="pk-mmenu__foot">
             Shipping options shown at checkout
             <StarGlyph size={10} style={{margin: '0 0.4em'}} />
-            14-day returns
+            Refund policy available
           </p>
         </div>
       </Aside>

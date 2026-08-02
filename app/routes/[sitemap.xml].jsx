@@ -1,17 +1,27 @@
-import {getSitemapIndex} from '@shopify/hydrogen';
+// Only advertise deliberately curated launch URLs. Shopify still contains
+// legacy collections/blog records that are not part of this storefront.
+const SITEMAP_TYPES = ['products', 'pages'];
 
 /**
  * @param {Route.LoaderArgs}
  */
-export async function loader({request, context: {storefront}}) {
-  const response = await getSitemapIndex({
-    storefront,
-    request,
+export async function loader({request}) {
+  const baseUrl = new URL(request.url).origin;
+  const entries = SITEMAP_TYPES.map(
+    (type) =>
+      `  <sitemap><loc>${baseUrl}/sitemap/${type}/1.xml</loc></sitemap>`,
+  ).join('\n');
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${entries}
+</sitemapindex>`;
+
+  return new Response(xml, {
+    headers: {
+      'Content-Type': 'application/xml; charset=utf-8',
+      'Cache-Control': `public, max-age=${60 * 60 * 24}`,
+    },
   });
-
-  response.headers.set('Cache-Control', `max-age=${60 * 60 * 24}`);
-
-  return response;
 }
 
 /** @typedef {import('./+types/[sitemap.xml]').Route} Route */

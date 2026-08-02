@@ -1,5 +1,7 @@
-import {getSitemap} from '@shopify/hydrogen';
-import {PREFIXED_LANGS} from '~/lib/i18n';
+import {
+  filterLaunchProducts,
+  LAUNCH_READY_TAG,
+} from '~/lib/launch-catalog';
 
 /**
  * @param {Route.LoaderArgs}
@@ -24,26 +26,113 @@ export async function loader({request, params, context: {storefront}}) {
   // signals from the sitemap and from <link rel="alternate"> agree.
   const locales = ['en', 'fr', 'es', 'pt-br'];
 
-  const response = await getSitemap({
-    storefront,
-    request,
-    params,
-    locales,
-    getLink: ({type, baseUrl, handle, locale}) => {
-      if (!locale) return `${baseUrl}/${type}/${handle}`;
-      // Sanity-check the prefix against the i18n module's allow-list.
-      // If a future locale is added to the array but not to
-      // PREFIXED_LANGS, we'd accidentally advertise 404 URLs.
-      if (!PREFIXED_LANGS.includes(locale)) {
-        return `${baseUrl}/${type}/${handle}`;
+  if (params.type === 'products') {
+    if (String(params.page || '1') !== '1') {
+      return xmlResponse(emptyUrlset());
+    }
+
+    const {products} = await storefront.query(LAUNCH_PRODUCTS_QUERY, {
+      cache: storefront.CacheShort(),
+      variables: {query: `tag:${LAUNCH_READY_TAG}`},
+    });
+    const launchProducts = filterLaunchProducts(
+      products.nodes || [],
+    );
+    return xmlResponse(
+      productUrlset(launchProducts, new URL(request.url).origin, locales),
+    );
+  }
+
+  if (params.type === 'pages' && String(params.page || '1') === '1') {
+    return xmlResponse(
+      staticPageUrlset(new URL(request.url).origin, locales),
+    );
+  }
+
+  return xmlResponse(emptyUrlset());
+}
+
+const LAUNCH_PRODUCTS_QUERY = `#graphql
+  query LaunchSitemapProducts($query: String!) {
+    products(first: 250, sortKey: TITLE, query: $query) {
+      nodes {
+        handle
+        tags
+        availableForSale
+        updatedAt
       }
-      return `${baseUrl}/${locale}/${type}/${handle}`;
+    }
+  }
+`;
+
+function productUrlset(products, baseUrl, locales) {
+  const urls = products
+    .map((product) => {
+      const canonical = `${baseUrl}/products/${encodeURIComponent(product.handle)}`;
+      const alternates = locales
+        .map((locale) => {
+          const href =
+            locale === 'en'
+              ? canonical
+              : `${baseUrl}/${locale}/products/${encodeURIComponent(product.handle)}`;
+          return `  <xhtml:link rel="alternate" hreflang="${locale}" href="${href}" />`;
+        })
+        .join('\n');
+      return `<url>
+  <loc>${canonical}</loc>
+  <lastmod>${product.updatedAt}</lastmod>
+  <changefreq>weekly</changefreq>
+${alternates}
+</url>`;
+    })
+    .join('\n');
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">${urls}</urlset>`;
+}
+
+const LAUNCH_STATIC_PATHS = [
+  '/',
+  '/collections/all',
+  '/collections/new-arrivals',
+  '/pages/about',
+  '/pages/faq',
+  '/pages/shipping',
+];
+
+function staticPageUrlset(baseUrl, locales) {
+  const urls = LAUNCH_STATIC_PATHS.map((path) => {
+    const canonical = `${baseUrl}${path}`;
+    const alternates = locales
+      .map((locale) => {
+        const href = locale === 'en' ? canonical : `${baseUrl}/${locale}${path}`;
+        return `  <xhtml:link rel="alternate" hreflang="${locale}" href="${href}" />`;
+      })
+      .join('\n');
+    return `<url>
+  <loc>${canonical}</loc>
+  <changefreq>weekly</changefreq>
+${alternates}
+</url>`;
+  }).join('\n');
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">${urls}</urlset>`;
+}
+
+function emptyUrlset() {
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml"></urlset>`;
+}
+
+function xmlResponse(xml, status = 200) {
+  return new Response(xml, {
+    status,
+    headers: {
+      'Content-Type': 'application/xml; charset=utf-8',
+      'Cache-Control': `public, max-age=${60 * 60 * 24}`,
     },
   });
-
-  response.headers.set('Cache-Control', `max-age=${60 * 60 * 24}`);
-
-  return response;
 }
 
 /** @typedef {import('./+types/sitemap.$type.$page[.xml]').Route} Route */

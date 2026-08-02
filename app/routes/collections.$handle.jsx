@@ -261,6 +261,7 @@ export default function Collection() {
           />
           <PaginatedResourceSection
             connection={collection.products}
+            showSummary={false}
             resourcesClassName={
               'pk-prod-grid' + (density === 3 ? ' pk-prod-grid--3' : '')
             }
@@ -269,7 +270,7 @@ export default function Collection() {
               <ProductItem
                 key={product.id}
                 product={product}
-                loading={index < 8 ? 'eager' : undefined}
+                loading={index < 2 ? 'eager' : 'lazy'}
               />
             )}
           </PaginatedResourceSection>
