@@ -68,6 +68,13 @@ was made. See
 `docs/hero-product-screening-2026-08-02.md` and
 `docs/greenfield-supplier-evidence-2026-08-02.md`.
 
+A subsequent explicit-bundle screen rejected a 25-piece drawer organizer for
+mass-market price pressure and a 12-box shoe-storage set for excessive landed
+cost. Four linen/sheet boxes remain a conditional organic merchandising lead,
+not a paid hero, because the cheapest DSers rows do not expose exact pack count
+and the US$29.99–33.49 retail band leaves insufficient absolute contribution.
+See `docs/bundle-product-screen-2026-08-02.md`.
+
 ## P0 gate 0 — mandatory Manitoba seller disclosures
 
 Puchica is operated from Manitoba, so the Internet Agreements Regulation is a
