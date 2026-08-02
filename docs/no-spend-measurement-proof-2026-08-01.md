@@ -64,12 +64,18 @@ so this remains a measurement hold rather than a transient-dashboard issue.
 - A labelled production checkout session appeared in Realtime as one active
   user. The visible report showed `Checkout - Puchica` with 2 views,
   `begin_checkout` with 2 events, and `page_view` with 2 events.
-- `add_to_cart` and `view_item` did not appear in the visible Realtime event
-  table during the observation window, so full per-action GA4 proof remains
-  incomplete.
+- `add_to_cart` and `view_item` did not appear in the initial production
+  observation, which identified a real storefront measurement gap.
 - A second production journey increased the visible Checkout page count and
   again surfaced `begin_checkout` and `page_view`, but still did not surface
   `view_item` or `add_to_cart` in the visible Realtime event table.
+- The loaders were then separated by owner. A private Oxygen preview emitted
+  only GA4 `view_item` and `add_to_cart`, while page view and checkout remained
+  native-owned. One preview view and one preview cart addition produced exactly
+  one event of each type in Realtime.
+- The identical commit was deployed to production. One live view and one live
+  cart addition advanced both Realtime totals from 1 to 2. This is exact live
+  upstream-event proof with no observed duplication.
 
 ## Duplicate-tracking prevention
 
@@ -77,10 +83,15 @@ Shopify's native Meta and Google app pixels are already connected. The release
 also contained optional custom Meta and GA4 loaders. Enabling both paths would
 risk counting the same commerce action twice.
 
-The storefront now requires
-`PUBLIC_CUSTOM_ANALYTICS_ENABLED=true` before either custom loader can run. The
-default is `false`. Keep it false while the Shopify Facebook & Instagram and
-Google & YouTube app pixels remain connected.
+The storefront now separates ownership explicitly:
+
+- `PUBLIC_CUSTOM_META_ENABLED=false`: the custom Meta loader remains disabled;
+  Shopify Facebook & Instagram remains the Meta owner.
+- `PUBLIC_GA4_STOREFRONT_EVENTS_ENABLED=true`: the scoped custom GA4 loader
+  emits only `view_item` and `add_to_cart`.
+- GA4 uses `send_page_view: false` and does not subscribe to page-view or
+  checkout-start events, so Shopify's native Google integration retains those
+  stages without duplicate custom emission.
 
 Production DOM inspection confirmed that the direct custom Meta/GA script tags
 and serialized custom analytics IDs are absent. Shopify's native app pixels
@@ -88,8 +99,8 @@ remain the intended owners of commerce measurement.
 
 ## Production release proof
 
-- Exact reviewed commit: `6698f9c` (`fix: prevent duplicate native analytics
-  events`).
+- Exact current commit: `b0edb3f` (`fix: separate storefront analytics
+  ownership`).
 - Preview deployment: `#5151560`, Complete / Ready.
 - The Oxygen CLI reported a successful deployment using the existing deployment
   token; no token was created, rotated, deleted, or printed.
@@ -98,13 +109,14 @@ remain the intended owners of commerce measurement.
 - A live cart contained the exact red five-piece packing-cube set at $53 USD and
   handed off to `checkout.puchica.ca`. Checkout offered both Canada and the
   United States as delivery countries.
-- Shopify Admin now shows production deployment `#5151585` as Current,
-  Complete, and Ready on exact commit `6698f9c`. The earlier `5fa190a` card was
-  a transient or historical view and is no longer an active release blocker.
-- GitHub `origin/main` does not yet contain the reviewed production line. Keep
-  automated production deployment disabled until the histories are reconciled
-  and verified in preview, because deploying `origin/main` directly could
-  overwrite the accepted storefront.
+- GitHub `origin/main` was reconciled by merge commit `87a64d1`, then advanced
+  to `b0edb3f`; the accepted production tree and compatible main-line fixes are
+  now on the canonical branch.
+- Preview deployment `#5151630` was Complete / Ready on `b0edb3f` and supplied
+  the first exact GA4 upstream-event proof.
+- Shopify Admin now shows production as Current, Complete, and Ready on exact
+  commit `b0edb3f` with the description “Deploy reconciled main with verified
+  scoped GA4 storefront events.”
 
 ## Gate decision
 
@@ -117,8 +129,9 @@ remain the intended owners of commerce measurement.
   documented acceptance before paid activation.
 - GA4 property traffic: PASS.
 - GA4 live checkout/page-view proof: PASS.
-- GA4 full per-action realtime proof: HOLD (`view_item` and `add_to_cart` were
-  not visible).
+- GA4 full per-action realtime proof: PASS (`view_item` and `add_to_cart` each
+  advanced exactly once in preview and exactly once in production).
 - Production storefront and no-order checkout path: PASS.
-- Paid activation: HOLD pending Git-history reconciliation, Meta live-event
-  proof, GA4 upstream-event proof, and explicit spend approval.
+- Git-history reconciliation: PASS.
+- Paid activation: HOLD pending Meta live-event proof/measurement acceptance
+  and explicit spend approval. No advertisement or campaign was activated.
