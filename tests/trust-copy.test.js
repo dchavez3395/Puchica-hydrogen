@@ -120,7 +120,7 @@ test('Meta and GA4 use separate explicit ownership guards', async () => {
   assert.match(envExample, /PUBLIC_GA4_STOREFRONT_EVENTS_ENABLED="false"/);
   assert.match(
     launchCheck,
-    /requireEnabled\(\s*'PUBLIC_CUSTOM_META_ENABLED'/,
+    /requireDisabled\(\s*'PUBLIC_CUSTOM_META_ENABLED'/,
   );
   assert.match(
     launchCheck,

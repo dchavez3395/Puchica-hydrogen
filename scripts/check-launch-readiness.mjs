@@ -58,9 +58,9 @@ export function runLaunchChecks() {
     env,
     failures,
   );
-  requireEnabled(
+  requireDisabled(
     'PUBLIC_CUSTOM_META_ENABLED',
-    'the custom Meta storefront bridge is disabled',
+    'Shopify owns Meta/CAPI; the custom bridge would risk duplicate events',
     env,
     failures,
   );
@@ -640,6 +640,12 @@ function requireConfigured(name, consequence, env, failures) {
 function requireEnabled(name, consequence, env, failures) {
   if (configuredValue(name, env) !== 'true') {
     failures.push(`${name} must be true: ${consequence}.`);
+  }
+}
+
+function requireDisabled(name, consequence, env, failures) {
+  if (configuredValue(name, env) !== 'false') {
+    failures.push(`${name} must be false: ${consequence}.`);
   }
 }
 
