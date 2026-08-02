@@ -15,7 +15,7 @@ welcome price, an ambiguous variant, or an unsupported retail price.
 
 | Priority | Direction | Why it remains interesting | Current blocker | Disposition |
 | --- | --- | --- | --- | --- |
-| 1 | Neutral six-piece true-compression travel system | Best combined creative, parcel, breakage, and liability profile; plausible US$59 offer | Exact AliExpress lead exists, but DSers returned no data by ID or exact-title search. True secondary compression zipper, ordinary price, history, and both routes remain unproved. | `EXACT_LEAD_PENDING_DSER_PROOF` |
+| 1 | Neutral six-piece true-compression travel system | Best combined creative, parcel, breakage, and liability profile; plausible US$59 offer | First exact lead was rejected because its visible price was a welcome-only offer and its ordinary supplier economics were unproved. A replacement exact SKU is still required. | `SEARCH_REOPENED` |
 | 2 | Independent bamboo slotted cookware/lid rack | Meaningfully distinct from expandable plastic/wire systems; public retail support above US$60; relatively simple construction | Current supplier leads are wholesale/Alibaba rather than proven one-order DSers automation. Moisture, splinter, adhesive, fit, and exact shipping evidence remain open. | `ALTERNATE_SOURCING_RESEARCH` |
 | 3 | Explicit two-bin roll-out under-sink reset | Strong before/after creative and plausible US$49 offer | One exact public lead exists, but DSers returned no data by ID; the price leaves only US$1.53 for worse-market shipping under the landed-cost cap. | `ROUTE_HOLD_LIKELY_KILL` |
 | 4 | Generic adjustable cookware/lid rack | Strong transformation and established demand | Common DSers route lands near US$18.68-US$18.85 and the design field has active patent/trade-dress risk. An obvious YouCopia or other branded copy is unacceptable. | `IP_AND_ECONOMICS_HOLD` |
@@ -33,20 +33,32 @@ boards are not being pursued because of mounting, shipping, and injury risk.
 
 Public indexing identified AliExpress item `1005007604243742`, titled as a
 six-piece compressible packing-cube set, at an indexed US$13.90 with a longer
-indexed average near US$15.33. This is an inspect-first lead only. At US$13.90,
-no more than US$4.10 remains for all worse-market shipping and route cost under
-the US$18 landed ceiling.
+indexed average near US$15.33. Owner-supplied mobile evidence then showed the
+six-piece option at **C$34.55**, explicitly labelled `Welcome deal`, with a
+crossed-out C$73.52 reference price. It also showed free Canadian shipping,
+an August 10-17 delivery estimate, 4.9 rating, and more than 4,000 displayed
+sales.
+
+At the contemporaneous Bank of Canada indicative rate of roughly C$1.41 per
+US$1, the welcome price is approximately US$24.50 before any unknown tax or
+operational cost. It already exceeds the US$18 landed target, and a one-time
+welcome price cannot be used for repeat-order economics. The crossed-out price
+is not accepted as either supplier cost or a trustworthy retail benchmark.
 
 Authenticated DSers searches for the item ID and the exact title phrase returned
 `No Data`. Direct AliExpress inspection was blocked by the controlled browser's
 security policy and was not bypassed. Therefore supplier history, exact option,
 ordinary logged-in price, stock, and Canada/U.S. route are still unknown.
 
-This candidate advances only if the exact six-piece option has a second perimeter
-zipper that compresses a gusset, the ordinary item price is no more than US$14,
-the worse-market tracked route keeps landed cost no more than US$18, and supplier
-history is credible. A normal packing cube described loosely as `compressible`
-must be rejected.
+**Decision: `REJECT_WELCOME_PRICE_AND_LANDED_COST`.** The strong rating and sales
+signal do not rescue unrepeatable supplier economics. No U.S. route check, image
+proof, import, or further work is required for this listing.
+
+A replacement candidate advances only if the exact set has a second perimeter
+zipper that compresses a gusset, the ordinary repeat-order item price is no more
+than US$14, the worse-market tracked route keeps landed cost no more than US$18,
+and supplier history is credible. A normal packing cube described loosely as
+`compressible` must be rejected.
 
 Avoid the following claims without product-specific testing: percentage space
 savings, reduced luggage weight, waterproof, wrinkle-free, ripstop, TSA or
@@ -169,10 +181,10 @@ exact option:
 
 ## Next execution order
 
-1. Attempt exact authenticated proof for compression-set item
-   `1005007604243742` through a supported DSers/AliExpress listing surface.
-2. Reject it if true compression, ordinary price, seller history, stock, or the
-   tracked dual-market route cannot be proved; do not substitute assumptions.
+1. Keep item `1005007604243742` rejected; do not use its welcome price in any
+   supplier, margin, or ad decision.
+2. Search for a replacement neutral true-compression set using ordinary
+   repeat-order price and an exact six-piece configuration.
 3. Check under-sink item `1005011879980914` only for a rare included tracked
    both-market route. Kill it immediately if worse-market landed cost exceeds
    US$18.

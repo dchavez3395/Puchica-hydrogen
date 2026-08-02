@@ -23,10 +23,11 @@ this file controls when a status, cap, or instruction conflicts.
 - The current all-hands product review is consolidated in
   `docs/all-hands-hero-product-shortlist-2026-08-02.md`. No candidate has passed
   the exact-SKU, differentiation, worse-market economics, and IP gates.
-- The follow-up risk pass now prioritizes exact proof of a neutral six-piece
-  true-compression travel set. AliExpress item `1005007604243742` is an external
-  index lead only; authenticated DSers returned no data by ID or exact-title
-  search. It is not selected, mapped, priced, or route-approved.
+- The follow-up risk pass still prioritizes a neutral six-piece true-compression
+  travel set, but AliExpress item `1005007604243742` is rejected. Owner-supplied
+  evidence showed C$34.55 as an explicit welcome-only price and C$73.52 crossed
+  out; the welcome price is not repeat-order economics and already exceeds the
+  landed-cost target before unknown costs. The search is reopened.
 - DSers remains the sole automation platform for supplier validation. Do not
   add AutoDS during this proof cycle.
 
