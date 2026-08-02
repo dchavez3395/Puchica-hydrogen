@@ -2,10 +2,10 @@
 
 ## Scope
 
-Authenticated, read-only inspection of Shopify Customer Events, Meta Events
-Manager, and GA4, followed by one labelled storefront QA journey. The journey
-stopped at checkout, placed no order, entered no payment information, and the
-test cart was emptied afterward. No campaign, budget, or advertisement was
+Authenticated inspection of Shopify Customer Events, Meta Events Manager, GA4,
+and Oxygen, followed by labelled preview and live storefront QA journeys. Each
+journey stopped at checkout. No order was placed and no contact, address, or
+payment information was entered. No campaign, budget, or advertisement was
 created or activated.
 
 ## Shopify Customer Events
@@ -37,10 +37,18 @@ existing historical signal is not treated as fresh purchase-proof for scaling.
 
 1. PageView has low Conversions API coverage. Meta recommends improving the
    coverage and deduplication keys shared between browser and server events.
-2. Meta requests confirmation of recently observed domains:
-   `puchica.ca`, `puchica-2.myshopify.com`, `ug91ve-sz.myshopify.com`, and
-   `puchica.shop`. Confirm current owned domains and investigate the legacy
-   `puchica.shop` entry before allowlisting it.
+2. The domain allowlist was restricted to the four verified production roots
+   and subdomains. Unverified legacy domains were not added.
+
+### Live Meta test result
+
+Meta's Website Test Events launcher was kept open while a fresh production
+journey loaded the packing-cubes campaign, added the exact red five-piece set,
+and reached checkout. No `PageView`, `ViewContent`, `AddToCart`, or
+`InitiateCheckout` rows appeared in Test Events during the observation window.
+This does not prove the native pixel is broken, because the Overview retains
+recent Browser + Server history, but it does mean exact live Test Events proof
+is still missing.
 
 ## GA4
 
@@ -48,8 +56,12 @@ existing historical signal is not treated as fresh purchase-proof for scaling.
 - Seven-day dashboard showed 5 active users and 93 events.
 - Users were reported from both Canada and the United States.
 - Page reporting included the Puchica storefront, product pages, and checkout.
-- The labelled QA browser session did not appear in Realtime during the
-  observation window, so per-action GA4 event proof remains incomplete.
+- A labelled production checkout session appeared in Realtime as one active
+  user. The visible report showed `Checkout - Puchica` with 2 views,
+  `begin_checkout` with 2 events, and `page_view` with 2 events.
+- `add_to_cart` and `view_item` did not appear in the visible Realtime event
+  table during the observation window, so full per-action GA4 proof remains
+  incomplete.
 
 ## Duplicate-tracking prevention
 
@@ -62,14 +74,39 @@ The storefront now requires
 default is `false`. Keep it false while the Shopify Facebook & Instagram and
 Google & YouTube app pixels remain connected.
 
+Production DOM inspection confirmed that the direct custom Meta/GA script tags
+and serialized custom analytics IDs are absent. Shopify's native app pixels
+remain the intended owners of commerce measurement.
+
+## Production release proof
+
+- Exact reviewed commit: `6698f9c` (`fix: prevent duplicate native analytics
+  events`).
+- Preview deployment: `#5151560`, Complete / Ready.
+- The Oxygen CLI reported a successful deployment using the existing deployment
+  token; no token was created, rotated, deleted, or printed.
+- Live `puchica.ca` served the approved North America storefront and the custom
+  analytics-disable behavior from the reviewed release.
+- A live cart contained the exact red five-piece packing-cube set at $53 USD and
+  handed off to `checkout.puchica.ca`. Checkout offered both Canada and the
+  United States as delivery countries.
+- Shopify Admin's overview initially rendered its older `5fa190a` production
+  card while the live site reflected the reviewed release. Treat the admin
+  release-record mismatch as a reconciliation item before paid activation.
+
 ## Gate decision
 
 - Storefront, cart, and checkout-start path: PASS without purchase.
 - Shopify native pixel configuration: PASS.
-- Meta pre-purchase event presence: PASS.
-- Meta measurement quality: CONDITIONAL; resolve or consciously accept the two
-  diagnostics before paid activation.
+- Meta historical pre-purchase event presence: PASS.
+- Meta exact live Test Events proof: HOLD.
+- Meta measurement quality: HOLD; exact Test Events proof and the low
+  Conversions API coverage/deduplication diagnostic require resolution or a
+  documented acceptance before paid activation.
 - GA4 property traffic: PASS.
-- GA4 exact per-action realtime proof: HOLD.
-- Production deployment and paid activation: HOLD pending the reconciled
-  release, final preview QA, and explicit spend approval.
+- GA4 live checkout/page-view proof: PASS.
+- GA4 full per-action realtime proof: HOLD (`view_item` and `add_to_cart` were
+  not visible).
+- Production storefront and no-order checkout path: PASS.
+- Paid activation: HOLD pending the Oxygen admin record reconciliation, Meta
+  live-event proof, GA4 upstream-event proof, and explicit spend approval.
