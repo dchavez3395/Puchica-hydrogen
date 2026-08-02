@@ -21,9 +21,12 @@ this file controls when a status, cap, or instruction conflicts.
   Packing Cube lead is rejected because its mapped supplier has no Canadian
   route, and the first replacement lead was a three-piece product mismatch.
 - The current all-hands product review is consolidated in
-  `docs/all-hands-hero-product-shortlist-2026-08-02.md`. The adjustable
-  cookware/lid rack is a dual-market supplier lead only; no candidate has passed
+  `docs/all-hands-hero-product-shortlist-2026-08-02.md`. No candidate has passed
   the exact-SKU, differentiation, worse-market economics, and IP gates.
+- The follow-up risk pass now prioritizes exact proof of a neutral six-piece
+  true-compression travel set. AliExpress item `1005007604243742` is an external
+  index lead only; authenticated DSers returned no data by ID or exact-title
+  search. It is not selected, mapped, priced, or route-approved.
 - DSers remains the sole automation platform for supplier validation. Do not
   add AutoDS during this proof cycle.
 

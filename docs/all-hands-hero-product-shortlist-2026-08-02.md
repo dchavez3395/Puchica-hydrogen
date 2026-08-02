@@ -15,17 +15,77 @@ welcome price, an ambiguous variant, or an unsupported retail price.
 
 | Priority | Direction | Why it remains interesting | Current blocker | Disposition |
 | --- | --- | --- | --- | --- |
-| 1 | Adjustable cookware/lid rack | Strong small-space transformation and established premium demand | The common dual-market DSers route currently lands near US$18.68 in the U.S. and US$18.85 in Canada, while a strong branded benchmark is US$39.99. Exact option, IP clearance, and a defensible premium price are unproved. | `SUPPLIER_LEAD_ONLY` |
-| 2 | Premium compression travel system | Excellent visual creative and potential US$59 offer | DSers searches did not expose an explicit, established 5-6 piece true-compression set with exact dual-market economics. | `SEARCH_OPEN` |
-| 3 | Explicit two-bin roll-out under-sink reset | Strong before/after creative and plausible US$49 offer | Supplier results exist for single pull-out organizers, but no explicit same-SKU two-pack with combined shipping has been proved. | `CONFIGURATION_BLOCKED` |
-| 4 | Convertible fold-flat / over-sink dish rack | Strong counter-space transformation; OXO supports a premium US$52.99 category anchor | DSers visual search failed and three keyword searches returned no usable data. Route and landed cost are unproved. | `SUPPLIER_BLOCKED` |
-| 5 | Premium locking drawer-divider set | Compact, low breakage and plausible US$45 offer | Multiple DSers searches returned no usable supplier data. | `SUPPLIER_BLOCKED` |
+| 1 | Neutral six-piece true-compression travel system | Best combined creative, parcel, breakage, and liability profile; plausible US$59 offer | Exact AliExpress lead exists, but DSers returned no data by ID or exact-title search. True secondary compression zipper, ordinary price, history, and both routes remain unproved. | `EXACT_LEAD_PENDING_DSER_PROOF` |
+| 2 | Independent bamboo slotted cookware/lid rack | Meaningfully distinct from expandable plastic/wire systems; public retail support above US$60; relatively simple construction | Current supplier leads are wholesale/Alibaba rather than proven one-order DSers automation. Moisture, splinter, adhesive, fit, and exact shipping evidence remain open. | `ALTERNATE_SOURCING_RESEARCH` |
+| 3 | Explicit two-bin roll-out under-sink reset | Strong before/after creative and plausible US$49 offer | One exact public lead exists, but DSers returned no data by ID; the price leaves only US$1.53 for worse-market shipping under the landed-cost cap. | `ROUTE_HOLD_LIKELY_KILL` |
+| 4 | Generic adjustable cookware/lid rack | Strong transformation and established demand | Common DSers route lands near US$18.68-US$18.85 and the design field has active patent/trade-dress risk. An obvious YouCopia or other branded copy is unacceptable. | `IP_AND_ECONOMICS_HOLD` |
+| 5 | Convertible fold-flat / over-sink dish rack | Strong counter-space transformation; OXO supports a premium US$52.99 category anchor | DSers visual search failed and three keyword searches returned no usable data. Route and landed cost are unproved. | `SUPPLIER_BLOCKED` |
 | 6 | Cable-reset kit | Lowest operational risk: hook-and-loop labels plus a soft cable pouch | Low standalone AOV and no exact single-supplier bundle or combined shipping proof. | `ORGANIC_OR_UPSELL_RESEARCH` |
 
 The pipe-aware expandable under-sink shelf remains a market-research fallback,
 not a supplier-approved candidate. Pull-down SpiceStack-type organizers are not
 being pursued because of avoidable patent/trade-dress risk. Wall-mounted ironing
 boards are not being pursued because of mounting, shipping, and injury risk.
+
+## Exact-candidate follow-up
+
+### Six-piece true-compression travel set
+
+Public indexing identified AliExpress item `1005007604243742`, titled as a
+six-piece compressible packing-cube set, at an indexed US$13.90 with a longer
+indexed average near US$15.33. This is an inspect-first lead only. At US$13.90,
+no more than US$4.10 remains for all worse-market shipping and route cost under
+the US$18 landed ceiling.
+
+Authenticated DSers searches for the item ID and the exact title phrase returned
+`No Data`. Direct AliExpress inspection was blocked by the controlled browser's
+security policy and was not bypassed. Therefore supplier history, exact option,
+ordinary logged-in price, stock, and Canada/U.S. route are still unknown.
+
+This candidate advances only if the exact six-piece option has a second perimeter
+zipper that compresses a gusset, the ordinary item price is no more than US$14,
+the worse-market tracked route keeps landed cost no more than US$18, and supplier
+history is credible. A normal packing cube described loosely as `compressible`
+must be rejected.
+
+Avoid the following claims without product-specific testing: percentage space
+savings, reduced luggage weight, waterproof, wrinkle-free, ripstop, TSA or
+airline approved, and lifetime durability. Canada textile labelling requirements
+must be resolved before publication.
+
+Public index reference:
+https://no.pricearchive.org/aliexpress.com/item/1005007604243742
+
+### Exact under-sink two-pack lead
+
+Public indexing identified AliExpress item `1005011879980914` as an express
+two-pack, two-tier sliding-basket organizer at an indexed US$16.47. DSers returned
+`No Data` for the exact ID. Only US$1.53 remains for all shipping and route cost
+under the US$18 landed ceiling, so this is likely to fail unless a tracked
+domestic/included route is proved in both markets.
+
+Reject if the option is one unit, landed cost exceeds US$18, delivery exceeds 15
+days, dimensions or usable height are unclear, or load/pull/wheel stability is
+unproved. Product imagery must not imply that an open organizer makes household
+chemicals child-safe.
+
+Public index reference:
+https://ms.pricearchive.org/aliexpress.com/item/1005011879980914
+
+### Independent bamboo cookware-rack lane
+
+The preferred cookware mechanism is now a generic rectangular bamboo slotted
+base with removable dowel dividers, not an expandable plastic base with coated
+wire arches. A current U.S. public listing supports a US$61.44 retail reference,
+but current supplier leads require wholesale MOQs and have not been proved in
+DSers. It is a future direct-sourcing lane, not the immediate dropshipping lead.
+
+Any exact rack must use original photography and a distinct divider silhouette,
+slot count, dimensions, end-wall profile, finish, and instructions. Reject an
+exact YouCopia, Lynk, Yamazaki, TRINITY, or other branded copy.
+
+Public benchmark:
+https://www.homedepot.com/p/Anqtovp-Nature-Organizer-Rack-Pot-Pan-Lid-Holder-with-7-Adjustable-Dividers-for-Countertop-Drawer-Kitchen-Cabinet-Use-29CPH033672/337944835
 
 ## Current supplier evidence
 
@@ -109,15 +169,18 @@ exact option:
 
 ## Next execution order
 
-1. Identify the exact cookware-rack listing behind the strongest established
-   common route and prove configuration, stock, dimensions, and normal price.
-2. Reject it immediately if the exact worse-market landed cost exceeds US$18,
-   the product is not materially differentiated, or IP review is uncomfortable.
-3. In parallel research a true compression set and an explicit same-SKU
-   under-sink pair; do not construct a multi-supplier bundle.
-4. Once one exact SKU passes, complete address-level quotes, product content,
+1. Attempt exact authenticated proof for compression-set item
+   `1005007604243742` through a supported DSers/AliExpress listing surface.
+2. Reject it if true compression, ordinary price, seller history, stock, or the
+   tracked dual-market route cannot be proved; do not substitute assumptions.
+3. Check under-sink item `1005011879980914` only for a rare included tracked
+   both-market route. Kill it immediately if worse-market landed cost exceeds
+   US$18.
+4. Continue a separate low-IP bamboo rack sourcing lane, understanding that
+   wholesale MOQ/direct fulfillment is a different operating model from DSers.
+5. Once one exact SKU passes, complete address-level quotes, product content,
    accessibility, creative, and analytics QA.
-5. Present the owner with one exact offer and a fresh capped-test decision.
+6. Present the owner with one exact offer and a fresh capped-test decision.
 
 No import, live catalog change, supplier payment, order, or ad-spend action is
 authorized by this document.
