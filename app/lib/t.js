@@ -12,12 +12,24 @@ function interpolate(template, params) {
   if (!params) return template;
   // Split on {key} so non-string values flow through as React children.
   const parts = template.split(/(\{[^}]+\})/g);
-  return parts.map((part) => {
+  const resolved = parts.map((part) => {
     const m = part.match(/^\{([^}]+)\}$/);
     if (!m) return part;
     const value = params[m[1]];
     return value === undefined ? part : value;
   });
+
+  // Attribute values (for example aria-label) must be plain strings. Keep
+  // arrays only when a caller intentionally interpolates a React node.
+  if (
+    resolved.every(
+      (part) => typeof part === 'string' || typeof part === 'number',
+    )
+  ) {
+    return resolved.join('');
+  }
+
+  return resolved;
 }
 
 /**

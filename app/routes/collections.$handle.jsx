@@ -19,7 +19,7 @@ export const meta = ({data, params}) => {
   const d =
     collection?.seo?.description ||
     collection?.description ||
-    `Shop ${t} at Puchica — curated picks with shipping options confirmed at checkout.`;
+    `Shop ${t} at Puchica — curated picks with shipping options shown at checkout.`;
   const image = collection?.image?.url;
   const pathname = `/collections/${collection?.handle || ''}`;
   return puchicaMeta({
@@ -50,7 +50,6 @@ export async function loader(args) {
  */
 const SORT_KEY_MAP = {
   featured: {sortKey: 'MANUAL', reverse: false},
-  'best-selling': {sortKey: 'BEST_SELLING', reverse: false},
   newest: {sortKey: 'CREATED', reverse: true},
   'price-asc': {sortKey: 'PRICE', reverse: false},
   'price-desc': {sortKey: 'PRICE', reverse: true},
@@ -403,7 +402,6 @@ function Toolbar({
             }}
           >
             <option value="featured">{t('col_sort_featured')}</option>
-            <option value="best-selling">{t('col_sort_best')}</option>
             <option value="newest">{t('col_sort_newest')}</option>
             <option value="price-asc">{t('col_sort_price_asc')}</option>
             <option value="price-desc">{t('col_sort_price_desc')}</option>

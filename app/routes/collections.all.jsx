@@ -53,7 +53,6 @@ export async function loader(args) {
  */
 const SORT_KEY_MAP = {
   featured: {sortKey: 'RELEVANCE', reverse: false},
-  'best-selling': {sortKey: 'BEST_SELLING', reverse: false},
   newest: {sortKey: 'CREATED_AT', reverse: true},
   'price-asc': {sortKey: 'PRICE', reverse: false},
   'price-desc': {sortKey: 'PRICE', reverse: true},
@@ -223,7 +222,6 @@ export default function Collection() {
                   }}
                 >
                   <option value="featured">{t('col_sort_featured')}</option>
-                  <option value="best-selling">{t('col_sort_best')}</option>
                   <option value="newest">{t('col_sort_newest')}</option>
                   <option value="price-asc">{t('col_sort_price_asc')}</option>
                   <option value="price-desc">{t('col_sort_price_desc')}</option>

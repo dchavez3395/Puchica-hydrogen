@@ -3,7 +3,6 @@ import {Image} from '@shopify/hydrogen';
 import {CurrencyMoney} from '~/components/CurrencyMoney';
 import {useVariantUrl} from '~/lib/variants';
 import {AddToCartButton} from '~/components/AddToCartButton';
-import {useAside} from '~/components/Aside';
 import {useT} from '~/lib/t';
 import {
   presentProductDepartment,
@@ -148,7 +147,6 @@ function resolveAvailableCompareAtPrice(availableVariants) {
 export function ProductItem({product, loading, dark = false}) {
   const variantUrl = useVariantUrl(product.handle);
   const t = useT();
-  const {open} = useAside();
 
   const availableVariants = (product.variants?.nodes ?? []).filter(
     (node) => node?.availableForSale,
@@ -274,7 +272,6 @@ export function ProductItem({product, loading, dark = false}) {
               disabled={!variant.availableForSale}
               onClick={(e) => {
                 e.stopPropagation();
-                open('cart');
               }}
             >
               {variant.availableForSale

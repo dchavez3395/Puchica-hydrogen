@@ -58,6 +58,18 @@ export function runLaunchChecks() {
     env,
     failures,
   );
+  requireEnabled(
+    'PUBLIC_CUSTOM_META_ENABLED',
+    'the custom Meta storefront bridge is disabled',
+    env,
+    failures,
+  );
+  requireEnabled(
+    'PUBLIC_GA4_STOREFRONT_EVENTS_ENABLED',
+    'the custom GA4 storefront bridge is disabled',
+    env,
+    failures,
+  );
   requireFormat(
     'PUBLIC_FACEBOOK_PIXEL_ID',
     /^\d{5,20}$/,
@@ -622,6 +634,12 @@ function configuredValue(name, env) {
 function requireConfigured(name, consequence, env, failures) {
   if (!configuredValue(name, env)) {
     failures.push(`${name} is missing: ${consequence}.`);
+  }
+}
+
+function requireEnabled(name, consequence, env, failures) {
+  if (configuredValue(name, env) !== 'true') {
+    failures.push(`${name} must be true: ${consequence}.`);
   }
 }
 

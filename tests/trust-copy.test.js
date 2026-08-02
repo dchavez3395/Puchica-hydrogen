@@ -92,7 +92,7 @@ test('static storefront copy cannot impersonate verified customer reviews', asyn
 });
 
 test('Meta and GA4 use separate explicit ownership guards', async () => {
-  const [metaComponent, ga4Component, root, envExample] = await Promise.all([
+  const [metaComponent, ga4Component, root, envExample, launchCheck] = await Promise.all([
     readFile(
       new URL('../app/components/MetaPixel.jsx', import.meta.url),
       'utf8',
@@ -103,6 +103,10 @@ test('Meta and GA4 use separate explicit ownership guards', async () => {
     ),
     readFile(new URL('../app/root.jsx', import.meta.url), 'utf8'),
     readFile(new URL('../.env.example', import.meta.url), 'utf8'),
+    readFile(
+      new URL('../scripts/check-launch-readiness.mjs', import.meta.url),
+      'utf8',
+    ),
   ]);
 
   for (const source of [metaComponent, root, envExample]) {
@@ -114,6 +118,14 @@ test('Meta and GA4 use separate explicit ownership guards', async () => {
   assert.match(root, /PUBLIC_GA4_STOREFRONT_EVENTS_ENABLED === 'true'/);
   assert.match(envExample, /PUBLIC_CUSTOM_META_ENABLED="false"/);
   assert.match(envExample, /PUBLIC_GA4_STOREFRONT_EVENTS_ENABLED="false"/);
+  assert.match(
+    launchCheck,
+    /requireEnabled\(\s*'PUBLIC_CUSTOM_META_ENABLED'/,
+  );
+  assert.match(
+    launchCheck,
+    /requireEnabled\(\s*'PUBLIC_GA4_STOREFRONT_EVENTS_ENABLED'/,
+  );
   assert.match(ga4Component, /send_page_view: false/);
   assert.match(ga4Component, /subscribe\('product_viewed'/);
   assert.match(ga4Component, /subscribe\('product_added_to_cart'/);
@@ -158,4 +170,31 @@ test('policy route bypasses stale policy caching and blocks raw Liquid privacy t
     /raw privacy-policy template blocked; static fallback served/,
   );
   assert.doesNotMatch(source, /console\.error\([^\n]*policy\.body/);
+});
+
+test('primitive translations remain valid attribute strings', async () => {
+  const source = await readFile(new URL('../app/lib/t.js', import.meta.url), 'utf8');
+
+  assert.match(source, /resolved\.every/);
+  assert.match(source, /resolved\.join\(''\)/);
+});
+
+test('collection add-to-cart waits for a confirmed cart mutation', async () => {
+  const source = await readFile(
+    new URL('../app/components/ProductItem.jsx', import.meta.url),
+    'utf8',
+  );
+
+  assert.doesNotMatch(source, /open\('cart'\)/);
+  assert.doesNotMatch(source, /useAside/);
+});
+
+test('generic CMS pages do not nest main landmarks', async () => {
+  const source = await readFile(
+    new URL('../app/routes/pages.$handle.jsx', import.meta.url),
+    'utf8',
+  );
+
+  assert.match(source, /<article dangerouslySetInnerHTML/);
+  assert.doesNotMatch(source, /<main dangerouslySetInnerHTML/);
 });
