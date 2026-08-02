@@ -293,6 +293,19 @@ is verified against the Meta/Google tracking actually enabled.
 
 ## P0 gate 2 — destination quote evidence
 
+### Core launch market rule
+
+Puchica's initial catalog standard is **dual-market fulfillment**: an advertised
+or featured product must have a current, tracked, profitable route for the exact
+SKU in both Canada and the United States. A route that works in only one country
+does not qualify as a core launch product. Exclude or remap it; do not rely on
+country detection to conceal an operationally weak assortment.
+
+Spanish storefront copy is localization capability, not evidence that a market
+is open. Mexico, Spain, and each future Latin American country remain disabled
+for promotion until their own checkout, currency, supplier route, delivery,
+duty/tax, return, policy, support, and margin gates pass.
+
 Country-level Supplier Optimizer results are preflight evidence, not an
 address-level promise. No order or payment is required to complete this matrix.
 Use the exact mapped red five-piece option and ordinary supplier pricing.

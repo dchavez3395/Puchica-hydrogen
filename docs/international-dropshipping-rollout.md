@@ -10,9 +10,15 @@ This is not one global shipping rule. Supplier cost, delivery time, duties, tax 
 
 | Wave | Markets | Why | Gate before enabling |
 | --- | --- | --- | --- |
-| 1 | Canada, United States | Largest English-language test markets; quickest operational feedback | Supplier shipping quote and delivery estimate for every featured SKU |
-| 2 | United Kingdom, Australia, New Zealand | English-language expansion with distinct shipping economics | Quote confirmation, tax/duty policy reviewed, local-currency price rounding checked |
-| 3 | Selected EU countries | Demand opportunity, but greater VAT, language, return, and consumer-law complexity | Tax and consumer-policy review; country-level delivery quotes; market-specific policy copy |
+| 1 | Canada and United States | Core North American launch pair | Every featured or advertised exact SKU must pass both countries |
+| 2 | Mexico | First Spanish-language expansion and third North American market | Mexico-specific tracked quotes, checkout, MXN pricing, duties/tax, returns, policies, and support pass |
+| 3 | Spain | Spanish-language European expansion | Spain-specific route and margin proof plus the applicable EU tax, privacy, returns, and consumer-policy review |
+| 4 | Selected Latin American countries | Expand only where demand and operations justify it | Approve each country independently; never treat Latin America as one shipping zone |
+| 5 | United Kingdom, Australia, New Zealand, and other selected EU countries | Later diversification | Country-specific quote confirmation, policy review, and local-currency pricing pass |
+
+Having an `es` storefront does not enable any Spanish-speaking market. Language,
+selling market, currency, checkout availability, shipping zone, supplier route,
+and policy eligibility are separate controls.
 
 Do not open "Rest of world" just because it is available in Shopify. It hides delivery-cost, customs, and support risk inside a misleading shipping promise.
 
@@ -24,6 +30,8 @@ For each mapped *variant*, capture the cheapest normal tracked shipping method a
 | --- | --- | --- |
 | Canada | Toronto, ON; Vancouver, BC; Winnipeg, MB; one remote postal region | Core market and domestic geographic spread |
 | United States | New York, NY; Los Angeles, CA; Dallas, TX | Coasts plus central delivery coverage |
+| Mexico | Mexico City; one northern and one southern benchmark | First Spanish-language market; test regional route and duty variation |
+| Spain | Madrid; one non-mainland benchmark before broad coverage | Spanish-language EU market with separate delivery and policy exposure |
 | United Kingdom | London | UK pricing and tax/shipping test |
 | Australia | Sydney | Long-haul shipping-risk test |
 | New Zealand | Auckland | Remote English-language market test |
@@ -74,6 +82,16 @@ Only allow a product into an enabled market when all conditions hold:
 
 Products with missing cost, a changed/out-of-stock supplier SKU, or no quote for a market remain unavailable there. This is preferable to accepting an order that cannot be fulfilled profitably.
 
+For the initial launch assortment, a product must pass both Canada and the
+United States. Once Wave 1 is stable, expansion products may be enabled only in
+the individually approved countries; there is no automatic "all Spanish
+markets" or "all Latin America" approval.
+
 ## Immediate next step
 
-Build the quote matrix for the 21 active products first. Start with the homepage and ad-test candidates, then either: (a) enable Wave 1 for validated items, (b) retain a product as Canada/US-only, (c) remap it, or (d) unpublish it. No price changes should be made from this document alone.
+Remap the packing-cube lead offer to a supplier with tracked, profitable routes
+for both Canada and the United States, then rerun the four-destination gate.
+Apply the same dual-market test to the remaining active catalog before featuring
+or advertising it. After Wave 1 is stable, build the Mexico matrix first, then
+Spain, then evaluate Latin American countries individually. No price or market
+activation should be made from this document alone.
