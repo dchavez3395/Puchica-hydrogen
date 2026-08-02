@@ -30,6 +30,31 @@ import {error as logError} from '~/lib/logger';
 import {useT} from '~/lib/t';
 
 /**
+ * Root-boundary metadata. Normal routes supply their own metadata, so this
+ * stays empty unless an error bubbles past a child route (for example, an
+ * unknown first URL segment rejected by LocaleBoundary).
+ */
+export const meta = ({error, params}) => {
+  if (!error) return [];
+
+  const isNotFound = isRouteErrorResponse(error) && error.status === 404;
+  const language = ['fr', 'es', 'pt-br'].includes(params?.locale)
+    ? params.locale
+    : 'en';
+  const titles = {
+    en: isNotFound ? 'Page not found – Puchica' : 'Something went wrong – Puchica',
+    fr: isNotFound ? 'Page introuvable – Puchica' : 'Une erreur est survenue – Puchica',
+    es: isNotFound ? 'Página no encontrada – Puchica' : 'Algo salió mal – Puchica',
+    'pt-br': isNotFound ? 'Página não encontrada – Puchica' : 'Algo deu errado – Puchica',
+  };
+
+  return [
+    {title: titles[language]},
+    {name: 'robots', content: 'noindex, nofollow'},
+  ];
+};
+
+/**
  * This is important to avoid re-fetching root queries on sub-navigations
  * @type {ShouldRevalidateFunction}
  */
@@ -311,6 +336,7 @@ export default function App() {
 export function ErrorBoundary() {
   const t = useT();
   const error = useRouteError();
+  const rootData = useRouteLoaderData('root');
   let errorStatus = 500;
   let rawError;
 
@@ -332,7 +358,7 @@ export function ErrorBoundary() {
   const heading = isNotFound ? t('err_404_h') : t('err_500_h');
   const subhead = isNotFound ? t('err_404_body') : t('err_500_body');
 
-  return (
+  const errorContent = (
     <div className="route-error pk-route-error">
       <div className="pk-route-error__panel">
         <span className="pk-route-error__eyebrow" aria-hidden>
@@ -383,6 +409,25 @@ export function ErrorBoundary() {
       </div>
     </div>
   );
+
+  // Child-route errors still have valid root loader data. Reusing the normal
+  // shell preserves the header navigation, main landmark, and footer instead
+  // of replacing the whole storefront with an unlandmarked error panel.
+  if (rootData) {
+    return (
+      <Analytics.Provider
+        cart={rootData.cart}
+        shop={rootData.shop}
+        consent={rootData.consent}
+      >
+        <PageLayout {...rootData}>{errorContent}</PageLayout>
+      </Analytics.Provider>
+    );
+  }
+
+  // If the root loader itself failed, the normal shell cannot render. Keep a
+  // main landmark around the recovery UI so the fallback remains navigable.
+  return <main id="main-content">{errorContent}</main>;
 }
 
 /** @typedef {LoaderReturnData} RootLoader */

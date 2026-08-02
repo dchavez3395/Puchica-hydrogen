@@ -2,6 +2,14 @@ import {Outlet} from 'react-router';
 import {PREFIXED_LANGS} from '~/lib/i18n';
 
 /**
+ * Non-English routes remain available to shoppers, but are not ready to be
+ * advertised to search engines until their commerce and policy copy has been
+ * fully translated and reviewed.
+ */
+export const meta = ({params}) =>
+  params.locale ? [{name: 'robots', content: 'noindex, follow'}] : [];
+
+/**
  * Optional-locale route boundary.
  *
  * Mounted in `app/routes.js` as the parent of every file route under an

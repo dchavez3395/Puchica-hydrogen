@@ -20,7 +20,7 @@ import {redirect} from 'react-router';
  * @param {Route.LoaderArgs}
  */
 export async function loader() {
-  return redirect('/collections/all?sort=newest&view=new-arrivals');
+  return redirect('/collections/all?sort=newest&view=new-arrivals', 302);
 }
 
 export default function NewArrivalsRedirect() {

@@ -171,7 +171,7 @@ export function HeaderMenu({
     },
     {
       id: 'mn-best',
-      title: t('nav_best_sellers'),
+      title: t('nav_featured'),
       url: '/collections/best-sellers',
     },
     {id: 'mn-about', title: t('nav_about'), url: '/pages/about'},

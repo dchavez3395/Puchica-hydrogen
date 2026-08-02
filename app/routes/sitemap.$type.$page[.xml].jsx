@@ -1,16 +1,10 @@
-import {
-  filterLaunchProducts,
-  LAUNCH_READY_TAG,
-} from '~/lib/launch-catalog';
+import {filterLaunchProducts, LAUNCH_READY_TAG} from '~/lib/launch-catalog';
 
 /**
  * @param {Route.LoaderArgs}
  *
- * The URL-locale routes (/fr, /es, /pt-br) are live, so the sitemap
- * advertises all four languages. Hydrogen's `getSitemap` emits one
- * `<xhtml:link rel="alternate" hreflang=...>` per locale, plus an `x-default`
- * pointing at the unprefixed (English) URL, automatically — we just
- * have to list the locales and the URL shape.
+ * Non-English routes remain accessible, but are temporarily excluded from
+ * search discovery until their commerce and policy copy is fully reviewed.
  *
  * Locale codes are the four BCP-47 tags search engines see. They map
  * to URL prefixes: `EN` (unprefixed), `fr` -> `/fr`, `es` -> `/es`,
@@ -24,7 +18,7 @@ export async function loader({request, params, context: {storefront}}) {
   // hreflangAlternates() emits in root.jsx. The codes here match
   // hreflangAlternates() in app/lib/seo.js so Google's hreflang
   // signals from the sitemap and from <link rel="alternate"> agree.
-  const locales = ['en', 'fr', 'es', 'pt-br'];
+  const locales = ['en'];
 
   if (params.type === 'products') {
     if (String(params.page || '1') !== '1') {
@@ -35,18 +29,14 @@ export async function loader({request, params, context: {storefront}}) {
       cache: storefront.CacheShort(),
       variables: {query: `tag:${LAUNCH_READY_TAG}`},
     });
-    const launchProducts = filterLaunchProducts(
-      products.nodes || [],
-    );
+    const launchProducts = filterLaunchProducts(products.nodes || []);
     return xmlResponse(
       productUrlset(launchProducts, new URL(request.url).origin, locales),
     );
   }
 
   if (params.type === 'pages' && String(params.page || '1') === '1') {
-    return xmlResponse(
-      staticPageUrlset(new URL(request.url).origin, locales),
-    );
+    return xmlResponse(staticPageUrlset(new URL(request.url).origin, locales));
   }
 
   return xmlResponse(emptyUrlset());
@@ -105,7 +95,8 @@ function staticPageUrlset(baseUrl, locales) {
     const canonical = `${baseUrl}${path}`;
     const alternates = locales
       .map((locale) => {
-        const href = locale === 'en' ? canonical : `${baseUrl}/${locale}${path}`;
+        const href =
+          locale === 'en' ? canonical : `${baseUrl}/${locale}${path}`;
         return `  <xhtml:link rel="alternate" hreflang="${locale}" href="${href}" />`;
       })
       .join('\n');

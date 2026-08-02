@@ -1,5 +1,5 @@
 import {useFetcher, useNavigate} from 'react-router';
-import {useRef, useEffect} from 'react';
+import {useRef, useEffect, useId} from 'react';
 import {useAside} from './Aside';
 
 export const SEARCH_ENDPOINT = '/search';
@@ -14,6 +14,7 @@ export const SEARCH_ENDPOINT = '/search';
 export function SearchFormPredictive({children}) {
   const fetcher = useFetcher({key: 'search'});
   const inputRef = useRef(null);
+  const inputId = useId();
   const navigate = useNavigate();
   const aside = useAside();
 
@@ -44,6 +45,7 @@ export function SearchFormPredictive({children}) {
 
   return children({
     inputRef,
+    inputId,
     fetcher,
     fetchResults,
     goToSearch,
@@ -55,6 +57,7 @@ export function SearchFormPredictive({children}) {
  *   fetchResults: (event: React.ChangeEvent<HTMLInputElement>) => void;
  *   goToSearch: () => void;
  *   inputRef: React.MutableRefObject<HTMLInputElement | null>;
+ *   inputId: string;
  *   fetcher: Fetcher<PredictiveSearchReturn>;
  * }) => React.ReactNode} SearchFormPredictiveChildren
  */

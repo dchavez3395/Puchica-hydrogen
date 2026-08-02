@@ -88,13 +88,11 @@ export function canonical(pathname, langKey) {
  */
 export function hreflangAlternates(pathname) {
   const {rest} = parseLocaleFromPath(pathname || '/');
-  const langs = ['en', 'fr', 'es', 'pt-br'];
-  const alts = langs.map((k) => ({
-    hreflang: k,
-    href: SITE_URL + localizePath(rest, k),
-  }));
-  alts.push({hreflang: 'x-default', href: SITE_URL + localizePath(rest, 'en')});
-  return alts;
+  const englishUrl = SITE_URL + localizePath(rest, 'en');
+  return [
+    {hreflang: 'en', href: englishUrl},
+    {hreflang: 'x-default', href: englishUrl},
+  ];
 }
 
 /**
@@ -127,10 +125,11 @@ export function puchicaMeta({
   twitterCard = 'summary',
 } = {}) {
   const tags = [];
+  const isUnreviewedLocale = Boolean(langKey && langKey !== 'en');
   if (title) tags.push({title});
   if (description) tags.push({name: 'description', content: description});
 
-  if (noindex) {
+  if (noindex || isUnreviewedLocale) {
     tags.push({name: 'robots', content: 'noindex,follow'});
   }
 
@@ -156,7 +155,8 @@ export function puchicaMeta({
   // Twitter
   tags.push({name: 'twitter:card', content: twitterCard});
   if (title) tags.push({name: 'twitter:title', content: title});
-  if (description) tags.push({name: 'twitter:description', content: description});
+  if (description)
+    tags.push({name: 'twitter:description', content: description});
   if (image) tags.push({name: 'twitter:image', content: image});
 
   return tags;
@@ -168,7 +168,7 @@ export function puchicaMeta({
  *
  * @param {Array<{name: string, url: string}>} items
  */
-export function breadcrumbJsonLd(items) {
+export function breadcrumbJsonLd(items, langKey) {
   if (!Array.isArray(items) || items.length === 0) return null;
   return {
     '@context': 'https://schema.org',
@@ -177,7 +177,7 @@ export function breadcrumbJsonLd(items) {
       '@type': 'ListItem',
       position: idx + 1,
       name: item.name,
-      item: canonical(item.url),
+      item: canonical(item.url, langKey),
     })),
   };
 }

@@ -156,7 +156,7 @@ function SearchAside() {
     <Aside type="search" heading={t('aside_heading_search')}>
       <div className="pk-search">
         <SearchFormPredictive>
-          {({fetchResults, goToSearch, inputRef}) => (
+          {({fetchResults, goToSearch, inputRef, inputId}) => (
             <form
               className="pk-search__form"
               onSubmit={(e) => {
@@ -164,16 +164,19 @@ function SearchAside() {
                 goToSearch();
               }}
             >
+              <label className="sr-only" htmlFor={inputId}>
+                {t('search_placeholder')}
+              </label>
               <span className="pk-search__icon" aria-hidden>
                 <IconSearch size={18} />
               </span>
               <input
+                id={inputId}
                 className="pk-search__input"
                 name="q"
                 onChange={fetchResults}
                 onFocus={fetchResults}
                 placeholder={t('search_placeholder')}
-                aria-label={t('search_aria_submit')}
                 ref={inputRef}
                 type="search"
                 list={queriesDatalistId}

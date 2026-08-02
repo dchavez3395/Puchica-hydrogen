@@ -46,6 +46,7 @@ export const DICTIONARIES = {
     // ── Nav ───────────────────────────────────────────────────────
     nav_all_products: 'All Products',
     nav_best_sellers: 'Best Sellers',
+    nav_featured: 'Featured',
     nav_trending: 'Cable organization',
     nav_gifts: 'Gifts Under $25',
     nav_shop: 'Shop',
@@ -190,7 +191,7 @@ export const DICTIONARIES = {
     ship_eyebrow: 'Delivery details',
     ship_title: 'Delivery details before you pay.',
     ship_sub:
-      'Availability, cost, and timing are confirmed at checkout for the items and destination in your cart.',
+      'Shipping options and charges are shown at checkout; delivery estimates appear when available.',
     ship_cta: 'View shipping details',
     ship_section_aria: 'Shipping destinations',
     ship_compact_title: 'Coverage by region',
@@ -217,11 +218,11 @@ export const DICTIONARIES = {
     ship_hero_title_main: 'Shipping &',
     ship_hero_title_em: 'Delivery.',
     ship_hero_sub:
-      'Delivery availability, cost, and timing are confirmed at checkout for the items and destination in your cart.',
+      'Shipping options and charges are shown at checkout; delivery estimates appear when available.',
     ship_hero_cta: 'Shop organizers',
     ship_launch_hero_sub:
-      'One North American storefront with market-specific pricing and delivery options confirmed at checkout.',
-    ship_jump: 'See how delivery is confirmed',
+      'One North American storefront with market-specific pricing and shipping details shown at checkout.',
+    ship_jump: 'See how shipping details are shown',
     ship_launch_regions_eye: 'North American storefront',
     ship_launch_regions_title: 'Two markets. One focused shop.',
     ship_launch_regions_sub:
@@ -250,10 +251,10 @@ export const DICTIONARIES = {
     footer_stat_delivery: 'Delivery options',
     ship_market_ca_name: 'Canada · CAD',
     ship_market_ca_detail:
-      'CAD storefront pricing; checkout confirms whether the selected items can be delivered.',
+      'CAD storefront pricing; available shipping options and charges are shown at checkout.',
     ship_market_us_name: 'United States · USD',
     ship_market_us_detail:
-      'USD storefront pricing; checkout confirms whether the selected items can be delivered.',
+      'USD storefront pricing; available shipping options and charges are shown at checkout.',
     ship_market_next_name: 'Canada and other markets',
     ship_market_next_detail:
       'We’re still confirming reliable product coverage before promoting these destinations.',
@@ -264,7 +265,7 @@ export const DICTIONARIES = {
     ship_check_items_title: 'Check the items in your cart',
     ship_check_items_body:
       'Shipping options can differ by product, variant, and destination. The checkout result applies to your selected order.',
-    ship_check_items_eta: 'No delivery promise until checkout confirms it',
+    ship_check_items_eta: 'Delivery estimates appear when available',
     ship_check_tracking_title: 'Follow your order',
     ship_check_tracking_body:
       'When a tracked service is available, tracking details are sent after the order has shipped.',
@@ -276,7 +277,7 @@ export const DICTIONARIES = {
     ship_rates_eye: 'Shipping rates',
     ship_rates_title: 'Clear shipping before payment.',
     ship_rates_sub:
-      'Checkout confirms available services, cost, and timing for your selected items and destination.',
+      'Shipping options and charges are shown at checkout; delivery estimates appear when available.',
     ship_rates_canada_flag: 'CA',
     ship_rates_canada_title: 'Canada',
     ship_rates_canada_body:
@@ -287,12 +288,12 @@ export const DICTIONARIES = {
     ship_rates_us_title: 'United States',
     ship_rates_us_body:
       'Availability depends on the selected items, cart, and destination.',
-    ship_rates_us_eta: 'Confirm at checkout',
+    ship_rates_us_eta: 'Options shown at checkout',
     ship_rates_us_badge: '',
     ship_rates_intl_flag: 'INTL',
     ship_rates_intl_title: 'International',
     ship_rates_intl_body:
-      'International delivery is not currently promoted. Confirm availability at checkout before ordering.',
+      'International delivery is not currently promoted. Canada and the United States are the active storefront markets.',
     ship_rates_intl_eta: 'No general delivery promise',
     ship_rates_intl_badge: '',
     ship_how_eye: 'How it works',
@@ -315,7 +316,7 @@ export const DICTIONARIES = {
     ship_track_cta: 'Contact support',
     ship_cta_title: 'Ready to order?',
     ship_cta_sub:
-      'Shop organizers and confirm delivery for your address at checkout.',
+      'Shop organizers and review available shipping options and charges at checkout.',
     ship_cta_browse: 'Shop all organizers',
 
     // ── Matchmaker ────────────────────────────────────────────────
@@ -419,7 +420,7 @@ export const DICTIONARIES = {
 
     // ── Trust / value props ───────────────────────────────────────
     trust_shipping_title: 'Clear shipping',
-    trust_shipping_sub: 'Confirmed at checkout',
+    trust_shipping_sub: 'Options and charges shown at checkout',
     trust_returns_title: '30-day returns',
     trust_returns_sub: 'See policy for eligibility',
     trust_secure_title: 'Secure checkout',
@@ -543,7 +544,7 @@ export const DICTIONARIES = {
     product_badge_save: 'Save {pct}%',
     product_reviews_stub:
       'Reviews from verified buyers will appear here as they are collected.',
-    product_perk_packed: 'Delivery options confirmed at checkout',
+    product_perk_packed: 'Shipping options and charges shown at checkout',
     product_perk_return: 'Review the refund policy before ordering',
     product_perk_curated:
       'Choose your size, color, or set before adding to cart',
@@ -558,7 +559,7 @@ export const DICTIONARIES = {
     product_specs_empty: 'No specifications available for this product.',
     product_shipping_h: 'Shipping',
     product_shipping_body:
-      'Delivery availability, timing, and cost are confirmed at checkout for your selected items and destination. When a tracked service is available, tracking details are sent after the supplier ships your order.',
+      'Shipping options and charges are shown at checkout; delivery estimates appear when available. When a tracked service is available, tracking details are sent after the supplier ships your order.',
     product_returns_h: 'Returns',
     product_returns_body:
       'Review the refund policy before ordering. Return eligibility and instructions depend on the item and order; contact support with your order number if you need help.',
@@ -648,7 +649,7 @@ export const DICTIONARIES = {
     showcase_sub: '{count} collections. {pct}% of the catalog covered.',
     showcase_eyebrow: 'Collection {n}',
     showcase_desc:
-      'Discover our {title} selection, with delivery details confirmed for your cart at checkout.',
+      'Discover our {title} selection. Shipping options and charges are shown at checkout.',
     showcase_cta: 'Shop {title} →',
 
     // ── 404 / catch-all ───────────────────────────────────────────
@@ -656,7 +657,10 @@ export const DICTIONARIES = {
     notfound_sub:
       'The link {path} doesn’t exist on Puchica. It may have been moved, renamed, or never existed. Try one of these instead:',
     notfound_popular: 'Popular collections',
-    notfound_best: 'Best sellers →',
+    notfound_featured: 'Featured organizers →',
+    notfound_meta_title: 'Page not found – Puchica',
+    notfound_meta_description:
+      "The page you're looking for doesn't exist. Browse our organizers or search the catalog.",
     notfound_new: 'New arrivals →',
     notfound_all_collections: 'All collections →',
     notfound_all_catalog: 'Full catalog →',
@@ -684,8 +688,8 @@ export const DICTIONARIES = {
     cart_empty_perk_returns: '30-day returns',
     cart_ghost_notice:
       "These items aren't available in your region right now. Remove them to clear your cart.",
-    cart_freeship_progress_remaining: 'Shipping is confirmed at checkout',
-    cart_freeship_progress_done: 'Shipping is confirmed at checkout',
+    cart_freeship_progress_remaining: 'Shipping options shown at checkout',
+    cart_freeship_progress_done: 'Shipping options shown at checkout',
     cart_freeship_threshold_label: 'Final shipping options appear at checkout',
     cart_summary_title: 'Order summary',
     cart_summary_subtotal: 'Subtotal',
@@ -1001,7 +1005,7 @@ export const DICTIONARIES = {
       'The launch catalog focuses on compact, straightforward products for renters, apartment dwellers, and anyone short on storage.',
     about_how_3_title: 'Easy to understand before buying',
     about_how_3_body:
-      'We aim to show the purpose, available dimensions, materials, and options clearly. Delivery availability, cost, and timing are confirmed at checkout.',
+      'We aim to show the purpose, available dimensions, materials, and options clearly. Shipping options and charges are shown at checkout; delivery estimates appear when available.',
     about_cats_eye: 'What we carry',
     about_cats_title: 'Useful finds. One store.',
     about_cats_sub:
@@ -1047,7 +1051,7 @@ export const DICTIONARIES = {
     about_story_4_year: 'Today',
     about_story_4_title: 'Proof before expansion',
     about_story_4_body:
-      'We are proving a focused assortment and verified supplier routes before expanding the catalog or promotion.',
+      'We are reviewing a focused assortment and supplier routes before expanding the catalog or promotion.',
 
     about_values_eye: 'What we stand for',
     about_values_title: 'Our values.',
@@ -1063,7 +1067,7 @@ export const DICTIONARIES = {
       'We pick things that last and matter, not whatever the algorithm is pushing this week.',
     about_values_4_title: 'Ships from trusted partners',
     about_values_4_body:
-      'Products ship from supply partners. Delivery timing and available tracking are confirmed for the selected order.',
+      'Products ship from supply partners. Delivery estimates appear when available, and tracking depends on the selected service.',
 
     about_team_eye: 'Who we are',
     about_team_title: 'Real people, real picks.',
@@ -1179,7 +1183,7 @@ export const DICTIONARIES = {
       'Contact us within 30 days of delivery. Do not mail an item until we confirm eligibility and provide instructions. Return-shipping responsibility depends on the reason and the refund policy.',
     contact_faq_4_q: 'Where do you ship?',
     contact_faq_4_a:
-      'Canada and the United States are selectable storefront markets. Delivery still varies by product and address, so checkout must confirm the selected cart before payment.',
+      'Canada and the United States are selectable storefront markets. Shipping options and charges are shown at checkout for the selected cart and address.',
     contact_faq_5_q: 'Are the products in the photos exactly what I get?',
     contact_faq_5_a:
       'Review the photos, selected variant, dimensions, and description on the product page. Contact us before ordering if any detail is unclear.',
@@ -1202,13 +1206,13 @@ export const DICTIONARIES = {
       'Processing and delivery timing vary by product. Enter your address at checkout to review the available delivery estimate before payment.',
     faq_orders_2_q: 'Do you ship internationally?',
     faq_orders_2_a:
-      'Canada and the United States are selectable storefront markets. A market selection does not guarantee every item can be delivered; checkout confirms the selected cart and address before payment.',
+      'Canada and the United States are selectable storefront markets. Shipping options and charges are shown at checkout for the selected cart and address.',
     faq_orders_3_q: 'How do I track my order?',
     faq_orders_3_a:
       'When a tracked service is available, the tracking link is included in your shipping confirmation. Contact us with your order number if you need help.',
     faq_orders_4_q: 'What are your shipping rates?',
     faq_orders_4_a:
-      'Shipping services, cost, and delivery timing are confirmed at checkout for the selected items and destination.',
+      'Shipping options and charges are shown at checkout; delivery estimates appear when available.',
     faq_returns_1_q: 'What is your return policy?',
     faq_returns_1_a:
       'Contact us within 30 days of delivery. Eligibility depends on the item, its condition, and the refund policy. Contact us promptly if an item arrives damaged or incorrect.',
@@ -1286,6 +1290,16 @@ export const DICTIONARIES = {
     new_arrivals_heading: 'New arrivals',
     new_arrivals_see_all: 'See all',
     new_arrivals_scroll_left: 'Scroll left',
+    featured_eyebrow: 'Puchica picks',
+    featured_heading: 'Featured organizers',
+    featured_sub:
+      'A focused edit of useful organizers for home, cables, and travel.',
+    featured_meta_title: 'Featured Organizers – Puchica',
+    featured_meta_description:
+      'Shop organizers selected by Puchica for useful small-space, cable, and travel organization.',
+    new_arrivals_meta_title: 'New Organizers – Puchica',
+    new_arrivals_meta_description:
+      'See the newest organizers in Puchica’s focused home, cable, and travel collection.',
     new_arrivals_scroll_right: 'Scroll right',
 
     sports_aria: 'Sports and outdoors',
@@ -1345,7 +1359,7 @@ export const DICTIONARIES = {
     world_map_eyebrow: 'Market validation',
     world_map_heading: 'Verified routes before expansion.',
     world_map_sub:
-      'Product availability varies by destination. Checkout confirms delivery for the selected cart.',
+      'Product availability varies by destination. Shipping options and charges are shown at checkout.',
 
     // ── Shop by department ────────────────────────────────────────
     home_shop_dept_aria: 'Shop by department',
@@ -1372,7 +1386,7 @@ export const DICTIONARIES = {
       'We compare the price with the delivered cost and only promote products that can support a sustainable offer.',
     home_curate_step3_h: 'We show delivery details before payment.',
     home_curate_step3_b:
-      'Shipping availability, cost, and timing are confirmed at checkout for the selected items and destination.',
+      'Shipping options and charges are shown at checkout; delivery estimates appear when available.',
 
     // ── Hero stats ────────────────────────────────────────────────
     hero_store_stat_products: 'Catalog',
@@ -1423,6 +1437,7 @@ export const DICTIONARIES = {
 
     nav_all_products: 'Tous les produits',
     nav_best_sellers: 'Meilleures ventes',
+    nav_featured: 'En vedette',
     nav_trending: 'Tendances',
     nav_gifts: 'Cadeaux à moins de 25 $',
     nav_shop: 'Boutique',
@@ -1459,9 +1474,9 @@ export const DICTIONARIES = {
 
     ticker_products: 'Catalogue actif',
     ticker_new_drops: 'Nouveautés chaque semaine',
-    ticker_free_shipping: 'Livraison gratuite au Canada',
+    ticker_free_shipping: 'Options de livraison au paiement',
     ticker_returns: 'Retours sous 30 jours',
-    ticker_ships: 'Livraison rapide',
+    ticker_ships: 'Suivi lorsqu’il est disponible',
     ticker_handpicked: 'Sélectionné, jamais aléatoire',
     ticker_real_value: 'Vraie valeur. Vraies trouvailles.',
     ticker_secure: 'Paiement sécurisé',
@@ -1506,7 +1521,7 @@ export const DICTIONARIES = {
     ship_eyebrow: 'Où nous livrons',
     ship_title: 'Nous livrons partout.',
     ship_sub:
-      'Nous livrons dans des pays du monde entier. Où que vous soyez, nous vous apporterons votre commande.',
+      'Le Canada et les États-Unis sont les marchés actuellement proposés.',
     ship_cta: 'Demander pour votre pays',
     ship_section_aria: 'Destinations de livraison',
     ship_compact_title: 'Couverture par région',
@@ -1533,11 +1548,11 @@ export const DICTIONARIES = {
     ship_hero_title_main: 'Livraison &',
     ship_hero_title_em: 'Expédition.',
     ship_hero_sub:
-      'Les options, les délais et les coûts de livraison sont confirmés au paiement selon les articles et la destination.',
+      'Les options et les frais de livraison sont affichés au paiement; les estimations apparaissent lorsqu’elles sont disponibles.',
     ship_hero_cta: 'Voir le catalogue',
     ship_launch_hero_sub:
-      'Une seule boutique nord-américaine avec des prix adaptés au marché et des options de livraison confirmées au paiement.',
-    ship_jump: 'Voir comment la livraison est confirmée',
+      'Une seule boutique nord-américaine avec des prix adaptés au marché et les détails de livraison affichés au paiement.',
+    ship_jump: 'Voir comment les détails de livraison sont affichés',
     ship_launch_regions_eye: 'Boutique nord-américaine',
     ship_launch_regions_title: 'Deux marchés. Une boutique ciblée.',
     ship_launch_regions_sub:
@@ -1587,7 +1602,7 @@ export const DICTIONARIES = {
     ship_rates_intl_flag: 'INTL',
     ship_rates_intl_title: 'International',
     ship_rates_intl_body:
-      'La livraison internationale n’est pas actuellement mise en avant. Confirmez sa disponibilité au paiement.',
+      'La livraison internationale n’est pas actuellement mise en avant. Le Canada et les États-Unis sont les marchés actifs.',
     ship_rates_intl_eta: 'Aucune promesse générale de livraison',
     ship_rates_intl_badge: '',
     ship_how_eye: 'Comment ça marche',
@@ -1683,27 +1698,27 @@ export const DICTIONARIES = {
       'Accessoires, outils et gadgets qui améliorent vraiment votre quotidien. Sans artifice.',
     mood_tech_cta: 'Chargez-vous →',
 
-    review_eyebrow: 'Ce que les gens disent',
-    review_title: 'De vrais acheteurs. De vraies opinions.',
+    review_eyebrow: 'Comment nous choisissons',
+    review_title: 'La norme appliquée à chaque produit.',
     review_1_quote:
-      'Commandé trois fois au cours du dernier mois. La qualité est toujours excellente et la livraison est rapide.',
+      'Il doit résoudre un problème d’organisation précis dans un espace restreint.',
     review_2_quote:
-      'J’ai trouvé exactement ce que je cherchais, et bien plus encore. C’est ma nouvelle adresse préférée pour la maison.',
+      'Il doit être simple à comprendre, à mesurer et à utiliser au quotidien.',
     review_3_quote:
-      'La sélection est vraiment bonne. Tout semble avoir été choisi par quelqu’un qui a du goût.',
+      'Le fournisseur et les détails de livraison doivent être vérifiés avant toute promotion.',
 
-    banner_eyebrow: 'Meilleures ventes',
-    banner_title: 'Ceux dont les gens ne peuvent plus se passer.',
+    banner_eyebrow: 'Sélection en vedette',
+    banner_title: 'Commencez par la collection ciblée.',
     banner_sub:
-      'Essayés, recommandés et offerts en cadeaux. Ce sont les produits qui méritent leur place sur la liste chaque semaine.',
-    banner_cta: 'Voir toutes les meilleures ventes',
+      'Des produits d’organisation pratiques sélectionnés pour le lancement actuel.',
+    banner_cta: 'Tout voir',
 
     catalog_body:
       'produits. Une seule boutique. Toutes les catégories. Nous en ajoutons chaque semaine, il y a toujours quelque chose de nouveau à découvrir.',
     catalog_cta_browse: 'Tout parcourir →',
     catalog_cta_search: 'Rechercher dans le catalogue',
 
-    trust_shipping_title: 'Livraison gratuite',
+    trust_shipping_title: 'Livraison claire',
     trust_shipping_sub: 'Sur les commandes de plus de 50 $',
     trust_returns_title: 'Retours sous 30 jours',
     trust_returns_sub: 'Sans question, sans tracas',
@@ -1821,7 +1836,7 @@ export const DICTIONARIES = {
     product_badge_save: 'Économisez {pct}%',
     product_reviews_stub:
       'Les avis de clients vérifiés apparaîtront ici au fur et à mesure qu’ils seront recueillis.',
-    product_perk_packed: 'Options de livraison confirmées au paiement',
+    product_perk_packed: 'Options et frais de livraison affichés au paiement',
     product_perk_return:
       'Consultez la politique de remboursement avant de commander',
     product_perk_curated: 'Sélectionné par l’équipe Puchica, jamais aléatoire',
@@ -1836,7 +1851,7 @@ export const DICTIONARIES = {
     product_specs_empty: 'Aucune caractéristique disponible pour ce produit.',
     product_shipping_h: 'Livraison',
     product_shipping_body:
-      'La disponibilité, les délais et le coût de livraison sont confirmés au paiement selon les articles sélectionnés et votre destination. Lorsqu’un service avec suivi est offert, les détails de suivi sont envoyés après l’expédition par le fournisseur.',
+      'Les options et les frais de livraison sont affichés au paiement; les estimations apparaissent lorsqu’elles sont disponibles. Lorsqu’un service avec suivi est offert, les détails sont envoyés après l’expédition.',
     product_returns_h: 'Retours',
     product_returns_body:
       'Consultez la politique de remboursement avant de commander. L’admissibilité au retour et les instructions dépendent de l’article et de la commande; contactez le soutien avec votre numéro de commande si vous avez besoin d’aide.',
@@ -1933,7 +1948,7 @@ export const DICTIONARIES = {
     showcase_sub: '{count} collections. {pct} % du catalogue couvert.',
     showcase_eyebrow: 'Collection {n}',
     showcase_desc:
-      'Découvrez notre sélection de {title}, produits triés sur le volet avec livraison gratuite dès 50 $.',
+      'Découvrez notre sélection de {title}, avec les options et frais de livraison affichés au paiement.',
     showcase_cta: 'Magasiner {title} →',
 
     // ── 404 / route catch-all ─────────────────────────────────
@@ -1941,7 +1956,10 @@ export const DICTIONARIES = {
     notfound_sub:
       "Le lien {path} n'existe pas sur Puchica. Il a peut-être été déplacé, renommé, ou n'a jamais existé. Essayez plutôt l'une de ces options :",
     notfound_popular: 'Collections populaires',
-    notfound_best: 'Meilleures ventes →',
+    notfound_featured: 'Organisateurs en vedette →',
+    notfound_meta_title: 'Page introuvable – Puchica',
+    notfound_meta_description:
+      'Cette page n’existe pas. Parcourez nos organisateurs ou recherchez dans le catalogue.',
     notfound_new: 'Nouveautés →',
     notfound_all_collections: 'Toutes les collections →',
     notfound_all_catalog: 'Catalogue complet →',
@@ -1971,10 +1989,10 @@ export const DICTIONARIES = {
     cart_ghost_notice:
       'Ces articles ne sont pas disponibles dans votre région pour le moment. Retirez-les pour vider votre panier.',
     cart_freeship_progress_remaining:
-      'Ajoutez {amount} pour la livraison gratuite',
-    cart_freeship_progress_done: 'Vous avez la livraison gratuite',
+      'Ajoutez {amount} pour atteindre le prochain palier du panier',
+    cart_freeship_progress_done: 'Palier du panier atteint',
     cart_freeship_threshold_label:
-      'Livraison gratuite pour les commandes de plus de {threshold}',
+      'Les options et frais de livraison sont affichés au paiement',
     cart_summary_title: 'Totaux',
     cart_summary_subtotal: 'Sous-total',
     cart_summary_empty_btn: 'Ajoutez un article pour passer à la caisse',
@@ -2078,7 +2096,7 @@ export const DICTIONARIES = {
     footer_stats_aria: 'Faits saillants de la boutique',
     footer_stat_products: 'Catalogue',
     footer_stat_collections: 'Collections',
-    footer_stat_shipping: 'Livraison gratuite',
+    footer_stat_shipping: 'Livraison affichée au paiement',
     footer_stat_returns: 'Jours de retour',
     footer_copyright: '© {year} Puchica.',
     footer_legal_aria: 'Mentions légales',
@@ -2305,7 +2323,7 @@ export const DICTIONARIES = {
       'Nous privilégions les produits compacts et simples qui aident à mieux utiliser l’espace déjà disponible.',
     about_how_3_title: 'Clair avant l’achat',
     about_how_3_body:
-      'Le produit doit avoir un usage, des détails et des options compréhensibles. La disponibilité, le coût et le délai de livraison sont confirmés au paiement.',
+      'Le produit doit avoir un usage, des détails et des options compréhensibles. Les options et frais de livraison sont affichés au paiement; les estimations apparaissent lorsqu’elles sont disponibles.',
     about_cats_eye: 'Ce que nous offrons',
     about_cats_title: 'Des trouvailles utiles. Une seule boutique.',
     about_cats_sub:
@@ -2344,7 +2362,7 @@ export const DICTIONARIES = {
     about_story_2_year: '2022',
     about_story_2_title: 'Les 1 000 premiers produits',
     about_story_2_body:
-      'Nous avons bâti un réseau de fournisseurs vérifiés et sélectionné nos mille premières trouvailles, maison, beauté, techno, animaux.',
+      'Nous avons comparé des options de fournisseurs et constitué une première sélection pour la maison et le quotidien.',
     about_story_3_year: '2024',
     about_story_3_title: 'Un catalogue plus clair, rebâti avec soin',
     about_story_3_body:
@@ -2487,7 +2505,7 @@ export const DICTIONARIES = {
       'Contactez-nous dans les 30 jours suivant la livraison. N’expédiez rien avant confirmation de l’admissibilité et des instructions. La responsabilité des frais de retour dépend du motif et de la politique de remboursement.',
     contact_faq_4_q: 'Où livrez-vous ?',
     contact_faq_4_a:
-      'Le Canada et les États-Unis sont des marchés sélectionnables. La livraison varie selon le produit et l’adresse; le paiement doit confirmer le panier avant le règlement.',
+      'Le Canada et les États-Unis sont des marchés sélectionnables. Les options et frais de livraison sont affichés au paiement pour le panier et l’adresse.',
     contact_faq_5_q:
       'Les produits sur les photos sont-ils exactement ce que je reçois ?',
     contact_faq_5_a:
@@ -2512,13 +2530,13 @@ export const DICTIONARIES = {
       'Les délais de traitement et de livraison varient selon le produit. Entrez votre adresse au paiement pour consulter l’estimation disponible avant de payer.',
     faq_orders_2_q: 'Livrez-vous à l’international ?',
     faq_orders_2_a:
-      'Le Canada et les États-Unis sont des marchés sélectionnables. Ce choix ne garantit pas la livraison de chaque article; le paiement confirme le panier et l’adresse avant le règlement.',
+      'Le Canada et les États-Unis sont des marchés sélectionnables. Les options et frais de livraison sont affichés au paiement pour le panier et l’adresse.',
     faq_orders_3_q: 'Comment puis-je suivre ma commande ?',
     faq_orders_3_a:
       'Lorsqu’un service avec suivi est offert, le lien figure dans votre courriel de confirmation d’expédition. Contactez-nous avec votre numéro de commande si vous avez besoin d’aide.',
     faq_orders_4_q: 'Quels sont vos frais de livraison ?',
     faq_orders_4_a:
-      'Les services, le coût et les délais de livraison sont confirmés au paiement selon les articles sélectionnés et la destination.',
+      'Les options et les frais de livraison sont affichés au paiement; les estimations apparaissent lorsqu’elles sont disponibles.',
     faq_returns_1_q: 'Quelle est votre politique de retour ?',
     faq_returns_1_a:
       'Contactez-nous dans les 30 jours suivant la livraison. L’admissibilité dépend de l’article, de son état et de la politique de remboursement. Écrivez-nous rapidement si l’article est endommagé ou incorrect.',
@@ -2607,7 +2625,7 @@ export const DICTIONARIES = {
     lifestyle_banner_eyebrow: 'Slow living',
     lifestyle_banner_heading: 'Trouvez votre prochain coup de cœur.',
     lifestyle_banner_body:
-      'De la cuisine au sentier, du bureau à la garde-robe, Puchica vous apporte ce qui rend chaque jour meilleur. Livraison gratuite dès 75 $.',
+      'De la cuisine au sentier, du bureau à la garde-robe, découvrez des produits d’organisation utiles.',
     lifestyle_banner_cta: 'Toutes les collections',
 
     new_arrivals_aria: 'Nouveautés',
@@ -2615,6 +2633,16 @@ export const DICTIONARIES = {
     new_arrivals_heading: 'Nouveautés',
     new_arrivals_see_all: 'Tout voir',
     new_arrivals_scroll_left: 'Défiler à gauche',
+    featured_eyebrow: 'Sélection Puchica',
+    featured_heading: 'Organisateurs en vedette',
+    featured_sub:
+      'Une sélection ciblée d’organisateurs utiles pour la maison, les câbles et les voyages.',
+    featured_meta_title: 'Organisateurs en vedette – Puchica',
+    featured_meta_description:
+      'Découvrez les organisateurs sélectionnés par Puchica pour les petits espaces, les câbles et les voyages.',
+    new_arrivals_meta_title: 'Nouveaux organisateurs – Puchica',
+    new_arrivals_meta_description:
+      'Découvrez les nouveaux organisateurs de la collection ciblée de Puchica pour la maison, les câbles et les voyages.',
     new_arrivals_scroll_right: 'Défiler à droite',
 
     sports_aria: 'Sports et plein air',
@@ -2638,19 +2666,19 @@ export const DICTIONARIES = {
     trust_bar_curated_h: 'Catalogue actif',
     trust_bar_curated_sub: 'Produits prêts à acheter aujourd’hui',
 
-    home_reviews_aria: 'Avis des clients',
-    home_reviews_eyebrow: 'Aimé par plus de 12 000 acheteurs',
-    home_reviews_heading: 'Ce que disent nos clients',
-    home_reviews_verified: 'Acheteur vérifié',
+    home_reviews_aria: 'Nos critères de sélection',
+    home_reviews_eyebrow: 'Notre norme produit',
+    home_reviews_heading: 'Chaque produit doit mériter sa place',
+    home_reviews_verified: 'Ce que nous recherchons',
     home_reviews_quote_1_text:
-      'Je reviens sans cesse. La qualité est constante, la livraison rapide, et les retours sont simples.',
-    home_reviews_quote_1_author: 'Maya R. Toronto',
+      'Résout un problème précis sans ajouter d’encombrement inutile.',
+    home_reviews_quote_1_author: 'Pratique',
     home_reviews_quote_2_text:
-      'J’ai trouvé un cadeau introuvable ailleurs. L’emballage était soigné.',
-    home_reviews_quote_2_author: 'James P. Vancouver',
+      'Convient aux tiroirs, armoires, comptoirs et bagages où l’espace est limité.',
+    home_reviews_quote_2_author: 'Peu encombrant',
     home_reviews_quote_3_text:
-      'Le service client répond vraiment. J’avais une question et j’ai eu une vraie réponse le jour même.',
-    home_reviews_quote_3_author: 'Sophie L. Montréal',
+      'Présente des dimensions, des options et des limites claires avant l’achat.',
+    home_reviews_quote_3_author: 'Simple et clair',
 
     home_newsletter_aria: 'Infolettre',
     home_newsletter_eyebrow: 'Rejoignez la liste',
@@ -2663,9 +2691,9 @@ export const DICTIONARIES = {
 
     home_roots_aria: 'Nos racines',
     home_roots_eyebrow: 'Les racines de Puchica',
-    home_roots_heading: "D'Amérique centrale au monde entier.",
+    home_roots_heading: "Des racines d'Amérique centrale.",
     home_roots_body:
-      "Puchica, c'est ce qu'on dit quand quelque chose vous surprend. Un lever de soleil sur le lac Atitlán. Du café cultivé sur les pentes volcaniques. Des textiles tissés de la même manière depuis trois générations dans les hautes terres du Guatemala. D'Antigua au Honduras, nous apportons ce sentiment aux clients du monde entier.",
+      "Puchica, c'est ce qu'on dit quand quelque chose vous surprend. Un lever de soleil sur le lac Atitlán, du café cultivé sur des pentes volcaniques et des textiles des hautes terres du Guatemala inspirent notre nom.",
     home_roots_signature: 'Hecho con alma · Fait avec âme',
 
     // ── World map ─────────────────────────────────────────────────
@@ -2673,7 +2701,7 @@ export const DICTIONARIES = {
     world_map_eyebrow: 'Mondial',
     world_map_heading: 'De nos racines à votre porte.',
     world_map_sub:
-      'Puchica livre aux clients du monde entier. Touchez un repère pour voir ce qui nous relie.',
+      'Puchica se concentre actuellement sur le Canada et les États-Unis.',
 
     home_shop_dept_aria: 'Magasiner par département',
     home_shop_dept_eyebrow: 'Parcourir le magasin',
@@ -2692,13 +2720,13 @@ export const DICTIONARIES = {
     home_curate_heading: 'Le bon stock, sans le casse-tête.',
     home_curate_step1_h: 'On sélectionne auprès de fournisseurs de confiance.',
     home_curate_step1_b:
-      'Nous travaillons avec des fournisseurs vérifiés partout dans le monde pour vous offrir des produits qui valent votre argent.',
+      'Nous comparons les options de fournisseur et les détails de livraison avant de promouvoir un produit.',
     home_curate_step2_h: 'On prix juste.',
     home_curate_step2_b:
       'Nous comparons le prix au coût livré et ne mettons en avant que les produits pouvant soutenir une offre viable.',
     home_curate_step3_h: 'On livre vite.',
     home_curate_step3_b:
-      'Les options de livraison sont confirmées au paiement selon les articles et la destination. Notre équipe est là pour vous aider avant ou après la commande.',
+      'Les options et frais de livraison sont affichés au paiement; les estimations apparaissent lorsqu’elles sont disponibles. Notre équipe peut vous aider avant ou après la commande.',
 
     hero_store_stat_products: 'Catalogue',
     hero_store_stat_departments: 'Départements',
@@ -2746,6 +2774,7 @@ export const DICTIONARIES = {
 
     nav_all_products: 'Todos los productos',
     nav_best_sellers: 'Más vendidos',
+    nav_featured: 'Destacados',
     nav_trending: 'Tendencias',
     nav_gifts: 'Regalos por menos de $25',
     nav_shop: 'Tienda',
@@ -2773,7 +2802,7 @@ export const DICTIONARIES = {
     hero_cta_shop: 'Comprar ahora →',
     hero_cta_browse: 'Ver todo',
     hero_stat_products: 'Productos',
-    hero_stat_shipping: 'Envío gratis',
+    hero_stat_shipping: 'Envío mostrado al pagar',
     hero_stat_returns: 'Devoluciones fáciles',
     hero_pause_label: 'Pausar presentación',
     hero_play_label: 'Reproducir presentación',
@@ -2782,9 +2811,9 @@ export const DICTIONARIES = {
 
     ticker_products: 'Catálogo activo',
     ticker_new_drops: 'Novedades cada semana',
-    ticker_free_shipping: 'Envío gratis en Canadá',
+    ticker_free_shipping: 'Opciones de envío al pagar',
     ticker_returns: 'Devoluciones en 30 días',
-    ticker_ships: 'Envío rápido',
+    ticker_ships: 'Seguimiento cuando esté disponible',
     ticker_handpicked: 'Seleccionado, nunca aleatorio',
     ticker_real_value: 'Valor real. Hallazgos reales.',
     ticker_secure: 'Pago seguro',
@@ -2829,7 +2858,7 @@ export const DICTIONARIES = {
     ship_eyebrow: 'A dónde enviamos',
     ship_title: 'Enviamos a cualquier parte.',
     ship_sub:
-      'Enviamos a países de todo el mundo. Estés donde estés, te haremos llegar tu pedido.',
+      'Canadá y Estados Unidos son los mercados disponibles actualmente.',
     ship_cta: 'Pregunta por tu país',
     ship_section_aria: 'Destinos de envío',
     ship_compact_title: 'Cobertura por región',
@@ -2856,10 +2885,10 @@ export const DICTIONARIES = {
     ship_hero_title_main: 'Envío y',
     ship_hero_title_em: 'Entrega.',
     ship_hero_sub:
-      'La disponibilidad, los plazos y el coste de entrega se confirman al finalizar la compra según los artículos y el destino.',
+      'Las opciones y los cargos de envío se muestran al finalizar la compra; las estimaciones aparecen cuando están disponibles.',
     ship_hero_cta: 'Ver el catálogo',
     ship_launch_hero_sub:
-      'Una sola tienda norteamericana con precios según el mercado y opciones de entrega confirmadas al pagar.',
+      'Una sola tienda norteamericana con precios según el mercado y detalles de envío mostrados al pagar.',
     ship_jump: 'Ver cómo se confirma la entrega',
     ship_launch_regions_eye: 'Tienda norteamericana',
     ship_launch_regions_title: 'Dos mercados. Una tienda enfocada.',
@@ -2910,7 +2939,7 @@ export const DICTIONARIES = {
     ship_rates_intl_flag: 'INTL',
     ship_rates_intl_title: 'Internacional',
     ship_rates_intl_body:
-      'La entrega internacional no se promociona actualmente. Confirma la disponibilidad al pagar.',
+      'La entrega internacional no se promociona actualmente. Canadá y Estados Unidos son los mercados activos.',
     ship_rates_intl_eta: 'Sin promesa general de entrega',
     ship_rates_intl_badge: '',
     ship_how_eye: 'Cómo funciona',
@@ -3007,27 +3036,27 @@ export const DICTIONARIES = {
       'Accesorios, herramientas y gadgets que mejoran genuinamente tu día. Sin trucos.',
     mood_tech_cta: 'Poténciate →',
 
-    review_eyebrow: 'Lo que dice la gente',
-    review_title: 'Compradores reales. Opiniones reales.',
+    review_eyebrow: 'Cómo elegimos',
+    review_title: 'El estándar para cada producto.',
     review_1_quote:
-      'Pedí tres veces en el último mes. La calidad es siempre excelente y el envío es rápido.',
+      'Debe resolver un problema claro de organización en un espacio pequeño.',
     review_2_quote:
-      'Encontré exactamente lo que buscaba, y mucho más. Es mi nuevo lugar favorito para el hogar.',
+      'Debe ser fácil de entender, medir y usar en una rutina diaria.',
     review_3_quote:
-      'La selección es genuinamente buena. Todo parece haber sido elegido por alguien con buen gusto.',
+      'La ruta del proveedor y los datos de entrega deben verificarse antes de promocionarlo.',
 
-    banner_eyebrow: 'Más vendidos',
-    banner_title: 'Los que la gente no puede dejar de comprar.',
+    banner_eyebrow: 'Selección destacada',
+    banner_title: 'Empieza con la colección enfocada.',
     banner_sub:
-      'Probados, pedidos de nuevo y regalados a todos sus conocidos. Estos son los productos que ganan su lugar en la lista cada semana.',
-    banner_cta: 'Ver todos los más vendidos',
+      'Productos prácticos de organización seleccionados para el lanzamiento actual.',
+    banner_cta: 'Ver todo',
 
     catalog_body:
       'productos. Una sola tienda. Cada categoría. Añadimos más cada semana, siempre hay algo nuevo que descubrir.',
     catalog_cta_browse: 'Ver todo →',
     catalog_cta_search: 'Buscar en el catálogo',
 
-    trust_shipping_title: 'Envío gratis',
+    trust_shipping_title: 'Envío claro',
     trust_shipping_sub: 'En pedidos a Canadá',
     trust_returns_title: 'Devoluciones en 30 días',
     trust_returns_sub: 'Sin preguntas, sin complicaciones',
@@ -3258,7 +3287,7 @@ export const DICTIONARIES = {
     showcase_sub: '{count} colecciones. {pct} % del catálogo cubierto.',
     showcase_eyebrow: 'Colección {n}',
     showcase_desc:
-      'Descubre nuestra selección de {title}, productos seleccionados con envío gratis en Canadá.',
+      'Descubre nuestra selección de {title}, con opciones y cargos de envío mostrados al pagar.',
     showcase_cta: 'Comprar {title} →',
 
     // ── 404 / ruta catch-all ────────────────────────────────────
@@ -3266,7 +3295,10 @@ export const DICTIONARIES = {
     notfound_sub:
       'El enlace {path} no existe en Puchica. Puede haber sido movido, renombrado, o nunca existió. Prueba una de estas opciones:',
     notfound_popular: 'Colecciones populares',
-    notfound_best: 'Más vendidos →',
+    notfound_featured: 'Organizadores destacados →',
+    notfound_meta_title: 'Página no encontrada – Puchica',
+    notfound_meta_description:
+      'Esta página no existe. Explora nuestros organizadores o busca en el catálogo.',
     notfound_new: 'Novedades →',
     notfound_all_collections: 'Todas las colecciones →',
     notfound_all_catalog: 'Catálogo completo →',
@@ -3295,10 +3327,10 @@ export const DICTIONARIES = {
     cart_empty_perk_returns: 'Devoluciones en 30 días',
     cart_ghost_notice:
       'Estos artículos no están disponibles en tu región ahora. Quítalos para vaciar tu carrito.',
-    cart_freeship_progress_remaining: 'Añade {amount} para envío gratis',
-    cart_freeship_progress_done: 'Has conseguido envío gratis',
+    cart_freeship_progress_remaining: 'Añade {amount} para alcanzar el siguiente nivel del carrito',
+    cart_freeship_progress_done: 'Nivel del carrito alcanzado',
     cart_freeship_threshold_label:
-      'Envío gratis en pedidos superiores a {threshold}',
+      'Las opciones y los cargos de envío se muestran al pagar',
     cart_summary_title: 'Totales',
     cart_summary_subtotal: 'Subtotal',
     cart_summary_empty_btn: 'Agrega un artículo para pagar',
@@ -3402,7 +3434,7 @@ export const DICTIONARIES = {
     footer_stats_aria: 'Destacados de la tienda',
     footer_stat_products: 'Catálogo',
     footer_stat_collections: 'Colecciones',
-    footer_stat_shipping: 'Envío gratis',
+    footer_stat_shipping: 'Envío mostrado al pagar',
     footer_stat_returns: 'Días de devolución',
     footer_copyright: '© {year} Puchica.',
     footer_legal_aria: 'Legal',
@@ -3483,7 +3515,7 @@ export const DICTIONARIES = {
     cart_page_eyebrow: 'Tu carrito',
     cart_trust_aria: 'Por qué comprar con nosotros',
     cart_trust_returns: 'Devoluciones en 30 días',
-    cart_trust_shipping: 'Envío en 24 horas',
+    cart_trust_shipping: 'Opciones de envío al pagar',
     cart_trust_secure: 'Pago seguro',
 
     // ── Página índice de colecciones ───────────────────────────
@@ -3629,7 +3661,7 @@ export const DICTIONARIES = {
       'Priorizamos productos compactos y sencillos que ayudan a aprovechar mejor el espacio disponible.',
     about_how_3_title: 'Fácil de entender antes de comprar',
     about_how_3_body:
-      'El producto debe tener un propósito, detalles y opciones claros. La disponibilidad, el costo y el plazo de entrega se confirman al pagar.',
+      'El producto debe tener un propósito, detalles y opciones claros. Las opciones y los cargos de envío se muestran al pagar; las estimaciones aparecen cuando están disponibles.',
     about_cats_eye: 'Lo que ofrecemos',
     about_cats_title: 'Hallazgos útiles. Una sola tienda.',
     about_cats_sub: 'En cada categoría que realmente importa en tu día a día.',
@@ -3666,7 +3698,7 @@ export const DICTIONARIES = {
     about_story_2_year: '2022',
     about_story_2_title: 'Los primeros 1.000 productos',
     about_story_2_body:
-      'Construimos una red de proveedores verificados y curamos nuestros primeros mil hallazgos: hogar, belleza, tecnología, mascotas.',
+      'Comparamos opciones de proveedor y formamos una primera selección para el hogar y la vida diaria.',
     about_story_3_year: '2024',
     about_story_3_title: 'Un catálogo más claro, reconstruido con cuidado',
     about_story_3_body:
@@ -3690,7 +3722,7 @@ export const DICTIONARIES = {
       'Elegimos cosas que duran e importan, no lo que el algoritmo empuja esta semana.',
     about_values_4_title: 'Enviado por socios de confianza',
     about_values_4_body:
-      'Cada pedido sale de un socio verificado en 24 horas, con una etiqueta de devolución prepagada en cada caja.',
+      'La gestión del pedido, el seguimiento disponible y las instrucciones de devolución dependen del producto y del servicio.',
 
     about_team_eye: 'Quiénes somos',
     about_team_title: 'Personas reales, selecciones reales.',
@@ -3809,7 +3841,7 @@ export const DICTIONARIES = {
       'Contáctanos dentro de los 30 días posteriores a la entrega. No envíes nada hasta que confirmemos la elegibilidad y las instrucciones. La responsabilidad del envío de devolución depende del motivo y de la política.',
     contact_faq_4_q: '¿A dónde envían?',
     contact_faq_4_a:
-      'Canadá y Estados Unidos son mercados seleccionables. La entrega aún depende del producto y la dirección; el checkout debe confirmar el carrito antes del pago.',
+      'Canadá y Estados Unidos son mercados seleccionables. Las opciones y los cargos de envío se muestran al pagar para el carrito y la dirección.',
     contact_faq_5_q:
       '¿Los productos en las fotos son exactamente lo que recibiré?',
     contact_faq_5_a:
@@ -3834,13 +3866,13 @@ export const DICTIONARIES = {
       'Los tiempos de procesamiento y entrega varían según el producto. Introduce tu dirección al pagar para consultar la estimación disponible antes del pago.',
     faq_orders_2_q: '¿Envían a nivel internacional?',
     faq_orders_2_a:
-      'Canadá y Estados Unidos son mercados seleccionables. La selección no garantiza que todos los artículos puedan entregarse; el checkout confirma el carrito y la dirección antes del pago.',
+      'Canadá y Estados Unidos son mercados seleccionables. Las opciones y los cargos de envío se muestran al pagar para el carrito y la dirección.',
     faq_orders_3_q: '¿Cómo rastreo mi pedido?',
     faq_orders_3_a:
       'Cuando haya un servicio con seguimiento, el enlace se incluirá en el correo de confirmación de envío. Contáctanos con tu número de pedido si necesitas ayuda.',
     faq_orders_4_q: '¿Cuáles son sus tarifas de envío?',
     faq_orders_4_a:
-      'Los servicios, el costo y el tiempo de entrega se confirman al pagar según los artículos seleccionados y el destino.',
+      'Las opciones y los cargos de envío se muestran al finalizar la compra; las estimaciones aparecen cuando están disponibles.',
     faq_returns_1_q: '¿Cuál es su política de devoluciones?',
     faq_returns_1_a:
       'Contáctanos dentro de los 30 días posteriores a la entrega. La elegibilidad depende del artículo, su estado y la política de reembolso. Escríbenos pronto si llega dañado o incorrecto.',
@@ -3928,7 +3960,7 @@ export const DICTIONARIES = {
     lifestyle_banner_eyebrow: 'Vida tranquila',
     lifestyle_banner_heading: 'Encuentra tu próximo favorito.',
     lifestyle_banner_body:
-      'De la cocina al sendero, de tu escritorio a tu armario, Puchica te trae lo que hace cada día mejor. Envío gratis sobre $75.',
+      'De la cocina al sendero, del escritorio al armario, descubre productos de organización útiles.',
     lifestyle_banner_cta: 'Todas las colecciones',
 
     new_arrivals_aria: 'Novedades',
@@ -3936,6 +3968,16 @@ export const DICTIONARIES = {
     new_arrivals_heading: 'Novedades',
     new_arrivals_see_all: 'Ver todo',
     new_arrivals_scroll_left: 'Desplazar a la izquierda',
+    featured_eyebrow: 'Selección Puchica',
+    featured_heading: 'Organizadores destacados',
+    featured_sub:
+      'Una selección enfocada de organizadores útiles para el hogar, los cables y los viajes.',
+    featured_meta_title: 'Organizadores destacados – Puchica',
+    featured_meta_description:
+      'Descubre los organizadores seleccionados por Puchica para espacios pequeños, cables y viajes.',
+    new_arrivals_meta_title: 'Nuevos organizadores – Puchica',
+    new_arrivals_meta_description:
+      'Descubre los organizadores nuevos de la colección enfocada de Puchica para el hogar, los cables y los viajes.',
     new_arrivals_scroll_right: 'Desplazar a la derecha',
 
     sports_aria: 'Deportes y aire libre',
@@ -3959,19 +4001,19 @@ export const DICTIONARIES = {
     trust_bar_curated_h: 'Catálogo activo',
     trust_bar_curated_sub: 'Productos listos para comprar hoy',
 
-    home_reviews_aria: 'Reseñas de clientes',
-    home_reviews_eyebrow: 'Amado por más de 12,000 compradores',
-    home_reviews_heading: 'Lo que dicen nuestros clientes',
-    home_reviews_verified: 'Comprador verificado',
+    home_reviews_aria: 'Nuestros criterios de selección',
+    home_reviews_eyebrow: 'Nuestro estándar de producto',
+    home_reviews_heading: 'Cada producto debe ganarse su lugar',
+    home_reviews_verified: 'Lo que buscamos',
     home_reviews_quote_1_text:
-      'Sigo volviendo. La calidad es constante, el envío rápido y las devoluciones sin complicaciones.',
-    home_reviews_quote_1_author: 'Maya R. Toronto',
+      'Resuelve un problema específico sin añadir desorden innecesario.',
+    home_reviews_quote_1_author: 'Práctico',
     home_reviews_quote_2_text:
-      'Encontré un regalo que no hallé en ningún otro sitio. El empaque se sentía pensado.',
-    home_reviews_quote_2_author: 'James P. Vancouver',
+      'Cabe en cajones, armarios, encimeras y equipaje donde el espacio es limitado.',
+    home_reviews_quote_2_author: 'Pensado para espacios pequeños',
     home_reviews_quote_3_text:
-      'El servicio al cliente realmente responde. Hice una pregunta y obtuve respuesta el mismo día.',
-    home_reviews_quote_3_author: 'Sophie L. Montréal',
+      'Explica dimensiones, opciones y límites antes de la compra.',
+    home_reviews_quote_3_author: 'Claro y sencillo',
 
     home_newsletter_aria: 'Boletín',
     home_newsletter_eyebrow: 'Únete a la lista',
@@ -3986,7 +4028,7 @@ export const DICTIONARIES = {
     home_roots_eyebrow: 'Las raíces de Puchica',
     home_roots_heading: 'De Centroamérica al mundo.',
     home_roots_body:
-      'Puchica, así se dice cuando algo te sorprende. Un amanecer sobre el lago Atitlán. Café cultivado en laderas volcánicas. Textiles tejidos de la misma forma por tres generaciones en los altiplanos de Guatemala. De Antigua a Honduras, traemos ese sentimiento a clientes de todo el mundo.',
+      'Puchica es lo que se dice cuando algo sorprende. Un amanecer sobre el lago Atitlán, el café de laderas volcánicas y los textiles de los altiplanos de Guatemala inspiran nuestro nombre.',
     home_roots_signature: 'Hecho con alma · Made with soul',
 
     // ── World map ─────────────────────────────────────────────────
@@ -3994,13 +4036,13 @@ export const DICTIONARIES = {
     world_map_eyebrow: 'Mundial',
     world_map_heading: 'De nuestras raíces a tu puerta.',
     world_map_sub:
-      'Puchica envía a clientes de todo el mundo. Toca un pin para ver qué nos conecta.',
+      'Puchica se centra actualmente en Canadá y Estados Unidos.',
 
     home_shop_dept_aria: 'Comprar por departamento',
     home_shop_dept_eyebrow: 'Explorar la tienda',
     home_shop_dept_heading: 'Departamentos activos. Rutas reales de compra.',
     home_shop_dept_body:
-      'De lo esencial para el hogar hasta los últimos gadgets, Puchica te ofrece lo mejor de cada categoría, seleccionado, precio justo, envío rápido.',
+      'Explora una colección enfocada de productos prácticos de organización.',
     home_dept_home: 'Hogar & Cocina',
     home_dept_electronics: 'Electrónica',
     home_dept_apparel: 'Ropa',
@@ -4011,13 +4053,13 @@ export const DICTIONARIES = {
     home_curate_aria: 'Cómo seleccionamos',
     home_curate_eyebrow: 'Por qué Puchica',
     home_curate_heading: 'Lo bueno, sin complicaciones.',
-    home_curate_step1_h: 'Seleccionamos de proveedores de confianza.',
+    home_curate_step1_h: 'Revisamos cada ruta de proveedor.',
     home_curate_step1_b:
-      'Trabajamos con proveedores verificados en todo el mundo para ofrecerte productos que valgan tu dinero.',
+      'Comparamos opciones de proveedor y detalles de entrega antes de promocionar un producto.',
     home_curate_step2_h: 'Precio justo.',
     home_curate_step2_b:
       'Comparamos el precio con el costo de entrega y solo destacamos productos que pueden sostener una oferta viable.',
-    home_curate_step3_h: 'Envío rápido.',
+    home_curate_step3_h: 'Detalles antes de pagar.',
     home_curate_step3_b:
       'Las opciones de envío se confirman al pagar según los artículos y el destino. Nuestro equipo puede ayudarte antes o después de tu pedido.',
 
@@ -4067,6 +4109,7 @@ export const DICTIONARIES = {
 
     nav_all_products: 'Todos os produtos',
     nav_best_sellers: 'Mais vendidos',
+    nav_featured: 'Destaques',
     nav_trending: 'Em alta',
     nav_gifts: 'Presentes até $25',
     nav_shop: 'Loja',
@@ -4094,7 +4137,7 @@ export const DICTIONARIES = {
     hero_cta_shop: 'Comprar agora →',
     hero_cta_browse: 'Ver tudo',
     hero_stat_products: 'Produtos',
-    hero_stat_shipping: 'Frete grátis',
+    hero_stat_shipping: 'Frete exibido no checkout',
     hero_stat_returns: 'Devoluções fáceis',
     hero_pause_label: 'Pausar apresentação de slides',
     hero_play_label: 'Reproduzir apresentação de slides',
@@ -4103,9 +4146,9 @@ export const DICTIONARIES = {
 
     ticker_products: 'Catálogo ativo',
     ticker_new_drops: 'Novidades toda semana',
-    ticker_free_shipping: 'Frete grátis no Canadá',
+    ticker_free_shipping: 'Opções de envio no checkout',
     ticker_returns: 'Devoluções em 30 dias',
-    ticker_ships: 'Entrega rápida',
+    ticker_ships: 'Rastreamento quando disponível',
     ticker_handpicked: 'Selecionado, nunca aleatório',
     ticker_real_value: 'Valor real. Descobertas reais.',
     ticker_secure: 'Checkout seguro',
@@ -4177,11 +4220,11 @@ export const DICTIONARIES = {
     ship_hero_title_main: 'Envio e',
     ship_hero_title_em: 'Entrega.',
     ship_hero_sub:
-      'A disponibilidade, os prazos e os custos de entrega são confirmados no checkout conforme os itens e o destino.',
+      'As opções e cobranças de envio são exibidas no checkout; as estimativas aparecem quando disponíveis.',
     ship_hero_cta: 'Ver o catálogo',
     ship_launch_hero_sub:
-      'Uma única loja norte-americana com preços por mercado e opções de entrega confirmadas no checkout.',
-    ship_jump: 'Veja como a entrega é confirmada',
+      'Uma única loja norte-americana com preços por mercado e detalhes de envio exibidos no checkout.',
+    ship_jump: 'Veja como os detalhes de envio são exibidos',
     ship_launch_regions_eye: 'Loja norte-americana',
     ship_launch_regions_title: 'Dois mercados. Uma loja focada.',
     ship_launch_regions_sub:
@@ -4226,12 +4269,12 @@ export const DICTIONARIES = {
     ship_rates_us_title: 'Estados Unidos',
     ship_rates_us_body:
       'A disponibilidade depende dos itens, do carrinho e do destino.',
-    ship_rates_us_eta: 'Confirme no checkout',
+    ship_rates_us_eta: 'Opções exibidas no checkout',
     ship_rates_us_badge: '',
     ship_rates_intl_flag: 'INTL',
     ship_rates_intl_title: 'Internacional',
     ship_rates_intl_body:
-      'A entrega internacional não é promovida atualmente. Confirme a disponibilidade no checkout.',
+      'A entrega internacional não é promovida atualmente. Canadá e Estados Unidos são os mercados ativos.',
     ship_rates_intl_eta: 'Sem promessa geral de entrega',
     ship_rates_intl_badge: '',
     ship_how_eye: 'Como funciona',
@@ -4254,7 +4297,7 @@ export const DICTIONARIES = {
     ship_track_cta: 'Contatar suporte',
     ship_cta_title: 'Pronto para pedir?',
     ship_cta_sub:
-      'Compre organizadores e confirme a entrega para seu endereço no checkout.',
+      'Compre organizadores e consulte as opções e cobranças de envio no checkout.',
     ship_cta_browse: 'Ver todos os produtos',
 
     match_eyebrow: 'Descoberta personalizada',
@@ -4327,27 +4370,27 @@ export const DICTIONARIES = {
       'Acessórios, ferramentas e gadgets que genuinamente melhoram seu dia. Sem enganação.',
     mood_tech_cta: 'Potencialize-se →',
 
-    review_eyebrow: 'O que as pessoas dizem',
-    review_title: 'Compradores reais. Opiniões reais.',
+    review_eyebrow: 'Como escolhemos',
+    review_title: 'O padrão para cada produto.',
     review_1_quote:
-      'Fiz três pedidos no último mês. A qualidade é sempre ótima e a entrega é rápida.',
+      'Ele deve resolver um problema claro de organização em um espaço pequeno.',
     review_2_quote:
-      'Encontrei exatamente o que procurava, e muito mais. Este é meu novo lugar favorito para coisas de casa.',
+      'Ele deve ser simples de entender, medir e usar na rotina diária.',
     review_3_quote:
-      'A curadoria é genuinamente boa. Tudo parece ter sido escolhido por alguém com bom gosto.',
+      'A rota do fornecedor e os detalhes de entrega devem ser verificados antes da promoção.',
 
-    banner_eyebrow: 'Mais vendidos',
-    banner_title: 'Os que as pessoas não param de comprar.',
+    banner_eyebrow: 'Seleção em destaque',
+    banner_title: 'Comece pela coleção focada.',
     banner_sub:
-      'Testados, pedidos novamente e presenteados a todos que conhecem. Estes são os produtos que merecem seu lugar na lista toda semana.',
-    banner_cta: 'Ver todos os mais vendidos',
+      'Produtos práticos de organização selecionados para o lançamento atual.',
+    banner_cta: 'Ver tudo',
 
     catalog_body:
       'produtos. Uma só loja. Todas as categorias. Adicionamos mais toda semana, sempre há algo novo para descobrir.',
     catalog_cta_browse: 'Ver tudo →',
     catalog_cta_search: 'Buscar no catálogo',
 
-    trust_shipping_title: 'Frete grátis',
+    trust_shipping_title: 'Frete claro',
     trust_shipping_sub: 'Em pedidos para o Canadá',
     trust_returns_title: 'Devoluções em 30 dias',
     trust_returns_sub: 'Sem perguntas, sem complicações',
@@ -4465,7 +4508,7 @@ export const DICTIONARIES = {
     product_badge_save: 'Economize {pct}%',
     product_reviews_stub:
       'As avaliações de clientes verificados aparecerão aqui à medida que forem coletadas.',
-    product_perk_packed: 'Opções de envio confirmadas no checkout',
+    product_perk_packed: 'Opções e cobranças de envio exibidas no checkout',
     product_perk_return: 'Leia a política de reembolso antes de pedir',
     product_perk_curated: 'Curado pela equipe Puchica, nunca aleatório',
     product_tab_description: 'Descrição',
@@ -4479,7 +4522,7 @@ export const DICTIONARIES = {
     product_specs_empty: 'Nenhuma especificação disponível para este produto.',
     product_shipping_h: 'Envio',
     product_shipping_body:
-      'A disponibilidade, o prazo e o custo de envio são confirmados no checkout para os itens e o destino selecionados. Quando houver serviço com rastreamento, os detalhes são enviados após o fornecedor despachar o pedido.',
+      'As opções e cobranças de envio são exibidas no checkout; as estimativas aparecem quando disponíveis. Quando houver rastreamento, os detalhes são enviados após o despacho.',
     product_returns_h: 'Devoluções',
     product_returns_body:
       'Leia a política de reembolso antes de pedir. A elegibilidade e as instruções de devolução dependem do item e do pedido; fale com o suporte e informe seu número de pedido se precisar de ajuda.',
@@ -4575,7 +4618,7 @@ export const DICTIONARIES = {
     showcase_sub: '{count} coleções. {pct} % do catálogo coberto.',
     showcase_eyebrow: 'Coleção {n}',
     showcase_desc:
-      'Descubra nossa seleção de {title}, produtos curados com frete grátis no Canadá.',
+      'Conheça nossa seleção de {title}, com opções e cobranças de envio exibidas no checkout.',
     showcase_cta: 'Comprar {title} →',
 
     // ── 404 / rota catch-all ────────────────────────────────────
@@ -4583,7 +4626,10 @@ export const DICTIONARIES = {
     notfound_sub:
       'O link {path} não existe na Puchica. Pode ter sido movido, renomeado, ou nunca existiu. Tente uma destas opções:',
     notfound_popular: 'Coleções populares',
-    notfound_best: 'Mais vendidos →',
+    notfound_featured: 'Organizadores em destaque →',
+    notfound_meta_title: 'Página não encontrada – Puchica',
+    notfound_meta_description:
+      'Esta página não existe. Explore nossos organizadores ou pesquise no catálogo.',
     notfound_new: 'Novidades →',
     notfound_all_collections: 'Todas as coleções →',
     notfound_all_catalog: 'Catálogo completo →',
@@ -4612,10 +4658,10 @@ export const DICTIONARIES = {
     cart_empty_perk_returns: 'Devoluções em 30 dias',
     cart_ghost_notice:
       'Estes itens não estão disponíveis na sua região agora. Remova-os para esvaziar o carrinho.',
-    cart_freeship_progress_remaining: 'Adicione {amount} para frete grátis',
-    cart_freeship_progress_done: 'Você ganhou frete grátis',
+    cart_freeship_progress_remaining: 'Adicione {amount} para alcançar o próximo nível do carrinho',
+    cart_freeship_progress_done: 'Nível do carrinho alcançado',
     cart_freeship_threshold_label:
-      'Frete grátis em pedidos acima de {threshold}',
+      'As opções e cobranças de envio são exibidas no checkout',
     cart_summary_title: 'Totais',
     cart_summary_subtotal: 'Subtotal',
     cart_summary_empty_btn: 'Adicione um item para finalizar',
@@ -4719,7 +4765,7 @@ export const DICTIONARIES = {
     footer_stats_aria: 'Destaques da loja',
     footer_stat_products: 'Catálogo',
     footer_stat_collections: 'Coleções',
-    footer_stat_shipping: 'Frete grátis',
+    footer_stat_shipping: 'Frete exibido no checkout',
     footer_stat_returns: 'Dias de devolução',
     footer_copyright: '© {year} Puchica.',
     footer_legal_aria: 'Legal',
@@ -4800,7 +4846,7 @@ export const DICTIONARIES = {
     cart_page_eyebrow: 'Seu carrinho',
     cart_trust_aria: 'Por que comprar com a gente',
     cart_trust_returns: 'Devoluções em 30 dias',
-    cart_trust_shipping: 'Envio em 24 horas',
+    cart_trust_shipping: 'Opções de envio no checkout',
     cart_trust_secure: 'Pagamento seguro',
 
     // ── Página índice de coleções ───────────────────────────────
@@ -4945,7 +4991,7 @@ export const DICTIONARIES = {
       'Priorizamos produtos compactos e simples que ajudam a aproveitar melhor o espaço disponível.',
     about_how_3_title: 'Fácil de entender antes da compra',
     about_how_3_body:
-      'O produto precisa ter um propósito, detalhes e opções claros. A disponibilidade, o custo e o prazo de entrega são confirmados no checkout.',
+      'O produto precisa ter um propósito, detalhes e opções claros. As opções e cobranças de envio são exibidas no checkout; as estimativas aparecem quando disponíveis.',
     about_cats_eye: 'O que oferecemos',
     about_cats_title: 'Achados úteis. Uma só loja.',
     about_cats_sub:
@@ -4983,7 +5029,7 @@ export const DICTIONARIES = {
     about_story_2_year: '2022',
     about_story_2_title: 'Os primeiros 1.000 produtos',
     about_story_2_body:
-      'Construímos uma rede de fornecedores verificados e curamos nossos primeiros mil achados: casa, beleza, tech, pets.',
+      'Comparamos opções de fornecedor e formamos uma primeira seleção para casa e o dia a dia.',
     about_story_3_year: '2024',
     about_story_3_title: 'Um catálogo mais claro, reconstruído com cuidado',
     about_story_3_body:
@@ -5007,7 +5053,7 @@ export const DICTIONARIES = {
       'Escolhemos coisas que duram e importam, não o que o algoritmo está empurrando esta semana.',
     about_values_4_title: 'Enviado por parceiros de confiança',
     about_values_4_body:
-      'Cada pedido sai de um parceiro verificado em 24 horas, com uma etiqueta de devolução pré-paga em cada caixa.',
+      'O processamento do pedido, o rastreamento disponível e as instruções de devolução dependem do produto e do serviço.',
 
     about_team_eye: 'Quem somos',
     about_team_title: 'Pessoas reais, escolhas reais.',
@@ -5126,7 +5172,7 @@ export const DICTIONARIES = {
       'Entre em contato dentro de 30 dias após a entrega. Não envie nada antes de confirmarmos a elegibilidade e as instruções. A responsabilidade pelo frete depende do motivo e da política.',
     contact_faq_4_q: 'Para onde vocês enviam?',
     contact_faq_4_a:
-      'Canadá e Estados Unidos são mercados selecionáveis. A entrega ainda depende do produto e endereço; o checkout deve confirmar o carrinho antes do pagamento.',
+      'Canadá e Estados Unidos são mercados selecionáveis. As opções e cobranças de envio são exibidas no checkout para o carrinho e endereço.',
     contact_faq_5_q: 'Os produtos nas fotos são exatamente o que vou receber?',
     contact_faq_5_a:
       'Confira as fotos, a variante escolhida, as dimensões e a descrição. Escreva antes de pedir se algum detalhe não estiver claro.',
@@ -5150,13 +5196,13 @@ export const DICTIONARIES = {
       'Os prazos de processamento e entrega variam conforme o produto. Informe seu endereço no checkout para consultar a estimativa disponível antes do pagamento.',
     faq_orders_2_q: 'Vocês enviam internacionalmente?',
     faq_orders_2_a:
-      'Canadá e Estados Unidos são mercados selecionáveis. A seleção não garante a entrega de todos os itens; o checkout confirma o carrinho e o endereço antes do pagamento.',
+      'Canadá e Estados Unidos são mercados selecionáveis. As opções e cobranças de envio são exibidas no checkout para o carrinho e endereço.',
     faq_orders_3_q: 'Como rastrear meu pedido?',
     faq_orders_3_a:
       'Quando houver um serviço com rastreamento, o link será incluído no e-mail de confirmação de envio. Entre em contato com o número do pedido se precisar de ajuda.',
     faq_orders_4_q: 'Quais são as taxas de envio?',
     faq_orders_4_a:
-      'Os serviços, o custo e o prazo de entrega são confirmados no checkout conforme os itens selecionados e o destino.',
+      'As opções e cobranças de envio são exibidas no checkout; as estimativas aparecem quando disponíveis.',
     faq_returns_1_q: 'Qual é a política de devoluções?',
     faq_returns_1_a:
       'Entre em contato dentro de 30 dias após a entrega. A elegibilidade depende do item, do estado e da política de reembolso. Escreva logo se chegar danificado ou incorreto.',
@@ -5243,7 +5289,7 @@ export const DICTIONARIES = {
     lifestyle_banner_eyebrow: 'Vida lenta',
     lifestyle_banner_heading: 'Encontre seu próximo favorito.',
     lifestyle_banner_body:
-      'Da cozinha à trilha, do escritório ao guarda-roupa, a Puchica traz o que faz cada dia melhor. Frete grátis acima de $75.',
+      'Da cozinha à trilha, do escritório ao guarda-roupa, descubra produtos úteis de organização.',
     lifestyle_banner_cta: 'Todas as coleções',
 
     new_arrivals_aria: 'Novidades',
@@ -5251,6 +5297,16 @@ export const DICTIONARIES = {
     new_arrivals_heading: 'Novidades',
     new_arrivals_see_all: 'Ver tudo',
     new_arrivals_scroll_left: 'Rolar para a esquerda',
+    featured_eyebrow: 'Seleção Puchica',
+    featured_heading: 'Organizadores em destaque',
+    featured_sub:
+      'Uma seleção focada de organizadores úteis para casa, cabos e viagens.',
+    featured_meta_title: 'Organizadores em destaque – Puchica',
+    featured_meta_description:
+      'Conheça os organizadores selecionados pela Puchica para espaços pequenos, cabos e viagens.',
+    new_arrivals_meta_title: 'Novos organizadores – Puchica',
+    new_arrivals_meta_description:
+      'Conheça os novos organizadores da coleção focada da Puchica para casa, cabos e viagens.',
     new_arrivals_scroll_right: 'Rolar para a direita',
 
     sports_aria: 'Esportes e ar livre',
@@ -5274,19 +5330,19 @@ export const DICTIONARIES = {
     trust_bar_curated_h: 'Catálogo ativo',
     trust_bar_curated_sub: 'Produtos prontos para comprar hoje',
 
-    home_reviews_aria: 'Avaliações de clientes',
-    home_reviews_eyebrow: 'Amado por mais de 12.000 compradores',
-    home_reviews_heading: 'O que nossos clientes dizem',
-    home_reviews_verified: 'Comprador verificado',
+    home_reviews_aria: 'Nossos critérios de seleção',
+    home_reviews_eyebrow: 'Nosso padrão de produto',
+    home_reviews_heading: 'Cada produto deve merecer seu espaço',
+    home_reviews_verified: 'O que procuramos',
     home_reviews_quote_1_text:
-      'Volto sempre. A qualidade é constante, o envio é rápido e as devoluções são simples.',
-    home_reviews_quote_1_author: 'Maya R. Toronto',
+      'Resolve um problema específico sem acrescentar bagunça desnecessária.',
+    home_reviews_quote_1_author: 'Prático',
     home_reviews_quote_2_text:
-      'Encontrei um presente que não achei em nenhum outro lugar. A embalagem parecia pensada nos mínimos detalhes.',
-    home_reviews_quote_2_author: 'James P. Vancouver',
+      'Cabe em gavetas, armários, bancadas e bagagens onde o espaço é limitado.',
+    home_reviews_quote_2_author: 'Pensado para espaços pequenos',
     home_reviews_quote_3_text:
-      'O atendimento responde mesmo. Tive uma dúvida e recebi uma resposta de verdade no mesmo dia.',
-    home_reviews_quote_3_author: 'Sophie L. Montréal',
+      'Explica dimensões, opções e limitações antes da compra.',
+    home_reviews_quote_3_author: 'Claro e simples',
 
     home_newsletter_aria: 'Newsletter',
     home_newsletter_eyebrow: 'Junte-se à lista',
@@ -5301,7 +5357,7 @@ export const DICTIONARIES = {
     home_roots_eyebrow: 'As raízes da Puchica',
     home_roots_heading: 'Da América Central ao mundo.',
     home_roots_body:
-      'Puchica, é o que se diz quando algo te pega de surpresa. Um nascer do sol sobre o lago Atitlán. Café cultivado em encostas vulcânicas. Têxteis tecidos da mesma forma há três gerações nas terras altas da Guatemala. De Antigua a Honduras, trazemos esse sentimento para clientes do mundo todo.',
+      'Puchica é o que se diz quando algo surpreende. Um nascer do sol sobre o lago Atitlán, o café das encostas vulcânicas e os têxteis das terras altas da Guatemala inspiram nosso nome.',
     home_roots_signature: 'Hecho con alma · Feito com alma',
 
     // ── World map ─────────────────────────────────────────────────
@@ -5309,13 +5365,13 @@ export const DICTIONARIES = {
     world_map_eyebrow: 'Mundial',
     world_map_heading: 'De nossas raízes à sua porta.',
     world_map_sub:
-      'Puchica envia para clientes do mundo todo. Toque num pino para ver o que nos conecta.',
+      'A Puchica está focada atualmente no Canadá e nos Estados Unidos.',
 
     home_shop_dept_aria: 'Comprar por departamento',
     home_shop_dept_eyebrow: 'Explorar a loja',
     home_shop_dept_heading: 'Departamentos ativos. Caminhos reais de compra.',
     home_shop_dept_body:
-      'Do essencial para casa aos últimos gadgets, a Puchica traz o melhor de cada categoria, selecionado, preço justo, entrega rápida.',
+      'Explore uma coleção focada de produtos práticos de organização.',
     home_dept_home: 'Casa & Cozinha',
     home_dept_electronics: 'Eletrônicos',
     home_dept_apparel: 'Roupas',
@@ -5326,15 +5382,15 @@ export const DICTIONARIES = {
     home_curate_aria: 'Como selecionamos',
     home_curate_eyebrow: 'Por que Puchica',
     home_curate_heading: 'O que vale, sem complicação.',
-    home_curate_step1_h: 'Selecionamos de fornecedores de confiança.',
+    home_curate_step1_h: 'Revisamos cada rota de fornecedor.',
     home_curate_step1_b:
-      'Trabalhamos com fornecedores verificados em todo o mundo para trazer produtos que valem seu dinheiro.',
+      'Comparamos opções de fornecedor e detalhes de entrega antes de promover um produto.',
     home_curate_step2_h: 'Preço justo.',
     home_curate_step2_b:
       'Comparamos o preço com o custo de entrega e só destacamos produtos que podem sustentar uma oferta viável.',
-    home_curate_step3_h: 'Entrega rápida.',
+    home_curate_step3_h: 'Detalhes antes do pagamento.',
     home_curate_step3_b:
-      'As opções de entrega são confirmadas no checkout conforme os itens e o destino. Nossa equipe pode ajudar antes ou depois do pedido.',
+      'As opções e cobranças de envio são exibidas no checkout; as estimativas aparecem quando disponíveis. Nossa equipe pode ajudar antes ou depois do pedido.',
 
     hero_store_stat_products: 'Catálogo',
     hero_store_stat_departments: 'Departamentos',

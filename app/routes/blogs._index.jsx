@@ -79,7 +79,7 @@ export default function Blogs() {
     <div className="blogs">
       <h1>{t('blogs_h')}</h1>
       <div className="blogs-grid">
-        <PaginatedResourceSection connection={blogs}>
+        <PaginatedResourceSection connection={blogs} showSummary={false}>
           {({node: blog}) => (
             <Link
               className="blog"

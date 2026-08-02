@@ -1,5 +1,26 @@
 # Customer-trust Shopify Admin actions — 2026-08-01
 
+> **CURRENT AUTHORITY:** Exact paste-ready policy replacements and their
+> operating decisions now live in
+> `docs/pre-ad-execution-control-2026-08-02.md`. This file remains a historical
+> checklist and does not override that control.
+
+## Recorded Admin status — August 2, 2026
+
+- Privacy: the automated Shopify policy was converted to the reviewed manual
+  static policy. Status remains PARTIAL until the code safeguard is deployed
+  and live/cache-verified and the privacy-official/seller disclosures pass.
+- Shipping: the reviewed replacement was published. Status remains PARTIAL
+  until delivery-date/method evidence and the duties, brokerage, destination-
+  charge, and refused-delivery responsibility are accepted and disclosed.
+- Refund: not published. Status is `FAIL / BLOCKED_OWNER` until the owner
+  accepts the return-cost and operational return process.
+
+Manitoba seller-disclosure requirements and exact owner inputs are controlled
+by `docs/pre-ad-execution-control-2026-08-02.md`. The former postal code
+`R2P 2X1` is prohibited for business, mailing, privacy, return, quote, or
+shipping use.
+
 The Hydrogen storefront reads the full refund and shipping policy bodies from
 Shopify. Those bodies cannot be changed safely from this repository. The
 storefront now adds a cautious refund summary above the Shopify-hosted refund

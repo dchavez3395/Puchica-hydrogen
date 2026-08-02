@@ -166,7 +166,7 @@ function MegaMenuPanel({data, onNavigate}) {
     },
     {
       id: 'q-best',
-      title: t('nav_best_sellers'),
+      title: t('nav_featured'),
       url: '/collections/best-sellers',
     },
   ];

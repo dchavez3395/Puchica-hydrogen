@@ -2,6 +2,7 @@ import {data, useLoaderData} from 'react-router';
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {puchicaMeta} from '~/lib/seo';
 import {useT} from '~/lib/t';
+import {DICTIONARIES} from '~/lib/dictionaries';
 
 /**
  * @type {Route.MetaFunction}
@@ -10,13 +11,15 @@ import {useT} from '~/lib/t';
  * Google's index even if other sites link to a dead Puchica URL.
  * nofollow also stops us from passing link equity out of a 404.
  */
-export const meta = ({data}) => {
+export const meta = ({data, params}) => {
+  const langKey = params?.locale || 'en';
+  const dictionary = DICTIONARIES[langKey] || DICTIONARIES.en;
   return puchicaMeta({
-    title: 'Page not found – Puchica',
-    description:
-      "The page you&apos;re looking for doesn&apos;t exist. Browse our collections or search the catalog.",
+    title: dictionary.notfound_meta_title,
+    description: dictionary.notfound_meta_description,
     noindex: true,
     pathname: data?.pathname || '/404',
+    langKey,
   });
 };
 
@@ -42,15 +45,25 @@ export default function CatchAllPage() {
   const {pathname} = useLoaderData();
   return (
     <div className="pk-collection">
-      <nav className="pk-breadcrumbs" aria-label={t('notfound_breadcrumb_aria')}>
+      <nav
+        className="pk-breadcrumbs"
+        aria-label={t('notfound_breadcrumb_aria')}
+      >
         <Link to="/">{t('notfound_breadcrumb_home')}</Link>
-        <span className="pk-breadcrumbs__sep">/</span>
-        <span className="pk-breadcrumbs__current">{t('notfound_breadcrumb_current')}</span>
+        <span className="pk-breadcrumbs__sep" aria-hidden>
+          /
+        </span>
+        <span className="pk-breadcrumbs__current">
+          {t('notfound_breadcrumb_current')}
+        </span>
       </nav>
 
       <header className="pk-col-hero pk-col-hero--soft">
         <div className="pk-col-hero__glow" aria-hidden />
-        <div className="pk-col-hero__glow pk-col-hero__glow--ember" aria-hidden />
+        <div
+          className="pk-col-hero__glow pk-col-hero__glow--ember"
+          aria-hidden
+        />
         <span className="pk-col-hero__eyebrow">{t('notfound_eyebrow')}</span>
         <h1 className="pk-col-hero__title">{t('notfound_title')}</h1>
         <p className="pk-col-hero__sub">
@@ -80,12 +93,12 @@ export default function CatchAllPage() {
                   prefetch="intent"
                   style={{fontWeight: 600}}
                 >
-                  {t('notfound_best')}
+                  {t('notfound_featured')}
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/collections/new"
+                  to="/collections/new-arrivals"
                   prefetch="intent"
                   style={{fontWeight: 600}}
                 >

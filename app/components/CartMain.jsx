@@ -38,6 +38,10 @@ function getLineItemChildrenMap(lines) {
  */
 export function CartMain({layout, cart: originalCart}) {
   const t = useT();
+  // The cart drawer is mounted on every page, including the full /cart route.
+  // A layout-specific id keeps both line-item headings valid when those two
+  // CartMain instances exist in the document at the same time.
+  const lineItemsLabelId = `cart-lines-${layout}`;
   // The useOptimisticCart hook applies pending actions to the cart
   // so the user immediately sees feedback when they modify the cart.
   const cart = useOptimisticCart(originalCart);
@@ -106,10 +110,10 @@ export function CartMain({layout, cart: originalCart}) {
         >
           <CartEmpty hidden={cartHasItems} />
           <div className="cart-details">
-            <p id="cart-lines" className="sr-only">
+            <p id={lineItemsLabelId} className="sr-only">
               {t('cart_heading_aria')}
             </p>
-            <ul aria-labelledby="cart-lines">
+            <ul aria-labelledby={lineItemsLabelId}>
               {visibleLines.map((line) => {
                 return (
                   <CartLineItem
@@ -139,11 +143,11 @@ export function CartMain({layout, cart: originalCart}) {
       {layout === 'aside' && cartHasItems ? <CartBrandHeader /> : null}
       <CartEmpty hidden={cartHasItems} />
       <div className="cart-details">
-        <p id="cart-lines" className="sr-only">
+        <p id={lineItemsLabelId} className="sr-only">
           {t('cart_heading_aria')}
         </p>
         <div>
-          <ul aria-labelledby="cart-lines">
+          <ul aria-labelledby={lineItemsLabelId}>
             {visibleLines.map((line) => {
               return (
                 <CartLineItem

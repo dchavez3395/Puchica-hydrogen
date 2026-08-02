@@ -101,8 +101,8 @@ export default function PackingCubesCampaign() {
             See the set and price
           </a>
           <p className="pk-pack-disclosure">
-            Shipping availability, cost, and delivery estimate are confirmed
-            for your address at checkout.
+            Shipping options and charges are shown at checkout. A delivery
+            estimate appears when one is available for your address.
           </p>
         </div>
 

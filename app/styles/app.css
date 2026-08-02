@@ -1313,7 +1313,7 @@ button.reset:hover:not(:has(> *)) {
 
 /* A running list of line items with hairline dividers between them.
    Reset <ul> defaults so it lays out as a clean stack. */
-.cart-main ul[aria-labelledby="cart-lines"] {
+.cart-main ul[aria-labelledby^="cart-lines-"] {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -15992,6 +15992,7 @@ main:has(> .pk-collection--bold) {
 .pk-pack-offer__gallery { display: grid; gap: .75rem; grid-template-columns: repeat(2, 1fr); }
 .pk-pack-offer__gallery img { background: #fff; border-radius: .8rem; display: block; width: 100%; }
 .pk-pack-offer h2 { color: #fff; font-size: clamp(2.4rem, 4vw, 4.4rem); }
+.pk-pack-offer .pk-pack-eyebrow { color: #86dec3; }
 .pk-pack-offer__buy > p:not(.pk-pack-eyebrow) { color: #c7ccda; line-height: 1.65; }
 .pk-pack-offer__price { font-size: 1.7rem; margin-block: 1.2rem; }
 .pk-pack-offer__form { margin-block: 1.5rem; }

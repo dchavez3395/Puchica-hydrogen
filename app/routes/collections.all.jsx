@@ -8,14 +8,28 @@ import {ProductItem} from '~/components/ProductItem';
 import {useT} from '~/lib/t';
 import {diversifyByVendor} from '~/lib/diversify';
 import {filterLaunchProducts} from '~/lib/launch-catalog';
+import {DICTIONARIES} from '~/lib/dictionaries';
 
 /**
  * @type {Route.MetaFunction}
  */
-export const meta = ({params}) => {
+export const meta = ({data, params}) => {
+  const view = data?.catalogView;
+  const dictionary = DICTIONARIES[params?.locale || 'en'] || DICTIONARIES.en;
+  const viewMeta = {
+    'new-arrivals': {
+      title: dictionary.new_arrivals_meta_title,
+      description: dictionary.new_arrivals_meta_description,
+    },
+    featured: {
+      title: dictionary.featured_meta_title,
+      description: dictionary.featured_meta_description,
+    },
+  }[view];
   return puchicaMeta({
-    title: 'Shop Organizers – Puchica',
+    title: viewMeta?.title || 'Shop Organizers – Puchica',
     description:
+      viewMeta?.description ||
       'Shop Puchica’s focused collection of home, cable, and travel organizers. Compare available options and sort by price or newest.',
     type: 'website',
     pathname: '/collections/all',
@@ -55,6 +69,10 @@ async function loadCriticalData({context, request}) {
   const paginationVariables = getPaginationVariables(request, {pageBy: 24});
   const url = new URL(request.url);
   const sortValue = url.searchParams.get('sort') || DEFAULT_SORT;
+  const requestedView = url.searchParams.get('view');
+  const catalogView = ['new-arrivals', 'featured'].includes(requestedView)
+    ? requestedView
+    : null;
   const {sortKey, reverse} =
     SORT_KEY_MAP[sortValue] || SORT_KEY_MAP[DEFAULT_SORT];
 
@@ -105,7 +123,7 @@ async function loadCriticalData({context, request}) {
         ? diversifyByVendor(launchProducts)
         : launchProducts,
   };
-  return {products};
+  return {products, catalogView};
 }
 
 function loadDeferredData() {
@@ -114,21 +132,20 @@ function loadDeferredData() {
 
 export default function Collection() {
   /** @type {LoaderReturnData} */
-  const {products} = useLoaderData();
+  const {products, catalogView} = useLoaderData();
   const t = useT();
   const [searchParams, setSearchParams] = useSearchParams();
   const sortValue = searchParams.get('sort') || 'featured';
-  const catalogView = searchParams.get('view');
   const viewCopy = {
     'new-arrivals': {
       eyebrow: t('new_arrivals_eyebrow'),
       title: t('new_arrivals_heading'),
       sub: t('all_sub'),
     },
-    'best-sellers': {
-      eyebrow: t('best_sellers_eyebrow'),
-      title: t('nav_best_sellers'),
-      sub: t('megamenu_tagline_best_sellers'),
+    featured: {
+      eyebrow: t('featured_eyebrow'),
+      title: t('featured_heading'),
+      sub: t('featured_sub'),
     },
   }[catalogView];
   const nodes = products?.nodes ?? [];

@@ -37,10 +37,7 @@ test('customer-facing support, market, and return guardrails exist in every loca
     assert.match(dictionary.faq_orders_2_a, patterns.markets);
     assert.match(dictionary.contact_cta_body, patterns.response);
     assert.match(dictionary.faq_returns_2_a, patterns.returnHold);
-    assert.match(
-      dictionary.faq_returns_2_a,
-      patterns.returnResponsibility,
-    );
+    assert.match(dictionary.faq_returns_2_a, patterns.returnResponsibility);
   }
 });
 
@@ -50,11 +47,56 @@ test('storefront copy avoids unsupported no-surprise-fee promises', () => {
     copy,
     /no surprise fees|frais surprises|sin sorpresas|sem surpresas/i,
   );
+  assert.doesNotMatch(
+    copy,
+    /confirmed at checkout|confirmado(?:s|as)? (?:en|no) (?:el )?(?:checkout|pago)|confirmé(?:e|es|s)? au paiement/i,
+  );
+  assert.doesNotMatch(
+    copy,
+    /free shipping|livraison gratuite|envío gratis|frete grátis|24[- ]hour shipping|envío en 24 horas|envio em 24 horas/i,
+  );
+  assert.doesNotMatch(
+    copy,
+    /trusted supplier|fournisseur fiable|proveedor de confianza|fornecedor de confiança/i,
+  );
+
+  const shippingPatterns = {
+    en: /Shipping options and charges are shown at checkout; delivery estimates appear when available\./,
+    fr: /Les options et les frais de livraison sont affichés au paiement; les estimations.*lorsqu’elles sont disponibles\./,
+    es: /Las opciones y los cargos de envío se muestran al finalizar la compra; las estimaciones.*cuando están disponibles\./,
+    'pt-br':
+      /As opções e cobranças de envio são exibidas no checkout; as estimativas.*quando disponíveis\./,
+  };
+  for (const [locale, pattern] of Object.entries(shippingPatterns)) {
+    assert.match(JSON.stringify(DICTIONARIES[locale]), pattern);
+  }
+});
+
+test('static storefront copy cannot impersonate verified customer reviews', async () => {
+  const [reviewSection] = await Promise.all([
+    readFile(
+      new URL('../app/sections/reviews/reviews.jsx', import.meta.url),
+      'utf8',
+    ),
+  ]);
+  const copy = JSON.stringify(DICTIONARIES);
+
+  assert.doesNotMatch(copy, /12[\s,.]*000\s+(buyers|acheteurs|compradores)/i);
+  assert.doesNotMatch(copy, /Maya R\.|James P\.|Sophie L\./i);
+  assert.doesNotMatch(
+    copy,
+    /real buyers|de vrais acheteurs|compradores reales|compradores reais/i,
+  );
+  assert.doesNotMatch(reviewSection, /5 out of 5|verified badge/i);
+  assert.match(reviewSection, /Product-standard cards/);
 });
 
 test('Meta and GA4 use separate explicit ownership guards', async () => {
   const [metaComponent, ga4Component, root, envExample] = await Promise.all([
-    readFile(new URL('../app/components/MetaPixel.jsx', import.meta.url), 'utf8'),
+    readFile(
+      new URL('../app/components/MetaPixel.jsx', import.meta.url),
+      'utf8',
+    ),
     readFile(
       new URL('../app/components/GoogleAnalytics4.jsx', import.meta.url),
       'utf8',
@@ -71,10 +113,7 @@ test('Meta and GA4 use separate explicit ownership guards', async () => {
   assert.match(root, /PUBLIC_CUSTOM_META_ENABLED === 'true'/);
   assert.match(root, /PUBLIC_GA4_STOREFRONT_EVENTS_ENABLED === 'true'/);
   assert.match(envExample, /PUBLIC_CUSTOM_META_ENABLED="false"/);
-  assert.match(
-    envExample,
-    /PUBLIC_GA4_STOREFRONT_EVENTS_ENABLED="false"/,
-  );
+  assert.match(envExample, /PUBLIC_GA4_STOREFRONT_EVENTS_ENABLED="false"/);
   assert.match(ga4Component, /send_page_view: false/);
   assert.match(ga4Component, /subscribe\('product_viewed'/);
   assert.match(ga4Component, /subscribe\('product_added_to_cart'/);
@@ -93,4 +132,30 @@ test('refund policy route presents the fail-safe summary before Admin policy HTM
   assert.ok(summary >= 0, 'refund summary is missing');
   assert.ok(adminBody > summary, 'Admin policy body must follow the summary');
   assert.match(source, /isRefundPolicy/);
+});
+
+test('policy route bypasses stale policy caching and blocks raw Liquid privacy templates', async () => {
+  const source = await readFile(
+    new URL('../app/routes/policies.$handle.jsx', import.meta.url),
+    'utf8',
+  );
+
+  assert.match(source, /context\.storefront\.CacheNone\(\)/);
+  assert.match(source, /containsTemplateCode\(policy\.body\)/);
+  assert.match(source, /PRIVACY_POLICY_FALLBACK/);
+  assert.match(source, /hello@puchica\.ca/);
+  assert.match(source, /isPrivacyFallback/);
+  assert.match(
+    source,
+    /noindex: usesEnglishPrivacyFallback && requestedLang !== 'en'/,
+  );
+  assert.match(
+    source,
+    /effectiveLang = usesEnglishPrivacyFallback \? 'en' : requestedLang/,
+  );
+  assert.match(
+    source,
+    /raw privacy-policy template blocked; static fallback served/,
+  );
+  assert.doesNotMatch(source, /console\.error\([^\n]*policy\.body/);
 });

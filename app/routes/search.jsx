@@ -85,8 +85,11 @@ export default function SearchPage() {
           )}
         </h1>
         <SearchForm className="pk-search-page__form">
-          {({inputRef}) => (
+          {({inputRef, inputId}) => (
             <div className="pk-search__form pk-search__form--page">
+              <label className="sr-only" htmlFor={inputId}>
+                {t('search_input_placeholder')}
+              </label>
               <span className="pk-search__icon" aria-hidden>
                 <svg
                   width="18"
@@ -103,6 +106,7 @@ export default function SearchPage() {
                 </svg>
               </span>
               <input
+                id={inputId}
                 className="pk-search__input pk-search__input--page"
                 defaultValue={term}
                 name="q"

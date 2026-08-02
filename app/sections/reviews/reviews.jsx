@@ -1,30 +1,15 @@
 import {useT} from '~/lib/t';
 
 /**
- * 3 customer-quote cards. Phase 3 will pull from Judge.me; for
- * Phase 1 we ship 3 hard-coded quotes so the visual rhythm of
- * the homepage is in place. The verified badge uses the existing
- * `t('home_reviews_verified')` key.
+ * Product-standard cards. Customer review UI must only be rendered from a
+ * verified review provider; these static cards describe Puchica's selection
+ * criteria and deliberately avoid ratings, buyer labels, and testimonials.
  */
-const QUOTE_KEYS = [
+const STANDARD_KEYS = [
   {textKey: 'home_reviews_quote_1_text', authorKey: 'home_reviews_quote_1_author'},
   {textKey: 'home_reviews_quote_2_text', authorKey: 'home_reviews_quote_2_author'},
   {textKey: 'home_reviews_quote_3_text', authorKey: 'home_reviews_quote_3_author'},
 ];
-
-const STARS = [0, 1, 2, 3, 4];
-
-function StarRow() {
-  return (
-    <div className="pk-reviews__stars" aria-label="5 out of 5 stars">
-      {STARS.map((i) => (
-        <span key={i} className="pk-reviews__star" aria-hidden="true">
-          ★
-        </span>
-      ))}
-    </div>
-  );
-}
 
 export function Reviews() {
   const t = useT();
@@ -39,12 +24,9 @@ export function Reviews() {
           <h2 className="pk-section__h">{t('home_reviews_heading')}</h2>
         </div>
         <ul className="pk-reviews">
-          {QUOTE_KEYS.map((q) => (
+          {STANDARD_KEYS.map((q) => (
             <li className="pk-reviews__card" key={q.textKey}>
-              <StarRow />
-              <blockquote className="pk-reviews__quote">
-                <p>“{t(q.textKey)}”</p>
-              </blockquote>
+              <p className="pk-reviews__quote">{t(q.textKey)}</p>
               <footer className="pk-reviews__author">
                 <span className="pk-reviews__name">{t(q.authorKey)}</span>
                 <span className="pk-reviews__verified">

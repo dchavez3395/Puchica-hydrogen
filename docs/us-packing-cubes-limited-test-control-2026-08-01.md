@@ -9,6 +9,11 @@
 > recommending activation. The passing readiness checker validates this
 > control file's structure; it does not prove tracking, delivery, product
 > quality, production events, or authorization to spend.
+>
+> **CURRENT AUTHORITY:** `docs/pre-ad-execution-control-2026-08-02.md`
+> supersedes this file's readiness label, reserve assumption, and US$17.65
+> planning cap. The current maximum recommendation, only after every gate passes
+> and the owner explicitly approves it, is US$14/day and US$100 total.
 
 ## Decision
 

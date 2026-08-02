@@ -1,5 +1,11 @@
 # Puchica ad-ready launch master plan — 2026-08-01
 
+> **SUPERSEDED FOR CURRENT STATUS AND EXECUTION:** Use
+> `docs/pre-ad-execution-control-2026-08-02.md` as the single current decision
+> source. This file remains historical planning detail. Its former
+> `GO_LIMITED_TEST_READY` label and US$17.65 daily cap are not current approval;
+> paid advertising is `PAID_HOLD`, and no spend is authorized.
+
 ## Decision and current status
 
 This is the authoritative execution plan for reaching the first controlled paid
