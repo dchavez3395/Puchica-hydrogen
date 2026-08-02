@@ -308,6 +308,28 @@ Refresh quotes within seven days of an activation review. PASS requires the
 exact option, usable tracked service, and all costs. A blank cost, different
 option, untracked route, promotional new-buyer price, or `No Shipping` fails.
 
+### 2026-08-02 authenticated Supplier Optimizer refresh
+
+Read-only DSers evidence was captured from the Supplier Optimizer for the
+Shopify image currently associated with the packing-cube workflow. No product
+was imported, mapped, ordered, or paid for. DSers itself displayed a warning
+that the optimizer is being adjusted and some data may be incorrect, so these
+rows are comparison leads rather than an approved supplier quote.
+
+| Market | Candidate item range | Shipping method | Country-level shipping | Displayed delivery days | Result |
+| --- | ---: | --- | ---: | ---: | --- |
+| US | US$13.74-US$15.60 | AliExpress Selection Standard | US$1.99 | 6 | LEAD ONLY |
+| US | US$11.22-US$13.04 | AliExpress Selection Standard | US$1.99 | 7 | LEAD ONLY |
+| CA | US$13.74-US$15.60 | AliExpress Selection Standard | US$2.16 | 7 | LEAD ONLY |
+| CA | US$11.22-US$13.04 | AliExpress Selection Standard | US$1.99 | 7 | LEAD ONLY |
+
+The search also returned zero-sale and weak-history candidates, and results
+changed across image-analysis refreshes. Do not select the cheapest row. The
+next evidence step is to open the strongest established candidate, prove the
+exact red 5PCS option/SKU and current stock, then capture destination-specific
+checkout quotes for approved non-personal CA/US postal codes. The gate remains
+HOLD until that evidence reconciles with the older US$20.39/US$20.62 records.
+
 ## P0 gate 3 — DSers first-order SOP
 
 This applies to the first genuine customer order if the owner proceeds without
@@ -367,6 +389,12 @@ zero.
 | Return/refund reserve | Use 15% planning case pending evidence | Use 15% planning case pending evidence |
 | Customer shipping retained | Exclude until proven | Exclude CA$7.99 until net treatment proven |
 | Status | HOLD | HOLD |
+
+Authenticated Shopify Admin verification on August 2 confirmed that Shopify
+Payments is accepting payments and payouts, the payout account is CAD, and
+PayPal Express is active. Shopify displayed only an upgrade prompt rather than
+the store's exact card-processing percentage/fixed fee on the reviewed screen,
+so the payment-fee rows remain assumptions and the economics gate remains HOLD.
 
 ```text
 R = merchandise price × (1 - promotion rate)
