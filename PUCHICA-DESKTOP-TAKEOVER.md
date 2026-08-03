@@ -109,8 +109,10 @@ decision without wasting money.
 
 - Path: `C:/Users/dchav/Desktop/Puchica-hydrogen`
 - Branch: `codex/launch-review-2026-08-01`
-- Current tracked HEAD when this handoff was prepared: `58d25b6`
-  (`fix: separate storefront analytics ownership`)
+- Current tracked HEAD after the preservation pass: `05e8b89`
+  (`chore: preserve local launch evidence and design artifacts`)
+- Complete takeover document commit: `26f7cae`
+  (`docs: add complete desktop takeover handoff`)
 - Recent major implementation commit: `52b8a55`
   (`feat: prepare North America storefront for launch review`)
 - The repository contains many intentional untracked screenshots, evidence files,
@@ -121,7 +123,7 @@ decision without wasting money.
 ### Reconciliation and control repository
 
 - Path: `C:/Users/dchav/Desktop/Puchica-reconcile-2026-08-01`
-- Branch: `main`
+- Branch: `codex/desktop-handoff-2026-08-02`
 - Current HEAD: `225c437` (`Sequence packing cube replacement review`)
 - Immediately preceding decisions:
   - `4cdd59f` rejected the mismatched packing-cube supplier mapping
@@ -129,6 +131,21 @@ decision without wasting money.
   - `4883ec8` recorded the U.S.-first five-product architecture
 - This repository contains the most complete operating, sourcing, policy,
   economics, launch and evidence controls.
+
+### Remote preservation state
+
+- Hydrogen implementation/evidence branch:
+  `origin/codex/launch-review-2026-08-01`
+- Draft implementation/evidence PR:
+  `https://github.com/dchavez3395/Puchica-hydrogen/pull/2`
+- Reconciliation/control backup branch:
+  `origin/codex/desktop-handoff-2026-08-02`
+- Draft reconciliation/control PR:
+  `https://github.com/dchavez3395/Puchica-hydrogen/pull/3`
+- The temporary `.tmp-radiant-theme` export and Python bytecode caches remain
+  locally available but intentionally ignored because the GitHub repository is
+  public and those files are reproducible working material rather than project
+  evidence.
 
 ## Storefront work completed
 
@@ -355,4 +372,3 @@ control. Preserve older files as evidence; do not silently rewrite history.
 > exact variant, ordinary price, U.S./Canada route, supplier-quality and landed-
 > margin gates. If three cannot pass, make an explicit supplier-model decision
 > instead of continuing marketplace or screenshot loops.
-
