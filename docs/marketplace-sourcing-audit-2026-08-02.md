@@ -6,7 +6,7 @@ The authorized Shopify Collective, DropCommerce, and Syncee browse cycle is
 complete. **No exact product passed.** Puchica must not import, publish, order,
 or advertise any product found in this cycle.
 
-This is a sourcing-model failure for the current offer criteria, not proof that
+This is a sourcing-model failure for the former dual-market offer criteria, not proof that
 the travel-organization customer problem has no demand. The next step is a
 controlled product-strategy reset, not another marketplace subscription and not
 paid traffic to the existing catalog.
@@ -86,6 +86,15 @@ margin. Other sellers and a competing dropship listing exposed the same item,
 adding commodity and price-comparison risk.
 
 Result: `FAIL_MISLEADING_HEADLINE_MARKUP_AND_WEAK_LANDED_ECONOMICS`.
+
+## Subsequent US-first decision
+
+The owner subsequently chose to simplify the initial launch to the United
+States. The earlier marketplace failures remain valid evidence, but the
+requirement that one launch product or supplier serve both countries no longer
+controls initial sourcing. The replacement strategy is the five-product
+`Carry-On Reset` plan in
+`docs/us-first-five-product-launch-plan-2026-08-02.md`.
 
 ## What this means
 

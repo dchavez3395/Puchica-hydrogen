@@ -9,6 +9,14 @@ this file controls when a status, cap, or instruction conflicts.
 
 **Current decision: `PAID_HOLD`.**
 
+The initial-market and assortment strategy was narrowed after the August 2
+all-hands review. Puchica is now preparing a United States-first five-product
+`Carry-On Reset` collection; Canada is postponed until the US offer is proved.
+The controlling assortment and execution sequence is
+`docs/us-first-five-product-launch-plan-2026-08-02.md`. Earlier requirements
+that one launch supplier or SKU serve both Canada and the United States no
+longer control the initial product screen.
+
 - Canada and United States storefront pages may remain accessible for QA.
 - Organic/no-spend content work may continue, but this is not authorization to
   solicit or complete customer orders while mandatory Gate 0 disclosures fail.
@@ -43,8 +51,8 @@ general approvals do not authorize spend.
 
 | Workstream | Status | Verified | Not yet verified |
 | --- | --- | --- | --- |
-| Markets | PASS for availability | Canada/CAD and U.S./USD storefront contexts and checkout handoff | Supplier delivery to each address |
-| Lead product | REOPENED | The packing-cube supplier and first replacement were rejected with evidence | Select a new exact product that passes Canada and U.S. fulfillment, margin, quality-risk, and creative gates |
+| Markets | STRATEGY SET / CONFIG HOLD | United States selected as the initial customer market; U.S./USD context and checkout handoff previously observed | US-only Shopify/runtime configuration and two-ZIP checkout evidence |
+| Lead product | PROVISIONAL / HOLD | Existing red five-piece cube has the strongest US evidence and exact mapping identifiers | Normal exact price, ZIP 10001/90001 route, customs, quality and final economics proof |
 | Canada checkout | PARTIAL PASS | No-payment Manitoba Shopify checkout showed CA$7.99 shipping | Supplier quotes to Manitoba and Ontario |
 | U.S. checkout | PARTIAL PASS | U.S. market and checkout available | Supplier quotes to ZIP 10001 and ZIP 90001 |
 | GA4 | PASS for pre-purchase | Production `view_item`, `add_to_cart`, checkout, and page-view evidence | Fresh Purchase and UTM persistence |
