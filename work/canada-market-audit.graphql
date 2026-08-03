@@ -1,0 +1,58 @@
+query CanadaMarketAudit {
+  markets(first: 20) {
+    nodes {
+      id
+      name
+      handle
+      status
+      currencySettings {
+        baseCurrency {
+          currencyCode
+        }
+        localCurrencies
+        roundingEnabled
+      }
+      conditions {
+        regionsCondition {
+          regions(first: 50) {
+            nodes {
+              ... on MarketRegionCountry {
+                id
+                name
+                code
+                currency {
+                  currencyCode
+                }
+              }
+            }
+          }
+        }
+      }
+      catalogs(first: 10) {
+        nodes {
+          id
+          title
+          status
+          priceList {
+            id
+            name
+            currency
+            fixedPricesCount
+            parent {
+              adjustment {
+                type
+                value
+              }
+            }
+          }
+        }
+      }
+      webPresences(first: 10) {
+        nodes {
+          id
+          subfolderSuffix
+        }
+      }
+    }
+  }
+}

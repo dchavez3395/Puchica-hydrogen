@@ -1,0 +1,11 @@
+{
+  "id": "gid://shopify/PriceList/22578168058",
+  "input": {
+    "parent": {
+      "adjustment": {
+        "type": "PERCENTAGE_DECREASE",
+        "value": 0
+      }
+    }
+  }
+}

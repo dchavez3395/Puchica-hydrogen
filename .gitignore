@@ -65,6 +65,14 @@ coverage/
 .shopify
 .worktrees/
 
+# Local preservation exclusions
+# Temporary Shopify theme export and Python bytecode are reproducible working
+# material, not portable project evidence. Keep them on disk but out of the
+# public repository.
+.tmp-radiant-theme/
+__pycache__/
+*.py[cod]
+
 # ─── Replicate image-generation cache & debug ─────────────────
 # Working artifacts from scripts/batch-runner-replicate.mjs and
 # its test scripts. Reproducible from the runner; not source.

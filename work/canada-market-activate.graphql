@@ -1,0 +1,20 @@
+mutation ActivateCanadaMarket($id: ID!, $input: MarketUpdateInput!) {
+  marketUpdate(id: $id, input: $input) {
+    market {
+      id
+      handle
+      status
+      currencySettings {
+        baseCurrency {
+          currencyCode
+        }
+        localCurrencies
+      }
+    }
+    userErrors {
+      field
+      message
+      code
+    }
+  }
+}

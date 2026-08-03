@@ -1,0 +1,75 @@
+{
+  "id": "gid://shopify/DeliveryProfile/114654281978",
+  "profile": {
+    "locationGroupsToUpdate": [
+      {
+        "id": "gid://shopify/DeliveryLocationGroup/116330561786",
+        "zonesToCreate": [
+          {
+            "name": "Canada",
+            "countries": [
+              {
+                "code": "CA",
+                "provinces": [
+                  {"code": "AB"},
+                  {"code": "BC"},
+                  {"code": "MB"},
+                  {"code": "NB"},
+                  {"code": "NL"},
+                  {"code": "NS"},
+                  {"code": "NT"},
+                  {"code": "NU"},
+                  {"code": "ON"},
+                  {"code": "PE"},
+                  {"code": "QC"},
+                  {"code": "SK"},
+                  {"code": "YT"}
+                ]
+              }
+            ],
+            "methodDefinitionsToCreate": [
+              {
+                "active": true,
+                "name": "Standard Shipping",
+                "rateDefinition": {
+                  "price": {
+                    "amount": 7.99,
+                    "currencyCode": "CAD"
+                  }
+                },
+                "priceConditionsToCreate": [
+                  {
+                    "operator": "LESS_THAN_OR_EQUAL_TO",
+                    "criteria": {
+                      "amount": 74.99,
+                      "currencyCode": "CAD"
+                    }
+                  }
+                ]
+              },
+              {
+                "active": true,
+                "name": "Free Shipping Over $75",
+                "rateDefinition": {
+                  "price": {
+                    "amount": 0,
+                    "currencyCode": "CAD"
+                  }
+                },
+                "priceConditionsToCreate": [
+                  {
+                    "operator": "GREATER_THAN_OR_EQUAL_TO",
+                    "criteria": {
+                      "amount": 75,
+                      "currencyCode": "CAD"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

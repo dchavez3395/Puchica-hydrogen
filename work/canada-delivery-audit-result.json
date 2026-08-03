@@ -1,0 +1,912 @@
+{
+  "deliveryProfiles": {
+    "nodes": [
+      {
+        "id": "gid://shopify/DeliveryProfile/114654281978",
+        "name": "General profile",
+        "profileItems": {
+          "nodes": [
+            {
+              "product": {
+                "id": "gid://shopify/Product/9340514238714",
+                "handle": "everyday-tech-pouch-supplier-validation",
+                "title": "Everyday Tech Pouch - Supplier Rejected"
+              },
+              "variants": {
+                "nodes": [
+                  {
+                    "id": "gid://shopify/ProductVariant/49936039641338",
+                    "sku": "PCH-TECH-01",
+                    "title": "Default Title"
+                  }
+                ]
+              }
+            },
+            {
+              "product": {
+                "id": "gid://shopify/Product/9340627648762",
+                "handle": "24-piece-drawer-organizer-tray-set",
+                "title": "24-Piece Drawer Organizer Tray Set"
+              },
+              "variants": {
+                "nodes": [
+                  {
+                    "id": "gid://shopify/ProductVariant/49941590573306",
+                    "sku": "14:350850#16PCS(6S6M4L)",
+                    "title": "16PCS(6S6M4L)"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49941590606074",
+                    "sku": "14:350852#22PCS(12S8M2L)",
+                    "title": "22PCS(12S8M2L)"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49941590638842",
+                    "sku": "14:365458#8PCS(3S3M2L)",
+                    "title": "8PCS(3S3M2L)"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49941590671610",
+                    "sku": "14:175#26PCS(12S8M6L)",
+                    "title": "26PCS(12S8M6L)"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49941590704378",
+                    "sku": "14:350853#24PCS(6S14M4L)",
+                    "title": "24PCS(6S14M4L)"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49941590737146",
+                    "sku": "14:10#32PCS(18S10M4L)",
+                    "title": "32PCS(18S10M4L)"
+                  }
+                ]
+              }
+            },
+            {
+              "product": {
+                "id": "gid://shopify/Product/9340654027002",
+                "handle": "travel-cable-organizer-pouch",
+                "title": "Gray Travel Cable Organizer Pouch"
+              },
+              "variants": {
+                "nodes": [
+                  {
+                    "id": "gid://shopify/ProductVariant/49943280320762",
+                    "sku": "14:193#Black",
+                    "title": "Black"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49943280353530",
+                    "sku": "14:175#Gray",
+                    "title": "Gray"
+                  }
+                ]
+              }
+            },
+            {
+              "product": {
+                "id": "gid://shopify/Product/9341438427386",
+                "handle": "pocket-luggage-scale-50kg",
+                "title": "50 kg Pocket Luggage Scale"
+              },
+              "variants": {
+                "nodes": [
+                  {
+                    "id": "gid://shopify/ProductVariant/49960633073914",
+                    "sku": "14:350686#A",
+                    "title": "A"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49960633106682",
+                    "sku": "14:350850#B",
+                    "title": "B"
+                  }
+                ]
+              }
+            },
+            {
+              "product": {
+                "id": "gid://shopify/Product/9341444063482",
+                "handle": "double-layer-cable-organizer-case",
+                "title": "Black Double-Layer Cable Organizer Case"
+              },
+              "variants": {
+                "nodes": [
+                  {
+                    "id": "gid://shopify/ProductVariant/49960742650106",
+                    "sku": "14:173#Single Layer",
+                    "title": "Single Layer"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49960742682874",
+                    "sku": "14:691#Single Layer",
+                    "title": "Single Layer 1"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49960742715642",
+                    "sku": "14:366#Single Layer",
+                    "title": "Single Layer 2"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49960742748410",
+                    "sku": "14:29#Double Layers",
+                    "title": "Double Layers"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49960742781178",
+                    "sku": "14:193#Double Layers",
+                    "title": "Double Layers 1"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49960742813946",
+                    "sku": "14:175#Double Layers",
+                    "title": "Double Layers 2"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49960742846714",
+                    "sku": "14:10#Double Layers",
+                    "title": "Double Layers 3"
+                  }
+                ]
+              }
+            },
+            {
+              "product": {
+                "id": "gid://shopify/Product/9341454745850",
+                "handle": "2-floors-automatic-egg-dispenser-for-countertop-cooler-kitchen-organizer",
+                "title": "2 Floors Automatic Egg Dispenser For Countertop Cooler Kitchen Organizer"
+              },
+              "variants": {
+                "nodes": [
+                  {
+                    "id": "gid://shopify/ProductVariant/49960759525626",
+                    "sku": "<none>",
+                    "title": "Default Title"
+                  }
+                ]
+              }
+            },
+            {
+              "product": {
+                "id": "gid://shopify/Product/9341750083834",
+                "handle": "wheeled-under-sink-organizer-bin",
+                "title": "White Small Wheeled Under-Sink Organizer Bin"
+              },
+              "variants": {
+                "nodes": [
+                  {
+                    "id": "gid://shopify/ProductVariant/49961827008762",
+                    "sku": "14:100018786#beige S",
+                    "title": "beige S"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49961827041530",
+                    "sku": "14:200003699#white S",
+                    "title": "white S"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49961827074298",
+                    "sku": "14:200002130#beige L",
+                    "title": "beige L"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49961827107066",
+                    "sku": "14:771#white L",
+                    "title": "white L"
+                  }
+                ]
+              }
+            },
+            {
+              "product": {
+                "id": "gid://shopify/Product/9341750968570",
+                "handle": "naturehike-camping-hiking-toiletry-bag-travel-cosmetic-bag-beach-pool-surfing-portable-large-capacity-carry-waterproof-bag",
+                "title": "Naturehike Camping Hiking Toiletry Bag Travel Cosmetic Bag Beach Pool Surfing Portable Large Capacity Carry Waterproof Bag"
+              },
+              "variants": {
+                "nodes": [
+                  {
+                    "id": "gid://shopify/ProductVariant/49961830777082",
+                    "sku": "14:100018754#BK-L",
+                    "title": "BK-L"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49961830809850",
+                    "sku": "14:100018756#Grey-L",
+                    "title": "Grey-L"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49961830842618",
+                    "sku": "14:100018757#BK-S",
+                    "title": "BK-S"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49961830875386",
+                    "sku": "14:100018755#BN-S",
+                    "title": "BN-S"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49961830908154",
+                    "sku": "14:200141872#BN-L",
+                    "title": "BN-L"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49961830940922",
+                    "sku": "14:100018753#Grey-S",
+                    "title": "Grey-S"
+                  }
+                ]
+              }
+            },
+            {
+              "product": {
+                "id": "gid://shopify/Product/9341753819386",
+                "handle": "gray-8-piece-packing-organizer-set",
+                "title": "Gray 8-Piece Travel Packing Organizer Set"
+              },
+              "variants": {
+                "nodes": [
+                  {
+                    "id": "gid://shopify/ProductVariant/49961851945210",
+                    "sku": "14:200000195#8PCS Blue",
+                    "title": "8PCS Blue"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49961851977978",
+                    "sku": "14:200006153#8PCS LightBlue",
+                    "title": "8PCS LightBlue"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49961852010746",
+                    "sku": "14:200006154#8PCS Gray",
+                    "title": "8PCS Gray"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49961852043514",
+                    "sku": "14:200002984#1 bag",
+                    "title": "1 bag"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49961852076282",
+                    "sku": "14:365016#8PCS Beige",
+                    "title": "8PCS Beige"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49961852109050",
+                    "sku": "14:200003699#8PCS Black",
+                    "title": "8PCS Black"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49961852141818",
+                    "sku": "14:29#8PCS Pink",
+                    "title": "8PCS Pink"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49961852174586",
+                    "sku": "14:1052#6PCS SkyBlue",
+                    "title": "6PCS SkyBlue"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49961852207354",
+                    "sku": "14:496#6PCS Gray",
+                    "title": "6PCS Gray"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49961852240122",
+                    "sku": "14:173#6PCS Black",
+                    "title": "6PCS Black"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49961852272890",
+                    "sku": "14:366#6PCS Pink",
+                    "title": "6PCS Pink"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49961852305658",
+                    "sku": "14:193#6PCS Rose",
+                    "title": "6PCS Rose"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49961852338426",
+                    "sku": "14:10#6PCS Blue",
+                    "title": "6PCS Blue"
+                  }
+                ]
+              }
+            },
+            {
+              "product": {
+                "id": "gid://shopify/Product/9341753852154",
+                "handle": "white-five-slot-cable-organizer-strip",
+                "title": "White Five-Slot Cable Organizer Strip"
+              },
+              "variants": {
+                "nodes": [
+                  {
+                    "id": "gid://shopify/ProductVariant/49961852436730",
+                    "sku": "14:691#8 Holes-White",
+                    "title": "8 Holes-White"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49961852469498",
+                    "sku": "14:4#5 Holes-White",
+                    "title": "5 Holes-White"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49961852502266",
+                    "sku": "14:350852#8 Holes-Transparent",
+                    "title": "8 Holes-Transparent"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49961852535034",
+                    "sku": "14:366#8 Holes-Black",
+                    "title": "8 Holes-Black"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49961852567802",
+                    "sku": "14:496#10 Holes-White",
+                    "title": "10 Holes-White"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49961852600570",
+                    "sku": "14:1052#10 Holes-Black",
+                    "title": "10 Holes-Black"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49961852633338",
+                    "sku": "14:29#1 Holes-Black",
+                    "title": "1 Holes-Black"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49961852666106",
+                    "sku": "14:193#1 Holes-White",
+                    "title": "1 Holes-White"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49961852698874",
+                    "sku": "14:175#5 Holes-Black",
+                    "title": "5 Holes-Black"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49961852731642",
+                    "sku": "14:10#5 Holes-Transparent",
+                    "title": "5 Holes-Transparent"
+                  }
+                ]
+              }
+            },
+            {
+              "product": {
+                "id": "gid://shopify/Product/9341753884922",
+                "handle": "stainless-steel-tube-squeezer",
+                "title": "Silver Stainless Steel Tube Squeezer"
+              },
+              "variants": {
+                "nodes": [
+                  {
+                    "id": "gid://shopify/ProductVariant/49961852371194",
+                    "sku": "14:350853",
+                    "title": "Silver"
+                  }
+                ]
+              }
+            },
+            {
+              "product": {
+                "id": "gid://shopify/Product/9341753917690",
+                "handle": "toocki-five-clip-cable-organizer",
+                "title": "White 5-Clip Toocki Cable Organizer"
+              },
+              "variants": {
+                "nodes": [
+                  {
+                    "id": "gid://shopify/ProductVariant/49961852764410",
+                    "sku": "14:193#1Pcs 3-Clips White",
+                    "title": "1Pcs 3-Clips White"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49961852797178",
+                    "sku": "14:175#1Pcs 5-Clips Black",
+                    "title": "1Pcs 5-Clips Black"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49961852829946",
+                    "sku": "14:29#1Pcs 3-Clips Black",
+                    "title": "1Pcs 3-Clips Black"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49961852862714",
+                    "sku": "14:10#1Pcs 5-Clips White",
+                    "title": "1Pcs 5-Clips White"
+                  }
+                ]
+              }
+            },
+            {
+              "product": {
+                "id": "gid://shopify/Product/9341753950458",
+                "handle": "red-5-piece-compression-packing-cubes",
+                "title": "Red 5-Piece Compression Packing Cube Set"
+              },
+              "variants": {
+                "nodes": [
+                  {
+                    "id": "gid://shopify/ProductVariant/49961852895482",
+                    "sku": "14:200002984#4PCS Set gray",
+                    "title": "4PCS Set gray"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49961852928250",
+                    "sku": "14:200006154#4PCS Set black",
+                    "title": "4PCS Set black"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49961852961018",
+                    "sku": "14:10#4PCS Set beige",
+                    "title": "4PCS Set beige"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49961852993786",
+                    "sku": "14:193#4PCS Set green",
+                    "title": "4PCS Set green"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49961853026554",
+                    "sku": "14:100018786#5PCS Set Red",
+                    "title": "5PCS Set Red"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49961853059322",
+                    "sku": "14:496#5PCS Set black",
+                    "title": "5PCS Set black"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49961853092090",
+                    "sku": "14:365458#5PCS Set blue",
+                    "title": "5PCS Set blue"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49961853124858",
+                    "sku": "14:200003699#1PC Red",
+                    "title": "1PC Red"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49961853157626",
+                    "sku": "14:29#1PC Grey",
+                    "title": "1PC Grey"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49961853190394",
+                    "sku": "14:200004870#3PCS lake blue",
+                    "title": "3PCS lake blue"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49961853223162",
+                    "sku": "14:175#3PCS Set Red",
+                    "title": "3PCS Set Red"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49961853255930",
+                    "sku": "14:366#3PCS Set Navy",
+                    "title": "3PCS Set Navy"
+                  },
+                  {
+                    "id": "gid://shopify/ProductVariant/49961853288698",
+                    "sku": "14:173#3PCS Set blue",
+                    "title": "3PCS Set blue"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "profileLocationGroups": [
+          {
+            "locationGroup": {
+              "id": "gid://shopify/DeliveryLocationGroup/116330561786"
+            },
+            "locationGroupZones": {
+              "nodes": [
+                {
+                  "zone": {
+                    "id": "gid://shopify/DeliveryZone/466233884922",
+                    "name": "Canada",
+                    "countries": [
+                      {
+                        "code": {
+                          "countryCode": "CA",
+                          "restOfWorld": false
+                        },
+                        "name": "Canada",
+                        "provinces": [
+                          {
+                            "code": "AB",
+                            "name": "Alberta"
+                          },
+                          {
+                            "code": "BC",
+                            "name": "British Columbia"
+                          },
+                          {
+                            "code": "MB",
+                            "name": "Manitoba"
+                          },
+                          {
+                            "code": "NB",
+                            "name": "New Brunswick"
+                          },
+                          {
+                            "code": "NL",
+                            "name": "Newfoundland and Labrador"
+                          },
+                          {
+                            "code": "NT",
+                            "name": "Northwest Territories"
+                          },
+                          {
+                            "code": "NS",
+                            "name": "Nova Scotia"
+                          },
+                          {
+                            "code": "NU",
+                            "name": "Nunavut"
+                          },
+                          {
+                            "code": "ON",
+                            "name": "Ontario"
+                          },
+                          {
+                            "code": "PE",
+                            "name": "Prince Edward Island"
+                          },
+                          {
+                            "code": "QC",
+                            "name": "Quebec"
+                          },
+                          {
+                            "code": "SK",
+                            "name": "Saskatchewan"
+                          },
+                          {
+                            "code": "YT",
+                            "name": "Yukon"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "methodDefinitions": {
+                    "nodes": [
+                      {
+                        "id": "gid://shopify/DeliveryMethodDefinition/926883315962",
+                        "name": "Standard Shipping",
+                        "active": true,
+                        "rateProvider": {
+                          "price": {
+                            "amount": "7.99",
+                            "currencyCode": "CAD"
+                          }
+                        }
+                      },
+                      {
+                        "id": "gid://shopify/DeliveryMethodDefinition/926883348730",
+                        "name": "Free Shipping Over $75",
+                        "active": true,
+                        "rateProvider": {
+                          "price": {
+                            "amount": "0.0",
+                            "currencyCode": "CAD"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "zone": {
+                    "id": "gid://shopify/DeliveryZone/460942704890",
+                    "name": "US Cross-border",
+                    "countries": [
+                      {
+                        "code": {
+                          "countryCode": "US",
+                          "restOfWorld": false
+                        },
+                        "name": "United States",
+                        "provinces": [
+                          {
+                            "code": "AL",
+                            "name": "Alabama"
+                          },
+                          {
+                            "code": "AK",
+                            "name": "Alaska"
+                          },
+                          {
+                            "code": "AS",
+                            "name": "American Samoa"
+                          },
+                          {
+                            "code": "AZ",
+                            "name": "Arizona"
+                          },
+                          {
+                            "code": "AR",
+                            "name": "Arkansas"
+                          },
+                          {
+                            "code": "CA",
+                            "name": "California"
+                          },
+                          {
+                            "code": "CO",
+                            "name": "Colorado"
+                          },
+                          {
+                            "code": "CT",
+                            "name": "Connecticut"
+                          },
+                          {
+                            "code": "DE",
+                            "name": "Delaware"
+                          },
+                          {
+                            "code": "FM",
+                            "name": "Federated States of Micronesia"
+                          },
+                          {
+                            "code": "FL",
+                            "name": "Florida"
+                          },
+                          {
+                            "code": "GA",
+                            "name": "Georgia"
+                          },
+                          {
+                            "code": "GU",
+                            "name": "Guam"
+                          },
+                          {
+                            "code": "HI",
+                            "name": "Hawaii"
+                          },
+                          {
+                            "code": "ID",
+                            "name": "Idaho"
+                          },
+                          {
+                            "code": "IL",
+                            "name": "Illinois"
+                          },
+                          {
+                            "code": "IN",
+                            "name": "Indiana"
+                          },
+                          {
+                            "code": "IA",
+                            "name": "Iowa"
+                          },
+                          {
+                            "code": "KS",
+                            "name": "Kansas"
+                          },
+                          {
+                            "code": "KY",
+                            "name": "Kentucky"
+                          },
+                          {
+                            "code": "LA",
+                            "name": "Louisiana"
+                          },
+                          {
+                            "code": "ME",
+                            "name": "Maine"
+                          },
+                          {
+                            "code": "MH",
+                            "name": "Marshall Islands"
+                          },
+                          {
+                            "code": "MD",
+                            "name": "Maryland"
+                          },
+                          {
+                            "code": "MA",
+                            "name": "Massachusetts"
+                          },
+                          {
+                            "code": "MI",
+                            "name": "Michigan"
+                          },
+                          {
+                            "code": "MN",
+                            "name": "Minnesota"
+                          },
+                          {
+                            "code": "MS",
+                            "name": "Mississippi"
+                          },
+                          {
+                            "code": "MO",
+                            "name": "Missouri"
+                          },
+                          {
+                            "code": "MT",
+                            "name": "Montana"
+                          },
+                          {
+                            "code": "NE",
+                            "name": "Nebraska"
+                          },
+                          {
+                            "code": "NV",
+                            "name": "Nevada"
+                          },
+                          {
+                            "code": "NH",
+                            "name": "New Hampshire"
+                          },
+                          {
+                            "code": "NJ",
+                            "name": "New Jersey"
+                          },
+                          {
+                            "code": "NM",
+                            "name": "New Mexico"
+                          },
+                          {
+                            "code": "NY",
+                            "name": "New York"
+                          },
+                          {
+                            "code": "NC",
+                            "name": "North Carolina"
+                          },
+                          {
+                            "code": "ND",
+                            "name": "North Dakota"
+                          },
+                          {
+                            "code": "MP",
+                            "name": "Northern Mariana Islands"
+                          },
+                          {
+                            "code": "OH",
+                            "name": "Ohio"
+                          },
+                          {
+                            "code": "OK",
+                            "name": "Oklahoma"
+                          },
+                          {
+                            "code": "OR",
+                            "name": "Oregon"
+                          },
+                          {
+                            "code": "PW",
+                            "name": "Palau"
+                          },
+                          {
+                            "code": "PA",
+                            "name": "Pennsylvania"
+                          },
+                          {
+                            "code": "PR",
+                            "name": "Puerto Rico"
+                          },
+                          {
+                            "code": "RI",
+                            "name": "Rhode Island"
+                          },
+                          {
+                            "code": "SC",
+                            "name": "South Carolina"
+                          },
+                          {
+                            "code": "SD",
+                            "name": "South Dakota"
+                          },
+                          {
+                            "code": "TN",
+                            "name": "Tennessee"
+                          },
+                          {
+                            "code": "TX",
+                            "name": "Texas"
+                          },
+                          {
+                            "code": "UT",
+                            "name": "Utah"
+                          },
+                          {
+                            "code": "VT",
+                            "name": "Vermont"
+                          },
+                          {
+                            "code": "VA",
+                            "name": "Virginia"
+                          },
+                          {
+                            "code": "WA",
+                            "name": "Washington"
+                          },
+                          {
+                            "code": "DC",
+                            "name": "District of Columbia"
+                          },
+                          {
+                            "code": "WV",
+                            "name": "West Virginia"
+                          },
+                          {
+                            "code": "WI",
+                            "name": "Wisconsin"
+                          },
+                          {
+                            "code": "WY",
+                            "name": "Wyoming"
+                          },
+                          {
+                            "code": "VI",
+                            "name": "Virgin Islands"
+                          },
+                          {
+                            "code": "AA",
+                            "name": "Armed Forces Americas"
+                          },
+                          {
+                            "code": "AE",
+                            "name": "Armed Forces Europe"
+                          },
+                          {
+                            "code": "AP",
+                            "name": "Armed Forces Pacific"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "methodDefinitions": {
+                    "nodes": [
+                      {
+                        "id": "gid://shopify/DeliveryMethodDefinition/914017091834",
+                        "name": "Standard Shipping",
+                        "active": true,
+                        "rateProvider": {
+                          "price": {
+                            "amount": "7.99",
+                            "currencyCode": "CAD"
+                          }
+                        }
+                      },
+                      {
+                        "id": "gid://shopify/DeliveryMethodDefinition/914017124602",
+                        "name": "Free Shipping Over $75",
+                        "active": true,
+                        "rateProvider": {
+                          "price": {
+                            "amount": "0.0",
+                            "currencyCode": "CAD"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "gid://shopify/DeliveryProfile/115961790714",
+        "name": "Zendrop",
+        "profileItems": {
+          "nodes": []
+        },
+        "profileLocationGroups": []
+      }
+    ]
+  }
+}

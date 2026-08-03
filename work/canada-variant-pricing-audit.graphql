@@ -1,0 +1,28 @@
+query CanadaVariantPricingAudit($id: ID!) {
+  productVariant(id: $id) {
+    id
+    title
+    sku
+    price
+    CanadaPrice: contextualPricing(context: {country: CA}) {
+      price {
+        amount
+        currencyCode
+      }
+      compareAtPrice {
+        amount
+        currencyCode
+      }
+    }
+    UnitedStatesPrice: contextualPricing(context: {country: US}) {
+      price {
+        amount
+        currencyCode
+      }
+      compareAtPrice {
+        amount
+        currencyCode
+      }
+    }
+  }
+}

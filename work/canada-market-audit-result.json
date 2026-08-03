@@ -1,0 +1,445 @@
+{
+  "markets": {
+    "nodes": [
+      {
+        "id": "gid://shopify/Market/40739700986",
+        "name": "Australia and New Zealand",
+        "handle": "australia-and-new-zealand",
+        "status": "DRAFT",
+        "currencySettings": {
+          "baseCurrency": {
+            "currencyCode": "CAD"
+          },
+          "localCurrencies": true,
+          "roundingEnabled": true
+        },
+        "conditions": {
+          "regionsCondition": {
+            "regions": {
+              "nodes": [
+                {
+                  "id": "gid://shopify/MarketRegionCountry/1099548557562",
+                  "name": "Australia",
+                  "code": "AU",
+                  "currency": {
+                    "currencyCode": "AUD"
+                  }
+                },
+                {
+                  "id": "gid://shopify/MarketRegionCountry/1099549180154",
+                  "name": "New Zealand",
+                  "code": "NZ",
+                  "currency": {
+                    "currencyCode": "NZD"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "catalogs": {
+          "nodes": []
+        },
+        "webPresences": {
+          "nodes": []
+        }
+      },
+      {
+        "id": "gid://shopify/Market/40250409210",
+        "name": "Canada",
+        "handle": "ca",
+        "status": "DRAFT",
+        "currencySettings": {
+          "baseCurrency": {
+            "currencyCode": "CAD"
+          },
+          "localCurrencies": false,
+          "roundingEnabled": true
+        },
+        "conditions": {
+          "regionsCondition": {
+            "regions": {
+              "nodes": [
+                {
+                  "id": "gid://shopify/MarketRegionCountry/1099548426490",
+                  "name": "Canada",
+                  "code": "CA",
+                  "currency": {
+                    "currencyCode": "CAD"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "catalogs": {
+          "nodes": [
+            {
+              "id": "gid://shopify/MarketCatalog/98723135738",
+              "title": "Canada",
+              "status": "ACTIVE",
+              "priceList": {
+                "id": "gid://shopify/PriceList/22578168058",
+                "name": "Canada - 4b1f0228-9a62-4049-b11c-b973da432941",
+                "currency": "CAD",
+                "fixedPricesCount": 0,
+                "parent": {
+                  "adjustment": {
+                    "type": "PERCENTAGE_DECREASE",
+                    "value": 5
+                  }
+                }
+              }
+            },
+            {
+              "id": "gid://shopify/MarketCatalog/98725101818",
+              "title": "Shopify Catalog",
+              "status": "ACTIVE",
+              "priceList": {
+                "id": "gid://shopify/PriceList/22578200826",
+                "name": "Shopify Catalog - d0ad6cc0-125d-485d-a906-5bd82c742ea0",
+                "currency": "CAD",
+                "fixedPricesCount": 0,
+                "parent": {
+                  "adjustment": {
+                    "type": "PERCENTAGE_DECREASE",
+                    "value": 0
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "webPresences": {
+          "nodes": []
+        }
+      },
+      {
+        "id": "gid://shopify/Market/40250835194",
+        "name": "LaTam",
+        "handle": "latam",
+        "status": "DRAFT",
+        "currencySettings": {
+          "baseCurrency": {
+            "currencyCode": "CAD"
+          },
+          "localCurrencies": true,
+          "roundingEnabled": true
+        },
+        "conditions": {
+          "regionsCondition": {
+            "regions": {
+              "nodes": [
+                {
+                  "id": "gid://shopify/MarketRegionCountry/1099565531386",
+                  "name": "Brazil",
+                  "code": "BR",
+                  "currency": {
+                    "currencyCode": "CAD"
+                  }
+                },
+                {
+                  "id": "gid://shopify/MarketRegionCountry/1099565564154",
+                  "name": "Chile",
+                  "code": "CL",
+                  "currency": {
+                    "currencyCode": "CAD"
+                  }
+                },
+                {
+                  "id": "gid://shopify/MarketRegionCountry/1099565596922",
+                  "name": "Colombia",
+                  "code": "CO",
+                  "currency": {
+                    "currencyCode": "CAD"
+                  }
+                },
+                {
+                  "id": "gid://shopify/MarketRegionCountry/1099565629690",
+                  "name": "Costa Rica",
+                  "code": "CR",
+                  "currency": {
+                    "currencyCode": "CRC"
+                  }
+                },
+                {
+                  "id": "gid://shopify/MarketRegionCountry/1099565662458",
+                  "name": "Ecuador",
+                  "code": "EC",
+                  "currency": {
+                    "currencyCode": "USD"
+                  }
+                },
+                {
+                  "id": "gid://shopify/MarketRegionCountry/1099565695226",
+                  "name": "El Salvador",
+                  "code": "SV",
+                  "currency": {
+                    "currencyCode": "USD"
+                  }
+                },
+                {
+                  "id": "gid://shopify/MarketRegionCountry/1099565727994",
+                  "name": "Guatemala",
+                  "code": "GT",
+                  "currency": {
+                    "currencyCode": "GTQ"
+                  }
+                },
+                {
+                  "id": "gid://shopify/MarketRegionCountry/1099565760762",
+                  "name": "Honduras",
+                  "code": "HN",
+                  "currency": {
+                    "currencyCode": "HNL"
+                  }
+                },
+                {
+                  "id": "gid://shopify/MarketRegionCountry/1099565793530",
+                  "name": "Mexico",
+                  "code": "MX",
+                  "currency": {
+                    "currencyCode": "CAD"
+                  }
+                },
+                {
+                  "id": "gid://shopify/MarketRegionCountry/1099565826298",
+                  "name": "Nicaragua",
+                  "code": "NI",
+                  "currency": {
+                    "currencyCode": "NIO"
+                  }
+                },
+                {
+                  "id": "gid://shopify/MarketRegionCountry/1099565859066",
+                  "name": "Peru",
+                  "code": "PE",
+                  "currency": {
+                    "currencyCode": "PEN"
+                  }
+                },
+                {
+                  "id": "gid://shopify/MarketRegionCountry/1099565891834",
+                  "name": "Paraguay",
+                  "code": "PY",
+                  "currency": {
+                    "currencyCode": "PYG"
+                  }
+                },
+                {
+                  "id": "gid://shopify/MarketRegionCountry/1099565924602",
+                  "name": "Panama",
+                  "code": "PA",
+                  "currency": {
+                    "currencyCode": "USD"
+                  }
+                },
+                {
+                  "id": "gid://shopify/MarketRegionCountry/1099548754170",
+                  "name": "Spain",
+                  "code": "ES",
+                  "currency": {
+                    "currencyCode": "EUR"
+                  }
+                },
+                {
+                  "id": "gid://shopify/MarketRegionCountry/1099548459258",
+                  "name": "United States",
+                  "code": "US",
+                  "currency": {
+                    "currencyCode": "USD"
+                  }
+                },
+                {
+                  "id": "gid://shopify/MarketRegionCountry/1099565990138",
+                  "name": "Argentina",
+                  "code": "AR",
+                  "currency": {
+                    "currencyCode": "CAD"
+                  }
+                },
+                {
+                  "id": "gid://shopify/MarketRegionCountry/1099566022906",
+                  "name": "Belize",
+                  "code": "BZ",
+                  "currency": {
+                    "currencyCode": "BZD"
+                  }
+                },
+                {
+                  "id": "gid://shopify/MarketRegionCountry/1099566055674",
+                  "name": "Bolivia",
+                  "code": "BO",
+                  "currency": {
+                    "currencyCode": "BOB"
+                  }
+                },
+                {
+                  "id": "gid://shopify/MarketRegionCountry/1099566088442",
+                  "name": "Dominican Republic",
+                  "code": "DO",
+                  "currency": {
+                    "currencyCode": "DOP"
+                  }
+                },
+                {
+                  "id": "gid://shopify/MarketRegionCountry/1099566121210",
+                  "name": "Uruguay",
+                  "code": "UY",
+                  "currency": {
+                    "currencyCode": "UYU"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "catalogs": {
+          "nodes": [
+            {
+              "id": "gid://shopify/MarketCatalog/98725101818",
+              "title": "Shopify Catalog",
+              "status": "ACTIVE",
+              "priceList": {
+                "id": "gid://shopify/PriceList/22578200826",
+                "name": "Shopify Catalog - d0ad6cc0-125d-485d-a906-5bd82c742ea0",
+                "currency": "CAD",
+                "fixedPricesCount": 0,
+                "parent": {
+                  "adjustment": {
+                    "type": "PERCENTAGE_DECREASE",
+                    "value": 0
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "webPresences": {
+          "nodes": [
+            {
+              "id": "gid://shopify/MarketWebPresence/57043190010",
+              "subfolderSuffix": null
+            }
+          ]
+        }
+      },
+      {
+        "id": "gid://shopify/Market/40405303546",
+        "name": "U.S",
+        "handle": "u-s",
+        "status": "ACTIVE",
+        "currencySettings": {
+          "baseCurrency": {
+            "currencyCode": "USD"
+          },
+          "localCurrencies": true,
+          "roundingEnabled": true
+        },
+        "conditions": {
+          "regionsCondition": {
+            "regions": {
+              "nodes": [
+                {
+                  "id": "gid://shopify/MarketRegionCountry/1099548459258",
+                  "name": "United States",
+                  "code": "US",
+                  "currency": {
+                    "currencyCode": "USD"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "catalogs": {
+          "nodes": [
+            {
+              "id": "gid://shopify/MarketCatalog/103822819578",
+              "title": "Puchica US Catalog",
+              "status": "ACTIVE",
+              "priceList": {
+                "id": "gid://shopify/PriceList/22620078330",
+                "name": "Puchica US USD",
+                "currency": "USD",
+                "fixedPricesCount": 0,
+                "parent": {
+                  "adjustment": {
+                    "type": "PERCENTAGE_DECREASE",
+                    "value": 0
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "webPresences": {
+          "nodes": [
+            {
+              "id": "gid://shopify/MarketWebPresence/57043190010",
+              "subfolderSuffix": null
+            }
+          ]
+        }
+      },
+      {
+        "id": "gid://shopify/Market/40370733306",
+        "name": "United Kingdom",
+        "handle": "united-kingdom",
+        "status": "DRAFT",
+        "currencySettings": {
+          "baseCurrency": {
+            "currencyCode": "GBP"
+          },
+          "localCurrencies": false,
+          "roundingEnabled": true
+        },
+        "conditions": {
+          "regionsCondition": {
+            "regions": {
+              "nodes": [
+                {
+                  "id": "gid://shopify/MarketRegionCountry/1099548852474",
+                  "name": "United Kingdom",
+                  "code": "GB",
+                  "currency": {
+                    "currencyCode": "GBP"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "catalogs": {
+          "nodes": [
+            {
+              "id": "gid://shopify/MarketCatalog/98725101818",
+              "title": "Shopify Catalog",
+              "status": "ACTIVE",
+              "priceList": {
+                "id": "gid://shopify/PriceList/22578200826",
+                "name": "Shopify Catalog - d0ad6cc0-125d-485d-a906-5bd82c742ea0",
+                "currency": "CAD",
+                "fixedPricesCount": 0,
+                "parent": {
+                  "adjustment": {
+                    "type": "PERCENTAGE_DECREASE",
+                    "value": 0
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "webPresences": {
+          "nodes": [
+            {
+              "id": "gid://shopify/MarketWebPresence/57043190010",
+              "subfolderSuffix": null
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

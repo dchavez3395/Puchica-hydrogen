@@ -1,0 +1,63 @@
+query CanadaDeliveryAudit {
+  deliveryProfiles(first: 20) {
+    nodes {
+      id
+      name
+      profileItems(first: 20) {
+        nodes {
+          product {
+            id
+            handle
+            title
+          }
+          variants(first: 20) {
+            nodes {
+              id
+              sku
+              title
+            }
+          }
+        }
+      }
+      profileLocationGroups {
+        locationGroup {
+          id
+        }
+        locationGroupZones(first: 50) {
+          nodes {
+            zone {
+              id
+              name
+              countries {
+                code {
+                  countryCode
+                  restOfWorld
+                }
+                name
+                provinces {
+                  code
+                  name
+                }
+              }
+            }
+            methodDefinitions(first: 20) {
+              nodes {
+                id
+                name
+                active
+                rateProvider {
+                  ... on DeliveryRateDefinition {
+                    price {
+                      amount
+                      currencyCode
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

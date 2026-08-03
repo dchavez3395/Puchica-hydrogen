@@ -1,0 +1,16 @@
+{
+  "marketUpdate": {
+    "market": {
+      "id": "gid://shopify/Market/40250409210",
+      "handle": "ca",
+      "status": "ACTIVE",
+      "currencySettings": {
+        "baseCurrency": {
+          "currencyCode": "CAD"
+        },
+        "localCurrencies": false
+      }
+    },
+    "userErrors": []
+  }
+}

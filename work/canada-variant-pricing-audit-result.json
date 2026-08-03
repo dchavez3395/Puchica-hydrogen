@@ -1,0 +1,28 @@
+{
+  "productVariant": {
+    "id": "gid://shopify/ProductVariant/49961853026554",
+    "title": "5PCS Set Red",
+    "sku": "14:100018786#5PCS Set Red",
+    "price": "71.45",
+    "CanadaPrice": {
+      "price": {
+        "amount": "71.45",
+        "currencyCode": "CAD"
+      },
+      "compareAtPrice": {
+        "amount": "0.0",
+        "currencyCode": "CAD"
+      }
+    },
+    "UnitedStatesPrice": {
+      "price": {
+        "amount": "53.0",
+        "currencyCode": "USD"
+      },
+      "compareAtPrice": {
+        "amount": "0.0",
+        "currencyCode": "USD"
+      }
+    }
+  }
+}
