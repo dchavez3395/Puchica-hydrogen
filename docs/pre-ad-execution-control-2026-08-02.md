@@ -28,12 +28,12 @@ this file controls when a status, cap, or instruction conflicts.
   evidence showed C$34.55 as an explicit welcome-only price and C$73.52 crossed
   out; the welcome price is not repeat-order economics and already exceeds the
   landed-cost target before unknown costs. The search is reopened.
-- DSers remains the current installed supplier-validation platform. Do not add
-  AutoDS during this proof cycle. The subsequent sourcing-pivot decision in
-  `docs/sourcing-pivot-decision-2026-08-02.md` records the owner-authorized free
-  Shopify Collective installation and Canada Discovery audit. No supplier is
-  connected and no product is imported. Free DropCommerce and Syncee catalog
-  audits remain fallbacks only.
+- DSers remains the installed AliExpress supplier-validation platform. Do not
+  add AutoDS during this proof cycle. The subsequent Collective, DropCommerce,
+  and Syncee audits are complete; all three failed the dual-market paid-product
+  gate. No supplier is connected, no product is imported, and no trial or paid
+  plan was started. The evidence and next direct-supplier reset are recorded in
+  `docs/marketplace-sourcing-audit-2026-08-02.md`.
 
 Paid activation requires every P0 gate below to pass and a new, explicit owner
 approval of the exact market, creative set, daily cap, and total cap. Previous

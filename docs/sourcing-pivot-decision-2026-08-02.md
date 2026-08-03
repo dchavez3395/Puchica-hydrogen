@@ -91,7 +91,11 @@ These results fail the Puchica paid-acquisition margin/AOV gate. Collective
 remains installed for a structured filter/supplier audit, but the first search
 does not produce an approved product.
 
-Status: `COLLECTIVE_INSTALLED_DISCOVERY_ACTIVE_NO_PRODUCT_SELECTED`.
+The structured follow-up used a 45% minimum margin, C$75-C$120 retail band, and
+travel/organization search variants. The only relevant high-margin lead had no
+stock and no proven U.S. route. Collective therefore failed this cycle.
+
+Status: `COLLECTIVE_AUDIT_COMPLETE_NO_APPROVED_PRODUCT`.
 
 ## Alternative supplier routes
 
@@ -107,16 +111,29 @@ Free access is suitable for browsing/samples and up to 25 imports but not live
 order processing. Basic is currently US$29/month. Do not start a trial or pay
 until the free catalog exposes at least two qualifying exact products.
 
-Status: `FALLBACK_BROWSE_ONLY`.
+DropCommerce was installed and its no-cost catalog was audited. Relevant exact
+products displayed only 30%-40% headline margins, expensive or absent Canada
+shipping, weak transit evidence, or inadequate stock. No product was imported
+and no trial or paid plan was started.
+
+Status: `DROPCOMMERCE_AUDIT_COMPLETE_NO_APPROVED_PRODUCT`.
 
 ### Syncee - third
 
 Syncee has a broader catalog and stronger price-rule tools, but live ordering is
 less automatic: supplier orders require separate approval/payment and suppliers
-control warehouse, shipping, returns, and responsiveness. Current entry pricing
-is approximately US$39.99/month after limited free/browse access.
+control warehouse, shipping, returns, and responsiveness. The installed app
+displayed a three-day trial and a C$1 promotional offer; neither was accepted,
+and post-promotion pricing was not needed for the browse-only rejection.
 
-Status: `SECOND_FALLBACK_ONLY`.
+Syncee was installed and its free catalog was audited without accepting its
+trial or promotional paid plan. Packing-cube results were typically 11%-25%
+profit on supplier cost. High-markup travel organizers still failed landed
+economics, Canada shipping, competitive-price, or supplier-origin gates. The
+best inspected leather organizer carried C$21.02 Canada shipping and could not
+match its manufacturer's direct price while preserving the required margin.
+
+Status: `SYNCEE_AUDIT_COMPLETE_NO_APPROVED_PRODUCT`.
 
 ### Spocket - reject for this cycle
 
@@ -155,19 +172,20 @@ authorized catalog access, Puchica cannot prove one exact hero and one supportin
 product with both-market delivery, contribution, returns, inventory, image, and
 IP evidence.
 
-If Collective fails, run the DropCommerce free browse audit. If that also fails,
-run one Syncee browse audit. If all three fail, stop travel hero sourcing and
-reassess desk/cable reset without rebuilding the entire storefront first.
+Collective, DropCommerce, and Syncee all failed. The marketplace cycle is now
+closed. Stop marketplace travel-hero sourcing and run the direct-supplier /
+operating-model reset documented in
+`docs/marketplace-sourcing-audit-2026-08-02.md` before changing the storefront.
 
 ## Owner decision required
 
-Installation of **Shopify Collective only** was authorized and completed. That
-approval did not authorize connecting a supplier, importing a product, activating
-a trial, publishing, ordering, or spending. Those boundaries remain in force.
+Shopify Collective, DropCommerce, and Syncee were installed and audited without
+connecting a supplier, importing a product, activating a trial, publishing,
+ordering, or spending. Those boundaries remain in force. A supplier connection
+or product import still requires a separate exact-product decision.
 
-The next work is a structured Discovery audit using margin, destination,
-tracking, category, and retail-price filters. A supplier connection or product
-import still requires a separate exact-product decision.
+The next work is a direct-supplier and operating-model reset, not another app.
+See `docs/marketplace-sourcing-audit-2026-08-02.md`.
 
 Before using any supplier, verify current Shopify Payments classification and
 Collective retailer eligibility. Do not change the owner from `Individual` to a
