@@ -101,20 +101,27 @@ prove that the exact visible option is a five-piece true-compression set, and
 they do not resolve duty/import treatment or ZIP-level delivery. No replacement
 was imported and the current mapping was not changed.
 
-### Exact-listing proof stop
+### Exact-listing disposition: reject the current mapping
 
 The mapped supplier item `1005008568050448` was searched directly inside the
 authenticated DSers Find Products view with the United States selected. DSers
-returned `No Data`. The controlled browser was not permitted to inspect the
-AliExpress item page directly. The listing must therefore remain
-`HOLD_OWNER_EXACT_LISTING_SCREENSHOT`; its family-level stock, range, optimizer
-route and supplier signals are not substitutes for exact-option proof.
+returned `No Data`. Two subsequent owner captures of the live AliExpress listing
+showed `3PCS Set Red`, not the mapped `5PCS Set Red`. The red three-piece option
+displayed a C$10.35 welcome price, C$17.45 struck reference price, free shipping,
+August 10-17 delivery, a 4.8 product rating and 1,000+ sold. The first capture
+also showed a blue three-piece option. Neither capture proved that the mapped
+five-piece configuration is currently sellable.
 
-The minimum manual evidence is one ordinary logged-in US-destination listing
-capture showing the product title, selected `5PCS Set Red` option, repeat-order
-price, stock/availability, shipping service/cost, displayed delivery range,
-ship-from country, tracking commitment, supplier name/rating, product rating and
-sales count. Do not place the item in a cart or order it.
+Disposition: `REJECT_CURRENT_SUPPLIER_MAPPING`. This is a variant-integrity
+failure, not a rejection of the true-compression packing-cube product direction.
+Do not advertise, order, import or remap this listing. Compare no more than the
+two already identified replacement leads and require exact five-piece contents
+before performing full landed-cost analysis.
+
+Owner evidence:
+
+- `C:/Users/dchav/Desktop/Puchica-hydrogen/.codex-remote-attachments/019fbde7-9c9d-7e41-9a41-f7581699e78a/6fade81d-dc27-442c-b86e-62456fa71f68/1-Photo-1.jpg`
+- `C:/Users/dchav/Desktop/Puchica-hydrogen/.codex-remote-attachments/019fbde7-9c9d-7e41-9a41-f7581699e78a/683d22c3-1c5b-4a6f-a4f7-8531ebd7c105/1-Photo-1.jpg`
 
 The legacy CSV evidence control has a sparse-row alignment defect and must not
 be treated as the approval source until it is rebuilt in a validated workbook.
