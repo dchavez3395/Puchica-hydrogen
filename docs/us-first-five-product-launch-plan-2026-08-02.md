@@ -101,6 +101,13 @@ prove that the exact visible option is a five-piece true-compression set, and
 they do not resolve duty/import treatment or ZIP-level delivery. No replacement
 was imported and the current mapping was not changed.
 
+Replacement evaluation order is now fixed: inspect the US$11.22-US$13.04 row
+with 194 displayed sales first because it has the strongest combination of
+transaction history, service time and ratings. Inspect the US$3.74-US$11.01 row
+with 178 displayed sales only if the first candidate fails exact five-piece
+contents, ordinary price or supplier evidence. Do not broaden the search unless
+both candidates fail.
+
 ### Exact-listing disposition: reject the current mapping
 
 The mapped supplier item `1005008568050448` was searched directly inside the
