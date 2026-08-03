@@ -101,6 +101,25 @@ prove that the exact visible option is a five-piece true-compression set, and
 they do not resolve duty/import treatment or ZIP-level delivery. No replacement
 was imported and the current mapping was not changed.
 
+### Exact-listing proof stop
+
+The mapped supplier item `1005008568050448` was searched directly inside the
+authenticated DSers Find Products view with the United States selected. DSers
+returned `No Data`. The controlled browser was not permitted to inspect the
+AliExpress item page directly. The listing must therefore remain
+`HOLD_OWNER_EXACT_LISTING_SCREENSHOT`; its family-level stock, range, optimizer
+route and supplier signals are not substitutes for exact-option proof.
+
+The minimum manual evidence is one ordinary logged-in US-destination listing
+capture showing the product title, selected `5PCS Set Red` option, repeat-order
+price, stock/availability, shipping service/cost, displayed delivery range,
+ship-from country, tracking commitment, supplier name/rating, product rating and
+sales count. Do not place the item in a cart or order it.
+
+The legacy CSV evidence control has a sparse-row alignment defect and must not
+be treated as the approval source until it is rebuilt in a validated workbook.
+This plan is the authoritative control for the present hold.
+
 ## Exact SKU gate
 
 Every one of the five must independently prove:
