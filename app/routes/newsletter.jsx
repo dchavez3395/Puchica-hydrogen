@@ -38,15 +38,14 @@ async function customerCreate({email, firstName, lastName, acceptsMarketing, env
       }
     }
   `;
-  const variables = {
-    input: {
-      email,
-      firstName: firstName || '',
-      lastName: lastName || '',
-      password: cryptoRandomPassword(),
-      acceptsMarketing: acceptsMarketing !== false,
-    },
+  const input = {
+    email,
+    password: cryptoRandomPassword(),
+    acceptsMarketing: acceptsMarketing !== false,
   };
+  if (firstName) input.firstName = firstName;
+  if (lastName) input.lastName = lastName;
+  const variables = {input};
   const shop = env.PUBLIC_STORE_DOMAIN || 'puchica.myshopify.com';
   const token = env.PUBLIC_STOREFRONT_API_TOKEN || env.SHOPIFY_STOREFRONT_API_TOKEN || '';
   if (!token) {
