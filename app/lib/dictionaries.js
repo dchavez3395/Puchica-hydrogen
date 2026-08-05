@@ -1937,10 +1937,20 @@ export const DICTIONARIES = {
       "Nous n'avons pas pu charger les catégories pour le moment.",
     megamenu_error_cta: 'Tout parcourir →',
     megamenu_tile_cta: 'Magasiner →',
+    megamenu_intent_heading: 'Magasiner par catégorie',
     megamenu_intent_home_title: 'Meilleures ventes',
+    megamenu_intent_home_body:
+      'Audio, cuisine, conditionnement physique, maison et plein air — les trouvailles que les clients récommandent.',
     megamenu_intent_cable_title: 'Top du moment',
+    megamenu_intent_cable_body:
+      'Gardez cordons et techno du quotidien faciles à trouver.',
     megamenu_intent_travel_title: 'Toutes les catégories',
+    megamenu_intent_travel_body:
+      'Emballage, bagages et transport du quotidien.',
+    megamenu_edit_eyebrow: 'Commencer ici',
     megamenu_edit_title: 'Trouvailles haut de gamme sous 200 $ CA.',
+    megamenu_edit_body:
+      'Solutions pour le rangement sous l’évier, les câbles, l’emballage et le transport quotidien.',
     megamenu_tagline_phone_case: 'Coques, prises, protection.',
     megamenu_tagline_home_essentials: 'Audio, cuisine, déco, rangement.',
     megamenu_tagline_home_kitchen: 'Cuisine, rangement, déco.',
@@ -3289,10 +3299,20 @@ export const DICTIONARIES = {
     megamenu_error_body: 'No pudimos cargar las categorías en este momento.',
     megamenu_error_cta: 'Ver todo →',
     megamenu_tile_cta: 'Comprar →',
+    megamenu_intent_heading: 'Comprar por categoría',
     megamenu_intent_home_title: 'Más vendidos',
-    megamenu_intent_cable_title: 'Tendencias',
+    megamenu_intent_home_body:
+      'Audio, cocina, condición física, hogar y aire libre — los hallazgos que los clientes repiten.',
+    megamenu_intent_cable_title: 'Tendencias top',
+    megamenu_intent_cable_body:
+      'Mantén cordones y tecnología diaria fáciles de encontrar.',
     megamenu_intent_travel_title: 'Todas las categorías',
+    megamenu_intent_travel_body:
+      'Empaque, equipaje y transporte del día a día.',
+    megamenu_edit_eyebrow: 'Empezar aquí',
     megamenu_edit_title: 'Productos populares de alto valor por menos de 200 $ CAD.',
+    megamenu_edit_body:
+      'Soluciones para almacenaje bajo el fregadero, cables, empaque y transporte del día a día.',
     megamenu_tagline_phone_case: 'Fundas, agarres, protección.',
     megamenu_tagline_home_essentials: 'Audio, cocina, decoración, almacenamiento.',
     megamenu_tagline_home_kitchen: 'Cocina, almacenamiento, decoración.',
@@ -4635,6 +4655,20 @@ export const DICTIONARIES = {
     megamenu_error_body: 'Não conseguimos carregar as categorias agora.',
     megamenu_error_cta: 'Ver tudo →',
     megamenu_tile_cta: 'Comprar →',
+    megamenu_intent_heading: 'Comprar por categoria',
+    megamenu_intent_home_title: 'Mais vendidos',
+    megamenu_intent_home_body:
+      'Áudio, cozinha, fitness, casa, exterior — os achados que os clientes repetem.',
+    megamenu_intent_cable_title: 'Tendências',
+    megamenu_intent_cable_body:
+      'Mantenha cabos e tecnologia do dia a dia fáceis de encontrar.',
+    megamenu_intent_travel_title: 'Todas as categorias',
+    megamenu_intent_travel_body:
+      'Embalagem, bagagem e transporte do dia a dia.',
+    megamenu_edit_eyebrow: 'Comece aqui',
+    megamenu_edit_title: 'Achados premium por menos de 200 $ CAD.',
+    megamenu_edit_body:
+      'Soluções para armazenamento sob a pia, cabos, embalagem e transporte do dia a dia.',
     megamenu_tagline_phone_case: 'Capas, suportes, proteção.',
     megamenu_tagline_home_essentials: 'Áudio, cozinha, decoração, armazenamento.',
     megamenu_tagline_home_kitchen: 'Cozinha, armazenamento, decoração.',
