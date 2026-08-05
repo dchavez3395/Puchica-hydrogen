@@ -1,6 +1,7 @@
 import {CacheNone} from '@shopify/hydrogen';
 import {useLoaderData} from 'react-router';
 import {TRENDING_QUERY, TrendingLanding} from '~/components/TrendingLanding';
+import {NewsletterFooter} from '~/sections/newsletter-footer/newsletter-footer';
 import {filterLaunchProducts} from '~/lib/launch-catalog';
 import {error as logError} from '~/lib/logger';
 import {
@@ -46,12 +47,13 @@ export default function Index() {
   const {products} = useLoaderData();
 
   return (
-    <div className="pk-home pk-campaign pk-campaign--home">
-      <JsonLdScript data={organizationJsonLd({})} />
-      <JsonLdScript data={websiteJsonLd({})} />
-      <TrendingLanding products={products} />
-    </div>
-  );
+      <div className="pk-home pk-campaign pk-campaign--home">
+        <JsonLdScript data={organizationJsonLd({})} />
+        <JsonLdScript data={websiteJsonLd({})} />
+        <TrendingLanding products={products} />
+        <NewsletterFooter />
+      </div>
+    );
 }
 
 /** @typedef {import('./+types/_index').Route} Route */
