@@ -18,7 +18,7 @@ import {data, useActionData} from 'react-router';
  *   3. Physical address in footer (set in templates)
  */
 
-const SHOP = 'puchica.myshopify.com';
+const SHOP = process.env.PUBLIC_STORE_DOMAIN || 'puchica.myshopify.com';
 const STOREFRONT_API_VERSION = '2025-01';
 const STOREFRONT_TOKEN =
   process.env.PUBLIC_STOREFRONT_API_TOKEN ||
