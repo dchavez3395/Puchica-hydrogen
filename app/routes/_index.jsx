@@ -1,9 +1,6 @@
 import {CacheNone} from '@shopify/hydrogen';
 import {useLoaderData} from 'react-router';
-import {
-  SMALL_SPACE_QUERY,
-  SmallSpaceLanding,
-} from '~/components/SmallSpaceLanding';
+import {TRENDING_QUERY, TrendingLanding} from '~/components/TrendingLanding';
 import {filterLaunchProducts} from '~/lib/launch-catalog';
 import {error as logError} from '~/lib/logger';
 import {
@@ -16,9 +13,9 @@ import {
 /** @type {Route.MetaFunction} */
 export const meta = ({params}) => {
   return puchicaMeta({
-    title: 'Puchica - Small-space organization for home and travel',
+    title: 'Trending finds under $200 - Puchica',
     description:
-      'Practical organizers for crowded drawers, tangled cables, packed bags, and everyday life on the go.',
+      'Shop trending finds under $200 — practical products with real reviews. Audio, kitchen, fitness, home, and outdoor picks with shipping shown at checkout.',
     pathname: '/',
     langKey: params?.locale,
   });
@@ -29,7 +26,7 @@ export async function loader({context}) {
   const {country, language} = context.storefront.i18n;
 
   try {
-    const data = await context.storefront.query(SMALL_SPACE_QUERY, {
+    const data = await context.storefront.query(TRENDING_QUERY, {
       variables: {country, language},
       cache: CacheNone(),
     });
@@ -40,7 +37,7 @@ export async function loader({context}) {
       ),
     };
   } catch (error) {
-    logError('home small-space query failed', error);
+    logError('home trending query failed', error);
     return {products: []};
   }
 }
@@ -52,7 +49,7 @@ export default function Index() {
     <div className="pk-home pk-campaign pk-campaign--home">
       <JsonLdScript data={organizationJsonLd({})} />
       <JsonLdScript data={websiteJsonLd({})} />
-      <SmallSpaceLanding products={products} />
+      <TrendingLanding products={products} />
     </div>
   );
 }

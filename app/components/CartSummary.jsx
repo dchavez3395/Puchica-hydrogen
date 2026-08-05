@@ -2,7 +2,7 @@ import {CartForm, useAnalytics} from '@shopify/hydrogen';
 import {CurrencyMoney} from '~/components/CurrencyMoney';
 import {useEffect, useId, useRef, useState} from 'react';
 import {useActionData, useFetcher, useRouteLoaderData} from 'react-router';
-import {CHECKOUT_URL_REWRITER} from '~/lib/checkout';
+import {CHECKOUT_URL_REWRITER, buildCheckoutRewriteOptions} from '~/lib/checkout';
 import {useT} from '~/lib/t';
 
 /**
@@ -45,10 +45,14 @@ export function CartSummary({cart, layout, hasCheckoutableItems = true}) {
       />
       <CartCheckoutActions
         cart={cart}
-        checkoutUrl={CHECKOUT_URL_REWRITER(cart?.checkoutUrl, {
-          ...rootData?.selectedLocale,
-          checkoutDomain: rootData?.consent?.checkoutDomain,
-        })}
+        checkoutUrl={CHECKOUT_URL_REWRITER(
+          cart?.checkoutUrl,
+          buildCheckoutRewriteOptions(
+            cart,
+            {i18n: rootData?.selectedLocale},
+            {PUBLIC_CHECKOUT_DOMAIN: rootData?.consent?.checkoutDomain},
+          ),
+        )}
         disabled={!hasCheckoutableItems}
       />
     </div>

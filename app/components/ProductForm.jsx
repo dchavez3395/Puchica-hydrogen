@@ -38,6 +38,12 @@ export function ProductForm({
   return (
     <div className="product-form">
       {productOptions.map((option) => {
+        // C14: only render option values whose variant is availableForSale
+        // (`value.available` is Hydrogen's encoded-availability flag). The
+        // currently-selected value is kept even when unavailable so a
+        // sold-out selection stays visible as disabled rather than
+        // vanishing from the picker. Single-variant products (or any
+        // option with only one buyable value) render no picker at all.
         const visibleValues = option.optionValues.filter(
           (value) => value.selected || value.available,
         );

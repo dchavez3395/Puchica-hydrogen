@@ -64,6 +64,23 @@ export function MegaMenu({deferred, onClose}) {
     closeTimer.current = setTimeout(() => setOpen(false), 150);
   };
 
+  // Close when keyboard focus leaves the trigger+panel subtree. Mouse leave
+  // and Escape already close the panel, but without a focusout handler a
+  // keyboard user who Tabs past the last panel link is left with an open
+  // panel covering content (WCAG 1.4.13 / 2.1.1).
+  const handleFocusOut = (event) => {
+    const next = event.relatedTarget;
+    if (!next) return;
+    if (
+      panelRef.current?.contains(next) ||
+      triggerRef.current?.contains(next)
+    ) {
+      return;
+    }
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    setOpen(false);
+  };
+
   // Close on click outside or Escape.
   useEffect(() => {
     if (!open) return;
@@ -100,6 +117,7 @@ export function MegaMenu({deferred, onClose}) {
       className={'pk-mega' + (open ? ' is-open' : '')}
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
+      onBlur={handleFocusOut}
       role="none"
     >
       <button

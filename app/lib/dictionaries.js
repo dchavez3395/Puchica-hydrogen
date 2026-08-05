@@ -514,6 +514,30 @@ export const DICTIONARIES = {
     col_count_of: 'of',
     col_brand_chip: 'Puchica',
 
+    // ── Trending landing (homepage) ───────────────────────────────
+    trending_eyebrow: 'Trending finds · Under $200',
+    trending_title: 'Trending finds under $200 — practical products with real reviews.',
+    trending_sub:
+      'A focused edit of high-ticket items customers keep re-ordering: audio, kitchen, fitness, home, and outdoor. Real product photos, shipping shown at checkout, no subscriptions.',
+    trending_hero_cta: 'Shop the trending edit',
+    trending_hero_secondary: 'Browse the full catalog',
+    trending_proof_secure_h: 'Secure Shopify checkout',
+    trending_proof_secure_s: 'Encrypted & PCI-compliant',
+    trending_proof_shipping_h: 'Free Canadian shipping',
+    trending_proof_shipping_s: 'On orders over $50',
+    trending_proof_photos_h: 'Real product photos',
+    trending_proof_photos_s: 'Verified reviews from buyers',
+    trending_feature_spotlight_kicker: '#1 bestseller',
+    trending_feature_secondary_kicker: '#2 bestselling',
+    trending_feature_tertiary_kicker: '#3 bestselling',
+    trending_feature_cta: 'Shop the #1 pick',
+    trending_grid_eyebrow: 'Featured this launch',
+    trending_grid_title: 'More trending finds worth a look',
+    trending_grid_sub:
+      'Hand-picked from the launch catalog — verified suppliers, shipping confirmed at checkout, returns within 30 days.',
+    trending_grid_more_cta: 'Shop all trending finds',
+    trending_card_cta: 'View product',
+
     // ── All products page ─────────────────────────────────────────
     all_breadcrumb: 'All organizers',
     all_eyebrow: 'Shop by need',
@@ -1793,6 +1817,30 @@ export const DICTIONARIES = {
     col_count_and_counting: 'et plus',
     col_count_of: 'sur',
     col_brand_chip: 'Puchica',
+
+    // ── Trending landing (homepage) ───────────────────────────────
+    trending_eyebrow: 'Tendances · Moins de 200 $',
+    trending_title: 'Des trouvailles tendance à moins de 200 $ — des produits pratiques avec de vrais avis.',
+    trending_sub:
+      'Une sélection concentrée d’articles à prix élevé que les clients recommanderont : audio, cuisine, conditionnement physique, maison et plein air. Photos réelles des produits, livraison affichée au paiement, aucun abonnement.',
+    trending_hero_cta: 'Magasiner la sélection tendance',
+    trending_hero_secondary: 'Parcourir le catalogue complet',
+    trending_proof_secure_h: 'Paiement Shopify sécurisé',
+    trending_proof_secure_s: 'Chiffré et conforme PCI',
+    trending_proof_shipping_h: 'Livraison gratuite au Canada',
+    trending_proof_shipping_s: 'Pour les commandes de plus de 50 $',
+    trending_proof_photos_h: 'Photos réelles des produits',
+    trending_proof_photos_s: 'Avis vérifiés d’acheteurs',
+    trending_feature_spotlight_kicker: 'N° 1 des ventes',
+    trending_feature_secondary_kicker: 'N° 2 des ventes',
+    trending_feature_tertiary_kicker: 'N° 3 des ventes',
+    trending_feature_cta: 'Acheter le choix n° 1',
+    trending_grid_eyebrow: 'À la une ce lancement',
+    trending_grid_title: 'Plus de trouvailles tendance à découvrir',
+    trending_grid_sub:
+      'Sélectionnées dans le catalogue du lancement — fournisseurs vérifiés, livraison confirmée au paiement, retours sous 30 jours.',
+    trending_grid_more_cta: 'Toutes les trouvailles tendance',
+    trending_card_cta: 'Voir le produit',
 
     all_breadcrumb: 'Tous les produits',
     all_eyebrow: 'La boutique complète',
@@ -3118,6 +3166,30 @@ export const DICTIONARIES = {
     col_count_of: 'de',
     col_brand_chip: 'Puchica',
 
+    // ── Trending landing (homepage) ───────────────────────────────
+    trending_eyebrow: 'Tendencias · Menos de $200',
+    trending_title: 'Hallazgos de moda por menos de $200 — productos prácticos con reseñas reales.',
+    trending_sub:
+      'Una selección concentrada de artículos de alto valor que los clientes siguen pidiendo: audio, cocina, estado físico, hogar y aire libre. Fotos reales, envío confirmado al pagar, sin suscripciones.',
+    trending_hero_cta: 'Comprar la selección de moda',
+    trending_hero_secondary: 'Ver el catálogo completo',
+    trending_proof_secure_h: 'Pago seguro de Shopify',
+    trending_proof_secure_s: 'Cifrado y conforme con PCI',
+    trending_proof_shipping_h: 'Envío gratis en Canadá',
+    trending_proof_shipping_s: 'En pedidos mayores a $50',
+    trending_proof_photos_h: 'Fotos reales de los productos',
+    trending_proof_photos_s: 'Reseñas verificadas de compradores',
+    trending_feature_spotlight_kicker: 'Más vendido #1',
+    trending_feature_secondary_kicker: 'Más vendido #2',
+    trending_feature_tertiary_kicker: 'Más vendido #3',
+    trending_feature_cta: 'Comprar el #1',
+    trending_grid_eyebrow: 'Destacados en este lanzamiento',
+    trending_grid_title: 'Más hallazgos de moda para descubrir',
+    trending_grid_sub:
+      'Seleccionados del catálogo del lanzamiento — proveedores verificados, envío confirmado al pagar, devoluciones dentro de 30 días.',
+    trending_grid_more_cta: 'Ver todos los hallazgos',
+    trending_card_cta: 'Ver producto',
+
     all_breadcrumb: 'Todos los productos',
     all_eyebrow: 'La tienda completa',
     all_title: 'Todos los productos',
@@ -4437,6 +4509,30 @@ export const DICTIONARIES = {
     col_count_and_counting: 'e contando',
     col_count_of: 'de',
     col_brand_chip: 'Puchica',
+
+    // ── Trending landing (homepage) ───────────────────────────────
+    trending_eyebrow: 'Em alta · Menos de $200',
+    trending_title: 'Achados em alta por menos de $200 — produtos práticos com avaliações reais.',
+    trending_sub:
+      'Uma seleção focada de itens de alto valor que os clientes continuam comprando: áudio, cozinha, fitness, casa e ar livre. Fotos reais, frete confirmado no checkout, sem assinaturas.',
+    trending_hero_cta: 'Comprar a seleção em alta',
+    trending_hero_secondary: 'Ver o catálogo completo',
+    trending_proof_secure_h: 'Checkout seguro da Shopify',
+    trending_proof_secure_s: 'Criptografado e em conformidade com PCI',
+    trending_proof_shipping_h: 'Frete grátis no Canadá',
+    trending_proof_shipping_s: 'Em pedidos acima de $50',
+    trending_proof_photos_h: 'Fotos reais dos produtos',
+    trending_proof_photos_s: 'Avaliações verificadas de compradores',
+    trending_feature_spotlight_kicker: 'Mais vendido #1',
+    trending_feature_secondary_kicker: 'Mais vendido #2',
+    trending_feature_tertiary_kicker: 'Mais vendido #3',
+    trending_feature_cta: 'Comprar o #1',
+    trending_grid_eyebrow: 'Em destaque neste lançamento',
+    trending_grid_title: 'Mais achados em alta para conhecer',
+    trending_grid_sub:
+      'Selecionados do catálogo de lançamento — fornecedores verificados, frete confirmado no checkout, devoluções em 30 dias.',
+    trending_grid_more_cta: 'Ver todos os achados em alta',
+    trending_card_cta: 'Ver produto',
 
     all_breadcrumb: 'Todos os produtos',
     all_eyebrow: 'A loja completa',

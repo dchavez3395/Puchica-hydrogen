@@ -107,6 +107,7 @@ export default function SearchPage() {
                 defaultValue={term}
                 name="q"
                 placeholder={t('search_input_placeholder')}
+                aria-label={t('search_aria_submit')}
                 ref={inputRef}
                 type="search"
                 // eslint-disable-next-line jsx-a11y/no-autofocus

@@ -1,4 +1,5 @@
 import {warn} from './logger.js';
+import {cartCheckoutCountry} from './cart-market.js';
 
 const CANONICAL_CHECKOUT_DOMAIN = 'checkout.puchica.ca';
 const LEGACY_CHECKOUT_DOMAINS = new Set([
@@ -23,6 +24,32 @@ const STOREFRONT_DOMAINS = new Set([
  *   language?: string,
  * }} CheckoutRewriteOptions
  */
+
+/**
+ * Build the {@link CheckoutRewriteOptions} for a cart from the request's
+ * storefront + env context. Checkout localization follows the cart's
+ * accepted buyer identity (not the market originally requested by the
+ * browser before Shopify applied a fallback), so the cart page and the
+ * cart drawer produce the same rewritten URL for the same cart.
+ *
+ * Callers that don't have a Hydrogen `storefront`/`env` in scope (e.g.
+ * the {@link CartSummary} drawer component) pass equivalent objects
+ * reconstructed from root loader data:
+ *   `buildCheckoutRewriteOptions(cart, {i18n: selectedLocale}, {PUBLIC_CHECKOUT_DOMAIN: consent.checkoutDomain})`.
+ *
+ * @param {any} cart Cart fragment (may be null/undefined for permalink redirects).
+ * @param {{ i18n?: { country?: string; language?: string } }} storefront
+ * @param {{ PUBLIC_CHECKOUT_DOMAIN?: string }} env
+ * @returns {CheckoutRewriteOptions}
+ */
+export function buildCheckoutRewriteOptions(cart, storefront, env) {
+  const i18n = storefront?.i18n || {};
+  return {
+    language: i18n.language,
+    country: cartCheckoutCountry(cart, i18n.country),
+    checkoutDomain: env?.PUBLIC_CHECKOUT_DOMAIN,
+  };
+}
 
 /**
  * Convert Shopify's Hydrogen cart permalink into the dedicated checkout URL.

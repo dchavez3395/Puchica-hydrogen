@@ -29,6 +29,8 @@ export function NewsletterPopup() {
   const fetcher = useFetcher();
   const armedRef = useRef(false);
   const dialogRef = useRef(null);
+  const emailInputRef = useRef(null);
+  const codeBtnRef = useRef(null);
   const previouslyFocused = useRef(null);
 
   // Only run on the client.
@@ -71,13 +73,21 @@ export function NewsletterPopup() {
     // Save focus to restore on close
     previouslyFocused.current = document.activeElement;
 
-    // Focus first focusable element in the dialog
+    // Focus the first meaningful control, not the invisible backdrop
+    // dismiss button (WCAG 2.4.3 / 2.4.11). On the form state that is the
+    // email input; on the success state it is the copy-code button.
     const dialog = dialogRef.current;
     if (dialog) {
-      const focusables = dialog.querySelectorAll(
-        'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
-      );
-      if (focusables.length) focusables[0].focus();
+      const meaningful =
+        emailInputRef.current || codeBtnRef.current;
+      if (meaningful) {
+        meaningful.focus();
+      } else {
+        const focusables = dialog.querySelectorAll(
+          'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusables.length) focusables[0].focus();
+      }
     }
 
     const onKey = (e) => {
@@ -148,44 +158,55 @@ export function NewsletterPopup() {
       role="dialog"
       aria-modal="true"
       aria-label={t('np_aria')}
-      style={styles.backdrop}
+      className="pk-news-popup"
     >
       <button
         type="button"
         aria-label={t('np_close_backdrop')}
         onClick={dismiss}
-        style={styles.backdropBtn}
+        className="pk-news-popup__backdrop-btn"
       />
-      <div style={styles.card}>
+      <div className="pk-news-popup__card">
         <button
           type="button"
           aria-label={t('np_close_x')}
           onClick={dismiss}
-          style={styles.close}
+          className="pk-news-popup__close"
         >
           &times;
         </button>
 
         {success ? (
           <>
-            <h2 style={styles.h2}>
-              <IconSparkles size={18} style={{verticalAlign: '-0.15em', marginRight: 6}} />
+            <h2 className="pk-news-popup__h2">
+              <IconSparkles size={18} className="pk-news-popup__h2-icon" />
               {t('np_success_h')}
             </h2>
-            <p style={styles.p}>{t('np_success_body')}</p>
-            <button type="button" onClick={copyCode} style={styles.codeBtn}>
+            <p className="pk-news-popup__p">{t('np_success_body')}</p>
+            <button
+              type="button"
+              ref={codeBtnRef}
+              onClick={copyCode}
+              className="pk-news-popup__code-btn"
+            >
               {DISCOUNT_CODE}
-              <span style={styles.codeHint}>{copied ? t('np_copy_btn') : t('np_copy_hint')}</span>
+              <span className="pk-news-popup__code-hint">
+                {copied ? t('np_copy_btn') : t('np_copy_hint')}
+              </span>
             </button>
-            <a href="/collections" style={styles.shopLink} onClick={dismiss}>
+            <a href="/collections" className="pk-news-popup__shop-link" onClick={dismiss}>
               {t('np_success_cta')}
             </a>
           </>
         ) : (
           <>
-            <h2 style={styles.h2}>{t('np_form_h')}</h2>
-            <p style={styles.p}>{t('np_form_body')}</p>
-            <fetcher.Form method="post" action="/newsletter" style={styles.form}>
+            <h2 className="pk-news-popup__h2">{t('np_form_h')}</h2>
+            <p className="pk-news-popup__p">{t('np_form_body')}</p>
+            <fetcher.Form
+              method="post"
+              action="/newsletter"
+              className="pk-news-popup__form"
+            >
               <input
                 type="email"
                 name="email"
@@ -193,14 +214,23 @@ export function NewsletterPopup() {
                 placeholder={t('np_email_placeholder')}
                 aria-label={t('np_email_aria')}
                 autoComplete="email"
-                style={styles.input}
+                ref={emailInputRef}
+                className="pk-news-popup__input"
               />
-              <button type="submit" disabled={submitting} style={styles.submit}>
+              <button
+                type="submit"
+                disabled={submitting}
+                className="pk-news-popup__submit"
+              >
                 {submitting ? t('np_joining') : t('np_submit')}
               </button>
             </fetcher.Form>
-            {error ? <p style={styles.error}>{error}</p> : null}
-            <button type="button" onClick={dismiss} style={styles.noThanks}>
+            {error ? <p className="pk-news-popup__error">{error}</p> : null}
+            <button
+              type="button"
+              onClick={dismiss}
+              className="pk-news-popup__no-thanks"
+            >
               {t('np_dismiss')}
             </button>
           </>
@@ -209,109 +239,3 @@ export function NewsletterPopup() {
     </div>
   );
 }
-
-const styles = {
-  backdrop: {
-    position: 'fixed',
-    inset: 0,
-    background: 'rgba(20, 16, 45, 0.55)',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: '20px',
-    zIndex: 1000,
-  },
-  backdropBtn: {
-    position: 'absolute',
-    inset: 0,
-    width: '100%',
-    height: '100%',
-    margin: 0,
-    padding: 0,
-    border: 'none',
-    background: 'transparent',
-    cursor: 'pointer',
-    zIndex: 0,
-  },
-  card: {
-    position: 'relative',
-    zIndex: 1,
-    width: '100%',
-    maxWidth: '420px',
-    background: 'var(--pk-bg, #fff)',
-    color: 'var(--pk-ink, #1a1340)',
-    borderRadius: 'var(--pk-radius, 18px)',
-    padding: '36px 28px 28px',
-    boxShadow: '0 24px 60px rgba(20, 16, 45, 0.28)',
-    textAlign: 'center',
-  },
-  close: {
-    position: 'absolute',
-    top: '10px',
-    right: '14px',
-    border: 'none',
-    background: 'transparent',
-    fontSize: '26px',
-    lineHeight: 1,
-    cursor: 'pointer',
-    color: 'inherit',
-    opacity: 0.6,
-  },
-  h2: {margin: '0 0 10px', fontSize: '24px', fontWeight: 700},
-  p: {margin: '0 0 18px', fontSize: '15px', lineHeight: 1.5, opacity: 0.85},
-  form: {display: 'flex', flexDirection: 'column', gap: '10px'},
-  input: {
-    width: '100%',
-    padding: '13px 14px',
-    fontSize: '15px',
-    borderRadius: '12px',
-    border: '1px solid rgba(20,16,45,0.18)',
-    boxSizing: 'border-box',
-  },
-  submit: {
-    width: '100%',
-    padding: '13px 14px',
-    fontSize: '15px',
-    fontWeight: 700,
-    color: '#fff',
-    border: 'none',
-    borderRadius: '12px',
-    cursor: 'pointer',
-    background: 'var(--pk-grad-ember, linear-gradient(135deg,#CC4300 0%,#E05A1A 100%))',
-  },
-  error: {margin: '10px 0 0', color: '#c0392b', fontSize: '13px'},
-  noThanks: {
-    margin: '14px 0 0',
-    border: 'none',
-    background: 'transparent',
-    fontSize: '13px',
-    cursor: 'pointer',
-    color: 'inherit',
-    opacity: 0.55,
-    textDecoration: 'underline',
-  },
-  codeBtn: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    gap: '4px',
-    width: '100%',
-    padding: '14px',
-    fontSize: '22px',
-    fontWeight: 800,
-    letterSpacing: '1px',
-    color: 'var(--pk-ink, #1a1340)',
-    border: '2px dashed rgba(109,76,255,0.6)',
-    borderRadius: '12px',
-    background: 'var(--pk-muted-bg, #E9E6FF)',
-    cursor: 'pointer',
-  },
-  codeHint: {fontSize: '11px', fontWeight: 600, letterSpacing: '0.5px', opacity: 0.7},
-  shopLink: {
-    display: 'inline-block',
-    marginTop: '16px',
-    fontSize: '15px',
-    fontWeight: 700,
-    color: 'var(--pk-ink, #1a1340)',
-  },
-};

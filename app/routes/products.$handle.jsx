@@ -36,12 +36,16 @@ export const meta = ({data, params}) => {
   const productTitle = presentProductTitle(data.product.title);
   const storedDescription = seo.description || '';
   const title = seo.title || `${data.product.title} – Puchica`;
+  // Canada-only store: strip any U.S.-only shipping copy and avoid leaking
+  // "United States" into the Canada-only meta fallback. The regex also catches
+  // any lingering "U.S./United States" mentions so the live description never
+  // contradicts the Canada-only market position.
   const description =
-    (/u\.?s\.? shipping only/i.test(storedDescription)
+    (/u\.?s\.? shipping only|united states/i.test(storedDescription)
       ? ''
       : storedDescription) ||
     (data.product.description || '').slice(0, 160) ||
-    `Shop ${productTitle} from Puchica. Shipping options for Canada and the United States are shown at checkout.`;
+    `Shop ${productTitle} from Puchica. Shipping options for Canada are shown at checkout.`;
   const image = data.product.featuredImage?.url;
   const pathname = `/products/${data.product.handle}`;
   return puchicaMeta({title, description, image, type: 'product', pathname, langKey: params?.locale});
@@ -132,7 +136,7 @@ export default function Product() {
               </>
             ) : null}
             <span className="pk-breadcrumbs__sep">/</span>
-            <span className="pk-breadcrumbs__current">{displayTitle}</span>
+            <span className="pk-breadcrumbs__current" aria-current="page">{displayTitle}</span>
           </nav>
 
           <div className="pk-product__top">
@@ -169,7 +173,14 @@ export default function Product() {
             <p className="pk-product__category">{need.label}</p>
           ) : null}
 
-          <h1 className="pk-product__title">{displayTitle}</h1>
+          {/* C3: the page's single <h1> lives in the mobile heading (the
+              container that is visible under Google's mobile-first index
+              and to the larger mobile screen-reader population). This
+              desktop mirror is a non-heading element hidden from AT so
+              the page announces exactly one level-1 heading. Do NOT put
+              aria-hidden on an <h1>; the duplicate is demoted to a <div>
+              instead. */}
+          <div className="pk-product__title" aria-hidden="true">{displayTitle}</div>
 
           {reviews && reviews.count > 0 ? (
             <ReviewStars rating={reviews.rating} count={reviews.count} />
@@ -341,11 +352,11 @@ function Shipping({t}) {
   const helpParts = helpBody.split(contactLinkText);
   return (
     <div className="pk-pdetails__shipping">
-      <h4>{t('product_shipping_h')}</h4>
+      <h3>{t('product_shipping_h')}</h3>
       <p>{t('product_shipping_body')}</p>
-      <h4>{t('product_returns_h')}</h4>
+      <h3>{t('product_returns_h')}</h3>
       <p>{t('product_returns_body')}</p>
-      <h4>{t('product_help_h')}</h4>
+      <h3>{t('product_help_h')}</h3>
       <p>
         {helpParts[0]}
         <Link to="/pages/contact">{contactLinkText}</Link>

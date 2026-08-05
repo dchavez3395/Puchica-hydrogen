@@ -1,5 +1,5 @@
 import {redirect} from 'react-router';
-import {CHECKOUT_URL_REWRITER} from '~/lib/checkout';
+import {CHECKOUT_URL_REWRITER, buildCheckoutRewriteOptions} from '~/lib/checkout';
 import {
   assertLaunchReadyLines,
   parseCartPermalinkLines,
@@ -59,10 +59,10 @@ export async function loader({request, context, params}) {
 
   // redirect to checkout
   if (cartResult.checkoutUrl) {
-    const checkoutUrl = CHECKOUT_URL_REWRITER(cartResult.checkoutUrl, {
-      ...storefront.i18n,
-      checkoutDomain: context.env.PUBLIC_CHECKOUT_DOMAIN,
-    });
+    const checkoutUrl = CHECKOUT_URL_REWRITER(
+      cartResult.checkoutUrl,
+      buildCheckoutRewriteOptions(cartResult, storefront, context.env),
+    );
     if (!checkoutUrl) {
       throw new Response('Checkout temporarily unavailable.', {status: 503});
     }

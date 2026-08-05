@@ -2,13 +2,12 @@ import {useLoaderData, data} from 'react-router';
 import {Analytics, CartForm} from '@shopify/hydrogen';
 import {CartMain} from '~/components/CartMain';
 import {puchicaMeta} from '~/lib/seo';
-import {CHECKOUT_URL_REWRITER} from '~/lib/checkout';
+import {CHECKOUT_URL_REWRITER, buildCheckoutRewriteOptions} from '~/lib/checkout';
 import {useT} from '~/lib/t';
 import {assertLaunchReadyLines, safeInternalRedirect} from '~/lib/cart-safety';
 import {
   cartBuyerCountryNeedsSync,
   cartBuyerCountrySyncFailed,
-  cartCheckoutCountry,
   resolveCartBuyerCountry,
 } from '~/lib/cart-market';
 
@@ -150,15 +149,10 @@ export async function action({request, context}) {
   // app/lib/checkout.js (the other is CartSummary, which also rewrites
   // the same field for the drawer view).
   if (cartResult && cartResult.checkoutUrl) {
-    const checkoutCountry = cartCheckoutCountry(
-      cartResult,
-      storefront.i18n.country,
+    cartResult.checkoutUrl = CHECKOUT_URL_REWRITER(
+      cartResult.checkoutUrl,
+      buildCheckoutRewriteOptions(cartResult, storefront, context.env),
     );
-    cartResult.checkoutUrl = CHECKOUT_URL_REWRITER(cartResult.checkoutUrl, {
-      language: storefront.i18n.language,
-      country: checkoutCountry,
-      checkoutDomain: context.env.PUBLIC_CHECKOUT_DOMAIN,
-    });
   }
 
   const redirectTo = safeInternalRedirect(formData.get('redirectTo'));

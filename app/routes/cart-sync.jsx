@@ -1,4 +1,4 @@
-import {CHECKOUT_URL_REWRITER} from '~/lib/checkout';
+import {CHECKOUT_URL_REWRITER, buildCheckoutRewriteOptions} from '~/lib/checkout';
 
 /**
  * Plain JSON cart endpoint for browser-side drawer refreshes.
@@ -13,10 +13,10 @@ import {CHECKOUT_URL_REWRITER} from '~/lib/checkout';
 export async function loader({context}) {
   const cart = await context.cart.get();
   if (cart?.checkoutUrl) {
-    cart.checkoutUrl = CHECKOUT_URL_REWRITER(cart.checkoutUrl, {
-      ...context.storefront.i18n,
-      checkoutDomain: context.env.PUBLIC_CHECKOUT_DOMAIN,
-    });
+    cart.checkoutUrl = CHECKOUT_URL_REWRITER(
+      cart.checkoutUrl,
+      buildCheckoutRewriteOptions(cart, context.storefront, context.env),
+    );
   }
 
   return Response.json(cart ?? null, {

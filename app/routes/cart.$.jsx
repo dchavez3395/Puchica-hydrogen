@@ -1,5 +1,5 @@
 import {redirect} from 'react-router';
-import {CHECKOUT_URL_REWRITER} from '~/lib/checkout';
+import {CHECKOUT_URL_REWRITER, buildCheckoutRewriteOptions} from '~/lib/checkout';
 import {warn} from '~/lib/logger';
 
 /**
@@ -88,10 +88,10 @@ export async function loader({request, context, params}) {
   // Mirror the source query string (key, _s, _y, discount, etc.).
   permalinkUrl.search = incoming.search;
 
-  const rewritten = CHECKOUT_URL_REWRITER(permalinkUrl.toString(), {
-    ...context.storefront.i18n,
-    checkoutDomain: context.env.PUBLIC_CHECKOUT_DOMAIN,
-  });
+  const rewritten = CHECKOUT_URL_REWRITER(
+    permalinkUrl.toString(),
+    buildCheckoutRewriteOptions(null, context.storefront, context.env),
+  );
 
   if (!rewritten || rewritten === permalinkUrl.toString()) {
     // Rewriter bailed — drift, unknown shape, or missing env. Don't
