@@ -6,13 +6,40 @@ import {useT} from '~/lib/t';
 /**
  * @type {Route.MetaFunction}
  */
-export const meta = ({params}) => {
-  return puchicaMeta({
+// Localized strings for the policies index page. <body> is admin-side,
+// so we localize the chrome (page title, description) per locale.
+const POLICIES_INDEX_SEO = {
+  en: {
     title: 'Policies – Puchica',
     description:
       'Read Puchica policies covering shipping, returns, privacy, and terms of service.',
+  },
+  fr: {
+    title: 'Politiques – Puchica',
+    description:
+      'Consultez les politiques de Puchica : livraison, retours, confidentialité et conditions d’utilisation.',
+  },
+  es: {
+    title: 'Políticas – Puchica',
+    description:
+      'Consulta las políticas de Puchica: envío, devoluciones, privacidad y términos del servicio.',
+  },
+  'pt-br': {
+    title: 'Políticas – Puchica',
+    description:
+      'Consulte as políticas da Puchica: envios, devoluções, privacidade e termos de serviço.',
+  },
+};
+
+export const meta = ({matches, params}) => {
+  const root = matches?.find((m) => m?.id === 'root')?.data;
+  const lang = root?.selectedLocale?.language || params?.locale || 'en';
+  const seo = POLICIES_INDEX_SEO[lang] || POLICIES_INDEX_SEO.en;
+  return puchicaMeta({
+    title: seo.title,
+    description: seo.description,
     pathname: '/policies',
-    langKey: params?.locale,
+    langKey: lang,
   });
 };
 
