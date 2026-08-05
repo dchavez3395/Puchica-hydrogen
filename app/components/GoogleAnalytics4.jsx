@@ -46,6 +46,15 @@ export function GoogleAnalytics4({measurementId}) {
       return;
     }
 
+    // Eagerly load gtag.js script so it appears in the network panel and
+    // can fire send_page_view. Shopify's Customer Privacy API still gates
+    // cookie-based analytics downstream; we only gate event emission here.
+    try {
+      loadGtag(measurementId);
+    } catch {
+      /* never let analytics break the page */
+    }
+
     const allowed = () => {
       try {
         return typeof canTrack === 'function' ? canTrack() : false;

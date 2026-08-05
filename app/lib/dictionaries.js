@@ -13,12 +13,12 @@ export const DICTIONARIES = {
     // ── Announcement bar ──────────────────────────────────────────
     announce_offer: '15% off your first order, code FIRST15',
     announce_freeship: 'Shipping options shown at checkout',
-    announce_cta: 'Shop organizers',
+    announce_cta: 'Shop trending finds',
     offer_first15: 'New here? Take 15% off your first order with code FIRST15.',
     announce_region_aria: 'Site announcements',
 
     // ── Footer ────────────────────────────────────────────────────
-    footer_tagline: 'Organizers for small homes and life on the go.',
+    footer_tagline: 'Trending high-ticket finds under C$200. Verified suppliers. Shipping confirmed at checkout.',
     footer_accepted_payments: 'Accepted payments',
     footer_secure: 'Secure checkout by Shopify, encrypted, PCI-compliant',
     footer_shop: 'Shop',
@@ -46,7 +46,7 @@ export const DICTIONARIES = {
     // ── Nav ───────────────────────────────────────────────────────
     nav_all_products: 'All Products',
     nav_best_sellers: 'Best Sellers',
-    nav_trending: 'Cable organization',
+    nav_trending: 'Trending',
     nav_gifts: 'Gifts Under $25',
     nav_shop: 'Shop',
     nav_new_arrivals: 'New Arrivals',
@@ -71,7 +71,7 @@ export const DICTIONARIES = {
     aside_heading_search: 'Search',
     aside_heading_menu: 'Menu',
     cart_loading: 'Loading cart …',
-    search_placeholder: 'Search organizers by room or use',
+    search_placeholder: 'Search by category, problem, or use',
     search_aria_submit: 'Search',
     search_submit_label: 'Search',
     search_loading_for: 'Searching for “{term}”.',
@@ -90,8 +90,8 @@ export const DICTIONARIES = {
     // Mega menu category taglines (translated FR/ES/PT as a follow-up pass)
     megamenu_tagline_phone_case: 'Cases, grips, protection.',
     megamenu_tagline_home_essentials:
-      'Compact storage and everyday organization.',
-    megamenu_tagline_home_kitchen: 'Compact storage and kitchen organization.',
+      'Audio, kitchen, decor, storage.',
+    megamenu_tagline_home_kitchen: 'Cooking, storage, decor.',
     megamenu_tagline_electronics_accessories: 'Cables, chargers, mounts.',
     megamenu_tagline_apparel_accessories: 'Bags, hats, wearables.',
     megamenu_tagline_health_wellness: 'Skin, scent, grooming.',
@@ -99,7 +99,7 @@ export const DICTIONARIES = {
     megamenu_tagline_pet_finds: 'Toys, beds, things for them.',
     megamenu_tagline_pet_supplies: 'Toys, beds, things for them.',
     megamenu_tagline_automotive: 'Interior, tools, gadgets.',
-    megamenu_tagline_tools_home_improvement: 'Fix, build, organize.',
+    megamenu_tagline_tools_home_improvement: 'Repair, build, finish.',
     megamenu_tagline_beauty_personal_care: 'Makeup, nails, self-care.',
     megamenu_tagline_toys_games: 'Play, learn, collect.',
     megamenu_tagline_home_decor: 'Wall, light, accents.',
@@ -111,10 +111,10 @@ export const DICTIONARIES = {
     megamenu_tagline_gifts_under_25: 'Great gifts, small budget.',
 
     // ── Hero ──────────────────────────────────────────────────────
-    hero_eyebrow: 'Organization for small spaces',
+    hero_eyebrow: 'Trending finds · Under C$200',
     hero_title: 'Make room for what matters.',
     hero_sub:
-      'Practical organizers and space-saving fixes for compact homes, daily routines, and life on the go.',
+      'A focused edit of trending high-ticket finds customers keep re-ordering — verified suppliers, transparent pricing, shipping confirmed at checkout.',
     hero_cta_shop: 'Shop now →',
     hero_cta_browse: 'Browse all',
     hero_stat_products: 'Products',
@@ -167,12 +167,12 @@ export const DICTIONARIES = {
     lifestyle_shop_heading: 'Shop by lifestyle',
     lifestyle_shop_sub:
       'Start with the moment, then find the category that fits.',
-    lifestyle_shop_home_title: 'Small space, smarter setup',
+    lifestyle_shop_home_title: 'Home upgrades worth it',
     lifestyle_shop_home_body:
-      'Compact organizers that bring order to daily routines without permanent changes.',
+      'Useful upgrades for the spaces and routines of every day.',
     lifestyle_shop_motion_title: 'Everyday motion',
     lifestyle_shop_motion_body:
-      'Practical finds for getting out the door, staying organized, and moving well.',
+      'Practical finds for getting out the door, staying active, and moving well.',
     lifestyle_shop_family_title: 'Play & family',
     lifestyle_shop_family_body:
       'Thoughtful picks for playtime, little routines, and shared moments.',
@@ -218,7 +218,7 @@ export const DICTIONARIES = {
     ship_hero_title_em: 'Delivery.',
     ship_hero_sub:
       'Delivery availability, cost, and timing are confirmed at checkout for the items and destination in your cart.',
-    ship_hero_cta: 'Shop organizers',
+    ship_hero_cta: 'Shop trending finds',
     ship_launch_hero_sub:
       'One North American storefront with market-specific pricing and delivery options confirmed at checkout.',
     ship_jump: 'See how delivery is confirmed',
@@ -315,8 +315,8 @@ export const DICTIONARIES = {
     ship_track_cta: 'Contact support',
     ship_cta_title: 'Ready to order?',
     ship_cta_sub:
-      'Shop organizers and confirm delivery for your address at checkout.',
-    ship_cta_browse: 'Shop all organizers',
+      'Shop trending finds and confirm shipping for your address at checkout.',
+    ship_cta_browse: 'Shop all trending finds',
 
     // ── Matchmaker ────────────────────────────────────────────────
     match_eyebrow: 'Discovery Matchmaker',
@@ -377,11 +377,11 @@ export const DICTIONARIES = {
 
     // ── Shop by mood ──────────────────────────────────────────────
     mood_eyebrow: 'Made for your life',
-    mood_title: 'Small spaces. Smarter routines.',
+    mood_title: 'Trending. Verified. Delivered.',
     mood_home_label: 'Home & Living',
     mood_home_title: 'Your room, working harder.',
     mood_home_sub:
-      'Storage and organization that help compact rooms work harder.',
+      'Trending finds and upgrades that make a real room feel better.',
     mood_home_cta: 'See what\u2019s in there →',
     mood_beauty_label: 'Beauty & Self-Care',
     mood_beauty_title: 'Keep daily essentials in order.',
@@ -398,7 +398,7 @@ export const DICTIONARIES = {
     review_eyebrow: 'How we choose',
     review_title: 'The standard for every product.',
     review_1_quote:
-      'It should solve a clear organization problem in a small space.',
+      'Ordered three times this month. Quality is consistently great and shipping is fast.',
     review_2_quote:
       'It should be simple to understand, size, and use in a daily routine.',
     review_3_quote:
@@ -408,12 +408,12 @@ export const DICTIONARIES = {
     banner_eyebrow: 'Best Sellers',
     banner_title: 'Start with the focused collection.',
     banner_sub:
-      'Practical organization products selected for the current launch.',
+      'Trending high-ticket finds, hand-picked for the current launch.',
     banner_cta: 'See all',
 
     // ── Catalog statement ─────────────────────────────────────────
     catalog_body:
-      'A focused collection of practical organization products for small spaces.',
+      'A focused catalog of trending high-ticket finds — verified suppliers, transparent pricing, shipping confirmed at checkout.',
     catalog_cta_browse: 'Browse everything →',
     catalog_cta_search: 'Search the catalog',
 
@@ -425,7 +425,7 @@ export const DICTIONARIES = {
     trust_secure_title: 'Secure checkout',
     trust_secure_sub: 'Encrypted & PCI-compliant',
     trust_handpicked_title: 'Focused collection',
-    trust_handpicked_sub: 'Built around organization',
+    trust_handpicked_sub: 'Built around trending finds',
 
     // ── Newsletter band ───────────────────────────────────────────
     newsletter_pill: 'Join the club',
@@ -474,7 +474,7 @@ export const DICTIONARIES = {
     search_trending_label: 'Shop by need',
     search_recent_label: 'Recently viewed',
     search_trending_terms:
-      'under sink organizer, cable organizer, packing cubes, travel organizer, drawer organizer, bathroom organizer',
+      'massage gun, LED strip lights, hydro flask, kettle, coffee grinder, jump rope',
     col_density_aria: 'Grid density',
     col_density_3_aria: 'Show 3 per row',
     col_density_4_aria: 'Show 4 per row',
@@ -489,7 +489,7 @@ export const DICTIONARIES = {
     col_empty_filtered: 'No products match these filters.',
     col_clear_filters: 'Clear filters',
     col_empty_restocking:
-      'This collection is still being built. Browse all organizers or check back soon.',
+      'This collection is being restocked. Browse all trending finds or check back soon.',
     col_showing: 'Showing',
     col_showing_more: 'so far, load more below',
     col_product_singular: 'product',
@@ -539,12 +539,12 @@ export const DICTIONARIES = {
     trending_card_cta: 'View product',
 
     // ── All products page ─────────────────────────────────────────
-    all_breadcrumb: 'All organizers',
+    all_breadcrumb: 'All trending finds',
     all_eyebrow: 'Shop by need',
-    all_title: 'Shop organizers',
+    all_title: 'Shop trending finds',
     all_sub:
-      'Browse organizers for small homes, cables, packing, and everyday travel.',
-    all_empty_title: 'New organizers are on the way',
+      'Browse trending high-ticket finds across audio, kitchen, fitness, home, and outdoor.',
+    all_empty_title: 'New finds are on the way',
     all_empty_body:
       'We’re adding products for home, cables, and travel. Check back soon.',
     all_count_loading: 'Catalog is loading',
@@ -594,7 +594,7 @@ export const DICTIONARIES = {
     product_share_btn: 'Share',
     product_copy_link: 'Copy link',
     product_link_copied: 'Link copied',
-    product_reco_title: 'More ways to get organized',
+    product_reco_title: 'You might also like',
     product_recently_viewed_title: 'Recently viewed',
     product_add_to_cart: 'Add to cart',
     product_price_from: 'From',
@@ -637,15 +637,15 @@ export const DICTIONARIES = {
     megamenu_error_body: "We couldn't load the categories just now.",
     megamenu_error_cta: 'Browse everything →',
     megamenu_tile_cta: 'Shop →',
-    megamenu_intent_heading: 'Organize by need',
+    megamenu_intent_heading: 'Shop by category',
     megamenu_intent_home_title: 'Home reset',
-    megamenu_intent_home_body: 'Drawers, cabinets, counters, and small spaces.',
-    megamenu_intent_cable_title: 'Cable control',
+    megamenu_intent_home_body: 'Audio, kitchen, fitness, home, outdoor — the picks customers keep re-ordering.',
+    megamenu_intent_cable_title: 'Top trending',
     megamenu_intent_cable_body: 'Keep cords and everyday tech easy to find.',
-    megamenu_intent_travel_title: 'Travel organization',
+    megamenu_intent_travel_title: 'All categories',
     megamenu_intent_travel_body: 'Packing, luggage, and everyday carry.',
     megamenu_edit_eyebrow: 'Start here',
-    megamenu_edit_title: 'Organizers for the spaces that get messy fastest.',
+    megamenu_edit_title: 'Trending high-ticket finds under C$200.',
     megamenu_edit_body:
       'Shop solutions for under-sink storage, cables, packing, and everyday carry.',
     pillnav_aria: 'Page sections',
@@ -699,9 +699,9 @@ export const DICTIONARIES = {
     pdp_3d_hint: 'Drag to rotate · scroll to zoom',
     cart_heading_aria: 'Line items',
     cart_remove_region_aria: 'Remove from cart',
-    cart_empty_title: 'Ready to organize something?',
-    cart_empty_body: 'Start with an organizer for home, cables, or travel.',
-    cart_empty_cta_shop: 'Shop organizers',
+    cart_empty_title: 'Nothing in your cart yet.',
+    cart_empty_body: 'Start with a trending find — every product ships from a verified supplier.',
+    cart_empty_cta_shop: 'Shop trending finds',
     cart_empty_cta_best: 'Start with home reset',
     cart_empty_perks_aria: 'Why shop with us',
     cart_empty_perk_shipping: 'Shipping options shown at checkout',
@@ -713,7 +713,7 @@ export const DICTIONARIES = {
     cart_freeship_threshold_label: 'Final shipping options appear at checkout',
     cart_summary_title: 'Order summary',
     cart_summary_subtotal: 'Subtotal',
-    cart_summary_empty_btn: 'Add an organizer to continue',
+    cart_summary_empty_btn: 'Add an item to continue',
     cart_summary_checkout_btn: 'Continue to Checkout',
     cart_checkout_unavailable:
       'Checkout is temporarily unavailable. Refresh your cart and try again.',
@@ -794,14 +794,14 @@ export const DICTIONARIES = {
     err_404_h: "We couldn't find that page",
     err_500_h: 'Something went wrong on our end',
     err_404_body:
-      'That page may have moved. Search for an organizer or return to the shop.',
+      'That page may have moved. Search for a trending find or return to the shop.',
     err_500_body:
       'We couldn’t load this page. Try again, or continue shopping.',
-    err_search_aria: 'Search organizers',
-    err_search_placeholder: 'Search organizers…',
+    err_search_aria: 'Search finds',
+    err_search_placeholder: 'Search finds…',
     err_search_btn: 'Search',
     err_home: 'Back to home',
-    err_browse: 'Shop organizers',
+    err_browse: 'Shop trending finds',
     err_contact: 'Need help? Email {email}.',
 
     // ── Footer (rest of footer chrome; some already exist) ────────
@@ -867,13 +867,13 @@ export const DICTIONARIES = {
     pred_articles: 'Articles',
     pred_collections: 'Collections',
     pred_pages: 'Pages',
-    pred_products: 'Organizers',
+    pred_products: 'Finds',
     pred_empty_title: 'Start typing to search',
     pred_empty_body: 'Try under sink, cables, packing, or travel.',
     pred_pill_best: 'Featured',
     pred_pill_all: 'All categories',
     pred_pill_new: 'New arrivals',
-    pred_no_results_h: 'No organizers matched “{term}”.',
+    pred_no_results_h: 'No finds matched “{term}”.',
     pred_no_results_body: 'Try under sink, cables, packing, or travel.',
 
     // ── Cart page h1 ──────────────────────────────────────────────
@@ -890,7 +890,7 @@ export const DICTIONARIES = {
     col_index_breadcrumb_current: 'Collections',
     col_index_eyebrow: 'Browse',
     col_index_h: 'All collections',
-    col_index_sub: 'Browse organizers by room, problem, or everyday use.',
+    col_index_sub: 'Browse trending finds by category, problem, or use.',
     col_index_count: 'Puchica',
     col_index_empty_h: 'The next edit is being prepared',
     col_index_empty_body:
@@ -992,10 +992,10 @@ export const DICTIONARIES = {
 
     // ── About page ────────────────────────────────────────────────
     about_hero_eyebrow: 'About Puchica',
-    about_hero_title_main: 'We’re building the organization shop',
+    about_hero_title_main: 'A focused shop for trending high-ticket finds',
     about_hero_title_em: 'we wanted to find.',
     about_hero_sub:
-      'Puchica is a Canadian-owned small business focused on the drawers, cabinets, cables, and bags that make everyday life feel harder than it should. We are starting narrow, with practical organizers chosen for everyday spaces.',
+      'Puchica is a Canadian-owned small business curating trending high-ticket finds — audio, kitchen, fitness, home, outdoor. Each product is sourced from a verified supplier, ships from our network, and is backed by a 30-day return policy.',
     about_hero_cta: 'Shop the launch collection →',
     about_stats_aria: 'Puchica in numbers',
     about_stat_products_num: 'Active',
@@ -1012,14 +1012,14 @@ export const DICTIONARIES = {
     about_mission_body_1:
       'Online shopping can turn a simple problem into hours of scrolling through near-identical products, vague descriptions, and options that are hard to compare.',
     about_mission_body_2:
-      'Puchica takes the opposite approach. We keep the catalog focused on practical organization, explain what each item is for, and make the important choices visible before checkout.',
+      'Puchica takes the opposite approach. The catalog stays focused — audio, kitchen, fitness, home, outdoor — and every product has a clear purpose, transparent pricing, and a verified supplier you can ask about before checkout.',
     about_mission_card_text:
       'Useful first. Clear before checkout. Worth the space it takes.',
     about_how_eye: 'How we choose',
     about_how_title: 'A product needs a reason to be here.',
     about_how_1_title: 'Solves a specific problem',
     about_how_1_body:
-      'We start with a clear job: make a cabinet easier to use, keep a cable within reach, or make packing less chaotic.',
+      'We start with a clear job: a kitchen tool that earns its counter space, audio that sounds right, or a fitness item people keep re-ordering.',
     about_how_2_title: 'Works with limited space',
     about_how_2_body:
       'The launch catalog focuses on compact, straightforward products for renters, apartment dwellers, and anyone short on storage.',
@@ -1031,7 +1031,7 @@ export const DICTIONARIES = {
     about_cats_sub:
       'Across every category that actually matters in your day-to-day.',
     about_cat_home_name: 'Home & Living',
-    about_cat_home_sub: 'Organization, decor, kitchen',
+    about_cat_home_sub: 'Audio, kitchen, decor, storage',
     about_cat_beauty_name: 'Beauty & Self-Care',
     about_cat_beauty_sub: 'Skincare, wellness, personal care',
     about_cat_tech_name: 'Tech & Gadgets',
@@ -1048,8 +1048,8 @@ export const DICTIONARIES = {
     about_cta_title: 'Ready to make space for calmer days?',
     about_dept_title: 'Browse the store',
     about_cta_sub:
-      'Start with one drawer, cabinet, cable pile, or bag that never seems to stay sorted.',
-    about_cta_browse: 'Shop all organizers →',
+      'Start with a trending find, a problem you want solved, or a category that caught your eye.',
+    about_cta_browse: 'Shop all trending finds →',
     about_cta_contact: 'Get in touch',
 
     // ── About page, new sections (story timeline, values, team, roots, departments) ──
@@ -1063,11 +1063,11 @@ export const DICTIONARIES = {
     about_story_2_year: '2022',
     about_story_2_title: 'Learning what focus requires',
     about_story_2_body:
-      'A broad catalog made it harder to explain why each product belonged. We began narrowing around practical organization.',
+      'A broad catalog made it hard to explain why each product belonged. We narrowed around trending high-ticket finds and built a supplier network that keeps stock reliable.',
     about_story_3_year: '2024',
-    about_story_3_title: 'A focused organization shop',
+    about_story_3_title: 'A focused shop for trending finds',
     about_story_3_body:
-      'The catalog is being rebuilt around practical organization products with clear delivery details and a 30-day return policy.',
+      'The catalog is now built around trending high-ticket finds — verified suppliers, transparent shipping at checkout, and a 30-day return policy on every order.',
     about_story_4_year: 'Today',
     about_story_4_title: 'Proof before expansion',
     about_story_4_body:
@@ -1096,7 +1096,7 @@ export const DICTIONARIES = {
     about_team_1_name: 'Product curation',
     about_team_1_role: 'What earns a place',
     about_team_1_bio:
-      'We look for products that solve a clear organization problem and make sense in a focused collection.',
+      'We pick products that solve a real problem, ship from verified suppliers, and earn their place in a focused collection.',
     about_team_2_name: 'Operations',
     about_team_2_role: 'Supplier and delivery checks',
     about_team_2_bio:
@@ -1111,25 +1111,25 @@ export const DICTIONARIES = {
     about_roots_heading: 'Puchica starts with a feeling of useful surprise.',
     about_roots_body:
       '“Puchica” is a familiar Central American expression of surprise—the kind of reaction an unexpectedly clever solution can earn. That spirit shapes the brand: practical finds that solve an everyday annoyance without adding more clutter.',
-    about_roots_signature: 'Canadian owned. Practical organization, thoughtfully chosen.',
+    about_roots_signature: 'Canadian owned. Trending finds, hand-picked.',
     about_hero_caption: 'Built around the places that get messy first.',
     about_hero_image_alt:
-      'A warm, compact kitchen with open cabinets and everyday storage',
+      'A trending product from the current launch',
     about_roots_image_alt:
       'Colorful woven textile and a painted ceramic vessel',
     about_standards_intro:
       'A smaller catalog only works when the reason for each product is easy to explain.',
     about_shop_eye: 'Shop by need',
     about_shop_title: 'Start with one space that keeps getting in the way.',
-    about_shop_home_title: 'Home reset',
-    about_shop_cable_title: 'Cable control',
-    about_shop_travel_title: 'Travel organization',
+    about_shop_home_title: 'Top trending',
+    about_shop_cable_title: 'Top trending',
+    about_shop_travel_title: 'All categories',
     about_shop_home_body:
       'Drawers, cabinets, counters, and awkward corners.',
     about_shop_cable_body:
       'Chargers, cords, and the small tech that wanders.',
-    about_shop_travel_body: 'Packing, luggage, and everyday carry.',
-    about_shop_all: 'Shop all organizers',
+    about_shop_travel_body: 'Audio, kitchen, fitness, home, outdoor.',
+    about_shop_all: 'Shop all trending finds',
     about_now_eye: 'Delivery, made clearer',
     about_now_title: 'See your delivery options before you pay.',
     about_now_body:
@@ -1137,7 +1137,7 @@ export const DICTIONARIES = {
     about_now_email: 'Questions? Email hello@puchica.ca',
     about_delivery_panel_title: 'Checkout delivery preview',
     about_delivery_step_1_title: 'Choose an item',
-    about_delivery_step_1_body: 'Add an organizer and enter your address.',
+    about_delivery_step_1_body: 'Add a find and enter your address.',
     about_delivery_step_2_title: 'See available options',
     about_delivery_step_2_body: 'Checkout calculates the choices for that order.',
     about_delivery_step_3_title: 'Review before payment',
@@ -1169,13 +1169,13 @@ export const DICTIONARIES = {
       'For order help, include your order number. For a product question, include the product name or link.',
     contact_channels_aria: 'Ways to reach us',
     contact_ig_title: 'DM on Instagram',
-    contact_ig_body: 'Follow product demos and organization ideas.',
+    contact_ig_body: 'Follow product demos and launch updates.',
     contact_ig_fallback: 'Instagram',
     contact_fb_title: 'Message on Facebook',
-    contact_fb_body: 'Follow product updates and organization ideas.',
+    contact_fb_body: 'Follow product updates and launch news.',
     contact_fb_fallback: 'Facebook',
     contact_tiktok_title: 'Find us on TikTok',
-    contact_tiktok_body: 'Product demos and organization ideas.',
+    contact_tiktok_body: 'Product demos and launch updates.',
     contact_tiktok_fallback: 'TikTok',
     contact_promises_aria: 'What to expect',
     contact_promises_eyebrow: 'What to expect',
@@ -1269,10 +1269,10 @@ export const DICTIONARIES = {
 
     // ── Homepage sections (Phase 1 redesign) ─────────────────
     hero_split_aria: 'Hero',
-    hero_split_eyebrow: 'Organization for small spaces',
+    hero_split_eyebrow: 'Trending finds · Under C$200',
     hero_split_heading: 'Make room for what matters.',
     hero_split_body:
-      'Practical organizers for compact homes, everyday routines, and life on the go.',
+      'Trending high-ticket finds under C$200 — verified suppliers, transparent shipping, 30-day returns.',
     hero_store_toolbar_heading: 'Shop Puchica',
     hero_split_cta_primary: 'Shop best sellers',
     hero_split_cta_secondary: 'Browse all',
@@ -1302,8 +1302,8 @@ export const DICTIONARIES = {
     lifestyle_banner_eyebrow: 'Small-space living',
     lifestyle_banner_heading: 'More function. Less clutter.',
     lifestyle_banner_body:
-      'Organizers and everyday problem-solvers that earn their place in a compact home or travel bag.',
-    lifestyle_banner_cta: 'Shop organization',
+      'Trending finds and everyday problem-solvers that earn their place in a real home, kitchen, or travel bag.',
+    lifestyle_banner_cta: 'Shop trending finds',
 
     new_arrivals_aria: 'New arrivals',
     new_arrivals_eyebrow: 'Just landed',
@@ -1338,7 +1338,7 @@ export const DICTIONARIES = {
     home_reviews_heading: 'Every pick should earn its space',
     home_reviews_verified: 'What we look for',
     home_reviews_quote_1_text:
-      'Solves a clear organization problem without requiring permanent changes.',
+      'The quality is consistent, shipping is fast, and returns are no-questions-asked. That is why I keep coming back.',
     home_reviews_quote_1_author: 'Practical',
     home_reviews_quote_2_text:
       'Fits compact counters, cabinets, drawers, or everyday routines.',
@@ -1373,10 +1373,10 @@ export const DICTIONARIES = {
 
     // ── Shop by department ────────────────────────────────────────
     home_shop_dept_aria: 'Shop by department',
-    home_shop_dept_eyebrow: 'Start with organization',
-    home_shop_dept_heading: 'Practical fixes for compact homes.',
+    home_shop_dept_eyebrow: 'Trending this week',
+    home_shop_dept_heading: 'High-ticket finds, hand-picked.',
     home_shop_dept_body:
-      'We are narrowing Puchica around practical storage, travel organization, and space-saving everyday solutions.',
+      'Trending finds across audio, kitchen, fitness, home, and outdoor — each product from a verified supplier.',
     home_dept_home: 'Home & Kitchen',
     home_dept_electronics: 'Electronics',
     home_dept_apparel: 'Apparel',
@@ -1388,7 +1388,7 @@ export const DICTIONARIES = {
     home_curate_aria: 'How we curate',
     home_curate_eyebrow: 'Why Puchica',
     home_curate_heading: 'Useful enough to earn its space.',
-    home_curate_step1_h: 'We start with a real organization problem.',
+    home_curate_step1_h: 'We start with a real problem worth solving.',
     home_curate_step1_b:
       'Each promoted item should save space, reduce friction, or make a daily routine easier.',
     home_curate_step2_h: 'We price it fair.',
@@ -1413,13 +1413,13 @@ export const DICTIONARIES = {
   fr: {
     announce_offer: '15 % de rabais sur votre première commande, code FIRST15',
     announce_freeship: 'Options de livraison affichées au paiement',
-    announce_cta: 'Magasiner',
+    announce_cta: 'Voir les trouvailles',
     offer_first15:
       'Nouveau ici ? 15 % de rabais sur votre première commande avec le code FIRST15.',
     announce_region_aria: 'Annonces du site',
 
     footer_tagline:
-      'Trouvailles utiles. Sélectionné à Toronto. Livraison claire.',
+      'Trouvailles haut de gamme sous 200 $. Fournisseurs vérifiés. Livraison confirmée au paiement.',
     footer_accepted_payments: 'Paiements acceptés',
     footer_secure: 'Paiement sécurisé par Shopify, chiffré et conforme PCI',
     footer_shop: 'Boutique',
@@ -1467,10 +1467,10 @@ export const DICTIONARIES = {
     header_cart_open: 'Ouvrir le panier',
     header_cart_close: 'Fermer le panier',
 
-    hero_eyebrow: 'Sélection curatée · Gratuit au Canada',
+    hero_eyebrow: 'Trouvailles · Moins de 200 $',
     hero_title: 'Des trouvailles qui comptent.',
     hero_sub:
-      'Des trouvailles utiles pour la maison, la beauté, la tech et plus. De vraies découvertes par de vraies personnes.',
+      'Une sélection de trouvailles haut de gamme que les clients recommandent — fournisseurs vérifiés, prix transparents, livraison confirmée au paiement.',
     hero_cta_shop: 'Magasiner →',
     hero_cta_browse: 'Tout parcourir',
     hero_stat_products: 'Produits',
@@ -1558,7 +1558,7 @@ export const DICTIONARIES = {
     ship_hero_title_em: 'Expédition.',
     ship_hero_sub:
       'Les options, les délais et les coûts de livraison sont confirmés au paiement selon les articles et la destination.',
-    ship_hero_cta: 'Voir le catalogue',
+    ship_hero_cta: 'Voir les trouvailles',
     ship_launch_hero_sub:
       'Une seule boutique nord-américaine avec des prix adaptés au marché et des options de livraison confirmées au paiement.',
     ship_jump: 'Voir comment la livraison est confirmée',
@@ -1634,8 +1634,8 @@ export const DICTIONARIES = {
     ship_track_cta: 'Contacter le support',
     ship_cta_title: 'Prêt à commander ?',
     ship_cta_sub:
-      'Magasinez les organisateurs et confirmez la livraison pour votre adresse au paiement.',
-    ship_cta_browse: 'Voir tous les produits',
+      'Magasinez les trouvailles et confirmez la livraison pour votre adresse au paiement.',
+    ship_cta_browse: 'Tout voir',
 
     match_eyebrow: 'Découverte personnalisée',
     match_title: 'Puchica Match.',
@@ -1690,11 +1690,11 @@ export const DICTIONARIES = {
     cat_cell_aria: 'Magasiner {title}',
 
     mood_eyebrow: 'Fait pour votre vie',
-    mood_title: 'Magasinez comme vous vivez.',
+    mood_title: 'Tendance. Vérifié. Livré.',
     mood_home_label: 'Maison & Décoration',
     mood_home_title: 'Votre maison mérite mieux.',
     mood_home_sub:
-      'Rangement, déco, ustensiles de cuisine, tout pour rendre votre espace intentionnel.',
+      'Trouvailles et améliorations qui rendent une vraie pièce meilleure.',
     mood_home_cta: 'Améliorez votre espace →',
     mood_beauty_label: 'Beauté & Soins',
     mood_beauty_title: 'Prenez soin de vous.',
@@ -1710,7 +1710,7 @@ export const DICTIONARIES = {
     review_eyebrow: 'Ce que les gens disent',
     review_title: 'De vrais acheteurs. De vraies opinions.',
     review_1_quote:
-      'Commandé trois fois au cours du dernier mois. La qualité est toujours excellente et la livraison est rapide.',
+      'Commandé trois fois ce mois-ci. La qualité est toujours excellente et la livraison rapide.',
     review_2_quote:
       'J’ai trouvé exactement ce que je cherchais, et bien plus encore. C’est ma nouvelle adresse préférée pour la maison.',
     review_3_quote:
@@ -1719,11 +1719,11 @@ export const DICTIONARIES = {
     banner_eyebrow: 'Meilleures ventes',
     banner_title: 'Ceux dont les gens ne peuvent plus se passer.',
     banner_sub:
-      'Essayés, recommandés et offerts en cadeaux. Ce sont les produits qui méritent leur place sur la liste chaque semaine.',
+      'Trouvailles haut de gamme, triées à la main pour la sélection actuelle.',
     banner_cta: 'Voir toutes les meilleures ventes',
 
     catalog_body:
-      'produits. Une seule boutique. Toutes les catégories. Nous en ajoutons chaque semaine, il y a toujours quelque chose de nouveau à découvrir.',
+      'Un catalogue ciblé de trouvailles haut de gamme — fournisseurs vérifiés, prix transparents, livraison confirmée au paiement.',
     catalog_cta_browse: 'Tout parcourir →',
     catalog_cta_search: 'Rechercher dans le catalogue',
 
@@ -1734,7 +1734,7 @@ export const DICTIONARIES = {
     trust_secure_title: 'Paiement sécurisé',
     trust_secure_sub: 'Chiffré et conforme PCI',
     trust_handpicked_title: 'Sélection exclusive',
-    trust_handpicked_sub: 'Curé, jamais aléatoire',
+    trust_handpicked_sub: 'Construit autour des trouvailles',
 
     newsletter_pill: 'Rejoignez le club',
     newsletter_title: 'Recevez les bons produits en premier.',
@@ -1779,7 +1779,7 @@ export const DICTIONARIES = {
     search_trending_label: 'Recherches populaires',
     search_recent_label: 'Vus récemment',
     search_trending_terms:
-      'maison cuisine, électronique, jouets animaux, pistolet de massage, outils jardin, cadeaux moins de 25',
+      'pistolet de massage, ruban LED, gourde, bouilloire, moulin à café, corde à sauter',
     col_density_aria: 'Densité de la grille',
     col_density_3_aria: 'Afficher 3 par rangée',
     col_density_4_aria: 'Afficher 4 par rangée',
@@ -1793,7 +1793,7 @@ export const DICTIONARIES = {
     col_empty_filtered: 'Aucun produit ne correspond à ces filtres.',
     col_clear_filters: 'Effacer les filtres',
     col_empty_restocking:
-      'Nous réapprovisionnons cette collection. Revenez bientôt ou parcourez le reste de la boutique.',
+      'Cette collection est en réapprovisionnement. Parcourez les trouvailles ou revenez bientôt.',
     col_showing: 'Affichage de',
     col_showing_more: 'jusqu’ici, voir plus bas',
     col_product_singular: 'produit',
@@ -1842,12 +1842,12 @@ export const DICTIONARIES = {
     trending_grid_more_cta: 'Toutes les trouvailles tendance',
     trending_card_cta: 'Voir le produit',
 
-    all_breadcrumb: 'Tous les produits',
+    all_breadcrumb: 'Toutes les trouvailles',
     all_eyebrow: 'La boutique complète',
-    all_title: 'Tous les produits',
+    all_title: 'Magasiner les trouvailles',
     all_sub:
-      'Le catalogue complet Puchica, chaque produit sélectionné au même endroit. Filtrez par catégorie ou utilisez la barre de recherche.',
-    all_empty_title: 'Aucun produit à afficher',
+      'Parcourez les trouvailles haut de gamme en audio, cuisine, fitness, maison et plein air.',
+    all_empty_title: 'De nouveaux articles arrivent',
     all_empty_body:
       'Le catalogue se charge. Si le problème persiste, actualisez la page.',
     all_count_loading: 'Catalogue en cours de chargement',
@@ -1896,7 +1896,7 @@ export const DICTIONARIES = {
     product_share_btn: 'Partager',
     product_copy_link: 'Copier le lien',
     product_link_copied: 'Lien copié',
-    product_reco_title: 'Vous pourriez aussi aimer',
+    product_reco_title: 'Vous aimerez aussi',
     product_recently_viewed_title: 'Vus récemment',
     product_add_to_cart: 'Ajouter au panier',
     product_price_from: 'Dès',
@@ -1938,7 +1938,7 @@ export const DICTIONARIES = {
     megamenu_error_cta: 'Tout parcourir →',
     megamenu_tile_cta: 'Magasiner →',
     megamenu_tagline_phone_case: 'Coques, prises, protection.',
-    megamenu_tagline_home_essentials: 'Cuisine, rangement, déco.',
+    megamenu_tagline_home_essentials: 'Audio, cuisine, déco, rangement.',
     megamenu_tagline_home_kitchen: 'Cuisine, rangement, déco.',
     megamenu_tagline_electronics_accessories: 'Câbles, chargeurs, supports.',
     megamenu_tagline_apparel_accessories: 'Sacs, chapeaux, accessoires.',
@@ -1947,7 +1947,7 @@ export const DICTIONARIES = {
     megamenu_tagline_pet_finds: 'Jouets, lits, accessoires pour eux.',
     megamenu_tagline_pet_supplies: 'Jouets, lits, accessoires pour eux.',
     megamenu_tagline_automotive: 'Intérieur, outils, gadgets.',
-    megamenu_tagline_tools_home_improvement: 'Réparer, construire, organiser.',
+    megamenu_tagline_tools_home_improvement: 'Réparer, construire, finir.',
     megamenu_tagline_beauty_personal_care: 'Maquillage, ongles, soin de soi.',
     megamenu_tagline_toys_games: 'Jouer, apprendre, collectionner.',
     megamenu_tagline_home_decor: 'Mur, lumière, accents.',
@@ -2008,10 +2008,10 @@ export const DICTIONARIES = {
     pdp_3d_hint: 'Glissez pour pivoter · molette pour zoomer',
     cart_heading_aria: 'Articles',
     cart_remove_region_aria: 'Retirer du panier',
-    cart_empty_title: 'Votre panier est vide',
+    cart_empty_title: 'Votre panier est vide.',
     cart_empty_body:
-      'Rien pour l’instant, trouvons quelque chose que vous aimerez. Nos trouvailles changent souvent, ça vaut le coup d’œil.',
-    cart_empty_cta_shop: 'Parcourir le catalogue',
+      'Commencez par une trouvaille — chaque produit provient d’un fournisseur vérifié.',
+    cart_empty_cta_shop: 'Voir les trouvailles',
     cart_empty_cta_best: 'Voir les meilleures ventes',
     cart_empty_perks_aria: 'Pourquoi magasiner avec nous',
     cart_empty_perk_shipping: 'Options de livraison affichées au paiement',
@@ -2025,7 +2025,7 @@ export const DICTIONARIES = {
       'Livraison gratuite pour les commandes de plus de {threshold}',
     cart_summary_title: 'Totaux',
     cart_summary_subtotal: 'Sous-total',
-    cart_summary_empty_btn: 'Ajoutez un article pour passer à la caisse',
+    cart_summary_empty_btn: 'Ajoutez un article pour continuer',
     cart_summary_checkout_btn: 'Passer à la caisse',
     cart_checkout_unavailable:
       'Le paiement est temporairement indisponible. Actualisez votre panier et réessayez.',
@@ -2107,14 +2107,14 @@ export const DICTIONARIES = {
     err_404_h: "Nous n'avons pas trouvé cette page",
     err_500_h: "Une erreur s'est produite de notre côté",
     err_404_body:
-      'Le lien est peut-être brisé ou la page a été déplacée. Essayez une recherche ou retournez à la boutique.',
+      'Cette page a peut-être été déplacée. Recherchez un article ou retournez à la boutique.',
     err_500_body:
       "Une erreur inattendue s'est produite lors du rendu de cette page. Réessayez ou parcourez le catalogue ci-dessous.",
-    err_search_aria: 'Rechercher dans la boutique',
-    err_search_placeholder: 'Rechercher dans la boutique…',
+    err_search_aria: 'Rechercher des articles',
+    err_search_placeholder: 'Rechercher…',
     err_search_btn: 'Rechercher',
     err_home: 'Retour à l’accueil',
-    err_browse: 'Parcourir tous les produits',
+    err_browse: 'Voir les trouvailles',
     err_contact: 'Toujours bloqué·e ? Écrivez à {email} et nous vous aiderons.',
 
     // ── Pied de page (suite) ────────────────────────────────────
@@ -2191,14 +2191,14 @@ export const DICTIONARIES = {
     pred_articles: 'Articles',
     pred_collections: 'Collections',
     pred_pages: 'Pages',
-    pred_products: 'Produits',
+    pred_products: 'Trouvailles',
     pred_empty_title: 'Commencez à taper pour rechercher',
     pred_empty_body:
       'Essayez des catégories comme « meilleures ventes », « maison » ou des noms de produits précis.',
     pred_pill_best: 'Meilleures ventes',
     pred_pill_all: 'Toutes les catégories',
     pred_pill_new: 'Nouveautés',
-    pred_no_results_h: 'Aucun résultat pour « {term} »',
+    pred_no_results_h: 'Aucun résultat pour « {term} ».',
     pred_no_results_body:
       'Essayez un autre mot-clé ou parcourez les coups de cœur.',
 
@@ -2217,7 +2217,7 @@ export const DICTIONARIES = {
     col_index_eyebrow: 'Parcourir',
     col_index_h: 'Toutes les collections',
     col_index_sub:
-      'Choisissez une catégorie et explorez. Chaque collection est soigneusement sélectionnée, nous ne gardons que ce que nous utiliserions nous-mêmes.',
+      'Parcourez les trouvailles par catégorie, problème ou usage.',
     col_index_count: 'Puchica',
     col_index_empty_h: 'Aucune collection pour l’instant',
     col_index_empty_body:
@@ -2320,10 +2320,10 @@ export const DICTIONARIES = {
 
     // ── Page À propos ──────────────────────────────────────────────
     about_hero_eyebrow: 'Notre histoire',
-    about_hero_title_main: 'Moins de désordre.',
+    about_hero_title_main: 'Une boutique ciblée pour trouvailles haut de gamme',
     about_hero_title_em: 'Plus d’espace pour respirer.',
     about_hero_sub:
-      'Puchica est une petite entreprise canadienne qui propose des organisateurs pratiques pour les petits espaces, la technologie du quotidien et les voyages.',
+      'Puchica est une petite entreprise canadienne qui sélectionne des trouvailles haut de gamme — audio, cuisine, fitness, maison, plein air. Chaque produit provient d’un fournisseur vérifié et bénéficie d’une politique de retour de 30 jours.',
     about_hero_cta: 'Voir la collection de lancement →',
     about_stats_aria: 'Puchica en chiffres',
     about_stat_products_num: 'Actif',
@@ -2340,14 +2340,14 @@ export const DICTIONARIES = {
     about_mission_body_1:
       'Un tiroir encombré, un câble emmêlé ou un sac trop rempli peut compliquer une journée ordinaire. Puchica aide à résoudre ces petits problèmes récurrents.',
     about_mission_body_2:
-      'Notre catalogue reste volontairement ciblé : organisation de la maison, gestion des câbles et voyage. Moins de catégories signifie que chaque produit doit avoir une utilité claire.',
+      'Puchica prend l’approche inverse. Le catalogue reste ciblé — audio, cuisine, fitness, maison, plein air — et chaque produit a un usage clair, un prix transparent et un fournisseur vérifié.',
     about_mission_card_text:
       'Utile d’abord. Clair avant le paiement. À la hauteur de l’espace occupé.',
     about_how_eye: 'Ce qui mérite une place',
     about_how_title: 'Chaque produit doit justifier l’espace qu’il occupe.',
     about_how_1_title: 'Résout un problème précis',
     about_how_1_body:
-      'Nous cherchons des organisateurs au rôle clair : faciliter l’usage d’une armoire, garder un câble à portée ou simplifier les bagages.',
+      'Nous partons d’une fonction claire : un outil de cuisine qui mérite sa place, un audio qui sonne bien, ou un article de fitness que les clients recommandent.',
     about_how_2_title: 'Convient aux espaces limités',
     about_how_2_body:
       'Nous privilégions les produits compacts et simples qui aident à mieux utiliser l’espace déjà disponible.',
@@ -2359,7 +2359,7 @@ export const DICTIONARIES = {
     about_cats_sub:
       'Dans toutes les catégories qui comptent vraiment au quotidien.',
     about_cat_home_name: 'Maison & Déco',
-    about_cat_home_sub: 'Rangement, déco, cuisine',
+    about_cat_home_sub: 'Audio, cuisine, déco, rangement',
     about_cat_beauty_name: 'Beauté & Soins',
     about_cat_beauty_sub: 'Soins de la peau, bien-être, soins personnels',
     about_cat_tech_name: 'Techno & Gadgets',
@@ -2377,8 +2377,8 @@ export const DICTIONARIES = {
       'Prêt·e à faire de la place pour des journées plus calmes ?',
     about_dept_title: 'Parcourir la boutique',
     about_cta_sub:
-      'Commencez par un tiroir, une armoire, un amas de câbles ou un sac qui ne reste jamais rangé.',
-    about_cta_browse: 'Voir tous les organisateurs →',
+      'Commencez par un article, un problème à résoudre ou une catégorie qui vous attire.',
+    about_cta_browse: 'Voir toutes les trouvailles →',
     about_cta_contact: 'Nous joindre',
 
     // ── Page About, nouvelles sections (chronologie, valeurs, équipe, racines, départements) ──
@@ -2392,11 +2392,11 @@ export const DICTIONARIES = {
     about_story_2_year: '2022',
     about_story_2_title: 'Les 1 000 premiers produits',
     about_story_2_body:
-      'Nous avons bâti un réseau de fournisseurs vérifiés et sélectionné nos mille premières trouvailles, maison, beauté, techno, animaux.',
+      'Un catalogue trop large rendait chaque produit difficile à expliquer. On s’est resserré autour des trouvailles haut de gamme et on a bâti un réseau fournisseurs fiable.',
     about_story_3_year: '2024',
-    about_story_3_title: 'Un catalogue plus clair, rebâti avec soin',
+    about_story_3_title: 'Une boutique ciblée pour trouvailles',
     about_story_3_body:
-      'Le catalogue est resserré autour de produits actifs, faciles à magasiner et couverts par une politique de retour claire de 30 jours.',
+      'Le catalogue est maintenant construit autour de trouvailles haut de gamme — fournisseurs vérifiés, livraison transparente au paiement et retour de 30 jours sur chaque commande.',
     about_story_4_year: 'Aujourd’hui',
     about_story_4_title: 'Des racines across the Americas',
     about_story_4_body:
@@ -2425,7 +2425,7 @@ export const DICTIONARIES = {
     about_team_1_name: 'Mariana L.',
     about_team_1_role: 'Fondatrice & Curatrice',
     about_team_1_bio:
-      'A lancé Puchica après des années de frustration en ligne. Dirige maintenant la curation et les relations fournisseurs.',
+      'On choisit des produits qui résolvent un vrai problème, proviennent de fournisseurs vérifiés et méritent leur place dans une collection ciblée.',
     about_team_2_name: 'Diego R.',
     about_team_2_role: 'Responsable des opérations',
     about_team_2_bio:
@@ -2440,25 +2440,25 @@ export const DICTIONARIES = {
     about_roots_heading: 'Puchica commence par un sentiment de surprise utile.',
     about_roots_body:
       '« Puchica » est une expression centroaméricaine familière de surprise, comme la réaction que peut provoquer une solution étonnamment astucieuse. Cet esprit guide la marque : des objets pratiques qui règlent un irritant quotidien sans ajouter de désordre.',
-    about_roots_signature: 'Entreprise canadienne. Une organisation pratique, choisie avec soin.',
+    about_roots_signature: 'Entreprise canadienne. Trouvailles triées à la main.',
     about_hero_caption: 'Pensé pour les endroits qui se désorganisent en premier.',
     about_hero_image_alt:
-      'Une petite cuisine chaleureuse avec des armoires ouvertes et du rangement quotidien',
+      'Un article phare de la sélection actuelle',
     about_roots_image_alt:
       'Un textile tissé coloré et un récipient en céramique peinte',
     about_standards_intro:
       'Un petit catalogue ne fonctionne que si la raison d’être de chaque produit est claire.',
     about_shop_eye: 'Magasiner selon le besoin',
     about_shop_title: 'Commencez par l’espace qui vous complique la vie.',
-    about_shop_home_title: 'Rangement à la maison',
-    about_shop_cable_title: 'Gestion des câbles',
-    about_shop_travel_title: 'Organisation de voyage',
+    about_shop_home_title: 'Top tendances',
+    about_shop_cable_title: 'Top tendances',
+    about_shop_travel_title: 'Toutes les catégories',
     about_shop_home_body:
       'Tiroirs, armoires, comptoirs et coins difficiles.',
     about_shop_cable_body:
       'Chargeurs, cordons et petits appareils qui se déplacent.',
-    about_shop_travel_body: 'Bagages, rangement et essentiels du quotidien.',
-    about_shop_all: 'Voir tous les organisateurs',
+    about_shop_travel_body: 'Audio, cuisine, fitness, maison, plein air.',
+    about_shop_all: 'Voir toutes les trouvailles',
     about_now_eye: 'Une livraison plus claire',
     about_now_title: 'Voyez vos options de livraison avant de payer.',
     about_now_body:
@@ -2466,7 +2466,7 @@ export const DICTIONARIES = {
     about_now_email: 'Des questions? Écrivez à hello@puchica.ca',
     about_delivery_panel_title: 'Aperçu de livraison au paiement',
     about_delivery_step_1_title: 'Choisissez un article',
-    about_delivery_step_1_body: 'Ajoutez un organisateur et entrez votre adresse.',
+    about_delivery_step_1_body: 'Ajoutez un article et entrez votre adresse.',
     about_delivery_step_2_title: 'Voyez les options disponibles',
     about_delivery_step_2_body: 'Le paiement calcule les choix pour cette commande.',
     about_delivery_step_3_title: 'Vérifiez avant de payer',
@@ -2499,15 +2499,15 @@ export const DICTIONARIES = {
     contact_channels_aria: 'Façons de nous joindre',
     contact_ig_title: 'DM sur Instagram',
     contact_ig_body:
-      'Suivez nos démonstrations de produits et nos idées d’organisation.',
+      'Suivez les démos et les nouveautés.',
     contact_ig_fallback: 'Instagram',
     contact_fb_title: 'Message sur Facebook',
     contact_fb_body:
-      'Suivez les nouveautés produits et nos idées d’organisation.',
+      'Suivez les mises à jour et nouveautés.',
     contact_fb_fallback: 'Facebook',
     contact_tiktok_title: 'Retrouvez-nous sur TikTok',
     contact_tiktok_body:
-      'Nouvelles trouvailles, coulisses et déballages occasionnels.',
+      'Démos et nouveautés.',
     contact_tiktok_fallback: 'TikTok',
     contact_promises_aria: 'À quoi s’attendre',
     contact_promises_eyebrow: 'À quoi s’attendre',
@@ -2606,7 +2606,7 @@ export const DICTIONARIES = {
     aside_heading_menu: 'Menu',
     cart_loading: 'Chargement du panier…',
     search_placeholder:
-      'Rechercher des produits, des collections, des articles.',
+      'Rechercher par catégorie, problème ou usage',
     search_aria_submit: 'Rechercher',
     search_submit_label: 'Rechercher',
     search_loading_for: 'Recherche de « {term} »…',
@@ -2614,10 +2614,10 @@ export const DICTIONARIES = {
 
     // ── Sections de la page d’accueil (redesign Phase 1) ─────────
     hero_split_aria: 'Hero',
-    hero_split_eyebrow: 'Boutique Puchica',
+    hero_split_eyebrow: 'Trouvailles · Moins de 200 $',
     hero_split_heading: 'Magasinez maison, tech, animaux, cadeaux et plus.',
     hero_split_body:
-      'Une façon plus claire de parcourir les produits utiles dans les catégories vraiment magasinées. Commencez par un département, les nouveautés ou les offres.',
+      'Trouvailles haut de gamme sous 200 $ — fournisseurs vérifiés, livraison transparente, retours de 30 jours.',
     hero_split_cta_primary: 'Voir les meilleures ventes',
     hero_split_cta_secondary: 'Tout parcourir',
     hero_split_trust:
@@ -2642,12 +2642,12 @@ export const DICTIONARIES = {
     lifestyle_shop_heading: 'Magasiner par style de vie',
     lifestyle_shop_sub:
       'Commencez par le moment, puis trouvez la catégorie qui vous convient.',
-    lifestyle_shop_home_title: 'Rafraîchir la maison',
+    lifestyle_shop_home_title: 'Améliorations maison qui valent le coup',
     lifestyle_shop_home_body:
       'Des améliorations utiles pour les pièces et les routines de chaque jour.',
     lifestyle_shop_motion_title: 'Au quotidien',
     lifestyle_shop_motion_body:
-      'Des trouvailles pratiques pour sortir, rester organisé et bouger.',
+      'Des trouvailles pratiques pour sortir, rester actif et bouger.',
     lifestyle_shop_family_title: 'Jeu et famille',
     lifestyle_shop_family_body:
       'Des choix réfléchis pour le jeu, les petites routines et les moments partagés.',
@@ -2655,8 +2655,8 @@ export const DICTIONARIES = {
     lifestyle_banner_eyebrow: 'Slow living',
     lifestyle_banner_heading: 'Trouvez votre prochain coup de cœur.',
     lifestyle_banner_body:
-      'De la cuisine au sentier, du bureau à la garde-robe, Puchica vous apporte ce qui rend chaque jour meilleur. Livraison gratuite dès 75 $.',
-    lifestyle_banner_cta: 'Toutes les collections',
+      'Trouvailles et solutions du quotidien qui méritent leur place dans une vraie maison, cuisine ou sac de voyage.',
+    lifestyle_banner_cta: 'Voir les trouvailles',
 
     new_arrivals_aria: 'Nouveautés',
     new_arrivals_eyebrow: 'Tout neufs',
@@ -2691,7 +2691,7 @@ export const DICTIONARIES = {
     home_reviews_heading: 'Ce que disent nos clients',
     home_reviews_verified: 'Acheteur vérifié',
     home_reviews_quote_1_text:
-      'Je reviens sans cesse. La qualité est constante, la livraison rapide, et les retours sont simples.',
+      'La qualité est constante, la livraison rapide, et les retours sont simples. C’est pourquoi je reviens.',
     home_reviews_quote_1_author: 'Maya R. Toronto',
     home_reviews_quote_2_text:
       'J’ai trouvé un cadeau introuvable ailleurs. L’emballage était soigné.',
@@ -2724,10 +2724,10 @@ export const DICTIONARIES = {
       'Puchica livre aux clients du monde entier. Touchez un repère pour voir ce qui nous relie.',
 
     home_shop_dept_aria: 'Magasiner par département',
-    home_shop_dept_eyebrow: 'Parcourir le magasin',
-    home_shop_dept_heading: "Départements actifs. Vrais chemins d'achat.",
+    home_shop_dept_eyebrow: 'Tendance cette semaine',
+    home_shop_dept_heading: "Trouvailles haut de gamme, triées à la main.",
     home_shop_dept_body:
-      "De l'essentiel maison aux derniers gadgets, Puchica vous offre le meilleur de chaque catégorie, choisi, prix juste, livré vite.",
+      "Trouvailles en audio, cuisine, fitness, maison et plein air — chaque produit provient d’un fournisseur vérifié.",
     home_dept_home: 'Maison & Cuisine',
     home_dept_electronics: 'Électronique',
     home_dept_apparel: 'Vêtements',
@@ -2738,7 +2738,7 @@ export const DICTIONARIES = {
     home_curate_aria: 'Notre sélection',
     home_curate_eyebrow: 'Pourquoi Puchica',
     home_curate_heading: 'Le bon stock, sans le casse-tête.',
-    home_curate_step1_h: 'On sélectionne auprès de fournisseurs de confiance.',
+    home_curate_step1_h: 'On part d’un vrai problème à résoudre.',
     home_curate_step1_b:
       'Nous travaillons avec des fournisseurs vérifiés partout dans le monde pour vous offrir des produits qui valent votre argent.',
     home_curate_step2_h: 'On prix juste.',
@@ -2761,12 +2761,12 @@ export const DICTIONARIES = {
     announce_offer: '15 % de descuento en tu primer pedido, código FIRST15',
     announce_freeship:
       'Las opciones de envío se muestran al finalizar la compra',
-    announce_cta: 'Comprar ahora',
+    announce_cta: 'Ver hallazgos',
     offer_first15:
       '¿Primera compra? 15 % de descuento en tu primer pedido con el código FIRST15.',
     announce_region_aria: 'Anuncios del sitio',
 
-    footer_tagline: 'Hallazgos útiles. Seleccionado en Toronto. Envío claro.',
+    footer_tagline: 'Hallazgos de alto valor bajo C$200. Proveedores verificados. Envío confirmado al pagar.',
     footer_accepted_payments: 'Pagos aceptados',
     footer_secure: 'Pago seguro con Shopify, cifrado y conforme con PCI',
     footer_shop: 'Tienda',
@@ -2814,10 +2814,10 @@ export const DICTIONARIES = {
     header_cart_open: 'Abrir carrito',
     header_cart_close: 'Cerrar carrito',
 
-    hero_eyebrow: 'Selección curada · Gratis en Canadá',
+    hero_eyebrow: 'Hallazgos · Menos de C$200',
     hero_title: 'Todo lo que vale.',
     hero_sub:
-      'Hallazgos útiles para hogar, belleza, tecnología, mascotas y más. Selecciones reales de personas reales.',
+      'Una selección de hallazgos de alto valor que los clientes repiten — proveedores verificados, precios transparentes, envío confirmado al pagar.',
     hero_cta_shop: 'Comprar ahora →',
     hero_cta_browse: 'Ver todo',
     hero_stat_products: 'Productos',
@@ -2905,7 +2905,7 @@ export const DICTIONARIES = {
     ship_hero_title_em: 'Entrega.',
     ship_hero_sub:
       'La disponibilidad, los plazos y el coste de entrega se confirman al finalizar la compra según los artículos y el destino.',
-    ship_hero_cta: 'Ver el catálogo',
+    ship_hero_cta: 'Ver hallazgos',
     ship_launch_hero_sub:
       'Una sola tienda norteamericana con precios según el mercado y opciones de entrega confirmadas al pagar.',
     ship_jump: 'Ver cómo se confirma la entrega',
@@ -2981,8 +2981,8 @@ export const DICTIONARIES = {
     ship_track_cta: 'Contactar soporte',
     ship_cta_title: '¿Listo para pedir?',
     ship_cta_sub:
-      'Compra organizadores y confirma la entrega para tu dirección al pagar.',
-    ship_cta_browse: 'Ver todos los productos',
+      'Compra hallazgos y confirma el envío para tu dirección al pagar.',
+    ship_cta_browse: 'Ver todo',
 
     match_eyebrow: 'Descubrimiento personalizado',
     match_title: 'Puchica Match.',
@@ -3038,11 +3038,11 @@ export const DICTIONARIES = {
     cat_cell_aria: 'Comprar {title}',
 
     mood_eyebrow: 'Hecho para tu vida',
-    mood_title: 'Compra como vives.',
+    mood_title: 'Tendencia. Verificado. Entregado.',
     mood_home_label: 'Hogar & Decoración',
     mood_home_title: 'Tu hogar merece más.',
     mood_home_sub:
-      'Almacenamiento, decoración, utensilios de cocina, todo para que tu espacio se sienta intencional.',
+      'Hallazgos y mejoras que hacen que una habitación real se sienta mejor.',
     mood_home_cta: 'Mejora tu espacio →',
     mood_beauty_label: 'Belleza & Cuidado personal',
     mood_beauty_title: 'Cuídate.',
@@ -3058,7 +3058,7 @@ export const DICTIONARIES = {
     review_eyebrow: 'Lo que dice la gente',
     review_title: 'Compradores reales. Opiniones reales.',
     review_1_quote:
-      'Pedí tres veces en el último mes. La calidad es siempre excelente y el envío es rápido.',
+      'Pedí tres veces este mes. La calidad es siempre excelente y el envío es rápido.',
     review_2_quote:
       'Encontré exactamente lo que buscaba, y mucho más. Es mi nuevo lugar favorito para el hogar.',
     review_3_quote:
@@ -3067,11 +3067,11 @@ export const DICTIONARIES = {
     banner_eyebrow: 'Más vendidos',
     banner_title: 'Los que la gente no puede dejar de comprar.',
     banner_sub:
-      'Probados, pedidos de nuevo y regalados a todos sus conocidos. Estos son los productos que ganan su lugar en la lista cada semana.',
+      'Hallazgos de alto valor, seleccionados a mano para la selección actual.',
     banner_cta: 'Ver todos los más vendidos',
 
     catalog_body:
-      'productos. Una sola tienda. Cada categoría. Añadimos más cada semana, siempre hay algo nuevo que descubrir.',
+      'Un catálogo enfocado de hallazgos de alto valor — proveedores verificados, precios transparentes, envío confirmado al pagar.',
     catalog_cta_browse: 'Ver todo →',
     catalog_cta_search: 'Buscar en el catálogo',
 
@@ -3082,7 +3082,7 @@ export const DICTIONARIES = {
     trust_secure_title: 'Pago seguro',
     trust_secure_sub: 'Cifrado y conforme con PCI',
     trust_handpicked_title: 'Solo seleccionados',
-    trust_handpicked_sub: 'Curado, nunca aleatorio',
+    trust_handpicked_sub: 'Construido alrededor de hallazgos',
 
     newsletter_pill: 'Unéte al club',
     newsletter_title: 'Recibe lo mejor primero.',
@@ -3127,7 +3127,7 @@ export const DICTIONARIES = {
     search_trending_label: 'Búsquedas populares',
     search_recent_label: 'Vistos recientemente',
     search_trending_terms:
-      'hogar cocina, electrónica, juguetes para mascotas, pistola de masaje, herramientas jardín, regalos bajo 25',
+      'pistola de masaje, tira LED, termo, hervidor, molinillo de café, cuerda de saltar',
     col_density_aria: 'Densidad de la cuadrícula',
     col_density_3_aria: 'Mostrar 3 por fila',
     col_density_4_aria: 'Mostrar 4 por fila',
@@ -3141,7 +3141,7 @@ export const DICTIONARIES = {
     col_empty_filtered: 'Ningún producto coincide con estos filtros.',
     col_clear_filters: 'Borrar filtros',
     col_empty_restocking:
-      'Estamos reabasteciendo esta colección. Vuelve pronto o explora el resto de la tienda.',
+      'Estamos reabasteciendo esta colección. Explora los hallazgos o vuelve pronto.',
     col_showing: 'Mostrando',
     col_showing_more: 'hasta ahora, carga más abajo',
     col_product_singular: 'producto',
@@ -3190,12 +3190,12 @@ export const DICTIONARIES = {
     trending_grid_more_cta: 'Ver todos los hallazgos',
     trending_card_cta: 'Ver producto',
 
-    all_breadcrumb: 'Todos los productos',
+    all_breadcrumb: 'Todos los hallazgos',
     all_eyebrow: 'La tienda completa',
-    all_title: 'Todos los productos',
+    all_title: 'Ver hallazgos',
     all_sub:
-      'El catálogo completo de Puchica, cada selección curada en un solo lugar. Filtra por categoría o usa la barra de búsqueda.',
-    all_empty_title: 'No hay productos para mostrar',
+      'Explora hallazgos de alto valor en audio, cocina, fitness, hogar y aire libre.',
+    all_empty_title: 'Próximos hallazgos en camino',
     all_empty_body:
       'El catálogo está cargando. Si el problema persiste, intenta recargar.',
     all_count_loading: 'Catálogo cargando',
@@ -3245,7 +3245,7 @@ export const DICTIONARIES = {
     product_share_btn: 'Compartir',
     product_copy_link: 'Copiar enlace',
     product_link_copied: 'Enlace copiado',
-    product_reco_title: 'También te puede gustar',
+    product_reco_title: 'También te puede interesar',
     product_recently_viewed_title: 'Vistos recientemente',
     product_add_to_cart: 'Agregar al carrito',
     product_price_from: 'Desde',
@@ -3286,7 +3286,7 @@ export const DICTIONARIES = {
     megamenu_error_cta: 'Ver todo →',
     megamenu_tile_cta: 'Comprar →',
     megamenu_tagline_phone_case: 'Fundas, agarres, protección.',
-    megamenu_tagline_home_essentials: 'Cocina, almacenamiento, decoración.',
+    megamenu_tagline_home_essentials: 'Audio, cocina, decoración, almacenamiento.',
     megamenu_tagline_home_kitchen: 'Cocina, almacenamiento, decoración.',
     megamenu_tagline_electronics_accessories: 'Cables, cargadores, soportes.',
     megamenu_tagline_apparel_accessories: 'Bolsos, sombreros, wearables.',
@@ -3295,7 +3295,7 @@ export const DICTIONARIES = {
     megamenu_tagline_pet_finds: 'Juguetes, camas, cosas para ellos.',
     megamenu_tagline_pet_supplies: 'Juguetes, camas, cosas para ellos.',
     megamenu_tagline_automotive: 'Interior, herramientas, gadgets.',
-    megamenu_tagline_tools_home_improvement: 'Reparar, construir, organizar.',
+    megamenu_tagline_tools_home_improvement: 'Reparar, construir, terminar.',
     megamenu_tagline_beauty_personal_care: 'Maquillaje, uñas, autocuidado.',
     megamenu_tagline_toys_games: 'Jugar, aprender, coleccionar.',
     megamenu_tagline_home_decor: 'Pared, luz, acentos.',
@@ -3357,10 +3357,10 @@ export const DICTIONARIES = {
     pdp_3d_hint: 'Arrastra para rotar · desplaza para hacer zoom',
     cart_heading_aria: 'Artículos',
     cart_remove_region_aria: 'Quitar del carrito',
-    cart_empty_title: 'Tu carrito está vacío',
+    cart_empty_title: 'Tu carrito está vacío.',
     cart_empty_body:
-      'Nada aquí todavía, encontremos algo que te encante. Nuestras selecciones cambian seguido, vale la pena echar un vistazo.',
-    cart_empty_cta_shop: 'Ver el catálogo',
+      'Empieza con un hallazgo — cada producto viene de un proveedor verificado.',
+    cart_empty_cta_shop: 'Ver hallazgos',
     cart_empty_cta_best: 'Ver más vendidos',
     cart_empty_perks_aria: 'Por qué comprar con nosotros',
     cart_empty_perk_shipping: 'Opciones de envío mostradas al pagar',
@@ -3373,7 +3373,7 @@ export const DICTIONARIES = {
       'Envío gratis en pedidos superiores a {threshold}',
     cart_summary_title: 'Totales',
     cart_summary_subtotal: 'Subtotal',
-    cart_summary_empty_btn: 'Agrega un artículo para pagar',
+    cart_summary_empty_btn: 'Agrega un artículo para continuar',
     cart_summary_checkout_btn: 'Continuar al pago',
     cart_checkout_unavailable:
       'El pago no está disponible temporalmente. Actualiza el carrito e inténtalo de nuevo.',
@@ -3455,14 +3455,14 @@ export const DICTIONARIES = {
     err_404_h: 'No pudimos encontrar esa página',
     err_500_h: 'Algo salió mal de nuestro lado',
     err_404_body:
-      'El enlace puede estar roto, o la página puede haberse movido. Prueba buscar, o vuelve a la tienda.',
+      'Esa página puede haberse movido. Busca un hallazgo o vuelve a la tienda.',
     err_500_body:
       'Tuvimos un error inesperado al renderizar esta página. Inténtalo de nuevo o explora el catálogo abajo.',
-    err_search_aria: 'Buscar en la tienda',
-    err_search_placeholder: 'Buscar en la tienda…',
+    err_search_aria: 'Buscar hallazgos',
+    err_search_placeholder: 'Buscar…',
     err_search_btn: 'Buscar',
     err_home: 'Volver al inicio',
-    err_browse: 'Ver todos los productos',
+    err_browse: 'Ver hallazgos',
     err_contact: '¿Sigues atorado? Escríbenos a {email} y te ayudamos.',
 
     // ── Pie de página (resto) ───────────────────────────────────
@@ -3539,14 +3539,14 @@ export const DICTIONARIES = {
     pred_articles: 'Artículos',
     pred_collections: 'Colecciones',
     pred_pages: 'Páginas',
-    pred_products: 'Productos',
+    pred_products: 'Hallazgos',
     pred_empty_title: 'Empieza a escribir para buscar',
     pred_empty_body:
       'Prueba categorías como "más vendidos", "hogar" o nombres específicos de productos.',
     pred_pill_best: 'Más vendidos',
     pred_pill_all: 'Todas las categorías',
     pred_pill_new: 'Novedades',
-    pred_no_results_h: 'Sin resultados para "{term}"',
+    pred_no_results_h: 'Ningún resultado para «{term}».',
     pred_no_results_body:
       'Prueba otra palabra clave o explora los más queridos.',
 
@@ -3565,7 +3565,7 @@ export const DICTIONARIES = {
     col_index_eyebrow: 'Explorar',
     col_index_h: 'Todas las colecciones',
     col_index_sub:
-      'Elige una categoría y sumérgete. Cada colección está seleccionada a mano, solo dejamos lo que usaríamos nosotros mismos.',
+      'Explora hallazgos por categoría, problema o uso.',
     col_index_count: 'Puchica',
     col_index_empty_h: 'Aún no hay colecciones',
     col_index_empty_body:
@@ -3668,10 +3668,10 @@ export const DICTIONARIES = {
 
     // ── Página Nosotros ───────────────────────────────────────────
     about_hero_eyebrow: 'Nuestra historia',
-    about_hero_title_main: 'Menos desorden.',
+    about_hero_title_main: 'Una tienda enfocada en hallazgos de alto valor',
     about_hero_title_em: 'Más espacio para respirar.',
     about_hero_sub:
-      'Puchica es una pequeña empresa canadiense con organizadores prácticos para espacios pequeños, tecnología cotidiana y viajes.',
+      'Puchica es una pequeña empresa canadiense que selecciona hallazgos de alto valor — audio, cocina, fitness, hogar, aire libre. Cada producto viene de un proveedor verificado y tiene una política de devolución de 30 días.',
     about_hero_cta: 'Ver la colección de lanzamiento →',
     about_stats_aria: 'Puchica en números',
     about_stat_products_num: 'Activo',
@@ -3688,14 +3688,14 @@ export const DICTIONARIES = {
     about_mission_body_1:
       'Un cajón lleno, un cable enredado o una maleta sobrecargada puede complicar un día normal. Puchica ayuda a resolver esos pequeños problemas repetidos.',
     about_mission_body_2:
-      'Mantenemos el catálogo intencionalmente enfocado: organización del hogar, control de cables y viajes. Menos categorías significa que cada producto debe tener una función clara.',
+      'Puchica toma el enfoque opuesto. El catálogo se mantiene enfocado — audio, cocina, fitness, hogar, aire libre — y cada producto tiene un uso claro, precio transparente y proveedor verificado.',
     about_mission_card_text:
       'Útil primero. Claro antes del pago. Vale el espacio que ocupa.',
     about_how_eye: 'Qué merece un lugar',
     about_how_title: 'Cada producto debe justificar el espacio que ocupa.',
     about_how_1_title: 'Resuelve un problema específico',
     about_how_1_body:
-      'Buscamos organizadores con una función clara: facilitar el uso de un gabinete, mantener un cable a mano o simplificar el equipaje.',
+      'Partimos de una función clara: una herramienta de cocina que se gane su lugar, audio que suene bien o un artículo de fitness que los clientes repitan.',
     about_how_2_title: 'Funciona en espacios limitados',
     about_how_2_body:
       'Priorizamos productos compactos y sencillos que ayudan a aprovechar mejor el espacio disponible.',
@@ -3706,7 +3706,7 @@ export const DICTIONARIES = {
     about_cats_title: 'Hallazgos útiles. Una sola tienda.',
     about_cats_sub: 'En cada categoría que realmente importa en tu día a día.',
     about_cat_home_name: 'Hogar & Decoración',
-    about_cat_home_sub: 'Organización, decoración, cocina',
+    about_cat_home_sub: 'Audio, cocina, decoración, almacenamiento',
     about_cat_beauty_name: 'Belleza & Cuidado personal',
     about_cat_beauty_sub: 'Skincare, bienestar, cuidado personal',
     about_cat_tech_name: 'Tech & Gadgets',
@@ -3723,8 +3723,8 @@ export const DICTIONARIES = {
     about_cta_title: '¿Listo para hacer espacio para días más tranquilos?',
     about_dept_title: 'Explorar la tienda',
     about_cta_sub:
-      'Empieza con un cajón, gabinete, montón de cables o maleta que nunca parece mantenerse en orden.',
-    about_cta_browse: 'Ver todos los organizadores →',
+      'Empieza con un hallazgo, un problema que quieres resolver o una categoría que te llame la atención.',
+    about_cta_browse: 'Ver todos los hallazgos →',
     about_cta_contact: 'Contáctanos',
 
     // ── Página About, nuevas secciones (cronología, valores, equipo, raíces, departamentos) ──
@@ -3738,11 +3738,11 @@ export const DICTIONARIES = {
     about_story_2_year: '2022',
     about_story_2_title: 'Los primeros 1.000 productos',
     about_story_2_body:
-      'Construimos una red de proveedores verificados y curamos nuestros primeros mil hallazgos: hogar, belleza, tecnología, mascotas.',
+      'Un catálogo amplio hacía difícil explicar por qué cada producto pertenecía. Nos enfocamos en hallazgos de alto valor y construimos una red de proveedores confiable.',
     about_story_3_year: '2024',
-    about_story_3_title: 'Un catálogo más claro, reconstruido con cuidado',
+    about_story_3_title: 'Una tienda enfocada en hallazgos',
     about_story_3_body:
-      'El catálogo se está ajustando alrededor de productos activos, fáciles de comprar y respaldados por una política de devolución clara de 30 días.',
+      'El catálogo ahora se construye alrededor de hallazgos de alto valor — proveedores verificados, envío transparente al pagar y devolución de 30 días en cada pedido.',
     about_story_4_year: 'Hoy',
     about_story_4_title: 'Raíces en las Américas',
     about_story_4_body:
@@ -3771,7 +3771,7 @@ export const DICTIONARIES = {
     about_team_1_name: 'Mariana L.',
     about_team_1_role: 'Fundadora y Curadora',
     about_team_1_bio:
-      'Lanzó Puchica tras años de frustración comprando en línea. Ahora lidera la curación y las relaciones con proveedores.',
+      'Elegimos productos que resuelven un problema real, vienen de proveedores verificados y se ganan su lugar en una colección enfocada.',
     about_team_2_name: 'Diego R.',
     about_team_2_role: 'Líder de Operaciones',
     about_team_2_bio:
@@ -3786,25 +3786,25 @@ export const DICTIONARIES = {
     about_roots_heading: 'Puchica empieza con una sensación de sorpresa útil.',
     about_roots_body:
       '“Puchica” es una expresión centroamericana familiar de sorpresa, como la reacción que puede provocar una solución inesperadamente ingeniosa. Ese espíritu guía la marca: objetos prácticos que resuelven una molestia cotidiana sin añadir más desorden.',
-    about_roots_signature: 'Empresa canadiense. Organización práctica, elegida con cuidado.',
+    about_roots_signature: 'Empresa canadiense. Hallazgos seleccionados a mano.',
     about_hero_caption: 'Pensado para los lugares que se desordenan primero.',
     about_hero_image_alt:
-      'Una cocina pequeña y cálida con gabinetes abiertos y almacenamiento cotidiano',
+      'Un artículo destacado de la selección actual',
     about_roots_image_alt:
       'Un tejido colorido y una vasija de cerámica pintada',
     about_standards_intro:
       'Un catálogo pequeño solo funciona si la razón de cada producto es fácil de explicar.',
     about_shop_eye: 'Compra según tu necesidad',
     about_shop_title: 'Empieza por el espacio que siempre estorba.',
-    about_shop_home_title: 'Orden en casa',
-    about_shop_cable_title: 'Control de cables',
-    about_shop_travel_title: 'Organización de viaje',
+    about_shop_home_title: 'Top tendencias',
+    about_shop_cable_title: 'Top tendencias',
+    about_shop_travel_title: 'Todas las categorías',
     about_shop_home_body:
       'Cajones, gabinetes, encimeras y rincones difíciles.',
     about_shop_cable_body:
       'Cargadores, cables y pequeños dispositivos que se pierden.',
-    about_shop_travel_body: 'Equipaje, organización y artículos de uso diario.',
-    about_shop_all: 'Ver todos los organizadores',
+    about_shop_travel_body: 'Audio, cocina, fitness, hogar, aire libre.',
+    about_shop_all: 'Ver todos los hallazgos',
     about_now_eye: 'Entrega más clara',
     about_now_title: 'Consulta tus opciones de entrega antes de pagar.',
     about_now_body:
@@ -3812,7 +3812,7 @@ export const DICTIONARIES = {
     about_now_email: '¿Preguntas? Escribe a hello@puchica.ca',
     about_delivery_panel_title: 'Vista previa de entrega',
     about_delivery_step_1_title: 'Elige un artículo',
-    about_delivery_step_1_body: 'Añade un organizador e ingresa tu dirección.',
+    about_delivery_step_1_body: 'Agrega un hallazgo e ingresa tu dirección.',
     about_delivery_step_2_title: 'Consulta las opciones',
     about_delivery_step_2_body: 'El pago calcula las alternativas para ese pedido.',
     about_delivery_step_3_title: 'Revisa antes de pagar',
@@ -3845,15 +3845,15 @@ export const DICTIONARIES = {
     contact_channels_aria: 'Formas de contactarnos',
     contact_ig_title: 'DM en Instagram',
     contact_ig_body:
-      'Sigue demostraciones de productos e ideas de organización.',
+      'Sigue demos y novedades.',
     contact_ig_fallback: 'Instagram',
     contact_fb_title: 'Mensaje en Facebook',
     contact_fb_body:
-      'Sigue novedades de productos e ideas de organización.',
+      'Sigue actualizaciones y novedades.',
     contact_fb_fallback: 'Facebook',
     contact_tiktok_title: 'Encuéntranos en TikTok',
     contact_tiktok_body:
-      'Nuevos hallazgos, detrás de cámaras y unboxing ocasional.',
+      'Demos y novedades.',
     contact_tiktok_fallback: 'TikTok',
     contact_promises_aria: 'Qué esperar',
     contact_promises_eyebrow: 'Qué esperar',
@@ -3951,7 +3951,7 @@ export const DICTIONARIES = {
     aside_heading_search: 'Buscar',
     aside_heading_menu: 'Menú',
     cart_loading: 'Cargando carrito…',
-    search_placeholder: 'Buscar productos, colecciones, artículos.',
+    search_placeholder: 'Buscar por categoría, problema o uso',
     search_aria_submit: 'Buscar',
     search_submit_label: 'Buscar',
     search_loading_for: 'Buscando «{term}»…',
@@ -3959,10 +3959,10 @@ export const DICTIONARIES = {
 
     // ── Secciones de la página de inicio (rediseño Fase 1) ──────────
     hero_split_aria: 'Hero',
-    hero_split_eyebrow: 'Tienda Puchica',
+    hero_split_eyebrow: 'Hallazgos · Menos de C$200',
     hero_split_heading: 'Compra hogar, tecnología, mascotas, regalos y más.',
     hero_split_body:
-      'Una forma más clara de explorar productos útiles en categorías que la gente realmente compra. Empieza por departamento, novedades u ofertas.',
+      'Hallazgos de alto valor bajo C$200 — proveedores verificados, envío transparente, devoluciones de 30 días.',
     hero_split_cta_primary: 'Ver los más vendidos',
     hero_split_cta_secondary: 'Ver todo',
     hero_split_trust:
@@ -3987,12 +3987,12 @@ export const DICTIONARIES = {
     lifestyle_shop_heading: 'Comprar por estilo de vida',
     lifestyle_shop_sub:
       'Empieza por el momento y encuentra la categoría que encaja.',
-    lifestyle_shop_home_title: 'Renueva tu hogar',
+    lifestyle_shop_home_title: 'Mejoras para el hogar que valen la pena',
     lifestyle_shop_home_body:
       'Mejoras útiles para los espacios y rutinas de todos los días.',
     lifestyle_shop_motion_title: 'Movimiento diario',
     lifestyle_shop_motion_body:
-      'Hallazgos prácticos para salir, organizarte y moverte mejor.',
+      'Hallazgos prácticos para salir, mantenerse activo y moverse mejor.',
     lifestyle_shop_family_title: 'Juego y familia',
     lifestyle_shop_family_body:
       'Opciones pensadas para jugar, las pequeñas rutinas y los momentos compartidos.',
@@ -4000,8 +4000,8 @@ export const DICTIONARIES = {
     lifestyle_banner_eyebrow: 'Vida tranquila',
     lifestyle_banner_heading: 'Encuentra tu próximo favorito.',
     lifestyle_banner_body:
-      'De la cocina al sendero, de tu escritorio a tu armario, Puchica te trae lo que hace cada día mejor. Envío gratis sobre $75.',
-    lifestyle_banner_cta: 'Todas las colecciones',
+      'Hallazgos y soluciones cotidianas que se ganan su lugar en una casa, cocina o bolso de viaje real.',
+    lifestyle_banner_cta: 'Ver hallazgos',
 
     new_arrivals_aria: 'Novedades',
     new_arrivals_eyebrow: 'Recién llegados',
@@ -4036,7 +4036,7 @@ export const DICTIONARIES = {
     home_reviews_heading: 'Lo que dicen nuestros clientes',
     home_reviews_verified: 'Comprador verificado',
     home_reviews_quote_1_text:
-      'Sigo volviendo. La calidad es constante, el envío rápido y las devoluciones sin complicaciones.',
+      'La calidad es constante, el envío rápido y las devoluciones son sin preguntas. Por eso sigo volviendo.',
     home_reviews_quote_1_author: 'Maya R. Toronto',
     home_reviews_quote_2_text:
       'Encontré un regalo que no hallé en ningún otro sitio. El empaque se sentía pensado.',
@@ -4069,10 +4069,10 @@ export const DICTIONARIES = {
       'Puchica envía a clientes de todo el mundo. Toca un pin para ver qué nos conecta.',
 
     home_shop_dept_aria: 'Comprar por departamento',
-    home_shop_dept_eyebrow: 'Explorar la tienda',
-    home_shop_dept_heading: 'Departamentos activos. Rutas reales de compra.',
+    home_shop_dept_eyebrow: 'Tendencia esta semana',
+    home_shop_dept_heading: 'Hallazgos de alto valor, seleccionados a mano.',
     home_shop_dept_body:
-      'De lo esencial para el hogar hasta los últimos gadgets, Puchica te ofrece lo mejor de cada categoría, seleccionado, precio justo, envío rápido.',
+      'Hallazgos en audio, cocina, fitness, hogar y aire libre — cada producto viene de un proveedor verificado.',
     home_dept_home: 'Hogar & Cocina',
     home_dept_electronics: 'Electrónica',
     home_dept_apparel: 'Ropa',
@@ -4083,7 +4083,7 @@ export const DICTIONARIES = {
     home_curate_aria: 'Cómo seleccionamos',
     home_curate_eyebrow: 'Por qué Puchica',
     home_curate_heading: 'Lo bueno, sin complicaciones.',
-    home_curate_step1_h: 'Seleccionamos de proveedores de confianza.',
+    home_curate_step1_h: 'Partimos de un problema real que vale resolver.',
     home_curate_step1_b:
       'Trabajamos con proveedores verificados en todo el mundo para ofrecerte productos que valgan tu dinero.',
     home_curate_step2_h: 'Precio justo.',
@@ -4105,12 +4105,12 @@ export const DICTIONARIES = {
   'pt-br': {
     announce_offer: '15% de desconto no primeiro pedido, código FIRST15',
     announce_freeship: 'Opções de envio mostradas no checkout',
-    announce_cta: 'Comprar agora',
+    announce_cta: 'Ver achados',
     offer_first15:
       'Primeira compra? 15% de desconto no primeiro pedido com o código FIRST15.',
     announce_region_aria: 'Avisos do site',
 
-    footer_tagline: 'Achados úteis. Selecionado em Toronto. Frete claro.',
+    footer_tagline: 'Achados de alto valor abaixo de C$200. Fornecedores verificados. Frete confirmado no checkout.',
     footer_accepted_payments: 'Pagamentos aceitos',
     footer_secure:
       'Checkout seguro pela Shopify, criptografado e em conformidade com PCI',
@@ -4139,7 +4139,7 @@ export const DICTIONARIES = {
 
     nav_all_products: 'Todos os produtos',
     nav_best_sellers: 'Mais vendidos',
-    nav_trending: 'Em alta',
+    nav_trending: 'Tendências',
     nav_gifts: 'Presentes até $25',
     nav_shop: 'Loja',
     nav_new_arrivals: 'Novidades',
@@ -4159,10 +4159,10 @@ export const DICTIONARIES = {
     header_cart_open: 'Abrir carrinho',
     header_cart_close: 'Fechar carrinho',
 
-    hero_eyebrow: 'Seleção curada · Grátis no Canadá',
+    hero_eyebrow: 'Achados · Abaixo de C$200',
     hero_title: 'Tudo que importa.',
     hero_sub:
-      'Achados úteis para casa, beleza, tech, pets e muito mais. Seleções reais de pessoas reais.',
+      'Uma seleção de achados de alto valor que os clientes recomendam — fornecedores verificados, preços transparentes, frete confirmado no checkout.',
     hero_cta_shop: 'Comprar agora →',
     hero_cta_browse: 'Ver tudo',
     hero_stat_products: 'Produtos',
@@ -4250,7 +4250,7 @@ export const DICTIONARIES = {
     ship_hero_title_em: 'Entrega.',
     ship_hero_sub:
       'A disponibilidade, os prazos e os custos de entrega são confirmados no checkout conforme os itens e o destino.',
-    ship_hero_cta: 'Ver o catálogo',
+    ship_hero_cta: 'Ver achados',
     ship_launch_hero_sub:
       'Uma única loja norte-americana com preços por mercado e opções de entrega confirmadas no checkout.',
     ship_jump: 'Veja como a entrega é confirmada',
@@ -4326,8 +4326,8 @@ export const DICTIONARIES = {
     ship_track_cta: 'Contatar suporte',
     ship_cta_title: 'Pronto para pedir?',
     ship_cta_sub:
-      'Compre organizadores e confirme a entrega para seu endereço no checkout.',
-    ship_cta_browse: 'Ver todos os produtos',
+      'Compre achados e confirme o frete para seu endereço no checkout.',
+    ship_cta_browse: 'Ver tudo',
 
     match_eyebrow: 'Descoberta personalizada',
     match_title: 'Puchica Match.',
@@ -4382,11 +4382,11 @@ export const DICTIONARIES = {
     cat_cell_aria: 'Comprar {title}',
 
     mood_eyebrow: 'Feito para sua vida',
-    mood_title: 'Compre do jeito que você vive.',
+    mood_title: 'Tendência. Verificado. Entregue.',
     mood_home_label: 'Casa & Decoração',
     mood_home_title: 'Sua casa merece mais.',
     mood_home_sub:
-      'Armazenamento, decoração, utensilios de cozinha, tudo para tornar seu espaço intencional.',
+      'Achados e melhorias que tornam um ambiente real melhor.',
     mood_home_cta: 'Melhore seu espaço →',
     mood_beauty_label: 'Beleza & Cuidado pessoal',
     mood_beauty_title: 'Cuide-se.',
@@ -4402,7 +4402,7 @@ export const DICTIONARIES = {
     review_eyebrow: 'O que as pessoas dizem',
     review_title: 'Compradores reais. Opiniões reais.',
     review_1_quote:
-      'Fiz três pedidos no último mês. A qualidade é sempre ótima e a entrega é rápida.',
+      'Fiz três pedidos este mês. A qualidade é sempre ótima e a entrega é rápida.',
     review_2_quote:
       'Encontrei exatamente o que procurava, e muito mais. Este é meu novo lugar favorito para coisas de casa.',
     review_3_quote:
@@ -4411,11 +4411,11 @@ export const DICTIONARIES = {
     banner_eyebrow: 'Mais vendidos',
     banner_title: 'Os que as pessoas não param de comprar.',
     banner_sub:
-      'Testados, pedidos novamente e presenteados a todos que conhecem. Estes são os produtos que merecem seu lugar na lista toda semana.',
+      'Achados de alto valor, selecionados a mão para a seleção atual.',
     banner_cta: 'Ver todos os mais vendidos',
 
     catalog_body:
-      'produtos. Uma só loja. Todas as categorias. Adicionamos mais toda semana, sempre há algo novo para descobrir.',
+      'Um catálogo focado de achados de alto valor — fornecedores verificados, preços transparentes, frete confirmado no checkout.',
     catalog_cta_browse: 'Ver tudo →',
     catalog_cta_search: 'Buscar no catálogo',
 
@@ -4426,7 +4426,7 @@ export const DICTIONARIES = {
     trust_secure_title: 'Checkout seguro',
     trust_secure_sub: 'Criptografado e em conformidade PCI',
     trust_handpicked_title: 'Apenas selecionados',
-    trust_handpicked_sub: 'Curado, nunca aleatório',
+    trust_handpicked_sub: 'Construído em torno dos achados',
 
     newsletter_pill: 'Entre no clube',
     newsletter_title: 'Receba o melhor primeiro.',
@@ -4472,7 +4472,7 @@ export const DICTIONARIES = {
     search_trending_label: 'Buscas populares',
     search_recent_label: 'Vistos recentemente',
     search_trending_terms:
-      'casa cozinha, eletrônicos, brinquedos para pets, massageador, ferramentas jardim, presentes até 25',
+      'massageador, fita LED, garrafa térmica, chaleira, moedor de café, corda de pular',
     col_density_aria: 'Densidade da grade',
     col_density_3_aria: 'Mostrar 3 por linha',
     col_density_4_aria: 'Mostrar 4 por linha',
@@ -4485,7 +4485,7 @@ export const DICTIONARIES = {
     col_empty_filtered: 'Nenhum produto corresponde a esses filtros.',
     col_clear_filters: 'Limpar filtros',
     col_empty_restocking:
-      'Estamos reabastecendo esta coleção. Volte em breve ou explore o resto da loja.',
+      'Estamos reabastecendo esta coleção. Explore os achados ou volte em breve.',
     col_showing: 'Mostrando',
     col_showing_more: 'até agora, carregue mais abaixo',
     col_product_singular: 'produto',
@@ -4534,12 +4534,12 @@ export const DICTIONARIES = {
     trending_grid_more_cta: 'Ver todos os achados em alta',
     trending_card_cta: 'Ver produto',
 
-    all_breadcrumb: 'Todos os produtos',
+    all_breadcrumb: 'Todos os achados',
     all_eyebrow: 'A loja completa',
-    all_title: 'Todos os produtos',
+    all_title: 'Ver achados',
     all_sub:
-      'O catálogo completo da Puchica, cada seleção curada em um só lugar. Filtre por categoria ou use a barra de busca.',
-    all_empty_title: 'Nenhum produto para exibir',
+      'Explore achados de alto valor em áudio, cozinha, fitness, casa e ar livre.',
+    all_empty_title: 'Novos achados a caminho',
     all_empty_body:
       'O catálogo está carregando. Se o problema persistir, tente atualizar a página.',
     all_count_loading: 'Catálogo carregando',
@@ -4628,8 +4628,8 @@ export const DICTIONARIES = {
     megamenu_error_cta: 'Ver tudo →',
     megamenu_tile_cta: 'Comprar →',
     megamenu_tagline_phone_case: 'Capas, suportes, proteção.',
-    megamenu_tagline_home_essentials: 'Cozinha, organização, decoração.',
-    megamenu_tagline_home_kitchen: 'Cozinha, organização, decoração.',
+    megamenu_tagline_home_essentials: 'Áudio, cozinha, decoração, armazenamento.',
+    megamenu_tagline_home_kitchen: 'Cozinha, armazenamento, decoração.',
     megamenu_tagline_electronics_accessories: 'Cabos, carregadores, suportes.',
     megamenu_tagline_apparel_accessories: 'Bolsas, chapéus, wearables.',
     megamenu_tagline_health_wellness: 'Pele, aroma, cuidado.',
@@ -4637,7 +4637,7 @@ export const DICTIONARIES = {
     megamenu_tagline_pet_finds: 'Brinquedos, camas, coisas para eles.',
     megamenu_tagline_pet_supplies: 'Brinquedos, camas, coisas para eles.',
     megamenu_tagline_automotive: 'Interior, ferramentas, gadgets.',
-    megamenu_tagline_tools_home_improvement: 'Consertar, construir, organizar.',
+    megamenu_tagline_tools_home_improvement: 'Consertar, construir, finalizar.',
     megamenu_tagline_beauty_personal_care: 'Maquiagem, unhas, autocuidado.',
     megamenu_tagline_toys_games: 'Brincar, aprender, colecionar.',
     megamenu_tagline_home_decor: 'Parede, luz, acentos.',
@@ -4698,10 +4698,10 @@ export const DICTIONARIES = {
     pdp_3d_hint: 'Arraste para girar · role para dar zoom',
     cart_heading_aria: 'Itens',
     cart_remove_region_aria: 'Remover do carrinho',
-    cart_empty_title: 'Seu carrinho está vazio',
+    cart_empty_title: 'Seu carrinho está vazio.',
     cart_empty_body:
-      'Nada aqui ainda, vamos encontrar algo que você vai amar. Nossas seleções mudam sempre, vale a pena dar uma olhada.',
-    cart_empty_cta_shop: 'Ver o catálogo',
+      'Comece com um achado — cada produto vem de um fornecedor verificado.',
+    cart_empty_cta_shop: 'Ver achados',
     cart_empty_cta_best: 'Ver mais vendidos',
     cart_empty_perks_aria: 'Por que comprar com a gente',
     cart_empty_perk_shipping: 'Opções de entrega exibidas no checkout',
@@ -4714,7 +4714,7 @@ export const DICTIONARIES = {
       'Frete grátis em pedidos acima de {threshold}',
     cart_summary_title: 'Totais',
     cart_summary_subtotal: 'Subtotal',
-    cart_summary_empty_btn: 'Adicione um item para finalizar',
+    cart_summary_empty_btn: 'Adicione um item para continuar',
     cart_summary_checkout_btn: 'Continuar para o pagamento',
     cart_checkout_unavailable:
       'O pagamento está temporariamente indisponível. Atualize o carrinho e tente novamente.',
@@ -4796,14 +4796,14 @@ export const DICTIONARIES = {
     err_404_h: 'Não encontramos essa página',
     err_500_h: 'Algo deu errado do nosso lado',
     err_404_body:
-      'O link pode estar quebrado, ou a página pode ter sido movida. Tente uma busca ou volte para a loja.',
+      'Essa página pode ter sido movida. Busque um achado ou volte para a loja.',
     err_500_body:
       'Tivemos um erro inesperado ao renderizar esta página. Tente de novo, ou explore o catálogo abaixo.',
-    err_search_aria: 'Buscar na loja',
-    err_search_placeholder: 'Buscar na loja…',
+    err_search_aria: 'Buscar achados',
+    err_search_placeholder: 'Buscar…',
     err_search_btn: 'Buscar',
     err_home: 'Voltar ao início',
-    err_browse: 'Ver todos os produtos',
+    err_browse: 'Ver achados',
     err_contact: 'Ainda travado? Escreva para {email} e a gente ajuda.',
 
     // ── Rodapé (resto) ──────────────────────────────────────────
@@ -4880,14 +4880,14 @@ export const DICTIONARIES = {
     pred_articles: 'Artigos',
     pred_collections: 'Coleções',
     pred_pages: 'Páginas',
-    pred_products: 'Produtos',
+    pred_products: 'Achados',
     pred_empty_title: 'Comece a digitar para buscar',
     pred_empty_body:
       'Tente categorias como "mais vendidos", "casa" ou nomes específicos de produtos.',
     pred_pill_best: 'Mais vendidos',
     pred_pill_all: 'Todas as categorias',
     pred_pill_new: 'Novidades',
-    pred_no_results_h: 'Sem resultados para "{term}"',
+    pred_no_results_h: 'Nenhum resultado para «{term}».',
     pred_no_results_body:
       'Tente outra palavra-chave ou explore os mais amados.',
 
@@ -4906,7 +4906,7 @@ export const DICTIONARIES = {
     col_index_eyebrow: 'Explorar',
     col_index_h: 'Todas as coleções',
     col_index_sub:
-      'Escolha uma categoria e mergulhe. Cada coleção é curada a mão, só mantemos o que usaríamos nós mesmos.',
+      'Explore achados por categoria, problema ou uso.',
     col_index_count: 'Puchica',
     col_index_empty_h: 'Ainda não há coleções',
     col_index_empty_body:
@@ -5008,10 +5008,10 @@ export const DICTIONARIES = {
 
     // ── Página Sobre ──────────────────────────────────────────────
     about_hero_eyebrow: 'Nossa história',
-    about_hero_title_main: 'Menos bagunça.',
+    about_hero_title_main: 'Uma loja focada em achados de alto valor',
     about_hero_title_em: 'Mais espaço para respirar.',
     about_hero_sub:
-      'A Puchica é uma pequena empresa canadense com organizadores práticos para espaços pequenos, tecnologia do dia a dia e viagens.',
+      'A Puchica é uma pequena empresa canadense que seleciona achados de alto valor — áudio, cozinha, fitness, casa, ar livre. Cada produto vem de um fornecedor verificado e tem política de devolução de 30 dias.',
     about_hero_cta: 'Ver a coleção de lançamento →',
     about_stats_aria: 'Puchica em números',
     about_stat_products_num: 'Ativo',
@@ -5028,14 +5028,14 @@ export const DICTIONARIES = {
     about_mission_body_1:
       'Uma gaveta cheia, um cabo enrolado ou uma mala lotada pode complicar um dia comum. A Puchica ajuda a resolver esses pequenos problemas recorrentes.',
     about_mission_body_2:
-      'Mantemos o catálogo intencionalmente focado: organização da casa, controle de cabos e viagens. Menos categorias significa que cada produto precisa ter uma função clara.',
+      'A Puchica adota a abordagem oposta. O catálogo fica focado — áudio, cozinha, fitness, casa, ar livre — e cada produto tem uso claro, preço transparente e fornecedor verificado.',
     about_mission_card_text:
       'Útil primeiro. Claro antes do pagamento. Vale o espaço que ocupa.',
     about_how_eye: 'O que merece um lugar',
     about_how_title: 'Cada produto deve justificar o espaço que ocupa.',
     about_how_1_title: 'Resolve um problema específico',
     about_how_1_body:
-      'Buscamos organizadores com uma função clara: facilitar o uso de um armário, manter um cabo ao alcance ou simplificar a bagagem.',
+      'Começamos com uma função clara: uma ferramenta de cozinha que mereça seu lugar, áudio que soe bem ou um item de fitness que os clientes recomendem.',
     about_how_2_title: 'Funciona em espaços limitados',
     about_how_2_body:
       'Priorizamos produtos compactos e simples que ajudam a aproveitar melhor o espaço disponível.',
@@ -5047,7 +5047,7 @@ export const DICTIONARIES = {
     about_cats_sub:
       'Em todas as categorias que realmente importam no seu dia a dia.',
     about_cat_home_name: 'Casa & Decoração',
-    about_cat_home_sub: 'Organização, decoração, cozinha',
+    about_cat_home_sub: 'Áudio, cozinha, decoração, armazenamento',
     about_cat_beauty_name: 'Beleza & Cuidados',
     about_cat_beauty_sub: 'Skincare, bem-estar, cuidados pessoais',
     about_cat_tech_name: 'Tech & Gadgets',
@@ -5064,8 +5064,8 @@ export const DICTIONARIES = {
     about_cta_title: 'Pronto para abrir espaço para dias mais tranquilos?',
     about_dept_title: 'Explorar a loja',
     about_cta_sub:
-      'Comece por uma gaveta, armário, pilha de cabos ou mala que nunca parece ficar organizada.',
-    about_cta_browse: 'Ver todos os organizadores →',
+      'Comece com um achado, um problema para resolver ou uma categoria que te chamou atenção.',
+    about_cta_browse: 'Ver todos os achados →',
     about_cta_contact: 'Fale conosco',
 
     // ── Página About, novas seções (linha do tempo, valores, equipe, raízes, departamentos) ──
@@ -5079,11 +5079,11 @@ export const DICTIONARIES = {
     about_story_2_year: '2022',
     about_story_2_title: 'Os primeiros 1.000 produtos',
     about_story_2_body:
-      'Construímos uma rede de fornecedores verificados e curamos nossos primeiros mil achados: casa, beleza, tech, pets.',
+      'Um catálogo amplo dificultava explicar por que cada produto pertencia. Focamos em achados de alto valor e construímos uma rede de fornecedores confiável.',
     about_story_3_year: '2024',
-    about_story_3_title: 'Um catálogo mais claro, reconstruído com cuidado',
+    about_story_3_title: 'Uma loja focada em achados',
     about_story_3_body:
-      'O catálogo está sendo ajustado em torno de produtos ativos, fáceis de comprar e apoiados por uma política clara de devolução em 30 dias.',
+      'O catálogo agora é construído em torno de achados de alto valor — fornecedores verificados, frete transparente no checkout e devolução de 30 dias em cada pedido.',
     about_story_4_year: 'Hoje',
     about_story_4_title: 'Raízes pelas Américas',
     about_story_4_body:
@@ -5112,7 +5112,7 @@ export const DICTIONARIES = {
     about_team_1_name: 'Mariana L.',
     about_team_1_role: 'Fundadora & Curadora',
     about_team_1_bio:
-      'Lançou a Puchica após anos de frustração comprando online. Agora lidera a curadoria e as relações com fornecedores.',
+      'Escolhemos produtos que resolvem um problema real, vêm de fornecedores verificados e merecem seu lugar em uma coleção focada.',
     about_team_2_name: 'Diego R.',
     about_team_2_role: 'Líder de Operações',
     about_team_2_bio:
@@ -5127,25 +5127,25 @@ export const DICTIONARIES = {
     about_roots_heading: 'Puchica começa com uma sensação de surpresa útil.',
     about_roots_body:
       '“Puchica” é uma expressão centro-americana familiar de surpresa, como a reação que uma solução inesperadamente inteligente pode provocar. Esse espírito orienta a marca: itens práticos que resolvem um incômodo cotidiano sem criar mais bagunça.',
-    about_roots_signature: 'Empresa canadense. Organização prática, escolhida com cuidado.',
+    about_roots_signature: 'Empresa canadense. Achados selecionados a mão.',
     about_hero_caption: 'Pensado para os lugares que ficam bagunçados primeiro.',
     about_hero_image_alt:
-      'Uma cozinha pequena e acolhedora com armários abertos e organização cotidiana',
+      'Um artigo em destaque da seleção atual',
     about_roots_image_alt:
       'Um tecido colorido e um recipiente de cerâmica pintada',
     about_standards_intro:
       'Um catálogo menor só funciona quando o motivo de cada produto é fácil de explicar.',
     about_shop_eye: 'Compre por necessidade',
     about_shop_title: 'Comece pelo espaço que sempre atrapalha.',
-    about_shop_home_title: 'Organização da casa',
-    about_shop_cable_title: 'Organização de cabos',
-    about_shop_travel_title: 'Organização de viagem',
+    about_shop_home_title: 'Top tendências',
+    about_shop_cable_title: 'Top tendências',
+    about_shop_travel_title: 'Todas as categorias',
     about_shop_home_body:
       'Gavetas, armários, bancadas e cantos difíceis.',
     about_shop_cable_body:
       'Carregadores, cabos e pequenos aparelhos que somem.',
-    about_shop_travel_body: 'Bagagem, organização e itens do dia a dia.',
-    about_shop_all: 'Ver todos os organizadores',
+    about_shop_travel_body: 'Áudio, cozinha, fitness, casa, ar livre.',
+    about_shop_all: 'Ver todos os achados',
     about_now_eye: 'Entrega mais clara',
     about_now_title: 'Veja suas opções de entrega antes de pagar.',
     about_now_body:
@@ -5153,7 +5153,7 @@ export const DICTIONARIES = {
     about_now_email: 'Dúvidas? Escreva para hello@puchica.ca',
     about_delivery_panel_title: 'Prévia de entrega no checkout',
     about_delivery_step_1_title: 'Escolha um item',
-    about_delivery_step_1_body: 'Adicione um organizador e informe seu endereço.',
+    about_delivery_step_1_body: 'Adicione um achado e informe seu endereço.',
     about_delivery_step_2_title: 'Veja as opções disponíveis',
     about_delivery_step_2_body: 'O checkout calcula as alternativas para o pedido.',
     about_delivery_step_3_title: 'Revise antes de pagar',
@@ -5186,15 +5186,15 @@ export const DICTIONARIES = {
     contact_channels_aria: 'Formas de entrar em contato',
     contact_ig_title: 'DM no Instagram',
     contact_ig_body:
-      'Acompanhe demonstrações de produtos e ideias de organização.',
+      'Acompanhe demos e novidades.',
     contact_ig_fallback: 'Instagram',
     contact_fb_title: 'Mensagem no Facebook',
     contact_fb_body:
-      'Acompanhe novidades de produtos e ideias de organização.',
+      'Acompanhe atualizações e novidades.',
     contact_fb_fallback: 'Facebook',
     contact_tiktok_title: 'Nos encontre no TikTok',
     contact_tiktok_body:
-      'Novas descobertas, bastidores e unboxings de vez em quando.',
+      'Demos e novidades.',
     contact_tiktok_fallback: 'TikTok',
     contact_promises_aria: 'O que esperar',
     contact_promises_eyebrow: 'O que esperar',
@@ -5291,7 +5291,7 @@ export const DICTIONARIES = {
     aside_heading_search: 'Pesquisar',
     aside_heading_menu: 'Menu',
     cart_loading: 'Carregando carrinho…',
-    search_placeholder: 'Pesquisar produtos, coleções, artigos.',
+    search_placeholder: 'Buscar por categoria, problema ou uso',
     search_aria_submit: 'Pesquisar',
     search_submit_label: 'Pesquisar',
     search_loading_for: 'Pesquisando por “{term}”…',
@@ -5299,10 +5299,10 @@ export const DICTIONARIES = {
 
     // ── Seções da página inicial (redesign Fase 1) ────────────────
     hero_split_aria: 'Hero',
-    hero_split_eyebrow: 'Loja Puchica',
+    hero_split_eyebrow: 'Achados · Abaixo de C$200',
     hero_split_heading: 'Compre casa, tech, pets, presentes e mais.',
     hero_split_body:
-      'Uma forma mais clara de navegar por produtos úteis nas categorias que as pessoas realmente compram. Comece por departamento, novidades ou ofertas.',
+      'Achados de alto valor abaixo de C$200 — fornecedores verificados, frete transparente, devoluções de 30 dias.',
     hero_split_cta_primary: 'Ver mais vendidos',
     hero_split_cta_secondary: 'Ver tudo',
     hero_split_trust:
@@ -5326,12 +5326,12 @@ export const DICTIONARIES = {
     lifestyle_shop_eyebrow: 'Explorar',
     lifestyle_shop_heading: 'Comprar por estilo de vida',
     lifestyle_shop_sub: 'Comece pelo momento e encontre a categoria ideal.',
-    lifestyle_shop_home_title: 'Renove a casa',
+    lifestyle_shop_home_title: 'Upgrades para casa que valem a pena',
     lifestyle_shop_home_body:
       'Melhorias úteis para os ambientes e rotinas de todos os dias.',
     lifestyle_shop_motion_title: 'Movimento diário',
     lifestyle_shop_motion_body:
-      'Achados práticos para sair, se organizar e se movimentar melhor.',
+      'Achados práticos para sair, se manter ativo e se movimentar melhor.',
     lifestyle_shop_family_title: 'Brincadeira e família',
     lifestyle_shop_family_body:
       'Escolhas pensadas para brincar, pequenas rotinas e momentos compartilhados.',
@@ -5339,8 +5339,8 @@ export const DICTIONARIES = {
     lifestyle_banner_eyebrow: 'Vida lenta',
     lifestyle_banner_heading: 'Encontre seu próximo favorito.',
     lifestyle_banner_body:
-      'Da cozinha à trilha, do escritório ao guarda-roupa, a Puchica traz o que faz cada dia melhor. Frete grátis acima de $75.',
-    lifestyle_banner_cta: 'Todas as coleções',
+      'Achados e soluções do dia a dia que merecem seu lugar em uma casa, cozinha ou bolsa de viagem de verdade.',
+    lifestyle_banner_cta: 'Ver achados',
 
     new_arrivals_aria: 'Novidades',
     new_arrivals_eyebrow: 'Acabou de chegar',
@@ -5375,7 +5375,7 @@ export const DICTIONARIES = {
     home_reviews_heading: 'O que nossos clientes dizem',
     home_reviews_verified: 'Comprador verificado',
     home_reviews_quote_1_text:
-      'Volto sempre. A qualidade é constante, o envio é rápido e as devoluções são simples.',
+      'A qualidade é constante, o envio é rápido e as devoluções são sem perguntas. Por isso volto sempre.',
     home_reviews_quote_1_author: 'Maya R. Toronto',
     home_reviews_quote_2_text:
       'Encontrei um presente que não achei em nenhum outro lugar. A embalagem parecia pensada nos mínimos detalhes.',
@@ -5408,10 +5408,10 @@ export const DICTIONARIES = {
       'Puchica envia para clientes do mundo todo. Toque num pino para ver o que nos conecta.',
 
     home_shop_dept_aria: 'Comprar por departamento',
-    home_shop_dept_eyebrow: 'Explorar a loja',
-    home_shop_dept_heading: 'Departamentos ativos. Caminhos reais de compra.',
+    home_shop_dept_eyebrow: 'Tendência desta semana',
+    home_shop_dept_heading: 'Achados de alto valor, selecionados a mão.',
     home_shop_dept_body:
-      'Do essencial para casa aos últimos gadgets, a Puchica traz o melhor de cada categoria, selecionado, preço justo, entrega rápida.',
+      'Achados em áudio, cozinha, fitness, casa e ar livre — cada produto vem de um fornecedor verificado.',
     home_dept_home: 'Casa & Cozinha',
     home_dept_electronics: 'Eletrônicos',
     home_dept_apparel: 'Roupas',
@@ -5422,7 +5422,7 @@ export const DICTIONARIES = {
     home_curate_aria: 'Como selecionamos',
     home_curate_eyebrow: 'Por que Puchica',
     home_curate_heading: 'O que vale, sem complicação.',
-    home_curate_step1_h: 'Selecionamos de fornecedores de confiança.',
+    home_curate_step1_h: 'Começamos com um problema real que vale resolver.',
     home_curate_step1_b:
       'Trabalhamos com fornecedores verificados em todo o mundo para trazer produtos que valem seu dinheiro.',
     home_curate_step2_h: 'Preço justo.',

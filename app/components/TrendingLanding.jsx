@@ -1,6 +1,7 @@
 import {Image} from '@shopify/hydrogen';
 import {CurrencyMoney} from '~/components/CurrencyMoney';
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
+import {useT} from '~/lib/t';
 
 /**
  * Trending landing for Puchica's high-ticket product launch.
@@ -18,6 +19,7 @@ import {LocalizedLink as Link} from '~/components/LocalizedLink';
  * @param {{products?: Array<Record<string, any>>}} props
  */
 export function TrendingLanding(props) {
+  const t = useT();
   const {products = []} = props;
   const ranked = [...products]
     .filter((product) => !HOMEPAGE_EXCLUDED_HANDLES.has(product.handle))
@@ -36,42 +38,40 @@ export function TrendingLanding(props) {
     <>
       <section className="pk-campaign-hero" aria-labelledby="trending-title">
         <div className="pk-campaign-hero__copy">
-          <p className="pk-campaign__eyebrow">Trending finds · Under $200</p>
+          <p className="pk-campaign__eyebrow">{t('trending_eyebrow')}</p>
           <h1 id="trending-title">
-            Trending finds under $200 — practical products with real reviews.
+            {t('trending_title')}
           </h1>
           <p>
-            A focused edit of high-ticket items customers keep re-ordering:
-            audio, kitchen, fitness, home, and outdoor. Real product photos,
-            shipping shown at checkout, no subscriptions.
+            {t('trending_sub')}
           </p>
           <div className="pk-campaign-hero__actions">
             <a
               className="pk-campaign-btn pk-campaign-btn--primary"
               href="#trending-featured"
             >
-              Shop the trending edit
+              {t('trending_hero_cta')}
             </a>
             <Link
               className="pk-campaign-text-link"
               to="/collections/all"
               prefetch="intent"
             >
-              Browse the full catalog <span aria-hidden="true">→</span>
+              {t('trending_hero_secondary')} <span aria-hidden="true">→</span>
             </Link>
           </div>
           <ul className="pk-campaign-proof" aria-label="Shopping assurances">
             <li>
-              <strong>Secure Shopify checkout</strong>
-              <span>Encrypted & PCI-compliant</span>
+              <strong>{t('trending_proof_secure_h')}</strong>
+              <span>{t('trending_proof_secure_s')}</span>
             </li>
             <li>
-              <strong>Free Canadian shipping</strong>
-              <span>On orders over $50</span>
+              <strong>{t('trending_proof_shipping_h')}</strong>
+              <span>{t('trending_proof_shipping_s')}</span>
             </li>
             <li>
-              <strong>Real product photos</strong>
-              <span>Verified reviews from buyers</span>
+              <strong>{t('trending_proof_photos_h')}</strong>
+              <span>{t('trending_proof_photos_s')}</span>
             </li>
           </ul>
         </div>
@@ -98,7 +98,7 @@ export function TrendingLanding(props) {
                   />
                 ) : null}
                 <span className="pk-campaign-feature__body">
-                  <small>#1 bestseller</small>
+                  <small>{t('trending_feature_spotlight_kicker')}</small>
                   <strong>{heroSpotlight.title}</strong>
                   {heroSpotlightVariant?.price ? (
                     <span className="pk-campaign-feature__price">
@@ -106,7 +106,7 @@ export function TrendingLanding(props) {
                     </span>
                   ) : null}
                   <span className="pk-campaign-feature__link">
-                    Shop the #1 pick <span aria-hidden="true">→</span>
+                    {t('trending_feature_cta')} <span aria-hidden="true">→</span>
                   </span>
                 </span>
               </Link>
@@ -134,7 +134,7 @@ export function TrendingLanding(props) {
                     />
                   ) : null}
                   <span>
-                    <small>#2 bestselling</small>
+                    <small>{t('trending_feature_secondary_kicker')}</small>
                     <strong>{heroSecondary.title}</strong>
                     {heroSecondaryVariant?.price ? (
                       <span className="pk-campaign-feature__price">
@@ -165,7 +165,7 @@ export function TrendingLanding(props) {
                     />
                   ) : null}
                   <span>
-                    <small>#3 bestselling</small>
+                    <small>{t('trending_feature_tertiary_kicker')}</small>
                     <strong>{heroTertiary.title}</strong>
                     {heroTertiaryVariant?.price ? (
                       <span className="pk-campaign-feature__price">
@@ -188,13 +188,12 @@ export function TrendingLanding(props) {
         >
           <div className="pk-campaign-products__head">
             <div>
-              <p className="pk-campaign__eyebrow">Featured this launch</p>
+              <p className="pk-campaign__eyebrow">{t('trending_grid_eyebrow')}</p>
               <h2 id="trending-featured-heading">
-                More trending finds worth a look
+                {t('trending_grid_title')}
               </h2>
               <p>
-                Hand-picked from the launch catalog — verified suppliers,
-                shipping confirmed at checkout, returns within 30 days.
+                {t('trending_grid_sub')}
               </p>
             </div>
             <Link
@@ -202,7 +201,7 @@ export function TrendingLanding(props) {
               to="/collections/all"
               prefetch="intent"
             >
-              Shop all trending finds
+              {t('trending_grid_more_cta')}
             </Link>
           </div>
           <div className="pk-campaign-grid">
@@ -227,6 +226,7 @@ export function TrendingLanding(props) {
  * @param {{product: Record<string, any>, eager?: boolean}} props
  */
 function TrendingProductCard({product, eager = false}) {
+  const t = useT();
   const variant = getFirstAvailableVariant(product);
   const image = variant?.image || product.featuredImage;
 
@@ -257,7 +257,7 @@ function TrendingProductCard({product, eager = false}) {
             </span>
           ) : null}
           <span className="pk-campaign-card__cta">
-            View product <span aria-hidden="true">→</span>
+            {t('trending_card_cta')} <span aria-hidden="true">→</span>
           </span>
         </span>
       </span>
