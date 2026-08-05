@@ -31,6 +31,9 @@ export const DICTIONARIES = {
     footer_policies: 'Policies',
     footer_shipping_policy: 'Shipping Policy',
     footer_refund_policy: 'Refund Policy',
+    footer_privacy_policy: 'Privacy Policy',
+    footer_terms_of_service: 'Terms of Service',
+    footer_subscription_policy: 'Subscription Policy',
     footer_terms: 'Terms of Service',
     footer_newsletter_title: 'Join our newsletter',
     footer_newsletter_copy:
@@ -648,6 +651,8 @@ export const DICTIONARIES = {
     megamenu_edit_title: 'Trending high-ticket finds under C$200.',
     megamenu_edit_body:
       'Shop solutions for under-sink storage, cables, packing, and everyday carry.',
+    megamenu_trust_shipping: 'Shipping options shown at checkout',
+    megamenu_trust_refund: 'Refund policy available',
     pillnav_aria: 'Page sections',
     pillnav_trending: 'Trending',
     pillnav_home_kitchen: 'Home & Kitchen',
@@ -1432,6 +1437,9 @@ export const DICTIONARIES = {
     footer_policies: 'Politiques',
     footer_shipping_policy: 'Politique d’expédition',
     footer_refund_policy: 'Politique de remboursement',
+    footer_privacy_policy: 'Politique de confidentialité',
+    footer_terms_of_service: 'Conditions d’utilisation',
+    footer_subscription_policy: 'Politique d’abonnement',
     footer_terms: 'Conditions d’utilisation',
     footer_newsletter_title: 'Abonnez-vous à notre infolettre',
     footer_newsletter_copy:
@@ -1951,6 +1959,8 @@ export const DICTIONARIES = {
     megamenu_edit_title: 'Trouvailles haut de gamme sous 200 $ CA.',
     megamenu_edit_body:
       'Solutions pour le rangement sous l’évier, les câbles, l’emballage et le transport quotidien.',
+    megamenu_trust_shipping: 'Options de livraison affichées au paiement',
+    megamenu_trust_refund: 'Politique de remboursement disponible',
     megamenu_tagline_phone_case: 'Coques, prises, protection.',
     megamenu_tagline_home_essentials: 'Audio, cuisine, déco, rangement.',
     megamenu_tagline_home_kitchen: 'Cuisine, rangement, déco.',
@@ -2793,6 +2803,9 @@ export const DICTIONARIES = {
     footer_policies: 'Políticas',
     footer_shipping_policy: 'Política de envío',
     footer_refund_policy: 'Política de reembolso',
+    footer_privacy_policy: 'Política de privacidad',
+    footer_terms_of_service: 'Términos del servicio',
+    footer_subscription_policy: 'Política de suscripción',
     footer_terms: 'Términos del servicio',
     footer_newsletter_title: 'Unéte a nuestro boletín',
     footer_newsletter_copy:
@@ -3313,6 +3326,8 @@ export const DICTIONARIES = {
     megamenu_edit_title: 'Productos populares de alto valor por menos de 200 $ CAD.',
     megamenu_edit_body:
       'Soluciones para almacenaje bajo el fregadero, cables, empaque y transporte del día a día.',
+    megamenu_trust_shipping: 'Opciones de envío mostradas al pagar',
+    megamenu_trust_refund: 'Política de reembolso disponible',
     megamenu_tagline_phone_case: 'Fundas, agarres, protección.',
     megamenu_tagline_home_essentials: 'Audio, cocina, decoración, almacenamiento.',
     megamenu_tagline_home_kitchen: 'Cocina, almacenamiento, decoración.',
@@ -4152,6 +4167,9 @@ export const DICTIONARIES = {
     footer_policies: 'Políticas',
     footer_shipping_policy: 'Política de envio',
     footer_refund_policy: 'Política de reembolso',
+    footer_privacy_policy: 'Política de privacidade',
+    footer_terms_of_service: 'Termos de serviço',
+    footer_subscription_policy: 'Política de assinatura',
     footer_terms: 'Termos de serviço',
     footer_newsletter_title: 'Assine nossa newsletter',
     footer_newsletter_copy:
@@ -4669,6 +4687,8 @@ export const DICTIONARIES = {
     megamenu_edit_title: 'Achados premium por menos de 200 $ CAD.',
     megamenu_edit_body:
       'Soluções para armazenamento sob a pia, cabos, embalagem e transporte do dia a dia.',
+    megamenu_trust_shipping: 'Opções de entrega mostradas no checkout',
+    megamenu_trust_refund: 'Política de reembolso disponível',
     megamenu_tagline_phone_case: 'Capas, suportes, proteção.',
     megamenu_tagline_home_essentials: 'Áudio, cozinha, decoração, armazenamento.',
     megamenu_tagline_home_kitchen: 'Cozinha, armazenamento, decoração.',

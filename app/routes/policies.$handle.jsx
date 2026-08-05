@@ -3,12 +3,50 @@ import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {puchicaMeta} from '~/lib/seo';
 import {useT} from '~/lib/t';
 
+// Map Shopify policy handle → localized title. The <body> itself is
+// admin-side (Shopify Markets translations are owned by the merchant);
+// we localize the page title so search engines index the FR/ES pages
+// under the right language and visitors understand which document
+// they're reading.
+const POLICY_TITLES = {
+  'privacy-policy': {
+    en: 'Privacy Policy',
+    fr: 'Politique de confidentialité',
+    es: 'Política de privacidad',
+  },
+  'shipping-policy': {
+    en: 'Shipping Policy',
+    fr: 'Politique d’expédition',
+    es: 'Política de envío',
+  },
+  'refund-policy': {
+    en: 'Refund Policy',
+    fr: 'Politique de remboursement',
+    es: 'Política de reembolso',
+  },
+  'terms-of-service': {
+    en: 'Terms of Service',
+    fr: 'Conditions d’utilisation',
+    es: 'Términos del servicio',
+  },
+  'subscription-policy': {
+    en: 'Subscription Policy',
+    fr: 'Politique d’abonnement',
+    es: 'Política de suscripción',
+  },
+};
+
 /**
  * @type {Route.MetaFunction}
  */
-export const meta = ({data, params}) => {
+export const meta = ({matches, data, params}) => {
   const policy = data?.policy;
-  const title = policy?.title || 'Policy';
+  const handle = policy?.handle;
+  const root = matches?.find((m) => m.id === 'root');
+  const langCode = (root?.data?.selectedLocale?.language || 'EN').toLowerCase();
+  const langKey = ['fr', 'es'].includes(langCode) ? langCode : 'en';
+  const localized = handle && POLICY_TITLES[handle]?.[langKey];
+  const title = localized || policy?.title || 'Policy';
   // Description: sentence-aware first ~160 chars of the policy body.
   // Slicing on a sentence boundary avoids broken search snippets like
   // "1. Acceptance of Thes" — Google rewrites those anyway, but a clean
@@ -22,9 +60,18 @@ export const meta = ({data, params}) => {
   return puchicaMeta({
     title: `${title} – Puchica`,
     description,
-    pathname: `/policies/${policy?.handle || ''}`,
+    pathname: `/policies/${handle || ''}`,
     langKey: params?.locale,
   });
+};
+
+// Map policy handle → dictionary key for the visible <h1>.
+const POLICY_H1_KEYS = {
+  'privacy-policy': 'footer_privacy_policy',
+  'shipping-policy': 'footer_shipping_policy',
+  'refund-policy': 'footer_refund_policy',
+  'terms-of-service': 'footer_terms_of_service',
+  'subscription-policy': 'footer_subscription_policy',
 };
 
 /**
@@ -119,7 +166,7 @@ export default function Policy() {
         </Link>
         <article className="pk-policy__article">
           <header className="pk-policy__head">
-            <h1>{policy.title}</h1>
+            <h1>{t(POLICY_H1_KEYS[policy?.handle] || '') || policy.title}</h1>
           </header>
           {isRefundPolicy ? (
             <section

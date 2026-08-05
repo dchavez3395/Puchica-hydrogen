@@ -46,6 +46,20 @@ export default function Policies() {
   const {policies} = useLoaderData();
   const t = useT();
 
+  // Map Shopify policy handle → localized dictionary key.
+  // Falls back to policy.title (admin-side) when a key is missing.
+  const titleFor = (handle) => {
+    const map = {
+      'privacy-policy': 'footer_privacy_policy',
+      'shipping-policy': 'footer_shipping_policy',
+      'refund-policy': 'footer_refund_policy',
+      'terms-of-service': 'footer_terms_of_service',
+      'subscription-policy': 'footer_subscription_policy',
+    };
+    const key = map[handle];
+    return key ? t(key) : null;
+  };
+
   return (
     <div className="pk-policies-index pk-inner">
       <header className="pk-policies-index__head">
@@ -53,21 +67,24 @@ export default function Policies() {
         <p>{t('policies_sub')}</p>
       </header>
       <ul className="pk-policies-index__list">
-        {policies.map((policy) => (
-          <li key={policy.id}>
-            <Link
-              to={`/policies/${policy.handle}`}
-              className="pk-policies-index__link"
-            >
-              <span className="pk-policies-index__link-title">
-                {policy.title}
-              </span>
-              <span className="pk-policies-index__link-arrow" aria-hidden>
-                →
-              </span>
-            </Link>
-          </li>
-        ))}
+        {policies.map((policy) => {
+          const localized = titleFor(policy.handle);
+          return (
+            <li key={policy.id}>
+              <Link
+                to={`/policies/${policy.handle}`}
+                className="pk-policies-index__link"
+              >
+                <span className="pk-policies-index__link-title">
+                  {localized || policy.title}
+                </span>
+                <span className="pk-policies-index__link-arrow" aria-hidden>
+                  →
+                </span>
+              </Link>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

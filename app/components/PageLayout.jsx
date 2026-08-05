@@ -308,9 +308,9 @@ function MobileMenuAside({header, megaMenu, publicStoreDomain}) {
             </Link>
           </div>
           <p className="pk-mmenu__foot">
-            Shipping options shown at checkout
+            {t.megamenu_trust_shipping}
             <StarGlyph size={10} style={{margin: '0 0.4em'}} />
-            Refund policy available
+            {t.megamenu_trust_refund}
           </p>
         </div>
       </Aside>
