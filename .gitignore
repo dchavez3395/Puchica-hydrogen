@@ -74,3 +74,4 @@ work/check_*.png
 work/test_*.png
 scripts/feed_products.json
 generated-images/_admin_token.txt
+h2_deploy_log.json
