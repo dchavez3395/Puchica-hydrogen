@@ -18,12 +18,7 @@ import {data, useActionData} from 'react-router';
  *   3. Physical address in footer (set in templates)
  */
 
-const SHOP = process.env.PUBLIC_STORE_DOMAIN || 'puchica.myshopify.com';
 const STOREFRONT_API_VERSION = '2025-01';
-const STOREFRONT_TOKEN =
-  process.env.PUBLIC_STOREFRONT_API_TOKEN ||
-  process.env.SHOPIFY_STOREFRONT_API_TOKEN ||
-  '';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -34,7 +29,7 @@ function isAllowedEmail(value) {
   return EMAIL_RE.test(trimmed);
 }
 
-async function customerCreate({email, firstName, lastName, acceptsMarketing}) {
+async function customerCreate({email, firstName, lastName, acceptsMarketing, env}) {
   const query = `
     mutation newsletterCreate($input: CustomerCreateInput!) {
       customerCreate(input: $input) {
@@ -52,13 +47,18 @@ async function customerCreate({email, firstName, lastName, acceptsMarketing}) {
       acceptsMarketing: acceptsMarketing !== false,
     },
   };
+  const shop = env.PUBLIC_STORE_DOMAIN || 'puchica.myshopify.com';
+  const token = env.PUBLIC_STOREFRONT_API_TOKEN || env.SHOPIFY_STOREFRONT_API_TOKEN || '';
+  if (!token) {
+    return {ok: false, error: 'Storefront token not configured'};
+  }
   const res = await fetch(
-    `https://${SHOP}/api/${STOREFRONT_API_VERSION}/graphql.json`,
+    `https://${shop}/api/${STOREFRONT_API_VERSION}/graphql.json`,
     {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'X-Shopify-Storefront-Access-Token': STOREFRONT_TOKEN,
+        'X-Shopify-Storefront-Access-Token': token,
         Accept: 'application/json',
       },
       body: JSON.stringify({query, variables}),
@@ -101,8 +101,9 @@ function cryptoRandomPassword() {
     .slice(0, 32);
 }
 
-/** @param {Request} request */
-export async function action({request}) {
+/** @param {Route.ActionArgs} */
+export async function action({request, context}) {
+  const env = context?.env || {};
   if (request.method !== 'POST') {
     return data(
       {ok: false, error: 'Method not allowed'},
@@ -146,18 +147,12 @@ export async function action({request}) {
     );
   }
 
-  if (!STOREFRONT_TOKEN) {
-    return data(
-      {ok: false, error: 'Newsletter service unavailable.'},
-      {status: 503},
-    );
-  }
-
   const result = await customerCreate({
     email: email.trim().toLowerCase(),
     firstName: firstName.trim(),
     lastName: lastName.trim(),
     acceptsMarketing: true,
+    env,
   });
 
   if (!result.ok) {
