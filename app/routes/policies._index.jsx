@@ -32,8 +32,9 @@ const POLICIES_INDEX_SEO = {
 };
 
 export const meta = ({matches, params}) => {
-  const root = matches?.find((m) => m?.id === 'root')?.data;
-  const lang = root?.selectedLocale?.language || params?.locale || 'en';
+  const root = matches?.find((m) => m?.id === 'root');
+  const langCode = (root?.data?.selectedLocale?.language || params?.locale || 'en').toLowerCase();
+  const lang = ['fr', 'es', 'pt-br'].includes(langCode) ? langCode : 'en';
   const seo = POLICIES_INDEX_SEO[lang] || POLICIES_INDEX_SEO.en;
   return puchicaMeta({
     title: seo.title,
