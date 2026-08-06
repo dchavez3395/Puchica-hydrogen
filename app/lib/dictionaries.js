@@ -641,7 +641,7 @@ export const DICTIONARIES = {
     megamenu_error_cta: 'Browse everything →',
     megamenu_tile_cta: 'Shop →',
     megamenu_intent_heading: 'Shop by category',
-    megamenu_intent_home_title: 'Home reset',
+    megamenu_intent_home_title: 'Best sellers',
     megamenu_intent_home_body: 'Audio, kitchen, fitness, home, outdoor — the picks customers keep re-ordering.',
     megamenu_intent_cable_title: 'Top trending',
     megamenu_intent_cable_body: 'Keep cords and everyday tech easy to find.',
