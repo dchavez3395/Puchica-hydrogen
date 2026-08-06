@@ -1412,6 +1412,11 @@ export const DICTIONARIES = {
     // ── Shop by category sub ──────────────────────────────────────
     shop_by_category_sub:
       'Start with the departments that are live and ready to shop today.',
+
+    // ── PDP route meta (localized) ────────────────────────────────
+    pdp_meta_title_suffix: ' – Puchica',
+    pdp_meta_description_fallback:
+      'Shop {title} from Puchica. Shipping options for Canada are shown at checkout.',
   },
 
   // ════════════════════════════════════════════════════════════════
@@ -2778,6 +2783,11 @@ export const DICTIONARIES = {
     hero_storefront_title: 'Façons populaires de magasiner',
     shop_by_category_sub:
       'Commencez avec les départements en ligne et prêts à magasiner.',
+
+    // ── PDP route meta (localized) ────────────────────────────────
+    pdp_meta_title_suffix: ' – Puchica',
+    pdp_meta_description_fallback:
+      'Découvrez {title} chez Puchica. Les options de livraison pour le Canada sont affichées au paiement.',
   },
 
   // ════════════════════════════════════════════════════════════════
@@ -4142,6 +4152,11 @@ export const DICTIONARIES = {
     hero_storefront_title: 'Formas populares de comprar',
     shop_by_category_sub:
       'Empieza por los departamentos activos y listos para comprar.',
+
+    // ── PDP route meta (localized) ────────────────────────────────
+    pdp_meta_title_suffix: ' – Puchica',
+    pdp_meta_description_fallback:
+      'Compra {title} en Puchica. Las opciones de envío a Canadá se muestran al pagar.',
   },
 
   // ════════════════════════════════════════════════════════════════
@@ -5500,5 +5515,10 @@ export const DICTIONARIES = {
     hero_storefront_title: 'Formas populares de comprar',
     shop_by_category_sub:
       'Comece pelos departamentos ativos e prontos para comprar.',
+
+    // ── PDP route meta (localized) ────────────────────────────────
+    pdp_meta_title_suffix: ' – Puchica',
+    pdp_meta_description_fallback:
+      'Compre {title} na Puchica. As opções de envio para o Canadá são mostradas no checkout.',
   },
 };

@@ -28,14 +28,30 @@ import {recordRecentlyViewed} from '~/lib/recentlyViewed';
 import {useT} from '~/lib/t';
 import {isLaunchReadyProduct} from '~/lib/launch-catalog';
 import {presentProductTitle} from '~/lib/product-presentation';
+import {DICTIONARIES} from '~/lib/dictionaries';
 
 /** @type {Route.MetaFunction} */
-export const meta = ({data, params}) => {
+export const meta = ({data, matches, params}) => {
   if (!data?.product) return [{title: 'Puchica'}];
+  // Derive the langKey from the root loader (selectedLocale.language), falling
+  // back to params.locale, then 'en'. Mirrors _index.jsx and policies._index.jsx
+  // so canonical/og:url and the meta copy stay aligned across all 4 locales.
+  const root = matches?.find((m) => m?.id === 'root');
+  const langCode = (
+    root?.data?.selectedLocale?.language ||
+    params?.locale ||
+    'en'
+  ).toLowerCase();
+  const langKey = ['fr', 'es', 'pt-br'].includes(langCode) ? langCode : 'en';
+  const dict = DICTIONARIES[langKey] || DICTIONARIES.en;
   const seo = data.product.seo || {};
   const productTitle = presentProductTitle(data.product.title);
   const storedDescription = seo.description || '';
-  const title = seo.title || `${data.product.title} – Puchica`;
+  // Title: prefer Shopify SEO title, otherwise build "<product> – Puchica"
+  // using the locale's title suffix. The suffix is shared (" – Puchica") in
+  // all 4 locales because the brand is global.
+  const title =
+    seo.title || `${data.product.title}${dict.pdp_meta_title_suffix}`;
   // Canada-only store: strip any U.S.-only shipping copy and avoid leaking
   // "United States" into the Canada-only meta fallback. The regex also catches
   // any lingering "U.S./United States" mentions so the live description never
@@ -45,10 +61,13 @@ export const meta = ({data, params}) => {
       ? ''
       : storedDescription) ||
     (data.product.description || '').slice(0, 160) ||
-    `Shop ${productTitle} from Puchica. Shipping options for Canada are shown at checkout.`;
+    // Fallback string from the dictionary, with {title} interpolated via
+    // the same helper useT() uses so React node values flow through if a
+    // caller ever passes one.
+    dict.pdp_meta_description_fallback.replace(/\{title\}/g, productTitle);
   const image = data.product.featuredImage?.url;
   const pathname = `/products/${data.product.handle}`;
-  return puchicaMeta({title, description, image, type: 'product', pathname, langKey: params?.locale});
+  return puchicaMeta({title, description, image, type: 'product', pathname, langKey});
 };
 
 /** @param {Route.LoaderArgs} args */
