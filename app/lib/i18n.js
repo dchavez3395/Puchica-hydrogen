@@ -60,6 +60,14 @@ export const MARKET_COOKIE = 'pk_market';
  */
 export const PREFIXED_LANGS = ['fr', 'es', 'pt-br']; // 'en' is unprefixed
 
+// Locale aliases people actually type. We map each alias to its canonical
+// PREFIXED_LANGS entry so URLs like /pt still resolve to /pt-br. This is
+// read-only normalization — the canonical prefix stays /pt-br in hreflang
+// alternates, sitemap, and SocialProfile links.
+const LOCALE_ALIASES = {
+  pt: 'pt-br',
+};
+
 /**
  * Split a pathname into its language prefix (if any) and the "bare" path the
  * app's routes actually match.
@@ -75,9 +83,11 @@ export const PREFIXED_LANGS = ['fr', 'es', 'pt-br']; // 'en' is unprefixed
 export function parseLocaleFromPath(pathname) {
   const path = pathname || '/';
   const seg = (path.split('/')[1] || '').toLowerCase();
-  if (PREFIXED_LANGS.includes(seg) || seg === 'en') {
+  // Resolve aliases BEFORE the prefix check so /pt is treated as /pt-br.
+  const canonical = LOCALE_ALIASES[seg] || seg;
+  if (PREFIXED_LANGS.includes(canonical) || canonical === 'en') {
     const rest = path.slice(seg.length + 1) || '/';
-    return {langKey: seg, rest: rest.startsWith('/') ? rest : '/' + rest};
+    return {langKey: canonical, rest: rest.startsWith('/') ? rest : '/' + rest};
   }
   return {langKey: 'en', rest: path};
 }
