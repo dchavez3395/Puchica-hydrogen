@@ -283,11 +283,6 @@ export default function App() {
       shop={data.shop}
       consent={data.consent}
     >
-      {/* PageView fires on every route navigation. Hydrogen supplies url
-          automatically from window.location.href, and the Analytics context
-          from the Provider. Mounting it here once means we don't have to
-          remember to add <Analytics.PageView /> to every route file. */}
-      <Analytics.PageView />
       <MetaPixel pixelId={data.metaPixelId} />
       <GoogleAnalytics4 measurementId={data.ga4MeasurementId} />
       <CartRecoveryBanner cart={data.cart} />

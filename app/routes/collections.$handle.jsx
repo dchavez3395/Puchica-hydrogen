@@ -279,15 +279,7 @@ export default function Collection() {
 
       <Analytics.CollectionView
         data={{
-          collection: {
-            id: collection.id,
-            handle: collection.handle,
-            title: collection.title,
-            // Pass product nodes so subscribers (GA4 view_item_list) can
-            // emit items without re-querying the collection. Hydrogen caps
-            // this in the loader query anyway.
-            products: collection.products?.nodes || [],
-          },
+          collection: {id: collection.id, handle: collection.handle},
         }}
       />
     </div>
