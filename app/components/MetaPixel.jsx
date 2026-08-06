@@ -15,6 +15,13 @@ import {analyticsItemId, cartAnalyticsItems} from '~/lib/analytics-items';
  * same pixel the FB & Instagram channel uses for checkout). Until that env var
  * is set, this component renders null and does nothing — safe no-op.
  *
+ * SERVER-SIDE (CAPI) DEDUPLICATION: every `fbq('track', ...)` call below also
+ * POSTs a copy of the event to `/api/meta-event`. The server endpoint forwards
+ * to Meta's Conversions API with the same `event_id`, which Meta uses to dedupe
+ * the browser and server events into one funnel entry per real user action.
+ * This survives ad-blockers and iOS ITP for ~30% of visitors who would
+ * otherwise be invisible to Meta's optimization.
+ *
  * FUNNEL NOTE: this component covers PageView, ViewContent, AddToCart, and
  * InitiateCheckout. Purchase is expected from the Shopify-hosted checkout
  * integration, but must be verified in Meta Events Manager before ad spend.
@@ -60,12 +67,50 @@ export function MetaPixel({pixelId}) {
         return false;
       }
     };
-    const track = (event, payload = {}) => {
+
+    /**
+     * Forward an event to Meta CAPI for dedupe-resilient server-side tracking.
+     * Fire-and-forget: we never await or throw. The browser pixel still runs
+     * regardless of the server outcome.
+     */
+    const forwardToCapi = (eventName, payload, eventId) => {
+      if (typeof window === 'undefined') return;
+      try {
+        const body = JSON.stringify({
+          event_name: eventName,
+          event_id: eventId,
+          event_source_url: window.location?.href || '',
+          payload,
+        });
+        // Use sendBeacon where available — survives page navigations and
+        // doesn't block the unload path. Fall back to fetch with keepalive.
+        if (typeof navigator !== 'undefined' && typeof navigator.sendBeacon === 'function') {
+          const blob = new Blob([body], {type: 'application/json'});
+          const sent = navigator.sendBeacon('/api/meta-event', blob);
+          if (sent) return;
+        }
+        if (typeof fetch === 'function') {
+          fetch('/api/meta-event', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body,
+            keepalive: true,
+          }).catch(() => {});
+        }
+      } catch {
+        /* never let CAPI relay break the page */
+      }
+    };
+
+    const track = (event, payload = {}, opts = {}) => {
       if (!allowed()) return;
+      const eventId = opts.eventID || cryptoEventId();
       try {
         const fbq = loadFbq(pixelId);
         if (typeof fbq !== 'function') return;
-        fbq('track', event, payload);
+        fbq('track', event, payload, {eventID: eventId});
+        // Mirror to CAPI so dedupe can match against the server event.
+        forwardToCapi(event, payload, eventId);
       } catch {
         /* never let analytics break the page */
       }
@@ -121,6 +166,32 @@ export function MetaPixel({pixelId}) {
   }, [pixelId, subscribe, canTrack, ready]);
 
   return null;
+}
+
+/**
+ * Generate a unique event ID. Meta requires:
+ *   - unique per event
+ *   - alphanumeric + a few separators
+ *   - max 64 chars
+ * We use `crypto.randomUUID()` where available, falling back to a manual
+ * v4-style hex string.
+ */
+function cryptoEventId() {
+  try {
+    if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+      return crypto.randomUUID();
+    }
+  } catch {
+    /* fall through */
+  }
+  // Fallback: 32 hex chars
+  const bytes = new Uint8Array(16);
+  if (typeof crypto !== 'undefined' && typeof crypto.getRandomValues === 'function') {
+    crypto.getRandomValues(bytes);
+  } else {
+    for (let i = 0; i < bytes.length; i++) bytes[i] = Math.floor(Math.random() * 256);
+  }
+  return Array.from(bytes, (b) => b.toString(16).padStart(2, '0')).join('');
 }
 
 /** Standard Meta Pixel base loader (idempotent). */
