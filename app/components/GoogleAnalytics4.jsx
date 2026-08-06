@@ -230,15 +230,17 @@ export function GoogleAnalytics4({measurementId}) {
 
     // --- Search (search results page) --------------------------------------
     subscribe('search_viewed', (data) => {
-      const search = data?.search;
-      if (!search) return;
-      const query = search.query || data?.query || '';
-      const results = Number(search.results?.length ?? search.resultsCount ?? 0);
+      // Hydrogen's <Analytics.SearchView data={...}> receives whatever the
+      // publisher passes in `data`. Our search.jsx publishes
+      // {searchTerm, searchResults: {total, items}}.
+      const term = data?.searchTerm || data?.search?.query || '';
+      const results = data?.searchResults;
+      const total = Number(results?.total ?? results?.length ?? 0);
       track('search', {
-        search_term: String(query).slice(0, 200),
-        // GA4 doesn't have a strict "results" field, but accepts custom
-        // params. Keep it for downstream funnel analysis.
-        ...(Number.isFinite(results) ? {results_count: results} : {}),
+        search_term: String(term).slice(0, 200),
+        ...(Number.isFinite(total) && total >= 0
+          ? {results_count: total}
+          : {}),
       });
     });
 
