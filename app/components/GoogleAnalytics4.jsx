@@ -1,7 +1,7 @@
 import {useEffect, useRef} from 'react';
 import {useAnalytics} from '@shopify/hydrogen';
 import {isBotClient} from '~/lib/bot-detection';
-import {analyticsItemId} from '~/lib/analytics-items';
+import {analyticsItemId, cartAnalyticsItems} from '~/lib/analytics-items';
 
 /**
  * GoogleAnalytics4 — GA4 tracking for the headless Hydrogen storefront.
@@ -13,8 +13,12 @@ import {analyticsItemId} from '~/lib/analytics-items';
  * SETUP: add your GA4 Measurement ID as PUBLIC_GA4_MEASUREMENT_ID in
  * Oxygen env vars + local .env. Until set, this component is a no-op.
  *
- * EVENTS: view_item and add_to_cart only. Shopify's native Google integration
- * owns checkout-side page_view, begin_checkout, and purchase events.
+ * EVENT OWNERSHIP:
+ *   - This component owns: page_view, view_item, view_item_list, view_cart,
+ *     add_to_cart, remove_from_cart, search (all storefront-side).
+ *   - Shopify's native Google channel owns: begin_checkout, add_payment_info,
+ *     purchase (all checkout-side) — we deliberately do NOT fire these here
+ *     so the funnel isn't double-counted.
  *
  * @param {{measurementId?: string | null}} props
  * @returns {null}
@@ -46,9 +50,9 @@ export function GoogleAnalytics4({measurementId}) {
       return;
     }
 
-    // Eagerly load gtag.js script so it appears in the network panel and
-    // can fire send_page_view. Shopify's Customer Privacy API still gates
-    // cookie-based analytics downstream; we only gate event emission here.
+    // Eagerly load gtag.js script so it appears in the network panel.
+    // {send_page_view: false} suppresses the auto-config page_view so we
+    // can emit it ourselves with page_location/page_title from Hydrogen.
     try {
       loadGtag(measurementId);
     } catch {
@@ -74,6 +78,19 @@ export function GoogleAnalytics4({measurementId}) {
       }
     };
 
+    // --- Page view ----------------------------------------------------------
+    subscribe('page_viewed', (data) => {
+      const url =
+        data?.url ||
+        (typeof window !== 'undefined' ? window.location?.href : undefined);
+      const title = data?.page?.title;
+      const params = {};
+      if (url) params.page_location = url;
+      if (title) params.page_title = title;
+      track('page_view', params);
+    });
+
+    // --- View item (PDP) ----------------------------------------------------
     subscribe('product_viewed', (data) => {
       const p = data?.products?.[0];
       if (!p) return;
@@ -94,6 +111,68 @@ export function GoogleAnalytics4({measurementId}) {
       });
     });
 
+    // --- View item list (collection / landing page) -------------------------
+    // Hydrogen emits collection_viewed with `{collection: {id, title, products}}`.
+    subscribe('collection_viewed', (data) => {
+      const collection = data?.collection || data?.page?.collection;
+      const products = Array.isArray(data?.collection?.products)
+        ? data.collection.products
+        : Array.isArray(collection?.products)
+        ? collection.products
+        : [];
+      if (!collection || products.length === 0) return;
+
+      const currency =
+        data?.shop?.currency ||
+        products
+          .map((p) => p?.priceRange?.minVariantPrice?.currencyCode)
+          .find(Boolean);
+      if (!currency) return;
+
+      const items = products
+        .map((p) => {
+          const price = Number(
+            p?.priceRange?.minVariantPrice?.amount ?? p?.price,
+          );
+          if (!Number.isFinite(price) || !p) return null;
+          return {
+            item_id: analyticsItemId(p),
+            item_name: p?.title,
+            price,
+            index: undefined,
+          };
+        })
+        .filter(Boolean);
+
+      // GA4 view_item_list recommends capping at 10 items per report.
+      if (items.length === 0) return;
+      const trimmed = items.slice(0, 10);
+
+      track('view_item_list', {
+        item_list_id: collection.id,
+        item_list_name: collection.title || collection.handle,
+        currency,
+        items: trimmed,
+      });
+    });
+
+    // --- View cart (cart page) ---------------------------------------------
+    subscribe('cart_viewed', (data) => {
+      const cart = data?.cart;
+      if (!cart) return;
+      const items = cartAnalyticsItems(cart);
+      if (items.length === 0) return;
+      const total = Number(cart?.cost?.totalAmount?.amount);
+      const currency = cart?.cost?.totalAmount?.currencyCode;
+      if (!currency || !Number.isFinite(total)) return;
+      track('view_cart', {
+        currency,
+        value: total,
+        items,
+      });
+    });
+
+    // --- Add to cart -------------------------------------------------------
     subscribe('product_added_to_cart', (data) => {
       const line = data?.currentLine || data?.cart?.lines?.nodes?.[0];
       const merch = line?.merchandise;
@@ -111,10 +190,55 @@ export function GoogleAnalytics4({measurementId}) {
           {
             item_id: merch?.id,
             item_name: merch?.product?.title,
+            item_variant: merch?.title,
             price: unitPrice,
             quantity,
           },
         ],
+      });
+    });
+
+    // --- Remove from cart --------------------------------------------------
+    // Hydrogen emits {cart, prevCart} on every cart mutation; we only fire
+    // remove_from_cart when the specific line quantity decreased.
+    subscribe('product_removed_from_cart', (data) => {
+      const cart = data?.cart;
+      const line = data?.currentLine;
+      if (!cart || !line) return;
+      const merch = line?.merchandise;
+      if (!merch) return;
+      const currency = merch?.price?.currencyCode;
+      const unitPrice = Number(merch?.price?.amount);
+      const prevQty = Number(data?.prevLine?.quantity) || 0;
+      const newQty = Number(line?.quantity) || 0;
+      const quantity = Math.max(1, prevQty - newQty);
+      if (!currency || !Number.isFinite(unitPrice) || quantity <= 0) return;
+      track('remove_from_cart', {
+        currency,
+        value: unitPrice * quantity,
+        items: [
+          {
+            item_id: merch?.id,
+            item_name: merch?.product?.title,
+            item_variant: merch?.title,
+            price: unitPrice,
+            quantity,
+          },
+        ],
+      });
+    });
+
+    // --- Search (search results page) --------------------------------------
+    subscribe('search_viewed', (data) => {
+      const search = data?.search;
+      if (!search) return;
+      const query = search.query || data?.query || '';
+      const results = Number(search.results?.length ?? search.resultsCount ?? 0);
+      track('search', {
+        search_term: String(query).slice(0, 200),
+        // GA4 doesn't have a strict "results" field, but accepts custom
+        // params. Keep it for downstream funnel analysis.
+        ...(Number.isFinite(results) ? {results_count: results} : {}),
       });
     });
 
