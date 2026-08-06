@@ -14488,6 +14488,37 @@ main:has(> .pk-collection--bold) {
   gap: 18px;
 }
 
+.pk-campaign-rail {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(220px, 1fr);
+  gap: 18px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 12px;
+  margin: 0 calc(-1 * clamp(20px, 4vw, 64px));
+  padding-left: clamp(20px, 4vw, 64px);
+  padding-right: clamp(20px, 4vw, 64px);
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+.pk-campaign-rail > * {
+  scroll-snap-align: start;
+}
+
+@media (max-width: 1100px) {
+  .pk-campaign-rail {
+    grid-auto-columns: minmax(180px, 1fr);
+  }
+}
+
+@media (max-width: 760px) {
+  .pk-campaign-rail {
+    grid-auto-columns: 70vw;
+  }
+}
+
 .pk-campaign-split {
   display: grid;
   grid-template-columns: minmax(280px, 0.7fr) minmax(0, 1fr);

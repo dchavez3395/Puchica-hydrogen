@@ -540,6 +540,10 @@ export const DICTIONARIES = {
       'Hand-picked from the launch catalog — verified suppliers, shipping confirmed at checkout, returns within 30 days.',
     trending_grid_more_cta: 'Shop all trending finds',
     trending_card_cta: 'View product',
+    trending_explore_eyebrow: 'More from the catalog',
+    trending_explore_title: 'Discover the rest of the launch',
+    trending_explore_sub:
+      'Every product we route through checkout, all in one place. Scroll to browse the full launch.',
 
     // ── All products page ─────────────────────────────────────────
     all_breadcrumb: 'All trending finds',
@@ -1854,6 +1858,10 @@ export const DICTIONARIES = {
       'Sélectionnées dans le catalogue du lancement — fournisseurs vérifiés, livraison confirmée au paiement, retours sous 30 jours.',
     trending_grid_more_cta: 'Toutes les trouvailles tendance',
     trending_card_cta: 'Voir le produit',
+    trending_explore_eyebrow: 'Plus du catalogue',
+    trending_explore_title: 'Découvrez le reste du lancement',
+    trending_explore_sub:
+      'Chaque produit que nous acheminons au paiement, au même endroit. Faites défiler pour voir tout le lancement.',
 
     all_breadcrumb: 'Toutes les trouvailles',
     all_eyebrow: 'La boutique complète',
@@ -3226,6 +3234,10 @@ export const DICTIONARIES = {
       'Seleccionados del catálogo del lanzamiento — proveedores verificados, envío confirmado al pagar, devoluciones dentro de 30 días.',
     trending_grid_more_cta: 'Ver todos los hallazgos',
     trending_card_cta: 'Ver producto',
+    trending_explore_eyebrow: 'Más del catálogo',
+    trending_explore_title: 'Descubre el resto del lanzamiento',
+    trending_explore_sub:
+      'Cada producto que enviamos al pago, en un solo lugar. Desplázate para ver todo el lanzamiento.',
 
     all_breadcrumb: 'Todos los hallazgos',
     all_eyebrow: 'La tienda completa',
@@ -4594,6 +4606,10 @@ export const DICTIONARIES = {
       'Selecionados do catálogo de lançamento — fornecedores verificados, frete confirmado no checkout, devoluções em 30 dias.',
     trending_grid_more_cta: 'Ver todos os achados em alta',
     trending_card_cta: 'Ver produto',
+    trending_explore_eyebrow: 'Mais do catálogo',
+    trending_explore_title: 'Descubra o resto do lançamento',
+    trending_explore_sub:
+      'Cada produto que enviamos ao checkout, em um só lugar. Role para ver todo o lançamento.',
 
     all_breadcrumb: 'Todos os achados',
     all_eyebrow: 'A loja completa',

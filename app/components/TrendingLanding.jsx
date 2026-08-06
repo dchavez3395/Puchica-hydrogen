@@ -29,6 +29,7 @@ export function TrendingLanding(props) {
   const heroSecondary = ranked[1]; // #2 (Pet Feeder, etc.)
   const heroTertiary = ranked[2]; // #3 (Kitchen Knives, etc.)
   const featuredRest = ranked.slice(3, 11); // next 8 for the grid
+  const moreExplore = ranked.slice(11); // remaining products surfaced as a horizontal rail
 
   const heroSpotlightVariant = getFirstAvailableVariant(heroSpotlight);
   const heroSecondaryVariant = getFirstAvailableVariant(heroSecondary);
@@ -215,6 +216,42 @@ export function TrendingLanding(props) {
           </div>
         </section>
       ) : null}
+
+      {moreExplore.length ? (
+        <section
+          className="pk-campaign-products pk-campaign-products--rail"
+          id="trending-explore"
+          aria-labelledby="trending-explore-heading"
+        >
+          <div className="pk-campaign-products__head">
+            <div>
+              <p className="pk-campaign__eyebrow">
+                {t('trending_explore_eyebrow')}
+              </p>
+              <h2 id="trending-explore-heading">
+                {t('trending_explore_title')}
+              </h2>
+              <p>{t('trending_explore_sub')}</p>
+            </div>
+            <Link
+              className="pk-campaign-link"
+              to="/collections/all"
+              prefetch="intent"
+            >
+              {t('trending_grid_more_cta')}
+            </Link>
+          </div>
+          <div className="pk-campaign-rail" role="list">
+            {moreExplore.map((product) => (
+              <TrendingProductCard
+                key={product.id}
+                product={product}
+                eager={false}
+              />
+            ))}
+          </div>
+        </section>
+      ) : null}
     </>
   );
 }
@@ -369,7 +406,7 @@ export const TRENDING_QUERY = `#graphql
     $language: LanguageCode!
   ) @inContext(country: $country, language: $language) {
     launchProducts: products(
-      first: 24
+      first: 50
       sortKey: CREATED_AT
       reverse: true
       query: "tag:puchica-launch-ready"
