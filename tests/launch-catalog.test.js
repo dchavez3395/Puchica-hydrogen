@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
 
 import {
   filterLaunchProducts,
@@ -28,6 +29,16 @@ test('Storefront queries use the versioned final approval tag', () => {
 
 test('emergency containment keeps cart and checkout entry routes closed', () => {
   assert.equal(STOREFRONT_CONTAINMENT_ACTIVE, true);
+});
+
+test('legacy home-finds campaign fails closed during containment', async () => {
+  const route = await readFile(
+    new URL('../app/routes/campaigns.home-finds.jsx', import.meta.url),
+    'utf8',
+  );
+
+  assert.match(route, /if \(STOREFRONT_CONTAINMENT_ACTIVE\)/);
+  assert.match(route, /return redirect\('\/'/);
 });
 
 test('the legacy launch tag cannot approve a product', () => {

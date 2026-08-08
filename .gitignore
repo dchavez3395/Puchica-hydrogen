@@ -61,6 +61,8 @@ scripts/snapshots/
 # ─── Misc ─────────────────────────────────────────────────────
 coverage/
 .nyc_output/
+__pycache__/
+*.pyc
 .env.local
 .shopify
 .worktrees/

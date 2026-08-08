@@ -2,6 +2,8 @@ import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {Image} from '@shopify/hydrogen';
 import {puchicaMeta} from '~/lib/seo';
 import {useT} from '~/lib/t';
+import {STOREFRONT_CONTAINMENT_ACTIVE} from '~/lib/launch-catalog';
+import {useParams} from 'react-router';
 
 export const meta = ({params}) =>
   puchicaMeta({
@@ -39,6 +41,9 @@ export async function loader() {
 
 export default function AboutPage() {
   const t = useT();
+  if (STOREFRONT_CONTAINMENT_ACTIVE) {
+    return <ContainmentAbout />;
+  }
   const principles = [
     {
       number: '01',
@@ -222,6 +227,70 @@ export default function AboutPage() {
             <span aria-hidden="true">✓</span>
             {t('about_delivery_note')}
           </p>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+const CONTAINMENT_ABOUT_COPY = {
+  en: {
+    eyebrow: 'About Puchica',
+    title: 'We are building a shop that earns your trust.',
+    body: 'Puchica is an independent Canadian shop focused on practical organization and travel finds for everyday life.',
+    standard:
+      'Before a product is published, we review its supplier route, price, delivery information, product details, and customer-facing claims.',
+    contact: 'Contact us',
+    policies: 'Read our policies',
+  },
+  fr: {
+    eyebrow: 'À propos de Puchica',
+    title: 'Nous bâtissons une boutique digne de votre confiance.',
+    body: 'Puchica est une boutique canadienne indépendante axée sur des solutions pratiques de rangement et de voyage.',
+    standard:
+      'Avant de publier un produit, nous vérifions son fournisseur, son prix, la livraison, ses détails et les affirmations présentées aux clients.',
+    contact: 'Nous contacter',
+    policies: 'Lire nos politiques',
+  },
+  es: {
+    eyebrow: 'Acerca de Puchica',
+    title: 'Estamos creando una tienda que se gane tu confianza.',
+    body: 'Puchica es una tienda canadiense independiente enfocada en productos prácticos de organización y viaje.',
+    standard:
+      'Antes de publicar un producto, revisamos el proveedor, el precio, la entrega, los detalles y las afirmaciones que verá el cliente.',
+    contact: 'Contáctanos',
+    policies: 'Lee nuestras políticas',
+  },
+};
+
+function ContainmentAbout() {
+  const {locale} = useParams();
+  const language = ['fr', 'es'].includes(locale) ? locale : 'en';
+  const copy = CONTAINMENT_ABOUT_COPY[language] || CONTAINMENT_ABOUT_COPY.en;
+
+  return (
+    <div className="pk-hold">
+      <section className="pk-hold__hero" aria-labelledby="about-hold-title">
+        <div className="pk-hold__hero-copy">
+          <p className="pk-hold__eyebrow">{copy.eyebrow}</p>
+          <h1 id="about-hold-title">{copy.title}</h1>
+          <p className="pk-hold__lead">{copy.body}</p>
+          <p className="pk-hold__focus">{copy.standard}</p>
+          <div className="pk-hold__actions">
+            <Link className="pk-hold__button pk-hold__button--primary" to="/pages/contact">
+              {copy.contact}
+            </Link>
+            <Link className="pk-hold__button pk-hold__button--secondary" to="/policies">
+              {copy.policies}
+            </Link>
+          </div>
+        </div>
+        <div className="pk-hold__art" aria-hidden="true">
+          <span className="pk-hold__art-label">Puchica</span>
+          <span className="pk-hold__shape pk-hold__shape--one" />
+          <span className="pk-hold__shape pk-hold__shape--two" />
+          <span className="pk-hold__shape pk-hold__shape--three" />
+          <span className="pk-hold__art-note">Useful things deserve a clear reason to be here.</span>
         </div>
       </section>
     </div>

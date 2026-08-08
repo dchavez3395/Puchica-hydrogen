@@ -5796,8 +5796,11 @@ button:focus-visible,
   line-height: 1.5;
 }
 .pk-footer__address a {
+  align-items: center;
   color: var(--pk-paper);
+  display: inline-flex;
   font-weight: 600;
+  min-height: 24px;
 }
 
 /* ---------- Search results page ---------- */

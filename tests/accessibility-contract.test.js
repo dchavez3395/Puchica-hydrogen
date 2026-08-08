@@ -32,6 +32,10 @@ test('closed drawers are excluded and opening focus skips the backdrop', async (
   assert.match(aside, /aria-hidden=\{expanded \? undefined : 'true'\}/);
   assert.match(aside, /inert=\{expanded \? undefined : ''\}/);
   assert.match(aside, /className="close-outside"[\s\S]*?tabIndex=\{-1\}/);
+  assert.match(
+    aside,
+    /button:not\(\[disabled\]\):not\(\[tabindex="-1"\]\)/,
+  );
   assert.match(aside, /role="dialog"/);
   assert.match(aside, /aria-labelledby=\{id\}/);
 });

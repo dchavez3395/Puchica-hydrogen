@@ -1,10 +1,13 @@
 import {CacheNone} from '@shopify/hydrogen';
-import {useLoaderData} from 'react-router';
+import {redirect, useLoaderData} from 'react-router';
 import {
   SMALL_SPACE_QUERY,
   SmallSpaceLanding,
 } from '~/components/SmallSpaceLanding';
-import {filterLaunchProducts} from '~/lib/launch-catalog';
+import {
+  filterLaunchProducts,
+  STOREFRONT_CONTAINMENT_ACTIVE,
+} from '~/lib/launch-catalog';
 import {error as logError} from '~/lib/logger';
 import {puchicaMeta} from '~/lib/seo';
 
@@ -22,6 +25,13 @@ export const meta = ({data, params}) => {
 
 /** @param {Route.LoaderArgs} args */
 export async function loader({context}) {
+  if (STOREFRONT_CONTAINMENT_ACTIVE) {
+    return redirect('/', {
+      status: 302,
+      headers: {'Cache-Control': 'no-store, max-age=0'},
+    });
+  }
+
   const {country, language} = context.storefront.i18n;
 
   try {

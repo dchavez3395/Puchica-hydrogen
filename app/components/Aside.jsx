@@ -38,7 +38,7 @@ export function Aside({children, heading, type}) {
       const overlay = overlayRef.current;
       if (overlay) {
         const focusables = overlay.querySelectorAll(
-          'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+          'a[href], button:not([disabled]):not([tabindex="-1"]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
         );
         if (focusables.length) focusables[0].focus();
       }
@@ -52,7 +52,7 @@ export function Aside({children, heading, type}) {
           // Focus trap: Tab / Shift+Tab cycles within the dialog
           if (event.key === 'Tab' && overlayRef.current) {
             const focusableEls = overlayRef.current.querySelectorAll(
-              'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+              'a[href], button:not([disabled]):not([tabindex="-1"]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
             );
             if (focusableEls.length === 0) return;
             const first = focusableEls[0];
