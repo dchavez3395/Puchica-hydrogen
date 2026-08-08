@@ -1,0 +1,20 @@
+field,value,status,source
+supplier_item_id,1005006973804847,VERIFIED,DSers Supplier Optimizer
+visible_sale_context,214,"RECORDED_NOT_INFERRED",DSers Supplier Optimizer
+ratings,"4.8 reliability | 4.9 response | 4.9 delivery | 4.7 rating",VERIFIED_AS_DISPLAYED,DSers Supplier Optimizer
+item_cost_usd,"10.18-14.43",LISTING_RANGE_NOT_OPTION_BOUND,DSers Supplier Optimizer
+canada_route,"AliExpress Selection Standard | US$0.00 | 8 days",LISTING_LEVEL_OPTION_UNVERIFIED,DSers Supplier Optimizer
+us_route,"AliExpress Selection Standard | US$1.99 | 6 days",LISTING_LEVEL_OPTION_UNVERIFIED,DSers Supplier Optimizer
+tracking,not exposed,UNVERIFIED,DSers Supplier Optimizer
+candidate_stock,not exposed,UNVERIFIED,DSers Supplier Optimizer
+brand,ESSAGER,FAMILY_VERIFIED_CANDIDATE_SELLER_UNVERIFIED,https://www.essager.cn/sale-52053697-essager-es-zj25-series-15w-magnetic-car-phone-mount-holder.html
+model,ES-ZJ25,FAMILY_VERIFIED_CANDIDATE_OPTION_UNVERIFIED,https://www.essager.cn/sale-52053697-essager-es-zj25-series-15w-magnetic-car-phone-mount-holder.html
+viable_option,wireless-charging style / 15W,REQUIRED_BUT_UNVERIFIED,https://mobizzio.com/products/essager-magnetic-wireless-charger-car-phone-holder-15w-fast-charging-easy-paste-mount-stand-for-magsafe-iphone-15-14-13-pro-max
+nonviable_option,ordinary magnetic holder / no charging,CONFIRMED_FAMILY_OPTION,https://mobizzio.com/products/essager-magnetic-wireless-charger-car-phone-holder-15w-fast-charging-easy-paste-mount-stand-for-magsafe-iphone-15-14-13-pro-max
+mount,adhesive/paste dashboard mount,FAMILY_VERIFIED_EXACT_OPTION_UNVERIFIED,https://www.essager.cn/sale-52053697-essager-es-zj25-series-15w-magnetic-car-phone-mount-holder.html
+input,"USB-C 5V/2A or 9V/2A DC",FAMILY_VERIFIED_EXACT_OPTION_UNVERIFIED,https://www.essager.cn/sale-52053697-essager-es-zj25-series-15w-magnetic-car-phone-mount-holder.html
+pack_contents,"mount x1; magnet array x2; adhesive x1; hex key x1",FAMILY_VERIFIED_EXACT_OPTION_UNVERIFIED,https://www.essager.cn/sale-52053697-essager-es-zj25-series-15w-magnetic-car-phone-mount-holder.html
+cable_included,not proven,UNVERIFIED,Manufacturer packaging list
+car_power_adapter_included,not proven,UNVERIFIED,Manufacturer packaging list
+seller_authorization,not exposed,UNVERIFIED,DSers / public evidence
+decision,HOLD,FINAL,"Exact option stock tracking and authorization unresolved"
