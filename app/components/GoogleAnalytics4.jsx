@@ -14,7 +14,7 @@ import {analyticsItemId, cartAnalyticsItems} from '~/lib/analytics-items';
  * Oxygen env vars + local .env. Until set, this component is a no-op.
  *
  * EVENT OWNERSHIP:
- *   - This component owns: page_view, view_item, view_item_list, view_cart,
+ *   - This component owns: view_item, view_item_list, view_cart,
  *     add_to_cart, remove_from_cart, search (all storefront-side).
  *   - Shopify's native Google channel owns: begin_checkout, add_payment_info,
  *     purchase (all checkout-side) — we deliberately do NOT fire these here
@@ -77,18 +77,6 @@ export function GoogleAnalytics4({measurementId}) {
         /* never let analytics break the page */
       }
     };
-
-    // --- Page view ----------------------------------------------------------
-    subscribe('page_viewed', (data) => {
-      const url =
-        data?.url ||
-        (typeof window !== 'undefined' ? window.location?.href : undefined);
-      const title = data?.page?.title;
-      const params = {};
-      if (url) params.page_location = url;
-      if (title) params.page_title = title;
-      track('page_view', params);
-    });
 
     // --- View item (PDP) ----------------------------------------------------
     subscribe('product_viewed', (data) => {

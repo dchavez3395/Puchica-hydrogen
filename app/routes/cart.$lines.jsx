@@ -4,6 +4,7 @@ import {
   assertLaunchReadyLines,
   parseCartPermalinkLines,
 } from '~/lib/cart-safety';
+import {STOREFRONT_CONTAINMENT_ACTIVE} from '~/lib/launch-catalog';
 
 /**
  * Automatically creates a new cart based on the URL and redirects straight to checkout.
@@ -25,6 +26,7 @@ import {
  * @param {Route.LoaderArgs}
  */
 export async function loader({request, context, params}) {
+  if (STOREFRONT_CONTAINMENT_ACTIVE) return redirect('/');
   const {cart, storefront} = context;
   const {lines} = params;
   if (!lines) return redirect('/cart');

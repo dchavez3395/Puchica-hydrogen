@@ -10,9 +10,10 @@
  *     price: {amount, currencyCode} | null, at: epoch-ms }
  */
 
-// v2 retires snapshots from the former general-store catalog. Those products
-// are no longer launch-visible and their cached image URLs can be stale.
-const KEY = 'pk:recently-viewed:v2';
+// v3 retires every snapshot written before the versioned catalog approval
+// gate. Client-side snapshots cannot prove current approval and must never
+// reopen a quarantined PDP through the search drawer or recommendation rail.
+const KEY = 'pk:recently-viewed:v3';
 const MAX = 8;
 
 export function recordRecentlyViewed(product) {

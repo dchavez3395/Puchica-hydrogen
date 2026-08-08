@@ -34,7 +34,6 @@ export async function loader({context}: LoaderFunctionArgs) {
               edges {
                 node {
                   title
-                  sku
                   price { amount currencyCode }
                   compareAtPrice { amount currencyCode }
                   availableForSale
@@ -76,7 +75,6 @@ export async function loader({context}: LoaderFunctionArgs) {
 
     const price = firstVariant.price?.amount || '0.00';
     const currency = firstVariant.price?.currencyCode || 'CAD';
-    const sku = xmlEscape(firstVariant?.sku || product.handle);
     const availability = 'in stock';
 
     // Check for sale price (compareAtPrice > price)
@@ -90,13 +88,6 @@ export async function loader({context}: LoaderFunctionArgs) {
         ? `    <g:sale_price>${price} ${currency}</g:sale_price>\n`
         : '';
 
-    // Tags → custom labels (up to 5)
-    const tags = product.tags || [];
-    const customLabels = tags
-      .slice(0, 5)
-      .map((tag, i) => `    <g:custom_label_${i}>${xmlEscape(tag)}</g:custom_label_${i}>`)
-      .join('\n');
-
     return `  <item>
     <g:id>${id}</g:id>
     <g:title>${title}</g:title>
@@ -105,12 +96,9 @@ export async function loader({context}: LoaderFunctionArgs) {
     <g:image_link>${image}</g:image_link>
     <g:availability>${availability}</g:availability>
     <g:price>${regularPrice} ${currency}</g:price>
-${salePriceEl}    <g:brand>Puchica</g:brand>
-    <g:identifier_exists>no</g:identifier_exists>
+${salePriceEl}    <g:identifier_exists>no</g:identifier_exists>
     <g:product_type>${category}</g:product_type>
     <g:condition>new</g:condition>
-    <g:mpn>${sku}</g:mpn>
-${customLabels}
   </item>`;
   }).filter(Boolean);
 
@@ -119,7 +107,7 @@ ${customLabels}
   <channel>
     <title>Puchica Product Feed</title>
     <link>${SITE_URL}</link>
-    <description>Curated gadgets and home goods from Puchica</description>
+    <description>Launch-approved products from Puchica</description>
 ${items.join('\n')}
   </channel>
 </rss>`;

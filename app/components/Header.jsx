@@ -1,34 +1,19 @@
-import {Suspense, useEffect, useState} from 'react';
-import {Await, useAsyncValue} from 'react-router';
-import {
-  LocalizedLink as Link,
-  LocalizedNavLink as NavLink,
-} from '~/components/LocalizedLink';
-import {useAnalytics, useOptimisticCart} from '@shopify/hydrogen';
+import {useEffect} from 'react';
+import {LocalizedNavLink as NavLink} from '~/components/LocalizedLink';
 import {useAside} from '~/components/Aside';
 import {STORE_LOGO_URL} from '~/lib/brand';
 import {LocaleSwitcher} from '~/components/LocaleSwitcher';
 import {useT} from '~/lib/t';
-import {MegaMenu} from '~/components/MegaMenu';
-import {IconSearch} from '~/components/Icons';
 
 // Puchica logo. The HeaderGraphQL query prefers
 // `shop.brand.logo.image.url` if set under Settings > Brand, otherwise
 // it falls back to STORE_LOGO_URL from app/lib/brand.js.
 
-const ANNOUNCEMENT_KEY = 'pk-ann-dismissed-v4';
-
 /**
  * @param {HeaderProps}
  */
-export function Header({
-  header,
-  isLoggedIn,
-  cart,
-  publicStoreDomain,
-  megaMenu,
-}) {
-  const {shop, menu} = header;
+export function Header({header}) {
+  const {shop} = header;
   // Close any open drawer when the user clicks the logo to go home.
   // The route-change effect in Aside.Provider also handles this, but
   // closing here means there's no flicker where the new page shows
@@ -36,7 +21,6 @@ export function Header({
   const {close} = useAside();
   return (
     <>
-      <AnnouncementBar />
       <header className="pk-header" id="pk-header">
         <div className="pk-header__inner">
           <HeaderMenuMobileToggle />
@@ -63,142 +47,31 @@ export function Header({
               decoding="async"
             />
           </NavLink>
-          <HeaderMenu
-            menu={menu}
-            megaMenu={megaMenu}
-            viewport="desktop"
-            primaryDomainUrl={header.shop.primaryDomain.url}
-            publicStoreDomain={publicStoreDomain}
-          />
-          <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />
+          <HeaderMenu viewport="desktop" />
+          <HeaderCtas />
         </div>
       </header>
     </>
   );
 }
 
-/**
- * Single-line announcement bar above the header. Dismissible, with the
- * dismissed state stored in localStorage so it stays away for the visitor.
- */
-function AnnouncementBar() {
-  // SSR-safe: render the bar always, but only hide it client-side after we
-  // read the localStorage flag (and on subsequent renders).
-  const [hidden, setHidden] = useState(false);
-  const t = useT();
-
-  useEffect(() => {
-    try {
-      if (window.localStorage.getItem(ANNOUNCEMENT_KEY) === '1') {
-        setHidden(true);
-      }
-    } catch {
-      /* localStorage blocked, ignore */
-    }
-  }, []);
-
-  return (
-    <div
-      className="pk-ann"
-      data-hidden={hidden ? 'true' : 'false'}
-      role="region"
-      aria-label={t('announce_region_aria')}
-    >
-      <div className="pk-ann__inner">
-        <span>
-          {t('announce_freeship')}
-          <Link to="/collections" prefetch="intent" style={{marginLeft: 6}}>
-            {t('announce_cta')}
-          </Link>
-        </span>
-      </div>
-      <button
-        type="button"
-        className="pk-ann__close"
-        aria-label={t('header_dismiss_aria')}
-        onClick={() => {
-          setHidden(true);
-          try {
-            window.localStorage.setItem(ANNOUNCEMENT_KEY, '1');
-          } catch {
-            /* ignore */
-          }
-        }}
-      >
-        <svg
-          width="14"
-          height="14"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          aria-hidden
-        >
-          <path d="M6 6l12 12M18 6 6 18" />
-        </svg>
-      </button>
-    </div>
-  );
-}
-
-export function HeaderMenu({
-  menu,
-  megaMenu,
-  primaryDomainUrl,
-  viewport,
-  publicStoreDomain,
-}) {
+export function HeaderMenu({viewport}) {
   const className = viewport === 'desktop' ? 'pk-nav' : 'pk-nav pk-nav--mobile';
   const {close} = useAside();
   const t = useT();
 
-  // Desktop uses one purposeful dropdown: Shop is the catalog hub. Every other
-  // top-level item is a direct destination, so the header stays predictable.
-  const desktopNav = [
-    {
-      id: 'dn-new',
-      title: t('nav_new_arrivals'),
-      url: '/collections/new-arrivals',
-    },
-    {id: 'dn-about', title: t('nav_about'), url: '/pages/about'},
-  ];
-  const mobileExtraNav = [
-    {
-      id: 'mn-new',
-      title: t('nav_new_arrivals'),
-      url: '/collections/new-arrivals',
-    },
-    {
-      id: 'mn-best',
-      title: t('nav_best_sellers'),
-      url: '/collections/best-sellers',
-    },
-    {id: 'mn-about', title: t('nav_about'), url: '/pages/about'},
-  ];
-  const mobileNeedNav = [
-    {
-      id: 'mn-home-reset',
-      title: t('megamenu_intent_home_title'),
-      url: '/search?q=under%20sink%20organizer',
-    },
-    {
-      id: 'mn-cable-control',
-      title: t('megamenu_intent_cable_title'),
-      url: '/search?q=cable%20organizer',
-    },
-    {
-      id: 'mn-travel-organization',
-      title: t('megamenu_intent_travel_title'),
-      url: '/search?q=packing%20cubes',
-    },
+  // Containment navigation deliberately omits every catalog discovery surface
+  // until products pass the shared commercial launch gate.
+  const containmentNav = [
+    {id: 'hold-about', title: t('nav_about'), url: '/pages/about'},
+    {id: 'hold-contact', title: t('footer_contact'), url: '/pages/contact'},
+    {id: 'hold-policies', title: t('footer_policies'), url: '/policies'},
   ];
 
   if (viewport === 'desktop') {
     return (
       <nav className={className} role="navigation">
-        <MegaMenu deferred={megaMenu} onClose={close} />
-        {desktopNav.map((item) => (
+        {containmentNav.map((item) => (
           <NavLink
             key={item.id}
             className="pk-nav__link"
@@ -209,56 +82,14 @@ export function HeaderMenu({
             {item.title}
           </NavLink>
         ))}
-        {/* Support and company links stay in the footer and on their relevant
-            pages; Shop is deliberately the only desktop dropdown. */}
       </nav>
     );
   }
 
-  // Mobile: Shopify admin menu as source of truth, filtered + augmented.
-  const shopifyItems = (menu || buildFallbackHeaderMenu(t)).items;
-  const mobileItems = shopifyItems.filter((i) => {
-    if (!i.url) return false;
-    try {
-      const path = new URL(i.url, 'https://x').pathname;
-      return (
-        path !== '/' &&
-        path !== '/collections/all' &&
-        path !== '/collections/new-arrivals' &&
-        path !== '/collections/best-sellers' &&
-        path !== '/pages/about' &&
-        path !== '/pages/contact' &&
-        path !== '/explore'
-      );
-    } catch {
-      return true;
-    }
-  });
-
   return (
     <nav className={className} role="navigation">
-      <span className="pk-nav__section-label">{t('nav_shop')}</span>
-      <NavLink
-        className="pk-nav__link"
-        to="/collections/all"
-        onClick={close}
-        prefetch="intent"
-      >
-        {t('all_breadcrumb')}
-      </NavLink>
-      {mobileNeedNav.map((item) => (
-        <NavLink
-          key={item.id}
-          className="pk-nav__link"
-          to={item.url}
-          onClick={close}
-          prefetch="intent"
-        >
-          {item.title}
-        </NavLink>
-      ))}
       <span className="pk-nav__section-label">{t('nav_explore')}</span>
-      {mobileExtraNav.map((item) => (
+      {containmentNav.map((item) => (
         <NavLink
           key={item.id}
           className="pk-nav__link"
@@ -269,27 +100,6 @@ export function HeaderMenu({
           {item.title}
         </NavLink>
       ))}
-      {mobileItems.map((item) => {
-        if (!item.url) return null;
-        const url =
-          item.url.includes('myshopify.com') ||
-          item.url.includes(publicStoreDomain) ||
-          item.url.includes(primaryDomainUrl)
-            ? new URL(item.url).pathname
-            : item.url;
-        return (
-          <NavLink
-            className="pk-nav__link"
-            end
-            key={item.id}
-            onClick={close}
-            prefetch="intent"
-            to={url}
-          >
-            {item.title}
-          </NavLink>
-        );
-      })}
     </nav>
   );
 }
@@ -320,28 +130,12 @@ function useHeaderShrink() {
 }
 
 /**
- * @param {Pick<HeaderProps, 'isLoggedIn' | 'cart'>}
  */
-function HeaderCtas({isLoggedIn, cart}) {
+function HeaderCtas() {
   useHeaderShrink();
-  const t = useT();
   return (
     <div className="pk-header__ctas">
       <LocaleSwitcher />
-      <SearchToggle />
-      <NavLink
-        prefetch="intent"
-        to="/account"
-        className="pk-icon-btn pk-account-btn"
-        aria-label={t('header_account_aria')}
-      >
-        <Suspense fallback={<IconUser />}>
-          <Await resolve={isLoggedIn} errorElement={<IconUser />}>
-            {() => <IconUser />}
-          </Await>
-        </Suspense>
-      </NavLink>
-      <CartToggle cart={cart} />
     </div>
   );
 }
@@ -366,120 +160,7 @@ function HeaderMenuMobileToggle() {
   );
 }
 
-function SearchToggle() {
-  const {open, type} = useAside();
-  const t = useT();
-  const isOpen = type === 'search';
-  return (
-    <button
-      className={'pk-icon-btn' + (isOpen ? ' is-active' : '')}
-      aria-label={isOpen ? t('header_search_close') : t('header_search_open')}
-      aria-expanded={isOpen ? 'true' : 'false'}
-      onClick={(e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        open(isOpen ? 'closed' : 'search');
-      }}
-    >
-      <IconSearch />
-    </button>
-  );
-}
-
-/**
- * @param {{count: number | null}}
- */
-function CartBadge({count}) {
-  const {open, type} = useAside();
-  const t = useT();
-  const isOpen = type === 'cart';
-  const {publish, shop, cart, prevCart} = useAnalytics();
-
-  return (
-    <a
-      href="/cart"
-      className={'pk-icon-btn pk-cart-btn' + (isOpen ? ' is-active' : '')}
-      aria-label={isOpen ? t('header_cart_close') : t('header_cart_open')}
-      aria-expanded={isOpen ? 'true' : 'false'}
-      onClick={(e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        open(isOpen ? 'closed' : 'cart');
-        if (!isOpen) {
-          publish('cart_viewed', {
-            cart,
-            prevCart,
-            shop,
-            url: window.location.href || '',
-          });
-        }
-      }}
-    >
-      <IconCart />
-      {count !== null && count > 0 && (
-        <span className="pk-cart-badge">{count}</span>
-      )}
-    </a>
-  );
-}
-
-/**
- * @param {Pick<HeaderProps, 'cart'>}
- */
-function CartToggle({cart}) {
-  return (
-    <Suspense fallback={<CartBadge count={null} />}>
-      <Await resolve={cart}>
-        <CartBanner />
-      </Await>
-    </Suspense>
-  );
-}
-
-function CartBanner() {
-  const originalCart = useAsyncValue();
-  const cart = useOptimisticCart(originalCart);
-  return <CartBadge count={cart?.totalQuantity ?? 0} />;
-}
-
-/* ---------- Lucide-style icons (24px, 2px stroke) ---------- */
-function IconUser() {
-  return (
-    <svg
-      width="22"
-      height="22"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
-    >
-      <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-      <circle cx="12" cy="7" r="4" />
-    </svg>
-  );
-}
-function IconCart() {
-  return (
-    <svg
-      width="22"
-      height="22"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
-    >
-      <circle cx="8" cy="21" r="1" />
-      <circle cx="19" cy="21" r="1" />
-      <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
-    </svg>
-  );
-}
+/* ---------- Lucide-style menu icon ---------- */
 function IconMenu() {
   return (
     <svg
@@ -495,42 +176,6 @@ function IconMenu() {
       <path d="M4 6h16M4 12h16M4 18h16" />
     </svg>
   );
-}
-
-// Fallback menu used when the Shopify admin menu can't be fetched (or the
-// store hasn't configured a navigation menu). Titles are produced per-locale
-// from the dictionary so translated storefronts see translated fallbacks.
-function buildFallbackHeaderMenu(t) {
-  return /** @type {any} */ ({
-    id: 'gid://shopify/Menu/199655587896',
-    items: [
-      {
-        id: '1',
-        title: t('nav_shop_all'),
-        url: '/collections/all',
-      },
-      {
-        id: '2',
-        title: t('nav_new_arrivals_short'),
-        url: '/collections/new-arrivals',
-      },
-      {
-        id: '4',
-        title: t('nav_gift_guide'),
-        url: '/collections/all?price=25-50',
-      },
-      {
-        id: '5',
-        title: t('nav_about_short'),
-        url: '/pages/about',
-      },
-      {
-        id: '6',
-        title: t('nav_contact_short'),
-        url: '/pages/contact',
-      },
-    ],
-  });
 }
 
 /** @typedef {'desktop' | 'mobile'} Viewport */

@@ -32,6 +32,26 @@ test('direct cart visits publish the native Hydrogen cart-view event', async () 
   assert.match(source, /<Analytics\.CartView\s*\/>/);
 });
 
+test('launch check treats view_cart as cart engagement, not checkout start', async () => {
+  const source = await readFile(
+    new URL('../scripts/check-launch-readiness.mjs', import.meta.url),
+    'utf8',
+  );
+
+  assert.doesNotMatch(source, /GA4 still treats a cart view as a checkout start/);
+  assert.match(source, /forbidding the storefront bridge[\s\S]*custom_checkout_started/);
+});
+
+test('disabled packing-cubes campaign is not required to emit ProductView', async () => {
+  const source = await readFile(
+    new URL('../scripts/check-launch-readiness.mjs', import.meta.url),
+    'utf8',
+  );
+
+  assert.doesNotMatch(source, /packing-cube campaign route/);
+  assert.match(source, /product route does not publish a product view/);
+});
+
 test('missing checkout URLs remain recoverable in every locale', async () => {
   const source = await readFile(
     new URL('../app/components/CartSummary.jsx', import.meta.url),

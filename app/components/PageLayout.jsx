@@ -6,7 +6,6 @@ import {Footer} from '~/components/Footer';
 import {Header, HeaderMenu} from '~/components/Header';
 import {CartMain} from '~/components/CartMain';
 import {IconSearch} from '~/components/Icons';
-import StarGlyph from '~/components/StarGlyph';
 import {useT} from '~/lib/t';
 import {LocaleSwitcher} from '~/components/LocaleSwitcher';
 import {
@@ -14,6 +13,7 @@ import {
   SearchFormPredictive,
 } from '~/components/SearchFormPredictive';
 import {SearchResultsPredictive} from '~/components/SearchResultsPredictive';
+import {STOREFRONT_CONTAINMENT_ACTIVE} from '~/lib/launch-catalog';
 
 /**
  * @param {PageLayoutProps}
@@ -33,8 +33,8 @@ export function PageLayout({
       <a href="#main-content" className="pk-skip-link">
         {t('skip_to_content')}
       </a>
-      <CartAside cart={cart} />
-      <SearchAside />
+      {!STOREFRONT_CONTAINMENT_ACTIVE && <CartAside cart={cart} />}
+      {!STOREFRONT_CONTAINMENT_ACTIVE && <SearchAside />}
       <MobileMenuAside
         header={header}
         megaMenu={megaMenu}
@@ -197,7 +197,11 @@ function SearchAside() {
 
               if (state === 'loading' && term.current) {
                 return (
-                  <div className="pk-search__loading">
+                  <div
+                    className="pk-search__loading"
+                    role="status"
+                    aria-live="polite"
+                  >
                     <span className="pk-search__spinner" aria-hidden />
                     {t('search_loading_for').replace('{term}', term.current)}
                   </div>
@@ -280,15 +284,6 @@ function MobileMenuAside({header, megaMenu, publicStoreDomain}) {
             publicStoreDomain={publicStoreDomain}
           />
           <div className="pk-mmenu__group">
-            <p className="pk-mmenu__label">{t('mobile_account')}</p>
-            <Link to="/account" className="pk-mmenu__row" onClick={() => {}}>
-              <span>{t('mobile_signin')}</span>
-              <span aria-hidden>→</span>
-            </Link>
-            <Link to="/cart" className="pk-mmenu__row">
-              <span>{t('mobile_view_cart')}</span>
-              <span aria-hidden>→</span>
-            </Link>
             <div className="pk-mmenu__locale">
               <span className="pk-mmenu__locale-label">
                 {t('mobile_market_language')}
@@ -307,11 +302,6 @@ function MobileMenuAside({header, megaMenu, publicStoreDomain}) {
               <span aria-hidden>→</span>
             </Link>
           </div>
-          <p className="pk-mmenu__foot">
-            {t.megamenu_trust_shipping}
-            <StarGlyph size={10} style={{margin: '0 0.4em'}} />
-            {t.megamenu_trust_refund}
-          </p>
         </div>
       </Aside>
     )

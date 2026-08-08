@@ -7,7 +7,10 @@ import {getEmptyPredictiveSearchResult} from '~/lib/search';
 import {puchicaMeta} from '~/lib/seo';
 import {diversifyByVendor} from '~/lib/diversify';
 import {useT} from '~/lib/t';
-import {filterLaunchProducts} from '~/lib/launch-catalog';
+import {
+  filterLaunchProducts,
+  LAUNCH_READY_TAG,
+} from '~/lib/launch-catalog';
 
 /**
  * @type {Route.MetaFunction}
@@ -267,6 +270,7 @@ export const SEARCH_QUERY = `#graphql
     $endCursor: String
     $first: Int
     $last: Int
+    $productTerm: String!
     $term: String!
     $startCursor: String) @inContext(country: $country, language: $language) {
     articles: search(
@@ -296,7 +300,7 @@ export const SEARCH_QUERY = `#graphql
       before: $startCursor,
       first: $first,
       last: $last,
-      query: $term,
+      query: $productTerm,
       sortKey: RELEVANCE,
       types: [PRODUCT],
       unavailableProducts: HIDE,
@@ -331,10 +335,11 @@ async function regularSearch({request, context}) {
   const url = new URL(request.url);
   const variables = getPaginationVariables(request, {pageBy: 8});
   const term = String(url.searchParams.get('q') || '');
+  const productTerm = `${term} tag:${LAUNCH_READY_TAG}`.trim();
 
   // Search articles, pages, and products for the `q` term
   const {errors, ...items} = await storefront.query(SEARCH_QUERY, {
-    variables: {...variables, country, language, term},
+    variables: {...variables, country, language, term, productTerm},
   });
 
   if (!items) {
@@ -551,6 +556,10 @@ async function predictiveSearch({request, context}) {
   }
 
   items.products = filterLaunchProducts(items.products);
+  // A collection suggestion cannot be proven safe without checking whether it
+  // contains an approved product. Hide those suggestions until predictive
+  // search can apply the same product evidence gate.
+  items.collections = [];
 
   const total = Object.values(items).reduce(
     (acc, item) => acc + item.length,

@@ -4,17 +4,22 @@ import {Image} from '@shopify/hydrogen';
 import {CurrencyMoney} from '~/components/CurrencyMoney';
 import {puchicaMeta} from '~/lib/seo';
 import {useT} from '~/lib/t';
+import {filterLaunchProducts} from '~/lib/launch-catalog';
 
 /**
  * @type {Route.MetaFunction}
  */
-export const meta = ({params}) => {
+export const meta = ({data, params}) => {
   return puchicaMeta({
     title: 'Explore – Puchica',
     description:
       'Browse the Puchica catalog by category. Filter by room, audience, or budget. No noise — just the products we picked.',
     pathname: '/explore',
     langKey: params?.locale,
+    noindex: !Object.values(data?.collections || {}).some(
+      (collection) =>
+        filterLaunchProducts(collection?.products?.nodes).length > 0,
+    ),
   });
 };
 
@@ -94,6 +99,8 @@ async function loadCriticalData({context}) {
       id
       title
       handle
+      tags
+      availableForSale
       priceRange {
         minVariantPrice {
           amount
@@ -116,7 +123,7 @@ async function loadCriticalData({context}) {
       id
       handle
       title
-      products(first: 24) {
+      products(first: 24, filters: [{tag: "puchica-catalog-approved-v1"}]) {
         nodes { ...ExploreProduct }
       }
     }
@@ -160,7 +167,7 @@ export default function ExplorePage() {
   // Flatten all products from visible collections and de-duplicate by ID
   const productMap = new Map();
   visibleCollections.forEach((c) => {
-    (c.products?.nodes ?? []).forEach((p) => {
+    filterLaunchProducts(c.products?.nodes ?? []).forEach((p) => {
       if (!productMap.has(p.id)) {
         productMap.set(p.id, {
           ...p,

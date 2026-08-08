@@ -9,13 +9,14 @@ import {error as logError} from '~/lib/logger';
 import {puchicaMeta} from '~/lib/seo';
 
 /** @type {Route.MetaFunction} */
-export const meta = ({params}) => {
+export const meta = ({data, params}) => {
   return puchicaMeta({
     title: 'Small-space organization for home and travel - Puchica',
     description:
       'Shop practical organizers for drawers, cables, luggage, packing, and compact everyday spaces.',
     pathname: '/campaigns/home-finds',
     langKey: params?.locale,
+    noindex: !data?.products?.length,
   });
 };
 

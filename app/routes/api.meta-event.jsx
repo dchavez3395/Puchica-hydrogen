@@ -1,5 +1,3 @@
-import {data} from 'react-router';
-
 /**
  * Server-side Meta Conversions API (CAPI) relay.
  *

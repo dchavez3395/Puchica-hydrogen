@@ -192,14 +192,12 @@ export default function Product() {
             <p className="pk-product__category">{need.label}</p>
           ) : null}
 
-          {/* C3: the page's single <h1> lives in the mobile heading (the
-              container that is visible under Google's mobile-first index
-              and to the larger mobile screen-reader population). This
-              desktop mirror is a non-heading element hidden from AT so
-              the page announces exactly one level-1 heading. Do NOT put
-              aria-hidden on an <h1>; the duplicate is demoted to a <div>
-              instead. */}
-          <div className="pk-product__title" aria-hidden="true">{displayTitle}</div>
+          {/* Each breakpoint exposes one semantic page title. The matching
+              mobile/desktop wrapper is `display:none` at the opposite
+              breakpoint, so assistive technology receives one visible H1
+              while sighted desktop shoppers no longer see an aria-hidden
+              title with no corresponding page heading. */}
+          <h1 className="pk-product__title">{displayTitle}</h1>
 
           {reviews && reviews.count > 0 ? (
             <ReviewStars rating={reviews.rating} count={reviews.count} />

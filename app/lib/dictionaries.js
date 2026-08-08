@@ -803,14 +803,14 @@ export const DICTIONARIES = {
     err_404_h: "We couldn't find that page",
     err_500_h: 'Something went wrong on our end',
     err_404_body:
-      'That page may have moved. Search for a trending find or return to the shop.',
+      'That page may have moved while we prepare the new catalog. Return home or contact us for help.',
     err_500_body:
-      'We couldn’t load this page. Try again, or continue shopping.',
+      'We couldn’t load this page. Try again, return home, or contact us for help.',
     err_search_aria: 'Search finds',
     err_search_placeholder: 'Search finds…',
     err_search_btn: 'Search',
     err_home: 'Back to home',
-    err_browse: 'Shop trending finds',
+    err_browse: 'About Puchica',
     err_contact: 'Need help? Email {email}.',
 
     // ── Footer (rest of footer chrome; some already exist) ────────
@@ -2144,14 +2144,14 @@ export const DICTIONARIES = {
     err_404_h: "Nous n'avons pas trouvé cette page",
     err_500_h: "Une erreur s'est produite de notre côté",
     err_404_body:
-      'Cette page a peut-être été déplacée. Recherchez un article ou retournez à la boutique.',
+      'Cette page a peut-être été déplacée pendant la préparation du nouveau catalogue. Retournez à l’accueil ou contactez-nous.',
     err_500_body:
       "Une erreur inattendue s'est produite lors du rendu de cette page. Réessayez ou parcourez le catalogue ci-dessous.",
     err_search_aria: 'Rechercher des articles',
     err_search_placeholder: 'Rechercher…',
     err_search_btn: 'Rechercher',
     err_home: 'Retour à l’accueil',
-    err_browse: 'Voir les trouvailles',
+    err_browse: 'À propos de Puchica',
     err_contact: 'Toujours bloqué·e ? Écrivez à {email} et nous vous aiderons.',
 
     // ── Pied de page (suite) ────────────────────────────────────
@@ -3520,14 +3520,14 @@ export const DICTIONARIES = {
     err_404_h: 'No pudimos encontrar esa página',
     err_500_h: 'Algo salió mal de nuestro lado',
     err_404_body:
-      'Esa página puede haberse movido. Busca un hallazgo o vuelve a la tienda.',
+      'Esa página puede haberse movido mientras preparamos el nuevo catálogo. Vuelve al inicio o contáctanos.',
     err_500_body:
       'Tuvimos un error inesperado al renderizar esta página. Inténtalo de nuevo o explora el catálogo abajo.',
     err_search_aria: 'Buscar hallazgos',
     err_search_placeholder: 'Buscar…',
     err_search_btn: 'Buscar',
     err_home: 'Volver al inicio',
-    err_browse: 'Ver hallazgos',
+    err_browse: 'Acerca de Puchica',
     err_contact: '¿Sigues atorado? Escríbenos a {email} y te ayudamos.',
 
     // ── Pie de página (resto) ───────────────────────────────────
@@ -4889,14 +4889,14 @@ export const DICTIONARIES = {
     err_404_h: 'Não encontramos essa página',
     err_500_h: 'Algo deu errado do nosso lado',
     err_404_body:
-      'Essa página pode ter sido movida. Busque um achado ou volte para a loja.',
+      'Essa página pode ter sido movida enquanto preparamos o novo catálogo. Volte ao início ou entre em contato.',
     err_500_body:
       'Tivemos um erro inesperado ao renderizar esta página. Tente de novo, ou explore o catálogo abaixo.',
     err_search_aria: 'Buscar achados',
     err_search_placeholder: 'Buscar…',
     err_search_btn: 'Buscar',
     err_home: 'Voltar ao início',
-    err_browse: 'Ver achados',
+    err_browse: 'Sobre a Puchica',
     err_contact: 'Ainda travado? Escreva para {email} e a gente ajuda.',
 
     // ── Rodapé (resto) ──────────────────────────────────────────

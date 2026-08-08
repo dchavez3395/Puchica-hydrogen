@@ -16,7 +16,10 @@ import {hreflangAlternates} from '~/lib/seo';
 const favicon = '/favicon.svg';
 import {FOOTER_QUERY, HEADER_QUERY, MEGA_MENU_QUERY} from '~/lib/fragments';
 import {resolveStorefrontLocale} from '~/lib/i18n';
-import {filterLaunchProducts} from '~/lib/launch-catalog';
+import {
+  filterLaunchProducts,
+  STOREFRONT_CONTAINMENT_ACTIVE,
+} from '~/lib/launch-catalog';
 import resetStyles from '~/styles/reset.css?url';
 import appStyles from '~/styles/app.css?url';
 import commerceStyles from '~/styles/app-commerce.css?url';
@@ -184,20 +187,24 @@ function loadDeferredData({context}) {
   // defer the mega-menu collection query (used by the desktop header's
   // Shop dropdown). Failure is non-fatal; the header falls back to a
   // single "Shop" link.
-  const megaMenu = storefront
-    .query(MEGA_MENU_QUERY, {
-      cache: storefront.CacheLong(),
-      variables: {country, language},
-    })
-    .then(filterMegaMenuProducts)
-    .catch((error) => {
-      logError('deferred mega-menu query failed', error);
-      return null;
-    });
+  const megaMenu = STOREFRONT_CONTAINMENT_ACTIVE
+    ? Promise.resolve(null)
+    : storefront
+        .query(MEGA_MENU_QUERY, {
+          cache: storefront.CacheLong(),
+          variables: {country, language},
+        })
+        .then(filterMegaMenuProducts)
+        .catch((error) => {
+          logError('deferred mega-menu query failed', error);
+          return null;
+        });
 
   return {
-    cart: cart.get(),
-    isLoggedIn: customerAccount.isLoggedIn(),
+    cart: STOREFRONT_CONTAINMENT_ACTIVE ? Promise.resolve(null) : cart.get(),
+    isLoggedIn: STOREFRONT_CONTAINMENT_ACTIVE
+      ? Promise.resolve(false)
+      : customerAccount.isLoggedIn(),
     footer,
     megaMenu,
   };
@@ -368,7 +375,7 @@ export function ErrorBoundary() {
             {t('err_home')}
           </Link>
           <Link
-            to="/collections/all"
+            to="/pages/about"
             className="pk-btn pk-btn--ghost pk-btn--lg"
           >
             {t('err_browse')}
@@ -377,7 +384,11 @@ export function ErrorBoundary() {
 
         <p className="pk-route-error__contact">
           {t('err_contact', {
-            email: <a href="mailto:hello@puchica.ca">hello@puchica.ca</a>,
+            email: (
+              <a key="support-email" href="mailto:hello@puchica.ca">
+                hello@puchica.ca
+              </a>
+            ),
           })}
         </p>
       </div>

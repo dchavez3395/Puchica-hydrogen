@@ -9,13 +9,17 @@ import {filterLaunchProducts} from '~/lib/launch-catalog';
 /**
  * @type {Route.MetaFunction}
  */
-export const meta = ({params}) => {
+export const meta = ({data, params}) => {
   return puchicaMeta({
     title: 'Organization collections – Puchica',
     description:
       'Browse practical organizers for small homes, cables, packing, luggage, and everyday carry.',
     pathname: '/collections',
     langKey: params?.locale,
+    noindex: !data?.collections?.nodes?.some(
+      (collection) =>
+        filterLaunchProducts(collection?.products?.nodes).length > 0,
+    ),
   });
 };
 
@@ -357,7 +361,7 @@ const COLLECTIONS_QUERY = `#graphql
       width
       height
     }
-    products(first: 1) {
+    products(first: 1, filters: [{tag: "puchica-catalog-approved-v1"}]) {
       nodes {
         id
         handle

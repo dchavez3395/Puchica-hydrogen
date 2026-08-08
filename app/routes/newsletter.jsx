@@ -130,7 +130,7 @@ export async function action({request, context}) {
       lastName = (form.get('lastName') || '').toString();
       honeypot = (form.get('company') || '').toString();
     }
-  } catch (e) {
+  } catch {
     return data({ok: false, error: 'Invalid request body'}, {status: 400});
   }
 
@@ -181,7 +181,7 @@ export default function NewsletterRoute() {
     return (
       <div className="pk-section pk-section--newsletter">
         <div className="pk-section__inner">
-          <h1>You're in!</h1>
+          <h1>You&apos;re in!</h1>
           <p>
             {actionData.alreadySubscribed
               ? 'You were already subscribed — your code is on its way.'

@@ -11,11 +11,57 @@ checklist live in `docs/ad-ready-launch-master-plan-2026-08-01.md`.
 
 - Product workflow: `C:\Users\dchav\Downloads\Copy of Copy of Product_Optimization_Workflow.docx`
   - SHA-256: `DF7CA0C69F1E287CEF235522A656F94C0C51778AB1A9E9A2BD3116E6FF58297E`
-- Accessibility workbook: `C:\Users\dchav\Downloads\Copy of [TEMPLATE] Project Accessibility Sheets (1).xlsx`
-  - SHA-256: `B2AFD47E4F79F6C0F42A9E7C13549BB9A3A9E7AEAA322CA193755024512E5AEB`
+- Accessibility workbook: `C:\Users\dchav\Downloads\Copy of [TEMPLATE] Project Accessibility Sheets (2).xlsx`
+  - SHA-256: `DAEA7044D45C9020189DDC2EDBB0C1BE6DBF369029160C33DDAD90BFB0B4E09C`
 
 If either source hash changes, review the new version before relying on this
 summary.
+
+## Decision hierarchy
+
+When instructions or data disagree, use this order:
+
+1. Customer safety, legal truthfulness, platform rules, and verified evidence.
+2. The commercial launch and accessibility gates in this document.
+3. The current approved task brief and product-specific source record.
+4. Batch-workflow efficiency guidance in the source documents.
+
+Efficiency never overrides product fidelity, accessibility, truthful pricing,
+or visible-result verification. A successful mutation, build, or deployment is
+not proof that the customer-facing result is correct.
+
+## Emergency storefront containment gate
+
+Until a product passes the commercial launch gate, it must fail closed:
+
+- do not feature it on the homepage or in campaign routes;
+- do not describe it as trending, popular, bestselling, verified, reviewed, or
+  frequently reordered without current supporting evidence;
+- do not publish it through product feeds or intentional discovery surfaces;
+- do not use synthetic compare-at prices, countdowns, scarcity, or review copy;
+- do not advertise it or include it in discount-led acquisition campaigns.
+
+Store-wide shipping, duty, delivery, guarantee, and discount claims require a
+documented rule that is true for every item and destination in scope. Otherwise,
+use destination-neutral wording such as "shipping options shown at checkout."
+
+Catalog approval must be recorded per sellable variant and destination. A
+collection tag, Active status, image, or DSers connection is not approval.
+
+## Shared execution protocol
+
+1. Record scope, destination, store, evidence sources, and fields being changed.
+2. For manual catalog mutations, complete and visibly verify one representative
+   product before asking to batch the remainder.
+3. Build deterministic batches offline, preserve stable identifiers, and keep a
+   checkpoint/recovery log for long-running work.
+4. Retry recoverable errors in a bounded way; quarantine isolated failures rather
+   than weakening the gate for the whole batch.
+5. Verify the rendered storefront and source-of-truth data after every write.
+6. Report passed, failed, skipped, and quarantined records separately. Never
+   convert "not checked" into "passed."
+7. Require a preview and explicit approval before production deployment, catalog
+   mutation, or advertising spend.
 
 ## Product and media change gate
 

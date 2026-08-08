@@ -93,8 +93,6 @@ ${alternates}
 
 const LAUNCH_STATIC_PATHS = [
   '/',
-  '/collections/all',
-  '/collections/new-arrivals',
   '/pages/about',
   '/pages/faq',
   '/pages/shipping',

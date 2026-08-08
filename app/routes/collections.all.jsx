@@ -7,12 +7,15 @@ import {puchicaMeta} from '~/lib/seo';
 import {ProductItem} from '~/components/ProductItem';
 import {useT} from '~/lib/t';
 import {diversifyByVendor} from '~/lib/diversify';
-import {filterLaunchProducts} from '~/lib/launch-catalog';
+import {
+  filterLaunchProducts,
+  LAUNCH_READY_TAG,
+} from '~/lib/launch-catalog';
 
 /**
  * @type {Route.MetaFunction}
  */
-export const meta = ({params}) => {
+export const meta = ({data, params}) => {
   return puchicaMeta({
     title: 'Shop Organizers – Puchica',
     description:
@@ -20,6 +23,7 @@ export const meta = ({params}) => {
     type: 'website',
     pathname: '/collections/all',
     langKey: params?.locale,
+    noindex: !data?.products?.nodes?.length,
   });
 };
 
@@ -85,6 +89,7 @@ async function loadCriticalData({context, request}) {
         language,
         sortKey,
         reverse,
+        query: `tag:${LAUNCH_READY_TAG}`,
         ...paginationVariables,
       },
     }),
@@ -354,8 +359,9 @@ const CATALOG_QUERY = `#graphql
     $startCursor: String
     $endCursor: String
     $sortKey: ProductSortKeys
-    $reverse: Boolean) @inContext(country: $country, language: $language) {
-    products(first: $first, last: $last, before: $startCursor, after: $endCursor, sortKey: $sortKey, reverse: $reverse, query: "tag:puchica-launch-ready") {
+    $reverse: Boolean
+    $query: String!) @inContext(country: $country, language: $language) {
+    products(first: $first, last: $last, before: $startCursor, after: $endCursor, sortKey: $sortKey, reverse: $reverse, query: $query) {
       nodes { ...CollectionItem }
       pageInfo {
         hasPreviousPage

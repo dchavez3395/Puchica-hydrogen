@@ -1,10 +1,11 @@
-import {useLoaderData, data} from 'react-router';
+import {useLoaderData, data, redirect} from 'react-router';
 import {Analytics, CartForm} from '@shopify/hydrogen';
 import {CartMain} from '~/components/CartMain';
 import {puchicaMeta} from '~/lib/seo';
 import {CHECKOUT_URL_REWRITER, buildCheckoutRewriteOptions} from '~/lib/checkout';
 import {useT} from '~/lib/t';
 import {assertLaunchReadyLines, safeInternalRedirect} from '~/lib/cart-safety';
+import {STOREFRONT_CONTAINMENT_ACTIVE} from '~/lib/launch-catalog';
 import {
   cartBuyerCountryNeedsSync,
   cartBuyerCountrySyncFailed,
@@ -37,6 +38,13 @@ export const headers = ({actionHeaders}) => actionHeaders;
  * @param {Route.ActionArgs}
  */
 export async function action({request, context}) {
+  if (STOREFRONT_CONTAINMENT_ACTIVE) {
+    throw new Response('Shopping is temporarily unavailable.', {
+      status: 503,
+      headers: {'Cache-Control': 'no-store'},
+    });
+  }
+
   const {cart, storefront} = context;
 
   const formData = await request.formData();
@@ -178,6 +186,7 @@ export async function action({request, context}) {
  * @param {Route.LoaderArgs}
  */
 export async function loader({context}) {
+  if (STOREFRONT_CONTAINMENT_ACTIVE) return redirect('/');
   const {cart} = context;
   return await cart.get();
 }

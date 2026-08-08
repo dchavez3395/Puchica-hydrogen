@@ -2,13 +2,14 @@ import {redirect} from 'react-router';
 
 /**
  * The Shopify "best-sellers" collection is not the source of truth for the
- * current launch catalog. Route this durable public URL to the approved
- * catalog, ordered by Shopify's best-selling signal instead.
+ * current launch catalog. A bestseller label also requires real, current sales
+ * evidence, which the store does not yet have. Preserve the durable URL but do
+ * not manufacture a ranking claim.
  *
  * @param {Route.LoaderArgs}
  */
 export async function loader() {
-  return redirect('/collections/all?sort=best-selling&view=best-sellers');
+  return redirect('/collections/all');
 }
 
 export default function BestSellersRedirect() {

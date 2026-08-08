@@ -1,6 +1,7 @@
 import {redirect} from 'react-router';
 import {CHECKOUT_URL_REWRITER, buildCheckoutRewriteOptions} from '~/lib/checkout';
 import {warn} from '~/lib/logger';
+import {STOREFRONT_CONTAINMENT_ACTIVE} from '~/lib/launch-catalog';
 
 /**
  * Catchall for Shopify cart permalinks like `/cart/c/{token}`.
@@ -67,6 +68,7 @@ import {warn} from '~/lib/logger';
  * @param {Route.LoaderArgs}
  */
 export async function loader({request, context, params}) {
+  if (STOREFRONT_CONTAINMENT_ACTIVE) return redirect('/');
   const splat = params['*'] ?? '';
   const permalinkMatch = splat.match(/^c\/([A-Za-z0-9_-]{4,256})\/?$/);
   if (!permalinkMatch) {

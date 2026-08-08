@@ -3,7 +3,6 @@ import {
   IconInstagram,
   IconFacebook,
   IconTiktok,
-  IconShield,
 } from '~/components/Icons';
 import {SOCIAL_PROFILES, STORE_LOGO_URL} from '~/lib/brand';
 import {useT} from '~/lib/t';
@@ -59,7 +58,7 @@ export function Footer({header}) {
               decoding="async"
             />
           </Link>
-          <p className="pk-footer__tagline">{t('footer_tagline')}</p>
+          <p className="pk-footer__tagline">Puchica · Canada</p>
           <div
             className="pk-footer__social"
             aria-label={t('footer_social_aria')}
@@ -83,35 +82,18 @@ export function Footer({header}) {
             <a href="mailto:hello@puchica.ca">{t('footer_email')}</a>
           </address>
 
-          <span className="pk-footer__secure">
-            <span aria-hidden>
-              <IconShield size={14} />
-            </span>
-            {t('footer_secure')}
-          </span>
         </div>
 
         <div className="pk-footer__col">
-          <h4>{t('footer_shop')}</h4>
-          <Link to="/collections/all">{t('nav_all_products')}</Link>
-          <Link to="/collections/new-arrivals">{t('nav_new_arrivals')}</Link>
-          <Link to="/search?q=under%20sink%20organizer">
-            {t('megamenu_intent_home_title')}
-          </Link>
-          <Link to="/search?q=cable%20organizer">
-            {t('megamenu_intent_cable_title')}
-          </Link>
-          <Link to="/search?q=packing%20cubes">
-            {t('megamenu_intent_travel_title')}
-          </Link>
-        </div>
-
-        <div className="pk-footer__col">
-          <h4>{t('footer_care')}</h4>
+          <h2>Puchica</h2>
           <Link to="/pages/about">{t('footer_about')}</Link>
           <Link to="/pages/contact">{t('footer_contact')}</Link>
           <Link to="/pages/faq">{t('footer_faq')}</Link>
           <Link to="/pages/shipping">{t('footer_shipping_info')}</Link>
+        </div>
+
+        <div className="pk-footer__col">
+          <h2>{t('footer_policies')}</h2>
           <Link to="/policies">{t('footer_policies')}</Link>
           <Link to="/policies/refund-policy">{t('footer_refund_policy')}</Link>
           <Link to="/policies/shipping-policy">

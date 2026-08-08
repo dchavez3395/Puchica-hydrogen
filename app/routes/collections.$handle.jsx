@@ -8,7 +8,10 @@ import {puchicaMeta} from '~/lib/seo';
 import {useT} from '~/lib/t';
 import {ProductItem} from '~/components/ProductItem';
 import {diversifyByVendor} from '~/lib/diversify';
-import {filterLaunchProducts} from '~/lib/launch-catalog';
+import {
+  filterLaunchProducts,
+  LAUNCH_READY_TAG,
+} from '~/lib/launch-catalog';
 
 /**
  * @type {Route.MetaFunction}
@@ -29,6 +32,7 @@ export const meta = ({data, params}) => {
     type: 'website',
     pathname,
     langKey: params?.locale,
+    noindex: !collection?.products?.nodes?.length,
   });
 };
 
@@ -91,7 +95,10 @@ async function loadCriticalData({context, params, request}) {
 
   // Build a `ProductFilter` for any active filter. The Storefront API
   // accepts both at once; combining them is an AND.
-  const filters = [];
+  // Approval is mandatory and never shopper-controlled. Filtering at the API
+  // prevents approved products on later pages from being hidden behind a page
+  // of quarantined records; the client-side gate below remains defense in depth.
+  const filters = [{tag: LAUNCH_READY_TAG}];
   if (productType) filters.push({productType});
   if (priceRange) filters.push(priceRange);
 
@@ -101,7 +108,7 @@ async function loadCriticalData({context, params, request}) {
     language,
     sortKey,
     reverse,
-    filters: filters.length > 0 ? filters : undefined,
+    filters,
     ...paginationVariables,
   };
 

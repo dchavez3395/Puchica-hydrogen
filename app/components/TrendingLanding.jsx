@@ -409,7 +409,7 @@ export const TRENDING_QUERY = `#graphql
       first: 50
       sortKey: CREATED_AT
       reverse: true
-      query: "tag:puchica-launch-ready"
+      query: "tag:puchica-catalog-approved-v1"
     ) {
       nodes { ...TrendingProduct }
     }

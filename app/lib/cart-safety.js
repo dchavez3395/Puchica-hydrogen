@@ -1,4 +1,4 @@
-import {LAUNCH_READY_TAG, OPERATIONAL_HOLD_HANDLES} from './launch-catalog.js';
+import {isLaunchReadyProduct} from './launch-catalog.js';
 
 const MAX_CART_LINES = 20;
 const MAX_LINE_QUANTITY = 99;
@@ -78,9 +78,7 @@ export async function assertLaunchReadyLines(storefront, lines) {
       (variant) =>
         variant?.__typename !== 'ProductVariant' ||
         !variant.availableForSale ||
-        !variant.product?.availableForSale ||
-        !variant.product?.tags?.includes(LAUNCH_READY_TAG) ||
-        OPERATIONAL_HOLD_HANDLES.has(variant.product?.handle),
+        !isLaunchReadyProduct(variant.product),
     )
   ) {
     throw new Response('This item is not currently available for purchase.', {

@@ -14,7 +14,7 @@ export const meta = ({data}) => {
   return puchicaMeta({
     title: 'Page not found – Puchica',
     description:
-      "The page you&apos;re looking for doesn&apos;t exist. Browse our collections or search the catalog.",
+      "The page you're looking for doesn't exist. Return to Puchica or contact us for help.",
     noindex: true,
     pathname: data?.pathname || '/404',
   });
