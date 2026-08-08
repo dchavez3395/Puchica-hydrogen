@@ -1,4 +1,5 @@
 import {redirect} from 'react-router';
+import {STOREFRONT_CONTAINMENT_ACTIVE} from '~/lib/launch-catalog';
 
 /**
  * Redirect the legacy "/collections/new-arrivals" URL to the real
@@ -20,7 +21,11 @@ import {redirect} from 'react-router';
  * @param {Route.LoaderArgs}
  */
 export async function loader() {
-  return redirect('/collections/all?sort=newest&view=new-arrivals');
+  return redirect(
+    STOREFRONT_CONTAINMENT_ACTIVE
+      ? '/'
+      : '/collections/all?sort=newest&view=new-arrivals',
+  );
 }
 
 export default function NewArrivalsRedirect() {

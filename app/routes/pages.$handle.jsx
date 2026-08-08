@@ -1,7 +1,8 @@
-import {useLoaderData} from 'react-router';
+import {redirect, useLoaderData} from 'react-router';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 import {puchicaMeta} from '~/lib/seo';
 import {ContactPage} from '~/components/ContactPage';
+import {STOREFRONT_CONTAINMENT_ACTIVE} from '~/lib/launch-catalog';
 
 /**
  * @type {Route.MetaFunction}
@@ -22,7 +23,9 @@ export const meta = ({data, params}) => {
   if (page?.handle === 'contact') {
     return puchicaMeta({
       title: 'Contact us – Puchica',
-      description: CONTACT_DESCRIPTION,
+      description: STOREFRONT_CONTAINMENT_ACTIVE
+        ? 'Contact Puchica while the storefront catalog is being reviewed.'
+        : CONTACT_DESCRIPTION,
       pathname: '/pages/contact',
       langKey: params?.locale,
     });
@@ -50,6 +53,14 @@ export const meta = ({data, params}) => {
  * @param {Route.LoaderArgs} args
  */
 export async function loader(args) {
+  if (
+    STOREFRONT_CONTAINMENT_ACTIVE &&
+    args.params.handle !== 'contact'
+  ) {
+    return redirect('/', {
+      headers: {'Cache-Control': 'no-store, max-age=0'},
+    });
+  }
   // Start fetching non-critical data without blocking time to first byte
   const deferredData = loadDeferredData(args);
 

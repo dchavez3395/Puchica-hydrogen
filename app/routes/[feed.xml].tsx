@@ -1,5 +1,11 @@
 import {data, type LoaderFunctionArgs} from 'react-router';
-import {filterLaunchProducts, LAUNCH_READY_TAG} from '~/lib/launch-catalog';
+import {
+  filterLaunchProducts,
+  LAUNCH_READY_TAG,
+  STOREFRONT_CONTAINMENT_ACTIVE,
+} from '~/lib/launch-catalog';
+
+const SITE_URL = 'https://puchica.ca';
 
 /**
  * Google Merchant Center product feed — `/feed.xml`
@@ -14,6 +20,10 @@ import {filterLaunchProducts, LAUNCH_READY_TAG} from '~/lib/launch-catalog';
  */
 
 export async function loader({context}: LoaderFunctionArgs) {
+  if (STOREFRONT_CONTAINMENT_ACTIVE) {
+    return productFeedResponse([]);
+  }
+
   const {storefront} = context;
 
   const {products} = await storefront.query(
@@ -53,7 +63,6 @@ export async function loader({context}: LoaderFunctionArgs) {
     },
   );
 
-  const SITE_URL = 'https://puchica.ca';
   const launchProducts = filterLaunchProducts(
     products.edges.map(({node}) => node),
   );
@@ -102,6 +111,10 @@ ${salePriceEl}    <g:identifier_exists>no</g:identifier_exists>
   </item>`;
   }).filter(Boolean);
 
+  return productFeedResponse(items);
+}
+
+function productFeedResponse(items: string[]) {
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">
   <channel>

@@ -1,4 +1,5 @@
-import {data, useActionData} from 'react-router';
+import {data, redirect, useActionData} from 'react-router';
+import {STOREFRONT_CONTAINMENT_ACTIVE} from '~/lib/launch-catalog';
 
 /**
  * Newsletter subscription endpoint.
@@ -102,6 +103,13 @@ function cryptoRandomPassword() {
 
 /** @param {Route.ActionArgs} */
 export async function action({request, context}) {
+  if (STOREFRONT_CONTAINMENT_ACTIVE) {
+    return data(
+      {ok: false, error: 'Newsletter signup is temporarily unavailable.'},
+      {status: 503, headers: {'Cache-Control': 'no-store'}},
+    );
+  }
+
   const env = context?.env || {};
   if (request.method !== 'POST') {
     return data(
@@ -171,6 +179,11 @@ export async function action({request, context}) {
 }
 
 export async function loader() {
+  if (STOREFRONT_CONTAINMENT_ACTIVE) {
+    return redirect('/', {
+      headers: {'Cache-Control': 'no-store, max-age=0'},
+    });
+  }
   return {};
 }
 

@@ -1,4 +1,4 @@
-import {useLoaderData} from 'react-router';
+import {redirect, useLoaderData} from 'react-router';
 import {getPaginationVariables, Analytics} from '@shopify/hydrogen';
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {SearchForm} from '~/components/SearchForm';
@@ -10,6 +10,7 @@ import {useT} from '~/lib/t';
 import {
   filterLaunchProducts,
   LAUNCH_READY_TAG,
+  STOREFRONT_CONTAINMENT_ACTIVE,
 } from '~/lib/launch-catalog';
 
 /**
@@ -36,6 +37,11 @@ export const meta = ({data, params}) => {
  * @param {Route.LoaderArgs}
  */
 export async function loader({request, context}) {
+  if (STOREFRONT_CONTAINMENT_ACTIVE) {
+    return redirect('/', {
+      headers: {'Cache-Control': 'no-store, max-age=0'},
+    });
+  }
   const url = new URL(request.url);
   const isPredictive = url.searchParams.has('predictive');
   const searchPromise = isPredictive

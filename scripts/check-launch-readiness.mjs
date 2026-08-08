@@ -276,6 +276,7 @@ export function evaluateOperationalEvidence(
   candidates,
   quotes,
   limitedTestEvidence = null,
+  now = new Date(),
 ) {
   const failures = [];
   const paidCandidates = candidates.filter(
@@ -287,7 +288,7 @@ export function evaluateOperationalEvidence(
       limitedTestEvidence &&
       normalize(limitedTestEvidence.decision) === LIMITED_TEST_DECISION
     ) {
-      return validateLimitedTestEvidence(limitedTestEvidence);
+      return validateLimitedTestEvidence(limitedTestEvidence, now);
     }
     return [
       'Operational evidence has neither a valid GO_LIMITED_TEST control nor a candidate with final_decision=GO_PAID_TEST; paid traffic must remain off.',

@@ -1,4 +1,5 @@
 import {redirect} from 'react-router';
+import {STOREFRONT_CONTAINMENT_ACTIVE} from '~/lib/launch-catalog';
 
 /**
  * The Shopify "best-sellers" collection is not the source of truth for the
@@ -9,7 +10,7 @@ import {redirect} from 'react-router';
  * @param {Route.LoaderArgs}
  */
 export async function loader() {
-  return redirect('/collections/all');
+  return redirect(STOREFRONT_CONTAINMENT_ACTIVE ? '/' : '/collections/all');
 }
 
 export default function BestSellersRedirect() {

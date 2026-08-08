@@ -23,6 +23,8 @@ import {
 } from '~/components/Icons';
 import {SOCIAL_PROFILES} from '~/lib/brand';
 import {useT} from '~/lib/t';
+import {useParams} from 'react-router';
+import {STOREFRONT_CONTAINMENT_ACTIVE} from '~/lib/launch-catalog';
 
 /**
  * Support email. Used in:
@@ -107,6 +109,9 @@ function IconArrowRight(props) {
 
 export function ContactPage() {
   const t = useT();
+  if (STOREFRONT_CONTAINMENT_ACTIVE) {
+    return <ContainmentContact />;
+  }
   const instagram = socialUrl(/instagram\.com/);
   const facebook = socialUrl(/facebook\.com/);
   const tiktok = socialUrl(/tiktok\.com/);
@@ -288,6 +293,67 @@ export function ContactPage() {
           {t('contact_cta_button', {email: CONTACT_EMAIL})}
           <IconArrowRight />
         </a>
+      </section>
+    </div>
+  );
+}
+
+const CONTAINMENT_CONTACT_COPY = {
+  en: {
+    eyebrow: 'Contact Puchica',
+    title: 'We are here while the catalog is being reviewed.',
+    body: 'Email is the clearest way to reach us. If your message concerns an earlier order or product, include the relevant number or link.',
+    email: 'Email hello@puchica.ca',
+    note: 'Shopping is currently paused. We will not ask you to place a test order or send payment outside Shopify.',
+  },
+  fr: {
+    eyebrow: 'Contacter Puchica',
+    title: 'Nous restons disponibles pendant la vérification du catalogue.',
+    body: 'Le courriel est le moyen le plus clair de nous joindre. Pour une commande ou un produit antérieur, ajoutez le numéro ou le lien pertinent.',
+    email: 'Écrire à hello@puchica.ca',
+    note: 'Les achats sont actuellement suspendus. Nous ne vous demanderons pas de passer une commande test ni de payer hors de Shopify.',
+  },
+  es: {
+    eyebrow: 'Contacta a Puchica',
+    title: 'Seguimos aquí mientras revisamos el catálogo.',
+    body: 'El correo es la forma más clara de contactarnos. Si escribes sobre un pedido o producto anterior, incluye el número o enlace relevante.',
+    email: 'Escribe a hello@puchica.ca',
+    note: 'Las compras están en pausa. No te pediremos un pedido de prueba ni un pago fuera de Shopify.',
+  },
+  'pt-br': {
+    eyebrow: 'Fale com a Puchica',
+    title: 'Continuamos aqui enquanto revisamos o catálogo.',
+    body: 'O e-mail é a forma mais clara de contato. Se a mensagem for sobre um pedido ou produto anterior, inclua o número ou link relevante.',
+    email: 'Escreva para hello@puchica.ca',
+    note: 'As compras estão pausadas. Não pediremos um pedido de teste nem pagamento fora da Shopify.',
+  },
+};
+
+function ContainmentContact() {
+  const {locale} = useParams();
+  const language = ['fr', 'es', 'pt-br'].includes(locale) ? locale : 'en';
+  const copy = CONTAINMENT_CONTACT_COPY[language];
+
+  return (
+    <div className="pk-hold">
+      <section className="pk-hold__hero" aria-labelledby="contact-hold-title">
+        <div className="pk-hold__hero-copy">
+          <p className="pk-hold__eyebrow">{copy.eyebrow}</p>
+          <h1 id="contact-hold-title">{copy.title}</h1>
+          <p className="pk-hold__lead">{copy.body}</p>
+          <p className="pk-hold__focus">{copy.note}</p>
+          <div className="pk-hold__actions">
+            <a className="pk-hold__button pk-hold__button--primary" href={`mailto:${CONTACT_EMAIL}`}>
+              {copy.email}
+            </a>
+          </div>
+        </div>
+        <div className="pk-hold__art" aria-hidden="true">
+          <span className="pk-hold__art-label">Puchica</span>
+          <span className="pk-hold__shape pk-hold__shape--one" />
+          <span className="pk-hold__shape pk-hold__shape--two" />
+          <span className="pk-hold__shape pk-hold__shape--three" />
+        </div>
       </section>
     </div>
   );

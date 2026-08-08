@@ -1,6 +1,10 @@
 // Only advertise deliberately curated launch URLs. Shopify still contains
 // legacy collections/blog records that are not part of this storefront.
-const SITEMAP_TYPES = ['products', 'pages'];
+import {STOREFRONT_CONTAINMENT_ACTIVE} from '~/lib/launch-catalog';
+
+const SITEMAP_TYPES = STOREFRONT_CONTAINMENT_ACTIVE
+  ? ['pages']
+  : ['products', 'pages'];
 
 /**
  * @param {Route.LoaderArgs}

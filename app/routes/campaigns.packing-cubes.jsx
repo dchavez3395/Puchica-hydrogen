@@ -17,7 +17,7 @@ import {redirect} from 'react-router';
 
 /** @param {Route.LoaderArgs} args */
 export async function loader() {
-  return redirect('/collections/all', {
+  return redirect('/', {
     status: 302,
     headers: {'Cache-Control': 'no-store, max-age=0'},
   });

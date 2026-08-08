@@ -33,6 +33,7 @@ test('complete GO_LIMITED_TEST evidence can pass without a US sample address', (
       [{product: 'Cube', final_decision: ''}],
       [],
       limitedEvidence,
+      new Date('2026-08-01T21:00:00Z'),
     ),
     [],
   );

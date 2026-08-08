@@ -1,4 +1,5 @@
 import {redirect} from 'react-router';
+import {STOREFRONT_CONTAINMENT_ACTIVE} from '~/lib/launch-catalog';
 
 /**
  * Automatically applies a discount found on the url
@@ -13,6 +14,14 @@ import {redirect} from 'react-router';
  * @param {Route.LoaderArgs}
  */
 export async function loader({request, context, params}) {
+  // Discount URLs can create a cart even when no cart exists. Keep this route
+  // inert during containment so an old campaign link cannot reopen commerce.
+  if (STOREFRONT_CONTAINMENT_ACTIVE) {
+    return redirect('/', {
+      headers: {'Cache-Control': 'no-store, max-age=0'},
+    });
+  }
+
   const {cart} = context;
   const {code} = params;
 

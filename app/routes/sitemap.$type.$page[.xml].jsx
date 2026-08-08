@@ -1,6 +1,7 @@
 import {
   filterLaunchProducts,
   LAUNCH_READY_TAG,
+  STOREFRONT_CONTAINMENT_ACTIVE,
 } from '~/lib/launch-catalog';
 
 /**
@@ -27,6 +28,9 @@ export async function loader({request, params, context: {storefront}}) {
   const locales = ['en', 'fr', 'es', 'pt-br'];
 
   if (params.type === 'products') {
+    if (STOREFRONT_CONTAINMENT_ACTIVE) {
+      return xmlResponse(emptyUrlset());
+    }
     if (String(params.page || '1') !== '1') {
       return xmlResponse(emptyUrlset());
     }
@@ -94,6 +98,7 @@ ${alternates}
 const LAUNCH_STATIC_PATHS = [
   '/',
   '/pages/about',
+  '/pages/contact',
   '/pages/faq',
   '/pages/shipping',
 ];

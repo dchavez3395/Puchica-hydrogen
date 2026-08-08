@@ -3,13 +3,17 @@ import {puchicaMeta} from '~/lib/seo';
 import StarGlyph from '~/components/StarGlyph';
 import {IconBag, IconPackage, IconTruck} from '~/components/Icons';
 import {useT} from '~/lib/t';
-import {useRouteLoaderData} from 'react-router';
+import {useParams, useRouteLoaderData} from 'react-router';
+import {STOREFRONT_CONTAINMENT_ACTIVE} from '~/lib/launch-catalog';
 
 export const meta = ({params}) =>
   puchicaMeta({
-    title: 'Shipping & Delivery – Puchica',
-    description:
-      'See delivery availability and shipping options for your destination at checkout. Puchica confirms delivery options per order before you pay.',
+    title: STOREFRONT_CONTAINMENT_ACTIVE
+      ? 'Shipping review – Puchica'
+      : 'Shipping & Delivery – Puchica',
+    description: STOREFRONT_CONTAINMENT_ACTIVE
+      ? 'Puchica is verifying product-specific shipping and delivery details before the catalog returns.'
+      : 'See delivery availability and shipping options for your destination at checkout. Puchica confirms delivery options per order before you pay.',
     pathname: '/pages/shipping',
     langKey: params?.locale,
   });
@@ -21,6 +25,10 @@ export async function loader() {
 export default function ShippingPage() {
   const t = useT();
   const root = useRouteLoaderData('root');
+
+  if (STOREFRONT_CONTAINMENT_ACTIVE) {
+    return <ContainmentShipping />;
+  }
 
   // Only present markets Shopify actually publishes to this storefront.
   // Delivery remains cart-and-address specific even inside an available market.
@@ -165,6 +173,74 @@ export default function ShippingPage() {
           <Link to="/collections/all" className="pk-btn pk-btn--ink pk-btn--lg">
             {t('ship_cta_browse')}
           </Link>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+const CONTAINMENT_SHIPPING_COPY = {
+  en: {
+    eyebrow: 'Shipping review',
+    title: 'Delivery details are being checked product by product.',
+    body: 'Shopping is paused while we verify supplier routes, shipping costs, delivery estimates, and destination availability for the catalog.',
+    note: 'We will publish delivery information only after it matches the product and destination. No delivery promise is being made while the catalog is paused.',
+    contact: 'Contact us',
+    policies: 'Read our policies',
+  },
+  fr: {
+    eyebrow: 'Vérification de la livraison',
+    title: 'Les détails de livraison sont vérifiés produit par produit.',
+    body: 'Les achats sont suspendus pendant que nous vérifions les fournisseurs, les coûts, les délais et les destinations disponibles.',
+    note: 'Les renseignements seront publiés seulement lorsqu’ils correspondront au produit et à la destination. Aucune promesse de livraison n’est faite pendant cette pause.',
+    contact: 'Nous contacter',
+    policies: 'Lire nos politiques',
+  },
+  es: {
+    eyebrow: 'Revisión de envíos',
+    title: 'Estamos comprobando la entrega producto por producto.',
+    body: 'Las compras están en pausa mientras verificamos proveedores, costos de envío, plazos y disponibilidad por destino.',
+    note: 'Publicaremos la información solo cuando coincida con el producto y el destino. No prometemos una entrega mientras el catálogo esté en pausa.',
+    contact: 'Contáctanos',
+    policies: 'Lee nuestras políticas',
+  },
+  'pt-br': {
+    eyebrow: 'Revisão de envio',
+    title: 'Estamos verificando a entrega produto por produto.',
+    body: 'As compras estão pausadas enquanto verificamos fornecedores, custos de envio, prazos e disponibilidade por destino.',
+    note: 'As informações serão publicadas apenas quando corresponderem ao produto e ao destino. Nenhuma entrega é prometida enquanto o catálogo estiver pausado.',
+    contact: 'Fale conosco',
+    policies: 'Leia nossas políticas',
+  },
+};
+
+function ContainmentShipping() {
+  const {locale} = useParams();
+  const language = ['fr', 'es', 'pt-br'].includes(locale) ? locale : 'en';
+  const copy = CONTAINMENT_SHIPPING_COPY[language];
+
+  return (
+    <div className="pk-hold">
+      <section className="pk-hold__hero" aria-labelledby="shipping-hold-title">
+        <div className="pk-hold__hero-copy">
+          <p className="pk-hold__eyebrow">{copy.eyebrow}</p>
+          <h1 id="shipping-hold-title">{copy.title}</h1>
+          <p className="pk-hold__lead">{copy.body}</p>
+          <p className="pk-hold__focus">{copy.note}</p>
+          <div className="pk-hold__actions">
+            <Link className="pk-hold__button pk-hold__button--primary" to="/pages/contact">
+              {copy.contact}
+            </Link>
+            <Link className="pk-hold__button pk-hold__button--secondary" to="/policies">
+              {copy.policies}
+            </Link>
+          </div>
+        </div>
+        <div className="pk-hold__art" aria-hidden="true">
+          <span className="pk-hold__art-label">Puchica</span>
+          <span className="pk-hold__shape pk-hold__shape--one" />
+          <span className="pk-hold__shape pk-hold__shape--two" />
+          <span className="pk-hold__shape pk-hold__shape--three" />
         </div>
       </section>
     </div>

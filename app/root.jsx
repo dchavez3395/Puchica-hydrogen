@@ -292,7 +292,9 @@ export default function App() {
     >
       <MetaPixel pixelId={data.metaPixelId} />
       <GoogleAnalytics4 measurementId={data.ga4MeasurementId} />
-      <CartRecoveryBanner cart={data.cart} />
+      {!STOREFRONT_CONTAINMENT_ACTIVE && (
+        <CartRecoveryBanner cart={data.cart} />
+      )}
       <PageLayout {...data}>
         <Outlet />
       </PageLayout>
@@ -348,37 +350,41 @@ export function ErrorBoundary() {
         <h1 className="pk-route-error__title">{heading}</h1>
         <p className="pk-route-error__sub">{subhead}</p>
 
-        <Form
-          method="get"
-          action="/search"
-          role="search"
-          className="pk-route-error__search"
-        >
-          <label htmlFor="route-error-search" className="sr-only">
-            {t('err_search_aria')}
-          </label>
-          <input
-            id="route-error-search"
-            type="search"
-            name="q"
-            placeholder={t('err_search_placeholder')}
-            autoComplete="off"
-            className="pk-route-error__input"
-          />
-          <button type="submit" className="pk-btn pk-btn--primary">
-            {t('err_search_btn')}
-          </button>
-        </Form>
+        {!STOREFRONT_CONTAINMENT_ACTIVE && (
+          <Form
+            method="get"
+            action="/search"
+            role="search"
+            className="pk-route-error__search"
+          >
+            <label htmlFor="route-error-search" className="sr-only">
+              {t('err_search_aria')}
+            </label>
+            <input
+              id="route-error-search"
+              type="search"
+              name="q"
+              placeholder={t('err_search_placeholder')}
+              autoComplete="off"
+              className="pk-route-error__input"
+            />
+            <button type="submit" className="pk-btn pk-btn--primary">
+              {t('err_search_btn')}
+            </button>
+          </Form>
+        )}
 
         <div className="pk-route-error__cta">
           <Link to="/" className="pk-btn pk-btn--primary pk-btn--lg">
             {t('err_home')}
           </Link>
           <Link
-            to="/pages/about"
+            to={STOREFRONT_CONTAINMENT_ACTIVE ? '/pages/contact' : '/pages/about'}
             className="pk-btn pk-btn--ghost pk-btn--lg"
           >
-            {t('err_browse')}
+            {STOREFRONT_CONTAINMENT_ACTIVE
+              ? t('footer_contact')
+              : t('err_browse')}
           </Link>
         </div>
 

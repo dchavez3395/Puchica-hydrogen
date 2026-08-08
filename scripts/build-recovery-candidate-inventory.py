@@ -59,8 +59,8 @@ def mapping_evidence(product: dict, variant: dict) -> str:
     if "dsers-fulfillment-service" in locations:
         return "DSers fulfillment location only; exact mapping not independently verified"
     if variant.get("sku") and (variant.get("inventoryItem") or {}).get("unitCost"):
-        return "supplier-formatted SKU + unit cost only; DSers mapping not proven"
-    return "not evidenced"
+        return "current DSers state not inspected; supplier-formatted SKU + unit cost exist"
+    return "current DSers state not inspected"
 
 
 def risk_flags(product: dict, variant: dict) -> list[str]:
@@ -118,10 +118,8 @@ def risk_flags(product: dict, variant: dict) -> list[str]:
 def candidate_status(product: dict) -> str:
     title = product["title"].lower()
     if "naturehike" in title:
-        return "closest niche fit, but QUARANTINED for critical fidelity/stock/route failures"
-    if any(term in title for term in ("hammock", "thermos", "padlock")):
-        return "research-only backup; not low-risk enough for launch cohort"
-    return "exclude from low-risk organization/travel cohort"
+        return "QUARANTINED: critical fidelity, stock, and route evidence failures"
+    return "NOT_INSPECTED: retain and score after current DSers mapping and route capture"
 
 
 def unknowns(product: dict, variant: dict) -> list[str]:

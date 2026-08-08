@@ -1,10 +1,13 @@
-import {useLoaderData, useSearchParams} from 'react-router';
+import {redirect, useLoaderData, useSearchParams} from 'react-router';
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {Image} from '@shopify/hydrogen';
 import {CurrencyMoney} from '~/components/CurrencyMoney';
 import {puchicaMeta} from '~/lib/seo';
 import {useT} from '~/lib/t';
-import {filterLaunchProducts} from '~/lib/launch-catalog';
+import {
+  filterLaunchProducts,
+  STOREFRONT_CONTAINMENT_ACTIVE,
+} from '~/lib/launch-catalog';
 
 /**
  * @type {Route.MetaFunction}
@@ -78,6 +81,11 @@ function handleToLabel(handle, t) {
  * @param {Route.LoaderArgs} args
  */
 export async function loader(args) {
+  if (STOREFRONT_CONTAINMENT_ACTIVE) {
+    return redirect('/', {
+      headers: {'Cache-Control': 'no-store, max-age=0'},
+    });
+  }
   const deferredData = loadDeferredData(args);
   const criticalData = await loadCriticalData(args);
   return {...deferredData, ...criticalData};

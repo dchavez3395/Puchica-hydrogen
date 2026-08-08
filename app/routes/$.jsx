@@ -2,6 +2,7 @@ import {data, useLoaderData} from 'react-router';
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {puchicaMeta} from '~/lib/seo';
 import {useT} from '~/lib/t';
+import {STOREFRONT_CONTAINMENT_ACTIVE} from '~/lib/launch-catalog';
 
 /**
  * @type {Route.MetaFunction}
@@ -40,6 +41,31 @@ export default function CatchAllPage() {
   const t = useT();
   /** @type {LoaderReturnData} */
   const {pathname} = useLoaderData();
+
+  if (STOREFRONT_CONTAINMENT_ACTIVE) {
+    return (
+      <div className="pk-hold">
+        <section className="pk-hold__hero" aria-labelledby="not-found-title">
+          <div className="pk-hold__hero-copy">
+            <p className="pk-hold__eyebrow">404</p>
+            <h1 id="not-found-title">{t('notfound_title')}</h1>
+            <p className="pk-hold__lead">
+              {t('notfound_sub', {path: <code>{pathname}</code>})}
+            </p>
+            <div className="pk-hold__actions">
+              <Link className="pk-hold__button pk-hold__button--primary" to="/">
+                {t('notfound_breadcrumb_home')}
+              </Link>
+              <Link className="pk-hold__button pk-hold__button--secondary" to="/pages/contact">
+                {t('footer_contact')}
+              </Link>
+            </div>
+          </div>
+        </section>
+      </div>
+    );
+  }
+
   return (
     <div className="pk-collection">
       <nav className="pk-breadcrumbs" aria-label={t('notfound_breadcrumb_aria')}>

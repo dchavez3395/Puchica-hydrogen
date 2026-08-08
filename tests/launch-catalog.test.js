@@ -41,6 +41,79 @@ test('legacy home-finds campaign fails closed during containment', async () => {
   assert.match(route, /return redirect\('\/'/);
 });
 
+test('containment closes every remaining commerce and legacy-content route', async () => {
+  const guardedRoutes = [
+    'products.$handle.jsx',
+    'collections.all.jsx',
+    'collections.$handle.jsx',
+    'collections._index.jsx',
+    'explore.jsx',
+    'search.jsx',
+    'discount.$code.jsx',
+    'cart-sync.jsx',
+    'newsletter.jsx',
+    'blogs._index.jsx',
+    'blogs.$blogHandle._index.jsx',
+    'blogs.$blogHandle.$articleHandle.jsx',
+    'pages.$handle.jsx',
+  ];
+
+  for (const filename of guardedRoutes) {
+    const source = await readFile(
+      new URL(`../app/routes/${filename}`, import.meta.url),
+      'utf8',
+    );
+    assert.match(
+      source,
+      /STOREFRONT_CONTAINMENT_ACTIVE/,
+      `${filename} must fail closed during containment`,
+    );
+  }
+});
+
+test('containment removes products from feeds and sitemap discovery', async () => {
+  const feed = await readFile(
+    new URL('../app/routes/[feed.xml].tsx', import.meta.url),
+    'utf8',
+  );
+  const sitemapIndex = await readFile(
+    new URL('../app/routes/[sitemap.xml].jsx', import.meta.url),
+    'utf8',
+  );
+  const productSitemap = await readFile(
+    new URL(
+      '../app/routes/sitemap.$type.$page[.xml].jsx',
+      import.meta.url,
+    ),
+    'utf8',
+  );
+
+  assert.match(feed, /productFeedResponse\(\[\]\)/);
+  assert.match(sitemapIndex, /STOREFRONT_CONTAINMENT_ACTIVE[\s\S]*\['pages'\]/);
+  assert.match(productSitemap, /params\.type === 'products'[\s\S]*STOREFRONT_CONTAINMENT_ACTIVE/);
+});
+
+test('containment identity copy is catalog-neutral and localized', async () => {
+  const home = await readFile(
+    new URL('../app/routes/_index.jsx', import.meta.url),
+    'utf8',
+  );
+  const about = await readFile(
+    new URL('../app/routes/pages.about.jsx', import.meta.url),
+    'utf8',
+  );
+  const brand = await readFile(
+    new URL('../app/lib/brand.js', import.meta.url),
+    'utf8',
+  );
+
+  assert.match(home, /'pt-br': \{/);
+  assert.match(home, /\{copy\.artNote\}/);
+  assert.match(about, /'pt-br': \{/);
+  assert.match(about, /\{copy\.artNote\}/);
+  assert.doesNotMatch(brand, /organization and travel|space-saving/i);
+});
+
 test('the legacy launch tag cannot approve a product', () => {
   assert.equal(
     isLaunchReadyProduct({

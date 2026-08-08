@@ -14,24 +14,24 @@ export const meta = ({params}) =>
 
 const ABOUT_META = {
   en: {
-    title: 'About Puchica | A focused organization shop',
+    title: 'About Puchica | A carefully reviewed shop',
     description:
-      'Meet Puchica, a Canadian-owned shop building a focused collection of practical organizers for small homes, cables, and travel.',
+      'Meet Puchica, an independent Canadian shop carefully reviewing products, suppliers, prices, and delivery details before launch.',
   },
   fr: {
-    title: 'À propos de Puchica | Une boutique d’organisation ciblée',
+    title: 'À propos de Puchica | Une boutique vérifiée avec soin',
     description:
-      'Découvrez Puchica, une boutique canadienne qui rassemble des organisateurs pratiques pour la maison, les câbles et les voyages.',
+      'Découvrez Puchica, une boutique canadienne indépendante qui vérifie soigneusement produits, fournisseurs, prix et livraison avant le lancement.',
   },
   es: {
-    title: 'Sobre Puchica | Una tienda de organización práctica',
+    title: 'Sobre Puchica | Una tienda revisada con cuidado',
     description:
-      'Conoce Puchica, una tienda canadiense con una selección enfocada de organizadores para el hogar, los cables y los viajes.',
+      'Conoce Puchica, una tienda canadiense independiente que revisa productos, proveedores, precios y entrega antes del lanzamiento.',
   },
   'pt-br': {
-    title: 'Sobre a Puchica | Uma loja de organização prática',
+    title: 'Sobre a Puchica | Uma loja revisada com cuidado',
     description:
-      'Conheça a Puchica, uma loja canadense com uma seleção focada de organizadores para casa, cabos e viagens.',
+      'Conheça a Puchica, uma loja canadense independente que revisa produtos, fornecedores, preços e entrega antes do lançamento.',
   },
 };
 
@@ -237,35 +237,48 @@ const CONTAINMENT_ABOUT_COPY = {
   en: {
     eyebrow: 'About Puchica',
     title: 'We are building a shop that earns your trust.',
-    body: 'Puchica is an independent Canadian shop focused on practical organization and travel finds for everyday life.',
+    body: 'Puchica is an independent Canadian shop building a focused catalog of practical products for everyday life.',
     standard:
       'Before a product is published, we review its supplier route, price, delivery information, product details, and customer-facing claims.',
     contact: 'Contact us',
     policies: 'Read our policies',
+    artNote: 'Useful things deserve a clear reason to be here.',
   },
   fr: {
     eyebrow: 'À propos de Puchica',
     title: 'Nous bâtissons une boutique digne de votre confiance.',
-    body: 'Puchica est une boutique canadienne indépendante axée sur des solutions pratiques de rangement et de voyage.',
+    body: 'Puchica est une boutique canadienne indépendante qui prépare un catalogue ciblé de produits pratiques pour la vie quotidienne.',
     standard:
       'Avant de publier un produit, nous vérifions son fournisseur, son prix, la livraison, ses détails et les affirmations présentées aux clients.',
     contact: 'Nous contacter',
     policies: 'Lire nos politiques',
+    artNote: 'Les objets utiles méritent une vraie raison d’être ici.',
   },
   es: {
     eyebrow: 'Acerca de Puchica',
     title: 'Estamos creando una tienda que se gane tu confianza.',
-    body: 'Puchica es una tienda canadiense independiente enfocada en productos prácticos de organización y viaje.',
+    body: 'Puchica es una tienda canadiense independiente que prepara un catálogo enfocado de productos prácticos para la vida diaria.',
     standard:
       'Antes de publicar un producto, revisamos el proveedor, el precio, la entrega, los detalles y las afirmaciones que verá el cliente.',
     contact: 'Contáctanos',
     policies: 'Lee nuestras políticas',
+    artNote: 'Las cosas útiles merecen una razón clara para estar aquí.',
+  },
+  'pt-br': {
+    eyebrow: 'Sobre a Puchica',
+    title: 'Estamos criando uma loja que mereça sua confiança.',
+    body: 'A Puchica é uma loja canadense independente que prepara um catálogo focado de produtos práticos para o dia a dia.',
+    standard:
+      'Antes de publicar um produto, revisamos fornecedor, preço, entrega, detalhes e afirmações apresentadas aos clientes.',
+    contact: 'Fale conosco',
+    policies: 'Leia nossas políticas',
+    artNote: 'Coisas úteis merecem uma razão clara para estar aqui.',
   },
 };
 
 function ContainmentAbout() {
   const {locale} = useParams();
-  const language = ['fr', 'es'].includes(locale) ? locale : 'en';
+  const language = ['fr', 'es', 'pt-br'].includes(locale) ? locale : 'en';
   const copy = CONTAINMENT_ABOUT_COPY[language] || CONTAINMENT_ABOUT_COPY.en;
 
   return (
@@ -290,7 +303,7 @@ function ContainmentAbout() {
           <span className="pk-hold__shape pk-hold__shape--one" />
           <span className="pk-hold__shape pk-hold__shape--two" />
           <span className="pk-hold__shape pk-hold__shape--three" />
-          <span className="pk-hold__art-note">Useful things deserve a clear reason to be here.</span>
+          <span className="pk-hold__art-note">{copy.artNote}</span>
         </div>
       </section>
     </div>

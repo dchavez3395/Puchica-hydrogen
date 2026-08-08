@@ -2,11 +2,13 @@
 
 ## Decision
 
-**No current product or variant is launch-approved.** The live Shopify data does
-not contain a three-to-five-product low-risk organization/travel cohort. The
-Naturehike toiletry bag is the closest category fit, but its customer copy does
-not describe the product shown in its media and every variant is below the
-25-unit launch-stock threshold. It remains quarantined.
+**No current product or variant is launch-approved.** This is not a decision to
+discard the catalog and not a finding that the products are unmapped in DSers.
+The present Shopify export lacks enough current supplier-route and economics
+evidence to select a three-to-five-product cohort. The Naturehike toiletry bag
+has an independently confirmed customer-copy/media mismatch and every variant
+is below the 25-unit launch-stock threshold, so that record remains
+quarantined. The other products remain preserved for DSers-backed scoring.
 
 This was a read-only audit. No Shopify or DSers data was changed, no deployment
 was performed, and no order or advertising action was taken.
@@ -46,9 +48,12 @@ or exact option mapping through these fields.
 - One product has an explicit `dsers-mapped` tag: Naturehike toiletry bag.
 - Seven variants are stocked at `dsers-fulfillment-service`: six Naturehike
   variants and one water-flosser variant.
-- 27 other variants have no DSers location evidence. Supplier-formatted SKUs
-  and populated unit cost suggest an import or connector record, but do not
-  prove a current exact mapping.
+- 27 other variants have no DSers location evidence in Shopify. That is not a
+  finding that they are unmapped. The owner reports manually mapping the
+  current products for Canada, and the repository's 2026-07-25 DSers snapshot
+  recorded 57 mapped products with `Unmapped (0)`. Most products in this Admin
+  export were created after that older snapshot, so their current exact mapping
+  state remains `not inspected` until DSers can be read directly.
 - All 34 variants have a Shopify unit cost in CAD; none has destination
   shipping, fees, duties, or reserve evidence needed for contribution margin.
 - 23 variants use placeholder-like inventory `999`; five use `50`.
@@ -64,7 +69,7 @@ or exact option mapping through these fields.
   `dsers-fulfillment-service`; a location name is not proof of a physical
   supplier warehouse or destination route.
 
-## Closest niche-fit record: Naturehike toiletry bag
+## Confirmed fidelity failure: Naturehike toiletry bag
 
 - Product ID: `gid://shopify/Product/9341750968570`
 - Handle:
@@ -134,11 +139,13 @@ location, but no explicit mapping tag or destination route evidence. It is a
 hygiene/electrical product with performance claims and is outside the desired
 low-risk organization/travel cohort.
 
-## Required next sourcing evidence
+## Required next product evidence
 
-The current catalog cannot supply three approved launch products. Source new or
-replacement non-electrical organizers rather than weakening the gates. For each
-candidate, capture before storefront work:
+The current catalog does not yet contain three **approved** launch products;
+that does not mean it contains no viable products. Verify the owner's current
+DSers mappings and evaluate the existing catalog first. Source replacements
+only when the present candidates fail route, economics, fidelity, risk, or
+competitive-price gates. For each candidate, capture before storefront work:
 
 1. exact Shopify product and variant ID;
 2. exact DSers supplier listing, supplier ID, mapped option and supplier SKU;

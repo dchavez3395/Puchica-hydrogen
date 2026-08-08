@@ -27,11 +27,7 @@ ${generalDisallowRules({sitemapUrl})}
 
 # Google adsbot ignores robots.txt unless specifically named!
 User-agent: adsbot-google
-Disallow: /cart
-Disallow: /account
-Disallow: /search
-Allow: /search/
-Disallow: /search/?*
+${generalDisallowRules({})}
 
 User-agent: Nutch
 Disallow: /
@@ -46,9 +42,11 @@ ${generalDisallowRules({sitemapUrl})}
 
 User-agent: MJ12bot
 Crawl-Delay: 10
+${generalDisallowRules({})}
 
 User-agent: Pinterest
 Crawl-delay: 1
+${generalDisallowRules({})}
 `.trim();
 }
 
@@ -59,7 +57,29 @@ Crawl-delay: 1
  */
 function generalDisallowRules({sitemapUrl}) {
   return `Disallow: /cart
+Disallow: /*/cart
+Disallow: /cart-sync
+Disallow: /*/cart-sync
 Disallow: /account
+Disallow: /*/account
+Disallow: /newsletter
+Disallow: /*/newsletter
+Disallow: /notify-back
+Disallow: /*/notify-back
+Disallow: /api
+Disallow: /*/api
+Disallow: /products
+Disallow: /*/products
+Disallow: /collections
+Disallow: /*/collections
+Disallow: /explore
+Disallow: /*/explore
+Disallow: /campaigns
+Disallow: /*/campaigns
+Disallow: /discount
+Disallow: /*/discount
+Disallow: /blogs
+Disallow: /*/blogs
 Disallow: /collections/*sort_by*
 Disallow: /*/collections/*sort_by*
 Disallow: /collections/*+*
@@ -77,7 +97,7 @@ Disallow: /*/blogs/*%2B*
 Disallow: /*/blogs/*%2b*
 Disallow: /policies/
 Disallow: /search
-Allow: /search/
+Disallow: /*/search
 Disallow: /search/?*
 ${sitemapUrl ? `Sitemap: ${sitemapUrl}` : ''}`;
 }

@@ -74,10 +74,14 @@ Required product evidence:
 
 ### 4. Select the launch assortment
 
-Start with three to five non-electrical organization or travel products. Prefer
-simple, demonstrable products with low safety, warranty, counterfeit, and support
-risk. A single supplier is convenient but not mandatory; every supplier route
-must independently pass the same destination and margin controls.
+Evaluate the existing mapped catalog first and select three to five products
+that form one credible customer-facing collection. Do not impose a niche before
+the mapping, route, economics, competitive-price, fidelity, and risk evidence is
+scored. Prefer simple, demonstrable products with low safety, warranty,
+counterfeit, and support risk. Source replacement products only if the current
+catalog cannot produce a passing cohort. A single supplier is convenient but
+not mandatory; every supplier route must independently pass the same destination
+and margin controls.
 
 Exit criteria for each sellable variant:
 

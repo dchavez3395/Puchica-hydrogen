@@ -1,5 +1,9 @@
 # Next launch cohort sourcing brief — 2026-08-08
 
+> **Contingency only:** this is not the chosen Puchica niche and does not replace
+> the current catalog. Use it only if the existing mapped products fail to
+> produce a coherent three-to-five-product launch cohort.
+
 ## Objective
 
 Source a coherent **three-product core, with up to two supporting products**, for

@@ -22,7 +22,7 @@ export const STORE_LOGO_URL =
  * consistent across surfaces avoids conflicting signals.
  */
 export const BRAND_DESCRIPTION =
-  'Practical organization and space-saving problem-solvers for small spaces, at home and on the go.';
+  'An independent Canadian shop building a focused catalog of carefully reviewed practical products.';
 
 /**
  * Verified social profile URLs. The Organization JSON-LD's `sameAs`

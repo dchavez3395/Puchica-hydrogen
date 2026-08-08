@@ -1,7 +1,8 @@
-import {useLoaderData} from 'react-router';
+import {redirect, useLoaderData} from 'react-router';
 import {Image} from '@shopify/hydrogen';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 import {puchicaMeta} from '~/lib/seo';
+import {STOREFRONT_CONTAINMENT_ACTIVE} from '~/lib/launch-catalog';
 
 /**
  * @type {Route.MetaFunction}
@@ -29,6 +30,9 @@ export const meta = ({data, params}) => {
  * @param {Route.LoaderArgs} args
  */
 export async function loader(args) {
+  if (STOREFRONT_CONTAINMENT_ACTIVE) {
+    return redirect('/', {headers: {'Cache-Control': 'no-store, max-age=0'}});
+  }
   // Start fetching non-critical data without blocking time to first byte
   const deferredData = loadDeferredData(args);
 

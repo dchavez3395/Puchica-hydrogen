@@ -26,7 +26,10 @@ import {getJudgemeBadge} from '~/lib/judgeme';
 import {ReviewStars, JudgemeReviews} from '~/components/JudgemeReviews';
 import {recordRecentlyViewed} from '~/lib/recentlyViewed';
 import {useT} from '~/lib/t';
-import {isLaunchReadyProduct} from '~/lib/launch-catalog';
+import {
+  isLaunchReadyProduct,
+  STOREFRONT_CONTAINMENT_ACTIVE,
+} from '~/lib/launch-catalog';
 import {presentProductTitle} from '~/lib/product-presentation';
 import {DICTIONARIES} from '~/lib/dictionaries';
 
@@ -72,6 +75,15 @@ export const meta = ({data, matches, params}) => {
 
 /** @param {Route.LoaderArgs} args */
 export async function loader(args) {
+  if (STOREFRONT_CONTAINMENT_ACTIVE) {
+    throw new Response(null, {
+      status: 404,
+      headers: {
+        'Cache-Control': 'no-store, max-age=0',
+        'X-Robots-Tag': 'noindex, nofollow',
+      },
+    });
+  }
   const {product, reviews} = await loadCriticalData(args);
   return {product, reviews};
 }
