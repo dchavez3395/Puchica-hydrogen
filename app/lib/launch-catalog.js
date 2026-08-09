@@ -15,7 +15,7 @@ export const LEGACY_LAUNCH_READY_TAG = 'puchica-launch-ready';
 // Emergency storefront containment. While true, cart and checkout entry routes
 // remain closed even if a stale browser cart or shared Shopify cart permalink
 // exists. Remove only after the preview and catalog launch gates are approved.
-export const STOREFRONT_CONTAINMENT_ACTIVE = false;
+export const STOREFRONT_CONTAINMENT_ACTIVE = true;
 
 /**
  * A versioned, final approval tag prevents the legacy launch tag from
