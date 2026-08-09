@@ -23,7 +23,7 @@ offer.
 | Market | Customer listing | Exact supplier SKU | Supplier item + shipping | Supplier route | Shopify price | Shopify inventory observed | Decision |
 |---|---|---|---:|---|---:|---:|---|
 | CA | Charcoal 3-Piece Packing Cube Set — Small, Medium & Large | `14:1052#S3007 Black;5:200004186#3PCS L M S Set` | US$13.32 + US$1.99 | AliExpress Selection Standard; CN; 8–13 days; tracking available | CA$39.99 | 291 | Soft-launch approved in CA only |
-| CA + US | Black Double-Layer Travel Cable Organizer Case | `14:193#Double Layers` | US$4.14 + US$1.99 | AliExpress Selection Standard; CN; 6–11 days; tracking available | CA$24.99 base price; Shopify converts for the US market | 65 | Soft-launch approved in CA and US |
+| CA + US | Black Double-Layer Travel Cable Organizer Case | `14:193#Double Layers` | US$4.14 + US$1.99 | AliExpress Selection Standard; CN; 6–11 days; tracking available | CA$24.99 / US$19.00 observed | 65 | Soft-launch approved in CA and US |
 | CA | Black Large Travel Toiletry Organizer | `14:100018754#BK-L` | US$16.57 + US$1.99, using the highest observed item cost | AliExpress Selection Standard; CN; 7–12 days; tracking available | CA$49.99 | 12 | Soft-launch approved in CA only; monitor stock closely |
 
 The shipping times above are supplier estimates, not delivery guarantees. No
@@ -48,10 +48,11 @@ Planning assumptions:
 | Cable organizer | CA$24.99 | CA$8.66 | CA$1.00 | CA$1.25 | CA$14.08 | 56.4% |
 | Toiletry organizer | CA$49.99 | CA$26.21 | CA$1.70 | CA$2.50 | CA$19.58 | 39.2% |
 
-The Canadian shipping profile currently charges CA$5.00 below CA$50 and free
-shipping from CA$50. The US profile charges CA$9.99 equivalent. Because the
-table excludes that customer shipping revenue, its contribution estimates are
-conservative. A two-product order clears the Canadian free-shipping threshold.
+The tested Canadian checkout charges CA$5.00 below CA$50 and free shipping from
+CA$50. The tested US checkout charges US$8.00 for the cable organizer. Because
+the table excludes that customer shipping revenue, its contribution estimates
+are conservative. A two-product order clears the Canadian free-shipping
+threshold.
 
 Shopify publishes 2.8% + CA$0.30 for a Basic-plan Canadian standard online
 card and 3.5% + CA$0.30 for Amex/international cards. Replacing 2.8% with 3.5%
@@ -108,18 +109,33 @@ Official DSers sources:
 
 ## Remaining release sequence
 
-1. Build and verify a fresh private Oxygen preview.
-2. Confirm Canada homepage, collection, all three exact product pages, cart,
-   policy links, and mobile navigation.
-3. Confirm the US market shows only the cable organizer and that packing and
-   toiletry URLs fail closed.
-4. Run a Canadian checkout to the payment screen and confirm the CA$5 / free
-   over CA$50 rules without placing an order.
-5. Run a US cable-organizer checkout to the payment screen and confirm the
-   displayed currency, CA$9.99-equivalent shipping, and duty disclosure without
-   placing an order.
-6. Review the private preview, then deploy the reviewed build to production.
-7. Complete one production analytics smoke test. Only then prepare an organic
+### Completed
+
+- `npm test`: 54/54 passing.
+- `npm run lint`: zero errors; 31 pre-existing debug-script warnings.
+- `npm run build`: passed.
+- `npm run launch-check`: passed.
+- Private Oxygen preview deployed:
+  https://01kzjhfw1cz1tp7pdmqag0wbwv-96696c77fd963319c44d.myshopify.dev
+- Canada preview: three exact products, CA$39.99 / CA$24.99 / CA$49.99,
+  exact charcoal packing-cube hero image, and matching feature card.
+- US preview: only the Black Double-Layer cable organizer at US$19.00.
+- A direct US request for the Canada-only packing cubes returned the safe 404.
+- US cable-organizer add-to-cart passed and produced the exact customer option
+  `Black — Double Layer` plus a checkout link.
+- Canada single-product checkout test: CA$24.99 cable organizer + CA$5.00
+  shipping = CA$29.99.
+- Canada bundle checkout test: CA$39.99 packing cubes + CA$24.99 cable
+  organizer = CA$64.98 with free shipping.
+- US single-product checkout test: US$19.00 cable organizer + US$8.00 shipping
+  = US$27.00.
+- Checkout was tested only to the enabled payment step. No payment credentials
+  were entered and no order was submitted.
+
+### Still required before production launch
+
+1. Review the private preview, then deploy the reviewed build to production.
+2. Complete one production analytics smoke test. Only then prepare an organic
    launch. Paid ads require a separate budget, creative, CAC, and stop-rule
    approval.
 
