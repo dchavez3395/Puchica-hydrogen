@@ -21,7 +21,13 @@ import {
   IconChevronRight,
 } from '~/components/Icons';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
-import {puchicaMeta, canonical, SITE_URL, breadcrumbJsonLd, JsonLdScript} from '~/lib/seo';
+import {
+  puchicaMeta,
+  canonical,
+  SITE_URL,
+  breadcrumbJsonLd,
+  JsonLdScript,
+} from '~/lib/seo';
 import {getJudgemeBadge} from '~/lib/judgeme';
 import {ReviewStars, JudgemeReviews} from '~/components/JudgemeReviews';
 import {recordRecentlyViewed} from '~/lib/recentlyViewed';
@@ -70,7 +76,14 @@ export const meta = ({data, matches, params}) => {
     dict.pdp_meta_description_fallback.replace(/\{title\}/g, productTitle);
   const image = data.product.featuredImage?.url;
   const pathname = `/products/${data.product.handle}`;
-  return puchicaMeta({title, description, image, type: 'product', pathname, langKey});
+  return puchicaMeta({
+    title,
+    description,
+    image,
+    type: 'product',
+    pathname,
+    langKey,
+  });
 };
 
 /** @param {Route.LoaderArgs} args */
@@ -95,7 +108,12 @@ async function loadCriticalData({context, params, request}) {
   const {country, language} = storefront.i18n;
 
   const productResp = await storefront.query(PRODUCT_QUERY, {
-    variables: {country, handle, language, selectedOptions: getSelectedProductOptions(request)},
+    variables: {
+      country,
+      handle,
+      language,
+      selectedOptions: getSelectedProductOptions(request),
+    },
   });
 
   const product = productResp.product;
@@ -149,14 +167,19 @@ export default function Product() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{__html: JSON.stringify(jsonLd)}}
       />
-      <JsonLdScript data={breadcrumbJsonLd(buildBreadcrumbItems(product, displayTitle, t))} />
+      <JsonLdScript
+        data={breadcrumbJsonLd(buildBreadcrumbItems(product, displayTitle, t))}
+      />
 
       {/* ── Product hero band — full-bleed warm header with volcanic
           texture, breadcrumbs, festival stripe separator. Contains
           the breadcrumbs + gallery + buy column. */}
       <div className="pk-product__hero-band">
         <div className="pk-product__hero-band-inner">
-          <nav className="pk-breadcrumbs pk-product__crumbs" aria-label={t('breadcrumb_aria')}>
+          <nav
+            className="pk-breadcrumbs pk-product__crumbs"
+            aria-label={t('breadcrumb_aria')}
+          >
             <Link to="/">{t('breadcrumb_home')}</Link>
             <span className="pk-breadcrumbs__sep">/</span>
             <Link to="/collections/all">{t('breadcrumb_shop')}</Link>
@@ -167,7 +190,9 @@ export default function Product() {
               </>
             ) : null}
             <span className="pk-breadcrumbs__sep">/</span>
-            <span className="pk-breadcrumbs__current" aria-current="page">{displayTitle}</span>
+            <span className="pk-breadcrumbs__current" aria-current="page">
+              {displayTitle}
+            </span>
           </nav>
 
           <div className="pk-product__top">
@@ -195,92 +220,103 @@ export default function Product() {
             />
 
             <div className="pk-product__info">
-          <div className="pk-product__desktop-heading">
-          {/* Buy column in funnel order (audit §4): category → title →
+              <div className="pk-product__desktop-heading">
+                {/* Buy column in funnel order (audit §4): category → title →
               rating → price (+ save %) → options/qty/ATC → promise →
               trust → accordions. No scroll reveals — the buy column
               is the money UI; it must never be hidden by an observer. */}
-          {need ? (
-            <p className="pk-product__category">{need.label}</p>
-          ) : null}
+                {need ? (
+                  <p className="pk-product__category">{need.label}</p>
+                ) : null}
 
-          {/* Each breakpoint exposes one semantic page title. The matching
+                {/* Each breakpoint exposes one semantic page title. The matching
               mobile/desktop wrapper is `display:none` at the opposite
               breakpoint, so assistive technology receives one visible H1
               while sighted desktop shoppers no longer see an aria-hidden
               title with no corresponding page heading. */}
-          <h1 className="pk-product__title">{displayTitle}</h1>
+                <h1 className="pk-product__title">{displayTitle}</h1>
 
-          {reviews && reviews.count > 0 ? (
-            <ReviewStars rating={reviews.rating} count={reviews.count} />
-          ) : null}
+                {reviews && reviews.count > 0 ? (
+                  <ReviewStars rating={reviews.rating} count={reviews.count} />
+                ) : null}
 
-          {summary ? <p className="pk-product__lede">{summary}</p> : null}
+                {summary ? <p className="pk-product__lede">{summary}</p> : null}
 
-          <div className="pk-product__price-cluster">
-            <div className="pk-product__price-row">
-              <ProductPrice
-                price={selectedVariant?.price}
-                compareAtPrice={selectedVariant?.compareAtPrice}
-              />
-              {savePercent(selectedVariant) ? (
-                <span className="pk-product__badge pk-product__badge--save">
-                  {t('product_badge_save', {pct: savePercent(selectedVariant)})}
-                </span>
+                <div className="pk-product__price-cluster">
+                  <div className="pk-product__price-row">
+                    <ProductPrice
+                      price={selectedVariant?.price}
+                      compareAtPrice={selectedVariant?.compareAtPrice}
+                    />
+                    {savePercent(selectedVariant) ? (
+                      <span className="pk-product__badge pk-product__badge--save">
+                        {t('product_badge_save', {
+                          pct: savePercent(selectedVariant),
+                        })}
+                      </span>
+                    ) : null}
+                    {selectedVariant?.availableForSale === false && (
+                      <span className="pk-product__badge pk-product__badge--sold">
+                        {t('product_badge_sold_out')}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {summary ? (
+                <p className="pk-product__lede pk-product__lede--mobile">
+                  {summary}
+                </p>
               ) : null}
-              {selectedVariant?.availableForSale === false && (
-                <span className="pk-product__badge pk-product__badge--sold">
-                  {t('product_badge_sold_out')}
-                </span>
-              )}
-            </div>
-          </div>
-          </div>
 
-          {summary ? (
-            <p className="pk-product__lede pk-product__lede--mobile">{summary}</p>
-          ) : null}
+              <div className="pk-product__form-wrap" id="product-form">
+                <ProductForm
+                  productOptions={productOptions}
+                  selectedVariant={selectedVariant}
+                  product={{
+                    handle: product.handle,
+                    title: product.title,
+                    featuredImage: product.featuredImage,
+                  }}
+                />
+              </div>
 
-          <div className="pk-product__form-wrap" id="product-form">
-            <ProductForm
-              productOptions={productOptions}
-              selectedVariant={selectedVariant}
-              product={{handle: product.handle, title: product.title, featuredImage: product.featuredImage}}
-            />
-          </div>
+              {/* ── Trust block: 4 rows of promise, neutral hairline chips. */}
+              <div
+                className="pk-product__trust"
+                aria-label={t('product_perks_aria')}
+              >
+                <div className="pk-product__trust-item">
+                  <span className="pk-product__trust-icon" aria-hidden>
+                    <IconTruck size={16} />
+                  </span>
+                  <span className="pk-product__trust-copy">
+                    <strong>{t('product_trust_shipping')}</strong>
+                    <em>{t('product_trust_shipping_sub')}</em>
+                  </span>
+                </div>
+                <div className="pk-product__trust-item">
+                  <span className="pk-product__trust-icon" aria-hidden>
+                    <IconReturn size={16} />
+                  </span>
+                  <span className="pk-product__trust-copy">
+                    <strong>{t('product_trust_returns')}</strong>
+                    <em>{t('product_trust_returns_sub')}</em>
+                  </span>
+                </div>
+                <div className="pk-product__trust-item">
+                  <span className="pk-product__trust-icon" aria-hidden>
+                    <IconShield size={16} />
+                  </span>
+                  <span className="pk-product__trust-copy">
+                    <strong>{t('product_trust_secure')}</strong>
+                    <em>{t('product_trust_secure_sub')}</em>
+                  </span>
+                </div>
+              </div>
 
-          {/* ── Trust block: 4 rows of promise, neutral hairline chips. */}
-          <div className="pk-product__trust" aria-label={t('product_perks_aria')}>
-            <div className="pk-product__trust-item">
-              <span className="pk-product__trust-icon" aria-hidden>
-                <IconTruck size={16} />
-              </span>
-              <span className="pk-product__trust-copy">
-                <strong>{t('product_trust_shipping')}</strong>
-                <em>{t('product_trust_shipping_sub')}</em>
-              </span>
-            </div>
-            <div className="pk-product__trust-item">
-              <span className="pk-product__trust-icon" aria-hidden>
-                <IconReturn size={16} />
-              </span>
-              <span className="pk-product__trust-copy">
-                <strong>{t('product_trust_returns')}</strong>
-                <em>{t('product_trust_returns_sub')}</em>
-              </span>
-            </div>
-            <div className="pk-product__trust-item">
-              <span className="pk-product__trust-icon" aria-hidden>
-                <IconShield size={16} />
-              </span>
-              <span className="pk-product__trust-copy">
-                <strong>{t('product_trust_secure')}</strong>
-                <em>{t('product_trust_secure_sub')}</em>
-              </span>
-            </div>
-          </div>
-
-          {/* ── Accordions — description first (it's the purchase
+              {/* ── Accordions — description first (it's the purchase
               decision content), then specs, then policy copy. Inside
               the buy column so everything a shopper needs to decide
               lives in one scannable column (audit §4). */}
@@ -289,10 +325,15 @@ export default function Product() {
         </div>
       </div>
 
-      <section className="pk-product__details-section" aria-labelledby="product-details-heading">
+      <section
+        className="pk-product__details-section"
+        aria-labelledby="product-details-heading"
+      >
         <div className="pk-product__details-story">
           <div className="pk-product__details-intro">
-            <p className="pk-product__category">{need?.label || t('breadcrumb_shop')}</p>
+            <p className="pk-product__category">
+              {need?.label || t('breadcrumb_shop')}
+            </p>
             <h2 id="product-details-heading">{t('product_story_title')}</h2>
             {galleryImages[1] ? (
               <div className="pk-product__details-visual">
@@ -333,15 +374,17 @@ export default function Product() {
 
       <Analytics.ProductView
         data={{
-          products: [{
-            id: product.id,
-            title: product.title,
-            price: selectedVariant?.price?.amount || '0',
-            vendor: product.vendor,
-            variantId: selectedVariant?.id || '',
-            variantTitle: selectedVariant?.title || '',
-            quantity: 1,
-          }],
+          products: [
+            {
+              id: product.id,
+              title: product.title,
+              price: selectedVariant?.price?.amount || '0',
+              vendor: product.vendor,
+              variantId: selectedVariant?.id || '',
+              variantTitle: selectedVariant?.title || '',
+              quantity: 1,
+            },
+          ],
         }}
       />
     </div>
@@ -433,14 +476,22 @@ function MobileCart({product, selectedVariant, t}) {
       <div className="pk-mob-cart__btn">
         <AddToCartButton
           disabled={!selectedVariant.availableForSale}
-          lines={selectedVariant.availableForSale ? [{
-            merchandiseId: selectedVariant.id,
-            quantity: 1,
-            selectedVariant,
-          }] : []}
+          lines={
+            selectedVariant.availableForSale
+              ? [
+                  {
+                    merchandiseId: selectedVariant.id,
+                    quantity: 1,
+                    selectedVariant,
+                  },
+                ]
+              : []
+          }
           addedLabel={null}
-      >
-        {selectedVariant.availableForSale ? t('product_add_to_cart') : t('product_sold_out')}
+        >
+          {selectedVariant.availableForSale
+            ? t('product_add_to_cart')
+            : t('product_sold_out')}
         </AddToCartButton>
       </div>
     </div>
@@ -453,7 +504,10 @@ function buildGallery(product, selectedVariant) {
   const list = [];
   const seen = new Set();
   const push = (img) => {
-    if (img?.url && !seen.has(img.url)) { seen.add(img.url); list.push(img); }
+    if (img?.url && !seen.has(img.url)) {
+      seen.add(img.url);
+      list.push(img);
+    }
   };
   push(selectedVariant?.image);
   push(product.featuredImage);
@@ -462,7 +516,10 @@ function buildGallery(product, selectedVariant) {
 }
 
 function buildBreadcrumbItems(product, title, t) {
-  const items = [{name: t('breadcrumb_home'), url: '/'}, {name: t('breadcrumb_shop'), url: '/collections/all'}];
+  const items = [
+    {name: t('breadcrumb_home'), url: '/'},
+    {name: t('breadcrumb_shop'), url: '/collections/all'},
+  ];
   const need = getProductNeed(product, t);
   if (need) {
     items.push({name: need.label, url: need.url});
@@ -473,6 +530,12 @@ function buildBreadcrumbItems(product, title, t) {
 
 function getProductNeed(product, t) {
   const haystack = `${product?.productType || ''} ${product?.title || ''}`;
+  if (/travel/i.test(product?.productType || '')) {
+    return {
+      label: product.productType,
+      url: '/collections/all',
+    };
+  }
   if (/cable|cord|charger|electronic/i.test(haystack)) {
     return {
       label: t('megamenu_intent_cable_title'),
@@ -492,7 +555,10 @@ function getProductNeed(product, t) {
 }
 
 function productSummary(description) {
-  const clean = String(description || '').replace(/\s+/g, ' ').trim();
+  const clean = String(description || '')
+    .replace(/([.!?])(?=[A-Z])/g, '$1 ')
+    .replace(/\s+/g, ' ')
+    .trim();
   if (!clean) return '';
   const firstSentence = clean.match(/^.*?[.!?](?:\s|$)/)?.[0]?.trim();
   return firstSentence || clean.slice(0, 180).trim();
@@ -504,7 +570,10 @@ function buildJsonLd(product, selectedVariant, reviews, galleryImages) {
   // Expose the full gallery (deduped, capped) so Google rich results / Merchant
   // listings can show multiple images — falls back to the featured image.
   const images = Array.isArray(galleryImages)
-    ? [...new Set(galleryImages.map((i) => i?.url).filter(Boolean))].slice(0, 10)
+    ? [...new Set(galleryImages.map((i) => i?.url).filter(Boolean))].slice(
+        0,
+        10,
+      )
     : [];
   return {
     '@context': 'https://schema.org',
@@ -519,20 +588,27 @@ function buildJsonLd(product, selectedVariant, reviews, galleryImages) {
         : undefined,
     sku: selectedVariant?.sku || product.handle,
     seller: {'@type': 'Organization', name: 'Puchica', url: SITE_URL},
-    aggregateRating: reviews?.count > 0
-      ? {'@type': 'AggregateRating', ratingValue: reviews.rating, reviewCount: reviews.count}
+    aggregateRating:
+      reviews?.count > 0
+        ? {
+            '@type': 'AggregateRating',
+            ratingValue: reviews.rating,
+            reviewCount: reviews.count,
+          }
+        : undefined,
+    offers: price
+      ? {
+          '@type': 'Offer',
+          '@id': `${productUrl}#offer`,
+          url: productUrl,
+          priceCurrency: price.currencyCode,
+          price: price.amount,
+          availability: selectedVariant?.availableForSale
+            ? 'https://schema.org/InStock'
+            : 'https://schema.org/OutOfStock',
+          itemCondition: 'https://schema.org/NewCondition',
+        }
       : undefined,
-    offers: price ? {
-      '@type': 'Offer',
-      '@id': `${productUrl}#offer`,
-      url: productUrl,
-      priceCurrency: price.currencyCode,
-      price: price.amount,
-      availability: selectedVariant?.availableForSale
-        ? 'https://schema.org/InStock'
-        : 'https://schema.org/OutOfStock',
-      itemCondition: 'https://schema.org/NewCondition',
-    } : undefined,
   };
 }
 

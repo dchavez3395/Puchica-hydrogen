@@ -18,9 +18,9 @@ import {
  */
 export const meta = ({data, params}) => {
   return puchicaMeta({
-    title: 'Shop Organizers – Puchica',
+    title: 'Shop Travel Organizers — Puchica',
     description:
-      'Shop Puchica’s focused collection of home, cable, and travel organizers. Compare available options and sort by price or newest.',
+      'Shop Puchica’s focused travel edit: packing cubes, a cable case, and a toiletry organizer.',
     type: 'website',
     pathname: '/collections/all',
     langKey: params?.locale,

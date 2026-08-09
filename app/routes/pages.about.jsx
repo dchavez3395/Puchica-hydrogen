@@ -14,24 +14,24 @@ export const meta = ({params}) =>
 
 const ABOUT_META = {
   en: {
-    title: 'About Puchica | A carefully reviewed shop',
+    title: 'About Puchica | A focused Canadian travel shop',
     description:
-      'Meet Puchica, an independent Canadian shop carefully reviewing products, suppliers, prices, and delivery details before launch.',
+      'Meet Puchica, an independent Canadian shop starting with three practical travel organizers for clothing, cables, and toiletries.',
   },
   fr: {
-    title: 'À propos de Puchica | Une boutique vérifiée avec soin',
+    title: 'À propos de Puchica | Une boutique canadienne de voyage',
     description:
-      'Découvrez Puchica, une boutique canadienne indépendante qui vérifie soigneusement produits, fournisseurs, prix et livraison avant le lancement.',
+      'Découvrez Puchica, une boutique canadienne indépendante qui commence avec trois organisateurs de voyage pratiques.',
   },
   es: {
-    title: 'Sobre Puchica | Una tienda revisada con cuidado',
+    title: 'Sobre Puchica | Una tienda canadiense de viaje',
     description:
-      'Conoce Puchica, una tienda canadiense independiente que revisa productos, proveedores, precios y entrega antes del lanzamiento.',
+      'Conoce Puchica, una tienda canadiense independiente que empieza con tres organizadores de viaje prácticos.',
   },
   'pt-br': {
-    title: 'Sobre a Puchica | Uma loja revisada com cuidado',
+    title: 'Sobre a Puchica | Uma loja canadense de viagem',
     description:
-      'Conheça a Puchica, uma loja canadense independente que revisa produtos, fornecedores, preços e entrega antes do lançamento.',
+      'Conheça a Puchica, uma loja canadense independente que começa com três organizadores de viagem práticos.',
   },
 };
 
@@ -63,17 +63,17 @@ export default function AboutPage() {
   ];
   const destinations = [
     {
-      url: '/campaigns/home-finds#shop-organizers',
+      url: '/products/3-piece-packing-cube-set',
       label: t('about_shop_home_title'),
       body: t('about_shop_home_body'),
     },
     {
-      url: '/campaigns/home-finds#shop-organizers',
+      url: '/products/travel-cable-organizer-case',
       label: t('about_shop_cable_title'),
       body: t('about_shop_cable_body'),
     },
     {
-      url: '/campaigns/home-finds#travel-organizers',
+      url: '/products/travel-toiletry-organizer',
       label: t('about_shop_travel_title'),
       body: t('about_shop_travel_body'),
     },
@@ -92,7 +92,7 @@ export default function AboutPage() {
           <p>{t('about_hero_sub')}</p>
           <div className="pk-about-v3__actions">
             <Link
-              to="/campaigns/home-finds#shop-organizers"
+              to="/collections/all"
               className="pk-btn pk-btn--primary pk-btn--lg"
             >
               {t('about_hero_cta')}
@@ -105,7 +105,7 @@ export default function AboutPage() {
 
         <figure className="pk-about-v3__hero-figure">
           <Image
-            src="/lifestyle/organization-hero-v2.webp"
+            src="/lifestyle/everyday-motion.webp"
             alt={t('about_hero_image_alt')}
             width={1536}
             height={1024}
@@ -122,10 +122,7 @@ export default function AboutPage() {
             <span className="pk-about-v3__eyebrow">{t('about_shop_eye')}</span>
             <h2>{t('about_shop_title')}</h2>
           </div>
-          <Link
-            to="/campaigns/home-finds#shop-organizers"
-            className="pk-about-v3__text-link"
-          >
+          <Link to="/collections/all" className="pk-about-v3__text-link">
             {t('about_shop_all')} <span aria-hidden="true">→</span>
           </Link>
         </div>
@@ -156,9 +153,7 @@ export default function AboutPage() {
         <div className="pk-about-v3__story-copy">
           <p>{t('about_mission_body_1')}</p>
           <p>{t('about_mission_body_2')}</p>
-          <p className="pk-about-v3__callout">
-            {t('about_mission_card_text')}
-          </p>
+          <p className="pk-about-v3__callout">{t('about_mission_card_text')}</p>
         </div>
       </section>
 
@@ -290,10 +285,16 @@ function ContainmentAbout() {
           <p className="pk-hold__lead">{copy.body}</p>
           <p className="pk-hold__focus">{copy.standard}</p>
           <div className="pk-hold__actions">
-            <Link className="pk-hold__button pk-hold__button--primary" to="/pages/contact">
+            <Link
+              className="pk-hold__button pk-hold__button--primary"
+              to="/pages/contact"
+            >
               {copy.contact}
             </Link>
-            <Link className="pk-hold__button pk-hold__button--secondary" to="/policies">
+            <Link
+              className="pk-hold__button pk-hold__button--secondary"
+              to="/policies"
+            >
               {copy.policies}
             </Link>
           </div>

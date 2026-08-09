@@ -14,9 +14,9 @@ import {puchicaMeta} from '~/lib/seo';
 /** @type {Route.MetaFunction} */
 export const meta = ({data, params}) => {
   return puchicaMeta({
-    title: 'Small-space organization for home and travel - Puchica',
+    title: 'Travel organizers for easier packing — Puchica',
     description:
-      'Shop practical organizers for drawers, cables, luggage, packing, and compact everyday spaces.',
+      'Shop a focused travel edit for clothing, cables, and toiletries.',
     pathname: '/campaigns/home-finds',
     langKey: params?.locale,
     noindex: !data?.products?.length,
@@ -41,9 +41,7 @@ export async function loader({context}) {
     });
 
     return {
-      products: filterLaunchProducts(
-        data?.launchProducts?.nodes ?? [],
-      ),
+      products: filterLaunchProducts(data?.launchProducts?.nodes ?? []),
     };
   } catch (error) {
     logError('home-finds campaign query failed', error);

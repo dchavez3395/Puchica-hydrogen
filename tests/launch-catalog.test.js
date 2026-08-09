@@ -27,8 +27,8 @@ test('Storefront queries use the versioned final approval tag', () => {
   assert.notEqual(LAUNCH_READY_TAG, LEGACY_LAUNCH_READY_TAG);
 });
 
-test('emergency containment keeps cart and checkout entry routes closed', () => {
-  assert.equal(STOREFRONT_CONTAINMENT_ACTIVE, true);
+test('reviewed catalog release opens commerce behind the evidence gate', () => {
+  assert.equal(STOREFRONT_CONTAINMENT_ACTIVE, false);
 });
 
 test('legacy home-finds campaign fails closed during containment', async () => {
@@ -81,19 +81,19 @@ test('containment removes products from feeds and sitemap discovery', async () =
     'utf8',
   );
   const productSitemap = await readFile(
-    new URL(
-      '../app/routes/sitemap.$type.$page[.xml].jsx',
-      import.meta.url,
-    ),
+    new URL('../app/routes/sitemap.$type.$page[.xml].jsx', import.meta.url),
     'utf8',
   );
 
   assert.match(feed, /productFeedResponse\(\[\]\)/);
   assert.match(sitemapIndex, /STOREFRONT_CONTAINMENT_ACTIVE[\s\S]*\['pages'\]/);
-  assert.match(productSitemap, /params\.type === 'products'[\s\S]*STOREFRONT_CONTAINMENT_ACTIVE/);
+  assert.match(
+    productSitemap,
+    /params\.type === 'products'[\s\S]*STOREFRONT_CONTAINMENT_ACTIVE/,
+  );
 });
 
-test('containment identity copy is catalog-neutral and localized', async () => {
+test('released homepage is travel-focused and uses the catalog gate', async () => {
   const home = await readFile(
     new URL('../app/routes/_index.jsx', import.meta.url),
     'utf8',
@@ -107,8 +107,11 @@ test('containment identity copy is catalog-neutral and localized', async () => {
     'utf8',
   );
 
-  assert.match(home, /'pt-br': \{/);
-  assert.match(home, /\{copy\.artNote\}/);
+  assert.match(home, /SmallSpaceLanding/);
+  assert.match(home, /filterLaunchProducts/);
+  assert.match(home, /SMALL_SPACE_QUERY/);
+  assert.match(home, /Travel organizers for easier packing/);
+  assert.doesNotMatch(home, /pk-hold/);
   assert.match(about, /'pt-br': \{/);
   assert.match(about, /\{copy\.artNote\}/);
   assert.doesNotMatch(brand, /organization and travel|space-saving/i);

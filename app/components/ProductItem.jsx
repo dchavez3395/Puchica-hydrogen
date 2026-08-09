@@ -81,15 +81,6 @@ function resolvePrimaryOption(options, availableVariants = []) {
   };
 }
 
-function pluralizeOptionName(name) {
-  if (/colou?r/i.test(name)) return 'colors';
-  if (/size/i.test(name)) return 'sizes';
-  if (/style/i.test(name)) return 'styles';
-  if (/pack/i.test(name)) return 'packs';
-  if (/set/i.test(name)) return 'sets';
-  return 'options';
-}
-
 /** @param {any} product @param {Array<any>} availableVariants */
 function resolveOptionSummary(product, availableVariants) {
   const primaryOption = resolvePrimaryOption(
@@ -97,12 +88,9 @@ function resolveOptionSummary(product, availableVariants) {
     availableVariants,
   );
 
-  if (primaryOption) {
-    const label = pluralizeOptionName(primaryOption.name);
-    return `${primaryOption.values.length} ${label} available`;
+  if (primaryOption || availableVariants.length > 1) {
+    return 'Multiple options available';
   }
-
-  if (availableVariants.length > 1) return 'Multiple options available';
   return null;
 }
 

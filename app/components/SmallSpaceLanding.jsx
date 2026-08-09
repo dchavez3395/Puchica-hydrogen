@@ -8,23 +8,19 @@ import {
 import {useT} from '~/lib/t';
 
 /**
- * Focused landing experience for Puchica's small-space organization test.
+ * Focused landing experience for Puchica's travel-organization launch.
  * Products are launch-filtered in each route loader before they reach here.
  *
  * @param {{products?: Array<Record<string, any>>, campaign?: boolean}} props
  */
 export function SmallSpaceLanding(props) {
   const {products = [], campaign = false} = props;
-  const rankedProducts = products
-    .filter((product) => !HOMEPAGE_EXCLUDED_HANDLES.has(product.handle))
-    .sort(compareLaunchPriority);
+  const rankedProducts = [...products].sort(compareLaunchPriority);
   const heroPrimary = rankedProducts[0];
-  const heroVariant = getFirstAvailableVariant(heroPrimary);
-  const productSectionId = campaign ? 'shop-organizers' : 'organization-finds';
-  const onTheGoProducts = rankedProducts.filter(isOnTheGoProduct);
-  const homeProducts = rankedProducts.filter(
-    (product) => !isOnTheGoProduct(product),
-  );
+  const heroFeature = rankedProducts[1] || heroPrimary;
+  const heroFeatureVariant = getFirstAvailableVariant(heroFeature);
+  const heroImage = heroPrimary?.featuredImage;
+  const productSectionId = campaign ? 'shop-travel-organizers' : 'travel-edit';
 
   return (
     <>
@@ -33,37 +29,38 @@ export function SmallSpaceLanding(props) {
         aria-labelledby="organization-title"
       >
         <div className="pk-campaign-hero__copy">
-          <p className="pk-campaign__eyebrow">
-            Organizers for small-space living
-          </p>
-          <h1 id="organization-title">Make small spaces easier to live in.</h1>
+          <p className="pk-campaign__eyebrow">The Puchica travel edit</p>
+          <h1 id="organization-title">Pack with less rummaging.</h1>
           <p>
-            Shop practical organizers for under-sink storage, loose cables,
-            packing, and everyday carry.
+            Three practical organizers for clothing, cables, and toiletries—a
+            useful packing system without an endless catalog.
           </p>
         </div>
 
         <div className="pk-campaign-hero__visual">
-          <img
-            className="pk-campaign-lifestyle"
-            src="/lifestyle/organization-hero-v2.webp"
-            alt=""
-            width="1536"
-            height="1024"
-            loading="eager"
-            {...{fetchpriority: 'high'}}
-          />
-          {heroPrimary ? (
+          {heroImage ? (
+            <Image
+              className="pk-campaign-lifestyle"
+              data={heroImage}
+              alt={heroImage.altText || heroPrimary.title}
+              sizes="(min-width: 761px) 56vw, 100vw"
+              loading="eager"
+              {...{fetchpriority: 'high'}}
+            />
+          ) : (
+            <div className="pk-campaign-lifestyle" aria-hidden="true" />
+          )}
+          {heroFeature ? (
             <Link
               className="pk-campaign-feature"
-              to={`/products/${heroPrimary.handle}`}
+              to={`/products/${heroFeature.handle}`}
               prefetch="intent"
-              aria-label={`Shop ${heroPrimary.title}`}
+              aria-label={`Shop ${heroFeature.title}`}
             >
-              {heroVariant?.image || heroPrimary.featuredImage ? (
+              {heroFeatureVariant?.image || heroFeature.featuredImage ? (
                 <Image
                   className="pk-campaign-feature__image"
-                  data={heroVariant?.image || heroPrimary.featuredImage}
+                  data={heroFeatureVariant?.image || heroFeature.featuredImage}
                   alt=""
                   aspectRatio="1/1"
                   sizes="96px"
@@ -71,16 +68,15 @@ export function SmallSpaceLanding(props) {
                 />
               ) : null}
               <span className="pk-campaign-feature__body">
-                <small>Under-sink organization</small>
-                <strong>{heroPrimary.title}</strong>
-                {heroVariant?.price ? (
+                <small>Part of the three-piece edit</small>
+                <strong>{heroFeature.title}</strong>
+                {heroFeatureVariant?.price ? (
                   <span className="pk-campaign-feature__price">
-                    <CurrencyMoney data={heroVariant.price} />
+                    <CurrencyMoney data={heroFeatureVariant.price} />
                   </span>
                 ) : null}
                 <span className="pk-campaign-feature__link">
-                  Shop the under-sink organizer{' '}
-                  <span aria-hidden="true">→</span>
+                  View the organizer <span aria-hidden="true">→</span>
                 </span>
               </span>
             </Link>
@@ -93,14 +89,14 @@ export function SmallSpaceLanding(props) {
               className="pk-campaign-btn pk-campaign-btn--primary"
               href={`#${productSectionId}`}
             >
-              Shop all organizers
+              Shop the travel edit
             </a>
             <Link
               className="pk-campaign-text-link"
               to="/collections/all"
               prefetch="intent"
             >
-              Browse all organizers <span aria-hidden="true">→</span>
+              Browse the collection <span aria-hidden="true">→</span>
             </Link>
           </div>
           <ul className="pk-campaign-proof" aria-label="Shopping assurances">
@@ -108,7 +104,8 @@ export function SmallSpaceLanding(props) {
               <span aria-hidden="true">✓</span> Secure Shopify checkout
             </li>
             <li>
-              <span aria-hidden="true">✓</span> Refund policy available
+              <span aria-hidden="true">✓</span> Canada &amp; U.S. delivery
+              routes
             </li>
             <li>
               <span aria-hidden="true">✓</span> Shipping shown at checkout
@@ -118,23 +115,13 @@ export function SmallSpaceLanding(props) {
       </section>
 
       <OrganizationProductSection
-        id={homeProducts.length ? productSectionId : undefined}
-        eyebrow="Home reset"
-        title="Clear the clutter from small spaces"
-        body="Organizers for cabinets, counters, drawers, and the everyday items that pile up."
-        products={homeProducts}
-        linkLabel="Shop home organization"
-        linkTo="/search?q=under%20sink%20organizer"
-      />
-
-      <OrganizationProductSection
-        id={homeProducts.length ? 'travel-organizers' : productSectionId}
-        eyebrow="On the go"
-        title="Pack with less rummaging"
-        body="Packing cubes and pouches that keep luggage and everyday carry easier to find."
-        products={onTheGoProducts}
-        linkLabel="Shop packing organizers"
-        linkTo="/search?q=packing%20cubes"
+        id={productSectionId}
+        eyebrow="Three ways to pack smarter"
+        title="A small travel system that works together"
+        body="Separate clothing, keep chargers contained, and give toiletries a dedicated place. Start with the piece that solves your biggest packing headache."
+        products={rankedProducts}
+        linkLabel="View all travel organizers"
+        linkTo="/collections/all"
       />
     </>
   );
@@ -228,23 +215,11 @@ function OrganizationProductSection({
 }
 
 /** @param {Record<string, any>} product */
-function isOnTheGoProduct(product) {
-  const searchable = [
-    product?.title,
-    product?.productType,
-    ...(product?.tags ?? []),
-  ]
-    .filter(Boolean)
-    .join(' ');
-
-  return /travel|luggage|packing|carry/i.test(searchable);
-}
-
-/** @param {Record<string, any>} product */
 function launchPriority(product) {
   const title = product?.title ?? '';
-  if (/wheeled under-sink organizer/i.test(title)) return 0;
-  if (/compression packing cube/i.test(title)) return 1;
+  if (/3-piece packing cube/i.test(title)) return 0;
+  if (/travel cable organizer/i.test(title)) return 1;
+  if (/travel toiletry organizer/i.test(title)) return 2;
   return 10;
 }
 
@@ -257,11 +232,6 @@ function compareLaunchPriority(a, b) {
 function getFirstAvailableVariant(product) {
   return product?.variants?.nodes?.find((variant) => variant?.availableForSale);
 }
-
-const HOMEPAGE_EXCLUDED_HANDLES = new Set([
-  'toocki-five-clip-cable-organizer',
-  'pocket-luggage-scale-50kg',
-]);
 
 const SMALL_SPACE_PRODUCT_FRAGMENT = `#graphql
   fragment SmallSpaceProduct on Product {

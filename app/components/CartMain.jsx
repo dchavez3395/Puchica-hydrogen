@@ -238,7 +238,7 @@ function CartEmpty({hidden = false}) {
         <p className="pk-empty-cart__body">{t('cart_empty_body')}</p>
         <div className="pk-empty-cart__actions">
           <Link
-            to="/collections"
+            to="/collections/all"
             onClick={close}
             prefetch="viewport"
             className="pk-btn pk-btn--primary pk-btn--lg"
@@ -246,7 +246,7 @@ function CartEmpty({hidden = false}) {
             {t('cart_empty_cta_shop')} <span aria-hidden>→</span>
           </Link>
           <Link
-            to="/search?q=under%20sink%20organizer"
+            to="/products/3-piece-packing-cube-set"
             onClick={close}
             prefetch="intent"
             className="pk-btn pk-btn--secondary pk-btn--lg"

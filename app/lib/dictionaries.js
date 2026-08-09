@@ -18,7 +18,8 @@ export const DICTIONARIES = {
     announce_region_aria: 'Site announcements',
 
     // ── Footer ────────────────────────────────────────────────────
-    footer_tagline: 'Trending high-ticket finds under C$200. Verified suppliers. Shipping confirmed at checkout.',
+    footer_tagline:
+      'Trending high-ticket finds under C$200. Verified suppliers. Shipping confirmed at checkout.',
     footer_accepted_payments: 'Accepted payments',
     footer_secure: 'Secure checkout by Shopify, encrypted, PCI-compliant',
     footer_shop: 'Shop',
@@ -92,8 +93,7 @@ export const DICTIONARIES = {
     // Product page trust labels
     // Mega menu category taglines (translated FR/ES/PT as a follow-up pass)
     megamenu_tagline_phone_case: 'Cases, grips, protection.',
-    megamenu_tagline_home_essentials:
-      'Audio, kitchen, decor, storage.',
+    megamenu_tagline_home_essentials: 'Audio, kitchen, decor, storage.',
     megamenu_tagline_home_kitchen: 'Cooking, storage, decor.',
     megamenu_tagline_electronics_accessories: 'Cables, chargers, mounts.',
     megamenu_tagline_apparel_accessories: 'Bags, hats, wearables.',
@@ -221,7 +221,7 @@ export const DICTIONARIES = {
     ship_hero_title_em: 'Delivery.',
     ship_hero_sub:
       'Delivery availability, cost, and timing are confirmed at checkout for the items and destination in your cart.',
-    ship_hero_cta: 'Shop trending finds',
+    ship_hero_cta: 'Shop the travel edit',
     ship_launch_hero_sub:
       'One North American storefront with market-specific pricing and delivery options confirmed at checkout.',
     ship_jump: 'See how delivery is confirmed',
@@ -318,8 +318,8 @@ export const DICTIONARIES = {
     ship_track_cta: 'Contact support',
     ship_cta_title: 'Ready to order?',
     ship_cta_sub:
-      'Shop trending finds and confirm shipping for your address at checkout.',
-    ship_cta_browse: 'Shop all trending finds',
+      'Shop the travel edit and confirm shipping for your address at checkout.',
+    ship_cta_browse: 'Shop all travel organizers',
 
     // ── Matchmaker ────────────────────────────────────────────────
     match_eyebrow: 'Discovery Matchmaker',
@@ -477,7 +477,7 @@ export const DICTIONARIES = {
     search_trending_label: 'Shop by need',
     search_recent_label: 'Recently viewed',
     search_trending_terms:
-      'massage gun, LED strip lights, hydro flask, kettle, coffee grinder, jump rope',
+      'packing cubes, cable organizer, toiletry bag, travel organizer',
     col_density_aria: 'Grid density',
     col_density_3_aria: 'Show 3 per row',
     col_density_4_aria: 'Show 4 per row',
@@ -519,7 +519,8 @@ export const DICTIONARIES = {
 
     // ── Trending landing (homepage) ───────────────────────────────
     trending_eyebrow: 'Trending finds · Under $200',
-    trending_title: 'Trending finds under $200 — practical products with real reviews.',
+    trending_title:
+      'Trending finds under $200 — practical products with real reviews.',
     trending_sub:
       'A focused edit of high-ticket items customers keep re-ordering: audio, kitchen, fitness, home, and outdoor. Real product photos, shipping shown at checkout, no subscriptions.',
     trending_hero_cta: 'Shop the trending edit',
@@ -546,11 +547,10 @@ export const DICTIONARIES = {
       'Every product we route through checkout, all in one place. Scroll to browse the full launch.',
 
     // ── All products page ─────────────────────────────────────────
-    all_breadcrumb: 'All trending finds',
-    all_eyebrow: 'Shop by need',
-    all_title: 'Shop trending finds',
-    all_sub:
-      'Browse trending high-ticket finds across audio, kitchen, fitness, home, and outdoor.',
+    all_breadcrumb: 'Travel organizers',
+    all_eyebrow: 'The travel edit',
+    all_title: 'Travel organization, kept simple',
+    all_sub: 'Three practical organizers for clothing, cables, and toiletries.',
     all_empty_title: 'New finds are on the way',
     all_empty_body:
       'We’re adding products for home, cables, and travel. Check back soon.',
@@ -646,7 +646,8 @@ export const DICTIONARIES = {
     megamenu_tile_cta: 'Shop →',
     megamenu_intent_heading: 'Shop by category',
     megamenu_intent_home_title: 'Best sellers',
-    megamenu_intent_home_body: 'Audio, kitchen, fitness, home, outdoor — the picks customers keep re-ordering.',
+    megamenu_intent_home_body:
+      'Audio, kitchen, fitness, home, outdoor — the picks customers keep re-ordering.',
     megamenu_intent_cable_title: 'Top trending',
     megamenu_intent_cable_body: 'Keep cords and everyday tech easy to find.',
     megamenu_intent_travel_title: 'All categories',
@@ -709,9 +710,10 @@ export const DICTIONARIES = {
     cart_heading_aria: 'Line items',
     cart_remove_region_aria: 'Remove from cart',
     cart_empty_title: 'Nothing in your cart yet.',
-    cart_empty_body: 'Start with a trending find — every product ships from a verified supplier.',
-    cart_empty_cta_shop: 'Shop trending finds',
-    cart_empty_cta_best: 'Start with home reset',
+    cart_empty_body:
+      'Start with one practical organizer for clothing, cables, or toiletries.',
+    cart_empty_cta_shop: 'Shop the travel edit',
+    cart_empty_cta_best: 'View packing cubes',
     cart_empty_perks_aria: 'Why shop with us',
     cart_empty_perk_shipping: 'Shipping options shown at checkout',
     cart_empty_perk_returns: '30-day returns',
@@ -878,12 +880,13 @@ export const DICTIONARIES = {
     pred_pages: 'Pages',
     pred_products: 'Finds',
     pred_empty_title: 'Start typing to search',
-    pred_empty_body: 'Try under sink, cables, packing, or travel.',
+    pred_empty_body: 'Try packing cubes, cable organizer, or toiletry bag.',
     pred_pill_best: 'Featured',
     pred_pill_all: 'All categories',
     pred_pill_new: 'New arrivals',
     pred_no_results_h: 'No finds matched “{term}”.',
-    pred_no_results_body: 'Try under sink, cables, packing, or travel.',
+    pred_no_results_body:
+      'Try packing cubes, cable organizer, or toiletry bag.',
 
     // ── Cart page h1 ──────────────────────────────────────────────
     cart_page_h: 'Cart',
@@ -1001,11 +1004,11 @@ export const DICTIONARIES = {
 
     // ── About page ────────────────────────────────────────────────
     about_hero_eyebrow: 'About Puchica',
-    about_hero_title_main: 'A focused shop for trending high-ticket finds',
-    about_hero_title_em: 'we wanted to find.',
+    about_hero_title_main: 'A smaller travel shop',
+    about_hero_title_em: 'with clearer reasons to buy.',
     about_hero_sub:
-      'Puchica is a Canadian-owned small business curating trending high-ticket finds — audio, kitchen, fitness, home, outdoor. Each product is sourced from a verified supplier, ships from our network, and is backed by a 30-day return policy.',
-    about_hero_cta: 'Shop the launch collection →',
+      'Puchica is an independent Canadian shop starting with three practical travel organizers for clothing, cables, and toiletries. We keep the catalog small so the product details, options, and delivery information stay clear.',
+    about_hero_cta: 'Shop the travel edit →',
     about_stats_aria: 'Puchica in numbers',
     about_stat_products_num: 'Active',
     about_stat_products_label: 'Handpicked products',
@@ -1021,17 +1024,17 @@ export const DICTIONARIES = {
     about_mission_body_1:
       'Online shopping can turn a simple problem into hours of scrolling through near-identical products, vague descriptions, and options that are hard to compare.',
     about_mission_body_2:
-      'Puchica takes the opposite approach. The catalog stays focused — audio, kitchen, fitness, home, outdoor — and every product has a clear purpose, transparent pricing, and a verified supplier you can ask about before checkout.',
+      'Puchica takes the opposite approach. Our first edit focuses on one job: making a packed bag easier to use. Every product must have a clear purpose, understandable options, and delivery information shown before payment.',
     about_mission_card_text:
       'Useful first. Clear before checkout. Worth the space it takes.',
     about_how_eye: 'How we choose',
     about_how_title: 'A product needs a reason to be here.',
     about_how_1_title: 'Solves a specific problem',
     about_how_1_body:
-      'We start with a clear job: a kitchen tool that earns its counter space, audio that sounds right, or a fitness item people keep re-ordering.',
-    about_how_2_title: 'Works with limited space',
+      'We start with a clear job: separate clothing, contain small tech, or keep toiletries easier to find.',
+    about_how_2_title: 'Fits the same travel system',
     about_how_2_body:
-      'The launch catalog focuses on compact, straightforward products for renters, apartment dwellers, and anyone short on storage.',
+      'The three launch products work together in a suitcase, weekender, gym bag, or carry-on without creating another crowded catalog.',
     about_how_3_title: 'Easy to understand before buying',
     about_how_3_body:
       'We aim to show the purpose, available dimensions, materials, and options clearly. Delivery availability, cost, and timing are confirmed at checkout.',
@@ -1120,25 +1123,26 @@ export const DICTIONARIES = {
     about_roots_heading: 'Puchica starts with a feeling of useful surprise.',
     about_roots_body:
       '“Puchica” is a familiar Central American expression of surprise—the kind of reaction an unexpectedly clever solution can earn. That spirit shapes the brand: practical finds that solve an everyday annoyance without adding more clutter.',
-    about_roots_signature: 'Canadian owned. Trending finds, hand-picked.',
-    about_hero_caption: 'Built around the places that get messy first.',
+    about_roots_signature: 'Canadian owned. Starting small and staying useful.',
+    about_hero_caption: 'Built around the things people reach for on the road.',
     about_hero_image_alt:
-      'A trending product from the current launch',
+      'Clothing and everyday travel essentials laid out for packing',
     about_roots_image_alt:
       'Colorful woven textile and a painted ceramic vessel',
     about_standards_intro:
       'A smaller catalog only works when the reason for each product is easy to explain.',
-    about_shop_eye: 'Shop by need',
-    about_shop_title: 'Start with one space that keeps getting in the way.',
-    about_shop_home_title: 'Top trending',
-    about_shop_cable_title: 'Top trending',
-    about_shop_travel_title: 'All categories',
+    about_shop_eye: 'The three-product edit',
+    about_shop_title: 'Start with the part of packing that slows you down.',
+    about_shop_home_title: 'Packing cubes',
+    about_shop_cable_title: 'Cable organizer',
+    about_shop_travel_title: 'Toiletry organizer',
     about_shop_home_body:
-      'Drawers, cabinets, counters, and awkward corners.',
+      'Separate clothing into Small, Medium, and Large zippered cubes.',
     about_shop_cable_body:
-      'Chargers, cords, and the small tech that wanders.',
-    about_shop_travel_body: 'Audio, kitchen, fitness, home, outdoor.',
-    about_shop_all: 'Shop all trending finds',
+      'Keep chargers, adapters, earbuds, and memory cards together.',
+    about_shop_travel_body:
+      'Give bottles, grooming tools, and cosmetics a dedicated place.',
+    about_shop_all: 'Shop the complete travel edit',
     about_now_eye: 'Delivery, made clearer',
     about_now_title: 'See your delivery options before you pay.',
     about_now_body:
@@ -1148,7 +1152,8 @@ export const DICTIONARIES = {
     about_delivery_step_1_title: 'Choose an item',
     about_delivery_step_1_body: 'Add a find and enter your address.',
     about_delivery_step_2_title: 'See available options',
-    about_delivery_step_2_body: 'Checkout calculates the choices for that order.',
+    about_delivery_step_2_body:
+      'Checkout calculates the choices for that order.',
     about_delivery_step_3_title: 'Review before payment',
     about_delivery_step_3_body: 'Compare the available timing and cost.',
     about_delivery_note: 'Delivery details shown before payment',
@@ -1575,7 +1580,7 @@ export const DICTIONARIES = {
     ship_hero_title_em: 'Expédition.',
     ship_hero_sub:
       'Les options, les délais et les coûts de livraison sont confirmés au paiement selon les articles et la destination.',
-    ship_hero_cta: 'Voir les trouvailles',
+    ship_hero_cta: 'Voir la sélection voyage',
     ship_launch_hero_sub:
       'Une seule boutique nord-américaine avec des prix adaptés au marché et des options de livraison confirmées au paiement.',
     ship_jump: 'Voir comment la livraison est confirmée',
@@ -1604,7 +1609,8 @@ export const DICTIONARIES = {
     ship_check_tracking_title: 'Suivez votre commande',
     ship_check_tracking_body:
       'Lorsqu’un service suivi est disponible, les détails sont envoyés après l’expédition.',
-    ship_check_tracking_eta: 'Consultez la politique d’expédition pour obtenir de l’aide',
+    ship_check_tracking_eta:
+      'Consultez la politique d’expédition pour obtenir de l’aide',
     ship_regions_eye: 'Où nous livrons',
     ship_regions_title: 'La couverture s’étend après validation.',
     ship_regions_sub:
@@ -1837,7 +1843,8 @@ export const DICTIONARIES = {
 
     // ── Trending landing (homepage) ───────────────────────────────
     trending_eyebrow: 'Tendances · Moins de 200 $',
-    trending_title: 'Des trouvailles tendance à moins de 200 $ — des produits pratiques avec de vrais avis.',
+    trending_title:
+      'Des trouvailles tendance à moins de 200 $ — des produits pratiques avec de vrais avis.',
     trending_sub:
       'Une sélection concentrée d’articles à prix élevé que les clients recommanderont : audio, cuisine, conditionnement physique, maison et plein air. Photos réelles des produits, livraison affichée au paiement, aucun abonnement.',
     trending_hero_cta: 'Magasiner la sélection tendance',
@@ -2357,11 +2364,11 @@ export const DICTIONARIES = {
 
     // ── Page À propos ──────────────────────────────────────────────
     about_hero_eyebrow: 'Notre histoire',
-    about_hero_title_main: 'Une boutique ciblée pour trouvailles haut de gamme',
-    about_hero_title_em: 'Plus d’espace pour respirer.',
+    about_hero_title_main: 'Une petite boutique de voyage',
+    about_hero_title_em: 'avec de meilleures raisons d’acheter.',
     about_hero_sub:
-      'Puchica est une petite entreprise canadienne qui sélectionne des trouvailles haut de gamme — audio, cuisine, fitness, maison, plein air. Chaque produit provient d’un fournisseur vérifié et bénéficie d’une politique de retour de 30 jours.',
-    about_hero_cta: 'Voir la collection de lancement →',
+      'Puchica est une boutique canadienne indépendante qui commence avec trois organisateurs de voyage pratiques pour les vêtements, les câbles et les articles de toilette.',
+    about_hero_cta: 'Voir la sélection voyage →',
     about_stats_aria: 'Puchica en chiffres',
     about_stat_products_num: 'Actif',
     about_stat_products_label: 'Produits sélectionnés',
@@ -2377,17 +2384,17 @@ export const DICTIONARIES = {
     about_mission_body_1:
       'Un tiroir encombré, un câble emmêlé ou un sac trop rempli peut compliquer une journée ordinaire. Puchica aide à résoudre ces petits problèmes récurrents.',
     about_mission_body_2:
-      'Puchica prend l’approche inverse. Le catalogue reste ciblé — audio, cuisine, fitness, maison, plein air — et chaque produit a un usage clair, un prix transparent et un fournisseur vérifié.',
+      'Puchica prend l’approche inverse. Notre première sélection vise un seul objectif : rendre un sac plus facile à utiliser. Chaque produit doit avoir un rôle clair et des options compréhensibles.',
     about_mission_card_text:
       'Utile d’abord. Clair avant le paiement. À la hauteur de l’espace occupé.',
     about_how_eye: 'Ce qui mérite une place',
     about_how_title: 'Chaque produit doit justifier l’espace qu’il occupe.',
     about_how_1_title: 'Résout un problème précis',
     about_how_1_body:
-      'Nous partons d’une fonction claire : un outil de cuisine qui mérite sa place, un audio qui sonne bien, ou un article de fitness que les clients recommandent.',
-    about_how_2_title: 'Convient aux espaces limités',
+      'Nous partons d’une fonction claire : séparer les vêtements, contenir les petits appareils ou garder les articles de toilette faciles à trouver.',
+    about_how_2_title: 'Fait partie du même système de voyage',
     about_how_2_body:
-      'Nous privilégions les produits compacts et simples qui aident à mieux utiliser l’espace déjà disponible.',
+      'Les trois produits fonctionnent ensemble dans une valise, un sac de week-end, un sac de sport ou un bagage à main.',
     about_how_3_title: 'Clair avant l’achat',
     about_how_3_body:
       'Le produit doit avoir un usage, des détails et des options compréhensibles. La disponibilité, le coût et le délai de livraison sont confirmés au paiement.',
@@ -2477,25 +2484,26 @@ export const DICTIONARIES = {
     about_roots_heading: 'Puchica commence par un sentiment de surprise utile.',
     about_roots_body:
       '« Puchica » est une expression centroaméricaine familière de surprise, comme la réaction que peut provoquer une solution étonnamment astucieuse. Cet esprit guide la marque : des objets pratiques qui règlent un irritant quotidien sans ajouter de désordre.',
-    about_roots_signature: 'Entreprise canadienne. Trouvailles triées à la main.',
-    about_hero_caption: 'Pensé pour les endroits qui se désorganisent en premier.',
+    about_roots_signature:
+      'Entreprise canadienne. Petite sélection, vraie utilité.',
+    about_hero_caption: 'Pensé autour des choses utiles sur la route.',
     about_hero_image_alt:
-      'Un article phare de la sélection actuelle',
+      'Vêtements et essentiels de voyage disposés avant le rangement',
     about_roots_image_alt:
       'Un textile tissé coloré et un récipient en céramique peinte',
     about_standards_intro:
       'Un petit catalogue ne fonctionne que si la raison d’être de chaque produit est claire.',
-    about_shop_eye: 'Magasiner selon le besoin',
-    about_shop_title: 'Commencez par l’espace qui vous complique la vie.',
-    about_shop_home_title: 'Top tendances',
-    about_shop_cable_title: 'Top tendances',
-    about_shop_travel_title: 'Toutes les catégories',
-    about_shop_home_body:
-      'Tiroirs, armoires, comptoirs et coins difficiles.',
+    about_shop_eye: 'La sélection de trois produits',
+    about_shop_title: 'Commencez par la partie du rangement qui vous ralentit.',
+    about_shop_home_title: 'Cubes de rangement',
+    about_shop_cable_title: 'Étui pour câbles',
+    about_shop_travel_title: 'Trousse de toilette',
+    about_shop_home_body: 'Séparez les vêtements dans trois cubes zippés.',
     about_shop_cable_body:
-      'Chargeurs, cordons et petits appareils qui se déplacent.',
-    about_shop_travel_body: 'Audio, cuisine, fitness, maison, plein air.',
-    about_shop_all: 'Voir toutes les trouvailles',
+      'Gardez chargeurs, adaptateurs et écouteurs ensemble.',
+    about_shop_travel_body:
+      'Donnez une place aux flacons, outils de soin et cosmétiques.',
+    about_shop_all: 'Voir toute la sélection voyage',
     about_now_eye: 'Une livraison plus claire',
     about_now_title: 'Voyez vos options de livraison avant de payer.',
     about_now_body:
@@ -2505,7 +2513,8 @@ export const DICTIONARIES = {
     about_delivery_step_1_title: 'Choisissez un article',
     about_delivery_step_1_body: 'Ajoutez un article et entrez votre adresse.',
     about_delivery_step_2_title: 'Voyez les options disponibles',
-    about_delivery_step_2_body: 'Le paiement calcule les choix pour cette commande.',
+    about_delivery_step_2_body:
+      'Le paiement calcule les choix pour cette commande.',
     about_delivery_step_3_title: 'Vérifiez avant de payer',
     about_delivery_step_3_body: 'Comparez le délai et le coût disponibles.',
     about_delivery_note: 'Détails de livraison affichés avant le paiement',
@@ -2535,16 +2544,13 @@ export const DICTIONARIES = {
       'Pour une commande, indiquez votre numéro de commande. Pour un produit, ajoutez son nom ou son lien.',
     contact_channels_aria: 'Façons de nous joindre',
     contact_ig_title: 'DM sur Instagram',
-    contact_ig_body:
-      'Suivez les démos et les nouveautés.',
+    contact_ig_body: 'Suivez les démos et les nouveautés.',
     contact_ig_fallback: 'Instagram',
     contact_fb_title: 'Message sur Facebook',
-    contact_fb_body:
-      'Suivez les mises à jour et nouveautés.',
+    contact_fb_body: 'Suivez les mises à jour et nouveautés.',
     contact_fb_fallback: 'Facebook',
     contact_tiktok_title: 'Retrouvez-nous sur TikTok',
-    contact_tiktok_body:
-      'Démos et nouveautés.',
+    contact_tiktok_body: 'Démos et nouveautés.',
     contact_tiktok_fallback: 'TikTok',
     contact_promises_aria: 'À quoi s’attendre',
     contact_promises_eyebrow: 'À quoi s’attendre',
@@ -2642,8 +2648,7 @@ export const DICTIONARIES = {
     aside_heading_search: 'Recherche',
     aside_heading_menu: 'Menu',
     cart_loading: 'Chargement du panier…',
-    search_placeholder:
-      'Rechercher par catégorie, problème ou usage',
+    search_placeholder: 'Rechercher par catégorie, problème ou usage',
     search_aria_submit: 'Rechercher',
     search_submit_label: 'Rechercher',
     search_loading_for: 'Recherche de « {term} »…',
@@ -2762,9 +2767,9 @@ export const DICTIONARIES = {
 
     home_shop_dept_aria: 'Magasiner par département',
     home_shop_dept_eyebrow: 'Tendance cette semaine',
-    home_shop_dept_heading: "Trouvailles haut de gamme, triées à la main.",
+    home_shop_dept_heading: 'Trouvailles haut de gamme, triées à la main.',
     home_shop_dept_body:
-      "Trouvailles en audio, cuisine, fitness, maison et plein air — chaque produit provient d’un fournisseur vérifié.",
+      'Trouvailles en audio, cuisine, fitness, maison et plein air — chaque produit provient d’un fournisseur vérifié.',
     home_dept_home: 'Maison & Cuisine',
     home_dept_electronics: 'Électronique',
     home_dept_apparel: 'Vêtements',
@@ -2808,7 +2813,8 @@ export const DICTIONARIES = {
       '¿Primera compra? 15 % de descuento en tu primer pedido con el código FIRST15.',
     announce_region_aria: 'Anuncios del sitio',
 
-    footer_tagline: 'Hallazgos de alto valor bajo C$200. Proveedores verificados. Envío confirmado al pagar.',
+    footer_tagline:
+      'Hallazgos de alto valor bajo C$200. Proveedores verificados. Envío confirmado al pagar.',
     footer_accepted_payments: 'Pagos aceptados',
     footer_secure: 'Pago seguro con Shopify, cifrado y conforme con PCI',
     footer_shop: 'Tienda',
@@ -2950,7 +2956,7 @@ export const DICTIONARIES = {
     ship_hero_title_em: 'Entrega.',
     ship_hero_sub:
       'La disponibilidad, los plazos y el coste de entrega se confirman al finalizar la compra según los artículos y el destino.',
-    ship_hero_cta: 'Ver hallazgos',
+    ship_hero_cta: 'Ver la selección de viaje',
     ship_launch_hero_sub:
       'Una sola tienda norteamericana con precios según el mercado y opciones de entrega confirmadas al pagar.',
     ship_jump: 'Ver cómo se confirma la entrega',
@@ -2979,7 +2985,8 @@ export const DICTIONARIES = {
     ship_check_tracking_title: 'Sigue tu pedido',
     ship_check_tracking_body:
       'Cuando haya un servicio con seguimiento, recibirás los detalles después del envío.',
-    ship_check_tracking_eta: 'Consulta la política de envíos para obtener ayuda',
+    ship_check_tracking_eta:
+      'Consulta la política de envíos para obtener ayuda',
     ship_regions_eye: 'A dónde enviamos',
     ship_regions_title: 'La cobertura se amplía tras la validación.',
     ship_regions_sub:
@@ -3213,7 +3220,8 @@ export const DICTIONARIES = {
 
     // ── Trending landing (homepage) ───────────────────────────────
     trending_eyebrow: 'Tendencias · Menos de $200',
-    trending_title: 'Hallazgos de moda por menos de $200 — productos prácticos con reseñas reales.',
+    trending_title:
+      'Hallazgos de moda por menos de $200 — productos prácticos con reseñas reales.',
     trending_sub:
       'Una selección concentrada de artículos de alto valor que los clientes siguen pidiendo: audio, cocina, estado físico, hogar y aire libre. Fotos reales, envío confirmado al pagar, sin suscripciones.',
     trending_hero_cta: 'Comprar la selección de moda',
@@ -3345,13 +3353,15 @@ export const DICTIONARIES = {
     megamenu_intent_travel_body:
       'Empaque, equipaje y transporte del día a día.',
     megamenu_edit_eyebrow: 'Empezar aquí',
-    megamenu_edit_title: 'Productos populares de alto valor por menos de 200 $ CAD.',
+    megamenu_edit_title:
+      'Productos populares de alto valor por menos de 200 $ CAD.',
     megamenu_edit_body:
       'Soluciones para almacenaje bajo el fregadero, cables, empaque y transporte del día a día.',
     megamenu_trust_shipping: 'Opciones de envío mostradas al pagar',
     megamenu_trust_refund: 'Política de reembolso disponible',
     megamenu_tagline_phone_case: 'Fundas, agarres, protección.',
-    megamenu_tagline_home_essentials: 'Audio, cocina, decoración, almacenamiento.',
+    megamenu_tagline_home_essentials:
+      'Audio, cocina, decoración, almacenamiento.',
     megamenu_tagline_home_kitchen: 'Cocina, almacenamiento, decoración.',
     megamenu_tagline_electronics_accessories: 'Cables, cargadores, soportes.',
     megamenu_tagline_apparel_accessories: 'Bolsos, sombreros, wearables.',
@@ -3629,8 +3639,7 @@ export const DICTIONARIES = {
     col_index_breadcrumb_current: 'Colecciones',
     col_index_eyebrow: 'Explorar',
     col_index_h: 'Todas las colecciones',
-    col_index_sub:
-      'Explora hallazgos por categoría, problema o uso.',
+    col_index_sub: 'Explora hallazgos por categoría, problema o uso.',
     col_index_count: 'Puchica',
     col_index_empty_h: 'Aún no hay colecciones',
     col_index_empty_body:
@@ -3733,11 +3742,11 @@ export const DICTIONARIES = {
 
     // ── Página Nosotros ───────────────────────────────────────────
     about_hero_eyebrow: 'Nuestra historia',
-    about_hero_title_main: 'Una tienda enfocada en hallazgos de alto valor',
-    about_hero_title_em: 'Más espacio para respirar.',
+    about_hero_title_main: 'Una tienda de viaje más pequeña',
+    about_hero_title_em: 'con mejores razones para comprar.',
     about_hero_sub:
-      'Puchica es una pequeña empresa canadiense que selecciona hallazgos de alto valor — audio, cocina, fitness, hogar, aire libre. Cada producto viene de un proveedor verificado y tiene una política de devolución de 30 días.',
-    about_hero_cta: 'Ver la colección de lanzamiento →',
+      'Puchica es una tienda canadiense independiente que empieza con tres organizadores de viaje prácticos para ropa, cables y artículos de aseo.',
+    about_hero_cta: 'Ver la selección de viaje →',
     about_stats_aria: 'Puchica en números',
     about_stat_products_num: 'Activo',
     about_stat_products_label: 'Productos seleccionados',
@@ -3753,17 +3762,17 @@ export const DICTIONARIES = {
     about_mission_body_1:
       'Un cajón lleno, un cable enredado o una maleta sobrecargada puede complicar un día normal. Puchica ayuda a resolver esos pequeños problemas repetidos.',
     about_mission_body_2:
-      'Puchica toma el enfoque opuesto. El catálogo se mantiene enfocado — audio, cocina, fitness, hogar, aire libre — y cada producto tiene un uso claro, precio transparente y proveedor verificado.',
+      'Puchica toma el enfoque opuesto. Nuestra primera selección tiene un solo objetivo: hacer que una maleta sea más fácil de usar. Cada producto debe tener una función clara y opciones comprensibles.',
     about_mission_card_text:
       'Útil primero. Claro antes del pago. Vale el espacio que ocupa.',
     about_how_eye: 'Qué merece un lugar',
     about_how_title: 'Cada producto debe justificar el espacio que ocupa.',
     about_how_1_title: 'Resuelve un problema específico',
     about_how_1_body:
-      'Partimos de una función clara: una herramienta de cocina que se gane su lugar, audio que suene bien o un artículo de fitness que los clientes repitan.',
-    about_how_2_title: 'Funciona en espacios limitados',
+      'Partimos de una función clara: separar la ropa, contener accesorios tecnológicos o mantener los artículos de aseo fáciles de encontrar.',
+    about_how_2_title: 'Forma parte del mismo sistema de viaje',
     about_how_2_body:
-      'Priorizamos productos compactos y sencillos que ayudan a aprovechar mejor el espacio disponible.',
+      'Los tres productos funcionan juntos en una maleta, bolsa de fin de semana, bolsa de gimnasio o equipaje de mano.',
     about_how_3_title: 'Fácil de entender antes de comprar',
     about_how_3_body:
       'El producto debe tener un propósito, detalles y opciones claros. La disponibilidad, el costo y el plazo de entrega se confirman al pagar.',
@@ -3851,25 +3860,26 @@ export const DICTIONARIES = {
     about_roots_heading: 'Puchica empieza con una sensación de sorpresa útil.',
     about_roots_body:
       '“Puchica” es una expresión centroamericana familiar de sorpresa, como la reacción que puede provocar una solución inesperadamente ingeniosa. Ese espíritu guía la marca: objetos prácticos que resuelven una molestia cotidiana sin añadir más desorden.',
-    about_roots_signature: 'Empresa canadiense. Hallazgos seleccionados a mano.',
-    about_hero_caption: 'Pensado para los lugares que se desordenan primero.',
-    about_hero_image_alt:
-      'Un artículo destacado de la selección actual',
+    about_roots_signature:
+      'Empresa canadiense. Pocos productos, utilidad clara.',
+    about_hero_caption:
+      'Pensado alrededor de lo que necesitas durante el viaje.',
+    about_hero_image_alt: 'Ropa y artículos esenciales preparados para empacar',
     about_roots_image_alt:
       'Un tejido colorido y una vasija de cerámica pintada',
     about_standards_intro:
       'Un catálogo pequeño solo funciona si la razón de cada producto es fácil de explicar.',
-    about_shop_eye: 'Compra según tu necesidad',
-    about_shop_title: 'Empieza por el espacio que siempre estorba.',
-    about_shop_home_title: 'Top tendencias',
-    about_shop_cable_title: 'Top tendencias',
-    about_shop_travel_title: 'Todas las categorías',
-    about_shop_home_body:
-      'Cajones, gabinetes, encimeras y rincones difíciles.',
+    about_shop_eye: 'La selección de tres productos',
+    about_shop_title: 'Empieza con la parte del empaque que más te retrasa.',
+    about_shop_home_title: 'Cubos de empaque',
+    about_shop_cable_title: 'Organizador de cables',
+    about_shop_travel_title: 'Organizador de aseo',
+    about_shop_home_body: 'Separa la ropa en tres cubos con cierre.',
     about_shop_cable_body:
-      'Cargadores, cables y pequeños dispositivos que se pierden.',
-    about_shop_travel_body: 'Audio, cocina, fitness, hogar, aire libre.',
-    about_shop_all: 'Ver todos los hallazgos',
+      'Mantén juntos cargadores, adaptadores y auriculares.',
+    about_shop_travel_body:
+      'Dale un lugar a botellas, herramientas de cuidado y cosméticos.',
+    about_shop_all: 'Ver toda la selección de viaje',
     about_now_eye: 'Entrega más clara',
     about_now_title: 'Consulta tus opciones de entrega antes de pagar.',
     about_now_body:
@@ -3879,7 +3889,8 @@ export const DICTIONARIES = {
     about_delivery_step_1_title: 'Elige un artículo',
     about_delivery_step_1_body: 'Agrega un hallazgo e ingresa tu dirección.',
     about_delivery_step_2_title: 'Consulta las opciones',
-    about_delivery_step_2_body: 'El pago calcula las alternativas para ese pedido.',
+    about_delivery_step_2_body:
+      'El pago calcula las alternativas para ese pedido.',
     about_delivery_step_3_title: 'Revisa antes de pagar',
     about_delivery_step_3_body: 'Compara el tiempo y el costo disponibles.',
     about_delivery_note: 'Detalles de entrega visibles antes del pago',
@@ -3888,7 +3899,8 @@ export const DICTIONARIES = {
     about_fact_market_label: 'Mercado actual',
     about_fact_market_value: 'Clientes en Estados Unidos',
     about_fact_delivery_label: 'Antes del pago',
-    about_fact_delivery_value: 'Opciones de entrega visibles al finalizar la compra',
+    about_fact_delivery_value:
+      'Opciones de entrega visibles al finalizar la compra',
 
     about_depts_eye: 'Sigue explorando',
     about_depts_title: 'Comprar por departamento.',
@@ -3909,16 +3921,13 @@ export const DICTIONARIES = {
       'Para ayuda con un pedido, incluye el número. Para un producto, incluye el nombre o enlace.',
     contact_channels_aria: 'Formas de contactarnos',
     contact_ig_title: 'DM en Instagram',
-    contact_ig_body:
-      'Sigue demos y novedades.',
+    contact_ig_body: 'Sigue demos y novedades.',
     contact_ig_fallback: 'Instagram',
     contact_fb_title: 'Mensaje en Facebook',
-    contact_fb_body:
-      'Sigue actualizaciones y novedades.',
+    contact_fb_body: 'Sigue actualizaciones y novedades.',
     contact_fb_fallback: 'Facebook',
     contact_tiktok_title: 'Encuéntranos en TikTok',
-    contact_tiktok_body:
-      'Demos y novedades.',
+    contact_tiktok_body: 'Demos y novedades.',
     contact_tiktok_fallback: 'TikTok',
     contact_promises_aria: 'Qué esperar',
     contact_promises_eyebrow: 'Qué esperar',
@@ -4180,7 +4189,8 @@ export const DICTIONARIES = {
       'Primeira compra? 15% de desconto no primeiro pedido com o código FIRST15.',
     announce_region_aria: 'Avisos do site',
 
-    footer_tagline: 'Achados de alto valor abaixo de C$200. Fornecedores verificados. Frete confirmado no checkout.',
+    footer_tagline:
+      'Achados de alto valor abaixo de C$200. Fornecedores verificados. Frete confirmado no checkout.',
     footer_accepted_payments: 'Pagamentos aceitos',
     footer_secure:
       'Checkout seguro pela Shopify, criptografado e em conformidade com PCI',
@@ -4323,7 +4333,7 @@ export const DICTIONARIES = {
     ship_hero_title_em: 'Entrega.',
     ship_hero_sub:
       'A disponibilidade, os prazos e os custos de entrega são confirmados no checkout conforme os itens e o destino.',
-    ship_hero_cta: 'Ver achados',
+    ship_hero_cta: 'Ver a seleção de viagem',
     ship_launch_hero_sub:
       'Uma única loja norte-americana com preços por mercado e opções de entrega confirmadas no checkout.',
     ship_jump: 'Veja como a entrega é confirmada',
@@ -4458,8 +4468,7 @@ export const DICTIONARIES = {
     mood_title: 'Tendência. Verificado. Entregue.',
     mood_home_label: 'Casa & Decoração',
     mood_home_title: 'Sua casa merece mais.',
-    mood_home_sub:
-      'Achados e melhorias que tornam um ambiente real melhor.',
+    mood_home_sub: 'Achados e melhorias que tornam um ambiente real melhor.',
     mood_home_cta: 'Melhore seu espaço →',
     mood_beauty_label: 'Beleza & Cuidado pessoal',
     mood_beauty_title: 'Cuide-se.',
@@ -4585,7 +4594,8 @@ export const DICTIONARIES = {
 
     // ── Trending landing (homepage) ───────────────────────────────
     trending_eyebrow: 'Em alta · Menos de $200',
-    trending_title: 'Achados em alta por menos de $200 — produtos práticos com avaliações reais.',
+    trending_title:
+      'Achados em alta por menos de $200 — produtos práticos com avaliações reais.',
     trending_sub:
       'Uma seleção focada de itens de alto valor que os clientes continuam comprando: áudio, cozinha, fitness, casa e ar livre. Fotos reais, frete confirmado no checkout, sem assinaturas.',
     trending_hero_cta: 'Comprar a seleção em alta',
@@ -4721,7 +4731,8 @@ export const DICTIONARIES = {
     megamenu_trust_shipping: 'Opções de entrega mostradas no checkout',
     megamenu_trust_refund: 'Política de reembolso disponível',
     megamenu_tagline_phone_case: 'Capas, suportes, proteção.',
-    megamenu_tagline_home_essentials: 'Áudio, cozinha, decoração, armazenamento.',
+    megamenu_tagline_home_essentials:
+      'Áudio, cozinha, decoração, armazenamento.',
     megamenu_tagline_home_kitchen: 'Cozinha, armazenamento, decoração.',
     megamenu_tagline_electronics_accessories: 'Cabos, carregadores, suportes.',
     megamenu_tagline_apparel_accessories: 'Bolsas, chapéus, wearables.',
@@ -4998,8 +5009,7 @@ export const DICTIONARIES = {
     col_index_breadcrumb_current: 'Coleções',
     col_index_eyebrow: 'Explorar',
     col_index_h: 'Todas as coleções',
-    col_index_sub:
-      'Explore achados por categoria, problema ou uso.',
+    col_index_sub: 'Explore achados por categoria, problema ou uso.',
     col_index_count: 'Puchica',
     col_index_empty_h: 'Ainda não há coleções',
     col_index_empty_body:
@@ -5101,11 +5111,11 @@ export const DICTIONARIES = {
 
     // ── Página Sobre ──────────────────────────────────────────────
     about_hero_eyebrow: 'Nossa história',
-    about_hero_title_main: 'Uma loja focada em achados de alto valor',
-    about_hero_title_em: 'Mais espaço para respirar.',
+    about_hero_title_main: 'Uma loja de viagem menor',
+    about_hero_title_em: 'com motivos melhores para comprar.',
     about_hero_sub:
-      'A Puchica é uma pequena empresa canadense que seleciona achados de alto valor — áudio, cozinha, fitness, casa, ar livre. Cada produto vem de um fornecedor verificado e tem política de devolução de 30 dias.',
-    about_hero_cta: 'Ver a coleção de lançamento →',
+      'A Puchica é uma loja canadense independente que começa com três organizadores de viagem práticos para roupas, cabos e itens de higiene.',
+    about_hero_cta: 'Ver a seleção de viagem →',
     about_stats_aria: 'Puchica em números',
     about_stat_products_num: 'Ativo',
     about_stat_products_label: 'Produtos selecionados',
@@ -5121,17 +5131,17 @@ export const DICTIONARIES = {
     about_mission_body_1:
       'Uma gaveta cheia, um cabo enrolado ou uma mala lotada pode complicar um dia comum. A Puchica ajuda a resolver esses pequenos problemas recorrentes.',
     about_mission_body_2:
-      'A Puchica adota a abordagem oposta. O catálogo fica focado — áudio, cozinha, fitness, casa, ar livre — e cada produto tem uso claro, preço transparente e fornecedor verificado.',
+      'A Puchica adota a abordagem oposta. Nossa primeira seleção tem um objetivo: deixar uma mala mais fácil de usar. Cada produto deve ter uma função clara e opções compreensíveis.',
     about_mission_card_text:
       'Útil primeiro. Claro antes do pagamento. Vale o espaço que ocupa.',
     about_how_eye: 'O que merece um lugar',
     about_how_title: 'Cada produto deve justificar o espaço que ocupa.',
     about_how_1_title: 'Resolve um problema específico',
     about_how_1_body:
-      'Começamos com uma função clara: uma ferramenta de cozinha que mereça seu lugar, áudio que soe bem ou um item de fitness que os clientes recomendem.',
-    about_how_2_title: 'Funciona em espaços limitados',
+      'Começamos com uma função clara: separar roupas, guardar pequenos acessórios ou manter itens de higiene fáceis de encontrar.',
+    about_how_2_title: 'Faz parte do mesmo sistema de viagem',
     about_how_2_body:
-      'Priorizamos produtos compactos e simples que ajudam a aproveitar melhor o espaço disponível.',
+      'Os três produtos funcionam juntos em uma mala, bolsa de fim de semana, bolsa de academia ou bagagem de mão.',
     about_how_3_title: 'Fácil de entender antes da compra',
     about_how_3_body:
       'O produto precisa ter um propósito, detalhes e opções claros. A disponibilidade, o custo e o prazo de entrega são confirmados no checkout.',
@@ -5220,25 +5230,25 @@ export const DICTIONARIES = {
     about_roots_heading: 'Puchica começa com uma sensação de surpresa útil.',
     about_roots_body:
       '“Puchica” é uma expressão centro-americana familiar de surpresa, como a reação que uma solução inesperadamente inteligente pode provocar. Esse espírito orienta a marca: itens práticos que resolvem um incômodo cotidiano sem criar mais bagunça.',
-    about_roots_signature: 'Empresa canadense. Achados selecionados a mão.',
-    about_hero_caption: 'Pensado para os lugares que ficam bagunçados primeiro.',
+    about_roots_signature:
+      'Empresa canadense. Poucos produtos, utilidade clara.',
+    about_hero_caption: 'Pensado em torno do que você usa durante a viagem.',
     about_hero_image_alt:
-      'Um artigo em destaque da seleção atual',
+      'Roupas e itens essenciais preparados para arrumar a mala',
     about_roots_image_alt:
       'Um tecido colorido e um recipiente de cerâmica pintada',
     about_standards_intro:
       'Um catálogo menor só funciona quando o motivo de cada produto é fácil de explicar.',
-    about_shop_eye: 'Compre por necessidade',
-    about_shop_title: 'Comece pelo espaço que sempre atrapalha.',
-    about_shop_home_title: 'Top tendências',
-    about_shop_cable_title: 'Top tendências',
-    about_shop_travel_title: 'Todas as categorias',
-    about_shop_home_body:
-      'Gavetas, armários, bancadas e cantos difíceis.',
-    about_shop_cable_body:
-      'Carregadores, cabos e pequenos aparelhos que somem.',
-    about_shop_travel_body: 'Áudio, cozinha, fitness, casa, ar livre.',
-    about_shop_all: 'Ver todos os achados',
+    about_shop_eye: 'A seleção de três produtos',
+    about_shop_title: 'Comece pela parte da arrumação que mais atrasa você.',
+    about_shop_home_title: 'Cubos organizadores',
+    about_shop_cable_title: 'Organizador de cabos',
+    about_shop_travel_title: 'Necessaire organizadora',
+    about_shop_home_body: 'Separe as roupas em três cubos com zíper.',
+    about_shop_cable_body: 'Mantenha carregadores, adaptadores e fones juntos.',
+    about_shop_travel_body:
+      'Dê um lugar a frascos, itens de cuidado e cosméticos.',
+    about_shop_all: 'Ver toda a seleção de viagem',
     about_now_eye: 'Entrega mais clara',
     about_now_title: 'Veja suas opções de entrega antes de pagar.',
     about_now_body:
@@ -5248,7 +5258,8 @@ export const DICTIONARIES = {
     about_delivery_step_1_title: 'Escolha um item',
     about_delivery_step_1_body: 'Adicione um achado e informe seu endereço.',
     about_delivery_step_2_title: 'Veja as opções disponíveis',
-    about_delivery_step_2_body: 'O checkout calcula as alternativas para o pedido.',
+    about_delivery_step_2_body:
+      'O checkout calcula as alternativas para o pedido.',
     about_delivery_step_3_title: 'Revise antes de pagar',
     about_delivery_step_3_body: 'Compare o prazo e o custo disponíveis.',
     about_delivery_note: 'Detalhes de entrega exibidos antes do pagamento',
@@ -5278,16 +5289,13 @@ export const DICTIONARIES = {
       'Para ajuda com um pedido, inclua o número. Para um produto, inclua o nome ou link.',
     contact_channels_aria: 'Formas de entrar em contato',
     contact_ig_title: 'DM no Instagram',
-    contact_ig_body:
-      'Acompanhe demos e novidades.',
+    contact_ig_body: 'Acompanhe demos e novidades.',
     contact_ig_fallback: 'Instagram',
     contact_fb_title: 'Mensagem no Facebook',
-    contact_fb_body:
-      'Acompanhe atualizações e novidades.',
+    contact_fb_body: 'Acompanhe atualizações e novidades.',
     contact_fb_fallback: 'Facebook',
     contact_tiktok_title: 'Nos encontre no TikTok',
-    contact_tiktok_body:
-      'Demos e novidades.',
+    contact_tiktok_body: 'Demos e novidades.',
     contact_tiktok_fallback: 'TikTok',
     contact_promises_aria: 'O que esperar',
     contact_promises_eyebrow: 'O que esperar',

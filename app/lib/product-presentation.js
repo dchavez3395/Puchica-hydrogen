@@ -28,7 +28,12 @@ export function presentProductTitle(title, variant) {
  * needs. This is display-only and does not alter Shopify taxonomy.
  */
 export function presentProductDepartment(product, t) {
-  const haystack = `${product?.productType || ''} ${product?.title || ''}`;
+  const productType = String(product?.productType || '').trim();
+  const haystack = `${productType} ${product?.title || ''}`;
+
+  if (/travel/i.test(productType)) {
+    return productType;
+  }
 
   if (/cable|cord|charger|electronic/i.test(haystack)) {
     return t('megamenu_intent_cable_title');

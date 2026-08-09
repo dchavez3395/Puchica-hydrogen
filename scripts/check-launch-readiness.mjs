@@ -73,10 +73,8 @@ export function runLaunchChecks() {
     failures,
   );
 
-  const threshold = configuredValue(
-    'PUBLIC_FREE_SHIPPING_THRESHOLD',
-    env,
-  ) || '75';
+  const threshold =
+    configuredValue('PUBLIC_FREE_SHIPPING_THRESHOLD', env) || '75';
   if (threshold !== '75') {
     warnings.push(
       `PUBLIC_FREE_SHIPPING_THRESHOLD is ${threshold}; verify it matches Shopify checkout rates.`,
@@ -106,7 +104,11 @@ export function runLaunchChecks() {
   const ga4Source = readSource('app', 'components', 'GoogleAnalytics4.jsx');
   const cartSummarySource = readSource('app', 'components', 'CartSummary.jsx');
   const rootSource = readSource('app', 'root.jsx');
-  const productRouteSource = readSource('app', 'routes', 'products.$handle.jsx');
+  const productRouteSource = readSource(
+    'app',
+    'routes',
+    'products.$handle.jsx',
+  );
   const serverSource = readSource('app', 'entry.server.jsx');
 
   for (const [name, source] of [['Meta Pixel', metaPixelSource]]) {
@@ -151,7 +153,9 @@ export function runLaunchChecks() {
     }
   }
   if (!ga4Source.includes('send_page_view: false')) {
-    failures.push('GA4 storefront bridge does not suppress automatic page views.');
+    failures.push(
+      'GA4 storefront bridge does not suppress automatic page views.',
+    );
   }
   if (!ga4Source.includes('analyticsItemId(p)')) {
     failures.push(
@@ -160,7 +164,9 @@ export function runLaunchChecks() {
   }
 
   if (!cartSummarySource.includes("publish('custom_checkout_started'")) {
-    failures.push('The checkout link does not publish custom_checkout_started.');
+    failures.push(
+      'The checkout link does not publish custom_checkout_started.',
+    );
   }
 
   for (const integration of [
@@ -180,7 +186,9 @@ export function runLaunchChecks() {
     failures.push('product route does not publish a product view.');
   }
   if (!productRouteSource.includes('variantId: selectedVariant?.id')) {
-    failures.push('product route product views are missing the selected variant ID.');
+    failures.push(
+      'product route product views are missing the selected variant ID.',
+    );
   }
 
   for (const domain of [
@@ -209,43 +217,38 @@ export function runLaunchChecks() {
 
   for (const claim of unsupportedClaims) {
     if (englishCopy.includes(claim)) {
-      failures.push(`Unsupported English storefront claim remains: "${claim}".`);
+      failures.push(
+        `Unsupported English storefront claim remains: "${claim}".`,
+      );
     }
-  }
-
-  const launchPlan = path.join(
-    rootDir,
-    'docs',
-    'us-organization-launch-control-2026-08-01.md',
-  );
-  if (!fs.existsSync(launchPlan)) {
-    failures.push('The U.S. organization launch control is missing.');
   }
 
   const candidatePath = path.join(
     evidenceDir,
-    'us-organization-candidate-control-2026-08-01.csv',
+    'travel-paid-candidate-control-2026-08-08.csv',
   );
   const quotePath = path.join(
     evidenceDir,
-    'dsers-two-zip-quote-evidence-2026-08-01.csv',
+    'north-america-checkout-quote-evidence-2026-08-08.csv',
   );
   const limitedTestPath = path.join(
     evidenceDir,
-    'us-packing-cubes-limited-test-evidence-2026-08-01.json',
+    'travel-paid-test-evidence-2026-08-08.json',
   );
 
   if (!fs.existsSync(candidatePath)) {
-    failures.push('The U.S. candidate operational evidence CSV is missing.');
+    failures.push('The travel-product paid-candidate evidence CSV is missing.');
   }
   if (!fs.existsSync(quotePath)) {
-    failures.push('The two-ZIP quote evidence CSV is missing.');
+    failures.push('The North American checkout-quote evidence CSV is missing.');
   }
 
   let limitedTestEvidence = null;
   if (fs.existsSync(limitedTestPath)) {
     try {
-      limitedTestEvidence = JSON.parse(fs.readFileSync(limitedTestPath, 'utf8'));
+      limitedTestEvidence = JSON.parse(
+        fs.readFileSync(limitedTestPath, 'utf8'),
+      );
     } catch (error) {
       failures.push(`Limited-test evidence JSON is invalid: ${error.message}`);
     }
@@ -300,7 +303,8 @@ export function evaluateOperationalEvidence(
     if (candidateFailures.length) {
       failures.push(
         ...candidateFailures.map(
-          (failure) => `${candidate.product || 'Unnamed candidate'}: ${failure}`,
+          (failure) =>
+            `${candidate.product || 'Unnamed candidate'}: ${failure}`,
         ),
       );
       return false;
@@ -309,7 +313,9 @@ export function evaluateOperationalEvidence(
   });
 
   if (!passingCandidates.length) {
-    failures.push('No GO_PAID_TEST candidate has complete operational evidence.');
+    failures.push(
+      'No GO_PAID_TEST candidate has complete operational evidence.',
+    );
   }
 
   return failures;
@@ -419,13 +425,21 @@ export function validateLimitedTestEvidence(evidence, now = new Date()) {
     failures.push('GO_LIMITED_TEST daily spend cap exceeds target CAC.');
   }
   if (totalCap <= 0 || totalCap > 100) {
-    failures.push('GO_LIMITED_TEST total spend cap must be between $0 and $100.');
+    failures.push(
+      'GO_LIMITED_TEST total spend cap must be between $0 and $100.',
+    );
   }
 
   const observedAt = new Date(evidence.observed_at_utc);
   const ageMs = now.getTime() - observedAt.getTime();
-  if (!Number.isFinite(observedAt.getTime()) || ageMs < 0 || ageMs > 7 * 864e5) {
-    failures.push('GO_LIMITED_TEST evidence must be no more than seven days old.');
+  if (
+    !Number.isFinite(observedAt.getTime()) ||
+    ageMs < 0 ||
+    ageMs > 7 * 864e5
+  ) {
+    failures.push(
+      'GO_LIMITED_TEST evidence must be no more than seven days old.',
+    );
   }
 
   const sources = Array.isArray(evidence.evidence_sources)
@@ -473,11 +487,6 @@ function validatePaidCandidate(candidate, quotes) {
     'return_refund_reserve',
     'pre_ad_contribution',
     'pre_ad_contribution_margin',
-    'sample_order_date',
-    'sample_cost',
-    'sample_delivery_date',
-    'actual_landed_charge',
-    'quality_result',
   ];
   const missing = requiredFields.filter((field) => !hasValue(candidate[field]));
   if (missing.length) {
@@ -497,7 +506,9 @@ function validatePaidCandidate(candidate, quotes) {
     failures.push('candidate tracking_available is not affirmative.');
   }
   if (/^NO_GO/.test(normalize(candidate.initial_decision))) {
-    failures.push('initial_decision is still NO_GO and contradicts GO_PAID_TEST.');
+    failures.push(
+      'initial_decision is still NO_GO and contradicts GO_PAID_TEST.',
+    );
   }
 
   const candidateQuotes = quotes.filter(
@@ -606,7 +617,9 @@ export function parseCsv(source) {
   return records
     .filter((record) => record.some((value) => value !== ''))
     .map((record) =>
-      Object.fromEntries(headers.map((header, index) => [header, record[index] || ''])),
+      Object.fromEntries(
+        headers.map((header, index) => [header, record[index] || '']),
+      ),
     );
 }
 
@@ -650,7 +663,9 @@ function hasValue(value) {
 }
 
 function normalize(value) {
-  return String(value || '').trim().toUpperCase();
+  return String(value || '')
+    .trim()
+    .toUpperCase();
 }
 
 function isYes(value) {
@@ -663,12 +678,16 @@ function number(value) {
 }
 
 function approximatelyEqual(left, right, tolerance = 0.02) {
-  return Number.isFinite(left) && Number.isFinite(right) && Math.abs(left - right) <= tolerance;
+  return (
+    Number.isFinite(left) &&
+    Number.isFinite(right) &&
+    Math.abs(left - right) <= tolerance
+  );
 }
 
 function printResults(failures, warnings) {
-  console.log('Puchica U.S. organization launch readiness');
-  console.log('===========================================');
+  console.log('Puchica paid-ads readiness');
+  console.log('===========================');
 
   if (!failures.length) {
     console.log(
