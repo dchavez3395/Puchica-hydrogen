@@ -55,7 +55,6 @@ export const APPROVED_VARIANT_SKUS_BY_MARKET = Object.freeze({
   CA: Object.freeze([
     '14:1052#S3007 Black;5:200004186#3PCS L M S Set',
     '14:193#Double Layers',
-    '14:100018754#BK-L',
   ]),
   US: Object.freeze(['14:193#Double Layers']),
 });
@@ -76,6 +75,9 @@ export const OPERATIONAL_HOLD_HANDLES = new Set([
   // Battery type, transport constraints, accuracy, instructions, and claims
   // remain unverified for this scale.
   'pocket-luggage-scale-50kg',
+  // The customer-facing media visibly uses the Naturehike brand, but seller
+  // authorization and exact-brand permission are not documented.
+  'travel-toiletry-organizer',
 ]);
 
 export function isLaunchReadyProduct(product, market = 'CA') {
@@ -98,7 +100,11 @@ export function isLaunchReadyProduct(product, market = 'CA') {
 }
 
 export function filterLaunchProducts(products = [], market = 'CA') {
-  return products.filter((product) => isLaunchReadyProduct(product, market));
+  return products.filter(
+    (product) =>
+      isLaunchReadyProduct(product, market) &&
+      Boolean(findApprovedVariant(product, market)),
+  );
 }
 
 export function isApprovedVariantSku(sku, market = 'CA') {

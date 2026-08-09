@@ -6,7 +6,7 @@ import {
   MARKETS,
   resolveStorefrontLocale,
 } from '~/lib/i18n';
-import {safeInternalRedirect} from '~/lib/cart-safety';
+import {getMarketSafeCart, safeInternalRedirect} from '~/lib/cart-safety';
 
 /**
  * Resource route — sets the locale cookie server-side and redirects back.
@@ -45,11 +45,16 @@ export async function action({request, context}) {
     if (!MARKETS[effectiveCountry]) return redirect(returnTo, {headers});
 
     if (context.cart.getCartId()) {
-      const result = await context.cart.updateBuyerIdentity({
-        countryCode: effectiveCountry,
-      });
-      const cartCountry = result?.cart?.buyerIdentity?.countryCode;
-      if (result?.errors?.length || (cartCountry && cartCountry !== effectiveCountry)) {
+      try {
+        await getMarketSafeCart(
+          context.cart,
+          context.storefront,
+          effectiveCountry,
+        );
+      } catch {
+        // Do not save a new market if the existing cart cannot be synchronized
+        // and purged first. Keeping the old market is safer than exposing an
+        // invalid cross-market checkout.
         return redirect(returnTo, {headers});
       }
     }

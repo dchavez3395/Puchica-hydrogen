@@ -31,6 +31,7 @@ import {CartRecoveryBanner} from './components/CartRecoveryBanner';
 import {GoogleAnalytics4} from './components/GoogleAnalytics4';
 import {error as logError} from '~/lib/logger';
 import {useT} from '~/lib/t';
+import {getMarketSafeCart} from '~/lib/cart-safety';
 
 /**
  * This is important to avoid re-fetching root queries on sub-navigations
@@ -201,7 +202,12 @@ function loadDeferredData({context}) {
         });
 
   return {
-    cart: STOREFRONT_CONTAINMENT_ACTIVE ? Promise.resolve(null) : cart.get(),
+    cart: STOREFRONT_CONTAINMENT_ACTIVE
+      ? Promise.resolve(null)
+      : getMarketSafeCart(cart, storefront, country).catch((error) => {
+          logError('unsafe cart was withheld', error);
+          return null;
+        }),
     isLoggedIn: STOREFRONT_CONTAINMENT_ACTIVE
       ? Promise.resolve(false)
       : customerAccount.isLoggedIn(),

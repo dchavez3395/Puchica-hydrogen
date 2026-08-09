@@ -2,6 +2,11 @@ import {
   isApprovedVariantSku,
   isLaunchReadyProduct,
 } from './launch-catalog.js';
+import {
+  cartBuyerCountryNeedsSync,
+  cartBuyerCountrySyncFailed,
+  resolveCartBuyerCountry,
+} from './cart-market.js';
 
 const MAX_CART_LINES = 20;
 const MAX_LINE_QUANTITY = 99;
@@ -63,7 +68,11 @@ export function normalizeCartLines(lines) {
   return normalized.every(Boolean) ? normalized : null;
 }
 
-export async function assertLaunchReadyLines(storefront, lines) {
+export async function assertLaunchReadyLines(
+  storefront,
+  lines,
+  market = storefront.i18n?.country,
+) {
   const normalized = normalizeCartLines(lines);
   if (!normalized) {
     throw new Response('Invalid cart item.', {status: 400});
@@ -81,8 +90,8 @@ export async function assertLaunchReadyLines(storefront, lines) {
       (variant) =>
         variant?.__typename !== 'ProductVariant' ||
         !variant.availableForSale ||
-        !isApprovedVariantSku(variant.sku, storefront.i18n?.country) ||
-        !isLaunchReadyProduct(variant.product, storefront.i18n?.country),
+        !isApprovedVariantSku(variant.sku, market) ||
+        !isLaunchReadyProduct(variant.product, market),
     )
   ) {
     throw new Response('This item is not currently available for purchase.', {
@@ -91,6 +100,91 @@ export async function assertLaunchReadyLines(storefront, lines) {
   }
 
   return normalized;
+}
+
+/**
+ * Identify existing cart lines that are not approved in the active market.
+ * This closes the stale-cart gap that add-only validation cannot cover when a
+ * shopper changes markets after adding a market-specific SKU.
+ */
+export async function rejectedCartLineIds(
+  storefront,
+  cart,
+  market = storefront.i18n?.country,
+) {
+  const lines = Array.isArray(cart?.lines?.nodes) ? cart.lines.nodes : [];
+  const inspectable = lines.filter(
+    (line) => typeof line?.id === 'string' && line?.merchandise?.id,
+  );
+  if (inspectable.length === 0) return [];
+
+  const {nodes} = await storefront.query(CART_VARIANTS_QUERY, {
+    variables: {
+      ids: inspectable.map((line) => line.merchandise.id),
+    },
+    cache: storefront.CacheNone(),
+  });
+  const byId = new Map(
+    (Array.isArray(nodes) ? nodes : [])
+      .filter((variant) => variant?.id)
+      .map((variant) => [variant.id, variant]),
+  );
+
+  return inspectable
+    .filter((line) => {
+      const variant = byId.get(line.merchandise.id);
+      return (
+        variant?.__typename !== 'ProductVariant' ||
+        !variant.availableForSale ||
+        !isApprovedVariantSku(variant.sku, market) ||
+        !isLaunchReadyProduct(variant.product, market)
+      );
+    })
+    .map((line) => line.id);
+}
+
+/**
+ * Synchronize an existing cart to the active market and purge every line that
+ * is not approved there before the cart or checkout URL is exposed.
+ */
+export async function getMarketSafeCart(
+  cartApi,
+  storefront,
+  requestedCountry,
+) {
+  if (!cartApi.getCartId()) return null;
+
+  const country =
+    requestedCountry || (await resolveCartBuyerCountry(storefront));
+  let current = await cartApi.get({numCartLines: 100});
+  if (!current) return null;
+
+  if (cartBuyerCountryNeedsSync(current, country)) {
+    const syncResult = await cartApi.updateBuyerIdentity({countryCode: country});
+    current = syncResult?.errors?.length
+      ? syncResult?.cart
+      : await cartApi.get({numCartLines: 100});
+    if (cartBuyerCountrySyncFailed({...syncResult, cart: current}, country)) {
+      throw new Response('Cart market could not be verified.', {status: 409});
+    }
+  }
+
+  const rejectedIds = await rejectedCartLineIds(
+    storefront,
+    current,
+    country,
+  );
+  if (rejectedIds.length > 0) {
+    const removal = await cartApi.removeLines(rejectedIds);
+    if (removal?.errors?.length) {
+      throw new Response('Cart could not be made safe for this market.', {
+        status: 409,
+      });
+    }
+    current = await cartApi.get({numCartLines: 100});
+  }
+
+  return current;
 }
 
 const CART_VARIANTS_QUERY = `#graphql

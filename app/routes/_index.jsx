@@ -4,7 +4,10 @@ import {
   SMALL_SPACE_QUERY,
   SmallSpaceLanding,
 } from '~/components/SmallSpaceLanding';
-import {filterLaunchProducts} from '~/lib/launch-catalog';
+import {
+  filterLaunchProducts,
+  STOREFRONT_CONTAINMENT_ACTIVE,
+} from '~/lib/launch-catalog';
 import {error as logError} from '~/lib/logger';
 import {
   JsonLdScript,
@@ -15,9 +18,13 @@ import {
 
 export const meta = ({data, params}) =>
   puchicaMeta({
-    title: 'Puchica — Travel organizers for easier packing',
+    title: STOREFRONT_CONTAINMENT_ACTIVE
+      ? 'Puchica — Store review in progress'
+      : 'Puchica — Travel organizers for easier packing',
     description:
-      data?.country === 'US'
+      STOREFRONT_CONTAINMENT_ACTIVE
+        ? 'Puchica is completing a storefront review. Shopping will return after the release checks are complete.'
+        : data?.country === 'US'
         ? 'A focused travel organizer with clear product details and shipping shown at checkout.'
         : 'A focused travel-organization edit for clothing, cables, and toiletries, with shipping shown at checkout.',
     pathname: '/',
@@ -26,6 +33,8 @@ export const meta = ({data, params}) =>
 
 export async function loader({context}) {
   const {country, language} = context.storefront.i18n;
+
+  if (STOREFRONT_CONTAINMENT_ACTIVE) return {country, products: []};
 
   try {
     const data = await context.storefront.query(SMALL_SPACE_QUERY, {
@@ -48,6 +57,26 @@ export async function loader({context}) {
 
 export default function Index() {
   const {products} = useLoaderData();
+
+  if (STOREFRONT_CONTAINMENT_ACTIVE) {
+    return (
+      <main className="pk-home pk-campaign pk-campaign--home">
+        <section className="pk-campaign-hero" aria-labelledby="review-title">
+          <div className="pk-campaign-hero__copy">
+            <p className="pk-campaign__eyebrow">Puchica storefront review</p>
+            <h1 id="review-title">We are tightening the last details.</h1>
+            <p>
+              Shopping is temporarily paused while we verify product and
+              checkout details across Canada and the United States.
+            </p>
+            <p>
+              Questions? <a href="mailto:hello@puchica.ca">hello@puchica.ca</a>
+            </p>
+          </div>
+        </section>
+      </main>
+    );
+  }
 
   return (
     <div className="pk-home pk-campaign pk-campaign--home">

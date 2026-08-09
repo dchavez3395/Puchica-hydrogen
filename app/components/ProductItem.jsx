@@ -152,8 +152,11 @@ export function ProductItem({product, loading, dark = false}) {
     isApprovedVariantSku(selectedVariant.sku, market)
     ? selectedVariant
     : (availableVariants[0] ?? {availableForSale: false, selectedOptions: []});
-  const featured = product.featuredImage;
-  const hoverImage = product.images?.nodes?.[1] ?? null;
+  // Market approval is variant-specific. Product-level gallery covers and
+  // hover images can depict colours or configurations that are not offered in
+  // the active market, so discovery cards use only the approved variant image.
+  const featured = variant?.image ?? null;
+  const hoverImage = null;
   const priceRange = resolveAvailablePriceRange(product, availableVariants);
   const compareAtPrice = resolveAvailableCompareAtPrice(availableVariants);
   const hasChoices =

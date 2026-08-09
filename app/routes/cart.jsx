@@ -4,7 +4,11 @@ import {CartMain} from '~/components/CartMain';
 import {puchicaMeta} from '~/lib/seo';
 import {CHECKOUT_URL_REWRITER, buildCheckoutRewriteOptions} from '~/lib/checkout';
 import {useT} from '~/lib/t';
-import {assertLaunchReadyLines, safeInternalRedirect} from '~/lib/cart-safety';
+import {
+  assertLaunchReadyLines,
+  getMarketSafeCart,
+  safeInternalRedirect,
+} from '~/lib/cart-safety';
 import {STOREFRONT_CONTAINMENT_ACTIVE} from '~/lib/launch-catalog';
 import {
   cartBuyerCountryNeedsSync,
@@ -146,7 +150,7 @@ export async function action({request, context}) {
   // the mutation so drawers and fetcher-driven UI can render real line items
   // immediately instead of waiting for a later page navigation.
   if (cartId) {
-    cartResult = await cart.get({cartId, numCartLines: 100});
+    cartResult = await getMarketSafeCart(cart, storefront);
   }
 
   // The Storefront API returns a `/cart/c/{token}` checkoutUrl shaped for
@@ -187,8 +191,7 @@ export async function action({request, context}) {
  */
 export async function loader({context}) {
   if (STOREFRONT_CONTAINMENT_ACTIVE) return redirect('/');
-  const {cart} = context;
-  return await cart.get();
+  return await getMarketSafeCart(context.cart, context.storefront);
 }
 
 export default function Cart() {

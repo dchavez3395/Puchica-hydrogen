@@ -1,4 +1,5 @@
 import {CHECKOUT_URL_REWRITER, buildCheckoutRewriteOptions} from '~/lib/checkout';
+import {getMarketSafeCart} from '~/lib/cart-safety';
 import {STOREFRONT_CONTAINMENT_ACTIVE} from '~/lib/launch-catalog';
 
 /**
@@ -21,7 +22,7 @@ export async function loader({context}) {
     });
   }
 
-  const cart = await context.cart.get();
+  const cart = await getMarketSafeCart(context.cart, context.storefront);
   if (cart?.checkoutUrl) {
     cart.checkoutUrl = CHECKOUT_URL_REWRITER(
       cart.checkoutUrl,

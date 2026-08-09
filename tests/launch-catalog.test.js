@@ -25,6 +25,14 @@ function approvedProduct(overrides = {}) {
       MARKET_ROUTE_EVIDENCE_TAGS.CA,
     ],
     availableForSale: true,
+    variants: {
+      nodes: [
+        {
+          sku: APPROVED_VARIANT_SKUS_BY_MARKET.CA[0],
+          availableForSale: true,
+        },
+      ],
+    },
     ...overrides,
   };
 }
@@ -201,6 +209,7 @@ const heldHandles = [
   '24-piece-drawer-organizer-tray-set',
   'toocki-five-clip-cable-organizer',
   'pocket-luggage-scale-50kg',
+  'travel-toiletry-organizer',
 ];
 
 test('current NO_GO products are explicit operational holds', () => {

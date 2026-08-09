@@ -75,7 +75,9 @@ export const meta = ({data, matches, params}) => {
     // the same helper useT() uses so React node values flow through if a
     // caller ever passes one.
     dict.pdp_meta_description_fallback.replace(/\{title\}/g, productTitle);
-  const image = data.product.featuredImage?.url;
+  const image =
+    data.product.selectedOrFirstAvailableVariant?.image?.url ||
+    data.product.featuredImage?.url;
   const pathname = `/products/${data.product.handle}`;
   return puchicaMeta({
     title,
@@ -165,7 +167,9 @@ export default function Product() {
     recordRecentlyViewed({
       handle: product.handle,
       title: product.title,
-      image: product.featuredImage,
+      image:
+        product.selectedOrFirstAvailableVariant?.image ||
+        product.featuredImage,
       price: product.selectedOrFirstAvailableVariant?.price,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -511,18 +515,10 @@ function MobileCart({product, selectedVariant, t}) {
 /* ── helpers ── */
 
 function buildGallery(product, selectedVariant) {
-  const list = [];
-  const seen = new Set();
-  const push = (img) => {
-    if (img?.url && !seen.has(img.url)) {
-      seen.add(img.url);
-      list.push(img);
-    }
-  };
-  push(selectedVariant?.image);
-  push(product.featuredImage);
-  if (Array.isArray(product.images?.nodes)) product.images.nodes.forEach(push);
-  return list;
+  // Product-level supplier galleries often mix colours, sizes, and adjacent
+  // configurations. Until media is approved image-by-image, expose only the
+  // exact selected variant image that passed the market gate.
+  return selectedVariant?.image ? [selectedVariant.image] : [];
 }
 
 function buildBreadcrumbItems(product, title, t) {
