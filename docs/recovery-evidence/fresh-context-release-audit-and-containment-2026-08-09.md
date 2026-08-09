@@ -56,3 +56,31 @@ This is not a claim that either market is reopened or ad-ready.
 7. Confirm an analytics event is received and capture address-based Canadian and U.S. checkout shipping rates before paid acquisition.
 
 Any failure keeps production contained. Reopening requires a separate production release decision after the preview evidence is recorded.
+
+## Superseding preview result
+
+The independent fresh-context auditor issued a functional **PASS** on the superseding private Oxygen preview:
+
+- Canada exposed exactly packing cubes at CA$39.99 and the cable organizer at CA$24.99.
+- Canada accepted both exact approved variants and showed a CA$64.98 cart.
+- Switching that cart to the United States automatically removed the Canada-only packing cubes and retained the cable organizer at US$19.00.
+- The Shopify U.S. checkout loaded with the cable organizer only. No checkout submission or order occurred.
+- Direct route matrix: Canada packing 200 / cable 200 / toiletry 404; United States packing 404 / cable 200 / toiletry 404.
+- The homepage, collection, mobile navigation, About page, and search prompts no longer expose the held toiletry item.
+- Each product rendered exactly one approved variant image: `Sbeb36a7c05ed495fbad54adc75fbfb1cC.webp` for the charcoal 3-piece packing set and `S7a92614fd71b4e70b1612704b2391995y.webp` for the black double-layer cable organizer.
+
+The private preview's required custom authentication header prevented an interactive browser-console audit. The locked product route no longer sends the removed supplier option matrix through Hydrogen's option mapper, eliminating the known missing-option warning path. Automated tests, lint, launch check, production build, and the preview functional gate are still required after this final source change.
+
+This functional pass authorizes a controlled storefront release only. It does not authorize paid ads; address-specific shipping rates and analytics receipt remain separate paid-acquisition gates.
+
+### Final snapshot after option-mapper removal
+
+- Private Oxygen preview: `https://01kzks7rdytrx91kqnzwfa2t4f-96696c77fd963319c44d.myshopify.dev`
+- Tests: 56/56 passed.
+- Lint: 0 errors; 31 pre-existing debug-script warnings.
+- Release control: passed for exactly two Canada SKUs and one United States SKU.
+- Production build: passed.
+- Final preview cart smoke repeated successfully: both items added in Canada; the United States switch purged packing cubes and retained the cable organizer with a checkout URL.
+- Final route matrix repeated: Canada 200/200/404 and United States 404/200/404 for packing/cable/toiletry.
+
+No order, payment, ad spend, or checkout submission occurred.

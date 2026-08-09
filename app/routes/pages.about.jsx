@@ -74,11 +74,6 @@ export default function AboutPage() {
       label: t('about_shop_cable_title'),
       body: t('about_shop_cable_body'),
     },
-    {
-      url: '/products/travel-toiletry-organizer',
-      label: t('about_shop_travel_title'),
-      body: t('about_shop_travel_body'),
-    },
   ].filter(
     ({url}) =>
       market === 'CA' || url === '/products/travel-cable-organizer-case',

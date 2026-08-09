@@ -480,8 +480,7 @@ export const DICTIONARIES = {
     col_filters_aria: 'Filters',
     search_trending_label: 'Shop by need',
     search_recent_label: 'Recently viewed',
-    search_trending_terms:
-      'packing cubes, cable organizer, toiletry bag, travel organizer',
+    search_trending_terms: 'packing cubes, cable organizer, travel organizer',
     col_density_aria: 'Grid density',
     col_density_3_aria: 'Show 3 per row',
     col_density_4_aria: 'Show 4 per row',
@@ -883,13 +882,12 @@ export const DICTIONARIES = {
     pred_pages: 'Pages',
     pred_products: 'Finds',
     pred_empty_title: 'Start typing to search',
-    pred_empty_body: 'Try packing cubes, cable organizer, or toiletry bag.',
+    pred_empty_body: 'Try packing cubes or cable organizer.',
     pred_pill_best: 'Featured',
     pred_pill_all: 'All categories',
     pred_pill_new: 'New arrivals',
     pred_no_results_h: 'No finds matched “{term}”.',
-    pred_no_results_body:
-      'Try packing cubes, cable organizer, or toiletry bag.',
+    pred_no_results_body: 'Try packing cubes or cable organizer.',
 
     // ── Cart page h1 ──────────────────────────────────────────────
     cart_page_h: 'Cart',

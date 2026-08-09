@@ -68,15 +68,6 @@ export function HeaderMenu({viewport}) {
       title: 'Cable organizer',
       url: '/products/travel-cable-organizer-case',
     },
-    ...(market === 'CA'
-      ? [
-    {
-      id: 'toiletry-bag',
-      title: 'Toiletry organizer',
-      url: '/products/travel-toiletry-organizer',
-    },
-      ]
-      : []),
   ];
   const mobileNav = [
     ...productNav,

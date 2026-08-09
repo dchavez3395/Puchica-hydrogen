@@ -42,8 +42,8 @@ test('Storefront queries use the versioned final approval tag', () => {
   assert.notEqual(LAUNCH_READY_TAG, LEGACY_LAUNCH_READY_TAG);
 });
 
-test('emergency containment closes commerce while the market-cart bypass is repaired', () => {
-  assert.equal(STOREFRONT_CONTAINMENT_ACTIVE, true);
+test('release flag is open only after the contained market-cart repair', () => {
+  assert.equal(STOREFRONT_CONTAINMENT_ACTIVE, false);
 });
 
 test('legacy home-finds campaign fails closed during containment', async () => {

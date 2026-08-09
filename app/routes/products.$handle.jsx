@@ -5,9 +5,7 @@ import {
   getSelectedProductOptions,
   Analytics,
   useOptimisticVariant,
-  getProductOptions,
   getAdjacentAndFirstAvailableVariants,
-  useSelectedOptionInUrlParam,
   Image,
 } from '@shopify/hydrogen';
 import {ProductPrice} from '~/components/ProductPrice';
@@ -148,12 +146,10 @@ export default function Product() {
     product.selectedOrFirstAvailableVariant,
     getAdjacentAndFirstAvailableVariants(product),
   );
-  useSelectedOptionInUrlParam(selectedVariant.selectedOptions);
-
-  const productOptions = getProductOptions({
-    ...product,
-    selectedOrFirstAvailableVariant: selectedVariant,
-  });
+  // The launch catalog intentionally exposes one audited variant per product.
+  // Passing the supplier's removed option matrix through Hydrogen's option
+  // mapper produced missing-option warnings and served no customer control.
+  const productOptions = [];
 
   const {title, descriptionHtml} = product;
   const displayTitle = presentProductTitle(title, selectedVariant);

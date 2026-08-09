@@ -52,8 +52,8 @@ for (const market of ['CA', 'US']) {
   }
 }
 
-if (APPROVED_VARIANT_SKUS_BY_MARKET.CA.length !== 3) {
-  failures.push('Canada must expose exactly three approved supplier SKUs.');
+if (APPROVED_VARIANT_SKUS_BY_MARKET.CA.length !== 2) {
+  failures.push('Canada must expose exactly two approved supplier SKUs.');
 }
 
 if (APPROVED_VARIANT_SKUS_BY_MARKET.US.length !== 1) {
@@ -80,7 +80,6 @@ requireMatch(
 for (const handle of [
   '3-piece-packing-cube-set',
   'travel-cable-organizer-case',
-  'travel-toiletry-organizer',
 ]) {
   requireMatch(
     `Header is missing the launch route for ${handle}.`,
