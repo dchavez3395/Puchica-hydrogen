@@ -17,7 +17,9 @@ export function SmallSpaceLanding(props) {
   const {products = [], campaign = false} = props;
   const rankedProducts = [...products].sort(compareLaunchPriority);
   const heroPrimary = rankedProducts[0];
-  const heroFeature = rankedProducts[1] || heroPrimary;
+  // The overlay identifies the same product shown in the hero image. Pairing a
+  // different product here made the visual read like a misleading product card.
+  const heroFeature = heroPrimary;
   const heroFeatureVariant = getFirstAvailableVariant(heroFeature);
   const heroImage = heroPrimary?.featuredImage;
   const productSectionId = campaign ? 'shop-travel-organizers' : 'travel-edit';
@@ -68,7 +70,7 @@ export function SmallSpaceLanding(props) {
                 />
               ) : null}
               <span className="pk-campaign-feature__body">
-                <small>Part of the three-piece edit</small>
+                <small>Featured in the travel edit</small>
                 <strong>{heroFeature.title}</strong>
                 {heroFeatureVariant?.price ? (
                   <span className="pk-campaign-feature__price">
@@ -104,8 +106,7 @@ export function SmallSpaceLanding(props) {
               <span aria-hidden="true">✓</span> Secure Shopify checkout
             </li>
             <li>
-              <span aria-hidden="true">✓</span> Canada &amp; U.S. delivery
-              routes
+              <span aria-hidden="true">✓</span> Clear product details
             </li>
             <li>
               <span aria-hidden="true">✓</span> Shipping shown at checkout

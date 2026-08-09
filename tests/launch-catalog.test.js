@@ -106,6 +106,10 @@ test('released homepage is travel-focused and uses the catalog gate', async () =
     new URL('../app/lib/brand.js', import.meta.url),
     'utf8',
   );
+  const landing = await readFile(
+    new URL('../app/components/SmallSpaceLanding.jsx', import.meta.url),
+    'utf8',
+  );
 
   assert.match(home, /SmallSpaceLanding/);
   assert.match(home, /filterLaunchProducts/);
@@ -115,6 +119,8 @@ test('released homepage is travel-focused and uses the catalog gate', async () =
   assert.match(about, /'pt-br': \{/);
   assert.match(about, /\{copy\.artNote\}/);
   assert.doesNotMatch(brand, /organization and travel|space-saving/i);
+  assert.match(landing, /const heroFeature = heroPrimary/);
+  assert.doesNotMatch(landing, /Canada &amp; U\.S\. delivery routes/);
 });
 
 test('the legacy launch tag cannot approve a product', () => {
