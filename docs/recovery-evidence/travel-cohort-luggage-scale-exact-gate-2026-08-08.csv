@@ -1,0 +1,5 @@
+dsers_import_id,aliexpress_item_id,option,supplier_sku,stock,destination,item_cost_usd,shipping_usd,tax_import,total_usd,method,ship_from,eta,tracking,landed_cad_at_1_4123,decision
+2082943623340884672,3256804444248511,A,"14:350686#A",1,United States,6.98,1.99,0.00,8.97,"AliExpress Selection Standard",CN,"6-11 days",Available,12.67,REJECT
+2082943623340884672,3256804444248511,B,"14:350850#B",161,United States,6.28,1.99,0.00,8.27,"AliExpress Selection Standard",CN,"not independently rendered for B","not independently rendered for B",11.68,REJECT
+2082943623340884672,3256804444248511,A,"14:350686#A",1,Canada,7.05,1.99,--,9.04,"AliExpress Selection Standard",CN,"6-11 days",Available,12.77,REJECT
+2082943623340884672,3256804444248511,B,"14:350850#B",161,Canada,7.50,1.99,--,9.49,"AliExpress Selection Standard",CN,"not independently rendered for B","not independently rendered for B",13.40,REJECT
