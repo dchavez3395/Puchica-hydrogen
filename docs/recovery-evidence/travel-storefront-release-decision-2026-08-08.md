@@ -90,3 +90,23 @@ Before authorizing any ad spend:
 
 No sample purchase is a hard release requirement, and no product order or ad
 spend was made during this recovery.
+
+## Oxygen preview and Shopify shipping-profile gate — 2026-08-08
+
+- A private, authenticated Oxygen preview was deployed successfully at
+  `https://01kzjawec9anp9dq0fzt95b3mg-96696c77fd963319c44d.myshopify.dev`.
+- Ten hosted routes passed: homepage, all-products collection, all three launch
+  product pages, About, Shipping, FAQ, Contact, and cart. Each route rendered a
+  main region without a storefront error, 404, or abandoned catalog language.
+- Shopify's live General delivery profile contains all three launch products.
+- The Canada zone charges CA$5.00 below CA$50.00 and CA$0.00 from CA$50.00 up.
+- The United States cross-border zone charges CA$9.99.
+- The old Zendrop delivery profile contains no products, zones, or rates and is
+  therefore non-blocking.
+- No address, checkout submission, payment, product order, or ad spend was used
+  to obtain this evidence.
+- The in-app QA browser injects a Codex sidebar node directly under `<html>`.
+  The resulting React hydration warnings are a test-surface artifact; the
+  deployed storefront markup and product imagery passed hosted inspection.
+- Production deployment remains intentionally pending merchant visual approval.
+  Paid ads remain paused independently of the storefront release decision.
