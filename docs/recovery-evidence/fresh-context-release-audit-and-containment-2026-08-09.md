@@ -84,3 +84,12 @@ This functional pass authorizes a controlled storefront release only. It does no
 - Final route matrix repeated: Canada 200/200/404 and United States 404/200/404 for packing/cable/toiletry.
 
 No order, payment, ad spend, or checkout submission occurred.
+
+## Production release result
+
+- Release commit: `1f158a1` (`release: reopen audited travel storefront`).
+- Commit pushed to `origin/main` and deployed to the Oxygen Production environment.
+- Live homepage returned 200 with `CA · CAD · EN` and links to exactly packing cubes plus the cable organizer.
+- Live production cart smoke repeated the preview result: both products added in Canada; switching to the United States removed packing cubes, retained the cable organizer, and exposed the U.S. checkout handoff.
+- Live route matrix repeated: Canada 200/200/404 and United States 404/200/404 for packing/cable/toiletry.
+- No order, payment, checkout submission, ad activation, or ad spend occurred.
