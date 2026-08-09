@@ -194,7 +194,7 @@ function loadDeferredData({context}) {
           cache: storefront.CacheLong(),
           variables: {country, language},
         })
-        .then(filterMegaMenuProducts)
+        .then((data) => filterMegaMenuProducts(data, country))
         .catch((error) => {
           logError('deferred mega-menu query failed', error);
           return null;
@@ -210,7 +210,7 @@ function loadDeferredData({context}) {
   };
 }
 
-function filterMegaMenuProducts(data) {
+function filterMegaMenuProducts(data, country = 'CA') {
   const collections = data?.collections;
   if (!collections?.nodes) return data;
 
@@ -222,7 +222,7 @@ function filterMegaMenuProducts(data) {
         ...collection,
         products: {
           ...collection.products,
-          nodes: filterLaunchProducts(collection.products?.nodes),
+          nodes: filterLaunchProducts(collection.products?.nodes, country),
         },
       })),
     },
@@ -237,7 +237,7 @@ export function Layout({children}) {
   const {pathname} = useLocation();
   const rootData = useRouteLoaderData('root');
   const language = rootData?.selectedLocale?.language || 'EN';
-  const country = rootData?.selectedLocale?.country || 'US';
+  const country = rootData?.selectedLocale?.country || 'CA';
   const normalizedLanguage = language.toLowerCase().replace('_', '-');
   const documentLanguage = normalizedLanguage.includes('-')
     ? normalizedLanguage.replace(/-([a-z]{2})$/, (_, region) =>

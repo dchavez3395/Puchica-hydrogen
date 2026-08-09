@@ -11,9 +11,8 @@ import {STOREFRONT_CONTAINMENT_ACTIVE} from '~/lib/launch-catalog';
  * Marketing consent is captured via the same customer record so the
  * address is opted in for future Klaviyo sync (when installed).
  *
- * NOTE: We deliberately accept-marketing by default because the form
- * promises "Get 10% off your first order" — single opt-in matches the
- * UX contract. CASL/CAN-SPAM/Privacy Act (Canada) require:
+ * NOTE: The form clearly identifies this as a marketing subscription. CASL,
+ * CAN-SPAM, and Canadian privacy requirements include:
  *   1. Clear identification of sender (we identify as Puchica)
  *   2. Unsubscribe in every email (handled by Klaviyo when live)
  *   3. Physical address in footer (set in templates)
@@ -197,8 +196,8 @@ export default function NewsletterRoute() {
           <h1>You&apos;re in!</h1>
           <p>
             {actionData.alreadySubscribed
-              ? 'You were already subscribed — your code is on its way.'
-              : 'Thanks for subscribing! Check your inbox for your 10% off code.'}
+              ? 'You were already subscribed — you are still on the list.'
+              : 'Thanks for subscribing! You are now on the Puchica list.'}
           </p>
           <p>
             <a href="/">← Back to the shop</a>

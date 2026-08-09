@@ -1,4 +1,7 @@
-import {isLaunchReadyProduct} from './launch-catalog.js';
+import {
+  isApprovedVariantSku,
+  isLaunchReadyProduct,
+} from './launch-catalog.js';
 
 const MAX_CART_LINES = 20;
 const MAX_LINE_QUANTITY = 99;
@@ -78,7 +81,8 @@ export async function assertLaunchReadyLines(storefront, lines) {
       (variant) =>
         variant?.__typename !== 'ProductVariant' ||
         !variant.availableForSale ||
-        !isLaunchReadyProduct(variant.product),
+        !isApprovedVariantSku(variant.sku, storefront.i18n?.country) ||
+        !isLaunchReadyProduct(variant.product, storefront.i18n?.country),
     )
   ) {
     throw new Response('This item is not currently available for purchase.', {
@@ -95,6 +99,7 @@ const CART_VARIANTS_QUERY = `#graphql
       __typename
       ... on ProductVariant {
         id
+        sku
         availableForSale
         product {
           handle

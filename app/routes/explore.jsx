@@ -21,7 +21,10 @@ export const meta = ({data, params}) => {
     langKey: params?.locale,
     noindex: !Object.values(data?.collections || {}).some(
       (collection) =>
-        filterLaunchProducts(collection?.products?.nodes).length > 0,
+        filterLaunchProducts(
+          collection?.products?.nodes,
+          data?.country,
+        ).length > 0,
     ),
   });
 };
@@ -141,7 +144,7 @@ ${aliasLines}
   `;
 
   const data = await context.storefront.query(query, {variables: {country, language}});
-  return {collections: data};
+  return {collections: data, country};
 }
 
 function loadDeferredData() {
@@ -150,7 +153,7 @@ function loadDeferredData() {
 
 export default function ExplorePage() {
   /** @type {LoaderReturnData} */
-  const {collections} = useLoaderData();
+  const {collections, country} = useLoaderData();
   const t = useT();
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -175,7 +178,7 @@ export default function ExplorePage() {
   // Flatten all products from visible collections and de-duplicate by ID
   const productMap = new Map();
   visibleCollections.forEach((c) => {
-    filterLaunchProducts(c.products?.nodes ?? []).forEach((p) => {
+    filterLaunchProducts(c.products?.nodes ?? [], country).forEach((p) => {
       if (!productMap.has(p.id)) {
         productMap.set(p.id, {
           ...p,

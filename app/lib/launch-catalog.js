@@ -27,10 +27,10 @@ export const CATALOG_APPROVAL_TAG = 'puchica-catalog-approved-v1';
 /**
  * Evidence required before a product can be discovered or purchased.
  *
- * These tags represent completed checks, not marketing claims. A product must
- * pass every check for both launch markets. If a future product is intentionally
- * sold in only one market, make this gate market-aware before approving it;
- * never weaken the shared rule with a one-off exception.
+ * These tags represent completed checks, not marketing claims. Product truth,
+ * mapping, cost, margin, copy, and imagery are shared gates. Delivery evidence
+ * is market-specific: a Canadian route must not be treated as proof that the
+ * same supplier/variant can ship to the United States (or vice versa).
  */
 export const REQUIRED_CATALOG_EVIDENCE_TAGS = Object.freeze([
   CATALOG_APPROVAL_TAG,
@@ -39,9 +39,26 @@ export const REQUIRED_CATALOG_EVIDENCE_TAGS = Object.freeze([
   'margin-verified',
   'copy-verified',
   'imagery-verified',
-  'ca-route-verified',
-  'us-route-verified',
 ]);
+
+export const MARKET_ROUTE_EVIDENCE_TAGS = Object.freeze({
+  CA: 'ca-route-verified',
+  US: 'us-route-verified',
+});
+
+/**
+ * Exact supplier variants that have passed the route, cost, copy, and imagery
+ * review for each launch market. Product-level approval is not permission to
+ * sell every colour or size in a supplier listing.
+ */
+export const APPROVED_VARIANT_SKUS_BY_MARKET = Object.freeze({
+  CA: Object.freeze([
+    '14:1052#S3007 Black;5:200004186#3PCS L M S Set',
+    '14:193#Double Layers',
+    '14:100018754#BK-L',
+  ]),
+  US: Object.freeze(['14:193#Double Layers']),
+});
 
 // Retain this export name for callers that construct Storefront API queries.
 // It now means final approval, not the unsafe legacy tag.
@@ -61,20 +78,40 @@ export const OPERATIONAL_HOLD_HANDLES = new Set([
   'pocket-luggage-scale-50kg',
 ]);
 
-export function isLaunchReadyProduct(product) {
+export function isLaunchReadyProduct(product, market = 'CA') {
   const tags = new Set(
     Array.isArray(product?.tags)
       ? product.tags.map((tag) => String(tag).trim().toLowerCase())
       : [],
   );
 
+  const routeTag =
+    MARKET_ROUTE_EVIDENCE_TAGS[String(market || 'CA').toUpperCase()] ||
+    MARKET_ROUTE_EVIDENCE_TAGS.CA;
+
   return Boolean(
     product?.availableForSale &&
     REQUIRED_CATALOG_EVIDENCE_TAGS.every((tag) => tags.has(tag)) &&
+    tags.has(routeTag) &&
     !OPERATIONAL_HOLD_HANDLES.has(product?.handle),
   );
 }
 
-export function filterLaunchProducts(products = []) {
-  return products.filter(isLaunchReadyProduct);
+export function filterLaunchProducts(products = [], market = 'CA') {
+  return products.filter((product) => isLaunchReadyProduct(product, market));
+}
+
+export function isApprovedVariantSku(sku, market = 'CA') {
+  const country = String(market || 'CA').toUpperCase();
+  const approved =
+    APPROVED_VARIANT_SKUS_BY_MARKET[country] ||
+    APPROVED_VARIANT_SKUS_BY_MARKET.CA;
+  return typeof sku === 'string' && approved.includes(sku);
+}
+
+export function findApprovedVariant(product, market = 'CA') {
+  return product?.variants?.nodes?.find(
+    (variant) =>
+      variant?.availableForSale && isApprovedVariantSku(variant.sku, market),
+  );
 }

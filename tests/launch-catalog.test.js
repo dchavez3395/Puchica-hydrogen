@@ -3,11 +3,15 @@ import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 
 import {
+  APPROVED_VARIANT_SKUS_BY_MARKET,
   filterLaunchProducts,
+  findApprovedVariant,
+  isApprovedVariantSku,
   isLaunchReadyProduct,
   CATALOG_APPROVAL_TAG,
   LAUNCH_READY_TAG,
   LEGACY_LAUNCH_READY_TAG,
+  MARKET_ROUTE_EVIDENCE_TAGS,
   OPERATIONAL_HOLD_HANDLES,
   REQUIRED_CATALOG_EVIDENCE_TAGS,
   STOREFRONT_CONTAINMENT_ACTIVE,
@@ -16,7 +20,10 @@ import {
 function approvedProduct(overrides = {}) {
   return {
     handle: 'verified-organizer',
-    tags: [...REQUIRED_CATALOG_EVIDENCE_TAGS],
+    tags: [
+      ...REQUIRED_CATALOG_EVIDENCE_TAGS,
+      MARKET_ROUTE_EVIDENCE_TAGS.CA,
+    ],
     availableForSale: true,
     ...overrides,
   };
@@ -138,7 +145,10 @@ test('every evidence gate is required and tag matching is case-insensitive', () 
   assert.equal(
     isLaunchReadyProduct(
       approvedProduct({
-        tags: REQUIRED_CATALOG_EVIDENCE_TAGS.map((tag) => tag.toUpperCase()),
+        tags: [
+          ...REQUIRED_CATALOG_EVIDENCE_TAGS,
+          MARKET_ROUTE_EVIDENCE_TAGS.CA,
+        ].map((tag) => tag.toUpperCase()),
       }),
     ),
     true,
@@ -148,15 +158,43 @@ test('every evidence gate is required and tag matching is case-insensitive', () 
     assert.equal(
       isLaunchReadyProduct(
         approvedProduct({
-          tags: REQUIRED_CATALOG_EVIDENCE_TAGS.filter(
-            (tag) => tag !== missingTag,
-          ),
+          tags: [
+            ...REQUIRED_CATALOG_EVIDENCE_TAGS.filter(
+              (tag) => tag !== missingTag,
+            ),
+            MARKET_ROUTE_EVIDENCE_TAGS.CA,
+          ],
         }),
       ),
       false,
       `missing ${missingTag}`,
     );
   }
+
+  assert.equal(
+    isLaunchReadyProduct(
+      approvedProduct({
+        tags: [
+          ...REQUIRED_CATALOG_EVIDENCE_TAGS,
+          MARKET_ROUTE_EVIDENCE_TAGS.US,
+        ],
+      }),
+      'CA',
+    ),
+    false,
+  );
+  assert.equal(
+    isLaunchReadyProduct(
+      approvedProduct({
+        tags: [
+          ...REQUIRED_CATALOG_EVIDENCE_TAGS,
+          MARKET_ROUTE_EVIDENCE_TAGS.US,
+        ],
+      }),
+      'US',
+    ),
+    true,
+  );
 });
 
 const heldHandles = [
@@ -176,7 +214,10 @@ test('launch tag cannot override an operational hold', () => {
     assert.equal(
       isLaunchReadyProduct({
         handle,
-        tags: [...REQUIRED_CATALOG_EVIDENCE_TAGS],
+        tags: [
+          ...REQUIRED_CATALOG_EVIDENCE_TAGS,
+          MARKET_ROUTE_EVIDENCE_TAGS.CA,
+        ],
         availableForSale: true,
       }),
       false,
@@ -196,4 +237,26 @@ test('filter keeps only available, tagged, non-held products', () => {
     ]),
     [safe],
   );
+});
+
+test('exact supplier variants are market-gated independently of products', () => {
+  const caPackingSku = APPROVED_VARIANT_SKUS_BY_MARKET.CA[0];
+  const sharedCableSku = APPROVED_VARIANT_SKUS_BY_MARKET.US[0];
+
+  assert.equal(isApprovedVariantSku(caPackingSku, 'CA'), true);
+  assert.equal(isApprovedVariantSku(caPackingSku, 'US'), false);
+  assert.equal(isApprovedVariantSku(sharedCableSku, 'CA'), true);
+  assert.equal(isApprovedVariantSku(sharedCableSku, 'US'), true);
+  assert.equal(isApprovedVariantSku('unreviewed-supplier-sku', 'CA'), false);
+
+  const product = {
+    variants: {
+      nodes: [
+        {sku: 'unreviewed-supplier-sku', availableForSale: true},
+        {sku: caPackingSku, availableForSale: true},
+      ],
+    },
+  };
+  assert.equal(findApprovedVariant(product, 'CA')?.sku, caPackingSku);
+  assert.equal(findApprovedVariant(product, 'US'), undefined);
 });

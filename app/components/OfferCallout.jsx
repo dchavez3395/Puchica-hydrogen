@@ -2,16 +2,13 @@ import {useT} from '~/lib/t';
 import {IconGift} from '~/components/Icons';
 
 /**
- * OfferCallout — first-order incentive shown at the decision points (next to
- * Add-to-Cart and in the cart). The offer previously lived only in the top
- * announcement bar, which is easy to ignore — especially on mobile (~93% of
- * traffic). Placing the FIRST15 incentive right where the buy decision happens
- * reduces hesitation and targets the two funnel leaks (add-to-cart + checkout).
+ * OfferCallout — delivery clarity shown at key purchase decision points.
  *
  * Styling is intentionally inline (not a CSS class): it guarantees consistent,
  * on-brand rendering (Puchica violet) without depending on stylesheet classes,
- * and keeps the component fully self-contained. Copy comes from the `offer_first15`
- * dictionary key (all 4 languages), so it localizes automatically.
+ * and keeps the component fully self-contained. Copy comes from the legacy
+ * `offer_first15` dictionary key (all 4 languages), which now contains neutral
+ * shipping language rather than an inactive promotion.
  *
  * @param {{style?: React.CSSProperties}} props
  */

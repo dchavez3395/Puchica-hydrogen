@@ -4,33 +4,31 @@ import {IconSparkles} from '~/components/Icons';
 import {useT} from '~/lib/t';
 
 /**
- * Email-capture popup that offers the FIRST15 first-order discount.
+ * Email-capture popup for product updates and occasional offers.
  *
  * Behavior:
  * - Appears once per visitor (a flag is stored in localStorage), after a
  *   short delay OR when the visitor moves to leave the page (exit intent).
  * - Submits to the existing `/newsletter` action, which creates a
  *   marketing-consented Shopify customer.
- * - On success it reveals the FIRST15 code so the visitor can use it
- *   immediately at checkout.
+ * - On success it confirms the subscription without promising an inactive
+ *   discount code.
  *
  * SSR-safe: nothing renders until after mount, so server and first client
  * render match (no hydration mismatch).
  */
 const POPUP_KEY = 'pk-news-popup-v1';
-const DISCOUNT_CODE = 'FIRST15';
 const DELAY_MS = 8000;
 
 export function NewsletterPopup() {
   const t = useT();
   const [mounted, setMounted] = useState(false);
   const [open, setOpen] = useState(false);
-  const [copied, setCopied] = useState(false);
   const fetcher = useFetcher();
   const armedRef = useRef(false);
   const dialogRef = useRef(null);
   const emailInputRef = useRef(null);
-  const codeBtnRef = useRef(null);
+  const successLinkRef = useRef(null);
   const previouslyFocused = useRef(null);
 
   // Only run on the client.
@@ -79,7 +77,7 @@ export function NewsletterPopup() {
     const dialog = dialogRef.current;
     if (dialog) {
       const meaningful =
-        emailInputRef.current || codeBtnRef.current;
+        emailInputRef.current || successLinkRef.current;
       if (meaningful) {
         meaningful.focus();
       } else {
@@ -136,16 +134,6 @@ export function NewsletterPopup() {
     }
   }
 
-  function copyCode() {
-    try {
-      navigator.clipboard?.writeText(DISCOUNT_CODE);
-      setCopied(true);
-      window.setTimeout(() => setCopied(false), 2000);
-    } catch {
-      /* ignore */
-    }
-  }
-
   if (!mounted || !open) return null;
 
   const success = fetcher.data?.ok === true;
@@ -183,18 +171,12 @@ export function NewsletterPopup() {
               {t('np_success_h')}
             </h2>
             <p className="pk-news-popup__p">{t('np_success_body')}</p>
-            <button
-              type="button"
-              ref={codeBtnRef}
-              onClick={copyCode}
-              className="pk-news-popup__code-btn"
+            <a
+              ref={successLinkRef}
+              href="/collections"
+              className="pk-news-popup__shop-link"
+              onClick={dismiss}
             >
-              {DISCOUNT_CODE}
-              <span className="pk-news-popup__code-hint">
-                {copied ? t('np_copy_btn') : t('np_copy_hint')}
-              </span>
-            </button>
-            <a href="/collections" className="pk-news-popup__shop-link" onClick={dismiss}>
               {t('np_success_cta')}
             </a>
           </>

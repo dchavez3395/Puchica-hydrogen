@@ -6,6 +6,8 @@ import {
   presentProductTitle,
 } from '~/lib/product-presentation';
 import {useT} from '~/lib/t';
+import {useRouteLoaderData} from 'react-router';
+import {findApprovedVariant} from '~/lib/launch-catalog';
 
 /**
  * Focused landing experience for Puchica's travel-organization launch.
@@ -15,14 +17,25 @@ import {useT} from '~/lib/t';
  */
 export function SmallSpaceLanding(props) {
   const {products = [], campaign = false} = props;
+  const rootData = useRouteLoaderData('root');
+  const market = rootData?.selectedLocale?.country || 'CA';
   const rankedProducts = [...products].sort(compareLaunchPriority);
   const heroPrimary = rankedProducts[0];
   // The overlay identifies the same product shown in the hero image. Pairing a
   // different product here made the visual read like a misleading product card.
   const heroFeature = heroPrimary;
-  const heroFeatureVariant = getFirstAvailableVariant(heroFeature);
-  const heroImage = heroPrimary?.featuredImage;
+  const heroFeatureVariant = findApprovedVariant(heroFeature, market);
+  // Lead with the approved variant image, not the product-level gallery cover.
+  // The latter can show colours or configurations that are not offered in the
+  // selected market and made the hero/card pairing look like two products.
+  const heroImage = heroFeatureVariant?.image || heroPrimary?.featuredImage;
   const productSectionId = campaign ? 'shop-travel-organizers' : 'travel-edit';
+  const isFullEdit = rankedProducts.length >= 3;
+  const heroDescription = isFullEdit
+    ? 'Three practical organizers for clothing, cables, and toiletries—a useful packing system without an endless catalog.'
+    : rankedProducts.length === 1
+      ? 'One practical travel organizer with clear product details and delivery confirmed for your market at checkout.'
+      : 'A focused set of practical travel organizers with clear product details and delivery confirmed at checkout.';
 
   return (
     <>
@@ -33,10 +46,7 @@ export function SmallSpaceLanding(props) {
         <div className="pk-campaign-hero__copy">
           <p className="pk-campaign__eyebrow">The Puchica travel edit</p>
           <h1 id="organization-title">Pack with less rummaging.</h1>
-          <p>
-            Three practical organizers for clothing, cables, and toiletries—a
-            useful packing system without an endless catalog.
-          </p>
+          <p>{heroDescription}</p>
         </div>
 
         <div className="pk-campaign-hero__visual">
@@ -117,10 +127,19 @@ export function SmallSpaceLanding(props) {
 
       <OrganizationProductSection
         id={productSectionId}
-        eyebrow="Three ways to pack smarter"
-        title="A small travel system that works together"
-        body="Separate clothing, keep chargers contained, and give toiletries a dedicated place. Start with the piece that solves your biggest packing headache."
+        eyebrow={isFullEdit ? 'Three ways to pack smarter' : 'Travel organization'}
+        title={
+          isFullEdit
+            ? 'A small travel system that works together'
+            : 'Practical organization for your next trip'
+        }
+        body={
+          isFullEdit
+            ? 'Separate clothing, keep chargers contained, and give toiletries a dedicated place. Start with the piece that solves your biggest packing headache.'
+            : 'Shop the travel organizers currently supported for your selected market.'
+        }
         products={rankedProducts}
+        market={market}
         linkLabel="View all travel organizers"
         linkTo="/collections/all"
       />
@@ -135,6 +154,7 @@ export function SmallSpaceLanding(props) {
  *   title: string;
  *   body: string;
  *   products: Array<object>;
+ *   market: string;
  *   linkLabel: string;
  *   linkTo: string;
  * }} props
@@ -145,6 +165,7 @@ function OrganizationProductSection({
   title,
   body,
   products,
+  market,
   linkLabel,
   linkTo,
 }) {
@@ -165,7 +186,7 @@ function OrganizationProductSection({
       </div>
       <div className="pk-campaign-editorial-grid">
         {products.slice(0, 3).map((product, index) => {
-          const variant = getFirstAvailableVariant(product);
+          const variant = findApprovedVariant(product, market);
           const image = variant?.image || product.featuredImage;
           const displayTitle = presentProductTitle(product.title, variant);
           const department = presentProductDepartment(product, t);
@@ -229,11 +250,6 @@ function compareLaunchPriority(a, b) {
   return launchPriority(a) - launchPriority(b);
 }
 
-/** @param {Record<string, any> | undefined} product */
-function getFirstAvailableVariant(product) {
-  return product?.variants?.nodes?.find((variant) => variant?.availableForSale);
-}
-
 const SMALL_SPACE_PRODUCT_FRAGMENT = `#graphql
   fragment SmallSpaceProduct on Product {
     id
@@ -284,6 +300,7 @@ const SMALL_SPACE_PRODUCT_FRAGMENT = `#graphql
     variants(first: 10) {
       nodes {
         id
+        sku
         availableForSale
         title
         requiresShipping

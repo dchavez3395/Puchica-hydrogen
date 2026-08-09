@@ -1,5 +1,5 @@
 import {Suspense, useEffect} from 'react';
-import {Await, useAsyncValue} from 'react-router';
+import {Await, useAsyncValue, useRouteLoaderData} from 'react-router';
 import {useAnalytics, useOptimisticCart} from '@shopify/hydrogen';
 import {LocalizedNavLink as NavLink} from '~/components/LocalizedLink';
 import {useAside} from '~/components/Aside';
@@ -46,27 +46,40 @@ export function HeaderMenu({viewport}) {
   const className = viewport === 'desktop' ? 'pk-nav' : 'pk-nav pk-nav--mobile';
   const {close} = useAside();
   const t = useT();
+  const rootData = useRouteLoaderData('root');
+  const market = rootData?.selectedLocale?.country || 'CA';
   const desktopNav = [
     {id: 'shop', title: t('nav_shop'), url: '/collections/all'},
     {id: 'about', title: t('nav_about'), url: '/pages/about'},
   ];
-  const mobileNav = [
+  const productNav = [
+    ...(market === 'CA'
+      ? [
     ...desktopNav,
     {
       id: 'packing-cubes',
       title: 'Packing cubes',
       url: '/products/3-piece-packing-cube-set',
     },
+      ]
+      : [...desktopNav]),
     {
       id: 'cable-case',
       title: 'Cable organizer',
       url: '/products/travel-cable-organizer-case',
     },
+    ...(market === 'CA'
+      ? [
     {
       id: 'toiletry-bag',
       title: 'Toiletry organizer',
       url: '/products/travel-toiletry-organizer',
     },
+      ]
+      : []),
+  ];
+  const mobileNav = [
+    ...productNav,
     {id: 'contact', title: t('footer_contact'), url: '/pages/contact'},
   ];
   const items = viewport === 'desktop' ? desktopNav : mobileNav;

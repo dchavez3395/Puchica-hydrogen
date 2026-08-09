@@ -62,6 +62,13 @@ export default function ShippingPage() {
       eta: t('ship_check_tracking_eta'),
       badge: '',
     },
+    {
+      Icon: IconPackage,
+      title: t('ship_check_duties_title'),
+      body: t('ship_check_duties_body'),
+      eta: t('ship_check_duties_eta'),
+      badge: '',
+    },
   ];
 
   return (

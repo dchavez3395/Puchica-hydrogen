@@ -21,7 +21,10 @@ export const meta = ({data, params}) => {
     langKey: params?.locale,
     noindex: !data?.collections?.nodes?.some(
       (collection) =>
-        filterLaunchProducts(collection?.products?.nodes).length > 0,
+        filterLaunchProducts(
+          collection?.products?.nodes,
+          data?.country,
+        ).length > 0,
     ),
   });
 };
@@ -52,7 +55,7 @@ async function loadCriticalData({context, request}) {
       variables: {country, language, ...paginationVariables},
     }),
   ]);
-  return {collections};
+  return {collections, country};
 }
 
 function loadDeferredData() {
@@ -73,7 +76,7 @@ const EDITORIAL_HANDLES = new Set([
 
 export default function Collections() {
   /** @type {LoaderReturnData} */
-  const {collections} = useLoaderData();
+  const {collections, country} = useLoaderData();
   const t = useT();
   const nodes = collections?.nodes ?? [];
   // Shopify retains a collection after its last product is removed. Do not
@@ -81,7 +84,7 @@ export default function Collections() {
   // rule, so the collection index needs to use the same storefront-safe set.
   const activeNodes = nodes.filter(
     (collection) =>
-      filterLaunchProducts(collection?.products?.nodes).length > 0,
+      filterLaunchProducts(collection?.products?.nodes, country).length > 0,
   );
   const activeCollections = {...collections, nodes: activeNodes};
   const count = activeNodes.length;

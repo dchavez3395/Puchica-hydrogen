@@ -3,7 +3,7 @@ import {Image} from '@shopify/hydrogen';
 import {puchicaMeta} from '~/lib/seo';
 import {useT} from '~/lib/t';
 import {STOREFRONT_CONTAINMENT_ACTIVE} from '~/lib/launch-catalog';
-import {useParams} from 'react-router';
+import {useParams, useRouteLoaderData} from 'react-router';
 
 export const meta = ({params}) =>
   puchicaMeta({
@@ -16,22 +16,22 @@ const ABOUT_META = {
   en: {
     title: 'About Puchica | A focused Canadian travel shop',
     description:
-      'Meet Puchica, an independent Canadian shop starting with three practical travel organizers for clothing, cables, and toiletries.',
+      'Meet Puchica, an independent Canadian shop focused on practical travel organization and clear product details.',
   },
   fr: {
     title: 'À propos de Puchica | Une boutique canadienne de voyage',
     description:
-      'Découvrez Puchica, une boutique canadienne indépendante qui commence avec trois organisateurs de voyage pratiques.',
+      'Découvrez Puchica, une boutique canadienne indépendante axée sur l’organisation pratique des voyages.',
   },
   es: {
     title: 'Sobre Puchica | Una tienda canadiense de viaje',
     description:
-      'Conoce Puchica, una tienda canadiense independiente que empieza con tres organizadores de viaje prácticos.',
+      'Conoce Puchica, una tienda canadiense independiente centrada en la organización práctica de viajes.',
   },
   'pt-br': {
     title: 'Sobre a Puchica | Uma loja canadense de viagem',
     description:
-      'Conheça a Puchica, uma loja canadense independente que começa com três organizadores de viagem práticos.',
+      'Conheça a Puchica, uma loja canadense independente focada em organização prática para viagens.',
   },
 };
 
@@ -41,6 +41,8 @@ export async function loader() {
 
 export default function AboutPage() {
   const t = useT();
+  const rootData = useRouteLoaderData('root');
+  const market = rootData?.selectedLocale?.country || 'CA';
   if (STOREFRONT_CONTAINMENT_ACTIVE) {
     return <ContainmentAbout />;
   }
@@ -77,7 +79,10 @@ export default function AboutPage() {
       label: t('about_shop_travel_title'),
       body: t('about_shop_travel_body'),
     },
-  ];
+  ].filter(
+    ({url}) =>
+      market === 'CA' || url === '/products/travel-cable-organizer-case',
+  );
 
   return (
     <div className="pk-about-v3">

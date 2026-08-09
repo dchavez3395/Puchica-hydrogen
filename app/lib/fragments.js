@@ -322,6 +322,7 @@ const HOME_PRODUCT_FRAGMENT = `#graphql
     }
     selectedOrFirstAvailableVariant {
       id
+      sku
       availableForSale
       title
       requiresShipping

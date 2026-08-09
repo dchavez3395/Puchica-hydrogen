@@ -33,6 +33,7 @@ import {ReviewStars, JudgemeReviews} from '~/components/JudgemeReviews';
 import {recordRecentlyViewed} from '~/lib/recentlyViewed';
 import {useT} from '~/lib/t';
 import {
+  findApprovedVariant,
   isLaunchReadyProduct,
   STOREFRONT_CONTAINMENT_ACTIVE,
 } from '~/lib/launch-catalog';
@@ -118,9 +119,18 @@ async function loadCriticalData({context, params, request}) {
 
   const product = productResp.product;
   if (!product?.id) throw new Response(null, {status: 404});
-  if (!isLaunchReadyProduct(product)) {
+  if (!isLaunchReadyProduct(product, country)) {
     throw new Response(null, {status: 404});
   }
+  const approvedVariant = findApprovedVariant(product, country);
+  if (!approvedVariant) throw new Response(null, {status: 404});
+
+  // Expose the one exact SKU that passed the market gate. The supplier listing
+  // can contain many colours and sizes, but unverified variants must not become
+  // purchasable merely because the product itself passed review.
+  product.selectedOrFirstAvailableVariant = approvedVariant;
+  product.adjacentVariants = [approvedVariant];
+  product.options = [];
 
   const reviews = await getJudgemeBadge(handle);
   redirectIfHandleIsLocalized(request, {handle, data: product});
@@ -657,6 +667,7 @@ const PRODUCT_FRAGMENT = `#graphql
       ...ProductVariant
     }
     adjacentVariants(selectedOptions: $selectedOptions) { ...ProductVariant }
+    variants(first: 100) { nodes { ...ProductVariant } }
     seo { description title }
   }
   ${PRODUCT_VARIANT_FRAGMENT}

@@ -4,6 +4,8 @@ import process from 'node:process';
 import {fileURLToPath} from 'node:url';
 
 import {
+  APPROVED_VARIANT_SKUS_BY_MARKET,
+  MARKET_ROUTE_EVIDENCE_TAGS,
   REQUIRED_CATALOG_EVIDENCE_TAGS,
   STOREFRONT_CONTAINMENT_ACTIVE,
 } from '../app/lib/launch-catalog.js';
@@ -33,14 +35,29 @@ const expectedEvidenceTags = [
   'margin-verified',
   'copy-verified',
   'imagery-verified',
-  'ca-route-verified',
-  'us-route-verified',
 ];
 
 for (const tag of expectedEvidenceTags) {
   if (!REQUIRED_CATALOG_EVIDENCE_TAGS.includes(tag)) {
     failures.push(`Catalog evidence gate is missing ${tag}.`);
   }
+}
+
+for (const market of ['CA', 'US']) {
+  if (!MARKET_ROUTE_EVIDENCE_TAGS[market]) {
+    failures.push(`Catalog route gate is missing the ${market} market.`);
+  }
+  if (!APPROVED_VARIANT_SKUS_BY_MARKET[market]?.length) {
+    failures.push(`Exact supplier-SKU gate is empty for ${market}.`);
+  }
+}
+
+if (APPROVED_VARIANT_SKUS_BY_MARKET.CA.length !== 3) {
+  failures.push('Canada must expose exactly three approved supplier SKUs.');
+}
+
+if (APPROVED_VARIANT_SKUS_BY_MARKET.US.length !== 1) {
+  failures.push('United States must expose exactly one approved supplier SKU.');
 }
 
 const home = source('app', 'routes', '_index.jsx');

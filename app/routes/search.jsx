@@ -206,6 +206,7 @@ const SEARCH_PRODUCT_FRAGMENT = `#graphql
     variants(first: 100) {
       nodes {
         id
+        sku
         availableForSale
         title
         requiresShipping
@@ -357,7 +358,7 @@ async function regularSearch({request, context}) {
   // sort returns these in source order the first page is mostly
   // the same vendor. Interleave the visible products by vendor
   // so adjacent results are from different vendors.
-  const launchProducts = filterLaunchProducts(items.products?.nodes);
+  const launchProducts = filterLaunchProducts(items.products?.nodes, country);
   if (launchProducts.length > 2) {
     items.products = {
       ...items.products,
@@ -561,7 +562,7 @@ async function predictiveSearch({request, context}) {
     throw new Error('No predictive search data returned from Shopify API');
   }
 
-  items.products = filterLaunchProducts(items.products);
+  items.products = filterLaunchProducts(items.products, country);
   // A collection suggestion cannot be proven safe without checking whether it
   // contains an approved product. Hide those suggestions until predictive
   // search can apply the same product evidence gate.

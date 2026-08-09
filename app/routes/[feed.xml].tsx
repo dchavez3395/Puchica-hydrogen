@@ -1,6 +1,7 @@
 import {data, type LoaderFunctionArgs} from 'react-router';
 import {
   filterLaunchProducts,
+  findApprovedVariant,
   LAUNCH_READY_TAG,
   STOREFRONT_CONTAINMENT_ACTIVE,
 } from '~/lib/launch-catalog';
@@ -43,6 +44,7 @@ export async function loader({context}: LoaderFunctionArgs) {
             variants(first: 20) {
               edges {
                 node {
+                  sku
                   title
                   price { amount currencyCode }
                   compareAtPrice { amount currencyCode }
@@ -77,9 +79,10 @@ export async function loader({context}: LoaderFunctionArgs) {
     // Feed one exact, sellable variant per launch-approved product. Do not let
     // an unavailable first variant make an otherwise valid product look out of
     // stock, and never emit a product with no sellable variant.
-    const firstVariant = product.variants.edges
-      .map(({node}) => node)
-      .find((variant) => variant.availableForSale);
+    const firstVariant = findApprovedVariant(
+      {variants: {nodes: product.variants.edges.map(({node}) => node)}},
+      'CA',
+    );
     if (!firstVariant) return null;
 
     const price = firstVariant.price?.amount || '0.00';

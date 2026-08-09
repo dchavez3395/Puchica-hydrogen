@@ -9,6 +9,8 @@ import {
   presentProductDepartment,
   presentProductTitle,
 } from '~/lib/product-presentation';
+import {useRouteLoaderData} from 'react-router';
+import {isApprovedVariantSku} from '~/lib/launch-catalog';
 
 const BADGE_TAG_MAP = {
   'new-arrival': {
@@ -137,14 +139,19 @@ export function ProductItem({product, loading, dark = false}) {
   const variantUrl = useVariantUrl(product.handle);
   const t = useT();
   const {open} = useAside();
+  const rootData = useRouteLoaderData('root');
+  const market = rootData?.selectedLocale?.country || 'CA';
 
   const availableVariants = (product.variants?.nodes ?? []).filter(
-    (node) => node?.availableForSale,
+    (node) =>
+      node?.availableForSale && isApprovedVariantSku(node.sku, market),
   );
   const selectedVariant = product.selectedOrFirstAvailableVariant;
-  const variant = selectedVariant?.availableForSale
+  const variant =
+    selectedVariant?.availableForSale &&
+    isApprovedVariantSku(selectedVariant.sku, market)
     ? selectedVariant
-    : (availableVariants[0] ?? selectedVariant ?? product.variants?.nodes?.[0]);
+    : (availableVariants[0] ?? {availableForSale: false, selectedOptions: []});
   const featured = product.featuredImage;
   const hoverImage = product.images?.nodes?.[1] ?? null;
   const priceRange = resolveAvailablePriceRange(product, availableVariants);

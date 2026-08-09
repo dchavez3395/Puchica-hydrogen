@@ -11,15 +11,15 @@
 export const DICTIONARIES = {
   en: {
     // ── Announcement bar ──────────────────────────────────────────
-    announce_offer: '15% off your first order, code FIRST15',
+    announce_offer: 'Focused travel organizers for easier packing',
     announce_freeship: 'Shipping options shown at checkout',
-    announce_cta: 'Shop trending finds',
-    offer_first15: 'New here? Take 15% off your first order with code FIRST15.',
+    announce_cta: 'Shop travel organizers',
+    offer_first15: 'Shipping options and delivery estimates appear at checkout.',
     announce_region_aria: 'Site announcements',
 
     // ── Footer ────────────────────────────────────────────────────
     footer_tagline:
-      'Trending high-ticket finds under C$200. Verified suppliers. Shipping confirmed at checkout.',
+      'Practical travel organizers with clear product details and shipping shown at checkout.',
     footer_accepted_payments: 'Accepted payments',
     footer_secure: 'Secure checkout by Shopify, encrypted, PCI-compliant',
     footer_shop: 'Shop',
@@ -272,6 +272,10 @@ export const DICTIONARIES = {
     ship_check_tracking_body:
       'When a tracked service is available, tracking details are sent after the order has shipped.',
     ship_check_tracking_eta: 'See the shipping policy for support details',
+    ship_check_duties_title: 'Duties and import charges',
+    ship_check_duties_body:
+      'Customs duties, import taxes, brokerage, or carrier charges may be assessed by the destination. Puchica does not collect these charges; when applicable, they are the customer’s responsibility.',
+    ship_check_duties_eta: 'Charged by customs or the carrier when applicable',
     ship_regions_eye: 'Where we ship',
     ship_regions_title: 'Coverage expands only after validation.',
     ship_regions_sub:
@@ -710,8 +714,7 @@ export const DICTIONARIES = {
     cart_heading_aria: 'Line items',
     cart_remove_region_aria: 'Remove from cart',
     cart_empty_title: 'Nothing in your cart yet.',
-    cart_empty_body:
-      'Start with one practical organizer for clothing, cables, or toiletries.',
+    cart_empty_body: 'Start with one practical organizer for your next trip.',
     cart_empty_cta_shop: 'Shop the travel edit',
     cart_empty_cta_best: 'View packing cubes',
     cart_empty_perks_aria: 'Why shop with us',
@@ -841,22 +844,22 @@ export const DICTIONARIES = {
     reviews_count_many: '({count} reviews)',
 
     // ── Newsletter popup modal ────────────────────────────────────
-    np_aria: 'Get 15% off your first order',
+    np_aria: 'Join the Puchica list',
     np_close_backdrop: 'Close',
     np_close_x: 'Close',
     np_success_h: "You're in!",
     np_success_body:
-      "Here's 15% off your first order. Use this code at checkout:",
+      "You're subscribed for product updates, restocks, and occasional offers.",
     np_copy_btn: 'Copied!',
     np_copy_hint: 'Tap to copy',
     np_success_cta: 'Start shopping →',
-    np_form_h: 'Get 15% off your first order',
+    np_form_h: 'Join the Puchica list',
     np_form_body:
-      "Join the list for new drops and members-only deals. We'll send your code right away. No spam, unsubscribe anytime.",
+      'Get product updates, restocks, and occasional offers. No spam; unsubscribe anytime.',
     np_email_placeholder: 'you@email.com',
     np_email_aria: 'Email address',
     np_joining: 'Joining…',
-    np_submit: 'Get my 15% off',
+    np_submit: 'Subscribe',
     np_dismiss: 'No thanks',
 
     // ── ProductItem card (badges, placeholder) ────────────────────
@@ -1131,7 +1134,7 @@ export const DICTIONARIES = {
       'Colorful woven textile and a painted ceramic vessel',
     about_standards_intro:
       'A smaller catalog only works when the reason for each product is easy to explain.',
-    about_shop_eye: 'The three-product edit',
+    about_shop_eye: 'The travel edit',
     about_shop_title: 'Start with the part of packing that slows you down.',
     about_shop_home_title: 'Packing cubes',
     about_shop_cable_title: 'Cable organizer',
@@ -1363,7 +1366,7 @@ export const DICTIONARIES = {
 
     home_newsletter_aria: 'Newsletter',
     home_newsletter_eyebrow: 'Join the list',
-    home_newsletter_heading: 'Get 10% off your first order',
+    home_newsletter_heading: 'Travel updates, without the clutter',
     home_newsletter_body:
       'New drops, restocks, and the occasional sale, straight to your inbox, never spam.',
     home_newsletter_placeholder: 'you@example.com',
@@ -1430,15 +1433,15 @@ export const DICTIONARIES = {
 
   // ════════════════════════════════════════════════════════════════
   fr: {
-    announce_offer: '15 % de rabais sur votre première commande, code FIRST15',
+    announce_offer: 'Des accessoires de voyage pratiques pour mieux organiser vos bagages',
     announce_freeship: 'Options de livraison affichées au paiement',
-    announce_cta: 'Voir les trouvailles',
+    announce_cta: 'Voir les accessoires de voyage',
     offer_first15:
-      'Nouveau ici ? 15 % de rabais sur votre première commande avec le code FIRST15.',
+      'Les options et délais de livraison sont affichés au paiement.',
     announce_region_aria: 'Annonces du site',
 
     footer_tagline:
-      'Trouvailles haut de gamme sous 200 $. Fournisseurs vérifiés. Livraison confirmée au paiement.',
+      'Accessoires de voyage pratiques, détails clairs et livraison affichée au paiement.',
     footer_accepted_payments: 'Paiements acceptés',
     footer_secure: 'Paiement sécurisé par Shopify, chiffré et conforme PCI',
     footer_shop: 'Boutique',
@@ -1611,6 +1614,11 @@ export const DICTIONARIES = {
       'Lorsqu’un service suivi est disponible, les détails sont envoyés après l’expédition.',
     ship_check_tracking_eta:
       'Consultez la politique d’expédition pour obtenir de l’aide',
+    ship_check_duties_title: 'Droits et frais d’importation',
+    ship_check_duties_body:
+      'Des droits de douane, taxes d’importation, frais de courtage ou frais du transporteur peuvent être imposés à destination. Puchica ne perçoit pas ces frais; le client en est responsable lorsqu’ils s’appliquent.',
+    ship_check_duties_eta:
+      'Facturés par les douanes ou le transporteur, le cas échéant',
     ship_regions_eye: 'Où nous livrons',
     ship_regions_title: 'La couverture s’étend après validation.',
     ship_regions_sub:
@@ -2054,7 +2062,7 @@ export const DICTIONARIES = {
     cart_remove_region_aria: 'Retirer du panier',
     cart_empty_title: 'Votre panier est vide.',
     cart_empty_body:
-      'Commencez par une trouvaille — chaque produit provient d’un fournisseur vérifié.',
+      'Commencez par un organiseur pratique pour votre prochain voyage.',
     cart_empty_cta_shop: 'Voir les trouvailles',
     cart_empty_cta_best: 'Voir les meilleures ventes',
     cart_empty_perks_aria: 'Pourquoi magasiner avec nous',
@@ -2198,22 +2206,22 @@ export const DICTIONARIES = {
     reviews_count_many: '({count} avis)',
 
     // ── Fenêtre modale d’infolettre ─────────────────────────────
-    np_aria: 'Obtenez 15 % de rabais sur votre première commande',
+    np_aria: 'Rejoignez la liste Puchica',
     np_close_backdrop: 'Fermer',
     np_close_x: 'Fermer',
     np_success_h: 'Vous êtes inscrit·e !',
     np_success_body:
-      'Voici 15 % de rabais sur votre première commande. Utilisez ce code à la caisse :',
+      'Vous recevrez les nouveautés, les réassorts et les offres occasionnelles.',
     np_copy_btn: 'Copié !',
     np_copy_hint: 'Touchez pour copier',
     np_success_cta: 'Commencer à magasiner →',
-    np_form_h: 'Obtenez 15 % de rabais sur votre première commande',
+    np_form_h: 'Rejoignez la liste Puchica',
     np_form_body:
-      'Rejoignez la liste pour les nouveautés et les offres réservées aux membres. Nous vous enverrons votre code immédiatement. Pas de spam, désabonnez-vous à tout moment.',
+      'Recevez les nouveautés, les réassorts et les offres occasionnelles. Désabonnement à tout moment.',
     np_email_placeholder: 'vous@courriel.com',
     np_email_aria: 'Adresse courriel',
     np_joining: 'Inscription…',
-    np_submit: 'Obtenir mon 15 % de rabais',
+    np_submit: 'S’abonner',
     np_dismiss: 'Non merci',
 
     // ── Fiche produit (badges, espace réservé) ──────────────────
@@ -2493,7 +2501,7 @@ export const DICTIONARIES = {
       'Un textile tissé coloré et un récipient en céramique peinte',
     about_standards_intro:
       'Un petit catalogue ne fonctionne que si la raison d’être de chaque produit est claire.',
-    about_shop_eye: 'La sélection de trois produits',
+    about_shop_eye: 'La sélection voyage',
     about_shop_title: 'Commencez par la partie du rangement qui vous ralentit.',
     about_shop_home_title: 'Cubes de rangement',
     about_shop_cable_title: 'Étui pour câbles',
@@ -2744,7 +2752,7 @@ export const DICTIONARIES = {
 
     home_newsletter_aria: 'Infolettre',
     home_newsletter_eyebrow: 'Rejoignez la liste',
-    home_newsletter_heading: 'Obtenez 10 % sur votre première commande',
+    home_newsletter_heading: 'Des nouvelles voyage, sans encombrement',
     home_newsletter_body:
       'Nouveautés, réassorts et ventes occasionnelles, dans votre boîte, jamais de spam.',
     home_newsletter_placeholder: 'vous@exemple.com',
@@ -2805,16 +2813,16 @@ export const DICTIONARIES = {
 
   // ════════════════════════════════════════════════════════════════
   es: {
-    announce_offer: '15 % de descuento en tu primer pedido, código FIRST15',
+    announce_offer: 'Organizadores de viaje prácticos para empacar mejor',
     announce_freeship:
       'Las opciones de envío se muestran al finalizar la compra',
-    announce_cta: 'Ver hallazgos',
+    announce_cta: 'Ver organizadores de viaje',
     offer_first15:
-      '¿Primera compra? 15 % de descuento en tu primer pedido con el código FIRST15.',
+      'Las opciones y los plazos de envío se muestran al pagar.',
     announce_region_aria: 'Anuncios del sitio',
 
     footer_tagline:
-      'Hallazgos de alto valor bajo C$200. Proveedores verificados. Envío confirmado al pagar.',
+      'Organizadores de viaje prácticos, detalles claros y envío mostrado al pagar.',
     footer_accepted_payments: 'Pagos aceptados',
     footer_secure: 'Pago seguro con Shopify, cifrado y conforme con PCI',
     footer_shop: 'Tienda',
@@ -2987,6 +2995,11 @@ export const DICTIONARIES = {
       'Cuando haya un servicio con seguimiento, recibirás los detalles después del envío.',
     ship_check_tracking_eta:
       'Consulta la política de envíos para obtener ayuda',
+    ship_check_duties_title: 'Aranceles y cargos de importación',
+    ship_check_duties_body:
+      'El destino puede aplicar aranceles, impuestos de importación, gastos de gestión o cargos del transportista. Puchica no cobra estos importes; cuando correspondan, son responsabilidad del cliente.',
+    ship_check_duties_eta:
+      'Cobrados por aduanas o el transportista cuando corresponda',
     ship_regions_eye: 'A dónde enviamos',
     ship_regions_title: 'La cobertura se amplía tras la validación.',
     ship_regions_sub:
@@ -3434,7 +3447,7 @@ export const DICTIONARIES = {
     cart_remove_region_aria: 'Quitar del carrito',
     cart_empty_title: 'Tu carrito está vacío.',
     cart_empty_body:
-      'Empieza con un hallazgo — cada producto viene de un proveedor verificado.',
+      'Empieza con un organizador práctico para tu próximo viaje.',
     cart_empty_cta_shop: 'Ver hallazgos',
     cart_empty_cta_best: 'Ver más vendidos',
     cart_empty_perks_aria: 'Por qué comprar con nosotros',
@@ -3577,22 +3590,22 @@ export const DICTIONARIES = {
     reviews_count_many: '({count} reseñas)',
 
     // ── Modal del boletín ───────────────────────────────────────
-    np_aria: 'Obtén 15 % de descuento en tu primer pedido',
+    np_aria: 'Únete a la lista de Puchica',
     np_close_backdrop: 'Cerrar',
     np_close_x: 'Cerrar',
     np_success_h: '¡Ya estás dentro!',
     np_success_body:
-      'Aquí tienes 15 % de descuento en tu primer pedido. Usa este código en el pago:',
+      'Recibirás novedades, reposiciones y ofertas ocasionales.',
     np_copy_btn: '¡Copiado!',
     np_copy_hint: 'Toca para copiar',
     np_success_cta: 'Empezar a comprar →',
-    np_form_h: 'Obtén 15 % de descuento en tu primer pedido',
+    np_form_h: 'Únete a la lista de Puchica',
     np_form_body:
-      'Únete a la lista para novedades y ofertas solo para miembros. Te enviaremos tu código de inmediato. Sin spam, cancela cuando quieras.',
+      'Recibe novedades, reposiciones y ofertas ocasionales. Cancela cuando quieras.',
     np_email_placeholder: 'tu@correo.com',
     np_email_aria: 'Correo electrónico',
     np_joining: 'Uniéndome…',
-    np_submit: 'Obtener mi 15 % de descuento',
+    np_submit: 'Suscribirse',
     np_dismiss: 'No gracias',
 
     // ── Tarjeta de producto (insignias, espacio) ───────────────
@@ -3869,7 +3882,7 @@ export const DICTIONARIES = {
       'Un tejido colorido y una vasija de cerámica pintada',
     about_standards_intro:
       'Un catálogo pequeño solo funciona si la razón de cada producto es fácil de explicar.',
-    about_shop_eye: 'La selección de tres productos',
+    about_shop_eye: 'La selección de viaje',
     about_shop_title: 'Empieza con la parte del empaque que más te retrasa.',
     about_shop_home_title: 'Cubos de empaque',
     about_shop_cable_title: 'Organizador de cables',
@@ -4121,7 +4134,7 @@ export const DICTIONARIES = {
 
     home_newsletter_aria: 'Boletín',
     home_newsletter_eyebrow: 'Únete a la lista',
-    home_newsletter_heading: 'Obtén 10% en tu primer pedido',
+    home_newsletter_heading: 'Novedades de viaje, sin desorden',
     home_newsletter_body:
       'Novedades, reposiciones y ofertas ocasionales, directo a tu correo, sin spam.',
     home_newsletter_placeholder: 'tu@ejemplo.com',
@@ -4182,15 +4195,15 @@ export const DICTIONARIES = {
 
   // ════════════════════════════════════════════════════════════════
   'pt-br': {
-    announce_offer: '15% de desconto no primeiro pedido, código FIRST15',
+    announce_offer: 'Organizadores de viagem práticos para arrumar melhor',
     announce_freeship: 'Opções de envio mostradas no checkout',
-    announce_cta: 'Ver achados',
+    announce_cta: 'Ver organizadores de viagem',
     offer_first15:
-      'Primeira compra? 15% de desconto no primeiro pedido com o código FIRST15.',
+      'As opções e os prazos de envio aparecem no checkout.',
     announce_region_aria: 'Avisos do site',
 
     footer_tagline:
-      'Achados de alto valor abaixo de C$200. Fornecedores verificados. Frete confirmado no checkout.',
+      'Organizadores de viagem práticos, detalhes claros e frete mostrado no checkout.',
     footer_accepted_payments: 'Pagamentos aceitos',
     footer_secure:
       'Checkout seguro pela Shopify, criptografado e em conformidade com PCI',
@@ -4363,6 +4376,11 @@ export const DICTIONARIES = {
     ship_check_tracking_body:
       'Quando houver serviço com rastreio, os detalhes serão enviados após o despacho.',
     ship_check_tracking_eta: 'Consulte a política de envio para obter ajuda',
+    ship_check_duties_title: 'Impostos e taxas de importação',
+    ship_check_duties_body:
+      'O destino pode cobrar impostos aduaneiros, tributos de importação, corretagem ou taxas da transportadora. A Puchica não cobra esses valores; quando aplicáveis, são responsabilidade do cliente.',
+    ship_check_duties_eta:
+      'Cobrados pela alfândega ou transportadora quando aplicável',
     ship_regions_eye: 'Para onde enviamos',
     ship_regions_title: 'A cobertura aumenta após validação.',
     ship_regions_sub:
@@ -4804,7 +4822,7 @@ export const DICTIONARIES = {
     cart_remove_region_aria: 'Remover do carrinho',
     cart_empty_title: 'Seu carrinho está vazio.',
     cart_empty_body:
-      'Comece com um achado — cada produto vem de um fornecedor verificado.',
+      'Comece com um organizador prático para a sua próxima viagem.',
     cart_empty_cta_shop: 'Ver achados',
     cart_empty_cta_best: 'Ver mais vendidos',
     cart_empty_perks_aria: 'Por que comprar com a gente',
@@ -4947,22 +4965,22 @@ export const DICTIONARIES = {
     reviews_count_many: '({count} avaliações)',
 
     // ── Modal do boletim ────────────────────────────────────────
-    np_aria: 'Ganhe 15% de desconto no primeiro pedido',
+    np_aria: 'Entre na lista da Puchica',
     np_close_backdrop: 'Fechar',
     np_close_x: 'Fechar',
     np_success_h: 'Você está dentro!',
     np_success_body:
-      'Aqui está 15% de desconto no seu primeiro pedido. Use este código no pagamento:',
+      'Você receberá novidades, reposições e ofertas ocasionais.',
     np_copy_btn: 'Copiado!',
     np_copy_hint: 'Toque para copiar',
     np_success_cta: 'Comece a comprar →',
-    np_form_h: 'Ganhe 15% de desconto no primeiro pedido',
+    np_form_h: 'Entre na lista da Puchica',
     np_form_body:
-      'Entre na lista para novidades e ofertas só para membros. Enviaremos seu código na hora. Sem spam, cancele quando quiser.',
+      'Receba novidades, reposições e ofertas ocasionais. Cancele quando quiser.',
     np_email_placeholder: 'seu@email.com',
     np_email_aria: 'Endereço de e-mail',
     np_joining: 'Entrando…',
-    np_submit: 'Quero meu 15% de desconto',
+    np_submit: 'Inscrever-se',
     np_dismiss: 'Não, obrigado',
 
     // ── Cartão de produto (selos, placeholder) ──────────────────
@@ -5239,7 +5257,7 @@ export const DICTIONARIES = {
       'Um tecido colorido e um recipiente de cerâmica pintada',
     about_standards_intro:
       'Um catálogo menor só funciona quando o motivo de cada produto é fácil de explicar.',
-    about_shop_eye: 'A seleção de três produtos',
+    about_shop_eye: 'A seleção de viagem',
     about_shop_title: 'Comece pela parte da arrumação que mais atrasa você.',
     about_shop_home_title: 'Cubos organizadores',
     about_shop_cable_title: 'Organizador de cabos',
@@ -5487,7 +5505,7 @@ export const DICTIONARIES = {
 
     home_newsletter_aria: 'Newsletter',
     home_newsletter_eyebrow: 'Junte-se à lista',
-    home_newsletter_heading: 'Ganhe 10% no seu primeiro pedido',
+    home_newsletter_heading: 'Novidades de viagem, sem bagunça',
     home_newsletter_body:
       'Novidades, reposições e promoções ocasionais, direto no seu e-mail, sem spam.',
     home_newsletter_placeholder: 'voce@exemplo.com',

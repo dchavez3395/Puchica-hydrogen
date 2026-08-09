@@ -13,11 +13,13 @@ import {
   websiteJsonLd,
 } from '~/lib/seo';
 
-export const meta = ({params}) =>
+export const meta = ({data, params}) =>
   puchicaMeta({
     title: 'Puchica — Travel organizers for easier packing',
     description:
-      'A focused travel-organization edit: packing cubes, a cable case, and a toiletry organizer with shipping shown at checkout.',
+      data?.country === 'US'
+        ? 'A focused travel organizer with clear product details and shipping shown at checkout.'
+        : 'A focused travel-organization edit for clothing, cables, and toiletries, with shipping shown at checkout.',
     pathname: '/',
     langKey: params?.locale,
   });
@@ -32,11 +34,15 @@ export async function loader({context}) {
     });
 
     return {
-      products: filterLaunchProducts(data?.launchProducts?.nodes ?? []),
+      country,
+      products: filterLaunchProducts(
+        data?.launchProducts?.nodes ?? [],
+        country,
+      ),
     };
   } catch (error) {
     logError('home travel edit query failed', error);
-    return {products: []};
+    return {country, products: []};
   }
 }
 

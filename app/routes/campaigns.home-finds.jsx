@@ -16,7 +16,9 @@ export const meta = ({data, params}) => {
   return puchicaMeta({
     title: 'Travel organizers for easier packing — Puchica',
     description:
-      'Shop a focused travel edit for clothing, cables, and toiletries.',
+      data?.country === 'US'
+        ? 'Shop the travel organizers currently supported for the United States.'
+        : 'Shop a focused Canadian travel edit for clothing, cables, and toiletries.',
     pathname: '/campaigns/home-finds',
     langKey: params?.locale,
     noindex: !data?.products?.length,
@@ -41,11 +43,15 @@ export async function loader({context}) {
     });
 
     return {
-      products: filterLaunchProducts(data?.launchProducts?.nodes ?? []),
+      country,
+      products: filterLaunchProducts(
+        data?.launchProducts?.nodes ?? [],
+        country,
+      ),
     };
   } catch (error) {
     logError('home-finds campaign query failed', error);
-    return {products: []};
+    return {country, products: []};
   }
 }
 

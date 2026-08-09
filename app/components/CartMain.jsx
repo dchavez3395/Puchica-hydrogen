@@ -245,14 +245,6 @@ function CartEmpty({hidden = false}) {
           >
             {t('cart_empty_cta_shop')} <span aria-hidden>→</span>
           </Link>
-          <Link
-            to="/products/3-piece-packing-cube-set"
-            onClick={close}
-            prefetch="intent"
-            className="pk-btn pk-btn--secondary pk-btn--lg"
-          >
-            {t('cart_empty_cta_best')}
-          </Link>
         </div>
         <ul
           className="pk-empty-cart__perks"

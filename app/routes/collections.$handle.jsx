@@ -136,7 +136,10 @@ async function loadCriticalData({context, params, request}) {
   // same vendor — the page reads as one long list of the same
   // brand. Re-rank the page so adjacent products are from different
   // vendors. See app/lib/diversify.js.
-  const launchProducts = filterLaunchProducts(collection.products?.nodes);
+  const launchProducts = filterLaunchProducts(
+    collection.products?.nodes,
+    country,
+  );
   if (launchProducts.length > 2) {
     collection.products = {
       ...collection.products,
@@ -529,6 +532,7 @@ const PRODUCT_ITEM_FRAGMENT = `#graphql
     variants(first: 100) {
       nodes {
         id
+        sku
         availableForSale
         title
         requiresShipping

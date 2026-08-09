@@ -20,7 +20,9 @@ export const meta = ({data, params}) => {
   return puchicaMeta({
     title: 'Shop Travel Organizers — Puchica',
     description:
-      'Shop Puchica’s focused travel edit: packing cubes, a cable case, and a toiletry organizer.',
+      data?.country === 'US'
+        ? 'Shop the travel organizers currently supported for the United States.'
+        : 'Shop Puchica’s focused Canadian travel edit for clothing, cables, and toiletries.',
     type: 'website',
     pathname: '/collections/all',
     langKey: params?.locale,
@@ -108,7 +110,7 @@ async function loadCriticalData({context, request}) {
   // vendor. Re-rank so adjacent products are from different vendors
   // (e.g. iPhone case, hair product, robot toy, in that order).
   // See app/lib/diversify.js.
-  const launchProducts = filterLaunchProducts(rawProducts?.nodes);
+  const launchProducts = filterLaunchProducts(rawProducts?.nodes, country);
   const products = {
     ...rawProducts,
     nodes:
@@ -116,7 +118,7 @@ async function loadCriticalData({context, request}) {
         ? diversifyByVendor(launchProducts)
         : launchProducts,
   };
-  return {products};
+  return {country, products};
 }
 
 function loadDeferredData() {
@@ -329,6 +331,7 @@ const COLLECTION_ITEM_FRAGMENT = `#graphql
     variants(first: 100) {
       nodes {
         id
+        sku
         availableForSale
         title
         requiresShipping

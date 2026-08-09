@@ -2,8 +2,7 @@ import {useT} from '~/lib/t';
 
 /**
  * Eyebrow + h2 + body + email input + submit. Posts to the existing
- * `/newsletter` route. The 10%-off promise in the caption is
- * rendered as `{home_newsletter_promise}` so it lives in the dictionary.
+ * `/newsletter` route. Copy lives in the localized dictionary.
  *
  * Keys are prefixed `home_newsletter_` to avoid collision with the
  * existing global `newsletter_*` keys used by the footer newsletter form.
