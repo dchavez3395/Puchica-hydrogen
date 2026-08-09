@@ -1,7 +1,7 @@
 import {ServerRouter} from 'react-router';
-import {isbot} from 'isbot';
 import {renderToReadableStream} from 'react-dom/server';
 import {createContentSecurityPolicy} from '@shopify/hydrogen';
+import {placeTrailingRouterChunksInsideBody} from '~/lib/html-stream';
 
 /**
  * @param {Request} request
@@ -86,9 +86,15 @@ export default async function handleRequest(
     },
   );
 
-  if (isbot(request.headers.get('user-agent'))) {
-    await body.allReady;
-  }
+  // The current root loader streams several deferred values. Sending the
+  // document before they settle appends React Router's replacement nodes after
+  // `</html>` in Chromium, which causes a full hydration bailout on ordinary
+  // storefront loads. This small launch catalog favors a stable hydrated
+  // document over a marginal streaming gain.
+  await body.allReady;
+  const html = placeTrailingRouterChunksInsideBody(
+    await new Response(body).text(),
+  );
 
   responseHeaders.set('Content-Type', 'text/html');
   responseHeaders.set('Content-Security-Policy', header);
@@ -98,7 +104,7 @@ export default async function handleRequest(
     'camera=(), microphone=(), geolocation=()',
   );
 
-  return new Response(body, {
+  return new Response(html, {
     headers: responseHeaders,
     status: responseStatusCode,
   });

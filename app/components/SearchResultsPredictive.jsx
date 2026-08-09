@@ -1,4 +1,4 @@
-import {useFetcher} from 'react-router';
+import {useFetcher, useRouteLoaderData} from 'react-router';
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {Image} from '@shopify/hydrogen';
 import {CurrencyMoney} from '~/components/CurrencyMoney';
@@ -262,12 +262,14 @@ function SearchResultsPredictiveEmpty({term, closeSearch}) {
  */
 function SearchZeroState({closeSearch}) {
   const t = useT();
+  const rootData = useRouteLoaderData('root');
+  const market = rootData?.selectedLocale?.country || 'CA';
   // Recently-viewed lives in localStorage — client-only. Start empty
   // (matches SSR) and hydrate after mount to avoid a mismatch.
   const [recent, setRecent] = useState([]);
   useEffect(() => {
-    setRecent(getRecentlyViewed().slice(0, 4));
-  }, []);
+    setRecent(getRecentlyViewed(market).slice(0, 4));
+  }, [market]);
 
   const trending = String(t('search_trending_terms'))
     .split(',')

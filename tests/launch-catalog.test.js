@@ -108,6 +108,30 @@ test('containment removes products from feeds and sitemap discovery', async () =
   );
 });
 
+test('robots allows approved product and collection pages to be indexed', async () => {
+  const robots = await readFile(
+    new URL('../app/routes/[robots.txt].jsx', import.meta.url),
+    'utf8',
+  );
+
+  assert.doesNotMatch(robots, /Disallow: \/products(?:\r?\n|$)/);
+  assert.doesNotMatch(robots, /Disallow: \/\*\/products(?:\r?\n|$)/);
+  assert.doesNotMatch(robots, /Disallow: \/collections(?:\r?\n|$)/);
+  assert.doesNotMatch(robots, /Disallow: \/\*\/collections(?:\r?\n|$)/);
+  assert.match(robots, /Disallow: \/collections\/\*sort_by\*/);
+});
+
+test('product sitemap has the exact-variant data required by its launch gate', async () => {
+  const sitemap = await readFile(
+    new URL('../app/routes/sitemap.$type.$page[.xml].jsx', import.meta.url),
+    'utf8',
+  );
+
+  assert.match(sitemap, /variants\(first: 50\)/);
+  assert.match(sitemap, /sku\s+availableForSale/);
+  assert.match(sitemap, /'\/collections\/all'/);
+});
+
 test('released homepage is travel-focused and uses the catalog gate', async () => {
   const home = await readFile(
     new URL('../app/routes/_index.jsx', import.meta.url),

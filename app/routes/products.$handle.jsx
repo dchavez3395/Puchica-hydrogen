@@ -1,11 +1,9 @@
 import {useEffect, useState} from 'react';
-import {useLoaderData} from 'react-router';
+import {useLoaderData, useRouteLoaderData} from 'react-router';
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {
   getSelectedProductOptions,
   Analytics,
-  useOptimisticVariant,
-  getAdjacentAndFirstAvailableVariants,
   Image,
 } from '@shopify/hydrogen';
 import {ProductPrice} from '~/components/ProductPrice';
@@ -139,13 +137,12 @@ async function loadCriticalData({context, params, request}) {
 
 export default function Product() {
   const {product, reviews} = useLoaderData();
+  const rootData = useRouteLoaderData('root');
+  const market = rootData?.selectedLocale?.country || 'CA';
   const t = useT();
   const need = getProductNeed(product, t);
 
-  const selectedVariant = useOptimisticVariant(
-    product.selectedOrFirstAvailableVariant,
-    getAdjacentAndFirstAvailableVariants(product),
-  );
+  const selectedVariant = product.selectedOrFirstAvailableVariant;
   // The launch catalog intentionally exposes one audited variant per product.
   // Passing the supplier's removed option matrix through Hydrogen's option
   // mapper produced missing-option warnings and served no customer control.
@@ -162,14 +159,23 @@ export default function Product() {
   useEffect(() => {
     recordRecentlyViewed({
       handle: product.handle,
-      title: product.title,
+      title: displayTitle,
+      sku: selectedVariant?.sku,
+      market,
       image:
         product.selectedOrFirstAvailableVariant?.image ||
         product.featuredImage,
       price: product.selectedOrFirstAvailableVariant?.price,
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [product.id]);
+  }, [
+    product.featuredImage,
+    product.handle,
+    product.id,
+    product.selectedOrFirstAvailableVariant,
+    displayTitle,
+    market,
+    selectedVariant?.sku,
+  ]);
 
   return (
     <div className="pk-product">
@@ -206,7 +212,7 @@ export default function Product() {
           </nav>
 
           <div className="pk-product__top">
-            <div className="pk-product__mobile-heading">
+            <div className="pk-product__heading">
               {need ? (
                 <p className="pk-product__category">{need.label}</p>
               ) : null}
@@ -214,11 +220,26 @@ export default function Product() {
               {reviews && reviews.count > 0 ? (
                 <ReviewStars rating={reviews.rating} count={reviews.count} />
               ) : null}
-              <div className="pk-product__price-row">
-                <ProductPrice
-                  price={selectedVariant?.price}
-                  compareAtPrice={selectedVariant?.compareAtPrice}
-                />
+              {summary ? <p className="pk-product__lede">{summary}</p> : null}
+              <div className="pk-product__price-cluster">
+                <div className="pk-product__price-row">
+                  <ProductPrice
+                    price={selectedVariant?.price}
+                    compareAtPrice={selectedVariant?.compareAtPrice}
+                  />
+                  {savePercent(selectedVariant) ? (
+                    <span className="pk-product__badge pk-product__badge--save">
+                      {t('product_badge_save', {
+                        pct: savePercent(selectedVariant),
+                      })}
+                    </span>
+                  ) : null}
+                  {selectedVariant?.availableForSale === false && (
+                    <span className="pk-product__badge pk-product__badge--sold">
+                      {t('product_badge_sold_out')}
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
             <ProductImage
@@ -230,56 +251,6 @@ export default function Product() {
             />
 
             <div className="pk-product__info">
-              <div className="pk-product__desktop-heading">
-                {/* Buy column in funnel order (audit §4): category → title →
-              rating → price (+ save %) → options/qty/ATC → promise →
-              trust → accordions. No scroll reveals — the buy column
-              is the money UI; it must never be hidden by an observer. */}
-                {need ? (
-                  <p className="pk-product__category">{need.label}</p>
-                ) : null}
-
-                {/* Each breakpoint exposes one semantic page title. The matching
-              mobile/desktop wrapper is `display:none` at the opposite
-              breakpoint, so assistive technology receives one visible H1
-              while sighted desktop shoppers no longer see an aria-hidden
-              title with no corresponding page heading. */}
-                <h1 className="pk-product__title">{displayTitle}</h1>
-
-                {reviews && reviews.count > 0 ? (
-                  <ReviewStars rating={reviews.rating} count={reviews.count} />
-                ) : null}
-
-                {summary ? <p className="pk-product__lede">{summary}</p> : null}
-
-                <div className="pk-product__price-cluster">
-                  <div className="pk-product__price-row">
-                    <ProductPrice
-                      price={selectedVariant?.price}
-                      compareAtPrice={selectedVariant?.compareAtPrice}
-                    />
-                    {savePercent(selectedVariant) ? (
-                      <span className="pk-product__badge pk-product__badge--save">
-                        {t('product_badge_save', {
-                          pct: savePercent(selectedVariant),
-                        })}
-                      </span>
-                    ) : null}
-                    {selectedVariant?.availableForSale === false && (
-                      <span className="pk-product__badge pk-product__badge--sold">
-                        {t('product_badge_sold_out')}
-                      </span>
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              {summary ? (
-                <p className="pk-product__lede pk-product__lede--mobile">
-                  {summary}
-                </p>
-              ) : null}
-
               <div className="pk-product__form-wrap" id="product-form">
                 <ProductForm
                   productOptions={productOptions}

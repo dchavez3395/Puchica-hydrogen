@@ -1,4 +1,5 @@
 import {useState, useEffect} from 'react';
+import {useRouteLoaderData} from 'react-router';
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {Image} from '@shopify/hydrogen';
 import {CurrencyMoney} from '~/components/CurrencyMoney';
@@ -14,14 +15,16 @@ import {useT} from '~/lib/t';
  */
 export function RecentlyViewed({currentHandle}) {
   const t = useT();
+  const rootData = useRouteLoaderData('root');
+  const market = rootData?.selectedLocale?.country || 'CA';
   const [recent, setRecent] = useState([]);
 
   useEffect(() => {
-    const list = getRecentlyViewed().filter(
+    const list = getRecentlyViewed(market).filter(
       (p) => p.handle !== currentHandle,
     );
     setRecent(list.slice(0, 8));
-  }, [currentHandle]);
+  }, [currentHandle, market]);
 
   if (recent.length === 0) return null;
 

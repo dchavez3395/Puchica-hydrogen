@@ -16134,14 +16134,22 @@ main:has(> .pk-collection--bold) {
   align-items: start;
   display: grid !important;
   gap: clamp(44px, 6vw, 104px) !important;
+  grid-template-areas:
+    'media heading'
+    'media info';
   grid-template-columns: minmax(0, 1.02fr) minmax(390px, .78fr) !important;
+  grid-template-rows: auto 1fr;
   margin: 0 !important;
   max-width: none !important;
 }
 
-.pk-product__mobile-heading { display: none; }
+.pk-product__heading {
+  grid-area: heading;
+  min-width: 0;
+}
 
 .pk-product__media {
+  grid-area: media;
   margin: 0;
   max-width: none;
   min-width: 0;
@@ -16218,6 +16226,7 @@ main:has(> .pk-collection--bold) {
   align-content: start;
   display: grid !important;
   gap: 0 !important;
+  grid-area: info;
   max-width: 600px;
   padding-top: clamp(2px, .7vw, 10px);
   position: static !important;
@@ -16537,22 +16546,21 @@ main:has(> .pk-collection--bold) {
   }
   .pk-product__top {
     gap: 24px !important;
+    grid-template-areas:
+      'heading'
+      'media'
+      'info';
     grid-template-columns: minmax(0, 1fr) !important;
+    grid-template-rows: auto;
   }
-  .pk-product__mobile-heading { display: block; }
-  .pk-product__desktop-heading { display: none; }
-  .pk-product__mobile-heading .pk-product__title {
+  .pk-product__heading .pk-product__title {
     font-size: clamp(2.15rem, 10vw, 3.25rem) !important;
     margin-bottom: 16px !important;
     max-width: 16ch;
   }
-  .pk-product__mobile-heading .pk-product__price-row { margin-top: 16px; }
-  .pk-product__lede--mobile {
-    display: block;
-    margin-bottom: 22px;
-  }
-  .pk-product__media { order: 2; position: static; }
-  .pk-product__info { max-width: none; order: 3; padding: 0; }
+  .pk-product__heading .pk-product__price-row { margin-top: 16px; }
+  .pk-product__media { position: static; }
+  .pk-product__info { max-width: none; padding: 0; }
   .pk-product__hero-wrap { border-radius: 18px; }
   .pk-product__hero { border-radius: 12px !important; max-height: none !important; }
   .pk-thumbs__item { height: 60px !important; width: 60px !important; }

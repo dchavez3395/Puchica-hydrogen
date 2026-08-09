@@ -5,24 +5,25 @@ import test from 'node:test';
 const readSource = (path) =>
   readFile(new URL(`../${path}`, import.meta.url), 'utf8');
 
-test('product title remains a semantic H1 at desktop and mobile breakpoints', async () => {
+test('product title is one semantic H1 at every breakpoint', async () => {
   const [product, styles] = await Promise.all([
     readSource('app/routes/products.$handle.jsx'),
     readSource('app/styles/app.css'),
   ]);
 
-  assert.match(
-    product,
-    /pk-product__mobile-heading[\s\S]*?<h1 className="pk-product__title">/,
+  assert.equal(
+    product.match(/<h1 className="pk-product__title">/g)?.length,
+    1,
   );
-  assert.match(
-    product,
-    /pk-product__desktop-heading[\s\S]*?<h1 className="pk-product__title">/,
-  );
-  assert.match(styles, /\.pk-product__mobile-heading\s*\{\s*display:\s*none;/);
+  assert.match(product, /className="pk-product__heading"/);
+  assert.doesNotMatch(product, /pk-product__(?:mobile|desktop)-heading/);
   assert.match(
     styles,
-    /@media \(max-width:\s*860px\)[\s\S]*?\.pk-product__desktop-heading\s*\{\s*display:\s*none;/,
+    /grid-template-areas:\s*'media heading'\s*'media info';/,
+  );
+  assert.match(
+    styles,
+    /@media \(max-width:\s*860px\)[\s\S]*?grid-template-areas:\s*'heading'\s*'media'\s*'info';/,
   );
 });
 

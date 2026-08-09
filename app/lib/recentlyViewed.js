@@ -10,10 +10,12 @@
  *     price: {amount, currencyCode} | null, at: epoch-ms }
  */
 
-// v3 retires every snapshot written before the versioned catalog approval
-// gate. Client-side snapshots cannot prove current approval and must never
-// reopen a quarantined PDP through the search drawer or recommendation rail.
-const KEY = 'pk:recently-viewed:v3';
+import {isApprovedVariantSku} from './launch-catalog.js';
+
+// v4 retires snapshots that were written before recently-viewed entries became
+// exact-SKU and market aware. A stale localStorage card must not advertise a
+// Canada-only or held product after the shopper switches markets.
+const KEY = 'pk:recently-viewed:v4';
 const MAX = 8;
 
 export function recordRecentlyViewed(product) {
@@ -22,6 +24,8 @@ export function recordRecentlyViewed(product) {
     const entry = {
       handle: product.handle,
       title: product.title || product.handle,
+      sku: product.sku || null,
+      market: String(product.market || 'CA').toUpperCase(),
       image: product.image
         ? {
             url: product.image.url,
@@ -38,7 +42,9 @@ export function recordRecentlyViewed(product) {
         : null,
       at: Date.now(),
     };
-    const list = getRecentlyViewed().filter((p) => p.handle !== entry.handle);
+    const list = getRecentlyViewed(entry.market).filter(
+      (p) => p.handle !== entry.handle,
+    );
     list.unshift(entry);
     localStorage.setItem(KEY, JSON.stringify(list.slice(0, MAX)));
   } catch {
@@ -47,12 +53,23 @@ export function recordRecentlyViewed(product) {
   }
 }
 
-export function getRecentlyViewed() {
+export function getRecentlyViewed(market = 'CA') {
   if (typeof window === 'undefined') return [];
   try {
     const raw = JSON.parse(localStorage.getItem(KEY) || '[]');
-    return Array.isArray(raw) ? raw.filter((p) => p && p.handle) : [];
+    return filterRecentlyViewedForMarket(raw, market);
   } catch {
     return [];
   }
+}
+
+export function filterRecentlyViewedForMarket(entries, market = 'CA') {
+  if (!Array.isArray(entries)) return [];
+  const country = String(market || 'CA').toUpperCase();
+  return entries.filter(
+    (entry) =>
+      entry?.handle &&
+      entry.market === country &&
+      isApprovedVariantSku(entry.sku, country),
+  );
 }

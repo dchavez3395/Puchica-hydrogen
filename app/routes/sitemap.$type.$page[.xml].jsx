@@ -64,6 +64,12 @@ const LAUNCH_PRODUCTS_QUERY = `#graphql
         tags
         availableForSale
         updatedAt
+        variants(first: 50) {
+          nodes {
+            sku
+            availableForSale
+          }
+        }
       }
     }
   }
@@ -97,6 +103,7 @@ ${alternates}
 
 const LAUNCH_STATIC_PATHS = [
   '/',
+  '/collections/all',
   '/pages/about',
   '/pages/contact',
   '/pages/faq',
