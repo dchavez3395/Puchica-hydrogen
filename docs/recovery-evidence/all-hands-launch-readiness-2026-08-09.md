@@ -2,8 +2,8 @@
 
 ## Binding decision
 
-- **Storefront repair release:** GO after the verified build is deployed and production smoke-tested.
-- **Unpaid/organic promotion:** HOLD until the two exact DSers mappings and current Canada/United States routes are revalidated in a fresh signed-in session.
+- **Storefront repair release:** DEPLOYED and production smoke-tested as Oxygen deployment asset `4174165` from commit `184432b`.
+- **Unpaid/organic promotion:** **GO_ORGANIC_LIMITED.** Packing cubes may be sold in Canada only. The cable case may be sold in Canada and the United States. Recheck the exact DSers SKU, stock, and destination route before fulfilling each initial order.
 - **Paid ads:** HOLD. The cable case has acceptable contribution economics, but packing-cube and bundle CAC headroom is thin and Meta browser/CAPI receipt and deduplication are not yet proven.
 - **Catalog:** frozen. Canada may expose only the exact charcoal three-piece packing-cube SKU and exact black double-layer cable-case SKU. The United States may expose only the exact black double-layer cable-case SKU. No toiletry organizer or other legacy product may surface.
 
@@ -45,6 +45,17 @@ The audit also confirmed that the core market gates worked: Canada exposed the t
   - `/products/3-piece-packing-cube-set`
   - `/products/travel-cable-organizer-case`
 
+## Production verification after deployment
+
+- Live `robots.txt` no longer blocks ordinary product or collection pages.
+- Live product sitemap contains exactly the packing-cube and cable-case URLs.
+- Fresh isolated loads of Home, cable PDP, and packing PDP show one H1 each and no Puchica runtime errors.
+- Canada exposes both exact products; the United States exposes cable only and returns the controlled 404 for packing cubes.
+- The United States search drawer no longer leaks the Canada-only packing cubes, the held toiletry organizer, or CAD prices.
+- The Home hero uses the exact product featured for the active market: packing cubes in Canada and the cable case in the United States.
+
+The Codex test browsers inject their own sibling `<div>` directly under `<html>` (`codex-agent-overlay-root` or `codex-browser-sidebar-comments-root`). When that overlay survives a full market-navigation reload, React correctly reports a hydration mismatch against the extra test element. The raw live Oxygen HTML contains only `<head>` and `<body>`, places all deferred router chunks before `</body>`, and has zero bytes after `</html>`. Clean initial loads in the isolated browser have no errors. The injected testing overlay is therefore not recorded as a storefront defect.
+
 ## Checkout and economics
 
 No order or payment was submitted.
@@ -60,25 +71,27 @@ The checkout test showed no active automatic discount. `FIRST15` is expired and 
 
 The contribution model uses the Shopify Basic online-card fee schedule, with a higher international/Amex stress case. Current Shopify pricing source: https://www.shopify.com/ca/pricing
 
-## Remaining hard gates
+## Fresh DSers fulfillment verification
 
-### 1. Fresh DSers exact-SKU verification
+The two frozen products were rechecked in a fresh signed-in DSers session on 2026-08-09. This check used the exact mapped My Products records, exact supplier variants, and destination-specific Shipping Info. It did not use Supplier Optimizer lookalikes or stale listing ranges.
 
-The connected DSers session was logged out during this audit. Historical screenshots were deliberately not presented as current proof. After login, capture for each exact frozen SKU:
+| Product | Exact mapping and cost | Canada | United States | Decision |
+| --- | --- | --- | --- | --- |
+| Packing cubes | Shopify `50041051676922` → DSers `2086248705456865280` → supplier SKU `S3007 Black / 3PCS L M S`; item US$12.45 | US$1.99, tracked, 8–13 days, CN | No Shipping | Canada `GO_ORGANIC_LIMITED`; U.S. blocked |
+| Cable case | Shopify `50041043681530` → DSers `2086248367047835648` → supplier SKU `14:193#Double Layers`; item US$4.14 | US$1.99, tracked, 6–11 days, CN | US$1.99, tracked, 6–11 days, CN | Canada + U.S. `GO_ORGANIC_LIMITED` |
 
-- Shopify variant to supplier variant mapping;
-- supplier stock;
-- ordinary item cost;
-- Canada and United States shipping method, cost, ETA, tracking availability, and ship-from;
-- a contradiction check against the storefront title, media, contents, and dimensions.
+The packing-cube record exposes aggregate stock 667 but not a separate exact-option stock column, so exact option availability is an order-time watchpoint rather than a launch blocker. The cable case exposes 57 units on AliExpress and 65 on the store. Product title, media, configuration, exclusions, and dimensions materially align with the mapped supplier variants.
 
-No remap, import, new product, order, or supplier swap is authorized during this read-only check.
+## Remaining operating gates
 
-### 2. Production retest after deployment
+### 1. Controlled initial fulfillment
 
-Verify the same three pages, `robots.txt`, product sitemap, market switching, search drawer, cart purge, and checkout handoff on `puchica.ca`.
+- Accept one initial organic order at a time.
+- Before placing the supplier order, reconfirm the exact SKU, supplier stock, destination route, cost, ETA, and tracking in DSers.
+- Keep packing cubes unavailable in the United States.
+- Stop the affected product immediately if its exact option disappears, stock reaches zero, the route becomes unavailable, or landed cost materially increases.
 
-### 3. Analytics before paid traffic
+### 2. Analytics before paid traffic
 
 Prove GA4 and Meta event receipt with browser and server events deduplicated by the same event ID. Page code loading is not proof of receipt. Do not unpause ads until ProductView, AddToCart, and InitiateCheckout are observed in the relevant diagnostics.
 

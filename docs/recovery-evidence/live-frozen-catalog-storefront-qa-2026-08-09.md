@@ -1,5 +1,7 @@
 # Live frozen-catalog storefront QA — 2026-08-09
 
+> Superseded for storefront-runtime and SEO decisions by commit `184432b` and Oxygen production deployment asset `4174165`. The original findings below describe the pre-repair deployment. Post-deployment evidence is recorded in `all-hands-launch-readiness-2026-08-09.md`.
+
 Audit window: 2026-08-09 14:44–15:00 CDT
 Target: `https://puchica.ca` (live Oxygen asset deployment path observed under `.../302231/4173481/...`)
 Local repository reference at audit time: `28448c6`; unrelated dirty worktree changes were not treated as deployed evidence.
