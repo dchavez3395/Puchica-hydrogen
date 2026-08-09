@@ -132,8 +132,10 @@ spend was made during this recovery.
 
 ## Oxygen preview and Shopify shipping-profile gate — 2026-08-08
 
-- A private, authenticated Oxygen preview was deployed successfully at
-  `https://01kzjawec9anp9dq0fzt95b3mg-96696c77fd963319c44d.myshopify.dev`.
+- The corrected private Oxygen preview is deployed at
+  `https://01kzjdhe9ppm3wekg4t68q9tn8-96696c77fd963319c44d.myshopify.dev`.
+  Its hero image and overlay now identify the same packing-cube product, and the
+  blanket Canada/U.S. route assurance was removed.
 - Ten hosted routes passed: homepage, all-products collection, all three launch
   product pages, About, Shipping, FAQ, Contact, and cart. Each route rendered a
   main region without a storefront error, 404, or abandoned catalog language.
