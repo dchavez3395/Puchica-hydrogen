@@ -52,12 +52,12 @@ for (const market of ['CA', 'US']) {
   }
 }
 
-if (APPROVED_VARIANT_SKUS_BY_MARKET.CA.length !== 2) {
-  failures.push('Canada must expose exactly two approved supplier SKUs.');
+if (APPROVED_VARIANT_SKUS_BY_MARKET.CA.length !== 10) {
+  failures.push('Canada must expose exactly ten approved supplier SKUs.');
 }
 
-if (APPROVED_VARIANT_SKUS_BY_MARKET.US.length !== 1) {
-  failures.push('United States must expose exactly one approved supplier SKU.');
+if (APPROVED_VARIANT_SKUS_BY_MARKET.US.length !== 9) {
+  failures.push('United States must expose exactly nine approved supplier SKUs.');
 }
 
 const home = source('app', 'routes', '_index.jsx');

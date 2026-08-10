@@ -55,8 +55,26 @@ export const APPROVED_VARIANT_SKUS_BY_MARKET = Object.freeze({
   CA: Object.freeze([
     '14:1052#S3007 Black;5:200004186#3PCS L M S Set',
     '14:193#Double Layers',
+    '14:29#white;5:361386#1pcs',
+    '14:771#10 Holes-White',
+    '14:29',
+    '14:350852#Large Blue',
+    '14:771#Black',
+    '14:193',
+    '14:350686#coffee color',
+    '14:193#Black',
   ]),
-  US: Object.freeze(['14:193#Double Layers']),
+  US: Object.freeze([
+    '14:193#Double Layers',
+    '14:29#white;5:361386#1pcs',
+    '14:771#10 Holes-White',
+    '14:29',
+    '14:350852#Large Blue',
+    '14:771#Black',
+    '14:193',
+    '14:350686#coffee color',
+    '14:193#Black',
+  ]),
 });
 
 // Retain this export name for callers that construct Storefront API queries.
