@@ -347,6 +347,14 @@ function auditSnapshot(snapshot, {afterRelease}) {
 
   for (const definition of cohort) {
     const product = byId.get(definition.id);
+    const handleOwner = snapshot.products.find(
+      ({id, handle}) => id !== definition.id && handle === definition.handle,
+    );
+    if (handleOwner) {
+      failures.push(
+        `${definition.handle} is already owned by non-cohort product ${handleOwner.id} (${handleOwner.status}).`,
+      );
+    }
     if (!product) {
       failures.push(
         `Missing Shopify product ${definition.id} (${definition.title}).`,
