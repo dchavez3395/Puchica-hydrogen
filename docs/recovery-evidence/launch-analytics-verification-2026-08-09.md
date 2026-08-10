@@ -51,3 +51,17 @@ Meta's official Business SDK treats `fbc`, `fbp`, and `client_ip_address` as req
 ## Release rule
 
 Organic launch remains authorized for the exact frozen market/SKU matrix. Paid Meta advertising remains paused until a post-deployment test shows current `ViewContent`, `AddToCart`, and `InitiateCheckout` activity and confirms browser/server deduplication in Events Manager.
+
+## Production release confirmation
+
+Commit `3a91660` was built and verified in Oxygen Preview deployment `#5206985`, then deployed to the Production environment after explicit user approval. Shopify CLI reported the production deployment complete and routable. A clean live request subsequently loaded Oxygen asset `4174335`.
+
+Post-deployment live checks confirmed:
+
+- `https://puchica.ca/` returned the market-correct US travel edit with only the approved cable organizer exposed;
+- `https://puchica.ca/products/travel-cable-organizer-case` returned the exact black double-layer variant at US$19.00;
+- the page loaded GA4 measurement `G-KTMM6KWWT6`, Meta Pixel `996669459615534`, and the same-origin `/api/meta-event` relay;
+- GA4 emitted a live `view_item` collection request for Shopify variant `50041043681530` at US$19.00;
+- no order, payment, ad, campaign, public post, or spend was created.
+
+The live client still reports pre-existing React hydration recovery errors (`#418` / `#423`). The rendered page and product interaction surface remained usable during the smoke test, so this is a tracked technical cleanup item rather than a reason to reverse the limited organic release. It must be resolved before broad paid traffic.
