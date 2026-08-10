@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
+import {formatProductOptionLabel} from '../app/lib/product-options.js';
 
 import {
   APPROVED_VARIANT_SKUS_BY_MARKET,
@@ -349,4 +350,5 @@ test('approved PDP options expose every audited SKU and no supplier extras', () 
     options[0].optionValues.some((value) => value.name === 'Red'),
     false,
   );
+  assert.equal(formatProductOptionLabel('coffee color'), 'Coffee Brown');
 });

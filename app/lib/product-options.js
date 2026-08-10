@@ -8,14 +8,17 @@
 export function formatProductOptionLabel(value) {
   if (!value) return '';
 
-  const cleaned = String(value)
-    .trim()
-    .replace(/_/g, ' ')
-    .replace(/\s+/g, ' ');
+  const cleaned = String(value).trim().replace(/_/g, ' ').replace(/\s+/g, ' ');
   const normalized = cleaned.toLowerCase();
 
   if (/multi/.test(normalized) && /colou?r/.test(normalized)) {
     return 'Multi-colour';
+  }
+
+  // Keep the exact supplier value in URLs and DSers mapping while presenting
+  // the warm-brown shade promised by the approved product title.
+  if (normalized === 'coffee color' || normalized === 'coffee colour') {
+    return 'Coffee Brown';
   }
 
   // Supplier option values such as "Excavator-Green" are understandable but
@@ -24,7 +27,10 @@ export function formatProductOptionLabel(value) {
   const withSeparators = cleaned.replace(/(?<=[a-zA-Z])-(?=[a-zA-Z])/g, ' — ');
 
   // Keep short all-caps technical sizes (for example XXL) as supplied.
-  if (withSeparators.length <= 4 && withSeparators === withSeparators.toUpperCase()) {
+  if (
+    withSeparators.length <= 4 &&
+    withSeparators === withSeparators.toUpperCase()
+  ) {
     return withSeparators;
   }
 
