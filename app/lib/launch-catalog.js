@@ -69,7 +69,6 @@ export const APPROVED_VARIANT_SKUS_BY_MARKET = Object.freeze({
     '14:29#white;5:361386#1pcs',
     '14:771#10 Holes-White',
     '14:29',
-    '14:350852#Large Blue',
     '14:771#Black',
     '14:193',
     '14:350686#coffee color',

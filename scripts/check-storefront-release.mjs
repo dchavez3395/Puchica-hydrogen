@@ -56,8 +56,10 @@ if (APPROVED_VARIANT_SKUS_BY_MARKET.CA.length !== 10) {
   failures.push('Canada must expose exactly ten approved supplier SKUs.');
 }
 
-if (APPROVED_VARIANT_SKUS_BY_MARKET.US.length !== 9) {
-  failures.push('United States must expose exactly nine approved supplier SKUs.');
+if (APPROVED_VARIANT_SKUS_BY_MARKET.US.length !== 8) {
+  failures.push(
+    'United States must expose exactly eight approved supplier SKUs.',
+  );
 }
 
 const home = source('app', 'routes', '_index.jsx');
