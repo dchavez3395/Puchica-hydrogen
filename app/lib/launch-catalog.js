@@ -133,8 +133,67 @@ export function isApprovedVariantSku(sku, market = 'CA') {
 }
 
 export function findApprovedVariant(product, market = 'CA') {
-  return product?.variants?.nodes?.find(
+  return findApprovedVariants(product, market)[0];
+}
+
+export function findApprovedVariants(product, market = 'CA') {
+  return (product?.variants?.nodes || []).filter(
     (variant) =>
       variant?.availableForSale && isApprovedVariantSku(variant.sku, market),
   );
+}
+
+/**
+ * Build the small option matrix used on an approved PDP without re-exposing
+ * unreviewed supplier variants. Hydrogen's full product option matrix can
+ * contain colours and configurations that never passed the market gate; this
+ * mapper derives customer controls exclusively from approved exact SKUs.
+ */
+export function buildApprovedProductOptions(
+  product,
+  approvedVariants,
+  selectedVariant,
+) {
+  const variants = Array.isArray(approvedVariants) ? approvedVariants : [];
+  if (variants.length <= 1) return [];
+
+  return (product?.options || [])
+    .map((option) => {
+      const values = new Map();
+
+      for (const variant of variants) {
+        const selectedOption = variant?.selectedOptions?.find(
+          (entry) => entry?.name === option?.name,
+        );
+        if (!selectedOption?.value || values.has(selectedOption.value))
+          continue;
+
+        const sourceValue = option?.optionValues?.find(
+          (entry) => entry?.name === selectedOption.value,
+        );
+        const query = new URLSearchParams();
+        for (const entry of variant.selectedOptions || []) {
+          if (entry?.name && entry?.value) query.set(entry.name, entry.value);
+        }
+
+        values.set(selectedOption.value, {
+          name: selectedOption.value,
+          handle: product.handle,
+          variantUriQuery: query.toString(),
+          selected: variant.id === selectedVariant?.id,
+          available: Boolean(variant.availableForSale),
+          exists: true,
+          isDifferentProduct: false,
+          swatch: sourceValue?.swatch || null,
+        });
+      }
+
+      return {name: option.name, optionValues: [...values.values()]};
+    })
+    .filter(
+      (option) =>
+        option.name &&
+        !/^(title|default title)$/i.test(option.name) &&
+        option.optionValues.length > 1,
+    );
 }

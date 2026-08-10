@@ -1,11 +1,7 @@
 import {useEffect, useState} from 'react';
 import {useLoaderData, useRouteLoaderData} from 'react-router';
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
-import {
-  getSelectedProductOptions,
-  Analytics,
-  Image,
-} from '@shopify/hydrogen';
+import {getSelectedProductOptions, Analytics, Image} from '@shopify/hydrogen';
 import {ProductPrice} from '~/components/ProductPrice';
 import {ProductImage} from '~/components/ProductImage';
 import {ProductForm} from '~/components/ProductForm';
@@ -29,7 +25,8 @@ import {ReviewStars, JudgemeReviews} from '~/components/JudgemeReviews';
 import {recordRecentlyViewed} from '~/lib/recentlyViewed';
 import {useT} from '~/lib/t';
 import {
-  findApprovedVariant,
+  buildApprovedProductOptions,
+  findApprovedVariants,
   isLaunchReadyProduct,
   STOREFRONT_CONTAINMENT_ACTIVE,
 } from '~/lib/launch-catalog';
@@ -120,15 +117,24 @@ async function loadCriticalData({context, params, request}) {
   if (!isLaunchReadyProduct(product, country)) {
     throw new Response(null, {status: 404});
   }
-  const approvedVariant = findApprovedVariant(product, country);
-  if (!approvedVariant) throw new Response(null, {status: 404});
+  const approvedVariants = findApprovedVariants(product, country);
+  if (!approvedVariants.length) throw new Response(null, {status: 404});
 
-  // Expose the one exact SKU that passed the market gate. The supplier listing
-  // can contain many colours and sizes, but unverified variants must not become
-  // purchasable merely because the product itself passed review.
+  const requestedVariant = product.selectedOrFirstAvailableVariant;
+  const approvedVariant =
+    approvedVariants.find((variant) => variant.id === requestedVariant?.id) ||
+    approvedVariants[0];
+
+  // Expose only exact SKUs that passed the market gate. Most launch products
+  // have one; the handle wrap has two audited colours. The supplier's remaining
+  // option matrix stays unavailable and unrendered.
+  product.approvedProductOptions = buildApprovedProductOptions(
+    product,
+    approvedVariants,
+    approvedVariant,
+  );
   product.selectedOrFirstAvailableVariant = approvedVariant;
-  product.adjacentVariants = [approvedVariant];
-  product.options = [];
+  product.adjacentVariants = approvedVariants;
 
   const reviews = await getJudgemeBadge(handle);
   redirectIfHandleIsLocalized(request, {handle, data: product});
@@ -143,10 +149,7 @@ export default function Product() {
   const need = getProductNeed(product, t);
 
   const selectedVariant = product.selectedOrFirstAvailableVariant;
-  // The launch catalog intentionally exposes one audited variant per product.
-  // Passing the supplier's removed option matrix through Hydrogen's option
-  // mapper produced missing-option warnings and served no customer control.
-  const productOptions = [];
+  const productOptions = product.approvedProductOptions || [];
 
   const {title, descriptionHtml} = product;
   const displayTitle = presentProductTitle(title, selectedVariant);
@@ -163,8 +166,7 @@ export default function Product() {
       sku: selectedVariant?.sku,
       market,
       image:
-        product.selectedOrFirstAvailableVariant?.image ||
-        product.featuredImage,
+        product.selectedOrFirstAvailableVariant?.image || product.featuredImage,
       price: product.selectedOrFirstAvailableVariant?.price,
     });
   }, [

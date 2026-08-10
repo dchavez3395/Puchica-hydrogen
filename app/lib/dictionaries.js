@@ -650,12 +650,12 @@ export const DICTIONARIES = {
     megamenu_error_cta: 'Browse everything →',
     megamenu_tile_cta: 'Shop →',
     megamenu_intent_heading: 'Shop by category',
-    megamenu_intent_home_title: 'Best sellers',
+    megamenu_intent_home_title: 'Storage organization',
     megamenu_intent_home_body:
       'Audio, kitchen, fitness, home, outdoor — the picks customers keep re-ordering.',
-    megamenu_intent_cable_title: 'Top trending',
+    megamenu_intent_cable_title: 'Cable organization',
     megamenu_intent_cable_body: 'Keep cords and everyday tech easy to find.',
-    megamenu_intent_travel_title: 'All categories',
+    megamenu_intent_travel_title: 'Travel organization',
     megamenu_intent_travel_body: 'Packing, luggage, and everyday carry.',
     megamenu_edit_eyebrow: 'Start here',
     megamenu_edit_title: 'Trending high-ticket finds under C$200.',
@@ -1975,13 +1975,13 @@ export const DICTIONARIES = {
     megamenu_error_cta: 'Tout parcourir →',
     megamenu_tile_cta: 'Magasiner →',
     megamenu_intent_heading: 'Magasiner par catégorie',
-    megamenu_intent_home_title: 'Meilleures ventes',
+    megamenu_intent_home_title: 'Organisation du rangement',
     megamenu_intent_home_body:
       'Audio, cuisine, conditionnement physique, maison et plein air — les trouvailles que les clients récommandent.',
-    megamenu_intent_cable_title: 'Top du moment',
+    megamenu_intent_cable_title: 'Organisation des câbles',
     megamenu_intent_cable_body:
       'Gardez cordons et techno du quotidien faciles à trouver.',
-    megamenu_intent_travel_title: 'Toutes les catégories',
+    megamenu_intent_travel_title: 'Organisation de voyage',
     megamenu_intent_travel_body:
       'Emballage, bagages et transport du quotidien.',
     megamenu_edit_eyebrow: 'Commencer ici',
@@ -3356,13 +3356,13 @@ export const DICTIONARIES = {
     megamenu_error_cta: 'Ver todo →',
     megamenu_tile_cta: 'Comprar →',
     megamenu_intent_heading: 'Comprar por categoría',
-    megamenu_intent_home_title: 'Más vendidos',
+    megamenu_intent_home_title: 'Organización del hogar',
     megamenu_intent_home_body:
       'Audio, cocina, condición física, hogar y aire libre — los hallazgos que los clientes repiten.',
-    megamenu_intent_cable_title: 'Tendencias top',
+    megamenu_intent_cable_title: 'Organización de cables',
     megamenu_intent_cable_body:
       'Mantén cordones y tecnología diaria fáciles de encontrar.',
-    megamenu_intent_travel_title: 'Todas las categorías',
+    megamenu_intent_travel_title: 'Organización de viaje',
     megamenu_intent_travel_body:
       'Empaque, equipaje y transporte del día a día.',
     megamenu_edit_eyebrow: 'Empezar aquí',
@@ -4731,13 +4731,13 @@ export const DICTIONARIES = {
     megamenu_error_cta: 'Ver tudo →',
     megamenu_tile_cta: 'Comprar →',
     megamenu_intent_heading: 'Comprar por categoria',
-    megamenu_intent_home_title: 'Mais vendidos',
+    megamenu_intent_home_title: 'Organização para casa',
     megamenu_intent_home_body:
       'Áudio, cozinha, fitness, casa, exterior — os achados que os clientes repetem.',
-    megamenu_intent_cable_title: 'Tendências',
+    megamenu_intent_cable_title: 'Organização de cabos',
     megamenu_intent_cable_body:
       'Mantenha cabos e tecnologia do dia a dia fáceis de encontrar.',
-    megamenu_intent_travel_title: 'Todas as categorias',
+    megamenu_intent_travel_title: 'Organização de viagem',
     megamenu_intent_travel_body:
       'Embalagem, bagagem e transporte do dia a dia.',
     megamenu_edit_eyebrow: 'Comece aqui',

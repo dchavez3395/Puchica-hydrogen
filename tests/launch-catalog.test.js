@@ -4,8 +4,10 @@ import {readFile} from 'node:fs/promises';
 
 import {
   APPROVED_VARIANT_SKUS_BY_MARKET,
+  buildApprovedProductOptions,
   filterLaunchProducts,
   findApprovedVariant,
+  findApprovedVariants,
   isApprovedVariantSku,
   isLaunchReadyProduct,
   CATALOG_APPROVAL_TAG,
@@ -20,10 +22,7 @@ import {
 function approvedProduct(overrides = {}) {
   return {
     handle: 'verified-organizer',
-    tags: [
-      ...REQUIRED_CATALOG_EVIDENCE_TAGS,
-      MARKET_ROUTE_EVIDENCE_TAGS.CA,
-    ],
+    tags: [...REQUIRED_CATALOG_EVIDENCE_TAGS, MARKET_ROUTE_EVIDENCE_TAGS.CA],
     availableForSale: true,
     variants: {
       nodes: [
@@ -292,4 +291,62 @@ test('exact supplier variants are market-gated independently of products', () =>
   };
   assert.equal(findApprovedVariant(product, 'CA')?.sku, caPackingSku);
   assert.equal(findApprovedVariant(product, 'US'), undefined);
+});
+
+test('approved PDP options expose every audited SKU and no supplier extras', () => {
+  const [coffeeSku, blackSku] = APPROVED_VARIANT_SKUS_BY_MARKET.CA.slice(-2);
+  const variants = [
+    {
+      id: 'coffee',
+      sku: coffeeSku,
+      availableForSale: true,
+      selectedOptions: [{name: 'Color', value: 'coffee color'}],
+    },
+    {
+      id: 'black',
+      sku: blackSku,
+      availableForSale: true,
+      selectedOptions: [{name: 'Color', value: 'Black'}],
+    },
+    {
+      id: 'red-unreviewed',
+      sku: 'supplier-red',
+      availableForSale: true,
+      selectedOptions: [{name: 'Color', value: 'Red'}],
+    },
+  ];
+  const product = {
+    handle: 'travel-luggage-handle-wrap',
+    options: [
+      {
+        name: 'Color',
+        optionValues: [
+          {name: 'coffee color', swatch: {color: '#7b5948'}},
+          {name: 'Black', swatch: {color: '#111111'}},
+          {name: 'Red', swatch: {color: '#cc0000'}},
+        ],
+      },
+    ],
+    variants: {nodes: variants},
+  };
+
+  const approved = findApprovedVariants(product, 'CA');
+  assert.deepEqual(
+    approved.map((variant) => variant.id),
+    ['coffee', 'black'],
+  );
+
+  const options = buildApprovedProductOptions(product, approved, approved[0]);
+  assert.equal(options.length, 1);
+  assert.equal(options[0].name, 'Color');
+  assert.deepEqual(
+    options[0].optionValues.map((value) => value.name),
+    ['coffee color', 'Black'],
+  );
+  assert.equal(options[0].optionValues[0].selected, true);
+  assert.equal(options[0].optionValues[1].selected, false);
+  assert.equal(
+    options[0].optionValues.some((value) => value.name === 'Red'),
+    false,
+  );
 });
