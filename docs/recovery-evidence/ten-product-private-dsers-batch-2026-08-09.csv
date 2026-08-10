@@ -1,0 +1,11 @@
+slot,customer_product,ali_id,dsers_id,exact_option,supplier_sku,stock,ca_route,us_route,target_price_ca,target_price_us,decision
+1,"3-piece packing cube set",3256805096956197,2086248705456865280,"S3007 Black / 3PCS L M S Set","14:1052#S3007 Black;5:200004186#3PCS L M S Set",667,"US$12.45 + US$1.99; 8-13d tracked","No Shipping",39.99,,"CA organic-limited; US blocked"
+2,"Double-layer travel cable organizer",3256806610912521,2086248367047835648,"Double Layers","14:193#Double Layers",57,"US$4.14 + US$1.99; 6-11d tracked","US$4.14 + US$1.99; 6-11d tracked",24.99,19.00,"CA+US organic-limited"
+3,"Single white luggage tag",1005005973213007,2086647790265434816,"white / 1pcs","14:29#white;5:361386#1pcs",9965,"US$2.21 + US$1.99; 8d","US$1.39 + US$1.99; 8d",14.99,10.99,"CA+US organic-limited"
+4,"Ten-hole white cable clips",1005004550863005,2086655776362857152,"10 Holes-White","14:771#10 Holes-White",5811,"max US$2.94 + US$1.99; 8d","max US$2.94 + US$1.99; 7d",14.99,10.99,"CA+US organic-limited"
+5,"Six-piece metal tube-squeezer set",1005005906323758,2086654043964703424,"6pcs","14:200006154#6pcs",66,"max US$6.12 + US$2.16; 8d","max US$6.12 + US$1.99; 6d",24.99,18.99,"CA+US organic-limited"
+6,"Semi-circular travel jewelry case",1005009878640464,2086649305156158144,"single-colour option pending final draft label",,936,"max US$4.45 + US$2.16; 8d","max US$4.45 + US$1.99; 8d",22.99,16.99,"HOLD release until exact colour/media are selected"
+7,"Large blue handled clothes-storage bag",1005005504286671,2086640965725979328,"Large Blue","14:350852#Large Blue",39,"US$6.65 + US$2.16","No Shipping",29.99,,"CA organic-limited; US blocked"
+8,"Black hanging travel toiletry organizer",1005009589988221,2086640609843872448,"Black","14:193#Black",99994,"US$10.05 + US$1.99; 11d","US$10.05 + US$1.99; 8d",39.99,29.99,"CA+US organic-limited"
+9,"Gray travel shoe bag",1005008778310005,,"Gray","14:366#Gray",20,"US$5.04 + US$2.16","US$2.31 + US$1.99",24.99,18.99,"CA+US organic-limited; recheck stock each early order"
+10,"White small wheeled under-sink bin",,,"white S","14:200003699#white S",26,"US$8.35 + US$2.16","US$4.96 + US$1.99",29.99,22.99,"CA+US organic-limited; separate small-space section"
