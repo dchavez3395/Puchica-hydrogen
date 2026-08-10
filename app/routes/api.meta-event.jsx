@@ -43,24 +43,6 @@ const ALLOWED_EVENTS = new Set([
 // Cap payload size at 16 KB to prevent abuse — a real Meta event is < 2 KB.
 const MAX_BODY_BYTES = 16 * 1024;
 
-/**
- * SHA-256 hash helper for Meta user_data fields. Meta requires:
- *   email, phone, external_id, etc. to be SHA-256 hashed (lowercase, trimmed).
- *   IP and UA are sent unhashed per Meta spec.
- */
-async function sha256Hex(input) {
-  if (!input) return undefined;
-  const normalized = String(input).trim().toLowerCase();
-  if (!normalized) return undefined;
-  const buf = await crypto.subtle.digest(
-    'SHA-256',
-    new TextEncoder().encode(normalized),
-  );
-  return Array.from(new Uint8Array(buf), (b) => b.toString(16).padStart(2, '0')).join(
-    '',
-  );
-}
-
 /** Pull Meta cookies (`_fbp`, `_fbc`) from the Cookie header. */
 function parseMetaCookies(request) {
   const cookieHeader = request.headers.get('cookie') || '';
@@ -150,10 +132,13 @@ export async function action({request, context}) {
   const clientUa = request.headers.get('user-agent') || '';
 
   const userData = {
-    client_ip: clientIp || undefined,
+    client_ip_address: clientIp || undefined,
     client_user_agent: clientUa || undefined,
-    fbp: cookies._fbp ? await sha256Hex(cookies._fbp) : undefined,
-    fbc: cookies._fbc ? await sha256Hex(cookies._fbc) : undefined,
+    // Meta's click/browser identifiers are identifiers, not PII fields. Send
+    // their documented cookie values verbatim; hashing them prevents Meta from
+    // matching the event back to the browser session.
+    fbp: cookies._fbp || undefined,
+    fbc: cookies._fbc || undefined,
   };
 
   // Strip undefined fields to keep payload small

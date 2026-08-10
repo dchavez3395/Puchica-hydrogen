@@ -82,6 +82,20 @@ test('Meta and GA4 use separate explicit ownership guards', async () => {
   assert.doesNotMatch(ga4Component, /subscribe\('custom_checkout_started'/);
 });
 
+test('Meta CAPI sends documented request identifiers without hashing them', async () => {
+  const source = await readFile(
+    new URL('../app/routes/api.meta-event.jsx', import.meta.url),
+    'utf8',
+  );
+
+  assert.match(source, /client_ip_address: clientIp/);
+  assert.match(source, /client_user_agent: clientUa/);
+  assert.match(source, /fbp: cookies\._fbp \|\| undefined/);
+  assert.match(source, /fbc: cookies\._fbc \|\| undefined/);
+  assert.doesNotMatch(source, /client_ip:/);
+  assert.doesNotMatch(source, /sha256Hex\(cookies\._fb[pc]\)/);
+});
+
 test('refund policy route presents the fail-safe summary before Admin policy HTML', async () => {
   const source = await readFile(
     new URL('../app/routes/policies.$handle.jsx', import.meta.url),
