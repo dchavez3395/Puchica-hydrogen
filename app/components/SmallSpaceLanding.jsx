@@ -32,7 +32,7 @@ export function SmallSpaceLanding(props) {
   const productSectionId = campaign ? 'shop-travel-organizers' : 'travel-edit';
   const isFullEdit = rankedProducts.length >= 3;
   const heroDescription = isFullEdit
-    ? 'Three practical organizers for clothing, cables, and toiletries—a useful packing system without an endless catalog.'
+    ? 'A focused edit of practical organizers for packing, luggage, cables, and toiletries—without an endless catalog.'
     : rankedProducts.length === 1
       ? 'One practical travel organizer with clear product details and delivery confirmed for your market at checkout.'
       : 'A focused set of practical travel organizers with clear product details and delivery confirmed at checkout.';
@@ -127,7 +127,9 @@ export function SmallSpaceLanding(props) {
 
       <OrganizationProductSection
         id={productSectionId}
-        eyebrow={isFullEdit ? 'Three ways to pack smarter' : 'Travel organization'}
+        eyebrow={
+          isFullEdit ? 'Three ways to pack smarter' : 'Travel organization'
+        }
         title={
           isFullEdit
             ? 'A small travel system that works together'

@@ -14,7 +14,8 @@ export const DICTIONARIES = {
     announce_offer: 'Focused travel organizers for easier packing',
     announce_freeship: 'Shipping options shown at checkout',
     announce_cta: 'Shop travel organizers',
-    offer_first15: 'Shipping options and delivery estimates appear at checkout.',
+    offer_first15:
+      'Shipping options and delivery estimates appear at checkout.',
     announce_region_aria: 'Site announcements',
 
     // ── Footer ────────────────────────────────────────────────────
@@ -553,7 +554,8 @@ export const DICTIONARIES = {
     all_breadcrumb: 'Travel organizers',
     all_eyebrow: 'The travel edit',
     all_title: 'Travel organization, kept simple',
-    all_sub: 'Three practical organizers for clothing, cables, and toiletries.',
+    all_sub:
+      'A focused edit of practical organizers for packing, luggage, cables, and toiletries.',
     all_empty_title: 'New finds are on the way',
     all_empty_body:
       'We’re adding products for home, cables, and travel. Check back soon.',
@@ -1431,7 +1433,8 @@ export const DICTIONARIES = {
 
   // ════════════════════════════════════════════════════════════════
   fr: {
-    announce_offer: 'Des accessoires de voyage pratiques pour mieux organiser vos bagages',
+    announce_offer:
+      'Des accessoires de voyage pratiques pour mieux organiser vos bagages',
     announce_freeship: 'Options de livraison affichées au paiement',
     announce_cta: 'Voir les accessoires de voyage',
     offer_first15:
@@ -1880,7 +1883,7 @@ export const DICTIONARIES = {
     all_eyebrow: 'La boutique complète',
     all_title: 'Magasiner les trouvailles',
     all_sub:
-      'Parcourez les trouvailles haut de gamme en audio, cuisine, fitness, maison et plein air.',
+      'Une sélection ciblée d’organisateurs pratiques pour les bagages, les câbles et les articles de toilette.',
     all_empty_title: 'De nouveaux articles arrivent',
     all_empty_body:
       'Le catalogue se charge. Si le problème persiste, actualisez la page.',
@@ -2815,8 +2818,7 @@ export const DICTIONARIES = {
     announce_freeship:
       'Las opciones de envío se muestran al finalizar la compra',
     announce_cta: 'Ver organizadores de viaje',
-    offer_first15:
-      'Las opciones y los plazos de envío se muestran al pagar.',
+    offer_first15: 'Las opciones y los plazos de envío se muestran al pagar.',
     announce_region_aria: 'Anuncios del sitio',
 
     footer_tagline:
@@ -3262,7 +3264,7 @@ export const DICTIONARIES = {
     all_eyebrow: 'La tienda completa',
     all_title: 'Ver hallazgos',
     all_sub:
-      'Explora hallazgos de alto valor en audio, cocina, fitness, hogar y aire libre.',
+      'Una selección enfocada de organizadores prácticos para equipaje, cables y artículos de aseo.',
     all_empty_title: 'Próximos hallazgos en camino',
     all_empty_body:
       'El catálogo está cargando. Si el problema persiste, intenta recargar.',
@@ -3592,8 +3594,7 @@ export const DICTIONARIES = {
     np_close_backdrop: 'Cerrar',
     np_close_x: 'Cerrar',
     np_success_h: '¡Ya estás dentro!',
-    np_success_body:
-      'Recibirás novedades, reposiciones y ofertas ocasionales.',
+    np_success_body: 'Recibirás novedades, reposiciones y ofertas ocasionales.',
     np_copy_btn: '¡Copiado!',
     np_copy_hint: 'Toca para copiar',
     np_success_cta: 'Empezar a comprar →',
@@ -4196,8 +4197,7 @@ export const DICTIONARIES = {
     announce_offer: 'Organizadores de viagem práticos para arrumar melhor',
     announce_freeship: 'Opções de envio mostradas no checkout',
     announce_cta: 'Ver organizadores de viagem',
-    offer_first15:
-      'As opções e os prazos de envio aparecem no checkout.',
+    offer_first15: 'As opções e os prazos de envio aparecem no checkout.',
     announce_region_aria: 'Avisos do site',
 
     footer_tagline:
@@ -4641,7 +4641,7 @@ export const DICTIONARIES = {
     all_eyebrow: 'A loja completa',
     all_title: 'Ver achados',
     all_sub:
-      'Explore achados de alto valor em áudio, cozinha, fitness, casa e ar livre.',
+      'Uma seleção focada de organizadores práticos para bagagem, cabos e itens de higiene.',
     all_empty_title: 'Novos achados a caminho',
     all_empty_body:
       'O catálogo está carregando. Se o problema persistir, tente atualizar a página.',

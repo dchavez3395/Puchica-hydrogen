@@ -41,6 +41,11 @@ const RELEASE_DISCOVERY_TAGS = [
   MARKET_ROUTE_EVIDENCE_TAGS.US,
 ];
 
+const REQUIRED_PUBLICATION_FIELDS = [
+  {field: 'publishedOnlineStore', title: 'Online Store'},
+  {field: 'publishedHydrogen', title: 'Puchica Storefront'},
+];
+
 const cohort = [
   {
     id: 'gid://shopify/Product/9365959672058',
@@ -169,11 +174,11 @@ const managedDraftIds = new Set(
     .map(({id}) => id),
 );
 
-const publication = await fetchOnlineStorePublication();
-const snapshot = await fetchSnapshot(publication.id);
+const publications = await fetchRequiredPublications();
+const snapshot = await fetchSnapshot(publications);
 const preflight = auditSnapshot(snapshot, {afterRelease: false});
 
-printPreflight(publication, snapshot, preflight);
+printPreflight(publications, snapshot, preflight);
 
 if (preflight.failures.length) {
   for (const failure of preflight.failures) console.error(`FAIL: ${failure}`);
@@ -189,16 +194,20 @@ if (!APPLY && !ROLLBACK) {
 }
 
 if (ROLLBACK) {
-  await rollbackManagedDrafts(snapshot, publication.id);
-  const rolledBack = await fetchSnapshot(publication.id);
+  await rollbackManagedDrafts(snapshot, publications);
+  const rolledBack = await fetchSnapshot(publications);
   const failures = [];
   for (const product of rolledBack.products.filter(({id}) =>
     managedDraftIds.has(id),
   )) {
     if (product.status !== 'DRAFT')
       failures.push(`${product.title} is not DRAFT.`);
-    if (product.publishedOnPublication) {
-      failures.push(`${product.title} remains published to Online Store.`);
+    for (const publication of publications) {
+      if (product[publication.field]) {
+        failures.push(
+          `${product.title} remains published to ${publication.title}.`,
+        );
+      }
     }
     if (product.tags.includes('puchica-catalog-approved-v1')) {
       failures.push(`${product.title} retains the catalog approval tag.`);
@@ -212,10 +221,10 @@ if (ROLLBACK) {
   process.exit(0);
 }
 
-await quarantineLegacyProducts(snapshot, publication.id);
-await releaseCohort(snapshot, publication.id);
+await quarantineLegacyProducts(snapshot, publications);
+await releaseCohort(snapshot, publications);
 
-const released = await fetchSnapshot(publication.id);
+const released = await fetchSnapshot(publications);
 const postflight = auditSnapshot(released, {afterRelease: true});
 if (postflight.failures.length) {
   for (const failure of postflight.failures) console.error(`FAIL: ${failure}`);
@@ -231,7 +240,7 @@ console.log(
 );
 console.log('Paid ads remain unauthorized.');
 
-async function fetchOnlineStorePublication() {
+async function fetchRequiredPublications() {
   const query = `#graphql
     query OnlineStorePublication {
       publications(first: 20) {
@@ -240,28 +249,50 @@ async function fetchOnlineStorePublication() {
     }
   `;
   const response = await adminGraphQL(query);
-  failGraphQL(response, 'Online Store publication query');
+  failGraphQL(response, 'required publications query');
   const publications = response.data.publications.nodes;
-  const onlineStore = publications.find(({catalog, name}) =>
-    /online store/i.test(catalog?.title || name || ''),
-  );
-  if (!onlineStore) {
+  const required = REQUIRED_PUBLICATION_FIELDS.map((definition) => {
+    const publication = publications.find(
+      ({catalog, name}) =>
+        (catalog?.title || name || '').toLowerCase() ===
+        definition.title.toLowerCase(),
+    );
+    return publication ? {...definition, ...publication} : definition;
+  });
+  const missing = required.filter(({id}) => !id);
+  if (missing.length) {
     throw new Error(
-      `Online Store publication not found. Found: ${publications
+      `Required publication(s) not found: ${missing
+        .map(({title}) => title)
+        .join(', ')}. Found: ${publications
         .map(({catalog, name}) => catalog?.title || name || '(untitled)')
         .join(', ')}`,
     );
   }
-  return onlineStore;
+  return required;
 }
 
-async function fetchSnapshot(publicationId) {
+async function fetchSnapshot(publications) {
+  const onlineStore = publications.find(
+    ({field}) => field === 'publishedOnlineStore',
+  );
+  const hydrogen = publications.find(
+    ({field}) => field === 'publishedHydrogen',
+  );
   const query = `#graphql
-    query OrganicReleaseCatalog($publicationId: ID!) {
+    query OrganicReleaseCatalog(
+      $onlineStorePublicationId: ID!
+      $hydrogenPublicationId: ID!
+    ) {
       products(first: 100) {
         nodes {
           id title handle status tags productType vendor
-          publishedOnPublication(publicationId: $publicationId)
+          publishedOnlineStore: publishedOnPublication(
+            publicationId: $onlineStorePublicationId
+          )
+          publishedHydrogen: publishedOnPublication(
+            publicationId: $hydrogenPublicationId
+          )
           variants(first: 50) {
             nodes { id title sku price inventoryQuantity }
           }
@@ -270,7 +301,10 @@ async function fetchSnapshot(publicationId) {
       }
     }
   `;
-  const response = await adminGraphQL(query, {publicationId});
+  const response = await adminGraphQL(query, {
+    onlineStorePublicationId: onlineStore.id,
+    hydrogenPublicationId: hydrogen.id,
+  });
   failGraphQL(response, 'catalog snapshot query');
   if (response.data.products.pageInfo.hasNextPage) {
     throw new Error(
@@ -378,8 +412,12 @@ function auditSnapshot(snapshot, {afterRelease}) {
         if (!product.tags.includes(tag))
           failures.push(`${definition.title} is missing tag ${tag}.`);
       }
-      if (!product.publishedOnPublication) {
-        failures.push(`${definition.title} is not published to Online Store.`);
+      for (const publication of REQUIRED_PUBLICATION_FIELDS) {
+        if (!product[publication.field]) {
+          failures.push(
+            `${definition.title} is not published to ${publication.title}.`,
+          );
+        }
       }
     }
   }
@@ -403,16 +441,16 @@ function auditSnapshot(snapshot, {afterRelease}) {
   };
 }
 
-function printPreflight(publication, snapshot, preflight) {
+function printPreflight(publications, snapshot, preflight) {
   const byId = new Map(
     snapshot.products.map((product) => [product.id, product]),
   );
   console.log('Puchica organic release control plane');
   console.log('====================================');
   console.log(`Mode: ${ROLLBACK ? 'ROLLBACK' : APPLY ? 'APPLY' : 'DRY RUN'}`);
-  console.log(
-    `Publication: ${publication.catalog?.title || publication.name} (${publication.id})`,
-  );
+  for (const publication of publications) {
+    console.log(`Publication: ${publication.title} (${publication.id})`);
+  }
   console.log('Cohort: 9 product pages / 10 CA SKUs / 8 U.S. SKUs');
   for (const definition of cohort) {
     const product = byId.get(definition.id);
@@ -428,19 +466,23 @@ function printPreflight(publication, snapshot, preflight) {
   console.log('Paid ads: BLOCKED');
 }
 
-async function quarantineLegacyProducts(snapshot, publicationId) {
+async function quarantineLegacyProducts(snapshot, publications) {
   const legacy = snapshot.products.filter(
     ({id, status}) => status === 'ACTIVE' && !cohortIds.has(id),
   );
   for (const product of legacy) {
-    if (product.publishedOnPublication)
-      await unpublish(product.id, publicationId);
+    for (const publication of publications) {
+      if (product[publication.field]) {
+        await unpublish(product.id, publication.id);
+      }
+    }
     await updateProduct({id: product.id, status: 'DRAFT'});
+    await removeTags(product.id, RELEASE_DISCOVERY_TAGS);
     console.log(`QUARANTINED ${product.title}`);
   }
 }
 
-async function releaseCohort(snapshot, publicationId) {
+async function releaseCohort(snapshot, publications) {
   const byId = new Map(
     snapshot.products.map((product) => [product.id, product]),
   );
@@ -455,20 +497,26 @@ async function releaseCohort(snapshot, publicationId) {
       productType: definition.productType,
       seo: {title: definition.title, description: definition.seoDescription},
     });
-    if (!product.publishedOnPublication)
-      await publish(definition.id, publicationId);
+    for (const publication of publications) {
+      if (!product[publication.field]) {
+        await publish(definition.id, publication.id);
+      }
+    }
     console.log(`RELEASED ${definition.title}`);
   }
 }
 
-async function rollbackManagedDrafts(snapshot, publicationId) {
+async function rollbackManagedDrafts(snapshot, publications) {
   const byId = new Map(
     snapshot.products.map((product) => [product.id, product]),
   );
   for (const definition of cohort.filter(({id}) => managedDraftIds.has(id))) {
     const product = byId.get(definition.id);
-    if (product?.publishedOnPublication)
-      await unpublish(definition.id, publicationId);
+    for (const publication of publications) {
+      if (product?.[publication.field]) {
+        await unpublish(definition.id, publication.id);
+      }
+    }
     await updateProduct({id: definition.id, status: 'DRAFT'});
     await removeTags(definition.id, RELEASE_DISCOVERY_TAGS);
     console.log(`ROLLED BACK ${definition.title}`);

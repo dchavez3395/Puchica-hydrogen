@@ -19,17 +19,20 @@ Shopify tags. The default command is read-only and fails if a title, exact SKU,
 price, inventory signal, market allowlist, product count, or Shopify state does
 not match the manifest.
 
-The apply mode performs two controlled operations:
+The apply mode performs two controlled operations across both required Shopify
+publications: `Online Store` and the Hydrogen `Puchica Storefront` channel.
 
-1. It moves every non-cohort `ACTIVE` Shopify product to `DRAFT`, and removes it
-   from the Online Store publication when necessary.
+1. It moves every non-cohort `ACTIVE` Shopify product to `DRAFT`, removes its
+   approval and market-route tags, and removes it from both publications when
+   necessary.
 2. It adds the evidence and market-route tags, normalizes handles and product
    types, activates the nine cohort records, and publishes only those records
-   to Online Store.
+   to both required publications.
 
 Postflight fails unless the exact nine products are the only active Shopify
-products, all nine are published, all required evidence tags are present, and
-every exact approved variant still has the expected price and positive stock.
+products, all nine are published to both required publications, all required
+evidence tags are present, and every exact approved variant still has the
+expected price and positive stock.
 
 ## Commands
 
