@@ -144,6 +144,10 @@ test('market-unavailable product pages fail closed for crawlers', async () => {
   );
   assert.match(productRoute, /'Cache-Control': 'no-store, max-age=0'/);
   assert.match(productRoute, /'X-Robots-Tag': 'noindex, nofollow'/);
+  assert.match(
+    productRoute,
+    /export const headers = \(\{loaderHeaders\}\) => loaderHeaders/,
+  );
 });
 
 test('released homepage is travel-focused and uses the catalog gate', async () => {

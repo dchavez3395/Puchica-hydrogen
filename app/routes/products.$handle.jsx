@@ -91,6 +91,11 @@ export async function loader(args) {
   return {product, reviews};
 }
 
+// React Router does not automatically promote route loader/error headers to
+// the document response. Forward them so fail-closed product 404s keep their
+// no-store and noindex directives at the HTTP boundary.
+export const headers = ({loaderHeaders}) => loaderHeaders;
+
 async function loadCriticalData({context, params, request}) {
   const {handle} = params;
   const {storefront} = context;
