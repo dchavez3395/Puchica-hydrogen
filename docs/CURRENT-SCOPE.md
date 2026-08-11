@@ -1,8 +1,8 @@
 # Puchica current operating scope
 
 - **Status date:** 2026-08-10
-- **Binding storefront commit:** `4f0235ecdc39a67a6466627cdd6185b8f924b92c`
-- **Production:** `https://puchica.ca` / Oxygen asset `4821542`
+- **Binding storefront commit:** `fe1c7e89872bacbb40de1ceafdad5560ff7d764f`
+- **Production:** `https://puchica.ca` / Oxygen asset `4183654`
 - **Decision:** organic commerce is live and limited; paid advertising is
   paused.
 
@@ -40,8 +40,8 @@ current catalog and learn which offer deserves a small paid test.
 | Area | Current truth |
 |---|---|
 | Storefront | Shopify Hydrogen on Oxygen at `puchica.ca` |
-| Repository | `codex/catalog-continuation-2026-08-10`; production code commit is `4f0235e` |
-| Production artifact | Oxygen asset `4821542`; deployment ID `5216302`; client bundle `entry.client-CdfzHHBG.js` |
+| Repository | `codex/catalog-continuation-2026-08-10`; production code commit is `fe1c7e8` |
+| Production artifact | Oxygen asset `4183654`; client bundle `entry.client-CUoq0yXM.js`; deployment description `fe1c7e8-preserve-routed-error-directives` |
 | Fulfillment stack | Shopify + DSers + exact AliExpress supplier mappings |
 | Catalog | 9 Active product pages; 29 rejected legacy products quarantined as Draft |
 | Canada | 10 exact approved SKUs across 9 pages |
@@ -121,6 +121,13 @@ lines passed live QA.
 - Core semantics passed: skip link, language, main landmark, one PDP H1,
   canonicals, labelled core controls, useful image alt text, and no observed
   desktop horizontal overflow.
+- The bounded 390 x 844 and 768 x 1024 browser-viewport funnel matrix passed;
+  the controlled mobile 404 reflows without horizontal overflow and retains a
+  focusable main landmark. A physical-device sign-off remains separate.
+- The live crawl passes 9/9 Canadian pages, 7/7 U.S. pages, and both intended
+  U.S. 404s. Portuguese product pages self-canonicalize to `pt-br`; market-
+  blocked product responses carry `X-Robots-Tag: noindex, nofollow` and
+  `Cache-Control: no-store, max-age=0`.
 - Hydration errors seen only in Codex/Chrome QA are caused by the test tools
   injecting a third child under `<html>`; raw Oxygen HTML is clean.
 
@@ -130,8 +137,11 @@ lines passed live QA.
   production test. QA traffic is not a customer-demand baseline.
 - Existing exact-SKU contribution evidence supports organic selling. It does
   not create a blanket paid CAC budget for all nine products.
-- Meta Pixel and Conversions API are connected, but fresh event receipt and
-  browser/server deduplication are not yet proven well enough for paid traffic.
+- Meta Pixel and Conversions API are connected, but a fresh normal-customer
+  event receipt and browser/server deduplication trace is not yet proven well
+  enough for paid traffic. The controlled QA browsers intentionally suppress
+  custom analytics when `navigator.webdriver` is true, so their absence is not
+  evidence of a customer-session failure or a pass.
 - Checkout has shown the configured Canadian and U.S. shipping rules in bounded
   tests. A complete product/destination address matrix has not been run.
 - No tax line appeared in the sampled Winnipeg or Seattle checkouts. This is an
@@ -145,16 +155,18 @@ lines passed live QA.
 
 This is the active technical lane.
 
-1. Run a real-phone/tablet funnel matrix for Canada and the United States:
-   home, collection, selector PDP, cart, market switch, and checkout handoff.
-2. Complete keyboard-only, visible-focus/focus-trap, 200% resize, 320 CSS px
+1. Obtain a short physical-phone/tablet sign-off for the already-passing
+   responsive browser matrix: home, collection, selector PDP, cart, market
+   switch, and checkout handoff.
+2. Complete the remaining keyboard-only, visible-focus/focus-trap, 200% resize, 320 CSS px
    reflow, touch-target, contrast, and automated accessibility checks on the
    primary funnel.
 3. Trace consent-aware GA4 and Meta `view_item`/`ViewContent`, `add_to_cart`, and
    `begin_checkout`/`InitiateCheckout` events in both markets. Confirm event IDs,
-   duplicate counts, and browser/server deduplication.
-4. Crawl all 9 Canadian and 7 U.S. product routes plus robots, sitemap,
-   canonicals, hreflang, status, and indexability.
+   duplicate counts, and browser/server deduplication in a normal,
+   non-automated customer browser.
+4. **Completed 2026-08-10:** crawl all 9 Canadian and 7 U.S. product routes plus
+   robots, sitemap, canonicals, hreflang, status, and indexability.
 5. Confirm representative Canadian and U.S. address-to-shipping-rate checkout
    behavior without placing an order. Document tax presentation separately.
 
@@ -162,8 +174,9 @@ This is the active technical lane.
 
 This lane can run while Lane 1 is being closed.
 
-1. Refresh the dated two-product organic content pack so it accurately reflects
-   the current nine-page edit without implying every product ships to the U.S.
+1. **Completed 2026-08-10:** replace the dated two-product pack with a prepared
+   nine-page organic content pack that does not imply every product ships to
+   the U.S.
 2. Prepare a seven-day no-spend content calendar with exact product media,
    truthful captions, accessibility alt text, and stable UTM values.
 3. Obtain explicit user approval before publishing to any external social
@@ -282,10 +295,10 @@ Do not do both before the evidence review.
 
 | Priority | Action | Owner | External mutation? |
 |---:|---|---|---:|
-| 1 | Mobile/tablet viewport + WCAG primary-funnel matrix | Codex agency; user physical-device sign-off if required | No |
-| 2 | GA4/Meta consent and deduplication trace | Codex agency | No spend; diagnostic events only |
-| 3 | SEO crawl + representative CA/U.S. shipping-rate checkout checks | Codex agency | No order/payment |
-| 4 | Refresh the organic content pack for the nine-page catalog | Codex agency | No, preparation only |
+| 1 | Physical-device sign-off + remaining keyboard/zoom/automated WCAG checks | User + Codex | No |
+| 2 | Normal-browser GA4/Meta consent and deduplication trace | User + Codex | No spend; diagnostic events only |
+| 3 | Representative CA/U.S. address-to-shipping-rate checkout checks | User + Codex | No order/payment |
+| 4 | Review the prepared nine-page organic content pack | User + Codex | No, preparation only |
 | 5 | Review and approve external organic publishing | User + Codex | Yes, approval required |
 | 6 | Process the first real order through the controlled runbook | User + Codex | Yes, only when an order exists |
 
@@ -320,7 +333,13 @@ CRA/Service Canada guidance or qualified professional advice.
   release architecture.
 - `docs/recovery-evidence/organic-release-execution-2026-08-10.md` — release
   execution record for catalog facts. Its original deployment SHA/asset block
-  is superseded by `4f0235e` / asset `4821542` in this file.
+  is superseded by `fe1c7e8` / asset `4183654` in this file.
+- `docs/recovery-evidence/mobile-wcag-primary-funnel-2026-08-10.md` — bounded
+  responsive and WCAG funnel evidence plus remaining physical-device gaps.
+- `docs/recovery-evidence/live-analytics-dedup-gate-2026-08-10.md` — current
+  measurement evidence and the controlled-browser suppression boundary.
+- `docs/recovery-evidence/live-seo-indexability-gate-2026-08-10.md` — complete
+  live catalog, locale, canonical, and market-404 crawl evidence.
 - `docs/recovery-evidence/dsers-mapped-catalog-remediation-2026-08-10.md` —
   current exact catalog remediation evidence.
 - `docs/recovery-evidence/frozen-catalog-fulfillment-gate-2026-08-09.md` —

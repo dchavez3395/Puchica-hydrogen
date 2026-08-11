@@ -4,8 +4,9 @@
 
 - **English catalog crawl:** PASS for the frozen market matrix.
 - **French and Spanish product alternates:** PASS.
-- **Portuguese product alternate status/H1:** PASS, but the deployed canonical was wrong and is being repaired in the same bounded release.
-- **Market-unavailable product response:** correct HTTP 404, but the deployed response lacked an explicit `X-Robots-Tag`; the same bounded release adds `noindex, nofollow` and `no-store` headers.
+- **Portuguese product alternate status/H1/canonical:** PASS live.
+- **Market-unavailable product response:** PASS live at HTTP 404 with explicit
+  `X-Robots-Tag: noindex, nofollow` and `Cache-Control: no-store, max-age=0`.
 - **Organic commerce:** may remain live. Paid traffic stays paused for the separate analytics, real-device, address/rate, and first-order gates.
 
 ## Robots and sitemap
@@ -57,12 +58,24 @@ Validation before deployment:
 - lint completed with 0 errors and 31 pre-existing utility-script warnings;
 - clean client and SSR production builds completed successfully.
 
-## Live close conditions for this repair
+## Live production closure
 
-After deployment, rerun:
+The bounded repair is live at commit
+`fe1c7e89872bacbb40de1ceafdad5560ff7d764f`, Oxygen asset `4183654`, and client
+bundle `entry.client-CUoq0yXM.js`. Shopify CLI build, upload, completion, and
+routability verification exited successfully. The public custom domain
+returned HTTP 200.
 
-1. one representative `pt-br` product and confirm its canonical exactly matches the prefixed URL;
-2. both U.S.-blocked product URLs and confirm HTTP 404 plus `X-Robots-Tag: noindex, nofollow` and `Cache-Control: no-store, max-age=0`;
-3. the 9-CA / 7-US / 2-US-404 matrix to confirm no release regression.
+Post-deployment verification passed:
 
-The separate representative address-to-shipping-rate checkout matrix is not closed by an SEO crawl and remains a pre-ad gate. No address or payment data was submitted in this run.
+1. `https://puchica.ca/pt-br/products/travel-cable-organizer-case`
+   self-canonicalized to that exact prefixed URL;
+2. both U.S.-blocked product URLs returned HTTP 404 plus
+   `X-Robots-Tag: noindex, nofollow` and
+   `Cache-Control: no-store, max-age=0`;
+3. the final route matrix passed 9/9 Canadian HTTP 200 pages, 7/7 U.S. HTTP 200
+   pages, and 2/2 intended U.S. HTTP 404 pages.
+
+The separate representative address-to-shipping-rate checkout matrix is not
+closed by this SEO crawl and remains a pre-ad gate. No address, order, payment,
+catalog, DSers, discount, or advertising mutation occurred in this run.
