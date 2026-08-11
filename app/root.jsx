@@ -52,6 +52,12 @@ export const shouldRevalidate = ({formMethod, currentUrl, nextUrl}) => {
   return false;
 };
 
+// The document error boundary lives at the root. Preserve headers from thrown
+// child-route responses (for example market-gated product 404 noindex/no-store
+// directives) instead of allowing React Router to retain only their status.
+export const headers = ({loaderHeaders, errorHeaders}) =>
+  errorHeaders || loaderHeaders;
+
 /**
  * The main and reset stylesheets are added in the Layout component
  * to prevent a bug in development HMR updates.

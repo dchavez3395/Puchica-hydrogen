@@ -137,6 +137,10 @@ test('market-unavailable product pages fail closed for crawlers', async () => {
     new URL('../app/routes/products.$handle.jsx', import.meta.url),
     'utf8',
   );
+  const rootRoute = await readFile(
+    new URL('../app/root.jsx', import.meta.url),
+    'utf8',
+  );
 
   assert.equal(
     productRoute.match(/throw productNotFoundResponse\(\)/g)?.length,
@@ -146,6 +150,10 @@ test('market-unavailable product pages fail closed for crawlers', async () => {
   assert.match(productRoute, /'X-Robots-Tag': 'noindex, nofollow'/);
   assert.match(
     productRoute,
+    /export const headers = \(\{loaderHeaders, errorHeaders\}\) =>[\s\S]*errorHeaders \|\| loaderHeaders/,
+  );
+  assert.match(
+    rootRoute,
     /export const headers = \(\{loaderHeaders, errorHeaders\}\) =>[\s\S]*errorHeaders \|\| loaderHeaders/,
   );
 });
