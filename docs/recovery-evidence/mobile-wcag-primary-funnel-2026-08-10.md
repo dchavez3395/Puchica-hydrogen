@@ -5,10 +5,10 @@
 **HOLD — the no-spend mobile/WCAG pre-ad gate is not closed yet.**
 
 The core mobile and tablet commerce path passed the bounded live checks below.
-One wrong-market 404 accessibility/reflow defect was found and corrected in the
-working tree. Production verification of that correction, a complete automated
-accessibility scan, and a physical-device/keyboard sign-off are still required
-before this gate can be marked `PASS`.
+One wrong-market 404 accessibility/reflow defect was found, corrected, deployed,
+and verified live. A complete automated accessibility scan and a
+physical-device/keyboard sign-off are still required before this gate can be
+marked `PASS`.
 
 This hold does not remove the current `GO_ORGANIC_LIMITED` authorization. It
 continues to block paid advertising.
@@ -90,15 +90,32 @@ with a lockfile-pinned optional-dependency install:
 
 ## Remaining closure work
 
-1. Deploy the exact tested commit and recheck the U.S. packing-cube 404 at
-   390 px: one main landmark, no overflow, current copy, no Add to Cart.
-2. Run and retain an automated accessibility report against home, collection,
+1. Run and retain an automated accessibility report against home, collection,
    handle-wrap PDP, cart, and controlled 404.
-3. Complete keyboard-only order/focus-trap verification in a browser surface
+2. Complete keyboard-only order/focus-trap verification in a browser surface
    that can send sequential Tab input reliably.
-4. Obtain a short physical-phone sign-off at approximately 390 px and a tablet
+3. Obtain a short physical-phone sign-off at approximately 390 px and a tablet
    sign-off; the current viewport checks are browser emulation, not physical
    device evidence.
+
+## Production release and live retest
+
+- Deployed storefront commit:
+  `4f0235ecdc39a67a6466627cdd6185b8f924b92c`
+- Oxygen asset: `4821542`
+- Shopify deployment ID: `5216302`
+- Client bundle: `entry.client-CdfzHHBG.js`
+- Production description: `4f0235e-mobile-market-404-a11y`
+- Shopify CLI result: exit 0; deployment completed and routability verified
+- Custom domain: `https://puchica.ca` returned HTTP 200
+
+Live 390 × 844 U.S. retest of the Canada-only packing-cube URL passed:
+
+- one `<main>` and one H1;
+- `scrollWidth` 390 for a 390 px viewport;
+- panel bounds 16–374 px with `box-sizing: border-box`;
+- current wrong-market/moved-page copy;
+- zero Add to Cart controls.
 
 Only after these items produce explicit passing evidence may this artifact be
 superseded by a dated `PASS` report.

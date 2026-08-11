@@ -1,8 +1,8 @@
 # Puchica current operating scope
 
 - **Status date:** 2026-08-10
-- **Binding storefront commit:** `ed18496fe5db8f242f1936b780eb02a0873ee39a`
-- **Production:** `https://puchica.ca` / Oxygen asset `4183219`
+- **Binding storefront commit:** `4f0235ecdc39a67a6466627cdd6185b8f924b92c`
+- **Production:** `https://puchica.ca` / Oxygen asset `4821542`
 - **Decision:** organic commerce is live and limited; paid advertising is
   paused.
 
@@ -40,8 +40,8 @@ current catalog and learn which offer deserves a small paid test.
 | Area | Current truth |
 |---|---|
 | Storefront | Shopify Hydrogen on Oxygen at `puchica.ca` |
-| Repository | `codex/catalog-continuation-2026-08-10`; local HEAD and origin are `ed18496` |
-| Production artifact | Oxygen asset `4183219`; client bundle `entry.client-BMA3c8z0.js` |
+| Repository | `codex/catalog-continuation-2026-08-10`; production code commit is `4f0235e` |
+| Production artifact | Oxygen asset `4821542`; deployment ID `5216302`; client bundle `entry.client-CdfzHHBG.js` |
 | Fulfillment stack | Shopify + DSers + exact AliExpress supplier mappings |
 | Catalog | 9 Active product pages; 29 rejected legacy products quarantined as Draft |
 | Canada | 10 exact approved SKUs across 9 pages |
@@ -320,7 +320,7 @@ CRA/Service Canada guidance or qualified professional advice.
   release architecture.
 - `docs/recovery-evidence/organic-release-execution-2026-08-10.md` — release
   execution record for catalog facts. Its original deployment SHA/asset block
-  is superseded by `ed18496` / asset `4183219` in this file.
+  is superseded by `4f0235e` / asset `4821542` in this file.
 - `docs/recovery-evidence/dsers-mapped-catalog-remediation-2026-08-10.md` —
   current exact catalog remediation evidence.
 - `docs/recovery-evidence/frozen-catalog-fulfillment-gate-2026-08-09.md` —
