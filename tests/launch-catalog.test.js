@@ -146,7 +146,7 @@ test('market-unavailable product pages fail closed for crawlers', async () => {
   assert.match(productRoute, /'X-Robots-Tag': 'noindex, nofollow'/);
   assert.match(
     productRoute,
-    /export const headers = \(\{loaderHeaders\}\) => loaderHeaders/,
+    /export const headers = \(\{loaderHeaders, errorHeaders\}\) =>[\s\S]*errorHeaders \|\| loaderHeaders/,
   );
 });
 
