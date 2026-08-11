@@ -3,8 +3,17 @@
 Headless storefront for **Puchica** (`puchica.ca`), built on Shopify Hydrogen
 (React Router 7) and hosted on **Shopify Oxygen**.
 
-Designed to the **Puchica Design System v1.0** — Outfit font, violet `#6D4CFF`
-palette, 8pt spacing, soft shadows, SVG icons (no emoji).
+## Current operating scope — read first
+
+Before changing products, suppliers, markets, design, or launch state, read
+[`docs/CURRENT-SCOPE.md`](docs/CURRENT-SCOPE.md). It is the canonical current
+goal, catalog boundary, readiness status, stop rules, and next-action sequence.
+Older dated plans are historical context when they conflict with that file.
+
+The live visual system is the warm, focused Puchica travel edit. Treat the
+current production storefront and `docs/CURRENT-SCOPE.md` as the design and
+commercial baseline; do not reconstruct an older broad-catalog theme from this
+README.
 
 ---
 
@@ -13,12 +22,13 @@ palette, 8pt spacing, soft shadows, SVG icons (no emoji).
 Hosting and data are **separate**:
 
 - **Products, collections, prices, images** load from the Shopify store via the
-  **Storefront API** (`ug91ve-sz.myshopify.com`). They are the real Puchica
-  catalog (with the AI lifestyle images), not placeholders.
+  **Storefront API** (`ug91ve-sz.myshopify.com`). They are the approved Puchica
+  catalog with exact Shopify-hosted product media, not placeholders.
 - **Cart & checkout** hand off to the real **Shopify checkout** — payments,
   taxes, and orders all run through Shopify as normal.
-- The hosting URL (`…o2.myshopify.dev` today) is the only "temporary" part and
-  is replaced by pointing a custom domain at it (see below).
+- The public Hydrogen/Oxygen storefront is already live on the apex domain
+  **`https://puchica.ca`**. Do not change DNS or reconnect the domain as a normal
+  development step.
 
 So no matter where this app is hosted, the catalog and checkout are always the
 real Puchica store.
@@ -50,7 +60,7 @@ npx shopify hydrogen env pull
 npx shopify hydrogen deploy --preview --force
 ```
 
-**Production** (public `…o2.myshopify.dev` URL):
+**Production** (public at `https://puchica.ca`):
 
 ```bash
 npx shopify hydrogen deploy --env production
@@ -60,56 +70,42 @@ npx shopify hydrogen deploy --env production
 Production deploy intentionally requires an interactive confirmation.
 
 Environments:
-- **Production** → https://puchica-storefront-f9aa94aa3bf86abb6754.o2.myshopify.dev (branch: `main`)
-- **Preview** → per-deployment private URL
+
+- **Production** → Oxygen handle `production`, custom domain
+  `https://puchica.ca`. The Hydrogen environment may display `main` as branch
+  metadata; that is not authorization to deploy an arbitrary `main` checkout.
+- **Preview** → per-deployment private URL.
+
+Deploy only a clean, committed, pushed exact SHA after the repository checks in
+`docs/CURRENT-SCOPE.md`. Record the successful Oxygen asset and custom-domain
+verification for every production release.
 
 ---
 
-## Custom domain: `shop.puchica.ca`
+## Live domain
 
-Goal: serve this storefront at **`shop.puchica.ca`** while the existing
-`puchica.ca` Horizon theme store keeps running untouched. Switch the apex
-(`puchica.ca`) over only when you're 100% happy.
-
-**1. Deploy to Production** (see above) if you haven't.
-
-**2. Add the domain in the Hydrogen channel**
-   Shopify admin → **Sales channels → Hydrogen → Puchica Storefront →
-   Settings → Domains** → **Connect existing domain** → enter
-   `shop.puchica.ca`. Shopify shows a **CNAME target** to point at.
-
-**3. Add the DNS record**
-   At wherever `puchica.ca` DNS is managed:
-   - **If DNS is managed by Shopify** (admin → Settings → Domains shows
-     puchica.ca as managed): add a **subdomain / CNAME** record there:
-     `shop` → the target Shopify gave you.
-   - **If DNS is at an external registrar** (GoDaddy, Namecheap, Cloudflare,
-     etc.): add a **CNAME** record: host `shop`, value = the target Shopify
-     gave you. (On Cloudflare, set the record to **DNS only / grey cloud**.)
-
-**4. Wait for SSL** — Shopify auto-provisions HTTPS (minutes to a few hours).
-   `https://shop.puchica.ca` then serves this storefront.
-
-**Later — replace the main store:** to make `puchica.ca` itself use this
-storefront, repoint the apex domain to Oxygen from the same Domains screen.
-This is the only step that affects the live store, so do it last.
+`puchica.ca` already resolves to the Hydrogen/Oxygen production storefront.
+Domain or DNS work is out of scope unless a verified outage or an explicitly
+approved domain change requires it. The former `shop.puchica.ca` migration plan
+is historical and must not be repeated.
 
 ---
 
-## Auto-deploy (optional, later)
+## Auto-deploy
 
-Push this repo to GitHub, then in the Hydrogen channel connect the repository.
-Every push to `main` then deploys to Production automatically — no manual CLI.
+Do not enable or assume automatic production deployment during the controlled
+organic phase. A pushed commit is not a production-release authorization. Use
+the tested, recorded release process in `docs/CURRENT-SCOPE.md`.
 
 ---
 
 ## Project map
 
-- `app/routes/_index.jsx` — homepage (hero + spotlight, categories, best picks, trust bar)
+- `app/routes/_index.jsx` — focused travel-edit homepage
 - `app/components/Header.jsx` / `Footer.jsx` — header + footer (component kit)
 - `app/components/Icons.jsx` — SVG icon set
 - `app/components/ProductItem.jsx` — product card (collections/search)
 - `app/routes/products.$handle.jsx` — product page
 - `app/routes/collections.*.jsx` — collection / catalog pages
 - `app/styles/app.css` — design tokens + all Puchica styles (search `Puchica`)
-- `app/lib/context.js` — i18n country = `CA` (CAD pricing)
+- `app/lib/context.js` — market-aware CA/CAD and US/USD locale resolution
