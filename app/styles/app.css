@@ -5597,6 +5597,7 @@ button:focus-visible,
   padding: 32px 16px;
 }
 .pk-route-error__panel {
+  box-sizing: border-box;
   max-width: 560px;
   width: 100%;
   text-align: center;

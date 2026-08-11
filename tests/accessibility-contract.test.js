@@ -56,3 +56,21 @@ test('skip link targets the keyboard-focusable main landmark', async () => {
   assert.match(layout, /href="#main-content"/);
   assert.match(layout, /<main id="main-content" tabIndex=\{-1\}>/);
 });
+
+test('route errors keep a focusable main landmark and reflow inside the viewport', async () => {
+  const [root, styles, dictionaries] = await Promise.all([
+    readSource('app/root.jsx'),
+    readSource('app/styles/app.css'),
+    readSource('app/lib/dictionaries.js'),
+  ]);
+
+  assert.match(
+    root,
+    /<main[\s\S]*?id="main-content"[\s\S]*?tabIndex=\{-1\}[\s\S]*?className="route-error pk-route-error"/,
+  );
+  assert.match(
+    styles,
+    /\.pk-route-error__panel\s*\{[\s\S]*?box-sizing:\s*border-box;/,
+  );
+  assert.doesNotMatch(dictionaries, /prepare the new catalog/i);
+});

@@ -809,7 +809,7 @@ export const DICTIONARIES = {
     err_404_h: "We couldn't find that page",
     err_500_h: 'Something went wrong on our end',
     err_404_body:
-      'That page may have moved while we prepare the new catalog. Return home or contact us for help.',
+      'That page may have moved or may not be available in your market. Return home or contact us for help.',
     err_500_body:
       'We couldn’t load this page. Try again, return home, or contact us for help.',
     err_search_aria: 'Search finds',
@@ -2160,7 +2160,7 @@ export const DICTIONARIES = {
     err_404_h: "Nous n'avons pas trouvé cette page",
     err_500_h: "Une erreur s'est produite de notre côté",
     err_404_body:
-      'Cette page a peut-être été déplacée pendant la préparation du nouveau catalogue. Retournez à l’accueil ou contactez-nous.',
+      "Cette page a peut-être été déplacée ou n'est pas offerte dans votre marché. Retournez à l’accueil ou contactez-nous.",
     err_500_body:
       "Une erreur inattendue s'est produite lors du rendu de cette page. Réessayez ou parcourez le catalogue ci-dessous.",
     err_search_aria: 'Rechercher des articles',
@@ -3543,7 +3543,7 @@ export const DICTIONARIES = {
     err_404_h: 'No pudimos encontrar esa página',
     err_500_h: 'Algo salió mal de nuestro lado',
     err_404_body:
-      'Esa página puede haberse movido mientras preparamos el nuevo catálogo. Vuelve al inicio o contáctanos.',
+      'Esa página puede haberse movido o no estar disponible en tu mercado. Vuelve al inicio o contáctanos.',
     err_500_body:
       'Tuvimos un error inesperado al renderizar esta página. Inténtalo de nuevo o explora el catálogo abajo.',
     err_search_aria: 'Buscar hallazgos',
@@ -4916,7 +4916,7 @@ export const DICTIONARIES = {
     err_404_h: 'Não encontramos essa página',
     err_500_h: 'Algo deu errado do nosso lado',
     err_404_body:
-      'Essa página pode ter sido movida enquanto preparamos o novo catálogo. Volte ao início ou entre em contato.',
+      'Essa página pode ter sido movida ou não estar disponível no seu mercado. Volte ao início ou entre em contato.',
     err_500_body:
       'Tivemos um erro inesperado ao renderizar esta página. Tente de novo, ou explore o catálogo abaixo.',
     err_search_aria: 'Buscar achados',

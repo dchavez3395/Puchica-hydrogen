@@ -348,7 +348,11 @@ export function ErrorBoundary() {
   const subhead = isNotFound ? t('err_404_body') : t('err_500_body');
 
   return (
-    <div className="route-error pk-route-error">
+    <main
+      id="main-content"
+      tabIndex={-1}
+      className="route-error pk-route-error"
+    >
       <div className="pk-route-error__panel">
         <span className="pk-route-error__eyebrow" aria-hidden>
           {errorStatus}
@@ -404,7 +408,7 @@ export function ErrorBoundary() {
           })}
         </p>
       </div>
-    </div>
+    </main>
   );
 }
 
