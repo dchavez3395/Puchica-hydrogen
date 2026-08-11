@@ -3,6 +3,10 @@ import {useEffect, useRef, useState} from 'react';
 import {useRevalidator} from 'react-router';
 import {useAside} from '~/components/Aside';
 import {useT} from '~/lib/t';
+import {
+  captureCartSubmission,
+  isFeedbackForCurrentSelection,
+} from '~/lib/cart-feedback';
 
 /**
  * @param {{
@@ -74,10 +78,14 @@ function AddToCartSubmitButton({
   const submittedIdsKeyRef = useRef('');
 
   useEffect(() => {
-    if (isSubmitting) {
-      wasSubmittingRef.current = true;
-      submittedIdsKeyRef.current = attemptedIdsKey;
-    }
+    const captured = captureCartSubmission({
+      isSubmitting,
+      wasSubmitting: wasSubmittingRef.current,
+      attemptedIdsKey,
+      submittedIdsKey: submittedIdsKeyRef.current,
+    });
+    wasSubmittingRef.current = captured.wasSubmitting;
+    submittedIdsKeyRef.current = captured.submittedIdsKey;
   }, [attemptedIdsKey, isSubmitting]);
 
   // Success/error feedback belongs to the exact merchandise selection that
@@ -104,7 +112,9 @@ function AddToCartSubmitButton({
       // A shopper may switch variants while an add is in flight. The original
       // line can still succeed, but its success label must not attach itself to
       // the newly selected merchandise.
-      setShowAdded(submittedIdsKey === attemptedIdsKey);
+      setShowAdded(
+        isFeedbackForCurrentSelection(submittedIdsKey, attemptedIdsKey),
+      );
       setShowError(false);
       open('cart');
       if (typeof window !== 'undefined' && actionData?.cart) {
@@ -119,7 +129,9 @@ function AddToCartSubmitButton({
       return () => clearTimeout(t);
     }
     // Keep the error visible longer — the user actually needs to read it.
-    setShowError(true);
+    setShowError(
+      isFeedbackForCurrentSelection(submittedIdsKey, attemptedIdsKey),
+    );
     setShowAdded(false);
     const t = setTimeout(() => setShowError(false), 3200);
     return () => clearTimeout(t);

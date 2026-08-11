@@ -2,6 +2,10 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {DICTIONARIES} from '../app/lib/dictionaries.js';
+import {
+  captureCartSubmission,
+  isFeedbackForCurrentSelection,
+} from '../app/lib/cart-feedback.js';
 
 test('cart removal refreshes the drawer and route data', async () => {
   const source = await readFile(
@@ -25,6 +29,27 @@ test('add-to-cart feedback resets when the selected variant changes', async () =
     source,
     /useEffect\(\(\) => \{\s*setShowAdded\(false\);\s*setShowError\(false\);\s*\}, \[attemptedIdsKey\]\)/,
   );
+
+  const started = captureCartSubmission({
+    isSubmitting: true,
+    wasSubmitting: false,
+    attemptedIdsKey: 'coffee',
+    submittedIdsKey: '',
+  });
+  assert.deepEqual(started, {
+    wasSubmitting: true,
+    submittedIdsKey: 'coffee',
+  });
+
+  const switchedWhileSubmitting = captureCartSubmission({
+    isSubmitting: true,
+    wasSubmitting: started.wasSubmitting,
+    attemptedIdsKey: 'black',
+    submittedIdsKey: started.submittedIdsKey,
+  });
+  assert.equal(switchedWhileSubmitting.submittedIdsKey, 'coffee');
+  assert.equal(isFeedbackForCurrentSelection('coffee', 'black'), false);
+  assert.equal(isFeedbackForCurrentSelection('black', 'black'), true);
 });
 
 test('closed mega menu is isolated from keyboard focus', async () => {
