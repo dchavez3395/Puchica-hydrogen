@@ -14,6 +14,19 @@ test('cart removal refreshes the drawer and route data', async () => {
   assert.match(source, /revalidator\.revalidate\(\)/);
 });
 
+test('add-to-cart feedback resets when the selected variant changes', async () => {
+  const source = await readFile(
+    new URL('../app/components/AddToCartButton.jsx', import.meta.url),
+    'utf8',
+  );
+
+  assert.match(source, /const attemptedIdsKey = attemptedMerchandiseIds\.join/);
+  assert.match(
+    source,
+    /useEffect\(\(\) => \{\s*setShowAdded\(false\);\s*setShowError\(false\);\s*\}, \[attemptedIdsKey\]\)/,
+  );
+});
+
 test('closed mega menu is isolated from keyboard focus', async () => {
   const source = await readFile(
     new URL('../app/components/MegaMenu.jsx', import.meta.url),
@@ -38,8 +51,14 @@ test('launch check treats view_cart as cart engagement, not checkout start', asy
     'utf8',
   );
 
-  assert.doesNotMatch(source, /GA4 still treats a cart view as a checkout start/);
-  assert.match(source, /forbidding the storefront bridge[\s\S]*custom_checkout_started/);
+  assert.doesNotMatch(
+    source,
+    /GA4 still treats a cart view as a checkout start/,
+  );
+  assert.match(
+    source,
+    /forbidding the storefront bridge[\s\S]*custom_checkout_started/,
+  );
 });
 
 test('disabled packing-cubes campaign is not required to emit ProductView', async () => {

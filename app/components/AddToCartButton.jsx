@@ -69,15 +69,24 @@ function AddToCartSubmitButton({
   const {open} = useAside();
   const revalidator = useRevalidator();
 
+  const attemptedIdsKey = attemptedMerchandiseIds.join(',');
   const wasSubmittingRef = useRef(false);
+  const submittedIdsKeyRef = useRef('');
 
   useEffect(() => {
     if (isSubmitting) {
       wasSubmittingRef.current = true;
+      submittedIdsKeyRef.current = attemptedIdsKey;
     }
-  }, [isSubmitting]);
+  }, [attemptedIdsKey, isSubmitting]);
 
-  const attemptedIdsKey = attemptedMerchandiseIds.join(',');
+  // Success/error feedback belongs to the exact merchandise selection that
+  // triggered it. Clear that transient state immediately when a shopper picks
+  // another approved variant so the new option always has a usable ATC button.
+  useEffect(() => {
+    setShowAdded(false);
+    setShowError(false);
+  }, [attemptedIdsKey]);
 
   useEffect(() => {
     if (fetcher.state !== 'idle' || !fetcher.data) return;
@@ -85,15 +94,17 @@ function AddToCartSubmitButton({
     wasSubmittingRef.current = false;
 
     const actionData =
-      fetcher.data?.data ??
-      fetcher.data?.['routes/cart']?.data ??
-      fetcher.data;
+      fetcher.data?.data ?? fetcher.data?.['routes/cart']?.data ?? fetcher.data;
+    const submittedIdsKey = submittedIdsKeyRef.current;
     const result = checkAddAccepted(
       actionData,
-      attemptedIdsKey.split(',').filter(Boolean),
+      submittedIdsKey.split(',').filter(Boolean),
     );
     if (result.ok) {
-      setShowAdded(true);
+      // A shopper may switch variants while an add is in flight. The original
+      // line can still succeed, but its success label must not attach itself to
+      // the newly selected merchandise.
+      setShowAdded(submittedIdsKey === attemptedIdsKey);
       setShowError(false);
       open('cart');
       if (typeof window !== 'undefined' && actionData?.cart) {
@@ -114,14 +125,15 @@ function AddToCartSubmitButton({
     return () => clearTimeout(t);
   }, [fetcher.state, fetcher.data, attemptedIdsKey, open, revalidator]);
 
-  const resolvedAddedLabel = addedLabel !== undefined ? addedLabel : t('atc_added');
+  const resolvedAddedLabel =
+    addedLabel !== undefined ? addedLabel : t('atc_added');
   const label = showError
     ? t('atc_out_of_stock')
     : showAdded
-    ? resolvedAddedLabel
-    : isSubmitting
-    ? t('atc_adding')
-    : children;
+      ? resolvedAddedLabel
+      : isSubmitting
+        ? t('atc_adding')
+        : children;
 
   return (
     <>
