@@ -44,7 +44,9 @@ export const meta = ({data, matches, params}) => {
     root?.data?.selectedLocale?.language ||
     params?.locale ||
     'en'
-  ).toLowerCase();
+  )
+    .toLowerCase()
+    .replace(/_/g, '-');
   const langKey = ['fr', 'es', 'pt-br'].includes(langCode) ? langCode : 'en';
   const dict = DICTIONARIES[langKey] || DICTIONARIES.en;
   const seo = data.product.seo || {};
@@ -55,10 +57,8 @@ export const meta = ({data, matches, params}) => {
   // all 4 locales because the brand is global.
   const title =
     seo.title || `${data.product.title}${dict.pdp_meta_title_suffix}`;
-  // Canada-only store: strip any U.S.-only shipping copy and avoid leaking
-  // "United States" into the Canada-only meta fallback. The regex also catches
-  // any lingering "U.S./United States" mentions so the live description never
-  // contradicts the Canada-only market position.
+  // Market-safe metadata: strip old U.S.-only shipping language so the shared
+  // Canada/U.S. storefront never advertises a route that depends on stale copy.
   const description =
     (/u\.?s\.? shipping only|united states/i.test(storedDescription)
       ? ''
@@ -85,13 +85,7 @@ export const meta = ({data, matches, params}) => {
 /** @param {Route.LoaderArgs} args */
 export async function loader(args) {
   if (STOREFRONT_CONTAINMENT_ACTIVE) {
-    throw new Response(null, {
-      status: 404,
-      headers: {
-        'Cache-Control': 'no-store, max-age=0',
-        'X-Robots-Tag': 'noindex, nofollow',
-      },
-    });
+    throw productNotFoundResponse();
   }
   const {product, reviews} = await loadCriticalData(args);
   return {product, reviews};
@@ -113,12 +107,12 @@ async function loadCriticalData({context, params, request}) {
   });
 
   const product = productResp.product;
-  if (!product?.id) throw new Response(null, {status: 404});
+  if (!product?.id) throw productNotFoundResponse();
   if (!isLaunchReadyProduct(product, country)) {
-    throw new Response(null, {status: 404});
+    throw productNotFoundResponse();
   }
   const approvedVariants = findApprovedVariants(product, country);
-  if (!approvedVariants.length) throw new Response(null, {status: 404});
+  if (!approvedVariants.length) throw productNotFoundResponse();
 
   const requestedVariant = product.selectedOrFirstAvailableVariant;
   const approvedVariant =
@@ -139,6 +133,16 @@ async function loadCriticalData({context, params, request}) {
   const reviews = await getJudgemeBadge(handle);
   redirectIfHandleIsLocalized(request, {handle, data: product});
   return {product, reviews};
+}
+
+function productNotFoundResponse() {
+  return new Response(null, {
+    status: 404,
+    headers: {
+      'Cache-Control': 'no-store, max-age=0',
+      'X-Robots-Tag': 'noindex, nofollow',
+    },
+  });
 }
 
 export default function Product() {

@@ -108,3 +108,13 @@ test('missing checkout URLs remain recoverable in every locale', async () => {
     assert.ok(DICTIONARIES[locale].cart_checkout_retry);
   }
 });
+
+test('Portuguese Storefront language codes self-canonicalize to pt-br URLs', async () => {
+  const source = await readFile(
+    new URL('../app/routes/products.$handle.jsx', import.meta.url),
+    'utf8',
+  );
+
+  assert.match(source, /\.toLowerCase\(\)\s*\.replace\(\/_\/g, '-'/);
+  assert.match(source, /\['fr', 'es', 'pt-br'\]\.includes\(langCode\)/);
+});

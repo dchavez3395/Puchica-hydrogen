@@ -132,6 +132,20 @@ test('product sitemap has the exact-variant data required by its launch gate', a
   assert.match(sitemap, /'\/collections\/all'/);
 });
 
+test('market-unavailable product pages fail closed for crawlers', async () => {
+  const productRoute = await readFile(
+    new URL('../app/routes/products.$handle.jsx', import.meta.url),
+    'utf8',
+  );
+
+  assert.equal(
+    productRoute.match(/throw productNotFoundResponse\(\)/g)?.length,
+    4,
+  );
+  assert.match(productRoute, /'Cache-Control': 'no-store, max-age=0'/);
+  assert.match(productRoute, /'X-Robots-Tag': 'noindex, nofollow'/);
+});
+
 test('released homepage is travel-focused and uses the catalog gate', async () => {
   const home = await readFile(
     new URL('../app/routes/_index.jsx', import.meta.url),
