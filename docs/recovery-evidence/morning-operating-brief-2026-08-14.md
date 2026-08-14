@@ -93,6 +93,32 @@ problem is distribution before it is product conversion.
   `ACTIVE` products to quarantine. No Admin state was changed; source-level
   route gates continue to fail them closed.
 
+### 2026-08-14 14:40 CDT checkpoint regression
+
+- `npm run production-health` passed 26/29 checks, so the automated checkpoint
+  is not green. Source and release-evidence review traced all three failures to
+  a stale monitor cohort rather than a newly discovered supplier-route leak.
+- The United States luggage-tag route returned HTTP 200 while the monitor still
+  expected a fail-closed 404. That live result matches the intentional U.S.
+  route restoration in commit `99c2f0b` and its recorded fresh DSers quote.
+- The Canada product feed and product sitemap expose nine handles rather than
+  the monitor's old six. The three additions are the black hanging travel
+  toiletry organizer, large blue handled clothes storage bag, and soft luggage
+  handle wrap; all three match the intentional route-recovery release.
+- A read-only Shopify query for orders created on or after 2026-08-15 returned
+  zero orders. Because the store timezone was still August 14 CDT, the matching
+  ShopifyQL session and attribution window had not started and cannot yet be
+  used as demand evidence.
+- The signed-in `@puchica.canada` profile still showed Day 1 publicly with its
+  corrected availability-hold caption. Its post insights showed zero
+  interactions, profile visits, external-link taps, or follows at this
+  checkpoint. No paid action was taken.
+- Treat the stale 6-product Canada / 4-product United States monitor baseline
+  as the active health-check failure. Production evidence currently defines a
+  9-product Canada / 7-product United States cohort (10 and 8 exact SKUs,
+  respectively). Reconcile the monitor before using a green checkpoint as a
+  release gate; the standing pre-supplier exact-SKU recheck remains mandatory.
+
 ## Cash and runway control
 
 - Owner cash ceiling for Puchica: **CA$200/month**.
