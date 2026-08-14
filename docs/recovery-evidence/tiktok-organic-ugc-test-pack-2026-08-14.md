@@ -66,3 +66,28 @@ At publication time:
 
 Publishing remains an explicit external action. Preparation of this pack does
 not authorize upload or scheduling.
+
+## Cable-organizer publication execution
+
+At 2026-08-14 16:09 CDT, the owner explicitly instructed `Post now`. TikTok
+Studio accepted the cable-organizer video on `@puchica_canada` and returned
+`Video published` with video ID `7673997227706109202`:
+
+`https://www.tiktok.com/@puchica_canada/video/7673997227706109202`
+
+Publication controls at submission were:
+
+- audience selected as `Everyone`;
+- high-quality upload enabled;
+- own-brand commercial-content disclosure enabled (`Your brand`);
+- AI-generated-content label enabled;
+- music copyright check: `No issues found`;
+- Content Check Lite: `No issues found`;
+- no paid sound, boost, Promote, Spark Ads, or ad spend.
+
+TikTok then placed the submitted post into `Content under review` and displayed
+the privacy state as temporarily disabled `Only me`. A refresh roughly 20
+seconds later showed the same review state. Therefore the upload is accepted
+but public availability is **not yet confirmed**. Do not count impressions or
+start the 2-hour measurement window until Studio changes the post to
+`Everyone` and the public video URL resolves.
