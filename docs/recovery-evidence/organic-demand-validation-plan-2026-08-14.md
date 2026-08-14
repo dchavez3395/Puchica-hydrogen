@@ -97,3 +97,17 @@ does not prove that the products failed.
   in the campaign priority.
 - No ad spend, supplier order, payment capture, fulfilment, or store-setting
   change was made during this deployment.
+
+### Offer-clarity follow-up deployment
+
+- Commit `4fea623` was deployed to Shopify Oxygen production with deployment
+  description `hero-offer-clarity`.
+- Deployment URL:
+  `https://01m014t3rhfnjfaqb4q6113cmd-f9aa94aa3bf86abb6754.myshopify.dev`.
+- Automated tests passed 85 of 85; `npm run launch-check` and the production
+  build passed.
+- Post-deployment production health passed all 35 checks.
+- Direct live reads returned HTTP 200 and verified the new `What arrives`
+  content on both the cable-organizer and hanging-toiletry-organizer pages.
+- The backup TikTok remained unpublished. No ad spend, supplier order, payment,
+  fulfilment, or customer-data mutation was made.
