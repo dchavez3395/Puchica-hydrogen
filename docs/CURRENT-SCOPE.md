@@ -298,7 +298,7 @@ Do not do both before the evidence review.
 | 1 | Physical-device sign-off + remaining keyboard/zoom/automated WCAG checks | User + Codex | No |
 | 2 | Normal-browser GA4/Meta consent and deduplication trace | User + Codex | No spend; diagnostic events only |
 | 3 | Representative CA/U.S. address-to-shipping-rate checkout checks | User + Codex | No order/payment |
-| 4 | Review the prepared nine-page organic content pack | User + Codex | No, preparation only |
+| 4 | Review the prepared Instagram pack and three-video TikTok UGC test pack | User + Codex | No, preparation only |
 | 5 | Review and approve external organic publishing | User + Codex | Yes, approval required |
 | 6 | Process the first real order through the controlled runbook | User + Codex | Yes, only when an order exists |
 
