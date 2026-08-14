@@ -2,15 +2,28 @@
 
 ## Status
 
-Days 1–3 have product-faithful lifestyle creatives ready for organic use. Each
-creative was generated from the exact approved supplier/storefront option and
-then exported to feed, square, and story dimensions.
+Days 1–3 have product-faithful lifestyle creatives exported to feed, square,
+and story dimensions. Day 1 is live on Instagram; Days 2 and 3 are scheduled.
+Days 4–13 have deterministic feed/story cards and carousel frames built from
+the verified hero assets and exact copy. Day 14 remains intentionally open so
+it can iterate the strongest measured signal instead of guessing a winner.
 
 Internal disclosure: these are AI-assisted lifestyle composites. Product
 identity, colour, construction, and bounded use were constrained from exact
 reference media. The pictured contents are illustrative and are not included.
 
 Spend authorization: **CA$0 only**. These assets do not authorize paid ads.
+
+## Instagram execution status
+
+| Day | State | Instagram time | Evidence |
+|---:|---|---|---|
+| 1 | Live | Published 2026-08-14 shortly after 00:35 CDT | `https://www.instagram.com/puchica.canada/p/DcAkyM0jkN9/` |
+| 2 | Scheduled | 2026-08-15 at 6:30 PM (platform display) | Verified in Instagram Scheduled content |
+| 3 | Scheduled | 2026-08-16 at 6:30 PM (platform display) | Verified in Instagram Scheduled content |
+
+Each of these posts uses custom alt text and Instagram's AI-content label.
+Days 2 and 3 remain scheduled rather than being published back-to-back.
 
 ## Day 1 — Black hanging toiletry organizer
 
@@ -28,7 +41,7 @@ Caption:
 > Toiletry Organizer keeps travel-size items visible in separate sections and
 > can hang when a compatible hook or rail is available. Toiletries shown are
 > not included, and the organizer is not a sealed waterproof container.
-> Shipping options are shown at checkout. View the organizer.
+> Shipping options are shown at checkout. Shop through the link in our bio.
 
 Tags: `#TravelOrganization #PackingTips #Puchica`
 
@@ -48,7 +61,8 @@ Caption:
 > One suitcase, three zones. This exact charcoal set includes small, medium,
 > and large zippered cubes so clothing can be grouped instead of stacked into
 > one pile. They are standard packing cubes—not vacuum bags or a mechanical
-> compression system. Available through Puchica's Canadian storefront.
+> compression system. Available through Puchica's Canadian storefront. Shop
+> through the link in our bio.
 
 Tags: `#PackingCubes #TravelOrganization #PuchicaCanada`
 
@@ -67,9 +81,199 @@ Caption:
 > The charger tangle needs a home too. The Black Double-Layer Travel Cable
 > Organizer is approximately 19 × 11 × 5.5 cm, with elastic loops and mesh
 > pockets for compatible small accessories. Cables and electronics are not
-> included. See the exact organizer and shipping options before payment.
+> included. See the exact organizer and shipping options before payment. Shop
+> through the link in our bio.
 
 Tags: `#CableOrganizer #TravelTech #Puchica`
+
+## Day 4 — Three-problem poll
+
+- UTM content: `d04_system_poll`
+- Feed: `generated-images/organic-2026-08/day-04-system-poll-feed-1080x1350.jpg`
+- Story: `generated-images/organic-2026-08/day-04-system-poll-story-1080x1920.jpg`
+- Alt text: Three Puchica travel organizers representing clothing, toiletries, and cable storage.
+
+Caption:
+
+> What creates the most packing chaos for you? A. Clothing in one big pile.
+> B. Toiletries buried at the bottom. C. Loose cables everywhere. We narrowed
+> Puchica's travel edit to practical organizers for those three problems. Pick
+> one—your answer helps decide what we demonstrate next.
+
+Tags: `#TravelPoll #PackingProblems #Puchica`
+
+## Day 5 — Toiletry details carousel
+
+- Product: `https://puchica.ca/products/black-hanging-travel-toiletry-organizer`
+- UTM content: `d05_toiletry_compartments`
+- Feed carousel:
+  - `generated-images/organic-2026-08/day-05-toiletry-details-01-feed-1080x1350.jpg`
+  - `generated-images/organic-2026-08/day-05-toiletry-details-02-feed-1080x1350.jpg`
+  - `generated-images/organic-2026-08/day-05-toiletry-details-03-feed-1080x1350.jpg`
+- Story: `generated-images/organic-2026-08/day-05-toiletry-details-story-1080x1920.jpg`
+- Alt text: Close views of the black toiletry organizer's hook, zipper, carry loop, mesh, and internal sections.
+
+Caption:
+
+> The useful part is being able to see what you packed. The exact Black
+> organizer has a hanging hook, carry loop, zip closure, and three storage
+> sections. Closed, it is approximately 22 × 14 × 8 cm; open height is
+> approximately 53 cm. Wipe it clean and let it dry fully before storing.
+
+Tags: `#ToiletryBag #TravelOrganizer #Puchica`
+
+## Day 6 — Packing sequence carousel
+
+- Product: `https://puchica.ca/products/3-piece-packing-cube-set`
+- Market: Canada only
+- UTM content: `d06_cubes_sequence`
+- Feed carousel:
+  - `generated-images/organic-2026-08/day-06-packing-sequence-01-feed-1080x1350.jpg`
+  - `generated-images/organic-2026-08/day-06-packing-sequence-02-feed-1080x1350.jpg`
+  - `generated-images/organic-2026-08/day-06-packing-sequence-03-feed-1080x1350.jpg`
+  - `generated-images/organic-2026-08/day-06-packing-sequence-04-feed-1080x1350.jpg`
+- Story: `generated-images/organic-2026-08/day-06-packing-sequence-story-1080x1920.jpg`
+- Alt text: Folded clothing being placed into three charcoal zippered packing cubes.
+
+Caption:
+
+> Fold. Group. Zip. Place. The three charcoal cubes fit beside one another and
+> fold flat between trips. Use them to separate tops, bottoms, undergarments,
+> or accessories—without claiming they remove air or compress a suitcase.
+> Clothing shown is not included.
+
+Tags: `#PackingRoutine #PackingCubes #PuchicaCanada`
+
+## Day 7 — Cable checklist
+
+- Product: `https://puchica.ca/products/travel-cable-organizer-case`
+- UTM content: `d07_cable_checklist`
+- Feed: `generated-images/organic-2026-08/day-07-cable-checklist-feed-1080x1350.jpg`
+- Story: `generated-images/organic-2026-08/day-07-cable-checklist-story-1080x1920.jpg`
+- Alt text: Checklist beside a black cable organizer containing common small travel electronics.
+
+Caption:
+
+> Before the bag closes: cable, adapter, earbuds, memory card. The double-layer
+> case gives compatible small tech accessories one place to travel together.
+> It is a soft organizer, not a waterproof electronics case, so keep it away
+> from standing water.
+
+Tags: `#TravelChecklist #CableManagement #Puchica`
+
+## Day 8 — Toiletry before and after
+
+- Product: `https://puchica.ca/products/black-hanging-travel-toiletry-organizer`
+- UTM content: `d08_toiletry_before_after`
+- Feed: `generated-images/organic-2026-08/day-08-toiletry-before-after-feed-1080x1350.jpg`
+- Story: `generated-images/organic-2026-08/day-08-toiletry-before-after-story-1080x1920.jpg`
+- Alt text: Travel toiletries moving from a loose bag into the sections of a black hanging organizer.
+
+Caption:
+
+> Before: one loose pile. After: the travel-size items you need are separated
+> and visible. The Black Hanging Travel Toiletry Organizer opens to
+> approximately 53 cm high and hangs where a compatible hook or rail is
+> available. Product and shipping details are shown before payment.
+
+Tags: `#BeforeAndAfter #TravelToiletries #Puchica`
+
+## Day 9 — Packing-cube sizes carousel
+
+- Product: `https://puchica.ca/products/3-piece-packing-cube-set`
+- Market: Canada only
+- UTM content: `d09_cubes_sizes`
+- Feed carousel:
+  - `generated-images/organic-2026-08/day-09-packing-sizes-01-feed-1080x1350.jpg`
+  - `generated-images/organic-2026-08/day-09-packing-sizes-02-feed-1080x1350.jpg`
+  - `generated-images/organic-2026-08/day-09-packing-sizes-03-feed-1080x1350.jpg`
+- Story: `generated-images/organic-2026-08/day-09-packing-sizes-story-1080x1920.jpg`
+- Alt text: Three labelled charcoal packing cubes showing the approximate small, medium, and large dimensions.
+
+Caption:
+
+> Small: approximately 20 × 30 cm. Medium: approximately 25 × 35 cm. Large:
+> approximately 30 × 40 cm. The exact charcoal three-piece set gives different
+> groups of clothing their own zippered space. Check your luggage dimensions
+> and avoid overfilling.
+
+Tags: `#PackingCubeSizes #TravelPacking #PuchicaCanada`
+
+## Day 10 — Cable case travel-day POV
+
+- Product: `https://puchica.ca/products/travel-cable-organizer-case`
+- UTM content: `d10_cable_carryon`
+- Feed: `generated-images/organic-2026-08/day-10-cable-carryon-feed-1080x1350.jpg`
+- Story: `generated-images/organic-2026-08/day-10-cable-carryon-story-1080x1920.jpg`
+- Alt text: Black double-layer cable organizer open and ready to be placed into a larger travel bag.
+
+Caption:
+
+> One last item before the carry-on closes: the cable case. Its two layers help
+> separate smaller accessories, while the wrist strap makes the case easier to
+> retrieve from a larger bag. Compatibility depends on what you carry;
+> pictured electronics are not included.
+
+Tags: `#CarryOnPacking #TravelTech #Puchica`
+
+## Day 11 — Founder verification card
+
+- UTM content: `d11_founder_verified`
+- Feed: `generated-images/organic-2026-08/day-11-founder-verification-feed-1080x1350.jpg`
+- Story: `generated-images/organic-2026-08/day-11-founder-verification-story-1080x1920.jpg`
+- Alt text: The three Puchica hero organizers beside a checklist for exact variant, stock, route, cost, storefront behaviour, and honest copy.
+
+Caption:
+
+> We stopped adding products just to make the catalog look bigger. Puchica's
+> current travel edit is limited to exact variants we could check for mapping,
+> stock, cost, destination routes, storefront behaviour, and honest copy. That
+> does not replace a real delivery test—but it is the standard before we ask
+> anyone to order.
+
+Tags: `#SmallBusinessCanada #BehindTheStore #Puchica`
+
+## Day 12 — Shipping FAQ
+
+- UTM content: `d12_toiletry_faq`
+- Feed: `generated-images/organic-2026-08/day-12-shipping-faq-feed-1080x1350.jpg`
+- Story: `generated-images/organic-2026-08/day-12-shipping-faq-story-1080x1920.jpg`
+- Alt text: Shipping FAQ card explaining checkout rates, tracking, and return-policy review for Puchica orders.
+
+Caption:
+
+> Before ordering: choose the exact item, enter the delivery address, and
+> review the shipping option and cost at checkout. A delivery estimate may not
+> always be available. When a tracked service is available, tracking is sent
+> after the order ships. Review the refund policy before buying and contact us
+> before mailing a return.
+
+Tags: `#ShippingFAQ #ShopWithClarity #Puchica`
+
+## Day 13 — Honest packing-cube fit
+
+- Product: `https://puchica.ca/products/3-piece-packing-cube-set`
+- Market: Canada only
+- UTM content: `d13_cubes_honest_fit`
+- Feed: `generated-images/organic-2026-08/day-13-honest-packing-fit-feed-1080x1350.jpg`
+- Story: `generated-images/organic-2026-08/day-13-honest-packing-fit-story-1080x1920.jpg`
+- Alt text: Charcoal packing cubes with a clear list of intended organization uses and the claims Puchica does not make.
+
+Caption:
+
+> What these cubes do: separate clothing, zip closed, carry easily, and fold
+> flat between trips. What we are not claiming: vacuum compression, waterproof
+> protection, or included clothing. If simple suitcase organization is the
+> goal, the exact charcoal three-piece set may fit the job.
+
+Tags: `#HonestProductDetails #PackingCubes #PuchicaCanada`
+
+## Day 14 — Measured winner iteration
+
+Day 14 is not pre-rendered. Select the strongest evidence-backed hook from Days
+1–13 using reach, useful comments/questions, link clicks, product views,
+add-to-carts, checkout starts, and orders. Reuse the exact-product claim
+boundaries and create a new opening frame only after the winner is known.
 
 ## Link construction
 
