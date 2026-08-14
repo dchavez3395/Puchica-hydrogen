@@ -155,6 +155,10 @@ export default function Product() {
   const {product, reviews} = useLoaderData();
   const rootData = useRouteLoaderData('root');
   const market = rootData?.selectedLocale?.country || 'CA';
+  const language = String(rootData?.selectedLocale?.language || 'en')
+    .toLowerCase()
+    .replace(/_/g, '-');
+  const langKey = ['fr', 'es', 'pt-br'].includes(language) ? language : 'en';
   const t = useT();
   const need = getProductNeed(product, t);
 
@@ -165,7 +169,13 @@ export default function Product() {
   const displayTitle = presentProductTitle(title, selectedVariant);
   const summary = productSummary(product.description);
   const galleryImages = buildGallery(product, selectedVariant);
-  const jsonLd = buildJsonLd(product, selectedVariant, reviews, galleryImages);
+  const jsonLd = buildJsonLd(
+    product,
+    selectedVariant,
+    reviews,
+    galleryImages,
+    langKey,
+  );
 
   // Record the view for the search sheet's "recently viewed" row.
   // Keyed on product.id so variant switches don't re-record.
@@ -196,7 +206,10 @@ export default function Product() {
         dangerouslySetInnerHTML={{__html: JSON.stringify(jsonLd)}}
       />
       <JsonLdScript
-        data={breadcrumbJsonLd(buildBreadcrumbItems(product, displayTitle, t))}
+        data={breadcrumbJsonLd(
+          buildBreadcrumbItems(product, displayTitle, t),
+          langKey,
+        )}
       />
 
       {/* ── Product hero band — full-bleed warm header with volcanic
@@ -549,8 +562,14 @@ function productSummary(description) {
   return firstSentence || clean.slice(0, 180).trim();
 }
 
-function buildJsonLd(product, selectedVariant, reviews, galleryImages) {
-  const productUrl = canonical(`/products/${product.handle}`);
+function buildJsonLd(
+  product,
+  selectedVariant,
+  reviews,
+  galleryImages,
+  langKey,
+) {
+  const productUrl = canonical(`/products/${product.handle}`, langKey);
   const price = selectedVariant?.price;
   // Expose the full gallery (deduped, capped) so Google rich results / Merchant
   // listings can show multiple images — falls back to the featured image.
@@ -564,7 +583,7 @@ function buildJsonLd(product, selectedVariant, reviews, galleryImages) {
     '@context': 'https://schema.org',
     '@type': 'Product',
     '@id': `${productUrl}#product`,
-    name: product.title,
+    name: presentProductTitle(product.title, selectedVariant),
     description: (product.description || '').slice(0, 5000),
     image: images.length
       ? images

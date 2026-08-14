@@ -1,7 +1,10 @@
 import {Suspense, useEffect} from 'react';
 import {Await, useAsyncValue, useRouteLoaderData} from 'react-router';
 import {useAnalytics, useOptimisticCart} from '@shopify/hydrogen';
-import {LocalizedNavLink as NavLink} from '~/components/LocalizedLink';
+import {
+  LocalizedLink as Link,
+  LocalizedNavLink as NavLink,
+} from '~/components/LocalizedLink';
 import {useAside} from '~/components/Aside';
 import {IconSearch} from '~/components/Icons';
 import {LocaleSwitcher} from '~/components/LocaleSwitcher';
@@ -195,8 +198,8 @@ function CartBadge({count}) {
   const {publish, shop, cart, prevCart} = useAnalytics();
 
   return (
-    <a
-      href="/cart"
+    <Link
+      to="/cart"
       className={'pk-icon-btn pk-cart-btn' + (isOpen ? ' is-active' : '')}
       aria-label={isOpen ? t('header_cart_close') : t('header_cart_open')}
       aria-expanded={isOpen}
@@ -218,7 +221,7 @@ function CartBadge({count}) {
       {count !== null && count > 0 ? (
         <span className="pk-cart-badge">{count}</span>
       ) : null}
-    </a>
+    </Link>
   );
 }
 

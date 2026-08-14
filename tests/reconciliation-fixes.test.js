@@ -118,3 +118,32 @@ test('Portuguese Storefront language codes self-canonicalize to pt-br URLs', asy
   assert.match(source, /\.toLowerCase\(\)\s*\.replace\(\/_\/g, '-'/);
   assert.match(source, /\['fr', 'es', 'pt-br'\]\.includes\(langCode\)/);
 });
+
+test('localized product structured data stays on the localized URL', async () => {
+  const productSource = await readFile(
+    new URL('../app/routes/products.$handle.jsx', import.meta.url),
+    'utf8',
+  );
+  const seoSource = await readFile(
+    new URL('../app/lib/seo.js', import.meta.url),
+    'utf8',
+  );
+
+  assert.match(
+    productSource,
+    /canonical\(`\/products\/\$\{product\.handle\}`,[\s\S]*?langKey\)/,
+  );
+  assert.match(productSource, /breadcrumbJsonLd\([\s\S]*?langKey/);
+  assert.match(seoSource, /item: canonical\(item\.url, langKey\)/);
+});
+
+test('cart fallback links preserve the active storefront language', async () => {
+  const source = await readFile(
+    new URL('../app/components/Header.jsx', import.meta.url),
+    'utf8',
+  );
+
+  assert.match(source, /LocalizedLink as Link/);
+  assert.match(source, /<Link\s+to="\/cart"/);
+  assert.doesNotMatch(source, /href="\/cart"/);
+});

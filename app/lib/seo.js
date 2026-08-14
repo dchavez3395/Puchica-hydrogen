@@ -167,8 +167,9 @@ export function puchicaMeta({
  * to leaf; each item is `{name, url}` where `url` is a path (e.g. "/products/foo").
  *
  * @param {Array<{name: string, url: string}>} items
+ * @param {string} [langKey] - locale key used by the rendered page
  */
-export function breadcrumbJsonLd(items) {
+export function breadcrumbJsonLd(items, langKey) {
   if (!Array.isArray(items) || items.length === 0) return null;
   return {
     '@context': 'https://schema.org',
@@ -177,7 +178,7 @@ export function breadcrumbJsonLd(items) {
       '@type': 'ListItem',
       position: idx + 1,
       name: item.name,
-      item: canonical(item.url),
+      item: canonical(item.url, langKey),
     })),
   };
 }
