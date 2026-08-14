@@ -13,6 +13,7 @@
     "accessibility-check": "node --test tests/accessibility-contract.test.js",
     "launch-check": "node scripts/check-storefront-release.mjs",
     "production-health": "node scripts/check-production-health.mjs",
+    "first-order-signal": "node scripts/check-first-order-signal.mjs",
     "organic-release-check": "node scripts/manage-organic-release.mjs",
     "paid-launch-check": "node scripts/check-launch-readiness.mjs",
     "codegen": "shopify hydrogen codegen && react-router typegen",

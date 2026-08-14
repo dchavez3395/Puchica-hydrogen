@@ -30,6 +30,13 @@ gates that cannot be manufactured by automated QA:
 | GA4 ecommerce receipt                   | HOLD             | The production identifier and storefront bridge are configured, but real destination receipt remains unproved in a non-automated browser.                                                                                                                                                           |
 | Genuine demand and fulfillment          | HOLD             | Shopify reports zero completed checkouts and zero orders for August 13–14. No genuine order exists to prove DSers ordering, dispatch, tracking, delivery, product fidelity, support, refunds, or Purchase events.                                                                                   |
 
+The privacy-minimized `npm run first-order-signal` monitor now checks Shopify
+directly for a genuine order, ignores Shopify test/canceled/refunded/voided and
+zero-total records, validates each current line against the exact SKU and
+destination-market allowlist, and stops if more than one early order needs
+review. Its first live run returned `WAITING` and correctly excluded historical
+test order `#1002`.
+
 ## Fresh Shopify baseline
 
 The August 14 snapshot contained 17 sessions, 11 online-store visitors, three
