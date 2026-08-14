@@ -2,13 +2,14 @@
 
 ## Result
 
-**CREATIVE PASS — PREPARED ONLY — NOT PUBLISHED — NO SPEND**
+**PUBLICATION PASS — CABLE ORGANIZER LIVE — NO SPEND**
 
 Three controlled 10.97-second vertical organic tests now exist for the black
 double-layer cable organizer, charcoal three-piece packing-cube set, and white
-luggage ID tag. This adds a TikTok-ready creative lane without changing the
-storefront, placing an order, paying a supplier, buying avatar credits,
-publishing content, or starting ads.
+luggage ID tag. The cable-organizer test is now public; the other two remain
+prepared and unpublished. This adds a TikTok organic lane without changing the
+storefront, placing an order, paying a supplier, buying avatar credits, or
+starting ads.
 
 ## Integrity boundary
 
@@ -96,3 +97,17 @@ The existing `puchica-no-spend-operating-check` heartbeat was updated to watch
 this exact TikTok video for public release or review failure and then start the
 2-hour/24-hour measurement windows from the verified public-release time. It is
 explicitly prohibited from publishing additional content or spending money.
+
+## Public-release verification
+
+At 2026-08-14 16:14 CDT, a fresh TikTok Studio read showed the cable-organizer
+post with privacy `Everyone`, no `Content under review` marker, creation time
+`Aug 14, 4:08 PM`, and baseline counts of 0 views, 0 likes, and 0 comments. The
+exact public URL resolved and visibly rendered the correct cable-organizer
+creative. The live page also visibly displayed both `Promotional content` and
+`Creator labeled as AI-generated`.
+
+This 16:14 CDT verification is the measurement baseline. The first useful
+checks are approximately 18:14 CDT on 2026-08-14 and 16:14 CDT on 2026-08-15.
+Do not release the second TikTok concept before the first 2-hour checkpoint is
+recorded.
