@@ -54,10 +54,19 @@ resolved the Canada shipping method and total supplier-side estimate to US$4.20
   Shopify Payments`.
 - Shopify's fulfillment cancellation request was submitted to
   `dsers-fulfillment-service`.
-- At the last check, DSers had not yet acknowledged the cancellation, so Shopify
-  still prevented line-item refund/restock and order cancellation. The test order
-  remains safely parked: no supplier order exists, no supplier payment exists,
-  and live Shopify Payments are restored.
+- When DSers had not acknowledged the request after more than 10 minutes,
+  Shopify's **Revert to unfulfilled** control was used only after re-verifying
+  that the DSers order remained in `Awaiting order` with no AliExpress order,
+  payment, tracking, or shipment.
+- A full CA$19.99 test refund was submitted with **Restock item** and the full
+  CA$5.00 shipping refund selected; customer notification was off. Shopify shows
+  the item as `Removed`, zero remaining items, `Fulfillment not required`, and
+  the test refund as processing.
+- The live Shopify variant inventory returned from 9,964 to 9,965, confirming
+  that the test unit was restocked.
+- DSers now reports `Awaiting order (0)` and `Canceled (1)`. Order `#1002` is no
+  longer actionable in DSers. No supplier order or supplier payment exists, and
+  live Shopify Payments remain restored.
 
 ## Approved catalog: exact live DSers records
 
@@ -99,4 +108,3 @@ therefore distinguish three evidence levels:
 
 Current state: all 10 approved variants pass level 1; the White Luggage ID Tag
 passes level 2; no product has been represented here as passing level 3.
-
