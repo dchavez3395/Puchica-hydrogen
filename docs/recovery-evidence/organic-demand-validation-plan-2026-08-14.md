@@ -69,6 +69,20 @@ does not prove that the products failed.
   or engagement; otherwise release one prepared alternative concept and test a
   materially different problem/visual hook.
 
+## Offer-clarity preparation
+
+- The cable and toiletry hero product pages now show a compact `What arrives`
+  block immediately below the buy form. It states the empty organizer included,
+  verified approximate dimensions, and the pictured contents that are not
+  included.
+- The facts are translated across the English, French, Spanish, and Portuguese
+  storefront dictionaries and are intentionally limited to the two validated
+  hero handles.
+- A second cable-organizer TikTok concept is prepared around the materially
+  different `What actually arrives?` hook. It uses the exact approved product
+  image, states the verified dimensions and exclusions, and remains unpublished
+  pending the first post's measurement checkpoint.
+
 ## Production deployment verification
 
 - Commit `69263ac` was deployed to Shopify Oxygen production with deployment

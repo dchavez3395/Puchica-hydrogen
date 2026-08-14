@@ -1,4 +1,4 @@
-"""Build three no-spend vertical Puchica organic-video tests.
+"""Build four no-spend vertical Puchica organic-video tests.
 
 The fictional host is AI-generated and never presented as a customer. Product
 pixels come from the exact approved Shopify source media and are only uniformly
@@ -41,6 +41,16 @@ CAMPAIGNS = {
         "title": "Give the small pieces one place.",
         "feature": "Double-layer layout",
         "proof": "Case sold empty.\nElectronics not included.",
+        "availability": "Canada + U.S.",
+        "cta": "See the cable organizer",
+        "accent": GREEN,
+    },
+    "cable-organizer-offer-clarity": {
+        "source": "cable-case.webp",
+        "hook": "What actually arrives\nin this cable case?",
+        "title": "One case. Two usable layers.",
+        "feature": "Approx. 19 × 11 × 5.5 cm",
+        "proof": "One empty black organizer.\nCables not included.",
         "availability": "Canada + U.S.",
         "cta": "See the cable organizer",
         "accent": GREEN,

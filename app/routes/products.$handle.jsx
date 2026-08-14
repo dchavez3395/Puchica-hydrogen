@@ -161,6 +161,7 @@ export default function Product() {
   const langKey = ['fr', 'es', 'pt-br'].includes(language) ? language : 'en';
   const t = useT();
   const need = getProductNeed(product, t);
+  const purchaseFacts = getPurchaseFacts(product.handle, t);
 
   const selectedVariant = product.selectedOrFirstAvailableVariant;
   const productOptions = product.approvedProductOptions || [];
@@ -289,6 +290,22 @@ export default function Product() {
               </div>
 
               {/* ── Trust block: 4 rows of promise, neutral hairline chips. */}
+              {purchaseFacts ? (
+                <section
+                  className="pk-product__purchase-facts"
+                  aria-labelledby="product-purchase-facts-heading"
+                >
+                  <h2 id="product-purchase-facts-heading">
+                    {t('product_purchase_facts_h')}
+                  </h2>
+                  <ul>
+                    {purchaseFacts.map((fact) => (
+                      <li key={fact}>{fact}</li>
+                    ))}
+                  </ul>
+                </section>
+              ) : null}
+
               <div
                 className="pk-product__trust"
                 aria-label={t('product_perks_aria')}
@@ -560,6 +577,24 @@ function productSummary(description) {
   if (!clean) return '';
   const firstSentence = clean.match(/^.*?[.!?](?:\s|$)/)?.[0]?.trim();
   return firstSentence || clean.slice(0, 180).trim();
+}
+
+function getPurchaseFacts(handle, t) {
+  if (handle === 'travel-cable-organizer-case') {
+    return [
+      t('product_purchase_cable_1'),
+      t('product_purchase_cable_2'),
+      t('product_purchase_cable_3'),
+    ];
+  }
+  if (handle === 'black-hanging-travel-toiletry-organizer') {
+    return [
+      t('product_purchase_toiletry_1'),
+      t('product_purchase_toiletry_2'),
+      t('product_purchase_toiletry_3'),
+    ];
+  }
+  return null;
 }
 
 function buildJsonLd(

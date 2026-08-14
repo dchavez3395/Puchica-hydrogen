@@ -567,6 +567,14 @@ export const DICTIONARIES = {
     product_trust_returns_sub: 'see policy for eligibility',
     product_trust_secure: 'Secure checkout',
     product_trust_secure_sub: 'encrypted & PCI-compliant',
+    product_purchase_facts_h: 'What arrives',
+    product_purchase_cable_1: 'One empty black double-layer organizer',
+    product_purchase_cable_2: 'Approx. 19 × 11 × 5.5 cm',
+    product_purchase_cable_3: 'Cables and electronics are not included',
+    product_purchase_toiletry_1: 'One empty black hanging organizer',
+    product_purchase_toiletry_2: 'Approx. 22 × 14 × 8 cm closed',
+    product_purchase_toiletry_3:
+      'Toiletries and accessories are not included',
     product_desc_eyebrow: 'How it helps',
     product_reco_see_all: 'See all',
     product_perks_aria: 'Shipping & service promises',
@@ -1894,6 +1902,16 @@ export const DICTIONARIES = {
     product_trust_secure: 'Paiement sécurisé',
     product_trust_returns_sub: 'voir la politique pour l’admissibilité',
     product_trust_secure_sub: 'chiffré et conforme PCI',
+    product_purchase_facts_h: 'Ce que vous recevez',
+    product_purchase_cable_1: 'Un organiseur noir vide à deux niveaux',
+    product_purchase_cable_2: 'Environ 19 × 11 × 5,5 cm',
+    product_purchase_cable_3:
+      'Câbles et appareils électroniques non inclus',
+    product_purchase_toiletry_1:
+      'Un organiseur de toilette noir suspendu, vide',
+    product_purchase_toiletry_2: 'Environ 22 × 14 × 8 cm fermé',
+    product_purchase_toiletry_3:
+      'Articles de toilette et accessoires non inclus',
     product_desc_eyebrow: 'À propos de ce produit',
     product_reco_see_all: 'Voir tout',
     product_perks_aria: 'Promesses de livraison et de service',
@@ -3276,6 +3294,16 @@ export const DICTIONARIES = {
       'consulta la política para conocer la elegibilidad',
     product_trust_secure: 'Pago seguro',
     product_trust_secure_sub: 'cifrado y cumple PCI',
+    product_purchase_facts_h: 'Qué recibes',
+    product_purchase_cable_1: 'Un organizador negro vacío de dos niveles',
+    product_purchase_cable_2: 'Aprox. 19 × 11 × 5,5 cm',
+    product_purchase_cable_3:
+      'Cables y dispositivos electrónicos no incluidos',
+    product_purchase_toiletry_1:
+      'Un organizador de aseo colgante negro y vacío',
+    product_purchase_toiletry_2: 'Aprox. 22 × 14 × 8 cm cerrado',
+    product_purchase_toiletry_3:
+      'Artículos de aseo y accesorios no incluidos',
     product_desc_eyebrow: 'Acerca de este producto',
     product_reco_see_all: 'Ver todo',
     product_perks_aria: 'Promesas de envío y servicio',
@@ -4652,6 +4680,15 @@ export const DICTIONARIES = {
     product_trust_returns_sub: 'consulte a política para elegibilidade',
     product_trust_secure: 'Checkout seguro',
     product_trust_secure_sub: 'criptografado e em conformidade com PCI',
+    product_purchase_facts_h: 'O que você recebe',
+    product_purchase_cable_1: 'Um organizador preto vazio de duas camadas',
+    product_purchase_cable_2: 'Aprox. 19 × 11 × 5,5 cm',
+    product_purchase_cable_3: 'Cabos e eletrônicos não incluídos',
+    product_purchase_toiletry_1:
+      'Um organizador de higiene preto pendurável e vazio',
+    product_purchase_toiletry_2: 'Aprox. 22 × 14 × 8 cm fechado',
+    product_purchase_toiletry_3:
+      'Produtos de higiene e acessórios não incluídos',
     product_desc_eyebrow: 'Sobre este produto',
     product_reco_see_all: 'Ver tudo',
     product_perks_aria: 'Promessas de envio e serviço',

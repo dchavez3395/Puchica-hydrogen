@@ -16344,6 +16344,43 @@ main:has(> .pk-collection--bold) {
   margin: -3px 0 0 !important;
 }
 
+.pk-product__purchase-facts {
+  background: #fffdf8;
+  border: 1px solid #ded8ca;
+  border-radius: 12px;
+  margin-top: 16px;
+  padding: 14px 16px;
+}
+.pk-product__purchase-facts h2 {
+  color: var(--pdp-ink);
+  font-size: .82rem;
+  font-weight: 820;
+  letter-spacing: .08em;
+  margin: 0 0 8px;
+  text-transform: uppercase;
+}
+.pk-product__purchase-facts ul {
+  display: grid;
+  gap: 6px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.pk-product__purchase-facts li {
+  color: var(--pdp-muted);
+  font-size: .84rem;
+  line-height: 1.4;
+  padding-left: 18px;
+  position: relative;
+}
+.pk-product__purchase-facts li::before {
+  color: #5b35e6;
+  content: '✓';
+  font-weight: 850;
+  left: 0;
+  position: absolute;
+}
+
 .pk-product__trust {
   background: transparent !important;
   border-block: 1px solid var(--pdp-rule) !important;

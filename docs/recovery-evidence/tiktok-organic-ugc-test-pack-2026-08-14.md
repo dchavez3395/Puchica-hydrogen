@@ -4,10 +4,11 @@
 
 **PUBLICATION PASS — CABLE ORGANIZER LIVE — NO SPEND**
 
-Three controlled 10.97-second vertical organic tests now exist for the black
-double-layer cable organizer, charcoal three-piece packing-cube set, and white
-luggage ID tag. The cable-organizer test is now public; the other two remain
-prepared and unpublished. This adds a TikTok organic lane without changing the
+Four controlled 10.97-second vertical organic tests now exist: two materially
+different concepts for the black double-layer cable organizer, plus one each
+for the charcoal three-piece packing-cube set and white luggage ID tag. The
+first cable-organizer test is public; the other three remain prepared and
+unpublished. This adds a TikTok organic lane without changing the
 storefront, placing an order, paying a supplier, buying avatar credits, or
 starting ads.
 
@@ -26,6 +27,7 @@ starting ads.
 ## Deliverables
 
 - `outputs/tiktok-ugc-test-pack/final/cable-organizer-organic-test-11s.mp4`
+- `outputs/tiktok-ugc-test-pack/final/cable-organizer-offer-clarity-organic-test-11s.mp4`
 - `outputs/tiktok-ugc-test-pack/final/packing-cubes-organic-test-11s.mp4`
 - `outputs/tiktok-ugc-test-pack/final/luggage-tag-organic-test-11s.mp4`
 - `outputs/tiktok-ugc-test-pack/README.md` — captions, UTM links, publication
@@ -35,7 +37,7 @@ starting ads.
 
 ## Technical verification
 
-All three videos were rebuilt from source on 2026-08-14 and verified as:
+All four videos were rebuilt from source on 2026-08-14 and verified as:
 
 - 1080 × 1920 vertical H.264;
 - 30 frames per second;

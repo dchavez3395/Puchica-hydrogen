@@ -2,14 +2,15 @@
 
 Status: **CREATIVE READY — NOT PUBLISHED — NO AD SPEND**
 
-This pack contains three silent, 10.95-second, 1080 × 1920 organic-video
-tests. It uses one clearly fictional AI brand presenter and exact approved
+This pack contains four silent, 10.95-second, 1080 × 1920 organic-video tests.
+It uses one clearly fictional AI brand presenter and exact approved
 Shopify product photography. It does not claim that the presenter bought,
 tested, received, or recommends the products as a customer.
 
 ## Final videos
 
 - `final/cable-organizer-organic-test-11s.mp4`
+- `final/cable-organizer-offer-clarity-organic-test-11s.mp4`
 - `final/packing-cubes-organic-test-11s.mp4` — Canada only
 - `final/luggage-tag-organic-test-11s.mp4`
 
@@ -47,6 +48,16 @@ rights. Do not add a fake testimonial voiceover.
 
 Link:
 `https://puchica.ca/products/travel-cable-organizer-case?utm_source=tiktok&utm_medium=organic_social&utm_campaign=travel_edit_organic_202608&utm_content=ugc_cable_case_v1`
+
+### Cable organizer — offer-clarity alternative
+
+> What actually arrives: one empty black double-layer cable organizer,
+> approximately 19 × 11 × 5.5 cm. Cables and electronics are not included.
+> Available in Canada and the United States. Shipping is shown at checkout.
+> #TravelOrganization #CableOrganizer #Puchica
+
+Link:
+`https://puchica.ca/products/travel-cable-organizer-case?utm_source=tiktok&utm_medium=organic_social&utm_campaign=travel_edit_organic_202608&utm_content=ugc_cable_case_offer_clarity_v2`
 
 ### Packing cubes — Canada only
 
