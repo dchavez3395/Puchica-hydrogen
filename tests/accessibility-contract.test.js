@@ -104,3 +104,26 @@ test('empty cart follows the heading hierarchy in each layout', async () => {
     /<Heading className="pk-empty-cart__title">\s*\{t\('cart_empty_title'\)\}\s*<\/Heading>/,
   );
 });
+
+test('campaign hero resists min-content overflow at a 320px viewport', async () => {
+  const styles = await readSource('app/styles/app.css');
+  const contractStart = styles.indexOf('Campaign 320px reflow contract');
+  const contractEnd = styles.indexOf(
+    '/* Final authority: shared actions',
+    contractStart,
+  );
+
+  assert.ok(contractStart >= 0);
+  assert.ok(contractEnd > contractStart);
+
+  const reflowStyles = styles.slice(contractStart, contractEnd);
+  assert.match(reflowStyles, /grid-template-columns:\s*minmax\(0, 1fr\);/);
+  assert.match(
+    reflowStyles,
+    /\.pk-campaign-hero__copy,[\s\S]*?\.pk-campaign-hero__visual\s*\{[\s\S]*?min-width:\s*0;/,
+  );
+  assert.match(
+    reflowStyles,
+    /\.pk-campaign-proof\s*\{[\s\S]*?flex-wrap:\s*wrap;[\s\S]*?overflow-x:\s*visible;/,
+  );
+});

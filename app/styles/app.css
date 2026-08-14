@@ -14967,9 +14967,16 @@ main:has(> .pk-collection--bold) {
 @media (max-width: 760px) {
   .pk-campaign-hero {
     grid-template-areas: "copy" "footer" "visual";
-    grid-template-columns: 1fr;
+    /* Campaign 320px reflow contract: prevent min-content from widening the
+       single grid track beyond the viewport. */
+    grid-template-columns: minmax(0, 1fr);
     row-gap: 24px;
     padding: 36px var(--pk-store-gutter) 56px;
+  }
+  .pk-campaign-hero__copy,
+  .pk-campaign-hero__footer,
+  .pk-campaign-hero__visual {
+    min-width: 0;
   }
   .pk-campaign-hero h1 {
     max-width: 11ch;
@@ -14995,17 +15002,10 @@ main:has(> .pk-collection--bold) {
     border-radius: 16px;
   }
   .pk-campaign-proof {
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     gap: 14px;
-    overflow-x: auto;
+    overflow-x: visible;
     padding-bottom: 4px;
-    scrollbar-width: none;
-  }
-  .pk-campaign-proof::-webkit-scrollbar { display: none; }
-  .pk-campaign-proof li,
-  .pk-campaign-proof li:last-child {
-    flex: 0 0 auto;
-    white-space: nowrap;
   }
   .pk-campaign .pk-card__cart button[type="submit"] { min-height: 44px; }
   .pk-campaign-grid {
