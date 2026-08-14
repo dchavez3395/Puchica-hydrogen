@@ -58,6 +58,37 @@ Verified public caption:
 - Calendar verification: the Scheduled content view displayed the exact caption
   and a `6:30 PM` entry on Sunday, August 16.
 
+## Days 4–13 — scheduled continuation
+
+Instagram displayed a success confirmation for every post below. Each item is
+scheduled at **6:30 PM** as displayed by the platform:
+
+| Day | Date | Format | AI label |
+|---:|---|---|---|
+| 4 | 2026-08-17 | Single-image poll | Enabled |
+| 5 | 2026-08-18 | Three-frame carousel | Enabled |
+| 6 | 2026-08-19 | Four-frame carousel | Enabled |
+| 7 | 2026-08-20 | Single-image checklist | Enabled |
+| 8 | 2026-08-21 | Single-image before/after | Enabled |
+| 9 | 2026-08-22 | Three-frame size carousel | Enabled |
+| 10 | 2026-08-23 | Single-image product POV | Enabled |
+| 11 | 2026-08-24 | Single-image founder verification card | Enabled |
+| 12 | 2026-08-25 | Deterministic shipping FAQ card | Not applicable |
+| 13 | 2026-08-26 | Single-image honest-fit card | Enabled |
+
+Every post or carousel frame has custom alt text. The Canada-only boundary is
+stated for packing-cube content. No Threads cross-post, boost, or paid
+promotion was enabled.
+
+The Scheduled content calendar was audited after the final upload:
+
+- August 9–15: 1 scheduled post (Day 2);
+- August 16–22: 7 scheduled posts (Days 3–9);
+- August 23–29: 4 scheduled posts (Days 10–13).
+
+Those calendar counts equal the expected 12 future posts. Day 14 remains
+unscheduled until performance evidence identifies the winner to iterate.
+
 ## Platform limitation recorded
 
 Instagram's desktop profile editor shows the website field as read-only and

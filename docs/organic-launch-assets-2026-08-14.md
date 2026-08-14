@@ -21,9 +21,20 @@ Spend authorization: **CA$0 only**. These assets do not authorize paid ads.
 | 1 | Live | Published 2026-08-14 shortly after 00:35 CDT | `https://www.instagram.com/puchica.canada/p/DcAkyM0jkN9/` |
 | 2 | Scheduled | 2026-08-15 at 6:30 PM (platform display) | Verified in Instagram Scheduled content |
 | 3 | Scheduled | 2026-08-16 at 6:30 PM (platform display) | Verified in Instagram Scheduled content |
+| 4 | Scheduled | 2026-08-17 at 6:30 PM (platform display) | Verified by Instagram success state and calendar count |
+| 5 | Scheduled | 2026-08-18 at 6:30 PM (platform display) | Three-frame carousel; verified by Instagram success state and calendar count |
+| 6 | Scheduled | 2026-08-19 at 6:30 PM (platform display) | Four-frame carousel; verified by Instagram success state and calendar count |
+| 7 | Scheduled | 2026-08-20 at 6:30 PM (platform display) | Verified by Instagram success state and calendar count |
+| 8 | Scheduled | 2026-08-21 at 6:30 PM (platform display) | Verified by Instagram success state and calendar count |
+| 9 | Scheduled | 2026-08-22 at 6:30 PM (platform display) | Three-frame carousel; verified by Instagram success state and calendar count |
+| 10 | Scheduled | 2026-08-23 at 6:30 PM (platform display) | Verified by Instagram success state and calendar count |
+| 11 | Scheduled | 2026-08-24 at 6:30 PM (platform display) | Verified by Instagram success state and calendar count |
+| 12 | Scheduled | 2026-08-25 at 6:30 PM (platform display) | Verified by Instagram success state and calendar count |
+| 13 | Scheduled | 2026-08-26 at 6:30 PM (platform display) | Verified by Instagram success state and calendar count |
 
-Each of these posts uses custom alt text and Instagram's AI-content label.
-Days 2 and 3 remain scheduled rather than being published back-to-back.
+Every post has custom alt text; realistic AI-assisted product composites carry
+Instagram's AI-content label. The deterministic Day 12 FAQ card does not use
+that label. The calendar spacing avoids publishing the campaign back-to-back.
 
 ## Day 1 — Black hanging toiletry organizer
 
