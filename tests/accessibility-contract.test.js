@@ -127,3 +127,17 @@ test('campaign hero resists min-content overflow at a 320px viewport', async () 
     /\.pk-campaign-proof\s*\{[\s\S]*?flex-wrap:\s*wrap;[\s\S]*?overflow-x:\s*visible;/,
   );
 });
+
+test('market and language menu supports Escape and restores trigger focus', async () => {
+  const localeSwitcher = await readSource('app/components/LocaleSwitcher.jsx');
+
+  assert.match(localeSwitcher, /aria-haspopup="menu"/);
+  assert.match(localeSwitcher, /role="menu"[\s\S]*?aria-label=\{t\('locale_change_aria'\)\}/);
+  assert.match(localeSwitcher, /e\.key !== 'Escape'/);
+  assert.match(localeSwitcher, /setOpen\(false\)/);
+  assert.match(localeSwitcher, /requestAnimationFrame\(\(\) => trigger\?\.focus\(\)\)/);
+  assert.match(
+    localeSwitcher,
+    /\[role="menu"\] \[role="menuitemradio"\]:not\(\[disabled\]\)/,
+  );
+});
