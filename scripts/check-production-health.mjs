@@ -214,6 +214,13 @@ function routeChecks() {
       expectedFinalUrl:
         'https://puchica.ca/?utm_source=ig&utm_medium=social&utm_content=link_in_bio',
     },
+    {
+      label: 'TikTok bio destination',
+      pathname: '/tiktok',
+      expectedStatus: 200,
+      expectedFinalUrl:
+        'https://puchica.ca/products/travel-cable-organizer-case?utm_source=tiktok&utm_medium=organic_social&utm_campaign=travel_edit_organic_202608&utm_content=profile_bio_cable_case',
+    },
   ];
 
   for (const [market, handles] of Object.entries(EXPECTED_HANDLES_BY_MARKET)) {

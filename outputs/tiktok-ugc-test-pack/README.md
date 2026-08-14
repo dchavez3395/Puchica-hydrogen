@@ -29,6 +29,10 @@ rights. Do not add a fake testimonial voiceover.
 5. Do not boost, use Spark Ads, or start paid promotion during this test.
 6. Use the matching UTM link and record the live URL and baseline sessions.
 
+Profile attribution path after production verification:
+`https://puchica.ca/tiktok`. The route redirects to the cable-organizer PDP
+with fixed TikTok organic UTM values while preserving platform click IDs.
+
 ## Product-integrity rules
 
 - Product pixels are copied from the exact approved launch-kit source images.

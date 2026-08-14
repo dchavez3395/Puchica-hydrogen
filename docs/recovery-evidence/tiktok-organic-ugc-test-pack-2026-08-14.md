@@ -126,3 +126,15 @@ puchica.ca 🇨🇦`. Three unrelated legacy pins were removed so the current ca
 organizer is the first chronological profile post. TikTok desktop refused to
 pin the commercial-content post and stated that commercial-content videos can
 only be edited in the TikTok mobile app. No video was deleted or republished.
+
+At 17:07 CDT, 53 minutes after the verified public baseline, Studio showed 20
+views, 2 total likes, and 0 comments. One like is the known Puchica-account
+like; the additional like has not produced a profile/session/order signal and
+is not yet treated as demand. Shopify still showed no social-attributed session,
+completed checkout, real order, or sale.
+
+Because TikTok exposes no website field for this profile, visitors typing the
+plain bio domain would be classified as direct traffic. A memorable
+`puchica.ca/tiktok` redirect was therefore prepared to preserve TikTok organic
+UTM attribution and land on the cable-organizer PDP. The profile bio must not
+be changed to the new path until the route is deployed and verified live.

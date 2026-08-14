@@ -122,3 +122,9 @@ After each post is public, record reach/impressions, useful comments or customer
 questions, profile visits, link clicks, qualified product sessions,
 add-to-carts, checkout starts, orders, and any operational defect. Exclude QA
 traffic. Do not use the Boost control or launch paid promotion.
+
+At the 2026-08-14 17:07 CDT read-only insight check, Day 1 showed 0 post
+interactions, 0 likes, 0 comments, 0 saves, 0 shares, 0 profile visits, and 0
+external-link taps. Instagram displayed views and accounts engaged as pending
+(`--`). Shopify still showed no social-attributed session or sale. No boost or
+content mutation was made during the insight check.
