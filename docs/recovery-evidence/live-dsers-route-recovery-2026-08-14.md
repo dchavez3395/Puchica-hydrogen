@@ -31,7 +31,7 @@ DSers session. Every route used the same tracked CN method and was available:
 
 | Customer offer | Canada | United States |
 | --- | --- | --- |
-| Black double-layer cable organizer (`14:193#Double Layers`, selector `Double Layers 1`) | US$1.99, 7–12 days | US$1.99, 7–12 days |
+| Black double-layer cable organizer (`14:193#Double Layers`, selector `Double Layers 1`) | US$2.16, 7–13 days | US$1.99, 7–12 days |
 | Charcoal 3-piece packing cubes (`14:1052#S3007 Black;5:200004186#3PCS L M S Set`) | US$1.99, 8–14 days | Supplier route exists at US$1.99, 8–14 days; storefront remains held |
 | Ten-hole white cable clips (`14:771#10 Holes-White`) | US$1.99, 8–14 days | US$1.99, 8–14 days |
 | White jewelry case (`14:29`) | US$1.99, 9–14 days | US$1.99, 9–14 days |
