@@ -13,14 +13,17 @@ Routes: home, all-products collection, packing-cube PDP, cart, About, FAQ, Shipp
 - The nine routes contained no images missing an `alt` attribute.
 - The nine routes contained no unnamed buttons or unnamed links in the rendered DOM.
 - No duplicate IDs were found outside the cart route.
-- No horizontal overflow was detected at the available desktop viewport.
+- No horizontal overflow was detected at the desktop viewport.
+- At a 320 CSS-pixel viewport, each route retained one `main`, one H1, and a page scroll width equal to its client width after the homepage reflow fix.
 
 ## Defects found, fixed, and verified
 
 1. The cart page and the always-mounted cart drawer both used `id="cart-lines"`. The cart component now assigns `cart-lines-page` and `cart-lines-aside` so each line-item list has an unambiguous label.
 2. The empty cart exposed an H1 followed by an H3 in the live accessibility tree. The page layout now renders the empty-state title as H2; the drawer retains H3 under its dialog title.
+3. At 320 CSS pixels, the homepage campaign grid expanded its single mobile track to about 505 pixels. Copy, the secondary CTA, assurances, and the feature card were visibly clipped while page overflow was suppressed. The mobile grid now uses `minmax(0, 1fr)`, its grid items may shrink, and the assurance list wraps.
+4. The market and language menu opened from the keyboard but ignored Escape. It now focuses its first available menu item when opened, closes on Escape, and restores focus to the trigger.
 
-Both defects have regression coverage in `tests/accessibility-contract.test.js`. The focused accessibility suite passed 7/7, the full suite passed 78/78, and the production health suite passed 35/35.
+All four defects have regression coverage in `tests/accessibility-contract.test.js`. The focused accessibility suite passed 9/9, the full suite passed 80/80, and the production health suite passed 35/35.
 
 The exact tested branch was deployed to the Oxygen Production environment with metadata description `cart-accessibility-semantics`. Shopify reported a successful, routable deployment at `https://01m00gt99ay4s9jvasj27pdqzy-f9aa94aa3bf86abb6754.myshopify.dev`.
 
@@ -31,10 +34,22 @@ Post-deployment inspection of `https://puchica.ca/cart` confirmed:
 - The closed drawer remains inert and is omitted from the accessibility tree.
 - One `main` landmark remains exposed.
 
+The homepage reflow correction was separately previewed and then deployed to Oxygen Production with metadata description `homepage-320px-reflow`. Shopify reported a successful, routable deployment at `https://01m00hj6jawzmz5s42pxwjdj9j-f9aa94aa3bf86abb6754.myshopify.dev`. Production was then rechecked at 320 CSS pixels across all nine routes. The homepage hero copy, both calls-to-action, all three assurances, and the featured-product card were visible within the viewport.
+
+The locale-menu keyboard correction was deployed to Oxygen Production with metadata description `locale-menu-keyboard-escape`. Shopify reported a successful, routable deployment at `https://01m00jg2nk7yakzgnpfbvxwsv5-f9aa94aa3bf86abb6754.myshopify.dev`.
+
+## Keyboard verification
+
+- Forward Tab and reverse Shift+Tab traversed 24 focusable stops in a logical document order and returned to the document boundary without trapping.
+- No focus entered an inert or `aria-hidden` drawer.
+- Every focusable stop exposed a solid 3px focus indicator.
+- Enter on the skip link moved focus to `#main-content` and updated the URL fragment.
+- Enter and Space opened the search drawer; Escape closed it and restored focus to the search trigger.
+- Enter opened the market and language menu and focused its first available menu item; Escape closed it and restored focus to the market trigger.
+- No selection, cart, checkout, order, payment, supplier, or Shopify Admin state was changed during verification.
+
 ## Deliberately open checks
 
-- A true 320 CSS-pixel / 400% reflow test remains open because the Chrome DevTools performance connection is not configured. Desktop overflow is not a substitute for this check.
-- A full Tab, Shift+Tab, Enter, Space, and Escape keyboard traversal remains open. Source checks confirm a focusable skip link, inert closed drawers, named controls, and global `:focus-visible` styling, but those checks do not replace behavioral keyboard testing.
 - Core Web Vitals were not measured because the required Chrome performance tracer is unavailable. No performance score or metric is inferred.
 
 ## Product-optimization workflow decision
@@ -48,4 +63,4 @@ The supplied Product Optimization workflow is a batch image, copy, price, status
 - `npm run production-health`
 - `npm run launch-check`
 
-The updated accessibility workbook is stored outside Git in the task output directory so it can be used as the ongoing review record. The two deployed cart defects are marked Complete; the reflow and full keyboard-traversal checks remain open.
+The updated accessibility workbook is stored outside Git in the task output directory so it can be used as the ongoing review record. All four task-list items are marked Complete, and the related development checks for keyboard operation, keyboard traps, focus order, and focus visibility are recorded as complete.
