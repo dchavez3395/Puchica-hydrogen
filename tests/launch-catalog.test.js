@@ -198,6 +198,18 @@ test('released homepage is travel-focused and uses the catalog gate', async () =
   assert.match(about, /\{copy\.artNote\}/);
   assert.doesNotMatch(brand, /organization and travel|space-saving/i);
   assert.match(landing, /const heroFeature = heroPrimary/);
+  assert.match(
+    landing,
+    /if \(\/travel cable organizer\/i\.test\(title\)\) return 0/,
+  );
+  assert.match(
+    landing,
+    /if \(\/travel toiletry organizer\/i\.test\(title\)\) return 1/,
+  );
+  assert.match(
+    landing,
+    /if \(\/3-piece packing cube\/i\.test\(title\)\) return 2/,
+  );
   assert.doesNotMatch(landing, /Canada &amp; U\.S\. delivery routes/);
 });
 

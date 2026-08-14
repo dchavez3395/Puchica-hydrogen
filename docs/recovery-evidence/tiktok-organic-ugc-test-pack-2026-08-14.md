@@ -111,3 +111,16 @@ This 16:14 CDT verification is the measurement baseline. The first useful
 checks are approximately 18:14 CDT on 2026-08-14 and 16:14 CDT on 2026-08-15.
 Do not release the second TikTok concept before the first 2-hour checkpoint is
 recorded.
+
+## Early profile-path correction
+
+Before the two-hour checkpoint, TikTok Studio reported 2 views, 1 like, and 0
+comments. The like was visibly active while signed in as the Puchica brand
+account, so it is classified as owner activity rather than demand.
+
+The profile had no website field available and its legacy bio did not show the
+store domain. The bio was changed to `Travel organizers for Canada + U.S. Shop
+puchica.ca 🇨🇦`. Three unrelated legacy pins were removed so the current cable
+organizer is the first chronological profile post. TikTok desktop refused to
+pin the commercial-content post and stated that commercial-content videos can
+only be edited in the TikTok mobile app. No video was deleted or republished.

@@ -110,6 +110,12 @@ homepage link therefore remains in place. This does not block the campaign,
 but it prevents a day-specific product/UTM bio link from being set through the
 desktop session.
 
+The public bio was updated to match the actual launch catalog: `Travel
+organizers for Canada + U.S. 🧳 Shipping shown at checkout. Shop below.` The
+tracked `www.puchica.ca` link remained present after the edit. Instagram's
+desktop post controls did not expose pin or unpin actions, so replacing the
+three unrelated legacy pins remains a mobile-app-only profile cleanup.
+
 ## Next operating check
 
 After each post is public, record reach/impressions, useful comments or customer
