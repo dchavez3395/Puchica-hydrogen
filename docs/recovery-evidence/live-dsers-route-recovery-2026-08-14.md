@@ -65,3 +65,33 @@ contribution-positive before advertising:
   first-delivery evidence is recorded.
 - Recheck the exact SKU, inventory, route, and quote before every supplier
   order. No supplier order was placed during this audit.
+
+## Production deployment and storefront verification
+
+- Shopify Oxygen deployment `#5253276` is **Production / Current / Complete /
+  Ready** for commit `2c36934` on `codex/overnight-growth-2026-08-14`.
+- The supplier-route release itself is deployment `#5253174`, commit `0407508`.
+- The final automated suite passed `82/82`; the production build completed.
+- The Canada collection exposed nine approved product pages. A fresh direct
+  HTTP check returned `200`, an H1, and Add-to-cart markup for all nine:
+  handle wrap, cable clips, jewelry case, cable organizer, Large Blue storage
+  bag, packing cubes, white luggage tag, black toiletry organizer, and black
+  wheel covers.
+- The United States matrix remains eight approved SKUs across seven PDPs. The
+  handle-wrap PDP contains two approved colours; packing cubes and the Large
+  Blue storage bag remain Canada-only.
+- A reversible Canada cart check added the Black handle wrap at CA$14.99 and
+  removed it again. The cart was empty afterward. Checkout was not opened.
+- No order, supplier order, payment, advertising spend, or other purchase was
+  made.
+
+## Browser-instrumentation note
+
+The controlled QA browsers inject their own document-root nodes before React
+hydrates (`#codex-browser-sidebar-comments-root` in the in-app browser and
+`#codex-agent-overlay-root` plus a temporary favicon mutation in controlled
+Chrome). Those mutations reproduce React hydration warnings even on unchanged
+builds and are not storefront DOM output. Raw production HTML retains one
+`html` element, one `body`, valid closing tags, and the nine live PDP checks
+above. No additional storefront change was made in response to the
+tool-injected warning.
