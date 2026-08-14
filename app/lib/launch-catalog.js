@@ -58,21 +58,13 @@ export const APPROVED_VARIANT_SKUS_BY_MARKET = Object.freeze({
     '14:29#white;5:361386#1pcs',
     '14:771#10 Holes-White',
     '14:29',
-    '14:350852#Large Blue',
-    '14:771#Black',
     '14:193',
-    '14:350686#coffee color',
-    '14:193#Black',
   ]),
   US: Object.freeze([
     '14:193#Double Layers',
-    '14:29#white;5:361386#1pcs',
     '14:771#10 Holes-White',
     '14:29',
-    '14:771#Black',
     '14:193',
-    '14:350686#coffee color',
-    '14:193#Black',
   ]),
 });
 
@@ -95,6 +87,15 @@ export const OPERATIONAL_HOLD_HANDLES = new Set([
   // The customer-facing media visibly uses the Naturehike brand, but seller
   // authorization and exact-brand permission are not documented.
   'travel-toiletry-organizer',
+  // Fresh exact-SKU DSers Shipping Info checks on 2026-08-14 returned no
+  // route to either launch market. Keep these pages fail-closed until new
+  // supplier evidence is recorded and the affected copy/options are reviewed.
+  'large-blue-handled-clothes-storage-bag',
+  'black-hanging-travel-toiletry-organizer',
+  // Coffee Brown still had a route, but Black did not. The live product title
+  // and option promise cover both colours, so the whole page remains held
+  // rather than silently selling a materially narrower offer.
+  'soft-luggage-handle-wrap-black-coffee-brown',
 ]);
 
 export function isLaunchReadyProduct(product, market = 'CA') {

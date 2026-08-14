@@ -62,3 +62,30 @@ The raw server response was separately checked: its document structure is
 valid and closes at `</body></html>` with no trailing router content. No
 storefront change was made for this tooling-only warning.
 
+## Production release and live verification
+
+The verified change was deployed to the Production Oxygen environment on
+2026-08-14 with description `localized-pdp-seo-cart-fix`. Shopify CLI completed
+its upload, completion check, and routability check successfully. The linked
+storefront now reports that description as its current production deployment.
+
+Independent checks against `https://puchica.ca` after deployment confirmed:
+
+- `/feed.xml` returns HTTP 200 and contains exactly nine approved product
+  items;
+- all nine feed products return HTTP 200 in the Canada market with CAD Product
+  structured data;
+- the seven US-approved products return HTTP 200 in the US market with USD
+  Product structured data;
+- `3-piece-packing-cube-set` and
+  `large-blue-handled-clothes-storage-bag` remain excluded in the US market
+  with HTTP 404, `Cache-Control: no-store, max-age=0`, and
+  `X-Robots-Tag: noindex, nofollow`;
+- the live French cable-organizer PDP returns HTTP 200, self-canonicalizes to
+  its `/fr/products/...` URL, exposes `/fr/cart` as its non-JavaScript cart
+  fallback, and has no bare `/cart` fallback;
+- the live Product and Offer IDs/URLs and every BreadcrumbList item are
+  localized under `/fr`, and the Product name matches the visible H1.
+
+No payment, order, supplier action, ad spend, or customer-data mutation was
+performed during this release or verification.

@@ -271,6 +271,9 @@ const heldHandles = [
   'toocki-five-clip-cable-organizer',
   'pocket-luggage-scale-50kg',
   'travel-toiletry-organizer',
+  'large-blue-handled-clothes-storage-bag',
+  'black-hanging-travel-toiletry-organizer',
+  'soft-luggage-handle-wrap-black-coffee-brown',
 ];
 
 test('current NO_GO products are explicit operational holds', () => {
@@ -331,7 +334,28 @@ test('exact supplier variants are market-gated independently of products', () =>
   assert.equal(findApprovedVariant(product, 'US'), undefined);
 });
 
-test('approved PDP options expose every audited SKU and no supplier extras', () => {
+test('fresh DSers route failures revoke stale market approvals', () => {
+  assert.equal(
+    isApprovedVariantSku('14:29#white;5:361386#1pcs', 'CA'),
+    true,
+  );
+  assert.equal(
+    isApprovedVariantSku('14:29#white;5:361386#1pcs', 'US'),
+    false,
+  );
+
+  for (const sku of [
+    '14:350852#Large Blue',
+    '14:771#Black',
+    '14:350686#coffee color',
+    '14:193#Black',
+  ]) {
+    assert.equal(isApprovedVariantSku(sku, 'CA'), false, sku);
+    assert.equal(isApprovedVariantSku(sku, 'US'), false, sku);
+  }
+});
+
+test('approved PDP option builder exposes only its audited variants', () => {
   const [coffeeSku, blackSku] = APPROVED_VARIANT_SKUS_BY_MARKET.CA.slice(-2);
   const variants = [
     {
