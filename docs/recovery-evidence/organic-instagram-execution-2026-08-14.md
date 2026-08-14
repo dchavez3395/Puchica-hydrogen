@@ -9,27 +9,26 @@
 - No sale, scarcity, review-count, free-shipping, fixed-delivery, waterproofing,
   or compression claim was added.
 
-## Day 1 — published and verified
+## Day 1 — published, corrected, and held
 
 - Public URL: `https://www.instagram.com/puchica.canada/p/DcAkyM0jkN9/`
 - Published: 2026-08-14 shortly after 00:35 CDT.
 - Asset: `generated-images/organic-2026-08/day-01-toiletry-organizer-feed-1080x1350.jpg`
-- Product: Black Hanging Travel Toiletry Organizer.
+- Product: Black Hanging Travel Toiletry Organizer — **full hold** because the
+  exact supplier option currently has no Canada or United States shipping route.
 - Content token: `d01_toiletry_rummaging`.
 - Crop: 4:5 portrait.
 - Filter: original/no filter.
 - Instagram AI-content label: enabled.
 - Custom alt text: enabled and verified on the public profile grid.
-- CTA: “Shop through the link in our bio.”
+- CTA: removed when the route hold was confirmed.
 - Bio link present: `www.puchica.ca` with Instagram/social tracking already attached.
 
-Verified public caption:
+Verified public caption after the 2026-08-14 correction:
 
-> Digging through one deep bathroom bag gets old fast. The Black Hanging Travel
-> Toiletry Organizer keeps travel-size items visible in separate sections and
-> can hang when a compatible hook or rail is available. Toiletries shown are
-> not included, and the organizer is not a sealed waterproof container.
-> Shipping options are shown at checkout. Shop through the link in our bio.
+> Availability update (August 14): this organizer is currently on hold while
+> we re-verify its shipping route. It is not available to purchase. This post
+> remains as travel-organization inspiration only.
 >
 > #TravelOrganization #PackingTips #Puchica
 
@@ -58,36 +57,47 @@ Verified public caption:
 - Calendar verification: the Scheduled content view displayed the exact caption
   and a `6:30 PM` entry on Sunday, August 16.
 
-## Days 4–13 — scheduled continuation
+## Final safe schedule — platform inventory verified
 
-Instagram displayed a success confirmation for every post below. Each item is
-scheduled at **6:30 PM** as displayed by the platform:
+The earlier statement that Days 2–13 were all scheduled is **superseded**.
+Meta Business Suite's authoritative Scheduled inventory showed no scheduled
+posts when re-audited. The safe, route-aligned schedule was therefore rebuilt
+and verified as exactly eight Instagram-only posts, all at **6:30 PM**:
 
-| Day | Date | Format | AI label |
+| Day | Date | Format | State |
 |---:|---|---|---|
-| 4 | 2026-08-17 | Single-image poll | Enabled |
-| 5 | 2026-08-18 | Three-frame carousel | Enabled |
-| 6 | 2026-08-19 | Four-frame carousel | Enabled |
-| 7 | 2026-08-20 | Single-image checklist | Enabled |
-| 8 | 2026-08-21 | Single-image before/after | Enabled |
-| 9 | 2026-08-22 | Three-frame size carousel | Enabled |
-| 10 | 2026-08-23 | Single-image product POV | Enabled |
-| 11 | 2026-08-24 | Single-image founder verification card | Enabled |
-| 12 | 2026-08-25 | Deterministic shipping FAQ card | Not applicable |
-| 13 | 2026-08-26 | Single-image honest-fit card | Enabled |
+| 2 | 2026-08-15 | Packing-cube single image | Scheduled |
+| 3 | 2026-08-16 | Cable-organizer single image | Scheduled |
+| 4 | — | Three-problem poll containing held product | Paused / not scheduled |
+| 5 | — | Held toiletry carousel | Paused / not scheduled |
+| 6 | 2026-08-19 | Four-frame packing carousel | Scheduled |
+| 7 | 2026-08-20 | Cable checklist | Scheduled |
+| 8 | — | Held toiletry before/after | Paused / not scheduled |
+| 9 | 2026-08-22 | Three-frame packing-size carousel | Scheduled |
+| 10 | 2026-08-23 | Cable travel-day image | Scheduled |
+| 11 | — | Verification creative containing held product | Paused / not scheduled |
+| 12 | 2026-08-25 | Deterministic shipping FAQ card | Scheduled |
+| 13 | 2026-08-26 | Honest packing-fit image | Scheduled |
 
-Every post or carousel frame has custom alt text. The Canada-only boundary is
-stated for packing-cube content. No Threads cross-post, boost, or paid
-promotion was enabled.
+The final inventory check found all eight dates, no held-toiletry content, and
+`Not currently boosted` on every entry. No Threads cross-post, boost, or paid
+promotion was enabled. Day 14 remains unscheduled until public performance
+evidence identifies the winner to iterate.
 
-The Scheduled content calendar was audited after the final upload:
+## Legacy discount-claim cleanup
 
-- August 9–15: 1 scheduled post (Day 2);
-- August 16–22: 7 scheduled posts (Days 3–9);
-- August 23–29: 4 scheduled posts (Days 10–13).
+The obsolete `WELCOME15` / 15%-off language was removed from the three legacy
+Instagram captions that contained it: the frog reel, the Spanish smoothie
+reel, and the English smoothie reel. The old launch-photo caption was replaced
+with a route-verified availability statement. Its separate historical
+self-comment could not be edited without deleting it, so a public reply now
+states that `WELCOME15` is not active.
 
-Those calendar counts equal the expected 12 future posts. Day 14 remains
-unscheduled until performance evidence identifies the winner to iterate.
+The matching Facebook frog, Spanish smoothie, and launch crossposts were also
+edited. Public Facebook views showed the new captions without the discount
+claim. Meta Business Suite retained a stale failed-save badge or old cached row
+for two reel entries after the successful direct Facebook edits; the public
+post views are the verification authority for those two items.
 
 ## Platform limitation recorded
 

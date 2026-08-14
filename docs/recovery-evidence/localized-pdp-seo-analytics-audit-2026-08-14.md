@@ -62,7 +62,7 @@ The raw server response was separately checked: its document structure is
 valid and closes at `</body></html>` with no trailing router content. No
 storefront change was made for this tooling-only warning.
 
-## Production release and live verification
+## Initial production release and live verification (superseded)
 
 The verified change was deployed to the Production Oxygen environment on
 2026-08-14 with description `localized-pdp-seo-cart-fix`. Shopify CLI completed
@@ -89,3 +89,47 @@ Independent checks against `https://puchica.ca` after deployment confirmed:
 
 No payment, order, supplier action, ad spend, or customer-data mutation was
 performed during this release or verification.
+
+The nine-Canada / seven-US snapshot above was superseded later on 2026-08-14
+after a fresh exact-SKU DSers Shipping Info audit found route drift. The current
+production truth is recorded below; the earlier snapshot must not be used for
+fulfillment decisions.
+
+## Fresh DSers route-containment production release
+
+Commit `2ec3157` was deployed to the Production Oxygen environment on
+2026-08-14 with description `fresh-dsers-route-containment`. The linked
+storefront reports that description as the current production deployment.
+
+Independent checks against `https://puchica.ca` after the deployment confirmed:
+
+- `/feed.xml` returns HTTP 200 and contains exactly six products: cable
+  organizer, wheel covers, packing cubes, cable clips, luggage tag, and jewelry
+  case;
+- all six feed products return HTTP 200 in the Canada market with CAD Product
+  structured data;
+- the four freshly approved US products return HTTP 200 with USD Product
+  structured data: cable organizer, wheel covers, cable clips, and jewelry
+  case;
+- packing cubes and the luggage tag now return HTTP 404 in the US market with
+  `Cache-Control: no-store, max-age=0` and
+  `X-Robots-Tag: noindex, nofollow`;
+- the storage bag, hanging toiletry organizer, and two-colour handle-wrap page
+  return HTTP 404 in both Canada and the United States with the same no-store
+  and noindex/nofollow controls;
+- the French cable-organizer PDP still returns HTTP 200, self-canonicalizes to
+  its `/fr/products/...` URL, exposes `/fr/cart` rather than bare `/cart`, and
+  retains localized Product and BreadcrumbList structured-data URLs.
+
+## Zero-purchase cart and checkout smoke test
+
+Disposable guest carts were created through the public storefront after the
+containment deployment. The Canada cart accepted all six approved exact
+variants; the US cart accepted all four approved exact variants. Both cart
+actions and subsequent cart-page requests returned HTTP 200, and every
+requested product handle was present in its respective cart. Each cart
+generated a `checkout.puchica.ca` URL that returned HTTP 200.
+
+This smoke test stopped at the checkout page. It did not submit customer
+information, select or charge a payment method, create an order, reserve or
+fulfill supplier inventory, or trigger ad spend.

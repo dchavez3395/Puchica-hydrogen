@@ -3,10 +3,12 @@
 ## Status
 
 Days 1–3 have product-faithful lifestyle creatives exported to feed, square,
-and story dimensions. Day 1 is live on Instagram; Days 2 and 3 are scheduled.
-Days 4–13 have deterministic feed/story cards and carousel frames built from
-the verified hero assets and exact copy. Day 14 remains intentionally open so
-it can iterate the strongest measured signal instead of guessing a winner.
+and story dimensions. Day 1 is live with a public availability-hold correction;
+Days 2 and 3 are scheduled. Days 4–13 have prepared assets, but only the eight
+future posts that exclude held-product promotion are scheduled. Days 4, 5, 8,
+and 11 are withdrawn while the toiletry organizer remains on full route hold.
+Day 14 remains intentionally open so it can iterate the strongest measured
+signal instead of guessing a winner.
 
 Internal disclosure: these are AI-assisted lifestyle composites. Product
 identity, colour, construction, and bounded use were constrained from exact
@@ -18,25 +20,32 @@ Spend authorization: **CA$0 only**. These assets do not authorize paid ads.
 
 | Day | State | Instagram time | Evidence |
 |---:|---|---|---|
-| 1 | Live | Published 2026-08-14 shortly after 00:35 CDT | `https://www.instagram.com/puchica.canada/p/DcAkyM0jkN9/` |
+| 1 | Live — hold notice | Published 2026-08-14 shortly after 00:35 CDT; caption corrected after route audit | `https://www.instagram.com/puchica.canada/p/DcAkyM0jkN9/` |
 | 2 | Scheduled | 2026-08-15 at 6:30 PM (platform display) | Verified in Instagram Scheduled content |
 | 3 | Scheduled | 2026-08-16 at 6:30 PM (platform display) | Verified in Instagram Scheduled content |
-| 4 | Scheduled | 2026-08-17 at 6:30 PM (platform display) | Verified by Instagram success state and calendar count |
-| 5 | Scheduled | 2026-08-18 at 6:30 PM (platform display) | Three-frame carousel; verified by Instagram success state and calendar count |
-| 6 | Scheduled | 2026-08-19 at 6:30 PM (platform display) | Four-frame carousel; verified by Instagram success state and calendar count |
-| 7 | Scheduled | 2026-08-20 at 6:30 PM (platform display) | Verified by Instagram success state and calendar count |
-| 8 | Scheduled | 2026-08-21 at 6:30 PM (platform display) | Verified by Instagram success state and calendar count |
-| 9 | Scheduled | 2026-08-22 at 6:30 PM (platform display) | Three-frame carousel; verified by Instagram success state and calendar count |
-| 10 | Scheduled | 2026-08-23 at 6:30 PM (platform display) | Verified by Instagram success state and calendar count |
-| 11 | Scheduled | 2026-08-24 at 6:30 PM (platform display) | Verified by Instagram success state and calendar count |
-| 12 | Scheduled | 2026-08-25 at 6:30 PM (platform display) | Verified by Instagram success state and calendar count |
-| 13 | Scheduled | 2026-08-26 at 6:30 PM (platform display) | Verified by Instagram success state and calendar count |
+| 4 | Withdrawn | — | Not scheduled; asset/copy include the held toiletry organizer |
+| 5 | Withdrawn | — | Not scheduled; exact toiletry product has no current CA or US route |
+| 6 | Scheduled | 2026-08-19 at 6:30 PM (platform display) | Four-frame carousel; verified in Meta Scheduled inventory |
+| 7 | Scheduled | 2026-08-20 at 6:30 PM (platform display) | Verified in Meta Scheduled inventory |
+| 8 | Withdrawn | — | Not scheduled; exact toiletry product has no current CA or US route |
+| 9 | Scheduled | 2026-08-22 at 6:30 PM (platform display) | Three-frame carousel; verified in Meta Scheduled inventory |
+| 10 | Scheduled | 2026-08-23 at 6:30 PM (platform display) | Verified in Meta Scheduled inventory |
+| 11 | Withdrawn | — | Not scheduled; creative includes the held toiletry organizer |
+| 12 | Scheduled | 2026-08-25 at 6:30 PM (platform display) | Verified in Meta Scheduled inventory |
+| 13 | Scheduled | 2026-08-26 at 6:30 PM (platform display) | Verified in Meta Scheduled inventory |
 
-Every post has custom alt text; realistic AI-assisted product composites carry
-Instagram's AI-content label. The deterministic Day 12 FAQ card does not use
-that label. The calendar spacing avoids publishing the campaign back-to-back.
+Every scheduled post has custom alt text; realistic AI-assisted product
+composites carry Instagram's AI-content label. The deterministic Day 12 FAQ
+card does not use that label. Meta inventory showed exactly eight future
+Instagram-only entries, all `Not currently boosted`, with no held-toiletry
+content. The earlier 12-post schedule claim is superseded by this inventory.
 
 ## Day 1 — Black hanging toiletry organizer
+
+**Execution note:** Full route hold. The live caption was replaced with an
+availability notice stating that the product is not available to purchase.
+The original campaign caption below is retained only as asset history and must
+not be republished unless exact CA/US route evidence is restored.
 
 - Product: `https://puchica.ca/products/black-hanging-travel-toiletry-organizer`
 - UTM content: `d01_toiletry_rummaging`
@@ -99,6 +108,9 @@ Tags: `#CableOrganizer #TravelTech #Puchica`
 
 ## Day 4 — Three-problem poll
 
+**Execution note:** Withdrawn and not scheduled because the creative and copy
+include the held toiletry organizer.
+
 - UTM content: `d04_system_poll`
 - Feed: `generated-images/organic-2026-08/day-04-system-poll-feed-1080x1350.jpg`
 - Story: `generated-images/organic-2026-08/day-04-system-poll-story-1080x1920.jpg`
@@ -114,6 +126,9 @@ Caption:
 Tags: `#TravelPoll #PackingProblems #Puchica`
 
 ## Day 5 — Toiletry details carousel
+
+**Execution note:** Withdrawn and not scheduled while the exact product has no
+current Canada or United States shipping route.
 
 - Product: `https://puchica.ca/products/black-hanging-travel-toiletry-organizer`
 - UTM content: `d05_toiletry_compartments`
@@ -174,6 +189,9 @@ Tags: `#TravelChecklist #CableManagement #Puchica`
 
 ## Day 8 — Toiletry before and after
 
+**Execution note:** Withdrawn and not scheduled while the exact product has no
+current Canada or United States shipping route.
+
 - Product: `https://puchica.ca/products/black-hanging-travel-toiletry-organizer`
 - UTM content: `d08_toiletry_before_after`
 - Feed: `generated-images/organic-2026-08/day-08-toiletry-before-after-feed-1080x1350.jpg`
@@ -228,6 +246,9 @@ Caption:
 Tags: `#CarryOnPacking #TravelTech #Puchica`
 
 ## Day 11 — Founder verification card
+
+**Execution note:** Withdrawn and not scheduled because the creative includes
+the held toiletry organizer.
 
 - UTM content: `d11_founder_verified`
 - Feed: `generated-images/organic-2026-08/day-11-founder-verification-feed-1080x1350.jpg`
