@@ -74,3 +74,33 @@ test('route errors keep a focusable main landmark and reflow inside the viewport
   );
   assert.doesNotMatch(dictionaries, /prepare the new catalog/i);
 });
+
+test('cart page and drawer use unique line-list labels', async () => {
+  const cartMain = await readSource('app/components/CartMain.jsx');
+
+  assert.match(
+    cartMain,
+    /layout === 'aside' \? 'cart-lines-aside' : 'cart-lines-page'/,
+  );
+  assert.match(cartMain, /id=\{cartLinesLabelId\}/);
+  assert.match(cartMain, /aria-labelledby=\{cartLinesLabelId\}/);
+  assert.doesNotMatch(cartMain, /id="cart-lines"/);
+});
+
+test('empty cart follows the heading hierarchy in each layout', async () => {
+  const cartMain = await readSource('app/components/CartMain.jsx');
+
+  assert.match(
+    cartMain,
+    /<CartEmpty hidden=\{cartHasItems\} headingLevel=\{3\} \/>/,
+  );
+  assert.match(
+    cartMain,
+    /<CartEmpty hidden=\{cartHasItems\} headingLevel=\{2\} \/>/,
+  );
+  assert.match(cartMain, /const Heading = headingLevel === 2 \? 'h2' : 'h3';/);
+  assert.match(
+    cartMain,
+    /<Heading className="pk-empty-cart__title">\s*\{t\('cart_empty_title'\)\}\s*<\/Heading>/,
+  );
+});

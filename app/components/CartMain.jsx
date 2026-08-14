@@ -38,6 +38,8 @@ function getLineItemChildrenMap(lines) {
  */
 export function CartMain({layout, cart: originalCart}) {
   const t = useT();
+  const cartLinesLabelId =
+    layout === 'aside' ? 'cart-lines-aside' : 'cart-lines-page';
   // The useOptimisticCart hook applies pending actions to the cart
   // so the user immediately sees feedback when they modify the cart.
   const cart = useOptimisticCart(originalCart);
@@ -104,12 +106,12 @@ export function CartMain({layout, cart: originalCart}) {
             layout === 'page' ? t('cart_page_aria') : t('cart_section_aria')
           }
         >
-          <CartEmpty hidden={cartHasItems} />
+          <CartEmpty hidden={cartHasItems} headingLevel={3} />
           <div className="cart-details">
-            <p id="cart-lines" className="sr-only">
+            <p id={cartLinesLabelId} className="sr-only">
               {t('cart_heading_aria')}
             </p>
-            <ul aria-labelledby="cart-lines">
+            <ul aria-labelledby={cartLinesLabelId}>
               {visibleLines.map((line) => {
                 return (
                   <CartLineItem
@@ -137,13 +139,13 @@ export function CartMain({layout, cart: originalCart}) {
       }
     >
       {layout === 'aside' && cartHasItems ? <CartBrandHeader /> : null}
-      <CartEmpty hidden={cartHasItems} />
+      <CartEmpty hidden={cartHasItems} headingLevel={2} />
       <div className="cart-details">
-        <p id="cart-lines" className="sr-only">
+        <p id={cartLinesLabelId} className="sr-only">
           {t('cart_heading_aria')}
         </p>
         <div>
-          <ul aria-labelledby="cart-lines">
+          <ul aria-labelledby={cartLinesLabelId}>
             {visibleLines.map((line) => {
               return (
                 <CartLineItem
@@ -210,11 +212,13 @@ function CartBrandHeader() {
 /**
  * @param {{
  *   hidden: boolean;
+ *   headingLevel?: 2 | 3;
  * }}
  */
-function CartEmpty({hidden = false}) {
+function CartEmpty({hidden = false, headingLevel = 3}) {
   const t = useT();
   const {close} = useAside();
+  const Heading = headingLevel === 2 ? 'h2' : 'h3';
   return (
     <div className="pk-empty-cart" hidden={hidden}>
       <div className="pk-empty-cart__art" aria-hidden>
@@ -234,7 +238,9 @@ function CartEmpty({hidden = false}) {
         </span>
       </div>
       <div className="pk-empty-cart__copy">
-        <h3 className="pk-empty-cart__title">{t('cart_empty_title')}</h3>
+        <Heading className="pk-empty-cart__title">
+          {t('cart_empty_title')}
+        </Heading>
         <p className="pk-empty-cart__body">{t('cart_empty_body')}</p>
         <div className="pk-empty-cart__actions">
           <Link

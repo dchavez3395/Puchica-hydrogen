@@ -10,6 +10,7 @@
     "preview": "shopify hydrogen preview --build",
     "lint": "eslint --no-error-on-unmatched-pattern .",
     "test": "node --test tests/*.test.js",
+    "accessibility-check": "node --test tests/accessibility-contract.test.js",
     "launch-check": "node scripts/check-storefront-release.mjs",
     "production-health": "node scripts/check-production-health.mjs",
     "organic-release-check": "node scripts/manage-organic-release.mjs",
