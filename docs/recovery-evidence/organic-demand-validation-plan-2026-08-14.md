@@ -68,3 +68,18 @@ does not prove that the products failed.
 - At 24 hours, continue with the same hook only if it produced qualified reach
   or engagement; otherwise release one prepared alternative concept and test a
   materially different problem/visual hook.
+
+## Production deployment verification
+
+- Commit `69263ac` was deployed to Shopify Oxygen production with deployment
+  description `organic-hero-offer-alignment`.
+- Deployment URL:
+  `https://01m0142z38bcx80w8aqnwvk1ry-f9aa94aa3bf86abb6754.myshopify.dev`.
+- Automated tests passed 83 of 83; `npm run launch-check` and the production
+  build passed.
+- Post-deployment production health passed all 35 checks.
+- The live homepage was verified with the cable organizer as the featured hero;
+  the toiletry organizer is second and the Canada-only packing cubes are third
+  in the campaign priority.
+- No ad spend, supplier order, payment capture, fulfilment, or store-setting
+  change was made during this deployment.
