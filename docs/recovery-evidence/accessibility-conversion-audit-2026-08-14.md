@@ -1,7 +1,9 @@
 # Puchica accessibility and conversion-path audit
 
-Date: 2026-08-14  
-Scope: public Canadian storefront, read-only live inspection, plus source and test review  
+Date: 2026-08-14
+
+Scope: public Canadian storefront, read-only live inspection, plus source and test review
+
 Routes: home, all-products collection, packing-cube PDP, cart, About, FAQ, Shipping, Contact, and Policies
 
 ## Verified live baseline
