@@ -18,6 +18,15 @@ The videos are silent by design. At publication, add music from TikTok's
 Commercial Music Library or other audio for which Puchica has commercial-use
 rights. Do not add a fake testimonial voiceover.
 
+## Motion-quality upgrade
+
+The four-card assets remain usable as controlled copy tests, but they are no
+longer the preferred visual standard. The motion-first cable master at
+`../motion-first-cable/final/cable-organizer-motion-first-v1-12s.mp4` uses the
+same exact approved black product photography with continuous product, text,
+camera, and graphic animation. It contains no fake demonstration or customer
+claim and remains unpublished until the first post's 24-hour checkpoint.
+
 ## Required TikTok publication controls
 
 1. Turn on TikTok's AI-generated-content label because the host is realistic
