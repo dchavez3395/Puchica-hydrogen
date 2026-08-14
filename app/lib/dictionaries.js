@@ -14,8 +14,7 @@ export const DICTIONARIES = {
     announce_offer: 'Focused travel organizers for easier packing',
     announce_freeship: 'Shipping options shown at checkout',
     announce_cta: 'Shop travel organizers',
-    offer_first15:
-      'Shipping options and delivery estimates appear at checkout.',
+    offer_first15: 'Shipping options and costs appear at checkout.',
     announce_region_aria: 'Site announcements',
 
     // ── Footer ────────────────────────────────────────────────────
@@ -221,11 +220,11 @@ export const DICTIONARIES = {
     ship_hero_title_main: 'Shipping &',
     ship_hero_title_em: 'Delivery.',
     ship_hero_sub:
-      'Delivery availability, cost, and timing are confirmed at checkout for the items and destination in your cart.',
+      'Shipping availability, options, and cost are shown at checkout for the items and destination in your cart.',
     ship_hero_cta: 'Shop the travel edit',
     ship_launch_hero_sub:
-      'One North American storefront with market-specific pricing and delivery options confirmed at checkout.',
-    ship_jump: 'See how delivery is confirmed',
+      'One North American storefront with market-specific pricing and shipping options shown at checkout.',
+    ship_jump: 'See how shipping is shown',
     ship_launch_regions_eye: 'North American storefront',
     ship_launch_regions_title: 'Two markets. One focused shop.',
     ship_launch_regions_sub:
@@ -284,12 +283,12 @@ export const DICTIONARIES = {
     ship_rates_eye: 'Shipping rates',
     ship_rates_title: 'Clear shipping before payment.',
     ship_rates_sub:
-      'Checkout confirms available services, cost, and timing for your selected items and destination.',
+      'Checkout shows available services and cost for your selected items and destination. A delivery estimate may not be available.',
     ship_rates_canada_flag: 'CA',
     ship_rates_canada_title: 'Canada',
     ship_rates_canada_body:
       'Available shipping services and costs are shown at checkout for the selected order.',
-    ship_rates_canada_eta: 'Delivery estimate shown at checkout',
+    ship_rates_canada_eta: 'Options and cost shown at checkout',
     ship_rates_canada_badge: '',
     ship_rates_us_flag: 'US',
     ship_rates_us_title: 'United States',
@@ -313,7 +312,7 @@ export const DICTIONARIES = {
       'Processing and delivery timing depend on the selected product and service. Available updates are sent as fulfillment progresses.',
     ship_how_3_title: 'Delivered to your door',
     ship_how_3_body:
-      'Use the delivery estimate shown at checkout for your selected items and address.',
+      'Review the available order and tracking updates after your purchase.',
     ship_track_eye: 'Tracking your order',
     ship_track_title: 'Follow available order updates.',
     ship_track_body_1:
@@ -594,7 +593,7 @@ export const DICTIONARIES = {
     product_specs_empty: 'No specifications available for this product.',
     product_shipping_h: 'Shipping',
     product_shipping_body:
-      'Delivery availability, timing, and cost are confirmed at checkout for your selected items and destination. When a tracked service is available, tracking details are sent after the supplier ships your order.',
+      'Shipping availability, options, and cost are shown at checkout for your selected items and destination. A delivery estimate may not be available. When a tracked service is available, tracking details are sent after the supplier ships your order.',
     product_returns_h: 'Returns',
     product_returns_body:
       'Review the refund policy before ordering. Return eligibility and instructions depend on the item and order; contact support with your order number if you need help.',
@@ -1040,7 +1039,7 @@ export const DICTIONARIES = {
       'The three launch products work together in a suitcase, weekender, gym bag, or carry-on without creating another crowded catalog.',
     about_how_3_title: 'Easy to understand before buying',
     about_how_3_body:
-      'We aim to show the purpose, available dimensions, materials, and options clearly. Delivery availability, cost, and timing are confirmed at checkout.',
+      'We aim to show the purpose, available dimensions, materials, and options clearly. Shipping availability, options, and cost are shown at checkout.',
     about_cats_eye: 'What we carry',
     about_cats_title: 'Useful finds. One store.',
     about_cats_sub:
@@ -1149,7 +1148,7 @@ export const DICTIONARIES = {
     about_now_eye: 'Delivery, made clearer',
     about_now_title: 'See your delivery options before you pay.',
     about_now_body:
-      'Shipping origin and timing can vary by item and address. Checkout shows the options available for your order before payment.',
+      'Shipping origin and timing can vary by item and address. Checkout shows the shipping options and cost available for your order before payment; an estimated delivery date may not appear.',
     about_now_email: 'Questions? Email hello@puchica.ca',
     about_delivery_panel_title: 'Checkout delivery preview',
     about_delivery_step_1_title: 'Choose an item',
@@ -1158,7 +1157,7 @@ export const DICTIONARIES = {
     about_delivery_step_2_body:
       'Checkout calculates the choices for that order.',
     about_delivery_step_3_title: 'Review before payment',
-    about_delivery_step_3_body: 'Compare the available timing and cost.',
+    about_delivery_step_3_body: 'Review the available shipping option and cost.',
     about_delivery_note: 'Delivery details shown before payment',
     about_fact_based_label: 'Based in',
     about_fact_based_value: 'Canada',
@@ -1240,7 +1239,7 @@ export const DICTIONARIES = {
     faq_cat_account: 'Account',
     faq_orders_1_q: 'How long does shipping take?',
     faq_orders_1_a:
-      'Processing and delivery timing vary by product. Enter your address at checkout to review the available delivery estimate before payment.',
+      'Processing and delivery timing vary by product. Checkout shows the available shipping option and cost, but an estimated delivery date may not appear. Tracking updates are sent when available.',
     faq_orders_2_q: 'Do you ship internationally?',
     faq_orders_2_a:
       'Canada and the United States are selectable storefront markets. A market selection does not guarantee every item can be delivered; checkout confirms the selected cart and address before payment.',
@@ -1249,7 +1248,7 @@ export const DICTIONARIES = {
       'When a tracked service is available, the tracking link is included in your shipping confirmation. Contact us with your order number if you need help.',
     faq_orders_4_q: 'What are your shipping rates?',
     faq_orders_4_a:
-      'Shipping services, cost, and delivery timing are confirmed at checkout for the selected items and destination.',
+      'Shipping services and cost are shown at checkout for the selected items and destination. A delivery estimate may not be available.',
     faq_returns_1_q: 'What is your return policy?',
     faq_returns_1_a:
       'Contact us within 30 days of delivery. Eligibility depends on the item, its condition, and the refund policy. Contact us promptly if an item arrives damaged or incorrect.',
@@ -1413,7 +1412,7 @@ export const DICTIONARIES = {
       'We compare the price with the delivered cost and only promote products that can support a sustainable offer.',
     home_curate_step3_h: 'We show delivery details before payment.',
     home_curate_step3_b:
-      'Shipping availability, cost, and timing are confirmed at checkout for the selected items and destination.',
+      'Shipping availability, options, and cost are shown at checkout for the selected items and destination. A delivery estimate may not be available.',
 
     // ── Hero stats ────────────────────────────────────────────────
     hero_store_stat_products: 'Catalog',

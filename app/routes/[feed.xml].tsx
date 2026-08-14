@@ -42,14 +42,12 @@ export async function loader({context}: LoaderFunctionArgs) {
             featuredImage { url }
             onlineStoreUrl
             variants(first: 20) {
-              edges {
-                node {
-                  sku
-                  title
-                  price { amount currencyCode }
-                  compareAtPrice { amount currencyCode }
-                  availableForSale
-                }
+              nodes {
+                sku
+                title
+                price { amount currencyCode }
+                compareAtPrice { amount currencyCode }
+                availableForSale
               }
             }
             priceRange {
@@ -79,10 +77,7 @@ export async function loader({context}: LoaderFunctionArgs) {
     // Feed one exact, sellable variant per launch-approved product. Do not let
     // an unavailable first variant make an otherwise valid product look out of
     // stock, and never emit a product with no sellable variant.
-    const firstVariant = findApprovedVariant(
-      {variants: {nodes: product.variants.edges.map(({node}) => node)}},
-      'CA',
-    );
+    const firstVariant = findApprovedVariant(product, 'CA');
     if (!firstVariant) return null;
 
     const price = firstVariant.price?.amount || '0.00';

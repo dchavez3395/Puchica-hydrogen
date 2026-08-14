@@ -10,7 +10,7 @@ const items = [
   {
     icon: IconTruck,
     title: 'Shipping is clear before you pay',
-    body: 'Delivery availability, timing, and cost are confirmed at checkout for your destination.',
+    body: 'Shipping availability, options, and cost are shown at checkout for the items and destination in your cart. A delivery estimate may not be available.',
     link: '/pages/shipping',
     cta: 'Shipping details',
   },

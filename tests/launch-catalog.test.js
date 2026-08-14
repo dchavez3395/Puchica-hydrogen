@@ -132,6 +132,17 @@ test('product sitemap has the exact-variant data required by its launch gate', a
   assert.match(sitemap, /'\/collections\/all'/);
 });
 
+test('product feed exposes the node shape required by the exact-variant gate', async () => {
+  const feed = await readFile(
+    new URL('../app/routes/[feed.xml].tsx', import.meta.url),
+    'utf8',
+  );
+
+  assert.match(feed, /variants\(first: 20\)\s*\{\s*nodes\s*\{/);
+  assert.match(feed, /findApprovedVariant\(product, 'CA'\)/);
+  assert.doesNotMatch(feed, /product\.variants\.edges/);
+});
+
 test('market-unavailable product pages fail closed for crawlers', async () => {
   const productRoute = await readFile(
     new URL('../app/routes/products.$handle.jsx', import.meta.url),
