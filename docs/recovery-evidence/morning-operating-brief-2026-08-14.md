@@ -135,6 +135,11 @@ problem is distribution before it is product conversion.
 - The complete automated suite passed 83/83, the release gate passed, the
   production build completed, and lint reported zero errors. The 31 lint
   warnings are pre-existing console warnings in local diagnostic scripts.
+- Oxygen deployment `#5254095` is Production / Current / Complete / Ready for
+  commit `6bfacad` (`fix: keep production monitor aligned with catalog`).
+- The immediate post-deployment `npm run production-health` checkpoint passed
+  35/35 again. No product, price, payment, supplier, ad, or scheduled-content
+  setting was changed by the monitor repair.
 
 ## Cash and runway control
 
