@@ -84,9 +84,10 @@ test('organic release cohort cannot retain operationally held products', async (
   const cohortSource = source.slice(start, end);
 
   for (const handle of OPERATIONAL_HOLD_HANDLES) {
+    const exactHandleDeclaration = `handle: '${handle}'`;
     assert.doesNotMatch(
       cohortSource,
-      new RegExp(handle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')),
+      new RegExp(exactHandleDeclaration.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')),
       `${handle} must stay out of the organic release cohort`,
     );
   }

@@ -42,8 +42,8 @@ const RELEASE_DISCOVERY_TAGS = [
   MARKET_ROUTE_EVIDENCE_TAGS.US,
 ];
 
-const EXPECTED_PRODUCT_COUNT = 6;
-const EXPECTED_SKU_COUNT_BY_MARKET = Object.freeze({CA: 6, US: 4});
+const EXPECTED_PRODUCT_COUNT = 9;
+const EXPECTED_SKU_COUNT_BY_MARKET = Object.freeze({CA: 10, US: 8});
 
 const REQUIRED_PUBLICATION_FIELDS = [
   {field: 'publishedOnlineStore', title: 'Online Store'},
@@ -88,7 +88,7 @@ const cohort = [
     handle: 'white-luggage-id-tag',
     productType: 'Travel Accessories',
     initialStatus: 'DRAFT',
-    markets: ['CA'],
+    markets: ['CA', 'US'],
     variants: [{sku: '14:29#white;5:361386#1pcs', price: '14.99'}],
     seoDescription:
       'A simple white luggage identification tag for a suitcase, carry-on, weekender, or travel bag.',
@@ -119,6 +119,30 @@ const cohort = [
     merchandisingTags: ['travel-organization'],
   },
   {
+    id: 'gid://shopify/Product/9367762567418',
+    title: 'Large Blue Handled Clothes Storage Bag',
+    handle: 'large-blue-handled-clothes-storage-bag',
+    productType: 'Storage & Organization',
+    initialStatus: 'ACTIVE',
+    markets: ['CA'],
+    variants: [{sku: '14:350852#Large Blue', price: '29.99'}],
+    seoDescription:
+      'A large blue zippered storage bag with handles and a clear front panel for folded clothing, bedding, and other soft household items.',
+    merchandisingTags: ['home-organization'],
+  },
+  {
+    id: 'gid://shopify/Product/9367768596730',
+    title: 'Black Hanging Travel Toiletry Organizer',
+    handle: 'black-hanging-travel-toiletry-organizer',
+    productType: 'Travel Accessories',
+    initialStatus: 'ACTIVE',
+    markets: ['CA', 'US'],
+    variants: [{sku: '14:771#Black', price: '39.99'}],
+    seoDescription:
+      'A compact black hanging travel organizer with internal pockets for keeping travel-size toiletries together.',
+    merchandisingTags: ['travel-organization', 'puchica-launch-featured'],
+  },
+  {
     id: 'gid://shopify/Product/9367775707386',
     title: 'Black Knitted Luggage Wheel Covers — Set of 4',
     handle: 'black-knitted-luggage-wheel-covers-set-of-4',
@@ -128,6 +152,21 @@ const cohort = [
     variants: [{sku: '14:193', price: '14.99'}],
     seoDescription:
       'A set of four black stretch-knit covers for compatible small suitcase wheels during storage or indoor handling.',
+    merchandisingTags: ['travel-organization'],
+  },
+  {
+    id: 'gid://shopify/Product/9367864770810',
+    title: 'Soft Luggage Handle Wrap — Black & Coffee Brown',
+    handle: 'soft-luggage-handle-wrap-black-coffee-brown',
+    productType: 'Travel Accessories',
+    initialStatus: 'ACTIVE',
+    markets: ['CA', 'US'],
+    variants: [
+      {sku: '14:350686#coffee color', price: '14.99'},
+      {sku: '14:193#Black', price: '14.99'},
+    ],
+    seoDescription:
+      'A soft wrap-around cover offered in black and coffee brown for compatible suitcase handles.',
     merchandisingTags: ['travel-organization'],
   },
 ];
@@ -199,9 +238,9 @@ if (postflight.failures.length) {
 }
 
 console.log('\nORGANIC RELEASE PASS');
-console.log('Six product pages / six exact Canadian SKUs are active.');
+console.log('Nine product pages / ten exact Canadian SKUs are active.');
 console.log(
-  'Four exact U.S. SKUs are active; packing cubes and luggage tag are blocked there.',
+  'Eight exact U.S. SKUs are active; packing cubes and the Large Blue storage bag are blocked there.',
 );
 console.log('Paid ads remain unauthorized.');
 
