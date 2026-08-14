@@ -4,6 +4,7 @@ import process from 'node:process';
 import {fileURLToPath} from 'node:url';
 
 import {
+  APPROVED_PRODUCT_HANDLES_BY_MARKET,
   APPROVED_VARIANT_SKUS_BY_MARKET,
   MARKET_ROUTE_EVIDENCE_TAGS,
   REQUIRED_CATALOG_EVIDENCE_TAGS,
@@ -52,14 +53,16 @@ for (const market of ['CA', 'US']) {
   }
 }
 
-if (APPROVED_VARIANT_SKUS_BY_MARKET.CA.length !== 6) {
-  failures.push('Canada must expose exactly six freshly route-verified SKUs.');
-}
-
-if (APPROVED_VARIANT_SKUS_BY_MARKET.US.length !== 4) {
-  failures.push(
-    'United States must expose exactly four freshly route-verified SKUs.',
-  );
+for (const market of ['CA', 'US']) {
+  if (!APPROVED_PRODUCT_HANDLES_BY_MARKET[market]?.length) {
+    failures.push(`Approved product-handle gate is empty for ${market}.`);
+  }
+  if (
+    new Set(APPROVED_VARIANT_SKUS_BY_MARKET[market]).size !==
+    APPROVED_VARIANT_SKUS_BY_MARKET[market].length
+  ) {
+    failures.push(`Exact supplier-SKU gate contains duplicates for ${market}.`);
+  }
 }
 
 const home = source('app', 'routes', '_index.jsx');

@@ -119,6 +119,23 @@ problem is distribution before it is product conversion.
   respectively). Reconcile the monitor before using a green checkpoint as a
   release gate; the standing pre-supplier exact-SKU recheck remains mandatory.
 
+#### Same-day monitor repair verification
+
+- The exact supplier SKU, product handle, and approved markets now live in one
+  launch-catalog offer list. The storefront gates and production monitor derive
+  their market arrays from that shared source instead of maintaining separate
+  product lists.
+- Regression coverage locks the current 10-SKU / 9-product Canada cohort and
+  8-SKU / 7-product United States cohort, including the two-colour handle-wrap
+  product and the two Canada-only products.
+- The repaired read-only production monitor passed 35/35 live checks, including
+  every approved direct PDP, both U.S. market holds, all operational holds, the
+  Canada feed, product sitemap, localized PDP, cart entry, and Instagram bio
+  destination.
+- The complete automated suite passed 83/83, the release gate passed, the
+  production build completed, and lint reported zero errors. The 31 lint
+  warnings are pre-existing console warnings in local diagnostic scripts.
+
 ## Cash and runway control
 
 - Owner cash ceiling for Puchica: **CA$200/month**.

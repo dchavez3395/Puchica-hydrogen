@@ -4,6 +4,8 @@ import {readFile} from 'node:fs/promises';
 import {formatProductOptionLabel} from '../app/lib/product-options.js';
 
 import {
+  APPROVED_CATALOG_OFFERS,
+  APPROVED_PRODUCT_HANDLES_BY_MARKET,
   APPROVED_VARIANT_SKUS_BY_MARKET,
   buildApprovedProductOptions,
   filterLaunchProducts,
@@ -332,14 +334,8 @@ test('exact supplier variants are market-gated independently of products', () =>
 });
 
 test('fresh DSers route recovery restores only the verified market approvals', () => {
-  assert.equal(
-    isApprovedVariantSku('14:29#white;5:361386#1pcs', 'CA'),
-    true,
-  );
-  assert.equal(
-    isApprovedVariantSku('14:29#white;5:361386#1pcs', 'US'),
-    true,
-  );
+  assert.equal(isApprovedVariantSku('14:29#white;5:361386#1pcs', 'CA'), true);
+  assert.equal(isApprovedVariantSku('14:29#white;5:361386#1pcs', 'US'), true);
 
   assert.equal(isApprovedVariantSku('14:350852#Large Blue', 'CA'), true);
   assert.equal(isApprovedVariantSku('14:350852#Large Blue', 'US'), false);
@@ -352,6 +348,27 @@ test('fresh DSers route recovery restores only the verified market approvals', (
     assert.equal(isApprovedVariantSku(sku, 'CA'), true, sku);
     assert.equal(isApprovedVariantSku(sku, 'US'), true, sku);
   }
+});
+
+test('approved handles and SKUs derive from one exact-offer cohort', () => {
+  for (const market of ['CA', 'US']) {
+    const offers = APPROVED_CATALOG_OFFERS.filter((offer) =>
+      offer.markets.includes(market),
+    );
+
+    assert.deepEqual(
+      APPROVED_VARIANT_SKUS_BY_MARKET[market],
+      offers.map((offer) => offer.sku),
+    );
+    assert.deepEqual(APPROVED_PRODUCT_HANDLES_BY_MARKET[market], [
+      ...new Set(offers.map((offer) => offer.handle)),
+    ]);
+  }
+
+  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.CA.length, 10);
+  assert.equal(APPROVED_PRODUCT_HANDLES_BY_MARKET.CA.length, 9);
+  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.US.length, 8);
+  assert.equal(APPROVED_PRODUCT_HANDLES_BY_MARKET.US.length, 7);
 });
 
 test('approved PDP option builder exposes only its audited variants', () => {

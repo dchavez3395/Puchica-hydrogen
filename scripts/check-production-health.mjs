@@ -2,24 +2,12 @@ import process from 'node:process';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 
-import {OPERATIONAL_HOLD_HANDLES} from '../app/lib/launch-catalog.js';
+import {
+  APPROVED_PRODUCT_HANDLES_BY_MARKET,
+  OPERATIONAL_HOLD_HANDLES,
+} from '../app/lib/launch-catalog.js';
 
-export const EXPECTED_HANDLES_BY_MARKET = Object.freeze({
-  CA: Object.freeze([
-    'travel-cable-organizer-case',
-    'black-knitted-luggage-wheel-covers-set-of-4',
-    '3-piece-packing-cube-set',
-    'ten-hole-white-cable-organizer-clips',
-    'white-luggage-id-tag',
-    'white-semi-circular-travel-jewelry-case',
-  ]),
-  US: Object.freeze([
-    'travel-cable-organizer-case',
-    'black-knitted-luggage-wheel-covers-set-of-4',
-    'ten-hole-white-cable-organizer-clips',
-    'white-semi-circular-travel-jewelry-case',
-  ]),
-});
+export const EXPECTED_HANDLES_BY_MARKET = APPROVED_PRODUCT_HANDLES_BY_MARKET;
 
 const DEFAULT_BASE_URL = 'https://puchica.ca';
 const REQUEST_TIMEOUT_MS = 15_000;

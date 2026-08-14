@@ -47,32 +47,82 @@ export const MARKET_ROUTE_EVIDENCE_TAGS = Object.freeze({
 });
 
 /**
- * Exact supplier variants that have passed the route, cost, copy, and imagery
- * review for each launch market. Product-level approval is not permission to
- * sell every colour or size in a supplier listing.
+ * Exact supplier offers that passed the route, cost, copy, and imagery review.
+ * Product-level approval is not permission to sell every colour or size in a
+ * supplier listing. Keep the product handle and exact SKU together here so
+ * storefront gates and production monitoring cannot drift into different
+ * market cohorts.
  */
+export const APPROVED_CATALOG_OFFERS = Object.freeze([
+  Object.freeze({
+    handle: '3-piece-packing-cube-set',
+    sku: '14:1052#S3007 Black;5:200004186#3PCS L M S Set',
+    markets: Object.freeze(['CA']),
+  }),
+  Object.freeze({
+    handle: 'travel-cable-organizer-case',
+    sku: '14:193#Double Layers',
+    markets: Object.freeze(['CA', 'US']),
+  }),
+  Object.freeze({
+    handle: 'white-luggage-id-tag',
+    sku: '14:29#white;5:361386#1pcs',
+    markets: Object.freeze(['CA', 'US']),
+  }),
+  Object.freeze({
+    handle: 'ten-hole-white-cable-organizer-clips',
+    sku: '14:771#10 Holes-White',
+    markets: Object.freeze(['CA', 'US']),
+  }),
+  Object.freeze({
+    handle: 'white-semi-circular-travel-jewelry-case',
+    sku: '14:29',
+    markets: Object.freeze(['CA', 'US']),
+  }),
+  Object.freeze({
+    handle: 'large-blue-handled-clothes-storage-bag',
+    sku: '14:350852#Large Blue',
+    markets: Object.freeze(['CA']),
+  }),
+  Object.freeze({
+    handle: 'black-hanging-travel-toiletry-organizer',
+    sku: '14:771#Black',
+    markets: Object.freeze(['CA', 'US']),
+  }),
+  Object.freeze({
+    handle: 'black-knitted-luggage-wheel-covers-set-of-4',
+    sku: '14:193',
+    markets: Object.freeze(['CA', 'US']),
+  }),
+  Object.freeze({
+    handle: 'soft-luggage-handle-wrap-black-coffee-brown',
+    sku: '14:350686#coffee color',
+    markets: Object.freeze(['CA', 'US']),
+  }),
+  Object.freeze({
+    handle: 'soft-luggage-handle-wrap-black-coffee-brown',
+    sku: '14:193#Black',
+    markets: Object.freeze(['CA', 'US']),
+  }),
+]);
+
+function offersForMarket(market) {
+  return APPROVED_CATALOG_OFFERS.filter((offer) =>
+    offer.markets.includes(market),
+  );
+}
+
 export const APPROVED_VARIANT_SKUS_BY_MARKET = Object.freeze({
+  CA: Object.freeze(offersForMarket('CA').map((offer) => offer.sku)),
+  US: Object.freeze(offersForMarket('US').map((offer) => offer.sku)),
+});
+
+export const APPROVED_PRODUCT_HANDLES_BY_MARKET = Object.freeze({
   CA: Object.freeze([
-    '14:1052#S3007 Black;5:200004186#3PCS L M S Set',
-    '14:193#Double Layers',
-    '14:29#white;5:361386#1pcs',
-    '14:771#10 Holes-White',
-    '14:29',
-    '14:350852#Large Blue',
-    '14:771#Black',
-    '14:193',
-    '14:350686#coffee color',
-    '14:193#Black',
+    ...new Set(offersForMarket('CA').map((offer) => offer.handle)),
   ]),
   US: Object.freeze([
-    '14:193#Double Layers',
-    '14:29#white;5:361386#1pcs',
-    '14:771#10 Holes-White',
-    '14:29',
-    '14:771#Black',
-    '14:193',
-    '14:350686#coffee color',
-    '14:193#Black',
+    ...new Set(offersForMarket('US').map((offer) => offer.handle)),
   ]),
 });
 
