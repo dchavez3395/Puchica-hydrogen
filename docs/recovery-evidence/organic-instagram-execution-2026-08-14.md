@@ -9,26 +9,29 @@
 - No sale, scarcity, review-count, free-shipping, fixed-delivery, waterproofing,
   or compression claim was added.
 
-## Day 1 — published, corrected, and held
+## Day 1 — published, corrected, and route-restored
 
 - Public URL: `https://www.instagram.com/puchica.canada/p/DcAkyM0jkN9/`
 - Published: 2026-08-14 shortly after 00:35 CDT.
 - Asset: `generated-images/organic-2026-08/day-01-toiletry-organizer-feed-1080x1350.jpg`
-- Product: Black Hanging Travel Toiletry Organizer — **full hold** because the
-  exact supplier option currently has no Canada or United States shipping route.
+- Product: Black Hanging Travel Toiletry Organizer. A later same-day DSers
+  recovery verified the exact `14:771#Black` route for Canada and the United
+  States, so the earlier full-hold statement is superseded.
 - Content token: `d01_toiletry_rummaging`.
 - Crop: 4:5 portrait.
 - Filter: original/no filter.
 - Instagram AI-content label: enabled.
 - Custom alt text: enabled and verified on the public profile grid.
-- CTA: removed when the route hold was confirmed.
+- CTA: remains descriptive; the caption does not promise delivery speed,
+  discounts, free shipping, scarcity, or customer experience.
 - Bio link present: `www.puchica.ca` with Instagram/social tracking already attached.
 
-Verified public caption after the 2026-08-14 correction:
+Verified public caption after the route-restoration correction at 16:20 CDT:
 
-> Availability update (August 14): this organizer is currently on hold while
-> we re-verify its shipping route. It is not available to purchase. This post
-> remains as travel-organization inspiration only.
+> This black hanging toiletry organizer is currently available in Canada and
+> the United States. It has internal pockets and a lower mesh compartment for
+> compatible travel-size items. Shipping options and current availability are
+> shown at checkout.
 >
 > #TravelOrganization #PackingTips #Puchica
 
@@ -68,18 +71,18 @@ and verified as exactly eight Instagram-only posts, all at **6:30 PM**:
 |---:|---|---|---|
 | 2 | 2026-08-15 | Packing-cube single image | Scheduled |
 | 3 | 2026-08-16 | Cable-organizer single image | Scheduled |
-| 4 | — | Three-problem poll containing held product | Paused / not scheduled |
-| 5 | — | Held toiletry carousel | Paused / not scheduled |
+| 4 | — | Three-problem poll | Paused for measurement / not scheduled |
+| 5 | — | Toiletry carousel | Route restored; paused for measurement / not scheduled |
 | 6 | 2026-08-19 | Four-frame packing carousel | Scheduled |
 | 7 | 2026-08-20 | Cable checklist | Scheduled |
-| 8 | — | Held toiletry before/after | Paused / not scheduled |
+| 8 | — | Toiletry before/after | Route restored; paused for measurement / not scheduled |
 | 9 | 2026-08-22 | Three-frame packing-size carousel | Scheduled |
 | 10 | 2026-08-23 | Cable travel-day image | Scheduled |
-| 11 | — | Verification creative containing held product | Paused / not scheduled |
+| 11 | — | Verification creative | Paused for measurement / not scheduled |
 | 12 | 2026-08-25 | Deterministic shipping FAQ card | Scheduled |
 | 13 | 2026-08-26 | Honest packing-fit image | Scheduled |
 
-The final inventory check found all eight dates, no held-toiletry content, and
+The final inventory check found all eight dates, no additional toiletry post, and
 `Not currently boosted` on every entry. No Threads cross-post, boost, or paid
 promotion was enabled. Day 14 remains unscheduled until public performance
 evidence identifies the winner to iterate.

@@ -1,5 +1,12 @@
 # Fresh DSers route and margin gate — 2026-08-14
 
+> **Superseded later on 2026-08-14:** DSers route recovery restored the storage
+> bag in Canada, the toiletry organizer in Canada and the United States, both
+> approved handle-wrap colours, and the luggage tag in the United States. Use
+> `live-dsers-route-recovery-2026-08-14.md` and
+> `top-two-live-offer-economics-2026-08-14.md` for the current decision. The
+> observations below remain preserved as the earlier checkpoint.
+
 **Observation:** 2026-08-14T02:21:41-05:00
 **Method:** signed-in, read-only DSers My Products and exact-SKU Shipping Info
 inspection. No mapping, supplier, variant, setting, order, payment, push, save,
