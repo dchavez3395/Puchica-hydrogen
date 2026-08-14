@@ -91,3 +91,8 @@ seconds later showed the same review state. Therefore the upload is accepted
 but public availability is **not yet confirmed**. Do not count impressions or
 start the 2-hour measurement window until Studio changes the post to
 `Everyone` and the public video URL resolves.
+
+The existing `puchica-no-spend-operating-check` heartbeat was updated to watch
+this exact TikTok video for public release or review failure and then start the
+2-hour/24-hour measurement windows from the verified public-release time. It is
+explicitly prohibited from publishing additional content or spending money.
