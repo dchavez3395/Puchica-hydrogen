@@ -11,6 +11,7 @@
     "lint": "eslint --no-error-on-unmatched-pattern .",
     "test": "node --test tests/*.test.js",
     "launch-check": "node scripts/check-storefront-release.mjs",
+    "production-health": "node scripts/check-production-health.mjs",
     "organic-release-check": "node scripts/manage-organic-release.mjs",
     "paid-launch-check": "node scripts/check-launch-readiness.mjs",
     "codegen": "shopify hydrogen codegen && react-router typegen",

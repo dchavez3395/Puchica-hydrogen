@@ -56,6 +56,43 @@ before paying a supplier for any early order.
   correction that the code is not active.
 - Day 14 remains open until real public metrics identify a winner.
 
+### Fresh publishing and attribution verification
+
+- Meta Business Suite month view was rechecked on August 14. It shows the eight
+  intended Instagram posts at 6:30 PM on August 15, 16, 19, 20, 22, 23, 25,
+  and 26. The early-morning calendar entries are Meta suggestions, not
+  scheduled posts.
+- The live `puchica.canada` profile has 57 followers and its visible website
+  link carries `utm_source=ig`, `utm_medium=social`, and
+  `utm_content=link_in_bio`.
+- That link completes two redirects to the secure production homepage while
+  preserving all three attribution parameters.
+
+## Measurement baseline before the scheduled sequence
+
+Shopify analytics on August 14 reported 339 sessions across the preceding 14
+days: 337 direct, one Instagram-referred, and one Facebook-referred. The same
+window showed cart and checkout activity from controlled QA, but zero completed
+checkouts. The preceding 30 days contained zero orders and CA$0 sales. These
+numbers are not evidence of demand; the direct-heavy traffic must not be used
+as the Day 7 organic denominator.
+
+Use attributed social traffic and public engagement after the August 15 post
+as the demand-test baseline. If social attribution remains near zero, the
+problem is distribution before it is product conversion.
+
+## Repeatable production monitor
+
+- `npm run production-health` performs only read-only `GET` requests.
+- The August 14 checkpoint passed 35/35 checks across the exact Canada and U.S.
+  route sets, held-route headers, feed, sitemap, localized PDP, cart entry, and
+  the Instagram bio destination.
+- The authenticated organic control-plane dry run now uses the same 6-product
+  Canada / 4-product U.S. cohort as production. It also identifies the storage
+  bag, hanging toiletry organizer, and handle wrap as three legacy Shopify
+  `ACTIVE` products to quarantine. No Admin state was changed; source-level
+  route gates continue to fail them closed.
+
 ## Cash and runway control
 
 - Owner cash ceiling for Puchica: **CA$200/month**.

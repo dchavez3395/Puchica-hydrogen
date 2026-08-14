@@ -6,15 +6,16 @@
  * Rollback: --rollback
  *
  * Apply quarantines every non-cohort ACTIVE product before releasing the
- * exact cohort below. Rollback returns the seven newly released products to
- * DRAFT and removes their discovery tags; it intentionally does not reactivate
- * the rejected legacy catalog.
+ * exact cohort below. Rollback returns the managed products that began as
+ * drafts to DRAFT and removes their discovery tags; it intentionally does not
+ * reactivate the rejected legacy catalog.
  */
 import process from 'node:process';
 
 import {
   APPROVED_VARIANT_SKUS_BY_MARKET,
   MARKET_ROUTE_EVIDENCE_TAGS,
+  OPERATIONAL_HOLD_HANDLES,
   REQUIRED_CATALOG_EVIDENCE_TAGS,
 } from '../app/lib/launch-catalog.js';
 import {adminGraphQL} from './shopify-oauth.mjs';
@@ -40,6 +41,9 @@ const RELEASE_DISCOVERY_TAGS = [
   MARKET_ROUTE_EVIDENCE_TAGS.CA,
   MARKET_ROUTE_EVIDENCE_TAGS.US,
 ];
+
+const EXPECTED_PRODUCT_COUNT = 6;
+const EXPECTED_SKU_COUNT_BY_MARKET = Object.freeze({CA: 6, US: 4});
 
 const REQUIRED_PUBLICATION_FIELDS = [
   {field: 'publishedOnlineStore', title: 'Online Store'},
@@ -84,7 +88,7 @@ const cohort = [
     handle: 'white-luggage-id-tag',
     productType: 'Travel Accessories',
     initialStatus: 'DRAFT',
-    markets: ['CA', 'US'],
+    markets: ['CA'],
     variants: [{sku: '14:29#white;5:361386#1pcs', price: '14.99'}],
     seoDescription:
       'A simple white luggage identification tag for a suitcase, carry-on, weekender, or travel bag.',
@@ -115,30 +119,6 @@ const cohort = [
     merchandisingTags: ['travel-organization'],
   },
   {
-    id: 'gid://shopify/Product/9367762567418',
-    title: 'Large Blue Handled Clothes Storage Bag',
-    handle: 'large-blue-handled-clothes-storage-bag',
-    productType: 'Storage & Organization',
-    initialStatus: 'DRAFT',
-    markets: ['CA'],
-    variants: [{sku: '14:350852#Large Blue', price: '29.99'}],
-    seoDescription:
-      'A large blue handled zippered storage bag for folded clothing, blankets, bedding, and other soft household items.',
-    merchandisingTags: ['home-organization'],
-  },
-  {
-    id: 'gid://shopify/Product/9367768596730',
-    title: 'Black Hanging Travel Toiletry Organizer',
-    handle: 'black-hanging-travel-toiletry-organizer',
-    productType: 'Travel Accessories',
-    initialStatus: 'DRAFT',
-    markets: ['CA', 'US'],
-    variants: [{sku: '14:771#Black', price: '39.99'}],
-    seoDescription:
-      'A compact black hanging travel organizer for keeping travel-size toiletries visible and separated.',
-    merchandisingTags: ['travel-organization'],
-  },
-  {
     id: 'gid://shopify/Product/9367775707386',
     title: 'Black Knitted Luggage Wheel Covers — Set of 4',
     handle: 'black-knitted-luggage-wheel-covers-set-of-4',
@@ -148,21 +128,6 @@ const cohort = [
     variants: [{sku: '14:193', price: '14.99'}],
     seoDescription:
       'A set of four black stretch-knit covers for compatible small suitcase wheels during storage or indoor handling.',
-    merchandisingTags: ['travel-organization'],
-  },
-  {
-    id: 'gid://shopify/Product/9367864770810',
-    title: 'Soft Luggage Handle Wrap — Black & Coffee Brown',
-    handle: 'soft-luggage-handle-wrap-black-coffee-brown',
-    productType: 'Travel Accessories',
-    initialStatus: 'DRAFT',
-    markets: ['CA', 'US'],
-    variants: [
-      {sku: '14:350686#coffee color', price: '14.99'},
-      {sku: '14:193#Black', price: '14.99'},
-    ],
-    seoDescription:
-      'Soft wrap-around luggage handle covers in black and coffee brown for compatible suitcase and travel-bag handles.',
     merchandisingTags: ['travel-organization'],
   },
 ];
@@ -216,7 +181,7 @@ if (ROLLBACK) {
   if (failures.length)
     throw new Error(`Rollback failed: ${failures.join(' ')}`);
   console.log(
-    '\nROLLBACK PASS — seven managed products are contained as drafts.',
+    `\nROLLBACK PASS — ${managedDraftIds.size} managed products are contained as drafts.`,
   );
   process.exit(0);
 }
@@ -234,9 +199,9 @@ if (postflight.failures.length) {
 }
 
 console.log('\nORGANIC RELEASE PASS');
-console.log('Nine product pages / ten exact Canadian SKUs are active.');
+console.log('Six product pages / six exact Canadian SKUs are active.');
 console.log(
-  'Eight exact U.S. SKUs are active; packing cubes and storage bag are blocked there.',
+  'Four exact U.S. SKUs are active; packing cubes and luggage tag are blocked there.',
 );
 console.log('Paid ads remain unauthorized.');
 
@@ -320,18 +285,27 @@ function auditSnapshot(snapshot, {afterRelease}) {
     snapshot.products.map((product) => [product.id, product]),
   );
 
-  if (cohort.length !== 9)
-    failures.push('Release must contain exactly nine product pages.');
+  if (cohort.length !== EXPECTED_PRODUCT_COUNT) {
+    failures.push(
+      `Release must contain exactly ${EXPECTED_PRODUCT_COUNT} product pages.`,
+    );
+  }
   const caSkus = cohort.flatMap(({markets, variants}) =>
     markets.includes('CA') ? variants.map(({sku}) => sku) : [],
   );
   const usSkus = cohort.flatMap(({markets, variants}) =>
     markets.includes('US') ? variants.map(({sku}) => sku) : [],
   );
-  if (caSkus.length !== 10)
-    failures.push('Canada cohort must contain ten exact SKUs.');
-  if (usSkus.length !== 8)
-    failures.push('U.S. cohort must contain eight exact SKUs.');
+  if (caSkus.length !== EXPECTED_SKU_COUNT_BY_MARKET.CA) {
+    failures.push(
+      `Canada cohort must contain ${EXPECTED_SKU_COUNT_BY_MARKET.CA} exact SKUs.`,
+    );
+  }
+  if (usSkus.length !== EXPECTED_SKU_COUNT_BY_MARKET.US) {
+    failures.push(
+      `U.S. cohort must contain ${EXPECTED_SKU_COUNT_BY_MARKET.US} exact SKUs.`,
+    );
+  }
   compareSets(
     'Canada source-code allowlist',
     caSkus,
@@ -346,6 +320,11 @@ function auditSnapshot(snapshot, {afterRelease}) {
   );
 
   for (const definition of cohort) {
+    if (OPERATIONAL_HOLD_HANDLES.has(definition.handle)) {
+      failures.push(
+        `${definition.title} is on the operational hold list and cannot enter the release cohort.`,
+      );
+    }
     const product = byId.get(definition.id);
     const handleOwner = snapshot.products.find(
       ({id, handle}) => id !== definition.id && handle === definition.handle,
@@ -459,7 +438,9 @@ function printPreflight(publications, snapshot, preflight) {
   for (const publication of publications) {
     console.log(`Publication: ${publication.title} (${publication.id})`);
   }
-  console.log('Cohort: 9 product pages / 10 CA SKUs / 8 U.S. SKUs');
+  console.log(
+    `Cohort: ${EXPECTED_PRODUCT_COUNT} product pages / ${EXPECTED_SKU_COUNT_BY_MARKET.CA} CA SKUs / ${EXPECTED_SKU_COUNT_BY_MARKET.US} U.S. SKUs`,
+  );
   for (const definition of cohort) {
     const product = byId.get(definition.id);
     console.log(
