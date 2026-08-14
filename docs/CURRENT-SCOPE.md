@@ -40,7 +40,7 @@ current catalog and learn which offer deserves a small paid test.
 | Area                | Current truth                                                                                                        |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------- |
 | Storefront          | Shopify Hydrogen on Oxygen at `puchica.ca`                                                                           |
-| Repository          | `codex/overnight-growth-2026-08-14`; operating-control HEAD is `3ac9b64`; production storefront commit is `2d629db`  |
+| Repository          | `codex/overnight-growth-2026-08-14`; production storefront commit is `2d629db`; later commits are operating controls |
 | Production artifact | Deployment `tiktok-organic-attribution`; URL `https://01m015b2t7y6s88wjf15cacvc2-f9aa94aa3bf86abb6754.myshopify.dev` |
 | Fulfillment stack   | Shopify + DSers + exact AliExpress supplier mappings                                                                 |
 | Catalog             | 9 Active product pages; 29 rejected legacy products quarantined as Draft                                             |
@@ -139,6 +139,10 @@ lines passed live QA.
   fresh normal-browser destination trace remains pending.
 - Existing exact-SKU contribution evidence supports organic selling. It does
   not create a blanket paid CAC budget for all nine products.
+- `npm run organic-economics` now combines live localized prices with the dated
+  exact DSers baseline and fails closed after seven days. Toiletry and cable
+  remain the cross-market hero cohort; the jewelry case is the strongest third
+  candidate. Every row remains paid-ad `HOLD`.
 - Meta Pixel and Conversions API are connected, but a fresh normal-customer
   event receipt and browser/server deduplication trace is not yet proven well
   enough for paid traffic. The controlled QA browsers intentionally suppress
@@ -333,6 +337,10 @@ CRA/Service Canada guidance or qualified professional advice.
 
 - `scripts/manage-organic-release.mjs` — read-only catalog preflight, organic
   release, and rollback.
+- `scripts/check-first-order-signal.mjs` — read-only demand signal gate that
+  excludes the known test order.
+- `scripts/check-organic-economics.mjs` — live localized price and dated exact
+  supplier-route economics monitor.
 - `app/lib/launch-catalog.js` — exact market/SKU storefront gate.
 - `docs/puchica-operating-quality-gates.md` — product, media, commercial, and
   WCAG principles derived from the user's workflow documents.
@@ -353,3 +361,5 @@ CRA/Service Canada guidance or qualified professional advice.
   detailed original-product DSers evidence and order-time watchpoints.
 - `docs/recovery-evidence/launch-analytics-verification-2026-08-09.md` — GA4 and
   Meta measurement boundary.
+- `docs/recovery-evidence/organic-economics-ranking-2026-08-14.md` — current
+  nine-product organic contribution ranking and paid-ad hold boundary.
