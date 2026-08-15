@@ -65,6 +65,22 @@ this checkpoint.
   IDs and Meta deduplication therefore remain open for one normal
   owner-controlled browser trace.
 
+## Organic-demand checkpoint
+
+- TikTok Studio reports 109 views, three likes and zero comments on the August
+  14 cable-organizer post. The motion-first 12-second follow-up is uploaded in
+  the existing Studio form but remains unpublished; no post, draft, boost or
+  privacy setting was changed during this audit.
+- Meta Business Suite reports zero views, follows, interactions, reactions,
+  comments, shares, saves and link clicks for the August 14 Instagram
+  toiletry-organizer photo. Reach and viewer counts are not yet available.
+- Eight truthful, unboosted Instagram photo posts remain scheduled between
+  August 15 and August 26. The next scheduled post is the Canada-only packing
+  cube post at 6:30 p.m. CDT on August 15.
+- Shopify still reports zero social-referrer sessions, zero orders and zero
+  sales since August 15. Social engagement therefore remains an early reach
+  signal, not customer demand.
+
 ## Remaining launch gates
 
 1. Complete the physical-phone/tablet visual and checkout-handoff check.
