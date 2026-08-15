@@ -68,9 +68,10 @@ this checkpoint.
 ## Organic-demand checkpoint
 
 - TikTok Studio reports 109 views, three likes and zero comments on the August
-  14 cable-organizer post. The motion-first 12-second follow-up is uploaded in
-  the existing Studio form but remains unpublished; no post, draft, boost or
-  privacy setting was changed during this audit.
+  14 cable-organizer post. The motion-first 12-second follow-up is saved as one
+  private TikTok Studio draft with the approved `What actually arrives`
+  caption. It remains unpublished; no post, boost or privacy setting was
+  changed.
 - Meta Business Suite reports zero views, follows, interactions, reactions,
   comments, shares, saves and link clicks for the August 14 Instagram
   toiletry-organizer photo. Reach and viewer counts are not yet available.
