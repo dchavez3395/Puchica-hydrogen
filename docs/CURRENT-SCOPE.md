@@ -192,11 +192,15 @@ This lane can run while Lane 1 is being closed.
 2. **Completed 2026-08-14:** an eight-post Instagram schedule and bounded TikTok
    UGC test pack use exact media, truthful captions, accessible copy, and stable
    attribution routes.
-3. **Completed for the first Instagram/TikTok releases:** the user explicitly
+3. **Prepared, not published:** motion-first masters now exist for the cable
+   organizer and black hanging toiletry organizer. Both use exact approved
+   source photography, continuous animation, truthful inclusion/market copy,
+   and no fake customer testimonial.
+4. **Completed for the first Instagram/TikTok releases:** the user explicitly
    approved publication. Any additional public post still requires approval.
-4. **Active:** the measurement baseline began at the first public-post
+5. **Active:** the measurement baseline began at the first public-post
    timestamp. Exclude `codex_qa / measurement` traffic.
-5. Review qualified sessions, product-view to ATC, ATC to checkout, customer
+6. Review qualified sessions, product-view to ATC, ATC to checkout, customer
    questions, and product-specific interest after seven days.
 
 ### Lane 3: first-order fulfillment control
