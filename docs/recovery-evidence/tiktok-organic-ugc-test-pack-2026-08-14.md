@@ -138,3 +138,32 @@ plain bio domain would be classified as direct traffic. A memorable
 `puchica.ca/tiktok` redirect was therefore prepared to preserve TikTok organic
 UTM attribution and land on the cable-organizer PDP. The profile bio must not
 be changed to the new path until the route is deployed and verified live.
+
+## Post-two-hour checkpoint
+
+At 2026-08-14 20:52 CDT, 4 hours 38 minutes after the verified public-release
+baseline, TikTok Studio showed the cable-organizer post as `Everyone` with:
+
+- 72 views;
+- 2 total likes;
+- 0 comments.
+
+One like is the known Puchica-account action. The other like is unclassified and
+does not establish customer demand. The public profile showed 2 followers and
+84 account-wide likes. Its bio still read `Travel organizers for Canada + U.S.
+Shop puchica.ca`; it did **not** yet use the deployed `puchica.ca/tiktok`
+attribution path.
+
+Shopify analytics at the same checkpoint showed 24 sessions, 5 sessions with a
+cart addition, 4 sessions reaching checkout, and 0 completed checkouts, all
+grouped as direct. These totals include bounded QA activity and cannot be
+attributed to the TikTok post. `npm run first-order-signal` remained `WAITING`
+with no genuine actionable customer order and one known historical/test order
+ignored.
+
+Decision: **no demand signal yet; keep the second TikTok concept unpublished.**
+Record the 24-hour checkpoint at or after 2026-08-15 16:14 CDT before deciding
+whether to publish the motion-first cable or toiletry master. A later owner-
+approved bio correction can use `Travel organizers CA + U.S. Shop
+puchica.ca/tiktok` so typed profile traffic reaches the verified tracked route.
+Do not change the public bio without approval.
