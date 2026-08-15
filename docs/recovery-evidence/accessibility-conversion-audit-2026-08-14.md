@@ -64,3 +64,27 @@ The supplied Product Optimization workflow is a batch image, copy, price, status
 - `npm run launch-check`
 
 The updated accessibility workbook is stored outside Git in the task output directory so it can be used as the ongoing review record. All four task-list items are marked Complete, and the related development checks for keyboard operation, keyboard traps, focus order, and focus visibility are recorded as complete.
+
+## Narrow-width and motion addendum
+
+A later 320 CSS-pixel collection pass found that all product names remained in
+the DOM but eight were visually clipped by a two-line card-title clamp. The
+mobile rule now removes that clamp below 700 CSS pixels so identifying product
+text wraps in full. The focused source contract also verifies that
+`prefers-reduced-motion: reduce` neutralizes global animation and transition
+duration/iteration and disables the continuous stock-urgency dot animation.
+
+Commit `5b918a9e11e6fd47023f4db277ed73b3530b1e2e` was deployed to Oxygen
+Production, and the final cart-boundary correction followed in commit
+`898ccfb46d32000346c57d0ae50fbdcf2ee13c10`. Production asset `4222171` was
+rechecked at 320 CSS pixels across the all-products collection:
+
+- no page-level horizontal overflow;
+- nine of nine product titles fully visible;
+- each title's client height equalled its scroll height;
+- computed title overflow was visible and no line clamp remained.
+
+The full source suite passed 102/102 and the post-deployment live health suite
+passed 36/36. Physical 200% text zoom, WCAG 1.4.12 text-spacing overrides,
+OS-level reduced-motion behavior, and named assistive-technology sessions remain
+explicit owner checks in the launch workbook.

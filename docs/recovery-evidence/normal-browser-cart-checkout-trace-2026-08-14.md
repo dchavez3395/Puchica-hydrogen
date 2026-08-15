@@ -111,3 +111,44 @@ or genuine customer checkout.
    pre-payment, dispatch, tracking, delivery, and contribution runbook.
 5. Only after those gates pass, propose one offer, one market, a capped budget,
    and explicit stop rules for owner approval.
+
+## Final production cart boundary recheck
+
+A later same-day accessibility pass reproduced an Add to Cart rejection in a
+long-lived in-app browser session even though the approved cable-organizer
+variant remained available. A cookie-free production POST established the
+decisive difference:
+
+- a sanitized line containing only `merchandiseId` and `quantity` added the
+  approved product;
+- the otherwise equivalent browser-shaped line containing Hydrogen's
+  client-only `selectedVariant` object did not add the product.
+
+`normalizeCartLines` had been retaining that optimistic UI object and sending it
+to Shopify even though it is not part of Storefront API `CartLineInput`. Commit
+`898ccfb46d32000346c57d0ae50fbdcf2ee13c10` now narrows the server mutation
+payload to the validated Shopify fields. The earlier empty-cart recovery was
+also strengthened in commit `5b918a9e11e6fd47023f4db277ed73b3530b1e2e`
+without allowing a populated shopper cart to be discarded.
+
+Final verification:
+
+- `npm test`: 102/102 passed;
+- lint: zero errors;
+- production build: passed;
+- Oxygen Production: successful and routable;
+- live asset: `4222171`;
+- the exact previously failing browser session showed `Added ✓`, the approved
+  Black Double-Layer variant, quantity one, CA$24.99 CAD, and a valid
+  `checkout.puchica.ca` link;
+- Shopify Checkout rendered the product, total, contact, delivery, shipping,
+  and payment sections;
+- the trace stopped before data entry or submission and the cart line was
+  removed afterward;
+- Shopify Admin showed no new order and `npm run first-order-signal` remained
+  `WAITING`;
+- the post-deployment production health check passed 36/36.
+
+This closes the cart/checkout implementation defect. It does not lift the paid
+advertising hold, which still depends on physical accessibility sign-off, Meta
+dataset receipt/deduplication, and the defined organic evidence threshold.
