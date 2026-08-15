@@ -1,7 +1,4 @@
-import {
-  isApprovedVariantSku,
-  isLaunchReadyProduct,
-} from './launch-catalog.js';
+import {isApprovedVariantSku, isLaunchReadyProduct} from './launch-catalog.js';
 import {
   cartBuyerCountryNeedsSync,
   cartBuyerCountrySyncFailed,
@@ -11,6 +8,16 @@ import {
 const MAX_CART_LINES = 20;
 const MAX_LINE_QUANTITY = 99;
 const VARIANT_GID_PREFIX = 'gid://shopify/ProductVariant/';
+const CART_GID_PREFIX = 'gid://shopify/Cart/';
+
+/**
+ * A cart cookie can outlive the Storefront API cart it points to. Shopify then
+ * returns an error-shaped result without a cart id. Treat that as recoverable
+ * stale state so the next approved add can create a fresh cart.
+ */
+export function isUsableCart(cart) {
+  return typeof cart?.id === 'string' && cart.id.startsWith(CART_GID_PREFIX);
+}
 
 export function safeInternalRedirect(value) {
   if (typeof value !== 'string' || !value.startsWith('/')) return null;
@@ -147,11 +154,7 @@ export async function rejectedCartLineIds(
  * Synchronize an existing cart to the active market and purge every line that
  * is not approved there before the cart or checkout URL is exposed.
  */
-export async function getMarketSafeCart(
-  cartApi,
-  storefront,
-  requestedCountry,
-) {
+export async function getMarketSafeCart(cartApi, storefront, requestedCountry) {
   if (!cartApi.getCartId()) return null;
 
   const country =
@@ -160,7 +163,9 @@ export async function getMarketSafeCart(
   if (!current) return null;
 
   if (cartBuyerCountryNeedsSync(current, country)) {
-    const syncResult = await cartApi.updateBuyerIdentity({countryCode: country});
+    const syncResult = await cartApi.updateBuyerIdentity({
+      countryCode: country,
+    });
     current = syncResult?.errors?.length
       ? syncResult?.cart
       : await cartApi.get({numCartLines: 100});
@@ -169,11 +174,7 @@ export async function getMarketSafeCart(
     }
   }
 
-  const rejectedIds = await rejectedCartLineIds(
-    storefront,
-    current,
-    country,
-  );
+  const rejectedIds = await rejectedCartLineIds(storefront, current, country);
   if (rejectedIds.length > 0) {
     const removal = await cartApi.removeLines(rejectedIds);
     if (removal?.errors?.length) {

@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   getMarketSafeCart,
+  isUsableCart,
   normalizeCartLines,
   parseCartPermalinkLines,
   rejectedCartLineIds,
@@ -12,6 +13,16 @@ import {
   MARKET_ROUTE_EVIDENCE_TAGS,
   REQUIRED_CATALOG_EVIDENCE_TAGS,
 } from '../app/lib/launch-catalog.js';
+
+test('stale or error-shaped cart reads are recoverable', () => {
+  assert.equal(
+    isUsableCart({id: 'gid://shopify/Cart/active-token?key=secret'}),
+    true,
+  );
+  assert.equal(isUsableCart(null), false);
+  assert.equal(isUsableCart({errors: [{message: 'Cart not found'}]}), false);
+  assert.equal(isUsableCart({id: 'gid://shopify/Product/123'}), false);
+});
 
 test('safeInternalRedirect only accepts same-site paths', () => {
   assert.equal(safeInternalRedirect('/cart?added=1'), '/cart?added=1');
