@@ -1,8 +1,8 @@
 # Puchica current operating scope
 
-- **Status date:** 2026-08-14
-- **Binding storefront commit:** `64ef45ea17ce79fc81eb334a27d3d16570cda052`
-- **Production:** `https://puchica.ca` / deployment `fix: recover expired storefront carts`
+- **Status date:** 2026-08-15
+- **Binding storefront commit:** `45fead935e80983f62afaa1ba88c4a57aa64e3a3`
+- **Production:** `https://puchica.ca` / deployment `fix: accept canonical Meta event sources`
 - **Decision:** organic commerce is live and limited; paid advertising is
   paused.
 
@@ -37,22 +37,22 @@ current catalog and learn which offer deserves a small paid test.
 
 ## Binding current state
 
-| Area                | Current truth                                                                                                        |
-| ------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| Storefront          | Shopify Hydrogen on Oxygen at `puchica.ca`                                                                           |
-| Repository          | `codex/overnight-growth-2026-08-14`; production storefront commit is `64ef45e`; later commits are operating controls |
-| Production artifact | Deployment `fix: recover expired storefront carts`; URL `https://01m01c9cycgfrxpztzzxcw2bhy-f9aa94aa3bf86abb6754.myshopify.dev` |
-| Fulfillment stack   | Shopify + DSers + exact AliExpress supplier mappings                                                                 |
-| Catalog             | 9 Active product pages; 29 rejected legacy products quarantined as Draft                                             |
-| Canada              | 10 exact approved SKUs across 9 pages                                                                                |
-| United States       | 8 exact approved SKUs across 7 pages                                                                                 |
-| Market exclusions   | Packing cubes and Large Blue storage bag are Canada-only                                                             |
-| Publications        | Every approved product is published to Online Store and Puchica Storefront                                           |
-| Organic selling     | `GO_ORGANIC_LIMITED`, one early order at a time                                                                      |
-| Paid advertising    | HOLD; no campaign or spend is authorized                                                                             |
-| Discounts           | `FIRST15` is expired and must not be advertised                                                                      |
-| Other platforms     | Do not add AutoDS or another paid fulfillment subscription now                                                       |
-| Other markets       | Mexico, Spain, LATAM, and additional languages are later phases, not current scope                                   |
+| Area                | Current truth                                                                                                     |
+| ------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| Storefront          | Shopify Hydrogen on Oxygen at `puchica.ca`                                                                        |
+| Repository          | `codex/overnight-growth-2026-08-14`; Production storefront commit is `45fead9`                                    |
+| Production artifact | Shopify Oxygen deployment `#5255529`, `Current` / `Ready`, description `fix: accept canonical Meta event sources` |
+| Fulfillment stack   | Shopify + DSers + exact AliExpress supplier mappings                                                              |
+| Catalog             | 9 Active product pages; 29 rejected legacy products quarantined as Draft                                          |
+| Canada              | 10 exact approved SKUs across 9 pages                                                                             |
+| United States       | 8 exact approved SKUs across 7 pages                                                                              |
+| Market exclusions   | Packing cubes and Large Blue storage bag are Canada-only                                                          |
+| Publications        | Every approved product is published to Online Store and Puchica Storefront                                        |
+| Organic selling     | `GO_ORGANIC_LIMITED`, one early order at a time                                                                   |
+| Paid advertising    | HOLD; no campaign or spend is authorized                                                                          |
+| Discounts           | `FIRST15` is expired and must not be advertised                                                                   |
+| Other platforms     | Do not add AutoDS or another paid fulfillment subscription now                                                    |
+| Other markets       | Mexico, Spain, LATAM, and additional languages are later phases, not current scope                                |
 
 ## Release and rollback controls
 
@@ -146,10 +146,14 @@ lines passed live QA.
   exact DSers baseline and fails closed after seven days. Toiletry and cable
   remain the cross-market hero cohort; the jewelry case is the strongest third
   candidate. Every row remains paid-ad `HOLD`.
-- Storefront code is configured for Meta Pixel `996669459615534` and the CAPI
-  relay, but the currently signed-in Events Manager ad account exposed no
-  dataset on 2026-08-14. Fresh Meta receipt and browser/server deduplication are
-  therefore not proven well enough for paid traffic.
+- Meta dataset/Pixel `1616698610095354` is now selected in business portfolio
+  `1567358971667584`, the business contact email is confirmed, the CAPI token
+  is stored as a Production secret, and Meta accepted a synthetic non-PII
+  server test. The live storefront relay returns `204`, while Events Manager
+  shows processed browser `PageView` events. The three pre-purchase events and
+  browser/server deduplication still require a normal owner-controlled browser
+  trace; controlled QA browsers are intentionally excluded by the storefront's
+  bot filter and cannot close that evidence gate.
 - Checkout has shown the configured Canadian and U.S. shipping rules in bounded
   tests. The cable and toiletry hero offers passed fresh representative CA/U.S.
   checkout and economics checks on 2026-08-14. A complete nine-product address
@@ -171,11 +175,12 @@ This is the active technical lane.
 2. **Completed 2026-08-14:** keyboard-only navigation, visible focus and
    focus-trap checks, 320 CSS px reflow, heading/label/landmark checks, and the
    focused automated accessibility suite passed across the primary funnel.
-3. **GA4 completed 2026-08-14; Meta remains:** the normal-Chrome customer path
-   produced GA4 `view_item`, `add_to_cart`, and `begin_checkout`. Reopen the
-   correct Meta dataset/business context, then confirm `ViewContent`,
-   `AddToCart`, `InitiateCheckout`, matching event IDs, and browser/server
-   deduplication in Events Manager.
+3. **GA4 completed 2026-08-14; Meta connection completed 2026-08-15, event
+   trace remains:** the normal-Chrome customer path produced GA4 `view_item`,
+   `add_to_cart`, and `begin_checkout`. The correct Meta dataset, browser Pixel,
+   CAPI token and live relay are connected. Use a normal owner-controlled
+   browser to confirm `ViewContent`, `AddToCart`, `InitiateCheckout`, matching
+   event IDs, and browser/server deduplication in Events Manager.
 4. **Completed 2026-08-10:** crawl all 9 Canadian and 7 U.S. product routes plus
    robots, sitemap, canonicals, hreflang, status, and indexability.
 5. **Completed 2026-08-14 for the two hero offers:** representative Canadian
@@ -313,17 +318,18 @@ Do not do both before the evidence review.
 | Priority | Action                                                                                   | Owner        |                     External mutation? |
 | -------: | ---------------------------------------------------------------------------------------- | ------------ | -------------------------------------: |
 |        1 | Physical-phone/tablet final visual and checkout-handoff sign-off                         | User         |                                     No |
-|        2 | Select/reconnect the correct Meta dataset, then prove receipt and deduplication           | User + Codex | Settings access; no spend required     |
+|        2 | Run a normal-browser Meta funnel trace and prove pre-purchase event deduplication        | User + Codex |                      No spend required |
 |        3 | Continue read-only production, social-attribution, and first-order monitoring            | Codex        |                                     No |
 |        4 | Review qualified organic behavior after the seven-day/100-session evidence window        | Codex        |                                     No |
 |        5 | Process the first genuine order through the exact DSers pre-payment and delivery runbook | User + Codex |         Yes, only when an order exists |
 |        6 | Verify Purchase events, actual delivered contribution, and propose one capped paid test  | User + Codex | Budget approval required; no spend yet |
 
-Action 1 requires an owner-controlled physical device. Action 2 requires the
-owner to confirm the correct Meta business/dataset context if it cannot be
-reached from the currently signed-in account. Actions 3 and 4 continue without
-user intervention. Stop before additional publishing, ad spend, agent-initiated
-test orders, real supplier payment, or business/tax setting changes.
+Actions 1 and 2 require an owner-controlled physical device or normal browser
+because automated QA sessions are deliberately excluded from analytics. The
+Meta business and dataset are already connected. Actions 3 and 4 continue
+without user intervention. Stop before additional publishing, ad spend,
+agent-initiated test orders, real supplier payment, or business/tax setting
+changes.
 
 Each of the three pre-ad evidence gates must end in a dated artifact and an
 explicit `PASS`: a mobile/accessibility device-and-browser matrix, an analytics
