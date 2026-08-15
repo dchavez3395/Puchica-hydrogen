@@ -1,0 +1,42 @@
+name: Deploy to Shopify Oxygen
+
+on:
+  push:
+    branches: [main]
+
+# Only one deploy runs at a time. Cancel in-progress runs if a new push lands.
+concurrency:
+  group: oxygen-deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Deploy to Oxygen
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+        env:
+          NODE_ENV: production
+
+      - name: Deploy to Shopify Oxygen
+        run: npx shopify hydrogen deploy --env production --force
+        env:
+          # SHOPIFY_HYDROGEN_DEPLOY_TOKEN must be added to
+          # GitHub repo → Settings → Secrets → Actions.
+          # Generate it with: npx shopify hydrogen deploy token generate --env production
+          SHOPIFY_HYDROGEN_DEPLOY_TOKEN: ${{ secrets.SHOPIFY_HYDROGEN_DEPLOY_TOKEN }}
