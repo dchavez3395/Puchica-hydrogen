@@ -118,7 +118,11 @@ export function normalizeCartLines(lines) {
     ) {
       return null;
     }
-    return {...line, quantity};
+    // CartForm includes `selectedVariant` for Hydrogen's optimistic client UI,
+    // but it is not a Storefront API CartLineInput field. Passing that object
+    // through makes Shopify reject an otherwise available variant. Keep the
+    // server mutation payload deliberately narrow and GraphQL-valid.
+    return {merchandiseId: line.merchandiseId, quantity};
   });
   return normalized.every(Boolean) ? normalized : null;
 }

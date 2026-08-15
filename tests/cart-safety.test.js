@@ -130,6 +130,23 @@ test('normalizeCartLines rejects malformed direct add-to-cart payloads', () => {
   );
 });
 
+test('normalizeCartLines strips client-only selectedVariant data', () => {
+  assert.deepEqual(
+    normalizeCartLines([
+      {
+        merchandiseId: 'gid://shopify/ProductVariant/123',
+        quantity: 1,
+        selectedVariant: {
+          id: 'gid://shopify/ProductVariant/123',
+          availableForSale: true,
+          title: 'Optimistic UI only',
+        },
+      },
+    ]),
+    [{merchandiseId: 'gid://shopify/ProductVariant/123', quantity: 1}],
+  );
+});
+
 function storefrontWithVariant(variant) {
   return {
     i18n: {country: 'CA', language: 'EN'},
