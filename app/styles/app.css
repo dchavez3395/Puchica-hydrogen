@@ -17301,3 +17301,16 @@ main:has(> .pk-collection--bold) {
     transition: none;
   }
 }
+
+/* Product-card text-resize contract: at mobile and 200%-zoom-equivalent
+   widths, product names must wrap in full instead of being clipped to two
+   lines. Uneven card titles are preferable to hiding identifying content. */
+@media (max-width: 700px) {
+  .pk-card__title {
+    display: block;
+    min-height: 0;
+    -webkit-box-orient: initial;
+    -webkit-line-clamp: unset;
+    overflow: visible;
+  }
+}

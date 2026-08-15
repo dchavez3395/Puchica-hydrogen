@@ -12,6 +12,7 @@ import {
   getMarketSafeCart,
   isUsableCart,
   safeInternalRedirect,
+  shouldRecreateEmptyCartAfterFailedAdd,
 } from '~/lib/cart-safety';
 import {STOREFRONT_CONTAINMENT_ACTIVE} from '~/lib/launch-catalog';
 import {
@@ -116,6 +117,23 @@ export async function action({request, context}) {
       }
 
       result = await cart.addLines(launchReadyLines);
+
+      // Some expired Shopify carts still read back with a valid-looking GID
+      // and zero lines, so the preflight check above cannot identify them.
+      // If the mutation also proves that nothing landed, replace that empty
+      // cart once. Never discard or recreate a cart that contains real lines.
+      if (
+        shouldRecreateEmptyCartAfterFailedAdd(
+          existingCart,
+          result,
+          launchReadyLines,
+        )
+      ) {
+        result = await cart.create({
+          buyerIdentity: {countryCode: desiredCountry},
+          lines: launchReadyLines,
+        });
+      }
       break;
     }
     case CartForm.ACTIONS.LinesUpdate:

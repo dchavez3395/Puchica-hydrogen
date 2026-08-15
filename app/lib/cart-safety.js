@@ -19,6 +19,54 @@ export function isUsableCart(cart) {
   return typeof cart?.id === 'string' && cart.id.startsWith(CART_GID_PREFIX);
 }
 
+/**
+ * Shopify can occasionally return an apparently valid, empty cart for an
+ * expired cart cookie and then reject the next cartLinesAdd mutation. Recover
+ * only when the shopper had no real cart contents to preserve and the add
+ * response proves that no requested merchandise landed. A genuine non-empty
+ * cart is never replaced by this fallback.
+ */
+export function shouldRecreateEmptyCartAfterFailedAdd(
+  existingCart,
+  mutationResult,
+  requestedLines,
+) {
+  const existingNodes = existingCart?.lines?.nodes;
+  const existingIsEmpty =
+    existingCart?.totalQuantity === 0 ||
+    (Array.isArray(existingNodes) &&
+      existingNodes.every((line) => Number(line?.quantity || 0) <= 0));
+
+  if (!existingIsEmpty) return false;
+
+  const requestedIds = new Set(
+    (Array.isArray(requestedLines) ? requestedLines : [])
+      .map((line) => line?.merchandiseId)
+      .filter(Boolean),
+  );
+  if (requestedIds.size === 0) return false;
+
+  const resultCart = mutationResult?.cart;
+  const resultNodes = resultCart?.lines?.nodes;
+  if (Array.isArray(resultNodes)) {
+    const requestedLineLanded = resultNodes.some(
+      (line) =>
+        requestedIds.has(line?.merchandise?.id) &&
+        Number(line?.quantity || 0) > 0,
+    );
+    return !requestedLineLanded;
+  }
+
+  if (Number(resultCart?.totalQuantity || 0) > 0) return false;
+
+  return (
+    !isUsableCart(resultCart) ||
+    (Array.isArray(mutationResult?.errors) &&
+      mutationResult.errors.length > 0) ||
+    resultCart?.totalQuantity === 0
+  );
+}
+
 export function safeInternalRedirect(value) {
   if (typeof value !== 'string' || !value.startsWith('/')) return null;
   if (value.startsWith('//') || /[\\\r\n]/.test(value)) return null;
