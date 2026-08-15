@@ -1,7 +1,4 @@
-import {
-  isApprovedVariantSku,
-  isLaunchReadyProduct,
-} from './launch-catalog.js';
+import {isApprovedVariantSku, isLaunchReadyProduct} from './launch-catalog.js';
 import {
   cartBuyerCountryNeedsSync,
   cartBuyerCountrySyncFailed,
@@ -11,6 +8,64 @@ import {
 const MAX_CART_LINES = 20;
 const MAX_LINE_QUANTITY = 99;
 const VARIANT_GID_PREFIX = 'gid://shopify/ProductVariant/';
+const CART_GID_PREFIX = 'gid://shopify/Cart/';
+
+/**
+ * A cart cookie can outlive the Storefront API cart it points to. Shopify then
+ * returns an error-shaped result without a cart id. Treat that as recoverable
+ * stale state so the next approved add can create a fresh cart.
+ */
+export function isUsableCart(cart) {
+  return typeof cart?.id === 'string' && cart.id.startsWith(CART_GID_PREFIX);
+}
+
+/**
+ * Shopify can occasionally return an apparently valid, empty cart for an
+ * expired cart cookie and then reject the next cartLinesAdd mutation. Recover
+ * only when the shopper had no real cart contents to preserve and the add
+ * response proves that no requested merchandise landed. A genuine non-empty
+ * cart is never replaced by this fallback.
+ */
+export function shouldRecreateEmptyCartAfterFailedAdd(
+  existingCart,
+  mutationResult,
+  requestedLines,
+) {
+  const existingNodes = existingCart?.lines?.nodes;
+  const existingIsEmpty =
+    existingCart?.totalQuantity === 0 ||
+    (Array.isArray(existingNodes) &&
+      existingNodes.every((line) => Number(line?.quantity || 0) <= 0));
+
+  if (!existingIsEmpty) return false;
+
+  const requestedIds = new Set(
+    (Array.isArray(requestedLines) ? requestedLines : [])
+      .map((line) => line?.merchandiseId)
+      .filter(Boolean),
+  );
+  if (requestedIds.size === 0) return false;
+
+  const resultCart = mutationResult?.cart;
+  const resultNodes = resultCart?.lines?.nodes;
+  if (Array.isArray(resultNodes)) {
+    const requestedLineLanded = resultNodes.some(
+      (line) =>
+        requestedIds.has(line?.merchandise?.id) &&
+        Number(line?.quantity || 0) > 0,
+    );
+    return !requestedLineLanded;
+  }
+
+  if (Number(resultCart?.totalQuantity || 0) > 0) return false;
+
+  return (
+    !isUsableCart(resultCart) ||
+    (Array.isArray(mutationResult?.errors) &&
+      mutationResult.errors.length > 0) ||
+    resultCart?.totalQuantity === 0
+  );
+}
 
 export function safeInternalRedirect(value) {
   if (typeof value !== 'string' || !value.startsWith('/')) return null;
@@ -63,7 +118,11 @@ export function normalizeCartLines(lines) {
     ) {
       return null;
     }
-    return {...line, quantity};
+    // CartForm includes `selectedVariant` for Hydrogen's optimistic client UI,
+    // but it is not a Storefront API CartLineInput field. Passing that object
+    // through makes Shopify reject an otherwise available variant. Keep the
+    // server mutation payload deliberately narrow and GraphQL-valid.
+    return {merchandiseId: line.merchandiseId, quantity};
   });
   return normalized.every(Boolean) ? normalized : null;
 }
@@ -147,11 +206,7 @@ export async function rejectedCartLineIds(
  * Synchronize an existing cart to the active market and purge every line that
  * is not approved there before the cart or checkout URL is exposed.
  */
-export async function getMarketSafeCart(
-  cartApi,
-  storefront,
-  requestedCountry,
-) {
+export async function getMarketSafeCart(cartApi, storefront, requestedCountry) {
   if (!cartApi.getCartId()) return null;
 
   const country =
@@ -160,7 +215,9 @@ export async function getMarketSafeCart(
   if (!current) return null;
 
   if (cartBuyerCountryNeedsSync(current, country)) {
-    const syncResult = await cartApi.updateBuyerIdentity({countryCode: country});
+    const syncResult = await cartApi.updateBuyerIdentity({
+      countryCode: country,
+    });
     current = syncResult?.errors?.length
       ? syncResult?.cart
       : await cartApi.get({numCartLines: 100});
@@ -169,11 +226,7 @@ export async function getMarketSafeCart(
     }
   }
 
-  const rejectedIds = await rejectedCartLineIds(
-    storefront,
-    current,
-    country,
-  );
+  const rejectedIds = await rejectedCartLineIds(storefront, current, country);
   if (rejectedIds.length > 0) {
     const removal = await cartApi.removeLines(rejectedIds);
     if (removal?.errors?.length) {

@@ -2,6 +2,7 @@ import {useEffect, useRef} from 'react';
 import {useAnalytics} from '@shopify/hydrogen';
 import {isBotClient} from '~/lib/bot-detection';
 import {analyticsItemId, cartAnalyticsItems} from '~/lib/analytics-items';
+import {scheduleAnalyticsReady} from '~/lib/analytics-ready';
 
 /**
  * MetaPixel — Facebook/Meta Pixel for the headless Hydrogen storefront.
@@ -162,7 +163,10 @@ export function MetaPixel({pixelId}) {
       });
     });
 
-    ready();
+    // Hydrogen flushes buffered page-view events as soon as this integration
+    // reports ready. Give concurrent hydration two frames to finish before the
+    // Meta script can mutate the document in response to that first event.
+    scheduleAnalyticsReady(ready);
   }, [pixelId, subscribe, canTrack, ready]);
 
   return null;

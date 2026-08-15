@@ -2,16 +2,92 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   getMarketSafeCart,
+  isUsableCart,
   normalizeCartLines,
   parseCartPermalinkLines,
   rejectedCartLineIds,
   safeInternalRedirect,
+  shouldRecreateEmptyCartAfterFailedAdd,
 } from '../app/lib/cart-safety.js';
 import {
   APPROVED_VARIANT_SKUS_BY_MARKET,
   MARKET_ROUTE_EVIDENCE_TAGS,
   REQUIRED_CATALOG_EVIDENCE_TAGS,
 } from '../app/lib/launch-catalog.js';
+
+test('stale or error-shaped cart reads are recoverable', () => {
+  assert.equal(
+    isUsableCart({id: 'gid://shopify/Cart/active-token?key=secret'}),
+    true,
+  );
+  assert.equal(isUsableCart(null), false);
+  assert.equal(isUsableCart({errors: [{message: 'Cart not found'}]}), false);
+  assert.equal(isUsableCart({id: 'gid://shopify/Product/123'}), false);
+});
+
+test('a failed add to a valid-looking empty cart is recreated once', () => {
+  const line = {
+    merchandiseId: 'gid://shopify/ProductVariant/123',
+    quantity: 1,
+  };
+  const emptyCart = {
+    id: 'gid://shopify/Cart/stale-token',
+    totalQuantity: 0,
+    lines: {nodes: []},
+  };
+
+  assert.equal(
+    shouldRecreateEmptyCartAfterFailedAdd(
+      emptyCart,
+      {
+        cart: {id: emptyCart.id, totalQuantity: 0},
+        errors: [{message: 'The cart could not be updated.'}],
+      },
+      [line],
+    ),
+    true,
+  );
+
+  assert.equal(
+    shouldRecreateEmptyCartAfterFailedAdd(
+      emptyCart,
+      {cart: {id: emptyCart.id, totalQuantity: 1}, errors: []},
+      [line],
+    ),
+    false,
+  );
+});
+
+test('failed adds never replace a cart that contains shopper lines', () => {
+  const line = {
+    merchandiseId: 'gid://shopify/ProductVariant/123',
+    quantity: 1,
+  };
+  const populatedCart = {
+    id: 'gid://shopify/Cart/active-token',
+    totalQuantity: 1,
+    lines: {
+      nodes: [
+        {
+          quantity: 1,
+          merchandise: {id: 'gid://shopify/ProductVariant/999'},
+        },
+      ],
+    },
+  };
+
+  assert.equal(
+    shouldRecreateEmptyCartAfterFailedAdd(
+      populatedCart,
+      {
+        cart: {id: populatedCart.id, totalQuantity: 1},
+        errors: [{message: 'Merchandise is unavailable.'}],
+      },
+      [line],
+    ),
+    false,
+  );
+});
 
 test('safeInternalRedirect only accepts same-site paths', () => {
   assert.equal(safeInternalRedirect('/cart?added=1'), '/cart?added=1');
@@ -51,6 +127,23 @@ test('normalizeCartLines rejects malformed direct add-to-cart payloads', () => {
       {merchandiseId: 'gid://shopify/ProductVariant/123', quantity: -1},
     ]),
     null,
+  );
+});
+
+test('normalizeCartLines strips client-only selectedVariant data', () => {
+  assert.deepEqual(
+    normalizeCartLines([
+      {
+        merchandiseId: 'gid://shopify/ProductVariant/123',
+        quantity: 1,
+        selectedVariant: {
+          id: 'gid://shopify/ProductVariant/123',
+          availableForSale: true,
+          title: 'Optimistic UI only',
+        },
+      },
+    ]),
+    [{merchandiseId: 'gid://shopify/ProductVariant/123', quantity: 1}],
   );
 });
 

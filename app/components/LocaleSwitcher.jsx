@@ -39,16 +39,36 @@ export function LocaleSwitcher() {
 
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
+  const buttonRef = useRef(null);
   const fetcher = useFetcher();
   const isSwitching = fetcher.state !== 'idle';
 
   useEffect(() => {
     if (!open) return;
+
+    const trigger = buttonRef.current;
+    const firstMenuItem = ref.current?.querySelector(
+      '[role="menu"] [role="menuitemradio"]:not([disabled])',
+    );
+    firstMenuItem?.focus();
+
     const onDown = (e) => {
       if (ref.current && !ref.current.contains(e.target)) setOpen(false);
     };
+    const onKeyDown = (e) => {
+      if (e.key !== 'Escape') return;
+      e.preventDefault();
+      e.stopPropagation();
+      setOpen(false);
+      window.requestAnimationFrame(() => trigger?.focus());
+    };
+
     document.addEventListener('mousedown', onDown);
-    return () => document.removeEventListener('mousedown', onDown);
+    document.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.removeEventListener('mousedown', onDown);
+      document.removeEventListener('keydown', onKeyDown);
+    };
   }, [open]);
 
   function choose(key) {
@@ -77,9 +97,10 @@ export function LocaleSwitcher() {
   return (
     <div className="pk-locale" ref={ref}>
       <button
+        ref={buttonRef}
         type="button"
         className="pk-icon-btn pk-locale__btn"
-        aria-haspopup="true"
+        aria-haspopup="menu"
         aria-expanded={open}
         aria-busy={isSwitching}
         aria-label={t('locale_change_aria')}
@@ -111,7 +132,11 @@ export function LocaleSwitcher() {
         {isSwitching ? t('locale_switching_status') : ''}
       </span>
       {open && (
-        <div className="pk-locale__menu" role="menu">
+        <div
+          className="pk-locale__menu"
+          role="menu"
+          aria-label={t('locale_change_aria')}
+        >
           <div className="pk-locale__group">
             <p className="pk-locale__label">{t('locale_market_label')}</p>
             {MARKET_ORDER.map((country) => {

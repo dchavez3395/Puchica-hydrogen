@@ -74,3 +74,97 @@ test('route errors keep a focusable main landmark and reflow inside the viewport
   );
   assert.doesNotMatch(dictionaries, /prepare the new catalog/i);
 });
+
+test('cart page and drawer use unique line-list labels', async () => {
+  const cartMain = await readSource('app/components/CartMain.jsx');
+
+  assert.match(
+    cartMain,
+    /layout === 'aside' \? 'cart-lines-aside' : 'cart-lines-page'/,
+  );
+  assert.match(cartMain, /id=\{cartLinesLabelId\}/);
+  assert.match(cartMain, /aria-labelledby=\{cartLinesLabelId\}/);
+  assert.doesNotMatch(cartMain, /id="cart-lines"/);
+});
+
+test('empty cart follows the heading hierarchy in each layout', async () => {
+  const cartMain = await readSource('app/components/CartMain.jsx');
+
+  assert.match(
+    cartMain,
+    /<CartEmpty hidden=\{cartHasItems\} headingLevel=\{3\} \/>/,
+  );
+  assert.match(
+    cartMain,
+    /<CartEmpty hidden=\{cartHasItems\} headingLevel=\{2\} \/>/,
+  );
+  assert.match(cartMain, /const Heading = headingLevel === 2 \? 'h2' : 'h3';/);
+  assert.match(
+    cartMain,
+    /<Heading className="pk-empty-cart__title">\s*\{t\('cart_empty_title'\)\}\s*<\/Heading>/,
+  );
+});
+
+test('campaign hero resists min-content overflow at a 320px viewport', async () => {
+  const styles = await readSource('app/styles/app.css');
+  const contractStart = styles.indexOf('Campaign 320px reflow contract');
+  const contractEnd = styles.indexOf(
+    '/* Final authority: shared actions',
+    contractStart,
+  );
+
+  assert.ok(contractStart >= 0);
+  assert.ok(contractEnd > contractStart);
+
+  const reflowStyles = styles.slice(contractStart, contractEnd);
+  assert.match(reflowStyles, /grid-template-columns:\s*minmax\(0, 1fr\);/);
+  assert.match(
+    reflowStyles,
+    /\.pk-campaign-hero__copy,[\s\S]*?\.pk-campaign-hero__visual\s*\{[\s\S]*?min-width:\s*0;/,
+  );
+  assert.match(
+    reflowStyles,
+    /\.pk-campaign-proof\s*\{[\s\S]*?flex-wrap:\s*wrap;[\s\S]*?overflow-x:\s*visible;/,
+  );
+});
+
+test('product-card titles remain fully visible at narrow and zoomed widths', async () => {
+  const styles = await readSource('app/styles/app.css');
+  const contractStart = styles.indexOf('Product-card text-resize contract');
+
+  assert.ok(contractStart >= 0);
+  const resizeStyles = styles.slice(contractStart);
+  assert.match(resizeStyles, /@media \(max-width:\s*700px\)/);
+  assert.match(
+    resizeStyles,
+    /\.pk-card__title\s*\{[\s\S]*?-webkit-line-clamp:\s*unset;[\s\S]*?overflow:\s*visible;/,
+  );
+  assert.match(resizeStyles, /min-height:\s*0;/);
+});
+
+test('reduced-motion preference neutralizes continuous storefront motion', async () => {
+  const styles = await readSource('app/styles/app.css');
+
+  assert.match(
+    styles,
+    /@media \(prefers-reduced-motion:\s*reduce\)[\s\S]*?animation-duration:\s*0\.01ms !important;[\s\S]*?animation-iteration-count:\s*1 !important;[\s\S]*?transition-duration:\s*0\.01ms !important;/,
+  );
+  assert.match(
+    styles,
+    /@media \(prefers-reduced-motion:\s*reduce\)[\s\S]*?\.pk-stock-urgency__dot\s*\{\s*animation:\s*none;/,
+  );
+});
+
+test('market and language menu supports Escape and restores trigger focus', async () => {
+  const localeSwitcher = await readSource('app/components/LocaleSwitcher.jsx');
+
+  assert.match(localeSwitcher, /aria-haspopup="menu"/);
+  assert.match(localeSwitcher, /role="menu"[\s\S]*?aria-label=\{t\('locale_change_aria'\)\}/);
+  assert.match(localeSwitcher, /e\.key !== 'Escape'/);
+  assert.match(localeSwitcher, /setOpen\(false\)/);
+  assert.match(localeSwitcher, /requestAnimationFrame\(\(\) => trigger\?\.focus\(\)\)/);
+  assert.match(
+    localeSwitcher,
+    /\[role="menu"\] \[role="menuitemradio"\]:not\(\[disabled\]\)/,
+  );
+});

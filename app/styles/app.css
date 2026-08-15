@@ -14967,9 +14967,16 @@ main:has(> .pk-collection--bold) {
 @media (max-width: 760px) {
   .pk-campaign-hero {
     grid-template-areas: "copy" "footer" "visual";
-    grid-template-columns: 1fr;
+    /* Campaign 320px reflow contract: prevent min-content from widening the
+       single grid track beyond the viewport. */
+    grid-template-columns: minmax(0, 1fr);
     row-gap: 24px;
     padding: 36px var(--pk-store-gutter) 56px;
+  }
+  .pk-campaign-hero__copy,
+  .pk-campaign-hero__footer,
+  .pk-campaign-hero__visual {
+    min-width: 0;
   }
   .pk-campaign-hero h1 {
     max-width: 11ch;
@@ -14995,17 +15002,10 @@ main:has(> .pk-collection--bold) {
     border-radius: 16px;
   }
   .pk-campaign-proof {
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     gap: 14px;
-    overflow-x: auto;
+    overflow-x: visible;
     padding-bottom: 4px;
-    scrollbar-width: none;
-  }
-  .pk-campaign-proof::-webkit-scrollbar { display: none; }
-  .pk-campaign-proof li,
-  .pk-campaign-proof li:last-child {
-    flex: 0 0 auto;
-    white-space: nowrap;
   }
   .pk-campaign .pk-card__cart button[type="submit"] { min-height: 44px; }
   .pk-campaign-grid {
@@ -16344,6 +16344,43 @@ main:has(> .pk-collection--bold) {
   margin: -3px 0 0 !important;
 }
 
+.pk-product__purchase-facts {
+  background: #fffdf8;
+  border: 1px solid #ded8ca;
+  border-radius: 12px;
+  margin-top: 16px;
+  padding: 14px 16px;
+}
+.pk-product__purchase-facts h2 {
+  color: var(--pdp-ink);
+  font-size: .82rem;
+  font-weight: 820;
+  letter-spacing: .08em;
+  margin: 0 0 8px;
+  text-transform: uppercase;
+}
+.pk-product__purchase-facts ul {
+  display: grid;
+  gap: 6px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.pk-product__purchase-facts li {
+  color: var(--pdp-muted);
+  font-size: .84rem;
+  line-height: 1.4;
+  padding-left: 18px;
+  position: relative;
+}
+.pk-product__purchase-facts li::before {
+  color: #5b35e6;
+  content: '✓';
+  font-weight: 850;
+  left: 0;
+  position: absolute;
+}
+
 .pk-product__trust {
   background: transparent !important;
   border-block: 1px solid var(--pdp-rule) !important;
@@ -17262,5 +17299,18 @@ main:has(> .pk-collection--bold) {
 @media (prefers-reduced-motion: reduce) {
   .pk-hold__button {
     transition: none;
+  }
+}
+
+/* Product-card text-resize contract: at mobile and 200%-zoom-equivalent
+   widths, product names must wrap in full instead of being clipped to two
+   lines. Uneven card titles are preferable to hiding identifying content. */
+@media (max-width: 700px) {
+  .pk-card__title {
+    display: block;
+    min-height: 0;
+    -webkit-box-orient: initial;
+    -webkit-line-clamp: unset;
+    overflow: visible;
   }
 }

@@ -1,8 +1,8 @@
 # Puchica current operating scope
 
-- **Status date:** 2026-08-10
-- **Binding storefront commit:** `fe1c7e89872bacbb40de1ceafdad5560ff7d764f`
-- **Production:** `https://puchica.ca` / Oxygen asset `4183654`
+- **Status date:** 2026-08-14
+- **Binding storefront commit:** `64ef45ea17ce79fc81eb334a27d3d16570cda052`
+- **Production:** `https://puchica.ca` / deployment `fix: recover expired storefront carts`
 - **Decision:** organic commerce is live and limited; paid advertising is
   paused.
 
@@ -37,22 +37,22 @@ current catalog and learn which offer deserves a small paid test.
 
 ## Binding current state
 
-| Area | Current truth |
-|---|---|
-| Storefront | Shopify Hydrogen on Oxygen at `puchica.ca` |
-| Repository | `codex/catalog-continuation-2026-08-10`; production code commit is `fe1c7e8` |
-| Production artifact | Oxygen asset `4183654`; client bundle `entry.client-CUoq0yXM.js`; deployment description `fe1c7e8-preserve-routed-error-directives` |
-| Fulfillment stack | Shopify + DSers + exact AliExpress supplier mappings |
-| Catalog | 9 Active product pages; 29 rejected legacy products quarantined as Draft |
-| Canada | 10 exact approved SKUs across 9 pages |
-| United States | 8 exact approved SKUs across 7 pages |
-| Market exclusions | Packing cubes and Large Blue storage bag are Canada-only |
-| Publications | Every approved product is published to Online Store and Puchica Storefront |
-| Organic selling | `GO_ORGANIC_LIMITED`, one early order at a time |
-| Paid advertising | HOLD; no campaign or spend is authorized |
-| Discounts | `FIRST15` is expired and must not be advertised |
-| Other platforms | Do not add AutoDS or another paid fulfillment subscription now |
-| Other markets | Mexico, Spain, LATAM, and additional languages are later phases, not current scope |
+| Area                | Current truth                                                                                                        |
+| ------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| Storefront          | Shopify Hydrogen on Oxygen at `puchica.ca`                                                                           |
+| Repository          | `codex/overnight-growth-2026-08-14`; production storefront commit is `64ef45e`; later commits are operating controls |
+| Production artifact | Deployment `fix: recover expired storefront carts`; URL `https://01m01c9cycgfrxpztzzxcw2bhy-f9aa94aa3bf86abb6754.myshopify.dev` |
+| Fulfillment stack   | Shopify + DSers + exact AliExpress supplier mappings                                                                 |
+| Catalog             | 9 Active product pages; 29 rejected legacy products quarantined as Draft                                             |
+| Canada              | 10 exact approved SKUs across 9 pages                                                                                |
+| United States       | 8 exact approved SKUs across 7 pages                                                                                 |
+| Market exclusions   | Packing cubes and Large Blue storage bag are Canada-only                                                             |
+| Publications        | Every approved product is published to Online Store and Puchica Storefront                                           |
+| Organic selling     | `GO_ORGANIC_LIMITED`, one early order at a time                                                                      |
+| Paid advertising    | HOLD; no campaign or spend is authorized                                                                             |
+| Discounts           | `FIRST15` is expired and must not be advertised                                                                      |
+| Other platforms     | Do not add AutoDS or another paid fulfillment subscription now                                                       |
+| Other markets       | Mexico, Spain, LATAM, and additional languages are later phases, not current scope                                   |
 
 ## Release and rollback controls
 
@@ -60,8 +60,9 @@ current catalog and learn which offer deserves a small paid test.
 - Do not rerun the catalog apply command unless the approved catalog state is
   deliberately changing.
 - Catalog rollback: `node scripts/manage-organic-release.mjs --rollback`. It
-  returns the seven newly released products to Draft, keeps the two earlier
-  exact-gated products Active, and never reactivates the 29 rejected products.
+  returns the four cohort products that began as Draft to Draft, keeps the five
+  products that entered the current cohort as Active, and never reactivates the
+  29 rejected products.
 - The nearest usable code rollback is commit `031b259` / Oxygen asset `4183152`.
   It predates the final ATC feedback fix, so a forward hotfix is preferred.
 - Do not use interim commit `eec6873` / asset `4183190` as a rollback target.
@@ -75,17 +76,17 @@ current catalog and learn which offer deserves a small paid test.
 Only these exact SKUs may be discovered, selected, added to cart, or fulfilled.
 Product-level approval never approves every variant on a supplier listing.
 
-| Product page | Exact approved SKU(s) | Canada | United States |
-|---|---|---:|---:|
-| Charcoal 3-Piece Packing Cube Set | `14:1052#S3007 Black;5:200004186#3PCS L M S Set` | Yes | No |
-| Black Double-Layer Travel Cable Organizer Case | `14:193#Double Layers` | Yes | Yes |
-| White Luggage ID Tag | `14:29#white;5:361386#1pcs` | Yes | Yes |
-| Ten-Hole White Cable Organizer Clips | `14:771#10 Holes-White` | Yes | Yes |
-| White Semi-Circular Travel Jewelry Case | `14:29` | Yes | Yes |
-| Large Blue Handled Clothes Storage Bag | `14:350852#Large Blue` | Yes | No |
-| Black Hanging Travel Toiletry Organizer | `14:771#Black` | Yes | Yes |
-| Black Knitted Luggage Wheel Covers, Set of 4 | `14:193` | Yes | Yes |
-| Soft Luggage Handle Wrap | `14:350686#coffee color`; `14:193#Black` | Yes | Yes |
+| Product page                                   | Exact approved SKU(s)                            | Canada | United States |
+| ---------------------------------------------- | ------------------------------------------------ | -----: | ------------: |
+| Charcoal 3-Piece Packing Cube Set              | `14:1052#S3007 Black;5:200004186#3PCS L M S Set` |    Yes |            No |
+| Black Double-Layer Travel Cable Organizer Case | `14:193#Double Layers`                           |    Yes |           Yes |
+| White Luggage ID Tag                           | `14:29#white;5:361386#1pcs`                      |    Yes |           Yes |
+| Ten-Hole White Cable Organizer Clips           | `14:771#10 Holes-White`                          |    Yes |           Yes |
+| White Semi-Circular Travel Jewelry Case        | `14:29`                                          |    Yes |           Yes |
+| Large Blue Handled Clothes Storage Bag         | `14:350852#Large Blue`                           |    Yes |            No |
+| Black Hanging Travel Toiletry Organizer        | `14:771#Black`                                   |    Yes |           Yes |
+| Black Knitted Luggage Wheel Covers, Set of 4   | `14:193`                                         |    Yes |           Yes |
+| Soft Luggage Handle Wrap                       | `14:350686#coffee color`; `14:193#Black`         |    Yes |           Yes |
 
 The storefront has a second fail-closed layer: direct URLs, stale carts, search,
 recently viewed, market switching, desktop ATC, and mobile ATC all recheck the
@@ -118,6 +119,9 @@ lines passed live QA.
   products.
 - Handle-wrap Coffee Brown and Black choices expose only the two approved
   variants; the exact add/remove/switch/add sequence passed live QA.
+- An expired or error-shaped Storefront cart cookie is now replaced with a new
+  usable cart before adding an approved line. A production stale-cookie probe
+  and a fresh Chrome customer trace both passed for the cable organizer.
 - Core semantics passed: skip link, language, main landmark, one PDP H1,
   canonicals, labelled core controls, useful image alt text, and no observed
   desktop horizontal overflow.
@@ -133,17 +137,23 @@ lines passed live QA.
 
 ### Measurement and economics
 
-- GA4 received `view_item`, `add_to_cart`, and `begin_checkout` in the bounded
-  production test. QA traffic is not a customer-demand baseline.
+- **Fresh 2026-08-14 normal-Chrome destination trace:** GA4 Realtime received
+  `view_item`, `add_to_cart`, and `begin_checkout`, and displayed the Puchica
+  checkout page. QA traffic is not a customer-demand baseline.
 - Existing exact-SKU contribution evidence supports organic selling. It does
   not create a blanket paid CAC budget for all nine products.
-- Meta Pixel and Conversions API are connected, but a fresh normal-customer
-  event receipt and browser/server deduplication trace is not yet proven well
-  enough for paid traffic. The controlled QA browsers intentionally suppress
-  custom analytics when `navigator.webdriver` is true, so their absence is not
-  evidence of a customer-session failure or a pass.
+- `npm run organic-economics` now combines live localized prices with the dated
+  exact DSers baseline and fails closed after seven days. Toiletry and cable
+  remain the cross-market hero cohort; the jewelry case is the strongest third
+  candidate. Every row remains paid-ad `HOLD`.
+- Storefront code is configured for Meta Pixel `996669459615534` and the CAPI
+  relay, but the currently signed-in Events Manager ad account exposed no
+  dataset on 2026-08-14. Fresh Meta receipt and browser/server deduplication are
+  therefore not proven well enough for paid traffic.
 - Checkout has shown the configured Canadian and U.S. shipping rules in bounded
-  tests. A complete product/destination address matrix has not been run.
+  tests. The cable and toiletry hero offers passed fresh representative CA/U.S.
+  checkout and economics checks on 2026-08-14. A complete nine-product address
+  matrix is not required before the one-offer paid-test decision.
 - No tax line appeared in the sampled Winnipeg or Seattle checkouts. This is an
   observed configuration result, not a legal conclusion. Do not change tax
   settings or make tax claims until the owner's intended treatment and
@@ -158,17 +168,19 @@ This is the active technical lane.
 1. Obtain a short physical-phone/tablet sign-off for the already-passing
    responsive browser matrix: home, collection, selector PDP, cart, market
    switch, and checkout handoff.
-2. Complete the remaining keyboard-only, visible-focus/focus-trap, 200% resize, 320 CSS px
-   reflow, touch-target, contrast, and automated accessibility checks on the
-   primary funnel.
-3. Trace consent-aware GA4 and Meta `view_item`/`ViewContent`, `add_to_cart`, and
-   `begin_checkout`/`InitiateCheckout` events in both markets. Confirm event IDs,
-   duplicate counts, and browser/server deduplication in a normal,
-   non-automated customer browser.
+2. **Completed 2026-08-14:** keyboard-only navigation, visible focus and
+   focus-trap checks, 320 CSS px reflow, heading/label/landmark checks, and the
+   focused automated accessibility suite passed across the primary funnel.
+3. **GA4 completed 2026-08-14; Meta remains:** the normal-Chrome customer path
+   produced GA4 `view_item`, `add_to_cart`, and `begin_checkout`. Reopen the
+   correct Meta dataset/business context, then confirm `ViewContent`,
+   `AddToCart`, `InitiateCheckout`, matching event IDs, and browser/server
+   deduplication in Events Manager.
 4. **Completed 2026-08-10:** crawl all 9 Canadian and 7 U.S. product routes plus
    robots, sitemap, canonicals, hreflang, status, and indexability.
-5. Confirm representative Canadian and U.S. address-to-shipping-rate checkout
-   behavior without placing an order. Document tax presentation separately.
+5. **Completed 2026-08-14 for the two hero offers:** representative Canadian
+   and U.S. address-to-shipping-rate checkout behavior passed without placing
+   an order. Tax presentation remains documented separately and unchanged.
 
 ### Lane 2: begin controlled organic learning
 
@@ -177,13 +189,18 @@ This lane can run while Lane 1 is being closed.
 1. **Completed 2026-08-10:** replace the dated two-product pack with a prepared
    nine-page organic content pack that does not imply every product ships to
    the U.S.
-2. Prepare a seven-day no-spend content calendar with exact product media,
-   truthful captions, accessibility alt text, and stable UTM values.
-3. Obtain explicit user approval before publishing to any external social
-   account. Publishing is not implied by this scope document.
-4. Start the measurement baseline at the first public-post timestamp and exclude
-   `codex_qa / measurement` traffic.
-5. Review qualified sessions, product-view to ATC, ATC to checkout, customer
+2. **Completed 2026-08-14:** an eight-post Instagram schedule and bounded TikTok
+   UGC test pack use exact media, truthful captions, accessible copy, and stable
+   attribution routes.
+3. **Prepared, not published:** motion-first masters now exist for the cable
+   organizer and black hanging toiletry organizer. Both use exact approved
+   source photography, continuous animation, truthful inclusion/market copy,
+   and no fake customer testimonial.
+4. **Completed for the first Instagram/TikTok releases:** the user explicitly
+   approved publication. Any additional public post still requires approval.
+5. **Active:** the measurement baseline began at the first public-post
+   timestamp. Exclude `codex_qa / measurement` traffic.
+6. Review qualified sessions, product-view to ATC, ATC to checkout, customer
    questions, and product-specific interest after seven days.
 
 ### Lane 3: first-order fulfillment control
@@ -293,19 +310,20 @@ Do not do both before the evidence review.
 
 ## Immediate next actions
 
-| Priority | Action | Owner | External mutation? |
-|---:|---|---|---:|
-| 1 | Physical-device sign-off + remaining keyboard/zoom/automated WCAG checks | User + Codex | No |
-| 2 | Normal-browser GA4/Meta consent and deduplication trace | User + Codex | No spend; diagnostic events only |
-| 3 | Representative CA/U.S. address-to-shipping-rate checkout checks | User + Codex | No order/payment |
-| 4 | Review the prepared nine-page organic content pack | User + Codex | No, preparation only |
-| 5 | Review and approve external organic publishing | User + Codex | Yes, approval required |
-| 6 | Process the first real order through the controlled runbook | User + Codex | Yes, only when an order exists |
+| Priority | Action                                                                                   | Owner        |                     External mutation? |
+| -------: | ---------------------------------------------------------------------------------------- | ------------ | -------------------------------------: |
+|        1 | Physical-phone/tablet final visual and checkout-handoff sign-off                         | User         |                                     No |
+|        2 | Select/reconnect the correct Meta dataset, then prove receipt and deduplication           | User + Codex | Settings access; no spend required     |
+|        3 | Continue read-only production, social-attribution, and first-order monitoring            | Codex        |                                     No |
+|        4 | Review qualified organic behavior after the seven-day/100-session evidence window        | Codex        |                                     No |
+|        5 | Process the first genuine order through the exact DSers pre-payment and delivery runbook | User + Codex |         Yes, only when an order exists |
+|        6 | Verify Purchase events, actual delivered contribution, and propose one capped paid test  | User + Codex | Budget approval required; no spend yet |
 
-No user intervention is expected for Actions 1 through 4 unless an authenticated
-service asks for login or a true physical-device sign-off cannot be reproduced
-remotely. Stop before publishing, ad spend, agent-initiated test orders, real
-supplier payment, or business/tax setting changes.
+Action 1 requires an owner-controlled physical device. Action 2 requires the
+owner to confirm the correct Meta business/dataset context if it cannot be
+reached from the currently signed-in account. Actions 3 and 4 continue without
+user intervention. Stop before additional publishing, ad spend, agent-initiated
+test orders, real supplier payment, or business/tax setting changes.
 
 Each of the three pre-ad evidence gates must end in a dated artifact and an
 explicit `PASS`: a mobile/accessibility device-and-browser matrix, an analytics
@@ -326,6 +344,10 @@ CRA/Service Canada guidance or qualified professional advice.
 
 - `scripts/manage-organic-release.mjs` — read-only catalog preflight, organic
   release, and rollback.
+- `scripts/check-first-order-signal.mjs` — read-only demand signal gate that
+  excludes the known test order.
+- `scripts/check-organic-economics.mjs` — live localized price and dated exact
+  supplier-route economics monitor.
 - `app/lib/launch-catalog.js` — exact market/SKU storefront gate.
 - `docs/puchica-operating-quality-gates.md` — product, media, commercial, and
   WCAG principles derived from the user's workflow documents.
@@ -346,3 +368,8 @@ CRA/Service Canada guidance or qualified professional advice.
   detailed original-product DSers evidence and order-time watchpoints.
 - `docs/recovery-evidence/launch-analytics-verification-2026-08-09.md` — GA4 and
   Meta measurement boundary.
+- `docs/recovery-evidence/organic-economics-ranking-2026-08-14.md` — current
+  nine-product organic contribution ranking and paid-ad hold boundary.
+- `docs/recovery-evidence/normal-browser-cart-checkout-trace-2026-08-14.md` —
+  stale-cart repair, fresh customer-path proof, GA4 receipt, and current Meta
+  boundary.

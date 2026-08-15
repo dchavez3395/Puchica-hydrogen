@@ -1,0 +1,5 @@
+market,offer,shopify_variant,currency,merchandise_price,checkout_shipping,collected_total,item_cost_usd,supplier_shipping_usd,planning_fx_cad_per_usd,landed_cost,payment_fee,refund_reserve,merchandise_only_contribution,merchandise_only_margin_pct,collected_total_contribution,collected_total_margin_pct,room_above_30pct_floor,organic_decision,paid_ads_decision
+CA,cable_organizer,50041043681530,CAD,24.99,5.00,29.99,4.15,2.16,1.40,8.8340,1.3497,1.4995,13.3068,53.2487,18.3068,61.0432,9.3098,PASS_CONTROLLED,HOLD
+US,cable_organizer,50041043681530,USD,19.00,8.00,27.00,4.15,1.99,,6.1400,1.2450,1.3500,10.2650,54.0263,18.2650,67.6481,10.1650,PASS_CONTROLLED,HOLD
+CA,toiletry_organizer,50056171684090,CAD,39.99,5.00,44.99,8.32,1.99,1.40,14.4340,1.8747,2.2495,21.4319,53.5930,26.4319,58.7505,12.9349,PASS_CONTROLLED,HOLD
+US,toiletry_organizer,50056171684090,USD,30.00,8.00,38.00,8.32,1.99,,10.3100,1.6300,1.9000,16.1600,53.8667,24.1600,63.5789,12.7600,PASS_CONTROLLED,HOLD

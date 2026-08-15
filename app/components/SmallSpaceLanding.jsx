@@ -241,9 +241,12 @@ function OrganizationProductSection({
 /** @param {Record<string, any>} product */
 function launchPriority(product) {
   const title = product?.title ?? '';
-  if (/3-piece packing cube/i.test(title)) return 0;
-  if (/travel cable organizer/i.test(title)) return 1;
-  if (/travel toiletry organizer/i.test(title)) return 2;
+  // Keep the homepage aligned with the cross-market organic validation
+  // cohort. Cable and toiletry are available in both CA and US; the cubes
+  // remain a Canada-only supporting offer.
+  if (/travel cable organizer/i.test(title)) return 0;
+  if (/travel toiletry organizer/i.test(title)) return 1;
+  if (/3-piece packing cube/i.test(title)) return 2;
   return 10;
 }
 

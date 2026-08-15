@@ -2,12 +2,17 @@ import {useLoaderData, data, redirect} from 'react-router';
 import {Analytics, CartForm} from '@shopify/hydrogen';
 import {CartMain} from '~/components/CartMain';
 import {puchicaMeta} from '~/lib/seo';
-import {CHECKOUT_URL_REWRITER, buildCheckoutRewriteOptions} from '~/lib/checkout';
+import {
+  CHECKOUT_URL_REWRITER,
+  buildCheckoutRewriteOptions,
+} from '~/lib/checkout';
 import {useT} from '~/lib/t';
 import {
   assertLaunchReadyLines,
   getMarketSafeCart,
+  isUsableCart,
   safeInternalRedirect,
+  shouldRecreateEmptyCartAfterFailedAdd,
 } from '~/lib/cart-safety';
 import {STOREFRONT_CONTAINMENT_ACTIVE} from '~/lib/launch-catalog';
 import {
@@ -65,7 +70,23 @@ export async function action({request, context}) {
   switch (action) {
     case CartForm.ACTIONS.LinesAdd: {
       const desiredCountry = await resolveCartBuyerCountry(storefront);
+      const launchReadyLines = await assertLaunchReadyLines(
+        storefront,
+        inputs.lines,
+      );
       const existingCart = cart.getCartId() ? await cart.get() : null;
+
+      // A browser can retain a cart cookie after Shopify has expired or
+      // invalidated the cart. Updating that missing cart returns a 409 and the
+      // PDP misleadingly looks out of stock. Replace only that unusable cart
+      // with a fresh, market-bound cart containing the approved lines.
+      if (!isUsableCart(existingCart)) {
+        result = await cart.create({
+          buyerIdentity: {countryCode: desiredCountry},
+          lines: launchReadyLines,
+        });
+        break;
+      }
 
       if (cartBuyerCountryNeedsSync(existingCart, desiredCountry)) {
         const marketResult = await cart.updateBuyerIdentity({
@@ -95,9 +116,24 @@ export async function action({request, context}) {
         }
       }
 
-      result = await cart.addLines(
-        await assertLaunchReadyLines(storefront, inputs.lines),
-      );
+      result = await cart.addLines(launchReadyLines);
+
+      // Some expired Shopify carts still read back with a valid-looking GID
+      // and zero lines, so the preflight check above cannot identify them.
+      // If the mutation also proves that nothing landed, replace that empty
+      // cart once. Never discard or recreate a cart that contains real lines.
+      if (
+        shouldRecreateEmptyCartAfterFailedAdd(
+          existingCart,
+          result,
+          launchReadyLines,
+        )
+      ) {
+        result = await cart.create({
+          buyerIdentity: {countryCode: desiredCountry},
+          lines: launchReadyLines,
+        });
+      }
       break;
     }
     case CartForm.ACTIONS.LinesUpdate:

@@ -225,11 +225,13 @@ export function runLaunchChecks() {
 
   const candidatePath = path.join(
     evidenceDir,
-    'travel-paid-candidate-control-2026-08-08.csv',
+    'recovery-evidence',
+    'fresh-dsers-route-and-margin-gate-2026-08-14.csv',
   );
   const quotePath = path.join(
     evidenceDir,
-    'north-america-checkout-quote-evidence-2026-08-08.csv',
+    'recovery-evidence',
+    'top-two-live-offer-economics-2026-08-14.csv',
   );
   const limitedTestPath = path.join(
     evidenceDir,
@@ -237,10 +239,12 @@ export function runLaunchChecks() {
   );
 
   if (!fs.existsSync(candidatePath)) {
-    failures.push('The travel-product paid-candidate evidence CSV is missing.');
+    failures.push(
+      'The current DSers route and margin evidence CSV is missing.',
+    );
   }
   if (!fs.existsSync(quotePath)) {
-    failures.push('The North American checkout-quote evidence CSV is missing.');
+    failures.push('The current live-offer economics evidence CSV is missing.');
   }
 
   let limitedTestEvidence = null;
@@ -283,7 +287,9 @@ export function evaluateOperationalEvidence(
 ) {
   const failures = [];
   const paidCandidates = candidates.filter(
-    (candidate) => normalize(candidate.final_decision) === 'GO_PAID_TEST',
+    (candidate) =>
+      normalize(candidate.final_decision || candidate.decision) ===
+      'GO_PAID_TEST',
   );
 
   if (!paidCandidates.length) {

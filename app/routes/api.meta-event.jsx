@@ -24,6 +24,8 @@
  * @param {Route.ActionArgs}
  */
 
+import {isAllowedMetaEventSourceUrl} from '../lib/meta-capi.js';
+
 const META_CAPI_URL = 'https://graph.facebook.com/v20.0';
 
 // Events we relay. Anything else returns 204 without relaying.
@@ -99,25 +101,8 @@ export async function action({request, context}) {
     return new Response(null, {status: 400});
   }
   // event_source_url must be our own domain
-  if (eventSourceUrl) {
-    try {
-      const u = new URL(eventSourceUrl);
-      const allowedHost =
-        env.PUBLIC_STORE_DOMAIN ||
-        env.PUBLIC_CHECKOUT_DOMAIN ||
-        'puchica.ca';
-      const host = u.hostname.toLowerCase();
-      const apex = allowedHost.replace(/^[^.]+\./, '');
-      if (
-        host !== allowedHost.toLowerCase() &&
-        host !== apex &&
-        host !== `www.${apex}`
-      ) {
-        return new Response(null, {status: 400});
-      }
-    } catch {
-      return new Response(null, {status: 400});
-    }
+  if (!isAllowedMetaEventSourceUrl(eventSourceUrl)) {
+    return new Response(null, {status: 400});
   }
 
   const payload = body?.payload && typeof body.payload === 'object' ? body.payload : {};
@@ -146,6 +131,29 @@ export async function action({request, context}) {
     if (userData[k] === undefined) delete userData[k];
   }
 
+  const customData = {
+    content_type: payload.content_type,
+    content_ids: Array.isArray(payload.content_ids)
+      ? payload.content_ids.slice(0, 20)
+      : undefined,
+    content_name: payload.content_name
+      ? String(payload.content_name).slice(0, 200)
+      : undefined,
+    content_category: payload.content_category,
+    value: typeof payload.value === 'number' ? payload.value : undefined,
+    currency: payload.currency
+      ? String(payload.currency).slice(0, 8)
+      : undefined,
+    num_items:
+      typeof payload.num_items === 'number' ? payload.num_items : undefined,
+    contents: Array.isArray(payload.contents)
+      ? payload.contents.slice(0, 20)
+      : undefined,
+  };
+  for (const k of Object.keys(customData)) {
+    if (customData[k] === undefined) delete customData[k];
+  }
+
   const capiEvent = {
     event_name: eventName,
     event_time: Math.floor(Date.now() / 1000),
@@ -153,20 +161,8 @@ export async function action({request, context}) {
     event_source_url: eventSourceUrl || undefined,
     action_source: 'website',
     user_data: userData,
-    // Pass through the standard Meta fields if present in the browser payload.
-    content_type: payload.content_type,
-    content_ids: Array.isArray(payload.content_ids)
-      ? payload.content_ids.slice(0, 20)
-      : undefined,
-    content_name: payload.content_name ? String(payload.content_name).slice(0, 200) : undefined,
-    content_category: payload.content_category,
-    value: typeof payload.value === 'number' ? payload.value : undefined,
-    currency: payload.currency ? String(payload.currency).slice(0, 8) : undefined,
-    num_items:
-      typeof payload.num_items === 'number' ? payload.num_items : undefined,
-    contents: Array.isArray(payload.contents)
-      ? payload.contents.slice(0, 20)
-      : undefined,
+    // Meta requires commerce fields under custom_data, not at event root.
+    custom_data: Object.keys(customData).length ? customData : undefined,
   };
   for (const k of Object.keys(capiEvent)) {
     if (capiEvent[k] === undefined) delete capiEvent[k];

@@ -4,6 +4,8 @@ import {readFile} from 'node:fs/promises';
 import {formatProductOptionLabel} from '../app/lib/product-options.js';
 
 import {
+  APPROVED_CATALOG_OFFERS,
+  APPROVED_PRODUCT_HANDLES_BY_MARKET,
   APPROVED_VARIANT_SKUS_BY_MARKET,
   buildApprovedProductOptions,
   filterLaunchProducts,
@@ -196,6 +198,18 @@ test('released homepage is travel-focused and uses the catalog gate', async () =
   assert.match(about, /\{copy\.artNote\}/);
   assert.doesNotMatch(brand, /organization and travel|space-saving/i);
   assert.match(landing, /const heroFeature = heroPrimary/);
+  assert.match(
+    landing,
+    /if \(\/travel cable organizer\/i\.test\(title\)\) return 0/,
+  );
+  assert.match(
+    landing,
+    /if \(\/travel toiletry organizer\/i\.test\(title\)\) return 1/,
+  );
+  assert.match(
+    landing,
+    /if \(\/3-piece packing cube\/i\.test\(title\)\) return 2/,
+  );
   assert.doesNotMatch(landing, /Canada &amp; U\.S\. delivery routes/);
 });
 
@@ -331,7 +345,45 @@ test('exact supplier variants are market-gated independently of products', () =>
   assert.equal(findApprovedVariant(product, 'US'), undefined);
 });
 
-test('approved PDP options expose every audited SKU and no supplier extras', () => {
+test('fresh DSers route recovery restores only the verified market approvals', () => {
+  assert.equal(isApprovedVariantSku('14:29#white;5:361386#1pcs', 'CA'), true);
+  assert.equal(isApprovedVariantSku('14:29#white;5:361386#1pcs', 'US'), true);
+
+  assert.equal(isApprovedVariantSku('14:350852#Large Blue', 'CA'), true);
+  assert.equal(isApprovedVariantSku('14:350852#Large Blue', 'US'), false);
+
+  for (const sku of [
+    '14:771#Black',
+    '14:350686#coffee color',
+    '14:193#Black',
+  ]) {
+    assert.equal(isApprovedVariantSku(sku, 'CA'), true, sku);
+    assert.equal(isApprovedVariantSku(sku, 'US'), true, sku);
+  }
+});
+
+test('approved handles and SKUs derive from one exact-offer cohort', () => {
+  for (const market of ['CA', 'US']) {
+    const offers = APPROVED_CATALOG_OFFERS.filter((offer) =>
+      offer.markets.includes(market),
+    );
+
+    assert.deepEqual(
+      APPROVED_VARIANT_SKUS_BY_MARKET[market],
+      offers.map((offer) => offer.sku),
+    );
+    assert.deepEqual(APPROVED_PRODUCT_HANDLES_BY_MARKET[market], [
+      ...new Set(offers.map((offer) => offer.handle)),
+    ]);
+  }
+
+  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.CA.length, 10);
+  assert.equal(APPROVED_PRODUCT_HANDLES_BY_MARKET.CA.length, 9);
+  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.US.length, 8);
+  assert.equal(APPROVED_PRODUCT_HANDLES_BY_MARKET.US.length, 7);
+});
+
+test('approved PDP option builder exposes only its audited variants', () => {
   const [coffeeSku, blackSku] = APPROVED_VARIANT_SKUS_BY_MARKET.CA.slice(-2);
   const variants = [
     {
