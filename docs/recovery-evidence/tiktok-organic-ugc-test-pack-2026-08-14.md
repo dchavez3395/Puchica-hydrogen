@@ -167,3 +167,23 @@ whether to publish the motion-first cable or toiletry master. A later owner-
 approved bio correction can use `Travel organizers CA + U.S. Shop
 puchica.ca/tiktok` so typed profile traffic reaches the verified tracked route.
 Do not change the public bio without approval.
+
+## Six-hour interim checkpoint
+
+At 2026-08-14 22:09 CDT, 5 hours 55 minutes after the verified public-release
+baseline, TikTok Studio showed the cable-organizer post as `Everyone` with:
+
+- 95 views;
+- 3 total likes;
+- 0 comments.
+
+This is an increase of 23 views and one like since the 20:52 checkpoint, but it
+still has no comment, completed checkout, genuine order, or attributable sales
+signal. Shopify analytics remained at 24 sessions, 5 sessions with a cart
+addition, 4 sessions reaching checkout, and 0 completed checkouts. The
+read-only first-order check remained `WAITING` and continued to ignore the one
+known historical/test order.
+
+Decision: **keep the second motion-first concept unpublished until the 24-hour
+checkpoint at or after 2026-08-15 16:14 CDT.** The additional like is useful
+organic engagement, but it is not yet a purchasing signal.

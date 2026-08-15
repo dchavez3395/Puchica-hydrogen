@@ -89,6 +89,13 @@ date. It did not expose the previously documented Puchica dataset, so fresh
 `ViewContent`, `AddToCart`, `InitiateCheckout`, event-ID matching, and
 browser/server deduplication could not be verified.
 
+A second read-only Events Manager inspection at 2026-08-14 22:09 CDT clarified
+the account state: the `Puchica` business portfolio showed **0 business
+assets**, while the only selectable item under `Other assets` was ad account
+`94486754`. The overview therefore continued to offer `Connect data` rather
+than exposing a dataset. No business asset, dataset, integration, campaign,
+billing setting, or ad was created or changed.
+
 Do not spend on Meta ads until the owner selects or reconnects the correct
 business/dataset context and a fresh bounded trace proves receipt and
 deduplication. This Meta boundary does not block organic posts, organic visits,
