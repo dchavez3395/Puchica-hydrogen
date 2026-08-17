@@ -194,19 +194,25 @@ This lane can run while Lane 1 is being closed.
 1. **Completed 2026-08-10:** replace the dated two-product pack with a prepared
    nine-page organic content pack that does not imply every product ships to
    the U.S.
-2. **Completed 2026-08-14:** an eight-post Instagram schedule and bounded TikTok
-   UGC test pack use exact media, truthful captions, accessible copy, and stable
-   attribution routes.
-3. **Prepared, not published:** motion-first masters now exist for the cable
-   organizer and black hanging toiletry organizer. Both use exact approved
-   source photography, continuous animation, truthful inclusion/market copy,
-   and no fake customer testimonial.
-4. **Completed for the first Instagram/TikTok releases:** the user explicitly
-   approved publication. Any additional public post still requires approval.
+2. **Completed 2026-08-14:** an eight-post Instagram schedule uses exact media,
+   truthful captions and accessible copy. TikTok was removed from the active
+   operating plan on 2026-08-17 at the owner's direction; its historical post
+   and prepared files are not part of current launch decisions.
+3. **Prepared, not published:** an Instagram-safe motion-first master exists for
+   the black hanging toiletry organizer. It uses exact approved source
+   photography, continuous animation, truthful inclusion/market copy, and no
+   fake customer testimonial.
+4. **Completed for the first Instagram releases:** the user explicitly approved
+   publication. Any additional public post still requires approval.
 5. **Active:** the measurement baseline began at the first public-post
    timestamp. Exclude `codex_qa / measurement` traffic.
 6. Review qualified sessions, product-view to ATC, ATC to checkout, customer
    questions, and product-specific interest after seven days.
+7. **Prepared 2026-08-17:** `/instagram` fixes the Instagram profile link to a
+   stable first-party redirect with `instagram / organic_social /
+   travel_edit_organic_202608 / profile_bio` attribution. Keep the existing
+   profile link unchanged until this route is deployed and verified, then the
+   owner can approve the external profile edit.
 
 ### Lane 3: first-order fulfillment control
 
