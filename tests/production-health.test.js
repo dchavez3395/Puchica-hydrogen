@@ -39,6 +39,15 @@ test('production monitor shares the verified market cohorts', () => {
   ]);
 });
 
+test('production monitor excludes the retired TikTok channel', async () => {
+  const source = await readFile(
+    new URL('../scripts/check-production-health.mjs', import.meta.url),
+    'utf8',
+  );
+
+  assert.doesNotMatch(source, /TikTok bio destination|utm_source=tiktok/i);
+});
+
 test('feed and sitemap extractors find product handles', () => {
   assert.deepEqual(
     extractFeedHandles(

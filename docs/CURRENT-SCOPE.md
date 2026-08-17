@@ -213,6 +213,9 @@ This lane can run while Lane 1 is being closed.
    travel_edit_organic_202608 / profile_bio` attribution. Keep the existing
    profile link unchanged until this route is deployed and verified, then the
    owner can approve the external profile edit.
+8. **Completed 2026-08-17:** the production-health monitor no longer checks the
+   retired TikTok channel. Instagram, storefront, catalog, market, feed and
+   sitemap checks remain active.
 
 ### Lane 3: first-order fulfillment control
 
