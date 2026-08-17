@@ -208,11 +208,13 @@ This lane can run while Lane 1 is being closed.
    timestamp. Exclude `codex_qa / measurement` traffic.
 6. Review qualified sessions, product-view to ATC, ATC to checkout, customer
    questions, and product-specific interest after seven days.
-7. **Prepared 2026-08-17:** `/instagram` fixes the Instagram profile link to a
-   stable first-party redirect with `instagram / organic_social /
-   travel_edit_organic_202608 / profile_bio` attribution. Keep the existing
-   profile link unchanged until this route is deployed and verified, then the
-   owner can approve the external profile edit.
+7. **Preview-verified 2026-08-17:** `/instagram` fixes the Instagram profile link
+   to a stable first-party redirect with `instagram / organic_social /
+   travel_edit_organic_202608 / profile_bio` attribution. Unit tests, the
+   production build and a private Oxygen preview passed. Production promotion
+   stopped at Shopify's required interactive confirmation, so the existing
+   profile link remains unchanged until the owner completes that confirmation
+   and separately approves the external Instagram profile edit.
 8. **Completed 2026-08-17:** the production-health monitor no longer checks the
    retired TikTok channel. Instagram, storefront, catalog, market, feed and
    sitemap checks remain active.
