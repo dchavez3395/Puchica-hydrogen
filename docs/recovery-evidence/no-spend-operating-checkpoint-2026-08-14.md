@@ -81,3 +81,13 @@ orders. There is still no real demand signal and no basis for paid ads.
 - No payment, Shopify order, supplier order, fulfillment, capture, paid
   promotion, or external purchase was made. The checkpoint remains healthy;
   the no-spend operating posture is unchanged.
+
+## Instagram scheduled-post check — 2026-08-17 18:49 CDT
+
+- The scheduled three-problem travel-organizer poll published normally at
+  approximately 18:30 CDT and displayed the AI-content label.
+- At the 18-minute read-only check it had one view, from Profile and from a
+  non-follower, with zero likes, comments, saves, shares, profile visits,
+  external-link taps, or follows.
+- This is normal early delivery, not a meaningful demand signal. No content was
+  published, edited, boosted, or deleted during the check.
