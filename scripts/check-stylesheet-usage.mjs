@@ -2,7 +2,7 @@ import {readdir, readFile, writeFile} from 'node:fs/promises';
 import path from 'node:path';
 import postcss from 'postcss';
 
-const STYLESHEET = path.resolve('app/styles/app.css');
+const STYLESHEETS = [path.resolve('app/styles/app.css')];
 // Only shipped application code can make a selector reachable. Contract tests
 // may mention retired selectors specifically to prevent their return.
 const SOURCE_ROOTS = ['app'];
@@ -28,9 +28,6 @@ const files = (await Promise.all(SOURCE_ROOTS.map(sourceFiles))).flat();
 const corpus = (await Promise.all(files.map((file) => readFile(file, 'utf8')))).join(
   '\n',
 );
-const source = await readFile(STYLESHEET, 'utf8');
-const root = postcss.parse(source, {from: STYLESHEET});
-
 function isReferenced(className) {
   if (!className.startsWith('pk-')) return true;
   const escaped = className.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -43,26 +40,36 @@ function isReferenced(className) {
   return modifierAt !== -1 && corpus.includes(className.slice(0, modifierAt + 2));
 }
 
-const unusedClasses = new Set();
-const removableRules = [];
-root.walkRules((rule) => {
-  if (rule.parent?.type === 'atrule' && /keyframes$/i.test(rule.parent.name)) {
-    return;
-  }
+const reports = await Promise.all(
+  STYLESHEETS.map(async (stylesheet) => {
+    const source = await readFile(stylesheet, 'utf8');
+    const root = postcss.parse(source, {from: stylesheet});
+    const unusedClasses = new Set();
+    const removableRules = [];
+    root.walkRules((rule) => {
+      if (rule.parent?.type === 'atrule' && /keyframes$/i.test(rule.parent.name)) {
+        return;
+      }
 
-  const selectors = rule.selectors || [rule.selector];
-  const referencedSelectors = selectors.filter((selector) => {
-    const classes = [...selector.matchAll(CLASS_PATTERN)].map((match) => match[1]);
-    const unused = classes.filter((className) => !isReferenced(className));
-    unused.forEach((className) => unusedClasses.add(className));
-    return unused.length === 0;
-  });
+      const selectors = rule.selectors || [rule.selector];
+      const referencedSelectors = selectors.filter((selector) => {
+        const classes = [...selector.matchAll(CLASS_PATTERN)].map(
+          (match) => match[1],
+        );
+        const unused = classes.filter((className) => !isReferenced(className));
+        unused.forEach((className) => unusedClasses.add(className));
+        return unused.length === 0;
+      });
 
-  if (referencedSelectors.length === 0) removableRules.push(rule);
-  else if (referencedSelectors.length !== selectors.length) {
-    rule.selectors = referencedSelectors;
-  }
-});
+      if (referencedSelectors.length === 0) removableRules.push(rule);
+      else if (referencedSelectors.length !== selectors.length) {
+        rule.selectors = referencedSelectors;
+      }
+    });
+
+    return {stylesheet, source, root, unusedClasses, removableRules};
+  }),
+);
 
 const apply = process.argv.includes('--apply');
 const confirmed = process.argv.includes('--confirm-unused-selectors');
@@ -73,19 +80,36 @@ if (apply && !confirmed) {
 }
 
 if (apply) {
-  removableRules.forEach((rule) => rule.remove());
-  root.walkAtRules((atRule) => {
-    if (atRule.nodes?.length === 0) atRule.remove();
-  });
-  await writeFile(STYLESHEET, root.toString());
+  await Promise.all(
+    reports.map(async ({stylesheet, root, removableRules}) => {
+      removableRules.forEach((rule) => rule.remove());
+      root.walkAtRules((atRule) => {
+        if (atRule.nodes?.length === 0) atRule.remove();
+      });
+      await writeFile(stylesheet, root.toString());
+    }),
+  );
 }
+
+const unusedClasses = new Set(
+  reports.flatMap(({unusedClasses: classes}) => [...classes]),
+);
+const removableRuleCount = reports.reduce(
+  (sum, {removableRules}) => sum + removableRules.length,
+  0,
+);
 
 console.log(
   JSON.stringify(
     {
-      stylesheetBytes: Buffer.byteLength(source),
+      stylesheetBytes: Object.fromEntries(
+        reports.map(({stylesheet, source}) => [
+          path.relative('.', stylesheet).replaceAll('\\', '/'),
+          Buffer.byteLength(source),
+        ]),
+      ),
       unusedClassCount: unusedClasses.size,
-      removableRuleCount: removableRules.length,
+      removableRuleCount,
       unusedClasses: [...unusedClasses].sort(),
       applied: apply,
     },
@@ -94,4 +118,4 @@ console.log(
   ),
 );
 
-if (!apply && removableRules.length > 0) process.exitCode = 1;
+if (!apply && removableRuleCount > 0) process.exitCode = 1;
