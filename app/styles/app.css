@@ -262,23 +262,8 @@ main:has(> .pk-product) {
 
 /* Homepage sections: full-bleed by default (main has no padding).
  * Only the .pk-section__inner holds content at 1280px. */
-.pk-home .pk-section {
-  width: 100%;
-  margin: 0;
-  padding-top: 64px;
-  padding-bottom: 64px;
-}
 
 /* === Playful Premium Typography === */
-.pk-eyebrow {
-  display: block;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--pk-muted);
-  margin-bottom: 12px;
-}
 
 img {
   border-radius: 4px;
@@ -2070,16 +2055,6 @@ button:focus-visible,
 /* ---------- Hero ---------- */
 
 /* ---------- Section heads ---------- */
-.pk-section { margin: 40px 0; }
-.pk-section__head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 18px; }
-.pk-section__head h2 {
-  font-family: var(--pk-font-display);
-  font-size: 26px;
-  font-weight: 700;
-  margin: 0;
-  color: var(--pk-ink);
-  letter-spacing: -0.01em;
-}
 
 /* ---------- Category cards ---------- */
 
@@ -2239,7 +2214,6 @@ button:focus-visible,
 }
 @media (max-width: 560px) {
   .pk-prod-grid { grid-template-columns: 1fr; }
-  .pk-section__head h2 { font-size: 20px; }
   .pk-btn--primary { white-space: nowrap; }
 }
 
@@ -2734,22 +2708,6 @@ button:focus-visible,
 */
 
 /* ---------- shared utilities ---------- */
-.pk-eyebrow {
-  display: inline-block;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--pk-muted);
-  margin-bottom: 6px;
-}
-.pk-section__head--center {
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 2px;
-  margin-bottom: 28px;
-}
 .pk-btn--lg { padding: 0 28px; height: 48px; font-size: 15px; border-radius: 8px; }
 
 /* Canonical button pair (audit §3). Ink = the one primary action per
@@ -3388,26 +3346,6 @@ button:focus-visible,
    no shared shadow. */
 
 /* ---------- Centered section header (used by brand promise) ---------- */
-.pk-section__head--center {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 6px;
-  margin-bottom: 28px;
-}
-.pk-section__head--center h2 {
-  font-family: var(--pk-font-display);
-  font-size: 30px;
-  font-weight: 700;
-  font-style: italic;
-  margin: 0;
-  color: var(--pk-ink);
-  letter-spacing: -0.01em;
-}
-@media (max-width: 60em) {
-  .pk-section__head--center h2 { font-size: 24px; }
-}
 
 /* Policies index page — list of policy links. Replaces the
    unstyled <fieldset>-based layout that pre-dated the design system. */
@@ -4742,120 +4680,10 @@ button:focus-visible,
    Uses the canonical design tokens; no one-off hex values.
    ════════════════════════════════════════════════════════════════ */
 
-.pk-section {
-  padding: 56px 0;
-  background: var(--pk-paper);
-}
-
-@media (min-width: 900px) {
-  .pk-section {
-    padding: 72px 0;
-  }
-}
-
-.pk-section__inner {
-  max-width: var(--pk-inner-max);
-  margin: 0 auto;
-  padding: 0 var(--pk-gutter);
-}
-
-.pk-section__head {
-  margin-bottom: 28px;
-}
-
-.pk-section__head--row {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: 24px;
-  flex-wrap: wrap;
-}
-
-.pk-section__head--center {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  margin-bottom: 36px;
-}
-
-.pk-section__h {
-  font-family: var(--pk-font, 'Outfit', system-ui, sans-serif);
-  font-size: clamp(26px, 3.5vw, 38px);
-  font-weight: 700;
-  margin: 0;
-  color: var(--pk-ink);
-  line-height: 1.15;
-  letter-spacing: -0.02em;
-}
-
-.pk-section__see-all {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--pk-ink);
-  text-decoration: none;
-  padding: 8px 0;
-  border-bottom: 1.5px solid transparent;
-  transition: border-color 0.2s ease, gap 0.2s ease;
-  white-space: nowrap;
-}
-
-.pk-section__see-all:hover {
-  border-bottom-color: var(--pk-ink);
-  gap: 10px;
-}
-
-.pk-section__see-all:focus-visible {
-  outline: var(--pk-focus-outline, 2px solid var(--pk-ink));
-  outline-offset: var(--pk-focus-offset, 2px);
-  border-radius: 2px;
-}
-
 /* ── 1. hero-split ─────────────────────────────────────────────── */
-.pk-section--hero-split {
-  background: var(--pk-cream);
-  padding: 48px 0 64px;
-  position: relative;
-  overflow: hidden;
-}
-.pk-section--hero-split::before {
-  /* Volcanic landscape texture with a warm fallback gradient. */
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    url('/bg-volcanic-texture.png') center bottom / cover no-repeat,
-    linear-gradient(135deg,
-      rgba(190, 69, 30, 0.04) 0%,
-      rgba(232, 160, 32, 0.03) 40%,
-      rgba(14, 124, 91, 0.03) 100%);
-  opacity: 0.5;
-  pointer-events: none;
-}
 /* Bottom gradient separator — festival stripe pattern matching the
  * collection page hero. Repeating 24px segments of the full palette
  * (ember→marigold→jade→cobalt→rosa→violet) at full opacity. */
-.pk-section--hero-split::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 14px;
-  background: repeating-linear-gradient(90deg,
-    var(--pk-ember) 0 24px,
-    var(--pk-marigold) 24px 48px,
-    var(--pk-jade) 48px 72px,
-    var(--pk-cobalt) 72px 96px,
-    var(--pk-rosa) 96px 120px,
-    var(--pk-violet) 120px 144px);
-  opacity: 1;
-  pointer-events: none;
-  z-index: 2;
-}
 
 /* ════════════════════════════════════════════════════════════
    HERO — "mercadito moderno" redesign (v6)
@@ -4864,12 +4692,6 @@ button:focus-visible,
    accents). These rules follow the base hero block above so they
    win on cascade order.
    ════════════════════════════════════════════════════════════ */
-.pk-section--hero-split {
-  background:
-    radial-gradient(130% 120% at 88% 0%, var(--pk-cream) 0%, transparent 58%),
-    var(--pk-paper);
-  padding: 64px 0 72px;
-}
 
 /* Eyebrow becomes a terracotta pill instead of plain small caps. */
 
@@ -4885,21 +4707,6 @@ button:focus-visible,
 /* Color-coded department directory — each row a market-stall accent. */
 
 /* ── 2. shop-by-category — mercado stalls ─────────────────────── */
-.pk-section--shop-by-category {
-  background: var(--pk-cream);
-  position: relative;
-  overflow: hidden;
-}
-.pk-section--shop-by-category::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 40% 50% at 90% 10%, rgba(190, 69, 30, 0.04), transparent 60%),
-    radial-gradient(ellipse 40% 50% at 10% 90%, rgba(14, 124, 91, 0.04), transparent 55%);
-  pointer-events: none;
-}
-.pk-section--shop-by-category > .pk-section__inner { position: relative; z-index: 1; }
 
 /* Rotating market palette across the 8 stalls. */
 
@@ -4962,168 +4769,20 @@ button:focus-visible,
 /* The lifestyle well is a 5:4, not a square. */
 
 /* ── 3. best-sellers ───────────────────────────────────────────── */
-.pk-section--best-sellers {
-  background: var(--pk-paper);
-  position: relative;
-  overflow: hidden;
-}
-.pk-section--best-sellers::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse 50% 40% at 70% 20%, rgba(232, 160, 32, 0.03), transparent 60%);
-  pointer-events: none;
-}
-.pk-section--best-sellers > .pk-section__inner { position: relative; z-index: 1; }
 
 /* ── 4. lifestyle-banner — BOLD DARK BAND ────────────────────────
  * Full-bleed warm espresso ink with a subtle volcanic gradient
  * texture stand-in. Light text, warm accents. This is the page's
  * bold rhythm break — the dark band that makes the cream sections
  * around it pop. Real duotone coffee/volcano image drops in later. */
-.pk-section--lifestyle {
-  background: var(--pk-ink);
-  color: var(--pk-paper);
-  position: relative;
-  overflow: hidden;
-}
-.pk-section--lifestyle::before {
-  /* Volcanic gradient stand-in: ember glow rising from the bottom-left,
-   * jade tint from the top-right. Low opacity so text stays readable.
-   * Real Antigravity duotone volcano/coffee image drops into this slot. */
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 80% 60% at 15% 100%, rgba(190, 69, 30, 0.18), transparent 60%),
-    radial-gradient(ellipse 70% 50% at 90% 0%, rgba(14, 124, 91, 0.12), transparent 55%),
-    linear-gradient(160deg, rgba(232, 160, 32, 0.04) 0%, transparent 50%);
-  pointer-events: none;
-}
-.pk-section--lifestyle > .pk-section__inner { position: relative; z-index: 1; }
-.pk-section--lifestyle .pk-eyebrow { color: var(--pk-marigold); }
-.pk-section--lifestyle .pk-section__h { color: var(--pk-paper); }
 
 /* Collage fallback — 4-tile color grid when no product image */
 
 /* On the dark band the CTA inverts: cream bg, ink text */
-.pk-section--lifestyle .pk-btn--ink {
-  background: var(--pk-paper);
-  color: var(--pk-ink);
-  border-color: var(--pk-paper);
-}
-.pk-section--lifestyle .pk-btn--ink:hover {
-  background: var(--pk-marigold);
-  border-color: var(--pk-marigold);
-  color: var(--pk-ink);
-  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3);
-}
 
 /* ── 5. new-arrivals (rail) ────────────────────────────────────── */
-.pk-section--new-arrivals {
-  background: var(--pk-cream);
-}
-
-.pk-rail {
-  /* display: block (set explicitly) overrides the legacy "trending
-   * rail" rule at line ~2712 which declares this same class as
-   * `display: grid; grid-auto-flow: column; grid-auto-columns: 220px`.
-   * That legacy rule, if it wins, shrinks the wrapper to one 220px
-   * grid cell and traps the inner <ul> scroll container in a
-   * 1-card-wide column. The new layout (Phase 1 redesign) makes
-   * .pk-rail a position-only wrapper; .pk-rail__track is the
-   * scroll container. Both rules have equal specificity so the
-   * later one wins, but only for properties it sets. */
-  display: block;
-  position: relative;
-}
-
-.pk-rail__track {
-  display: flex;
-  gap: 16px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  padding: 4px 4px 12px;
-  list-style: none;
-  margin: 0;
-  scrollbar-width: none;
-}
-
-.pk-rail__track::-webkit-scrollbar {
-  display: none;
-}
-
-.pk-rail__item {
-  list-style: none;
-  flex: 0 0 264px;
-  scroll-snap-align: start;
-}
-
-.pk-rail__item > * {
-  height: 100%;
-}
-
-.pk-rail__arr {
-  position: absolute;
-  top: 38%;
-  transform: translateY(-50%);
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  border: 1px solid var(--pk-line);
-  background: var(--pk-paper);
-  color: var(--pk-ink);
-  cursor: pointer;
-  font-size: 22px;
-  line-height: 1;
-  z-index: 2;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  box-shadow: var(--pk-sh-1, 0 1px 2px rgba(23, 20, 16, 0.06));
-  transition: background 0.2s ease, border-color 0.2s ease;
-}
-
-.pk-rail__arr:hover:not(:disabled) {
-  background: var(--pk-cream);
-  border-color: var(--pk-ink);
-}
-
-.pk-rail__arr:disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
-}
-
-.pk-rail__arr:focus-visible {
-  outline: var(--pk-focus-outline, 2px solid var(--pk-ink));
-  outline-offset: 2px;
-}
-
-.pk-rail__arr--left {
-  left: -16px;
-}
-
-.pk-rail__arr--right {
-  right: -16px;
-}
-
-@media (min-width: 900px) {
-  .pk-rail__arr {
-    display: flex;
-  }
-}
-
-@media (max-width: 700px) {
-  .pk-rail__item {
-    flex: 0 0 200px;
-  }
-}
 
 /* ── 5b. sports-outdoors ─────────────────────────────────────── */
-.pk-section--sports {
-  background: var(--pk-paper);
-}
 
 /* ── 5c. soccer jerseys (was world-cup) ─────────────────────── */
 /* Cream background with a thin ember accent stripe under the
@@ -5131,97 +4790,19 @@ button:focus-visible,
  * Portugal, Argentina, Brasil, Italy, Mexico, England, France.
  * Broadened from "World Cup 2026" so it's not time-limited and
  * can expand to other sports. */
-.pk-section--world-cup {
-  background: var(--pk-cream);
-  position: relative;
-}
-.pk-section--world-cup .pk-section__h::after {
-  content: '';
-  display: block;
-  width: 48px;
-  height: 2px;
-  background: var(--pk-ember);
-  margin-top: 10px;
-  border-radius: 2px;
-}
 /* The eyebrow carries the "rep your country" commercial vibe. */
-.pk-section--world-cup .pk-eyebrow {
-  color: var(--pk-ember);
-}
 
 /* ── 6. trust-bar ──────────────────────────────────────────────── */
-.pk-section--trust {
-  background: var(--pk-paper);
-  padding: 36px 0;
-  border-top: 1px solid var(--pk-line);
-  border-bottom: 1px solid var(--pk-line);
-  position: relative;
-}
 
 /* ── 7. reviews — warm cream with textile texture ─────────────── */
-.pk-section--reviews {
-  background: var(--pk-cream);
-  position: relative;
-  overflow: hidden;
-}
-.pk-section--reviews::before {
-  /* Subtle textile-weave gradient stand-in. Real duotone textile
-   * image drops into this slot later. */
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 50% 60% at 80% 20%, rgba(232, 160, 32, 0.05), transparent 60%),
-    radial-gradient(ellipse 40% 50% at 10% 80%, rgba(190, 69, 30, 0.04), transparent 55%);
-  pointer-events: none;
-}
-.pk-section--reviews > .pk-section__inner { position: relative; z-index: 1; }
 
 /* ── 8. newsletter-footer — BOLD TERRACOTTA BLOCK ───────────────
  * Full-bleed terracotta (ember) block — the comp's rhythm: cream
  * reviews above, dark footer below, terracotta sandwiched between.
  * Light text on warm clay. Real duotone textile image drops in later. */
-.pk-section--newsletter {
-  background: var(--pk-ember);
-  color: var(--pk-paper);
-  padding: 72px 0;
-  border-top: none;
-  position: relative;
-  overflow: hidden;
-}
-.pk-section--newsletter::before {
-  /* Textile-weave + volcanic gradient:
-   *   - warm clay base with marigold thread pattern from top-right
-   *   - deep volcanic ember glow from bottom-center
-   *   - subtle jade from left (highland greenery) */
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 60% 80% at 100% 0%, rgba(232, 160, 32, 0.22), transparent 55%),
-    radial-gradient(ellipse 50% 70% at 0% 100%, rgba(111, 48, 29, 0.25), transparent 50%),
-    radial-gradient(ellipse 40% 50% at 50% 100%, rgba(190, 69, 30, 0.15), transparent 60%),
-    linear-gradient(135deg, transparent 0%, rgba(14, 124, 91, 0.04) 50%, transparent 100%);
-  pointer-events: none;
-}
-.pk-section--newsletter > .pk-section__inner { position: relative; z-index: 1; }
-.pk-section--newsletter .pk-eyebrow { color: rgba(252, 247, 238, 0.7); }
-.pk-section--newsletter .pk-section__h { color: var(--pk-paper); }
 
 /* Form fields on terracotta: translucent white fill, paper text */
 /* Submit button inverts on terracotta: paper bg, ember text */
-.pk-section--newsletter .pk-btn--ink {
-  background: var(--pk-paper);
-  color: var(--pk-ember);
-  border-color: var(--pk-paper);
-}
-.pk-section--newsletter .pk-btn--ink:hover {
-  background: var(--pk-ink);
-  color: var(--pk-paper);
-  border-color: var(--pk-ink);
-  transform: translate(-1px, -1px);
-  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
-}
 
 /* ── 9. brand-story — "Puchica's roots" SOUL BAND ───────────────
  * Full-bleed dark espresso ink with a warm volcanic gradient
@@ -5229,53 +4810,8 @@ button:focus-visible,
  * the band that makes Puchica unmistakably Central American — a moment
  * of soul between the product rails. Real duotone image drops in
  * later; the gradient stand-in carries the warmth now. */
-.pk-section--brand-story {
-  background: var(--pk-ink);
-  color: var(--pk-paper);
-  padding: 88px 0;
-  position: relative;
-  overflow: hidden;
-}
-.pk-section--brand-story::before {
-  /* Temple texture layered over warm gradients. */
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    url('/bg-pyramid-temple.png') center / cover no-repeat,
-    radial-gradient(ellipse 90% 50% at 50% 100%, rgba(190, 69, 30, 0.20), transparent 65%),
-    radial-gradient(ellipse 60% 40% at 85% 15%, rgba(14, 124, 91, 0.15), transparent 55%),
-    radial-gradient(ellipse 40% 60% at 0% 50%, rgba(232, 160, 32, 0.06), transparent 50%);
-  opacity: 0.4;
-  pointer-events: none;
-}
-.pk-section--brand-story > .pk-section__inner { position: relative; z-index: 1; }
-
-@media (max-width: 700px) {
-  .pk-section--brand-story { padding: 56px 0; }
-}
 
 /* ── World map ──────────────────────────────────────────────── */
-.pk-section--world-map {
-  background: var(--pk-ink);
-  color: var(--pk-paper);
-  padding: 56px 0 64px;
-  position: relative;
-  overflow: hidden;
-}
-.pk-section--world-map::before {
-  /* Volcanic gradient only — no texture image, keeps it clean on dark bg */
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 70% 50% at 10% 100%, rgba(190, 69, 30, 0.15), transparent 60%),
-    radial-gradient(ellipse 60% 40% at 90% 0%, rgba(14, 124, 91, 0.10), transparent 55%);
-  pointer-events: none;
-}
-.pk-section--world-map > .pk-section__inner { position: relative; z-index: 1; }
-.pk-section--world-map .pk-eyebrow { color: var(--pk-marigold); }
-.pk-section--world-map .pk-section__h { color: var(--pk-paper); }
 @keyframes pk-map-pulse {
   0% { transform: scale(1); opacity: 0.4; }
   100% { transform: scale(2.5); opacity: 0; }
@@ -5284,67 +4820,12 @@ button:focus-visible,
 /* Mobile: hide SVG, show list */
 
 /* ── 10. coffee-spotlight — JADE BAND (Highland Coffee) ──────── */
-.pk-section--coffee-spotlight {
-  background: var(--pk-jade);
-  color: var(--pk-paper);
-  padding: 80px 0;
-  position: relative;
-  overflow: hidden;
-}
-.pk-section--coffee-spotlight::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 80% 50% at 20% 100%, rgba(190, 69, 30, 0.18), transparent 60%),
-    radial-gradient(ellipse 50% 40% at 90% 10%, rgba(232, 160, 32, 0.12), transparent 55%);
-  pointer-events: none;
-}
-.pk-section--coffee-spotlight > .pk-section__inner { position: relative; z-index: 1; }
-@media (max-width: 700px) {
-  .pk-section--coffee-spotlight { padding: 52px 0; }
-}
 
 /* ── 11. textile-showcase — MARIGOLD BAND (Woven by hand) ─────── */
-.pk-section--textile-showcase {
-  background: var(--pk-marigold);
-  color: var(--pk-ink);
-  padding: 80px 0;
-  position: relative;
-  overflow: hidden;
-}
-.pk-section--textile-showcase::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 60% 70% at 100% 0%, rgba(190, 69, 30, 0.15), transparent 55%),
-    radial-gradient(ellipse 50% 60% at 0% 100%, rgba(14, 124, 91, 0.08), transparent 50%);
-  pointer-events: none;
-}
-.pk-section--textile-showcase > .pk-section__inner { position: relative; z-index: 1; }
 
 /* Department tiles — bold color links to real collections */
-@media (max-width: 700px) {
-  .pk-section--textile-showcase { padding: 52px 0; }
-}
 
 /* ── 12. how-we-curate — cream band with 3 steps ─────────────── */
-.pk-section--how-we-curate {
-  background: var(--pk-cream);
-  position: relative;
-  overflow: hidden;
-}
-.pk-section--how-we-curate::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 40% 50% at 80% 30%, rgba(232, 160, 32, 0.04), transparent 60%),
-    radial-gradient(ellipse 40% 50% at 20% 70%, rgba(14, 124, 91, 0.04), transparent 55%);
-  pointer-events: none;
-}
-.pk-section--how-we-curate > .pk-section__inner { position: relative; z-index: 1; }
 
 /* ════════════════════════════════════════════════════════════════
    COLLECTION PAGES — Bold Design System Upgrade
@@ -5790,64 +5271,6 @@ main:has(> .pk-collection--bold) {
 /* Shop by Department on about page */
 
 /* ── Recently Viewed rail ─────────────────────────────────────── */
-.pk-section--recently-viewed {
-  background: var(--pk-paper);
-  padding: 56px 0;
-}
-.pk-recently-viewed__track {
-  display: flex;
-  gap: 16px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-  list-style: none;
-  margin: 0;
-  padding: 4px 4px 12px;
-}
-.pk-recently-viewed__track::-webkit-scrollbar { display: none; }
-.pk-recently-viewed__item {
-  flex: 0 0 200px;
-  scroll-snap-align: start;
-  list-style: none;
-}
-.pk-recently-viewed__link {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  text-decoration: none;
-  color: var(--pk-ink);
-}
-.pk-recently-viewed__media {
-  aspect-ratio: 1 / 1;
-  border-radius: 10px;
-  overflow: hidden;
-  border: 1px solid var(--pk-line);
-  background: var(--pk-cream);
-}
-.pk-recently-viewed__media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.3s ease;
-}
-.pk-recently-viewed__link:hover .pk-recently-viewed__media img {
-  transform: scale(1.05);
-}
-.pk-recently-viewed__title {
-  font-size: 13px;
-  font-weight: 600;
-  line-height: 1.3;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-.pk-recently-viewed__price {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--pk-ember);
-}
 
 /* ════════════════════════════════════════════════════════════════
    SHIPPING PAGE — pk-shipping
@@ -6403,13 +5826,6 @@ main:has(> .pk-home) {
   background: var(--pk-white);
 }
 
-.pk-home .pk-section {
-  width: 100%;
-  margin-left: 0;
-  margin-right: 0;
-}
-
-.pk-section__inner,
 .pk-inner {
   width: 100%;
   max-width: 1440px;
@@ -6448,57 +5864,11 @@ main:has(> .pk-home) {
   background: #eef2ff;
 }
 
-.pk-section--hero-split {
-  background:
-    linear-gradient(180deg, #ffffff 0%, #f6f8fc 100%);
-  color: var(--pk-ink);
-  padding: clamp(28px, 4vw, 56px) 0 clamp(34px, 5vw, 64px);
-  overflow: hidden;
-  border-bottom: 1px solid var(--pk-line);
-}
-
-.pk-section--hero-split::before,
-.pk-section--hero-split::after {
-  content: none;
-  display: none;
-}
-
-.pk-section--shop-by-category {
-  background: #ffffff;
-}
-
-.pk-section--shop-by-category::before {
-  content: none;
-  display: none;
-}
-
-.pk-section--best-sellers,
-.pk-section--lifestyle-banner,
-.pk-section--sports-outdoors,
-.pk-section--trust-bar {
-  background: #ffffff;
-}
-
-.pk-section--new-arrivals,
-.pk-section--world-cup,
-.pk-section--reviews {
-  background: #f8fafc;
-}
-
-.pk-section--newsletter-footer {
-  background: #101828;
-}
-
 @media (max-width: 640px) {
-  .pk-section__inner,
   .pk-inner,
   .pk-header__inner {
     padding-left: 16px;
     padding-right: 16px;
-  }
-
-  .pk-section--hero-split {
-    padding: 28px 0 34px;
   }
 }
 
@@ -6598,42 +5968,8 @@ main:has(> .pk-home) {
   .pk-shipping-hero__title { letter-spacing: -1.7px; }
 }
 
-.pk-section--hero-split {
-  position: relative;
-  background:
-    linear-gradient(135deg, rgba(91, 77, 255, 0.16) 0%, rgba(192, 38, 90, 0.08) 34%, rgba(255, 255, 255, 0) 62%),
-    linear-gradient(180deg, #ffffff 0%, #f4f7fb 100%);
-  min-height: 0;
-  padding: clamp(24px, 3.5vw, 48px) 0 clamp(22px, 3vw, 38px) !important;
-  border-bottom: 1px solid var(--pk-line);
-  overflow: hidden;
-}
-
-.pk-section--hero-split .pk-section__inner {
-  box-sizing: border-box;
-}
-
-@media (max-width: 640px) {
-  .pk-section--hero-split {
-    padding: 20px 0 24px !important;
-  }
-
-  .pk-section--shop-by-category .pk-section__head {
-    display: block;
-    text-align: left;
-  }
-
-  .pk-section--shop-by-category .pk-section__h {
-    max-width: none;
-    margin-top: 8px;
-  }
-}
-
 /* Storefront consistency pass: remove short-carousel dead space, simplify
    department cards, and bring collection heroes back into the same system. */
-.pk-section--sports-static .pk-section__head {
-  align-items: end;
-}
 
 .pk-collection--bold {
   background: #ffffff;
@@ -6693,12 +6029,6 @@ main:has(> .pk-home) {
   max-width: 700px;
   color: #475467;
   font-size: clamp(16px, 1.6vw, 20px);
-}
-
-@media (max-width: 760px) {
-  .pk-section--sports-static .pk-section__head {
-    align-items: start;
-  }
 }
 
 /* --------------------------------------------------------------------------
@@ -6883,109 +6213,9 @@ main:has(> .pk-home) {
   background: #f5f7fb;
 }
 
-.pk-home .pk-section {
-  padding: clamp(34px, 5vw, 64px) 0;
-}
-
-.pk-home .pk-section__inner {
-  max-width: var(--pk-inner-max, 1440px);
-  padding-left: clamp(18px, 4vw, 64px);
-  padding-right: clamp(18px, 4vw, 64px);
-}
-
-.pk-home .pk-section__h {
-  letter-spacing: 0;
-}
-
-.pk-section--hero-split {
-  padding: 24px 0 34px !important;
-  background:
-    linear-gradient(180deg, #ffffff 0%, #f5f7fb 100%) !important;
-}
-
-.pk-section--hero-split::before,
-.pk-section--hero-split::after {
-  content: none !important;
-  display: none !important;
-}
-
-.pk-section--today-deals {
-  background: #ffffff;
-}
-
-.pk-section--today-deals .pk-section__inner {
-  padding-top: 0;
-}
-
-.pk-section--today-deals .pk-card {
-  border-color: rgba(192, 38, 90, 0.22);
-}
-
-.pk-section--today-deals .pk-section__see-all {
-  display: inline-flex;
-  min-height: 36px;
-  align-items: center;
-  padding: 0 13px;
-  border: 1px solid rgba(192, 38, 90, 0.22);
-  border-radius: 999px;
-  background: rgba(192, 38, 90, 0.07);
-  color: #9f1239;
-  text-decoration: none;
-}
-
-.pk-section--shop-by-category,
-.pk-section--best-sellers {
-  background: #ffffff;
-}
-
-.pk-section--new-arrivals,
-.pk-section--sports,
-.pk-section--sports-static,
-.pk-section--reviews {
-  background: #f5f7fb;
-}
-
-@media (max-width: 700px) {
-  .pk-home .pk-section {
-    padding: 30px 0;
-  }
-
-  .pk-section--hero-split {
-    padding-top: 16px !important;
-  }
-}
-
 /* No-poster hero: compact retail command center. */
-.pk-section--hero-split {
-  padding: 20px 0 22px !important;
-  background: #ffffff !important;
-  border-bottom: 1px solid #d9e0ea;
-}
-
-.pk-section--today-deals {
-  padding-top: 34px !important;
-}
 
 /* Kill the hero. Make the first viewport a compact ecommerce store hub. */
-.pk-section--hero-split {
-  padding: 14px 0 16px !important;
-  background: #f8fafc !important;
-  border-bottom: 1px solid #d9e0ea;
-}
-
-.pk-section--hero-split .pk-section__inner {
-  max-width: 1440px;
-}
-
-.pk-section--today-deals {
-  padding-top: 28px !important;
-}
-
-@media (max-width: 700px) {
-  .pk-section--hero-split {
-    padding: 12px 0 14px !important;
-  }
-}
 
 /* Width consistency: homepage, header, and footer use the same retail rail. */
 :root {
@@ -6993,8 +6223,6 @@ main:has(> .pk-home) {
 }
 
 .pk-header__inner,
-.pk-home .pk-section__inner,
-.pk-section--hero-split .pk-section__inner,
 .pk-footer__inner,
 .pk-footer__bar {
   width: 100%;
@@ -7008,14 +6236,6 @@ main:has(> .pk-home) {
 .pk-footer__bar {
   margin-left: 0;
   margin-right: 0;
-}
-
-.pk-home .pk-section__head {
-  width: 100%;
-}
-
-.pk-section--today-deals {
-  padding-top: 24px !important;
 }
 
 @media (max-width: 700px) {
@@ -7041,87 +6261,8 @@ main:has(> .pk-home) {
   box-shadow: 0 0 0 6px rgba(31, 95, 168, 0.18) !important;
 }
 
-.pk-section__see-all {
-  color: #5B35E6;
-}
-
-.pk-section--today-deals .pk-section__see-all,
 .pk-card {
   border-color: var(--pk-a11y-border-soft);
-}
-
-.pk-section--today-deals .pk-section__see-all:focus-visible {
-  border-color: var(--pk-a11y-focus);
-}
-
-.pk-section--today-deals .pk-section__see-all {
-  background: #fff7fa;
-  color: #9f1239;
-}
-
-.pk-section--newsletter-footer {
-  background:
-    radial-gradient(circle at 86% 16%, rgba(20, 184, 166, 0.24), transparent 30%),
-    linear-gradient(135deg, #1e1b4b 0%, #312e81 48%, #172554 100%) !important;
-}
-
-.pk-section--newsletter {
-  background:
-    radial-gradient(circle at 86% 16%, rgba(20, 184, 166, 0.24), transparent 30%),
-    linear-gradient(135deg, #1e1b4b 0%, #312e81 48%, #172554 100%) !important;
-  color: #ffffff !important;
-}
-
-.pk-section--newsletter::before {
-  display: none !important;
-}
-
-.pk-section--newsletter .pk-section__h {
-  color: #ffffff !important;
-}
-
-.pk-section--newsletter .pk-eyebrow {
-  color: #e0e7ff !important;
-}
-
-.pk-section--newsletter .pk-eyebrow {
-  color: #c4b5fd !important;
-}
-
-.pk-section--newsletter .pk-btn--ink {
-  background: #ffffff !important;
-  border-color: #ffffff !important;
-  color: #312e81 !important;
-}
-
-.pk-section--newsletter .pk-btn--ink:hover {
-  background: #dbeafe !important;
-  border-color: #dbeafe !important;
-  color: #1e1b4b !important;
-}
-
-.pk-section--newsletter-footer .pk-section__h {
-  color: #ffffff !important;
-}
-
-.pk-section--newsletter-footer .pk-eyebrow {
-  color: #e0e7ff !important;
-}
-
-.pk-section--newsletter-footer .pk-eyebrow {
-  color: #c4b5fd !important;
-}
-
-.pk-section--newsletter-footer .pk-btn--ink {
-  background: #ffffff !important;
-  border-color: #ffffff !important;
-  color: #312e81 !important;
-}
-
-.pk-section--newsletter-footer .pk-btn--ink:hover {
-  background: #dbeafe !important;
-  border-color: #dbeafe !important;
-  color: #1e1b4b !important;
 }
 
 .pk-footer__tagline,
@@ -7141,47 +6282,10 @@ main:has(> .pk-home) {
 }
 
 /* Department grid refinement: compact, scannable ecommerce entrances. */
-.pk-section--shop-by-category {
-  background: #f8fafc !important;
-  border-top: 1px solid #d0d5dd;
-  border-bottom: 1px solid #d0d5dd;
-}
-
-.pk-section--shop-by-category .pk-section__inner {
-  padding-top: 4px;
-  padding-bottom: 4px;
-}
-
-.pk-section--shop-by-category .pk-section__head {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 20px;
-  margin-bottom: 22px;
-}
-
-.pk-section--shop-by-category .pk-eyebrow {
-  color: #475467;
-  font-size: 12px;
-  letter-spacing: 0.16em;
-}
-
-.pk-section--shop-by-category .pk-section__h {
-  font-size: clamp(24px, 2.4vw, 34px);
-  letter-spacing: -0.015em;
-}
 
 /* The grid row already matches its tallest department. Make each list item
  * and its link participate in that height so a wrapped title cannot leave
  * neighbouring cards visibly shorter. */
-
-@media (max-width: 980px) {
-  .pk-section--shop-by-category .pk-section__head {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 8px;
-  }
-}
 
 /* Collection page width pass: match the homepage/header retail rail. */
 main:has(> .pk-collection--bold) {
@@ -7311,11 +6415,6 @@ main:has(> .pk-collection--bold) {
 }
 
 /* Store operator upgrade: confidence, commerce clarity, and width consistency. */
-.pk-section--store-confidence {
-  background: #ffffff;
-  border-top: 1px solid #d0d5dd;
-  border-bottom: 1px solid #d0d5dd;
-}
 
 /* Product cards should sell without requiring hover. */
 .pk-card {
@@ -7411,14 +6510,8 @@ main:has(> .pk-collection--bold) {
 /* Product cards should align like retail tiles, but the only variable-option
  * content shown in-grid is the one-line summary above. The full choice flow
  * happens on the product page. */
-.pk-rail__item > .pk-card,
 .pk-prod-grid > .pk-card {
   height: 100%;
-}
-
-.pk-rail__item {
-  align-self: stretch;
-  display: flex;
 }
 
 .pk-card__body {
@@ -7515,78 +6608,9 @@ main:has(> .pk-collection--bold) {
   --pk-tint-amber: #FFF4D6;
 }
 
-.pk-section--hero-split {
-  background:
-    linear-gradient(90deg, #f7f4ff 0%, #eef7ff 46%, #fff7e3 100%) !important;
-}
-
-.pk-section--today-deals {
-  background:
-    linear-gradient(180deg, #fff7fa 0%, #ffffff 68%) !important;
-}
-
-.pk-section--shop-by-category {
-  background:
-    linear-gradient(135deg, #f1eeff 0%, #f8fafc 42%, #e7f6f1 100%) !important;
-}
-
-.pk-section--best-sellers {
-  background:
-    linear-gradient(180deg, #ffffff 0%, #f6f9ff 100%) !important;
-}
-
 /* Lifestyle destinations add discovery without repeating the same catalog in
  * another product rail. Generated scenes are intentionally atmospheric rather
  * than depictions of exact merchandise. */
-.pk-section--lifestyle-shop {
-  background: linear-gradient(135deg, #fbf8ff 0%, #fffdf8 48%, #eef8f5 100%) !important;
-}
-
-.pk-section--new-arrivals {
-  background:
-    linear-gradient(135deg, #eaf2ff 0%, #ffffff 58%, #fff4d6 100%) !important;
-}
-
-.pk-section--sports,
-.pk-section--sports-static {
-  background:
-    linear-gradient(135deg, #e7f6f1 0%, #ffffff 62%, #eef6ff 100%) !important;
-}
-
-.pk-section--reviews {
-  background:
-    linear-gradient(135deg, #fff0f6 0%, #ffffff 54%, #f1eeff 100%) !important;
-}
-
-.pk-section--trust,
-.pk-section--store-confidence {
-  background:
-    linear-gradient(135deg, #ffffff 0%, #f8fafc 48%, #f1eeff 100%) !important;
-}
-
-.pk-section__h,
-.pk-section__head h2 {
-  color: #101828 !important;
-}
-
-.pk-section .pk-eyebrow {
-  color: #475467 !important;
-}
-
-.pk-section--today-deals .pk-eyebrow,
-.pk-section--today-deals .pk-section__see-all {
-  color: var(--pk-color-rose) !important;
-}
-
-.pk-section--shop-by-category .pk-eyebrow,
-.pk-section--sports .pk-eyebrow,
-.pk-section--sports-static .pk-eyebrow {
-  color: var(--pk-color-teal) !important;
-}
-
-.pk-section--new-arrivals .pk-eyebrow {
-  color: var(--pk-color-cobalt) !important;
-}
 
 .pk-card::before {
   content: '';
@@ -7689,24 +6713,11 @@ main:has(> .pk-collection--bold) {
   }
 }
 
-.pk-section.pk-section--newsletter .pk-eyebrow {
-  color: #ffffff !important;
-}
-
 /* Store hub: a compact entry point, not a row of competing toolbar controls.
  * The earlier treatment gave every action the same visual weight, which made
  * the heading, search, and category entry points compete in a single line. */
-.pk-section--hero-split {
-  padding: clamp(22px, 3vw, 36px) 0 !important;
-  background:
-    linear-gradient(100deg, #f3f0ff 0%, #f7fbff 54%, #fff8e8 100%) !important;
-}
 
 /* Legacy hero search rules kept inert in case older routes render the block. */
-
-@media (max-width: 700px) {
-  .pk-section--hero-split { padding: 18px 0 20px !important; }
-}
 
 /* Collection index: an even department grid, not a masonry feed. Editorial
    routes deliberately use colour fields when their source thumbnail is not a

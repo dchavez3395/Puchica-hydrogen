@@ -112,3 +112,8 @@ console.log(
     2,
   ),
 );
+
+const parityFailed = Object.values(localeParity).some(
+  ({missing, extra}) => missing.length > 0 || extra.length > 0,
+);
+if (!apply && (unused.length > 0 || parityFailed)) process.exitCode = 1;

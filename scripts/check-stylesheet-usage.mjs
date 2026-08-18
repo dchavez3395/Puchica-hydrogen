@@ -93,3 +93,5 @@ console.log(
     2,
   ),
 );
+
+if (!apply && removableRules.length > 0) process.exitCode = 1;

@@ -11,7 +11,6 @@
 export const DICTIONARIES = {
   en: {
     // ── Announcement bar ──────────────────────────────────────────
-    offer_first15: 'Shipping options and costs appear at checkout.',
     footer_about: 'About Us',
     footer_faq: 'FAQ',
     footer_shipping_info: 'Shipping & Delivery',
@@ -82,14 +81,6 @@ export const DICTIONARIES = {
 
     // ── Ticker / Marquee ──────────────────────────────────────────
     ship_section_aria: 'Shipping destinations',
-    ship_region_na: 'North America',
-    ship_region_sa: 'South America',
-    ship_region_uk: 'United Kingdom',
-    ship_region_eu: 'Europe',
-    ship_region_ap: 'Asia Pacific',
-    ship_region_me: 'Middle East',
-    ship_region_af: 'Africa',
-    ship_region_oc: 'Oceania',
     ship_hero_eyebrow: 'Shipping & Delivery',
     ship_hero_title_main: 'Shipping &',
     ship_hero_title_em: 'Delivery.',
@@ -191,7 +182,6 @@ export const DICTIONARIES = {
       'Reach us through the contact page with your product or order question and the details we need to help.',
     product_help_contact_link: 'contact page',
     product_copy_link: 'Copy link',
-    product_recently_viewed_title: 'Recently viewed',
     product_add_to_cart: 'Add to cart',
     product_price_from: 'From',
     product_sold_out: 'Sold out',
@@ -642,8 +632,6 @@ export const DICTIONARIES = {
 
   // ════════════════════════════════════════════════════════════════
   fr: {
-    offer_first15:
-      'Les options et délais de livraison sont affichés au paiement.',
     footer_about: 'À propos',
     footer_faq: 'FAQ',
     footer_shipping_info: 'Livraison & expédition',
@@ -699,14 +687,6 @@ export const DICTIONARIES = {
     launch_home_view_product: 'Voir {title}',
 
     ship_section_aria: 'Destinations de livraison',
-    ship_region_na: 'Amérique du Nord',
-    ship_region_sa: 'Amérique du Sud',
-    ship_region_uk: 'Royaume-Uni',
-    ship_region_eu: 'Europe',
-    ship_region_ap: 'Asie-Pacifique',
-    ship_region_me: 'Moyen-Orient',
-    ship_region_af: 'Afrique',
-    ship_region_oc: 'Océanie',
     ship_hero_eyebrow: 'Livraison & Expédition',
     ship_hero_title_main: 'Livraison &',
     ship_hero_title_em: 'Expédition.',
@@ -809,7 +789,6 @@ export const DICTIONARIES = {
       'Envoyez votre question sur le produit ou la commande avec les détails nécessaires pour vous aider.',
     product_help_contact_link: 'page de contact',
     product_copy_link: 'Copier le lien',
-    product_recently_viewed_title: 'Vus récemment',
     product_add_to_cart: 'Ajouter au panier',
     product_price_from: 'Dès',
     product_sold_out: 'Rupture de stock',
@@ -1278,7 +1257,6 @@ export const DICTIONARIES = {
 
   // ════════════════════════════════════════════════════════════════
   es: {
-    offer_first15: 'Las opciones y los plazos de envío se muestran al pagar.',
     footer_about: 'Sobre nosotros',
     footer_faq: 'Preguntas frecuentes',
     footer_shipping_info: 'Envíos y entrega',
@@ -1334,14 +1312,6 @@ export const DICTIONARIES = {
     launch_home_view_product: 'Ver {title}',
 
     ship_section_aria: 'Destinos de envío',
-    ship_region_na: 'América del Norte',
-    ship_region_sa: 'América del Sur',
-    ship_region_uk: 'Reino Unido',
-    ship_region_eu: 'Europa',
-    ship_region_ap: 'Asia-Pacífico',
-    ship_region_me: 'Medio Oriente',
-    ship_region_af: 'África',
-    ship_region_oc: 'Oceanía',
     ship_hero_eyebrow: 'Envío y Entrega',
     ship_hero_title_main: 'Envío y',
     ship_hero_title_em: 'Entrega.',
@@ -1445,7 +1415,6 @@ export const DICTIONARIES = {
       'Envía tu pregunta sobre el producto o pedido con los detalles que necesitamos para ayudarte.',
     product_help_contact_link: 'página de contacto',
     product_copy_link: 'Copiar enlace',
-    product_recently_viewed_title: 'Vistos recientemente',
     product_add_to_cart: 'Agregar al carrito',
     product_price_from: 'Desde',
     product_sold_out: 'Agotado',
@@ -1914,7 +1883,6 @@ export const DICTIONARIES = {
 
   // ════════════════════════════════════════════════════════════════
   'pt-br': {
-    offer_first15: 'As opções e os prazos de envio aparecem no checkout.',
     footer_about: 'Sobre nós',
     footer_faq: 'Perguntas frequentes',
     footer_shipping_info: 'Envios e entrega',
@@ -1970,14 +1938,6 @@ export const DICTIONARIES = {
     launch_home_view_product: 'Ver {title}',
 
     ship_section_aria: 'Destinos de envio',
-    ship_region_na: 'América do Norte',
-    ship_region_sa: 'América do Sul',
-    ship_region_uk: 'Reino Unido',
-    ship_region_eu: 'Europa',
-    ship_region_ap: 'Ásia-Pacífico',
-    ship_region_me: 'Oriente Médio',
-    ship_region_af: 'África',
-    ship_region_oc: 'Oceania',
     ship_hero_eyebrow: 'Envio e Entrega',
     ship_hero_title_main: 'Envio e',
     ship_hero_title_em: 'Entrega.',
@@ -2079,7 +2039,6 @@ export const DICTIONARIES = {
       'Envie sua dúvida sobre o produto ou pedido com os detalhes necessários para ajudarmos.',
     product_help_contact_link: 'página de contato',
     product_copy_link: 'Copiar link',
-    product_recently_viewed_title: 'Vistos recentemente',
     product_add_to_cart: 'Adicionar ao carrinho',
     product_price_from: 'A partir de',
     product_sold_out: 'Esgotado',

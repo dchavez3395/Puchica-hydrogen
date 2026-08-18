@@ -68,7 +68,6 @@ test('returning-cart reminder stays localized', () => {
 test('product names stay localized through purchase-adjacent surfaces', () => {
   for (const path of [
     'app/components/CartLineItem.jsx',
-    'app/components/RecentlyViewed.jsx',
     'app/components/SearchResultsPredictive.jsx',
   ]) {
     assert.match(readFileSync(path, 'utf8'), /presentProductTitle/);

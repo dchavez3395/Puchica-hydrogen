@@ -16,6 +16,8 @@
     "metadata-health": "node scripts/check-public-metadata.mjs",
     "dictionary-usage": "node scripts/check-dictionary-usage.mjs",
     "stylesheet-usage": "node scripts/check-stylesheet-usage.mjs",
+    "module-usage": "node scripts/check-module-usage.mjs",
+    "payload-health": "npm run module-usage && npm run dictionary-usage && npm run stylesheet-usage",
     "link-health": "node scripts/check-public-links.mjs",
     "first-order-signal": "node scripts/check-first-order-signal.mjs",
     "organic-economics": "node scripts/check-organic-economics.mjs",

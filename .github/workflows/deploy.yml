@@ -37,6 +37,9 @@ jobs:
       - name: Test
         run: npm test
 
+      - name: Verify storefront payload
+        run: npm run payload-health
+
       - name: Verify storefront release gate
         run: npm run launch-check
 
