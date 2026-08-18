@@ -28,6 +28,7 @@ import {
   buildApprovedProductOptions,
   findApprovedVariants,
   isLaunchReadyProduct,
+  resolveApprovedProductMarket,
   STOREFRONT_CONTAINMENT_ACTIVE,
 } from '~/lib/launch-catalog';
 import {presentProductTitle} from '~/lib/product-presentation';
@@ -88,8 +89,8 @@ export async function loader(args) {
   if (STOREFRONT_CONTAINMENT_ACTIVE) {
     throw productNotFoundResponse();
   }
-  const {product, reviews} = await loadCriticalData(args);
-  return {product, reviews};
+  const {product, reviews, marketAvailability} = await loadCriticalData(args);
+  return {product, reviews, ...marketAvailability};
 }
 
 // React Router does not automatically promote route loader/error headers to
@@ -103,10 +104,12 @@ async function loadCriticalData({context, params, request}) {
   const {storefront} = context;
   if (!handle) throw new Error('Expected product handle to be defined');
   const {country, language} = storefront.i18n;
+  const marketAvailability = resolveApprovedProductMarket(handle, country);
+  if (!marketAvailability) throw productNotFoundResponse();
 
   const productResp = await storefront.query(PRODUCT_QUERY, {
     variables: {
-      country,
+      country: marketAvailability.commerceMarket,
       handle,
       language,
       selectedOptions: getSelectedProductOptions(request),
@@ -115,10 +118,13 @@ async function loadCriticalData({context, params, request}) {
 
   const product = productResp.product;
   if (!product?.id) throw productNotFoundResponse();
-  if (!isLaunchReadyProduct(product, country)) {
+  if (!isLaunchReadyProduct(product, marketAvailability.commerceMarket)) {
     throw productNotFoundResponse();
   }
-  const approvedVariants = findApprovedVariants(product, country);
+  const approvedVariants = findApprovedVariants(
+    product,
+    marketAvailability.commerceMarket,
+  );
   if (!approvedVariants.length) throw productNotFoundResponse();
 
   const requestedVariant = product.selectedOrFirstAvailableVariant;
@@ -139,7 +145,7 @@ async function loadCriticalData({context, params, request}) {
 
   const reviews = await getJudgemeBadge(handle);
   redirectIfHandleIsLocalized(request, {handle, data: product});
-  return {product, reviews};
+  return {product, reviews, marketAvailability};
 }
 
 function productNotFoundResponse() {
@@ -153,7 +159,8 @@ function productNotFoundResponse() {
 }
 
 export default function Product() {
-  const {product, reviews} = useLoaderData();
+  const {product, reviews, marketUnavailable, availableMarkets} =
+    useLoaderData();
   const rootData = useRouteLoaderData('root');
   const market = rootData?.selectedLocale?.country || 'CA';
   const language = String(rootData?.selectedLocale?.language || 'en')
@@ -177,7 +184,13 @@ export default function Product() {
     reviews,
     galleryImages,
     langKey,
+    availableMarkets,
   );
+  const availableMarketNames = (availableMarkets || [])
+    .map((code) =>
+      code === 'US' ? t('locale_market_us') : t('locale_market_ca'),
+    )
+    .join(' / ');
 
   // Record the view for the search sheet's "recently viewed" row.
   // Keyed on product.id so variant switches don't re-record.
@@ -279,15 +292,23 @@ export default function Product() {
 
             <div className="pk-product__info">
               <div className="pk-product__form-wrap" id="product-form">
-                <ProductForm
-                  productOptions={productOptions}
-                  selectedVariant={selectedVariant}
-                  product={{
-                    handle: product.handle,
-                    title: product.title,
-                    featuredImage: product.featuredImage,
-                  }}
-                />
+                {marketUnavailable ? (
+                  <div className="pk-product__market-notice" role="status">
+                    {t('product_market_unavailable', {
+                      markets: availableMarketNames,
+                    })}
+                  </div>
+                ) : (
+                  <ProductForm
+                    productOptions={productOptions}
+                    selectedVariant={selectedVariant}
+                    product={{
+                      handle: product.handle,
+                      title: product.title,
+                      featuredImage: product.featuredImage,
+                    }}
+                  />
+                )}
               </div>
 
               {/* ── Trust block: 4 rows of promise, neutral hairline chips. */}
@@ -394,7 +415,9 @@ export default function Product() {
         />
       ) : null}
 
-      <MobileCart product={product} selectedVariant={selectedVariant} t={t} />
+      {marketUnavailable ? null : (
+        <MobileCart product={product} selectedVariant={selectedVariant} t={t} />
+      )}
 
       <Analytics.ProductView
         data={{
@@ -590,6 +613,7 @@ function buildJsonLd(
   reviews,
   galleryImages,
   langKey,
+  availableMarkets = [],
 ) {
   const productUrl = canonical(`/products/${product.handle}`, langKey);
   const price = selectedVariant?.price;
@@ -633,6 +657,10 @@ function buildJsonLd(
             ? 'https://schema.org/InStock'
             : 'https://schema.org/OutOfStock',
           itemCondition: 'https://schema.org/NewCondition',
+          eligibleRegion: availableMarkets.map((countryCode) => ({
+            '@type': 'Country',
+            name: countryCode,
+          })),
           hasMerchantReturnPolicy: {
             '@id': canonical(
               '/policies/refund-policy#merchant-return-policy',

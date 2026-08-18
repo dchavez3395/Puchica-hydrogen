@@ -8,11 +8,14 @@ import {
   APPROVED_PRODUCT_HANDLES_BY_MARKET,
   APPROVED_VARIANT_SKUS_BY_MARKET,
   buildApprovedProductOptions,
+  DISCOVERABLE_PRODUCT_HANDLES,
+  filterDiscoverableProducts,
   filterLaunchProducts,
   findApprovedVariant,
   findApprovedVariants,
   isApprovedVariantSku,
   isLaunchReadyProduct,
+  resolveApprovedProductMarket,
   CATALOG_APPROVAL_TAG,
   LAUNCH_READY_TAG,
   LEGACY_LAUNCH_READY_TAG,
@@ -145,7 +148,7 @@ test('product feed exposes the node shape required by the exact-variant gate', a
   assert.doesNotMatch(feed, /product\.variants\.edges/);
 });
 
-test('market-unavailable product pages fail closed for crawlers', async () => {
+test('approved product pages remain indexable outside their commerce market', async () => {
   const productRoute = await readFile(
     new URL('../app/routes/products.$handle.jsx', import.meta.url),
     'utf8',
@@ -157,8 +160,11 @@ test('market-unavailable product pages fail closed for crawlers', async () => {
 
   assert.equal(
     productRoute.match(/throw productNotFoundResponse\(\)/g)?.length,
-    4,
+    5,
   );
+  assert.match(productRoute, /marketUnavailable \? \(/);
+  assert.match(productRoute, /product_market_unavailable/);
+  assert.match(productRoute, /eligibleRegion/);
   assert.match(productRoute, /'Cache-Control': 'no-store, max-age=0'/);
   assert.match(productRoute, /'X-Robots-Tag': 'noindex, nofollow'/);
   assert.match(
@@ -211,6 +217,52 @@ test('released homepage is travel-focused and uses the catalog gate', async () =
     /if \(\/travel jewelry case\/i\.test\(title\)\) return 2/,
   );
   assert.doesNotMatch(landing, /Canada &amp; U\.S\. delivery routes/);
+});
+
+test('product market resolution preserves indexing without opening checkout', () => {
+  assert.deepEqual(resolveApprovedProductMarket('3-piece-packing-cube-set', 'US'), {
+    availableMarkets: ['CA'],
+    commerceMarket: 'CA',
+    marketUnavailable: true,
+  });
+  assert.deepEqual(
+    resolveApprovedProductMarket(
+      'black-hanging-travel-toiletry-organizer',
+      'CA',
+    ),
+    {
+      availableMarkets: ['US'],
+      commerceMarket: 'US',
+      marketUnavailable: true,
+    },
+  );
+  assert.equal(resolveApprovedProductMarket('retired-product', 'CA'), null);
+  assert.deepEqual(DISCOVERABLE_PRODUCT_HANDLES, [
+    '3-piece-packing-cube-set',
+    'white-semi-circular-travel-jewelry-case',
+    'black-hanging-travel-toiletry-organizer',
+  ]);
+});
+
+test('discovery includes every approved market without exposing retired products', () => {
+  const products = APPROVED_CATALOG_OFFERS.map((offer) =>
+    approvedProduct({
+      handle: offer.handle,
+      tags: [
+        ...REQUIRED_CATALOG_EVIDENCE_TAGS,
+        ...offer.markets.map((market) => MARKET_ROUTE_EVIDENCE_TAGS[market]),
+      ],
+      variants: {
+        nodes: [{sku: offer.sku, availableForSale: true}],
+      },
+    }),
+  );
+  products.push(approvedProduct({handle: 'retired-product'}));
+
+  assert.deepEqual(
+    filterDiscoverableProducts(products).map((product) => product.handle),
+    DISCOVERABLE_PRODUCT_HANDLES,
+  );
 });
 
 test('launch copy does not claim unverified testing, testimonials, or fulfillment terms', async () => {

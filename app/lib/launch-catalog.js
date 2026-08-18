@@ -103,6 +103,10 @@ export const APPROVED_PRODUCT_HANDLES_BY_MARKET = Object.freeze({
   ]),
 });
 
+export const DISCOVERABLE_PRODUCT_HANDLES = Object.freeze([
+  ...new Set(APPROVED_CATALOG_OFFERS.map((offer) => offer.handle)),
+]);
+
 // Retain this export name for callers that construct Storefront API queries.
 // It now means final approval, not the unsafe legacy tag.
 export const LAUNCH_READY_TAG = CATALOG_APPROVAL_TAG;
@@ -158,6 +162,38 @@ export function isApprovedVariantSku(sku, market = 'CA') {
     APPROVED_VARIANT_SKUS_BY_MARKET[country] ||
     APPROVED_VARIANT_SKUS_BY_MARKET.CA;
   return typeof sku === 'string' && approved.includes(sku);
+}
+
+export function filterDiscoverableProducts(products = []) {
+  return products.filter((product) => {
+    const resolution = resolveApprovedProductMarket(product?.handle);
+    return Boolean(
+      resolution?.availableMarkets.some(
+        (market) =>
+          isLaunchReadyProduct(product, market) &&
+          findApprovedVariant(product, market),
+      ),
+    );
+  });
+}
+
+export function resolveApprovedProductMarket(handle, requestedMarket = 'CA') {
+  const availableMarkets = [
+    ...new Set(
+      APPROVED_CATALOG_OFFERS.filter((offer) => offer.handle === handle).flatMap(
+        (offer) => offer.markets,
+      ),
+    ),
+  ];
+  if (!availableMarkets.length) return null;
+
+  const requested = String(requestedMarket || 'CA').toUpperCase();
+  const marketAvailable = availableMarkets.includes(requested);
+  return {
+    availableMarkets,
+    commerceMarket: marketAvailable ? requested : availableMarkets[0],
+    marketUnavailable: !marketAvailable,
+  };
 }
 
 export function findApprovedVariant(product, market = 'CA') {

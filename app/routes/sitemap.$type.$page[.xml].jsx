@@ -1,5 +1,5 @@
 import {
-  filterLaunchProducts,
+  filterDiscoverableProducts,
   LAUNCH_READY_TAG,
   STOREFRONT_CONTAINMENT_ACTIVE,
 } from '~/lib/launch-catalog';
@@ -39,9 +39,7 @@ export async function loader({request, params, context: {storefront}}) {
       cache: storefront.CacheShort(),
       variables: {query: `tag:${LAUNCH_READY_TAG}`},
     });
-    const launchProducts = filterLaunchProducts(
-      products.nodes || [],
-    );
+    const launchProducts = filterDiscoverableProducts(products.nodes || []);
     return xmlResponse(
       productUrlset(launchProducts, new URL(request.url).origin, locales),
     );

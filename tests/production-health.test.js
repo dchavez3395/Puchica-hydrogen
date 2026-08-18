@@ -4,6 +4,7 @@ import {readFile} from 'node:fs/promises';
 
 import {
   APPROVED_PRODUCT_HANDLES_BY_MARKET,
+  DISCOVERABLE_PRODUCT_HANDLES,
   OPERATIONAL_HOLD_HANDLES,
   RETIRED_CATALOG_HANDLES,
 } from '../app/lib/launch-catalog.js';
@@ -26,6 +27,7 @@ test('production monitor shares the verified market cohorts', () => {
     'white-semi-circular-travel-jewelry-case',
     'black-hanging-travel-toiletry-organizer',
   ]);
+  assert.equal(DISCOVERABLE_PRODUCT_HANDLES.length, 3);
   assert.equal(RETIRED_CATALOG_HANDLES.size, 6);
 });
 

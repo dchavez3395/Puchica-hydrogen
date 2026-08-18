@@ -4,6 +4,7 @@ import {fileURLToPath} from 'node:url';
 
 import {
   APPROVED_PRODUCT_HANDLES_BY_MARKET,
+  DISCOVERABLE_PRODUCT_HANDLES,
   OPERATIONAL_HOLD_HANDLES,
   RETIRED_CATALOG_HANDLES,
 } from '../app/lib/launch-catalog.js';
@@ -295,7 +296,7 @@ export async function runProductionHealth(baseUrl = DEFAULT_BASE_URL) {
         label: 'Canada product feed exact set',
         pathname: '/feed.xml',
         extractor: extractFeedHandles,
-        expectedHandles: EXPECTED_HANDLES_BY_MARKET.CA,
+        expectedHandles: DISCOVERABLE_PRODUCT_HANDLES,
       }),
     () =>
       documentSetCheck(normalizedBaseUrl, {

@@ -808,6 +808,8 @@ export const DICTIONARIES = {
     locale_market_ca: 'Canada',
     locale_market_us: 'United States',
     locale_market_unavailable: 'Unavailable',
+    product_market_unavailable:
+      'Available only in: {markets}. Change your market to purchase this item.',
     locale_language_label: 'Language',
     mobile_market_language: 'Market & language',
     skip_to_content: 'Skip to main content',
@@ -2174,6 +2176,8 @@ export const DICTIONARIES = {
     locale_market_ca: 'Canada',
     locale_market_us: 'États-Unis',
     locale_market_unavailable: 'Indisponible',
+    product_market_unavailable:
+      'Disponible uniquement pour : {markets}. Changez de marché pour acheter cet article.',
     locale_language_label: 'Langue',
     mobile_market_language: 'Marché et langue',
     skip_to_content: 'Passer au contenu principal',
@@ -3572,6 +3576,8 @@ export const DICTIONARIES = {
     locale_market_ca: 'Canadá',
     locale_market_us: 'Estados Unidos',
     locale_market_unavailable: 'No disponible',
+    product_market_unavailable:
+      'Disponible únicamente en: {markets}. Cambia tu mercado para comprar este artículo.',
     locale_language_label: 'Idioma',
     mobile_market_language: 'Mercado e idioma',
     skip_to_content: 'Saltar al contenido principal',
@@ -4959,6 +4965,8 @@ export const DICTIONARIES = {
     locale_market_ca: 'Canadá',
     locale_market_us: 'Estados Unidos',
     locale_market_unavailable: 'Indisponível',
+    product_market_unavailable:
+      'Disponível apenas em: {markets}. Altere seu mercado para comprar este item.',
     locale_language_label: 'Idioma',
     mobile_market_language: 'Mercado e idioma',
     skip_to_content: 'Pular para o conteúdo principal',
