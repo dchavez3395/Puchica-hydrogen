@@ -34,9 +34,13 @@ jobs:
           NODE_ENV: production
 
       - name: Deploy to Shopify Oxygen
-        run: npx shopify hydrogen deploy --env production --force
+        run: |
+          if [ -z "$SHOPIFY_HYDROGEN_DEPLOY_TOKEN" ]; then
+            echo "::error::SHOPIFY_HYDROGEN_DEPLOY_TOKEN is not configured"
+            exit 1
+          fi
+          npx shopify hydrogen deploy --token "$SHOPIFY_HYDROGEN_DEPLOY_TOKEN" --force
         env:
-          # SHOPIFY_HYDROGEN_DEPLOY_TOKEN must be added to
-          # GitHub repo → Settings → Secrets → Actions.
-          # Generate it with: npx shopify hydrogen deploy token generate --env production
+          # Create an Oxygen deployment token in Shopify and add it at
+          # GitHub repo → Settings → Secrets and variables → Actions.
           SHOPIFY_HYDROGEN_DEPLOY_TOKEN: ${{ secrets.SHOPIFY_HYDROGEN_DEPLOY_TOKEN }}
