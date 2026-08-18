@@ -123,10 +123,8 @@ export function Footer({header}) {
 
 /**
  * @typedef {Object} FooterProps
- * @property {Promise<FooterQuery|null>} footer
  * @property {HeaderQuery} header
  * @property {string} publicStoreDomain
  */
 
-/** @typedef {import('storefrontapi.generated').FooterQuery} FooterQuery */
 /** @typedef {import('storefrontapi.generated').HeaderQuery} HeaderQuery */

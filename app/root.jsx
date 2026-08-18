@@ -14,7 +14,7 @@ import {
 } from 'react-router';
 import {hreflangAlternates} from '~/lib/seo';
 const favicon = '/favicon.svg';
-import {FOOTER_QUERY, HEADER_QUERY} from '~/lib/fragments';
+import {HEADER_QUERY} from '~/lib/fragments';
 import {resolveStorefrontLocale} from '~/lib/i18n';
 import {STOREFRONT_CONTAINMENT_ACTIVE} from '~/lib/launch-catalog';
 import resetStyles from '~/styles/reset.css?url';
@@ -176,20 +176,6 @@ function loadDeferredData({context}) {
   const {storefront, customerAccount, cart} = context;
   const {country} = storefront.i18n;
 
-  // defer the footer query (below the fold)
-  const footer = storefront
-    .query(FOOTER_QUERY, {
-      cache: storefront.CacheLong(),
-      variables: {
-        footerMenuHandle: 'footer', // Adjust to your footer menu handle
-      },
-    })
-    .catch((error) => {
-      // Log query errors, but don't throw them so the page can still render
-      logError('deferred footer query failed', error);
-      return null;
-    });
-
   return {
     cart: STOREFRONT_CONTAINMENT_ACTIVE
       ? Promise.resolve(null)
@@ -200,7 +186,6 @@ function loadDeferredData({context}) {
     isLoggedIn: STOREFRONT_CONTAINMENT_ACTIVE
       ? Promise.resolve(false)
       : customerAccount.isLoggedIn(),
-    footer,
   };
 }
 

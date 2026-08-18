@@ -238,16 +238,6 @@ export const HEADER_QUERY = `#graphql
   ${MENU_FRAGMENT}
 `;
 
-export const FOOTER_QUERY = `#graphql
-  query Footer(
-    $footerMenuHandle: String!) {
-    menu(handle: $footerMenuHandle) {
-      ...Menu
-    }
-  }
-  ${MENU_FRAGMENT}
-`;
-
 /**
  * Homepage product + category queries. Used by `app/routes/_index.jsx`
  * after the 17→8 section cut. Fragments are kept here (instead of

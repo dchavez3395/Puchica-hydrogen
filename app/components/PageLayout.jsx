@@ -21,7 +21,6 @@ import {STOREFRONT_CONTAINMENT_ACTIVE} from '~/lib/launch-catalog';
 export function PageLayout({
   cart,
   children = null,
-  footer,
   header,
   isLoggedIn,
   publicStoreDomain,
@@ -50,7 +49,6 @@ export function PageLayout({
         {children}
       </main>
       <Footer
-        footer={footer}
         header={header}
         publicStoreDomain={publicStoreDomain}
       />
@@ -306,7 +304,6 @@ function MobileMenuAside({header, publicStoreDomain}) {
 /**
  * @typedef {Object} PageLayoutProps
  * @property {Promise<CartApiQueryFragment|null>} cart
- * @property {Promise<FooterQuery|null>} footer
  * @property {HeaderQuery} header
  * @property {Promise<boolean>} isLoggedIn
  * @property {string} publicStoreDomain
@@ -314,5 +311,4 @@ function MobileMenuAside({header, publicStoreDomain}) {
  */
 
 /** @typedef {import('storefrontapi.generated').CartApiQueryFragment} CartApiQueryFragment */
-/** @typedef {import('storefrontapi.generated').FooterQuery} FooterQuery */
 /** @typedef {import('storefrontapi.generated').HeaderQuery} HeaderQuery */
