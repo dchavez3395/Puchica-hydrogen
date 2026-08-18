@@ -639,6 +639,11 @@ function buildJsonLd(
             ? 'https://schema.org/InStock'
             : 'https://schema.org/OutOfStock',
           itemCondition: 'https://schema.org/NewCondition',
+          hasMerchantReturnPolicy: {
+            '@id': canonical(
+              '/policies/refund-policy#merchant-return-policy',
+            ),
+          },
         }
       : undefined,
   };

@@ -217,6 +217,23 @@ export function organizationJsonLd({
       url: logo,
     },
     sameAs: sameAs.filter(Boolean),
+    hasMerchantReturnPolicy: {
+      '@type': 'MerchantReturnPolicy',
+      '@id': canonical('/policies/refund-policy#merchant-return-policy'),
+      merchantReturnLink: canonical('/policies/refund-policy'),
+      applicableCountry: ['CA', 'US'],
+      returnPolicyCategory:
+        'https://schema.org/MerchantReturnFiniteReturnWindow',
+      merchantReturnDays: 30,
+      returnMethod: 'https://schema.org/ReturnByMail',
+      itemCondition: [
+        'https://schema.org/NewCondition',
+        'https://schema.org/DamagedCondition',
+      ],
+      customerRemorseReturnFees:
+        'https://schema.org/ReturnFeesCustomerResponsibility',
+      itemDefectReturnFees: 'https://schema.org/FreeReturn',
+    },
   };
 }
 
