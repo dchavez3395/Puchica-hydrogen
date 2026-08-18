@@ -116,7 +116,7 @@ Aside.Provider = function AsideProvider({children}) {
   const location = useLocation();
 
   // Stable reference — must not be recreated on every render because
-  // MegaMenu's useEffect depends on it and would fire on every re-render
+  // Drawer consumers depend on this callback and would fire on every re-render
   // (immediately calling close() and cancelling any open()).
   const close = useCallback(() => setType('closed'), []);
 

@@ -4,8 +4,8 @@ import {readFile} from 'node:fs/promises';
 
 import {DICTIONARIES} from '../app/lib/dictionaries.js';
 
-const megaMenu = await readFile(
-  new URL('../app/components/MegaMenu.jsx', import.meta.url),
+const header = await readFile(
+  new URL('../app/components/Header.jsx', import.meta.url),
   'utf8',
 );
 const searchRoute = await readFile(
@@ -39,11 +39,11 @@ test('shop navigation links directly to the exact three-offer scope', () => {
     'black-hanging-travel-toiletry-organizer',
     'white-semi-circular-travel-jewelry-case',
   ]) {
-    assert.match(megaMenu, new RegExp(`/products/${handle}`));
+    assert.match(header, new RegExp(`/products/${handle}`));
   }
 
   assert.doesNotMatch(
-    megaMenu,
+    header,
     /under sink organizer|cable organizer|collections\/best-sellers/i,
   );
 });

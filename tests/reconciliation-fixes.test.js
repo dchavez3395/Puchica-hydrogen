@@ -52,15 +52,6 @@ test('add-to-cart feedback resets when the selected variant changes', async () =
   assert.equal(isFeedbackForCurrentSelection('black', 'black'), true);
 });
 
-test('closed mega menu is isolated from keyboard focus', async () => {
-  const source = await readFile(
-    new URL('../app/components/MegaMenu.jsx', import.meta.url),
-    'utf8',
-  );
-
-  assert.match(source, /inert=\{open \? undefined : ''\}/);
-});
-
 test('direct cart visits publish the native Hydrogen cart-view event', async () => {
   const source = await readFile(
     new URL('../app/routes/cart.jsx', import.meta.url),

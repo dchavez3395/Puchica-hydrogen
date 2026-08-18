@@ -24,7 +24,6 @@ export function PageLayout({
   footer,
   header,
   isLoggedIn,
-  megaMenu,
   publicStoreDomain,
 }) {
   const t = useT();
@@ -37,7 +36,6 @@ export function PageLayout({
       {!STOREFRONT_CONTAINMENT_ACTIVE && <SearchAside />}
       <MobileMenuAside
         header={header}
-        megaMenu={megaMenu}
         publicStoreDomain={publicStoreDomain}
       />
       {header && (
@@ -46,7 +44,6 @@ export function PageLayout({
           cart={cart}
           isLoggedIn={isLoggedIn}
           publicStoreDomain={publicStoreDomain}
-          megaMenu={megaMenu}
         />
       )}
       <main id="main-content" tabIndex={-1}>
@@ -265,11 +262,10 @@ function SearchAside() {
 /**
  * @param {{
  *   header: PageLayoutProps['header'];
- *   megaMenu: PageLayoutProps['megaMenu'];
  *   publicStoreDomain: PageLayoutProps['publicStoreDomain'];
  * }}
  */
-function MobileMenuAside({header, megaMenu, publicStoreDomain}) {
+function MobileMenuAside({header, publicStoreDomain}) {
   const t = useT();
   return (
     header.menu &&
@@ -278,7 +274,6 @@ function MobileMenuAside({header, megaMenu, publicStoreDomain}) {
         <div className="pk-mmenu">
           <HeaderMenu
             menu={header.menu}
-            megaMenu={megaMenu}
             viewport="mobile"
             primaryDomainUrl={header.shop.primaryDomain.url}
             publicStoreDomain={publicStoreDomain}
@@ -314,7 +309,6 @@ function MobileMenuAside({header, megaMenu, publicStoreDomain}) {
  * @property {Promise<FooterQuery|null>} footer
  * @property {HeaderQuery} header
  * @property {Promise<boolean>} isLoggedIn
- * @property {Promise<MegaMenuQuery|null>} [megaMenu]
  * @property {string} publicStoreDomain
  * @property {React.ReactNode} [children]
  */
@@ -322,4 +316,3 @@ function MobileMenuAside({header, megaMenu, publicStoreDomain}) {
 /** @typedef {import('storefrontapi.generated').CartApiQueryFragment} CartApiQueryFragment */
 /** @typedef {import('storefrontapi.generated').FooterQuery} FooterQuery */
 /** @typedef {import('storefrontapi.generated').HeaderQuery} HeaderQuery */
-/** @typedef {import('storefrontapi.generated').MegaMenuQuery} MegaMenuQuery */

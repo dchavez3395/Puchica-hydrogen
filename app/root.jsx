@@ -14,12 +14,9 @@ import {
 } from 'react-router';
 import {hreflangAlternates} from '~/lib/seo';
 const favicon = '/favicon.svg';
-import {FOOTER_QUERY, HEADER_QUERY, MEGA_MENU_QUERY} from '~/lib/fragments';
+import {FOOTER_QUERY, HEADER_QUERY} from '~/lib/fragments';
 import {resolveStorefrontLocale} from '~/lib/i18n';
-import {
-  filterLaunchProducts,
-  STOREFRONT_CONTAINMENT_ACTIVE,
-} from '~/lib/launch-catalog';
+import {STOREFRONT_CONTAINMENT_ACTIVE} from '~/lib/launch-catalog';
 import resetStyles from '~/styles/reset.css?url';
 import appStyles from '~/styles/app.css?url';
 import commerceStyles from '~/styles/app-commerce.css?url';
@@ -177,7 +174,7 @@ async function loadCriticalData({context}) {
  */
 function loadDeferredData({context}) {
   const {storefront, customerAccount, cart} = context;
-  const {country, language} = storefront.i18n;
+  const {country} = storefront.i18n;
 
   // defer the footer query (below the fold)
   const footer = storefront
@@ -193,22 +190,6 @@ function loadDeferredData({context}) {
       return null;
     });
 
-  // defer the mega-menu collection query (used by the desktop header's
-  // Shop dropdown). Failure is non-fatal; the header falls back to a
-  // single "Shop" link.
-  const megaMenu = STOREFRONT_CONTAINMENT_ACTIVE
-    ? Promise.resolve(null)
-    : storefront
-        .query(MEGA_MENU_QUERY, {
-          cache: storefront.CacheLong(),
-          variables: {country, language},
-        })
-        .then((data) => filterMegaMenuProducts(data, country))
-        .catch((error) => {
-          logError('deferred mega-menu query failed', error);
-          return null;
-        });
-
   return {
     cart: STOREFRONT_CONTAINMENT_ACTIVE
       ? Promise.resolve(null)
@@ -220,26 +201,6 @@ function loadDeferredData({context}) {
       ? Promise.resolve(false)
       : customerAccount.isLoggedIn(),
     footer,
-    megaMenu,
-  };
-}
-
-function filterMegaMenuProducts(data, country = 'CA') {
-  const collections = data?.collections;
-  if (!collections?.nodes) return data;
-
-  return {
-    ...data,
-    collections: {
-      ...collections,
-      nodes: collections.nodes.map((collection) => ({
-        ...collection,
-        products: {
-          ...collection.products,
-          nodes: filterLaunchProducts(collection.products?.nodes, country),
-        },
-      })),
-    },
   };
 }
 

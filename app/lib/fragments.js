@@ -238,54 +238,6 @@ export const HEADER_QUERY = `#graphql
   ${MENU_FRAGMENT}
 `;
 
-// Mega menu data for the Shop dropdown: every storefront-published
-// collection with a representative product image. The component picks
-// categories/featured out of the list by handle. Note: Storefront API
-// does not expose productsCount on Collection, so the panel shows
-// names only.
-export const MEGA_MENU_QUERY = `#graphql
-  fragment MegaCategory on Collection {
-    id
-    handle
-    title
-    description
-    image {
-      id
-      url
-      altText
-      width
-      height
-    }
-    products(first: 1) {
-      nodes {
-        id
-        handle
-        tags
-        availableForSale
-        featuredImage {
-          url
-          altText
-          width
-          height
-        }
-      }
-    }
-  }
-  # One list query instead of 18 hand-aliased lookups: the component
-  # maps handles from this list, so new/renamed collections only need
-  # the ordered handle array in MegaMenu.jsx — not a query change.
-  # (Collections must be published to the Puchica Storefront channel
-  # to appear here — that's a Shopify admin publication, not code.)
-  query MegaMenu(
-    $country: CountryCode!
-    $language: LanguageCode!
-  ) @inContext(country: $country, language: $language) {
-    collections(first: 30) {
-      nodes { ...MegaCategory }
-    }
-  }
-`;
-
 export const FOOTER_QUERY = `#graphql
   query Footer(
     $footerMenuHandle: String!) {
