@@ -32,6 +32,7 @@ import {
 } from '~/lib/launch-catalog';
 import {presentProductTitle} from '~/lib/product-presentation';
 import {DICTIONARIES} from '~/lib/dictionaries';
+import {buildApprovedGallery} from '~/lib/product-gallery';
 
 /** @type {Route.MetaFunction} */
 export const meta = ({data, matches, params}) => {
@@ -169,7 +170,7 @@ export default function Product() {
   const {title, descriptionHtml} = product;
   const displayTitle = presentProductTitle(title, selectedVariant);
   const summary = productSummary(product.description);
-  const galleryImages = buildGallery(product, selectedVariant);
+  const galleryImages = buildApprovedGallery(product, selectedVariant);
   const jsonLd = buildJsonLd(
     product,
     selectedVariant,
@@ -522,13 +523,6 @@ function MobileCart({product, selectedVariant, t}) {
 }
 
 /* ── helpers ── */
-
-function buildGallery(product, selectedVariant) {
-  // Product-level supplier galleries often mix colours, sizes, and adjacent
-  // configurations. Until media is approved image-by-image, expose only the
-  // exact selected variant image that passed the market gate.
-  return selectedVariant?.image ? [selectedVariant.image] : [];
-}
 
 function buildBreadcrumbItems(product, title, t) {
   const items = [
