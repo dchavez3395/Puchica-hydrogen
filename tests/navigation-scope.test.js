@@ -20,6 +20,10 @@ const exploreRoute = await readFile(
   new URL('../app/routes/explore.jsx', import.meta.url),
   'utf8',
 );
+const legacyCollectionRoute = await readFile(
+  new URL('../app/routes/collections.$handle.jsx', import.meta.url),
+  'utf8',
+);
 
 test('shop navigation links directly to the exact three-offer scope', () => {
   for (const handle of [
@@ -54,10 +58,18 @@ test('empty search prompts stay localized and inside the current assortment', ()
       );
     }
   }
+
+  assert.match(searchRoute, /items\.articles = \{\.\.\.items\.articles, nodes: \[\]\}/);
+  assert.match(searchRoute, /items\.pages = \{\.\.\.items\.pages, nodes: \[\]\}/);
+  assert.match(searchRoute, /items\.queries = \[\]/);
 });
 
 test('retired discovery hubs permanently redirect into the localized catalog', () => {
-  for (const source of [collectionIndexRoute, exploreRoute]) {
+  for (const source of [
+    collectionIndexRoute,
+    exploreRoute,
+    legacyCollectionRoute,
+  ]) {
     assert.match(source, /localizePath\(destination, params\?\.locale \|\| 'en'\)/);
     assert.match(source, /return redirect\([^;]+, 301\)/s);
     assert.match(source, /\/collections\/all/);

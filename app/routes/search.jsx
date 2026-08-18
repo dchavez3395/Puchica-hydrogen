@@ -344,6 +344,12 @@ async function regularSearch({request, context}) {
     throw new Error('No search data returned from Shopify API');
   }
 
+  // Shopify still contains historical pages and articles from the retired
+  // broad catalog. Product search is the only surface with the exact launch
+  // evidence gate, so do not let old editorial content re-enter discovery.
+  items.articles = {...items.articles, nodes: []};
+  items.pages = {...items.pages, nodes: []};
+
   // The merchant's catalogue is dominated by phone-case SKUs whose
   // titles all share a vendor prefix. When Shopify's RELEVANCE
   // sort returns these in source order the first page is mostly
@@ -558,6 +564,9 @@ async function predictiveSearch({request, context}) {
   // contains an approved product. Hide those suggestions until predictive
   // search can apply the same product evidence gate.
   items.collections = [];
+  items.articles = [];
+  items.pages = [];
+  items.queries = [];
 
   const total = Object.values(items).reduce(
     (acc, item) => acc + item.length,
