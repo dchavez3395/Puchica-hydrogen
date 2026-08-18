@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync} from 'node:fs';
+import {readFileSync, readdirSync} from 'node:fs';
 
 import {shouldLog} from '../app/lib/logger.js';
 
@@ -48,4 +48,11 @@ test('canonical operating scope matches the three-offer automated release', () =
   assert.doesNotMatch(scope, /9 Active product pages|10 exact approved SKUs/);
   assert.match(readme, /Production deployment is intentionally automated from `main`/);
   assert.doesNotMatch(readme, /Do not enable or assume automatic production deployment/);
+});
+
+test('retired broad-catalog homepage sections stay removed', () => {
+  const files = readdirSync('app/sections', {recursive: true}).filter((entry) =>
+    /\.(?:js|jsx)$/.test(String(entry)),
+  );
+  assert.deepEqual(files, []);
 });

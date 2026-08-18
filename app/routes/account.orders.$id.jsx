@@ -4,12 +4,21 @@ import {CurrencyMoney} from '~/components/CurrencyMoney';
 import {localizePath} from '~/lib/i18n';
 import {CUSTOMER_ORDER_QUERY} from '~/graphql/customer-account/CustomerOrderQuery';
 import {useT} from '~/lib/t';
+import {utilityMetaCopy} from '~/lib/utility-meta';
 
 /**
  * @type {Route.MetaFunction}
  */
-export const meta = ({data}) => {
-  return [{title: `Order ${data?.order?.name}`}];
+export const meta = ({data, params}) => {
+  const name = data?.order?.name || '';
+  return [
+    {
+      title: utilityMetaCopy(params?.locale).account.orderTitle.replace(
+        '{name}',
+        name,
+      ),
+    },
+  ];
 };
 
 /**
