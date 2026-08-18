@@ -15,6 +15,7 @@
     "production-health": "node scripts/check-production-health.mjs",
     "metadata-health": "node scripts/check-public-metadata.mjs",
     "dictionary-usage": "node scripts/check-dictionary-usage.mjs",
+    "stylesheet-usage": "node scripts/check-stylesheet-usage.mjs",
     "link-health": "node scripts/check-public-links.mjs",
     "first-order-signal": "node scripts/check-first-order-signal.mjs",
     "organic-economics": "node scripts/check-organic-economics.mjs",
