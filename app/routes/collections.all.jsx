@@ -4,6 +4,7 @@ import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {CacheNone, getPaginationVariables} from '@shopify/hydrogen';
 import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
 import {puchicaMeta} from '~/lib/seo';
+import {launchMetaCopy} from '~/lib/launch-meta';
 import {ProductItem} from '~/components/ProductItem';
 import {useT} from '~/lib/t';
 import {diversifyByVendor} from '~/lib/diversify';
@@ -17,12 +18,9 @@ import {
  * @type {Route.MetaFunction}
  */
 export const meta = ({data, params}) => {
+  const copy = launchMetaCopy(params?.locale, data?.country);
   return puchicaMeta({
-    title: 'Shop Travel Organizers — Puchica',
-    description:
-      data?.country === 'US'
-        ? 'Shop the travel organizers currently supported for the United States.'
-        : 'Shop Puchica’s focused Canadian travel edit for clothing, toiletries, and small jewelry.',
+    ...copy.shop,
     type: 'website',
     pathname: '/collections/all',
     langKey: params?.locale,

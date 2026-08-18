@@ -194,11 +194,16 @@ test('released homepage is travel-focused and uses the catalog gate', async () =
     new URL('../app/components/SmallSpaceLanding.jsx', import.meta.url),
     'utf8',
   );
+  const launchMeta = await readFile(
+    new URL('../app/lib/launch-meta.js', import.meta.url),
+    'utf8',
+  );
 
   assert.match(home, /SmallSpaceLanding/);
   assert.match(home, /filterLaunchProducts/);
   assert.match(home, /SMALL_SPACE_QUERY/);
-  assert.match(home, /Travel organizers for easier packing/);
+  assert.match(home, /launchMetaCopy/);
+  assert.match(launchMeta, /Travel organizers for easier packing/);
   assert.doesNotMatch(home, /pk-hold/);
   assert.match(about, /'pt-br': \{/);
   assert.match(about, /\{copy\.artNote\}/);

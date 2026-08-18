@@ -9,6 +9,7 @@ import {
   STOREFRONT_CONTAINMENT_ACTIVE,
 } from '~/lib/launch-catalog';
 import {error as logError} from '~/lib/logger';
+import {launchMetaCopy} from '~/lib/launch-meta';
 import {
   JsonLdScript,
   organizationJsonLd,
@@ -16,20 +17,20 @@ import {
   websiteJsonLd,
 } from '~/lib/seo';
 
-export const meta = ({data, params}) =>
-  puchicaMeta({
+export const meta = ({data, params}) => {
+  const copy = launchMetaCopy(params?.locale, data?.country);
+  return puchicaMeta({
     title: STOREFRONT_CONTAINMENT_ACTIVE
       ? 'Puchica — Store review in progress'
-      : 'Puchica — Travel organizers for easier packing',
+      : copy.home.title,
     description:
       STOREFRONT_CONTAINMENT_ACTIVE
         ? 'Puchica is completing a storefront review. Shopping will return after the release checks are complete.'
-        : data?.country === 'US'
-        ? 'A focused travel organizer with clear product details and shipping shown at checkout.'
-        : 'A focused travel-organization edit for clothing, toiletries, and small jewelry, with shipping shown at checkout.',
+        : copy.home.description,
     pathname: '/',
     langKey: params?.locale,
   });
+};
 
 export async function loader({context}) {
   const {country, language} = context.storefront.i18n;
