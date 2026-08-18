@@ -58,7 +58,7 @@ test('legacy home-finds campaign fails closed during containment', async () => {
   );
 
   assert.match(route, /if \(STOREFRONT_CONTAINMENT_ACTIVE\)/);
-  assert.match(route, /return redirect\('\/'/);
+  assert.match(route, /return redirect\(localizePath\('\/'/);
 });
 
 test('containment closes every remaining commerce and legacy-content route', async () => {
