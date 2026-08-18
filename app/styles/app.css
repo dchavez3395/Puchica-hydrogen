@@ -245,7 +245,6 @@ main:has(> .pk-home) {
 /* Collection pages also go full-bleed — the collection hero
  * runs edge-to-edge with warm gradient, content held by inner. */
 main:has(> .pk-collection),
-main:has(> .pk-about),
 main:has(> .pk-product) {
   max-width: none;
   padding: 0;
@@ -612,7 +611,6 @@ img {
 }
 
 /* Price — keep espresso ink; the compare-at price reads as muted warm. */
-.pk-product__hero-band .pk-product__price { color: var(--pk-ink); }
 
 /* ── Trust bar — the 3 honest dropshipping promises ──
    A horizontal badge row directly under the add-to-cart button.
@@ -1673,7 +1671,6 @@ button.reset:hover:not(:has(> *)) {
   flex: none;
 }
 
-.pk-search__hint,
 .pk-search__empty {
   padding: 8px 0 4px;
 }
@@ -2513,26 +2510,6 @@ button:focus-visible,
 }
 
 /* description */
-.pk-product__desc {
-  margin-top: 36px;
-  border-top: 1px solid var(--pk-border);
-  padding-top: 28px;
-  color: #3D3824;
-  line-height: 1.7;
-  font-size: 15px;
-}
-.pk-product__desc h2 { font-size: 18px; font-weight: 700; margin: 0 0 16px; color: var(--pk-ink); }
-.pk-product__desc h3, .pk-product__desc h4 { color: var(--pk-ink); margin: 28px 0 12px; }
-.pk-product__desc p { margin: 0 0 18px; }
-.pk-product__desc img {
-  display: block;
-  width: 100%;
-  max-width: 440px;
-  height: auto;
-  margin: 32px 0;
-  border-radius: var(--r-lg);
-  border: 1px solid var(--pk-border);
-}
 
 /* (Dead .pk-product__perks block removed — was a duplicate from the
  * previous PDP design that lingered after the reboot. The live perks
@@ -3040,26 +3017,6 @@ button:focus-visible,
   color: var(--pk-ink);
 }
 @media (max-width: 700px) { .pk-product__title { font-size: 26px; } }
-.pk-product__price { font-size: 22px; font-weight: 800; color: var(--pk-ink); }
-.pk-product__desc {
-  color: var(--pk-muted);
-  font-size: 15px;
-  line-height: 1.6;
-  border-top: 1px solid var(--pk-border);
-  padding-top: 18px;
-}
-.pk-product__desc h2 {
-  font-size: 16px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--pk-ink);
-  margin: 0 0 10px;
-}
-.pk-product__desc p { margin: 0 0 12px; }
-.pk-product__desc p:last-child { margin-bottom: 0; }
-.pk-product__desc ul, .pk-product__desc ol { margin: 0 0 12px 1.2em; padding: 0; }
-.pk-product__desc img { max-width: 100%; height: auto; border-radius: 12px; }
 
 /* Trust strip just above the buy box */
 
@@ -3164,20 +3121,6 @@ button:focus-visible,
   width: 3px;
   border-radius: 2px;
   background: linear-gradient(180deg, var(--pk-ember) 0%, transparent 100%);
-}
-.pk-product__price {
-  font-size: 30px;
-  font-weight: 800;
-  letter-spacing: -0.015em;
-  line-height: 1;
-  color: var(--pk-ink);
-}
-.pk-product__price .price--compare {
-  font-size: 16px;
-  color: var(--pk-muted);
-  text-decoration: line-through;
-  font-weight: 600;
-  margin-left: 4px;
 }
 .pk-product__badge--sold {
   background: #fce8e8;
@@ -4490,10 +4433,6 @@ button:focus-visible,
 /* ============================================================
    ABOUT PAGE
    ============================================================ */
-.pk-about {
-  background: var(--pk-cream);
-  color: var(--pk-ink);
-}
 
 /* About hero */
 

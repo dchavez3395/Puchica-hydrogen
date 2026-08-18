@@ -51,11 +51,6 @@ export const DICTIONARIES = {
     mobile_customer_care: 'Customer Care',
     mobile_contact_us: 'Contact us',
     mobile_all_policies: 'All policies',
-    hero_eyebrow: 'Trending finds · Under C$200',
-    hero_title: 'Make room for what matters.',
-    hero_sub:
-      'A focused edit of trending high-ticket finds customers keep re-ordering — verified suppliers, transparent pricing, shipping confirmed at checkout.',
-    hero_stat_shipping: 'Clear shipping',
     launch_home_eyebrow: 'The Puchica travel edit',
     launch_home_title: 'Pack with less rummaging.',
     launch_home_hero_body_full:
@@ -86,8 +81,6 @@ export const DICTIONARIES = {
     launch_home_view_product: 'View {title}',
 
     // ── Ticker / Marquee ──────────────────────────────────────────
-    ticker_free_shipping: 'Shipping shown at checkout',
-    ship_cta: 'View shipping details',
     ship_section_aria: 'Shipping destinations',
     ship_region_na: 'North America',
     ship_region_sa: 'South America',
@@ -134,10 +127,6 @@ export const DICTIONARIES = {
     ship_cta_browse: 'Shop all travel organizers',
 
     // ── Matchmaker ────────────────────────────────────────────────
-    arrivals_eyebrow: 'Outdoor & Garden',
-    trust_shipping_sub: 'Confirmed at checkout',
-    trust_returns_sub: 'See policy for eligibility',
-    trust_secure_sub: 'Encrypted & PCI-compliant',
     breadcrumb_aria: 'Breadcrumb',
     search_trending_label: 'Shop by need',
     search_recent_label: 'Recently viewed',
@@ -241,8 +230,6 @@ export const DICTIONARIES = {
     notfound_sub:
       'The link {path} doesn’t exist on Puchica. It may have been moved, renamed, or never existed. Try one of these instead:',
     notfound_popular: 'Popular collections',
-    notfound_best: 'Best sellers →',
-    notfound_new: 'New arrivals →',
     notfound_breadcrumb_current: 'Page not found',
     notfound_breadcrumb_aria: 'Breadcrumb',
     notfound_breadcrumb_home: 'Home',
@@ -369,7 +356,6 @@ export const DICTIONARIES = {
     badge_trending: 'Featured',
     badge_staff_pick: 'Puchica pick',
     badge_sale: 'Sale',
-    badge_new: 'New',
     search_results_h: 'Results for {term}',
     search_results_h_fallback: 'Search',
     search_input_placeholder: 'Search products…',
@@ -490,8 +476,6 @@ export const DICTIONARIES = {
     about_hero_sub:
       'Puchica is an independent Canadian shop starting with three practical travel organizers for clothing, toiletries, and small jewelry. We keep the catalog small so the product details, options, and delivery information stay clear.',
     about_hero_cta: 'Shop the travel edit →',
-    about_stat_shipping_num: 'Checkout',
-    about_stat_shipping_label: 'Shipping shown before payment',
     about_mission_eye: 'Why we started',
     about_mission_title:
       'The problem wasn’t finding more products. It was finding the right one.',
@@ -685,11 +669,6 @@ export const DICTIONARIES = {
     header_cart_open: 'Ouvrir le panier',
     header_cart_close: 'Fermer le panier',
 
-    hero_eyebrow: 'Trouvailles · Moins de 200 $',
-    hero_title: 'Des trouvailles qui comptent.',
-    hero_sub:
-      'Une sélection de trouvailles haut de gamme que les clients recommandent — fournisseurs vérifiés, prix transparents, livraison confirmée au paiement.',
-    hero_stat_shipping: 'Livraison 50 $+',
     launch_home_eyebrow: 'La sélection voyage Puchica',
     launch_home_title: 'Fouillez moins dans vos bagages.',
     launch_home_hero_body_full:
@@ -719,8 +698,6 @@ export const DICTIONARIES = {
     launch_home_view_all: 'Voir tous les organisateurs de voyage',
     launch_home_view_product: 'Voir {title}',
 
-    ticker_free_shipping: 'Livraison gratuite au Canada',
-    ship_cta: 'Demander pour votre pays',
     ship_section_aria: 'Destinations de livraison',
     ship_region_na: 'Amérique du Nord',
     ship_region_sa: 'Amérique du Sud',
@@ -768,12 +745,8 @@ export const DICTIONARIES = {
       'Magasinez les trouvailles et confirmez la livraison pour votre adresse au paiement.',
     ship_cta_browse: 'Tout voir',
 
-    arrivals_eyebrow: 'Extérieur & Jardin',
-    trust_shipping_sub: 'Sur les commandes de plus de 50 $',
-    trust_returns_sub: 'Sans question, sans tracas',
-    trust_secure_sub: 'Chiffré et conforme PCI',
     breadcrumb_aria: "Fil d'Ariane",
-    search_trending_label: 'Recherches populaires',
+    search_trending_label: 'Acheter selon vos besoins',
     search_recent_label: 'Vus récemment',
     search_trending_terms:
       'cubes de rangement, trousse de toilette, étui à bijoux de voyage',
@@ -872,8 +845,6 @@ export const DICTIONARIES = {
     notfound_sub:
       "Le lien {path} n'existe pas sur Puchica. Il a peut-être été déplacé, renommé, ou n'a jamais existé. Essayez plutôt l'une de ces options :",
     notfound_popular: 'Collections populaires',
-    notfound_best: 'Meilleures ventes →',
-    notfound_new: 'Nouveautés →',
     notfound_breadcrumb_current: 'Page introuvable',
     notfound_breadcrumb_aria: 'Fil d’Ariane',
     notfound_breadcrumb_home: 'Accueil',
@@ -1003,10 +974,9 @@ export const DICTIONARIES = {
     // ── Fenêtre modale d’infolettre ─────────────────────────────
     badge_new_arrival: 'Nouveauté',
     badge_top_pick: 'Coup de cœur',
-    badge_trending: 'Tendance',
+    badge_trending: 'En vedette',
     badge_staff_pick: 'Choix de l’équipe',
     badge_sale: 'Solde',
-    badge_new: 'Nouveau',
     search_results_h: 'Résultats pour {term}',
     search_results_h_fallback: 'Recherche',
     search_input_placeholder: 'Rechercher des produits…',
@@ -1129,8 +1099,6 @@ export const DICTIONARIES = {
     about_hero_sub:
       'Puchica est une boutique canadienne indépendante qui commence avec trois organisateurs de voyage pratiques pour les vêtements, les articles de toilette et les petits bijoux.',
     about_hero_cta: 'Voir la sélection voyage →',
-    about_stat_shipping_num: 'Paiement',
-    about_stat_shipping_label: 'Livraison affichée avant de payer',
     about_mission_eye: 'Pourquoi nous existons',
     about_mission_title:
       'Dans un petit espace, chaque objet mal rangé prend plus de place.',
@@ -1336,11 +1304,6 @@ export const DICTIONARIES = {
     header_cart_open: 'Abrir carrito',
     header_cart_close: 'Cerrar carrito',
 
-    hero_eyebrow: 'Hallazgos · Menos de C$200',
-    hero_title: 'Todo lo que vale.',
-    hero_sub:
-      'Una selección de hallazgos de alto valor que los clientes repiten — proveedores verificados, precios transparentes, envío confirmado al pagar.',
-    hero_stat_shipping: 'Envío gratis',
     launch_home_eyebrow: 'La selección de viaje de Puchica',
     launch_home_title: 'Encuentra todo sin revolver la maleta.',
     launch_home_hero_body_full:
@@ -1370,8 +1333,6 @@ export const DICTIONARIES = {
     launch_home_view_all: 'Ver todos los organizadores de viaje',
     launch_home_view_product: 'Ver {title}',
 
-    ticker_free_shipping: 'Envío gratis en Canadá',
-    ship_cta: 'Pregunta por tu país',
     ship_section_aria: 'Destinos de envío',
     ship_region_na: 'América del Norte',
     ship_region_sa: 'América del Sur',
@@ -1419,12 +1380,8 @@ export const DICTIONARIES = {
       'Compra hallazgos y confirma el envío para tu dirección al pagar.',
     ship_cta_browse: 'Ver todo',
 
-    arrivals_eyebrow: 'Exterior & Jardín',
-    trust_shipping_sub: 'En pedidos a Canadá',
-    trust_returns_sub: 'Sin preguntas, sin complicaciones',
-    trust_secure_sub: 'Cifrado y conforme con PCI',
     breadcrumb_aria: 'Ruta de navegación',
-    search_trending_label: 'Búsquedas populares',
+    search_trending_label: 'Compra según tus necesidades',
     search_recent_label: 'Vistos recientemente',
     search_trending_terms:
       'cubos de embalaje, organizador de aseo, estuche de viaje para joyas',
@@ -1524,8 +1481,6 @@ export const DICTIONARIES = {
     notfound_sub:
       'El enlace {path} no existe en Puchica. Puede haber sido movido, renombrado, o nunca existió. Prueba una de estas opciones:',
     notfound_popular: 'Colecciones populares',
-    notfound_best: 'Más vendidos →',
-    notfound_new: 'Novedades →',
     notfound_breadcrumb_current: 'Página no encontrada',
     notfound_breadcrumb_aria: 'Ruta de navegación',
     notfound_breadcrumb_home: 'Inicio',
@@ -1655,10 +1610,9 @@ export const DICTIONARIES = {
     // ── Modal del boletín ───────────────────────────────────────
     badge_new_arrival: 'Novedad',
     badge_top_pick: 'Top Pick',
-    badge_trending: 'Tendencia',
+    badge_trending: 'Destacado',
     badge_staff_pick: 'Selección del equipo',
     badge_sale: 'Oferta',
-    badge_new: 'Nuevo',
     search_results_h: 'Resultados para {term}',
     search_results_h_fallback: 'Buscar',
     search_input_placeholder: 'Buscar productos…',
@@ -1781,8 +1735,6 @@ export const DICTIONARIES = {
     about_hero_sub:
       'Puchica es una tienda canadiense independiente que empieza con tres organizadores de viaje prácticos para ropa, artículos de aseo y joyas pequeñas.',
     about_hero_cta: 'Ver la selección de viaje →',
-    about_stat_shipping_num: 'Pago',
-    about_stat_shipping_label: 'Envío visible antes de pagar',
     about_mission_eye: 'Por qué existimos',
     about_mission_title:
       'En un espacio pequeño, cada cosa fuera de lugar se siente más grande.',
@@ -1988,11 +1940,6 @@ export const DICTIONARIES = {
     header_cart_open: 'Abrir carrinho',
     header_cart_close: 'Fechar carrinho',
 
-    hero_eyebrow: 'Achados · Abaixo de C$200',
-    hero_title: 'Tudo que importa.',
-    hero_sub:
-      'Uma seleção de achados de alto valor que os clientes recomendam — fornecedores verificados, preços transparentes, frete confirmado no checkout.',
-    hero_stat_shipping: 'Frete grátis',
     launch_home_eyebrow: 'A seleção de viagem da Puchica',
     launch_home_title: 'Encontre tudo sem revirar a mala.',
     launch_home_hero_body_full:
@@ -2022,8 +1969,6 @@ export const DICTIONARIES = {
     launch_home_view_all: 'Ver todos os organizadores de viagem',
     launch_home_view_product: 'Ver {title}',
 
-    ticker_free_shipping: 'Frete grátis no Canadá',
-    ship_cta: 'Pergunte sobre o seu país',
     ship_section_aria: 'Destinos de envio',
     ship_region_na: 'América do Norte',
     ship_region_sa: 'América do Sul',
@@ -2070,12 +2015,8 @@ export const DICTIONARIES = {
       'Compre achados e confirme o frete para seu endereço no checkout.',
     ship_cta_browse: 'Ver tudo',
 
-    arrivals_eyebrow: 'Ar livre & Jardim',
-    trust_shipping_sub: 'Em pedidos para o Canadá',
-    trust_returns_sub: 'Sem perguntas, sem complicações',
-    trust_secure_sub: 'Criptografado e em conformidade PCI',
     breadcrumb_aria: 'Caminho de navegação',
-    search_trending_label: 'Buscas populares',
+    search_trending_label: 'Compre conforme sua necessidade',
     search_recent_label: 'Vistos recentemente',
     search_trending_terms:
       'cubos organizadores, necessaire de viagem, estojo de viagem para joias',
@@ -2174,8 +2115,6 @@ export const DICTIONARIES = {
     notfound_sub:
       'O link {path} não existe na Puchica. Pode ter sido movido, renomeado, ou nunca existiu. Tente uma destas opções:',
     notfound_popular: 'Coleções populares',
-    notfound_best: 'Mais vendidos →',
-    notfound_new: 'Novidades →',
     notfound_breadcrumb_current: 'Página não encontrada',
     notfound_breadcrumb_aria: 'Caminho de navegação',
     notfound_breadcrumb_home: 'Início',
@@ -2305,10 +2244,9 @@ export const DICTIONARIES = {
     // ── Modal do boletim ────────────────────────────────────────
     badge_new_arrival: 'Novidade',
     badge_top_pick: 'Top Pick',
-    badge_trending: 'Em alta',
+    badge_trending: 'Destaque',
     badge_staff_pick: 'Escolha da equipe',
     badge_sale: 'Promoção',
-    badge_new: 'Novo',
     search_results_h: 'Resultados para {term}',
     search_results_h_fallback: 'Buscar',
     search_input_placeholder: 'Buscar produtos…',
@@ -2430,8 +2368,6 @@ export const DICTIONARIES = {
     about_hero_sub:
       'A Puchica é uma loja canadense independente que começa com três organizadores de viagem práticos para roupas, itens de higiene e joias pequenas.',
     about_hero_cta: 'Ver a seleção de viagem →',
-    about_stat_shipping_num: 'Checkout',
-    about_stat_shipping_label: 'Frete exibido antes do pagamento',
     about_mission_eye: 'Por que existimos',
     about_mission_title:
       'Em um espaço pequeno, cada coisa fora do lugar parece maior.',

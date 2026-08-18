@@ -3,7 +3,9 @@ import path from 'node:path';
 import postcss from 'postcss';
 
 const STYLESHEET = path.resolve('app/styles/app.css');
-const SOURCE_ROOTS = ['app', 'tests'];
+// Only shipped application code can make a selector reachable. Contract tests
+// may mention retired selectors specifically to prevent their return.
+const SOURCE_ROOTS = ['app'];
 const SOURCE_EXTENSIONS = new Set(['.js', '.jsx', '.mjs', '.ts', '.tsx']);
 const CLASS_PATTERN = /\.([A-Za-z_][\w-]*)/g;
 
@@ -31,7 +33,10 @@ const root = postcss.parse(source, {from: STYLESHEET});
 
 function isReferenced(className) {
   if (!className.startsWith('pk-')) return true;
-  if (corpus.includes(className)) return true;
+  const escaped = className.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  if (new RegExp(`(^|[^A-Za-z0-9_-])${escaped}(?![A-Za-z0-9_-])`).test(corpus)) {
+    return true;
+  }
 
   // Template expressions commonly append a bounded modifier after `--`.
   const modifierAt = className.lastIndexOf('--');

@@ -4,7 +4,9 @@ import * as espree from 'espree';
 
 import {DICTIONARIES} from '../app/lib/dictionaries.js';
 
-const ROOTS = ['app', 'tests', 'scripts'];
+// Only shipped application code can make a translation key reachable.
+// Historical scripts and tests may mention retired keys as negative examples.
+const ROOTS = ['app'];
 const EXTENSIONS = new Set(['.js', '.jsx', '.mjs', '.ts', '.tsx']);
 const EXCLUDED = new Set([
   path.resolve('app/lib/dictionaries.js'),
@@ -30,9 +32,14 @@ const files = (await Promise.all(ROOTS.map(sourceFiles)))
 const sources = await Promise.all(files.map((file) => readFile(file, 'utf8')));
 const corpus = sources.join('\n');
 const keys = Object.keys(DICTIONARIES.en);
+const escapeRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const hasExactToken = (value) =>
+  new RegExp(`(^|[^A-Za-z0-9_])${escapeRegExp(value)}(?![A-Za-z0-9_])`).test(
+    corpus,
+  );
 const unused = keys.filter(
   (key) =>
-    !corpus.includes(key) &&
+    !hasExactToken(key) &&
     !DYNAMIC_PREFIXES.some((prefix) => key.startsWith(prefix)),
 );
 
