@@ -68,7 +68,7 @@ def apply_one(s, media_id, alt, max_retries=MAX_RETRIES):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--in', dest='in_path', default='image-alt-fix-2026-06-29.csv')
-    ap.add_argument('--apply', action='store_true', default=True)
+    ap.add_argument('--apply', action='store_true')
     ap.add_argument('--dry-run', action='store_true')
     ap.add_argument('--checkpoint', default=None,
                     help='Path to checkpoint JSON (auto-saves progress)')
@@ -97,7 +97,7 @@ def main():
 
     print(f'{len(rows)} alt text updates planned from {in_path}')
 
-    if args.dry_run:
+    if not args.apply:
         print('DRY RUN. Pass --apply to apply.')
         return
 

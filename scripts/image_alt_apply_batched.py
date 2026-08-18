@@ -74,7 +74,7 @@ def apply_batch(s, items, max_retries=MAX_RETRIES):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--in', dest='in_path', default='image-alt-fix-2026-06-29.csv')
-    ap.add_argument('--apply', action='store_true', default=True)
+    ap.add_argument('--apply', action='store_true')
     ap.add_argument('--dry-run', action='store_true')
     ap.add_argument('--batch-size', type=int, default=BATCH_SIZE)
     ap.add_argument('--checkpoint', default='image-alt-progress.json')
@@ -97,7 +97,7 @@ def main():
 
     print(f'{len(rows)} rows from {in_path}')
 
-    if args.dry_run:
+    if not args.apply:
         print('DRY RUN. Pass --apply.')
         return
 

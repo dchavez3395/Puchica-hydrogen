@@ -11,11 +11,11 @@
 //
 //   1. node scripts/reset-inventory.mjs --track-only --dry-run
 //      Preview which inventoryItems need `tracked: true` flipped on.
-//   2. node scripts/reset-inventory.mjs --track-only
+//   2. node scripts/reset-inventory.mjs --track-only --apply --confirm-inventory-reset
 //      Enable tracking on every untracked inventoryItem.
 //   3. node scripts/reset-inventory.mjs --dry-run
 //      Preview which variants will have their qty set.
-//   4. node scripts/reset-inventory.mjs
+//   4. node scripts/reset-inventory.mjs --apply --confirm-inventory-reset
 //      Set every variant's qty to the target (default 1).
 //
 // Why two steps: inventorySetQuantities will not change a value on
@@ -41,10 +41,12 @@
 // API: targets Admin API 2026-04 to match the rest of the project.
 //
 // USAGE:
-//   node scripts/reset-inventory.mjs                # default qty 1
-//   node scripts/reset-inventory.mjs --qty 25       # custom qty
-//   node scripts/reset-inventory.mjs --dry-run      # preview only
-//   node scripts/reset-inventory.mjs --track-only   # enable tracking, skip qty reset
+//   node scripts/reset-inventory.mjs                # preview only
+//   node scripts/reset-inventory.mjs --qty 25       # preview custom qty
+//   node scripts/reset-inventory.mjs --apply --confirm-inventory-reset
+//                                                   # live write, default qty 1
+//   node scripts/reset-inventory.mjs --track-only --apply --confirm-inventory-reset
+//                                                   # live tracking write
 //   node scripts/reset-inventory.mjs --check        # print shop info and exit
 //   node scripts/reset-inventory.mjs --concurrency N  # default 12
 //   node scripts/reset-inventory.mjs --batch-size N   # default 50
@@ -67,7 +69,14 @@ function argValue(name) {
 const STORE =
   argValue('store') ?? process.env.PUBLIC_STORE_DOMAIN ?? 'ug91ve-sz.myshopify.com';
 
-const dryRun = args.includes('--dry-run');
+const applyRequested = args.includes('--apply');
+const applyConfirmed = args.includes('--confirm-inventory-reset');
+if (applyRequested && !applyConfirmed) {
+  throw new Error(
+    'Inventory writes require --apply --confirm-inventory-reset.',
+  );
+}
+const dryRun = !applyRequested || args.includes('--dry-run');
 const checkOnly = args.includes('--check');
 const trackOnly = args.includes('--track-only');
 const CONCURRENCY = Math.max(1, Number(argValue('concurrency') ?? 12));

@@ -20,8 +20,8 @@
     "organic-release-check": "node scripts/manage-organic-release.mjs",
     "paid-launch-check": "node scripts/check-launch-readiness.mjs",
     "codegen": "shopify hydrogen codegen && react-router typegen",
-    "reset-inventory": "node --env-file=.env scripts/reset-inventory.mjs",
-    "update-images": "node --env-file=.env scripts/batch-update-images.mjs"
+    "reset-inventory": "node --env-file=.env scripts/reset-inventory.mjs --dry-run",
+    "update-images": "node --env-file=.env scripts/batch-update-images.mjs --dry-run"
   },
   "prettier": "@shopify/prettier-config",
   "dependencies": {

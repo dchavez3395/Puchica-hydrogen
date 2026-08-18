@@ -39,10 +39,12 @@
 //   node scripts/batch-update-images.mjs --input images.json --dry-run
 //
 //   # Attach + feature one product for a sanity check
-//   node scripts/batch-update-images.mjs --input images.json --limit 1
+//   node scripts/batch-update-images.mjs --input images.json --limit 1 \
+//     --apply --confirm-image-write
 //
 //   # Live run with the default batch size (10)
-//   node scripts/batch-update-images.mjs --input images.json
+//   node scripts/batch-update-images.mjs --input images.json \
+//     --apply --confirm-image-write
 //
 //   # Verify the CLI token + store wiring (no mutations, no input needed)
 //   node scripts/batch-update-images.mjs --check
@@ -113,7 +115,12 @@ const STORE =
 const CHECKPOINT_PATH =
   argValue('checkpoint') ?? '/home/claude/work/images-checkpoint.json';
 
-const dryRun = args.includes('--dry-run');
+const applyRequested = args.includes('--apply');
+const applyConfirmed = args.includes('--confirm-image-write');
+if (applyRequested && !applyConfirmed) {
+  throw new Error('Image writes require --apply --confirm-image-write.');
+}
+const dryRun = !applyRequested || args.includes('--dry-run');
 const verifyOnly = args.includes('--verify-only');
 const checkOnly = args.includes('--check');
 const limit = argValue('limit') ? Number(argValue('limit')) : null;

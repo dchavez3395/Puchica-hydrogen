@@ -14,13 +14,23 @@
  *
  * RUN:
  *   cd puchica-storefront
- *   SHOPIFY_ADMIN_TOKEN=shpat_xxxxx node scripts/align-hydrogen-channel.mjs
+ *   Preview (default):
+ *   node scripts/align-hydrogen-channel.mjs
  *
- *   Add DRY_RUN=1 to preview the count without changing anything:
- *   SHOPIFY_ADMIN_TOKEN=shpat_xxxxx DRY_RUN=1 node scripts/align-hydrogen-channel.mjs
+ *   Apply only after reviewing the preview:
+ *   node scripts/align-hydrogen-channel.mjs --apply --confirm-channel-alignment
  */
 
 import {getAdminToken} from './shopify-oauth.mjs';
+
+const args = new Set(process.argv.slice(2));
+const APPLY = args.has('--apply');
+const CONFIRMED = args.has('--confirm-channel-alignment');
+if (APPLY && !CONFIRMED) {
+  throw new Error(
+    'Channel writes require --apply --confirm-channel-alignment.',
+  );
+}
 
 const SHOP = process.env.SHOPIFY_SHOP || process.env.PUBLIC_STORE_DOMAIN || 'ug91ve-sz.myshopify.com';
 const TOKEN = process.env.SHOPIFY_CLIENT_ID && process.env.SHOPIFY_CLIENT_SECRET
@@ -28,7 +38,7 @@ const TOKEN = process.env.SHOPIFY_CLIENT_ID && process.env.SHOPIFY_CLIENT_SECRET
   : process.env.SHOPIFY_ADMIN_TOKEN;
 const HYDROGEN_PUBLICATION_ID = 'gid://shopify/Publication/207659958522'; // "Puchica Storefront"
 const API = `https://${SHOP}/admin/api/2025-04/graphql.json`;
-const DRY_RUN = process.env.DRY_RUN === '1';
+const DRY_RUN = !APPLY || process.env.DRY_RUN === '1';
 const BATCH = 40; // products unpublished per request (keeps under cost limit)
 
 if (!TOKEN) {

@@ -210,7 +210,7 @@ PRIORITY_TERMS = [
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('--apply', action='store_true', default=True)
+    ap.add_argument('--apply', action='store_true')
     ap.add_argument('--dry-run', action='store_true')
     ap.add_argument('--batch-size', type=int, default=BATCH_SIZE)
     ap.add_argument('--checkpoint', default='image-alt-overwrite-progress.json')
@@ -264,7 +264,7 @@ def main():
         diffs = diffs[:args.limit]
         print(f'  Limited to {len(diffs)}')
 
-    if args.dry_run:
+    if not args.apply:
         print('\nDRY RUN. First 10 diffs:')
         for d in diffs[:10]:
             print(f"  [{d['position']}] {d['handle']:50s}")

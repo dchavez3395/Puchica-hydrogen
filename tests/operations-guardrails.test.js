@@ -89,3 +89,29 @@ test('retired broad-catalog homepage sections stay removed', () => {
     : [];
   assert.deepEqual(files, []);
 });
+
+test('legacy bulk Shopify tools fail closed unless writes are explicit', () => {
+  const packageJson = JSON.parse(readFileSync('package.json', 'utf8'));
+  assert.match(packageJson.scripts['reset-inventory'], /--dry-run/);
+  assert.match(packageJson.scripts['update-images'], /--dry-run/);
+
+  const inventory = readFileSync('scripts/reset-inventory.mjs', 'utf8');
+  const images = readFileSync('scripts/batch-update-images.mjs', 'utf8');
+  const channel = readFileSync('scripts/align-hydrogen-channel.mjs', 'utf8');
+  assert.match(inventory, /--confirm-inventory-reset/);
+  assert.match(inventory, /const dryRun = !applyRequested/);
+  assert.match(images, /--confirm-image-write/);
+  assert.match(images, /const dryRun = !applyRequested/);
+  assert.match(channel, /--confirm-channel-alignment/);
+  assert.match(channel, /const DRY_RUN = !APPLY/);
+
+  for (const path of [
+    'scripts/image_alt_apply.py',
+    'scripts/image_alt_apply_batched.py',
+    'scripts/image_alt_overwrite.py',
+  ]) {
+    const source = readFileSync(path, 'utf8');
+    assert.doesNotMatch(source, /action=['"]store_true['"], default=True/);
+    assert.match(source, /if not args\.apply:/);
+  }
+});
