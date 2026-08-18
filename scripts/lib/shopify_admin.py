@@ -44,10 +44,9 @@ DEFAULT_API_VERSION = '2025-04'
 # OAuth client_id is the public identifier of the Shopify app — not a secret.
 # It appears in OAuth redirect URLs and is safe to commit.
 CLIENT_ID = 'ddf2d9f5043ddfb4a2baedef8d7a34e5'
-# client_secret is private; pull from environment. The .shopify-admin-token
-# file is itself a freshly-issued access_token (24h expiry, not the
-# client_secret) so it's safe to commit if it slips in, but keep it
-# out of git anyway via .gitignore.
+# client_secret is private; pull it from the environment. The
+# .shopify-admin-token file contains a live access token and must never be
+# committed, copied into reports, or printed even though it expires.
 CLIENT_SECRET = os.environ.get('SHOPIFY_ADMIN_CLIENT_SECRET', '').strip()
 TOKEN_FILE = '.shopify-admin-token'
 OAUTH_URL_TMPL = 'https://{domain}/admin/oauth/access_token'

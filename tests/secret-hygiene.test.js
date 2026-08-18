@@ -48,3 +48,23 @@ test('tracked text files contain no recognizable Shopify secrets', () => {
 
   assert.deepEqual(findings, [], `Remove exposed credentials:\n${findings.join('\n')}`);
 });
+
+test('tracked JavaScript never interpolates credential variables into logs', () => {
+  const files = execFileSync('git', ['ls-files', '-z', '*.js', '*.jsx', '*.mjs'], {
+    encoding: 'utf8',
+  })
+    .split('\0')
+    .filter(Boolean)
+    .filter(existsSync);
+  const credentialLog =
+    /console\.(?:log|info|warn|error)\s*\(\s*`[^`]*\$\{[^}]*(?:token|secret|password|api_?key)[^}]*\}[^`]*`/i;
+  const findings = files.filter((file) =>
+    credentialLog.test(readFileSync(file, 'utf8')),
+  );
+
+  assert.deepEqual(
+    findings,
+    [],
+    `Never print credential-bearing variables:\n${findings.join('\n')}`,
+  );
+});

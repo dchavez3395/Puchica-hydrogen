@@ -22,7 +22,6 @@ query getCollection($handle: String!) {
 async function main() {
   console.log(`Querying Storefront API for collection "for-you"...`);
   console.log(`Domain: ${PUBLIC_STORE_DOMAIN}`);
-  console.log(`Token: ${PUBLIC_STOREFRONT_API_TOKEN}`);
 
   const endpoint = `https://${PUBLIC_STORE_DOMAIN}/api/2024-04/graphql.json`;
   const res = await fetch(endpoint, {
