@@ -24,36 +24,6 @@
       }
     },
     {
-      "handle": "travel-cable-organizer-case",
-      "sku": "14:193#Double Layers",
-      "supplierItemId": "1005006797227273",
-      "itemCostUsd": 4.15,
-      "routes": {
-        "CA": {"shippingUsd": 2.16, "eta": "7-13 days", "tracked": true},
-        "US": {"shippingUsd": 1.99, "eta": "7-12 days", "tracked": true}
-      }
-    },
-    {
-      "handle": "white-luggage-id-tag",
-      "sku": "14:29#white;5:361386#1pcs",
-      "supplierItemId": "1005005973213007",
-      "itemCostUsd": 2.21,
-      "routes": {
-        "CA": {"shippingUsd": 1.99, "eta": "9-15 days", "tracked": true},
-        "US": {"shippingUsd": 1.99, "eta": "9-14 days", "tracked": true}
-      }
-    },
-    {
-      "handle": "ten-hole-white-cable-organizer-clips",
-      "sku": "14:771#10 Holes-White",
-      "supplierItemId": "1005004550863005",
-      "itemCostUsd": 2.94,
-      "routes": {
-        "CA": {"shippingUsd": 1.99, "eta": "8-14 days", "tracked": true},
-        "US": {"shippingUsd": 1.99, "eta": "8-14 days", "tracked": true}
-      }
-    },
-    {
       "handle": "white-semi-circular-travel-jewelry-case",
       "sku": "14:29",
       "supplierItemId": "1005009878640464",
@@ -64,52 +34,12 @@
       }
     },
     {
-      "handle": "large-blue-handled-clothes-storage-bag",
-      "sku": "14:350852#Large Blue",
-      "supplierItemId": "1005005504286671",
-      "itemCostUsd": 3.51,
-      "routes": {
-        "CA": {"shippingUsd": 1.99, "eta": "7-12 days", "tracked": true}
-      }
-    },
-    {
       "handle": "black-hanging-travel-toiletry-organizer",
       "sku": "14:771#Black",
       "supplierItemId": "1005006162747124",
       "itemCostUsd": 8.32,
       "routes": {
-        "CA": {"shippingUsd": 1.99, "eta": "8-13 days", "tracked": true},
-        "US": {"shippingUsd": 1.99, "eta": "8-13 days", "tracked": true}
-      }
-    },
-    {
-      "handle": "black-knitted-luggage-wheel-covers-set-of-4",
-      "sku": "14:193",
-      "supplierItemId": "1005009589564663",
-      "itemCostUsd": 2.63,
-      "routes": {
-        "CA": {"shippingUsd": 1.99, "eta": "8-14 days", "tracked": true},
-        "US": {"shippingUsd": 1.99, "eta": "8-14 days", "tracked": true}
-      }
-    },
-    {
-      "handle": "soft-luggage-handle-wrap-black-coffee-brown",
-      "sku": "14:350686#coffee color",
-      "supplierItemId": "1005010135233973",
-      "itemCostUsd": 3.1,
-      "routes": {
-        "CA": {"shippingUsd": 1.99, "eta": "10-15 days", "tracked": true},
-        "US": {"shippingUsd": 1.99, "eta": "10-15 days", "tracked": true}
-      }
-    },
-    {
-      "handle": "soft-luggage-handle-wrap-black-coffee-brown",
-      "sku": "14:193#Black",
-      "supplierItemId": "1005010135233973",
-      "itemCostUsd": 3.09,
-      "routes": {
-        "CA": {"shippingUsd": 1.99, "eta": "10-15 days", "tracked": true},
-        "US": {"shippingUsd": 2.16, "eta": "9-15 days", "tracked": true}
+        "US": {"shippingUsd": 2.16, "eta": "8-13 days", "tracked": true}
       }
     }
   ]
