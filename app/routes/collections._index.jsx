@@ -16,7 +16,7 @@ export const meta = ({data, params}) => {
   return puchicaMeta({
     title: 'Organization collections – Puchica',
     description:
-      'Browse practical organizers for small homes, cables, packing, luggage, and everyday carry.',
+      'Browse practical organizers for packing, travel jewelry, toiletries, and everyday carry.',
     pathname: '/collections',
     langKey: params?.locale,
     noindex: !data?.collections?.nodes?.some(

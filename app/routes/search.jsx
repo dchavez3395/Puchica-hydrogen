@@ -26,7 +26,7 @@ export const meta = ({data, params}) => {
     title: term ? `Search: ${term} – Puchica` : 'Search – Puchica',
     description: term
       ? `Search results for "${term}" across the Puchica catalog.`
-      : 'Search practical organizers for small spaces, cables, packing, luggage, and everyday carry.',
+      : 'Search practical organizers for packing, travel jewelry, toiletries, and everyday carry.',
     noindex: true,
     pathname: '/search',
     langKey: params?.locale,

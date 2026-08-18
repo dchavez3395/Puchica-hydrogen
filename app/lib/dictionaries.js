@@ -554,10 +554,10 @@ export const DICTIONARIES = {
     all_eyebrow: 'The travel edit',
     all_title: 'Travel organization, kept simple',
     all_sub:
-      'A focused edit of practical organizers for packing, luggage, cables, and toiletries.',
+      'A focused edit of practical organizers for packing, jewelry, and toiletries.',
     all_empty_title: 'New finds are on the way',
     all_empty_body:
-      'We’re adding products for home, cables, and travel. Check back soon.',
+      'The travel catalog is loading. If the problem continues, refresh the page.',
     all_count_loading: 'Catalog is loading',
 
     // ── Product page ──────────────────────────────────────────────
@@ -1890,7 +1890,7 @@ export const DICTIONARIES = {
     all_eyebrow: 'La boutique complète',
     all_title: 'Magasiner les trouvailles',
     all_sub:
-      'Une sélection ciblée d’organisateurs pratiques pour les bagages, les câbles et les articles de toilette.',
+      'Une sélection ciblée d’organisateurs pratiques pour les bagages, les bijoux et les articles de toilette.',
     all_empty_title: 'De nouveaux articles arrivent',
     all_empty_body:
       'Le catalogue se charge. Si le problème persiste, actualisez la page.',
@@ -3281,7 +3281,7 @@ export const DICTIONARIES = {
     all_eyebrow: 'La tienda completa',
     all_title: 'Ver hallazgos',
     all_sub:
-      'Una selección enfocada de organizadores prácticos para equipaje, cables y artículos de aseo.',
+      'Una selección enfocada de organizadores prácticos para equipaje, joyas y artículos de aseo.',
     all_empty_title: 'Próximos hallazgos en camino',
     all_empty_body:
       'El catálogo está cargando. Si el problema persiste, intenta recargar.',
@@ -4668,7 +4668,7 @@ export const DICTIONARIES = {
     all_eyebrow: 'A loja completa',
     all_title: 'Ver achados',
     all_sub:
-      'Uma seleção focada de organizadores práticos para bagagem, cabos e itens de higiene.',
+      'Uma seleção focada de organizadores práticos para bagagem, joias e itens de higiene.',
     all_empty_title: 'Novos achados a caminho',
     all_empty_body:
       'O catálogo está carregando. Se o problema persistir, tente atualizar a página.',
