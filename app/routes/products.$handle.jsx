@@ -293,7 +293,11 @@ export default function Product() {
             <div className="pk-product__info">
               <div className="pk-product__form-wrap" id="product-form">
                 {marketUnavailable ? (
-                  <div className="pk-product__market-notice" role="status">
+                  <div
+                    className="pk-product__market-notice"
+                    data-market-unavailable="true"
+                    role="status"
+                  >
                     {t('product_market_unavailable', {
                       markets: availableMarketNames,
                     })}

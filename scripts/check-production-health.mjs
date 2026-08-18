@@ -118,6 +118,7 @@ async function statusCheck(
     expectedStatus,
     expectedFinalUrl,
     requireFailClosed = false,
+    requireMarketNotice = false,
   },
 ) {
   const inspected = await request(baseUrl, pathname, market);
@@ -133,22 +134,28 @@ async function statusCheck(
     );
   }
 
-  const {response, durationMs} = inspected;
+  const {response, body, durationMs} = inspected;
   const failClosed =
     !requireFailClosed ||
     (hasNoStore(response.headers) && hasNoIndex(response.headers));
   const finalUrlMatches =
     !expectedFinalUrl || response.url === expectedFinalUrl;
+  const marketNoticeMatches =
+    !requireMarketNotice || body.includes('data-market-unavailable="true"');
   const actual = requireFailClosed
     ? `${response.status}; cache=${response.headers.get('cache-control') || 'missing'}; robots=${response.headers.get('x-robots-tag') || 'missing'}`
     : expectedFinalUrl
       ? `${response.status}; final=${response.url}`
-      : String(response.status);
+      : requireMarketNotice
+        ? `${response.status}; market-notice=${marketNoticeMatches ? 'present' : 'missing'}`
+        : String(response.status);
   const expected = requireFailClosed
     ? `${expectedStatus}; no-store; noindex`
     : expectedFinalUrl
       ? `${expectedStatus}; final=${expectedFinalUrl}`
-      : String(expectedStatus);
+      : requireMarketNotice
+        ? `${expectedStatus}; market-notice=present`
+        : String(expectedStatus);
 
   return result(
     label,
@@ -156,7 +163,10 @@ async function statusCheck(
     market,
     expected,
     actual,
-    response.status === expectedStatus && failClosed && finalUrlMatches,
+    response.status === expectedStatus &&
+      failClosed &&
+      finalUrlMatches &&
+      marketNoticeMatches,
     durationMs,
   );
 }
@@ -236,17 +246,17 @@ function routeChecks() {
     }
   }
 
-  const usOnlyHolds = EXPECTED_HANDLES_BY_MARKET.CA.filter(
-    (handle) => !EXPECTED_HANDLES_BY_MARKET.US.includes(handle),
-  );
-  for (const handle of usOnlyHolds) {
-    checks.push({
-      label: `US market hold: ${handle}`,
-      pathname: `/products/${handle}`,
-      market: 'US',
-      expectedStatus: 404,
-      requireFailClosed: true,
-    });
+  for (const market of ['CA', 'US']) {
+    for (const handle of DISCOVERABLE_PRODUCT_HANDLES) {
+      if (EXPECTED_HANDLES_BY_MARKET[market].includes(handle)) continue;
+      checks.push({
+        label: `${market} informational product: ${handle}`,
+        pathname: `/products/${handle}`,
+        market,
+        expectedStatus: 200,
+        requireMarketNotice: true,
+      });
+    }
   }
 
   for (const handle of RETIRED_CATALOG_HANDLES) {
@@ -296,14 +306,14 @@ export async function runProductionHealth(baseUrl = DEFAULT_BASE_URL) {
         label: 'Canada product feed exact set',
         pathname: '/feed.xml',
         extractor: extractFeedHandles,
-        expectedHandles: DISCOVERABLE_PRODUCT_HANDLES,
+        expectedHandles: EXPECTED_HANDLES_BY_MARKET.CA,
       }),
     () =>
       documentSetCheck(normalizedBaseUrl, {
         label: 'Product sitemap exact set',
         pathname: '/sitemap/products/1.xml',
         extractor: extractProductHandles,
-        expectedHandles: EXPECTED_HANDLES_BY_MARKET.CA,
+        expectedHandles: DISCOVERABLE_PRODUCT_HANDLES,
       }),
   );
   return runInBatches(tasks);
