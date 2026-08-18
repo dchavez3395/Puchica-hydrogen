@@ -1,8 +1,16 @@
 import {useFetcher, useNavigate} from 'react-router';
 import {useRef, useEffect} from 'react';
 import {useAside} from './Aside';
+import {useLocalizedHref} from '~/lib/useLocalizedHref';
 
 export const SEARCH_ENDPOINT = '/search';
+
+export function getSearchHref(term = '') {
+  const normalizedTerm = String(term).trim();
+  if (!normalizedTerm) return SEARCH_ENDPOINT;
+
+  return `${SEARCH_ENDPOINT}?${new URLSearchParams({q: normalizedTerm})}`;
+}
 
 /**
  *  Search form component that sends search requests to the `/search` route.
@@ -15,12 +23,13 @@ export function SearchFormPredictive({children}) {
   const fetcher = useFetcher({key: 'search'});
   const inputRef = useRef(null);
   const navigate = useNavigate();
+  const localize = useLocalizedHref();
   const aside = useAside();
 
   /** Navigate to the search page with the current input value */
   function goToSearch() {
     const term = inputRef?.current?.value;
-    void navigate(SEARCH_ENDPOINT + (term ? `?q=${term}` : ''));
+    void navigate(localize(getSearchHref(term)));
     aside.close();
   }
 
@@ -28,7 +37,7 @@ export function SearchFormPredictive({children}) {
   function fetchResults(event) {
     void fetcher.submit(
       {q: event.target.value || '', limit: 5, predictive: true},
-      {method: 'GET', action: SEARCH_ENDPOINT},
+      {method: 'GET', action: localize(SEARCH_ENDPOINT)},
     );
   }
 

@@ -39,6 +39,28 @@ test('deployment uses current Node 24 actions with least-privilege access', () =
   assert.doesNotMatch(workflow, /actions\/(?:checkout|setup-node)@v4/);
 });
 
+test('React Router lazy manifest stays disabled while Hydrogen pins 7.16', () => {
+  const config = readFileSync('react-router.config.js', 'utf8');
+  const monitor = readFileSync('scripts/check-production-health.mjs', 'utf8');
+  assert.match(config, /routeDiscovery:\s*\{mode:\s*['"]initial['"]\}/);
+  assert.match(monitor, /Lazy route manifest disabled/);
+  assert.match(monitor, /\/__manifest/);
+});
+
+test('customer search navigation encodes input and preserves the locale', () => {
+  const searchForm = readFileSync(
+    'app/components/SearchFormPredictive.jsx',
+    'utf8',
+  );
+  const layout = readFileSync('app/components/PageLayout.jsx', 'utf8');
+
+  assert.match(searchForm, /new URLSearchParams\(\{q: normalizedTerm\}\)/);
+  assert.match(searchForm, /navigate\(localize\(getSearchHref\(term\)\)\)/);
+  assert.match(searchForm, /action: localize\(SEARCH_ENDPOINT\)/);
+  assert.doesNotMatch(searchForm, /`\?q=\$\{term\}`/);
+  assert.match(layout, /to=\{getSearchHref\(term\.current\)\}/);
+});
+
 test('canonical operating scope matches the three-offer automated release', () => {
   const scope = readFileSync('docs/CURRENT-SCOPE.md', 'utf8');
   const readme = readFileSync('README.md', 'utf8');

@@ -214,6 +214,11 @@ function routeChecks() {
     {label: 'Robots policy', pathname: '/robots.txt', expectedStatus: 200},
     {label: 'Sitemap index', pathname: '/sitemap.xml', expectedStatus: 200},
     {
+      label: 'Lazy route manifest disabled',
+      pathname: '/__manifest?p=%2Fproducts%2Fwhite-semi-circular-travel-jewelry-case',
+      expectedStatus: 404,
+    },
+    {
       label: 'French localized PDP',
       pathname: '/fr/products/white-semi-circular-travel-jewelry-case',
       expectedStatus: 200,

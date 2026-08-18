@@ -9,7 +9,7 @@ import {IconSearch} from '~/components/Icons';
 import {useT} from '~/lib/t';
 import {LocaleSwitcher} from '~/components/LocaleSwitcher';
 import {
-  SEARCH_ENDPOINT,
+  getSearchHref,
   SearchFormPredictive,
 } from '~/components/SearchFormPredictive';
 import {SearchResultsPredictive} from '~/components/SearchResultsPredictive';
@@ -246,7 +246,7 @@ function SearchAside() {
                   {term.current && total ? (
                     <Link
                       onClick={closeSearch}
-                      to={`${SEARCH_ENDPOINT}?q=${term.current}`}
+                      to={getSearchHref(term.current)}
                       className="pk-search__more"
                     >
                       {t('search_view_all').replace('{term}', term.current)}
