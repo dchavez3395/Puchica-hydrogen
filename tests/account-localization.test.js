@@ -38,3 +38,11 @@ test('account mutations keep provider errors out of customer-facing UI', () => {
   assert.match(addresses, /<small>\{t\(error\)\}<\/small>/);
   assert.doesNotMatch(addresses, /\{error: \{\[addressId\]: error\.message\}\}/);
 });
+
+test('each account address form generates unique label and input ids', () => {
+  const addresses = readFileSync('app/routes/account.addresses.jsx', 'utf8');
+  assert.match(addresses, /const idPrefix = useId\(\)/);
+  assert.match(addresses, /const fieldId = \(name\) => `\$\{idPrefix\}-\$\{name\}`/);
+  assert.doesNotMatch(addresses, /htmlFor="(?:firstName|lastName|address1|city|zip)"/);
+  assert.doesNotMatch(addresses, /id="(?:firstName|lastName|address1|city|zip)"/);
+});

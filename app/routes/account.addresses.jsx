@@ -5,6 +5,7 @@ import {
   useNavigation,
   useOutletContext,
 } from 'react-router';
+import {useId} from 'react';
 import {
   UPDATE_ADDRESS_MUTATION,
   DELETE_ADDRESS_MUTATION,
@@ -374,6 +375,8 @@ function ExistingAddresses({addresses, defaultAddress}) {
  */
 export function AddressForm({addressId, address, defaultAddress, children}) {
   const t = useT();
+  const idPrefix = useId();
+  const fieldId = (name) => `${idPrefix}-${name}`;
   const {state, formMethod} = useNavigation();
   /** @type {ActionReturnData} */
   const action = useActionData();
@@ -383,110 +386,110 @@ export function AddressForm({addressId, address, defaultAddress, children}) {
     <Form id={addressId}>
       <fieldset>
         <input type="hidden" name="addressId" defaultValue={addressId} />
-        <label htmlFor="firstName">{t('account_address_first')}*</label>
+        <label htmlFor={fieldId('firstName')}>{t('account_address_first')}*</label>
         <input
           aria-label={t('account_address_first')}
           autoComplete="given-name"
           defaultValue={address?.firstName ?? ''}
-          id="firstName"
+          id={fieldId('firstName')}
           name="firstName"
           placeholder={t('account_address_first')}
           required
           type="text"
         />
-        <label htmlFor="lastName">{t('account_address_last')}*</label>
+        <label htmlFor={fieldId('lastName')}>{t('account_address_last')}*</label>
         <input
           aria-label={t('account_address_last')}
           autoComplete="family-name"
           defaultValue={address?.lastName ?? ''}
-          id="lastName"
+          id={fieldId('lastName')}
           name="lastName"
           placeholder={t('account_address_last')}
           required
           type="text"
         />
-        <label htmlFor="company">{t('account_address_company')}</label>
+        <label htmlFor={fieldId('company')}>{t('account_address_company')}</label>
         <input
           aria-label={t('account_address_company')}
           autoComplete="organization"
           defaultValue={address?.company ?? ''}
-          id="company"
+          id={fieldId('company')}
           name="company"
           placeholder={t('account_address_company')}
           type="text"
         />
-        <label htmlFor="address1">{t('account_address_line1')}*</label>
+        <label htmlFor={fieldId('address1')}>{t('account_address_line1')}*</label>
         <input
           aria-label={t('account_address_line1')}
           autoComplete="address-line1"
           defaultValue={address?.address1 ?? ''}
-          id="address1"
+          id={fieldId('address1')}
           name="address1"
           placeholder={t('account_address_line1')}
           required
           type="text"
         />
-        <label htmlFor="address2">{t('account_address_line2')}</label>
+        <label htmlFor={fieldId('address2')}>{t('account_address_line2')}</label>
         <input
           aria-label={t('account_address_line2')}
           autoComplete="address-line2"
           defaultValue={address?.address2 ?? ''}
-          id="address2"
+          id={fieldId('address2')}
           name="address2"
           placeholder={t('account_address_line2')}
           type="text"
         />
-        <label htmlFor="city">{t('account_address_city')}*</label>
+        <label htmlFor={fieldId('city')}>{t('account_address_city')}*</label>
         <input
           aria-label={t('account_address_city')}
           autoComplete="address-level2"
           defaultValue={address?.city ?? ''}
-          id="city"
+          id={fieldId('city')}
           name="city"
           placeholder={t('account_address_city')}
           required
           type="text"
         />
-        <label htmlFor="zoneCode">{t('account_address_state')}*</label>
+        <label htmlFor={fieldId('zoneCode')}>{t('account_address_state')}*</label>
         <input
           aria-label={t('account_address_state')}
           autoComplete="address-level1"
           defaultValue={address?.zoneCode ?? ''}
-          id="zoneCode"
+          id={fieldId('zoneCode')}
           name="zoneCode"
           placeholder={t('account_address_state')}
           required
           type="text"
         />
-        <label htmlFor="zip">{t('account_address_zip')}*</label>
+        <label htmlFor={fieldId('zip')}>{t('account_address_zip')}*</label>
         <input
           aria-label={t('account_address_zip')}
           autoComplete="postal-code"
           defaultValue={address?.zip ?? ''}
-          id="zip"
+          id={fieldId('zip')}
           name="zip"
           placeholder={t('account_address_zip')}
           required
           type="text"
         />
-        <label htmlFor="territoryCode">{t('account_address_country')}*</label>
+        <label htmlFor={fieldId('territoryCode')}>{t('account_address_country')}*</label>
         <input
           aria-label={t('account_address_country')}
           autoComplete="country"
           defaultValue={address?.territoryCode ?? ''}
-          id="territoryCode"
+          id={fieldId('territoryCode')}
           name="territoryCode"
           placeholder={t('account_address_country')}
           required
           type="text"
           maxLength={2}
         />
-        <label htmlFor="phoneNumber">{t('account_address_phone')}</label>
+        <label htmlFor={fieldId('phoneNumber')}>{t('account_address_phone')}</label>
         <input
           aria-label={t('account_address_phone_aria')}
           autoComplete="tel"
           defaultValue={address?.phoneNumber ?? ''}
-          id="phoneNumber"
+          id={fieldId('phoneNumber')}
           name="phoneNumber"
           placeholder={t('account_address_phone_ph')}
           pattern="^\+?[1-9]\d{3,14}$"
@@ -495,11 +498,13 @@ export function AddressForm({addressId, address, defaultAddress, children}) {
         <div>
           <input
             defaultChecked={isDefaultAddress}
-            id="defaultAddress"
+            id={fieldId('defaultAddress')}
             name="defaultAddress"
             type="checkbox"
           />
-          <label htmlFor="defaultAddress">{t('account_address_default_label')}</label>
+          <label htmlFor={fieldId('defaultAddress')}>
+            {t('account_address_default_label')}
+          </label>
         </div>
         {error ? (
           <p>
