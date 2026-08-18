@@ -63,7 +63,7 @@ export function SmallSpaceLanding(props) {
             <Image
               className="pk-campaign-lifestyle"
               data={heroImage}
-              alt={heroImage.altText || heroDisplayTitle}
+              alt={heroDisplayTitle}
               sizes="(min-width: 761px) 56vw, 100vw"
               loading="eager"
               {...{fetchpriority: 'high'}}
@@ -231,7 +231,7 @@ function OrganizationProductSection({
                 {image ? (
                   <Image
                     data={image}
-                    alt={image.altText || displayTitle}
+                    alt={displayTitle}
                     aspectRatio="4/3"
                     sizes="(min-width: 900px) 33vw, (min-width: 560px) 50vw, 100vw"
                     loading={index === 0 ? 'eager' : 'lazy'}

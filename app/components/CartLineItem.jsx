@@ -6,6 +6,7 @@ import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {ProductPrice} from './ProductPrice';
 import {useAside} from './Aside';
 import {useT} from '~/lib/t';
+import {presentProductTitle} from '~/lib/product-presentation';
 
 /**
  * A single line item in the cart. It displays the product image, title, price.
@@ -22,6 +23,12 @@ export function CartLineItem({layout, line, childrenMap}) {
   const t = useT();
   const {id, merchandise, quantity} = line;
   const {product, title, image, selectedOptions} = merchandise;
+  const displayTitle = presentProductTitle(
+    product.title,
+    merchandise,
+    product.handle,
+    t,
+  );
   const lineItemUrl = useVariantUrl(product.handle, selectedOptions);
   const {close} = useAside();
   const lineItemChildren = childrenMap[id];
@@ -48,7 +55,7 @@ export function CartLineItem({layout, line, childrenMap}) {
       <div className="cart-line-inner">
         {image && (
           <Image
-            alt={title}
+            alt={image.altText || displayTitle || title}
             aspectRatio="1/1"
             data={image}
             height={100}
@@ -68,7 +75,7 @@ export function CartLineItem({layout, line, childrenMap}) {
             }}
           >
             <p>
-              <strong>{product.title}</strong>
+              <strong>{displayTitle}</strong>
             </p>
           </Link>
           <ProductPrice price={line?.cost?.totalAmount} />
@@ -93,7 +100,7 @@ export function CartLineItem({layout, line, childrenMap}) {
           <CartLineQuantity
             line={line}
             isUnrecoverable={isUnrecoverable}
-            productTitle={product.title}
+            productTitle={displayTitle}
           />
         </div>
       </div>
@@ -101,7 +108,7 @@ export function CartLineItem({layout, line, childrenMap}) {
       {lineItemChildren ? (
         <div>
           <p id={childrenLabelId} className="sr-only">
-            {t('cart_line_items_aria', {title: product.title})}
+            {t('cart_line_items_aria', {title: displayTitle})}
           </p>
           <ul aria-labelledby={childrenLabelId} className="cart-line-children">
             {lineItemChildren.map((childLine) => (

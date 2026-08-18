@@ -10,6 +10,7 @@ import {
 import {getRecentlyViewed} from '~/lib/recentlyViewed';
 import {useAside} from './Aside';
 import {useT} from '~/lib/t';
+import {presentProductTitle} from '~/lib/product-presentation';
 
 /**
  * Component that renders predictive search results
@@ -188,21 +189,28 @@ function SearchResultsPredictiveProducts({term, products, closeSearch}) {
             term: term.current,
           });
 
-          const price = product?.selectedOrFirstAvailableVariant?.price;
-          const image = product?.selectedOrFirstAvailableVariant?.image;
+          const variant = product?.selectedOrFirstAvailableVariant;
+          const price = variant?.price;
+          const image = variant?.image;
+          const displayTitle = presentProductTitle(
+            product.title,
+            variant,
+            product.handle,
+            t,
+          );
           return (
             <li className="predictive-search-result-item" key={product.id}>
               <Link to={productUrl} onClick={closeSearch}>
                 {image && (
                   <Image
-                    alt={image.altText ?? ''}
+                    alt={displayTitle}
                     src={image.url}
                     width={50}
                     height={50}
                   />
                 )}
                 <div>
-                  <p>{product.title}</p>
+                  <p>{displayTitle}</p>
                   <small>{price && <CurrencyMoney data={price} />}</small>
                 </div>
               </Link>
@@ -299,33 +307,43 @@ function SearchZeroState({closeSearch}) {
         <div className="pk-search__zero-group">
           <p className="pk-search__zero-label">{t('search_recent_label')}</p>
           <ul className="pk-search__recent">
-            {recent.map((p) => (
-              <li key={p.handle}>
-                <Link
-                  to={`/products/${p.handle}`}
-                  onClick={closeSearch}
-                  className="pk-search__recent-item"
-                >
-                  <div className="pk-search__recent-img">
-                    {p.image?.url ? (
-                      <Image
-                        data={p.image}
-                        alt={p.image.altText || p.title}
-                        aspectRatio="1/1"
-                        sizes="96px"
-                        loading="lazy"
-                      />
-                    ) : null}
-                  </div>
-                  <span className="pk-search__recent-title">{p.title}</span>
-                  {p.price ? (
-                    <span className="pk-search__recent-price">
-                      <CurrencyMoney data={p.price} />
+            {recent.map((p) => {
+              const displayTitle = presentProductTitle(
+                p.title,
+                null,
+                p.handle,
+                t,
+              );
+              return (
+                <li key={p.handle}>
+                  <Link
+                    to={`/products/${p.handle}`}
+                    onClick={closeSearch}
+                    className="pk-search__recent-item"
+                  >
+                    <div className="pk-search__recent-img">
+                      {p.image?.url ? (
+                        <Image
+                          data={p.image}
+                          alt={displayTitle}
+                          aspectRatio="1/1"
+                          sizes="96px"
+                          loading="lazy"
+                        />
+                      ) : null}
+                    </div>
+                    <span className="pk-search__recent-title">
+                      {displayTitle}
                     </span>
-                  ) : null}
-                </Link>
-              </li>
-            ))}
+                    {p.price ? (
+                      <span className="pk-search__recent-price">
+                        <CurrencyMoney data={p.price} />
+                      </span>
+                    ) : null}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </div>
       ) : (

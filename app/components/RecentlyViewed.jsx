@@ -5,6 +5,7 @@ import {Image} from '@shopify/hydrogen';
 import {CurrencyMoney} from '~/components/CurrencyMoney';
 import {getRecentlyViewed} from '~/lib/recentlyViewed';
 import {useT} from '~/lib/t';
+import {presentProductTitle} from '~/lib/product-presentation';
 
 /**
  * Recently Viewed rail — shows products the shopper has previously
@@ -40,38 +41,51 @@ export function RecentlyViewed({currentHandle}) {
           </h2>
         </div>
         <ul className="pk-rail__track pk-recently-viewed__track">
-          {recent.map((item) => (
-            <li key={item.handle} className="pk-rail__item pk-recently-viewed__item">
-              <Link
-                to={`/products/${item.handle}`}
-                prefetch="intent"
-                className="pk-recently-viewed__link"
+          {recent.map((item) => {
+            const displayTitle = presentProductTitle(
+              item.title,
+              null,
+              item.handle,
+              t,
+            );
+            return (
+              <li
+                key={item.handle}
+                className="pk-rail__item pk-recently-viewed__item"
               >
-                {item.image && (
-                  <div className="pk-recently-viewed__media">
-                    <Image
-                      data={{
-                        url: item.image.url,
-                        alt: item.image.altText || item.title,
-                        width: item.image.width || 200,
-                        height: item.image.height || 200,
-                      }}
-                      alt={item.image.altText || item.title}
-                      aspectRatio="1/1"
-                      sizes="200px"
-                      loading="lazy"
-                    />
-                  </div>
-                )}
-                <span className="pk-recently-viewed__title">{item.title}</span>
-                {item.price && (
-                  <span className="pk-recently-viewed__price">
-                    <CurrencyMoney data={item.price} />
+                <Link
+                  to={`/products/${item.handle}`}
+                  prefetch="intent"
+                  className="pk-recently-viewed__link"
+                >
+                  {item.image && (
+                    <div className="pk-recently-viewed__media">
+                      <Image
+                        data={{
+                          url: item.image.url,
+                          alt: displayTitle,
+                          width: item.image.width || 200,
+                          height: item.image.height || 200,
+                        }}
+                        alt={displayTitle}
+                        aspectRatio="1/1"
+                        sizes="200px"
+                        loading="lazy"
+                      />
+                    </div>
+                  )}
+                  <span className="pk-recently-viewed__title">
+                    {displayTitle}
                   </span>
-                )}
-              </Link>
-            </li>
-          ))}
+                  {item.price && (
+                    <span className="pk-recently-viewed__price">
+                      <CurrencyMoney data={item.price} />
+                    </span>
+                  )}
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </section>

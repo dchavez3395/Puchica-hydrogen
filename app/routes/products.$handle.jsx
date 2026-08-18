@@ -437,7 +437,12 @@ export default function Product() {
       ) : null}
 
       {marketUnavailable ? null : (
-        <MobileCart product={product} selectedVariant={selectedVariant} t={t} />
+        <MobileCart
+          product={product}
+          productTitle={displayTitle}
+          selectedVariant={selectedVariant}
+          t={t}
+        />
       )}
 
       <Analytics.ProductView
@@ -507,7 +512,7 @@ function Shipping({t}) {
 }
 
 /* ── Sticky mobile ATC ── */
-function MobileCart({product, selectedVariant, t}) {
+function MobileCart({product, productTitle, selectedVariant, t}) {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -533,7 +538,7 @@ function MobileCart({product, selectedVariant, t}) {
   return (
     <div className="pk-mob-cart" data-visible="true">
       <div className="pk-mob-cart__left">
-        <p className="pk-mob-cart__title">{product.title}</p>
+        <p className="pk-mob-cart__title">{productTitle}</p>
         <span className="pk-mob-cart__price">
           <ProductPrice
             price={selectedVariant.price}

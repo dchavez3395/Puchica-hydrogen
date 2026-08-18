@@ -64,3 +64,17 @@ test('returning-cart reminder stays localized', () => {
   assert.match(banner, /LocalizedLink as Link/);
   assert.doesNotMatch(banner, /Welcome back|Complete your order|Dismiss cart reminder/);
 });
+
+test('product names stay localized through purchase-adjacent surfaces', () => {
+  for (const path of [
+    'app/components/CartLineItem.jsx',
+    'app/components/RecentlyViewed.jsx',
+    'app/components/SearchResultsPredictive.jsx',
+  ]) {
+    assert.match(readFileSync(path, 'utf8'), /presentProductTitle/);
+  }
+
+  const productRoute = readFileSync('app/routes/products.$handle.jsx', 'utf8');
+  assert.match(productRoute, /productTitle=\{displayTitle\}/);
+  assert.match(productRoute, /pk-mob-cart__title">\{productTitle\}/);
+});
