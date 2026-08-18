@@ -1,5 +1,7 @@
 import {redirect} from 'react-router';
 import {STOREFRONT_CONTAINMENT_ACTIVE} from '~/lib/launch-catalog';
+import {safeInternalRedirect} from '~/lib/cart-safety';
+import {localizePath} from '~/lib/i18n';
 
 /**
  * Automatically applies a discount found on the url
@@ -27,18 +29,22 @@ export async function loader({request, context, params}) {
 
   const url = new URL(request.url);
   const searchParams = new URLSearchParams(url.search);
-  let redirectParam =
-    searchParams.get('redirect') || searchParams.get('return_to') || '/';
-
-  if (redirectParam.includes('//')) {
-    // Avoid redirecting to external URLs to prevent phishing attacks
-    redirectParam = '/';
-  }
+  const requestedRedirect =
+    searchParams.get('redirect') || searchParams.get('return_to');
+  const redirectParam = safeInternalRedirect(requestedRedirect) || '/';
 
   searchParams.delete('redirect');
   searchParams.delete('return_to');
 
-  const redirectUrl = `${redirectParam}?${searchParams}`;
+  const redirectTarget = new URL(redirectParam, 'https://puchica.invalid');
+  redirectTarget.pathname = localizePath(
+    redirectTarget.pathname,
+    params?.locale || 'en',
+  );
+  for (const [key, value] of searchParams) {
+    redirectTarget.searchParams.append(key, value);
+  }
+  const redirectUrl = `${redirectTarget.pathname}${redirectTarget.search}${redirectTarget.hash}`;
 
   if (!code) {
     return redirect(redirectUrl);

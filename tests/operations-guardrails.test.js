@@ -61,6 +61,15 @@ test('customer search navigation encodes input and preserves the locale', () => 
   assert.match(layout, /to=\{getSearchHref\(term\.current\)\}/);
 });
 
+test('discount redirects use the shared same-site guard and preserve locale', () => {
+  const route = readFileSync('app/routes/discount.$code.jsx', 'utf8');
+
+  assert.match(route, /safeInternalRedirect\(requestedRedirect\) \|\| ['"]\/['"]/);
+  assert.match(route, /localizePath\(/);
+  assert.match(route, /new URL\(redirectParam, ['"]https:\/\/puchica\.invalid['"]\)/);
+  assert.doesNotMatch(route, /redirectParam\.includes\(['"]\/\/['"]\)/);
+});
+
 test('canonical operating scope matches the three-offer automated release', () => {
   const scope = readFileSync('docs/CURRENT-SCOPE.md', 'utf8');
   const readme = readFileSync('README.md', 'utf8');
