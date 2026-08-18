@@ -8,6 +8,7 @@ import {
 } from 'react-router';
 import {useT} from '~/lib/t';
 import {utilityMetaCopy} from '~/lib/utility-meta';
+import {error as logError} from '~/lib/logger';
 
 /**
  * @type {Route.MetaFunction}
@@ -73,8 +74,9 @@ export async function action({request, context}) {
       customer: data?.customerUpdate?.customer,
     };
   } catch (error) {
+    logError('customer profile update failed', error);
     return data(
-      {error: error.message, customer: null},
+      {error: 'account_profile_update_error', customer: null},
       {
         status: 400,
       },
@@ -123,7 +125,7 @@ export default function AccountProfile() {
         {action?.error ? (
           <p>
             <mark>
-              <small>{action.error}</small>
+              <small>{t(action.error)}</small>
             </mark>
           </p>
         ) : (

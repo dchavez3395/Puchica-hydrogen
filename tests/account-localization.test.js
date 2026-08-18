@@ -18,3 +18,23 @@ test('customer account navigation and redirects preserve the active locale', () 
     assert.doesNotMatch(source, /redirect\(['"]\/(?:account|)['"]/);
   }
 });
+
+test('account mutations keep provider errors out of customer-facing UI', () => {
+  const profile = readFileSync('app/routes/account.profile.jsx', 'utf8');
+  const addresses = readFileSync('app/routes/account.addresses.jsx', 'utf8');
+
+  assert.match(profile, /logError\('customer profile update failed'/);
+  assert.match(profile, /error: 'account_profile_update_error'/);
+  assert.match(profile, /t\(action\.error\)/);
+  assert.doesNotMatch(profile, /\{error: error\.message, customer: null\}/);
+
+  for (const key of [
+    'account_address_create_error',
+    'account_address_update_error',
+    'account_address_delete_error',
+  ]) {
+    assert.match(addresses, new RegExp(key));
+  }
+  assert.match(addresses, /<small>\{t\(error\)\}<\/small>/);
+  assert.doesNotMatch(addresses, /\{error: \{\[addressId\]: error\.message\}\}/);
+});

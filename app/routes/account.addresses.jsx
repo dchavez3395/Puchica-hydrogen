@@ -12,6 +12,7 @@ import {
 } from '~/graphql/customer-account/CustomerAddressMutations';
 import {useT} from '~/lib/t';
 import {utilityMetaCopy} from '~/lib/utility-meta';
+import {error as logError} from '~/lib/logger';
 
 /**
  * @type {Route.MetaFunction}
@@ -113,16 +114,17 @@ export async function action({request, context}) {
             defaultAddress,
           };
         } catch (error) {
+          logError('customer address create failed', error);
           if (error instanceof Error) {
             return data(
-              {error: {[addressId]: error.message}},
+              {error: {[addressId]: 'account_address_create_error'}},
               {
                 status: 400,
               },
             );
           }
           return data(
-            {error: {[addressId]: error}},
+            {error: {[addressId]: 'account_address_create_error'}},
             {
               status: 400,
             },
@@ -163,16 +165,17 @@ export async function action({request, context}) {
             defaultAddress,
           };
         } catch (error) {
+          logError('customer address update failed', error);
           if (error instanceof Error) {
             return data(
-              {error: {[addressId]: error.message}},
+              {error: {[addressId]: 'account_address_update_error'}},
               {
                 status: 400,
               },
             );
           }
           return data(
-            {error: {[addressId]: error}},
+            {error: {[addressId]: 'account_address_update_error'}},
             {
               status: 400,
             },
@@ -207,16 +210,17 @@ export async function action({request, context}) {
 
           return {error: null, deletedAddress: addressId};
         } catch (error) {
+          logError('customer address delete failed', error);
           if (error instanceof Error) {
             return data(
-              {error: {[addressId]: error.message}},
+              {error: {[addressId]: 'account_address_delete_error'}},
               {
                 status: 400,
               },
             );
           }
           return data(
-            {error: {[addressId]: error}},
+            {error: {[addressId]: 'account_address_delete_error'}},
             {
               status: 400,
             },
@@ -234,6 +238,7 @@ export async function action({request, context}) {
       }
     }
   } catch (error) {
+    logError('customer address action failed', error);
     if (error instanceof Error) {
       return data(
         {error: error.message},
@@ -499,7 +504,7 @@ export function AddressForm({addressId, address, defaultAddress, children}) {
         {error ? (
           <p>
             <mark>
-              <small>{error}</small>
+            <small>{t(error)}</small>
             </mark>
           </p>
         ) : (
