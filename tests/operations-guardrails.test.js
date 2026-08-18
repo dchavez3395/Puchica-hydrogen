@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync, readdirSync} from 'node:fs';
+import {existsSync, readFileSync, readdirSync} from 'node:fs';
 
 import {shouldLog} from '../app/lib/logger.js';
 
@@ -73,8 +73,10 @@ test('canonical operating scope matches the three-offer automated release', () =
 });
 
 test('retired broad-catalog homepage sections stay removed', () => {
-  const files = readdirSync('app/sections', {recursive: true}).filter((entry) =>
-    /\.(?:js|jsx)$/.test(String(entry)),
-  );
+  const files = existsSync('app/sections')
+    ? readdirSync('app/sections', {recursive: true}).filter((entry) =>
+        /\.(?:js|jsx)$/.test(String(entry)),
+      )
+    : [];
   assert.deepEqual(files, []);
 });
