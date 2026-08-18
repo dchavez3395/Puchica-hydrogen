@@ -5528,13 +5528,11 @@ button:focus-visible,
   overflow: hidden;
 }
 .pk-section--hero-split::before {
-  /* Volcanic landscape texture — faded Guatemalan sunrise with volcano
-   * silhouettes. Sits behind content at low opacity. */
+  /* Warm atmospheric gradient behind the retired editorial layout. */
   content: '';
   position: absolute;
   inset: 0;
   background:
-    url('/bg-volcanic-texture.png') center bottom / cover no-repeat,
     linear-gradient(135deg,
       rgba(190, 69, 30, 0.04) 0%,
       rgba(232, 160, 32, 0.03) 40%,
@@ -6334,14 +6332,11 @@ button:focus-visible,
   overflow: hidden;
 }
 .pk-section--brand-story::before {
-  /* Mayan pyramid temple in jungle at golden hour — faded watercolor
-   * style. Layered with volcanic gradient (ember base, jade canopy,
-   * marigold thread). Low opacity so text stays readable. */
+  /* Layered warm gradient. Low opacity keeps text readable. */
   content: '';
   position: absolute;
   inset: 0;
   background:
-    url('/bg-pyramid-temple.png') center / cover no-repeat,
     radial-gradient(ellipse 90% 50% at 50% 100%, rgba(190, 69, 30, 0.20), transparent 65%),
     radial-gradient(ellipse 60% 40% at 85% 15%, rgba(14, 124, 91, 0.15), transparent 55%),
     radial-gradient(ellipse 40% 60% at 0% 50%, rgba(232, 160, 32, 0.06), transparent 50%);
@@ -6821,13 +6816,12 @@ main:has(> .pk-collection--bold) {
   isolation: isolate;
 }
 
-/* Volcanic texture + warm radial gradient overlay */
+/* Warm radial gradient overlay */
 .pk-col-hero--bold::before {
   content: '';
   position: absolute;
   inset: 0;
   background:
-    url('/bg-volcanic-texture.png') center bottom / cover no-repeat,
     radial-gradient(ellipse 50% 60% at 85% 20%, rgba(190, 69, 30, 0.10), transparent 60%),
     radial-gradient(ellipse 40% 50% at 10% 80%, rgba(14, 124, 91, 0.08), transparent 55%),
     radial-gradient(ellipse 30% 40% at 50% 50%, rgba(232, 160, 32, 0.05), transparent 50%);

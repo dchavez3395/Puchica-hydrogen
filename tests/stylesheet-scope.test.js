@@ -51,3 +51,7 @@ test('retired broad-catalog CSS cohorts stay removed', () => {
     );
   }
 });
+
+test('stylesheet does not request missing decorative background assets', () => {
+  assert.doesNotMatch(css, /bg-(?:volcanic-texture|pyramid-temple)\.png/);
+});
