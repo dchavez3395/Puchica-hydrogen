@@ -67,6 +67,7 @@ for (const market of ['CA', 'US']) {
 
 const home = source('app', 'routes', '_index.jsx');
 const landing = source('app', 'components', 'SmallSpaceLanding.jsx');
+const dictionaries = source('app', 'lib', 'dictionaries.js');
 const header = source('app', 'components', 'Header.jsx');
 const collection = source('app', 'routes', 'collections.all.jsx');
 const product = source('app', 'routes', 'products.$handle.jsx');
@@ -78,9 +79,14 @@ requireMatch(
   /SMALL_SPACE_QUERY[\s\S]*filterLaunchProducts/,
 );
 requireMatch(
-  'Homepage is not positioned around the travel edit.',
+  'Homepage does not render the localized launch headline.',
   landing,
-  /Pack with less rummaging/,
+  /t\(['"]launch_home_title['"]\)/,
+);
+requireMatch(
+  'English homepage is not positioned around the travel edit.',
+  dictionaries,
+  /launch_home_title:\s*['"]Pack with less rummaging\./,
 );
 for (const handle of [
   '3-piece-packing-cube-set',
