@@ -114,4 +114,16 @@ test('legacy bulk Shopify tools fail closed unless writes are explicit', () => {
     assert.doesNotMatch(source, /action=['"]store_true['"], default=True/);
     assert.match(source, /if not args\.apply:/);
   }
+
+  for (const [path, confirmation] of [
+    ['scripts/create-collection.mjs', '--confirm-create-collection'],
+    ['scripts/publish-collection.mjs', '--confirm-publish-collection'],
+    ['scripts/tag-products.mjs', '--confirm-bulk-tag'],
+    ['scripts/revert-catalog.mjs', '--confirm-delete-generated-media'],
+    ['scripts/process-image.mjs', '--confirm-image-upload'],
+  ]) {
+    const source = readFileSync(path, 'utf8');
+    assert.match(source, /--apply/);
+    assert.ok(source.includes(confirmation), `${path} lacks ${confirmation}`);
+  }
 });

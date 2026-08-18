@@ -1,5 +1,12 @@
 import { adminGraphQL } from './shopify-oauth.mjs';
 
+const args = new Set(process.argv.slice(2));
+const APPLY = args.has('--apply');
+const CONFIRMED = args.has('--confirm-bulk-tag');
+if (APPLY && !CONFIRMED) {
+  throw new Error('Bulk tagging requires --apply --confirm-bulk-tag.');
+}
+
 const productsQuery = `
 query($after: String) {
   products(first: 250, after: $after) {
@@ -64,6 +71,14 @@ async function main() {
 
   if (productsToTag.length === 0) {
     console.log('All products already tagged correctly.');
+    return;
+  }
+
+  if (!APPLY) {
+    console.log('PREVIEW ONLY — no product tags changed.');
+    for (const product of productsToTag.slice(0, 20)) {
+      console.log(`  WOULD TAG: ${product.title}`);
+    }
     return;
   }
 

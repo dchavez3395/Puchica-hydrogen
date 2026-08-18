@@ -1,5 +1,14 @@
 import { adminGraphQL } from './shopify-oauth.mjs';
 
+const args = new Set(process.argv.slice(2));
+const APPLY = args.has('--apply');
+const CONFIRMED = args.has('--confirm-create-collection');
+if (APPLY && !CONFIRMED) {
+  throw new Error(
+    'Collection creation requires --apply --confirm-create-collection.',
+  );
+}
+
 const mutation = `
 mutation CreateCollection($input: CollectionInput!) {
   collectionCreate(input: $input) {
@@ -28,6 +37,12 @@ mutation PublishCollection($id: ID!, $input: [PublicationInput!]!) {
 `;
 
 async function main() {
+  if (!APPLY) {
+    console.log(
+      'PREVIEW ONLY — would create and optionally publish the legacy "For You" collection. No changes made.',
+    );
+    return;
+  }
   console.log('Creating "For You" collection...');
   const res = await adminGraphQL(mutation, {
     input: {

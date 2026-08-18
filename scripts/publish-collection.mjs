@@ -1,5 +1,14 @@
 import { adminGraphQL } from './shopify-oauth.mjs';
 
+const args = new Set(process.argv.slice(2));
+const APPLY = args.has('--apply');
+const CONFIRMED = args.has('--confirm-publish-collection');
+if (APPLY && !CONFIRMED) {
+  throw new Error(
+    'Collection publication requires --apply --confirm-publish-collection.',
+  );
+}
+
 const query = `
 query {
   collectionByHandle(handle: "for-you") {
@@ -66,6 +75,13 @@ async function main() {
   if (!publicationId) {
     console.error('Error: No publications found.');
     process.exit(1);
+  }
+
+  if (!APPLY) {
+    console.log(
+      'PREVIEW ONLY — would publish this legacy collection to every listed channel. No changes made.',
+    );
+    return;
   }
 
   console.log('Publishing collection to ALL active publication channels...');

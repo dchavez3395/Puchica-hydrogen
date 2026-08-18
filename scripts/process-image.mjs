@@ -65,13 +65,23 @@ mutation($productId: ID!, $moves: [MoveInput!]!) {
 `;
 
 async function main() {
-  const args = process.argv.slice(2);
+  const rawArgs = process.argv.slice(2);
+  const APPLY = rawArgs.includes('--apply');
+  const CONFIRMED = rawArgs.includes('--confirm-image-upload');
+  if (!APPLY || !CONFIRMED) {
+    throw new Error(
+      'Image upload requires --apply --confirm-image-upload. No file was uploaded.',
+    );
+  }
+  const args = rawArgs.filter((arg) => !arg.startsWith('--'));
   const productId = args[0];
   const filePath = args[1];
   const altText = args[2] || '';
 
   if (!productId || !filePath) {
-    console.error('Usage: node scripts/process-image.mjs <productId> <filePath> [altText]');
+    console.error(
+      'Usage: node scripts/process-image.mjs <productId> <filePath> [altText] --apply --confirm-image-upload',
+    );
     process.exit(1);
   }
 

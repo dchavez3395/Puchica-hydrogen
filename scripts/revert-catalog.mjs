@@ -8,6 +8,15 @@ dotenv.config();
 
 import { adminGraphQL } from './shopify-oauth.mjs';
 
+const args = new Set(process.argv.slice(2));
+const APPLY = args.has('--apply');
+const CONFIRMED = args.has('--confirm-delete-generated-media');
+if (APPLY && !CONFIRMED) {
+  throw new Error(
+    'Media deletion requires --apply --confirm-delete-generated-media.',
+  );
+}
+
 const getProductsQuery = `
   query($cursor: String) {
     products(first: 50, after: $cursor) {
@@ -68,6 +77,13 @@ async function revertProduct(product) {
     return false; // No generated images to clean up
   }
 
+  if (!APPLY) {
+    console.log(
+      `PREVIEW: would delete ${generatedMediaIds.length} generated image(s) from "${product.title}".`,
+    );
+    return false;
+  }
+
   console.log(`Reverting "${product.title}": Deleting ${generatedMediaIds.length} generated image(s)...`);
   
   try {
@@ -96,7 +112,11 @@ async function main() {
   let totalReverted = 0;
   let totalChecked = 0;
 
-  console.log('Starting catalog reversion process to restore original stock photos...');
+  console.log(
+    APPLY
+      ? 'Starting confirmed catalog media deletion...'
+      : 'PREVIEW ONLY — scanning generated media; no images will be deleted.',
+  );
 
   while (hasNext) {
     const res = await adminGraphQL(getProductsQuery, { cursor });
@@ -117,7 +137,11 @@ async function main() {
     console.log(`Progress: Checked ${totalChecked} products, reverted ${totalReverted}.`);
   }
 
-  console.log(`\n🎉 Reversion complete! Cleaned up generated images on ${totalReverted} products.`);
+  console.log(
+    APPLY
+      ? `\nReversion complete. Cleaned up generated images on ${totalReverted} products.`
+      : '\nPreview complete. No generated images were deleted.',
+  );
 }
 
 main().catch(err => {
