@@ -204,7 +204,7 @@ function routeChecks() {
     {label: 'Sitemap index', pathname: '/sitemap.xml', expectedStatus: 200},
     {
       label: 'French localized PDP',
-      pathname: '/fr/products/black-hanging-travel-toiletry-organizer',
+      pathname: '/fr/products/white-semi-circular-travel-jewelry-case',
       expectedStatus: 200,
     },
     {
@@ -220,7 +220,7 @@ function routeChecks() {
       pathname: '/tiktok',
       expectedStatus: 200,
       expectedFinalUrl:
-        'https://puchica.ca/products/black-hanging-travel-toiletry-organizer?utm_source=tiktok&utm_medium=organic_social&utm_campaign=travel_edit_organic_202608&utm_content=profile_bio_toiletry_organizer',
+        'https://puchica.ca/products/white-semi-circular-travel-jewelry-case?utm_source=tiktok&utm_medium=organic_social&utm_campaign=travel_edit_organic_202608&utm_content=profile_bio_jewelry_case',
     },
   ];
 

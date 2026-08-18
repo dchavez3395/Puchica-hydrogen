@@ -377,9 +377,10 @@ test('exact supplier variants are market-gated independently of products', () =>
 
 test('fresh DSers route recovery restores only the verified market approvals', () => {
   for (const sku of ['14:29', '14:771#Black']) {
-    assert.equal(isApprovedVariantSku(sku, 'CA'), true, sku);
     assert.equal(isApprovedVariantSku(sku, 'US'), true, sku);
   }
+  assert.equal(isApprovedVariantSku('14:29', 'CA'), true);
+  assert.equal(isApprovedVariantSku('14:771#Black', 'CA'), false);
   assert.equal(
     isApprovedVariantSku(
       '14:1052#S3007 Black;5:200004186#3PCS L M S Set',
@@ -413,8 +414,8 @@ test('approved handles and SKUs derive from one exact-offer cohort', () => {
     ]);
   }
 
-  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.CA.length, 3);
-  assert.equal(APPROVED_PRODUCT_HANDLES_BY_MARKET.CA.length, 3);
+  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.CA.length, 2);
+  assert.equal(APPROVED_PRODUCT_HANDLES_BY_MARKET.CA.length, 2);
   assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.US.length, 2);
   assert.equal(APPROVED_PRODUCT_HANDLES_BY_MARKET.US.length, 2);
 });

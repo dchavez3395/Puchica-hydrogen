@@ -67,7 +67,7 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
   Object.freeze({
     handle: 'black-hanging-travel-toiletry-organizer',
     sku: '14:771#Black',
-    markets: Object.freeze(['CA', 'US']),
+    markets: Object.freeze(['US']),
   }),
 ]);
 

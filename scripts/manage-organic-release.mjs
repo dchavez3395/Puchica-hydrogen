@@ -43,7 +43,7 @@ const RELEASE_DISCOVERY_TAGS = [
 ];
 
 const EXPECTED_PRODUCT_COUNT = 3;
-const EXPECTED_SKU_COUNT_BY_MARKET = Object.freeze({CA: 3, US: 2});
+const EXPECTED_SKU_COUNT_BY_MARKET = Object.freeze({CA: 2, US: 2});
 
 const REQUIRED_PUBLICATION_FIELDS = [
   {field: 'publishedOnlineStore', title: 'Online Store'},
@@ -87,7 +87,7 @@ const cohort = [
     handle: 'black-hanging-travel-toiletry-organizer',
     productType: 'Travel Accessories',
     initialStatus: 'ACTIVE',
-    markets: ['CA', 'US'],
+    markets: ['US'],
     variants: [{sku: '14:771#Black', price: '39.99'}],
     seoDescription:
       'A compact black hanging travel organizer with internal pockets for keeping travel-size toiletries together.',

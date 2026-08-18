@@ -21,7 +21,6 @@ test('production monitor shares the verified market cohorts', () => {
   assert.deepEqual(EXPECTED_HANDLES_BY_MARKET.CA, [
     '3-piece-packing-cube-set',
     'white-semi-circular-travel-jewelry-case',
-    'black-hanging-travel-toiletry-organizer',
   ]);
   assert.deepEqual(EXPECTED_HANDLES_BY_MARKET.US, [
     'white-semi-circular-travel-jewelry-case',

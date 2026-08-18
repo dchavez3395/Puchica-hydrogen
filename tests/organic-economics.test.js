@@ -34,8 +34,7 @@ const completeBaseline = {
       sku: '14:771#Black',
       itemCostUsd: 8.32,
       routes: {
-        CA: {shippingUsd: 1.99, tracked: true},
-        US: {shippingUsd: 1.99, tracked: true},
+        US: {shippingUsd: 2.16, tracked: true},
       },
     },
   ],

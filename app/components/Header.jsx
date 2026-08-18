@@ -66,11 +66,15 @@ export function HeaderMenu({viewport}) {
           },
         ]
       : []),
-    {
-      id: 'toiletry-organizer',
-      title: 'Toiletry organizer',
-      url: '/products/black-hanging-travel-toiletry-organizer',
-    },
+    ...(market === 'US'
+      ? [
+          {
+            id: 'toiletry-organizer',
+            title: 'Toiletry organizer',
+            url: '/products/black-hanging-travel-toiletry-organizer',
+          },
+        ]
+      : []),
     {
       id: 'jewelry-case',
       title: 'Jewelry case',

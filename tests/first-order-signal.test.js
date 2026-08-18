@@ -16,10 +16,10 @@ function order(overrides = {}) {
     cancelledAt: null,
     displayFinancialStatus: 'PAID',
     displayFulfillmentStatus: 'UNFULFILLED',
-    currencyCode: 'CAD',
-    presentmentCurrencyCode: 'CAD',
-    currentTotalPriceSet: money(44.99),
-    shippingAddress: {countryCodeV2: 'CA'},
+    currencyCode: 'USD',
+    presentmentCurrencyCode: 'USD',
+    currentTotalPriceSet: money(44.99, 'USD'),
+    shippingAddress: {countryCodeV2: 'US'},
     lineItems: {
       nodes: [
         {
