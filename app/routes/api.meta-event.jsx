@@ -24,7 +24,10 @@
  * @param {Route.ActionArgs}
  */
 
-import {isAllowedMetaEventSourceUrl} from '../lib/meta-capi.js';
+import {
+  isAllowedMetaEventSourceUrl,
+  isAllowedMetaRequestOrigin,
+} from '../lib/meta-capi.js';
 
 const META_CAPI_URL = 'https://graph.facebook.com/v20.0';
 
@@ -54,7 +57,13 @@ function parseMetaCookies(request) {
     if (eq < 0) continue;
     const k = part.slice(0, eq).trim();
     const v = part.slice(eq + 1).trim();
-    if (k === '_fbp' || k === '_fbc') out[k] = decodeURIComponent(v);
+    if (k === '_fbp' || k === '_fbc') {
+      try {
+        out[k] = decodeURIComponent(v);
+      } catch {
+        // A malformed optional attribution cookie must not crash the relay.
+      }
+    }
   }
   return out;
 }
@@ -73,6 +82,10 @@ export async function action({request, context}) {
 
   if (request.method !== 'POST') {
     return new Response(null, {status: 405, headers: {Allow: 'POST'}});
+  }
+
+  if (!isAllowedMetaRequestOrigin(request)) {
+    return new Response(null, {status: 403});
   }
 
   // Cap request size — guard against flooding.
