@@ -54,20 +54,27 @@ npx shopify hydrogen env pull
 
 ## Deploy to Oxygen
 
+The normal production path is a reviewed push to GitHub `main`. The
+`Deploy to Shopify Oxygen` workflow installs locked dependencies, runs the full
+test suite and release gate, builds, deploys the exact commit, and verifies the
+live storefront. A workflow is not successful until its production-health step
+passes.
+
 **Preview** (private — requires Shopify login to view):
 
 ```bash
 npx shopify hydrogen deploy --preview --force
 ```
 
-**Production** (public at `https://puchica.ca`):
+**Emergency manual production fallback** (public at `https://puchica.ca`):
 
 ```bash
 npx shopify hydrogen deploy --env production
 # answer "yes" to the "Continue?" confirmation
 ```
 
-Production deploy intentionally requires an interactive confirmation.
+Use the manual command only when the normal GitHub workflow is unavailable and
+the exact committed SHA has passed the same checks.
 
 Environments:
 
@@ -77,8 +84,7 @@ Environments:
 - **Preview** → per-deployment private URL.
 
 Deploy only a clean, committed, pushed exact SHA after the repository checks in
-`docs/CURRENT-SCOPE.md`. Record the successful Oxygen asset and custom-domain
-verification for every production release.
+`docs/CURRENT-SCOPE.md`.
 
 ---
 
@@ -91,11 +97,12 @@ is historical and must not be repeated.
 
 ---
 
-## Auto-deploy
+## Automated release gate
 
-Do not enable or assume automatic production deployment during the controlled
-organic phase. A pushed commit is not a production-release authorization. Use
-the tested, recorded release process in `docs/CURRENT-SCOPE.md`.
+Production deployment is intentionally automated from `main`, but publication
+is still gated: tests, launch checks, build, Oxygen upload, and live production
+health must all pass. Do not bypass, weaken, or cancel those controls merely to
+turn a failed workflow green.
 
 ---
 

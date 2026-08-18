@@ -1,375 +1,194 @@
 # Puchica current operating scope
 
-- **Status date:** 2026-08-14
-- **Binding storefront commit:** `64ef45ea17ce79fc81eb334a27d3d16570cda052`
-- **Production:** `https://puchica.ca` / deployment `fix: recover expired storefront carts`
-- **Decision:** organic commerce is live and limited; paid advertising is
-  paused.
+- **Status date:** 2026-08-18
+- **Production:** `https://puchica.ca`
+- **Source of truth:** GitHub `main`; Shopify Oxygen deploys through
+  `.github/workflows/deploy.yml`
+- **Decision:** simplify and validate; do not shut down, broaden the catalog,
+  or spend on ads yet
 
-## How to use this file
+## Read this first
 
-This is the canonical starting point for every new Puchica work session. It
-supersedes older product counts, niche proposals, soft-launch assortments, and
-launch decisions in dated documents. Older files remain evidence and history,
-not current authorization.
+This is the canonical starting point for Puchica work. It supersedes old
+product counts, broad-catalog plans, sample requirements, supplier assumptions,
+and manual-deployment instructions in dated files. When evidence conflicts,
+use this order:
 
-If sources disagree, use this order:
+1. Customer safety, legal truthfulness, and current platform state.
+2. Exact product/SKU/market gates in `app/lib/launch-catalog.js`.
+3. A fresh DSers destination quote for the exact mapped variant.
+4. This file and the first-order runbook.
+5. Older audits and plans as historical context only.
 
-1. Customer safety, legal truthfulness, platform rules, and fresh verified data.
-2. The exact product/SKU gates in code and live Shopify state.
-3. This scope and `docs/puchica-operating-quality-gates.md`.
-4. The newest product-specific evidence record.
-5. Older plans, audits, and sourcing notes as historical context only.
+No supplier sales count, old quote, product-level mapping, or attractive image
+overrides the exact SKU and destination gate.
 
-No successful build, Shopify status, DSers connection, supplier sales count,
-or attractive product image overrides the exact product gate.
+## Business decision
 
-## North-star objective
+Puchica should be **simplified, not shut down**. The store and checkout work.
+There is not enough genuine traffic to conclude that customers rejected the
+offer: the last 30 days showed 785 sessions, but 752 were direct and only three
+were attributable social visits. Large zero-engagement desktop spikes indicate
+that much of the total was owner testing or automated traffic.
 
-Build a repeatable, truthful, profitable first-sales loop for Puchica's focused
-travel and organization assortment:
+The current experiment is a focused travel-organizer store with three exact
+products and no paid acquisition. Its job is to obtain attributable qualified
+visits and learn where the funnel stops: product view, cart, checkout, or order.
 
-`qualified visit -> exact product -> safe cart/checkout -> exact DSers order -> tracking -> delivery -> measured contribution`
+## Exact launch catalog
 
-The immediate objective is not more products, another niche, another supplier
-platform, or more design work. It is to prove that this loop works with the
-current catalog and learn which offer deserves a small paid test.
+| Product | Exact approved SKU | Canada | United States |
+| --- | --- | :---: | :---: |
+| Charcoal 3-Piece Packing Cube Set | `14:1052#S3007 Black;5:200004186#3PCS L M S Set` | Yes | No |
+| White Semi-Circular Travel Jewelry Case | `14:29` | Yes | Yes |
+| Black Hanging Travel Toiletry Organizer | `14:771#Black` | No | Yes |
 
-## Binding current state
+Six former launch products are explicitly retired in code. Four other risky or
+unverified products are under operational hold. Neither group may reappear via
+Shopify cache, search, recently viewed, feeds, stale carts, or direct URLs.
 
-| Area                | Current truth                                                                                                        |
-| ------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| Storefront          | Shopify Hydrogen on Oxygen at `puchica.ca`                                                                           |
-| Repository          | `codex/overnight-growth-2026-08-14`; production storefront commit is `64ef45e`; later commits are operating controls |
-| Production artifact | Deployment `fix: recover expired storefront carts`; URL `https://01m01c9cycgfrxpztzzxcw2bhy-f9aa94aa3bf86abb6754.myshopify.dev` |
-| Fulfillment stack   | Shopify + DSers + exact AliExpress supplier mappings                                                                 |
-| Catalog             | 9 Active product pages; 29 rejected legacy products quarantined as Draft                                             |
-| Canada              | 10 exact approved SKUs across 9 pages                                                                                |
-| United States       | 8 exact approved SKUs across 7 pages                                                                                 |
-| Market exclusions   | Packing cubes and Large Blue storage bag are Canada-only                                                             |
-| Publications        | Every approved product is published to Online Store and Puchica Storefront                                           |
-| Organic selling     | `GO_ORGANIC_LIMITED`, one early order at a time                                                                      |
-| Paid advertising    | HOLD; no campaign or spend is authorized                                                                             |
-| Discounts           | `FIRST15` is expired and must not be advertised                                                                      |
-| Other platforms     | Do not add AutoDS or another paid fulfillment subscription now                                                       |
-| Other markets       | Mexico, Spain, LATAM, and additional languages are later phases, not current scope                                   |
+Market-limited approved products keep an informational, indexable page outside
+their selling country, but have no desktop or mobile purchase control there.
+Collections, feeds, carts, checkout, and order review remain market-specific.
 
-## Release and rollback controls
+## Current DSers truth
 
-- Read-only catalog preflight: `npm run organic-release-check`.
-- Do not rerun the catalog apply command unless the approved catalog state is
-  deliberately changing.
-- Catalog rollback: `node scripts/manage-organic-release.mjs --rollback`. It
-  returns the four cohort products that began as Draft to Draft, keeps the five
-  products that entered the current cohort as Active, and never reactivates the
-  29 rejected products.
-- The nearest usable code rollback is commit `031b259` / Oxygen asset `4183152`.
-  It predates the final ATC feedback fix, so a forward hotfix is preferred.
-- Do not use interim commit `eec6873` / asset `4183190` as a rollback target.
-- For a future code release, deploy only a clean committed and pushed exact SHA
-  after tests, lint, launch-safety checks, and a production build pass. Record
-  the Shopify CLI exit code, Oxygen asset, client bundle, and a successful
-  `puchica.ca` response. Never promote an uncommitted worktree.
+Verified on 2026-08-18 in the logged-in DSers account:
 
-## Frozen organic catalog
+| Exact offer | Destination | Current tracked route |
+| --- | --- | --- |
+| Black toiletry organizer | United States | US$2.16; 8–13 days |
+| White jewelry case | Canada and United States | US$1.99; 9–14 days |
+| Charcoal packing cubes | Canada | US$1.99; 8–14 days |
 
-Only these exact SKUs may be discovered, selected, added to cart, or fulfilled.
-Product-level approval never approves every variant on a supplier listing.
+The toiletry organizer reports **No Shipping** to Canada. Packing cubes are
+Canada-only. Route eligibility can change without warning, so every genuine
+order must be requoted before supplier payment.
 
-| Product page                                   | Exact approved SKU(s)                            | Canada | United States |
-| ---------------------------------------------- | ------------------------------------------------ | -----: | ------------: |
-| Charcoal 3-Piece Packing Cube Set              | `14:1052#S3007 Black;5:200004186#3PCS L M S Set` |    Yes |            No |
-| Black Double-Layer Travel Cable Organizer Case | `14:193#Double Layers`                           |    Yes |           Yes |
-| White Luggage ID Tag                           | `14:29#white;5:361386#1pcs`                      |    Yes |           Yes |
-| Ten-Hole White Cable Organizer Clips           | `14:771#10 Holes-White`                          |    Yes |           Yes |
-| White Semi-Circular Travel Jewelry Case        | `14:29`                                          |    Yes |           Yes |
-| Large Blue Handled Clothes Storage Bag         | `14:350852#Large Blue`                           |    Yes |            No |
-| Black Hanging Travel Toiletry Organizer        | `14:771#Black`                                   |    Yes |           Yes |
-| Black Knitted Luggage Wheel Covers, Set of 4   | `14:193`                                         |    Yes |           Yes |
-| Soft Luggage Handle Wrap                       | `14:350686#coffee color`; `14:193#Black`         |    Yes |           Yes |
+### Why fulfillment stalled
 
-The storefront has a second fail-closed layer: direct URLs, stale carts, search,
-recently viewed, market switching, desktop ATC, and mobile ATC all recheck the
-exact market/SKU allowlist. The Coffee Brown/Black selector and both exact cart
-lines passed live QA.
+The previous process treated a working DSers mapping and an earlier quote as
+permanent proof. They are not. DSers can remain mapped while the exact
+AliExpress variant loses a destination route, changes cost, or changes ETA.
+The solution is a small exact-SKU catalog plus order-time requoting—not more
+mapping work, another automation subscription, or blind trust in sales counts.
 
 ## What is proven
 
-### Catalog and fulfillment evidence
+- Shopify payment and hosted checkout work; the owner's paid test order is not
+  genuine demand and does not need operational attention.
+- Canada sells packing cubes and the jewelry case. The United States sells the
+  jewelry case and toiletry organizer.
+- Exact variants survive cart creation, market switching, checkout handoff,
+  feeds, and monitoring without exposing other supplier variants.
+- Policy pages align with market currency, destination-specific shipping, a
+  30-day delivery-based return-request window, and actual support.
+- All three products are indexed or submitted to Google from a valid live test.
+  The sitemap advertises exactly these three products.
+- The toiletry organizer uses all three verified exact-product images. The
+  multi-variant packing-cube gallery remains locked to the charcoal image.
+- Tests, release gate, build, deployment, and live health run in order before a
+  GitHub `main` deployment is accepted.
 
-- All 10 Canadian SKUs and 8 United States SKUs passed the documented exact
-  mapping, stock signal, ordinary cost, margin, copy, imagery, and
-  destination-route gates before release.
-- Packing cubes are Canada-only: the exact mapped U.S. route was `No Shipping`.
-- The Large Blue storage bag is also intentionally Canada-only.
-- The nine approved products are the only Active Shopify products; the 29
-  rejected legacy products have their approval/route tags removed and remain
-  Draft.
-- A real supplier order has not yet proven the entire post-purchase automation
-  chain. Therefore fulfillment remains controlled and manual for early orders.
+## What is not proven
 
-### Live storefront
+- No genuine customer sale has been identified.
+- A real supplier payment, dispatch, tracking sync, delivery, and after-sales
+  outcome have not completed end to end.
+- There is not enough attributable traffic to judge conversion reliably.
+- Search Console has insufficient field Core Web Vitals data, and the local
+  trace profiler is not configured.
+- Meta browser/server event receipt and deduplication have not been reverified
+  in the correct dataset.
 
-- Canada: 9 product pages / 10 exact SKUs; correct CAD collection, PDP, cart,
-  and checkout handoff behavior.
-- United States: 7 product pages / 8 exact SKUs; correct USD behavior; both
-  Canada-only pages return the controlled 404 and their cart lines are purged
-  after a market switch.
-- Search and predictive recently viewed do not leak held or wrong-market
-  products.
-- Handle-wrap Coffee Brown and Black choices expose only the two approved
-  variants; the exact add/remove/switch/add sequence passed live QA.
-- An expired or error-shaped Storefront cart cookie is now replaced with a new
-  usable cart before adding an approved line. A production stale-cookie probe
-  and a fresh Chrome customer trace both passed for the cable organizer.
-- Core semantics passed: skip link, language, main landmark, one PDP H1,
-  canonicals, labelled core controls, useful image alt text, and no observed
-  desktop horizontal overflow.
-- The bounded 390 x 844 and 768 x 1024 browser-viewport funnel matrix passed;
-  the controlled mobile 404 reflows without horizontal overflow and retains a
-  focusable main landmark. A physical-device sign-off remains separate.
-- The live crawl passes 9/9 Canadian pages, 7/7 U.S. pages, and both intended
-  U.S. 404s. Portuguese product pages self-canonicalize to `pt-br`; market-
-  blocked product responses carry `X-Robots-Tag: noindex, nofollow` and
-  `Cache-Control: no-store, max-age=0`.
-- Hydration errors seen only in Codex/Chrome QA are caused by the test tools
-  injecting a third child under `<html>`; raw Oxygen HTML is clean.
+## One-person operating model
 
-### Measurement and economics
+One person can run this model with ChatGPT **only at this scope**:
 
-- **Fresh 2026-08-14 normal-Chrome destination trace:** GA4 Realtime received
-  `view_item`, `add_to_cart`, and `begin_checkout`, and displayed the Puchica
-  checkout page. QA traffic is not a customer-demand baseline.
-- Existing exact-SKU contribution evidence supports organic selling. It does
-  not create a blanket paid CAC budget for all nine products.
-- `npm run organic-economics` now combines live localized prices with the dated
-  exact DSers baseline and fails closed after seven days. Toiletry and cable
-  remain the cross-market hero cohort; the jewelry case is the strongest third
-  candidate. Every row remains paid-ad `HOLD`.
-- Storefront code is configured for Meta Pixel `996669459615534` and the CAPI
-  relay, but the currently signed-in Events Manager ad account exposed no
-  dataset on 2026-08-14. Fresh Meta receipt and browser/server deduplication are
-  therefore not proven well enough for paid traffic.
-- Checkout has shown the configured Canadian and U.S. shipping rules in bounded
-  tests. The cable and toiletry hero offers passed fresh representative CA/U.S.
-  checkout and economics checks on 2026-08-14. A complete nine-product address
-  matrix is not required before the one-offer paid-test decision.
-- No tax line appeared in the sampled Winnipeg or Seattle checkouts. This is an
-  observed configuration result, not a legal conclusion. Do not change tax
-  settings or make tax claims until the owner's intended treatment and
-  registration obligations are documented.
+- three exact offers;
+- one active customer order at a time during the learning phase;
+- a fresh DSers route/cost/ETA/tracking check before supplier payment;
+- factual content built from approved exact-product media;
+- one daily operations block and one weekly evidence review;
+- no new products until the first-sale loop is understood.
 
-## Current work lanes
+ChatGPT can audit, prepare content, monitor the storefront, inspect orders,
+maintain code, and guide fulfillment. It cannot take responsibility for paying
+the supplier, resolving fraud, accepting legal/tax treatment, or publishing and
+spending externally without the owner's authorization.
 
-### Lane 1: close the no-spend pre-ad evidence gaps
+Samples are not required for the first organic traffic test. They become useful
+only if original hands-on creative or a quality claim is needed, or if real
+orders expose uncertainty supplier evidence cannot resolve.
 
-This is the active technical lane.
+## First genuine order control
 
-1. Obtain a short physical-phone/tablet sign-off for the already-passing
-   responsive browser matrix: home, collection, selector PDP, cart, market
-   switch, and checkout handoff.
-2. **Completed 2026-08-14:** keyboard-only navigation, visible focus and
-   focus-trap checks, 320 CSS px reflow, heading/label/landmark checks, and the
-   focused automated accessibility suite passed across the primary funnel.
-3. **GA4 completed 2026-08-14; Meta remains:** the normal-Chrome customer path
-   produced GA4 `view_item`, `add_to_cart`, and `begin_checkout`. Reopen the
-   correct Meta dataset/business context, then confirm `ViewContent`,
-   `AddToCart`, `InitiateCheckout`, matching event IDs, and browser/server
-   deduplication in Events Manager.
-4. **Completed 2026-08-10:** crawl all 9 Canadian and 7 U.S. product routes plus
-   robots, sitemap, canonicals, hreflang, status, and indexability.
-5. **Completed 2026-08-14 for the two hero offers:** representative Canadian
-   and U.S. address-to-shipping-rate checkout behavior passed without placing
-   an order. Tax presentation remains documented separately and unchanged.
+Before paying DSers:
 
-### Lane 2: begin controlled organic learning
+1. Confirm the Shopify order is genuine, paid, unfulfilled, and not flagged for
+   unresolved fraud review.
+2. Match every line to the exact handle, SKU, quantity, and approved market.
+3. Reopen the mapped DSers variant and re-quote the exact destination.
+4. Confirm stock, item cost, shipping cost, ship-from, named tracked method,
+   ETA, and expected contribution.
+5. Stop if mapping is ambiguous, the route disappears, tracking disappears,
+   cost materially rises, or ETA exceeds the disclosed checkout expectation.
+6. Only the owner authorizes supplier payment. Then verify dispatch, tracking
+   sync, customer notification, delivery, and any exception.
 
-This lane can run while Lane 1 is being closed.
+## Acquisition experiment
 
-1. **Completed 2026-08-10:** replace the dated two-product pack with a prepared
-   nine-page organic content pack that does not imply every product ships to
-   the U.S.
-2. **Completed 2026-08-14:** an eight-post Instagram schedule and bounded TikTok
-   UGC test pack use exact media, truthful captions, accessible copy, and stable
-   attribution routes.
-3. **Prepared, not published:** motion-first masters now exist for the cable
-   organizer and black hanging toiletry organizer. Both use exact approved
-   source photography, continuous animation, truthful inclusion/market copy,
-   and no fake customer testimonial.
-4. **Completed for the first Instagram/TikTok releases:** the user explicitly
-   approved publication. Any additional public post still requires approval.
-5. **Active:** the measurement baseline began at the first public-post
-   timestamp. Exclude `codex_qa / measurement` traffic.
-6. Review qualified sessions, product-view to ATC, ATC to checkout, customer
-   questions, and product-specific interest after seven days.
+The seven-day organic experiment uses the jewelry case as the cross-market
+hero, packing cubes as the Canadian secondary product, and unique UTM links for
+every post. Do not promote the U.S.-only toiletry organizer from Canada-branded
+accounts during this first week.
 
-### Lane 3: first-order fulfillment control
+Review the funnel in order: attributable landing sessions, product views, add
+to cart, checkout starts, and genuine orders. Diagnose the first stage with a
+meaningful drop. No social post, discount, campaign, or ad spend is authorized
+by this file.
 
-For every early organic order:
+## Release controls
 
-1. Pause before supplier payment and reopen the exact DSers product and SKU.
-2. Reconfirm stock, ordinary item cost, destination, named shipping method,
-   shipping charge, ship-from, ETA, and tracking.
-3. Stop the affected product/market if the exact option disappears, stock is
-   zero, the route becomes `No Shipping`, tracking disappears, the method or
-   ship-from changes outside the approved route, ETA materially exceeds the
-   disclosed/approved window, cost materially rises, or mapping is ambiguous.
-4. Place and process only one customer order at a time.
-5. Log actual supplier charge, dispatch, tracking sync, customer notification,
-   delivery, duty/brokerage exception, refund/replacement, and final
-   contribution.
+Pushing a reviewed commit to `main` starts the production workflow. It must:
 
-This is standard dropshipping through DSers. It does not require pre-buying
-inventory or adding AutoDS. It does require an order-time check until the real
-automation chain has been observed successfully.
+1. install locked dependencies;
+2. pass the full automated suite;
+3. pass the storefront release gate;
+4. complete a production build;
+5. deploy the exact commit to Oxygen;
+6. pass live health checks for market cohorts, retired and held URLs, the
+   Canadian feed, and the three-product sitemap.
 
-## Paid-test gate
+If the live check fails, the workflow fails even if Oxygen accepted the upload.
+Investigate and forward-fix; do not bypass the gate or deploy an uncommitted
+tree. Manual CLI production deployment is an emergency fallback.
 
-Paid traffic can be proposed only after all of the following are true:
+## Security action requiring the owner
 
-- real-device mobile and WCAG funnel checks pass;
-- consent-aware GA4/Meta event receipt and deduplication pass;
-- live crawl/indexability and representative shipping-rate checks pass;
-- tax/discount presentation is documented and truthful;
-- one genuine organic order completes the exact DSers recheck, supplier charge,
-  dispatch, tracking sync, customer notification, delivery, duty/brokerage and
-  refund/replacement outcome review; its actual delivered contribution remains
-  acceptable for the offer under consideration;
-- exactly one Meta `Purchase` and one GA4 `purchase` are verified from that
-  genuine order with the correct order ID, value, and currency, or an explicit
-  manual-reporting fallback is approved before any test;
-- at least one exact offer has current landed economics and an explicit CAC
-  ceiling with pre-ad contribution margin at least 30% of revenue;
-- creative uses the exact product/configuration and contains no unsupported
-  sales, review, scarcity, delivery, waterproof, compression, brand, or
-  inclusion claims;
-- the user approves the offer, budget, duration, and stop rules before spend.
+A legacy helper committed an Admin-token-shaped credential to the public Git
+history. The file has been removed from `main`, and tests now reject recognizable
+Shopify secret formats, but history retains old blobs. The owner must revoke or
+rotate that credential in Shopify. Do not copy it or attempt to reuse it.
 
-The first paid test will be one offer in one primary market with one bounded
-budget. It will not be one simultaneous campaign per product.
+## Immediate priorities
 
-Before proposing that test, build a current per-SKU, per-market contribution
-sheet for no more than two candidates. Use revenue excluding sales tax, then
-deduct item cost, supplier shipping, business-paid duty/brokerage, Shopify/card
-fees, refund reserve, and any verified discount. Require pre-ad contribution
-margin of at least 30% of revenue. Define the resulting contribution dollars as
-`C`: break-even CAC is `C`, and initial target CAC is no more than `0.70 × C`.
-The bounded starting framework is a daily budget near target CAC, a seven-day
-cap of `7 × target CAC`, pausing an ad at `3 × target CAC` without a purchase,
-and stopping the blended test at break-even `C`. Final budget, duration, and
-stop rules still require the user's explicit approval.
+1. Complete the seven-day attributable organic traffic test using the prepared
+   exact-media plan; publishing remains owner-authorized.
+2. Continue read-only storefront and genuine-order monitoring.
+3. Rotate the historical Shopify Admin credential.
+4. If a genuine order arrives, execute the one-at-a-time DSers pre-payment and
+   delivery runbook.
+5. Review funnel evidence after seven days or 100 attributable landing
+   sessions, whichever comes later.
+6. Only then decide whether to keep the offer, change the offer/page, qualify a
+   replacement supplier, or stop the experiment.
 
-## Deliberate non-goals
+## Non-goals
 
-Until the current lanes are complete:
-
-- no niche pivot;
-- no new product sourcing or arbitrary tenth page;
-- no broad redesign, navigation rebuild, or storewide copy rewrite;
-- no Shopify/DSers remapping unless a current exact mapping fails;
-- no AutoDS, Zendrop, or other paid-platform subscription;
-- no legacy-product reactivation;
-- no additional country/language rollout;
-- no live discount activation or tax-setting change without a separate review;
-- no agent-initiated test order, supplier payment, public post, campaign, or ad
-  spend without the required authorization; genuine customer orders may arrive
-  and must enter the one-at-a-time fulfillment runbook;
-- no synthetic reviews, compare-at pricing, countdowns, unsupported scarcity,
-  or supplier-sales claims.
-
-## Decision cadence
-
-### Daily while organic traffic is active
-
-- Check storefront availability, cart/checkout handoff, and any customer
-  messages.
-- If an order appears, use the first-order fulfillment control before supplier
-  payment.
-- Record faults and stop only the affected product/market; do not reset the
-  whole niche for an isolated issue.
-
-### Weekly
-
-- Refresh exact DSers stock, item cost, and CA/U.S. route evidence for the 10
-  approved SKUs.
-- Review analytics excluding QA traffic.
-- Recalculate actual contribution using current landed costs and any real
-  exceptions.
-- Decide `KEEP`, `HOLD`, or `STOP` per SKU. Do not treat weak interest as proof
-  of a supplier failure or one supplier issue as proof the niche is wrong.
-
-### Expansion decision
-
-After early fulfillment and organic evidence, choose one path:
-
-1. prepare one paid offer around the best proven product; or
-2. qualify one coherent tenth travel/organization page through the same exact
-   SKU, cost, route, copy, imagery, accessibility, and storefront gates.
-
-Do not do both before the evidence review.
-
-## Immediate next actions
-
-| Priority | Action                                                                                   | Owner        |                     External mutation? |
-| -------: | ---------------------------------------------------------------------------------------- | ------------ | -------------------------------------: |
-|        1 | Physical-phone/tablet final visual and checkout-handoff sign-off                         | User         |                                     No |
-|        2 | Select/reconnect the correct Meta dataset, then prove receipt and deduplication           | User + Codex | Settings access; no spend required     |
-|        3 | Continue read-only production, social-attribution, and first-order monitoring            | Codex        |                                     No |
-|        4 | Review qualified organic behavior after the seven-day/100-session evidence window        | Codex        |                                     No |
-|        5 | Process the first genuine order through the exact DSers pre-payment and delivery runbook | User + Codex |         Yes, only when an order exists |
-|        6 | Verify Purchase events, actual delivered contribution, and propose one capped paid test  | User + Codex | Budget approval required; no spend yet |
-
-Action 1 requires an owner-controlled physical device. Action 2 requires the
-owner to confirm the correct Meta business/dataset context if it cannot be
-reached from the currently signed-in account. Actions 3 and 4 continue without
-user intervention. Stop before additional publishing, ad spend, agent-initiated
-test orders, real supplier payment, or business/tax setting changes.
-
-Each of the three pre-ad evidence gates must end in a dated artifact and an
-explicit `PASS`: a mobile/accessibility device-and-browser matrix, an analytics
-event/deduplication trace, and an SEO crawl/shipping-rate report. A verbal
-impression or a partially sampled check does not close a gate.
-
-## Owner compliance watchpoint
-
-Current owner-stated facts are: sole individual operator, not yet a registered
-Canadian business, not registered for GST/HST, below the small-supplier
-threshold, and receiving Employment Insurance. These facts do not block the
-controlled organic launch and are not legal conclusions. As revenue begins,
-record gross sales and business income, monitor the GST/HST threshold, and
-confirm EI income/reporting and registration obligations against current
-CRA/Service Canada guidance or qualified professional advice.
-
-## Control references
-
-- `scripts/manage-organic-release.mjs` — read-only catalog preflight, organic
-  release, and rollback.
-- `scripts/check-first-order-signal.mjs` — read-only demand signal gate that
-  excludes the known test order.
-- `scripts/check-organic-economics.mjs` — live localized price and dated exact
-  supplier-route economics monitor.
-- `app/lib/launch-catalog.js` — exact market/SKU storefront gate.
-- `docs/puchica-operating-quality-gates.md` — product, media, commercial, and
-  WCAG principles derived from the user's workflow documents.
-- `docs/recovery-evidence/organic-release-control-plane-2026-08-10.md` — exact
-  release architecture.
-- `docs/recovery-evidence/organic-release-execution-2026-08-10.md` — release
-  execution record for catalog facts. Its original deployment SHA/asset block
-  is superseded by `fe1c7e8` / asset `4183654` in this file.
-- `docs/recovery-evidence/mobile-wcag-primary-funnel-2026-08-10.md` — bounded
-  responsive and WCAG funnel evidence plus remaining physical-device gaps.
-- `docs/recovery-evidence/live-analytics-dedup-gate-2026-08-10.md` — current
-  measurement evidence and the controlled-browser suppression boundary.
-- `docs/recovery-evidence/live-seo-indexability-gate-2026-08-10.md` — complete
-  live catalog, locale, canonical, and market-404 crawl evidence.
-- `docs/recovery-evidence/dsers-mapped-catalog-remediation-2026-08-10.md` —
-  current exact catalog remediation evidence.
-- `docs/recovery-evidence/frozen-catalog-fulfillment-gate-2026-08-09.md` —
-  detailed original-product DSers evidence and order-time watchpoints.
-- `docs/recovery-evidence/launch-analytics-verification-2026-08-09.md` — GA4 and
-  Meta measurement boundary.
-- `docs/recovery-evidence/organic-economics-ranking-2026-08-14.md` — current
-  nine-product organic contribution ranking and paid-ad hold boundary.
-- `docs/recovery-evidence/normal-browser-cart-checkout-trace-2026-08-14.md` —
-  stale-cart repair, fresh customer-path proof, GA4 receipt, and current Meta
-  boundary.
+- no broad catalog restoration or arbitrary new product sourcing;
+- no AutoDS, Zendrop, or another paid fulfillment subscription;
+- no synthetic reviews, unsupported claims, fake scarcity, or invented GTINs;
+- no paid ads before a separate economics/measurement approval;
+- no supplier payment, refund, discount activation, tax-setting change,
+  credential rotation, or public post without the required owner decision.

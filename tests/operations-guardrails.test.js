@@ -27,3 +27,14 @@ test('deployment is gated by tests, release checks, build, deploy, and live heal
     previousIndex = index;
   }
 });
+
+test('canonical operating scope matches the three-offer automated release', () => {
+  const scope = readFileSync('docs/CURRENT-SCOPE.md', 'utf8');
+  const readme = readFileSync('README.md', 'utf8');
+
+  assert.match(scope, /three exact\s+products/);
+  assert.match(scope, /Black Hanging Travel Toiletry Organizer \| `14:771#Black` \| No \| Yes/);
+  assert.doesNotMatch(scope, /9 Active product pages|10 exact approved SKUs/);
+  assert.match(readme, /Production deployment is intentionally automated from `main`/);
+  assert.doesNotMatch(readme, /Do not enable or assume automatic production deployment/);
+});
