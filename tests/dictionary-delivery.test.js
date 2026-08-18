@@ -47,12 +47,15 @@ test('returning-cart reminder stays localized', () => {
       'cart_recovery_many',
       'cart_recovery_cta',
       'cart_recovery_dismiss',
+      'atc_add_failed',
     ]) {
       assert.ok(dictionary[key]?.trim(), `${language} is missing ${key}`);
     }
   }
 
   const banner = readFileSync('app/components/CartRecoveryBanner.jsx', 'utf8');
+  assert.match(banner, /presentProductTitle/);
+  assert.match(banner, /try\s*\{[\s\S]*sessionStorage\.getItem/);
   assert.match(banner, /LocalizedLink as Link/);
   assert.doesNotMatch(banner, /Welcome back|Complete your order|Dismiss cart reminder/);
 });

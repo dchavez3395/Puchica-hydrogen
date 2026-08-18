@@ -665,7 +665,7 @@ export const DICTIONARIES = {
 
     // ── Add-to-cart button states ─────────────────────────────────
     atc_added: 'Added ✓',
-    atc_out_of_stock: 'Out of stock',
+    atc_add_failed: "Couldn't add. Try again.",
     atc_adding: 'Adding…',
 
     // ── Search results ────────────────────────────────────────────
@@ -2058,7 +2058,7 @@ export const DICTIONARIES = {
     product_notify_error: 'Quelque chose s’est mal passé. Veuillez réessayer.',
 
     atc_added: 'Ajouté ✓',
-    atc_out_of_stock: 'Rupture de stock',
+    atc_add_failed: "Impossible d’ajouter l’article. Réessayez.",
     atc_adding: 'Ajout…',
 
     search_articles: 'Articles',
@@ -3506,7 +3506,7 @@ export const DICTIONARIES = {
     product_notify_error: 'Algo salió mal. Por favor intenta de nuevo.',
 
     atc_added: 'Agregado ✓',
-    atc_out_of_stock: 'Agotado',
+    atc_add_failed: 'No se pudo agregar. Inténtalo de nuevo.',
     atc_adding: 'Agregando…',
 
     search_articles: 'Artículos',
@@ -4945,7 +4945,7 @@ export const DICTIONARIES = {
     product_notify_error: 'Algo deu errado. Por favor, tente novamente.',
 
     atc_added: 'Adicionado ✓',
-    atc_out_of_stock: 'Esgotado',
+    atc_add_failed: 'Não foi possível adicionar. Tente novamente.',
     atc_adding: 'Adicionando…',
 
     search_articles: 'Artigos',

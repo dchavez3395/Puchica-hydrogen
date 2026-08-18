@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react';
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {useT} from '~/lib/t';
+import {presentProductTitle} from '~/lib/product-presentation';
 
 /**
  * CartRecoveryBanner — shows a dismissible "welcome back" banner when a
@@ -23,7 +24,12 @@ export function CartRecoveryBanner({cart}) {
     if (totalQuantity === 0) return;
 
     // Only show once per browser session
-    const dismissed = sessionStorage.getItem('cart_recovery_dismissed');
+    let dismissed = false;
+    try {
+      dismissed = Boolean(sessionStorage.getItem('cart_recovery_dismissed'));
+    } catch {
+      // Storage can be blocked by privacy settings. The banner remains usable.
+    }
     if (dismissed) return;
 
     // Small delay so it doesn't flash during SSR hydration
@@ -44,7 +50,13 @@ export function CartRecoveryBanner({cart}) {
 
   const itemCount = cart.totalQuantity;
   const firstLine = cart.lines?.nodes?.[0];
-  const productTitle = firstLine?.merchandise?.product?.title;
+  const sourceProduct = firstLine?.merchandise?.product;
+  const productTitle = presentProductTitle(
+    sourceProduct?.title,
+    firstLine?.merchandise,
+    sourceProduct?.handle,
+    t,
+  );
   const productImage = firstLine?.merchandise?.image;
 
   return (

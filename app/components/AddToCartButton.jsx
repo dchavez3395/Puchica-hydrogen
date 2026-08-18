@@ -140,7 +140,7 @@ function AddToCartSubmitButton({
   const resolvedAddedLabel =
     addedLabel !== undefined ? addedLabel : t('atc_added');
   const label = showError
-    ? t('atc_out_of_stock')
+    ? t('atc_add_failed')
     : showAdded
       ? resolvedAddedLabel
       : isSubmitting
