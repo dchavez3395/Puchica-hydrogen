@@ -3,6 +3,10 @@ import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 
 const css = await readFile('app/styles/app.css', 'utf8');
+const [pyramidBackground, volcanicBackground] = await Promise.all([
+  readFile('public/bg-pyramid-temple.png'),
+  readFile('public/bg-volcanic-texture.png'),
+]);
 
 test('stylesheet retains every current storefront surface', () => {
   const currentSurfaces = [
@@ -52,6 +56,9 @@ test('retired broad-catalog CSS cohorts stay removed', () => {
   }
 });
 
-test('stylesheet does not request missing decorative background assets', () => {
-  assert.doesNotMatch(css, /bg-(?:volcanic-texture|pyramid-temple)\.png/);
+test('decorative background requests resolve to versioned assets', () => {
+  assert.match(css, /url\(['"]?\/bg-volcanic-texture\.png/);
+  assert.match(css, /url\(['"]?\/bg-pyramid-temple\.png/);
+  assert.ok(volcanicBackground.byteLength > 0);
+  assert.ok(pyramidBackground.byteLength > 0);
 });
