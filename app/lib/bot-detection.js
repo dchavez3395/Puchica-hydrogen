@@ -70,20 +70,3 @@ export function isBotClient() {
   // Known bot UA patterns
   return BOT_PATTERNS.some((pattern) => pattern.test(ua));
 }
-
-/**
- * Server-side bot check using the `isbot` library.
- * @param {string | null} userAgent
- * @returns {boolean}
- */
-export function isBotServer(userAgent) {
-  if (!userAgent) return false;
-  // isbot is imported dynamically to avoid bundling issues
-  try {
-    const {isbot} = require('isbot');
-    return isbot(userAgent);
-  } catch {
-    // Fallback to pattern check if isbot isn't available
-    return BOT_PATTERNS.some((p) => p.test(userAgent));
-  }
-}

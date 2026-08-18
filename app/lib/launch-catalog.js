@@ -7,11 +7,6 @@
  * collection, search result, or merchandising rail just because it remains in
  * a cached collection response.
  */
-// Add this tag in Shopify only after a product passes the launch review. Using
-// a tag rather than a hard-coded list lets approved batches scale without a
-// deploy, while preserving the same customer-facing safety gate.
-export const LEGACY_LAUNCH_READY_TAG = 'puchica-launch-ready';
-
 // Emergency storefront containment. While true, cart and checkout entry routes
 // remain closed even if a stale browser cart or shared Shopify cart permalink
 // exists. Remove only after the preview and catalog launch gates are approved.

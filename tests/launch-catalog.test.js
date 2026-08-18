@@ -18,12 +18,13 @@ import {
   resolveApprovedProductMarket,
   CATALOG_APPROVAL_TAG,
   LAUNCH_READY_TAG,
-  LEGACY_LAUNCH_READY_TAG,
   MARKET_ROUTE_EVIDENCE_TAGS,
   OPERATIONAL_HOLD_HANDLES,
   REQUIRED_CATALOG_EVIDENCE_TAGS,
   STOREFRONT_CONTAINMENT_ACTIVE,
 } from '../app/lib/launch-catalog.js';
+
+const LEGACY_LAUNCH_READY_TAG = 'puchica-launch-ready';
 
 function approvedProduct(overrides = {}) {
   return {

@@ -44,60 +44,10 @@ export const IconShield = (p) => (
   </Svg>
 );
 
-export const IconTag = (p) => (
-  <Svg {...p}>
-    <path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z" />
-    <circle cx="7.5" cy="7.5" r=".5" fill="currentColor" />
-  </Svg>
-);
-
-export const IconHeart = (p) => (
-  <Svg {...p}>
-    <path d="M19 14c1.5-1.5 3-3.4 3-5.5A4.5 4.5 0 0 0 12 5 4.5 4.5 0 0 0 2 8.5C2 11 4 13 6 14.5l6 5.5 7-6Z" />
-  </Svg>
-);
-
-export const IconShirt = (p) => (
-  <Svg {...p}>
-    <path d="M20.4 5.6 16 4a4 4 0 0 1-8 0L3.6 5.6a1 1 0 0 0-.6 1.3l1 3a1 1 0 0 0 1.3.6L7 10v9a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-9l1.7.5a1 1 0 0 0 1.3-.6l1-3a1 1 0 0 0-.6-1.3Z" />
-  </Svg>
-);
-
-export const IconLaptop = (p) => (
-  <Svg {...p}>
-    <rect x="3" y="4" width="18" height="12" rx="1.5" />
-    <path d="M2 20h20" />
-  </Svg>
-);
-
-export const IconHome = (p) => (
-  <Svg {...p}>
-    <path d="m3 10 9-7 9 7" />
-    <path d="M5 9v11h14V9" />
-    <path d="M10 20v-6h4v6" />
-  </Svg>
-);
-
 export const IconSparkles = (p) => (
   <Svg {...p}>
     <path d="M12 3l1.6 4.4L18 9l-4.4 1.6L12 15l-1.6-4.4L6 9l4.4-1.6L12 3Z" />
     <path d="M18.5 14.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7.7-1.8Z" />
-  </Svg>
-);
-
-export const IconLeaf = (p) => (
-  <Svg {...p}>
-    <path d="M11 20A7 7 0 0 1 4 13c0-5 5-9 16-9 0 9-4 14-9 16Z" />
-    <path d="M4 20c4-6 8-8 13-9" />
-  </Svg>
-);
-
-export const IconGift = (p) => (
-  <Svg {...p}>
-    <rect x="3" y="8" width="18" height="4" rx="1" />
-    <path d="M5 12v8h14v-8" />
-    <path d="M12 8v12" />
-    <path d="M12 8S10.5 4 8 4a2 2 0 0 0 0 4Zm0 0s1.5-4 4-4a2 2 0 0 1 0 4Z" />
   </Svg>
 );
 
@@ -122,36 +72,9 @@ export const IconFacebook = (p) => (
   </Svg>
 );
 
-export const IconX = (p) => (
-  <Svg {...p}>
-    <path d="M4 4l16 16M20 4 4 20" />
-  </Svg>
-);
-
 export const IconTiktok = (p) => (
   <Svg {...p}>
     <path d="M16 3c.3 2.3 1.8 3.9 4 4.2v3c-1.6 0-3-.5-4-1.3V15a5.5 5.5 0 1 1-5.5-5.5c.4 0 .7 0 1 .1v3a2.5 2.5 0 1 0 1.5 2.3V3h3Z" />
-  </Svg>
-);
-
-export const IconCube = (p) => (
-  <Svg {...p}>
-    <path d="M12 2 3 7v10l9 5 9-5V7l-9-5Z" />
-    <path d="M3 7l9 5 9-5M12 12v10" />
-  </Svg>
-);
-
-export const IconZoomIn = (p) => (
-  <Svg {...p}>
-    <circle cx="11" cy="11" r="7" />
-    <path d="m21 21-4.3-4.3M11 8v6M8 11h6" />
-  </Svg>
-);
-
-export const IconLock = (p) => (
-  <Svg {...p}>
-    <rect x="4" y="11" width="16" height="10" rx="2" />
-    <path d="M8 11V8a4 4 0 1 1 8 0v3" />
   </Svg>
 );
 
@@ -164,15 +87,6 @@ export const IconPlus = (p) => (
 export const IconMinus = (p) => (
   <Svg {...p}>
     <path d="M5 12h14" />
-  </Svg>
-);
-
-export const IconShare = (p) => (
-  <Svg {...p}>
-    <circle cx="18" cy="5" r="3" />
-    <circle cx="6" cy="12" r="3" />
-    <circle cx="18" cy="19" r="3" />
-    <path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4" />
   </Svg>
 );
 
@@ -203,46 +117,9 @@ export const IconPackage = (p) => (
   </Svg>
 );
 
-export const IconLightbulb = (p) => (
-  <Svg {...p}>
-    <path d="M9 18h6" />
-    <path d="M10 22h4" />
-    <path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14" />
-  </Svg>
-);
-
-export const IconPawPrint = (p) => (
-  <Svg {...p}>
-    <circle cx="11" cy="4" r="2" />
-    <circle cx="18" cy="8" r="2" />
-    <circle cx="4" cy="8" r="2" />
-    <circle cx="11" cy="13" r="3" />
-    <path d="M8 21c-1.5 0-2.5-1-2.5-2.5 0-1.4 1-2.5 2.5-2.5h8c1.5 0 2.5 1.1 2.5 2.5S17.5 21 16 21H8Z" />
-  </Svg>
-);
-
 export const IconSearch = (p) => (
   <Svg {...p}>
     <circle cx="11" cy="11" r="7" />
     <path d="m21 21-4.3-4.3" />
   </Svg>
 );
-
-export const IconStar = (p) => (
-  <Svg {...p}>
-    <path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.123 2.123 0 0 0 1.597-1.16z" />
-  </Svg>
-);
-
-/** Map a collection/category title to an icon component. */
-export function categoryIcon(title = '', props) {
-  const t = title.toLowerCase();
-  if (/fashion|cloth|apparel|wear|shirt|sweater|jacket/.test(t)) return <IconShirt {...props} />;
-  if (/electronic|tech|gadget|device|audio|phone|laptop/.test(t)) return <IconLaptop {...props} />;
-  if (/home|kitchen|decor|furnitur/.test(t)) return <IconHome {...props} />;
-  if (/beauty|skin|makeup|fragrance|care/.test(t)) return <IconSparkles {...props} />;
-  if (/pet|dog|cat/.test(t)) return <IconBag {...props} />;
-  if (/outdoor|garden|sport|plant/.test(t)) return <IconLeaf {...props} />;
-  if (/gift|sale|deal|best|trending/.test(t)) return <IconGift {...props} />;
-  return <IconBag {...props} />;
-}
