@@ -26,6 +26,14 @@ export function SmallSpaceLanding(props) {
   // different product here made the visual read like a misleading product card.
   const heroFeature = heroPrimary;
   const heroFeatureVariant = findApprovedVariant(heroFeature, market);
+  const heroDisplayTitle = heroFeature
+    ? presentProductTitle(
+        heroFeature.title,
+        heroFeatureVariant,
+        heroFeature.handle,
+        t,
+      )
+    : '';
   // Lead with the approved variant image, not the product-level gallery cover.
   // The latter can show colours or configurations that are not offered in the
   // selected market and made the hero/card pairing look like two products.
@@ -55,7 +63,7 @@ export function SmallSpaceLanding(props) {
             <Image
               className="pk-campaign-lifestyle"
               data={heroImage}
-              alt={heroImage.altText || heroPrimary.title}
+              alt={heroImage.altText || heroDisplayTitle}
               sizes="(min-width: 761px) 56vw, 100vw"
               loading="eager"
               {...{fetchpriority: 'high'}}
@@ -69,7 +77,7 @@ export function SmallSpaceLanding(props) {
               to={`/products/${heroFeature.handle}`}
               prefetch="intent"
               aria-label={t('launch_home_shop_product', {
-                title: heroFeature.title,
+                title: heroDisplayTitle,
               })}
             >
               {heroFeatureVariant?.image || heroFeature.featuredImage ? (
@@ -84,7 +92,7 @@ export function SmallSpaceLanding(props) {
               ) : null}
               <span className="pk-campaign-feature__body">
                 <small>{t('launch_home_featured')}</small>
-                <strong>{heroFeature.title}</strong>
+                <strong>{heroDisplayTitle}</strong>
                 {heroFeatureVariant?.price ? (
                   <span className="pk-campaign-feature__price">
                     <CurrencyMoney data={heroFeatureVariant.price} />

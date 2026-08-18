@@ -37,6 +37,11 @@ test('focused launch homepage is translated in every supported language', () => 
       assert.ok(dictionary[key]?.trim(), `${language} is missing ${key}`);
     }
   }
+
+  const landing = readFileSync('app/components/SmallSpaceLanding.jsx', 'utf8');
+  assert.match(landing, /const heroDisplayTitle = heroFeature/);
+  assert.match(landing, /<strong>\{heroDisplayTitle\}<\/strong>/);
+  assert.doesNotMatch(landing, /<strong>\{heroFeature\.title\}<\/strong>/);
 });
 
 test('returning-cart reminder stays localized', () => {
