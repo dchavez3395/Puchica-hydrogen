@@ -32,7 +32,6 @@ import {
   STOREFRONT_CONTAINMENT_ACTIVE,
 } from '~/lib/launch-catalog';
 import {presentProductTitle} from '~/lib/product-presentation';
-import {DICTIONARIES} from '~/lib/dictionaries';
 import {buildApprovedGallery} from '~/lib/product-gallery';
 
 /** @type {Route.MetaFunction} */
@@ -50,7 +49,7 @@ export const meta = ({data, matches, params}) => {
     .toLowerCase()
     .replace(/_/g, '-');
   const langKey = ['fr', 'es', 'pt-br'].includes(langCode) ? langCode : 'en';
-  const dict = DICTIONARIES[langKey] || DICTIONARIES.en;
+  const dict = root?.data?.dictionary || {};
   const seo = data.product.seo || {};
   const productTitle = presentProductTitle(data.product.title);
   const storedDescription = seo.description || '';
@@ -69,7 +68,11 @@ export const meta = ({data, matches, params}) => {
     // Fallback string from the dictionary, with {title} interpolated via
     // the same helper useT() uses so React node values flow through if a
     // caller ever passes one.
-    dict.pdp_meta_description_fallback.replace(/\{title\}/g, productTitle);
+    (dict.pdp_meta_description_fallback ||
+      'Shop {title} at Puchica. Shipping options are shown at checkout.').replace(
+      /\{title\}/g,
+      productTitle,
+    );
   const image =
     data.product.selectedOrFirstAvailableVariant?.image?.url ||
     data.product.featuredImage?.url;

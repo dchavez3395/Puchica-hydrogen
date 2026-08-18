@@ -1,6 +1,4 @@
 import {useRouteLoaderData} from 'react-router';
-import {DICTIONARIES} from '~/lib/dictionaries';
-import {LANGUAGE_KEYS} from '~/lib/i18n';
 
 /**
  * Interpolate `{key}` placeholders in `template` with values from `params`.
@@ -39,11 +37,9 @@ function interpolate(template, params) {
  */
 export function useT() {
   const root = useRouteLoaderData('root');
-  const langCode = root?.selectedLocale?.language || 'EN';
-  const key = LANGUAGE_KEYS[langCode] || 'en';
-  const dict = DICTIONARIES[key] || DICTIONARIES.en;
+  const dict = root?.dictionary || {};
   return (k, params) => {
-    const raw = dict[k] ?? DICTIONARIES.en[k] ?? k;
+    const raw = dict[k] ?? k;
     return interpolate(raw, params);
   };
 }

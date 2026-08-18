@@ -32,6 +32,7 @@ import {GoogleAnalytics4} from './components/GoogleAnalytics4';
 import {error as logError} from '~/lib/logger';
 import {useT} from '~/lib/t';
 import {getMarketSafeCart} from '~/lib/cart-safety';
+import {getRequestDictionary} from '~/lib/dictionaries.server';
 
 /**
  * This is important to avoid re-fetching root queries on sub-navigations
@@ -128,6 +129,7 @@ export async function loader(args) {
       ? env.PUBLIC_GA4_MEASUREMENT_ID || null
       : null,
     selectedLocale,
+    dictionary: getRequestDictionary(selectedLocale.language),
     shop: getShopAnalytics({
       storefront,
       publicStorefrontId: env.PUBLIC_STOREFRONT_ID,
