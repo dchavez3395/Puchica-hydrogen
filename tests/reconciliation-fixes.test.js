@@ -6,6 +6,7 @@ import {
   captureCartSubmission,
   isFeedbackForCurrentSelection,
 } from '../app/lib/cart-feedback.js';
+import {getVariantUrl} from '../app/lib/variants.js';
 
 test('cart removal refreshes the drawer and route data', async () => {
   const source = await readFile(
@@ -108,6 +109,31 @@ test('Portuguese Storefront language codes self-canonicalize to pt-br URLs', asy
 
   assert.match(source, /\.toLowerCase\(\)\s*\.replace\(\/_\/g, '-'/);
   assert.match(source, /\['fr', 'es', 'pt-br'\]\.includes\(langCode\)/);
+});
+
+test('variant links preserve every live storefront locale', () => {
+  for (const locale of ['fr', 'es', 'pt-br']) {
+    const url = getVariantUrl({
+      handle: 'white-semi-circular-travel-jewelry-case',
+      pathname: `/${locale}/products/current-product`,
+      searchParams: new URLSearchParams('utm_source=organic'),
+      selectedOptions: [{name: 'Color', value: 'White'}],
+    });
+    assert.equal(
+      url,
+      `/${locale}/products/white-semi-circular-travel-jewelry-case?` +
+        'utm_source=organic&Color=White',
+    );
+  }
+
+  assert.equal(
+    getVariantUrl({
+      handle: '3-piece-packing-cube-set',
+      pathname: '/products/current-product',
+      searchParams: new URLSearchParams(),
+    }),
+    '/products/3-piece-packing-cube-set',
+  );
 });
 
 test('localized product structured data stays on the localized URL', async () => {
