@@ -66,6 +66,9 @@ export default async function handleRequest(
       'https://www.google-analytics.com',
     ],
     frameSrc: ["'self'", 'https://cdn.judge.me'],
+    // The storefront does not embed legacy plugin content. Explicitly disable
+    // <object>, <embed>, and <applet> loads instead of relying on default-src.
+    objectSrc: ["'none'"],
   });
 
   const body = await renderToReadableStream(

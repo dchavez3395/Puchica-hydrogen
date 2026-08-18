@@ -55,6 +55,23 @@ export function hasNoIndex(headers) {
   );
 }
 
+export function hasSecureDocumentHeaders(headers) {
+  const csp = headers.get('content-security-policy') || '';
+  const hsts = headers.get('strict-transport-security') || '';
+  const permissions = headers.get('permissions-policy') || '';
+  return (
+    /(?:^|;)\s*frame-ancestors\s+'none'(?:;|$)/i.test(csp) &&
+    /(?:^|;)\s*base-uri\s+'self'(?:;|$)/i.test(csp) &&
+    /(?:^|;)\s*object-src\s+'none'(?:;|$)/i.test(csp) &&
+    /max-age=\d+/i.test(hsts) &&
+    headers.get('x-content-type-options')?.toLowerCase() === 'nosniff' &&
+    headers.get('referrer-policy') === 'strict-origin-when-cross-origin' &&
+    /camera=\(\)/i.test(permissions) &&
+    /microphone=\(\)/i.test(permissions) &&
+    /geolocation=\(\)/i.test(permissions)
+  );
+}
+
 function parseArgs(argv) {
   const valueAfter = (name) => {
     const index = argv.indexOf(name);
@@ -119,6 +136,7 @@ async function statusCheck(
     expectedFinalUrl,
     requireFailClosed = false,
     requireMarketNotice = false,
+    requireSecurityHeaders = false,
   },
 ) {
   const inspected = await request(baseUrl, pathname, market);
@@ -142,20 +160,26 @@ async function statusCheck(
     !expectedFinalUrl || response.url === expectedFinalUrl;
   const marketNoticeMatches =
     !requireMarketNotice || body.includes('data-market-unavailable="true"');
+  const securityHeadersMatch =
+    !requireSecurityHeaders || hasSecureDocumentHeaders(response.headers);
   const actual = requireFailClosed
     ? `${response.status}; cache=${response.headers.get('cache-control') || 'missing'}; robots=${response.headers.get('x-robots-tag') || 'missing'}`
     : expectedFinalUrl
       ? `${response.status}; final=${response.url}`
       : requireMarketNotice
-        ? `${response.status}; market-notice=${marketNoticeMatches ? 'present' : 'missing'}`
-        : String(response.status);
+      ? `${response.status}; market-notice=${marketNoticeMatches ? 'present' : 'missing'}`
+      : requireSecurityHeaders
+        ? `${response.status}; security-headers=${securityHeadersMatch ? 'present' : 'missing'}`
+      : String(response.status);
   const expected = requireFailClosed
     ? `${expectedStatus}; no-store; noindex`
     : expectedFinalUrl
       ? `${expectedStatus}; final=${expectedFinalUrl}`
       : requireMarketNotice
-        ? `${expectedStatus}; market-notice=present`
-        : String(expectedStatus);
+      ? `${expectedStatus}; market-notice=present`
+      : requireSecurityHeaders
+        ? `${expectedStatus}; security-headers=present`
+      : String(expectedStatus);
 
   return result(
     label,
@@ -166,7 +190,8 @@ async function statusCheck(
     response.status === expectedStatus &&
       failClosed &&
       finalUrlMatches &&
-      marketNoticeMatches,
+      marketNoticeMatches &&
+      securityHeadersMatch,
     durationMs,
   );
 }
@@ -204,7 +229,12 @@ async function documentSetCheck(
 
 function routeChecks() {
   const checks = [
-    {label: 'Homepage', pathname: '/', expectedStatus: 200},
+    {
+      label: 'Homepage',
+      pathname: '/',
+      expectedStatus: 200,
+      requireSecurityHeaders: true,
+    },
     {
       label: 'All-products collection',
       pathname: '/collections/all',

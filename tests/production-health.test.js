@@ -12,6 +12,7 @@ import {
   EXPECTED_HANDLES_BY_MARKET,
   extractFeedHandles,
   extractProductHandles,
+  hasSecureDocumentHeaders,
   hasNoIndex,
   hasNoStore,
   sameMembers,
@@ -29,6 +30,33 @@ test('production monitor shares the verified market cohorts', () => {
   ]);
   assert.equal(DISCOVERABLE_PRODUCT_HANDLES.length, 3);
   assert.equal(RETIRED_CATALOG_HANDLES.size, 6);
+});
+
+test('production monitor requires the storefront security-header baseline', () => {
+  const secure = new Headers({
+    'content-security-policy':
+      "base-uri 'self'; object-src 'none'; frame-ancestors 'none'",
+    'strict-transport-security': 'max-age=31536000',
+    'x-content-type-options': 'nosniff',
+    'referrer-policy': 'strict-origin-when-cross-origin',
+    'permissions-policy': 'camera=(), microphone=(), geolocation=()',
+  });
+  const missingFrameProtection = new Headers(secure);
+  missingFrameProtection.set(
+    'content-security-policy',
+    "base-uri 'self'; object-src 'none'",
+  );
+
+  assert.equal(hasSecureDocumentHeaders(secure), true);
+  assert.equal(hasSecureDocumentHeaders(missingFrameProtection), false);
+});
+
+test('server CSP explicitly blocks legacy plugin content', async () => {
+  const source = await readFile(
+    new URL('../app/entry.server.jsx', import.meta.url),
+    'utf8',
+  );
+  assert.match(source, /objectSrc:\s*\["'none'"\]/);
 });
 
 test('feed and sitemap extractors find product handles', () => {
