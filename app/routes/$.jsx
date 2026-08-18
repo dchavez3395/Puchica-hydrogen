@@ -102,38 +102,29 @@ export default function CatchAllPage() {
             >
               <li>
                 <Link
-                  to="/collections/best-sellers"
-                  prefetch="intent"
-                  style={{fontWeight: 600}}
-                >
-                  {t('notfound_best')}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/collections/new"
-                  prefetch="intent"
-                  style={{fontWeight: 600}}
-                >
-                  {t('notfound_new')}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/collections"
-                  prefetch="intent"
-                  style={{fontWeight: 600}}
-                >
-                  {t('notfound_all_collections')}
-                </Link>
-              </li>
-              <li>
-                <Link
                   to="/collections/all"
                   prefetch="intent"
                   style={{fontWeight: 600}}
                 >
-                  {t('notfound_all_catalog')}
+                  {t('nav_shop_all')}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/pages/about"
+                  prefetch="intent"
+                  style={{fontWeight: 600}}
+                >
+                  {t('nav_about_short')}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/pages/contact"
+                  prefetch="intent"
+                  style={{fontWeight: 600}}
+                >
+                  {t('footer_contact')}
                 </Link>
               </li>
             </ul>

@@ -49,7 +49,6 @@ export async function loader(args) {
  */
 const SORT_KEY_MAP = {
   featured: {sortKey: 'RELEVANCE', reverse: false},
-  'best-selling': {sortKey: 'BEST_SELLING', reverse: false},
   newest: {sortKey: 'CREATED_AT', reverse: true},
   'price-asc': {sortKey: 'PRICE', reverse: false},
   'price-desc': {sortKey: 'PRICE', reverse: true},
@@ -136,11 +135,6 @@ export default function Collection() {
       title: t('new_arrivals_heading'),
       sub: t('all_sub'),
     },
-    'best-sellers': {
-      eyebrow: t('best_sellers_eyebrow'),
-      title: t('nav_best_sellers'),
-      sub: t('megamenu_tagline_best_sellers'),
-    },
   }[catalogView];
   const nodes = products?.nodes ?? [];
   const count = nodes.length;
@@ -217,7 +211,6 @@ export default function Collection() {
                   }}
                 >
                   <option value="featured">{t('col_sort_featured')}</option>
-                  <option value="best-selling">{t('col_sort_best')}</option>
                   <option value="newest">{t('col_sort_newest')}</option>
                   <option value="price-asc">{t('col_sort_price_asc')}</option>
                   <option value="price-desc">{t('col_sort_price_desc')}</option>

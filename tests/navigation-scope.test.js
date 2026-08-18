@@ -24,6 +24,14 @@ const legacyCollectionRoute = await readFile(
   new URL('../app/routes/collections.$handle.jsx', import.meta.url),
   'utf8',
 );
+const collectionRoute = await readFile(
+  new URL('../app/routes/collections.all.jsx', import.meta.url),
+  'utf8',
+);
+const notFoundRoute = await readFile(
+  new URL('../app/routes/$.jsx', import.meta.url),
+  'utf8',
+);
 
 test('shop navigation links directly to the exact three-offer scope', () => {
   for (const handle of [
@@ -38,6 +46,16 @@ test('shop navigation links directly to the exact three-offer scope', () => {
     megaMenu,
     /under sink organizer|cable organizer|collections\/best-sellers/i,
   );
+});
+
+test('collection and recovery navigation make no unsupported sales ranking claim', () => {
+  assert.doesNotMatch(collectionRoute, /BEST_SELLING|value="best-selling"/);
+  assert.doesNotMatch(
+    notFoundRoute,
+    /collections\/best-sellers|collections\/new|notfound_best|notfound_new/,
+  );
+  assert.match(notFoundRoute, /to="\/collections\/all"/);
+  assert.match(notFoundRoute, /to="\/pages\/contact"/);
 });
 
 test('empty search prompts stay localized and inside the current assortment', () => {
