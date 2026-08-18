@@ -135,6 +135,7 @@ test('product sitemap has the exact-variant data required by its launch gate', a
   assert.match(sitemap, /variants\(first: 50\)/);
   assert.match(sitemap, /sku\s+availableForSale/);
   assert.match(sitemap, /'\/collections\/all'/);
+  assert.match(sitemap, /hreflang="x-default"/);
 });
 
 test('product feed exposes the node shape required by the exact-variant gate', async () => {

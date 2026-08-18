@@ -8,10 +8,8 @@ import {
  * @param {Route.LoaderArgs}
  *
  * The URL-locale routes (/fr, /es, /pt-br) are live, so the sitemap
- * advertises all four languages. Hydrogen's `getSitemap` emits one
- * `<xhtml:link rel="alternate" hreflang=...>` per locale, plus an `x-default`
- * pointing at the unprefixed (English) URL, automatically — we just
- * have to list the locales and the URL shape.
+ * advertises all four languages plus an `x-default` pointing at the
+ * unprefixed English URL.
  *
  * Locale codes are the four BCP-47 tags search engines see. They map
  * to URL prefixes: `EN` (unprefixed), `fr` -> `/fr`, `es` -> `/es`,
@@ -86,11 +84,13 @@ function productUrlset(products, baseUrl, locales) {
           return `  <xhtml:link rel="alternate" hreflang="${locale}" href="${href}" />`;
         })
         .join('\n');
+      const xDefault = `  <xhtml:link rel="alternate" hreflang="x-default" href="${canonical}" />`;
       return `<url>
   <loc>${canonical}</loc>
   <lastmod>${product.updatedAt}</lastmod>
   <changefreq>weekly</changefreq>
 ${alternates}
+${xDefault}
 </url>`;
     })
     .join('\n');
@@ -117,10 +117,12 @@ function staticPageUrlset(baseUrl, locales) {
         return `  <xhtml:link rel="alternate" hreflang="${locale}" href="${href}" />`;
       })
       .join('\n');
+    const xDefault = `  <xhtml:link rel="alternate" hreflang="x-default" href="${canonical}" />`;
     return `<url>
   <loc>${canonical}</loc>
   <changefreq>weekly</changefreq>
 ${alternates}
+${xDefault}
 </url>`;
   }).join('\n');
 
