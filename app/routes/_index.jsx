@@ -26,7 +26,7 @@ export const meta = ({data, params}) =>
         ? 'Puchica is completing a storefront review. Shopping will return after the release checks are complete.'
         : data?.country === 'US'
         ? 'A focused travel organizer with clear product details and shipping shown at checkout.'
-        : 'A focused travel-organization edit for clothing, cables, and toiletries, with shipping shown at checkout.',
+        : 'A focused travel-organization edit for clothing, toiletries, and small jewelry, with shipping shown at checkout.',
     pathname: '/',
     langKey: params?.locale,
   });

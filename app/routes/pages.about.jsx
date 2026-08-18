@@ -65,19 +65,24 @@ export default function AboutPage() {
   ];
   const destinations = [
     {
+      url: '/products/black-hanging-travel-toiletry-organizer',
+      label: t('about_shop_travel_title'),
+      body: t('about_shop_travel_body'),
+      markets: ['CA', 'US'],
+    },
+    {
       url: '/products/3-piece-packing-cube-set',
       label: t('about_shop_home_title'),
       body: t('about_shop_home_body'),
+      markets: ['CA'],
     },
     {
-      url: '/products/travel-cable-organizer-case',
+      url: '/products/white-semi-circular-travel-jewelry-case',
       label: t('about_shop_cable_title'),
       body: t('about_shop_cable_body'),
+      markets: ['CA', 'US'],
     },
-  ].filter(
-    ({url}) =>
-      market === 'CA' || url === '/products/travel-cable-organizer-case',
-  );
+  ].filter(({markets}) => markets.includes(market));
 
   return (
     <div className="pk-about-v3">

@@ -200,17 +200,47 @@ test('released homepage is travel-focused and uses the catalog gate', async () =
   assert.match(landing, /const heroFeature = heroPrimary/);
   assert.match(
     landing,
-    /if \(\/travel cable organizer\/i\.test\(title\)\) return 0/,
+    /if \(\/travel toiletry organizer\/i\.test\(title\)\) return 0/,
   );
   assert.match(
     landing,
-    /if \(\/travel toiletry organizer\/i\.test\(title\)\) return 1/,
+    /if \(\/3-piece packing cube\/i\.test\(title\)\) return 1/,
   );
   assert.match(
     landing,
-    /if \(\/3-piece packing cube\/i\.test\(title\)\) return 2/,
+    /if \(\/travel jewelry case\/i\.test\(title\)\) return 2/,
   );
   assert.doesNotMatch(landing, /Canada &amp; U\.S\. delivery routes/);
+});
+
+test('launch copy does not claim unverified testing, testimonials, or fulfillment terms', async () => {
+  const dictionary = await readFile(
+    new URL('../app/lib/dictionaries.js', import.meta.url),
+    'utf8',
+  );
+  const campaign = await readFile(
+    new URL('../app/routes/campaigns.home-finds.jsx', import.meta.url),
+    'utf8',
+  );
+  const collection = await readFile(
+    new URL('../app/routes/collections.all.jsx', import.meta.url),
+    'utf8',
+  );
+
+  assert.doesNotMatch(
+    dictionary,
+    /thoroughly tested|soigneusement testé|probado a fondo|testado a fundo/i,
+  );
+  assert.doesNotMatch(
+    dictionary,
+    /Expédition sous 24 h|Envío en 24 horas|Envio em 24 horas|no-questions-asked/i,
+  );
+  assert.doesNotMatch(
+    dictionary,
+    /Maya R\.|James P\.|Sophie L\.|Mariana L\.|Diego R\.|Sofía M\./,
+  );
+  assert.doesNotMatch(campaign, /clothing, cables, and toiletries/i);
+  assert.doesNotMatch(collection, /clothing, cables, and toiletries/i);
 });
 
 test('the legacy launch tag cannot approve a product', () => {

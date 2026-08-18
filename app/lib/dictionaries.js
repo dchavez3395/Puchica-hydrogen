@@ -1017,17 +1017,17 @@ export const DICTIONARIES = {
     about_hero_title_main: 'A smaller travel shop',
     about_hero_title_em: 'with clearer reasons to buy.',
     about_hero_sub:
-      'Puchica is an independent Canadian shop starting with three practical travel organizers for clothing, cables, and toiletries. We keep the catalog small so the product details, options, and delivery information stay clear.',
+      'Puchica is an independent Canadian shop starting with three practical travel organizers for clothing, toiletries, and small jewelry. We keep the catalog small so the product details, options, and delivery information stay clear.',
     about_hero_cta: 'Shop the travel edit →',
     about_stats_aria: 'Puchica in numbers',
     about_stat_products_num: 'Active',
     about_stat_products_label: 'Handpicked products',
     about_stat_quality_num: '100%',
     about_stat_quality_label: 'Quality-checked',
-    about_stat_shipping_num: '$0',
-    about_stat_shipping_label: 'Shipping across Canada',
+    about_stat_shipping_num: 'Checkout',
+    about_stat_shipping_label: 'Shipping shown before payment',
     about_stat_returns_num: '30 days',
-    about_stat_returns_label: 'No-hassle returns',
+    about_stat_returns_label: 'Policy-based returns',
     about_mission_eye: 'Why we started',
     about_mission_title:
       'The problem wasn’t finding more products. It was finding the right one.',
@@ -1041,7 +1041,7 @@ export const DICTIONARIES = {
     about_how_title: 'A product needs a reason to be here.',
     about_how_1_title: 'Solves a specific problem',
     about_how_1_body:
-      'We start with a clear job: separate clothing, contain small tech, or keep toiletries easier to find.',
+      'We start with a clear job: separate clothing, keep toiletries easier to find, or protect small jewelry in transit.',
     about_how_2_title: 'Fits the same travel system',
     about_how_2_body:
       'The three launch products work together in a suitcase, weekender, gym bag, or carry-on without creating another crowded catalog.',
@@ -1065,7 +1065,7 @@ export const DICTIONARIES = {
     about_cat_gift_name: 'Gifts',
     about_cat_gift_sub: 'For everyone on your list',
     about_promise_quote:
-      "Every Puchica product has been thoroughly tested by our team. Providing the most curated selection of products that we can find. If we wouldn't use it ourselves, it won't be Puchica.",
+      'Every launch product is screened for a clear use, understandable options, and a supplier route we can monitor. We keep the selection small so we can support each order carefully.',
     about_promise_attr: 'The Puchica team, Canada',
     about_cta_title: 'Ready to make space for calmer days?',
     about_dept_title: 'Browse the store',
@@ -1144,12 +1144,12 @@ export const DICTIONARIES = {
     about_shop_eye: 'The travel edit',
     about_shop_title: 'Start with the part of packing that slows you down.',
     about_shop_home_title: 'Packing cubes',
-    about_shop_cable_title: 'Cable organizer',
+    about_shop_cable_title: 'Travel jewelry case',
     about_shop_travel_title: 'Toiletry organizer',
     about_shop_home_body:
       'Separate clothing into Small, Medium, and Large zippered cubes.',
     about_shop_cable_body:
-      'Keep chargers, adapters, earbuds, and memory cards together.',
+      'Keep rings, earrings, and small necklaces together while traveling.',
     about_shop_travel_body:
       'Give bottles, grooming tools, and cosmetics a dedicated place.',
     about_shop_all: 'Shop the complete travel edit',
@@ -1362,7 +1362,7 @@ export const DICTIONARIES = {
     home_reviews_heading: 'Every pick should earn its space',
     home_reviews_verified: 'What we look for',
     home_reviews_quote_1_text:
-      'The quality is consistent, shipping is fast, and returns are no-questions-asked. That is why I keep coming back.',
+      'Solves a specific packing problem without adding unnecessary bulk.',
     home_reviews_quote_1_author: 'Practical',
     home_reviews_quote_2_text:
       'Fits compact counters, cabinets, drawers, or everyday routines.',
@@ -2277,7 +2277,7 @@ export const DICTIONARIES = {
     cart_page_eyebrow: 'Votre panier',
     cart_trust_aria: 'Pourquoi magasiner chez nous',
     cart_trust_returns: 'Retours sous 30 jours',
-    cart_trust_shipping: 'Expédition sous 24 h',
+    cart_trust_shipping: 'Livraison affichée au paiement',
     cart_trust_secure: 'Paiement sécurisé',
 
     // ── Page d’index des collections ───────────────────────────
@@ -2393,17 +2393,17 @@ export const DICTIONARIES = {
     about_hero_title_main: 'Une petite boutique de voyage',
     about_hero_title_em: 'avec de meilleures raisons d’acheter.',
     about_hero_sub:
-      'Puchica est une boutique canadienne indépendante qui commence avec trois organisateurs de voyage pratiques pour les vêtements, les câbles et les articles de toilette.',
+      'Puchica est une boutique canadienne indépendante qui commence avec trois organisateurs de voyage pratiques pour les vêtements, les articles de toilette et les petits bijoux.',
     about_hero_cta: 'Voir la sélection voyage →',
     about_stats_aria: 'Puchica en chiffres',
     about_stat_products_num: 'Actif',
     about_stat_products_label: 'Produits sélectionnés',
     about_stat_quality_num: '100 %',
     about_stat_quality_label: 'Contrôle qualité',
-    about_stat_shipping_num: '50 $+',
-    about_stat_shipping_label: 'Livraison au Canada',
+    about_stat_shipping_num: 'Paiement',
+    about_stat_shipping_label: 'Livraison affichée avant de payer',
     about_stat_returns_num: '30 jours',
-    about_stat_returns_label: 'Retours sans tracas',
+    about_stat_returns_label: 'Retours selon la politique',
     about_mission_eye: 'Pourquoi nous existons',
     about_mission_title:
       'Dans un petit espace, chaque objet mal rangé prend plus de place.',
@@ -2417,7 +2417,7 @@ export const DICTIONARIES = {
     about_how_title: 'Chaque produit doit justifier l’espace qu’il occupe.',
     about_how_1_title: 'Résout un problème précis',
     about_how_1_body:
-      'Nous partons d’une fonction claire : séparer les vêtements, contenir les petits appareils ou garder les articles de toilette faciles à trouver.',
+      'Nous partons d’une fonction claire : séparer les vêtements, garder les articles de toilette faciles à trouver ou protéger les petits bijoux en voyage.',
     about_how_2_title: 'Fait partie du même système de voyage',
     about_how_2_body:
       'Les trois produits fonctionnent ensemble dans une valise, un sac de week-end, un sac de sport ou un bagage à main.',
@@ -2441,8 +2441,8 @@ export const DICTIONARIES = {
     about_cat_gift_name: 'Cadeaux',
     about_cat_gift_sub: 'Pour tous ceux sur votre liste',
     about_promise_quote:
-      'Chaque produit Puchica a été soigneusement testé par notre équipe. Nous offrons la sélection la plus soignée de produits que nous puissions trouver. Si nous ne l’utiliserions pas nous-mêmes, ce ne sera pas Puchica.',
-    about_promise_attr: 'L’équipe Puchica, Toronto ON',
+      'Chaque produit de lancement est évalué selon son utilité, la clarté de ses options et une filière fournisseur que nous pouvons suivre. La sélection reste petite pour que chaque commande soit bien accompagnée.',
+    about_promise_attr: 'L’équipe Puchica, Canada',
     about_cta_title:
       'Prêt·e à faire de la place pour des journées plus calmes ?',
     about_dept_title: 'Parcourir la boutique',
@@ -2486,24 +2486,24 @@ export const DICTIONARIES = {
       'On choisit des choses qui durent et comptent, pas ce que l’algorithme pousse cette semaine.',
     about_values_4_title: 'Expédié par des partenaires de confiance',
     about_values_4_body:
-      'Chaque commande part d’un partenaire vérifié sous 24 h, avec une étiquette de retour prépayée dans chaque boîte.',
+      'Les produits sont expédiés par des partenaires fournisseurs. Le délai et le suivi disponibles sont confirmés pour la commande sélectionnée.',
 
     about_team_eye: 'Qui nous sommes',
     about_team_title: 'Des gens réels, des choix réels.',
     about_team_sub:
-      'Une petite équipe à Toronto, derrière chaque produit qui passe le filtre.',
-    about_team_1_name: 'Mariana L.',
-    about_team_1_role: 'Fondatrice & Curatrice',
+      'Une petite entreprise canadienne derrière chaque produit qui passe le filtre.',
+    about_team_1_name: 'Sélection des produits',
+    about_team_1_role: 'Ce qui mérite sa place',
     about_team_1_bio:
       'On choisit des produits qui résolvent un vrai problème, proviennent de fournisseurs vérifiés et méritent leur place dans une collection ciblée.',
-    about_team_2_name: 'Diego R.',
-    about_team_2_role: 'Responsable des opérations',
+    about_team_2_name: 'Opérations',
+    about_team_2_role: 'Vérification des fournisseurs et de la livraison',
     about_team_2_bio:
-      'Garde le réseau de fournisseurs en marche et s’assure que chaque commande parte à temps. La raison pour laquelle votre colis arrive vite.',
-    about_team_3_name: 'Sofía M.',
-    about_team_3_role: 'Communauté & Service',
+      'Se concentre sur le mappage des fournisseurs, la disponibilité des produits et les renseignements de livraison affichés avant l’achat.',
+    about_team_3_name: 'Service à la clientèle',
+    about_team_3_role: 'Questions et soutien aux commandes',
     about_team_3_bio:
-      'Répond à vos questions, écoute vos retours et s’assure que la boutique ne cesse de s’améliorer.',
+      'Contactez-nous avec les détails du produit ou de la commande et nous les examinerons avec vous.',
 
     about_roots_aria: 'Nos racines centroaméricaines',
     about_roots_eyebrow: 'L’origine du nom',
@@ -2522,11 +2522,11 @@ export const DICTIONARIES = {
     about_shop_eye: 'La sélection voyage',
     about_shop_title: 'Commencez par la partie du rangement qui vous ralentit.',
     about_shop_home_title: 'Cubes de rangement',
-    about_shop_cable_title: 'Étui pour câbles',
+    about_shop_cable_title: 'Étui à bijoux de voyage',
     about_shop_travel_title: 'Trousse de toilette',
     about_shop_home_body: 'Séparez les vêtements dans trois cubes zippés.',
     about_shop_cable_body:
-      'Gardez chargeurs, adaptateurs et écouteurs ensemble.',
+      'Gardez bagues, boucles d’oreilles et petits colliers ensemble en voyage.',
     about_shop_travel_body:
       'Donnez une place aux flacons, outils de soin et cosmétiques.',
     about_shop_all: 'Voir toute la sélection voyage',
@@ -2756,17 +2756,17 @@ export const DICTIONARIES = {
 
     home_reviews_aria: 'Avis des clients',
     home_reviews_eyebrow: 'Aimé par plus de 12 000 acheteurs',
-    home_reviews_heading: 'Ce que disent nos clients',
-    home_reviews_verified: 'Acheteur vérifié',
+    home_reviews_heading: 'Chaque choix doit mériter sa place',
+    home_reviews_verified: 'Nos critères de sélection',
     home_reviews_quote_1_text:
-      'La qualité est constante, la livraison rapide, et les retours sont simples. C’est pourquoi je reviens.',
-    home_reviews_quote_1_author: 'Maya R. Toronto',
+      'Résout un problème précis de rangement sans ajouter de volume inutile.',
+    home_reviews_quote_1_author: 'Pratique',
     home_reviews_quote_2_text:
-      'J’ai trouvé un cadeau introuvable ailleurs. L’emballage était soigné.',
-    home_reviews_quote_2_author: 'James P. Vancouver',
+      'Convient aux petites valises, aux sacs de voyage et aux routines quotidiennes.',
+    home_reviews_quote_2_author: 'Compact',
     home_reviews_quote_3_text:
-      'Le service client répond vraiment. J’avais une question et j’ai eu une vraie réponse le jour même.',
-    home_reviews_quote_3_author: 'Sophie L. Montréal',
+      'Facile à comprendre, utile à montrer et offert à un prix raisonnable.',
+    home_reviews_quote_3_author: 'Simple',
 
     home_newsletter_aria: 'Infolettre',
     home_newsletter_eyebrow: 'Rejoignez la liste',
@@ -3669,7 +3669,7 @@ export const DICTIONARIES = {
     cart_page_eyebrow: 'Tu carrito',
     cart_trust_aria: 'Por qué comprar con nosotros',
     cart_trust_returns: 'Devoluciones en 30 días',
-    cart_trust_shipping: 'Envío en 24 horas',
+    cart_trust_shipping: 'Entrega visible al pagar',
     cart_trust_secure: 'Pago seguro',
 
     // ── Página índice de colecciones ───────────────────────────
@@ -3784,17 +3784,17 @@ export const DICTIONARIES = {
     about_hero_title_main: 'Una tienda de viaje más pequeña',
     about_hero_title_em: 'con mejores razones para comprar.',
     about_hero_sub:
-      'Puchica es una tienda canadiense independiente que empieza con tres organizadores de viaje prácticos para ropa, cables y artículos de aseo.',
+      'Puchica es una tienda canadiense independiente que empieza con tres organizadores de viaje prácticos para ropa, artículos de aseo y joyas pequeñas.',
     about_hero_cta: 'Ver la selección de viaje →',
     about_stats_aria: 'Puchica en números',
     about_stat_products_num: 'Activo',
     about_stat_products_label: 'Productos seleccionados',
     about_stat_quality_num: '100 %',
     about_stat_quality_label: 'Control de calidad',
-    about_stat_shipping_num: '$0',
-    about_stat_shipping_label: 'Envío a Canadá',
+    about_stat_shipping_num: 'Pago',
+    about_stat_shipping_label: 'Envío visible antes de pagar',
     about_stat_returns_num: '30 días',
-    about_stat_returns_label: 'Devoluciones sin complicaciones',
+    about_stat_returns_label: 'Devoluciones según la política',
     about_mission_eye: 'Por qué existimos',
     about_mission_title:
       'En un espacio pequeño, cada cosa fuera de lugar se siente más grande.',
@@ -3808,7 +3808,7 @@ export const DICTIONARIES = {
     about_how_title: 'Cada producto debe justificar el espacio que ocupa.',
     about_how_1_title: 'Resuelve un problema específico',
     about_how_1_body:
-      'Partimos de una función clara: separar la ropa, contener accesorios tecnológicos o mantener los artículos de aseo fáciles de encontrar.',
+      'Partimos de una función clara: separar la ropa, mantener los artículos de aseo fáciles de encontrar o proteger joyas pequeñas durante el viaje.',
     about_how_2_title: 'Forma parte del mismo sistema de viaje',
     about_how_2_body:
       'Los tres productos funcionan juntos en una maleta, bolsa de fin de semana, bolsa de gimnasio o equipaje de mano.',
@@ -3831,8 +3831,8 @@ export const DICTIONARIES = {
     about_cat_gift_name: 'Regalos',
     about_cat_gift_sub: 'Para todos en tu lista',
     about_promise_quote:
-      'Cada producto Puchica ha sido probado a fondo por nuestro equipo. Ofrecemos la selección más curada de productos que podamos encontrar. Si no lo usaríamos nosotros, no será Puchica.',
-    about_promise_attr: 'El equipo Puchica, Toronto ON',
+      'Cada producto de lanzamiento se evalúa por su utilidad, la claridad de sus opciones y una ruta de proveedor que podamos supervisar. Mantenemos una selección pequeña para atender bien cada pedido.',
+    about_promise_attr: 'El equipo Puchica, Canadá',
     about_cta_title: '¿Listo para hacer espacio para días más tranquilos?',
     about_dept_title: 'Explorar la tienda',
     about_cta_sub:
@@ -3875,24 +3875,24 @@ export const DICTIONARIES = {
       'Elegimos cosas que duran e importan, no lo que el algoritmo empuja esta semana.',
     about_values_4_title: 'Enviado por socios de confianza',
     about_values_4_body:
-      'Cada pedido sale de un socio verificado en 24 horas, con una etiqueta de devolución prepagada en cada caja.',
+      'Los productos se envían desde socios proveedores. El plazo y el seguimiento disponibles se confirman para el pedido seleccionado.',
 
     about_team_eye: 'Quiénes somos',
     about_team_title: 'Personas reales, selecciones reales.',
     about_team_sub:
-      'Un equipo pequeño en Toronto, detrás de cada producto que pasa el filtro.',
-    about_team_1_name: 'Mariana L.',
-    about_team_1_role: 'Fundadora y Curadora',
+      'Un pequeño negocio canadiense detrás de cada producto que pasa el filtro.',
+    about_team_1_name: 'Selección de productos',
+    about_team_1_role: 'Lo que se gana un lugar',
     about_team_1_bio:
       'Elegimos productos que resuelven un problema real, vienen de proveedores verificados y se ganan su lugar en una colección enfocada.',
-    about_team_2_name: 'Diego R.',
-    about_team_2_role: 'Líder de Operaciones',
+    about_team_2_name: 'Operaciones',
+    about_team_2_role: 'Revisión de proveedores y entregas',
     about_team_2_bio:
-      'Mantiene la red de proveedores funcionando y cada pedido enviado a tiempo. La razón por la que tu paquete llega rápido.',
-    about_team_3_name: 'Sofía M.',
-    about_team_3_role: 'Comunidad y Atención',
+      'Se enfoca en el mapeo de proveedores, la disponibilidad del producto y la información de entrega mostrada antes de comprar.',
+    about_team_3_name: 'Atención al cliente',
+    about_team_3_role: 'Preguntas y ayuda con pedidos',
     about_team_3_bio:
-      'Responde tus preguntas, escucha tus comentarios y se asegura de que la tienda siga mejorando.',
+      'Contáctanos con los datos del producto o del pedido y los revisaremos contigo.',
 
     about_roots_aria: 'Nuestras raíces centroamericanas',
     about_roots_eyebrow: 'De dónde viene el nombre',
@@ -3911,11 +3911,11 @@ export const DICTIONARIES = {
     about_shop_eye: 'La selección de viaje',
     about_shop_title: 'Empieza con la parte del empaque que más te retrasa.',
     about_shop_home_title: 'Cubos de empaque',
-    about_shop_cable_title: 'Organizador de cables',
+    about_shop_cable_title: 'Estuche de viaje para joyas',
     about_shop_travel_title: 'Organizador de aseo',
     about_shop_home_body: 'Separa la ropa en tres cubos con cierre.',
     about_shop_cable_body:
-      'Mantén juntos cargadores, adaptadores y auriculares.',
+      'Mantén juntos anillos, aretes y collares pequeños durante el viaje.',
     about_shop_travel_body:
       'Dale un lugar a botellas, herramientas de cuidado y cosméticos.',
     about_shop_all: 'Ver toda la selección de viaje',
@@ -4146,17 +4146,17 @@ export const DICTIONARIES = {
 
     home_reviews_aria: 'Reseñas de clientes',
     home_reviews_eyebrow: 'Amado por más de 12,000 compradores',
-    home_reviews_heading: 'Lo que dicen nuestros clientes',
-    home_reviews_verified: 'Comprador verificado',
+    home_reviews_heading: 'Cada elección debe ganarse su espacio',
+    home_reviews_verified: 'Nuestros criterios de selección',
     home_reviews_quote_1_text:
-      'La calidad es constante, el envío rápido y las devoluciones son sin preguntas. Por eso sigo volviendo.',
-    home_reviews_quote_1_author: 'Maya R. Toronto',
+      'Resuelve un problema específico de equipaje sin añadir volumen innecesario.',
+    home_reviews_quote_1_author: 'Práctico',
     home_reviews_quote_2_text:
-      'Encontré un regalo que no hallé en ningún otro sitio. El empaque se sentía pensado.',
-    home_reviews_quote_2_author: 'James P. Vancouver',
+      'Cabe en maletas pequeñas, bolsos de viaje y rutinas cotidianas.',
+    home_reviews_quote_2_author: 'Compacto',
     home_reviews_quote_3_text:
-      'El servicio al cliente realmente responde. Hice una pregunta y obtuve respuesta el mismo día.',
-    home_reviews_quote_3_author: 'Sophie L. Montréal',
+      'Fácil de entender, útil para demostrar y con un precio razonable.',
+    home_reviews_quote_3_author: 'Directo',
 
     home_newsletter_aria: 'Boletín',
     home_newsletter_eyebrow: 'Únete a la lista',
@@ -5052,7 +5052,7 @@ export const DICTIONARIES = {
     cart_page_eyebrow: 'Seu carrinho',
     cart_trust_aria: 'Por que comprar com a gente',
     cart_trust_returns: 'Devoluções em 30 dias',
-    cart_trust_shipping: 'Envio em 24 horas',
+    cart_trust_shipping: 'Entrega exibida no checkout',
     cart_trust_secure: 'Pagamento seguro',
 
     // ── Página índice de coleções ───────────────────────────────
@@ -5166,17 +5166,17 @@ export const DICTIONARIES = {
     about_hero_title_main: 'Uma loja de viagem menor',
     about_hero_title_em: 'com motivos melhores para comprar.',
     about_hero_sub:
-      'A Puchica é uma loja canadense independente que começa com três organizadores de viagem práticos para roupas, cabos e itens de higiene.',
+      'A Puchica é uma loja canadense independente que começa com três organizadores de viagem práticos para roupas, itens de higiene e joias pequenas.',
     about_hero_cta: 'Ver a seleção de viagem →',
     about_stats_aria: 'Puchica em números',
     about_stat_products_num: 'Ativo',
     about_stat_products_label: 'Produtos selecionados',
     about_stat_quality_num: '100%',
     about_stat_quality_label: 'Controle de qualidade',
-    about_stat_shipping_num: '$0',
-    about_stat_shipping_label: 'Frete no Canadá',
+    about_stat_shipping_num: 'Checkout',
+    about_stat_shipping_label: 'Frete exibido antes do pagamento',
     about_stat_returns_num: '30 dias',
-    about_stat_returns_label: 'Devoluções sem complicação',
+    about_stat_returns_label: 'Devoluções conforme a política',
     about_mission_eye: 'Por que existimos',
     about_mission_title:
       'Em um espaço pequeno, cada coisa fora do lugar parece maior.',
@@ -5190,7 +5190,7 @@ export const DICTIONARIES = {
     about_how_title: 'Cada produto deve justificar o espaço que ocupa.',
     about_how_1_title: 'Resolve um problema específico',
     about_how_1_body:
-      'Começamos com uma função clara: separar roupas, guardar pequenos acessórios ou manter itens de higiene fáceis de encontrar.',
+      'Começamos com uma função clara: separar roupas, manter itens de higiene fáceis de encontrar ou proteger joias pequenas durante a viagem.',
     about_how_2_title: 'Faz parte do mesmo sistema de viagem',
     about_how_2_body:
       'Os três produtos funcionam juntos em uma mala, bolsa de fim de semana, bolsa de academia ou bagagem de mão.',
@@ -5214,8 +5214,8 @@ export const DICTIONARIES = {
     about_cat_gift_name: 'Presentes',
     about_cat_gift_sub: 'Para todos na sua lista',
     about_promise_quote:
-      'Cada produto Puchica foi testado a fundo pela nossa equipe. Oferecemos a seleção mais curada de produtos que conseguimos encontrar. Se não usaríamos nós mesmos, não será Puchica.',
-    about_promise_attr: 'Equipe Puchica, Toronto ON',
+      'Cada produto de lançamento é avaliado pela utilidade, clareza das opções e uma rota de fornecedor que possamos acompanhar. Mantemos a seleção pequena para cuidar bem de cada pedido.',
+    about_promise_attr: 'Equipe Puchica, Canadá',
     about_cta_title: 'Pronto para abrir espaço para dias mais tranquilos?',
     about_dept_title: 'Explorar a loja',
     about_cta_sub:
@@ -5258,24 +5258,24 @@ export const DICTIONARIES = {
       'Escolhemos coisas que duram e importam, não o que o algoritmo está empurrando esta semana.',
     about_values_4_title: 'Enviado por parceiros de confiança',
     about_values_4_body:
-      'Cada pedido sai de um parceiro verificado em 24 horas, com uma etiqueta de devolução pré-paga em cada caixa.',
+      'Os produtos são enviados por parceiros fornecedores. O prazo e o rastreamento disponíveis são confirmados para o pedido selecionado.',
 
     about_team_eye: 'Quem somos',
     about_team_title: 'Pessoas reais, escolhas reais.',
     about_team_sub:
-      'Uma equipe pequena em Toronto, por trás de cada produto que passa no filtro.',
-    about_team_1_name: 'Mariana L.',
-    about_team_1_role: 'Fundadora & Curadora',
+      'Uma pequena empresa canadense por trás de cada produto que passa no filtro.',
+    about_team_1_name: 'Seleção de produtos',
+    about_team_1_role: 'O que merece um lugar',
     about_team_1_bio:
       'Escolhemos produtos que resolvem um problema real, vêm de fornecedores verificados e merecem seu lugar em uma coleção focada.',
-    about_team_2_name: 'Diego R.',
-    about_team_2_role: 'Líder de Operações',
+    about_team_2_name: 'Operações',
+    about_team_2_role: 'Verificação de fornecedores e entrega',
     about_team_2_bio:
-      'Mantém a rede de fornecedores funcionando e cada pedido enviado no prazo. O motivo de o seu pacote chegar rápido.',
-    about_team_3_name: 'Sofía M.',
-    about_team_3_role: 'Comunidade & Atendimento',
+      'Foca no mapeamento de fornecedores, na disponibilidade dos produtos e nas informações de entrega exibidas antes da compra.',
+    about_team_3_name: 'Atendimento ao cliente',
+    about_team_3_role: 'Dúvidas e suporte a pedidos',
     about_team_3_bio:
-      'Responde às suas perguntas, ouve o seu feedback e garante que a loja continue melhorando.',
+      'Entre em contato com os dados do produto ou do pedido e analisaremos as informações com você.',
 
     about_roots_aria: 'Nossas raízes centro-americanas',
     about_roots_eyebrow: 'De onde vem o nome',
@@ -5294,10 +5294,11 @@ export const DICTIONARIES = {
     about_shop_eye: 'A seleção de viagem',
     about_shop_title: 'Comece pela parte da arrumação que mais atrasa você.',
     about_shop_home_title: 'Cubos organizadores',
-    about_shop_cable_title: 'Organizador de cabos',
+    about_shop_cable_title: 'Estojo de viagem para joias',
     about_shop_travel_title: 'Necessaire organizadora',
     about_shop_home_body: 'Separe as roupas em três cubos com zíper.',
-    about_shop_cable_body: 'Mantenha carregadores, adaptadores e fones juntos.',
+    about_shop_cable_body:
+      'Mantenha anéis, brincos e colares pequenos juntos durante a viagem.',
     about_shop_travel_body:
       'Dê um lugar a frascos, itens de cuidado e cosméticos.',
     about_shop_all: 'Ver toda a seleção de viagem',
@@ -5525,17 +5526,17 @@ export const DICTIONARIES = {
 
     home_reviews_aria: 'Avaliações de clientes',
     home_reviews_eyebrow: 'Amado por mais de 12.000 compradores',
-    home_reviews_heading: 'O que nossos clientes dizem',
-    home_reviews_verified: 'Comprador verificado',
+    home_reviews_heading: 'Cada escolha deve merecer seu espaço',
+    home_reviews_verified: 'Nossos critérios de seleção',
     home_reviews_quote_1_text:
-      'A qualidade é constante, o envio é rápido e as devoluções são sem perguntas. Por isso volto sempre.',
-    home_reviews_quote_1_author: 'Maya R. Toronto',
+      'Resolve um problema específico de organização sem adicionar volume desnecessário.',
+    home_reviews_quote_1_author: 'Prático',
     home_reviews_quote_2_text:
-      'Encontrei um presente que não achei em nenhum outro lugar. A embalagem parecia pensada nos mínimos detalhes.',
-    home_reviews_quote_2_author: 'James P. Vancouver',
+      'Cabe em malas pequenas, bolsas de viagem e rotinas do dia a dia.',
+    home_reviews_quote_2_author: 'Compacto',
     home_reviews_quote_3_text:
-      'O atendimento responde mesmo. Tive uma dúvida e recebi uma resposta de verdade no mesmo dia.',
-    home_reviews_quote_3_author: 'Sophie L. Montréal',
+      'Fácil de entender, útil para demonstrar e com preço razoável.',
+    home_reviews_quote_3_author: 'Direto',
 
     home_newsletter_aria: 'Newsletter',
     home_newsletter_eyebrow: 'Junte-se à lista',

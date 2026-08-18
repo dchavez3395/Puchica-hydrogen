@@ -32,7 +32,7 @@ export function SmallSpaceLanding(props) {
   const productSectionId = campaign ? 'shop-travel-organizers' : 'travel-edit';
   const isFullEdit = rankedProducts.length >= 3;
   const heroDescription = isFullEdit
-    ? 'A focused edit of practical organizers for packing, luggage, cables, and toiletries—without an endless catalog.'
+    ? 'A focused edit of practical organizers for clothing, toiletries, and small jewelry—without an endless catalog.'
     : rankedProducts.length === 1
       ? 'One practical travel organizer with clear product details and shipping options shown for your market at checkout.'
       : 'A focused set of practical travel organizers with clear product details and shipping options shown at checkout.';
@@ -137,7 +137,7 @@ export function SmallSpaceLanding(props) {
         }
         body={
           isFullEdit
-            ? 'Separate clothing, keep chargers contained, and give toiletries a dedicated place. Start with the piece that solves your biggest packing headache.'
+            ? 'Separate clothing, give toiletries a dedicated place, and keep small jewelry together. Start with the piece that solves your biggest packing headache.'
             : 'Shop the travel organizers currently supported for your selected market.'
         }
         products={rankedProducts}
@@ -241,12 +241,12 @@ function OrganizationProductSection({
 /** @param {Record<string, any>} product */
 function launchPriority(product) {
   const title = product?.title ?? '';
-  // Keep the homepage aligned with the cross-market organic validation
-  // cohort. Cable and toiletry are available in both CA and US; the cubes
-  // remain a Canada-only supporting offer.
-  if (/travel cable organizer/i.test(title)) return 0;
-  if (/travel toiletry organizer/i.test(title)) return 1;
-  if (/3-piece packing cube/i.test(title)) return 2;
+  // Keep the homepage aligned with the current three-product organic launch
+  // cohort. These are the supplier-screened products we can support with the
+  // simplest one-person fulfillment routine.
+  if (/travel toiletry organizer/i.test(title)) return 0;
+  if (/3-piece packing cube/i.test(title)) return 1;
+  if (/travel jewelry case/i.test(title)) return 2;
   return 10;
 }
 

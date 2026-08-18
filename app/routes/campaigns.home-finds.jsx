@@ -18,7 +18,7 @@ export const meta = ({data, params}) => {
     description:
       data?.country === 'US'
         ? 'Shop the travel organizers currently supported for the United States.'
-        : 'Shop a focused Canadian travel edit for clothing, cables, and toiletries.',
+        : 'Shop a focused Canadian travel edit for clothing, toiletries, and small jewelry.',
     pathname: '/campaigns/home-finds',
     langKey: params?.locale,
     noindex: !data?.products?.length,

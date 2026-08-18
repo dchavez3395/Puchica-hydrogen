@@ -22,7 +22,7 @@ export const meta = ({data, params}) => {
     description:
       data?.country === 'US'
         ? 'Shop the travel organizers currently supported for the United States.'
-        : 'Shop Puchica’s focused Canadian travel edit for clothing, cables, and toiletries.',
+        : 'Shop Puchica’s focused Canadian travel edit for clothing, toiletries, and small jewelry.',
     type: 'website',
     pathname: '/collections/all',
     langKey: params?.locale,
