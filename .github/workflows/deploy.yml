@@ -9,6 +9,9 @@ concurrency:
   group: oxygen-deploy
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 jobs:
   deploy:
     name: Deploy to Oxygen
@@ -17,16 +20,19 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: '22'
           cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Lint
+        run: npm run lint
 
       - name: Test
         run: npm test
@@ -54,7 +60,7 @@ jobs:
       - name: Verify live production storefront
         run: |
           for attempt in 1 2 3; do
-            npm run production-health && exit 0
+            npm run production-health && npm run metadata-health && exit 0
             echo "Production verification attempt $attempt failed; waiting for Oxygen propagation."
             sleep 20
           done

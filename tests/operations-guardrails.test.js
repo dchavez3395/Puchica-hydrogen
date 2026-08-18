@@ -13,11 +13,13 @@ test('production server diagnostics remain visible while browser logs are quiet'
 test('deployment is gated by tests, release checks, build, deploy, and live health', () => {
   const workflow = readFileSync('.github/workflows/deploy.yml', 'utf8');
   const commands = [
+    'npm run lint',
     'npm test',
     'npm run launch-check',
     'npm run build',
     'shopify hydrogen deploy',
     'npm run production-health',
+    'npm run metadata-health',
   ];
   let previousIndex = -1;
 
@@ -26,6 +28,14 @@ test('deployment is gated by tests, release checks, build, deploy, and live heal
     assert.ok(index > previousIndex, `${command} must exist in deployment order`);
     previousIndex = index;
   }
+});
+
+test('deployment uses current Node 24 actions with least-privilege access', () => {
+  const workflow = readFileSync('.github/workflows/deploy.yml', 'utf8');
+  assert.match(workflow, /permissions:\s*\n\s*contents: read/);
+  assert.match(workflow, /actions\/checkout@v7/);
+  assert.match(workflow, /actions\/setup-node@v7/);
+  assert.doesNotMatch(workflow, /actions\/(?:checkout|setup-node)@v4/);
 });
 
 test('canonical operating scope matches the three-offer automated release', () => {
