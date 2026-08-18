@@ -18,18 +18,18 @@ function order(overrides = {}) {
     displayFulfillmentStatus: 'UNFULFILLED',
     currencyCode: 'CAD',
     presentmentCurrencyCode: 'CAD',
-    currentTotalPriceSet: money(29.99),
+    currentTotalPriceSet: money(44.99),
     shippingAddress: {countryCodeV2: 'CA'},
     lineItems: {
       nodes: [
         {
-          sku: '14:193#Double Layers',
-          title: 'Black Double-Layer Travel Cable Organizer Case',
-          variantTitle: 'Double Layers',
+          sku: '14:771#Black',
+          title: 'Black Hanging Travel Toiletry Organizer',
+          variantTitle: 'Black',
           quantity: 1,
           currentQuantity: 1,
           unfulfilledQuantity: 1,
-          product: {handle: 'travel-cable-organizer-case'},
+          product: {handle: 'black-hanging-travel-toiletry-organizer'},
           variant: {id: 'gid://shopify/ProductVariant/50041043681530'},
         },
       ],

@@ -5,6 +5,7 @@ import {fileURLToPath} from 'node:url';
 import {
   APPROVED_PRODUCT_HANDLES_BY_MARKET,
   OPERATIONAL_HOLD_HANDLES,
+  RETIRED_CATALOG_HANDLES,
 } from '../app/lib/launch-catalog.js';
 
 export const EXPECTED_HANDLES_BY_MARKET = APPROVED_PRODUCT_HANDLES_BY_MARKET;
@@ -203,7 +204,7 @@ function routeChecks() {
     {label: 'Sitemap index', pathname: '/sitemap.xml', expectedStatus: 200},
     {
       label: 'French localized PDP',
-      pathname: '/fr/products/travel-cable-organizer-case',
+      pathname: '/fr/products/black-hanging-travel-toiletry-organizer',
       expectedStatus: 200,
     },
     {
@@ -219,7 +220,7 @@ function routeChecks() {
       pathname: '/tiktok',
       expectedStatus: 200,
       expectedFinalUrl:
-        'https://puchica.ca/products/travel-cable-organizer-case?utm_source=tiktok&utm_medium=organic_social&utm_campaign=travel_edit_organic_202608&utm_content=profile_bio_cable_case',
+        'https://puchica.ca/products/black-hanging-travel-toiletry-organizer?utm_source=tiktok&utm_medium=organic_social&utm_campaign=travel_edit_organic_202608&utm_content=profile_bio_toiletry_organizer',
     },
   ];
 
@@ -245,6 +246,18 @@ function routeChecks() {
       expectedStatus: 404,
       requireFailClosed: true,
     });
+  }
+
+  for (const handle of RETIRED_CATALOG_HANDLES) {
+    for (const market of ['CA', 'US']) {
+      checks.push({
+        label: `${market} retired product: ${handle}`,
+        pathname: `/products/${handle}`,
+        market,
+        expectedStatus: 404,
+        requireFailClosed: true,
+      });
+    }
   }
 
   for (const handle of OPERATIONAL_HOLD_HANDLES) {

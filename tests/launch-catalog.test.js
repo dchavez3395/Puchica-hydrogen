@@ -355,12 +355,12 @@ test('filter keeps only available, tagged, non-held products', () => {
 
 test('exact supplier variants are market-gated independently of products', () => {
   const caPackingSku = APPROVED_VARIANT_SKUS_BY_MARKET.CA[0];
-  const sharedCableSku = APPROVED_VARIANT_SKUS_BY_MARKET.US[0];
+  const sharedJewelrySku = APPROVED_VARIANT_SKUS_BY_MARKET.US[0];
 
   assert.equal(isApprovedVariantSku(caPackingSku, 'CA'), true);
   assert.equal(isApprovedVariantSku(caPackingSku, 'US'), false);
-  assert.equal(isApprovedVariantSku(sharedCableSku, 'CA'), true);
-  assert.equal(isApprovedVariantSku(sharedCableSku, 'US'), true);
+  assert.equal(isApprovedVariantSku(sharedJewelrySku, 'CA'), true);
+  assert.equal(isApprovedVariantSku(sharedJewelrySku, 'US'), true);
   assert.equal(isApprovedVariantSku('unreviewed-supplier-sku', 'CA'), false);
 
   const product = {
@@ -376,20 +376,26 @@ test('exact supplier variants are market-gated independently of products', () =>
 });
 
 test('fresh DSers route recovery restores only the verified market approvals', () => {
-  assert.equal(isApprovedVariantSku('14:29#white;5:361386#1pcs', 'CA'), true);
-  assert.equal(isApprovedVariantSku('14:29#white;5:361386#1pcs', 'US'), true);
-
-  assert.equal(isApprovedVariantSku('14:350852#Large Blue', 'CA'), true);
-  assert.equal(isApprovedVariantSku('14:350852#Large Blue', 'US'), false);
-
-  for (const sku of [
-    '14:771#Black',
-    '14:350686#coffee color',
-    '14:193#Black',
-  ]) {
+  for (const sku of ['14:29', '14:771#Black']) {
     assert.equal(isApprovedVariantSku(sku, 'CA'), true, sku);
     assert.equal(isApprovedVariantSku(sku, 'US'), true, sku);
   }
+  assert.equal(
+    isApprovedVariantSku(
+      '14:1052#S3007 Black;5:200004186#3PCS L M S Set',
+      'CA',
+    ),
+    true,
+  );
+  assert.equal(
+    isApprovedVariantSku(
+      '14:1052#S3007 Black;5:200004186#3PCS L M S Set',
+      'US',
+    ),
+    false,
+  );
+  assert.equal(isApprovedVariantSku('14:193#Double Layers', 'CA'), false);
+  assert.equal(isApprovedVariantSku('14:193#Double Layers', 'US'), false);
 });
 
 test('approved handles and SKUs derive from one exact-offer cohort', () => {
@@ -407,26 +413,20 @@ test('approved handles and SKUs derive from one exact-offer cohort', () => {
     ]);
   }
 
-  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.CA.length, 10);
-  assert.equal(APPROVED_PRODUCT_HANDLES_BY_MARKET.CA.length, 9);
-  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.US.length, 8);
-  assert.equal(APPROVED_PRODUCT_HANDLES_BY_MARKET.US.length, 7);
+  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.CA.length, 3);
+  assert.equal(APPROVED_PRODUCT_HANDLES_BY_MARKET.CA.length, 3);
+  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.US.length, 2);
+  assert.equal(APPROVED_PRODUCT_HANDLES_BY_MARKET.US.length, 2);
 });
 
 test('approved PDP option builder exposes only its audited variants', () => {
-  const [coffeeSku, blackSku] = APPROVED_VARIANT_SKUS_BY_MARKET.CA.slice(-2);
+  const approvedSku = '14:29';
   const variants = [
     {
-      id: 'coffee',
-      sku: coffeeSku,
+      id: 'white',
+      sku: approvedSku,
       availableForSale: true,
-      selectedOptions: [{name: 'Color', value: 'coffee color'}],
-    },
-    {
-      id: 'black',
-      sku: blackSku,
-      availableForSale: true,
-      selectedOptions: [{name: 'Color', value: 'Black'}],
+      selectedOptions: [{name: 'Color', value: 'White'}],
     },
     {
       id: 'red-unreviewed',
@@ -436,13 +436,12 @@ test('approved PDP option builder exposes only its audited variants', () => {
     },
   ];
   const product = {
-    handle: 'travel-luggage-handle-wrap',
+    handle: 'white-semi-circular-travel-jewelry-case',
     options: [
       {
         name: 'Color',
         optionValues: [
-          {name: 'coffee color', swatch: {color: '#7b5948'}},
-          {name: 'Black', swatch: {color: '#111111'}},
+          {name: 'White', swatch: {color: '#ffffff'}},
           {name: 'Red', swatch: {color: '#cc0000'}},
         ],
       },
@@ -453,21 +452,10 @@ test('approved PDP option builder exposes only its audited variants', () => {
   const approved = findApprovedVariants(product, 'CA');
   assert.deepEqual(
     approved.map((variant) => variant.id),
-    ['coffee', 'black'],
+    ['white'],
   );
 
   const options = buildApprovedProductOptions(product, approved, approved[0]);
-  assert.equal(options.length, 1);
-  assert.equal(options[0].name, 'Color');
-  assert.deepEqual(
-    options[0].optionValues.map((value) => value.name),
-    ['coffee color', 'Black'],
-  );
-  assert.equal(options[0].optionValues[0].selected, true);
-  assert.equal(options[0].optionValues[1].selected, false);
-  assert.equal(
-    options[0].optionValues.some((value) => value.name === 'Red'),
-    false,
-  );
-  assert.equal(formatProductOptionLabel('coffee color'), 'Coffee Brown');
+  assert.deepEqual(options, []);
+  assert.equal(formatProductOptionLabel('White'), 'White');
 });

@@ -60,50 +60,27 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
     markets: Object.freeze(['CA']),
   }),
   Object.freeze({
-    handle: 'travel-cable-organizer-case',
-    sku: '14:193#Double Layers',
-    markets: Object.freeze(['CA', 'US']),
-  }),
-  Object.freeze({
-    handle: 'white-luggage-id-tag',
-    sku: '14:29#white;5:361386#1pcs',
-    markets: Object.freeze(['CA', 'US']),
-  }),
-  Object.freeze({
-    handle: 'ten-hole-white-cable-organizer-clips',
-    sku: '14:771#10 Holes-White',
-    markets: Object.freeze(['CA', 'US']),
-  }),
-  Object.freeze({
     handle: 'white-semi-circular-travel-jewelry-case',
     sku: '14:29',
     markets: Object.freeze(['CA', 'US']),
-  }),
-  Object.freeze({
-    handle: 'large-blue-handled-clothes-storage-bag',
-    sku: '14:350852#Large Blue',
-    markets: Object.freeze(['CA']),
   }),
   Object.freeze({
     handle: 'black-hanging-travel-toiletry-organizer',
     sku: '14:771#Black',
     markets: Object.freeze(['CA', 'US']),
   }),
-  Object.freeze({
-    handle: 'black-knitted-luggage-wheel-covers-set-of-4',
-    sku: '14:193',
-    markets: Object.freeze(['CA', 'US']),
-  }),
-  Object.freeze({
-    handle: 'soft-luggage-handle-wrap-black-coffee-brown',
-    sku: '14:350686#coffee color',
-    markets: Object.freeze(['CA', 'US']),
-  }),
-  Object.freeze({
-    handle: 'soft-luggage-handle-wrap-black-coffee-brown',
-    sku: '14:193#Black',
-    markets: Object.freeze(['CA', 'US']),
-  }),
+]);
+
+// Products removed from the deliberately small first-sale cohort. Keeping this
+// list explicit lets production checks prove that stale Shopify data cannot
+// make an old product buyable again.
+export const RETIRED_CATALOG_HANDLES = new Set([
+  'travel-cable-organizer-case',
+  'white-luggage-id-tag',
+  'ten-hole-white-cable-organizer-clips',
+  'large-blue-handled-clothes-storage-bag',
+  'black-knitted-luggage-wheel-covers-set-of-4',
+  'soft-luggage-handle-wrap-black-coffee-brown',
 ]);
 
 function offersForMarket(market) {
@@ -162,6 +139,7 @@ export function isLaunchReadyProduct(product, market = 'CA') {
     product?.availableForSale &&
     REQUIRED_CATALOG_EVIDENCE_TAGS.every((tag) => tags.has(tag)) &&
     tags.has(routeTag) &&
+    !RETIRED_CATALOG_HANDLES.has(product?.handle) &&
     !OPERATIONAL_HOLD_HANDLES.has(product?.handle),
   );
 }

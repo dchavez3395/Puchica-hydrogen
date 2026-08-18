@@ -6,7 +6,7 @@ test('Meta CAPI accepts Puchica storefront event source URLs', () => {
   assert.equal(isAllowedMetaEventSourceUrl('https://puchica.ca/'), true);
   assert.equal(
     isAllowedMetaEventSourceUrl(
-      'https://www.puchica.ca/fr/products/travel-cable-organizer-case',
+      'https://www.puchica.ca/fr/products/black-hanging-travel-toiletry-organizer',
     ),
     true,
   );

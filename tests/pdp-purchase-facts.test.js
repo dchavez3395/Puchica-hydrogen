@@ -6,9 +6,6 @@ import {DICTIONARIES} from '../app/lib/dictionaries.js';
 
 const FACT_KEYS = [
   'product_purchase_facts_h',
-  'product_purchase_cable_1',
-  'product_purchase_cable_2',
-  'product_purchase_cable_3',
   'product_purchase_toiletry_1',
   'product_purchase_toiletry_2',
   'product_purchase_toiletry_3',
@@ -25,13 +22,13 @@ test('hero product purchase facts are translated in every storefront locale', ()
   }
 });
 
-test('purchase facts are limited to the two validated hero product handles', async () => {
+test('purchase facts are limited to the validated toiletry hero', async () => {
   const route = await readFile(
     new URL('../app/routes/products.$handle.jsx', import.meta.url),
     'utf8',
   );
 
-  assert.match(route, /handle === 'travel-cable-organizer-case'/);
+  assert.doesNotMatch(route, /handle === 'travel-cable-organizer-case'/);
   assert.match(
     route,
     /handle === 'black-hanging-travel-toiletry-organizer'/,

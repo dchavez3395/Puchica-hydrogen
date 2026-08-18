@@ -42,8 +42,8 @@ const RELEASE_DISCOVERY_TAGS = [
   MARKET_ROUTE_EVIDENCE_TAGS.US,
 ];
 
-const EXPECTED_PRODUCT_COUNT = 9;
-const EXPECTED_SKU_COUNT_BY_MARKET = Object.freeze({CA: 10, US: 8});
+const EXPECTED_PRODUCT_COUNT = 3;
+const EXPECTED_SKU_COUNT_BY_MARKET = Object.freeze({CA: 3, US: 2});
 
 const REQUIRED_PUBLICATION_FIELDS = [
   {field: 'publishedOnlineStore', title: 'Online Store'},
@@ -70,65 +70,16 @@ const cohort = [
     merchandisingTags: ['travel-organization', 'puchica-launch-featured'],
   },
   {
-    id: 'gid://shopify/Product/9365959246074',
-    title: 'Black Double-Layer Travel Cable Organizer Case',
-    handle: 'travel-cable-organizer-case',
-    productType: 'Travel Accessories',
-    initialStatus: 'ACTIVE',
-    allowExtraVariants: true,
-    markets: ['CA', 'US'],
-    variants: [{sku: '14:193#Double Layers', price: '24.99'}],
-    seoDescription:
-      'A black double-layer zippered travel case for keeping charging cables, adapters, memory cards, and small accessories together.',
-    merchandisingTags: ['travel-organization', 'puchica-launch-featured'],
-  },
-  {
-    id: 'gid://shopify/Product/9367756112122',
-    title: 'White Luggage ID Tag',
-    handle: 'white-luggage-id-tag',
-    productType: 'Travel Accessories',
-    initialStatus: 'DRAFT',
-    markets: ['CA', 'US'],
-    variants: [{sku: '14:29#white;5:361386#1pcs', price: '14.99'}],
-    seoDescription:
-      'A simple white luggage identification tag for a suitcase, carry-on, weekender, or travel bag.',
-    merchandisingTags: ['travel-organization'],
-  },
-  {
-    id: 'gid://shopify/Product/9367758274810',
-    title: 'Ten-Hole White Cable Organizer Clips',
-    handle: 'ten-hole-white-cable-organizer-clips',
-    productType: 'Cable Management',
-    initialStatus: 'DRAFT',
-    markets: ['CA', 'US'],
-    variants: [{sku: '14:771#10 Holes-White', price: '14.99'}],
-    seoDescription:
-      'A compact ten-hole white cable organizer for routing charging and accessory cables on compatible surfaces.',
-    merchandisingTags: ['cable-management'],
-  },
-  {
     id: 'gid://shopify/Product/9367759814906',
     title: 'White Semi-Circular Travel Jewelry Case',
     handle: 'white-semi-circular-travel-jewelry-case',
     productType: 'Travel Accessories',
-    initialStatus: 'DRAFT',
+    initialStatus: 'ACTIVE',
     markets: ['CA', 'US'],
     variants: [{sku: '14:29', price: '22.99'}],
     seoDescription:
       'A compact white semi-circular travel case for keeping small rings, earrings, and necklaces together.',
     merchandisingTags: ['travel-organization'],
-  },
-  {
-    id: 'gid://shopify/Product/9367762567418',
-    title: 'Large Blue Handled Clothes Storage Bag',
-    handle: 'large-blue-handled-clothes-storage-bag',
-    productType: 'Storage & Organization',
-    initialStatus: 'ACTIVE',
-    markets: ['CA'],
-    variants: [{sku: '14:350852#Large Blue', price: '29.99'}],
-    seoDescription:
-      'A large blue zippered storage bag with handles and a clear front panel for folded clothing, bedding, and other soft household items.',
-    merchandisingTags: ['home-organization'],
   },
   {
     id: 'gid://shopify/Product/9367768596730',
@@ -141,33 +92,6 @@ const cohort = [
     seoDescription:
       'A compact black hanging travel organizer with internal pockets for keeping travel-size toiletries together.',
     merchandisingTags: ['travel-organization', 'puchica-launch-featured'],
-  },
-  {
-    id: 'gid://shopify/Product/9367775707386',
-    title: 'Black Knitted Luggage Wheel Covers — Set of 4',
-    handle: 'black-knitted-luggage-wheel-covers-set-of-4',
-    productType: 'Travel Accessories',
-    initialStatus: 'DRAFT',
-    markets: ['CA', 'US'],
-    variants: [{sku: '14:193', price: '14.99'}],
-    seoDescription:
-      'A set of four black stretch-knit covers for compatible small suitcase wheels during storage or indoor handling.',
-    merchandisingTags: ['travel-organization'],
-  },
-  {
-    id: 'gid://shopify/Product/9367864770810',
-    title: 'Soft Luggage Handle Wrap — Black & Coffee Brown',
-    handle: 'soft-luggage-handle-wrap-black-coffee-brown',
-    productType: 'Travel Accessories',
-    initialStatus: 'ACTIVE',
-    markets: ['CA', 'US'],
-    variants: [
-      {sku: '14:350686#coffee color', price: '14.99'},
-      {sku: '14:193#Black', price: '14.99'},
-    ],
-    seoDescription:
-      'A soft wrap-around cover offered in black and coffee brown for compatible suitcase handles.',
-    merchandisingTags: ['travel-organization'],
   },
 ];
 

@@ -21,33 +21,6 @@ const completeBaseline = {
       routes: {CA: {shippingUsd: 1.99, tracked: true}},
     },
     {
-      handle: 'travel-cable-organizer-case',
-      sku: '14:193#Double Layers',
-      itemCostUsd: 4.15,
-      routes: {
-        CA: {shippingUsd: 2.16, tracked: true},
-        US: {shippingUsd: 1.99, tracked: true},
-      },
-    },
-    {
-      handle: 'white-luggage-id-tag',
-      sku: '14:29#white;5:361386#1pcs',
-      itemCostUsd: 2.21,
-      routes: {
-        CA: {shippingUsd: 1.99, tracked: true},
-        US: {shippingUsd: 1.99, tracked: true},
-      },
-    },
-    {
-      handle: 'ten-hole-white-cable-organizer-clips',
-      sku: '14:771#10 Holes-White',
-      itemCostUsd: 2.94,
-      routes: {
-        CA: {shippingUsd: 1.99, tracked: true},
-        US: {shippingUsd: 1.99, tracked: true},
-      },
-    },
-    {
       handle: 'white-semi-circular-travel-jewelry-case',
       sku: '14:29',
       itemCostUsd: 4.29,
@@ -57,45 +30,12 @@ const completeBaseline = {
       },
     },
     {
-      handle: 'large-blue-handled-clothes-storage-bag',
-      sku: '14:350852#Large Blue',
-      itemCostUsd: 3.51,
-      routes: {CA: {shippingUsd: 1.99, tracked: true}},
-    },
-    {
       handle: 'black-hanging-travel-toiletry-organizer',
       sku: '14:771#Black',
       itemCostUsd: 8.32,
       routes: {
         CA: {shippingUsd: 1.99, tracked: true},
         US: {shippingUsd: 1.99, tracked: true},
-      },
-    },
-    {
-      handle: 'black-knitted-luggage-wheel-covers-set-of-4',
-      sku: '14:193',
-      itemCostUsd: 2.63,
-      routes: {
-        CA: {shippingUsd: 1.99, tracked: true},
-        US: {shippingUsd: 1.99, tracked: true},
-      },
-    },
-    {
-      handle: 'soft-luggage-handle-wrap-black-coffee-brown',
-      sku: '14:350686#coffee color',
-      itemCostUsd: 3.1,
-      routes: {
-        CA: {shippingUsd: 1.99, tracked: true},
-        US: {shippingUsd: 1.99, tracked: true},
-      },
-    },
-    {
-      handle: 'soft-luggage-handle-wrap-black-coffee-brown',
-      sku: '14:193#Black',
-      itemCostUsd: 3.09,
-      routes: {
-        CA: {shippingUsd: 1.99, tracked: true},
-        US: {shippingUsd: 2.16, tracked: true},
       },
     },
   ],
@@ -115,14 +55,14 @@ test('economics use collected shipping, landed cost, fees, and reserve', () => {
     market: 'CA',
     variant: {
       id: 'gid://shopify/ProductVariant/50041043681530',
-      price: {amount: '24.99', currencyCode: 'CAD'},
+      price: {amount: '22.99', currencyCode: 'CAD'},
     },
     baseline: completeBaseline,
   });
 
-  assert.equal(row.collectedTotal, 29.99);
-  assert.equal(row.landedCost, 8.834);
-  assert.equal(Number(row.preAdContribution.toFixed(4)), 18.3068);
+  assert.equal(row.collectedTotal, 27.99);
+  assert.equal(row.landedCost, 8.792);
+  assert.equal(Number(row.preAdContribution.toFixed(4)), 16.5189);
   assert.equal(row.organicTier, 'PRIORITY');
   assert.equal(row.paidAdsDecision, 'HOLD');
 });

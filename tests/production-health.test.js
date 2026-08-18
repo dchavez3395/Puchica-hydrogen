@@ -5,6 +5,7 @@ import {readFile} from 'node:fs/promises';
 import {
   APPROVED_PRODUCT_HANDLES_BY_MARKET,
   OPERATIONAL_HOLD_HANDLES,
+  RETIRED_CATALOG_HANDLES,
 } from '../app/lib/launch-catalog.js';
 import {
   EXPECTED_HANDLES_BY_MARKET,
@@ -19,24 +20,14 @@ test('production monitor shares the verified market cohorts', () => {
   assert.equal(EXPECTED_HANDLES_BY_MARKET, APPROVED_PRODUCT_HANDLES_BY_MARKET);
   assert.deepEqual(EXPECTED_HANDLES_BY_MARKET.CA, [
     '3-piece-packing-cube-set',
-    'travel-cable-organizer-case',
-    'white-luggage-id-tag',
-    'ten-hole-white-cable-organizer-clips',
     'white-semi-circular-travel-jewelry-case',
-    'large-blue-handled-clothes-storage-bag',
     'black-hanging-travel-toiletry-organizer',
-    'black-knitted-luggage-wheel-covers-set-of-4',
-    'soft-luggage-handle-wrap-black-coffee-brown',
   ]);
   assert.deepEqual(EXPECTED_HANDLES_BY_MARKET.US, [
-    'travel-cable-organizer-case',
-    'white-luggage-id-tag',
-    'ten-hole-white-cable-organizer-clips',
     'white-semi-circular-travel-jewelry-case',
     'black-hanging-travel-toiletry-organizer',
-    'black-knitted-luggage-wheel-covers-set-of-4',
-    'soft-luggage-handle-wrap-black-coffee-brown',
   ]);
+  assert.equal(RETIRED_CATALOG_HANDLES.size, 6);
 });
 
 test('feed and sitemap extractors find product handles', () => {

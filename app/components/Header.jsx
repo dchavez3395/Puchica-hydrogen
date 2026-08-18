@@ -56,20 +56,25 @@ export function HeaderMenu({viewport}) {
     {id: 'about', title: t('nav_about'), url: '/pages/about'},
   ];
   const productNav = [
+    ...desktopNav,
     ...(market === 'CA'
       ? [
-    ...desktopNav,
+          {
+            id: 'packing-cubes',
+            title: 'Packing cubes',
+            url: '/products/3-piece-packing-cube-set',
+          },
+        ]
+      : []),
     {
-      id: 'packing-cubes',
-      title: 'Packing cubes',
-      url: '/products/3-piece-packing-cube-set',
+      id: 'toiletry-organizer',
+      title: 'Toiletry organizer',
+      url: '/products/black-hanging-travel-toiletry-organizer',
     },
-      ]
-      : [...desktopNav]),
     {
-      id: 'cable-case',
-      title: 'Cable organizer',
-      url: '/products/travel-cable-organizer-case',
+      id: 'jewelry-case',
+      title: 'Jewelry case',
+      url: '/products/white-semi-circular-travel-jewelry-case',
     },
   ];
   const mobileNav = [

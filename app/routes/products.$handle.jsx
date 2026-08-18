@@ -580,13 +580,6 @@ function productSummary(description) {
 }
 
 function getPurchaseFacts(handle, t) {
-  if (handle === 'travel-cable-organizer-case') {
-    return [
-      t('product_purchase_cable_1'),
-      t('product_purchase_cable_2'),
-      t('product_purchase_cable_3'),
-    ];
-  }
   if (handle === 'black-hanging-travel-toiletry-organizer') {
     return [
       t('product_purchase_toiletry_1'),

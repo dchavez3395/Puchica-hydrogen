@@ -1,11 +1,12 @@
 import {redirect} from 'react-router';
 
-export const TIKTOK_DESTINATION = '/products/travel-cable-organizer-case';
+export const TIKTOK_DESTINATION =
+  '/products/black-hanging-travel-toiletry-organizer';
 export const TIKTOK_ATTRIBUTION = Object.freeze({
   utm_source: 'tiktok',
   utm_medium: 'organic_social',
   utm_campaign: 'travel_edit_organic_202608',
-  utm_content: 'profile_bio_cable_case',
+  utm_content: 'profile_bio_toiletry_organizer',
 });
 
 /** @param {Route.LoaderArgs} args */

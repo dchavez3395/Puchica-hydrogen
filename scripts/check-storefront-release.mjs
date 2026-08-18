@@ -84,7 +84,8 @@ requireMatch(
 );
 for (const handle of [
   '3-piece-packing-cube-set',
-  'travel-cable-organizer-case',
+  'black-hanging-travel-toiletry-organizer',
+  'white-semi-circular-travel-jewelry-case',
 ]) {
   requireMatch(
     `Header is missing the launch route for ${handle}.`,
