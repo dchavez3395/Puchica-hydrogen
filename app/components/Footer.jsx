@@ -20,22 +20,27 @@ const SOCIAL = [
   {
     Icon: IconInstagram,
     labelKey: 'social_instagram',
-    urlKey: 'https://instagram.com/puchica.canada',
+    domain: 'instagram.com',
     handle: 'puchica.canada',
   },
   {
     Icon: IconFacebook,
     labelKey: 'social_facebook',
-    urlKey: 'https://www.facebook.com/share/1HXPSqGprD/',
+    domain: 'facebook.com',
     handle: 'Puchica',
   },
   {
     Icon: IconTiktok,
     labelKey: 'social_tiktok',
-    urlKey: 'https://tiktok.com/@puchica_canada',
+    domain: 'tiktok.com',
     handle: '@puchica_canada',
   },
-].filter((s) => SOCIAL_PROFILES.includes(s.urlKey));
+]
+  .map((profile) => ({
+    ...profile,
+    url: SOCIAL_PROFILES.find((url) => url.includes(profile.domain)),
+  }))
+  .filter((profile) => profile.url);
 
 /**
  * @param {FooterProps}
@@ -63,10 +68,10 @@ export function Footer({header}) {
             className="pk-footer__social"
             aria-label={t('footer_social_aria')}
           >
-            {SOCIAL.map(({Icon, labelKey, urlKey, handle}) => (
+            {SOCIAL.map(({Icon, labelKey, url, handle}) => (
               <a
                 key={labelKey}
-                href={urlKey}
+                href={url}
                 aria-label={`${t(labelKey)} (${handle})`}
                 target="_blank"
                 rel="noopener noreferrer"

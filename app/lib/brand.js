@@ -22,7 +22,7 @@ export const STORE_LOGO_URL =
  * consistent across surfaces avoids conflicting signals.
  */
 export const BRAND_DESCRIPTION =
-  'An independent Canadian shop building a focused catalog of carefully reviewed practical products.';
+  'An independent Canadian online shop offering a focused edit of practical travel organizers.';
 
 /**
  * Verified social profile URLs. The Organization JSON-LD's `sameAs`
@@ -36,6 +36,6 @@ export const BRAND_DESCRIPTION =
  */
 export const SOCIAL_PROFILES = [
   'https://instagram.com/puchica.canada',
-  'https://www.facebook.com/share/1HXPSqGprD/',
+  'https://www.facebook.com/people/Puchica/61590729031671/',
   'https://tiktok.com/@puchica_canada',
 ];
