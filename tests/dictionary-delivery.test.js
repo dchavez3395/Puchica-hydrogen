@@ -21,3 +21,20 @@ test('client translation helper does not bundle all locale dictionaries', () => 
   assert.match(rootRoute, /lib\/dictionaries\.server/);
   assert.match(rootRoute, /dictionary: getRequestDictionary/);
 });
+
+test('focused launch homepage is translated in every supported language', () => {
+  for (const language of ['EN', 'FR', 'ES', 'PT_BR']) {
+    const dictionary = getRequestDictionary(language);
+    for (const key of [
+      'launch_home_eyebrow',
+      'launch_home_title',
+      'launch_home_hero_body_focused',
+      'launch_home_shop_edit',
+      'launch_home_assurance_shipping',
+      'launch_home_section_title_focused',
+      'launch_home_view_product',
+    ]) {
+      assert.ok(dictionary[key]?.trim(), `${language} is missing ${key}`);
+    }
+  }
+});

@@ -17,6 +17,7 @@ import {findApprovedVariant} from '~/lib/launch-catalog';
  */
 export function SmallSpaceLanding(props) {
   const {products = [], campaign = false} = props;
+  const t = useT();
   const rootData = useRouteLoaderData('root');
   const market = rootData?.selectedLocale?.country || 'CA';
   const rankedProducts = [...products].sort(compareLaunchPriority);
@@ -32,10 +33,10 @@ export function SmallSpaceLanding(props) {
   const productSectionId = campaign ? 'shop-travel-organizers' : 'travel-edit';
   const isFullEdit = rankedProducts.length >= 3;
   const heroDescription = isFullEdit
-    ? 'A focused edit of practical organizers for clothing, toiletries, and small jewelry—without an endless catalog.'
+    ? t('launch_home_hero_body_full')
     : rankedProducts.length === 1
-      ? 'One practical travel organizer with clear product details and shipping options shown for your market at checkout.'
-      : 'A focused set of practical travel organizers with clear product details and shipping options shown at checkout.';
+      ? t('launch_home_hero_body_single')
+      : t('launch_home_hero_body_focused');
 
   return (
     <>
@@ -44,8 +45,8 @@ export function SmallSpaceLanding(props) {
         aria-labelledby="organization-title"
       >
         <div className="pk-campaign-hero__copy">
-          <p className="pk-campaign__eyebrow">The Puchica travel edit</p>
-          <h1 id="organization-title">Pack with less rummaging.</h1>
+          <p className="pk-campaign__eyebrow">{t('launch_home_eyebrow')}</p>
+          <h1 id="organization-title">{t('launch_home_title')}</h1>
           <p>{heroDescription}</p>
         </div>
 
@@ -67,7 +68,9 @@ export function SmallSpaceLanding(props) {
               className="pk-campaign-feature"
               to={`/products/${heroFeature.handle}`}
               prefetch="intent"
-              aria-label={`Shop ${heroFeature.title}`}
+              aria-label={t('launch_home_shop_product', {
+                title: heroFeature.title,
+              })}
             >
               {heroFeatureVariant?.image || heroFeature.featuredImage ? (
                 <Image
@@ -80,7 +83,7 @@ export function SmallSpaceLanding(props) {
                 />
               ) : null}
               <span className="pk-campaign-feature__body">
-                <small>Featured in the travel edit</small>
+                <small>{t('launch_home_featured')}</small>
                 <strong>{heroFeature.title}</strong>
                 {heroFeatureVariant?.price ? (
                   <span className="pk-campaign-feature__price">
@@ -88,7 +91,8 @@ export function SmallSpaceLanding(props) {
                   </span>
                 ) : null}
                 <span className="pk-campaign-feature__link">
-                  View the organizer <span aria-hidden="true">→</span>
+                  {t('launch_home_view_organizer')}{' '}
+                  <span aria-hidden="true">→</span>
                 </span>
               </span>
             </Link>
@@ -101,25 +105,32 @@ export function SmallSpaceLanding(props) {
               className="pk-campaign-btn pk-campaign-btn--primary"
               href={`#${productSectionId}`}
             >
-              Shop the travel edit
+              {t('launch_home_shop_edit')}
             </a>
             <Link
               className="pk-campaign-text-link"
               to="/collections/all"
               prefetch="intent"
             >
-              Browse the collection <span aria-hidden="true">→</span>
+              {t('launch_home_browse_collection')}{' '}
+              <span aria-hidden="true">→</span>
             </Link>
           </div>
-          <ul className="pk-campaign-proof" aria-label="Shopping assurances">
+          <ul
+            className="pk-campaign-proof"
+            aria-label={t('launch_home_assurances_aria')}
+          >
             <li>
-              <span aria-hidden="true">✓</span> Secure Shopify checkout
+              <span aria-hidden="true">✓</span>{' '}
+              {t('launch_home_assurance_checkout')}
             </li>
             <li>
-              <span aria-hidden="true">✓</span> Clear product details
+              <span aria-hidden="true">✓</span>{' '}
+              {t('launch_home_assurance_details')}
             </li>
             <li>
-              <span aria-hidden="true">✓</span> Shipping shown at checkout
+              <span aria-hidden="true">✓</span>{' '}
+              {t('launch_home_assurance_shipping')}
             </li>
           </ul>
         </div>
@@ -128,21 +139,23 @@ export function SmallSpaceLanding(props) {
       <OrganizationProductSection
         id={productSectionId}
         eyebrow={
-          isFullEdit ? 'Three ways to pack smarter' : 'Travel organization'
+          isFullEdit
+            ? t('launch_home_section_eyebrow_full')
+            : t('launch_home_section_eyebrow_focused')
         }
         title={
           isFullEdit
-            ? 'A small travel system that works together'
-            : 'Practical organization for your next trip'
+            ? t('launch_home_section_title_full')
+            : t('launch_home_section_title_focused')
         }
         body={
           isFullEdit
-            ? 'Separate clothing, give toiletries a dedicated place, and keep small jewelry together. Start with the piece that solves your biggest packing headache.'
-            : 'Shop the travel organizers currently supported for your selected market.'
+            ? t('launch_home_section_body_full')
+            : t('launch_home_section_body_focused')
         }
         products={rankedProducts}
         market={market}
-        linkLabel="View all travel organizers"
+        linkLabel={t('launch_home_view_all')}
         linkTo="/collections/all"
       />
     </>
@@ -199,7 +212,7 @@ function OrganizationProductSection({
               key={product.id}
               to={`/products/${product.handle}`}
               prefetch="intent"
-              aria-label={`View ${displayTitle}`}
+              aria-label={t('launch_home_view_product', {title: displayTitle})}
             >
               <span className="pk-campaign-editorial-card__media">
                 {image ? (
@@ -226,7 +239,8 @@ function OrganizationProductSection({
                     </span>
                   ) : null}
                   <span className="pk-campaign-editorial-card__cta">
-                    View organizer <span aria-hidden="true">→</span>
+                    {t('launch_home_view_organizer')}{' '}
+                    <span aria-hidden="true">→</span>
                   </span>
                 </span>
               </span>

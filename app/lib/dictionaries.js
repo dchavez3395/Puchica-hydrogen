@@ -127,6 +127,34 @@ export const DICTIONARIES = {
     hero_play_label: 'Play background slideshow',
     hero_featured_label: 'View featured background product: {title}',
     hero_featured_text: 'Featured: {title}',
+    launch_home_eyebrow: 'The Puchica travel edit',
+    launch_home_title: 'Pack with less rummaging.',
+    launch_home_hero_body_full:
+      'A focused edit of practical organizers for clothing, toiletries, and small jewelry—without an endless catalog.',
+    launch_home_hero_body_single:
+      'One practical travel organizer with clear product details and shipping options shown for your market at checkout.',
+    launch_home_hero_body_focused:
+      'A focused set of practical travel organizers with clear product details and shipping options shown at checkout.',
+    launch_home_shop_product: 'Shop {title}',
+    launch_home_featured: 'Featured in the travel edit',
+    launch_home_view_organizer: 'View organizer',
+    launch_home_shop_edit: 'Shop the travel edit',
+    launch_home_browse_collection: 'Browse the collection',
+    launch_home_assurances_aria: 'Shopping assurances',
+    launch_home_assurance_checkout: 'Secure Shopify checkout',
+    launch_home_assurance_details: 'Clear product details',
+    launch_home_assurance_shipping: 'Shipping shown at checkout',
+    launch_home_section_eyebrow_full: 'Three ways to pack smarter',
+    launch_home_section_eyebrow_focused: 'Travel organization',
+    launch_home_section_title_full: 'A small travel system that works together',
+    launch_home_section_title_focused:
+      'Practical organization for your next trip',
+    launch_home_section_body_full:
+      'Separate clothing, give toiletries a dedicated place, and keep small jewelry together. Start with the piece that solves your biggest packing headache.',
+    launch_home_section_body_focused:
+      'Shop the travel organizers currently supported for your selected market.',
+    launch_home_view_all: 'View all travel organizers',
+    launch_home_view_product: 'View {title}',
 
     // ── Ticker / Marquee ──────────────────────────────────────────
     ticker_products: 'Small-space solutions',
@@ -1520,6 +1548,34 @@ export const DICTIONARIES = {
     hero_play_label: 'Reprendre le diaporama',
     hero_featured_label: 'Voir le produit en vedette : {title}',
     hero_featured_text: 'En vedette : {title}',
+    launch_home_eyebrow: 'La sélection voyage Puchica',
+    launch_home_title: 'Fouillez moins dans vos bagages.',
+    launch_home_hero_body_full:
+      'Une sélection ciblée d’organisateurs pratiques pour les vêtements, les articles de toilette et les petits bijoux—sans catalogue interminable.',
+    launch_home_hero_body_single:
+      'Un organisateur de voyage pratique, avec des détails clairs et les options de livraison affichées au paiement pour votre marché.',
+    launch_home_hero_body_focused:
+      'Une sélection ciblée d’organisateurs de voyage pratiques, avec des détails clairs et les options de livraison affichées au paiement.',
+    launch_home_shop_product: 'Magasiner {title}',
+    launch_home_featured: 'En vedette dans la sélection voyage',
+    launch_home_view_organizer: 'Voir l’organisateur',
+    launch_home_shop_edit: 'Magasiner la sélection voyage',
+    launch_home_browse_collection: 'Parcourir la collection',
+    launch_home_assurances_aria: 'Garanties d’achat',
+    launch_home_assurance_checkout: 'Paiement Shopify sécurisé',
+    launch_home_assurance_details: 'Détails de produit clairs',
+    launch_home_assurance_shipping: 'Livraison affichée au paiement',
+    launch_home_section_eyebrow_full: 'Trois façons de mieux organiser vos bagages',
+    launch_home_section_eyebrow_focused: 'Organisation de voyage',
+    launch_home_section_title_full: 'Un petit système de voyage bien pensé',
+    launch_home_section_title_focused:
+      'Une organisation pratique pour votre prochain voyage',
+    launch_home_section_body_full:
+      'Séparez les vêtements, réservez une place aux articles de toilette et gardez les petits bijoux ensemble. Commencez par la pièce qui règle votre principal casse-tête d’emballage.',
+    launch_home_section_body_focused:
+      'Découvrez les organisateurs de voyage actuellement offerts dans le marché sélectionné.',
+    launch_home_view_all: 'Voir tous les organisateurs de voyage',
+    launch_home_view_product: 'Voir {title}',
 
     ticker_products: 'Catalogue actif',
     ticker_new_drops: 'Nouveautés chaque semaine',
@@ -2917,6 +2973,34 @@ export const DICTIONARIES = {
     hero_play_label: 'Reproducir presentación',
     hero_featured_label: 'Ver producto destacado: {title}',
     hero_featured_text: 'Destacado: {title}',
+    launch_home_eyebrow: 'La selección de viaje de Puchica',
+    launch_home_title: 'Encuentra todo sin revolver la maleta.',
+    launch_home_hero_body_full:
+      'Una selección enfocada de organizadores prácticos para ropa, artículos de aseo y joyas pequeñas, sin un catálogo interminable.',
+    launch_home_hero_body_single:
+      'Un organizador de viaje práctico, con detalles claros y opciones de envío para tu mercado visibles al pagar.',
+    launch_home_hero_body_focused:
+      'Una selección enfocada de organizadores de viaje prácticos, con detalles claros y opciones de envío visibles al pagar.',
+    launch_home_shop_product: 'Comprar {title}',
+    launch_home_featured: 'Destacado en la selección de viaje',
+    launch_home_view_organizer: 'Ver organizador',
+    launch_home_shop_edit: 'Comprar la selección de viaje',
+    launch_home_browse_collection: 'Explorar la colección',
+    launch_home_assurances_aria: 'Garantías de compra',
+    launch_home_assurance_checkout: 'Pago seguro con Shopify',
+    launch_home_assurance_details: 'Detalles claros del producto',
+    launch_home_assurance_shipping: 'Envío visible al pagar',
+    launch_home_section_eyebrow_full: 'Tres formas de empacar mejor',
+    launch_home_section_eyebrow_focused: 'Organización de viaje',
+    launch_home_section_title_full: 'Un pequeño sistema de viaje que funciona en conjunto',
+    launch_home_section_title_focused:
+      'Organización práctica para tu próximo viaje',
+    launch_home_section_body_full:
+      'Separa la ropa, dedica un espacio a los artículos de aseo y mantén juntas las joyas pequeñas. Empieza por la pieza que resuelva tu mayor problema al empacar.',
+    launch_home_section_body_focused:
+      'Compra los organizadores de viaje disponibles actualmente en el mercado seleccionado.',
+    launch_home_view_all: 'Ver todos los organizadores de viaje',
+    launch_home_view_product: 'Ver {title}',
 
     ticker_products: 'Catálogo activo',
     ticker_new_drops: 'Novedades cada semana',
@@ -4314,6 +4398,34 @@ export const DICTIONARIES = {
     hero_play_label: 'Reproduzir apresentação de slides',
     hero_featured_label: 'Ver produto em destaque: {title}',
     hero_featured_text: 'Em destaque: {title}',
+    launch_home_eyebrow: 'A seleção de viagem da Puchica',
+    launch_home_title: 'Encontre tudo sem revirar a mala.',
+    launch_home_hero_body_full:
+      'Uma seleção enxuta de organizadores práticos para roupas, itens de higiene e pequenas joias, sem um catálogo interminável.',
+    launch_home_hero_body_single:
+      'Um organizador de viagem prático, com detalhes claros e opções de frete para o seu mercado exibidas no checkout.',
+    launch_home_hero_body_focused:
+      'Uma seleção enxuta de organizadores de viagem práticos, com detalhes claros e opções de frete exibidas no checkout.',
+    launch_home_shop_product: 'Comprar {title}',
+    launch_home_featured: 'Destaque da seleção de viagem',
+    launch_home_view_organizer: 'Ver organizador',
+    launch_home_shop_edit: 'Comprar a seleção de viagem',
+    launch_home_browse_collection: 'Explorar a coleção',
+    launch_home_assurances_aria: 'Garantias de compra',
+    launch_home_assurance_checkout: 'Checkout seguro da Shopify',
+    launch_home_assurance_details: 'Detalhes claros do produto',
+    launch_home_assurance_shipping: 'Frete exibido no checkout',
+    launch_home_section_eyebrow_full: 'Três formas de organizar melhor a mala',
+    launch_home_section_eyebrow_focused: 'Organização de viagem',
+    launch_home_section_title_full: 'Um pequeno sistema de viagem que funciona em conjunto',
+    launch_home_section_title_focused:
+      'Organização prática para sua próxima viagem',
+    launch_home_section_body_full:
+      'Separe as roupas, reserve um lugar para os itens de higiene e mantenha as pequenas joias juntas. Comece pela peça que resolve seu maior problema ao arrumar a mala.',
+    launch_home_section_body_focused:
+      'Compre os organizadores de viagem disponíveis atualmente no mercado selecionado.',
+    launch_home_view_all: 'Ver todos os organizadores de viagem',
+    launch_home_view_product: 'Ver {title}',
 
     ticker_products: 'Catálogo ativo',
     ticker_new_drops: 'Novidades toda semana',
