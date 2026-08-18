@@ -3,6 +3,7 @@ import {readFile} from 'node:fs/promises';
 import test from 'node:test';
 
 import {DICTIONARIES} from '../app/lib/dictionaries.js';
+import {presentLaunchProductCopy} from '../app/lib/product-presentation.js';
 
 const FACT_KEYS = [
   'product_purchase_facts_h',
@@ -34,4 +35,26 @@ test('purchase facts are limited to the validated toiletry hero', async () => {
     /handle === 'black-hanging-travel-toiletry-organizer'/,
   );
   assert.match(route, /className="pk-product__purchase-facts"/);
+});
+
+test('all three exact offers have complete localized product copy', () => {
+  const handles = [
+    '3-piece-packing-cube-set',
+    'white-semi-circular-travel-jewelry-case',
+    'black-hanging-travel-toiletry-organizer',
+  ];
+  for (const locale of ['en', 'fr', 'es', 'pt-br']) {
+    assert.ok(DICTIONARIES[locale].product_department_travel);
+    for (const handle of handles) {
+      const copy = presentLaunchProductCopy(handle, DICTIONARIES[locale]);
+      assert.ok(copy?.title, `${locale}/${handle} title missing`);
+      assert.ok(copy?.summary, `${locale}/${handle} summary missing`);
+      assert.match(copy?.descriptionHtml || '', /<p>/);
+    }
+  }
+
+  assert.notEqual(
+    presentLaunchProductCopy(handles[1], DICTIONARIES.en).title,
+    presentLaunchProductCopy(handles[1], DICTIONARIES.fr).title,
+  );
 });

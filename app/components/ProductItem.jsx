@@ -172,7 +172,12 @@ export function ProductItem({product, loading, dark = false}) {
   const tagBadge = resolveBadge(product.tags, t);
   const badge = sale ?? tagBadge; // sale takes priority over editorial badges
   const optionSummary = resolveOptionSummary(product, availableVariants);
-  const displayTitle = presentProductTitle(product.title, variant);
+  const displayTitle = presentProductTitle(
+    product.title,
+    variant,
+    product.handle,
+    t,
+  );
   const department = presentProductDepartment(product, t);
 
   const cardClass = `pk-card pk-card--link${dark ? ' pk-card--dark' : ''}${

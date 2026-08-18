@@ -203,7 +203,12 @@ function OrganizationProductSection({
         {products.slice(0, 3).map((product, index) => {
           const variant = findApprovedVariant(product, market);
           const image = variant?.image || product.featuredImage;
-          const displayTitle = presentProductTitle(product.title, variant);
+          const displayTitle = presentProductTitle(
+            product.title,
+            variant,
+            product.handle,
+            t,
+          );
           const department = presentProductDepartment(product, t);
 
           return (

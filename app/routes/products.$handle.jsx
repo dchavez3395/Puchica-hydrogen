@@ -31,7 +31,10 @@ import {
   resolveApprovedProductMarket,
   STOREFRONT_CONTAINMENT_ACTIVE,
 } from '~/lib/launch-catalog';
-import {presentProductTitle} from '~/lib/product-presentation';
+import {
+  presentLaunchProductCopy,
+  presentProductTitle,
+} from '~/lib/product-presentation';
 import {buildApprovedGallery} from '~/lib/product-gallery';
 
 /** @type {Route.MetaFunction} */
@@ -51,16 +54,18 @@ export const meta = ({data, matches, params}) => {
   const langKey = ['fr', 'es', 'pt-br'].includes(langCode) ? langCode : 'en';
   const dict = root?.data?.dictionary || {};
   const seo = data.product.seo || {};
-  const productTitle = presentProductTitle(data.product.title);
+  const localizedCopy = presentLaunchProductCopy(data.product.handle, dict);
+  const productTitle =
+    localizedCopy?.title || presentProductTitle(data.product.title);
   const storedDescription = seo.description || '';
   // Title: prefer Shopify SEO title, otherwise build "<product> – Puchica"
   // using the locale's title suffix. The suffix is shared (" – Puchica") in
   // all 4 locales because the brand is global.
-  const title =
-    seo.title || `${data.product.title}${dict.pdp_meta_title_suffix}`;
+  const title = `${productTitle}${dict.pdp_meta_title_suffix}`;
   // Market-safe metadata: strip old U.S.-only shipping language so the shared
   // Canada/U.S. storefront never advertises a route that depends on stale copy.
   const description =
+    localizedCopy?.summary ||
     (/u\.?s\.? shipping only|united states/i.test(storedDescription)
       ? ''
       : storedDescription) ||
@@ -177,10 +182,17 @@ export default function Product() {
   const selectedVariant = product.selectedOrFirstAvailableVariant;
   const productOptions = product.approvedProductOptions || [];
 
-  const {title, descriptionHtml} = product;
-  const displayTitle = presentProductTitle(title, selectedVariant);
-  const summary = productSummary(product.description);
-  const galleryImages = buildApprovedGallery(product, selectedVariant);
+  const localizedCopy = presentLaunchProductCopy(product.handle, t);
+  const displayTitle =
+    localizedCopy?.title ||
+    presentProductTitle(product.title, selectedVariant, product.handle, t);
+  const summary = localizedCopy?.summary || productSummary(product.description);
+  const displayDescriptionHtml =
+    localizedCopy?.descriptionHtml || product.descriptionHtml;
+  const galleryImages = buildApprovedGallery(product, selectedVariant).map(
+    (image) =>
+      langKey === 'en' ? image : {...image, altText: displayTitle},
+  );
   const jsonLd = buildJsonLd(
     product,
     selectedVariant,
@@ -188,6 +200,8 @@ export default function Product() {
     galleryImages,
     langKey,
     availableMarkets,
+    displayTitle,
+    plainTextFromHtml(displayDescriptionHtml),
   );
   const availableMarketNames = (availableMarkets || [])
     .map((code) =>
@@ -288,7 +302,7 @@ export default function Product() {
             <ProductImage
               images={galleryImages}
               initialIndex={0}
-              productTitle={title}
+              productTitle={displayTitle}
               modelUrl={product.model3dUrl?.value || null}
               accentColor={product.accentColor?.value || null}
             />
@@ -311,7 +325,7 @@ export default function Product() {
                     selectedVariant={selectedVariant}
                     product={{
                       handle: product.handle,
-                      title: product.title,
+                      title: displayTitle,
                       featuredImage: product.featuredImage,
                     }}
                   />
@@ -403,7 +417,7 @@ export default function Product() {
             <div className="pk-product__description-card">
               <div
                 className="pk-pdetails__desc"
-                dangerouslySetInnerHTML={{__html: descriptionHtml}}
+                dangerouslySetInnerHTML={{__html: displayDescriptionHtml}}
               />
             </div>
           </div>
@@ -418,7 +432,7 @@ export default function Product() {
       {reviews?.count > 0 ? (
         <JudgemeReviews
           externalId={reviews.externalId}
-          productTitle={product.title}
+          productTitle={displayTitle}
         />
       ) : null}
 
@@ -571,7 +585,7 @@ function getProductNeed(product, t) {
   const haystack = `${product?.productType || ''} ${product?.title || ''}`;
   if (/travel/i.test(product?.productType || '')) {
     return {
-      label: product.productType,
+      label: t('product_department_travel'),
       url: '/collections/all',
     };
   }
@@ -603,6 +617,13 @@ function productSummary(description) {
   return firstSentence || clean.slice(0, 180).trim();
 }
 
+function plainTextFromHtml(html) {
+  return String(html || '')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 function getPurchaseFacts(handle, t) {
   if (handle === 'black-hanging-travel-toiletry-organizer') {
     return [
@@ -621,6 +642,8 @@ function buildJsonLd(
   galleryImages,
   langKey,
   availableMarkets = [],
+  displayTitle,
+  localizedDescription,
 ) {
   const productUrl = canonical(`/products/${product.handle}`, langKey);
   const price = selectedVariant?.price;
@@ -636,8 +659,11 @@ function buildJsonLd(
     '@context': 'https://schema.org',
     '@type': 'Product',
     '@id': `${productUrl}#product`,
-    name: presentProductTitle(product.title, selectedVariant),
-    description: (product.description || '').slice(0, 5000),
+    name: displayTitle,
+    description: (localizedDescription || product.description || '').slice(
+      0,
+      5000,
+    ),
     image: images.length
       ? images
       : product.featuredImage?.url
