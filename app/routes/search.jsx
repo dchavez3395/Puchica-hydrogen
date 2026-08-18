@@ -60,19 +60,6 @@ export async function loader({request, context}) {
 }
 
 /**
- * Trending search terms shown as chips in the zero-state (before
- * the shopper has typed a query). These are hardcoded per the design
- * spec — they're the most common category-level searches on the store.
- */
-const TRENDING_SEARCHES = [
-  'Under sink organizer',
-  'Cable organizer',
-  'Packing cubes',
-  'Drawer organizer',
-  'Bathroom organizer',
-];
-
-/**
  * Renders the /search route
  */
 export default function SearchPage() {
@@ -82,6 +69,10 @@ export default function SearchPage() {
   if (type === 'predictive') return null;
 
   const hasResults = term && result?.total;
+  const suggestedSearches = String(t('search_trending_terms'))
+    .split(',')
+    .map((item) => item.trim())
+    .filter(Boolean);
 
   return (
     <div className="pk-search-page">
@@ -139,7 +130,7 @@ export default function SearchPage() {
             {t('search_trending_label')}
           </div>
           <div className="pk-search-zero__chips">
-            {TRENDING_SEARCHES.map((term) => (
+            {suggestedSearches.map((term) => (
               <Link
                 key={term}
                 to={`/search?q=${encodeURIComponent(term)}`}

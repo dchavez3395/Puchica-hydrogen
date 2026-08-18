@@ -508,7 +508,8 @@ export const DICTIONARIES = {
     col_filters_aria: 'Filters',
     search_trending_label: 'Shop by need',
     search_recent_label: 'Recently viewed',
-    search_trending_terms: 'packing cubes, cable organizer, travel organizer',
+    search_trending_terms:
+      'packing cubes, toiletry organizer, travel jewelry case',
     col_density_aria: 'Grid density',
     col_density_3_aria: 'Show 3 per row',
     col_density_4_aria: 'Show 4 per row',
@@ -684,7 +685,13 @@ export const DICTIONARIES = {
     megamenu_error_body: "We couldn't load the categories just now.",
     megamenu_error_cta: 'Browse everything →',
     megamenu_tile_cta: 'Shop →',
-    megamenu_intent_heading: 'Shop by category',
+    megamenu_intent_heading: 'Shop the travel edit',
+    megamenu_intent_packing_title: 'Packing cubes',
+    megamenu_intent_packing_body: 'Separate clothing with a three-piece set.',
+    megamenu_intent_toiletry_title: 'Toiletry organizer',
+    megamenu_intent_toiletry_body: 'Hang and see travel-size essentials.',
+    megamenu_intent_jewelry_title: 'Travel jewelry case',
+    megamenu_intent_jewelry_body: 'Keep small jewelry together on the go.',
     megamenu_intent_home_title: 'Storage organization',
     megamenu_intent_home_body:
       'Audio, kitchen, fitness, home, outdoor — the picks customers keep re-ordering.',
@@ -693,9 +700,9 @@ export const DICTIONARIES = {
     megamenu_intent_travel_title: 'Travel organization',
     megamenu_intent_travel_body: 'Packing, luggage, and everyday carry.',
     megamenu_edit_eyebrow: 'Start here',
-    megamenu_edit_title: 'Trending high-ticket finds under C$200.',
+    megamenu_edit_title: 'Three focused travel organizers.',
     megamenu_edit_body:
-      'Shop solutions for under-sink storage, cables, packing, and everyday carry.',
+      'Clear options, exact product photos, and shipping shown at checkout.',
     megamenu_trust_shipping: 'Shipping options shown at checkout',
     megamenu_trust_refund: 'Refund policy available',
     pillnav_aria: 'Page sections',
@@ -921,12 +928,13 @@ export const DICTIONARIES = {
     pred_pages: 'Pages',
     pred_products: 'Finds',
     pred_empty_title: 'Start typing to search',
-    pred_empty_body: 'Try packing cubes or cable organizer.',
+    pred_empty_body: 'Try packing cubes, toiletry organizer, or jewelry case.',
     pred_pill_best: 'Featured',
     pred_pill_all: 'All categories',
     pred_pill_new: 'New arrivals',
     pred_no_results_h: 'No finds matched “{term}”.',
-    pred_no_results_body: 'Try packing cubes or cable organizer.',
+    pred_no_results_body:
+      'Try packing cubes, toiletry organizer, or jewelry case.',
 
     // ── Cart page h1 ──────────────────────────────────────────────
     cart_page_h: 'Cart',
@@ -1881,7 +1889,7 @@ export const DICTIONARIES = {
     search_trending_label: 'Recherches populaires',
     search_recent_label: 'Vus récemment',
     search_trending_terms:
-      'pistolet de massage, ruban LED, gourde, bouilloire, moulin à café, corde à sauter',
+      'cubes de rangement, trousse de toilette, étui à bijoux de voyage',
     col_density_aria: 'Densité de la grille',
     col_density_3_aria: 'Afficher 3 par rangée',
     col_density_4_aria: 'Afficher 4 par rangée',
@@ -2054,7 +2062,13 @@ export const DICTIONARIES = {
       "Nous n'avons pas pu charger les catégories pour le moment.",
     megamenu_error_cta: 'Tout parcourir →',
     megamenu_tile_cta: 'Magasiner →',
-    megamenu_intent_heading: 'Magasiner par catégorie',
+    megamenu_intent_heading: 'Magasiner la sélection voyage',
+    megamenu_intent_packing_title: 'Cubes de rangement',
+    megamenu_intent_packing_body: 'Séparez les vêtements avec un ensemble de trois.',
+    megamenu_intent_toiletry_title: 'Trousse de toilette',
+    megamenu_intent_toiletry_body: 'Suspendez et repérez vos essentiels de voyage.',
+    megamenu_intent_jewelry_title: 'Étui à bijoux de voyage',
+    megamenu_intent_jewelry_body: 'Gardez les petits bijoux ensemble en déplacement.',
     megamenu_intent_home_title: 'Organisation du rangement',
     megamenu_intent_home_body:
       'Audio, cuisine, conditionnement physique, maison et plein air — les trouvailles que les clients récommandent.',
@@ -2065,9 +2079,9 @@ export const DICTIONARIES = {
     megamenu_intent_travel_body:
       'Emballage, bagages et transport du quotidien.',
     megamenu_edit_eyebrow: 'Commencer ici',
-    megamenu_edit_title: 'Trouvailles haut de gamme sous 200 $ CA.',
+    megamenu_edit_title: 'Trois organisateurs de voyage ciblés.',
     megamenu_edit_body:
-      'Solutions pour le rangement sous l’évier, les câbles, l’emballage et le transport quotidien.',
+      'Options claires, photos exactes et livraison affichée au paiement.',
     megamenu_trust_shipping: 'Options de livraison affichées au paiement',
     megamenu_trust_refund: 'Politique de remboursement disponible',
     megamenu_tagline_phone_case: 'Coques, prises, protection.',
@@ -2329,13 +2343,13 @@ export const DICTIONARIES = {
     pred_products: 'Trouvailles',
     pred_empty_title: 'Commencez à taper pour rechercher',
     pred_empty_body:
-      'Essayez des catégories comme « meilleures ventes », « maison » ou des noms de produits précis.',
+      'Essayez cubes de rangement, trousse de toilette ou étui à bijoux.',
     pred_pill_best: 'Meilleures ventes',
     pred_pill_all: 'Toutes les catégories',
     pred_pill_new: 'Nouveautés',
     pred_no_results_h: 'Aucun résultat pour « {term} ».',
     pred_no_results_body:
-      'Essayez un autre mot-clé ou parcourez les coups de cœur.',
+      'Essayez cubes de rangement, trousse de toilette ou étui à bijoux.',
 
     // ── H1 de la page Panier ────────────────────────────────────
     cart_page_h: 'Panier',
@@ -3307,7 +3321,7 @@ export const DICTIONARIES = {
     search_trending_label: 'Búsquedas populares',
     search_recent_label: 'Vistos recientemente',
     search_trending_terms:
-      'pistola de masaje, tira LED, termo, hervidor, molinillo de café, cuerda de saltar',
+      'cubos de embalaje, organizador de aseo, estuche de viaje para joyas',
     col_density_aria: 'Densidad de la cuadrícula',
     col_density_3_aria: 'Mostrar 3 por fila',
     col_density_4_aria: 'Mostrar 4 por fila',
@@ -3480,7 +3494,13 @@ export const DICTIONARIES = {
     megamenu_error_body: 'No pudimos cargar las categorías en este momento.',
     megamenu_error_cta: 'Ver todo →',
     megamenu_tile_cta: 'Comprar →',
-    megamenu_intent_heading: 'Comprar por categoría',
+    megamenu_intent_heading: 'Comprar la selección de viaje',
+    megamenu_intent_packing_title: 'Cubos de embalaje',
+    megamenu_intent_packing_body: 'Separa la ropa con un juego de tres piezas.',
+    megamenu_intent_toiletry_title: 'Organizador de aseo',
+    megamenu_intent_toiletry_body: 'Cuelga y encuentra tus artículos esenciales.',
+    megamenu_intent_jewelry_title: 'Estuche de viaje para joyas',
+    megamenu_intent_jewelry_body: 'Mantén juntas las joyas pequeñas durante el viaje.',
     megamenu_intent_home_title: 'Organización del hogar',
     megamenu_intent_home_body:
       'Audio, cocina, condición física, hogar y aire libre — los hallazgos que los clientes repiten.',
@@ -3491,10 +3511,9 @@ export const DICTIONARIES = {
     megamenu_intent_travel_body:
       'Empaque, equipaje y transporte del día a día.',
     megamenu_edit_eyebrow: 'Empezar aquí',
-    megamenu_edit_title:
-      'Productos populares de alto valor por menos de 200 $ CAD.',
+    megamenu_edit_title: 'Tres organizadores de viaje seleccionados.',
     megamenu_edit_body:
-      'Soluciones para almacenaje bajo el fregadero, cables, empaque y transporte del día a día.',
+      'Opciones claras, fotos exactas y envío visible al pagar.',
     megamenu_trust_shipping: 'Opciones de envío mostradas al pagar',
     megamenu_trust_refund: 'Política de reembolso disponible',
     megamenu_tagline_phone_case: 'Fundas, agarres, protección.',
@@ -3756,13 +3775,13 @@ export const DICTIONARIES = {
     pred_products: 'Hallazgos',
     pred_empty_title: 'Empieza a escribir para buscar',
     pred_empty_body:
-      'Prueba categorías como "más vendidos", "hogar" o nombres específicos de productos.',
+      'Prueba cubos de embalaje, organizador de aseo o estuche para joyas.',
     pred_pill_best: 'Más vendidos',
     pred_pill_all: 'Todas las categorías',
     pred_pill_new: 'Novedades',
     pred_no_results_h: 'Ningún resultado para «{term}».',
     pred_no_results_body:
-      'Prueba otra palabra clave o explora los más queridos.',
+      'Prueba cubos de embalaje, organizador de aseo o estuche para joyas.',
 
     // ── H1 de la página del carrito ─────────────────────────────
     cart_page_h: 'Carrito',
@@ -4730,7 +4749,7 @@ export const DICTIONARIES = {
     search_trending_label: 'Buscas populares',
     search_recent_label: 'Vistos recentemente',
     search_trending_terms:
-      'massageador, fita LED, garrafa térmica, chaleira, moedor de café, corda de pular',
+      'cubos organizadores, necessaire de viagem, estojo de viagem para joias',
     col_density_aria: 'Densidade da grade',
     col_density_3_aria: 'Mostrar 3 por linha',
     col_density_4_aria: 'Mostrar 4 por linha',
@@ -4899,7 +4918,13 @@ export const DICTIONARIES = {
     megamenu_error_body: 'Não conseguimos carregar as categorias agora.',
     megamenu_error_cta: 'Ver tudo →',
     megamenu_tile_cta: 'Comprar →',
-    megamenu_intent_heading: 'Comprar por categoria',
+    megamenu_intent_heading: 'Comprar a seleção de viagem',
+    megamenu_intent_packing_title: 'Cubos organizadores',
+    megamenu_intent_packing_body: 'Separe as roupas com um conjunto de três peças.',
+    megamenu_intent_toiletry_title: 'Necessaire organizadora',
+    megamenu_intent_toiletry_body: 'Pendure e encontre seus itens essenciais.',
+    megamenu_intent_jewelry_title: 'Estojo de viagem para joias',
+    megamenu_intent_jewelry_body: 'Mantenha pequenas joias juntas durante a viagem.',
     megamenu_intent_home_title: 'Organização para casa',
     megamenu_intent_home_body:
       'Áudio, cozinha, fitness, casa, exterior — os achados que os clientes repetem.',
@@ -4910,9 +4935,9 @@ export const DICTIONARIES = {
     megamenu_intent_travel_body:
       'Embalagem, bagagem e transporte do dia a dia.',
     megamenu_edit_eyebrow: 'Comece aqui',
-    megamenu_edit_title: 'Achados premium por menos de 200 $ CAD.',
+    megamenu_edit_title: 'Três organizadores de viagem selecionados.',
     megamenu_edit_body:
-      'Soluções para armazenamento sob a pia, cabos, embalagem e transporte do dia a dia.',
+      'Opções claras, fotos exatas e frete exibido no checkout.',
     megamenu_trust_shipping: 'Opções de entrega mostradas no checkout',
     megamenu_trust_refund: 'Política de reembolso disponível',
     megamenu_tagline_phone_case: 'Capas, suportes, proteção.',
@@ -5174,13 +5199,13 @@ export const DICTIONARIES = {
     pred_products: 'Achados',
     pred_empty_title: 'Comece a digitar para buscar',
     pred_empty_body:
-      'Tente categorias como "mais vendidos", "casa" ou nomes específicos de produtos.',
+      'Tente cubos organizadores, necessaire ou estojo para joias.',
     pred_pill_best: 'Mais vendidos',
     pred_pill_all: 'Todas as categorias',
     pred_pill_new: 'Novidades',
     pred_no_results_h: 'Nenhum resultado para «{term}».',
     pred_no_results_body:
-      'Tente outra palavra-chave ou explore os mais amados.',
+      'Tente cubos organizadores, necessaire ou estojo para joias.',
 
     // ── H1 da página do carrinho ────────────────────────────────
     cart_page_h: 'Carrinho',

@@ -23,22 +23,22 @@ import {useT} from '~/lib/t';
 // published to the Puchica Storefront channel in Shopify admin.
 const SHOPPING_INTENTS = [
   {
-    id: 'home-reset',
-    titleKey: 'megamenu_intent_home_title',
-    bodyKey: 'megamenu_intent_home_body',
-    query: 'under sink organizer',
+    id: 'packing-cubes',
+    titleKey: 'megamenu_intent_packing_title',
+    bodyKey: 'megamenu_intent_packing_body',
+    url: '/products/3-piece-packing-cube-set',
   },
   {
-    id: 'cable-control',
-    titleKey: 'megamenu_intent_cable_title',
-    bodyKey: 'megamenu_intent_cable_body',
-    query: 'cable organizer',
+    id: 'toiletry-organizer',
+    titleKey: 'megamenu_intent_toiletry_title',
+    bodyKey: 'megamenu_intent_toiletry_body',
+    url: '/products/black-hanging-travel-toiletry-organizer',
   },
   {
-    id: 'travel-order',
-    titleKey: 'megamenu_intent_travel_title',
-    bodyKey: 'megamenu_intent_travel_body',
-    query: 'packing cubes',
+    id: 'jewelry-case',
+    titleKey: 'megamenu_intent_jewelry_title',
+    bodyKey: 'megamenu_intent_jewelry_body',
+    url: '/products/white-semi-circular-travel-jewelry-case',
   },
 ];
 
@@ -184,8 +184,8 @@ function MegaMenuPanel({data, onNavigate}) {
     },
     {
       id: 'q-best',
-      title: t('nav_best_sellers'),
-      url: '/collections/best-sellers',
+      title: t('nav_about_short'),
+      url: '/pages/about',
     },
   ];
 
@@ -198,7 +198,7 @@ function MegaMenuPanel({data, onNavigate}) {
             {SHOPPING_INTENTS.map((intent) => (
               <li key={intent.id}>
                 <Link
-                  to={`/search?q=${encodeURIComponent(intent.query)}`}
+                  to={intent.url}
                   prefetch="intent"
                   className="pk-mega__cat"
                   onClick={onNavigate}
@@ -211,7 +211,7 @@ function MegaMenuPanel({data, onNavigate}) {
           </ul>
         </nav>
         <Link
-          to="/campaigns/home-finds"
+          to="/collections/all"
           prefetch="intent"
           className="pk-mega__feature"
           onClick={onNavigate}
