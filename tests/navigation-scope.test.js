@@ -12,6 +12,14 @@ const searchRoute = await readFile(
   new URL('../app/routes/search.jsx', import.meta.url),
   'utf8',
 );
+const collectionIndexRoute = await readFile(
+  new URL('../app/routes/collections._index.jsx', import.meta.url),
+  'utf8',
+);
+const exploreRoute = await readFile(
+  new URL('../app/routes/explore.jsx', import.meta.url),
+  'utf8',
+);
 
 test('shop navigation links directly to the exact three-offer scope', () => {
   for (const handle of [
@@ -48,3 +56,15 @@ test('empty search prompts stay localized and inside the current assortment', ()
   }
 });
 
+test('retired discovery hubs permanently redirect into the localized catalog', () => {
+  for (const source of [collectionIndexRoute, exploreRoute]) {
+    assert.match(source, /localizePath\(destination, params\?\.locale \|\| 'en'\)/);
+    assert.match(source, /return redirect\([^;]+, 301\)/s);
+    assert.match(source, /\/collections\/all/);
+  }
+
+  assert.doesNotMatch(
+    exploreRoute,
+    /phone-case|electronics-accessories|pet-supplies|PRODUCT_CATEGORIES/,
+  );
+});
