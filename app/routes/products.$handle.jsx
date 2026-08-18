@@ -586,29 +586,13 @@ function buildBreadcrumbItems(product, title, t) {
   return items;
 }
 
-function getProductNeed(product, t) {
-  const haystack = `${product?.productType || ''} ${product?.title || ''}`;
-  if (/travel/i.test(product?.productType || '')) {
-    return {
-      label: t('product_department_travel'),
-      url: '/collections/all',
-    };
-  }
-  if (/cable|cord|charger|electronic/i.test(haystack)) {
-    return {
-      label: t('megamenu_intent_cable_title'),
-      url: '/search?q=cable%20organizer',
-    };
-  }
-  if (/travel|packing|luggage|bag|pouch/i.test(haystack)) {
-    return {
-      label: t('megamenu_intent_travel_title'),
-      url: '/search?q=packing%20cubes',
-    };
-  }
+function getProductNeed(_product, t) {
+  // The PDP route is gated to the exact three-product travel cohort before it
+  // renders. Keep the breadcrumb equally exact instead of retaining fallback
+  // destinations for retired cable, home, or broad-catalog products.
   return {
-    label: t('megamenu_intent_home_title'),
-    url: '/search?q=under%20sink%20organizer',
+    label: t('product_department_travel'),
+    url: '/collections/all',
   };
 }
 

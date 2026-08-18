@@ -47,25 +47,7 @@ export function presentProductTitle(title, variant, handle, source) {
   return withoutMerchandisingPrefix || cleanTitle;
 }
 
-/**
- * Translate inconsistent supplier product types into Puchica's three shopping
- * needs. This is display-only and does not alter Shopify taxonomy.
- */
-export function presentProductDepartment(product, t) {
-  const productType = String(product?.productType || '').trim();
-  const haystack = `${productType} ${product?.title || ''}`;
-
-  if (LAUNCH_COPY_PREFIX[product?.handle] || /travel/i.test(productType)) {
-    return t('product_department_travel');
-  }
-
-  if (/cable|cord|charger|electronic/i.test(haystack)) {
-    return t('megamenu_intent_cable_title');
-  }
-
-  if (/travel|packing|luggage|bag|pouch/i.test(haystack)) {
-    return t('megamenu_intent_travel_title');
-  }
-
-  return t('megamenu_intent_home_title');
+/** Display the only department admitted by the exact launch-product gate. */
+export function presentProductDepartment(_product, t) {
+  return t('product_department_travel');
 }

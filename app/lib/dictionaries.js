@@ -213,9 +213,6 @@ export const DICTIONARIES = {
     megamenu_intent_packing_title: 'Packing cubes',
     megamenu_intent_toiletry_title: 'Toiletry organizer',
     megamenu_intent_jewelry_title: 'Travel jewelry case',
-    megamenu_intent_home_title: 'Storage organization',
-    megamenu_intent_cable_title: 'Cable organization',
-    megamenu_intent_travel_title: 'Travel organization',
     notfound_title: "We couldn't find that page",
     notfound_sub:
       'The link {path} doesn’t exist on Puchica. It may have been moved, renamed, or never existed. Try one of these instead:',
@@ -817,9 +814,6 @@ export const DICTIONARIES = {
     megamenu_intent_packing_title: 'Cubes de rangement',
     megamenu_intent_toiletry_title: 'Trousse de toilette',
     megamenu_intent_jewelry_title: 'Étui à bijoux de voyage',
-    megamenu_intent_home_title: 'Organisation du rangement',
-    megamenu_intent_cable_title: 'Organisation des câbles',
-    megamenu_intent_travel_title: 'Organisation de voyage',
     notfound_title: "Nous n'avons pas trouvé cette page",
     notfound_sub:
       "Le lien {path} n'existe pas sur Puchica. Il a peut-être été déplacé, renommé, ou n'a jamais existé. Essayez plutôt l'une de ces options :",
@@ -1443,9 +1437,6 @@ export const DICTIONARIES = {
     megamenu_intent_packing_title: 'Cubos de embalaje',
     megamenu_intent_toiletry_title: 'Organizador de aseo',
     megamenu_intent_jewelry_title: 'Estuche de viaje para joyas',
-    megamenu_intent_home_title: 'Organización del hogar',
-    megamenu_intent_cable_title: 'Organización de cables',
-    megamenu_intent_travel_title: 'Organización de viaje',
     notfound_title: 'No pudimos encontrar esa página',
     notfound_sub:
       'El enlace {path} no existe en Puchica. Puede haber sido movido, renombrado, o nunca existió. Prueba una de estas opciones:',
@@ -2067,9 +2058,6 @@ export const DICTIONARIES = {
     megamenu_intent_packing_title: 'Cubos organizadores',
     megamenu_intent_toiletry_title: 'Necessaire organizadora',
     megamenu_intent_jewelry_title: 'Estojo de viagem para joias',
-    megamenu_intent_home_title: 'Organização para casa',
-    megamenu_intent_cable_title: 'Organização de cabos',
-    megamenu_intent_travel_title: 'Organização de viagem',
     notfound_title: 'Não encontramos essa página',
     notfound_sub:
       'O link {path} não existe na Puchica. Pode ter sido movido, renomeado, ou nunca existiu. Tente uma destas opções:',
