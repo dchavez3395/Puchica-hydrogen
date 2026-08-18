@@ -61,7 +61,7 @@ export function HeaderMenu({viewport}) {
       ? [
           {
             id: 'packing-cubes',
-            title: 'Packing cubes',
+            title: t('megamenu_intent_packing_title'),
             url: '/products/3-piece-packing-cube-set',
           },
         ]
@@ -70,14 +70,14 @@ export function HeaderMenu({viewport}) {
       ? [
           {
             id: 'toiletry-organizer',
-            title: 'Toiletry organizer',
+            title: t('megamenu_intent_toiletry_title'),
             url: '/products/black-hanging-travel-toiletry-organizer',
           },
         ]
       : []),
     {
       id: 'jewelry-case',
-      title: 'Jewelry case',
+      title: t('megamenu_intent_jewelry_title'),
       url: '/products/white-semi-circular-travel-jewelry-case',
     },
   ];

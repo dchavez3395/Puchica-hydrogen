@@ -1,6 +1,7 @@
 import {data, useLoaderData} from 'react-router';
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {puchicaMeta} from '~/lib/seo';
+import {utilityMetaCopy} from '~/lib/utility-meta';
 import {useT} from '~/lib/t';
 import {STOREFRONT_CONTAINMENT_ACTIVE} from '~/lib/launch-catalog';
 
@@ -11,13 +12,14 @@ import {STOREFRONT_CONTAINMENT_ACTIVE} from '~/lib/launch-catalog';
  * Google's index even if other sites link to a dead Puchica URL.
  * nofollow also stops us from passing link equity out of a 404.
  */
-export const meta = ({data}) => {
+export const meta = ({data, params}) => {
+  const copy = utilityMetaCopy(params?.locale).notFound;
   return puchicaMeta({
-    title: 'Page not found – Puchica',
-    description:
-      "The page you're looking for doesn't exist. Return to Puchica or contact us for help.",
+    title: copy.title,
+    description: copy.description,
     noindex: true,
     pathname: data?.pathname || '/404',
+    langKey: params?.locale,
   });
 };
 

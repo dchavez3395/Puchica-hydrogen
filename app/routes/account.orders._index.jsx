@@ -18,12 +18,13 @@ import {
 import {CUSTOMER_ORDERS_QUERY} from '~/graphql/customer-account/CustomerOrdersQuery';
 import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
 import {useT} from '~/lib/t';
+import {utilityMetaCopy} from '~/lib/utility-meta';
 
 /**
  * @type {Route.MetaFunction}
  */
-export const meta = () => {
-  return [{title: 'Orders'}];
+export const meta = ({params}) => {
+  return [{title: utilityMetaCopy(params?.locale).account.ordersTitle}];
 };
 
 /**

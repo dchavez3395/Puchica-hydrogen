@@ -1,6 +1,7 @@
 import {redirect, useLoaderData} from 'react-router';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 import {puchicaMeta} from '~/lib/seo';
+import {utilityMetaCopy} from '~/lib/utility-meta';
 import {ContactPage} from '~/components/ContactPage';
 import {STOREFRONT_CONTAINMENT_ACTIVE} from '~/lib/launch-catalog';
 
@@ -12,20 +13,18 @@ import {STOREFRONT_CONTAINMENT_ACTIVE} from '~/lib/launch-catalog';
  * generic page-derived meta here. All other CMS pages fall through to
  * the standard `seo`-then-body-derived title/description.
  */
-const CONTACT_DESCRIPTION =
-  'Contact Puchica for help with products, orders, shipping, or returns.';
-
 export const meta = ({data, params}) => {
   const page = data?.page;
   // Special case: the contact page renders its own layout, so give it
   // a real description instead of the empty body the merchant has set
   // on the Shopify page.
   if (page?.handle === 'contact') {
+    const copy = utilityMetaCopy(params?.locale).contact;
     return puchicaMeta({
-      title: 'Contact us – Puchica',
+      title: copy.title,
       description: STOREFRONT_CONTAINMENT_ACTIVE
         ? 'Contact Puchica while the storefront catalog is being reviewed.'
-        : CONTACT_DESCRIPTION,
+        : copy.description,
       pathname: '/pages/contact',
       langKey: params?.locale,
     });

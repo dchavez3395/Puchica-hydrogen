@@ -48,6 +48,21 @@ test('shop navigation links directly to the exact three-offer scope', () => {
   );
 });
 
+test('mobile product navigation uses the localized intent labels', async () => {
+  const source = await readFile(
+    new URL('../app/components/Header.jsx', import.meta.url),
+    'utf8',
+  );
+  for (const key of [
+    'megamenu_intent_packing_title',
+    'megamenu_intent_toiletry_title',
+    'megamenu_intent_jewelry_title',
+  ]) {
+    assert.match(source, new RegExp(`title: t\\('${key}'\\)`));
+  }
+  assert.doesNotMatch(source, /title: '(Packing cubes|Toiletry organizer|Jewelry case)'/);
+});
+
 test('collection and recovery navigation make no unsupported sales ranking claim', () => {
   assert.doesNotMatch(collectionRoute, /BEST_SELLING|value="best-selling"/);
   assert.doesNotMatch(

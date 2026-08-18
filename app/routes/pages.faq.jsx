@@ -1,21 +1,24 @@
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {puchicaMeta} from '~/lib/seo';
+import {utilityMetaCopy} from '~/lib/utility-meta';
 import StarGlyph from '~/components/StarGlyph';
 import {useT} from '~/lib/t';
 import {useParams} from 'react-router';
 import {STOREFRONT_CONTAINMENT_ACTIVE} from '~/lib/launch-catalog';
 
-export const meta = ({params}) =>
-  puchicaMeta({
+export const meta = ({params}) => {
+  const copy = utilityMetaCopy(params?.locale).faq;
+  return puchicaMeta({
     title: STOREFRONT_CONTAINMENT_ACTIVE
       ? 'Storefront questions – Puchica'
-      : 'Frequently Asked Questions – Puchica',
+      : copy.title,
     description: STOREFRONT_CONTAINMENT_ACTIVE
       ? 'Answers about Puchica’s paused catalog, product review process, and support contact.'
-      : 'Answers about Puchica products, orders, shipping, returns, and accounts.',
+      : copy.description,
     pathname: '/pages/faq',
     langKey: params?.locale,
   });
+};
 
 export async function loader() {
   return {};

@@ -5,6 +5,7 @@ import {SearchForm} from '~/components/SearchForm';
 import {SearchResults} from '~/components/SearchResults';
 import {getEmptyPredictiveSearchResult} from '~/lib/search';
 import {puchicaMeta} from '~/lib/seo';
+import {utilityMetaCopy} from '~/lib/utility-meta';
 import {diversifyByVendor} from '~/lib/diversify';
 import {useT} from '~/lib/t';
 import {
@@ -22,11 +23,12 @@ import {
  */
 export const meta = ({data, params}) => {
   const term = (data?.term || '').trim();
+  const copy = utilityMetaCopy(params?.locale).search;
   return puchicaMeta({
-    title: term ? `Search: ${term} – Puchica` : 'Search – Puchica',
+    title: term ? copy.termTitle.replace('{term}', term) : copy.title,
     description: term
-      ? `Search results for "${term}" across the Puchica catalog.`
-      : 'Search practical organizers for packing, travel jewelry, toiletries, and everyday carry.',
+      ? copy.termDescription.replace('{term}', term)
+      : copy.description,
     noindex: true,
     pathname: '/search',
     langKey: params?.locale,

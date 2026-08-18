@@ -1,22 +1,25 @@
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {puchicaMeta} from '~/lib/seo';
+import {utilityMetaCopy} from '~/lib/utility-meta';
 import StarGlyph from '~/components/StarGlyph';
 import {IconBag, IconPackage, IconTruck} from '~/components/Icons';
 import {useT} from '~/lib/t';
 import {useParams, useRouteLoaderData} from 'react-router';
 import {STOREFRONT_CONTAINMENT_ACTIVE} from '~/lib/launch-catalog';
 
-export const meta = ({params}) =>
-  puchicaMeta({
+export const meta = ({params}) => {
+  const copy = utilityMetaCopy(params?.locale).shipping;
+  return puchicaMeta({
     title: STOREFRONT_CONTAINMENT_ACTIVE
       ? 'Shipping review – Puchica'
-      : 'Shipping & Delivery – Puchica',
+      : copy.title,
     description: STOREFRONT_CONTAINMENT_ACTIVE
       ? 'Puchica is verifying product-specific shipping and delivery details before the catalog returns.'
-      : 'See shipping availability, options, and cost for your selected items and destination at checkout before you pay.',
+      : copy.description,
     pathname: '/pages/shipping',
     langKey: params?.locale,
   });
+};
 
 export async function loader() {
   return {};

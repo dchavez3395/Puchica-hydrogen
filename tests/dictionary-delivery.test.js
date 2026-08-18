@@ -38,3 +38,21 @@ test('focused launch homepage is translated in every supported language', () => 
     }
   }
 });
+
+test('returning-cart reminder stays localized', () => {
+  for (const language of ['EN', 'FR', 'ES', 'PT_BR']) {
+    const dictionary = getRequestDictionary(language);
+    for (const key of [
+      'cart_recovery_one',
+      'cart_recovery_many',
+      'cart_recovery_cta',
+      'cart_recovery_dismiss',
+    ]) {
+      assert.ok(dictionary[key]?.trim(), `${language} is missing ${key}`);
+    }
+  }
+
+  const banner = readFileSync('app/components/CartRecoveryBanner.jsx', 'utf8');
+  assert.match(banner, /LocalizedLink as Link/);
+  assert.doesNotMatch(banner, /Welcome back|Complete your order|Dismiss cart reminder/);
+});

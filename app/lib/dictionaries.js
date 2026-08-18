@@ -756,6 +756,10 @@ export const DICTIONARIES = {
     pdp_3d_hint: 'Drag to rotate · scroll to zoom',
     cart_heading_aria: 'Line items',
     cart_remove_region_aria: 'Remove from cart',
+    cart_recovery_one: 'Welcome back! You have 1 item in your cart.',
+    cart_recovery_many: 'Welcome back! You have {count} items in your cart.',
+    cart_recovery_cta: 'Complete your order',
+    cart_recovery_dismiss: 'Dismiss cart reminder',
     cart_empty_title: 'Nothing in your cart yet.',
     cart_empty_body: 'Start with one practical organizer for your next trip.',
     cart_empty_cta_shop: 'Shop the travel edit',
@@ -2155,6 +2159,11 @@ export const DICTIONARIES = {
     pdp_3d_hint: 'Glissez pour pivoter · molette pour zoomer',
     cart_heading_aria: 'Articles',
     cart_remove_region_aria: 'Retirer du panier',
+    cart_recovery_one: 'Bon retour! Vous avez 1 article dans votre panier.',
+    cart_recovery_many:
+      'Bon retour! Vous avez {count} articles dans votre panier.',
+    cart_recovery_cta: 'Finaliser votre commande',
+    cart_recovery_dismiss: 'Fermer le rappel du panier',
     cart_empty_title: 'Votre panier est vide.',
     cart_empty_body:
       'Commencez par un organiseur pratique pour votre prochain voyage.',
@@ -3589,6 +3598,11 @@ export const DICTIONARIES = {
     pdp_3d_hint: 'Arrastra para rotar · desplaza para hacer zoom',
     cart_heading_aria: 'Artículos',
     cart_remove_region_aria: 'Quitar del carrito',
+    cart_recovery_one: '¡Qué bueno verte! Tienes 1 artículo en tu carrito.',
+    cart_recovery_many:
+      '¡Qué bueno verte! Tienes {count} artículos en tu carrito.',
+    cart_recovery_cta: 'Completar tu pedido',
+    cart_recovery_dismiss: 'Cerrar el recordatorio del carrito',
     cart_empty_title: 'Tu carrito está vacío.',
     cart_empty_body:
       'Empieza con un organizador práctico para tu próximo viaje.',
@@ -5012,6 +5026,11 @@ export const DICTIONARIES = {
     pdp_3d_hint: 'Arraste para girar · role para dar zoom',
     cart_heading_aria: 'Itens',
     cart_remove_region_aria: 'Remover do carrinho',
+    cart_recovery_one: 'Que bom ter você de volta! Há 1 item no seu carrinho.',
+    cart_recovery_many:
+      'Que bom ter você de volta! Há {count} itens no seu carrinho.',
+    cart_recovery_cta: 'Finalizar seu pedido',
+    cart_recovery_dismiss: 'Fechar o lembrete do carrinho',
     cart_empty_title: 'Seu carrinho está vazio.',
     cart_empty_body:
       'Comece com um organizador prático para a sua próxima viagem.',

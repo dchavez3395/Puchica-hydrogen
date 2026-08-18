@@ -11,12 +11,13 @@ import {
   CREATE_ADDRESS_MUTATION,
 } from '~/graphql/customer-account/CustomerAddressMutations';
 import {useT} from '~/lib/t';
+import {utilityMetaCopy} from '~/lib/utility-meta';
 
 /**
  * @type {Route.MetaFunction}
  */
-export const meta = () => {
-  return [{title: 'Addresses'}];
+export const meta = ({params}) => {
+  return [{title: utilityMetaCopy(params?.locale).account.addressesTitle}];
 };
 
 /**

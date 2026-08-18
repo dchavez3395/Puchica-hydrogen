@@ -59,4 +59,3 @@ export function launchMetaCopy(locale = 'en', country = 'CA') {
     shop: {title: copy.shopTitle, description: copy[`shop${market}`]},
   };
 }
-

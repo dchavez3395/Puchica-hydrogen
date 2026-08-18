@@ -2,6 +2,7 @@ import {useLoaderData, data, redirect} from 'react-router';
 import {Analytics, CartForm} from '@shopify/hydrogen';
 import {CartMain} from '~/components/CartMain';
 import {puchicaMeta} from '~/lib/seo';
+import {utilityMetaCopy} from '~/lib/utility-meta';
 import {
   CHECKOUT_URL_REWRITER,
   buildCheckoutRewriteOptions,
@@ -28,13 +29,14 @@ import {
  * noindex,follow lets Google still follow the links inside the cart
  * (e.g. product links) but tells it not to surface the cart page itself.
  */
-export const meta = () => {
+export const meta = ({params}) => {
+  const copy = utilityMetaCopy(params?.locale).cart;
   return puchicaMeta({
-    title: 'Cart – Puchica',
-    description:
-      'Your Puchica shopping cart. Shipping options and payment details are shown before payment at Shopify checkout.',
+    title: copy.title,
+    description: copy.description,
     noindex: true,
     pathname: '/cart',
+    langKey: params?.locale,
   });
 };
 

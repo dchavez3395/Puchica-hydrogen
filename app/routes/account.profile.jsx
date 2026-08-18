@@ -7,12 +7,13 @@ import {
   useOutletContext,
 } from 'react-router';
 import {useT} from '~/lib/t';
+import {utilityMetaCopy} from '~/lib/utility-meta';
 
 /**
  * @type {Route.MetaFunction}
  */
-export const meta = () => {
-  return [{title: 'Profile'}];
+export const meta = ({params}) => {
+  return [{title: utilityMetaCopy(params?.locale).account.profileTitle}];
 };
 
 /**
