@@ -108,3 +108,24 @@ test('refund policy route presents the fail-safe summary before Admin policy HTM
   assert.ok(adminBody > summary, 'Admin policy body must follow the summary');
   assert.match(source, /isRefundPolicy/);
 });
+
+test('terms policy corrects CAD-only wording before Admin policy HTML', async () => {
+  const source = await readFile(
+    new URL('../app/routes/policies.$handle.jsx', import.meta.url),
+    'utf8',
+  );
+  const summary = source.indexOf('terms_currency_summary_title');
+  const adminBody = source.indexOf('dangerouslySetInnerHTML');
+
+  assert.ok(summary >= 0, 'terms currency summary is missing');
+  assert.ok(adminBody > summary, 'Admin policy body must follow the summary');
+  assert.match(source, /isTermsPolicy/);
+
+  for (const [locale, dictionary] of Object.entries(DICTIONARIES)) {
+    assert.match(
+      dictionary.terms_currency_summary_body,
+      /CAD.*USD/,
+      `${locale} terms summary must name both market currencies`,
+    );
+  }
+});

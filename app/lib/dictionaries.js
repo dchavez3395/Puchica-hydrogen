@@ -935,6 +935,11 @@ export const DICTIONARIES = {
       'Approved refunds are issued to the original payment method after the returned item is received and reviewed. Bank processing time can vary.',
     refund_summary_control:
       'This summary does not replace the full Shopify policy below, which controls if there is any difference.',
+    terms_currency_summary_title: 'Currency at checkout',
+    terms_currency_summary_body:
+      'Prices are shown in the currency of the market selected in the storefront: CAD for Canada and USD for the United States. The order total and currency shown at checkout apply.',
+    terms_currency_summary_control:
+      'This market-specific currency statement updates any CAD-only wording in the full policy below; all other terms remain unchanged.',
 
     // ── Blogs index ──────────────────────────────────────────────
     blogs_h: 'Blogs',
@@ -2310,6 +2315,11 @@ export const DICTIONARIES = {
       'Les remboursements approuvés sont versés sur le mode de paiement original après réception et examen du retour. Le délai bancaire peut varier.',
     refund_summary_control:
       'Ce résumé ne remplace pas la politique Shopify complète ci-dessous, qui prévaut en cas de différence.',
+    terms_currency_summary_title: 'Devise au paiement',
+    terms_currency_summary_body:
+      'Les prix sont affichés dans la devise du marché sélectionné : CAD pour le Canada et USD pour les États-Unis. Le total et la devise indiqués au paiement s’appliquent.',
+    terms_currency_summary_control:
+      'Cette précision propre au marché met à jour toute mention ci-dessous indiquant uniquement le CAD; toutes les autres conditions restent inchangées.',
 
     // ── Index des blogs ─────────────────────────────────────────
     blogs_h: 'Blogues',
@@ -3701,6 +3711,11 @@ export const DICTIONARIES = {
       'Los reembolsos aprobados se envían al método de pago original después de recibir y revisar la devolución. El plazo bancario puede variar.',
     refund_summary_control:
       'Este resumen no reemplaza la política completa de Shopify que aparece abajo y que prevalece si existe alguna diferencia.',
+    terms_currency_summary_title: 'Moneda al pagar',
+    terms_currency_summary_body:
+      'Los precios se muestran en la moneda del mercado seleccionado: CAD para Canadá y USD para Estados Unidos. Se aplican el total y la moneda que aparecen al pagar.',
+    terms_currency_summary_control:
+      'Esta aclaración específica del mercado actualiza cualquier texto inferior que indique solo CAD; las demás condiciones no cambian.',
 
     // ── Índice de blogs ─────────────────────────────────────────
     blogs_h: 'Blogs',
@@ -5084,6 +5099,11 @@ export const DICTIONARIES = {
       'Os reembolsos aprovados são enviados ao método de pagamento original após o recebimento e a análise da devolução. O prazo bancário pode variar.',
     refund_summary_control:
       'Este resumo não substitui a política completa da Shopify abaixo, que prevalece se houver alguma diferença.',
+    terms_currency_summary_title: 'Moeda no checkout',
+    terms_currency_summary_body:
+      'Os preços são exibidos na moeda do mercado selecionado: CAD para o Canadá e USD para os Estados Unidos. Valem o total e a moeda mostrados no checkout.',
+    terms_currency_summary_control:
+      'Este esclarecimento específico do mercado atualiza qualquer texto abaixo que mencione somente CAD; os demais termos permanecem inalterados.',
 
     // ── Índice de blogs ─────────────────────────────────────────
     blogs_h: 'Blogs',

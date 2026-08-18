@@ -149,12 +149,13 @@ export async function loader({params, context}) {
   return {
     policy,
     isRefundPolicy: data.shop?.refundPolicy?.id === policy.id,
+    isTermsPolicy: data.shop?.termsOfService?.id === policy.id,
   };
 }
 
 export default function Policy() {
   /** @type {LoaderReturnData} */
-  const {policy, isRefundPolicy} = useLoaderData();
+  const {policy, isRefundPolicy, isTermsPolicy} = useLoaderData();
   const t = useT();
 
   return (
@@ -181,6 +182,20 @@ export default function Policy() {
               </ul>
               <p>
                 <strong>{t('refund_summary_control')}</strong>
+              </p>
+            </section>
+          ) : null}
+          {isTermsPolicy ? (
+            <section
+              className="pk-policy__body"
+              aria-labelledby="terms-currency-summary-title"
+            >
+              <h2 id="terms-currency-summary-title">
+                {t('terms_currency_summary_title')}
+              </h2>
+              <p>{t('terms_currency_summary_body')}</p>
+              <p>
+                <strong>{t('terms_currency_summary_control')}</strong>
               </p>
             </section>
           ) : null}
