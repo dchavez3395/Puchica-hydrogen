@@ -37,9 +37,21 @@ real Puchica store.
 
 ## Run locally
 
+Use Node 22 and npm 10.9.8, matching the production workflow. Do not regenerate
+`package-lock.json` with npm 11; its optional-peer output is not guaranteed to
+pass the npm 10 clean install used by GitHub Actions.
+
 ```bash
-npm install
+npm ci
 npm run dev          # http://localhost:3000
+```
+
+When dependencies intentionally change, regenerate and validate the lockfile
+with the pinned package-manager generation before committing:
+
+```bash
+npx --yes npm@10.9.8 install --package-lock-only --ignore-scripts
+npx --yes npm@10.9.8 ci --dry-run --ignore-scripts
 ```
 
 Env vars (Storefront API token, store domain, checkout domain, etc.) are

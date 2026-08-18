@@ -4,6 +4,7 @@
   "sideEffects": false,
   "version": "2026.4.3",
   "type": "module",
+  "packageManager": "npm@10.9.8",
   "scripts": {
     "build": "shopify hydrogen build --codegen",
     "dev": "shopify hydrogen dev --codegen",
