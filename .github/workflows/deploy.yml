@@ -39,7 +39,7 @@ jobs:
             echo "::error::SHOPIFY_HYDROGEN_DEPLOY_TOKEN is not configured"
             exit 1
           fi
-          npx shopify hydrogen deploy --token "$SHOPIFY_HYDROGEN_DEPLOY_TOKEN" --force
+          npx shopify hydrogen deploy --env-branch "$GITHUB_REF_NAME" --token "$SHOPIFY_HYDROGEN_DEPLOY_TOKEN" --force
         env:
           # Create an Oxygen deployment token in Shopify and add it at
           # GitHub repo → Settings → Secrets and variables → Actions.
