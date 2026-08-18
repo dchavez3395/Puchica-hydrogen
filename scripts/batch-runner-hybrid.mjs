@@ -11,10 +11,13 @@ dotenv.config();
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { execSync } from 'node:child_process';
+import {requirePaidGenerationConfirmation} from './lib/paid-action-guard.mjs';
 import { createJimp } from '@jimp/core';
 import { defaultFormats, defaultPlugins } from 'jimp';
 import webp from '@jimp/wasm-webp';
 import { adminGraphQL } from './shopify-oauth.mjs';
+
+requirePaidGenerationConfirmation();
 
 const CHECKPOINT_PATH = join('work', 'checkpoint.json');
 const REPLICATE_API_TOKEN = process.env.REPLICATE_API_TOKEN;

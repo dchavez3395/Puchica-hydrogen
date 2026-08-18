@@ -127,3 +127,31 @@ test('legacy bulk Shopify tools fail closed unless writes are explicit', () => {
     assert.ok(source.includes(confirmation), `${path} lacks ${confirmation}`);
   }
 });
+
+test('paid image generators require explicit cost confirmation', () => {
+  const paidScripts = readdirSync('scripts')
+    .filter((name) => /\.(?:js|mjs)$/.test(name))
+    .map((name) => `scripts/${name}`)
+    .filter((path) =>
+      /REPLICATE_API_TOKEN|GEMINI_BANANA_PRO/.test(readFileSync(path, 'utf8')),
+    );
+
+  assert.ok(paidScripts.length > 0, 'expected paid generator scripts');
+  for (const path of paidScripts) {
+    const source = readFileSync(path, 'utf8');
+    assert.match(source, /requirePaidGenerationConfirmation\(\)/);
+    assert.match(source, /paid-action-guard\.mjs/);
+    const guardIndex = source.indexOf('requirePaidGenerationConfirmation();');
+    const credentialReadIndex = source.search(
+      /process\.env\.(?:REPLICATE_API_TOKEN|GEMINI_BANANA_PRO)/,
+    );
+    assert.ok(
+      guardIndex < credentialReadIndex,
+      `${path} must confirm before reading its paid API credential`,
+    );
+  }
+
+  const guard = readFileSync('scripts/lib/paid-action-guard.mjs', 'utf8');
+  assert.match(guard, /--apply/);
+  assert.match(guard, /--confirm-paid-generation/);
+});

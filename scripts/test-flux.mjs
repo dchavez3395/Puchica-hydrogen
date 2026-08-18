@@ -1,5 +1,8 @@
 import dotenv from 'dotenv';
+import {requirePaidGenerationConfirmation} from './lib/paid-action-guard.mjs';
 dotenv.config();
+
+requirePaidGenerationConfirmation();
 
 const REPLICATE_API_TOKEN = process.env.REPLICATE_API_TOKEN;
 if (!REPLICATE_API_TOKEN) {

@@ -1,5 +1,8 @@
 import dotenv from 'dotenv';
+import {requirePaidGenerationConfirmation} from './lib/paid-action-guard.mjs';
 dotenv.config();
+
+requirePaidGenerationConfirmation();
 
 import { writeFileSync } from 'node:fs';
 import { join } from 'node:path';

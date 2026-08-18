@@ -5,6 +5,9 @@ import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { execSync } from 'node:child_process';
 import { adminGraphQL } from './shopify-oauth.mjs';
+import {requirePaidGenerationConfirmation} from './lib/paid-action-guard.mjs';
+
+requirePaidGenerationConfirmation();
 
 const CHECKPOINT_PATH = join('work', 'checkpoint.json');
 const REPLICATE_API_TOKEN = process.env.REPLICATE_API_TOKEN;

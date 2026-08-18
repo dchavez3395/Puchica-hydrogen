@@ -9,6 +9,10 @@
  * (uses global fetch). No external deps.
  */
 
+import {requirePaidGenerationConfirmation} from './lib/paid-action-guard.mjs';
+
+requirePaidGenerationConfirmation();
+
 const MODEL = 'gemini-2.5-flash-image';
 const KEY = process.env.GEMINI_BANANA_PRO;
 
