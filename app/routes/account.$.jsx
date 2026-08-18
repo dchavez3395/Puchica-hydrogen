@@ -1,13 +1,14 @@
 import {redirect} from 'react-router';
+import {localizePath} from '~/lib/i18n';
 
 // fallback wild card for all unauthenticated routes in account section
 /**
  * @param {Route.LoaderArgs}
  */
-export async function loader({context}) {
+export async function loader({context, params}) {
   await context.customerAccount.handleAuthStatus();
 
-  return redirect('/account');
+  return redirect(localizePath('/account', params?.locale));
 }
 
 /** @typedef {import('./+types/account.$').Route} Route */

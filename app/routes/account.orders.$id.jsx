@@ -1,6 +1,7 @@
 import {redirect, useLoaderData} from 'react-router';
 import {Image} from '@shopify/hydrogen';
 import {CurrencyMoney} from '~/components/CurrencyMoney';
+import {localizePath} from '~/lib/i18n';
 import {CUSTOMER_ORDER_QUERY} from '~/graphql/customer-account/CustomerOrderQuery';
 import {useT} from '~/lib/t';
 
@@ -17,7 +18,7 @@ export const meta = ({data}) => {
 export async function loader({params, context}) {
   const {customerAccount} = context;
   if (!params.id) {
-    return redirect('/account/orders');
+    return redirect(localizePath('/account/orders', params?.locale));
   }
 
   const orderId = atob(params.id);

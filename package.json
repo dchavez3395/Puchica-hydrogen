@@ -14,6 +14,7 @@
     "launch-check": "node scripts/check-storefront-release.mjs",
     "production-health": "node scripts/check-production-health.mjs",
     "metadata-health": "node scripts/check-public-metadata.mjs",
+    "link-health": "node scripts/check-public-links.mjs",
     "first-order-signal": "node scripts/check-first-order-signal.mjs",
     "organic-economics": "node scripts/check-organic-economics.mjs",
     "organic-release-check": "node scripts/manage-organic-release.mjs",

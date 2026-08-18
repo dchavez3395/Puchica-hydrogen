@@ -1,9 +1,9 @@
 import {
-  Link,
   useLoaderData,
   useNavigation,
   useSearchParams,
 } from 'react-router';
+import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {useRef} from 'react';
 import {
   getPaginationVariables,

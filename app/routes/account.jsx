@@ -1,12 +1,13 @@
 import {
   data as remixData,
   Form,
-  NavLink,
   Outlet,
   useLoaderData,
 } from 'react-router';
+import {LocalizedNavLink as NavLink} from '~/components/LocalizedLink';
 import {CUSTOMER_DETAILS_QUERY} from '~/graphql/customer-account/CustomerDetailsQuery';
 import {useT} from '~/lib/t';
+import {useLocalizedHref} from '~/lib/useLocalizedHref';
 
 export function shouldRevalidate() {
   return true;
@@ -90,8 +91,13 @@ function AccountMenu() {
 
 function Logout() {
   const t = useT();
+  const localize = useLocalizedHref();
   return (
-    <Form className="account-logout" method="POST" action="/account/logout">
+    <Form
+      className="account-logout"
+      method="POST"
+      action={localize('/account/logout')}
+    >
       &nbsp;<button type="submit">{t('account_signout')}</button>
     </Form>
   );

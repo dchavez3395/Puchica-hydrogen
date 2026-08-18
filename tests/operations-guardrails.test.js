@@ -20,6 +20,7 @@ test('deployment is gated by tests, release checks, build, deploy, and live heal
     'shopify hydrogen deploy',
     'npm run production-health',
     'npm run metadata-health',
+    'npm run link-health',
   ];
   let previousIndex = -1;
 
