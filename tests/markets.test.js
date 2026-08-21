@@ -17,7 +17,7 @@ test('North American market follows supported buyer geography', () => {
   });
 });
 
-test('explicit market cookie overrides buyer geography', () => {
+test('explicit market cookie overrides geography while legacy locale cookies are ignored', () => {
   const request = new Request('https://puchica.ca/', {
     headers: {
       cookie: 'pk_market=CA; pk_locale=fr',
@@ -26,7 +26,18 @@ test('explicit market cookie overrides buyer geography', () => {
   });
 
   assert.deepEqual(getLocaleFromRequest(request), {
-    language: 'FR',
+    language: 'EN',
+    country: 'CA',
+  });
+});
+
+test('former translated URLs resolve Storefront data in English', () => {
+  const request = new Request('https://puchica.ca/fr/products/example', {
+    headers: {cookie: 'pk_locale=fr'},
+  });
+
+  assert.deepEqual(getLocaleFromRequest(request), {
+    language: 'EN',
     country: 'CA',
   });
 });

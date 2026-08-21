@@ -34,8 +34,8 @@ export function SmallSpaceLanding(props) {
   const heroDescription = isFullEdit
     ? 'A focused edit of practical organizers for packing, luggage, cables, and toiletries—without an endless catalog.'
     : rankedProducts.length === 1
-      ? 'One practical travel organizer with clear product details and delivery confirmed for your market at checkout.'
-      : 'A focused set of practical travel organizers with clear product details and delivery confirmed at checkout.';
+      ? 'One practical travel organizer with clear product details and shipping options shown for your market at checkout.'
+      : 'A focused set of practical travel organizers with clear product details and shipping options shown at checkout.';
 
   return (
     <>

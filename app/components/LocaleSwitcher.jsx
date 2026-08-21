@@ -1,35 +1,19 @@
 import {useEffect, useRef, useState} from 'react';
 import {useFetcher, useRouteLoaderData} from 'react-router';
-import {
-  LANGUAGE_KEYS,
-  localizePath,
-  marketDisplayLabel,
-} from '~/lib/i18n';
+import {marketDisplayLabel} from '~/lib/i18n';
 import {useT} from '~/lib/t';
 
-const LABELS = {
-  en: 'English',
-  fr: 'Français',
-  es: 'Español',
-  'pt-br': 'Português',
-};
-const ORDER = ['en', 'fr', 'es', 'pt-br'];
 const MARKET_ORDER = ['CA', 'US'];
 
 /**
- * Market and language switcher. POSTs to /locale (server action), which
- * persists the selected market or language and returns to the current page.
- * Language choices also move the shopper to the crawlable localized URL
- * (/fr, /es, /pt-br;
- * English is unprefixed). The URL is the source of truth for which language
- * renders — see getLocaleFromRequest in app/lib/i18n.js.
+ * Market switcher. POSTs to /locale (server action), which persists the
+ * selected market and returns to the current page. The launch storefront is
+ * English-only until complete customer-facing translations are approved.
  */
 export function LocaleSwitcher() {
   const t = useT();
   const root = useRouteLoaderData('root');
-  const currentLang = root?.selectedLocale?.language || 'EN';
   const currentCountry = root?.selectedLocale?.country || 'CA';
-  const currentKey = LANGUAGE_KEYS[currentLang] || 'en';
   const availableMarkets = new Map(
     (root?.selectedLocale?.availableMarkets || []).map((market) => [
       market.country,
@@ -50,18 +34,6 @@ export function LocaleSwitcher() {
     document.addEventListener('mousedown', onDown);
     return () => document.removeEventListener('mousedown', onDown);
   }, [open]);
-
-  function choose(key) {
-    setOpen(false);
-    // Re-prefix the current path for the chosen language (localizePath strips
-    // any existing /fr|/es|/pt-br first, so switching FR -> ES works too).
-    const target =
-      localizePath(window.location.pathname, key) + window.location.search;
-    fetcher.submit(
-      {lang: key, return: target},
-      {method: 'POST', action: '/locale'},
-    );
-  }
 
   function chooseMarket(country) {
     setOpen(false);
@@ -138,23 +110,6 @@ export function LocaleSwitcher() {
                 </button>
               );
             })}
-          </div>
-          <div className="pk-locale__group">
-            <p className="pk-locale__label">{t('locale_language_label')}</p>
-            {ORDER.map((key) => (
-              <button
-                key={key}
-                type="button"
-                role="menuitemradio"
-                aria-checked={key === currentKey}
-                className={
-                  'pk-locale__item' + (key === currentKey ? ' is-active' : '')
-                }
-                onClick={() => choose(key)}
-              >
-                <span>{LABELS[key]}</span>
-              </button>
-            ))}
           </div>
         </div>
       )}

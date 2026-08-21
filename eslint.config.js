@@ -33,6 +33,7 @@ export default [
       '**/.react-router/',
       '**/packages/hydrogen/dist/',
       '.tmp-radiant-theme/',
+      'tmp/',
       '.agents/',
       'env.d.ts',
       '**/scripts/',

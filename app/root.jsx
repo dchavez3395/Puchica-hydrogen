@@ -5,14 +5,12 @@ import {
   Outlet,
   useRouteError,
   isRouteErrorResponse,
-  useLocation,
   Links,
   Meta,
   Scripts,
   ScrollRestoration,
   useRouteLoaderData,
 } from 'react-router';
-import {hreflangAlternates} from '~/lib/seo';
 const favicon = '/favicon.svg';
 import {FOOTER_QUERY, HEADER_QUERY, MEGA_MENU_QUERY} from '~/lib/fragments';
 import {resolveStorefrontLocale} from '~/lib/i18n';
@@ -246,7 +244,6 @@ function filterMegaMenuProducts(data, country = 'CA') {
  */
 export function Layout({children}) {
   const nonce = useNonce();
-  const {pathname} = useLocation();
   const rootData = useRouteLoaderData('root');
   const language = rootData?.selectedLocale?.language || 'EN';
   const country = rootData?.selectedLocale?.country || 'CA';
@@ -256,10 +253,6 @@ export function Layout({children}) {
         `-${region.toUpperCase()}`,
       )
     : `${normalizedLanguage}-${country}`;
-  // Reciprocal hreflang alternates for all four languages + x-default, keyed to
-  // the current path. Correct now that the /fr, /es, /pt-br routes resolve.
-  const alternates = hreflangAlternates(pathname);
-
   return (
     <html lang={documentLanguage}>
       <head>
@@ -268,14 +261,6 @@ export function Layout({children}) {
         <link rel="stylesheet" href={resetStyles}></link>
         <link rel="stylesheet" href={appStyles}></link>
         <link rel="stylesheet" href={commerceStyles}></link>
-        {alternates.map((a) => (
-          <link
-            key={a.hreflang}
-            rel="alternate"
-            hrefLang={a.hreflang}
-            href={a.href}
-          />
-        ))}
         <Meta />
         <Links />
       </head>

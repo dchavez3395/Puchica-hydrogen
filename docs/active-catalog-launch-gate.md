@@ -1,4 +1,9 @@
 # Active catalog launch gate — 2026-07-25
+
+> **Historical record — superseded.** Do not use this six-product catalog for
+> current decisions. `docs/CURRENT-SCOPE.md` and the dated 2026-08-13 catalog
+> reconfirmation are the current control documents.
+
 Source: live Shopify Admin catalog audit. This is an operational approval list,
 not a request to publish additional products.
 

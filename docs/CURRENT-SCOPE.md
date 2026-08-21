@@ -1,6 +1,6 @@
 # Puchica current operating scope
 
-- **Status date:** 2026-08-10
+- **Status date:** 2026-08-13
 - **Binding storefront commit:** `fe1c7e89872bacbb40de1ceafdad5560ff7d764f`
 - **Production:** `https://puchica.ca` / Oxygen asset `4183654`
 - **Decision:** organic commerce is live and limited; paid advertising is
@@ -54,6 +54,27 @@ current catalog and learn which offer deserves a small paid test.
 | Other platforms | Do not add AutoDS or another paid fulfillment subscription now |
 | Other markets | Mexico, Spain, LATAM, and additional languages are later phases, not current scope |
 
+### 2026-08-13 evidence refresh
+
+- Shopify item cost, exact stock, DSers destination route, supplier shipping,
+  tracking signal, and route estimate were reconfirmed for all 10 Canadian
+  approved SKUs.
+- Packing cubes and the Large Blue storage bag now show U.S. supplier routes.
+  They remain intentionally blocked in the U.S. storefront until a deliberate
+  market-gate change and release review are approved. Supplier capability does
+  not change storefront authorization by itself.
+- The exact cable-organizer U.S. DSers route still needs one fresh recheck even
+  though its existing storefront and earlier route evidence remain approved.
+- The working organic hero set is the Black Hanging Travel Toiletry Organizer,
+  Charcoal 3-Piece Packing Cube Set, and Black Double-Layer Travel Cable
+  Organizer. Ads remain on hold.
+- The full production build and all 71 repository tests pass. The no-charge
+  Shopify-to-DSers simulated order is prepared but not started because enabling
+  a test payment mode requires explicit owner approval.
+- Current costs, contribution calculations, supplier routes, cash runway, and
+  the simulated-order protocol are captured in
+  `outputs/019ffe0b-5df8-7a81-b802-81681f254b7a/Puchica_Financial_Stability_Control_Updated.xlsx`.
+
 ## Release and rollback controls
 
 - Read-only catalog preflight: `npm run organic-release-check`.
@@ -99,8 +120,12 @@ lines passed live QA.
 - All 10 Canadian SKUs and 8 United States SKUs passed the documented exact
   mapping, stock signal, ordinary cost, margin, copy, imagery, and
   destination-route gates before release.
-- Packing cubes are Canada-only: the exact mapped U.S. route was `No Shipping`.
-- The Large Blue storage bag is also intentionally Canada-only.
+- Packing cubes and the Large Blue storage bag remain intentionally Canada-only
+  at the storefront gate. Fresh U.S. supplier routes now exist, but they are not
+  customer authorization and have not been released.
+- All current Canadian routes showed tracking and supplier estimates between
+  7 and 15 days in the 2026-08-13 snapshot. Recheck the exact route before each
+  early supplier payment; these are not customer delivery guarantees.
 - The nine approved products are the only Active Shopify products; the 29
   rejected legacy products have their approval/route tags removed and remain
   Draft.
@@ -167,8 +192,10 @@ This is the active technical lane.
    non-automated customer browser.
 4. **Completed 2026-08-10:** crawl all 9 Canadian and 7 U.S. product routes plus
    robots, sitemap, canonicals, hreflang, status, and indexability.
-5. Confirm representative Canadian and U.S. address-to-shipping-rate checkout
-   behavior without placing an order. Document tax presentation separately.
+5. **Completed 2026-08-13:** representative Winnipeg and Seattle checkout
+   quotes confirmed CA$5 Standard Shipping and US$8 Standard Shipping for the
+   cable organizer without payment or order submission. Neither sample showed a
+   tax line; that observation is not a legal tax conclusion.
 
 ### Lane 2: begin controlled organic learning
 
@@ -295,12 +322,13 @@ Do not do both before the evidence review.
 
 | Priority | Action | Owner | External mutation? |
 |---:|---|---|---:|
-| 1 | Physical-device sign-off + remaining keyboard/zoom/automated WCAG checks | User + Codex | No |
-| 2 | Normal-browser GA4/Meta consent and deduplication trace | User + Codex | No spend; diagnostic events only |
-| 3 | Representative CA/U.S. address-to-shipping-rate checkout checks | User + Codex | No order/payment |
-| 4 | Review the prepared nine-page organic content pack | User + Codex | No, preparation only |
-| 5 | Review and approve external organic publishing | User + Codex | Yes, approval required |
-| 6 | Process the first real order through the controlled runbook | User + Codex | Yes, only when an order exists |
+| 1 | Approve and run the no-charge Shopify-to-DSers simulated order, then restore live payments | User + Codex | Yes, temporary payment-test setting; no real charge |
+| 2 | Review and deploy the local product-feed and shipping-copy repair | User + Codex | Yes, code deployment approval required |
+| 3 | Physical-device sign-off + remaining keyboard/zoom WCAG checks | User + Codex | No |
+| 4 | Normal-browser GA4/Meta consent and deduplication trace | User + Codex | No spend; diagnostic events only |
+| 5 | Review the prepared 14-day hero-set organic plan and assets | User + Codex | No, preparation only |
+| 6 | Review and approve external organic publishing | User + Codex | Yes, approval required |
+| 7 | Process the first real order through the controlled runbook | User + Codex | Yes, only when an order exists |
 
 No user intervention is expected for Actions 1 through 4 unless an authenticated
 service asks for login or a true physical-device sign-off cannot be reproduced
@@ -342,6 +370,12 @@ CRA/Service Canada guidance or qualified professional advice.
   live catalog, locale, canonical, and market-404 crawl evidence.
 - `docs/recovery-evidence/dsers-mapped-catalog-remediation-2026-08-10.md` —
   current exact catalog remediation evidence.
+- `docs/recovery-evidence/catalog-route-economics-reconfirmation-2026-08-13.md`
+  — refreshed exact routes, stock, contribution, and no-payment checkout quotes.
+- `docs/recovery-evidence/live-seo-analytics-refresh-2026-08-13.md` — live crawl,
+  analytics boundary, empty-feed defect, and verified local repair.
+- `docs/canada-compliance-cash-guardrails-2026-08-13.md` — EI, T2125,
+  GST/HST, Manitoba registration, and CA$200 cash guardrails.
 - `docs/recovery-evidence/frozen-catalog-fulfillment-gate-2026-08-09.md` —
   detailed original-product DSers evidence and order-time watchpoints.
 - `docs/recovery-evidence/launch-analytics-verification-2026-08-09.md` — GA4 and

@@ -110,33 +110,6 @@ export function localizePath(pathname, langKey) {
   return '/' + langKey + (rest === '/' ? '' : rest);
 }
 
-// Default language for a buyer's country when they haven't chosen one.
-const COUNTRY_DEFAULT_LANG = {
-  CA: 'EN', // Canada defaults to English; French is available via the switcher
-  US: 'EN',
-  GB: 'EN',
-  ES: 'ES',
-  BR: 'PT_BR',
-  MX: 'ES',
-  AR: 'ES',
-  CL: 'ES',
-  CO: 'ES',
-  PE: 'ES',
-  VE: 'ES',
-  EC: 'ES',
-  GT: 'ES',
-  BO: 'ES',
-  DO: 'ES',
-  HN: 'ES',
-  PY: 'ES',
-  SV: 'ES',
-  NI: 'ES',
-  CR: 'ES',
-  PA: 'ES',
-  UY: 'ES',
-  BZ: 'EN',
-};
-
 export const LOCALE_COOKIE = 'pk_locale';
 
 const DEFAULT_LOCALE = {language: 'EN', country: 'CA'};
@@ -170,20 +143,10 @@ function buyerCountry(request) {
  */
 export function getLocaleFromRequest(request) {
   const country = buyerCountry(request) || DEFAULT_LOCALE.country;
-  const {langKey: urlLang} = parseLocaleFromPath(new URL(request.url).pathname);
-  const chosen = readCookie(request, LOCALE_COOKIE); // 'en' | 'fr' | 'es' | 'pt-br'
-  const language =
-    // 1. an explicit non-default language in the URL path wins — it's the
-    //    crawlable, shareable signal (Googlebot has no cookie, so this is
-    //    what makes /fr, /es, /pt-br serve the right language).
-    (urlLang !== 'en' && LANGUAGES[urlLang]) ||
-    // 2. the shopper's saved switcher choice (cookie)
-    (chosen && LANGUAGES[chosen]) ||
-    // 3. a sensible default for their country
-    COUNTRY_DEFAULT_LANG[country] ||
-    // 4. English
-    DEFAULT_LOCALE.language;
-  return {language, country};
+  // The current launch is English-only. Locale-prefixed URLs redirect to the
+  // unprefixed English URL in LocaleBoundary, and old pk_locale cookies are
+  // deliberately ignored so partially translated content cannot reappear.
+  return {language: DEFAULT_LOCALE.language, country};
 }
 
 /**

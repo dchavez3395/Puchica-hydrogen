@@ -4,12 +4,10 @@ import {hydrogenRoutes} from '@shopify/hydrogen';
 const fileRoutes = await flatRoutes();
 
 export default hydrogenRoutes([
-  // URL-based locales: every file route is mounted under an OPTIONAL `:locale?`
-  // segment, so English serves unprefixed (`/products/x`) while French /
-  // Spanish / Portuguese serve under `/fr`, `/es`, `/pt-br`. LocaleBoundary
-  // validates the segment and 404s unknown prefixes. The language the
-  // Storefront API queries with is resolved from the URL in
-  // getLocaleFromRequest (app/lib/i18n.js). See docs/plan-url-locales-hreflang.md.
+  // Keep the former optional locale slot long enough to permanently redirect
+  // known /fr, /es, and /pt-br URLs to the unprefixed English launch pages.
+  // LocaleBoundary rejects unknown prefixes. Complete translated storefronts
+  // can be restored only after their customer-facing content is approved.
   //
   // NOTE: verify against `npm run dev` before shipping — RR match ranking for
   // single-segment paths and resource routes (sitemap.xml, robots.txt) under an

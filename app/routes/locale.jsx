@@ -1,33 +1,22 @@
 import {redirect} from 'react-router';
 import {
-  LOCALE_COOKIE,
   MARKET_COOKIE,
-  LANGUAGES,
   MARKETS,
   resolveStorefrontLocale,
 } from '~/lib/i18n';
 import {getMarketSafeCart, safeInternalRedirect} from '~/lib/cart-safety';
 
 /**
- * Resource route — sets the locale cookie server-side and redirects back.
- * The LocaleSwitcher navigates here; the server sets Set-Cookie and returns
- * the user to wherever they came from. This avoids the unreliable pattern of
- * setting document.cookie in JS then calling window.location.reload().
+ * Resource route — sets the selected market cookie server-side and redirects
+ * back. Language selection is intentionally inactive for the English-only
+ * launch storefront.
  */
 export async function action({request, context}) {
   const formData = await request.formData();
-  const lang = formData.get('lang');
   const requestedCountry = String(formData.get('country') || '').toUpperCase();
   const returnTo = safeInternalRedirect(formData.get('return')) || '/';
 
   const headers = new Headers();
-
-  if (lang && LANGUAGES[lang]) {
-    headers.append(
-      'Set-Cookie',
-      `${LOCALE_COOKIE}=${lang}; path=/; max-age=31536000; samesite=lax`,
-    );
-  }
 
   if (requestedCountry && MARKETS[requestedCountry]) {
     const data = await context.storefront.query(MARKET_RESOLUTION_QUERY, {

@@ -1,4 +1,4 @@
-import {Outlet} from 'react-router';
+import {Outlet, redirect} from 'react-router';
 import {PREFIXED_LANGS} from '~/lib/i18n';
 
 /**
@@ -8,31 +8,35 @@ import {PREFIXED_LANGS} from '~/lib/i18n';
  * optional `:locale?` segment, so the app serves:
  *
  *   /products/x         -> English  (no prefix; params.locale === undefined)
- *   /fr/products/x      -> French   (params.locale === 'fr')
- *   /es/products/x      -> Spanish
- *   /pt-br/products/x   -> Portuguese (BR)
+ *   /fr/products/x      -> 308 /products/x
+ *   /es/products/x      -> 308 /products/x
+ *   /pt-br/products/x   -> 308 /products/x
  *
- * The actual language the Storefront API queries with is resolved from the URL
- * in `getLocaleFromRequest` (app/lib/i18n.js) — this boundary's only job is to
- * REJECT a first path segment that looks like a locale slot but isn't one of
- * our shipped languages, so those URLs 404 (and then fall to Shopify redirect
- * handling in server.js) instead of silently rendering English content under a
- * junk prefix.
+ * The launch storefront is English-only. This boundary redirects former known
+ * locale prefixes and rejects any other value occupying the locale slot.
  *
  * English has no prefix, so `params.locale === undefined` is always valid.
  *
  * ── TEST THIS (needs `npm run dev`) ────────────────────────────────────────
  *  1. `/` and `/products/<h>` render English exactly as before.
- *  2. `/fr`, `/fr/products/<h>`, `/es/...`, `/pt-br/...` render translated.
+ *  2. `/fr`, `/fr/products/<h>`, `/es/...`, `/pt-br/...` redirect to English.
  *  3. `/xx/products/<h>` (bogus locale) returns 404, not English.
  *  4. Single-segment non-locale paths (`/some-shopify-page`) still resolve the
  *     way they did before (watch the `$.jsx` splat + storefrontRedirect path —
  *     this is the edge case most likely to regress).
  */
-export async function loader({params}) {
+export async function loader({params, request}) {
   const locale = params.locale?.toLowerCase();
   if (locale && !PREFIXED_LANGS.includes(locale)) {
     throw new Response('Not Found', {status: 404});
+  }
+  if (locale) {
+    const url = new URL(request.url);
+    const englishPath = url.pathname.slice(params.locale.length + 1) || '/';
+    return redirect(`${englishPath}${url.search}`, {
+      status: 308,
+      headers: {'Cache-Control': 'public, max-age=3600'},
+    });
   }
   return null;
 }

@@ -13,7 +13,7 @@ export const meta = ({params}) =>
       : 'Shipping & Delivery – Puchica',
     description: STOREFRONT_CONTAINMENT_ACTIVE
       ? 'Puchica is verifying product-specific shipping and delivery details before the catalog returns.'
-      : 'See delivery availability and shipping options for your destination at checkout. Puchica confirms delivery options per order before you pay.',
+      : 'See shipping availability, options, and cost for your selected items and destination at checkout before you pay.',
     pathname: '/pages/shipping',
     langKey: params?.locale,
   });
