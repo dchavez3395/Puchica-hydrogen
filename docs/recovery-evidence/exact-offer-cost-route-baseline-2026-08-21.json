@@ -1,0 +1,74 @@
+{
+  "evidenceDate": "2026-08-21",
+  "planningFxCadPerUsd": 1.4,
+  "paymentPercentRate": 0.035,
+  "paymentFixedFee": 0.3,
+  "exceptionReserveRate": 0.05,
+  "singleItemCheckoutShipping": {
+    "CA": 5,
+    "US": 8
+  },
+  "sources": [
+    "DSers mapping console, 2026-08-21: exact variant cost and AliExpress Selection Standard route read per approved SKU.",
+    "fresh-dsers-route-and-margin-gate-2026-08-14.csv",
+    "live-dsers-route-recovery-2026-08-14.md"
+  ],
+  "offers": [
+    {
+      "handle": "3-piece-packing-cube-set",
+      "sku": "14:1052#S3007 Black;5:200004186#3PCS L M S Set",
+      "supplierItemId": "1005005283270949",
+      "itemCostUsd": 12.45,
+      "routes": {
+        "CA": {"shippingUsd": 1.99, "eta": "8-14 days", "tracked": true}
+      }
+    },
+    {
+      "handle": "white-semi-circular-travel-jewelry-case",
+      "sku": "14:29",
+      "supplierItemId": "1005009878640464",
+      "itemCostUsd": 4.29,
+      "routes": {
+        "CA": {"shippingUsd": 1.99, "eta": "9-14 days", "tracked": true},
+        "US": {"shippingUsd": 1.99, "eta": "9-14 days", "tracked": true}
+      }
+    },
+    {
+      "handle": "black-hanging-travel-toiletry-organizer",
+      "sku": "14:771#Black",
+      "supplierItemId": "1005006162747124",
+      "itemCostUsd": 8.32,
+      "routes": {
+        "CA": {"shippingUsd": 2.16, "eta": "8-13 days", "tracked": true},
+        "US": {"shippingUsd": 2.16, "eta": "8-13 days", "tracked": true}
+      }
+    },
+    {
+      "handle": "travel-cable-organizer-case",
+      "sku": "14:193#Double Layers",
+      "supplierItemId": "1005006797227273",
+      "itemCostUsd": 4.05,
+      "routes": {
+        "CA": {"shippingUsd": 1.99, "eta": "8-14 days", "tracked": true},
+        "US": {"shippingUsd": 1.99, "eta": "8-14 days", "tracked": true}
+      }
+    },
+    {
+      "handle": "the-carry-on-kit-toiletry-organizer-packing-cubes-cable-case",
+      "sku": "PUCHICA-KIT-CARRYON-01",
+      "supplierItemId": "1005005283270949+1005006162747124+1005006797227273",
+      "itemCostUsd": 24.82,
+      "derivedFrom": {
+        "note": "Bundle row. Not an independently quoted supplier offer: every figure is the sum of the three component rows in this same file, because the kit is fulfilled as three separate DSers orders. Re-derive whenever a component row changes.",
+        "components": [
+          {"sku": "14:1052#S3007 Black;5:200004186#3PCS L M S Set", "itemCostUsd": 12.45, "caShippingUsd": 1.99},
+          {"sku": "14:771#Black", "itemCostUsd": 8.32, "caShippingUsd": 2.16},
+          {"sku": "14:193#Double Layers", "itemCostUsd": 4.05, "caShippingUsd": 1.99}
+        ]
+      },
+      "routes": {
+        "CA": {"shippingUsd": 6.14, "eta": "8-14 days", "tracked": true}
+      }
+    }
+  ]
+}
