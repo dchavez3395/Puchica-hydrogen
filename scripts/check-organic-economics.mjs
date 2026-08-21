@@ -15,7 +15,7 @@ const BASELINE_PATH = path.join(
   rootDir,
   'docs',
   'recovery-evidence',
-  'exact-offer-cost-route-baseline-2026-08-14.json',
+  'exact-offer-cost-route-baseline-2026-08-21.json',
 );
 const STOREFRONT_API_VERSION = '2026-04';
 const MAX_EVIDENCE_AGE_DAYS = 7;
