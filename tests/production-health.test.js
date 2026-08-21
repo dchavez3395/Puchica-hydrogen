@@ -28,9 +28,11 @@ test('production monitor shares the verified market cohorts', () => {
     'the-carry-on-kit-toiletry-organizer-packing-cubes-cable-case',
   ]);
   assert.deepEqual(EXPECTED_HANDLES_BY_MARKET.US, [
+    '3-piece-packing-cube-set',
     'white-semi-circular-travel-jewelry-case',
     'black-hanging-travel-toiletry-organizer',
     'travel-cable-organizer-case',
+    'the-carry-on-kit-toiletry-organizer-packing-cubes-cable-case',
   ]);
   assert.equal(DISCOVERABLE_PRODUCT_HANDLES.length, 5);
   assert.equal(RETIRED_CATALOG_HANDLES.size, 5);

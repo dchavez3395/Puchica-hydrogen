@@ -10,6 +10,7 @@
   },
   "sources": [
     "DSers mapping console, 2026-08-21: exact variant cost and AliExpress Selection Standard route read per approved SKU.",
+    "AliExpress listing 1005005283270949, ship-to United States, 2026-08-21: exact variant S3007 Black / 3PCS L M S Set quoted free tracked courier shipping, delivery Aug 29 - Sep 4.",
     "fresh-dsers-route-and-margin-gate-2026-08-14.csv",
     "live-dsers-route-recovery-2026-08-14.md"
   ],
@@ -20,7 +21,17 @@
       "supplierItemId": "1005005283270949",
       "itemCostUsd": 12.45,
       "routes": {
-        "CA": {"shippingUsd": 1.99, "eta": "8-14 days", "tracked": true}
+        "CA": {
+          "shippingUsd": 1.99,
+          "eta": "8-14 days",
+          "tracked": true
+        },
+        "US": {
+          "shippingUsd": 0.0,
+          "eta": "8-14 days",
+          "tracked": true,
+          "source": "AliExpress listing page rather than DSers; the CA row came from DSers. Re-check in DSers before relying on the zero shipping figure for margin decisions - the route existing is what the us-route-verified tag asserts."
+        }
       }
     },
     {
@@ -29,8 +40,16 @@
       "supplierItemId": "1005009878640464",
       "itemCostUsd": 4.29,
       "routes": {
-        "CA": {"shippingUsd": 1.99, "eta": "9-14 days", "tracked": true},
-        "US": {"shippingUsd": 1.99, "eta": "9-14 days", "tracked": true}
+        "CA": {
+          "shippingUsd": 1.99,
+          "eta": "9-14 days",
+          "tracked": true
+        },
+        "US": {
+          "shippingUsd": 1.99,
+          "eta": "9-14 days",
+          "tracked": true
+        }
       }
     },
     {
@@ -39,8 +58,16 @@
       "supplierItemId": "1005006162747124",
       "itemCostUsd": 8.32,
       "routes": {
-        "CA": {"shippingUsd": 2.16, "eta": "8-13 days", "tracked": true},
-        "US": {"shippingUsd": 2.16, "eta": "8-13 days", "tracked": true}
+        "CA": {
+          "shippingUsd": 2.16,
+          "eta": "8-13 days",
+          "tracked": true
+        },
+        "US": {
+          "shippingUsd": 2.16,
+          "eta": "8-13 days",
+          "tracked": true
+        }
       }
     },
     {
@@ -49,8 +76,16 @@
       "supplierItemId": "1005006797227273",
       "itemCostUsd": 4.05,
       "routes": {
-        "CA": {"shippingUsd": 1.99, "eta": "8-14 days", "tracked": true},
-        "US": {"shippingUsd": 1.99, "eta": "8-14 days", "tracked": true}
+        "CA": {
+          "shippingUsd": 1.99,
+          "eta": "8-14 days",
+          "tracked": true
+        },
+        "US": {
+          "shippingUsd": 1.99,
+          "eta": "8-14 days",
+          "tracked": true
+        }
       }
     },
     {
@@ -59,15 +94,39 @@
       "supplierItemId": "1005005283270949+1005006162747124+1005006797227273",
       "itemCostUsd": 24.82,
       "derivedFrom": {
-        "note": "Bundle row. Not an independently quoted supplier offer: every figure is the sum of the three component rows in this same file, because the kit is fulfilled as three separate DSers orders. Re-derive whenever a component row changes.",
+        "note": "Bundle row. Not an independently quoted supplier offer: every figure is the sum of the three component rows in this same file, because the kit is fulfilled as three separate DSers orders. The US shipping figure is lower than the CA one because the packing cube set ships free to the United States. Re-derive whenever a component row changes.",
         "components": [
-          {"sku": "14:1052#S3007 Black;5:200004186#3PCS L M S Set", "itemCostUsd": 12.45, "caShippingUsd": 1.99},
-          {"sku": "14:771#Black", "itemCostUsd": 8.32, "caShippingUsd": 2.16},
-          {"sku": "14:193#Double Layers", "itemCostUsd": 4.05, "caShippingUsd": 1.99}
+          {
+            "sku": "14:1052#S3007 Black;5:200004186#3PCS L M S Set",
+            "itemCostUsd": 12.45,
+            "caShippingUsd": 1.99,
+            "usShippingUsd": 0.0
+          },
+          {
+            "sku": "14:771#Black",
+            "itemCostUsd": 8.32,
+            "caShippingUsd": 2.16,
+            "usShippingUsd": 2.16
+          },
+          {
+            "sku": "14:193#Double Layers",
+            "itemCostUsd": 4.05,
+            "caShippingUsd": 1.99,
+            "usShippingUsd": 1.99
+          }
         ]
       },
       "routes": {
-        "CA": {"shippingUsd": 6.14, "eta": "8-14 days", "tracked": true}
+        "CA": {
+          "shippingUsd": 6.14,
+          "eta": "8-14 days",
+          "tracked": true
+        },
+        "US": {
+          "shippingUsd": 4.15,
+          "eta": "8-14 days",
+          "tracked": true
+        }
       }
     }
   ]
