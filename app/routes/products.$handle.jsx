@@ -638,6 +638,10 @@ function buildJsonLd(
   const price = selectedVariant?.price;
   // Expose the full gallery (deduped, capped) so Google rich results / Merchant
   // listings can show multiple images — falls back to the featured image.
+  const formatSchemaPrice = (amount) => {
+    const value = Number(amount);
+    return Number.isFinite(value) ? value.toFixed(2) : String(amount ?? '');
+  };
   const images = Array.isArray(galleryImages)
     ? [...new Set(galleryImages.map((i) => i?.url).filter(Boolean))].slice(
         0,
@@ -659,6 +663,9 @@ function buildJsonLd(
         ? [product.featuredImage.url]
         : undefined,
     sku: selectedVariant?.sku || product.handle,
+    // Google treats a missing brand on an unbranded listing as a data-quality
+    // problem, not as "no brand". The seller is the brand for this catalog.
+    brand: {'@type': 'Brand', name: 'Puchica'},
     seller: {'@type': 'Organization', name: 'Puchica', url: SITE_URL},
     aggregateRating:
       reviews?.count > 0
@@ -674,7 +681,10 @@ function buildJsonLd(
           '@id': `${productUrl}#offer`,
           url: productUrl,
           priceCurrency: price.currencyCode,
-          price: price.amount,
+          // The Storefront API returns "69.0", which reads as a truncated
+          // price next to the "CA$69.00" on the page. Emit real currency
+          // precision so structured data and the page agree exactly.
+          price: formatSchemaPrice(price.amount),
           availability: selectedVariant?.availableForSale
             ? 'https://schema.org/InStock'
             : 'https://schema.org/OutOfStock',

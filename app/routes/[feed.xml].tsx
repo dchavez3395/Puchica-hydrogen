@@ -8,6 +8,24 @@ import {
 
 const SITE_URL = 'https://puchica.ca';
 
+/** The feed advertises the Canadian catalog only. */
+const FEED_MARKET = 'CA';
+
+/** Unbranded goods still need a brand in Merchant Center. We are the brand. */
+const FEED_BRAND = 'Puchica';
+
+/** https://support.google.com/merchants/answer/6324436 */
+const GOOGLE_PRODUCT_CATEGORY = 'Luggage & Bags > Travel Accessories';
+
+/**
+ * Merchant Center rejects prices that are not written with the currency's own
+ * precision. The Storefront API returns "69.0" for a CA$69.00 product.
+ */
+function formatFeedPrice(amount: string | number): string {
+  const value = Number(amount);
+  return Number.isFinite(value) ? value.toFixed(2) : String(amount ?? '');
+}
+
 /**
  * Google Merchant Center product feed — `/feed.xml`
  *
@@ -29,7 +47,8 @@ export async function loader({context}: LoaderFunctionArgs) {
 
   const {products} = await storefront.query(
     `#graphql
-    query ProductFeed($query: String!) {
+    query ProductFeed($query: String!, $country: CountryCode)
+    @inContext(country: $country) {
       products(first: 250, sortKey: TITLE, query: $query) {
         edges {
           node {
@@ -59,7 +78,10 @@ export async function loader({context}: LoaderFunctionArgs) {
     }`,
     {
       cache: storefront.CacheShort(),
-      variables: {query: `tag:${LAUNCH_READY_TAG}`},
+      // The feed is the Canadian catalog. Without an explicit country the
+      // query resolves against the shop's default market, so a market change
+      // would silently start feeding Google prices in the wrong currency.
+      variables: {query: `tag:${LAUNCH_READY_TAG}`, country: FEED_MARKET},
     },
   );
 
@@ -80,20 +102,22 @@ export async function loader({context}: LoaderFunctionArgs) {
     const firstVariant = findApprovedVariant(product, 'CA');
     if (!firstVariant) return null;
 
-    const price = firstVariant.price?.amount || '0.00';
+    const price = formatFeedPrice(firstVariant.price?.amount || '0.00');
     const currency = firstVariant.price?.currencyCode || 'CAD';
-    const availability = 'in stock';
+    // Derive availability rather than asserting it. The launch gate should
+    // already have excluded anything unsellable; if it ever does not, the feed
+    // must not tell Google a sold-out product is in stock.
+    const availability = firstVariant.availableForSale
+      ? 'in stock'
+      : 'out of stock';
 
     // Check for sale price (compareAtPrice > price)
     const compareAt = firstVariant?.compareAtPrice?.amount;
-    const regularPrice =
-      compareAt && Number(compareAt) > Number(price)
-        ? compareAt
-        : price;
-    const salePriceEl =
-      compareAt && Number(compareAt) > Number(price)
-        ? `    <g:sale_price>${price} ${currency}</g:sale_price>\n`
-        : '';
+    const onSale = Boolean(compareAt) && Number(compareAt) > Number(price);
+    const regularPrice = onSale ? formatFeedPrice(compareAt) : price;
+    const salePriceEl = onSale
+      ? `    <g:sale_price>${price} ${currency}</g:sale_price>\n`
+      : '';
 
     return `  <item>
     <g:id>${id}</g:id>
@@ -103,7 +127,9 @@ export async function loader({context}: LoaderFunctionArgs) {
     <g:image_link>${image}</g:image_link>
     <g:availability>${availability}</g:availability>
     <g:price>${regularPrice} ${currency}</g:price>
-${salePriceEl}    <g:identifier_exists>no</g:identifier_exists>
+${salePriceEl}    <g:brand>${xmlEscape(FEED_BRAND)}</g:brand>
+    <g:identifier_exists>no</g:identifier_exists>
+    <g:google_product_category>${xmlEscape(GOOGLE_PRODUCT_CATEGORY)}</g:google_product_category>
     <g:product_type>${category}</g:product_type>
     <g:condition>new</g:condition>
   </item>`;
