@@ -6,6 +6,7 @@ import {fileURLToPath} from 'node:url';
 import {
   APPROVED_PRODUCT_HANDLES_BY_MARKET,
   APPROVED_VARIANT_SKUS_BY_MARKET,
+  isMarketSuspended,
   MARKET_ROUTE_EVIDENCE_TAGS,
   REQUIRED_CATALOG_EVIDENCE_TAGS,
   STOREFRONT_CONTAINMENT_ACTIVE,
@@ -44,9 +45,21 @@ for (const tag of expectedEvidenceTags) {
   }
 }
 
+// A suspended market is *expected* to have an empty cohort - that is the point
+// of the suspension - so the emptiness check applies only to open markets. The
+// route evidence tag must still exist either way: suspending commerce does not
+// retract the finding that the supplier ships there.
 for (const market of ['CA', 'US']) {
   if (!MARKET_ROUTE_EVIDENCE_TAGS[market]) {
     failures.push(`Catalog route gate is missing the ${market} market.`);
+  }
+  if (isMarketSuspended(market)) {
+    if (APPROVED_VARIANT_SKUS_BY_MARKET[market]?.length) {
+      failures.push(
+        `${market} is suspended but its supplier-SKU gate is not empty.`,
+      );
+    }
+    continue;
   }
   if (!APPROVED_VARIANT_SKUS_BY_MARKET[market]?.length) {
     failures.push(`Exact supplier-SKU gate is empty for ${market}.`);
@@ -54,6 +67,7 @@ for (const market of ['CA', 'US']) {
 }
 
 for (const market of ['CA', 'US']) {
+  if (isMarketSuspended(market)) continue;
   if (!APPROVED_PRODUCT_HANDLES_BY_MARKET[market]?.length) {
     failures.push(`Approved product-handle gate is empty for ${market}.`);
   }

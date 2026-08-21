@@ -125,7 +125,48 @@ export const RETIRED_CATALOG_HANDLES = new Set([
   'soft-luggage-handle-wrap-black-coffee-brown',
 ]);
 
+/**
+ * Markets closed for commercial rather than evidence reasons.
+ *
+ * This is deliberately separate from the per-offer `markets` list and from the
+ * route evidence tags. The United States route is still *verified* - the
+ * supplier ships there and the parcels arrive. What changed is the landed cost,
+ * not the logistics, so deleting the route evidence would record something
+ * untrue and would have to be re-earned to reopen.
+ *
+ * The US $800 de minimis exemption is gone: suspended for all countries by
+ * EO 14324, codified by CBP on 2026-06-24, upheld by the Court of International
+ * Trade on 2026-08-13, and repealed by statute on 2027-07-01. The flat
+ * per-parcel specific duty that used to cap the damage ceased on 2026-02-28,
+ * so every parcel is now assessed ad valorem - roughly 38% on cases and cables,
+ * roughly 55% on polyester travel goods - plus $2.69 MPF and a carrier
+ * disbursement fee billed to the customer when duty was not prepaid.
+ *
+ * scripts/us-duty-impact.mjs models this against the exact cost baseline. Even
+ * in the most favourable case, where the supplier prepays duty and the customer
+ * never sees it, mean contribution falls from $17.60 to $8.26 and the Carry-On
+ * Kit turns negative. In the case CBP is actually entitled to apply - duty on
+ * the retail transaction value, because in a dropship the purchaser is the end
+ * customer - every offer loses money.
+ *
+ * Reopening requires a fulfilment change, not a price change: either AliExpress
+ * Choice SKUs already stocked in a US warehouse, or bulk import into a US 3PL
+ * where one customs entry is amortised across a shipment. Verify with a real
+ * 10-20 parcel test before removing this entry.
+ */
+export const SUSPENDED_COMMERCE_MARKETS = Object.freeze({
+  US: 'us-de-minimis-repeal-2026: landed duty exceeds contribution',
+});
+
+export function isMarketSuspended(market) {
+  return Object.prototype.hasOwnProperty.call(
+    SUSPENDED_COMMERCE_MARKETS,
+    String(market || '').toUpperCase(),
+  );
+}
+
 function offersForMarket(market) {
+  if (isMarketSuspended(market)) return [];
   return APPROVED_CATALOG_OFFERS.filter((offer) =>
     offer.markets.includes(market),
   );
@@ -228,7 +269,7 @@ export function resolveApprovedProductMarket(handle, requestedMarket = 'CA') {
         (offer) => offer.markets,
       ),
     ),
-  ];
+  ].filter((market) => !isMarketSuspended(market));
   if (!availableMarkets.length) return null;
 
   const requested = String(requestedMarket || 'CA').toUpperCase();
