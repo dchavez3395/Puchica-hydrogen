@@ -23,13 +23,16 @@ test('production monitor shares the verified market cohorts', () => {
   assert.deepEqual(EXPECTED_HANDLES_BY_MARKET.CA, [
     '3-piece-packing-cube-set',
     'white-semi-circular-travel-jewelry-case',
+    'black-hanging-travel-toiletry-organizer',
+    'travel-cable-organizer-case',
   ]);
   assert.deepEqual(EXPECTED_HANDLES_BY_MARKET.US, [
     'white-semi-circular-travel-jewelry-case',
     'black-hanging-travel-toiletry-organizer',
+    'travel-cable-organizer-case',
   ]);
-  assert.equal(DISCOVERABLE_PRODUCT_HANDLES.length, 3);
-  assert.equal(RETIRED_CATALOG_HANDLES.size, 6);
+  assert.equal(DISCOVERABLE_PRODUCT_HANDLES.length, 4);
+  assert.equal(RETIRED_CATALOG_HANDLES.size, 5);
 });
 
 test('production monitor requires the storefront security-header baseline', () => {
