@@ -47,6 +47,14 @@ const completeBaseline = {
         US: {shippingUsd: 1.99, tracked: true},
       },
     },
+    {
+      // Bundle: cost and shipping are the sum of the three component rows
+      // above, because the kit ships as three separate supplier orders.
+      handle: 'the-carry-on-kit-toiletry-organizer-packing-cubes-cable-case',
+      sku: 'PUCHICA-KIT-CARRYON-01',
+      itemCostUsd: 24.82,
+      routes: {CA: {shippingUsd: 6.14, tracked: true}},
+    },
   ],
 };
 
