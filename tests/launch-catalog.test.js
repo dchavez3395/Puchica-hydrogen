@@ -21,6 +21,7 @@ import {
   MARKET_ROUTE_EVIDENCE_TAGS,
   OPERATIONAL_HOLD_HANDLES,
   REQUIRED_CATALOG_EVIDENCE_TAGS,
+  requiredEvidenceTagsForHandle,
   STOREFRONT_CONTAINMENT_ACTIVE,
 } from '../app/lib/launch-catalog.js';
 
@@ -249,6 +250,7 @@ test('product market resolution preserves indexing without opening checkout', ()
     'white-semi-circular-travel-jewelry-case',
     'black-hanging-travel-toiletry-organizer',
     'travel-cable-organizer-case',
+    'the-carry-on-kit-toiletry-organizer-packing-cubes-cable-case',
   ]);
 });
 
@@ -257,7 +259,7 @@ test('discovery includes every approved market without exposing retired products
     approvedProduct({
       handle: offer.handle,
       tags: [
-        ...REQUIRED_CATALOG_EVIDENCE_TAGS,
+        ...requiredEvidenceTagsForHandle(offer.handle),
         ...offer.markets.map((market) => MARKET_ROUTE_EVIDENCE_TAGS[market]),
       ],
       variants: {
@@ -474,8 +476,8 @@ test('approved handles and SKUs derive from one exact-offer cohort', () => {
     ]);
   }
 
-  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.CA.length, 4);
-  assert.equal(APPROVED_PRODUCT_HANDLES_BY_MARKET.CA.length, 4);
+  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.CA.length, 5);
+  assert.equal(APPROVED_PRODUCT_HANDLES_BY_MARKET.CA.length, 5);
   assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.US.length, 3);
   assert.equal(APPROVED_PRODUCT_HANDLES_BY_MARKET.US.length, 3);
 });

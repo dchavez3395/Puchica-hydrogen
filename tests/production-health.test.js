@@ -25,13 +25,14 @@ test('production monitor shares the verified market cohorts', () => {
     'white-semi-circular-travel-jewelry-case',
     'black-hanging-travel-toiletry-organizer',
     'travel-cable-organizer-case',
+    'the-carry-on-kit-toiletry-organizer-packing-cubes-cable-case',
   ]);
   assert.deepEqual(EXPECTED_HANDLES_BY_MARKET.US, [
     'white-semi-circular-travel-jewelry-case',
     'black-hanging-travel-toiletry-organizer',
     'travel-cable-organizer-case',
   ]);
-  assert.equal(DISCOVERABLE_PRODUCT_HANDLES.length, 4);
+  assert.equal(DISCOVERABLE_PRODUCT_HANDLES.length, 5);
   assert.equal(RETIRED_CATALOG_HANDLES.size, 5);
 });
 
