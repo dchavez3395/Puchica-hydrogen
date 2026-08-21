@@ -69,7 +69,50 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
     sku: '14:193#Double Layers',
     markets: Object.freeze(['CA', 'US']),
   }),
+  // Multi-item bundle. Canada only: the packing cube set has no United States
+  // route evidence, so the kit cannot claim one either.
+  Object.freeze({
+    handle: 'the-carry-on-kit-toiletry-organizer-packing-cubes-cable-case',
+    sku: 'PUCHICA-KIT-CARRYON-01',
+    markets: Object.freeze(['CA']),
+    bundle: true,
+  }),
 ]);
+
+/**
+ * A bundle is one Shopify SKU fulfilled as several supplier orders, so it can
+ * never carry `dsers-mapped`: DSers maps one storefront variant to one supplier
+ * variant. Exempting the tag is only safe because the bundle must instead carry
+ * `bundle-fulfilment-verified`, which asserts that every component is itself
+ * DSers-mapped and that the manual split is documented in the runbook.
+ */
+export const BUNDLE_CATALOG_HANDLES = new Set(
+  APPROVED_CATALOG_OFFERS.filter((offer) => offer.bundle).map(
+    (offer) => offer.handle,
+  ),
+);
+
+export const BUNDLE_EXEMPT_EVIDENCE_TAGS = Object.freeze(['dsers-mapped']);
+
+export const BUNDLE_REQUIRED_EVIDENCE_TAGS = Object.freeze([
+  'bundle-fulfilment-verified',
+]);
+
+/**
+ * Evidence a given handle must carry. Bundles trade `dsers-mapped` for
+ * `bundle-fulfilment-verified`; every other handle keeps the shared list.
+ */
+export function requiredEvidenceTagsForHandle(handle) {
+  if (!BUNDLE_CATALOG_HANDLES.has(handle)) {
+    return REQUIRED_CATALOG_EVIDENCE_TAGS;
+  }
+  return Object.freeze([
+    ...REQUIRED_CATALOG_EVIDENCE_TAGS.filter(
+      (tag) => !BUNDLE_EXEMPT_EVIDENCE_TAGS.includes(tag),
+    ),
+    ...BUNDLE_REQUIRED_EVIDENCE_TAGS,
+  ]);
+}
 
 // Products removed from the deliberately small first-sale cohort. Keeping this
 // list explicit lets production checks prove that stale Shopify data cannot
@@ -140,7 +183,9 @@ export function isLaunchReadyProduct(product, market = 'CA') {
 
   return Boolean(
     product?.availableForSale &&
-    REQUIRED_CATALOG_EVIDENCE_TAGS.every((tag) => tags.has(tag)) &&
+    requiredEvidenceTagsForHandle(product?.handle).every((tag) =>
+      tags.has(tag),
+    ) &&
     tags.has(routeTag) &&
     !RETIRED_CATALOG_HANDLES.has(product?.handle) &&
     !OPERATIONAL_HOLD_HANDLES.has(product?.handle),
