@@ -34,7 +34,17 @@ const completeBaseline = {
       sku: '14:771#Black',
       itemCostUsd: 8.32,
       routes: {
+        CA: {shippingUsd: 2.16, tracked: true},
         US: {shippingUsd: 2.16, tracked: true},
+      },
+    },
+    {
+      handle: 'travel-cable-organizer-case',
+      sku: '14:193#Double Layers',
+      itemCostUsd: 4.05,
+      routes: {
+        CA: {shippingUsd: 1.99, tracked: true},
+        US: {shippingUsd: 1.99, tracked: true},
       },
     },
   ],
