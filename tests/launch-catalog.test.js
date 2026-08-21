@@ -229,9 +229,9 @@ test('released homepage is travel-focused and uses the catalog gate', async () =
 
 test('product market resolution preserves indexing without opening checkout', () => {
   assert.deepEqual(resolveApprovedProductMarket('3-piece-packing-cube-set', 'US'), {
-    availableMarkets: ['CA'],
-    commerceMarket: 'CA',
-    marketUnavailable: true,
+    availableMarkets: ['CA', 'US'],
+    commerceMarket: 'US',
+    marketUnavailable: false,
   });
   assert.deepEqual(
     resolveApprovedProductMarket(
@@ -416,25 +416,40 @@ test('filter keeps only available, tagged, non-held products', () => {
 });
 
 test('exact supplier variants are market-gated independently of products', () => {
-  const caPackingSku = APPROVED_VARIANT_SKUS_BY_MARKET.CA[0];
-  const sharedJewelrySku = APPROVED_VARIANT_SKUS_BY_MARKET.US[0];
+  // Every approved offer now sells in both markets, so there is no real
+  // single-market SKU left to assert against. Guard the mechanism instead:
+  // each market's list must be derived from that offer's own `markets`, so the
+  // next market-limited offer is gated without anyone touching this function.
+  for (const market of ['CA', 'US']) {
+    assert.deepEqual(
+      APPROVED_VARIANT_SKUS_BY_MARKET[market],
+      APPROVED_CATALOG_OFFERS.filter((offer) =>
+        offer.markets.includes(market),
+      ).map((offer) => offer.sku),
+    );
+  }
 
-  assert.equal(isApprovedVariantSku(caPackingSku, 'CA'), true);
-  assert.equal(isApprovedVariantSku(caPackingSku, 'US'), false);
-  assert.equal(isApprovedVariantSku(sharedJewelrySku, 'CA'), true);
-  assert.equal(isApprovedVariantSku(sharedJewelrySku, 'US'), true);
+  const sharedSku = APPROVED_VARIANT_SKUS_BY_MARKET.CA[0];
+  assert.equal(isApprovedVariantSku(sharedSku, 'CA'), true);
+  assert.equal(isApprovedVariantSku(sharedSku, 'US'), true);
   assert.equal(isApprovedVariantSku('unreviewed-supplier-sku', 'CA'), false);
+  assert.equal(isApprovedVariantSku('unreviewed-supplier-sku', 'US'), false);
+
+  // An unrecognised market falls back to the Canadian cohort rather than
+  // opening everything, which is what keeps an unlisted country fail-closed.
+  assert.equal(isApprovedVariantSku(sharedSku, 'GB'), true);
+  assert.equal(isApprovedVariantSku('unreviewed-supplier-sku', 'GB'), false);
 
   const product = {
     variants: {
       nodes: [
         {sku: 'unreviewed-supplier-sku', availableForSale: true},
-        {sku: caPackingSku, availableForSale: true},
+        {sku: sharedSku, availableForSale: true},
       ],
     },
   };
-  assert.equal(findApprovedVariant(product, 'CA')?.sku, caPackingSku);
-  assert.equal(findApprovedVariant(product, 'US'), undefined);
+  assert.equal(findApprovedVariant(product, 'CA')?.sku, sharedSku);
+  assert.equal(findApprovedVariant(product, 'US')?.sku, sharedSku);
 });
 
 test('fresh DSers route recovery restores only the verified market approvals', () => {
@@ -450,12 +465,14 @@ test('fresh DSers route recovery restores only the verified market approvals', (
     ),
     true,
   );
+  // The packing cube set gained a verified United States route on 2026-08-21:
+  // free tracked courier shipping on the exact approved variant.
   assert.equal(
     isApprovedVariantSku(
       '14:1052#S3007 Black;5:200004186#3PCS L M S Set',
       'US',
     ),
-    false,
+    true,
   );
   assert.equal(isApprovedVariantSku('14:193#Double Layers', 'CA'), true);
   assert.equal(isApprovedVariantSku('14:193#Double Layers', 'US'), true);
@@ -478,8 +495,8 @@ test('approved handles and SKUs derive from one exact-offer cohort', () => {
 
   assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.CA.length, 5);
   assert.equal(APPROVED_PRODUCT_HANDLES_BY_MARKET.CA.length, 5);
-  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.US.length, 3);
-  assert.equal(APPROVED_PRODUCT_HANDLES_BY_MARKET.US.length, 3);
+  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.US.length, 5);
+  assert.equal(APPROVED_PRODUCT_HANDLES_BY_MARKET.US.length, 5);
 });
 
 test('approved PDP option builder exposes only its audited variants', () => {

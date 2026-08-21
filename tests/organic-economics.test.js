@@ -18,7 +18,10 @@ const completeBaseline = {
       handle: '3-piece-packing-cube-set',
       sku: '14:1052#S3007 Black;5:200004186#3PCS L M S Set',
       itemCostUsd: 12.45,
-      routes: {CA: {shippingUsd: 1.99, tracked: true}},
+      routes: {
+        CA: {shippingUsd: 1.99, tracked: true},
+        US: {shippingUsd: 0, tracked: true},
+      },
     },
     {
       handle: 'white-semi-circular-travel-jewelry-case',
@@ -53,7 +56,10 @@ const completeBaseline = {
       handle: 'the-carry-on-kit-toiletry-organizer-packing-cubes-cable-case',
       sku: 'PUCHICA-KIT-CARRYON-01',
       itemCostUsd: 24.82,
-      routes: {CA: {shippingUsd: 6.14, tracked: true}},
+      routes: {
+        CA: {shippingUsd: 6.14, tracked: true},
+        US: {shippingUsd: 4.15, tracked: true},
+      },
     },
   ],
 };
@@ -97,8 +103,12 @@ test('stale exact-cost evidence fails closed', () => {
 });
 
 test('a route outside the approved market cohort fails closed', () => {
+  // Every offer now sells in both approved markets, so the negative case uses
+  // a country the catalogue has never approved. This is the guard that matters
+  // as more markets are considered: evidence for an unapproved market must not
+  // quietly imply permission to sell there.
   const extraRouteBaseline = structuredClone(completeBaseline);
-  extraRouteBaseline.offers[0].routes.US = {
+  extraRouteBaseline.offers[0].routes.GB = {
     shippingUsd: 1.99,
     tracked: true,
   };
@@ -109,7 +119,7 @@ test('a route outside the approved market cohort fails closed', () => {
   );
 
   assert.equal(
-    failures.some((failure) => failure.includes('Unexpected US route')),
+    failures.some((failure) => failure.includes('Unexpected GB route')),
     true,
   );
 });
