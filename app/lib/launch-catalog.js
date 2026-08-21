@@ -52,7 +52,7 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
   Object.freeze({
     handle: '3-piece-packing-cube-set',
     sku: '14:1052#S3007 Black;5:200004186#3PCS L M S Set',
-    markets: Object.freeze(['CA']),
+    markets: Object.freeze(['CA', 'US']),
   }),
   Object.freeze({
     handle: 'white-semi-circular-travel-jewelry-case',
@@ -69,12 +69,12 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
     sku: '14:193#Double Layers',
     markets: Object.freeze(['CA', 'US']),
   }),
-  // Multi-item bundle. Canada only: the packing cube set has no United States
-  // route evidence, so the kit cannot claim one either.
+  // Multi-item bundle. A bundle can only claim a market where every component
+  // has route evidence for it; all three now do, in both markets.
   Object.freeze({
     handle: 'the-carry-on-kit-toiletry-organizer-packing-cubes-cable-case',
     sku: 'PUCHICA-KIT-CARRYON-01',
-    markets: Object.freeze(['CA']),
+    markets: Object.freeze(['CA', 'US']),
     bundle: true,
   }),
 ]);
