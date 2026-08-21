@@ -15,7 +15,9 @@ import {
   findApprovedVariants,
   isApprovedVariantSku,
   isLaunchReadyProduct,
+  isMarketSuspended,
   resolveApprovedProductMarket,
+  SUSPENDED_COMMERCE_MARKETS,
   CATALOG_APPROVAL_TAG,
   LAUNCH_READY_TAG,
   MARKET_ROUTE_EVIDENCE_TAGS,
@@ -228,10 +230,14 @@ test('released homepage is travel-focused and uses the catalog gate', async () =
 });
 
 test('product market resolution preserves indexing without opening checkout', () => {
+  // The United States is commercially suspended, so a US visitor still gets an
+  // indexable page - which is the whole point of this resolver - but the
+  // commerce market falls back to Canada and the page must say so. This is the
+  // exact shape the resolver was built for; it is now finally being used.
   assert.deepEqual(resolveApprovedProductMarket('3-piece-packing-cube-set', 'US'), {
-    availableMarkets: ['CA', 'US'],
-    commerceMarket: 'US',
-    marketUnavailable: false,
+    availableMarkets: ['CA'],
+    commerceMarket: 'CA',
+    marketUnavailable: true,
   });
   assert.deepEqual(
     resolveApprovedProductMarket(
@@ -239,7 +245,7 @@ test('product market resolution preserves indexing without opening checkout', ()
       'CA',
     ),
     {
-      availableMarkets: ['CA', 'US'],
+      availableMarkets: ['CA'],
       commerceMarket: 'CA',
       marketUnavailable: false,
     },
@@ -416,22 +422,24 @@ test('filter keeps only available, tagged, non-held products', () => {
 });
 
 test('exact supplier variants are market-gated independently of products', () => {
-  // Every approved offer now sells in both markets, so there is no real
-  // single-market SKU left to assert against. Guard the mechanism instead:
-  // each market's list must be derived from that offer's own `markets`, so the
-  // next market-limited offer is gated without anyone touching this function.
+  // Each market's list must be derived from that offer's own `markets`, minus
+  // any market under commercial suspension, so the next market-limited offer is
+  // gated without anyone touching this function.
   for (const market of ['CA', 'US']) {
     assert.deepEqual(
       APPROVED_VARIANT_SKUS_BY_MARKET[market],
-      APPROVED_CATALOG_OFFERS.filter((offer) =>
-        offer.markets.includes(market),
-      ).map((offer) => offer.sku),
+      isMarketSuspended(market)
+        ? []
+        : APPROVED_CATALOG_OFFERS.filter((offer) =>
+            offer.markets.includes(market),
+          ).map((offer) => offer.sku),
     );
   }
 
   const sharedSku = APPROVED_VARIANT_SKUS_BY_MARKET.CA[0];
   assert.equal(isApprovedVariantSku(sharedSku, 'CA'), true);
-  assert.equal(isApprovedVariantSku(sharedSku, 'US'), true);
+  // Suspended: the route evidence is still true, the economics are not.
+  assert.equal(isApprovedVariantSku(sharedSku, 'US'), false);
   assert.equal(isApprovedVariantSku('unreviewed-supplier-sku', 'CA'), false);
   assert.equal(isApprovedVariantSku('unreviewed-supplier-sku', 'US'), false);
 
@@ -449,40 +457,37 @@ test('exact supplier variants are market-gated independently of products', () =>
     },
   };
   assert.equal(findApprovedVariant(product, 'CA')?.sku, sharedSku);
-  assert.equal(findApprovedVariant(product, 'US')?.sku, sharedSku);
+  assert.equal(findApprovedVariant(product, 'US'), undefined);
 });
 
-test('fresh DSers route recovery restores only the verified market approvals', () => {
-  for (const sku of ['14:29', '14:771#Black']) {
-    assert.equal(isApprovedVariantSku(sku, 'US'), true, sku);
+test('a suspended market closes commerce without erasing route evidence', () => {
+  // Every one of these SKUs has a verified United States route - the supplier
+  // ships there and the parcel arrives. The suspension is economic, not
+  // logistical, so `markets` still records US and reopening is one deletion in
+  // SUSPENDED_COMMERCE_MARKETS rather than a re-verification exercise.
+  const usRouted = APPROVED_CATALOG_OFFERS.filter((offer) =>
+    offer.markets.includes('US'),
+  );
+  assert.equal(usRouted.length, 5);
+
+  for (const offer of usRouted) {
+    assert.equal(isApprovedVariantSku(offer.sku, 'CA'), true, offer.sku);
+    assert.equal(isApprovedVariantSku(offer.sku, 'US'), false, offer.sku);
   }
-  assert.equal(isApprovedVariantSku('14:29', 'CA'), true);
-  assert.equal(isApprovedVariantSku('14:771#Black', 'CA'), true);
-  assert.equal(
-    isApprovedVariantSku(
-      '14:1052#S3007 Black;5:200004186#3PCS L M S Set',
-      'CA',
-    ),
-    true,
-  );
-  // The packing cube set gained a verified United States route on 2026-08-21:
-  // free tracked courier shipping on the exact approved variant.
-  assert.equal(
-    isApprovedVariantSku(
-      '14:1052#S3007 Black;5:200004186#3PCS L M S Set',
-      'US',
-    ),
-    true,
-  );
-  assert.equal(isApprovedVariantSku('14:193#Double Layers', 'CA'), true);
-  assert.equal(isApprovedVariantSku('14:193#Double Layers', 'US'), true);
+
+  assert.equal(isMarketSuspended('US'), true);
+  assert.equal(isMarketSuspended('us'), true);
+  assert.equal(isMarketSuspended('CA'), false);
+  assert.match(SUSPENDED_COMMERCE_MARKETS.US, /de-minimis/);
 });
 
 test('approved handles and SKUs derive from one exact-offer cohort', () => {
   for (const market of ['CA', 'US']) {
-    const offers = APPROVED_CATALOG_OFFERS.filter((offer) =>
-      offer.markets.includes(market),
-    );
+    const offers = isMarketSuspended(market)
+      ? []
+      : APPROVED_CATALOG_OFFERS.filter((offer) =>
+          offer.markets.includes(market),
+        );
 
     assert.deepEqual(
       APPROVED_VARIANT_SKUS_BY_MARKET[market],
@@ -495,8 +500,9 @@ test('approved handles and SKUs derive from one exact-offer cohort', () => {
 
   assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.CA.length, 5);
   assert.equal(APPROVED_PRODUCT_HANDLES_BY_MARKET.CA.length, 5);
-  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.US.length, 5);
-  assert.equal(APPROVED_PRODUCT_HANDLES_BY_MARKET.US.length, 5);
+  // Suspended, so nothing is sellable into the United States at all.
+  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.US.length, 0);
+  assert.equal(APPROVED_PRODUCT_HANDLES_BY_MARKET.US.length, 0);
 });
 
 test('approved PDP option builder exposes only its audited variants', () => {
