@@ -62,7 +62,12 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
   Object.freeze({
     handle: 'black-hanging-travel-toiletry-organizer',
     sku: '14:771#Black',
-    markets: Object.freeze(['US']),
+    markets: Object.freeze(['CA', 'US']),
+  }),
+  Object.freeze({
+    handle: 'travel-cable-organizer-case',
+    sku: '14:193#Double Layers',
+    markets: Object.freeze(['CA', 'US']),
   }),
 ]);
 
@@ -70,7 +75,6 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
 // list explicit lets production checks prove that stale Shopify data cannot
 // make an old product buyable again.
 export const RETIRED_CATALOG_HANDLES = new Set([
-  'travel-cable-organizer-case',
   'white-luggage-id-tag',
   'ten-hole-white-cable-organizer-clips',
   'large-blue-handled-clothes-storage-bag',
