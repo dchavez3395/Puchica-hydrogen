@@ -238,9 +238,9 @@ test('product market resolution preserves indexing without opening checkout', ()
       'CA',
     ),
     {
-      availableMarkets: ['US'],
-      commerceMarket: 'US',
-      marketUnavailable: true,
+      availableMarkets: ['CA', 'US'],
+      commerceMarket: 'CA',
+      marketUnavailable: false,
     },
   );
   assert.equal(resolveApprovedProductMarket('retired-product', 'CA'), null);
@@ -248,6 +248,7 @@ test('product market resolution preserves indexing without opening checkout', ()
     '3-piece-packing-cube-set',
     'white-semi-circular-travel-jewelry-case',
     'black-hanging-travel-toiletry-organizer',
+    'travel-cable-organizer-case',
   ]);
 });
 
@@ -439,7 +440,7 @@ test('fresh DSers route recovery restores only the verified market approvals', (
     assert.equal(isApprovedVariantSku(sku, 'US'), true, sku);
   }
   assert.equal(isApprovedVariantSku('14:29', 'CA'), true);
-  assert.equal(isApprovedVariantSku('14:771#Black', 'CA'), false);
+  assert.equal(isApprovedVariantSku('14:771#Black', 'CA'), true);
   assert.equal(
     isApprovedVariantSku(
       '14:1052#S3007 Black;5:200004186#3PCS L M S Set',
@@ -454,8 +455,8 @@ test('fresh DSers route recovery restores only the verified market approvals', (
     ),
     false,
   );
-  assert.equal(isApprovedVariantSku('14:193#Double Layers', 'CA'), false);
-  assert.equal(isApprovedVariantSku('14:193#Double Layers', 'US'), false);
+  assert.equal(isApprovedVariantSku('14:193#Double Layers', 'CA'), true);
+  assert.equal(isApprovedVariantSku('14:193#Double Layers', 'US'), true);
 });
 
 test('approved handles and SKUs derive from one exact-offer cohort', () => {
@@ -473,10 +474,10 @@ test('approved handles and SKUs derive from one exact-offer cohort', () => {
     ]);
   }
 
-  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.CA.length, 2);
-  assert.equal(APPROVED_PRODUCT_HANDLES_BY_MARKET.CA.length, 2);
-  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.US.length, 2);
-  assert.equal(APPROVED_PRODUCT_HANDLES_BY_MARKET.US.length, 2);
+  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.CA.length, 4);
+  assert.equal(APPROVED_PRODUCT_HANDLES_BY_MARKET.CA.length, 4);
+  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.US.length, 3);
+  assert.equal(APPROVED_PRODUCT_HANDLES_BY_MARKET.US.length, 3);
 });
 
 test('approved PDP option builder exposes only its audited variants', () => {
