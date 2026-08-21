@@ -58,10 +58,16 @@ export const meta = ({data, matches, params}) => {
   const productTitle =
     localizedCopy?.title || presentProductTitle(data.product.title);
   const storedDescription = seo.description || '';
-  // Title: prefer Shopify SEO title, otherwise build "<product> – Puchica"
-  // using the locale's title suffix. The suffix is shared (" – Puchica") in
-  // all 4 locales because the brand is global.
-  const title = `${productTitle}${dict.pdp_meta_title_suffix}`;
+  // Title: prefer the Shopify SEO title, but only in English. The field holds
+  // one hand-written English string, so using it in a translated locale would
+  // silently replace localized copy with English. Every other locale builds
+  // "<localized product> – Puchica" from the locale's own title suffix; the
+  // suffix is shared in all 4 locales because the brand is global.
+  const storedTitle = typeof seo.title === 'string' ? seo.title.trim() : '';
+  const title =
+    langKey === 'en' && storedTitle
+      ? storedTitle
+      : `${productTitle}${dict.pdp_meta_title_suffix}`;
   // Market-safe metadata: strip old U.S.-only shipping language so the shared
   // Canada/U.S. storefront never advertises a route that depends on stale copy.
   const description =
