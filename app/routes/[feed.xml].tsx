@@ -18,6 +18,32 @@ const FEED_BRAND = 'Puchica';
 const GOOGLE_PRODUCT_CATEGORY = 'Luggage & Bags > Travel Accessories';
 
 /**
+ * Google caps the feed `id` attribute at 50 characters, and Merchant Center
+ * rejected the Carry-On Kit's 60-character handle on 2026-08-22 ("Value too
+ * long in attribute: id"). Handles remain the natural id for every product
+ * that fits; a product whose handle exceeds the cap gets an explicit alias
+ * here instead of being truncated, because truncation invites collisions and
+ * would silently rename the id if the cap ever changed. Feed ids are meant to
+ * be permanent - never change an alias once the product has been ingested.
+ */
+const GOOGLE_FEED_ID_MAX_LENGTH = 50;
+const FEED_ID_ALIASES: Record<string, string> = {
+  'the-carry-on-kit-toiletry-organizer-packing-cubes-cable-case':
+    'PUCHICA-KIT-CARRYON-01',
+};
+
+export function feedIdForHandle(handle: string): string {
+  const id = FEED_ID_ALIASES[handle] ?? handle;
+  if (id.length > GOOGLE_FEED_ID_MAX_LENGTH) {
+    // Fail loudly in development rather than shipping an id Google rejects.
+    throw new Error(
+      `Feed id "${id}" exceeds Google's ${GOOGLE_FEED_ID_MAX_LENGTH}-character limit; add an alias in FEED_ID_ALIASES.`,
+    );
+  }
+  return id;
+}
+
+/**
  * Merchant Center rejects prices that are not written with the currency's own
  * precision. The Storefront API returns "69.0" for a CA$69.00 product.
  */
@@ -95,7 +121,7 @@ export async function loader({context}: LoaderFunctionArgs) {
     const title = xmlEscape(product.title);
     const description = xmlEscape(stripHtml(product.description || ''));
     const category = xmlEscape(product.productType || '');
-    const id = product.handle;
+    const id = feedIdForHandle(product.handle);
     // Feed one exact, sellable variant per launch-approved product. Do not let
     // an unavailable first variant make an otherwise valid product look out of
     // stock, and never emit a product with no sellable variant.
