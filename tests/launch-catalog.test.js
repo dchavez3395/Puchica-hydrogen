@@ -256,6 +256,7 @@ test('product market resolution preserves indexing without opening checkout', ()
     'white-semi-circular-travel-jewelry-case',
     'black-hanging-travel-toiletry-organizer',
     'travel-cable-organizer-case',
+    'black-travel-tech-case',
     'the-carry-on-kit-toiletry-organizer-packing-cubes-cable-case',
   ]);
 });
@@ -498,8 +499,8 @@ test('approved handles and SKUs derive from one exact-offer cohort', () => {
     ]);
   }
 
-  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.CA.length, 5);
-  assert.equal(APPROVED_PRODUCT_HANDLES_BY_MARKET.CA.length, 5);
+  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.CA.length, 6);
+  assert.equal(APPROVED_PRODUCT_HANDLES_BY_MARKET.CA.length, 6);
   // Suspended, so nothing is sellable into the United States at all.
   assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.US.length, 0);
   assert.equal(APPROVED_PRODUCT_HANDLES_BY_MARKET.US.length, 0);
