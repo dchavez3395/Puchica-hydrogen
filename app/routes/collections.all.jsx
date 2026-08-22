@@ -10,6 +10,7 @@ import {useT} from '~/lib/t';
 import {diversifyByVendor} from '~/lib/diversify';
 import {
   filterLaunchProducts,
+  isMarketSuspended,
   LAUNCH_READY_TAG,
   STOREFRONT_CONTAINMENT_ACTIVE,
 } from '~/lib/launch-catalog';
@@ -60,7 +61,16 @@ const DEFAULT_SORT = 'featured';
  * @param {Route.LoaderArgs}
  */
 async function loadCriticalData({context, request}) {
-  const {country, language} = context.storefront.i18n;
+  const {country: resolvedCountry, language} = context.storefront.i18n;
+  // A commercially suspended market (currently the US) must not blank this
+  // page. Googlebot crawls from US IPs, so an empty US cohort would put
+  // noindex on the canonical /collections/all and deindex the catalogue for
+  // every market - this exact failure broke the post-deploy metadata check
+  // twice on 2026-08-21/22. Fall back to the primary market's cohort for
+  // discovery, the same way product pages fall back via
+  // resolveApprovedProductMarket; checkout stays closed for the suspended
+  // market regardless of what this page displays.
+  const country = isMarketSuspended(resolvedCountry) ? 'CA' : resolvedCountry;
   const paginationVariables = getPaginationVariables(request, {pageBy: 24});
   const url = new URL(request.url);
   const sortValue = url.searchParams.get('sort') || DEFAULT_SORT;

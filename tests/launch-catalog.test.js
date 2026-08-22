@@ -545,3 +545,21 @@ test('approved PDP option builder exposes only its audited variants', () => {
   assert.deepEqual(options, []);
   assert.equal(formatProductOptionLabel('White'), 'White');
 });
+
+test('collection catalogue falls back when the resolved market is suspended', async () => {
+  // Googlebot crawls from US IPs. If the suspended US market's empty cohort
+  // reached the collections page, its emptiness-derived noindex would apply to
+  // the canonical URL and deindex the catalogue for every market - the exact
+  // post-deploy metadata failure of 2026-08-21/22. The route must therefore
+  // resolve a display market that never lands on a suspended one.
+  const route = await readFile(
+    new URL('../app/routes/collections.all.jsx', import.meta.url),
+    'utf8',
+  );
+
+  assert.match(route, /isMarketSuspended\(resolvedCountry\) \? 'CA'/);
+  assert.match(route, /filterLaunchProducts\(rawProducts\?\.nodes, country\)/);
+  // The emptiness fail-safe itself must stay: a genuinely empty catalogue
+  // should still noindex rather than serve Google a blank shop page.
+  assert.match(route, /noindex: !data\?\.products\?\.nodes\?\.length/);
+});
