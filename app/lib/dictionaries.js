@@ -242,6 +242,8 @@ export const DICTIONARIES = {
     cart_freeship_away: 'Add {amount} more for free shipping',
     cart_freeship_qualified: 'Free shipping unlocked',
     cart_freeship_aria: 'Progress toward free shipping',
+    pairs_title: 'Pairs with',
+    pairs_sub: 'Other organizers in the travel edit.',
     cart_empty_perk_returns: '30-day returns',
     cart_ghost_notice:
       "These items aren't available in your region right now. Remove them to clear your cart.",
@@ -851,6 +853,8 @@ export const DICTIONARIES = {
     cart_freeship_away: 'Ajoutez {amount} pour la livraison gratuite',
     cart_freeship_qualified: 'Livraison gratuite débloquée',
     cart_freeship_aria: 'Progression vers la livraison gratuite',
+    pairs_title: 'À associer avec',
+    pairs_sub: 'D’autres rangements de la sélection voyage.',
     cart_empty_perk_returns: 'Retours sous 30 jours',
     cart_ghost_notice:
       'Ces articles ne sont pas disponibles dans votre région pour le moment. Retirez-les pour vider votre panier.',
@@ -1480,6 +1484,8 @@ export const DICTIONARIES = {
     cart_freeship_away: 'Añade {amount} más para el envío gratis',
     cart_freeship_qualified: 'Envío gratis desbloqueado',
     cart_freeship_aria: 'Progreso hacia el envío gratis',
+    pairs_title: 'Combina con',
+    pairs_sub: 'Otros organizadores de la selección de viaje.',
     cart_empty_perk_returns: 'Devoluciones en 30 días',
     cart_ghost_notice:
       'Estos artículos no están disponibles en tu región ahora. Quítalos para vaciar tu carrito.',
@@ -2107,6 +2113,8 @@ export const DICTIONARIES = {
     cart_freeship_away: 'Adicione mais {amount} para frete grátis',
     cart_freeship_qualified: 'Frete grátis desbloqueado',
     cart_freeship_aria: 'Progresso para o frete grátis',
+    pairs_title: 'Combina com',
+    pairs_sub: 'Outros organizadores da seleção de viagem.',
     cart_empty_perk_returns: 'Devoluções em 30 dias',
     cart_ghost_notice:
       'Estes itens não estão disponíveis na sua região agora. Remova-os para esvaziar o carrinho.',
