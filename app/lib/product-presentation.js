@@ -6,6 +6,7 @@ const LAUNCH_COPY_PREFIX = {
   '3-piece-packing-cube-set': 'product_copy_packing',
   'white-semi-circular-travel-jewelry-case': 'product_copy_jewelry',
   'black-hanging-travel-toiletry-organizer': 'product_copy_toiletry',
+  'black-travel-tech-case': 'product_copy_tech',
 };
 
 function translated(source, key) {
