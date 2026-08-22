@@ -47,3 +47,36 @@ test('product structured data names a brand and matches the displayed price', ()
   assert.match(productRoute, /price: formatSchemaPrice\(price\.amount\)/);
   assert.doesNotMatch(productRoute, /\n\s+price: price\.amount,/);
 });
+
+test('every feed id fits inside Google\'s 50-character limit', async () => {
+  const {DISCOVERABLE_PRODUCT_HANDLES} = await import(
+    '../app/lib/launch-catalog.js'
+  );
+
+  // The feed route is .tsx, which node:test cannot import, so re-apply its
+  // documented id rule from source: alias when mapped, handle otherwise.
+  assert.match(feed, /const GOOGLE_FEED_ID_MAX_LENGTH = 50/);
+  assert.match(feed, /const id = feedIdForHandle\(product\.handle\)/);
+
+  const aliases = {};
+  const aliasBlock = feed.match(/const FEED_ID_ALIASES[^=]*=\s*\{([\s\S]*?)\n\};/);
+  assert.ok(aliasBlock, 'FEED_ID_ALIASES map is missing');
+  for (const entry of aliasBlock[1].matchAll(/'([^']+)':\s*\n?\s*'([^']+)'/g)) {
+    aliases[entry[1]] = entry[2];
+  }
+
+  for (const handle of DISCOVERABLE_PRODUCT_HANDLES) {
+    const id = aliases[handle] ?? handle;
+    assert.ok(
+      id.length <= 50,
+      `feed id for ${handle} is ${id.length} characters`,
+    );
+  }
+
+  // The Carry-On Kit's 60-character handle is the reason the alias map exists;
+  // its id is the bundle SKU and must never change once ingested.
+  assert.equal(
+    aliases['the-carry-on-kit-toiletry-organizer-packing-cubes-cable-case'],
+    'PUCHICA-KIT-CARRYON-01',
+  );
+});
