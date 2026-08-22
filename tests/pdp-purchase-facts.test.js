@@ -37,11 +37,12 @@ test('purchase facts are limited to the validated toiletry hero', async () => {
   assert.match(route, /className="pk-product__purchase-facts"/);
 });
 
-test('all three exact offers have complete localized product copy', () => {
+test('every exact offer with localized product copy has all four locales', () => {
   const handles = [
     '3-piece-packing-cube-set',
     'white-semi-circular-travel-jewelry-case',
     'black-hanging-travel-toiletry-organizer',
+    'black-travel-tech-case',
   ];
   for (const locale of ['en', 'fr', 'es', 'pt-br']) {
     assert.ok(DICTIONARIES[locale].product_department_travel);

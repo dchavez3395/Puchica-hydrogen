@@ -12,7 +12,8 @@
     "DSers mapping console, 2026-08-21: exact variant cost and AliExpress Selection Standard route read per approved SKU.",
     "AliExpress listing 1005005283270949, ship-to United States, 2026-08-21: exact variant S3007 Black / 3PCS L M S Set quoted free tracked courier shipping, delivery Aug 29 - Sep 4.",
     "fresh-dsers-route-and-margin-gate-2026-08-14.csv",
-    "live-dsers-route-recovery-2026-08-14.md"
+    "live-dsers-route-recovery-2026-08-14.md",
+    "DSers Edit Product Detail > Variants, ship-to Canada, 2026-08-22: black-travel-tech-case variant 14:29#Black read at US$7.26 item + US$2.17 shipping. DSers offered exactly one Canadian service for this listing, CAINIAO_FULFILLMENT_STD ('AliExpress Selection Standard'), the same carrier service the four earlier offers ride; AliExpress quoted delivery Aug 28 - Sep 8. No separate untracked option was offered."
   ],
   "offers": [
     {
@@ -83,6 +84,20 @@
         },
         "US": {
           "shippingUsd": 1.99,
+          "eta": "8-14 days",
+          "tracked": true
+        }
+      }
+    },
+    {
+      "handle": "black-travel-tech-case",
+      "sku": "14:29#Black",
+      "supplierItemId": "1005010044108059",
+      "itemCostUsd": 7.26,
+      "observedOn": "2026-08-22",
+      "routes": {
+        "CA": {
+          "shippingUsd": 2.17,
           "eta": "8-14 days",
           "tracked": true
         }

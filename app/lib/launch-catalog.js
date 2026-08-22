@@ -69,6 +69,15 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
     sku: '14:193#Double Layers',
     markets: Object.freeze(['CA', 'US']),
   }),
+  // Canada only. The route evidence read in DSers on 2026-08-22 was ship-to
+  // Canada; no United States route has been quoted for this supplier variant,
+  // and the US market is commercially suspended regardless. Do not add 'US'
+  // here without a fresh US route reading.
+  Object.freeze({
+    handle: 'black-travel-tech-case',
+    sku: '14:29#Black',
+    markets: Object.freeze(['CA']),
+  }),
   // Multi-item bundle. A bundle can only claim a market where every component
   // has route evidence for it; all three now do, in both markets.
   Object.freeze({
