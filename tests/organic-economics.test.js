@@ -51,6 +51,15 @@ const completeBaseline = {
       },
     },
     {
+      // Canada only: no United States route has been quoted for this variant.
+      handle: 'black-travel-tech-case',
+      sku: '14:29#Black',
+      itemCostUsd: 7.26,
+      routes: {
+        CA: {shippingUsd: 2.17, tracked: true},
+      },
+    },
+    {
       // Bundle: cost and shipping are the sum of the three component rows
       // above, because the kit ships as three separate supplier orders.
       handle: 'the-carry-on-kit-toiletry-organizer-packing-cubes-cable-case',
