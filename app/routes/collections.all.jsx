@@ -8,6 +8,7 @@ import {launchMetaCopy} from '~/lib/launch-meta';
 import {ProductItem} from '~/components/ProductItem';
 import {useT} from '~/lib/t';
 import {diversifyByVendor} from '~/lib/diversify';
+import {COLLECTION_ITEM_FRAGMENT} from '~/lib/fragments';
 import {
   filterLaunchProducts,
   isMarketSuspended,
@@ -300,65 +301,6 @@ function DensityIcon({cols}) {
     </svg>
   );
 }
-
-const COLLECTION_ITEM_FRAGMENT = `#graphql
-  fragment MoneyCollectionItem on MoneyV2 { amount currencyCode }
-  fragment CollectionItem on Product {
-    id
-    handle
-    title
-    availableForSale
-    productType
-    tags
-    featuredImage {
-      id
-      altText
-      url
-      width
-      height
-    }
-    priceRange {
-      minVariantPrice { ...MoneyCollectionItem }
-      maxVariantPrice { ...MoneyCollectionItem }
-    }
-    options(first: 1) {
-      name
-      values
-      optionValues {
-        name
-        swatch { color }
-      }
-    }
-    variants(first: 100) {
-      nodes {
-        id
-        sku
-        availableForSale
-        title
-        requiresShipping
-        image {
-          id
-          altText
-          url
-          width
-          height
-        }
-        price { ...MoneyCollectionItem }
-        compareAtPrice { ...MoneyCollectionItem }
-        selectedOptions {
-          name
-          value
-        }
-        product {
-          id
-          handle
-          title
-          vendor
-        }
-      }
-    }
-  }
-`;
 
 const CATALOG_QUERY = `#graphql
   query Catalog(

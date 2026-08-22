@@ -237,3 +237,67 @@ export const HEADER_QUERY = `#graphql
   }
   ${MENU_FRAGMENT}
 `;
+
+/**
+ * Card-shaped product fields for any grid or rail that renders <ProductItem>.
+ * Shared by /collections/all and the product page's "pairs with" rail so the
+ * two cannot drift into rendering different data for the same card.
+ */
+export const COLLECTION_ITEM_FRAGMENT = `#graphql
+  fragment MoneyCollectionItem on MoneyV2 { amount currencyCode }
+  fragment CollectionItem on Product {
+    id
+    handle
+    title
+    availableForSale
+    productType
+    tags
+    featuredImage {
+      id
+      altText
+      url
+      width
+      height
+    }
+    priceRange {
+      minVariantPrice { ...MoneyCollectionItem }
+      maxVariantPrice { ...MoneyCollectionItem }
+    }
+    options(first: 1) {
+      name
+      values
+      optionValues {
+        name
+        swatch { color }
+      }
+    }
+    variants(first: 100) {
+      nodes {
+        id
+        sku
+        availableForSale
+        title
+        requiresShipping
+        image {
+          id
+          altText
+          url
+          width
+          height
+        }
+        price { ...MoneyCollectionItem }
+        compareAtPrice { ...MoneyCollectionItem }
+        selectedOptions {
+          name
+          value
+        }
+        product {
+          id
+          handle
+          title
+          vendor
+        }
+      }
+    }
+  }
+`;
