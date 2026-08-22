@@ -26,11 +26,16 @@ import {recordRecentlyViewed} from '~/lib/recentlyViewed';
 import {useT} from '~/lib/t';
 import {
   buildApprovedProductOptions,
+  filterLaunchProducts,
   findApprovedVariants,
   isLaunchReadyProduct,
+  LAUNCH_READY_TAG,
   resolveApprovedProductMarket,
   STOREFRONT_CONTAINMENT_ACTIVE,
 } from '~/lib/launch-catalog';
+import {COLLECTION_ITEM_FRAGMENT} from '~/lib/fragments';
+import {pairsWith} from '~/lib/pairs-with';
+import {ProductItem} from '~/components/ProductItem';
 import {
   presentLaunchProductCopy,
   presentProductTitle,
@@ -103,8 +108,9 @@ export async function loader(args) {
   if (STOREFRONT_CONTAINMENT_ACTIVE) {
     throw productNotFoundResponse();
   }
-  const {product, reviews, marketAvailability} = await loadCriticalData(args);
-  return {product, reviews, ...marketAvailability};
+  const {product, reviews, pairs, marketAvailability} =
+    await loadCriticalData(args);
+  return {product, reviews, pairs, ...marketAvailability};
 }
 
 // React Router does not automatically promote route loader/error headers to
@@ -121,14 +127,27 @@ async function loadCriticalData({context, params, request}) {
   const marketAvailability = resolveApprovedProductMarket(handle, country);
   if (!marketAvailability) throw productNotFoundResponse();
 
-  const productResp = await storefront.query(PRODUCT_QUERY, {
-    variables: {
-      country: marketAvailability.commerceMarket,
-      handle,
-      language,
-      selectedOptions: getSelectedProductOptions(request),
-    },
-  });
+  // The rail is fetched alongside the product rather than after it: it is one
+  // extra cached query against the same market, and blocking on it in series
+  // would add its latency to every product page.
+  const [productResp, railResp] = await Promise.all([
+    storefront.query(PRODUCT_QUERY, {
+      variables: {
+        country: marketAvailability.commerceMarket,
+        handle,
+        language,
+        selectedOptions: getSelectedProductOptions(request),
+      },
+    }),
+    storefront.query(PAIRS_QUERY, {
+      cache: storefront.CacheShort(),
+      variables: {
+        country: marketAvailability.commerceMarket,
+        language,
+        query: `tag:${LAUNCH_READY_TAG}`,
+      },
+    }),
+  ]);
 
   const product = productResp.product;
   if (!product?.id) throw productNotFoundResponse();
@@ -157,9 +176,49 @@ async function loadCriticalData({context, params, request}) {
   product.selectedOrFirstAvailableVariant = approvedVariant;
   product.adjacentVariants = approvedVariants;
 
+  // Gate the rail through exactly the same launch filter as every other
+  // surface. A product that cannot be sold here must not be recommended here.
+  const pairs = pairsWith(
+    handle,
+    filterLaunchProducts(
+      railResp?.products?.nodes,
+      marketAvailability.commerceMarket,
+    ),
+    marketAvailability.commerceMarket,
+  );
+
   const reviews = await getJudgemeBadge(handle);
   redirectIfHandleIsLocalized(request, {handle, data: product});
-  return {product, reviews, marketAvailability};
+  return {product, reviews, pairs, marketAvailability};
+}
+
+/**
+ * Other products from the same gated catalogue, ordered so the cheapest add
+ * that reaches free shipping comes first. See app/lib/pairs-with.js for why
+ * the copy makes no claim about what other shoppers did.
+ */
+function PairsWith({products, t}) {
+  if (!products?.length) return null;
+  return (
+    <section className="pk-pairs" aria-labelledby="pk-pairs-title">
+      <div className="pk-pairs__head">
+        <h2 className="pk-pairs__title" id="pk-pairs-title">
+          {t('pairs_title')}
+        </h2>
+        <p className="pk-pairs__sub">{t('pairs_sub')}</p>
+      </div>
+      <div className="pk-pairs__grid">
+        {products.map((product, index) => (
+          <ProductItem
+            key={product.id}
+            product={product}
+            loading="lazy"
+            index={index}
+          />
+        ))}
+      </div>
+    </section>
+  );
 }
 
 function productNotFoundResponse() {
@@ -173,7 +232,7 @@ function productNotFoundResponse() {
 }
 
 export default function Product() {
-  const {product, reviews, marketUnavailable, availableMarkets} =
+  const {product, reviews, pairs, marketUnavailable, availableMarkets} =
     useLoaderData();
   const rootData = useRouteLoaderData('root');
   const market = rootData?.selectedLocale?.country || 'CA';
@@ -434,6 +493,8 @@ export default function Product() {
           </div>
         </div>
       </section>
+
+      <PairsWith products={pairs} t={t} />
 
       {reviews?.count > 0 ? (
         <JudgemeReviews
@@ -775,3 +836,16 @@ const PRODUCT_QUERY = `#graphql
 /** @typedef {import('./+types/products.$handle').Route} Route */
 /** @typedef {import('storefrontapi.generated').ProductFragment} ProductFragment */
 /** @typedef {ReturnType<typeof useLoaderData<typeof loader>>} LoaderReturnData */
+
+const PAIRS_QUERY = `#graphql
+  query PairsWith(
+    $country: CountryCode!
+    $language: LanguageCode!
+    $query: String!
+  ) @inContext(country: $country, language: $language) {
+    products(first: 50, sortKey: TITLE, query: $query) {
+      nodes { ...CollectionItem }
+    }
+  }
+  ${COLLECTION_ITEM_FRAGMENT}
+`;
