@@ -1,5 +1,6 @@
 import {CartForm, useAnalytics} from '@shopify/hydrogen';
 import {CurrencyMoney} from '~/components/CurrencyMoney';
+import {FreeShippingProgress} from '~/components/FreeShippingProgress';
 import {useEffect, useId, useRef, useState} from 'react';
 import {useActionData, useFetcher, useRouteLoaderData} from 'react-router';
 import {CHECKOUT_URL_REWRITER, buildCheckoutRewriteOptions} from '~/lib/checkout';
@@ -32,6 +33,7 @@ export function CartSummary({cart, layout, hasCheckoutableItems = true}) {
           )}
         </dd>
       </dl>
+      <FreeShippingProgress cart={cart} />
       <CartDiscounts
         discountCodes={cart?.discountCodes}
         discountsHeadingId={discountsHeadingId}
