@@ -239,6 +239,9 @@ export const DICTIONARIES = {
     cart_empty_cta_shop: 'Shop the travel edit',
     cart_empty_perks_aria: 'Why shop with us',
     cart_empty_perk_shipping: 'Shipping options shown at checkout',
+    cart_freeship_away: 'Add {amount} more for free shipping',
+    cart_freeship_qualified: 'Free shipping unlocked',
+    cart_freeship_aria: 'Progress toward free shipping',
     cart_empty_perk_returns: '30-day returns',
     cart_ghost_notice:
       "These items aren't available in your region right now. Remove them to clear your cart.",
@@ -845,6 +848,9 @@ export const DICTIONARIES = {
     cart_empty_cta_shop: 'Voir les trouvailles',
     cart_empty_perks_aria: 'Pourquoi magasiner avec nous',
     cart_empty_perk_shipping: 'Options de livraison affichées au paiement',
+    cart_freeship_away: 'Ajoutez {amount} pour la livraison gratuite',
+    cart_freeship_qualified: 'Livraison gratuite débloquée',
+    cart_freeship_aria: 'Progression vers la livraison gratuite',
     cart_empty_perk_returns: 'Retours sous 30 jours',
     cart_ghost_notice:
       'Ces articles ne sont pas disponibles dans votre région pour le moment. Retirez-les pour vider votre panier.',
@@ -1471,6 +1477,9 @@ export const DICTIONARIES = {
     cart_empty_cta_shop: 'Ver hallazgos',
     cart_empty_perks_aria: 'Por qué comprar con nosotros',
     cart_empty_perk_shipping: 'Opciones de envío mostradas al pagar',
+    cart_freeship_away: 'Añade {amount} más para el envío gratis',
+    cart_freeship_qualified: 'Envío gratis desbloqueado',
+    cart_freeship_aria: 'Progreso hacia el envío gratis',
     cart_empty_perk_returns: 'Devoluciones en 30 días',
     cart_ghost_notice:
       'Estos artículos no están disponibles en tu región ahora. Quítalos para vaciar tu carrito.',
@@ -2095,6 +2104,9 @@ export const DICTIONARIES = {
     cart_empty_cta_shop: 'Ver achados',
     cart_empty_perks_aria: 'Por que comprar com a gente',
     cart_empty_perk_shipping: 'Opções de entrega exibidas no checkout',
+    cart_freeship_away: 'Adicione mais {amount} para frete grátis',
+    cart_freeship_qualified: 'Frete grátis desbloqueado',
+    cart_freeship_aria: 'Progresso para o frete grátis',
     cart_empty_perk_returns: 'Devoluções em 30 dias',
     cart_ghost_notice:
       'Estes itens não estão disponíveis na sua região agora. Remova-os para esvaziar o carrinho.',
