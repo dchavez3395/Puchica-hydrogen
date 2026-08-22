@@ -2,11 +2,19 @@
  * Remove variant merchandising prefixes from customer-facing product titles.
  * Shopify titles remain untouched in product data, SEO, analytics, and checkout.
  */
+// Every approved handle must appear here. A handle that is missing falls
+// through to the raw Shopify title, which is English in every locale — that is
+// how `travel-cable-organizer-case` and the Carry-On Kit shipped untranslated
+// on the grid, in the cart, and in search. `tests/product-copy.test.js` walks
+// APPROVED_CATALOG_OFFERS and fails if any handle cannot resolve copy.
 const LAUNCH_COPY_PREFIX = {
   '3-piece-packing-cube-set': 'product_copy_packing',
   'white-semi-circular-travel-jewelry-case': 'product_copy_jewelry',
   'black-hanging-travel-toiletry-organizer': 'product_copy_toiletry',
   'black-travel-tech-case': 'product_copy_tech',
+  'travel-cable-organizer-case': 'product_copy_cable',
+  'the-carry-on-kit-toiletry-organizer-packing-cubes-cable-case':
+    'product_copy_kit',
 };
 
 function translated(source, key) {
