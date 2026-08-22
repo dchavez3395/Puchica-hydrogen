@@ -1410,6 +1410,7 @@ button.reset:hover:not(:has(> *)) {
 @media (prefers-reduced-motion: reduce) {
   .pk-freeship__fill { transition: none; }
 }
+
 /* "Pairs with" rail on the product page. Ordered by app/lib/pairs-with.js so
    the cheapest add that reaches free shipping leads; deliberately plain, with
    no "customers also bought" framing, because there are no orders to claim. */
@@ -1440,7 +1441,7 @@ button.reset:hover:not(:has(> *)) {
   .pk-pairs { padding: 32px 16px 4px; }
   .pk-pairs__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
   .pk-pairs__grid > *:nth-child(3) { display: none; }
-     }
+}
 
 /* Discount code input + gift card input. They are inline form rows
    sitting just below the subtotal â€” no heavy boxed backgrounds, just
