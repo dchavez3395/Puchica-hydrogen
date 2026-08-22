@@ -1377,6 +1377,39 @@ button.reset:hover:not(:has(> *)) {
 }
 .cart-subtotal dt { font-weight: 600; }
 .cart-subtotal dd { margin: 0; font-weight: 700; }
+/* Free-shipping progress. The store has offered free shipping over CA$50
+   since launch without ever saying so in the cart; this is the missing
+   half of an existing rate, so it reads as information, not a promotion. */
+.pk-freeship {
+  margin: 0 0 14px;
+  font-size: 13px;
+  color: var(--pk-indigo-700, #4a3f7a);
+}
+.pk-freeship__text { margin: 0 0 6px; }
+.pk-freeship__track {
+  height: 4px;
+  border-radius: 999px;
+  background: var(--pk-indigo-100, #ece9f7);
+  overflow: hidden;
+}
+.pk-freeship__fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--pk-indigo-600, #5b4bd6);
+  transition: width 220ms ease;
+}
+.pk-freeship--qualified {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  color: var(--pk-green-700, #1f6b4d);
+}
+.pk-freeship__check { font-size: 14px; line-height: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pk-freeship__fill { transition: none; }
+}
 
 /* Discount code input + gift card input. They are inline form rows
    sitting just below the subtotal â€” no heavy boxed backgrounds, just
