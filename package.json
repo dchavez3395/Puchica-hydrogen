@@ -31,6 +31,7 @@
     "campaign-links": "node scripts/build-campaign-links.mjs",
     "compare-models": "node scripts/compare-business-models.mjs",
     "sourcing-spec": "node scripts/check-product-candidate.mjs",
+    "catalog-block": "node scripts/build-catalog-block.mjs",
     "paid-launch-check": "node scripts/check-launch-readiness.mjs",
     "codegen": "shopify hydrogen codegen && react-router typegen",
     "reset-inventory": "node --env-file=.env scripts/reset-inventory.mjs --dry-run",

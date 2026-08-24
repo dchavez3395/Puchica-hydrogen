@@ -112,6 +112,9 @@ export const DICTIONARIES = {
     ship_check_duties_body:
       'Customs duties, import taxes, brokerage, or carrier charges may be assessed by the destination. Puchica does not collect these charges; when applicable, they are the customer’s responsibility.',
     ship_check_duties_eta: 'Charged by customs or the carrier when applicable',
+    ship_check_duties_body_prepaid:
+      'Import duties and taxes are prepaid by Puchica and included in the price you see. There is nothing to pay on delivery, and the carrier will not bill you a disbursement fee.',
+    ship_check_duties_eta_prepaid: 'Included in the price — nothing to pay on delivery',
     ship_cta_title: 'Ready to order?',
     ship_cta_sub:
       'Shop the travel edit and confirm shipping for your address at checkout.',
@@ -731,6 +734,10 @@ export const DICTIONARIES = {
       'Des droits de douane, taxes d’importation, frais de courtage ou frais du transporteur peuvent être imposés à destination. Puchica ne perçoit pas ces frais; le client en est responsable lorsqu’ils s’appliquent.',
     ship_check_duties_eta:
       'Facturés par les douanes ou le transporteur, le cas échéant',
+    ship_check_duties_body_prepaid:
+      'Les droits et taxes d’importation sont prépayés par Puchica et inclus dans le prix affiché. Vous n’avez rien à payer à la livraison, et le transporteur ne vous facturera aucuns frais de débours.',
+    ship_check_duties_eta_prepaid:
+      'Inclus dans le prix — rien à payer à la livraison',
     ship_cta_title: 'Prêt à commander ?',
     ship_cta_sub:
       'Magasinez les trouvailles et confirmez la livraison pour votre adresse au paiement.',
@@ -1367,6 +1374,10 @@ export const DICTIONARIES = {
       'El destino puede aplicar aranceles, impuestos de importación, gastos de gestión o cargos del transportista. Puchica no cobra estos importes; cuando correspondan, son responsabilidad del cliente.',
     ship_check_duties_eta:
       'Cobrados por aduanas o el transportista cuando corresponda',
+    ship_check_duties_body_prepaid:
+      'Puchica paga por adelantado los aranceles e impuestos de importación, y están incluidos en el precio que ves. No hay nada que pagar en la entrega, y el transportista no te cobrará ninguna tarifa de desembolso.',
+    ship_check_duties_eta_prepaid:
+      'Incluido en el precio — nada que pagar en la entrega',
     ship_cta_title: '¿Listo para pedir?',
     ship_cta_sub:
       'Compra hallazgos y confirma el envío para tu dirección al pagar.',
@@ -2003,6 +2014,10 @@ export const DICTIONARIES = {
       'O destino pode cobrar impostos aduaneiros, tributos de importação, corretagem ou taxas da transportadora. A Puchica não cobra esses valores; quando aplicáveis, são responsabilidade do cliente.',
     ship_check_duties_eta:
       'Cobrados pela alfândega ou transportadora quando aplicável',
+    ship_check_duties_body_prepaid:
+      'Os impostos e taxas de importação são pagos antecipadamente pela Puchica e já estão incluídos no preço exibido. Não há nada a pagar na entrega, e a transportadora não cobrará taxa de desembolso.',
+    ship_check_duties_eta_prepaid:
+      'Incluído no preço — nada a pagar na entrega',
     ship_cta_title: 'Pronto para pedir?',
     ship_cta_sub:
       'Compre achados e confirme o frete para seu endereço no checkout.',
