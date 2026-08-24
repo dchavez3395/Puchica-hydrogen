@@ -17,11 +17,15 @@ import process from 'node:process';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 
+import fs from 'node:fs';
+
 import {
   CPA_MODEL,
   cpaFloorCrossover,
+  DISQUALIFIERS,
   estimateCpa,
   evaluateCandidate,
+  scoreCandidate,
   sourcingSpec,
 } from './lib/sourcing-spec.mjs';
 
@@ -56,7 +60,10 @@ if (path.resolve(process.argv[1] || '') === scriptPath) {
     `Crossover : CA$${cpaFloorCrossover().toFixed(2)} - below this the floor dominates and price cannot be rescued by margin`,
   );
 
-  if (retail && cost) {
+  const csvIndex = process.argv.indexOf('--csv');
+  if (csvIndex >= 0) {
+    printBatch(process.argv[csvIndex + 1]);
+  } else if (retail && cost) {
     const result = evaluateCandidate({
       name: 'candidate',
       retailCad: retail,
@@ -182,4 +189,83 @@ function printCandidate(row) {
   }
 }
 
-export {evaluateCandidate, estimateCpa, sourcingSpec};
+/**
+ * Batch mode: score a research worksheet and rank it.
+ *
+ * The workflow this is for - browse DSers, fill a row per candidate, score the
+ * lot at once - is the only one that scales. Judging products one at a time in
+ * a browser is how the previous catalog happened.
+ */
+export function parseWorksheet(text) {
+  const rows = text
+    .split('\n')
+    .map((line) => line.trim())
+    .filter((line) => line && !line.startsWith('#'));
+  if (!rows.length) return [];
+
+  const header = rows[0].split(',').map((cell) => cell.trim());
+  const flagKeys = Object.keys(DISQUALIFIERS);
+
+  return rows.slice(1).map((line) => {
+    const cells = line.split(',').map((cell) => cell.trim());
+    const record = Object.fromEntries(header.map((key, i) => [key, cells[i]]));
+    const flags = {};
+    for (const key of flagKeys) {
+      flags[key] = /^(y|yes|true|1)$/i.test(record[key] || '');
+    }
+    return {
+      name: record.name || 'unnamed',
+      retailCad: Number(record.retailCad),
+      supplierCostUsd: Number(record.supplierCostUsd),
+      supplierShippingUsd: Number(record.supplierShippingUsd || 0),
+      flags,
+    };
+  });
+}
+
+function printBatch(csvPath) {
+  if (!csvPath || !fs.existsSync(csvPath)) {
+    console.error(`FAIL: worksheet not found: ${csvPath}`);
+    process.exitCode = 1;
+    return;
+  }
+  const candidates = parseWorksheet(fs.readFileSync(csvPath, 'utf8'));
+  if (!candidates.length) {
+    console.error('FAIL: worksheet has no candidate rows.');
+    process.exitCode = 1;
+    return;
+  }
+
+  const scored = candidates
+    .map((candidate) => scoreCandidate(candidate))
+    .sort((a, b) => b.score - a.score);
+
+  console.log(`\nScored ${scored.length} candidates`);
+  console.log('-'.repeat(76));
+  console.table(
+    scored.map((row) => ({
+      product: row.name.slice(0, 30),
+      retail: `CA$${row.retailCad.toFixed(2)}`,
+      landed: `${(row.landedShareOfRetail * 100).toFixed(0)}%`,
+      contribution: row.contribution.toFixed(2),
+      'profit/order': row.profitPerOrder.toFixed(2),
+      score: row.score.toFixed(1),
+      recommendation: row.recommendation,
+    })),
+  );
+
+  for (const row of scored) {
+    if (!row.fatal.length && !row.penalties.length) continue;
+    console.log(`\n  ${row.name}`);
+    for (const item of row.fatal) console.log(`    REJECTED (${item.key}): ${item.why}`);
+    for (const item of row.penalties)
+      console.log(`    -${item.penalty} (${item.key}): ${item.why}`);
+  }
+
+  const shortlist = scored.filter((row) => row.recommendation === 'SHORTLIST');
+  console.log(
+    `\n${shortlist.length} of ${scored.length} reached SHORTLIST. Order a sample of each before importing.`,
+  );
+}
+
+export {evaluateCandidate, estimateCpa, scoreCandidate, sourcingSpec};

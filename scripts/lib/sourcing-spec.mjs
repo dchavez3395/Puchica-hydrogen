@@ -192,3 +192,121 @@ export function sourcingSpec({
     };
   });
 }
+
+/**
+ * Hard disqualifiers for a Canadian solo operator sourcing through DSers.
+ *
+ * Worth stating plainly, because most "high-ticket dropshipping" advice does
+ * not apply here. The categories those lists name - rowing machines, standing
+ * desks, pressure washers, power stations - are brand-authorized dropshipping
+ * from domestic distributors, which needs supplier applications, resale
+ * certificates and a business relationship. That is a different model from
+ * DSers/AliExpress, and it is not hands-off.
+ *
+ * What is left for an AliExpress solo operator is narrower but real: unpowered,
+ * uncertified, unsized goods between CA$90 and CA$150.
+ *
+ * Each flag below either ends the evaluation or costs the candidate points.
+ * `fatal` items are not judgement calls - they are legal, safety or platform
+ * requirements a one-person store cannot satisfy.
+ */
+export const DISQUALIFIERS = Object.freeze({
+  mainsElectrical: {
+    fatal: true,
+    why: 'Anything plugging into Canadian mains needs CSA or cUL certification. A supplier listing is not certification, and selling uncertified is an offence.',
+  },
+  wireless: {
+    fatal: true,
+    why: 'Radio and Bluetooth devices need ISED certification and an IC ID. Neither can be inherited from an AliExpress listing.',
+  },
+  lithiumBattery: {
+    fatal: true,
+    why: 'Shipping restrictions, fire liability, and refusal risk in transit. Not worth it at any margin.',
+  },
+  regulatedGoods: {
+    fatal: true,
+    why: 'Cosmetics need Health Canada notification; food and supplements fall under CFIA; toys and childrens products under the Canada Consumer Product Safety Act; anything with a health claim is a medical device. All require work a solo store cannot absorb.',
+  },
+  brandedOrLicensed: {
+    fatal: true,
+    why: 'Counterfeit and IP exposure. A supplier photo showing a brand mark is a takedown and a frozen payment processor waiting to happen.',
+  },
+  sized: {
+    fatal: false,
+    penalty: 3,
+    why: 'Apparel and footwear return at 20-40%. Sizing disputes are the single largest support burden in ecommerce and they scale with order value.',
+  },
+  fragile: {
+    fatal: false,
+    penalty: 2,
+    why: 'Breakage over an 8-14 day route, and a replacement costs the full landed cost again.',
+  },
+  needsAssemblyOrSupport: {
+    fatal: false,
+    penalty: 2,
+    why: 'Every support email is unpaid labour and works directly against a hands-off store.',
+  },
+  bulky: {
+    fatal: false,
+    penalty: 1,
+    why: 'Supplier shipping rises faster than product cost, and route availability to Canada thins out.',
+  },
+});
+
+/**
+ * Bilingual labelling is a requirement, not a preference: Canadian consumer
+ * products generally need English and French safety information and
+ * instructions. A supplier who ships English-only packaging is a compliance
+ * problem you inherit at the border, so it belongs in research rather than in
+ * a discovery after the first order.
+ */
+export const BILINGUAL_LABELLING_REQUIRED = true;
+
+/**
+ * Combine the economics with the risk flags into one ranked verdict.
+ *
+ * `flags` is an object of DISQUALIFIERS keys set true. Any fatal flag rejects
+ * the candidate outright regardless of how good the margin looks - which is
+ * the point, because the attractive margins in this price band cluster in
+ * exactly the categories that are fatal.
+ */
+export function scoreCandidate({flags = {}, ...candidate}) {
+  const economics = evaluateCandidate(candidate);
+
+  const fatal = [];
+  const penalties = [];
+  let penalty = 0;
+
+  for (const [key, rule] of Object.entries(DISQUALIFIERS)) {
+    if (!flags[key]) continue;
+    if (rule.fatal) fatal.push({key, why: rule.why});
+    else {
+      penalty += rule.penalty;
+      penalties.push({key, penalty: rule.penalty, why: rule.why});
+    }
+  }
+
+  // Financial score: profit per order, scaled so a CA$30 profit reads as 10.
+  const financialScore = Math.max(
+    0,
+    Math.min(10, (economics.profitPerOrder / 30) * 10),
+  );
+  const score = fatal.length ? 0 : Math.max(0, financialScore - penalty);
+
+  return {
+    ...economics,
+    fatal,
+    penalties,
+    penalty,
+    score,
+    recommendation: fatal.length
+      ? 'REJECT'
+      : economics.verdict === 'FAIL'
+        ? 'REJECT'
+        : score >= 6
+          ? 'SHORTLIST'
+          : score >= 3
+            ? 'CONSIDER'
+            : 'WEAK',
+  };
+}

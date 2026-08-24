@@ -142,3 +142,89 @@ test('raising price helps a floor-bound product more than cutting cost', () => {
     'price is the lever below the crossover, not cost',
   );
 });
+
+test('a fatal flag rejects a candidate however good the margin', async () => {
+  const {scoreCandidate} = await import('../scripts/lib/sourcing-spec.mjs');
+  const excellent = scoreCandidate({
+    retailCad: 125,
+    supplierCostUsd: 18,
+    supplierShippingUsd: 3,
+    flags: {brandedOrLicensed: true},
+  });
+  assert.ok(
+    excellent.profitPerOrder > 25,
+    'this candidate should look financially attractive',
+  );
+  assert.equal(excellent.recommendation, 'REJECT');
+  assert.equal(excellent.score, 0);
+  assert.equal(excellent.fatal[0].key, 'brandedOrLicensed');
+});
+
+test('non-fatal flags reduce the score without rejecting', async () => {
+  const {scoreCandidate} = await import('../scripts/lib/sourcing-spec.mjs');
+  const clean = scoreCandidate({retailCad: 139, supplierCostUsd: 28, supplierShippingUsd: 6});
+  const bulky = scoreCandidate({
+    retailCad: 139,
+    supplierCostUsd: 28,
+    supplierShippingUsd: 6,
+    flags: {bulky: true},
+  });
+  assert.ok(bulky.score < clean.score);
+  assert.equal(bulky.fatal.length, 0);
+  assert.equal(bulky.penalties[0].key, 'bulky');
+});
+
+test('sizing is the heaviest non-fatal penalty', async () => {
+  const {DISQUALIFIERS} = await import('../scripts/lib/sourcing-spec.mjs');
+  const nonFatal = Object.entries(DISQUALIFIERS).filter(([, r]) => !r.fatal);
+  const heaviest = nonFatal.sort((a, b) => b[1].penalty - a[1].penalty)[0];
+  assert.equal(heaviest[0], 'sized');
+});
+
+test('every fatal disqualifier explains itself', async () => {
+  const {DISQUALIFIERS} = await import('../scripts/lib/sourcing-spec.mjs');
+  for (const [key, rule] of Object.entries(DISQUALIFIERS)) {
+    assert.ok(rule.why && rule.why.length > 30, `${key} needs a real reason`);
+    if (!rule.fatal) assert.ok(rule.penalty > 0, `${key} needs a penalty`);
+  }
+});
+
+test('the worksheet parses flags and skips comments', async () => {
+  const {parseWorksheet} = await import('../scripts/check-product-candidate.mjs');
+  const rows = parseWorksheet(
+    [
+      '# a comment line',
+      'name,retailCad,supplierCostUsd,supplierShippingUsd,wireless,bulky',
+      'Good thing,129,26,4,n,y',
+      'Bad thing,95,14,2,y,n',
+    ].join('\n'),
+  );
+  assert.equal(rows.length, 2);
+  assert.equal(rows[0].name, 'Good thing');
+  assert.equal(rows[0].retailCad, 129);
+  assert.equal(rows[0].flags.bulky, true);
+  assert.equal(rows[0].flags.wireless, false);
+  assert.equal(rows[1].flags.wireless, true);
+});
+
+test('the shipped worksheet template scores without error', async () => {
+  const fs = await import('node:fs');
+  const {parseWorksheet} = await import('../scripts/check-product-candidate.mjs');
+  const {scoreCandidate} = await import('../scripts/lib/sourcing-spec.mjs');
+
+  const rows = parseWorksheet(
+    fs.readFileSync('docs/recovery-evidence/sourcing-worksheet-template.csv', 'utf8'),
+  );
+  assert.ok(rows.length >= 10, 'template should carry worked examples');
+
+  const scored = rows.map((row) => scoreCandidate(row));
+  assert.ok(
+    scored.some((row) => row.recommendation === 'REJECT'),
+    'template must demonstrate a rejection',
+  );
+  assert.ok(
+    scored.some((row) => row.fatal.length > 0),
+    'template must demonstrate a fatal flag',
+  );
+  for (const row of scored) assert.ok(Number.isFinite(row.score));
+});
