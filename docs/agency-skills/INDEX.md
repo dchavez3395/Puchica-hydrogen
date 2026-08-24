@@ -1,73 +1,81 @@
-# Puchica Storefront Agency — Skill Index
+# Puchica agency skills — index
 
-A curated set of 6 agent personas + 1 design voice, set up for the **Puchica Storefront Hydrogen rebuild** at `E:\Claude\puchica-site`. The live storefront is at `puchica.ca` (Hydrogen on Cloudflare workerd). The Phase 2 design spec is at `docs/superpowers/specs/2026-06-20-puchica-phase-2-design.md`.
+**Rewritten 2026-08-24.** The previous version of this file was written on
+2026-06-21 for a project that no longer exists, and every session that read it
+started from false facts. What it got wrong is recorded at the bottom, because
+the failure mode matters more than the file.
 
-These personas are **role-specialized prompt files** -- you activate one per session/task to get the model's attention focused on that discipline. The full upstream library (100+ personas) is at `C:\Users\dchav\.openclaw\workspace\agency-agents\` if you need to browse for other specializations.
+## Scope
 
-## Curated set for Puchica
+Three persona files remain. They are **prompt scaffolding, not agents**: you
+load one to focus the model on a discipline. They do not act on their own, and
+they do not carry authority over the gates.
 
-| # | Persona | When to use | File |
-|---|---|---|---|
-| 00 | Frontend Design (Puchica) | Any visual/UI change -- color, type, layout, motion, copy voice | `frontend-design.md` |
-| 01 | SEO Specialist | Meta titles, descriptions, structured data, sitemap, crawl issues | `01-seo-specialist.md` |
-| 02 | Content Creator | Product copy, blog posts, About/Journal/Blog content, hero copy | `02-content-creator.md` |
-| 03 | UI Designer | Component design, mockups, design system tokens, Figma/HTML handoff | `03-ui-designer.md` |
-| 04 | UX Architect | Site IA, navigation patterns, mega-menu structure, page flow | `04-ux-architect.md` |
-| 05 | Frontend Developer | React Router 7 + Hydrogen implementation, JSX, GraphQL queries | `05-frontend-developer.md` |
-| 06 | Image Prompt Engineer | Gemini image prompts for the runners (lifestyle / studio shots) | `06-image-prompt-engineer.md` |
+| File | Use it for |
+| --- | --- |
+| `frontend-design.md` | Any visual change — colour, type, layout, motion, copy voice |
+| `05-frontend-developer.md` | Hydrogen + React Router implementation, JSX, GraphQL |
+| `01-seo-specialist.md` | Meta titles, descriptions, structured data, sitemap |
 
-## Puchica context to load alongside any persona
+Four files were deleted on 2026-08-24:
 
-Every persona inherits the same project context. Read this block before activating any of them:
+- `02-content-creator.md`, `03-ui-designer.md`, `04-ux-architect.md` — raw
+  unmodified upstream personas. Generic, never adapted, and available at the
+  source repository if wanted. They added volume, not judgement.
+- `06-image-prompt-engineer.md` — drove `runners/images/run.py`, which does not
+  exist in this repository, to bulk-generate replacement product photography.
+  That workflow is now **prohibited**: no generated product image may change the
+  actual item, quantity, dimensions, colour, controls or capabilities. Keeping a
+  persona whose whole purpose is that workflow was a standing invitation to
+  breach the image-fidelity gate.
 
-- **Repo:** `E:\Claude\puchica-site` (Hydrogen 2026.4.3, React Router 7.16, Vite, GraphQL codegen, Cloudflare workerd)
-- **Storefront API:** live, working. Used by Hydrogen for all product reads.
-- **Admin API:** token dead, not needed for design/UI work. Don't recommend it.
-- **Design system:** acid lime accent (`--pk-spark` in `app/styles/app.css`), near-black/cream duotone, Lucide line icons in `app/components/Icons.jsx`
-- **Critical shared components:** `app/components/StarGlyph.jsx` (replaces decorative stars), `app/components/Icons.jsx` (has `categoryIcon()` mapper), `app/components/PageLayout.jsx` (announcement bar, header, footer)
-- **Critical rules (from Phase 2 spec):** each section should pull from a different collection (variety), no emoji in copy, hard character limits on titles (60), SEO titles (70), SEO descriptions (160)
-- **Currently in flight (don't duplicate):** Claude Code on the local machine is doing homepage contrast fixes, a11y focus rings, marquee pause, carousel keyboard nav, About page, GiftFinder/SocialProof/FreshFinds sections, and variety-by-collection query rewrites. Before doing any of that, check if it's already done.
+Upstream is <https://github.com/msitarzewski/agency-agents> (MIT). Browse it
+there rather than vendoring more personas into this repo.
 
-## Puchica code conventions (load before any implementation work)
+## Current project facts
 
-- **CSS namespace:** all new classes use the `pk-` prefix (BEM-style: `.pk-section__element--modifier`)
-- **JSX imports:** `~/components/Icons.jsx` for icons, `~/components/StarGlyph.jsx` for star glyphs, `~/lib/seo` for SEO meta, `~/lib/logger` for logging
-- **Animations:** CSS only. No new JS animation libs (framer-motion, gsap, lottie).
-- **Data fetching:** use `<Await resolve={deferred.X}>` with `<Suspense fallback={...}>`, never `await` in render
-- **Image:** always `<Image data={p.featuredImage} aspectRatio="..." sizes="..." />` from `@shopify/hydrogen`, never raw `<img>`
-- **Money:** wrap in `<div>` not `<p>` (Money renders a div internally; p > div is invalid HTML and causes hydration mismatches)
-- **Tracking:** puchicaMeta() helper for SEO, organizationJsonLd()/websiteJsonLd() for structured data
-- **Lint:** `npx eslint app/` before declaring done. The repo has known unused-var warnings; new code should not add more.
+Verified against the live store and `main` on 2026-08-24. **Read
+`docs/CURRENT-SCOPE.md` first** — it is canonical and supersedes this file
+wherever they disagree.
 
-## When to activate which persona
+- **Repo:** this checkout. There is no `E:\` or `D:\` path; earlier files
+  written on a Windows machine are historical.
+- **Catalog:** six approved offers, gated in `app/lib/launch-catalog.js`. Not
+  6,000 products. Any persona instruction that assumes catalog scale — bulk
+  rewrites, category taxonomies, mega-menus — is out of scope.
+- **Storefront API:** live and working.
+- **Admin API:** live and working. The old note that the token was "dead, not
+  needed" was wrong and cost real time. The genuine credential issue is a leaked
+  Admin-token-shaped secret in Git history that still needs rotating.
+- **Markets:** Canada only. The United States is commercially suspended.
+- **Paid acquisition:** off. No offer currently passes the acquisition gate.
 
-| Task | Persona |
-|---|---|
-| Add a new homepage section | `frontend-design.md` + `engineering-frontend-developer.md` |
-| Rewrite product SEO title/description | `seo-specialist.md` (backend runners do this in bulk) |
-| Write About/Journal/Blog copy | `content-creator.md` |
-| Design a new page from scratch | `ux-architect.md` -> `frontend-design.md` -> `engineering-frontend-developer.md` |
-| Build the mega-dropdown nav | `ux-architect.md` + `engineering-frontend-developer.md` |
-| Generate lifestyle product images | `image-prompt-engineer.md` + `runners/images/run.py` |
-| Audit page for a11y issues | `frontend-design.md` (has self-critique checklist) |
-| Pick a new font / type pairing | `frontend-design.md` |
-| Add a new section but unsure of structure | `frontend-design.md` (two-pass brainstorm) |
+## What a persona may not do
 
-## Activation pattern
+Personas are prompt scaffolding written by us, not evidence and not authority.
+None of them may:
 
-When starting a task, lead with the relevant persona file. The model's first user turn should reference it by name:
+- approve a product, market, price or supplier route — that is
+  `launch-catalog.js` plus a fresh DSers quote;
+- weaken or bypass an evidence gate, the release gate or the acquisition gate;
+- assert a product fact, delivery promise, review, or scarcity claim that is not
+  independently evidenced;
+- authorize spend, a public post, a supplier payment or a credential change.
 
-> "Activating frontend-design + frontend-developer personas. Puchica context loaded. Task: add a Press Strip section between FreshFinds and FeaturedBanner. Use the `trending-finds` collection (already used by Hero, so re-route to a new one). Build to the self-critique checklist before declaring done."
+If a persona file and a gate disagree, the gate wins and the persona file is
+wrong. Fix the file.
 
-Or in OpenClaw / Claude Code, drop the persona content into the system prompt for the session.
+## Why the old index was dangerous
 
-## What this isn't
+It was not merely out of date. It stated confident falsehoods in the voice of
+project documentation:
 
-- These are **prompt scaffolding**, not autonomous agents. They sharpen the model's attention for a particular role, but the model still needs your context, your approval, and your review.
-- This is not a SaaS. There's no hosted service. The personas live as files in this folder; you (or your tooling) read them.
-- These do not replace the **Hydrogen/Hydrogen-overrides** patterns. They augment them.
-- These are upstream-modified. The originals are MIT-licensed at github.com/msitarzewski/agency-agents.
+- a dead Admin API that was in fact working;
+- a 6,000-product catalog that had been cut to six offers;
+- a "currently in flight, don't duplicate" list of June work long since finished;
+- Windows paths and a local upstream directory that no session could reach;
+- a Phase 2 content-expansion plan for a catalog that no longer exists.
 
-## Maintenance
-
-If a persona proves unhelpful for a recurring task, edit the file directly to add a "Puchica: " section. Don't rewrite the whole thing -- the upstream content is good baseline.
+A stale document is worse than a missing one, because a missing document makes a
+session go and look. **If you change scope, update or delete the files that
+describe the old scope in the same commit.**
