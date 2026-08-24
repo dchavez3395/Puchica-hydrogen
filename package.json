@@ -28,6 +28,7 @@
     "canada-duty-impact": "node scripts/canada-duty-impact.mjs",
     "acquisition-gate": "node scripts/check-acquisition-gate.mjs",
     "measurement-readiness": "node scripts/check-measurement-readiness.mjs",
+    "campaign-links": "node scripts/build-campaign-links.mjs",
     "paid-launch-check": "node scripts/check-launch-readiness.mjs",
     "codegen": "shopify hydrogen codegen && react-router typegen",
     "reset-inventory": "node --env-file=.env scripts/reset-inventory.mjs --dry-run",
