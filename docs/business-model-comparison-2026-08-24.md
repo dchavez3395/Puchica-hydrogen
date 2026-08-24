@@ -1,5 +1,13 @@
 # Which business can fund a customer? — 2026-08-24
 
+> **Superseded in part — see `docs/sourcing-spec-2026-08-24.md` (same day).**
+> This document assumes a flat CA$42 CPA at every price point. That is wrong:
+> CPA scales with price, and it also has a floor. The corrected model is
+> `CPA = max(CA$28, 40% of order value)`, which puts the crossover at CA$70 and
+> shows that ordinary dropshipping does work above it. The path comparison and
+> the basket/repeat findings below remain valid; the "AOV must exceed CA$92"
+> conclusion does not.
+
 Run `npm run compare-models`. This document is the reading; the script is the
 arithmetic.
 
