@@ -1,0 +1,80 @@
+{
+  "evidenceDate": "2026-08-24",
+  "currency": "CAD",
+  "planningFxCadPerUsd": 1.4,
+  "targetCpaCad": 42.0,
+  "profitShare": 0.3,
+  "freeShippingThresholdCad": 50,
+  "warning": "Every figure below is a modelled assumption, not a quote. Printful base costs are from public 2026 pricing summaries rather than the owner's account. Import costs and margins are category norms, not supplier quotes. Repeat rates are estimates for the category, and Puchica has never observed one. Treat the relative ranking as informative and any single absolute number as provisional.",
+  "sources": [
+    "Printful Bella+Canvas 3001 unisex tee base cost US$13.50 (2026 pricing summary). At 1.40 FX = CA$18.90.",
+    "Printful apparel shipping to Canada from CA$8.29 first item; additional items materially cheaper, modelled at CA$3.50.",
+    "Printful operates a Canadian fulfilment facility at 3500 Laird Road, Mississauga, Ontario. Canadian orders print and ship domestically, so there is no CBSA entry, no de minimis exposure and no carrier handling fee. https://help.printful.com/hc/en-us/articles/360014067239-Where-are-the-Printful-fulfillment-centers-located",
+    "Print-on-demand net margins cluster at 20-35% after all fees; 40% gross is the apparel benchmark. Category AOV about US$34.57. https://teeinblue.com/blogs/en/is-print-on-demand-profitable",
+    "Meta ecommerce CPA benchmark US$29.99 for the cheapest band (Lifestyle & Boutique), CA$42 at 1.40 FX. https://www.get-ryze.ai/blog/meta-ads-cpa-benchmarks-by-industry-2026",
+    "No Canada-El Salvador free trade agreement exists; Honduras is Canada's only Central American FTA. Salvadoran goods enter Canada at MFN rates. https://www.international.gc.ca/trade-commerce/trade-agreements-accords-commerciaux/agr-acc/ca4/fta-ale/background-contexte.aspx?lang=eng",
+    "Current Puchica economics recomputed from exact-offer-cost-route-baseline-2026-08-21.json."
+  ],
+  "paths": {
+    "aliexpressAccessories": {
+      "label": "A. AliExpress travel accessories (current)",
+      "retailCad": 34.99,
+      "landedCad": 13.2,
+      "shippingCollectedCad": 5,
+      "plausibleAnnualOrders": 1,
+      "capitalRequiredCad": 0,
+      "autonomy": "high",
+      "deliveryDays": "8-14",
+      "differentiation": "none",
+      "notes": "Best single offer in the live catalog. Commodity goods with no pricing power; Amazon ships the same item tomorrow."
+    },
+    "podSingleTee": {
+      "label": "B1. POD tee, single item",
+      "retailCad": 55.0,
+      "landedCad": 27.19,
+      "shippingCollectedCad": 0,
+      "plausibleAnnualOrders": 2,
+      "capitalRequiredCad": 0,
+      "autonomy": "high",
+      "deliveryDays": "2-5",
+      "differentiation": "design",
+      "notes": "CA$18.90 blank plus CA$8.29 domestic shipping. Printed in Mississauga: no customs, no de minimis, no handling fee, and a delivery window that beats the current one by a week."
+    },
+    "podThreeItem": {
+      "label": "B2. POD three-item order",
+      "retailCad": 145.0,
+      "landedCad": 71.99,
+      "shippingCollectedCad": 0,
+      "plausibleAnnualOrders": 2,
+      "capitalRequiredCad": 0,
+      "autonomy": "high",
+      "deliveryDays": "2-5",
+      "differentiation": "design",
+      "notes": "Three blanks at CA$18.90 plus CA$8.29 first-item and 2x CA$3.50 additional-item shipping. The basket, not the product, is what clears the bar."
+    },
+    "importCoffeeSingle": {
+      "label": "C1. Salvadoran coffee, single bag",
+      "retailCad": 24.0,
+      "landedCad": 8.0,
+      "shippingCollectedCad": 5,
+      "plausibleAnnualOrders": 4,
+      "capitalRequiredCad": 3000,
+      "autonomy": "low",
+      "deliveryDays": "2-4",
+      "differentiation": "origin story",
+      "notes": "Requires holding inventory. Cannot fund acquisition on one order and never will; the repeat rate is the entire thesis."
+    },
+    "importGiftSet": {
+      "label": "C2. Salvadoran gift set",
+      "retailCad": 95.0,
+      "landedCad": 33.0,
+      "shippingCollectedCad": 0,
+      "plausibleAnnualOrders": 2,
+      "capitalRequiredCad": 5000,
+      "autonomy": "low",
+      "deliveryDays": "2-4",
+      "differentiation": "origin story",
+      "notes": "Higher margin than dropship because the markup is on genuine sourcing rather than arbitrage. Seasonal skew toward gifting."
+    }
+  }
+}
