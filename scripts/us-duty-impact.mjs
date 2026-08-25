@@ -2,7 +2,9 @@
 /**
  * What the end of US de minimis does to the US route, per offer.
  *
- * Costs and supplier shipping: docs/recovery-evidence/exact-offer-cost-route-baseline-2026-08-21.json
+ * Costs and supplier shipping: the newest
+ * docs/recovery-evidence/exact-offer-cost-route-baseline-YYYY-MM-DD.json
+ * (resolved by `resolveBaselinePath` in check-organic-economics.mjs).
  * US retail: Shopify contextualPricing(country: US), read 2026-08-21.
  *
  * Duty context (see docs memory tariffs.md):
