@@ -109,3 +109,48 @@ test('the creative count stays small enough to read', () => {
     'more than three variants cannot reach a readable sample at ~87 sessions',
   );
 });
+
+test('organic relaunch links all carry the one canonical campaign', async () => {
+  const {buildOrganicLinks, ORGANIC_CAMPAIGN} = await import(
+    '../scripts/build-campaign-links.mjs'
+  );
+  const result = buildOrganicLinks();
+  assert.deepEqual(result.failures, []);
+  assert.ok(result.links.length >= 9, 'the 7-day calendar has 9 posts');
+  for (const link of result.links) {
+    const url = new URL(link.url);
+    assert.equal(url.searchParams.get('utm_campaign'), ORGANIC_CAMPAIGN);
+    assert.equal(url.searchParams.get('utm_medium'), 'organic_social');
+    assert.ok(['instagram', 'tiktok'].includes(url.searchParams.get('utm_source')));
+  }
+});
+
+test('organic calendar only points at gate-approved products or home', async () => {
+  const {buildOrganicLinks, ORGANIC_CALENDAR} = await import(
+    '../scripts/build-campaign-links.mjs'
+  );
+  // A retired handle in the calendar must be refused, not linked - the same
+  // guarantee the paid mode gives. The luggage-tag video died this way.
+  const poisoned = [...ORGANIC_CALENDAR, {day: 8, platform: 'tiktok', content: 'dead', handle: 'white-luggage-id-tag'}];
+  const result = buildOrganicLinks({calendar: poisoned});
+  assert.ok(result.failures.some((f) => /retired/.test(f)));
+  assert.ok(!result.links.some((l) => l.handle === 'white-luggage-id-tag'));
+});
+
+test('organic content tokens are unique so per-post attribution works', async () => {
+  const {ORGANIC_CALENDAR} = await import('../scripts/build-campaign-links.mjs');
+  const tokens = ORGANIC_CALENDAR.map((p) => p.content);
+  assert.equal(new Set(tokens).size, tokens.length);
+});
+
+test('the tiktok bio redirect and the organic calendar share one campaign', async () => {
+  const {ORGANIC_CAMPAIGN} = await import('../scripts/build-campaign-links.mjs');
+  const {TIKTOK_ATTRIBUTION} = await import('../app/routes/tiktok.js').catch(
+    () => ({TIKTOK_ATTRIBUTION: null}),
+  );
+  // In environments without react-router the route module cannot load; the
+  // literal is then pinned by tiktok-attribution.test.js in CI instead.
+  if (TIKTOK_ATTRIBUTION) {
+    assert.equal(TIKTOK_ATTRIBUTION.utm_campaign, ORGANIC_CAMPAIGN);
+  }
+});

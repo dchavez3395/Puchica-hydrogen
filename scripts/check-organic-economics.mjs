@@ -3,11 +3,20 @@ import path from 'node:path';
 import process from 'node:process';
 import {fileURLToPath} from 'node:url';
 
-import dotenv from 'dotenv';
+import {
+  APPROVED_CATALOG_OFFERS,
+  isMarketSuspended,
+} from '../app/lib/launch-catalog.js';
 
-import {APPROVED_CATALOG_OFFERS} from '../app/lib/launch-catalog.js';
-
-dotenv.config();
+// dotenv is a convenience for local runs; the module must still load without
+// node_modules so its unit tests run anywhere. The live checks need the env
+// either way and fail with a clear message when it is missing.
+try {
+  const dotenv = await import('dotenv');
+  dotenv.config();
+} catch {
+  // No dotenv available - rely on the ambient environment.
+}
 
 const scriptPath = fileURLToPath(import.meta.url);
 const rootDir = path.resolve(path.dirname(scriptPath), '..');
@@ -19,7 +28,9 @@ const BASELINE_PATH = path.join(
 );
 const STOREFRONT_API_VERSION = '2026-04';
 const MAX_EVIDENCE_AGE_DAYS = 7;
-const MARKETS = ['CA', 'US'];
+// A commercially suspended market has no cohort to price - checking it would
+// demand routes for offers the storefront refuses to sell there.
+const MARKETS = ['CA', 'US'].filter((market) => !isMarketSuspended(market));
 
 const STOREFRONT_QUERY = `#graphql
   query OrganicEconomics($country: CountryCode!) @inContext(country: $country) {
@@ -61,6 +72,7 @@ export async function checkOrganicEconomics({now = new Date()} = {}) {
 
   for (const offer of baseline.offers) {
     for (const [market, route] of Object.entries(offer.routes)) {
+      if (isMarketSuspended(market)) continue;
       const product = marketProducts[market]?.find(
         ({handle}) => handle === offer.handle,
       );
@@ -143,6 +155,7 @@ export function auditBaseline(baseline, now = new Date()) {
       ({handle, sku}) => handle === approved.handle && sku === approved.sku,
     );
     for (const market of approved.markets) {
+      if (isMarketSuspended(market)) continue;
       const route = evidence?.routes?.[market];
       if (!route?.tracked || !(Number(route.shippingUsd) >= 0)) {
         failures.push(

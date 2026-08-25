@@ -2,6 +2,14 @@
 
 Status: **CREATIVE READY — NOT PUBLISHED — NO AD SPEND**
 
+> **Corrected 2026-08-25.** `final/luggage-tag-organic-test-11s.mp4` is
+> **retired** — `white-luggage-id-tag` is in `RETIRED_CATALOG_HANDLES` and the
+> storefront refuses to sell it; do not publish that video. The United States
+> is commercially suspended, so "Available in Canada and the United States" in
+> the captions below is corrected to "Available in Canada." Links now carry
+> the canonical relaunch campaign; regenerate with
+> `node scripts/build-campaign-links.mjs --organic`.
+
 This pack contains four silent, 10.95-second, 1080 × 1920 organic-video tests.
 It uses one clearly fictional AI brand presenter and exact approved
 Shopify product photography. It does not claim that the presenter bought,
@@ -12,7 +20,7 @@ tested, received, or recommends the products as a customer.
 - `final/cable-organizer-organic-test-11s.mp4`
 - `final/cable-organizer-offer-clarity-organic-test-11s.mp4`
 - `final/packing-cubes-organic-test-11s.mp4` — Canada only
-- `final/luggage-tag-organic-test-11s.mp4`
+- `final/luggage-tag-organic-test-11s.mp4` — **RETIRED, do not publish** (product no longer sold)
 
 The videos are silent by design. At publication, add music from TikTok's
 Commercial Music Library or other audio for which Puchica has commercial-use
@@ -56,7 +64,7 @@ with fixed TikTok organic UTM values while preserving platform click IDs.
 
 > Loose cables and small adapters are easier to find when they share one case.
 > This black zippered organizer has a double-layer layout and is sold empty;
-> electronics are not included. Available in Canada and the United States.
+> electronics are not included. Available in Canada.
 > Shipping is shown at checkout. #TravelOrganization #CableOrganizer #Puchica
 
 Link:
@@ -66,11 +74,11 @@ Link:
 
 > What actually arrives: one empty black double-layer cable organizer,
 > approximately 19 × 11 × 5.5 cm. Cables and electronics are not included.
-> Available in Canada and the United States. Shipping is shown at checkout.
+> Available in Canada. Shipping is shown at checkout.
 > #TravelOrganization #CableOrganizer #Puchica
 
 Link:
-`https://puchica.ca/products/travel-cable-organizer-case?utm_source=tiktok&utm_medium=organic_social&utm_campaign=travel_edit_organic_202608&utm_content=ugc_cable_case_offer_clarity_v2`
+`https://puchica.ca/products/travel-cable-organizer-case?utm_source=tiktok&utm_medium=organic_social&utm_campaign=organic_relaunch_2026_08&utm_content=d5_ugc_cable_offer_clarity_v2`
 
 ### Packing cubes — Canada only
 
@@ -80,9 +88,9 @@ Link:
 > shown at checkout. #PackingCubes #TravelOrganization #PuchicaCanada
 
 Link:
-`https://puchica.ca/collections/all?utm_source=tiktok&utm_medium=organic_social&utm_campaign=travel_edit_organic_202608&utm_content=ugc_packing_cubes_v1`
+`https://puchica.ca/products/3-piece-packing-cube-set?utm_source=tiktok&utm_medium=organic_social&utm_campaign=organic_relaunch_2026_08&utm_content=d2_ugc_packing_cubes_v1`
 
-### Luggage tag
+### Luggage tag — RETIRED, do not publish (product no longer sold; caption kept for the record only)
 
 > The five-second check before your bag leaves: make sure your ID tag is
 > attached and your contact details are current. This white luggage ID tag is

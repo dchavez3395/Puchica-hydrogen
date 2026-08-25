@@ -140,7 +140,74 @@ export function buildCampaignLinks({
   return {campaign, market, links, failures};
 }
 
-if (path.resolve(process.argv[1] || '') === scriptPath) {
+/**
+ * Organic relaunch — 2026-08.
+ *
+ * Five incompatible utm_campaign values accumulated across the earlier organic
+ * packs (travel_soft_launch, travel_edit_organic_202608, hero_validation_2026_08,
+ * the paid stage1 scheme, and the ig/social bio link), which made every session
+ * from that period non-comparable. Everything in the relaunch carries this one.
+ */
+export const ORGANIC_CAMPAIGN = 'organic_relaunch_2026_08';
+
+/**
+ * The 7-day relaunch calendar. Product days reuse the finished 08-14 assets;
+ * the two unpublished UGC videos slot in on days 2 and 5. Non-product days
+ * (handle: null) land on the homepage — there is nothing for the catalog gate
+ * to validate there, but the link still carries full attribution.
+ */
+export const ORGANIC_CALENDAR = Object.freeze([
+  Object.freeze({day: 1, platform: 'instagram', content: 'd01_toiletry_rummaging', handle: 'black-hanging-travel-toiletry-organizer'}),
+  Object.freeze({day: 2, platform: 'instagram', content: 'd03_cable_tangle', handle: 'travel-cable-organizer-case'}),
+  Object.freeze({day: 2, platform: 'tiktok', content: 'd2_ugc_packing_cubes_v1', handle: '3-piece-packing-cube-set'}),
+  Object.freeze({day: 3, platform: 'instagram', content: 'd02_cubes_three_zones', handle: '3-piece-packing-cube-set'}),
+  Object.freeze({day: 4, platform: 'instagram', content: 'd12_toiletry_faq', handle: null}),
+  Object.freeze({day: 5, platform: 'instagram', content: 'd05_toiletry_compartments', handle: 'black-hanging-travel-toiletry-organizer'}),
+  Object.freeze({day: 5, platform: 'tiktok', content: 'd5_ugc_cable_offer_clarity_v2', handle: 'travel-cable-organizer-case'}),
+  Object.freeze({day: 6, platform: 'instagram', content: 'd06_cubes_sequence', handle: '3-piece-packing-cube-set'}),
+  Object.freeze({day: 7, platform: 'instagram', content: 'd11_founder_verified', handle: null}),
+]);
+
+export function buildOrganicLinks({
+  calendar = ORGANIC_CALENDAR,
+  market = 'CA',
+  origin = STORE_ORIGIN,
+} = {}) {
+  const links = [];
+  const failures = [];
+
+  for (const post of calendar) {
+    if (post.handle) {
+      const problems = validateDestination(post.handle, market);
+      if (problems.length) {
+        failures.push(...problems.map((p) => `day ${post.day} ${post.content}: ${p}`));
+        continue;
+      }
+    }
+    const url = new URL(post.handle ? `/products/${post.handle}` : '/', origin);
+    url.searchParams.set('utm_source', post.platform);
+    url.searchParams.set('utm_medium', 'organic_social');
+    url.searchParams.set('utm_campaign', ORGANIC_CAMPAIGN);
+    url.searchParams.set('utm_content', post.content);
+    links.push({...post, url: url.toString()});
+  }
+
+  return {campaign: ORGANIC_CAMPAIGN, market, links, failures};
+}
+
+if (path.resolve(process.argv[1] || '') === scriptPath && process.argv.includes('--organic')) {
+  const result = buildOrganicLinks();
+  console.log('Puchica organic relaunch links');
+  console.log('='.repeat(74));
+  console.log(`Campaign : ${result.campaign}  (the one canonical value — see ORGANIC_CAMPAIGN)`);
+  for (const link of result.links) {
+    console.log(`  day ${link.day} · ${link.platform.padEnd(9)} ${link.content}`);
+    console.log(`    ${link.url}`);
+  }
+  console.log(`\n  Shopify filter: UTM campaign = ${result.campaign}`);
+  for (const failure of result.failures) console.error(`FAIL: ${failure}`);
+  process.exitCode = result.failures.length ? 1 : 0;
+} else if (path.resolve(process.argv[1] || '') === scriptPath) {
   const index = process.argv.indexOf('--campaign');
   const campaign = index >= 0 ? process.argv[index + 1] : DEFAULT_CAMPAIGN;
   const result = buildCampaignLinks({campaign});

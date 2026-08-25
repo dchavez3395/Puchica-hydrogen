@@ -90,41 +90,22 @@ before stopping so the other is not editing stale files.
   finding matters, it should be something the build can check.
 - **Push before you stop.** Unpushed work is invisible to the other session.
 
-## Current assignment — local CLI
+## Current assignment — organic relaunch (single session)
 
-The remote session maintains this section. Local CLI: do the top unblocked task,
-append to the log, push, then take the next one. Do not wait to be asked.
+The local-CLI experiment is over; one remote session runs the work and Daniel
+reads status here. The plan of record is the approved 2026-08-25 plan: repair
+and restart the stalled 7-day organic test.
 
-### 1. Source 15 candidates  ·  IN PROGRESS
+Why organic: every paid path fails the corrected CPA model — the current
+catalog is floor-bound, the CA$90–150 AliExpress band is mostly legally
+unsellable electronics, and print-on-demand loses CA$8–13/order at 29–36%
+margin against the 57% needed. At CA$0 CPA the current catalog profits on every
+order. The test that proves or disproves organic reach already started on
+2026-08-14 and stalled; this restarts it with the corpus repaired.
 
-Attach to Chrome on port 9222 (Daniel is logged into DSers). For each candidate
-record: exact variant cost USD, shipping-to-Canada cost USD, ETA, stock, and the
-supplier item ID. **The exact mapped variant, never the listing card price** —
-that error produced the last broken catalog.
-
-Target: retail CA$90–150, landed at or under a third of retail. Start with car
-camping/overlanding and pet gear; both clear every hard filter and demonstrate
-well on video.
-
-Write rows to `docs/recovery-evidence/sourcing-candidates-<date>.csv` using the
-template's columns, then run `npm run sourcing-spec -- --csv <that file>` and
-commit the output alongside it.
-
-Stop condition: 15 scored rows, or the category is exhausted. If fewer than
-three reach SHORTLIST, say so plainly rather than lowering the bar — that result
-is itself the finding.
-
-### 2. Verify the top three  ·  BLOCKED on task 1
-
-For each SHORTLIST row: confirm the Canadian route still quotes, check supplier
-rating and order volume, look for brand marks in the imagery, and confirm the
-listing does not require assembly or carry a battery. Record findings in the log.
-
-### 3. Draft the catalog swap  ·  BLOCKED on task 2
-
-`npm run catalog-block -- --csv <shortlist>` and commit the generated block as a
-proposal. **Do not apply it** — the swap is atomic and needs Daniel's approval
-plus the Shopify tags, and the old catalog only retires in the same commit.
+Canonical measurement: `utm_campaign=organic_relaunch_2026_08`, links generated
+only by `node scripts/build-campaign-links.mjs --organic`. The five legacy
+campaign values identify historical sessions and nothing else.
 
 ## Progress log
 
@@ -150,3 +131,17 @@ Format:
 - Pruned four stale agency personas whose index stated confident falsehoods.
 - Store is dormant: zero sessions on 22, 23 and 24 August.
 - Next: local CLI reads real DSers numbers for the CA$90–150 band.
+
+### 2026-08-25 · remote · Organic relaunch prepared
+
+- POD tested against the corrected CPA model and failed in every configuration;
+  with paid closed everywhere, the organic test in CURRENT-SCOPE is the plan.
+- Asset survey found the 08-14 organic launch partially executed and stalled:
+  1 IG post (0 interactions), 1 TikTok video (95 views, 0 sessions), 8 Meta-
+  scheduled posts expired unrecorded.
+- Repaired the corpus: US claims stripped (market suspended), luggage-tag video
+  retired, `/tiktok` retargeted to the cable case, one canonical UTM campaign.
+- Economics gate now skips suspended markets and its evidence window expires
+  2026-08-28 — launch before then or re-read six DSers routes.
+- Next: Daniel's preflight (Meta Business Suite check, IP exclusion, channel
+  confirmation), then day 1 of the 7-day calendar from the launch-kit artifact.

@@ -1,12 +1,17 @@
 import {redirect} from 'react-router';
 
-export const TIKTOK_DESTINATION =
-  '/products/white-semi-circular-travel-jewelry-case';
+// The cable-organizer PDP: the only product with published TikTok creative.
+// The live @puchica_canada bio and the UGC pack both promise this landing —
+// pointing the bio at a product with no TikTok creative wastes the click.
+export const TIKTOK_DESTINATION = '/products/travel-cable-organizer-case';
 export const TIKTOK_ATTRIBUTION = Object.freeze({
   utm_source: 'tiktok',
   utm_medium: 'organic_social',
-  utm_campaign: 'travel_edit_organic_202608',
-  utm_content: 'profile_bio_jewelry_case',
+  // Canonical campaign for the 2026-08 organic relaunch. Five incompatible
+  // campaign values accumulated across earlier packs; every organic surface
+  // now carries this one so sessions are comparable.
+  utm_campaign: 'organic_relaunch_2026_08',
+  utm_content: 'profile_bio_cable_case',
 });
 
 /** @param {Route.LoaderArgs} args */
