@@ -351,3 +351,21 @@ Format:
   photos/video, and (4) quality-checks what customers would receive.
   Net out-of-pocket ≈ supplier cost + payment fees (retail cycles back to
   the owner). Owner-only: it is money.
+
+### 2026-08-25 · remote · Test order skipped by owner; full 47-product store sweep; retired products drafted
+
+- Daniel decided to skip the paid sample (supplier order-volume accepted as
+  the quality signal; the first-order requote rule stays as the safety net;
+  content ceiling is now AI images + supplier media until a product is ever
+  in hand).
+- Full Shopify sweep of all 47 products: 6 approved ACTIVE offers (all
+  evidence-matched at today's prices), 5 retired-but-ACTIVE legacy offers
+  now demoted to DRAFT (platform state finally matches the code gate),
+  28 dormant wave3–6 DRAFT candidates (mostly disqualified electronics),
+  8 ARCHIVED duplicates. Every sellable SKU on the platform now has a
+  matching evidence row; nothing sellable is unaccounted for.
+- The DSers half of "touch every product" cannot be done from any session
+  (network-blocked + owner login). It is one paste into Daniel's Claude-in-
+  Chrome on dsers.com: re-verify the 5 supplier bindings + stock + CA
+  quotes + Advanced Mapping state + supplier order counts/ratings (the
+  evidence his skip-the-sample decision rests on).
