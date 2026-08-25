@@ -263,3 +263,20 @@ Format:
   accordion links): 0 violations.
 - Nothing on the session side blocks the ad launch. Waiting on Daniel's three
   Meta steps; ads live by Aug 28.
+
+### 2026-08-25 · remote · Acquisition takeover: organic via TikTok connector
+
+- Daniel directed the session to execute rather than hand him task lists. The
+  Meta paid campaign is the one thing no session can execute — his Facebook
+  login and his ad spend are owner-locked by design, and no Meta connector
+  exists (checked the registry). Stance: if `stage1-funnel-smoke` is not live
+  by Aug 28, the paid window closes with the cost baseline; no further Ads
+  Manager walkthroughs from this side.
+- The organic relaunch becomes the actively executed path: the connected
+  Higgsfield account can publish to TikTok once Daniel taps a single OAuth
+  consent link (generated and sent). After that tap this session posts the
+  approved calendar itself — day-2 packing-cubes UGC video first, then the
+  cable video, claim-safe captions, canonical organic_relaunch_2026_08 UTM
+  links only.
+- No spend, no price changes, no new claims. The Ad Console stays valid if
+  Daniel completes the Meta setup himself at any time.
