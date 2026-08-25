@@ -250,3 +250,16 @@ Format:
   rule and Competition Act ordinary-price rules); backend mass-rewrite parked
   until after the ad test; AI product images will come from Daniel's
   Antigravity/Nano-Banana run, reviewed for product fidelity before use.
+
+### 2026-08-25 · remote · Accessibility fixes verified in a real browser
+
+- The a11y changes were exercised in real Chromium (components mounted in a
+  test harness — the container's gateway blocks the live storefront APIs, so
+  a full live render isn't possible from here): 12/12 behavioral checks pass —
+  locale-menu arrow/Home/End/wrap navigation, Escape closes only the nested
+  menu then the drawer, focus trap and focus restore — plus axe WCAG scans
+  (0 violations) and an axe color-contrast scan of every changed visual state
+  (staff-pick badge, Added ✓ / failed buttons, form borders, marigold tile,
+  accordion links): 0 violations.
+- Nothing on the session side blocks the ad launch. Waiting on Daniel's three
+  Meta steps; ads live by Aug 28.
