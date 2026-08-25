@@ -1,9 +1,14 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
 
 import {
   auditBaseline,
+  auditBaselineFilename,
   computeEconomicsRow,
+  resolveBaselinePath,
 } from '../scripts/check-organic-economics.mjs';
 
 const completeBaseline = {
@@ -144,6 +149,61 @@ test('a duplicate exact offer/SKU baseline row fails closed', () => {
 
   assert.equal(
     failures.some((failure) => failure.includes('duplicate offer/SKU row')),
+    true,
+  );
+});
+
+test('the newest dated baseline on disk is the one that gets read', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'puchica-baseline-'));
+  for (const name of [
+    'exact-offer-cost-route-baseline-2026-08-14.json',
+    'exact-offer-cost-route-baseline-2026-08-25.json',
+    'exact-offer-cost-route-baseline-2026-08-21.json',
+    'unrelated-notes.json',
+  ]) {
+    fs.writeFileSync(path.join(dir, name), '{}');
+  }
+
+  assert.equal(
+    path.basename(resolveBaselinePath(dir)),
+    'exact-offer-cost-route-baseline-2026-08-25.json',
+  );
+});
+
+test('an evidence directory with no baseline throws rather than passing', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'puchica-baseline-empty-'));
+
+  assert.throws(() => resolveBaselinePath(dir), /No exact cost\/route baseline/);
+});
+
+test('a baseline filename that disagrees with its evidenceDate fails closed', () => {
+  const failures = auditBaselineFilename(
+    'exact-offer-cost-route-baseline-2026-08-25.json',
+    {evidenceDate: '2026-07-01'},
+  );
+
+  assert.equal(
+    failures.some((failure) => failure.includes('filename and the observation date must match')),
+    true,
+  );
+});
+
+test('a matching baseline filename and evidenceDate pass', () => {
+  assert.deepEqual(
+    auditBaselineFilename('exact-offer-cost-route-baseline-2026-08-25.json', {
+      evidenceDate: '2026-08-25',
+    }),
+    [],
+  );
+});
+
+test('an undated baseline filename fails closed', () => {
+  const failures = auditBaselineFilename('exact-offer-cost-route-baseline.json', {
+    evidenceDate: '2026-08-25',
+  });
+
+  assert.equal(
+    failures.some((failure) => failure.includes('does not carry an ISO observation date')),
     true,
   );
 });
