@@ -29,8 +29,26 @@ export const DUTY_POSTURE = 'customer-pays';
 
 export const DUTY_POSTURES = Object.freeze(['customer-pays', 'prepaid']);
 
+/**
+ * Reject a posture this module does not know about.
+ *
+ * Without this, a typo like `'pre-paid'` degrades silently: every helper below
+ * falls through to the `customer-pays` branch, so the storefront keeps telling
+ * customers they owe import charges while Shopify has been switched to prepay
+ * them. That mismatch is invisible in code review and only surfaces as a
+ * refused parcel. Failing loudly at the call site is the cheaper outcome.
+ */
+function assertKnownPosture(posture) {
+  if (!DUTY_POSTURES.includes(posture)) {
+    throw new Error(
+      `Unknown duty posture "${posture}". Expected one of: ${DUTY_POSTURES.join(', ')}.`,
+    );
+  }
+  return posture;
+}
+
 export function isDutyPrepaid(posture = DUTY_POSTURE) {
-  return posture === 'prepaid';
+  return assertKnownPosture(posture) === 'prepaid';
 }
 
 /**
