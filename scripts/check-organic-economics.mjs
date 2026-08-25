@@ -11,12 +11,35 @@ dotenv.config();
 
 const scriptPath = fileURLToPath(import.meta.url);
 const rootDir = path.resolve(path.dirname(scriptPath), '..');
-const BASELINE_PATH = path.join(
-  rootDir,
-  'docs',
-  'recovery-evidence',
-  'exact-offer-cost-route-baseline-2026-08-21.json',
-);
+const EVIDENCE_DIR = path.join(rootDir, 'docs', 'recovery-evidence');
+const BASELINE_PREFIX = 'exact-offer-cost-route-baseline-';
+const BASELINE_PATH = resolveBaselinePath();
+
+/**
+ * Resolve the newest exact cost/route baseline on disk.
+ *
+ * The filename carries the observation date, and `auditBaseline` fails closed
+ * once that date is more than seven days old. Hard-coding one filename here
+ * meant every refresh needed a matching source edit, and forgetting it left
+ * the gate silently reading stale evidence while a fresh file sat unused.
+ * Sorting by the date in the name keeps the newest file authoritative without
+ * that manual step, and an unparseable or missing file still throws rather
+ * than defaulting to something permissive.
+ */
+export function resolveBaselinePath(dir = EVIDENCE_DIR) {
+  const candidates = fs
+    .readdirSync(dir)
+    .filter(
+      (name) => name.startsWith(BASELINE_PREFIX) && name.endsWith('.json'),
+    )
+    .sort();
+  if (!candidates.length) {
+    throw new Error(
+      `No exact cost/route baseline found in ${dir} (expected ${BASELINE_PREFIX}YYYY-MM-DD.json).`,
+    );
+  }
+  return path.join(dir, candidates[candidates.length - 1]);
+}
 const STOREFRONT_API_VERSION = '2026-04';
 const MAX_EVIDENCE_AGE_DAYS = 7;
 const MARKETS = ['CA', 'US'];
@@ -48,7 +71,10 @@ if (path.resolve(process.argv[1] || '') === scriptPath) {
 
 export async function checkOrganicEconomics({now = new Date()} = {}) {
   const baseline = JSON.parse(fs.readFileSync(BASELINE_PATH, 'utf8'));
-  const failures = auditBaseline(baseline, now);
+  const failures = [
+    ...auditBaselineFilename(path.basename(BASELINE_PATH), baseline),
+    ...auditBaseline(baseline, now),
+  ];
   const marketProducts = Object.fromEntries(
     await Promise.all(
       MARKETS.map(async (market) => [
@@ -105,6 +131,29 @@ export async function checkOrganicEconomics({now = new Date()} = {}) {
     ),
     failures,
   };
+}
+
+/**
+ * The newest filename wins, and the seven-day expiry is measured from the
+ * `evidenceDate` inside the file. If those two disagree, a file named for
+ * today can carry last month's observations and still pass the age check.
+ * Requiring them to match makes that impossible to do by accident.
+ */
+export function auditBaselineFilename(filename, baseline) {
+  const match = /^exact-offer-cost-route-baseline-(\d{4}-\d{2}-\d{2})\.json$/.exec(
+    filename,
+  );
+  if (!match) {
+    return [
+      `Exact cost/route baseline filename ${filename} does not carry an ISO observation date.`,
+    ];
+  }
+  if (match[1] !== baseline?.evidenceDate) {
+    return [
+      `Exact cost/route baseline ${filename} declares evidenceDate ${baseline?.evidenceDate}; the filename and the observation date must match.`,
+    ];
+  }
+  return [];
 }
 
 export function auditBaseline(baseline, now = new Date()) {
