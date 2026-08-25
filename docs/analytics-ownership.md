@@ -116,7 +116,40 @@ Shopify recorded roughly 14,174 sessions across June and July. Meta received
 `web-pixels-manager` was never on the Hydrogen storefront and the custom bridge
 was not yet sending. A Sales campaign optimized against that dataset had no
 conversion signal to learn from and delivered to whoever was cheapest to reach.
-Storefront add-to-cart ran 0.8–1.2% against 9.1% organic on the same catalog.
+
+**Correction, added 2026-08-25 after checking Shopify session data.** An earlier
+version of this section implied those 14,174 sessions were traffic to the
+current travel catalog. They were not, and the distinction matters enough to
+state plainly:
+
+- All six travel products were created and published **2026-08-09 → 2026-08-22**
+  (`createdAt` / `publishedAt`, Admin API). The June–July campaigns ran against
+  the previous general-dropshipping catalog — sweaters, pet bottles, light
+  projectors, golf mirrors — which is also what every abandoned checkout before
+  August contains.
+- The traffic was two discrete floods, not a campaign period: week of 06-15 =
+  8,748 sessions, week of 06-29 = 3,903. Together 87% of the total. Every other
+  week ran 100–700 sessions.
+- Those flood weeks converted at 0.2–0.8% add-to-cart. Every non-flood week ran
+  **9–19%**. A broken storefront depresses conversion uniformly; this is two
+  injections of traffic with no purchase intent sitting on top of an otherwise
+  ordinary baseline.
+- Of the flood, `referrer_source` splits 10,793 **direct** and 1,819 **social**.
+  The social sessions — the only ones Shopify attributes to the ads — produced
+  **zero** add-to-carts across 1,819 visits. Some or all of the direct flood is
+  probably the same campaign arriving without a referrer (Meta in-app browsers
+  strip it when no UTM is set), but that is inference, not measurement.
+- By device: mobile 12,743 sessions → 18 add-to-carts (0.14%); desktop 1,425 →
+  117 (8.2%). A 59× gap. Real mobile traffic underperforms desktop by roughly
+  40%, not 59×.
+
+So the honest summary of June–July is **not** "this catalog converted badly." It
+is "a different catalog received two floods of traffic that showed no purchase
+intent, while Meta had no signal to optimize against." The current catalog has
+existed for roughly two weeks and has taken on the order of **300 sessions**,
+most of them internal testing. It has never been meaningfully tested, and there
+is no conversion baseline for it — a fact worth holding onto before anyone reads
+a performance claim about this store, including elsewhere in this document.
 
 Then, on 2026-08-15, a *second* pixel was created and
 `PUBLIC_FACEBOOK_PIXEL_ID` was pointed at it. From that day the storefront
