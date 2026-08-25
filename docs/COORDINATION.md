@@ -90,7 +90,14 @@ before stopping so the other is not editing stale files.
   finding matters, it should be something the build can check.
 - **Push before you stop.** Unpushed work is invisible to the other session.
 
-## Current assignment — organic relaunch (single session)
+## Current assignment — Stage-1 paid smoke test (single session)
+
+Daniel gave go on the CA$200 Meta test after Part-A verification passed. The
+organic relaunch kit remains available as the parallel/fallback path; the
+active measurement campaign for paid is `stage1-funnel-smoke`.
+
+<details><summary>Superseded: organic-first assignment (2026-08-25, earlier)</summary>
+
 
 The local-CLI experiment is over; one remote session runs the work and Daniel
 reads status here. The plan of record is the approved 2026-08-25 plan: repair
@@ -106,6 +113,8 @@ order. The test that proves or disproves organic reach already started on
 Canonical measurement: `utm_campaign=organic_relaunch_2026_08`, links generated
 only by `node scripts/build-campaign-links.mjs --organic`. The five legacy
 campaign values identify historical sessions and nothing else.
+
+</details>
 
 ## Progress log
 
@@ -162,3 +171,16 @@ Format:
 - Awaiting Part B from Daniel: DSers spot-check of 5 mapped SKUs, channel/pixel
   confirmation, IP exclusion. Spend must start by Aug 28 or the DSers readings
   become the new baseline first.
+
+### 2026-08-25 · remote · Stage-1 go — ad console delivered
+
+- Daniel approved the CA$200 paid smoke test after Part-A verification.
+- Delivered the Stage 1 Ad Console (artifact): campaign settings (Sales /
+  Purchase, CA$28/day × 7, broad Canada 25–55), three claim-safe ads with
+  gate-validated stage1-funnel-smoke links, pre-registered stop rules, and the
+  owner checklist with his own DSers spot-check gate as step 1.
+- Only Daniel can create the campaign; no spend from this session. His DSers
+  readings for the 5 mapped SKUs get diffed against the Aug 21–22 baseline
+  before ads go live; baseline stays valid through Aug 28.
+- Monitoring: one combined daily check (paid + organic campaigns, Meta-vs-
+  Shopify order reconciliation, first-order runbook on any genuine order).
