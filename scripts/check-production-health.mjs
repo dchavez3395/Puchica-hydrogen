@@ -8,6 +8,7 @@ import {
   OPERATIONAL_HOLD_HANDLES,
   RETIRED_CATALOG_HANDLES,
 } from '../app/lib/launch-catalog.js';
+import {tiktokBioDestinationUrl} from '../app/lib/social-bio-links.js';
 
 export const EXPECTED_HANDLES_BY_MARKET = APPROVED_PRODUCT_HANDLES_BY_MARKET;
 
@@ -262,11 +263,13 @@ function routeChecks() {
         'https://puchica.ca/?utm_source=ig&utm_medium=social&utm_content=link_in_bio',
     },
     {
+      // Derived, not transcribed. This check asserted a destination the
+      // /tiktok route had stopped redirecting to, so it failed on every
+      // deploy - and a step that is always red is a step nobody reads.
       label: 'TikTok bio destination',
       pathname: '/tiktok',
       expectedStatus: 200,
-      expectedFinalUrl:
-        'https://puchica.ca/products/white-semi-circular-travel-jewelry-case?utm_source=tiktok&utm_medium=organic_social&utm_campaign=travel_edit_organic_202608&utm_content=profile_bio_jewelry_case',
+      expectedFinalUrl: tiktokBioDestinationUrl('https://puchica.ca'),
     },
   ];
 
