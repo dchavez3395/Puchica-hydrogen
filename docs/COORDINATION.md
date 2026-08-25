@@ -314,3 +314,24 @@ Format:
   the code gate. 5-minute DSers console checklist for Daniel is in the
   dashboard; per-market multi-supplier mapping is possible in DSers but no
   evidence shows it configured.
+
+### 2026-08-25 · remote · Audit executed: catalog pruned, reprices live, content fixed
+
+- Daniel approved the audit recommendations; all applied and verified live:
+  - Catalog pruned to the verified variant of each product — cubes 8→1
+    (charcoal), tech case 3→1 (black), cable case 7→1 (black double-layer).
+    Every remaining variant has a matching cost/route evidence row; titles
+    are now accurate again.
+  - Reprices: packing cubes CA$39.99 → **32.99** (inside the observed market
+    band); Carry-On Kit CA$69 → **89.00** (documented price restored; margin
+    28%→42%). Kit price drift is closed — gate runs clean.
+  - Content: tech case SEO fields written (were null) and black photo set as
+    featured; jewelry meta "hard-shell/leather" → faux leather; cubes meta
+    "compress" removed; stale colourway alt fixed; toiletry "Selected
+    option" artifact removed; kit's "$87.97 separately" anchor line removed.
+  - Repo synced: gate + duty script price tables updated; the resolved-drift
+    test now asserts clean-and-would-catch-again; 282/282, launch-check PASS.
+- Still held: first TikTok post (cable-case video recommended) awaiting
+  Daniel's /permissions allow + "retry". Meta paid parked. His 5-minute
+  DSers console checklist stands (stock re-read, tech-case product record,
+  Advanced Mapping state).

@@ -259,12 +259,27 @@ test('the gate blocks an unfundable offer once paid acquisition is on', () => {
   assert.match(result.blocking[0], /cannot fund acquisition/);
 });
 
-test('the gate reports the live Carry-On Kit price drift', () => {
-  const result = runAcquisitionGate({now: new Date('2026-08-25T00:00:00Z')});
-  const drift = result.driftWarnings.find((row) =>
+test('the Carry-On Kit price drift is resolved, and the gate would catch a new one', () => {
+  // The CA$69 vs CA$89 drift this test used to pin was closed on 2026-08-25
+  // by restoring the documented price. The gate must now be clean for the
+  // kit — and must still surface a drift if the live table diverges again.
+  const clean = runAcquisitionGate({now: new Date('2026-08-25T00:00:00Z')});
+  assert.equal(
+    clean.driftWarnings.find((row) => row.handle.startsWith('the-carry-on-kit')),
+    undefined,
+    'live CA$89 matches the documented CA$89',
+  );
+
+  const drifted = runAcquisitionGate({
+    now: new Date('2026-08-25T00:00:00Z'),
+    retail: {
+      'the-carry-on-kit-toiletry-organizer-packing-cubes-cable-case': 69,
+    },
+  });
+  const drift = drifted.driftWarnings.find((row) =>
     row.handle.startsWith('the-carry-on-kit'),
   );
-  assert.ok(drift, 'the CA$69 vs CA$89 drift must surface');
+  assert.ok(drift, 'a diverging live price must surface as drift');
   assert.equal(drift.documentedPriceCad, 89);
 });
 

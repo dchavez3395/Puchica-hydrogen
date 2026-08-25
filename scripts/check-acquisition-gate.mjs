@@ -42,19 +42,19 @@ const rootDir = path.resolve(path.dirname(scriptPath), '..');
 const MAX_BENCHMARK_AGE_DAYS = 90;
 
 /**
- * Live Canadian retail, read from the Shopify Admin API on 2026-08-24.
+ * Live Canadian retail, read from the Shopify Admin API on 2026-08-25 (post-audit reprice: cubes 32.99, kit restored to 89.00).
  *
  * Hardcoded rather than fetched so the gate runs in CI without Storefront
  * credentials. checkPriceDrift below is what catches this going stale against
  * a documented price; check-organic-economics.mjs is the live-price check.
  */
 const CA_RETAIL = {
-  '3-piece-packing-cube-set': 39.99,
+  '3-piece-packing-cube-set': 32.99,
   'white-semi-circular-travel-jewelry-case': 22.99,
   'black-hanging-travel-toiletry-organizer': 27.99,
   'travel-cable-organizer-case': 19.99,
   'black-travel-tech-case': 34.99,
-  'the-carry-on-kit-toiletry-organizer-packing-cubes-cable-case': 69.0,
+  'the-carry-on-kit-toiletry-organizer-packing-cubes-cable-case': 89.0,
 };
 
 if (path.resolve(process.argv[1] || '') === scriptPath) {
