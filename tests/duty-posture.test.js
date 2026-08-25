@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
 
 import {DICTIONARIES} from '../app/lib/dictionaries.js';
 import {
@@ -158,4 +159,48 @@ test('the tag checklist covers every requested market', () => {
   assert.ok(tags.includes('ca-route-verified'));
   assert.ok(tags.includes('us-route-verified'));
   assert.ok(tags.includes('dsers-mapped'));
+});
+
+test('an unknown posture throws instead of quietly reading as customer-pays', () => {
+  // The dangerous failure is silence: a typo'd posture would fall through to
+  // the customer-pays branch and keep telling buyers they owe import charges
+  // after Shopify had been switched to prepay them.
+  assert.throws(() => isDutyPrepaid('pre-paid'), /Unknown duty posture/);
+  assert.throws(() => dutyCopyKey('DDP'), /Unknown duty posture/);
+  assert.throws(() => dutyEtaKey(''), /Unknown duty posture/);
+});
+
+test('the product page states who pays import charges, not just /pages/shipping', async () => {
+  // Government duty and tax are exempt from the Competition Act's total-price
+  // rule (s.74.01(1.1)); a carrier's brokerage or disbursement fee is not. A
+  // buyer who meets one on the doorstep met a cost the product page never
+  // disclosed, so the disclosure has to live where the purchase decision is
+  // made - and it has to be derived, so it cannot contradict the shipping page.
+  const route = await readFile(
+    new URL('../app/routes/products.$handle.jsx', import.meta.url),
+    'utf8',
+  );
+
+  assert.match(route, /from '~\/lib\/duty-posture'/);
+  assert.match(route, /t\('ship_check_duties_title'\)/);
+  assert.match(
+    route,
+    /t\(dutyCopyKey\(\)\)/,
+    'the PDP must derive its duty sentence, never hardcode one posture',
+  );
+});
+
+test('the shipping page derives both duty strings from the posture', async () => {
+  const route = await readFile(
+    new URL('../app/routes/pages.shipping.jsx', import.meta.url),
+    'utf8',
+  );
+
+  assert.match(route, /t\(dutyCopyKey\(\)\)/);
+  assert.match(route, /t\(dutyEtaKey\(\)\)/);
+  assert.doesNotMatch(
+    route,
+    /t\('ship_check_duties_body'\)|t\('ship_check_duties_eta'\)/,
+    'a hardcoded key here would survive a posture change and contradict it',
+  );
 });
