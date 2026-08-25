@@ -209,3 +209,18 @@ Format:
   and Google channels in Shopify with pixel test events, exclude his own IP
   from analytics, and build the campaign in Ads Manager from the Stage 1 Ad
   Console. Ads live by Aug 28 keeps the baseline window honest.
+
+### 2026-08-25 · remote · Approved catalog published to the ad channels
+
+- Daniel expected the channels fully connected; a live check found the
+  Facebook & Instagram and Google & YouTube channel apps installed but zero
+  products published to either. He said go, so the six approved offers (five
+  singles plus the Carry-On Kit) were published to both publications via the
+  Admin API and verified true on re-query. Retired/hold products untouched;
+  TikTok and Reddit channels left alone.
+- Meta and Google now run their own asynchronous product review, and Google
+  Merchant Center may still want shipping/tax settings confirmed by Daniel.
+  The Stage-1 link ads do not depend on that review — links go straight to
+  puchica.ca product pages.
+- Remaining before spend, unchanged and Meta-side only: pixel Test Events
+  check, own-IP exclusion, create `stage1-funnel-smoke` in Ads Manager.
