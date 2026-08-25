@@ -160,11 +160,20 @@ test('market and language menu supports Escape and restores trigger focus', asyn
 
   assert.match(localeSwitcher, /aria-haspopup="menu"/);
   assert.match(localeSwitcher, /role="menu"[\s\S]*?aria-label=\{t\('locale_change_aria'\)\}/);
-  assert.match(localeSwitcher, /e\.key !== 'Escape'/);
+  assert.match(localeSwitcher, /e\.key === 'Escape'/);
   assert.match(localeSwitcher, /setOpen\(false\)/);
   assert.match(localeSwitcher, /requestAnimationFrame\(\(\) => trigger\?\.focus\(\)\)/);
   assert.match(
     localeSwitcher,
     /\[role="menu"\] \[role="menuitemradio"\]:not\(\[disabled\]\)/,
   );
+  // The menu roles promise the ARIA menu keyboard model, so arrow-key
+  // navigation must exist (2026-08-25 WCAG audit, 2.1.1 finding).
+  assert.match(localeSwitcher, /'ArrowDown', 'ArrowUp', 'Home', 'End'/);
+  // Escape must be claimed via preventDefault in the capture phase so an
+  // enclosing drawer (Aside) leaves the drawer open when only the menu
+  // should close.
+  assert.match(localeSwitcher, /addEventListener\('keydown', onKeyDown, true\)/);
+  const aside = await readSource('app/components/Aside.jsx');
+  assert.match(aside, /event\.key === 'Escape' && !event\.defaultPrevented/);
 });

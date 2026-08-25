@@ -168,7 +168,7 @@ function SearchAside() {
                 onChange={fetchResults}
                 onFocus={fetchResults}
                 placeholder={t('search_placeholder')}
-                aria-label={t('search_aria_submit')}
+                aria-label={t('search_placeholder')}
                 ref={inputRef}
                 type="search"
                 list={queriesDatalistId}
@@ -214,6 +214,12 @@ function SearchAside() {
 
               return (
                 <>
+                  <span className="sr-only" role="status" aria-live="polite">
+                    {t('search_results_status', {
+                      total: String(total),
+                      term: term.current,
+                    })}
+                  </span>
                   <SearchResultsPredictive.Queries
                     queries={queries}
                     queriesDatalistId={queriesDatalistId}

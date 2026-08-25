@@ -5,6 +5,22 @@ license: Complete terms in LICENSE.txt
 applies_to: puchica-site Hydrogen rebuild
 ---
 
+<!-- PUCHICA CORRECTION (2026-08-24)
+This persona was written on 2026-06-21 against a project that no longer exists.
+Statements below about catalog size, file paths, in-flight work, the Admin API,
+or Phase 2 content expansion are HISTORICAL and several are simply wrong.
+
+Current facts: six approved offers gated in app/lib/launch-catalog.js (not
+6,000 products); Canada only, US commercially suspended; Storefront AND Admin
+APIs both working; no Windows path applies to this checkout.
+
+Read docs/CURRENT-SCOPE.md first - it is canonical. Use the craft guidance
+below; ignore the project facts. Where this file and a gate disagree, the gate
+wins.
+End of correction. Original content follows.
+-->
+
+
 # Frontend Design (Puchica-Context)
 
 > **Puchica context:** This skill is the design voice for the Puchica Storefront rebuild at `E:\Claude\puchica-site`. The live storefront is at `puchica.ca` (Hydrogen on Cloudflare workerd). The Phase 2 design spec lives at `docs/superpowers/specs/2026-06-20-puchica-phase-2-design.md`. The current design system uses **acid lime as the signature accent** (already baked into the CSS as `--pk-spark`), a **near-black/cream duotone palette**, and **Lucide-style line icons** (in `app/components/Icons.jsx`).

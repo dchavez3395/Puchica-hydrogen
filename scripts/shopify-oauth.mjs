@@ -17,8 +17,15 @@
  *   const data  = await adminGraphQL('{ shop { name } }');
  */
 
-import dotenv from 'dotenv';
-dotenv.config();
+// dotenv is a convenience for local runs; the module must still load without
+// node_modules so dependent tests run anywhere. Live calls need the env either
+// way and fail with a clear message when it is missing.
+try {
+  const dotenv = await import('dotenv');
+  dotenv.config();
+} catch {
+  // No dotenv available - rely on the ambient environment.
+}
 
 const TOKEN_REFRESH_BUFFER_S = 300; // refresh 5 min before expiry
 

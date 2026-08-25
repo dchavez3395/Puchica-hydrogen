@@ -97,8 +97,8 @@ export default function AccountProfile() {
       <h2>{t('account_profile_h')}</h2>
       <br />
       <Form method="PUT">
-        <legend>{t('account_profile_fieldset')}</legend>
         <fieldset>
+          <legend>{t('account_profile_fieldset')}</legend>
           <label htmlFor="firstName">{t('account_first_name')}</label>
           <input
             id="firstName"
@@ -123,7 +123,7 @@ export default function AccountProfile() {
           />
         </fieldset>
         {action?.error ? (
-          <p>
+          <p role="alert">
             <mark>
               <small>{t(action.error)}</small>
             </mark>

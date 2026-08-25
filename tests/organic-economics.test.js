@@ -147,3 +147,19 @@ test('a duplicate exact offer/SKU baseline row fails closed', () => {
     true,
   );
 });
+
+test('a missing route for a commercially suspended market is not a failure', () => {
+  // The US is suspended (de minimis repeal). Route evidence for it is welcome
+  // history but must not be demanded: a fresh baseline read while the market
+  // is closed will simply not have US rows, and the gate should not force a
+  // DSers trip for a market the storefront refuses to sell into.
+  const withoutUsRoutes = structuredClone(completeBaseline);
+  for (const offer of withoutUsRoutes.offers) {
+    delete offer.routes.US;
+  }
+  const failures = auditBaseline(withoutUsRoutes, new Date('2026-08-15T00:00:00Z'));
+  assert.ok(
+    !failures.some((f) => /US route/.test(f)),
+    `US routes must not be demanded while suspended: ${failures.join('; ')}`,
+  );
+});

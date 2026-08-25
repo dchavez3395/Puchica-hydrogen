@@ -66,6 +66,7 @@ export function Footer({header}) {
           <p className="pk-footer__tagline">Puchica · Canada</p>
           <div
             className="pk-footer__social"
+            role="group"
             aria-label={t('footer_social_aria')}
           >
             {SOCIAL.map(({Icon, labelKey, url, handle}) => (

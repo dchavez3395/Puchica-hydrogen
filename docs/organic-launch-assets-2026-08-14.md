@@ -1,5 +1,18 @@
 # Puchica organic launch assets — 2026-08-14
 
+> **Corrected 2026-08-25 for the organic relaunch.** Three things changed after
+> this pack was written. (1) The United States is commercially suspended
+> (`SUSPENDED_COMMERCE_MARKETS` in `app/lib/launch-catalog.js`) — every
+> US-availability statement below is historical and must not be posted;
+> current captions say "Available in Canada." (2) The canonical UTM scheme is
+> now `utm_campaign=organic_relaunch_2026_08` — generate every link with
+> `node scripts/build-campaign-links.mjs --organic` instead of the template at
+> the bottom of this file. (3) The eight posts scheduled in Meta for
+> Aug 15–26 have passed their dates with no recorded outcome and near-zero
+> store sessions; treat them as expired and verify their fate in Meta Business
+> Suite before scheduling anything new. The images and captions below remain
+> the approved source creative.
+
 ## Status
 
 Days 1–3 have product-faithful lifestyle creatives exported to feed, square,
@@ -314,6 +327,8 @@ boundaries and create a new opening frame only after the winner is known.
 Append the following to the matching product URL:
 
 `?utm_source={instagram|facebook|tiktok}&utm_medium=organic_social&utm_campaign=hero_validation_2026_08&utm_content={day_content}`
+
+> **Superseded 2026-08-25:** use `utm_campaign=organic_relaunch_2026_08` via `node scripts/build-campaign-links.mjs --organic`. The value above only identifies historical sessions.
 
 Do not place the Canada-only packing-cube link in a US-targeted post.
 
