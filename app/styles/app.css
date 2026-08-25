@@ -6334,6 +6334,22 @@ main:has(> .pk-home) {
   outline: 3px solid var(--pk-a11y-focus) !important;
   outline-offset: 3px !important;
   box-shadow: 0 0 0 6px rgba(31, 95, 168, 0.18) !important;
+  /* Halo tracks the ring token so a dark surface does not keep painting the
+     light-mode blue. Declared second so a browser without color-mix keeps
+     the literal above. */
+  box-shadow: 0 0 0 6px
+    color-mix(in srgb, var(--pk-a11y-focus) 18%, transparent) !important;
+}
+
+/* SC 1.4.11 (non-text contrast) applies to the focus indicator itself.
+   #1F5FA8 measures 6.44:1 against the light page but only 2.76:1 against the
+   #101828 footer, so on the one dark surface that holds focusable elements the
+   ring was effectively invisible - 15 links on every page of the site.
+   Dark surfaces re-point the token instead of overriding the :focus-visible
+   rule above, so ring width, offset and geometry stay identical everywhere and
+   only the colour adapts. #8AB4F8 measures 8.42:1 on #101828. */
+.pk-footer {
+  --pk-a11y-focus: #8ab4f8;
 }
 
 /* Keep focused elements and anchor targets clear of the sticky header
