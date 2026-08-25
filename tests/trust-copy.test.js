@@ -129,3 +129,22 @@ test('terms policy corrects CAD-only wording before Admin policy HTML', async ()
     );
   }
 });
+
+test('the review widget renders before the first review exists', async () => {
+  const route = await readFile(
+    new URL('../app/routes/products.$handle.jsx', import.meta.url),
+    'utf8',
+  );
+
+  // Gating the widget on review count is a closed loop: no reviews means no
+  // widget, no widget means no write-a-review form, so a first review can
+  // never be collected. Judge.me ships its own empty state and form.
+  assert.match(route, /\{reviews\?\.externalId \? \(\s*<JudgemeReviews/);
+  assert.doesNotMatch(route, /\{reviews\?\.count > 0 \? \(\s*<JudgemeReviews/);
+
+  // Stars and aggregateRating must stay gated on count. Empty stars and an
+  // aggregateRating with reviewCount 0 are both misrepresentations, and the
+  // latter is a structured-data violation.
+  assert.match(route, /reviews && reviews\.count > 0 \? \(\s*<ReviewStars/);
+  assert.match(route, /aggregateRating:\s*\n\s*reviews\?\.count > 0/);
+});
