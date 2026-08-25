@@ -80,7 +80,15 @@ test('MetaPixel does not fire Purchase, so enabling it cannot double-count', () 
   assert.match(source, /track\('PageView'\)/);
   assert.match(source, /track\('ViewContent'/);
   assert.match(source, /track\('AddToCart'/);
-  assert.match(source, /track\('InitiateCheckout'/);
+});
+
+test('InitiateCheckout is left to the Shopify checkout, not double-sent', () => {
+  // Both halves of the funnel now report into one dataset. Shopify's checkout
+  // already emits InitiateCheckout there with its own event_id, so a storefront
+  // copy could never dedupe against it and would roughly double the count -
+  // the signal campaigns must optimize on while purchase volume is too low.
+  assert.doesNotMatch(source, /track\('InitiateCheckout'/);
+  assert.doesNotMatch(source, /subscribe\('custom_checkout_started'/);
 });
 
 test('every browser event carries an event ID and is mirrored to CAPI', () => {
