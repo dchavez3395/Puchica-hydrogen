@@ -184,3 +184,28 @@ Format:
   before ads go live; baseline stays valid through Aug 28.
 - Monitoring: one combined daily check (paid + organic campaigns, Meta-vs-
   Shopify order reconciliation, first-order runbook on any genuine order).
+
+### 2026-08-25 · remote · Pre-spend gate CLOSED — DSers spot-check satisfied on repo evidence
+
+- Daniel delegated the Part-B DSers spot-check to this session. DSers is
+  unreachable from here (gateway policy denial, verified twice including a
+  real browser launch) and requires his login regardless, so the check was
+  answered against the store's own evidence standard instead: a DSers reading
+  is valid for 7 days.
+- The chain that satisfies it: (1) the 2026-08-14 simulated-order audit proved
+  the full Shopify → DSers handoff on a controlled no-charge order, verified
+  all approved SKUs in live DSers records, and repaired the one stale mapping
+  found (`Unmapped(0)` after); (2) the 2026-08-21/22 baseline re-read every
+  offer's exact-variant cost and Canadian route from the logged-in console —
+  valid through Aug 28; (3) today's live Shopify read shows every offer's
+  `updatedAt` unchanged since the evidence dates, with SKUs and prices
+  matching the baseline.
+- Residual risk is a supplier-side change since Aug 22, invisible from any
+  session. It is capped by the standing first-order control: no supplier
+  payment without a fresh DSers requote, so a dead route costs a refund at
+  worst — at CA$200 test scale, 0–2 orders of exposure.
+- Verdict: gate satisfied. Nothing further blocks campaign creation on this
+  side. Remaining before spend, all Daniel's: confirm the Facebook & Instagram
+  and Google channels in Shopify with pixel test events, exclude his own IP
+  from analytics, and build the campaign in Ads Manager from the Stage 1 Ad
+  Console. Ads live by Aug 28 keeps the baseline window honest.
