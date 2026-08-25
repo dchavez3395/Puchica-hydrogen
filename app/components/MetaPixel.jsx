@@ -141,45 +141,55 @@ export function MetaPixel({pixelId}) {
       }
     };
 
-    subscribe('page_viewed', () => track('PageView'));
+    // Everything from here to the ready() call is wrapped, because Hydrogen's
+    // bus is all-or-nothing: if this effect throws before releasing this
+    // integration's registration, publish() buffers every event for every
+    // subscriber - Shopify's own analytics included - and never delivers one.
+    // A pixel that fails to subscribe should cost us the pixel, not the whole
+    // measurement stack.
+    try {
+      subscribe('page_viewed', () => track('PageView'));
 
-    subscribe('product_viewed', (data) => {
-      const p = data?.products?.[0];
-      const itemId = analyticsItemId(p);
-      track('ViewContent', {
-        content_type: 'product',
-        content_ids: itemId ? [itemId] : undefined,
-        content_name: p?.title,
-        value: Number(p?.price) || undefined,
-        currency: data?.shop?.currency || p?.currency,
+      subscribe('product_viewed', (data) => {
+        const p = data?.products?.[0];
+        const itemId = analyticsItemId(p);
+        track('ViewContent', {
+          content_type: 'product',
+          content_ids: itemId ? [itemId] : undefined,
+          content_name: p?.title,
+          value: Number(p?.price) || undefined,
+          currency: data?.shop?.currency || p?.currency,
+        });
       });
-    });
 
-    subscribe('product_added_to_cart', (data) => {
-      const line = data?.currentLine || data?.cart?.lines?.nodes?.[0];
-      const merch = line?.merchandise;
-      const previousQuantity = Number(data?.prevLine?.quantity) || 0;
-      const currentQuantity = Number(line?.quantity) || 1;
-      const quantity = Math.max(1, currentQuantity - previousQuantity);
-      const unitPrice = Number(merch?.price?.amount);
-      track('AddToCart', {
-        content_type: 'product',
-        content_ids: merch?.id ? [merch.id] : undefined,
-        content_name: merch?.product?.title,
-        value: Number.isFinite(unitPrice) ? unitPrice * quantity : undefined,
-        currency: merch?.price?.currencyCode,
-        num_items: quantity,
+      subscribe('product_added_to_cart', (data) => {
+        const line = data?.currentLine || data?.cart?.lines?.nodes?.[0];
+        const merch = line?.merchandise;
+        const previousQuantity = Number(data?.prevLine?.quantity) || 0;
+        const currentQuantity = Number(line?.quantity) || 1;
+        const quantity = Math.max(1, currentQuantity - previousQuantity);
+        const unitPrice = Number(merch?.price?.amount);
+        track('AddToCart', {
+          content_type: 'product',
+          content_ids: merch?.id ? [merch.id] : undefined,
+          content_name: merch?.product?.title,
+          value: Number.isFinite(unitPrice) ? unitPrice * quantity : undefined,
+          currency: merch?.price?.currencyCode,
+          num_items: quantity,
+        });
       });
-    });
 
-    // Deliberately NOT subscribed: `custom_checkout_started`. The Shopify
-    // checkout owns InitiateCheckout and already sends it to the same dataset.
-    // See the FUNNEL NOTE at the top of this file.
-
-    // Hydrogen flushes buffered page-view events as soon as this integration
-    // reports ready. Give concurrent hydration two frames to finish before the
-    // Meta script can mutate the document in response to that first event.
-    scheduleAnalyticsReady(ready);
+      // Deliberately NOT subscribed: `custom_checkout_started`. The Shopify
+      // checkout owns InitiateCheckout and already sends it to the same dataset.
+      // See the FUNNEL NOTE at the top of this file.
+    } finally {
+      // Hydrogen flushes buffered page-view events as soon as this integration
+      // reports ready. Give concurrent hydration two frames to finish before
+      // the Meta script can mutate the document in response to that first
+      // event - but release on a deadline regardless, so a tab that never
+      // paints cannot leave the bus buffered forever.
+      scheduleAnalyticsReady(ready);
+    }
   }, [pixelId, subscribe, canTrack, ready]);
 
   return null;
