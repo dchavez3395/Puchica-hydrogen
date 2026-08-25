@@ -160,11 +160,71 @@ test('market and language menu supports Escape and restores trigger focus', asyn
 
   assert.match(localeSwitcher, /aria-haspopup="menu"/);
   assert.match(localeSwitcher, /role="menu"[\s\S]*?aria-label=\{t\('locale_change_aria'\)\}/);
-  assert.match(localeSwitcher, /e\.key !== 'Escape'/);
+  assert.match(localeSwitcher, /e\.key === 'Escape'/);
   assert.match(localeSwitcher, /setOpen\(false\)/);
   assert.match(localeSwitcher, /requestAnimationFrame\(\(\) => trigger\?\.focus\(\)\)/);
   assert.match(
     localeSwitcher,
     /\[role="menu"\] \[role="menuitemradio"\]:not\(\[disabled\]\)/,
   );
+  // The menu roles promise the ARIA menu keyboard model, so arrow-key
+  // navigation must exist (2026-08-25 WCAG audit, 2.1.1 finding).
+  assert.match(localeSwitcher, /'ArrowDown', 'ArrowUp', 'Home', 'End'/);
+  // Escape must be claimed via preventDefault in the capture phase so an
+  // enclosing drawer (Aside) leaves the drawer open when only the menu
+  // should close.
+  assert.match(localeSwitcher, /addEventListener\('keydown', onKeyDown, true\)/);
+  const aside = await readSource('app/components/Aside.jsx');
+  assert.match(aside, /event\.key === 'Escape' && !event\.defaultPrevented/);
 });
+
+test('the focus ring stays above 3:1 on the dark footer', async () => {
+  const styles = await readSource('app/styles/app.css');
+
+  // The shared indicator colour, and the override the footer re-points it to.
+  const light = styles.match(/--pk-a11y-focus:\s*(#[0-9a-fA-F]{6})/)?.[1];
+  const footerBlock = styles.match(
+    /\.pk-footer\s*\{[^}]*--pk-a11y-focus:\s*(#[0-9a-fA-F]{6})[^}]*\}/,
+  );
+
+  assert.equal(light, '#1F5FA8');
+  assert.ok(
+    footerBlock,
+    '.pk-footer must re-point --pk-a11y-focus; the shared blue is 2.76:1 on #101828',
+  );
+
+  const FOOTER_BG = '#101828';
+  assert.ok(
+    contrastRatio(light, FOOTER_BG) < 3,
+    'guard assumes the shared ring fails on the footer; if it now passes, drop the override',
+  );
+  assert.ok(
+    contrastRatio(footerBlock[1], FOOTER_BG) >= 3,
+    `footer focus ring ${footerBlock[1]} is ${contrastRatio(
+      footerBlock[1],
+      FOOTER_BG,
+    ).toFixed(2)}:1 on ${FOOTER_BG}; SC 1.4.11 requires 3:1`,
+  );
+});
+
+test('the focus halo tracks the ring token rather than a hardcoded blue', async () => {
+  const styles = await readSource('app/styles/app.css');
+
+  assert.match(
+    styles,
+    /box-shadow:\s*0 0 0 6px\s*color-mix\(in srgb, var\(--pk-a11y-focus\) 18%, transparent\)/,
+  );
+});
+
+/** WCAG 2.x relative luminance and contrast ratio for two opaque hex colours. */
+function contrastRatio(a, b) {
+  const luminance = (hex) => {
+    const channels = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255);
+    const [r, g, bl] = channels.map((c) =>
+      c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4,
+    );
+    return 0.2126 * r + 0.7152 * g + 0.0722 * bl;
+  };
+  const [hi, lo] = [luminance(a), luminance(b)].sort((x, y) => y - x);
+  return (hi + 0.05) / (lo + 0.05);
+}

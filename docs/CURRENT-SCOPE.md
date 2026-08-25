@@ -171,6 +171,33 @@ history. The file has been removed from `main`, and tests now reject recognizabl
 Shopify secret formats, but history retains old blobs. The owner must revoke or
 rotate that credential in Shopify. Do not copy it or attempt to reuse it.
 
+## Acquisition and landed-cost gates
+
+Added 2026-08-24. Two questions no earlier gate asked:
+
+1. **Can an offer pay for its own customer?** `npm run acquisition-gate`
+   compares each approved Canadian offer's contribution against a target CPA.
+   No current offer can fund the CA$42 benchmark; the largest gap is CA$32.12.
+   The gate is advisory while paid acquisition is off and blocking under
+   `--paid`, and it is wired into `paid-launch-check` so paid readiness cannot
+   be declared while an unfundable offer is approved.
+2. **What does CBSA do to the Canadian route?** `npm run canada-duty-impact`
+   models the CAD$20 duty / CAD$40 tax de minimis pair, blended sales tax, and
+   the carrier handling fee billed to the customer. Canada applies no Section
+   301 equivalent to Chinese travel goods, which is why it remains viable while
+   the United States does not.
+
+The target CPA is a published benchmark, not a measurement. Puchica has never
+observed its own CPA. Replace it with a measured cost per purchase as soon as a
+paid traffic test produces one; until then every verdict is a model.
+
+Evidence and full tables: `docs/canada-landed-cost-2026-08-24.md`.
+
+**Open decision:** the Carry-On Kit is live at CA$69 but costed at CA$89 in
+`bundle-fulfilment-runbook-2026-08-21.md`. At CA$69 it contributes less than the
+Black Travel Tech Case while requiring three manual supplier orders. Restore
+CA$89 or retire the kit.
+
 ## Immediate priorities
 
 1. Complete the seven-day attributable organic traffic test using the prepared
@@ -183,6 +210,8 @@ rotate that credential in Shopify. Do not copy it or attempt to reuse it.
    sessions, whichever comes later.
 6. Only then decide whether to keep the offer, change the offer/page, qualify a
    replacement supplier, or stop the experiment.
+7. Resolve the Carry-On Kit price before any paid test, and disclose possible
+   import fees at checkout.
 
 ## Non-goals
 

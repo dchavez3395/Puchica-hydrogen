@@ -1,0 +1,26 @@
+{
+  "evidenceDate": "2026-08-24",
+  "currency": "CAD",
+  "planningFxCadPerUsd": 1.4,
+  "targetCpaCad": 42.0,
+  "requiredProfitShare": 0.3,
+  "assessmentProbability": 0.15,
+  "declaredValueBasis": "wholesale",
+  "note": "targetCpaCad is a published benchmark, not a measured value. Puchica has never observed its own CPA: 14,549 sessions across 90 days produced two orders, both owner tests. Replace this figure with a measured cost per purchase as soon as a paid traffic test produces one, and drop the benchmark source list when that happens.",
+  "sources": [
+    "Meta ads CPA benchmarks by industry 2026: median ecommerce CPA US$29.99 for the Lifestyle & Boutique band, the cheapest ecommerce category. US$29.99 x 1.40 = CA$41.99, rounded to CA$42. https://www.get-ryze.ai/blog/meta-ads-cpa-benchmarks-by-industry-2026",
+    "Meta ads CPM/CPC benchmarks by country 2026: Canada is a Tier-1 market, CPM US$14.03, with a 12% year-over-year increase in ad cost. https://www.adamigo.ai/blog/meta-ads-cpm-cpc-benchmarks-by-country-2026",
+    "assessmentProbability is an estimate, not an observation. No Puchica parcel has ever been delivered to a genuine customer, so the rate at which CBSA assesses these parcels is unknown. 0.15 is deliberately conservative against the de facto observation that low-declared-value Cainiao parcels usually clear unassessed."
+  ],
+  "documentedBundlePrices": {
+    "the-carry-on-kit-toiletry-organizer-packing-cubes-cable-case": 89.0
+  },
+  "dutyCategory": {
+    "3-piece-packing-cube-set": "textileTravelGoods",
+    "white-semi-circular-travel-jewelry-case": "smallAccessories",
+    "black-hanging-travel-toiletry-organizer": "textileTravelGoods",
+    "travel-cable-organizer-case": "smallAccessories",
+    "black-travel-tech-case": "smallAccessories",
+    "the-carry-on-kit-toiletry-organizer-packing-cubes-cable-case": "textileTravelGoods"
+  }
+}

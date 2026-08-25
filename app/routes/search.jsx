@@ -56,7 +56,9 @@ export async function loader({request, context}) {
       type: isPredictive ? 'predictive' : 'regular',
       term: '',
       result: null,
-      error: 'Search is temporarily unavailable. Please try again.',
+      // Dictionary key — translated at render time so fr/es/pt-BR pages
+      // don't get a bare English sentence.
+      error: 'search_error_unavailable',
     };
   });
 }
@@ -109,7 +111,7 @@ export default function SearchPage() {
                 defaultValue={term}
                 name="q"
                 placeholder={t('search_input_placeholder')}
-                aria-label={t('search_aria_submit')}
+                aria-label={t('search_input_placeholder')}
                 ref={inputRef}
                 type="search"
                 // eslint-disable-next-line jsx-a11y/no-autofocus
@@ -125,7 +127,11 @@ export default function SearchPage() {
           )}
         </SearchForm>
       </header>
-      {error && <p className="pk-search-page__error">{error}</p>}
+      {error && (
+        <p className="pk-search-page__error" role="alert">
+          {t(error)}
+        </p>
+      )}
       {!hasResults ? (
         <div className="pk-search-zero">
           <div className="pk-search-zero__label">

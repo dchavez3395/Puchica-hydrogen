@@ -1256,6 +1256,16 @@ button.reset:hover:not(:has(> *)) {
   flex: 0 0 auto;
   box-shadow: 0 -8px 24px rgba(80, 60, 160, 0.06);
 }
+/* The page-layout summary heading is an h2 for outline order (h1 -> h2)
+   but keeps the same compact label styling as the drawer's h4. */
+.cart-summary-page .cart-summary-heading {
+  margin: 0 0 12px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--pk-indigo-900, #160F3A);
+}
 .cart-summary-aside h4 {
   margin: 0 0 12px;
   font-size: 11px;
@@ -1469,7 +1479,7 @@ button.reset:hover:not(:has(> *)) {
   gap: 0;
   align-items: stretch;
   height: 44px;
-  border: 1px solid var(--pk-border, #E5E0F0);
+  border: 1px solid var(--pk-a11y-border, #667085);
   border-radius: 10px;
   overflow: hidden;
   background: var(--pk-paper);
@@ -1597,7 +1607,7 @@ button.reset:hover:not(:has(> *)) {
 .pk-search__input {
   flex: 1 1 auto;
   height: 44px;
-  border: 1px solid var(--pk-border, #D4C5AD);
+  border: 1px solid var(--pk-a11y-border, #667085);
   border-radius: 12px;
   padding: 0 14px 0 44px;
   font: inherit;
@@ -1690,6 +1700,7 @@ button.reset:hover:not(:has(> *)) {
   font-size: 14px;
 }
 .predictive-search-result { margin-bottom: 22px; }
+.predictive-search-result h4,
 .predictive-search-result h5 {
   margin: 0 0 10px;
   font-size: 11px;
@@ -2172,7 +2183,7 @@ button:focus-visible,
 }
 .pk-card__badge--staff-pick {
   background: var(--pk-marigold);
-  color: var(--pk-ink);
+  color: #fff;
 }
 .pk-card:hover {
   outline: 2px solid var(--pk-ink);
@@ -2259,7 +2270,7 @@ button:focus-visible,
   pointer-events: none;
 }
 .pk-atc--added {
-  background: #16a34a !important; /* green-600 */
+  background: #15803d !important; /* green-700 (>=4.5:1 with white) */
   color: #fff !important;
   box-shadow: 0 0 0 4px rgba(22, 163, 74, 0.18) !important;
   transition: background 0.2s ease, box-shadow 0.2s ease;
@@ -3285,7 +3296,7 @@ button:focus-visible,
 }
 .pk-pdetails__shipping h3:first-child, .pk-pdetails__shipping h4:first-child { margin-top: 0; }
 .pk-pdetails__shipping p { margin: 0 0 8px; font-size: 14px; line-height: 1.6; }
-.pk-pdetails__shipping a { color: var(--pk-ember); }
+.pk-pdetails__shipping a { color: var(--pk-ember); text-decoration: underline; }
 .pk-pdetails__shipping a:hover { text-decoration: underline; }
 
 /* Recommendations heading row with “See all” link */
@@ -5480,7 +5491,7 @@ main:has(> .pk-collection--bold) {
 .pk-shipping-regions__tile--ember    { background: var(--pk-ember); }
 .pk-shipping-regions__tile--jade     { background: var(--pk-jade); }
 .pk-shipping-regions__tile--cobalt   { background: var(--pk-cobalt); }
-.pk-shipping-regions__tile--marigold { background: var(--pk-marigold); color: var(--pk-marigold-ink); }
+.pk-shipping-regions__tile--marigold { background: var(--pk-marigold); color: #fff; }
 .pk-shipping-regions__tile--rosa     { background: var(--pk-rosa); }
 .pk-shipping-regions__tile--violet   { background: var(--pk-violet); }
 .pk-shipping-regions__name {
@@ -5498,7 +5509,6 @@ main:has(> .pk-collection--bold) {
   font-size: 13px;
   font-weight: 500;
   line-height: 1.45;
-  opacity: 0.88;
   position: relative;
   z-index: 1;
 }
@@ -6324,6 +6334,29 @@ main:has(> .pk-home) {
   outline: 3px solid var(--pk-a11y-focus) !important;
   outline-offset: 3px !important;
   box-shadow: 0 0 0 6px rgba(31, 95, 168, 0.18) !important;
+  /* Halo tracks the ring token so a dark surface does not keep painting the
+     light-mode blue. Declared second so a browser without color-mix keeps
+     the literal above. */
+  box-shadow: 0 0 0 6px
+    color-mix(in srgb, var(--pk-a11y-focus) 18%, transparent) !important;
+}
+
+/* SC 1.4.11 (non-text contrast) applies to the focus indicator itself.
+   #1F5FA8 measures 6.44:1 against the light page but only 2.76:1 against the
+   #101828 footer, so on the one dark surface that holds focusable elements the
+   ring was effectively invisible - 15 links on every page of the site.
+   Dark surfaces re-point the token instead of overriding the :focus-visible
+   rule above, so ring width, offset and geometry stay identical everywhere and
+   only the colour adapts. #8AB4F8 measures 8.42:1 on #101828. */
+.pk-footer {
+  --pk-a11y-focus: #8ab4f8;
+}
+
+/* Keep focused elements and anchor targets clear of the sticky header
+   (72px + breathing room) and the fixed bottom bars on mobile PDP. */
+html {
+  scroll-padding-top: 96px;
+  scroll-padding-bottom: 120px;
 }
 
 .pk-card {
@@ -8342,7 +8375,7 @@ main:has(> .pk-collection--bold) {
 }
 .pk-product .product-options-item {
   background: #fff !important;
-  border: 1px solid #cfd3db !important;
+  border: 1px solid var(--pk-a11y-border, #667085) !important;
   border-radius: 10px !important;
   min-height: 46px;
   padding: 10px 15px !important;
@@ -8361,7 +8394,7 @@ main:has(> .pk-collection--bold) {
 }
 .pk-product .pk-qty {
   background: #fff;
-  border: 1px solid #cfd3db !important;
+  border: 1px solid var(--pk-a11y-border, #667085) !important;
   border-radius: 12px !important;
   height: 54px !important;
 }

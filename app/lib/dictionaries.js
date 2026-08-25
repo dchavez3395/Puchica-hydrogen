@@ -43,6 +43,8 @@ export const DICTIONARIES = {
     cart_loading: 'Loading cart …',
     search_placeholder: 'Search by category, problem, or use',
     search_aria_submit: 'Search',
+    search_results_status: '{total} results for “{term}”',
+    search_error_unavailable: 'Search is temporarily unavailable. Please try again.',
     search_submit_label: 'Search',
     search_loading_for: 'Searching for “{term}”.',
     search_view_all: 'View all results for “{term}” →',
@@ -86,12 +88,12 @@ export const DICTIONARIES = {
     ship_hero_title_em: 'Delivery.',
     ship_hero_cta: 'Shop the travel edit',
     ship_launch_hero_sub:
-      'One North American storefront with market-specific pricing and shipping options shown at checkout.',
+      'A Canadian storefront. Shipping options and delivery availability are shown at checkout.',
     ship_jump: 'See how shipping is shown',
-    ship_launch_regions_eye: 'North American storefront',
-    ship_launch_regions_title: 'Two markets. One focused shop.',
+    ship_launch_regions_eye: 'Where we ship',
+    ship_launch_regions_title: 'Shipping across Canada.',
     ship_launch_regions_sub:
-      'Choose Canada or the United States to view market pricing. Delivery still depends on the selected items and address.',
+      'We ship within Canada, in Canadian dollars. Delivery still depends on the selected items and address.',
     ship_launch_rates_eye: 'Before you pay',
     ship_launch_rates_title: 'Check delivery before payment',
     ship_launch_rates_sub:
@@ -112,6 +114,9 @@ export const DICTIONARIES = {
     ship_check_duties_body:
       'Customs duties, import taxes, brokerage, or carrier charges may be assessed by the destination. Puchica does not collect these charges; when applicable, they are the customer’s responsibility.',
     ship_check_duties_eta: 'Charged by customs or the carrier when applicable',
+    ship_check_duties_body_prepaid:
+      'Import duties and taxes are prepaid by Puchica and included in the price you see. There is nothing to pay on delivery, and the carrier will not bill you a disbursement fee.',
+    ship_check_duties_eta_prepaid: 'Included in the price — nothing to pay on delivery',
     ship_cta_title: 'Ready to order?',
     ship_cta_sub:
       'Shop the travel edit and confirm shipping for your address at checkout.',
@@ -297,6 +302,7 @@ export const DICTIONARIES = {
     pdp_thumb_aria: 'View image {n} of {total}',
     pdp_prev_aria: 'Previous image',
     pdp_next_aria: 'Next image',
+    pdp_image_position: 'Image {index} of {total}',
 
     // ── Product form ──────────────────────────────────────────────
     product_qty_aria: 'Quantity',
@@ -433,6 +439,8 @@ export const DICTIONARIES = {
     account_address_state: 'State / Province',
     account_address_zip: 'Zip / Postal Code',
     account_address_country: 'Country',
+    account_address_country_hint: 'Two-letter country code, e.g. CA',
+    account_addresses_delete_confirm: 'Delete this address? This cannot be undone.',
     account_address_phone: 'Phone',
     account_address_phone_aria: 'Phone Number',
     account_address_phone_ph: '+16135551111',
@@ -703,12 +711,12 @@ export const DICTIONARIES = {
     ship_hero_title_em: 'Expédition.',
     ship_hero_cta: 'Voir la sélection voyage',
     ship_launch_hero_sub:
-      'Une seule boutique nord-américaine avec des prix adaptés au marché et des options de livraison confirmées au paiement.',
+      'Une boutique canadienne. Les options de livraison sont confirmées au paiement.',
     ship_jump: 'Voir comment la livraison est confirmée',
-    ship_launch_regions_eye: 'Boutique nord-américaine',
-    ship_launch_regions_title: 'Deux marchés. Une boutique ciblée.',
+    ship_launch_regions_eye: 'Où nous livrons',
+    ship_launch_regions_title: 'Livraison partout au Canada.',
     ship_launch_regions_sub:
-      'Choisissez le Canada ou les États-Unis pour afficher les prix du marché. La livraison dépend toujours des articles et de l’adresse.',
+      'Nous livrons au Canada, en dollars canadiens. La livraison dépend toujours des articles et de l’adresse.',
     ship_launch_rates_eye: 'Avant de payer',
     ship_launch_rates_title: 'Vérifiez la livraison avant le paiement',
     ship_launch_rates_sub:
@@ -731,6 +739,10 @@ export const DICTIONARIES = {
       'Des droits de douane, taxes d’importation, frais de courtage ou frais du transporteur peuvent être imposés à destination. Puchica ne perçoit pas ces frais; le client en est responsable lorsqu’ils s’appliquent.',
     ship_check_duties_eta:
       'Facturés par les douanes ou le transporteur, le cas échéant',
+    ship_check_duties_body_prepaid:
+      'Les droits et taxes d’importation sont prépayés par Puchica et inclus dans le prix affiché. Vous n’avez rien à payer à la livraison, et le transporteur ne vous facturera aucuns frais de débours.',
+    ship_check_duties_eta_prepaid:
+      'Inclus dans le prix — rien à payer à la livraison',
     ship_cta_title: 'Prêt à commander ?',
     ship_cta_sub:
       'Magasinez les trouvailles et confirmez la livraison pour votre adresse au paiement.',
@@ -915,6 +927,7 @@ export const DICTIONARIES = {
     pdp_thumb_aria: 'Voir l’image {n} sur {total}',
     pdp_prev_aria: 'Image précédente',
     pdp_next_aria: 'Image suivante',
+    pdp_image_position: 'Image {index} sur {total}',
 
     // ── Formulaire produit ──────────────────────────────────────
     product_qty_aria: 'Quantité',
@@ -1055,6 +1068,8 @@ export const DICTIONARIES = {
     account_address_state: 'État / Province',
     account_address_zip: 'Code postal',
     account_address_country: 'Pays',
+    account_address_country_hint: 'Code de pays à deux lettres, p. ex. CA',
+    account_addresses_delete_confirm: 'Supprimer cette adresse ? Cette action est irréversible.',
     account_address_phone: 'Téléphone',
     account_address_phone_aria: 'Numéro de téléphone',
     account_address_phone_ph: '+16135551111',
@@ -1265,6 +1280,8 @@ export const DICTIONARIES = {
     cart_loading: 'Chargement du panier…',
     search_placeholder: 'Rechercher par catégorie, problème ou usage',
     search_aria_submit: 'Rechercher',
+    search_results_status: '{total} résultats pour « {term} »',
+    search_error_unavailable: 'La recherche est temporairement indisponible. Veuillez réessayer.',
     search_submit_label: 'Rechercher',
     search_loading_for: 'Recherche de « {term} »…',
     search_view_all: 'Voir tous les résultats pour « {term} » →',
@@ -1339,12 +1356,12 @@ export const DICTIONARIES = {
     ship_hero_title_em: 'Entrega.',
     ship_hero_cta: 'Ver la selección de viaje',
     ship_launch_hero_sub:
-      'Una sola tienda norteamericana con precios según el mercado y opciones de entrega confirmadas al pagar.',
+      'Una tienda canadiense. Las opciones de entrega se confirman al pagar.',
     ship_jump: 'Ver cómo se confirma la entrega',
-    ship_launch_regions_eye: 'Tienda norteamericana',
-    ship_launch_regions_title: 'Dos mercados. Una tienda enfocada.',
+    ship_launch_regions_eye: 'A dónde enviamos',
+    ship_launch_regions_title: 'Envíos a todo Canadá.',
     ship_launch_regions_sub:
-      'Elige Canadá o Estados Unidos para ver los precios del mercado. La entrega aún depende de los artículos y la dirección.',
+      'Enviamos dentro de Canadá, en dólares canadienses. La entrega aún depende de los artículos y la dirección.',
     ship_launch_rates_eye: 'Antes de pagar',
     ship_launch_rates_title: 'Comprueba la entrega antes del pago',
     ship_launch_rates_sub:
@@ -1367,6 +1384,10 @@ export const DICTIONARIES = {
       'El destino puede aplicar aranceles, impuestos de importación, gastos de gestión o cargos del transportista. Puchica no cobra estos importes; cuando correspondan, son responsabilidad del cliente.',
     ship_check_duties_eta:
       'Cobrados por aduanas o el transportista cuando corresponda',
+    ship_check_duties_body_prepaid:
+      'Puchica paga por adelantado los aranceles e impuestos de importación, y están incluidos en el precio que ves. No hay nada que pagar en la entrega, y el transportista no te cobrará ninguna tarifa de desembolso.',
+    ship_check_duties_eta_prepaid:
+      'Incluido en el precio — nada que pagar en la entrega',
     ship_cta_title: '¿Listo para pedir?',
     ship_cta_sub:
       'Compra hallazgos y confirma el envío para tu dirección al pagar.',
@@ -1552,6 +1573,7 @@ export const DICTIONARIES = {
     pdp_thumb_aria: 'Ver imagen {n} de {total}',
     pdp_prev_aria: 'Imagen anterior',
     pdp_next_aria: 'Imagen siguiente',
+    pdp_image_position: 'Imagen {index} de {total}',
 
     // ── Formulario de producto ──────────────────────────────────
     product_qty_aria: 'Cantidad',
@@ -1692,6 +1714,8 @@ export const DICTIONARIES = {
     account_address_state: 'Estado / Provincia',
     account_address_zip: 'Código postal',
     account_address_country: 'País',
+    account_address_country_hint: 'Código de país de dos letras, p. ej. CA',
+    account_addresses_delete_confirm: '¿Eliminar esta dirección? Esta acción no se puede deshacer.',
     account_address_phone: 'Teléfono',
     account_address_phone_aria: 'Número de teléfono',
     account_address_phone_ph: '+16135551111',
@@ -1902,6 +1926,8 @@ export const DICTIONARIES = {
     cart_loading: 'Cargando carrito…',
     search_placeholder: 'Buscar por categoría, problema o uso',
     search_aria_submit: 'Buscar',
+    search_results_status: '{total} resultados para «{term}»',
+    search_error_unavailable: 'La búsqueda no está disponible temporalmente. Inténtalo de nuevo.',
     search_submit_label: 'Buscar',
     search_loading_for: 'Buscando «{term}»…',
     search_view_all: 'Ver todos los resultados de «{term}» →',
@@ -1976,12 +2002,12 @@ export const DICTIONARIES = {
     ship_hero_title_em: 'Entrega.',
     ship_hero_cta: 'Ver a seleção de viagem',
     ship_launch_hero_sub:
-      'Uma única loja norte-americana com preços por mercado e opções de entrega confirmadas no checkout.',
+      'Uma loja canadense. As opções de entrega são confirmadas no checkout.',
     ship_jump: 'Veja como a entrega é confirmada',
-    ship_launch_regions_eye: 'Loja norte-americana',
-    ship_launch_regions_title: 'Dois mercados. Uma loja focada.',
+    ship_launch_regions_eye: 'Para onde enviamos',
+    ship_launch_regions_title: 'Entregas em todo o Canadá.',
     ship_launch_regions_sub:
-      'Escolha Canadá ou Estados Unidos para ver os preços do mercado. A entrega ainda depende dos itens e do endereço.',
+      'Enviamos dentro do Canadá, em dólares canadenses. A entrega ainda depende dos itens e do endereço.',
     ship_launch_rates_eye: 'Antes de pagar',
     ship_launch_rates_title: 'Confira a entrega antes do pagamento',
     ship_launch_rates_sub:
@@ -2003,6 +2029,10 @@ export const DICTIONARIES = {
       'O destino pode cobrar impostos aduaneiros, tributos de importação, corretagem ou taxas da transportadora. A Puchica não cobra esses valores; quando aplicáveis, são responsabilidade do cliente.',
     ship_check_duties_eta:
       'Cobrados pela alfândega ou transportadora quando aplicável',
+    ship_check_duties_body_prepaid:
+      'Os impostos e taxas de importação são pagos antecipadamente pela Puchica e já estão incluídos no preço exibido. Não há nada a pagar na entrega, e a transportadora não cobrará taxa de desembolso.',
+    ship_check_duties_eta_prepaid:
+      'Incluído no preço — nada a pagar na entrega',
     ship_cta_title: 'Pronto para pedir?',
     ship_cta_sub:
       'Compre achados e confirme o frete para seu endereço no checkout.',
@@ -2187,6 +2217,7 @@ export const DICTIONARIES = {
     pdp_thumb_aria: 'Ver imagem {n} de {total}',
     pdp_prev_aria: 'Imagem anterior',
     pdp_next_aria: 'Próxima imagem',
+    pdp_image_position: 'Imagem {index} de {total}',
 
     // ── Formulário de produto ───────────────────────────────────
     product_qty_aria: 'Quantidade',
@@ -2327,6 +2358,8 @@ export const DICTIONARIES = {
     account_address_state: 'Estado / Província',
     account_address_zip: 'CEP',
     account_address_country: 'País',
+    account_address_country_hint: 'Código do país com duas letras, ex.: CA',
+    account_addresses_delete_confirm: 'Excluir este endereço? Esta ação não pode ser desfeita.',
     account_address_phone: 'Telefone',
     account_address_phone_aria: 'Número de telefone',
     account_address_phone_ph: '+16135551111',
@@ -2535,6 +2568,8 @@ export const DICTIONARIES = {
     cart_loading: 'Carregando carrinho…',
     search_placeholder: 'Buscar por categoria, problema ou uso',
     search_aria_submit: 'Pesquisar',
+    search_results_status: '{total} resultados para “{term}”',
+    search_error_unavailable: 'A pesquisa está temporariamente indisponível. Tente novamente.',
     search_submit_label: 'Pesquisar',
     search_loading_for: 'Pesquisando por “{term}”…',
     search_view_all: 'Ver todos os resultados para “{term}” →',

@@ -268,7 +268,7 @@ export default function Addresses() {
       <br />
       <div>
         <div>
-          <legend>{t('account_addresses_create_legend')}</legend>
+          <h3>{t('account_addresses_create_legend')}</h3>
           <NewAddressForm key={addresses.nodes.length} />
         </div>
         <br />
@@ -331,7 +331,7 @@ function ExistingAddresses({addresses, defaultAddress}) {
   const t = useT();
   return (
     <div>
-      <legend>{t('account_addresses_existing')}</legend>
+      <h3>{t('account_addresses_existing')}</h3>
       {addresses.nodes.map((address) => (
         <AddressForm
           key={address.id}
@@ -352,6 +352,11 @@ function ExistingAddresses({addresses, defaultAddress}) {
                 disabled={stateForMethod('DELETE') !== 'idle'}
                 formMethod="DELETE"
                 type="submit"
+                onClick={(event) => {
+                  if (!window.confirm(t('account_addresses_delete_confirm'))) {
+                    event.preventDefault();
+                  }
+                }}
               >
                 {stateForMethod('DELETE') !== 'idle' ? t('account_addresses_deleting') : t('account_addresses_delete')}
               </button>
@@ -475,15 +480,19 @@ export function AddressForm({addressId, address, defaultAddress, children}) {
         <label htmlFor={fieldId('territoryCode')}>{t('account_address_country')}*</label>
         <input
           aria-label={t('account_address_country')}
+          aria-describedby={fieldId('territoryCodeHint')}
           autoComplete="country"
           defaultValue={address?.territoryCode ?? ''}
           id={fieldId('territoryCode')}
           name="territoryCode"
-          placeholder={t('account_address_country')}
+          placeholder={t('account_address_country_hint')}
           required
           type="text"
           maxLength={2}
         />
+        <small id={fieldId('territoryCodeHint')}>
+          {t('account_address_country_hint')}
+        </small>
         <label htmlFor={fieldId('phoneNumber')}>{t('account_address_phone')}</label>
         <input
           aria-label={t('account_address_phone_aria')}
@@ -507,7 +516,7 @@ export function AddressForm({addressId, address, defaultAddress, children}) {
           </label>
         </div>
         {error ? (
-          <p>
+          <p role="alert">
             <mark>
             <small>{t(error)}</small>
             </mark>

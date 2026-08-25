@@ -416,6 +416,7 @@ export default function Product() {
 
               <div
                 className="pk-product__trust"
+                role="group"
                 aria-label={t('product_perks_aria')}
               >
                 <div className="pk-product__trust-item">
@@ -496,7 +497,17 @@ export default function Product() {
 
       <PairsWith products={pairs} t={t} />
 
-      {reviews?.count > 0 ? (
+      {/*
+        Gated on externalId, NOT on review count. Gating on count made this a
+        closed loop: no reviews meant no widget, and no widget meant no
+        "write a review" form, so a first review could never be collected
+        through the storefront. Judge.me renders its own empty state ("Be the
+        first to write a review") plus the form, which is exactly what a
+        zero-review catalog needs. ReviewStars and the JSON-LD
+        aggregateRating below stay gated on count — empty stars and an
+        aggregateRating of zero would both be misrepresentations.
+      */}
+      {reviews?.externalId ? (
         <JudgemeReviews
           externalId={reviews.externalId}
           productTitle={displayTitle}

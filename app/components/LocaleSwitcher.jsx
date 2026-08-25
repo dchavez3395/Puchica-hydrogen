@@ -13,6 +13,14 @@ const LABELS = {
   es: 'Español',
   'pt-br': 'Português',
 };
+/* Each language name is written in its own language, so it needs a
+   matching lang attribute on every page (WCAG 3.1.2). */
+const LABEL_LANGS = {
+  en: 'en',
+  fr: 'fr',
+  es: 'es',
+  'pt-br': 'pt-BR',
+};
 const ORDER = ['en', 'fr', 'es', 'pt-br'];
 const MARKET_ORDER = ['CA', 'US'];
 
@@ -55,19 +63,42 @@ export function LocaleSwitcher() {
     const onDown = (e) => {
       if (ref.current && !ref.current.contains(e.target)) setOpen(false);
     };
+    const menuItems = () =>
+      Array.from(
+        ref.current?.querySelectorAll(
+          '[role="menu"] [role="menuitemradio"]:not([disabled])',
+        ) || [],
+      );
     const onKeyDown = (e) => {
-      if (e.key !== 'Escape') return;
+      if (e.key === 'Escape') {
+        // Capture phase + preventDefault, so an enclosing drawer's own
+        // Escape handler (Aside) can see defaultPrevented and stay open.
+        e.preventDefault();
+        e.stopPropagation();
+        setOpen(false);
+        window.requestAnimationFrame(() => trigger?.focus());
+        return;
+      }
+      const keys = ['ArrowDown', 'ArrowUp', 'Home', 'End'];
+      if (!keys.includes(e.key)) return;
+      const items = menuItems();
+      if (!items.length) return;
       e.preventDefault();
-      e.stopPropagation();
-      setOpen(false);
-      window.requestAnimationFrame(() => trigger?.focus());
+      const current = items.indexOf(document.activeElement);
+      let next = current;
+      if (e.key === 'ArrowDown') next = (current + 1) % items.length;
+      if (e.key === 'ArrowUp')
+        next = (current - 1 + items.length) % items.length;
+      if (e.key === 'Home') next = 0;
+      if (e.key === 'End') next = items.length - 1;
+      items[next]?.focus();
     };
 
     document.addEventListener('mousedown', onDown);
-    document.addEventListener('keydown', onKeyDown);
+    document.addEventListener('keydown', onKeyDown, true);
     return () => {
       document.removeEventListener('mousedown', onDown);
-      document.removeEventListener('keydown', onKeyDown);
+      document.removeEventListener('keydown', onKeyDown, true);
     };
   }, [open]);
 
@@ -177,7 +208,7 @@ export function LocaleSwitcher() {
                 }
                 onClick={() => choose(key)}
               >
-                <span>{LABELS[key]}</span>
+                <span lang={LABEL_LANGS[key]}>{LABELS[key]}</span>
               </button>
             ))}
           </div>

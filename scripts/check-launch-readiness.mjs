@@ -5,6 +5,7 @@ import {fileURLToPath} from 'node:url';
 
 import {DICTIONARIES} from '../app/lib/dictionaries.js';
 import {OPERATIONAL_HOLD_HANDLES} from '../app/lib/launch-catalog.js';
+import {runAcquisitionGate} from './check-acquisition-gate.mjs';
 
 const scriptPath = fileURLToPath(import.meta.url);
 const scriptDir = path.dirname(scriptPath);
@@ -115,8 +116,15 @@ export function runLaunchChecks() {
     if (source.includes("subscribe('cart_viewed'")) {
       failures.push(`${name} still treats a cart view as a checkout start.`);
     }
-    if (!source.includes("subscribe('custom_checkout_started'")) {
-      failures.push(`${name} does not subscribe to the checkout-click event.`);
+    // Checkout ownership now applies to Meta on the same terms as GA4 below.
+    // While the storefront pixel and the checkout pixel were different
+    // datasets, a storefront InitiateCheckout could not collide with the one
+    // Shopify's checkout emits. Consolidating both onto a single dataset makes
+    // them collide, with different event IDs and therefore no dedupe.
+    if (source.includes("subscribe('custom_checkout_started'")) {
+      failures.push(
+        `${name} duplicates checkout-owned custom_checkout_started.`,
+      );
     }
     for (const event of [
       'page_viewed',
@@ -131,9 +139,6 @@ export function runLaunchChecks() {
       failures.push(
         `${name} does not use the selected Shopify variant as the product-view item ID.`,
       );
-    }
-    if (!source.includes('cartAnalyticsItems(cart)')) {
-      failures.push(`${name} does not emit variant-level checkout items.`);
     }
   }
 
@@ -274,6 +279,34 @@ export function runLaunchChecks() {
     warnings.push(
       'GO_LIMITED_TEST validates a control-file readiness tier only: tracking, delivery, sample/quality and Purchase proof may still be absent. The current action gate is paid HOLD until the no-spend review is completed and the user explicitly authorizes the exact spend cap; scaling remains blocked.',
     );
+  }
+
+  // Paid readiness is not only an evidence question. An offer can carry every
+  // tag, quote and control file in this script and still lose money on every
+  // ad-driven sale, because nothing here has ever compared contribution to a
+  // cost per acquisition. This is that comparison, and it runs in paid mode:
+  // if an approved offer cannot fund its own customer, paid launch fails.
+  const acquisition = runAcquisitionChecks();
+  failures.push(...acquisition.failures);
+  warnings.push(...acquisition.warnings);
+
+  return {failures, warnings};
+}
+
+export function runAcquisitionChecks({now = new Date()} = {}) {
+  const failures = [];
+  const warnings = [];
+
+  try {
+    const gate = runAcquisitionGate({paidMode: true, now});
+    failures.push(...gate.blocking);
+    for (const drift of gate.driftWarnings) {
+      warnings.push(
+        `${drift.handle} is live at CA$${drift.livePriceCad.toFixed(2)} but its fulfilment evidence documents CA$${drift.documentedPriceCad.toFixed(2)}. Re-cost the offer or correct the price before advertising it.`,
+      );
+    }
+  } catch (error) {
+    failures.push(`Acquisition gate could not run: ${error.message}`);
   }
 
   return {failures, warnings};

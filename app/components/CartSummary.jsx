@@ -2,7 +2,12 @@ import {CartForm, useAnalytics} from '@shopify/hydrogen';
 import {CurrencyMoney} from '~/components/CurrencyMoney';
 import {FreeShippingProgress} from '~/components/FreeShippingProgress';
 import {useEffect, useId, useRef, useState} from 'react';
-import {useActionData, useFetcher, useRouteLoaderData} from 'react-router';
+import {
+  useActionData,
+  useFetcher,
+  useFetchers,
+  useRouteLoaderData,
+} from 'react-router';
 import {CHECKOUT_URL_REWRITER, buildCheckoutRewriteOptions} from '~/lib/checkout';
 import {useT} from '~/lib/t';
 
@@ -20,10 +25,16 @@ export function CartSummary({cart, layout, hasCheckoutableItems = true}) {
   const giftCardHeadingId = useId();
   const giftCardInputId = useId();
 
+  // On the /cart page the summary sits directly under the route's h1, so
+  // h4 would skip levels; in the drawer it follows the drawer's h3 title.
+  const SummaryHeading = layout === 'page' ? 'h2' : 'h4';
+
   return (
     <div aria-labelledby={summaryId} className={className}>
-      <h4 id={summaryId}>{t('cart_summary_title')}</h4>
-      <dl role="group" className="cart-subtotal">
+      <SummaryHeading id={summaryId} className="cart-summary-heading">
+        {t('cart_summary_title')}
+      </SummaryHeading>
+      <dl className="cart-subtotal">
         <dt>{t('cart_summary_subtotal')}</dt>
         <dd>
           {cart?.cost?.subtotalAmount?.amount ? (
@@ -118,8 +129,17 @@ function CartCheckoutActions({cart, checkoutUrl, disabled = false}) {
  */
 function CartActionErrors() {
   const actionData = useActionData();
-  const errors = actionData?.errors;
-  if (!Array.isArray(errors) || errors.length === 0) return null;
+  // CartForm submits via a fetcher, so the `/cart` action result never
+  // reaches useActionData in the JS flow — read the fetchers as the
+  // primary source and keep actionData for the no-JS form post.
+  const fetchers = useFetchers();
+  const errors = [
+    ...fetchers.flatMap((f) =>
+      Array.isArray(f.data?.errors) ? f.data.errors : [],
+    ),
+    ...(Array.isArray(actionData?.errors) ? actionData.errors : []),
+  ];
+  if (errors.length === 0) return null;
   // The Hydrogen Cart helpers return errors as either strings or
   // `{message, code, field}` objects depending on the action.
   const message = errors
@@ -157,22 +177,24 @@ function CartDiscounts({
       <dl hidden={!codes.length}>
         <div>
           <dt id={discountsHeadingId}>{t('cart_summary_discounts_h')}</dt>
-          <UpdateDiscountForm discountCodes={[]}>
-            <div
-              className="cart-discount"
-              role="group"
-              aria-labelledby={discountsHeadingId}
-            >
-              <code>{codes?.join(', ')}</code>
-              &nbsp;
-              <button
-                type="submit"
-                aria-label={t('cart_summary_remove_discount')}
+          <dd>
+            <UpdateDiscountForm discountCodes={[]}>
+              <div
+                className="cart-discount"
+                role="group"
+                aria-labelledby={discountsHeadingId}
               >
-                {t('cart_summary_remove')}
-              </button>
-            </div>
-          </UpdateDiscountForm>
+                <code>{codes?.join(', ')}</code>
+                &nbsp;
+                <button
+                  type="submit"
+                  aria-label={t('cart_summary_remove_discount')}
+                >
+                  {t('cart_summary_remove')}
+                </button>
+              </div>
+            </UpdateDiscountForm>
+          </dd>
         </div>
       </dl>
 

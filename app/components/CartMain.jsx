@@ -194,6 +194,7 @@ function GhostCartNotice() {
  */
 function CartBrandHeader() {
   const {close} = useAside();
+  const t = useT();
   return (
     <div className="cart-brand">
       <Link
@@ -201,7 +202,7 @@ function CartBrandHeader() {
         prefetch="intent"
         onClick={close}
         className="cart-brand__logo"
-        aria-label={`${SITE_NAME} home`}
+        aria-label={`${SITE_NAME} — ${t('breadcrumb_home')}`}
       >
         <img src={STORE_LOGO_URL} alt={SITE_NAME} />
       </Link>

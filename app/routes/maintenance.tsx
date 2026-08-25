@@ -25,21 +25,22 @@ export async function loader({context}: LoaderFunctionArgs) {
   });
 }
 
+export const meta = ({data}: {data?: {storeName?: string}}) => [
+  {title: `${data?.storeName || 'Puchica'} — We'll be right back`},
+  {name: 'robots', content: 'noindex, nofollow'},
+];
+
 export default function MaintenancePage() {
   const {storeName, storeDomain, maintenanceMessage} =
     useLoaderData<typeof loader>();
 
+  // Content only — the root layout owns the single <html>/<head>/<body>
+  // document; rendering another one here nested invalid markup. The copy
+  // is English-only, so the wrapper carries lang="en" for non-EN locales.
   return (
-    <html lang="en">
-      <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="robots" content="noindex, nofollow" />
-        <title>{storeName} — We&rsquo;ll be right back</title>
-        <style dangerouslySetInnerHTML={{__html: STYLES}} />
-      </head>
-      <body>
-        <div className="maintenance-shell">
+    <div className="maintenance-root" lang="en">
+      <style dangerouslySetInnerHTML={{__html: STYLES}} />
+      <div className="maintenance-shell">
           <div className="maintenance-card">
             <div className="maintenance-logo">{storeName}</div>
             <h1>We&rsquo;ll be right back</h1>
@@ -54,15 +55,14 @@ export default function MaintenancePage() {
               </a>
             </div>
           </div>
-        </div>
-      </body>
-    </html>
+      </div>
+    </div>
   );
 }
 
 const STYLES = `
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body {
+.maintenance-root, .maintenance-root * { margin: 0; padding: 0; box-sizing: border-box; }
+.maintenance-root {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   background: linear-gradient(135deg, #2d1b4e 0%, #4a2c6f 50%, #6b3a8a 100%);
   min-height: 100vh;
@@ -92,7 +92,7 @@ body {
   color: #f2ebda;
   text-transform: lowercase;
 }
-h1 {
+.maintenance-card h1 {
   font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 1rem;
@@ -100,22 +100,22 @@ h1 {
 .maintenance-msg {
   font-size: 1rem;
   line-height: 1.6;
-  color: rgba(242, 235, 218, 0.75);
+  color: rgba(242, 235, 218, 0.85);
   margin-bottom: 2rem;
 }
 .maintenance-contact {
   font-size: 0.875rem;
-  color: rgba(242, 235, 218, 0.5);
+  color: rgba(242, 235, 218, 0.85);
 }
 .maintenance-contact a {
-  color: #c9a8e8;
-  text-decoration: none;
+  color: #dcc8f5;
+  text-decoration: underline;
 }
 .maintenance-contact a:hover {
   text-decoration: underline;
 }
 @media (max-width: 480px) {
   .maintenance-card { padding: 2rem 1.5rem; }
-  h1 { font-size: 1.25rem; }
+  .maintenance-card h1 { font-size: 1.25rem; }
 }
 `;

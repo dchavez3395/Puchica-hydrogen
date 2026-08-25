@@ -128,14 +128,19 @@ function AddToCartSubmitButton({
       const t = setTimeout(() => setShowAdded(false), 1400);
       return () => clearTimeout(t);
     }
-    // Keep the error visible longer — the user actually needs to read it.
+    // Keep the error visible until the shopper acts again (changes the
+    // selection or retries) — a timed disappearance of an error the user
+    // needs to read fails WCAG 2.2.1.
     setShowError(
       isFeedbackForCurrentSelection(submittedIdsKey, attemptedIdsKey),
     );
     setShowAdded(false);
-    const t = setTimeout(() => setShowError(false), 3200);
-    return () => clearTimeout(t);
   }, [fetcher.state, fetcher.data, attemptedIdsKey, open, revalidator]);
+
+  // A fresh submission supersedes a standing error state.
+  useEffect(() => {
+    if (isSubmitting) setShowError(false);
+  }, [isSubmitting]);
 
   const resolvedAddedLabel =
     addedLabel !== undefined ? addedLabel : t('atc_added');
@@ -161,10 +166,20 @@ function AddToCartSubmitButton({
           (showAdded ? ' pk-atc--added' : '') +
           (showError ? ' pk-atc--error' : '')
         }
-        aria-live="polite"
       >
         {label}
       </button>
+      {/* Live region kept outside the (disabled) button — live text inside
+          disabled controls is unreliably announced across screen readers. */}
+      <span className="sr-only" role="status" aria-live="polite">
+        {showError
+          ? t('atc_add_failed')
+          : showAdded
+            ? resolvedAddedLabel || ''
+            : isSubmitting
+              ? t('atc_adding')
+              : ''}
+      </span>
     </>
   );
 }
