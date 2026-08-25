@@ -1,6 +1,11 @@
 # Puchica TikTok / UGC organic test pack
 
-Status: **CREATIVE READY — NOT PUBLISHED — NO AD SPEND**
+Status: **RETIRED 2026-08-25 — DO NOT PUBLISH ANY OF THESE**
+
+> Owner decision: static-card slideshow videos are below the brand's quality
+> bar ("slop") and none of this pack ships. The captions remain the approved
+> claim-safe copy reference. The replacement standard is real footage of the
+> physical products, which requires the sample order — see COORDINATION.md.
 
 > **Corrected 2026-08-25.** `final/luggage-tag-organic-test-11s.mp4` is
 > **retired** — `white-luggage-id-tag` is in `RETIRED_CATALOG_HANDLES` and the

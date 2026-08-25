@@ -335,3 +335,19 @@ Format:
   Daniel's /permissions allow + "retry". Meta paid parked. His 5-minute
   DSers console checklist stands (stock re-read, tech-case product record,
   Advanced Mapping state).
+
+### 2026-08-25 · remote · Slideshow UGC pack retired; pivot to the sample order
+
+- Daniel retired the static-card slideshow videos outright — below the
+  quality bar, none ship. Pack marked RETIRED in its README; the captions
+  survive as the claim-safe copy reference.
+- The replacement standard is real footage of physical products, which the
+  store cannot produce because no one has ever held one: no paid sample
+  exists (no offer has L3 evidence). The recommended single highest-leverage
+  move is one real order of the four hero products through puchica.ca
+  itself — it simultaneously (1) proves the full checkout→DSers→supplier→
+  delivery pipeline on live rails, (2) refreshes cost/route evidence at the
+  moment of supplier payment, (3) delivers the physical products for real
+  photos/video, and (4) quality-checks what customers would receive.
+  Net out-of-pocket ≈ supplier cost + payment fees (retail cycles back to
+  the owner). Owner-only: it is money.
