@@ -37,6 +37,15 @@ export function MetaPixel({pixelId}) {
   // Guarded so a Hydrogen API mismatch can never crash the root layout.
   const registration = useRef(null);
   const installed = useRef(false);
+  // Hydrogen's canTrack starts as a function returning false and is replaced
+  // once the Customer Privacy API reports consent. The effect below lists
+  // canTrack as a dependency, but its `installed` guard makes every re-run a
+  // no-op — so the subscriptions keep calling whichever canTrack existed at
+  // mount, forever. When that one returns false the pixel never installs, on a
+  // store whose configuration is entirely correct. Reading through a ref keeps
+  // the subscriptions on the current function without re-subscribing.
+  const canTrackRef = useRef(canTrack);
+  canTrackRef.current = canTrack;
   if (!registration.current) {
     registration.current =
       typeof register === 'function'
@@ -63,7 +72,8 @@ export function MetaPixel({pixelId}) {
 
     const allowed = () => {
       try {
-        return typeof canTrack === 'function' ? canTrack() : false;
+        const current = canTrackRef.current;
+        return typeof current === 'function' ? current() : false;
       } catch {
         return false;
       }
