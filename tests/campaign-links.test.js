@@ -145,12 +145,9 @@ test('organic content tokens are unique so per-post attribution works', async ()
 
 test('the tiktok bio redirect and the organic calendar share one campaign', async () => {
   const {ORGANIC_CAMPAIGN} = await import('../scripts/build-campaign-links.mjs');
-  const {TIKTOK_ATTRIBUTION} = await import('../app/routes/tiktok.js').catch(
-    () => ({TIKTOK_ATTRIBUTION: null}),
-  );
-  // In environments without react-router the route module cannot load; the
-  // literal is then pinned by tiktok-attribution.test.js in CI instead.
-  if (TIKTOK_ATTRIBUTION) {
-    assert.equal(TIKTOK_ATTRIBUTION.utm_campaign, ORGANIC_CAMPAIGN);
-  }
+  // Imported from the plain lib module, not the route: the route pulls in
+  // react-router, which used to make this assertion skip itself in any
+  // environment that could not load it.
+  const {TIKTOK_ATTRIBUTION} = await import('../app/lib/social-bio-links.js');
+  assert.equal(TIKTOK_ATTRIBUTION.utm_campaign, ORGANIC_CAMPAIGN);
 });
