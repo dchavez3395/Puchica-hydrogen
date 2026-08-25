@@ -1,7 +1,7 @@
 import {useEffect, useRef} from 'react';
 import {useAnalytics} from '@shopify/hydrogen';
 import {isBotClient} from '~/lib/bot-detection';
-import {analyticsItemId, cartAnalyticsItems} from '~/lib/analytics-items';
+import {analyticsItemId} from '~/lib/analytics-items';
 import {scheduleAnalyticsReady} from '~/lib/analytics-ready';
 
 /**
@@ -23,9 +23,23 @@ import {scheduleAnalyticsReady} from '~/lib/analytics-ready';
  * This survives ad-blockers and iOS ITP for ~30% of visitors who would
  * otherwise be invisible to Meta's optimization.
  *
- * FUNNEL NOTE: this component covers PageView, ViewContent, AddToCart, and
- * InitiateCheckout. Purchase is expected from the Shopify-hosted checkout
- * integration, but must be verified in Meta Events Manager before ad spend.
+ * WHY THIS COMPONENT EXISTS AT ALL: Shopify's `web-pixels-manager`, which the
+ * Facebook & Instagram sales channel relies on, loads on the Online Store
+ * publication — NOT on a Hydrogen/Oxygen storefront. So "the channel is
+ * installed" buys checkout coverage and nothing on puchica.ca. This component
+ * is the only path by which storefront events reach Meta. See
+ * docs/analytics-ownership.md.
+ *
+ * FUNNEL NOTE: this component covers PageView, ViewContent, and AddToCart —
+ * the storefront-only half of the funnel. InitiateCheckout and Purchase belong
+ * to the Shopify-hosted checkout, which already emits both. Subscribing to
+ * `custom_checkout_started` here would put a second InitiateCheckout into the
+ * same dataset with a different `event_id`, so Meta could not dedupe them and
+ * the count would roughly double. That is not cosmetic for this store: with
+ * almost no purchase volume, campaigns have to optimize on AddToCart or
+ * InitiateCheckout rather than Purchase, so an inflated InitiateCheckout
+ * corrupts the exact signal the spend is bought against. This mirrors the rule
+ * GoogleAnalytics4.jsx already follows for its own checkout events.
  *
  * @param {{pixelId?: string | null}} props
  * @returns {null}
@@ -158,20 +172,9 @@ export function MetaPixel({pixelId}) {
       });
     });
 
-    subscribe('custom_checkout_started', (data) => {
-      const cart = readField(data, 'cart');
-      const totalAmount = readField(readField(cart, 'cost'), 'totalAmount');
-      const items = cartAnalyticsItems(cart);
-      track('InitiateCheckout', {
-        content_type: 'product',
-        content_ids: items.length
-          ? items.map((item) => item.item_id)
-          : undefined,
-        value: Number(readField(totalAmount, 'amount')) || undefined,
-        currency: readField(totalAmount, 'currencyCode'),
-        num_items: readField(cart, 'totalQuantity') || undefined,
-      });
-    });
+    // Deliberately NOT subscribed: `custom_checkout_started`. The Shopify
+    // checkout owns InitiateCheckout and already sends it to the same dataset.
+    // See the FUNNEL NOTE at the top of this file.
 
     // Hydrogen flushes buffered page-view events as soon as this integration
     // reports ready. Give concurrent hydration two frames to finish before the
@@ -235,7 +238,3 @@ function loadFbq(pixelId) {
   return n;
 }
 
-function readField(value, key) {
-  if (!value || typeof value !== 'object') return undefined;
-  return Reflect.get(value, key);
-}

@@ -32,6 +32,10 @@ import {
 const META_CAPI_URL = 'https://graph.facebook.com/v20.0';
 
 // Events we relay. Anything else returns 204 without relaying.
+// This is a validation ceiling on what the endpoint will accept, not a
+// statement of what the storefront sends. MetaPixel.jsx deliberately does not
+// send InitiateCheckout or Purchase — the Shopify checkout owns both. See
+// docs/analytics-ownership.md.
 const ALLOWED_EVENTS = new Set([
   'PageView',
   'ViewContent',

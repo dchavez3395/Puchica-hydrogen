@@ -116,8 +116,15 @@ export function runLaunchChecks() {
     if (source.includes("subscribe('cart_viewed'")) {
       failures.push(`${name} still treats a cart view as a checkout start.`);
     }
-    if (!source.includes("subscribe('custom_checkout_started'")) {
-      failures.push(`${name} does not subscribe to the checkout-click event.`);
+    // Checkout ownership now applies to Meta on the same terms as GA4 below.
+    // While the storefront pixel and the checkout pixel were different
+    // datasets, a storefront InitiateCheckout could not collide with the one
+    // Shopify's checkout emits. Consolidating both onto a single dataset makes
+    // them collide, with different event IDs and therefore no dedupe.
+    if (source.includes("subscribe('custom_checkout_started'")) {
+      failures.push(
+        `${name} duplicates checkout-owned custom_checkout_started.`,
+      );
     }
     for (const event of [
       'page_viewed',
@@ -132,9 +139,6 @@ export function runLaunchChecks() {
       failures.push(
         `${name} does not use the selected Shopify variant as the product-view item ID.`,
       );
-    }
-    if (!source.includes('cartAnalyticsItems(cart)')) {
-      failures.push(`${name} does not emit variant-level checkout items.`);
     }
   }
 
