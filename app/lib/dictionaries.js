@@ -88,12 +88,12 @@ export const DICTIONARIES = {
     ship_hero_title_em: 'Delivery.',
     ship_hero_cta: 'Shop the travel edit',
     ship_launch_hero_sub:
-      'One North American storefront with market-specific pricing and shipping options shown at checkout.',
+      'A Canadian storefront. Shipping options and delivery availability are shown at checkout.',
     ship_jump: 'See how shipping is shown',
-    ship_launch_regions_eye: 'North American storefront',
-    ship_launch_regions_title: 'Two markets. One focused shop.',
+    ship_launch_regions_eye: 'Where we ship',
+    ship_launch_regions_title: 'Shipping across Canada.',
     ship_launch_regions_sub:
-      'Choose Canada or the United States to view market pricing. Delivery still depends on the selected items and address.',
+      'We ship within Canada, in Canadian dollars. Delivery still depends on the selected items and address.',
     ship_launch_rates_eye: 'Before you pay',
     ship_launch_rates_title: 'Check delivery before payment',
     ship_launch_rates_sub:
@@ -711,12 +711,12 @@ export const DICTIONARIES = {
     ship_hero_title_em: 'Expédition.',
     ship_hero_cta: 'Voir la sélection voyage',
     ship_launch_hero_sub:
-      'Une seule boutique nord-américaine avec des prix adaptés au marché et des options de livraison confirmées au paiement.',
+      'Une boutique canadienne. Les options de livraison sont confirmées au paiement.',
     ship_jump: 'Voir comment la livraison est confirmée',
-    ship_launch_regions_eye: 'Boutique nord-américaine',
-    ship_launch_regions_title: 'Deux marchés. Une boutique ciblée.',
+    ship_launch_regions_eye: 'Où nous livrons',
+    ship_launch_regions_title: 'Livraison partout au Canada.',
     ship_launch_regions_sub:
-      'Choisissez le Canada ou les États-Unis pour afficher les prix du marché. La livraison dépend toujours des articles et de l’adresse.',
+      'Nous livrons au Canada, en dollars canadiens. La livraison dépend toujours des articles et de l’adresse.',
     ship_launch_rates_eye: 'Avant de payer',
     ship_launch_rates_title: 'Vérifiez la livraison avant le paiement',
     ship_launch_rates_sub:
@@ -1356,12 +1356,12 @@ export const DICTIONARIES = {
     ship_hero_title_em: 'Entrega.',
     ship_hero_cta: 'Ver la selección de viaje',
     ship_launch_hero_sub:
-      'Una sola tienda norteamericana con precios según el mercado y opciones de entrega confirmadas al pagar.',
+      'Una tienda canadiense. Las opciones de entrega se confirman al pagar.',
     ship_jump: 'Ver cómo se confirma la entrega',
-    ship_launch_regions_eye: 'Tienda norteamericana',
-    ship_launch_regions_title: 'Dos mercados. Una tienda enfocada.',
+    ship_launch_regions_eye: 'A dónde enviamos',
+    ship_launch_regions_title: 'Envíos a todo Canadá.',
     ship_launch_regions_sub:
-      'Elige Canadá o Estados Unidos para ver los precios del mercado. La entrega aún depende de los artículos y la dirección.',
+      'Enviamos dentro de Canadá, en dólares canadienses. La entrega aún depende de los artículos y la dirección.',
     ship_launch_rates_eye: 'Antes de pagar',
     ship_launch_rates_title: 'Comprueba la entrega antes del pago',
     ship_launch_rates_sub:
@@ -2002,12 +2002,12 @@ export const DICTIONARIES = {
     ship_hero_title_em: 'Entrega.',
     ship_hero_cta: 'Ver a seleção de viagem',
     ship_launch_hero_sub:
-      'Uma única loja norte-americana com preços por mercado e opções de entrega confirmadas no checkout.',
+      'Uma loja canadense. As opções de entrega são confirmadas no checkout.',
     ship_jump: 'Veja como a entrega é confirmada',
-    ship_launch_regions_eye: 'Loja norte-americana',
-    ship_launch_regions_title: 'Dois mercados. Uma loja focada.',
+    ship_launch_regions_eye: 'Para onde enviamos',
+    ship_launch_regions_title: 'Entregas em todo o Canadá.',
     ship_launch_regions_sub:
-      'Escolha Canadá ou Estados Unidos para ver os preços do mercado. A entrega ainda depende dos itens e do endereço.',
+      'Enviamos dentro do Canadá, em dólares canadenses. A entrega ainda depende dos itens e do endereço.',
     ship_launch_rates_eye: 'Antes de pagar',
     ship_launch_rates_title: 'Confira a entrega antes do pagamento',
     ship_launch_rates_sub:
