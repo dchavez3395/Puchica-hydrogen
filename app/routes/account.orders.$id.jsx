@@ -116,9 +116,6 @@ export default function OrderRoute() {
                 <th scope="row" colSpan={3}>
                   <p>{t('account_order_discounts')}</p>
                 </th>
-                <th scope="row">
-                  <p>{t('account_order_discounts')}</p>
-                </th>
                 <td>
                   {discountPercentage ? (
                     <span>{t('account_order_discount_line', {pct: discountPercentage})}</span>
@@ -132,9 +129,6 @@ export default function OrderRoute() {
               <th scope="row" colSpan={3}>
                 <p>{t('account_order_subtotal')}</p>
               </th>
-              <th scope="row">
-                <p>{t('account_order_subtotal')}</p>
-              </th>
               <td>
                 <CurrencyMoney data={order.subtotal} />
               </td>
@@ -143,9 +137,6 @@ export default function OrderRoute() {
               <th scope="row" colSpan={3}>
                 {t('account_order_tax')}
               </th>
-              <th scope="row">
-                <p>{t('account_order_tax')}</p>
-              </th>
               <td>
                 <CurrencyMoney data={order.totalTax} />
               </td>
@@ -153,9 +144,6 @@ export default function OrderRoute() {
             <tr>
               <th scope="row" colSpan={3}>
                 {t('account_order_total')}
-              </th>
-              <th scope="row">
-                <p>{t('account_order_total')}</p>
               </th>
               <td>
                 <CurrencyMoney data={order.totalPrice} />
@@ -208,7 +196,12 @@ function OrderLineRow({lineItem}) {
         <div>
           {lineItem?.image && (
             <div>
-              <Image data={lineItem.image} width={96} height={96} />
+              <Image
+                data={lineItem.image}
+                alt={lineItem.image.altText || lineItem.title}
+                width={96}
+                height={96}
+              />
             </div>
           )}
           <div>

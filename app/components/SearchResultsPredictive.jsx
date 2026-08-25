@@ -65,7 +65,7 @@ function SearchResultsPredictiveArticles({term, articles, closeSearch}) {
 
   return (
     <div className="predictive-search-result" key="articles">
-      <h5>{t('pred_articles')}</h5>
+      <h4>{t('pred_articles')}</h4>
       <ul>
         {articles.map((article) => {
           const articleUrl = urlWithTrackingParams({
@@ -106,7 +106,7 @@ function SearchResultsPredictiveCollections({term, collections, closeSearch}) {
 
   return (
     <div className="predictive-search-result" key="collections">
-      <h5>{t('pred_collections')}</h5>
+      <h4>{t('pred_collections')}</h4>
       <ul>
         {collections.map((collection) => {
           const collectionUrl = urlWithTrackingParams({
@@ -147,7 +147,7 @@ function SearchResultsPredictivePages({term, pages, closeSearch}) {
 
   return (
     <div className="predictive-search-result" key="pages">
-      <h5>{t('pred_pages')}</h5>
+      <h4>{t('pred_pages')}</h4>
       <ul>
         {pages.map((page) => {
           const pageUrl = urlWithTrackingParams({
@@ -180,7 +180,7 @@ function SearchResultsPredictiveProducts({term, products, closeSearch}) {
 
   return (
     <div className="predictive-search-result" key="products">
-      <h5>{t('pred_products')}</h5>
+      <h4>{t('pred_products')}</h4>
       <ul>
         {products.map((product) => {
           const productUrl = urlWithTrackingParams({

@@ -240,13 +240,19 @@ function NotifyBackForm({variantId, productHandle}) {
           placeholder={t('product_notify_placeholder')}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          aria-invalid={error ? true : undefined}
+          aria-describedby={error ? `notify-back-${variantId}-err` : undefined}
         />
         <button type="submit" disabled={submitting || !email}>
           {submitting ? '…' : t('product_notify_btn')}
         </button>
       </div>
       {error ? (
-        <p className="pk-notify-back__err" role="alert">
+        <p
+          id={`notify-back-${variantId}-err`}
+          className="pk-notify-back__err"
+          role="alert"
+        >
           {error}
         </p>
       ) : null}

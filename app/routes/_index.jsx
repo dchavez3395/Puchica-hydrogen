@@ -61,7 +61,7 @@ export default function Index() {
 
   if (STOREFRONT_CONTAINMENT_ACTIVE) {
     return (
-      <main className="pk-home pk-campaign pk-campaign--home">
+      <div className="pk-home pk-campaign pk-campaign--home">
         <section className="pk-campaign-hero" aria-labelledby="review-title">
           <div className="pk-campaign-hero__copy">
             <p className="pk-campaign__eyebrow">Puchica storefront review</p>
@@ -75,7 +75,7 @@ export default function Index() {
             </p>
           </div>
         </section>
-      </main>
+      </div>
     );
   }
 

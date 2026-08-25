@@ -117,6 +117,14 @@ export function ProductImage({
                 >
                   <IconChevronRight size={18} />
                 </button>
+                {/* Announce gallery position when prev/next changes the
+                    image — the swap is otherwise silent to screen readers. */}
+                <span className="sr-only" role="status" aria-live="polite">
+                  {t('pdp_image_position', {
+                    index: String(index + 1),
+                    total: String(list.length),
+                  })}
+                </span>
               </>
             )}
           </div>

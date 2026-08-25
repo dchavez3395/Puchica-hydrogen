@@ -210,7 +210,10 @@ function CartBadge({count}) {
     <Link
       to="/cart"
       className={'pk-icon-btn pk-cart-btn' + (isOpen ? ' is-active' : '')}
-      aria-label={isOpen ? t('header_cart_close') : t('header_cart_open')}
+      aria-label={
+        (isOpen ? t('header_cart_close') : t('header_cart_open')) +
+        (count !== null && count > 0 ? ` (${count})` : '')
+      }
       aria-expanded={isOpen}
       onClick={(event) => {
         event.preventDefault();

@@ -261,7 +261,12 @@ export function ProductItem({product, loading, dark = false}) {
           )}
         </div>
         {hasChoices ? (
-          <Link to={variantUrl} className="pk-card__viewbtn" prefetch="intent">
+          <Link
+            to={variantUrl}
+            className="pk-card__viewbtn"
+            prefetch="intent"
+            aria-label={`${t('card_choose_options')} — ${product.title}`}
+          >
             {t('card_choose_options')}
           </Link>
         ) : variant ? (
@@ -286,7 +291,12 @@ export function ProductItem({product, loading, dark = false}) {
             </AddToCartButton>
           </div>
         ) : (
-          <Link to={variantUrl} className="pk-card__viewbtn" prefetch="intent">
+          <Link
+            to={variantUrl}
+            className="pk-card__viewbtn"
+            prefetch="intent"
+            aria-label={`${t('card_view_details')} — ${product.title}`}
+          >
             {t('card_view_details')}
           </Link>
         )}

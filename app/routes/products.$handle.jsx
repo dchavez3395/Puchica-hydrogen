@@ -416,6 +416,7 @@ export default function Product() {
 
               <div
                 className="pk-product__trust"
+                role="group"
                 aria-label={t('product_perks_aria')}
               >
                 <div className="pk-product__trust-item">

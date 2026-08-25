@@ -224,3 +224,29 @@ Format:
   puchica.ca product pages.
 - Remaining before spend, unchanged and Meta-side only: pixel Test Events
   check, own-IP exclusion, create `stage1-funnel-smoke` in Ads Manager.
+
+### 2026-08-25 · remote · WCAG 2.2 AA accessibility pass on the storefront
+
+- Daniel shared a WCAG audit checklist and asked for the storefront to be
+  audited against it. Three parallel code audits (perceivable / operable /
+  understandable+robust) found 0 critical, 5 serious, ~17 moderate, ~22 minor.
+- All serious and most moderate/minor findings fixed in one pass, 23 files:
+  cart promo/gift-card errors were silently dropped (fetcher vs useActionData
+  mismatch — also a conversion bug), account form errors now announced via
+  role="alert", two contrast failures from the marigold→teal token remap,
+  locale menu got real arrow-key navigation, Esc no longer closes the whole
+  drawer from inside the locale menu, sticky-header scroll-padding, order
+  table markup, heading levels, nested <main>/<html> fixes, ATC status now in
+  a live region and errors persist until the shopper acts, address delete asks
+  for confirmation, country field explains its 2-letter format, four
+  translated strings added to all locales.
+- Verified: 281/281 tests (two previously env-blocked suites now run),
+  production build clean, storefront release gate PASS.
+- Deferred (owner/design calls): PDP hero Ken Burns loop has no pause control
+  (reduced-motion guard exists), predictive search combobox semantics,
+  surfacing Shopify's field-level address errors, body overflow-x guard.
+- Also decided this session: the shared "AI dropshipping" playbook's
+  compare-at sale workflow will not be run (violates the no-fake-discount
+  rule and Competition Act ordinary-price rules); backend mass-rewrite parked
+  until after the ad test; AI product images will come from Daniel's
+  Antigravity/Nano-Banana run, reviewed for product fidelity before use.

@@ -46,7 +46,10 @@ export function Aside({children, heading, type}) {
       document.addEventListener(
         'keydown',
         function handler(event) {
-          if (event.key === 'Escape') {
+          if (event.key === 'Escape' && !event.defaultPrevented) {
+            // A nested popup (e.g. the locale menu, capture-phase handler)
+            // prevents default when Escape closes it — only then should the
+            // drawer itself stay open.
             close();
           }
           // Focus trap: Tab / Shift+Tab cycles within the dialog
