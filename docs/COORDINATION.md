@@ -90,6 +90,42 @@ before stopping so the other is not editing stale files.
   finding matters, it should be something the build can check.
 - **Push before you stop.** Unpushed work is invisible to the other session.
 
+## Current assignment — local CLI
+
+The remote session maintains this section. Local CLI: do the top unblocked task,
+append to the log, push, then take the next one. Do not wait to be asked.
+
+### 1. Source 15 candidates  ·  IN PROGRESS
+
+Attach to Chrome on port 9222 (Daniel is logged into DSers). For each candidate
+record: exact variant cost USD, shipping-to-Canada cost USD, ETA, stock, and the
+supplier item ID. **The exact mapped variant, never the listing card price** —
+that error produced the last broken catalog.
+
+Target: retail CA$90–150, landed at or under a third of retail. Start with car
+camping/overlanding and pet gear; both clear every hard filter and demonstrate
+well on video.
+
+Write rows to `docs/recovery-evidence/sourcing-candidates-<date>.csv` using the
+template's columns, then run `npm run sourcing-spec -- --csv <that file>` and
+commit the output alongside it.
+
+Stop condition: 15 scored rows, or the category is exhausted. If fewer than
+three reach SHORTLIST, say so plainly rather than lowering the bar — that result
+is itself the finding.
+
+### 2. Verify the top three  ·  BLOCKED on task 1
+
+For each SHORTLIST row: confirm the Canadian route still quotes, check supplier
+rating and order volume, look for brand marks in the imagery, and confirm the
+listing does not require assembly or carry a battery. Record findings in the log.
+
+### 3. Draft the catalog swap  ·  BLOCKED on task 2
+
+`npm run catalog-block -- --csv <shortlist>` and commit the generated block as a
+proposal. **Do not apply it** — the swap is atomic and needs Daniel's approval
+plus the Shopify tags, and the old catalog only retires in the same commit.
+
 ## Progress log
 
 Append newest at the bottom. Keep entries short and factual: what changed, what
