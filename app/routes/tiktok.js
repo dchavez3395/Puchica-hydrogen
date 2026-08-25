@@ -3,16 +3,16 @@ import {redirect} from 'react-router';
 // The cable-organizer PDP: the only product with published TikTok creative.
 // The live @puchica_canada bio and the UGC pack both promise this landing —
 // pointing the bio at a product with no TikTok creative wastes the click.
-export const TIKTOK_DESTINATION = '/products/travel-cable-organizer-case';
-export const TIKTOK_ATTRIBUTION = Object.freeze({
-  utm_source: 'tiktok',
-  utm_medium: 'organic_social',
-  // Canonical campaign for the 2026-08 organic relaunch. Five incompatible
-  // campaign values accumulated across earlier packs; every organic surface
-  // now carries this one so sessions are comparable.
-  utm_campaign: 'organic_relaunch_2026_08',
-  utm_content: 'profile_bio_cable_case',
-});
+//
+// The destination and its attribution live in app/lib/social-bio-links.js so
+// the production health check asserts the same values this route redirects to.
+// They had drifted apart, and the check failed on every deploy as a result.
+// Relative, not the `~` alias: tests/tiktok-attribution.test.js loads this
+// module under plain node, which cannot resolve the Vite alias.
+import {
+  TIKTOK_ATTRIBUTION,
+  TIKTOK_DESTINATION,
+} from '../lib/social-bio-links.js';
 
 /** @param {Route.LoaderArgs} args */
 export async function loader({request}) {
