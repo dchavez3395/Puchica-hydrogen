@@ -145,3 +145,20 @@ Format:
   2026-08-28 — launch before then or re-read six DSers routes.
 - Next: Daniel's preflight (Meta Business Suite check, IP exclusion, channel
   confirmation), then day 1 of the 7-day calendar from the launch-kit artifact.
+
+### 2026-08-25 · remote · Pre-spend verification (Part A) complete
+
+- Daniel authorized ad spend conditional on verification; plan updated: verify
+  first, then the CA$200 Stage-1 smoke test. Organic kit remains available.
+- Live catalog diffed against the 2026-08-21/22 cost baseline: all six offers
+  ACTIVE, prices and exact SKUs match; ad hero black-travel-tech-case verified
+  (14:29#Black, CA$34.99, all evidence tags). Kit price drift CA$69 vs CA$89
+  remains the one open pricing item (not in the ad plan).
+- Competitive read: tech case CA$34.99 sits at parity with Amazon.ca
+  comparables (~CA$36); cubes CA$39.99 above commodity band (not advertised).
+- Gates: storefront release PASS; suite 268/270 (2 CI-only); measurement
+  preflight has no blocking fault, two human items remain (channel
+  confirmation, pixel-ID gate contradiction).
+- Awaiting Part B from Daniel: DSers spot-check of 5 mapped SKUs, channel/pixel
+  confirmation, IP exclusion. Spend must start by Aug 28 or the DSers readings
+  become the new baseline first.
