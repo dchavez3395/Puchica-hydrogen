@@ -8,6 +8,7 @@ import {
   CA_MODELLED_DUTY_RATES,
   CA_TAX_DE_MINIMIS_CAD,
   checkPriceDrift,
+  collectedCheckoutShipping,
   computeCanadianOffer,
   evaluateAcquisition,
   expectedAssessmentCost,
@@ -301,5 +302,25 @@ test('a stale or unsourced benchmark fails the audit', () => {
       new Date('2026-08-25T00:00:00Z'),
     ).length > 0,
     'a 100% profit share must fail',
+  );
+});
+
+test('checkout shipping is not credited above the free-shipping threshold', () => {
+  // The 2026-08-25 pricing audit found the gate crediting CA$5 shipping
+  // revenue on the CA$69 bundle, overstating its contribution (15.27 printed
+  // vs 11.07 true). The model must mirror the live delivery profile: CA$5
+  // under CA$50, CA$0 at or above it.
+  assert.equal(
+    collectedCheckoutShipping({retailCad: 39.99, singleItemShippingCad: 5}),
+    5,
+  );
+  assert.equal(
+    collectedCheckoutShipping({retailCad: 69, singleItemShippingCad: 5}),
+    0,
+  );
+  assert.equal(
+    collectedCheckoutShipping({retailCad: 50, singleItemShippingCad: 5}),
+    0,
+    'the threshold itself ships free (>= 50)',
   );
 });

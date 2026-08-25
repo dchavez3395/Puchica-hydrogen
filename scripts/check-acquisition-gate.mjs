@@ -32,6 +32,7 @@ import {
 import {
   CA_MODELLED_DUTY_RATES,
   checkPriceDrift,
+  collectedCheckoutShipping,
   computeCanadianOffer,
   evaluateAcquisition,
 } from './lib/acquisition-economics.mjs';
@@ -119,7 +120,10 @@ export function runAcquisitionGate({
       itemCostUsd: evidence.itemCostUsd,
       shippingUsd: evidence.routes.CA.shippingUsd,
       fxCadPerUsd: baseline.planningFxCadPerUsd,
-      checkoutShippingCad: baseline.singleItemCheckoutShipping.CA,
+      checkoutShippingCad: collectedCheckoutShipping({
+        retailCad,
+        singleItemShippingCad: baseline.singleItemCheckoutShipping.CA,
+      }),
       paymentPercentRate: baseline.paymentPercentRate,
       paymentFixedFee: baseline.paymentFixedFee,
       exceptionReserveRate: baseline.exceptionReserveRate,

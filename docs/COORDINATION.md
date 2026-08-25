@@ -280,3 +280,37 @@ Format:
   links only.
 - No spend, no price changes, no new claims. The Ad Console stays valid if
   Daniel completes the Meta setup himself at any time.
+
+### 2026-08-25 · remote · Four-specialist launch audit; gate bug fixed; TikTok post held
+
+- Daniel asked for an all-hands audit of pricing, mapping, shipping/fee
+  margins, and everything the shared playbook covered. Built the agency
+  roster (.claude/agents: pricing-analyst, sourcing-auditor,
+  market-researcher, content-merchandiser) and ran all four in parallel.
+  Results dashboard: Launch Audit artifact (2026-08-25).
+- Pipeline verified again (SKUs live = baseline, routes fresh through
+  Aug 28–29); the real problems are prices, not plumbing: cubes CA$39.99 sit
+  ABOVE the observed CA$15–34 Amazon band (most exposed offer — and the
+  staged TikTok product, so the post stays HELD); the kit at CA$69 earns
+  28.2% margin and sits CA$1 below its own paid crossover — restructure
+  recommendation: 4-piece kit at CA$84.99 or restore $79–89.
+- Real code bug found by the audit and fixed: the acquisition gate credited
+  CA$5 checkout shipping on the free-shipping bundle, overstating kit
+  contribution (printed 15.27, true 11.07). collectedCheckoutShipping()
+  added to acquisition-economics.mjs (imports the storefront's own
+  free-shipping threshold), wired into check-acquisition-gate.mjs and
+  canada-duty-impact.mjs, regression test added; 282/282.
+- Content findings: cable-case Black Double at 19.99 vs 24.99 siblings
+  (anomaly, owner call); tech case missing all SEO fields and features the
+  grey photo on a "Black" product; two meta descriptions contradict their
+  PDPs (jewelry "leather/hard-shell", cubes "compress"); bundle's "$87.97
+  separately" line is anchor framing. Six factual fixes staged for API,
+  awaiting Daniel's word. Image shot list for his Antigravity run delivered
+  in the dashboard.
+- Sourcing red flags: all supplier STOCK readings stale (Aug 14, expired);
+  tech case dsers-mapped tag under-evidenced (no product-record row — and
+  it is the ad hero); no live offer has order-handoff (L2) proof; five
+  retired products + two unapproved tech-case colours still ACTIVE behind
+  the code gate. 5-minute DSers console checklist for Daniel is in the
+  dashboard; per-market multi-supplier mapping is possible in DSers but no
+  evidence shows it configured.

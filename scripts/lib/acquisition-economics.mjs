@@ -20,6 +20,8 @@
  * policy, and are sourced in docs/canada-landed-cost-2026-08-24.md.
  */
 
+import {FREE_SHIPPING_THRESHOLDS} from '../../app/lib/free-shipping.js';
+
 /**
  * Canada's de minimis for goods originating outside the United States and
  * Mexico. The CUSMA increase to CAD$40 tax / CAD$150 duty applies only to
@@ -28,6 +30,26 @@
  */
 export const CA_DUTY_DE_MINIMIS_CAD = 20;
 export const CA_TAX_DE_MINIMIS_CAD = 40;
+
+/**
+ * Checkout shipping the store actually collects for a single-offer order.
+ *
+ * The live delivery profile charges CA$5 under the free-shipping threshold
+ * and CA$0 at or above it. Passing the flat CA$5 into the model for a
+ * CA$69 bundle credits revenue the store never collects and overstates its
+ * contribution (found by the 2026-08-25 pricing audit: kit printed 15.27,
+ * true figure 11.07). The threshold is imported from the storefront's own
+ * constant so the model and the shipping promise cannot drift apart.
+ */
+export function collectedCheckoutShipping({
+  retailCad,
+  singleItemShippingCad,
+  freeShippingThresholdCad = FREE_SHIPPING_THRESHOLDS.CA,
+}) {
+  return Number(retailCad) >= Number(freeShippingThresholdCad)
+    ? 0
+    : Number(singleItemShippingCad);
+}
 
 /**
  * Sales tax CBSA collects at the border, by province.

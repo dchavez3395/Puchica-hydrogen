@@ -38,6 +38,7 @@ import {
   CA_TAX_DE_MINIMIS_CAD,
   computeCanadianOffer,
   expectedAssessmentCost,
+  collectedCheckoutShipping,
 } from './lib/acquisition-economics.mjs';
 
 const rootDir = path.resolve(
@@ -145,7 +146,15 @@ for (const [label, options] of SCENARIOS) {
   console.log('-'.repeat(78));
   let total = 0;
   for (const offer of offers) {
-    const row = computeCanadianOffer({...offer, ...shared, ...options});
+    const row = computeCanadianOffer({
+      ...offer,
+      ...shared,
+      checkoutShippingCad: collectedCheckoutShipping({
+        retailCad: offer.retailCad,
+        singleItemShippingCad: shared.checkoutShippingCad,
+      }),
+      ...options,
+    });
     total += row.contribution;
     const flag = row.contribution < 0 ? '  LOSS' : '';
     console.log(
@@ -184,7 +193,12 @@ const worstCase = offers.reduce((worst, offer) => {
   });
   const cost = expectedAssessmentCost({
     assessment,
-    collectedTotal: offer.retailCad + shared.checkoutShippingCad,
+    collectedTotal:
+      offer.retailCad +
+      collectedCheckoutShipping({
+        retailCad: offer.retailCad,
+        singleItemShippingCad: shared.checkoutShippingCad,
+      }),
     landedCost: landedCad,
   });
   return Math.max(worst, cost);
