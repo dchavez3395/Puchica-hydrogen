@@ -21,6 +21,7 @@ import {
   JsonLdScript,
 } from '~/lib/seo';
 import {getJudgemeBadge} from '~/lib/judgeme';
+import {dutyCopyKey} from '~/lib/duty-posture';
 import {ReviewStars, JudgemeReviews} from '~/components/JudgemeReviews';
 import {recordRecentlyViewed} from '~/lib/recentlyViewed';
 import {useT} from '~/lib/t';
@@ -577,6 +578,15 @@ function Shipping({t}) {
     <div className="pk-pdetails__shipping">
       <h3>{t('product_shipping_h')}</h3>
       <p>{t('product_shipping_body')}</p>
+      {/* Import charges belong on the product page, not only on /pages/shipping.
+          Government duty and tax are exempt from the Competition Act's
+          total-price rule (s.74.01(1.1)), but a carrier's brokerage or
+          disbursement fee is not a government charge - so a buyer who meets one
+          on the doorstep met a cost this page failed to disclose. The sentence
+          is derived from DUTY_POSTURE, so switching to prepaid duty rewrites it
+          here, on the shipping page, and in every locale at once. */}
+      <h3>{t('ship_check_duties_title')}</h3>
+      <p>{t(dutyCopyKey())}</p>
       <h3>{t('product_returns_h')}</h3>
       <p>{t('product_returns_body')}</p>
       <h3>{t('product_help_h')}</h3>
