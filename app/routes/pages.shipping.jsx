@@ -6,6 +6,7 @@ import {IconBag, IconPackage, IconTruck} from '~/components/Icons';
 import {useT} from '~/lib/t';
 import {useParams, useRouteLoaderData} from 'react-router';
 import {STOREFRONT_CONTAINMENT_ACTIVE} from '~/lib/launch-catalog';
+import {dutyCopyKey, dutyEtaKey} from '~/lib/duty-posture';
 
 export const meta = ({params}) => {
   const copy = utilityMetaCopy(params?.locale).shipping;
@@ -67,9 +68,11 @@ export default function ShippingPage() {
     },
     {
       Icon: IconPackage,
+      // Derived from DUTY_POSTURE so this page, the product page, and the
+      // Shopify configuration cannot describe three different things.
       title: t('ship_check_duties_title'),
-      body: t('ship_check_duties_body'),
-      eta: t('ship_check_duties_eta'),
+      body: t(dutyCopyKey()),
+      eta: t(dutyEtaKey()),
       badge: '',
     },
   ];
