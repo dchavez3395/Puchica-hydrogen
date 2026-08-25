@@ -174,11 +174,19 @@ test('non-fatal flags reduce the score without rejecting', async () => {
   assert.equal(bulky.penalties[0].key, 'bulky');
 });
 
-test('sizing is the heaviest non-fatal penalty', async () => {
+test('domestic retail saturation is the heaviest non-fatal penalty', async () => {
+  // It outweighs sizing because a 20-40% return rate is survivable, whereas
+  // competing on price against a two-day Home Depot delivery is the trap the
+  // previous catalog fell into - repeated at a higher price point.
   const {DISQUALIFIERS} = await import('../scripts/lib/sourcing-spec.mjs');
   const nonFatal = Object.entries(DISQUALIFIERS).filter(([, r]) => !r.fatal);
-  const heaviest = nonFatal.sort((a, b) => b[1].penalty - a[1].penalty)[0];
-  assert.equal(heaviest[0], 'sized');
+  const ranked = nonFatal.sort((a, b) => b[1].penalty - a[1].penalty);
+  assert.equal(ranked[0][0], 'domesticRetailSaturated');
+  assert.equal(ranked[1][0], 'sized');
+  assert.ok(
+    DISQUALIFIERS.domesticRetailSaturated.penalty >
+      DISQUALIFIERS.sized.penalty,
+  );
 });
 
 test('every fatal disqualifier explains itself', async () => {

@@ -251,6 +251,11 @@ export const DISQUALIFIERS = Object.freeze({
     penalty: 1,
     why: 'Supplier shipping rises faster than product cost, and route availability to Canada thins out.',
   },
+  domesticRetailSaturated: {
+    fatal: false,
+    penalty: 5,
+    why: 'Already stocked in the same price band by Canadian big-box retail - Home Depot, Best Buy, Walmart, Wayfair, Amazon - under house brands like PawHut, Aosom or VEVOR. They ship in two days; we quote 8-14. Competing there means competing on price against a two-day delivery, which is the exact trap the previous catalog fell into, only at a higher price point.',
+  },
 });
 
 /**

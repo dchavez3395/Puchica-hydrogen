@@ -4,16 +4,16 @@
 # regulatedGoods, brandedOrLicensed) rejects the row regardless of margin.
 # The rows below are ILLUSTRATIVE EXAMPLES showing how the scoring behaves.
 # Replace them with real DSers readings - none of these is a verified quote.
-name,retailCad,supplierCostUsd,supplierShippingUsd,mainsElectrical,wireless,lithiumBattery,regulatedGoods,brandedOrLicensed,sized,fragile,needsAssemblyOrSupport,bulky
-Rooftop cargo bag 15cu ft,139,28,6,n,n,n,n,n,n,n,n,y
-Car camping mattress (SUV),129,26,5,n,n,n,n,n,n,n,n,y
-Folding camp cot,119,24,7,n,n,n,n,n,n,n,y,y
-Large pet stroller,149,32,8,n,n,n,n,n,n,n,y,y
-Elevated pet grooming table,109,22,6,n,n,n,n,n,n,n,y,y
-Pilates reformer bar kit,99,19,4,n,n,n,n,n,n,n,n,n
-Raised garden bed (galvanised),115,23,7,n,n,n,n,n,n,n,y,y
-Portable power station 300W,199,60,12,n,n,y,n,n,n,n,n,y
-Bluetooth pet tracker collar,95,14,2,n,y,y,n,n,n,n,n,n
-Branded-style designer tote,125,18,3,n,n,n,n,y,n,n,n,n
-Merino base layer set,110,26,4,n,n,n,n,n,y,n,n,n
-Ceramic cookware 8-piece,135,34,9,n,n,n,n,n,n,y,n,y
+name,retailCad,supplierCostUsd,supplierShippingUsd,mainsElectrical,wireless,lithiumBattery,regulatedGoods,brandedOrLicensed,sized,fragile,needsAssemblyOrSupport,bulky,domesticRetailSaturated
+Rooftop cargo bag 15cu ft,139,28,6,n,n,n,n,n,n,n,n,y,y
+Car camping mattress (SUV),129,26,5,n,n,n,n,n,n,n,n,y,n
+Folding camp cot,119,24,7,n,n,n,n,n,n,n,y,y,y
+Large pet stroller,149,32,8,n,n,n,n,n,n,n,y,y,y
+Elevated pet grooming table,109,22,6,n,n,n,n,n,n,n,y,y,n
+Pilates reformer bar kit,99,19,4,n,n,n,n,n,n,n,n,n,n
+Raised garden bed (galvanised),115,23,7,n,n,n,n,n,n,n,y,y,y
+Portable power station 300W,199,60,12,n,n,y,n,n,n,n,n,y,y
+Bluetooth pet tracker collar,95,14,2,n,y,y,n,n,n,n,n,n,n
+Branded-style designer tote,125,18,3,n,n,n,n,y,n,n,n,n,n
+Merino base layer set,110,26,4,n,n,n,n,n,y,n,n,n,n
+Ceramic cookware 8-piece,135,34,9,n,n,n,n,n,n,y,n,y,y

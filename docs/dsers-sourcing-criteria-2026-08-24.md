@@ -50,6 +50,7 @@ Ask before importing, not after the first order.
 | Flag | Penalty | Why |
 | --- | :---: | --- |
 | Sized (apparel, footwear) | −3 | 20–40% return rates. The largest support burden in ecommerce, and it scales with order value. |
+| **Domestic retail saturation** | **−5** | **Already stocked in the same band by Canadian big-box — Home Depot, Best Buy, Walmart, Wayfair, Amazon — under PawHut, Aosom, VEVOR, GYMAX. They ship in two days; we quote 8–14.** |
 | Fragile | −2 | Breakage over an 8–14 day route, and a replacement costs full landed cost again. |
 | Needs assembly / support | −2 | Every support email is unpaid labour, working directly against a hands-off store. |
 | Bulky | −1 | Supplier shipping rises faster than product cost, and Canadian route availability thins. |
@@ -68,6 +69,25 @@ Working backwards from the filters, a good candidate is:
 - **Worse or pricier on Amazon** — or absent. If Amazon has it Prime-shipped for
   less, you lose on both price and delivery.
 
+### Correction: two of the six hypotheses are weak
+
+Checked on 2026-08-25. **Pet strollers and rooftop/overlanding gear are already
+sold in the CA$90–150 band by Canadian big-box retail** — Home Depot Canada
+lists 25 dog strollers at CA$100–199, Best Buy Canada 34, under PawHut, Aosom,
+VEVOR, GYMAX and BestPet. Rooftop and awning gear is served by Thule, Cascadia
+and established Canadian overland retailers.
+
+That fails the "worse or pricier on Amazon" test outright. Selling a generic
+version of a product Home Depot delivers in two days, on an 8–14 day route, is
+the trap the previous catalog fell into — repeated at a higher price point. The
+price band was necessary but never sufficient.
+
+**So the binding filter is not price, it is: does Canadian retail already stock
+this?** Hitting CA$90–150 gets you past the CPA floor; avoiding big-box overlap
+is what gives anyone a reason to buy from Puchica instead. Prefer products too
+specific or too niche for big box to carry — enthusiast gear, a narrow problem,
+a configuration nobody stocks — over the generic version of a mainstream item.
+
 ### Category hypotheses
 
 These survive every hard filter and plausibly hit the price band. **They are
@@ -76,15 +96,22 @@ Validate each with a real DSers reading before believing any number.
 
 | Category | Why it fits | Watch for |
 | --- | --- | --- |
-| **Car camping / overlanding** — rooftop cargo bags, SUV mattresses, awnings, seat platforms | Unpowered, unsized, high willingness to pay, strongly visual | Bulk raises supplier shipping and thins Canadian routes |
-| **Pet gear (non-consumable)** — strollers, large carriers, grooming tables, elevated feeders | Emotional purchase, weak price sensitivity, easy to demonstrate | Assembly and support burden; size/weight fit questions |
+| ~~Car camping / overlanding~~ | Unpowered and visual, but **big-box saturated** — see the correction above | Only a configuration Thule/Cascadia/Canadian Tire do not stock |
+| ~~Pet gear — strollers, large carriers~~ | **Big-box saturated.** Grooming tables and elevated feeders are less so | Check each item against Home Depot / Best Buy before pursuing |
 | **Non-electric fitness** — pilates/reformer bars, resistance systems, weighted vests, balance trainers | Compact, unpowered, clear before/after | Injury-claim exposure; make no health claims |
 | **Garden and outdoor structures** — raised beds, small greenhouses, plant systems | Seasonal but high intent, unregulated | Bulky; strongly seasonal in Canada |
 | **Furniture-scale home organization** — shoe cabinets, storage benches, closet systems | Genuinely high ticket, visual transformation | Assembly, bulk, damage in transit |
 | **Craft and hobby equipment** — quilting and sewing tools, resin and casting kits | Passionate niche, low competition, unpowered | Small audiences; check demand exists at all |
 
-Best two for a first attempt: **car camping** and **pet gear**. Both carry high
-willingness to pay, demonstrate well on video, and need no certification.
+**Revised: the best two are now non-electric fitness and craft/hobby
+equipment.** Both are niche enough that Canadian big box does not stock them at
+this price, and both are bought by people who already know what they want — so
+the ad has to demonstrate rather than persuade.
+
+The general rule the correction produces: **search for the specific, not the
+generic.** A dog stroller is a Home Depot product. A grooming table with a
+specific arm configuration is not. The narrower the problem, the less likely
+big box carries it, and the more reason a customer has to buy from you.
 
 ## Process
 
