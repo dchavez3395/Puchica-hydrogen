@@ -25,10 +25,31 @@
 export function findOverflow() {
   const cw = document.documentElement.clientWidth;
   const seen = new Map();
+
+  /**
+   * Content inside a horizontal SCROLLER is reachable, so it is not overflow.
+   *
+   * The PDP thumbnail rail is `overflow-x: auto` with 763px of thumbnails in a
+   * 465px box — working exactly as designed. The first version of this probe
+   * reported all 23 of its children as viewport overflow on mobile, and I very
+   * nearly "fixed" a rail that was never broken.
+   *
+   * `hidden` deliberately does NOT count: that clips content the user cannot
+   * scroll to, which is a real defect and the thing `.pk-home` is suspected of.
+   */
+  const inScroller = (el) => {
+    for (let p = el.parentElement; p && p !== document.body; p = p.parentElement) {
+      const ox = getComputedStyle(p).overflowX;
+      if (ox === 'auto' || ox === 'scroll') return true;
+    }
+    return false;
+  };
+
   for (const el of document.querySelectorAll('body *')) {
     const r = el.getBoundingClientRect();
     if (r.width <= 0 || r.height <= 0) continue;
     if (r.right <= cw + 1 && r.left >= -1) continue;
+    if (inScroller(el)) continue;
     const sel = `${el.tagName.toLowerCase()}.${[...el.classList].slice(0, 3).join('.')}`;
     const prev = seen.get(sel);
     if (!prev || r.right > prev.right) {
