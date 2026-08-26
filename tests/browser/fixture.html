@@ -11,6 +11,12 @@
       .pk-home { width: 100%; overflow: hidden; }
       .runs-over { width: 160%; height: 40px; background: #cde; }
 
+      /* A deliberate horizontal scroller, like the PDP thumbnail rail. Its
+         children extend past the viewport and the user can scroll to them, so
+         they are NOT overflow and must not be reported. */
+      .rail { width: 100%; overflow-x: auto; white-space: nowrap; }
+      .rail > i { display: inline-block; width: 300px; height: 30px; background: #dec; }
+
       /* A 40x10 image (4:1) forced into a 40x40 box (1:1) with the default
          object-fit: fill. Skew = rendered AR / natural AR - 1 = -0.75, i.e.
          squashed horizontally. The header logo failed the same way in the
@@ -29,6 +35,8 @@
     <div class="pk-home">
       <div class="runs-over">clipped overflow</div>
     </div>
+
+    <div class="rail"><i></i><i></i><i></i><i></i><i></i></div>
 
     <!-- 40x10 red PNG, inlined so the fixture needs no network. -->
     <img
