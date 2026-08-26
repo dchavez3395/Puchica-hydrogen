@@ -130,3 +130,62 @@ cleared. If duffels are the category, the price point may need to be CA$149
 rather than CA$129 — which raises the bar on how good the product has to look,
 and argues for the private-label route in section 5 rather than a generic
 dropship listing.
+
+---
+
+## 8. Round two — the filters work
+
+Applied `choice_atm` + unbranded-title + ≥40 sold + ≥4.3★ across three duffel
+searches *before* importing anything, then imported the five most
+weekender-shaped survivors and read stock first.
+
+| Candidate | Cost (US$) | Stock | Outcome |
+|---|---|---|---|
+| **Travel bag, large-capacity carry-on** | **25.55–27.27** | **29,930** | **Survives** |
+| Water-resistant travel duffel | 33.46–33.84 | 9,992 | "DUANG BAG" printed on the bag |
+| Oxford waterproof travel bag | 20.35–30.55 | 43 | Stock |
+| Large canvas travel duffel | 29.00–38.00 | 23 | Stock |
+| Corduroy travel tote | 24.67–25.32 | 24 | Stock |
+
+**Hit rate went from 0 of 6 to 1 of 5.** Stock still kills most of them — three
+of five held under 50 units — but pre-screening for Choice stopped the freight
+problem from wasting any imports at all this round.
+
+### The survivor
+
+`1005007029517840` — cost **US$25.55–27.27**, **free shipping to Canada**,
+AliExpress Selection Standard from CN, **7–14 days, tracked**, stock **29,930**,
+261 sold, 4.8★.
+
+| Retail | Landed | Profit/order | Verdict |
+|---|---|---|---|
+| CA$149 | 26% | **+CA$34.06** | SHORTLIST (10.0) |
+| CA$129 | 30% | +CA$23.76 | SHORTLIST (7.9) |
+| CA$109 | 35% | +CA$13.46 | CONSIDER |
+
+### The honest problem with it
+
+It clears every mechanical gate — Choice, stock, freight, margin, no visible
+brand mark. It is a **plain grey foldable nylon duffel**. It does not look like
+a CA$149 bag; it looks like a CA$59 one.
+
+That is the same trap as the CA$25 gym duffel in section 3, arriving by a
+different road: the scorer rewards a cheap input, and cheapness is exactly what
+makes the retail price implausible. The economics gate is now passable. The
+"looks worth it" gate is the one this candidate probably fails.
+
+Two open items on it, both blocked by the AliExpress CAPTCHA: the full supplier
+image set has not been reviewed for brand marks (only the card thumbnail), and
+no sample has been handled.
+
+### What this round actually establishes
+
+The screen works and is cheap to run. What it keeps surfacing is that
+**AliExpress Choice inventory in this category is functional, not desirable** —
+the bags that look worth CA$149 (corduroy, waxed canvas, leather) are the ones
+with 20-odd units, and the ones with real stock are plain. That is a structural
+fact about the supply, not bad luck across two rounds.
+
+Which is the argument for section 5's private-label route, stated more strongly:
+if the desirable-looking bags cannot be dropshipped at volume, the choice is
+between selling a plain bag at a plain price or buying inventory of a good one.
