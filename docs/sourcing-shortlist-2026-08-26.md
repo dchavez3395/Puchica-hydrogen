@@ -1,0 +1,132 @@
+# Sourcing shortlist — 2026-08-26
+
+Candidates found against `docs/sourcing-spec-2026-08-24.md`: retail CA$90–150,
+landed at or under a third, unpowered, unbranded, unregulated.
+
+**Status: all six candidates verified against DSers. All six fail.** The useful
+output of this round is not a product — it is the discovery of the two filters
+that actually decide this, neither of which is visible on an AliExpress search
+page. Section 4 is the part worth reading.
+
+---
+
+## 1. Categories tested, and what died
+
+| Category | Supplier price | Why it fails |
+|---|---|---|
+| Garment bags / suit carriers | CA$18–27 | Canadian retail ceiling is CA$29–49. Cheap enough, but it cannot be priced into the band. Same trap as the current catalog. |
+| Leather toiletry / dopp kits | CA$20–27 unbranded | Retails CA$49–69. Everything above that is branded (CONTACT'S, Nesitu, HUMERPAUL) and disqualified. |
+| Waxed canvas duffels | CA$52–63 | Right perceived value, but the actual duffels have **1–6 lifetime sales**. |
+| Anti-theft travel backpacks | CA$29–33 unbranded | Economics work on paper, but the category's top is all branded (Xiaomi, BAGSMART, BANGE, OIWAS) and it is bought heavily by advertisers with real budgets. |
+
+Weekender duffels remain the only category where the *price point* is real —
+BÉIS sells its core duffles at US$88–168, so CA$129 reads as value. The problem
+turned out to be supply, not demand.
+
+---
+
+## 2. What verification changed
+
+DSers was set to sync Canadian supplier data (it was on United States, which
+would have quoted US shipping). Four candidates were imported and read.
+
+| Candidate | Est. cost | **Verified cost** | **Ship to CA** | **Stock** | Verdict |
+|---|---|---|---|---|---|
+| Retro crocodile duffel | US$22.04 | **US$27.41–28.06** | US$2.17, 7–14d | **10** | Stock |
+| Carry-on / light travel bag | US$23.17 | **US$23.51–25.29** | — | **4** | Stock |
+| Sport duffel, shoe pocket | US$22.71 | **US$22.45** | **US$23.41, 18–27d** | 7,782 | Shipping + brand mark |
+| Men's leather travel bag | US$28.20 | imported, low stock | — | — | Stock |
+
+My cost estimates were **up to 34% low**, exactly as predicted: the search page
+reports `minPrice`, the cheapest variant, not what you actually pay.
+
+---
+
+## 3. Scored on verified numbers
+
+`npm run sourcing-spec -- --csv reports/candidates-verified.csv`
+
+| Candidate | Retail | Landed | Profit/order | Verdict |
+|---|---|---|---|---|
+| croc duffel | CA$149 | 28% | +CA$25.34 | SHORTLIST |
+| croc duffel | CA$129 | 33% | +CA$15.04 | CONSIDER |
+| croc duffel | CA$109 | 39% | +CA$4.74 | WEAK |
+| sport duffel (non-Choice) | CA$129 | 50% | **−CA$11.37** | REJECT |
+| sport duffel (non-Choice) | CA$149 | 43% | **−CA$1.07** | REJECT |
+
+Note what the last two rows mean: a bag costing **US$22.45** — cheaper than
+every other candidate — loses money at CA$129 *and* at CA$149, purely on
+freight.
+
+---
+
+## 4. The two filters that actually decide this
+
+**Filter one: it must be an AliExpress Choice / Selection item.**
+
+For a bulky item shipped to Canada, freight is the binding constraint, not
+product cost. Same page, same day:
+
+- croc duffel, Choice: **US$2.17**, 7–14 days
+- sport duffel, not Choice: **US$23.41**, 18–27 days (premium: US$47.53)
+
+A non-Choice duffel is unsellable at any retail price the market will bear. This
+is detectable before importing — Choice items carry a `choice_atm` selling-point
+tag in the search payload — so it can be screened programmatically. In the
+duffel search, **16 of 60** results qualified.
+
+**Filter two: stock must be in the thousands.**
+
+This is invisible until the product is in DSers, and it is where the good-looking
+candidates died. For contrast, within the same account:
+
+- croc duffel: **10 units**
+- carry-on light bag: **4 units**
+- current cable organizer: 9,994 units
+- current luggage tag: 9,975 units
+
+A supplier holding 4–10 units cannot support a storefront. These are effectively
+clearance listings wearing the clothes of a real product.
+
+Being Choice does **not** imply having stock — both dead candidates were Choice.
+The two filters are independent, and a candidate has to clear both, plus be
+unbranded, plus look worth CA$129.
+
+---
+
+## 5. Brand marks
+
+The only high-stock duffel found (sport duffel, 7,782 units) has **"MAD TRUNK"
+printed on the product itself** in the supplier photos. That is the disqualifier
+the spec calls out — a brand mark is a takedown and a frozen payment processor
+waiting to happen. Its listing does say "Customizable", which is worth a
+separate conversation: a private-label duffel carrying Puchica's own mark would
+solve the brand-mark problem and the differentiation problem at once, but it is
+a different sourcing model with MOQs, not dropshipping.
+
+---
+
+## 6. Separate finding
+
+DSers shows **"Please select a supplier"** for *Black Travel Tech Case —
+Charger, Cable & Power Bank Organizer*. That product is **not mapped**. An order
+today could not be fulfilled automatically. Unrelated to sourcing; worth fixing.
+
+---
+
+## 7. Next round
+
+The search is now much sharper than it was this morning:
+
+1. Screen the search payload for `choice_atm` **before** importing anything —
+   this is scriptable and eliminates roughly two-thirds of results for free.
+2. Import the Choice survivors in bulk and **read stock first**. Anything under
+   ~500 units is dead on arrival, whatever it costs.
+3. Only then look at cost, imagery and brand marks.
+4. Sample the survivor before it goes anywhere near the store.
+
+Also worth reconsidering: the CA$149 row is the only one that comfortably
+cleared. If duffels are the category, the price point may need to be CA$149
+rather than CA$129 — which raises the bar on how good the product has to look,
+and argues for the private-label route in section 5 rather than a generic
+dropship listing.
