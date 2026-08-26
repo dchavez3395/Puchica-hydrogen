@@ -111,7 +111,6 @@
   --pk-top-sticky:                          108px;
   --color-dark:                             #000;
   --color-light:                            #fff;
-  --page-max:                               1280px;
   --page-gutter:                            20px;
   --pk-inner-max:                           1280px;
   --pk-gutter:                              24px;
@@ -219,37 +218,38 @@
   :root { --pk-top-sticky: 128px; }
 }
 
+/*
+  `main` is full-bleed on every route, and that is deliberate.
+
+  It used to declare `max-width: var(--page-max)` here, but `body > main` far
+  below sets `max-width: none` and `main` is always a direct child of `body`,
+  so this cap was never once applied - it just made the file read as though a
+  1280px page column existed. Four `main:has(...)` rules restated the same
+  override per route and have gone with it.
+
+  The column cannot come back here: the home and collection routes paint their
+  page background on `main` itself, so capping it would render that background
+  as a 1280px stripe with bare gutters either side. Section-level rails carry
+  the measure instead - see `--pk-inner-max`.
+*/
 main {
   display: block;
-  max-width: var(--page-max);
-  margin: 0 auto;
-  padding: 0 var(--page-gutter);
   box-sizing: border-box;
 }
 
 /*
- * Homepage is FULL-BLEED — the entire page runs edge-to-edge.
- * We null out main's max-width and gutters when .pk-home is the
- * direct child, so every section background fills the viewport
- * naturally. Content is held by .pk-section__inner (max-width
- * 1280px + gutters), not by main. This is simpler and more
- * robust than per-section 100vw breakouts (no scrollbar math,
- * no overflow-x hacks). Other routes (product, collection, etc.)
- * keep main's 1280px column — only the homepage goes full-bleed.
+ * Every route is full-bleed, so section backgrounds fill the viewport
+ * naturally and no per-section 100vw breakout is needed - no scrollbar
+ * math, no overflow-x hacks. The measure is held by inner rails like the
+ * one below, never by `main`.
+ *
+ * The comment that stood here claimed the opposite - that only the
+ * homepage went full-bleed while "other routes keep main's 1280px
+ * column". That was never true of the rendered page: `body > main`
+ * removed the column everywhere. It is corrected rather than deleted
+ * because the belief it records is what the redesign passes were built
+ * on, and it is worth knowing it was wrong.
  */
-main:has(> .pk-home) {
-  max-width: none;
-  padding: 0;
-}
-
-/* Collection pages also go full-bleed — the collection hero
- * runs edge-to-edge with warm gradient, content held by inner. */
-main:has(> .pk-collection),
-main:has(> .pk-product) {
-  max-width: none;
-  padding: 0;
-}
-
 /* Shared inner content column — matches header nav alignment exactly */
 .pk-inner {
   margin: 0 auto;
@@ -4936,11 +4936,6 @@ button:focus-visible,
  * main's max-width and padding so the header band runs edge-to-edge.
  * Body content below the header is held by .pk-collection__inner
  * (1280px + gutters), matching the homepage .pk-inner pattern. */
-main:has(> .pk-collection--bold) {
-  max-width: none;
-  padding: 0;
-}
-
 .pk-collection--bold {
   width: 100%;
   margin: 0;
@@ -5907,8 +5902,10 @@ body {
   background: var(--pk-white);
 }
 
-body > main,
-main:has(> .pk-home) {
+/* The single rule that makes every route full-bleed. `main` is always a
+   direct child of `body`, so this is global by construction - it is not the
+   homepage-only override its neighbours suggest. */
+body > main {
   width: 100%;
   max-width: none;
   margin: 0;
@@ -6299,8 +6296,6 @@ body {
 
 /* Retail redesign pass: make the homepage feel like a stocked store. */
 main:has(> .pk-home) {
-  max-width: none;
-  padding: 0;
   background: #f5f7fb;
 }
 
@@ -6407,8 +6402,6 @@ html {
 
 /* Collection page width pass: match the homepage/header retail rail. */
 main:has(> .pk-collection--bold) {
-  max-width: none !important;
-  padding: 0 !important;
   background: #f8fafc;
 }
 
