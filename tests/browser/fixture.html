@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Probe fixture — deliberately broken</title>
+    <style>
+      body { margin: 0; font: 16px/1.4 system-ui, sans-serif; }
+
+      /* Clipped overflow: the child sticks out 400px, but the wrapper hides
+         it, so document.scrollWidth reads clean. This is the .pk-home case. */
+      .pk-home { width: 100%; overflow: hidden; }
+      .runs-over { width: 160%; height: 40px; background: #cde; }
+
+      /* A 40x10 image (4:1) forced into a 40x40 box (1:1) with the default
+         object-fit: fill. Skew = rendered AR / natural AR - 1 = -0.75, i.e.
+         squashed horizontally. The header logo failed the same way in the
+         other direction, +12.5%; both signs must be caught. */
+      .squashed { width: 40px; height: 40px; }
+
+      /* Under the 24x24 minimum. */
+      .tiny-btn { width: 20px; height: 24px; padding: 0; border: 0; }
+
+      /* Controls that must NOT be reported. */
+      .ok-btn { width: 44px; height: 44px; }
+      .hidden-btn { display: none; }
+    </style>
+  </head>
+  <body>
+    <div class="pk-home">
+      <div class="runs-over">clipped overflow</div>
+    </div>
+
+    <!-- 40x10 red PNG, inlined so the fixture needs no network. -->
+    <img
+      class="squashed"
+      alt="squashed"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAKCAIAAABJ+IsHAAAAGklEQVR4nGM4oaExIIhh1OJRi0ctHrWYXAQAKt+1kE/CszQAAAAASUVORK5CYII="
+    />
+
+    <!-- Same file, but object-fit: contain — letterboxed, not distorted, so
+         it must NOT be reported as skewed. -->
+    <img
+      class="squashed"
+      style="object-fit: contain"
+      alt="letterboxed"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAKCAIAAABJ+IsHAAAAGklEQVR4nGM4oaExIIhh1OJRi0ctHrWYXAQAKt+1kE/CszQAAAAASUVORK5CYII="
+    />
+
+    <button class="tiny-btn" aria-label="too small">x</button>
+    <button class="ok-btn" aria-label="big enough">o</button>
+    <button class="hidden-btn" aria-label="hidden">h</button>
+    <button aria-label="inert" tabindex="-1" style="width: 8px; height: 8px"></button>
+  </body>
+</html>

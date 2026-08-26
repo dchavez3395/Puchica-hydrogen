@@ -77,3 +77,8 @@ work/test_*.png
 scripts/feed_products.json
 generated-images/_admin_token.txt
 h2_deploy_log.json
+
+# Playwright browser-check output
+/reports/
+/playwright-report/
+/test-results/

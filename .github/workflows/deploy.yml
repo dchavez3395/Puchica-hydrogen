@@ -68,3 +68,41 @@ jobs:
             sleep 20
           done
           exit 1
+
+      # Renders the deployed site in Chromium and checks WCAG + layout for
+      # real. Everything in `npm test` is a regex over source text and cannot
+      # see contrast, focus order, or a single pixel of layout.
+      - name: Install Chromium for browser checks
+        run: npx playwright install --with-deps chromium
+
+      # NON-BLOCKING ON PURPOSE, for now. This lands with an unknown backlog:
+      # the site has never been scanned by axe, so the first run is the first
+      # time anyone sees the list. Failing deploys on day one would just get
+      # this step deleted. Read the summary, clear the backlog, then delete
+      # `continue-on-error` so it starts holding the line.
+      - name: Browser checks (WCAG + layout)
+        id: browser_checks
+        continue-on-error: true
+        run: npm run browser-check
+        env:
+          PUCHICA_TARGET: https://puchica.ca
+
+      - name: Report browser-check result
+        if: always()
+        run: |
+          if [ "${{ steps.browser_checks.outcome }}" = "success" ]; then
+            echo "### Browser checks passed" >> "$GITHUB_STEP_SUMMARY"
+            echo "Remove \`continue-on-error\` from the browser-check step to make this blocking." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "### Browser checks found problems (not blocking this deploy)" >> "$GITHUB_STEP_SUMMARY"
+            echo "See the step log above for the failing routes and viewports." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Upload browser-check report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-checks
+          path: reports/browser-checks.json
+          if-no-files-found: ignore
+          retention-days: 30
