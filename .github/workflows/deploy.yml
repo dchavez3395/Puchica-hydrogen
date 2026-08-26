@@ -34,6 +34,13 @@ jobs:
       - name: Lint
         run: npm run lint
 
+      # Before `npm test`, not after: tests/browser/probes.test.js drives a real
+      # Chromium, and without the binary those tests skip rather than run —
+      # which looks identical to passing. They shipped broken once exactly this
+      # way, so the browser is installed up front and they execute for real.
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
       - name: Test
         run: npm test
 
@@ -68,12 +75,6 @@ jobs:
             sleep 20
           done
           exit 1
-
-      # Renders the deployed site in Chromium and checks WCAG + layout for
-      # real. Everything in `npm test` is a regex over source text and cannot
-      # see contrast, focus order, or a single pixel of layout.
-      - name: Install Chromium for browser checks
-        run: npx playwright install --with-deps chromium
 
       # NON-BLOCKING ON PURPOSE, for now. This lands with an unknown backlog:
       # the site has never been scanned by axe, so the first run is the first
