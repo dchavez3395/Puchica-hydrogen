@@ -116,9 +116,31 @@ export function findDistortedImages(tolerance = 0.02) {
 export function findSmallTargets(min = 24) {
   const out = [];
   const sel = 'a[href], button, [role="button"], input:not([type="hidden"]), select';
+
+  /**
+   * SC 2.5.8's "Inline" exception: a target inside a sentence is exempt,
+   * because its size is constrained by the line-height of the text around it.
+   *
+   * The PDP's "contact page" link sits mid-paragraph and measured 83x18. It is
+   * not a violation, and padding it to 24px would push the surrounding line
+   * apart. Scoped to `<p>` deliberately: breadcrumbs live in a `<nav>` and are
+   * a navigation trail rather than a sentence, so they stay covered — they
+   * were a real 34x20 failure and are fixed, not excused.
+   */
+  const inSentence = (el) => {
+    if (getComputedStyle(el).display !== 'inline') return false;
+    const p = el.closest('p');
+    if (!p) return false;
+    // Guard against a <p> used as a bare wrapper for a single link: the
+    // exception is about running prose, not about markup choice.
+    const own = (el.textContent || '').trim().length;
+    return (p.textContent || '').trim().length > own + 20;
+  };
+
   for (const el of document.querySelectorAll(sel)) {
     if (el.closest('[inert],[aria-hidden="true"]')) continue;
     if (el.tabIndex < 0) continue;
+    if (inSentence(el)) continue;
     const s = getComputedStyle(el);
     if (s.visibility === 'hidden' || s.display === 'none' || s.opacity === '0') continue;
     const r = el.getBoundingClientRect();
