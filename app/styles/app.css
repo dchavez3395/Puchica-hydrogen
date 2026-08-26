@@ -2642,8 +2642,26 @@ button:focus-visible,
   color: var(--pk-muted);
   margin: 18px;
 }
+/*
+  Breadcrumb links are laid out as boxes, not bare inline text, so they meet
+  the minimum target size.
+
+  At 13px the line box is 20px tall, and a bare inline link's hit area is just
+  that line box. Measured on the live site at 390px wide, the "Home" crumb was
+  34x20 — passing on width, failing on height, on both the collection and
+  product pages. WCAG 2.2 SC 2.5.8 requires 24x24.
+
+  `min-height` on an `inline-flex` box grows the hit area without touching the
+  type: the text still renders at 13px in the same place, the row just gets
+  4px taller. 24px rather than the 44px of SC 2.5.5 (Enhanced) because these
+  sit in a dense inline trail where 44px would visibly bloat the row; primary
+  controls like the drawer close should still go to 44.
+*/
 .pk-breadcrumbs a {
+  align-items: center;
   color: var(--pk-muted);
+  display: inline-flex;
+  min-height: 24px;
   text-decoration: none;
   transition: color 0.15s ease;
 }
