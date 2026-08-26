@@ -77,7 +77,32 @@ async function onFixture(fn, {extraCss} = {}) {
   }
 }
 
-const skip = chromium ? false : 'playwright/chromium unavailable';
+/**
+ * Whether a Chromium can actually be launched here, not merely imported.
+ *
+ * The first version of this guard only checked that `@playwright/test`
+ * resolved, which is true the moment `npm ci` finishes — the browser binary is
+ * a separate download. CI ran `npm test` before `playwright install`, all five
+ * browser-backed tests threw instead of skipping, and the deploy was blocked.
+ * The workflow now installs Chromium first so these genuinely run in CI; this
+ * guard is the backstop for a machine that has no browser at all.
+ */
+async function browserUnavailable() {
+  if (!chromium) return 'playwright is not installed';
+  try {
+    const browser = await chromium.launch({executablePath: await executablePath()});
+    await browser.close();
+    return false;
+  } catch (error) {
+    const first = String(error).split('\n')[0].slice(0, 120);
+    // Loud on purpose: a permanently-skipping suite is indistinguishable from
+    // a passing one in the summary line, which is how this got shipped.
+    console.warn(`[probes] skipping browser tests — ${first}`);
+    return `chromium could not launch: ${first}`;
+  }
+}
+
+const skip = await browserUnavailable();
 
 test('the overflow probe sees through a clipping ancestor', {skip}, async () => {
   // This is what the fixture proved and I had assumed the opposite of:
