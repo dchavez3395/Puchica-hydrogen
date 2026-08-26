@@ -23,6 +23,20 @@ export default defineConfig({
   reporter: [['list'], ['json', {outputFile: 'reports/browser-checks.json'}]],
   use: {
     baseURL: process.env.PUCHICA_TARGET || 'https://puchica.ca',
+    /*
+      Required for axe to run at all.
+
+      The storefront sends `script-src 'self' ... 'nonce-...'` with no
+      `unsafe-inline`, so `page.addScriptTag` — how axe-core gets into the page
+      — is refused by the browser. Without this, all 16 axe checks fail with a
+      CSP error that reads, in the test summary, exactly like 16 accessibility
+      violations. They are not. The site was never scanned.
+
+      `bypassCSP` is a property of the test browser context only. It does not
+      touch the site's headers, and every other check here runs through
+      `page.evaluate`, which CSP never governed.
+    */
+    bypassCSP: true,
     // Production is a real network away; the defaults are too tight.
     actionTimeout: 15_000,
     navigationTimeout: 45_000,
