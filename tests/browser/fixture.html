@@ -54,6 +54,18 @@
       src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAKCAIAAABJ+IsHAAAAGklEQVR4nGM4oaExIIhh1OJRi0ctHrWYXAQAKt+1kE/CszQAAAAASUVORK5CYII="
     />
 
+    <!-- SC 2.5.8 "Inline" exception: a link inside running prose is exempt,
+         because its height is constrained by the line-height around it. This
+         one is 18px tall and must NOT be reported. -->
+    <p>
+      Some running prose that continues for a while before it reaches the
+      <a href="#">contact page</a> and then keeps going afterwards too.
+    </p>
+
+    <!-- A <p> used as a bare wrapper for one link is NOT running prose, so the
+         exception must not apply and this one MUST still be reported. -->
+    <p><a class="lone-link" href="#">lone</a></p>
+
     <button class="tiny-btn" aria-label="too small">x</button>
     <button class="ok-btn" aria-label="big enough">o</button>
     <button class="hidden-btn" aria-label="hidden">h</button>
