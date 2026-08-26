@@ -189,3 +189,74 @@ fact about the supply, not bad luck across two rounds.
 Which is the argument for section 5's private-label route, stated more strongly:
 if the desirable-looking bags cannot be dropshipped at volume, the choice is
 between selling a plain bag at a plain price or buying inventory of a good one.
+
+---
+
+## 9. Round three — dropped the duffel, found the fit
+
+Per instruction: private label is off the table, and an item that does not make
+sense to dropship gets dropped rather than compromised on. The plain grey duffel
+from section 8 is dropped.
+
+### Categories that are simply absent from the Choice pool
+
+| Category | Choice + unbranded + volume hits |
+|---|---|
+| Hard-shell carry-on luggage | 1 (and it was a cosmetic box, not luggage) |
+| Luggage sets / spinners | 0 |
+| Leather briefcases | 1 |
+
+Suitcases cannot be dropshipped to Canada on this supply. Stop looking there.
+
+### Categories that are rich — and on-brand
+
+Puchica is "travel organizers for easier packing". Screening *organization*
+rather than *bags* produced deep Choice pools: packing sets (11 hits), makeup
+cases (9), jewelry cases (6).
+
+Imported the five strongest and read stock first:
+
+| Candidate | Cost (US$) | Stock | Outcome |
+|---|---|---|---|
+| **5-piece travel organizer / compression set** | **26.69–27.94** | **2,966** | **Survives** |
+| Makeup train case pro, 4 sliding trays | 50.73–56.76 | 3,819 | Survives, but see below |
+| Large capacity makeup case, 3 sizes | 27.04–54.74 | 37 | Stock |
+| Large makeup carrying train case | 42.49–44.33 | **6** | Stock |
+| Makeup brush holder backpack | 24.70 | **3** | Stock |
+
+Note the fourth row: **1,000 lifetime sales, 6 units in stock.** Sold-count is
+no guide whatsoever to whether a supplier can actually fill orders. Only the
+DSers stock read tells you that.
+
+### The winner
+
+`1005008575269485` — **5-piece travel organizer / compression packing set**.
+Cost **US$26.69–27.94**, **free shipping to Canada**, AliExpress Selection
+Standard from CN, **8–16 days, tracked**, stock **2,966**, 423 sold, 4.9★.
+
+| Retail | Landed | Profit/order | Verdict |
+|---|---|---|---|
+| CA$139 | 28% | **+CA$27.87** | SHORTLIST (9.3) |
+| CA$119 | 33% | +CA$17.57 | CONSIDER |
+| CA$99 | 40% | +CA$7.27 | WEAK |
+
+Unlike every previous candidate, this one has no perceived-value objection to
+argue around. It is exactly what the store says it sells. Béis and Monos sell
+comparable packing-cube sets at CA$95–125, so **CA$119–139 is a defensible
+shelf price** rather than a stretch.
+
+### The runner-up, and why it is marginal
+
+`1005006293148111` — makeup train case pro, 4 sliding trays. US$50.73–56.76,
+free shipping, 8–15 days, stock 3,819. The input cost is high enough that it
+only works at **CA$229** (+CA$21.70); at CA$179 it loses CA$4.05 and at CA$149
+it loses CA$19.50. CA$229 is a real price point for a professional kit — Monos
+sells a soft cosmetic case at CA$125 — but it is a large ask from a brand with
+no sales history. Park it; revisit if the organizer set proves there is demand.
+
+### Still open on the winner
+
+Full supplier image set unreviewed for brand marks (AliExpress PDPs still
+CAPTCHA this session), and no sample handled. Two of the bags surfaced this
+session carried marks only visible in the photos — "DUANG BAG" and "KEADOME" —
+so this check is not a formality.
