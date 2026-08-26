@@ -89,3 +89,20 @@ test('both logo tags declare the true 1200x360 aspect ratio', async () => {
     assert.doesNotMatch(source, /height=\{32\}/, `${file} still has the 12.5% stretch`);
   }
 });
+
+test('breadcrumb links are boxes, so they can meet the target minimum', () => {
+  // Measured live at 390px: the "Home" crumb rendered 34x20 — WCAG 2.2 SC
+  // 2.5.8 wants 24x24, and a bare inline link's hit area is only its line
+  // box. This was the last real finding from the browser checks' first
+  // honest run, and the only one of nineteen that turned out to be the site.
+  const start = css.indexOf('.pk-breadcrumbs a {');
+  assert.ok(start > -1, 'the breadcrumb link rule must exist');
+  const block = css.slice(start, css.indexOf('}', start));
+  assert.match(block, /display:\s*inline-flex/);
+  const min = block.match(/min-height:\s*(\d+)px/);
+  assert.ok(min, 'breadcrumb links must set a minimum height');
+  assert.ok(
+    Number(min[1]) >= 24,
+    `min-height ${min?.[1]}px is below the 24px minimum target size`,
+  );
+});
