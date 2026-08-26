@@ -32,7 +32,7 @@ export function Header({header, isLoggedIn, cart}) {
             src={shop.brand?.logo?.image?.url || STORE_LOGO_URL}
             alt={shop.name}
             width={120}
-            height={32}
+            height={36}
             {...{fetchpriority: 'high'}}
             decoding="async"
           />

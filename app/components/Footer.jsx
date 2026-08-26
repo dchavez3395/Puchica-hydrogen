@@ -58,7 +58,7 @@ export function Footer({header}) {
               src={logo}
               alt="Puchica"
               width={120}
-              height={32}
+              height={36}
               loading="lazy"
               decoding="async"
             />

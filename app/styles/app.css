@@ -2324,6 +2324,26 @@ button:focus-visible,
   color: var(--pk-indigo-900);
 }
 
+/*
+  The logo had no CSS rule at all, so the width/height attributes on the <img>
+  were the only thing sizing it. The header passed 120x32 for a file whose
+  intrinsic size is 1200x360 - a 3.75:1 box for a 3.333:1 image - and the
+  default `object-fit: fill` stretched it 12.5% horizontally on every page.
+  The footer copy of the same file rendered undistorted, which is what gave
+  the typo away.
+
+  Deriving the height from the file means a wrong attribute, or a merchant
+  logo with a different ratio coming through `shop.brand.logo`, can no longer
+  distort it. The attributes stay in the markup at the true ratio so the space
+  is still reserved before the file loads.
+*/
+.pk-logo__img,
+.pk-footer__logo img {
+  height: auto;
+  object-fit: contain;
+  width: 120px;
+}
+
 .pk-nav {
   display: flex;
   align-items: center;
@@ -8238,16 +8258,48 @@ main:has(> .pk-collection--bold) {
   border: 1px solid var(--pdp-rule);
   border-radius: 22px;
   box-shadow: -10px 10px 0 #e5ddff;
+  /* Track the square frame inside, so the card wraps the image rather than
+     leaving a band of white beside it once the frame stops filling the
+     column. Measured fill across 462-1154px viewport heights: 87-96%. */
+  margin-left: auto;
+  margin-right: auto;
+  max-width: calc(min(78vh, 620px) + 2 * clamp(8px, 1vw, 12px) + 2px);
   padding: clamp(8px, 1vw, 12px);
 }
 
+/*
+  The hero frame is square because every product image in this catalog is
+  square. It used to be `aspect-ratio: 1.08/1` with `max-height: min(64vh,
+  620px)`, and those two fought each other: on a laptop-height window the
+  max-height won, so the frame collapsed to a short wide letterbox while the
+  image inside it stayed 1:1 under `object-fit: contain`.
+
+  Measured on the live PDP at a 1272x563 viewport: the frame rendered 586x360,
+  the product drew at 360x360, and 226px - 38% of the frame - was empty
+  padding. The product filled 59% of the card it sat in. That is the "images
+  look condensed" complaint: not resolution (the CDN delivers a real 2000x2000
+  file here, which is correct for the box) but a product marooned in a mostly
+  empty frame.
+
+  Squaring the frame and capping width and height together keeps it square at
+  every viewport instead of degrading into a letterbox. Same viewport after:
+  439x439 frame, product 439px, 0% dead space - 22% larger product. On tall
+  windows it caps at the column width; on phones the width constraint binds
+  first, which is already what happened.
+
+  If a non-square image is ever added to the catalog, `object-fit: contain`
+  still letterboxes it safely - revisit this then, don't unpick it now.
+*/
 .pk-product__hero {
-  aspect-ratio: 1.08 / 1 !important;
+  aspect-ratio: 1 / 1 !important;
   background: #f7f6f3 !important;
   border: 0 !important;
   border-radius: 17px !important;
   box-shadow: none !important;
-  max-height: min(64vh, 620px) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  max-height: min(78vh, 620px) !important;
+  max-width: min(78vh, 620px) !important;
   overflow: hidden;
 }
 
@@ -8680,8 +8732,15 @@ main:has(> .pk-collection--bold) {
   .pk-product__heading .pk-product__price-row { margin-top: 16px; }
   .pk-product__media { position: static; }
   .pk-product__info { max-width: none; padding: 0; }
-  .pk-product__hero-wrap { border-radius: 18px; }
-  .pk-product__hero { border-radius: 12px !important; max-height: none !important; }
+  .pk-product__hero-wrap { border-radius: 18px; max-width: none; }
+  /* Both caps come off together below 860px. The frame is square here, so a
+     viewport-height cap on either axis would shrink it on a landscape phone
+     for no reason — the column width is already the binding constraint. */
+  .pk-product__hero {
+    border-radius: 12px !important;
+    max-height: none !important;
+    max-width: none !important;
+  }
   .pk-thumbs__item { height: 60px !important; width: 60px !important; }
   .pk-product__trust {
     grid-template-columns: 1fr !important;
