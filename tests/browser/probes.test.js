@@ -169,9 +169,23 @@ test('the target-size probe finds the small control and spares the rest', {skip}
   const found = await onFixture(findSmallTargets);
   // 20x24 fails on width. The 44x44 button passes, the display:none button is
   // not rendered, and the 8x8 one is tabindex="-1" so it is not a target.
-  assert.equal(found.length, 1);
-  assert.equal(found[0].size, '20x24');
-  assert.equal(found[0].label, 'too small');
+  // The lone link wrapped in its own <p> is also caught — see the prose test.
+  const tiny = found.find((f) => f.label === 'too small');
+  assert.ok(tiny, 'the 20x24 button must be reported');
+  assert.equal(tiny.size, '20x24');
+  assert.ok(!found.some((f) => /big enough|hidden|inert/.test(f.label)));
+});
+
+test('a link inside running prose is exempt, a lone wrapped link is not', {skip}, async () => {
+  // SC 2.5.8's "Inline" exception. The PDP's "contact page" link sits
+  // mid-paragraph at 83x18; padding it to 24px would push the surrounding
+  // line apart, and the spec says so. But a <p> wrapping a single link is not
+  // running prose, and must still be measured.
+  const found = await onFixture(findSmallTargets);
+  const labels = found.map((f) => f.label);
+  assert.ok(!labels.includes('contact page'), 'prose links are exempt');
+  assert.ok(labels.includes('lone'), 'a lone link in a <p> is still a target');
+  assert.ok(labels.includes('too small'), 'the plain small button is still caught');
 });
 
 test('the resolution probe ignores images with no width parameter', {skip}, async () => {
