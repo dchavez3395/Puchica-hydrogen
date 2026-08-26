@@ -76,14 +76,12 @@ jobs:
           done
           exit 1
 
-      # NON-BLOCKING ON PURPOSE, for now. This lands with an unknown backlog:
-      # the site has never been scanned by axe, so the first run is the first
-      # time anyone sees the list. Failing deploys on day one would just get
-      # this step deleted. Read the summary, clear the backlog, then delete
-      # `continue-on-error` so it starts holding the line.
+      # BLOCKING. It landed non-blocking because the site had never been
+      # scanned and a step that fails every deploy on day one gets deleted
+      # rather than fixed. The backlog is now clear - all 68 checks pass
+      # against production - so it holds the line from here.
       - name: Browser checks (WCAG + layout)
         id: browser_checks
-        continue-on-error: true
         run: npm run browser-check
         env:
           PUCHICA_TARGET: https://puchica.ca
@@ -93,10 +91,10 @@ jobs:
         run: |
           if [ "${{ steps.browser_checks.outcome }}" = "success" ]; then
             echo "### Browser checks passed" >> "$GITHUB_STEP_SUMMARY"
-            echo "Remove \`continue-on-error\` from the browser-check step to make this blocking." >> "$GITHUB_STEP_SUMMARY"
+            echo "68 checks: axe WCAG 2.0/2.1/2.2 AA, overflow, image distortion, image resolution and tap-target size, across four routes at four viewports." >> "$GITHUB_STEP_SUMMARY"
           else
-            echo "### Browser checks found problems (not blocking this deploy)" >> "$GITHUB_STEP_SUMMARY"
-            echo "See the step log above for the failing routes and viewports." >> "$GITHUB_STEP_SUMMARY"
+            echo "### Browser checks failed" >> "$GITHUB_STEP_SUMMARY"
+            echo "The deploy is blocked. Download the browser-checks artifact for the failing routes, viewports and selectors." >> "$GITHUB_STEP_SUMMARY"
           fi
 
       - name: Upload browser-check report
