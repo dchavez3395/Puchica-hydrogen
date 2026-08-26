@@ -130,17 +130,26 @@ test('terms policy corrects CAD-only wording before Admin policy HTML', async ()
   }
 });
 
-test('the review widget renders before the first review exists', async () => {
+test('the review widget is not rendered until a review exists', async () => {
   const route = await readFile(
     new URL('../app/routes/products.$handle.jsx', import.meta.url),
     'utf8',
   );
 
-  // Gating the widget on review count is a closed loop: no reviews means no
-  // widget, no widget means no write-a-review form, so a first review can
-  // never be collected. Judge.me ships its own empty state and form.
-  assert.match(route, /\{reviews\?\.externalId \? \(\s*<JudgemeReviews/);
-  assert.doesNotMatch(route, /\{reviews\?\.count > 0 \? \(\s*<JudgemeReviews/);
+  // This previously asserted the opposite, on the reasoning that Judge.me would
+  // draw its own "Be the first to write a review" empty state and form, so
+  // gating on count would be a closed loop. That was wrong on this store's
+  // plan. Judge.me's client widget loads from cache.judge.me, which returns
+  // {"statusCode":404,"error":"Not Found","message":"Shop not found"} — the
+  // same 404 with a deliberately invalid token, so it is not a credentials
+  // problem. The cache server is Awesome-plan only and this shop is on Free.
+  // The widget can never populate, so gating on externalId only produced a
+  // "Customer reviews" heading above a permanently empty div on every product.
+  //
+  // Reviews are collected through Judge.me's review-request emails after a
+  // fulfilled order, which never touch this widget. Rendering nothing until a
+  // review exists is the honest state. Revisit if the plan is upgraded.
+  assert.match(route, /reviews\?\.count > 0 && reviews\?\.externalId \? \(\s*<JudgemeReviews/);
 
   // Stars and aggregateRating must stay gated on count. Empty stars and an
   // aggregateRating with reviewCount 0 are both misrepresentations, and the
