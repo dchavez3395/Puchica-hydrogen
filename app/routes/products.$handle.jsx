@@ -20,7 +20,7 @@ import {
   breadcrumbJsonLd,
   JsonLdScript,
 } from '~/lib/seo';
-import {getJudgemeBadge} from '~/lib/judgeme';
+import {parseJudgemeReviewData} from '~/lib/judgeme';
 import {dutyCopyKey} from '~/lib/duty-posture';
 import {ReviewStars, JudgemeReviews} from '~/components/JudgemeReviews';
 import {recordRecentlyViewed} from '~/lib/recentlyViewed';
@@ -188,7 +188,9 @@ async function loadCriticalData({context, params, request}) {
     marketAvailability.commerceMarket,
   );
 
-  const reviews = await getJudgemeBadge(handle);
+  // Derived from the product payload we already fetched, not a second
+  // network call. See parseJudgemeReviewData for what this replaced.
+  const reviews = parseJudgemeReviewData(product?.judgemeReviewData?.value);
   redirectIfHandleIsLocalized(request, {handle, data: product});
   return {product, reviews, pairs, marketAvailability};
 }
@@ -824,6 +826,13 @@ const PRODUCT_FRAGMENT = `#graphql
     # accent_color metafield for the soft gradient behind the hero.
     model3dUrl: metafield(namespace: "custom", key: "model_3d_url") { value }
     accentColor: metafield(namespace: "custom", key: "accent_color") { value }
+    # Judge.me writes this payload onto every product. Reading it here costs
+    # nothing — it rides the query the page already makes — and replaces a
+    # blocking cross-origin fetch to judge.me that was 404ing on every PDP.
+    # Requires the judgeme.review_widget_data metafield definition to grant
+    # storefront PUBLIC_READ; without it this simply resolves null and the
+    # page renders exactly as it does with no reviews.
+    judgemeReviewData: metafield(namespace: "judgeme", key: "review_widget_data") { value }
     options {
       name
       optionValues {
