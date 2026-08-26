@@ -501,16 +501,36 @@ export default function Product() {
       <PairsWith products={pairs} t={t} />
 
       {/*
-        Gated on externalId, NOT on review count. Gating on count made this a
-        closed loop: no reviews meant no widget, and no widget meant no
-        "write a review" form, so a first review could never be collected
-        through the storefront. Judge.me renders its own empty state ("Be the
-        first to write a review") plus the form, which is exactly what a
-        zero-review catalog needs. ReviewStars and the JSON-LD
-        aggregateRating below stay gated on count — empty stars and an
-        aggregateRating of zero would both be misrepresentations.
+        Gated on review count, because on this store's Judge.me plan the widget
+        cannot render at all.
+
+        This was previously gated on externalId instead, on the reasoning that
+        Judge.me would draw its own "Be the first to write a review" empty state
+        plus a submission form, breaking a chicken-and-egg loop. That reasoning
+        was wrong. Judge.me's client widget loads its content from
+        `cache.judge.me`, which answers:
+
+            {"statusCode":404,"error":"Not Found","message":"Shop not found"}
+
+        The same 404 comes back with a deliberately invalid token, so it is not
+        a credentials problem — the cache server is an Awesome-plan feature and
+        this shop is on the Free plan (confirmed in the Judge.me admin). The
+        result was a "Customer reviews" heading sitting above a permanently
+        empty div on every product page.
+
+        So there was never a storefront submission form to protect. On the Free
+        plan reviews are collected through Judge.me's own review-request emails
+        after a fulfilled order, which do not involve this widget at all.
+
+        Rendering nothing until a review exists is therefore the honest state.
+        If the plan is ever upgraded, revisit this gate — the widget would then
+        be able to draw its own empty state and this could go back to externalId.
+
+        ReviewStars and the JSON-LD aggregateRating stay gated on count for a
+        different reason: empty stars and an aggregateRating of zero would both
+        be misrepresentations.
       */}
-      {reviews?.externalId ? (
+      {reviews?.count > 0 && reviews?.externalId ? (
         <JudgemeReviews
           externalId={reviews.externalId}
           productTitle={displayTitle}
