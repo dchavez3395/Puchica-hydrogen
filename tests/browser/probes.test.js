@@ -119,6 +119,20 @@ test('the overflow probe sees through a clipping ancestor', {skip}, async () => 
   );
 });
 
+test('a horizontal scroller is not overflow', {skip}, async () => {
+  // The PDP thumbnail rail is `overflow-x: auto` with 763px of thumbnails in a
+  // 465px box. The first version of this probe reported all 23 of its children
+  // as viewport overflow at 390px, and I came close to "fixing" a rail that
+  // was working exactly as designed. Reachable content is not overflow.
+  const found = await onFixture(findOverflow);
+  assert.equal(found.length, 1, 'only the clipped element, never the scroller');
+  assert.match(found[0].sel, /runs-over/);
+  assert.ok(
+    !found.some((f) => /rail|^i\./.test(f.sel)),
+    'nothing inside an overflow-x: auto ancestor may be reported',
+  );
+});
+
 test('scrollWidth IS fooled by a clipping ancestor, and the neutraliser fixes it', {skip}, async () => {
   // The other half, and the reason overflowClipCss exists at all. Any check
   // built on scrollWidth reads a clipped page as clean.
