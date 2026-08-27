@@ -10,8 +10,8 @@ import {IconSearch} from '~/components/Icons';
 import {LocaleSwitcher} from '~/components/LocaleSwitcher';
 import {useT} from '~/lib/t';
 
-/** @param {HeaderProps} props */
-export function Header({header, isLoggedIn, cart}) {
+/** @param {Pick<HeaderProps, 'isLoggedIn' | 'cart'>} props */
+export function Header({isLoggedIn, cart}) {
   const {close} = useAside();
 
   return (
