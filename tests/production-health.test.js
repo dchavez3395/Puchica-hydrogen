@@ -27,12 +27,13 @@ test('production monitor shares the verified market cohorts', () => {
     'travel-cable-organizer-case',
     'black-travel-tech-case',
     'the-carry-on-kit-toiletry-organizer-packing-cubes-cable-case',
+    'compression-packing-cube-set-5-piece',
   ]);
   // The United States is commercially suspended, so production monitoring must
   // expect nothing sellable there. If a US product ever appears on the live
   // storefront again while the suspension stands, the monitor should fail.
   assert.deepEqual(EXPECTED_HANDLES_BY_MARKET.US, []);
-  assert.equal(DISCOVERABLE_PRODUCT_HANDLES.length, 6);
+  assert.equal(DISCOVERABLE_PRODUCT_HANDLES.length, 7);
   assert.equal(RETIRED_CATALOG_HANDLES.size, 5);
 });
 
