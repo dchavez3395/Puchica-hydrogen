@@ -395,3 +395,20 @@ Format:
   (owner calls): product renames, logo file, photography, card hover
   crossfade (needs gallery cleanup of unsold colourways first).
 - Live site unchanged until PR #15 is merged/deployed.
+
+### 2026-08-27 · remote · Añil redesign MERGED; deploy pipeline handled
+
+- Discovered on merge attempt that PR #15 was merged by Daniel on 08-25 and
+  that PRs #16–34 landed since from the other sessions: DSers re-verification
+  (routes, costs, a live overselling bug), analytics deadlock fix, Meta pixel
+  hydration fix, US market closed in Shopify, blocking browser checks added
+  to the deploy workflow, and three sourcing rounds (winner so far:
+  1005008575269485, a 5-piece organizer set, +CA$27.87/order at CA$139).
+- Rebased the redesign onto that main (conflicts: logo-geometry work vs the
+  wordmark — wordmark supersedes; a collection-width rule — kept main's
+  structure with the añil retint; adapted the logo-geometry test to guard
+  the wordmark instead of the removed image).
+- PR #35 (the Añil redesign) merged. Its deploy failed at the new blocking
+  lint: the wordmark left Header/Footer with an unused header prop. Fixed,
+  lint-verified locally, PR #36 merged. Deploy re-running.
+- Branch reset onto main for future work.
