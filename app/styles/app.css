@@ -2321,6 +2321,10 @@ button:focus-visible,
   display: flex;
   align-items: center;
   gap: 10px;
+  /* The wordmark's line box is only ~20px on mobile; without a floor the
+     anchor's hit area shrinks with it and fails WCAG 2.2 SC 2.5.8 (24px
+     minimum). 42px matches the header's icon buttons. */
+  min-height: 42px;
   text-decoration: none;
   color: var(--pk-indigo-900);
 }
@@ -2756,14 +2760,16 @@ button:focus-visible,
 .pk-footer__logo {
   display: inline-flex;
   align-items: center;
-  background: rgba(244, 240, 230, 0.95);
-  padding: 8px 16px;
-  border-radius: 10px;
-  border: 1px solid rgba(244, 240, 230, 0.2);
+  /* The cream tile existed to keep the old image logo readable on the dark
+     footer. The text wordmark is #F7F5F0 and sat invisible on it. No tile;
+     the padding stays vertical-only so the link still clears the 24px
+     tap-target minimum. */
+  background: transparent;
+  padding: 10px 0;
   text-decoration: none;
-  transition: background 0.2s;
+  transition: opacity 0.2s;
 }
-.pk-footer__logo:hover { background: var(--pk-paper); }
+.pk-footer__logo:hover { opacity: 0.8; }
 .pk-footer__logo img { height: 36px; width: auto; display: block; }
 .pk-footer__tagline { color: rgba(242, 235, 218, 0.6); font-size: 14px; line-height: 1.6; margin: 14px 0 16px; max-width: 280px; }
 .pk-footer__social { display: flex; gap: 10px; }
