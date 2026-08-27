@@ -38,7 +38,7 @@
   --pk-cobalt-hover:   #184C86;
   --pk-cobalt-pale:    #E5EEF8;   /* cobalt-tinted fill */
   --pk-rosa:           #C63B6E;   /* textile pink */
-  --pk-violet:         #6D4CFF;   /* brand purple (from the logo) */
+  --pk-violet:         #1C2951;   /* añil (legacy name kept for compat) */
 
   /* Error / success states (cart error, notify-back, etc.) */
   --pk-error-bg:     #FFF1F1;
@@ -1137,7 +1137,7 @@ button.reset:hover:not(:has(> *)) {
   color: var(--pk-violet-700, #4a2fd6);
 }
 .cart-line.is-zero .cart-line-qty__btn--plus {
-  background: var(--pk-violet-500, #6D4CFF);
+  background: var(--pk-anil, #1C2951);
   color: #fff;
 }
 /* Unrecoverable qty-0 lines: the qty-0 was imposed by the server
@@ -5981,7 +5981,7 @@ body > main {
 }
 
 .pk-icon-btn:hover {
-  background: #eef2ff;
+  background: var(--pk-tint, #E8EDF6);
 }
 
 @media (max-width: 640px) {
@@ -6430,18 +6430,18 @@ html {
 
 /* Collection page width pass: match the homepage/header retail rail. */
 main:has(> .pk-collection--bold) {
-  background: #f8fafc;
+  background: var(--pk-bg, #F7F5F0);
 }
 
 .pk-collection--bold {
-  background: #f8fafc !important;
+  background: var(--pk-bg, #F7F5F0) !important;
 }
 
 .pk-col-hero--bold {
   padding: clamp(34px, 4vw, 58px) 0 clamp(30px, 3.5vw, 50px) !important;
   background:
     radial-gradient(circle at 86% 12%, rgba(91, 77, 255, 0.13), transparent 28%),
-    linear-gradient(135deg, rgba(91, 77, 255, 0.07) 0%, rgba(255, 255, 255, 0.82) 46%, #f8fafc 100%) !important;
+    linear-gradient(135deg, rgba(28, 41, 81, 0.06) 0%, rgba(255, 255, 255, 0.82) 46%, #F7F5F0 100%) !important;
 }
 
 .pk-col-hero--bold > .pk-collection__inner,
@@ -6665,7 +6665,7 @@ main:has(> .pk-collection--bold) {
   min-height: 0 !important;
   padding: 24px 0 22px !important;
   border-bottom: 1px solid #d0d5dd;
-  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%) !important;
+  background: linear-gradient(180deg, #ffffff 0%, #F7F5F0 100%) !important;
 }
 
 .pk-col-hero--bold::before,
@@ -6782,7 +6782,7 @@ main:has(> .pk-collection--bold) {
   background:
     radial-gradient(circle at 78% 8%, rgba(91, 53, 230, 0.12), transparent 28%),
     radial-gradient(circle at 14% 88%, rgba(8, 116, 95, 0.1), transparent 30%),
-    linear-gradient(135deg, #ffffff 0%, #f8fafc 52%, #f1eeff 100%) !important;
+    linear-gradient(135deg, #ffffff 0%, #F7F5F0 52%, #E8EDF6 100%) !important;
 }
 
 .pk-product__trust {
@@ -6809,7 +6809,7 @@ main:has(> .pk-collection--bold) {
   box-sizing: border-box;
   background:
     radial-gradient(circle at 86% 10%, rgba(91, 53, 230, 0.12), transparent 28%),
-    linear-gradient(135deg, #ffffff 0%, #f8fafc 52%, #eaf2ff 100%) !important;
+    linear-gradient(135deg, #ffffff 0%, #F7F5F0 52%, #E8EDF6 100%) !important;
 }
 
 .pk-chip.is-active,
@@ -6838,7 +6838,7 @@ main:has(> .pk-collection--bold) {
 /* Ad-ready campaign pages. */
 .pk-campaign {
   overflow-x: clip;
-  background: #f8fafc;
+  background: var(--pk-bg, #F7F5F0);
   color: #101828;
 }
 
@@ -8336,8 +8336,8 @@ main:has(> .pk-collection--bold) {
   width: 68px !important;
 }
 .pk-thumbs__item.is-current {
-  border-color: #6246ee !important;
-  box-shadow: 0 0 0 2px #6246ee !important;
+  border-color: var(--pk-cobalt, #0F47AF) !important;
+  box-shadow: 0 0 0 2px var(--pk-cobalt, #0F47AF) !important;
 }
 .pk-thumbs__item img { object-fit: contain !important; }
 
@@ -8427,8 +8427,8 @@ main:has(> .pk-collection--bold) {
   padding: 10px 15px !important;
 }
 .pk-product .product-options-item.is-selected {
-  border-color: #6246ee !important;
-  box-shadow: inset 0 0 0 1px #6246ee !important;
+  border-color: var(--pk-anil, #1C2951) !important;
+  box-shadow: inset 0 0 0 1px var(--pk-anil, #1C2951) !important;
 }
 
 .pk-product .pk-qty-row {
@@ -9259,4 +9259,15 @@ main:has(> .pk-collection--bold) {
   background-repeat: repeat-x;
   opacity: 0.12;
   pointer-events: none;
+}
+
+
+/* Añil pass — small-screen refinements */
+@media (max-width: 720px) {
+  .pk-logo__wordmark { font-size: 20px; }
+  .pk-logo__wordmark--footer { font-size: 18px; }
+  .pk-campaign-hero__interjection { font-size: 17px; }
+  .pk-campaign--home .pk-campaign-hero { border-radius: 12px; }
+  .pk-bluegold { margin-inline: 4px; }
+  .pk-footer__tagline { font-size: 13px; line-height: 1.5; }
 }
