@@ -86,6 +86,37 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
     markets: Object.freeze(['CA', 'US']),
     bundle: true,
   }),
+  // Canada only. Route evidence read in DSers on 2026-08-27: AliExpress
+  // Selection Standard from CN, free shipping, 8-16 days, tracking available.
+  // No US route has been quoted for this supplier variant.
+  //
+  // The first product priced above the CA$70 CPA crossover, so it is the first
+  // that can carry paid traffic: US$27.69 worst-case landed against CA$139
+  // retail is 28%, +CA$74.79 contribution against a CA$42 benchmark CPA. Every
+  // pre-existing product sits under the crossover and loses money on ads.
+  //
+  // Colours are listed separately because the gate is per-SKU and their depth
+  // differs sharply: Grey/Pink/Beige hold ~975 units each, Black only 24.
+  Object.freeze({
+    handle: 'compression-packing-cube-set-5-piece',
+    sku: '14:691;200007763:201336100', // Grey
+    markets: Object.freeze(['CA']),
+  }),
+  Object.freeze({
+    handle: 'compression-packing-cube-set-5-piece',
+    sku: '14:1052;200007763:201336100', // Pink
+    markets: Object.freeze(['CA']),
+  }),
+  Object.freeze({
+    handle: 'compression-packing-cube-set-5-piece',
+    sku: '14:771;200007763:201336100', // Beige
+    markets: Object.freeze(['CA']),
+  }),
+  Object.freeze({
+    handle: 'compression-packing-cube-set-5-piece',
+    sku: '14:193;200007763:201336100', // Black - 24 units, watch for oversell
+    markets: Object.freeze(['CA']),
+  }),
 ]);
 
 /**

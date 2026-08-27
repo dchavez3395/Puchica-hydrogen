@@ -15,6 +15,7 @@ const LAUNCH_COPY_PREFIX = {
   'travel-cable-organizer-case': 'product_copy_cable',
   'the-carry-on-kit-toiletry-organizer-packing-cubes-cable-case':
     'product_copy_kit',
+  'compression-packing-cube-set-5-piece': 'product_copy_compression',
 };
 
 function translated(source, key) {

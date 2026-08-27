@@ -258,19 +258,37 @@ test('product market resolution preserves indexing without opening checkout', ()
     'travel-cable-organizer-case',
     'black-travel-tech-case',
     'the-carry-on-kit-toiletry-organizer-packing-cubes-cable-case',
+    'compression-packing-cube-set-5-piece',
   ]);
 });
 
 test('discovery includes every approved market without exposing retired products', () => {
-  const products = APPROVED_CATALOG_OFFERS.map((offer) =>
+  // Group by handle first. Shopify returns one product per handle carrying all
+  // of its variants, so building one product per OFFER duplicated any handle
+  // that has several approved SKUs - a shape the storefront never receives.
+  const byHandle = new Map();
+  for (const offer of APPROVED_CATALOG_OFFERS) {
+    const existing = byHandle.get(offer.handle);
+    if (existing) {
+      existing.skus.push(offer.sku);
+      for (const market of offer.markets) existing.markets.add(market);
+      continue;
+    }
+    byHandle.set(offer.handle, {
+      skus: [offer.sku],
+      markets: new Set(offer.markets),
+    });
+  }
+
+  const products = [...byHandle].map(([handle, {skus, markets}]) =>
     approvedProduct({
-      handle: offer.handle,
+      handle,
       tags: [
-        ...requiredEvidenceTagsForHandle(offer.handle),
-        ...offer.markets.map((market) => MARKET_ROUTE_EVIDENCE_TAGS[market]),
+        ...requiredEvidenceTagsForHandle(handle),
+        ...[...markets].map((market) => MARKET_ROUTE_EVIDENCE_TAGS[market]),
       ],
       variants: {
-        nodes: [{sku: offer.sku, availableForSale: true}],
+        nodes: skus.map((sku) => ({sku, availableForSale: true})),
       },
     }),
   );
@@ -499,8 +517,10 @@ test('approved handles and SKUs derive from one exact-offer cohort', () => {
     ]);
   }
 
-  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.CA.length, 6);
-  assert.equal(APPROVED_PRODUCT_HANDLES_BY_MARKET.CA.length, 6);
+  // Ten SKUs across seven handles: the compression cube set contributes four
+  // colour SKUs under a single handle, so these two counts no longer match.
+  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.CA.length, 10);
+  assert.equal(APPROVED_PRODUCT_HANDLES_BY_MARKET.CA.length, 7);
   // Suspended, so nothing is sellable into the United States at all.
   assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.US.length, 0);
   assert.equal(APPROVED_PRODUCT_HANDLES_BY_MARKET.US.length, 0);
