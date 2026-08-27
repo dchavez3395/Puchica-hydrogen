@@ -260,3 +260,75 @@ Full supplier image set unreviewed for brand marks (AliExpress PDPs still
 CAPTCHA this session), and no sample handled. Two of the bags surfaced this
 session carried marks only visible in the photos — "DUANG BAG" and "KEADOME" —
 so this check is not a formality.
+
+---
+
+## 10. Correction — the stock rule was wrong
+
+**I set the stock bar for a business doing 370 orders a month and applied it to
+one doing zero.** That single mistake, not the economics, is what produced a 2-in-22
+hit rate across four rounds.
+
+Two things were wrong with it.
+
+**The card's "Stock" is a total across variants, and it hides the distribution.**
+The watch roll case reads 146 on the card. Opened up, that is 9 + **100** + 11 +
+11 + 7 + 8 across six SKUs — one variant holds most of it. The Variants tab is
+the right source: per-SKU cost, shipping, stock and price, with Canada already
+selected. It is better data than the card and I should have been using it from
+the first import.
+
+**A ~500-unit floor is meaningless at zero orders a month.** Twenty-four units
+is months of cover at any volume this store will see in the next quarter.
+Rejecting candidates for stock levels that only matter at scale is premature
+optimisation, and it was the main thing suppressing the hit rate.
+
+### Re-scored at each candidate's most EXPENSIVE variant
+
+Worst-case costing, so the result holds whichever SKU turns out to carry the
+inventory. `npm run sourcing-spec -- --csv reports/recheck.csv`
+
+| Candidate | Units | Profit/order @ CA$149 | Verdict |
+|---|---|---|---|
+| **Corduroy travel tote** | 24 | **+CA$37.09** (10.0) | Recovered |
+| Compression cube set, expandable | 15 | +CA$33.20 (10.0) | Thin, testable |
+| Oxford waterproof travel bag | 43 | +CA$24.80 (8.3) | Recovered |
+| Watch organizer box roll | 70 | +CA$22.66 (7.6) | Recovered |
+| Croc duffel | 10 | +CA$25.34 | Genuinely too thin |
+| Carry-on light bag | 4 | +CA$31.98 | Genuinely too thin |
+| Camera backpack | 12 | — | Genuinely too thin |
+
+Thirteen of thirty rows shortlisted. **The economics were never the blocker.**
+
+### Where the watch roll actually fails
+
+A clean illustration of why per-variant matters. Its deep SKU (6-slot, 100
+units) costs US$43.27 and returns **+CA$3.30 at CA$149**. The SKU that makes
+money (3-slot, US$25.00, **+CA$22.13 at CA$119**) holds 11 units. Stock and
+margin sit on opposite variants, so the product fails — but only visibly at
+variant level.
+
+### The revised pair
+
+- **5-piece compression set** (`1005008575269485`) — 2,966 units,
+  +CA$27.87 at CA$139. The scalable one.
+- **Corduroy travel tote** (`1005008575479368`) — 24 units, +CA$37.09 at
+  CA$149, 1,000 sold, 4.9★. Highest-scoring candidate found, and the only one
+  without a perceived-value objection. **A demand test, not a pillar** — 24
+  units cannot be scaled on, so if it sells, a deeper supplier is needed for
+  the same look.
+
+### Still blocking publication
+
+Supplier imagery has not been cleared. A contact sheet of the imported catalogue
+shows brand marks on the products themselves in six cases — **DUANG BAG,
+KEADOME, MAD TRUNK, IMAGIC, GLitzu, NORTH EDGE** — none of which appear in the
+listing titles, so the title blocklist in `scripts/aliexpress-screen.js` cannot
+catch them. The compression set's photos are clean, unbranded studio shots. The
+corduroy tote's full set has **not** been reviewed.
+
+Two further imagery notes for whoever writes the listings: DSers publishes only
+the images ticked in its Images tab (12 of 45 on the tote, 12 of 32 on the
+makeup case), so curation is possible and necessary — much of the supplier set
+is infographic collage with English marketing text baked in, which reads as
+drop-shipped on a DTC storefront.
