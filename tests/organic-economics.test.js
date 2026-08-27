@@ -75,6 +75,20 @@ const completeBaseline = {
         US: {shippingUsd: 4.15, tracked: true},
       },
     },
+    // Canada only: no US route has been quoted for this supplier. Each colour
+    // is its own row because the gate is per-SKU, and all four carry the same
+    // cost because DSers quoted the product as a range rather than per-SKU.
+    ...[
+      '14:691;200007763:201336100',
+      '14:1052;200007763:201336100',
+      '14:771;200007763:201336100',
+      '14:193;200007763:201336100',
+    ].map((sku) => ({
+      handle: 'compression-packing-cube-set-5-piece',
+      sku,
+      itemCostUsd: 27.69,
+      routes: {CA: {shippingUsd: 0, tracked: true}},
+    })),
   ],
 };
 
