@@ -36,6 +36,7 @@ import {
   computeCanadianOffer,
   evaluateAcquisition,
 } from './lib/acquisition-economics.mjs';
+import {resolveBaselinePath} from './check-organic-economics.mjs';
 
 const scriptPath = fileURLToPath(import.meta.url);
 const rootDir = path.resolve(path.dirname(scriptPath), '..');
@@ -55,6 +56,9 @@ const CA_RETAIL = {
   'travel-cable-organizer-case': 19.99,
   'black-travel-tech-case': 34.99,
   'the-carry-on-kit-toiletry-organizer-packing-cubes-cable-case': 89.0,
+  // The first offer priced above the CA$70 CPA crossover, and so the first
+  // that paid acquisition can fund rather than subsidise.
+  'compression-packing-cube-set-5-piece': 139.0,
 };
 
 if (path.resolve(process.argv[1] || '') === scriptPath) {
@@ -71,11 +75,12 @@ export function runAcquisitionGate({
   now = new Date(),
   retail = CA_RETAIL,
 } = {}) {
-  const baseline = readJson(
-    'docs',
-    'recovery-evidence',
-    'exact-offer-cost-route-baseline-2026-08-21.json',
-  );
+  // Resolve the newest baseline rather than naming one. This was pinned to the
+  // 2026-08-21 file, so the gate kept costing offers against that evidence
+  // after the 08-25 and 08-27 baselines were added beside it - precisely what
+  // resolveBaselinePath exists to prevent. It throws on a missing or
+  // unparseable file rather than defaulting to something permissive.
+  const baseline = JSON.parse(fs.readFileSync(resolveBaselinePath(), 'utf8'));
   const benchmark = readJson(
     'docs',
     'recovery-evidence',
