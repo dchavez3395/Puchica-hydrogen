@@ -412,3 +412,27 @@ Format:
   lint: the wordmark left Header/Footer with an unused header prop. Fixed,
   lint-verified locally, PR #36 merged. Deploy re-running.
 - Branch reset onto main for future work.
+
+### 2026-08-27 · remote · Deploy GREEN; añil polish pass 2 (About/PDP/cart/hold)
+
+- Run 108 revealed the deploy step precedes the browser checks: the redesign
+  went live, then 4/68 checks failed on it — the header wordmark link was an
+  86x20 tap target on mobile (the old logo img was 36px tall; the text
+  wordmark's line box is 20px). Fixed with a 42px min-height on .pk-logo,
+  matching the header icon buttons. Same pass caught the footer wordmark
+  rendering white on the old cream logo tile (invisible); tile removed.
+  PR #37 merged → run 109 SUCCESS: all 68 checks green against live
+  puchica.ca. Verified locally first with the repo's own findSmallTargets
+  probe + axe at 390x844.
+- Polish pass 2, one temperature everywhere: the About page still carried the
+  old purple system (#6551ed/#553fdc eyebrows, callout, roots band, delivery
+  panel #111a2b, green dot) — all moved to añil tokens. Same for the PDP's
+  leftover purples (crumb hover, purchase-fact checks, trust icons, accordion
+  indicators, focus ring), the containment page (.pk-hold), the shipping
+  page's lavender tints, and .pk-btn--secondary borders.
+- Root-cause find: the cart drawer's free-shipping bar and brand line
+  referenced --pk-indigo-600/700/100 which no :root ever defined — the purple
+  fallback literals were what rendered. Tokens now defined in the añil block
+  (anil/cobalt/tint), fixing every usage at once.
+- Verified: lint clean, 324/332 tests (8 skipped, 0 fail), production build
+  clean, harness axe color-contrast 0 violations, tap-target probe empty.
