@@ -239,9 +239,18 @@ function printResult(result) {
     (max, row) => Math.max(max, row.requiredRetailUplift),
     0,
   );
+  // Count the funded offers before describing the gap. This line used to read
+  // "No Canadian offer can fund ..." whenever ANY offer fell short, which was
+  // true only while the whole catalog sat under the CPA crossover. The moment
+  // one offer cleared it, the summary contradicted its own table.
+  const funded = result.rows.filter(
+    (row) => !(row.requiredRetailUplift > 0),
+  ).length;
   if (worst > 0) {
     console.log(
-      `\nNo Canadian offer can fund a CA$${result.targetCpaCad.toFixed(2)} CPA. The largest gap is CA$${worst.toFixed(2)}.`,
+      funded
+        ? `\n${funded} of ${result.rows.length} Canadian offers fund a CA$${result.targetCpaCad.toFixed(2)} CPA. The largest remaining gap is CA$${worst.toFixed(2)}.`
+        : `\nNo Canadian offer can fund a CA$${result.targetCpaCad.toFixed(2)} CPA. The largest gap is CA$${worst.toFixed(2)}.`,
     );
     console.log(
       'Closing it needs a higher AOV or a cheaper channel, not a better ad.',
