@@ -436,3 +436,18 @@ Format:
   (anil/cobalt/tint), fixing every usage at once.
 - Verified: lint clean, 324/332 tests (8 skipped, 0 fail), production build
   clean, harness axe color-contrast 0 violations, tap-target probe empty.
+
+### 2026-08-27 · remote · Meta launch handed to a local Claude + Chrome session
+
+- Daniel chose the "local Claude + Chrome" lane for the Stage 1 CA$200 test
+  (this cloud session cannot reach facebook.com and holds no ad credentials).
+- Wrote docs/meta-launch-handoff-2026-08-27.md: a verbatim paste-in prompt for
+  Claude Code running on his PC with the logged-in Chrome extension. It builds
+  stage1-funnel-smoke to the approved spec (Sales/Purchase, CA$28/day x 7
+  days, CA broad 25-55, Advantage+ placements, the three approved ads with
+  gate-validated UTM URLs) with hard rails: stop before Publish for Daniel's
+  go, no spend/scope/copy beyond spec, stop rules and first-order runbook
+  included.
+- This session keeps the watch: daily UTM readouts at 23:42 UTC, order flag +
+  DSers requote before any supplier payment, day-7 readout.
+- Deadline note: DSers cost baseline valid through Aug 28.
