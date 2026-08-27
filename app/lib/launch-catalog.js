@@ -91,8 +91,8 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
   // No US route has been quoted for this supplier variant.
   //
   // The first product priced above the CA$70 CPA crossover, so it is the first
-  // that can carry paid traffic: US$27.69 worst-case landed against CA$139
-  // retail is 28%, +CA$74.79 contribution against a CA$42 benchmark CPA. Every
+  // that can carry paid traffic: US$27.94 worst-case landed against CA$139
+  // retail is 28%, +CA$74.41 contribution against a CA$42 benchmark CPA. Every
   // pre-existing product sits under the crossover and loses money on ads.
   //
   // Colours are listed separately because the gate is per-SKU and their depth
