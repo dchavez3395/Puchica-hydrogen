@@ -55,6 +55,9 @@ export function SmallSpaceLanding(props) {
         <div className="pk-campaign-hero__copy">
           <p className="pk-campaign__eyebrow">{t('launch_home_eyebrow')}</p>
           <h1 id="organization-title">{t('launch_home_title')}</h1>
+          <p className="pk-campaign-hero__interjection">
+            {t('hero_interjection')}
+          </p>
           <p>{heroDescription}</p>
         </div>
 
@@ -166,6 +169,17 @@ export function SmallSpaceLanding(props) {
         linkLabel={t('launch_home_view_all')}
         linkTo="/collections/all"
       />
+
+      <section className="pk-bluegold" aria-labelledby="bluegold-title">
+        <div className="pk-bluegold__copy">
+          <p className="pk-bluegold__eyebrow">{t('home_bluegold_eyebrow')}</p>
+          <h2 id="bluegold-title">{t('home_bluegold_h')}</h2>
+          <p>{t('home_bluegold_body')}</p>
+        </div>
+        <div className="pk-bluegold__dye" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+      </section>
     </>
   );
 }

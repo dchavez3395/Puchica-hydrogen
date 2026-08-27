@@ -4,7 +4,7 @@ import {
   IconFacebook,
   IconTiktok,
 } from '~/components/Icons';
-import {SOCIAL_PROFILES, STORE_LOGO_URL} from '~/lib/brand';
+import {SOCIAL_PROFILES} from '~/lib/brand';
 import {useT} from '~/lib/t';
 
 // Footer loader prefers `shop.brand.logo.image.url` from the Storefront
@@ -47,23 +47,17 @@ const SOCIAL = [
  */
 export function Footer({header}) {
   const t = useT();
-  const logo = header?.shop?.brand?.logo?.image?.url || STORE_LOGO_URL;
   const year = new Date().getFullYear();
   return (
     <footer className="pk-footer">
       <div className="pk-footer__inner">
         <div className="pk-footer__brand">
           <Link to="/" className="pk-footer__logo">
-            <img
-              src={logo}
-              alt="Puchica"
-              width={120}
-              height={36}
-              loading="lazy"
-              decoding="async"
-            />
+            <span className="pk-logo__wordmark pk-logo__wordmark--footer">
+              &iexcl;p&uacute;chica!
+            </span>
           </Link>
-          <p className="pk-footer__tagline">Puchica · Canada</p>
+          <p className="pk-footer__tagline">{t('footer_glossary')}</p>
           <div
             className="pk-footer__social"
             role="group"

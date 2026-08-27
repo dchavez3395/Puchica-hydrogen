@@ -73,9 +73,12 @@ test('the logo derives its height from the file', () => {
   assert.match(block, /object-fit:\s*contain/);
 });
 
-test('both logo tags declare the true 1200x360 aspect ratio', async () => {
-  // The attributes stay in the markup so the space is reserved before the
-  // file loads; they just have to agree with the file. 120x36 is 3.333:1.
+test('header and footer render the text wordmark, not a logo image', async () => {
+  // The Añil redesign replaced the logo <img> with the "¡púchica!" text
+  // wordmark, which cannot be geometrically distorted at all — the failure
+  // mode this file guarded (a 120x32 box stretching a 1200x360 file) is
+  // structurally impossible now. Guard the new invariant instead: no logo
+  // image sneaks back into the chrome without its geometry being re-audited.
   for (const file of ['Header.jsx', 'Footer.jsx']) {
     const source = await readFile(
       new URL(`../app/components/${file}`, import.meta.url),
@@ -83,10 +86,14 @@ test('both logo tags declare the true 1200x360 aspect ratio', async () => {
     );
     assert.match(
       source,
-      /width=\{120\}\s*\n\s*height=\{36\}/,
-      `${file} must size the logo at the file's real 10:3 ratio`,
+      /pk-logo__wordmark/,
+      `${file} must render the text wordmark`,
     );
-    assert.doesNotMatch(source, /height=\{32\}/, `${file} still has the 12.5% stretch`);
+    assert.doesNotMatch(
+      source,
+      /className="pk-logo__img"/,
+      `${file} reintroduced a logo image — re-add the aspect-ratio guard from this file's history`,
+    );
   }
 });
 

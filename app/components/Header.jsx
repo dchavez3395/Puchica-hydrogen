@@ -8,12 +8,10 @@ import {
 import {useAside} from '~/components/Aside';
 import {IconSearch} from '~/components/Icons';
 import {LocaleSwitcher} from '~/components/LocaleSwitcher';
-import {STORE_LOGO_URL} from '~/lib/brand';
 import {useT} from '~/lib/t';
 
 /** @param {HeaderProps} props */
 export function Header({header, isLoggedIn, cart}) {
-  const {shop} = header;
   const {close} = useAside();
 
   return (
@@ -27,15 +25,7 @@ export function Header({header, isLoggedIn, cart}) {
           end
           onClick={close}
         >
-          <img
-            className="pk-logo__img"
-            src={shop.brand?.logo?.image?.url || STORE_LOGO_URL}
-            alt={shop.name}
-            width={120}
-            height={36}
-            {...{fetchpriority: 'high'}}
-            decoding="async"
-          />
+          <span className="pk-logo__wordmark">&iexcl;p&uacute;chica!</span>
         </NavLink>
         <HeaderMenu viewport="desktop" />
         <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />

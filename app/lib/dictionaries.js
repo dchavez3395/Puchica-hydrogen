@@ -206,7 +206,13 @@ export const DICTIONARIES = {
     product_notify_error: 'Something went wrong. Please try again.',
 
     // ── Add-to-cart button states ─────────────────────────────────
-    atc_added: 'Added ✓',
+        atc_added: 'Added — ¡púchica!',
+    card_options_summary: 'Multiple options available',
+    footer_glossary: 'Púchica (poo-CHEE-kah) — Salvadoran for “wow.” What we hope you say when you open the box.',
+    hero_interjection: '— ¡púchica!, that was easy.',
+    home_bluegold_eyebrow: 'Blue gold',
+    home_bluegold_h: 'For two centuries, El Salvador dyed the world indigo.',
+    home_bluegold_body: 'Añil — “blue gold” — was Central America’s treasure long before coffee. Our gear is made by trusted manufacturing partners; the color, the name, and the soul are Salvadoran.',
     atc_add_failed: "Couldn't add. Try again.",
     atc_adding: 'Adding…',
 
@@ -227,7 +233,7 @@ export const DICTIONARIES = {
     megamenu_intent_packing_title: 'Packing cubes',
     megamenu_intent_toiletry_title: 'Toiletry organizer',
     megamenu_intent_jewelry_title: 'Travel jewelry case',
-    notfound_title: "We couldn't find that page",
+    notfound_title: '¡Púchica! Wrong turn.',
     notfound_sub:
       'The link {path} doesn’t exist on Puchica. It may have been moved, renamed, or never existed. Try one of these instead:',
     notfound_popular: 'Popular collections',
@@ -831,7 +837,13 @@ export const DICTIONARIES = {
       'Merci, nous vous enverrons un courriel quand ce sera disponible.',
     product_notify_error: 'Quelque chose s’est mal passé. Veuillez réessayer.',
 
-    atc_added: 'Ajouté ✓',
+        atc_added: 'Ajouté — ¡púchica!',
+    card_options_summary: 'Plusieurs options offertes',
+    footer_glossary: '« Púchica » (pou-TCHI-ka) — expression salvadorienne pour « wow ». Ce qu’on espère vous entendre dire en ouvrant la boîte.',
+    hero_interjection: '— ¡púchica!, c’était facile.',
+    home_bluegold_eyebrow: 'L’or bleu',
+    home_bluegold_h: 'Pendant deux siècles, le Salvador a teint le monde en indigo.',
+    home_bluegold_body: 'L’añil — « l’or bleu » — fut le trésor de l’Amérique centrale bien avant le café. Nos articles sont fabriqués par des partenaires de confiance ; la couleur, le nom et l’âme sont salvadoriens.',
     atc_add_failed: "Impossible d’ajouter l’article. Réessayez.",
     atc_adding: 'Ajout…',
 
@@ -849,7 +861,7 @@ export const DICTIONARIES = {
     megamenu_intent_packing_title: 'Cubes de rangement',
     megamenu_intent_toiletry_title: 'Trousse de toilette',
     megamenu_intent_jewelry_title: 'Étui à bijoux de voyage',
-    notfound_title: "Nous n'avons pas trouvé cette page",
+    notfound_title: '¡Púchica! Mauvaise direction.',
     notfound_sub:
       "Le lien {path} n'existe pas sur Puchica. Il a peut-être été déplacé, renommé, ou n'a jamais existé. Essayez plutôt l'une de ces options :",
     notfound_popular: 'Collections populaires',
@@ -1477,7 +1489,13 @@ export const DICTIONARIES = {
       'Gracias, te avisaremos por correo cuando vuelva a estar disponible.',
     product_notify_error: 'Algo salió mal. Por favor intenta de nuevo.',
 
-    atc_added: 'Agregado ✓',
+        atc_added: 'En la bolsa — ¡púchica!',
+    card_options_summary: 'Varias opciones disponibles',
+    footer_glossary: '«Púchica» — expresión salvadoreña de asombro. Lo que esperamos que digás al abrir la caja.',
+    hero_interjection: '— ¡púchica!, qué fácil.',
+    home_bluegold_eyebrow: 'Oro azul',
+    home_bluegold_h: 'Durante dos siglos, El Salvador tiñó el mundo de añil.',
+    home_bluegold_body: 'El añil — el «oro azul» — fue el tesoro de Centroamérica mucho antes que el café. Nuestros productos los fabrican socios de confianza; el color, el nombre y el alma son salvadoreños.',
     atc_add_failed: 'No se pudo agregar. Inténtalo de nuevo.',
     atc_adding: 'Agregando…',
 
@@ -1495,7 +1513,7 @@ export const DICTIONARIES = {
     megamenu_intent_packing_title: 'Cubos de embalaje',
     megamenu_intent_toiletry_title: 'Organizador de aseo',
     megamenu_intent_jewelry_title: 'Estuche de viaje para joyas',
-    notfound_title: 'No pudimos encontrar esa página',
+    notfound_title: '¡Púchica! Ruta equivocada.',
     notfound_sub:
       'El enlace {path} no existe en Puchica. Puede haber sido movido, renombrado, o nunca existió. Prueba una de estas opciones:',
     notfound_popular: 'Colecciones populares',
@@ -2121,7 +2139,13 @@ export const DICTIONARIES = {
       'Obrigado, avisaremos quando estiver disponível novamente.',
     product_notify_error: 'Algo deu errado. Por favor, tente novamente.',
 
-    atc_added: 'Adicionado ✓',
+        atc_added: 'Na bolsa — ¡púchica!',
+    card_options_summary: 'Várias opções disponíveis',
+    footer_glossary: '“Púchica” (pu-TCHI-ka) — expressão salvadorenha para “uau”. O que esperamos que você diga ao abrir a caixa.',
+    hero_interjection: '— ¡púchica!, que fácil.',
+    home_bluegold_eyebrow: 'Ouro azul',
+    home_bluegold_h: 'Por dois séculos, El Salvador tingiu o mundo de anil.',
+    home_bluegold_body: 'O anil — o “ouro azul” — foi o tesouro da América Central muito antes do café. Nossos produtos são feitos por parceiros de confiança; a cor, o nome e a alma são salvadorenhos.',
     atc_add_failed: 'Não foi possível adicionar. Tente novamente.',
     atc_adding: 'Adicionando…',
 
@@ -2139,7 +2163,7 @@ export const DICTIONARIES = {
     megamenu_intent_packing_title: 'Cubos organizadores',
     megamenu_intent_toiletry_title: 'Necessaire organizadora',
     megamenu_intent_jewelry_title: 'Estojo de viagem para joias',
-    notfound_title: 'Não encontramos essa página',
+    notfound_title: '¡Púchica! Caminho errado.',
     notfound_sub:
       'O link {path} não existe na Puchica. Pode ter sido movido, renomeado, ou nunca existiu. Tente uma destas opções:',
     notfound_popular: 'Coleções populares',

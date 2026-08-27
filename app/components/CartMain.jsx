@@ -4,7 +4,6 @@ import {useAside} from '~/components/Aside';
 import {CartLineItem} from '~/components/CartLineItem';
 import {CartSummary} from './CartSummary';
 import {IconBag, IconSparkles, IconTruck, IconReturn} from '~/components/Icons';
-import {STORE_LOGO_URL} from '~/lib/brand';
 import {SITE_NAME} from '~/lib/seo';
 import {useT} from '~/lib/t';
 /**
@@ -204,7 +203,7 @@ function CartBrandHeader() {
         className="cart-brand__logo"
         aria-label={`${SITE_NAME} — ${t('breadcrumb_home')}`}
       >
-        <img src={STORE_LOGO_URL} alt={SITE_NAME} />
+        <span className="pk-logo__wordmark">&iexcl;p&uacute;chica!</span>
       </Link>
     </div>
   );
