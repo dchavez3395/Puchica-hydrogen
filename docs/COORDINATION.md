@@ -369,3 +369,29 @@ Format:
   Chrome on dsers.com: re-verify the 5 supplier bindings + stock + CA
   quotes + Advanced Mapping state + supplier order counts/ratings (the
   evidence his skip-the-sample decision rests on).
+
+### 2026-08-27 · remote · Añil redesign: direction chosen, phases 1–3 implemented
+
+- Daniel called the site "nowhere near ready" on design and asked for an
+  extremely modern Salvadoran identity. Design audit (three clashing
+  palettes, 19 CSS generations, zero live brand personality) + heritage
+  research produced two directions on an editable canvas; Daniel chose
+  **Añil** — El Salvador's indigo ("blue gold") as the brand system.
+- Implemented on the PR branch: one authoritative token palette (indigo
+  primary, torogoz for strokes/large glyphs only, Barro warm note) mapped
+  onto legacy token names; campaign/About/PDP scopes now reference unified
+  tokens — the three-palette drift is over. Fonts: Space Grotesk display +
+  Instrument Sans body + Fraunces italic accent.
+- Brand finally lives in the product: "¡púchica!" wordmark in header and
+  footer, El Cerco frieze on hero and footer, torogoz racket bullets on
+  PDP facts, Blue Gold story band, footer glossary, "Added — ¡púchica!"
+  cart state and "¡Púchica! Wrong turn." 404 — four locales, claim-safe
+  ("made by trusted manufacturing partners", never "made in El Salvador").
+  Rainbow card stripes retired; hardcoded option summary translated.
+- Found & fixed: PDP add-to-cart button had no text color (UA black on
+  near-black) plus a stray purple hover.
+- Verified: 282/282 tests, build clean, launch-check PASS, axe contrast
+  scan in real Chromium 0 violations; screenshot sent to Daniel. Deferred
+  (owner calls): product renames, logo file, photography, card hover
+  crossfade (needs gallery cleanup of unsold colourways first).
+- Live site unchanged until PR #15 is merged/deployed.
