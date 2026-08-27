@@ -45,7 +45,7 @@ const SOCIAL = [
 /**
  * @param {FooterProps}
  */
-export function Footer({header}) {
+export function Footer() {
   const t = useT();
   const year = new Date().getFullYear();
   return (
