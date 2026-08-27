@@ -84,14 +84,14 @@ function resolvePrimaryOption(options, availableVariants = []) {
 }
 
 /** @param {any} product @param {Array<any>} availableVariants */
-function resolveOptionSummary(product, availableVariants) {
+function resolveOptionSummary(product, availableVariants, t) {
   const primaryOption = resolvePrimaryOption(
     product.options,
     availableVariants,
   );
 
   if (primaryOption || availableVariants.length > 1) {
-    return 'Multiple options available';
+    return t('card_options_summary');
   }
   return null;
 }
@@ -171,7 +171,7 @@ export function ProductItem({product, loading, dark = false}) {
       Number(priceRange.maxVariantPrice.amount);
   const tagBadge = resolveBadge(product.tags, t);
   const badge = sale ?? tagBadge; // sale takes priority over editorial badges
-  const optionSummary = resolveOptionSummary(product, availableVariants);
+  const optionSummary = resolveOptionSummary(product, availableVariants, t);
   const displayTitle = presentProductTitle(
     product.title,
     variant,

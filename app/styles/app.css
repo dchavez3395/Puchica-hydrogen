@@ -6751,43 +6751,16 @@ main:has(> .pk-collection--bold) {
  * another product rail. Generated scenes are intentionally atmospheric rather
  * than depictions of exact merchandise. */
 
+/* Añil pass: the rotating rainbow top-stripes are retired — cards carry no
+   decorative color coding. (The ::before stripe and its nth-child rotation
+   used to live here.) */
 .pk-card::before {
-  content: '';
-  position: absolute;
-  inset: 0 0 auto;
-  height: 4px;
-  background: var(--pk-color-violet);
-  pointer-events: none;
+  content: none;
 }
 
 .pk-card {
   position: relative;
   overflow: hidden;
-}
-
-.pk-prod-grid > .pk-card:nth-child(5n + 1)::before,
-.pk-card:nth-child(5n + 1)::before {
-  background: var(--pk-color-violet);
-}
-
-.pk-prod-grid > .pk-card:nth-child(5n + 2)::before,
-.pk-card:nth-child(5n + 2)::before {
-  background: var(--pk-color-teal);
-}
-
-.pk-prod-grid > .pk-card:nth-child(5n + 3)::before,
-.pk-card:nth-child(5n + 3)::before {
-  background: var(--pk-color-cobalt);
-}
-
-.pk-prod-grid > .pk-card:nth-child(5n + 4)::before,
-.pk-card:nth-child(5n + 4)::before {
-  background: var(--pk-color-rose);
-}
-
-.pk-prod-grid > .pk-card:nth-child(5n)::before,
-.pk-card:nth-child(5n)::before {
-  background: var(--pk-color-amber);
 }
 
 .pk-card__badge--sale {
@@ -8475,8 +8448,9 @@ main:has(> .pk-collection--bold) {
 .pk-product .pk-qty-row__atc,
 .pk-product .pk-qty-row__atc form { width: 100%; }
 .pk-product .pk-atc {
-  background: var(--pdp-ink) !important;
-  border: 1px solid var(--pdp-ink) !important;
+  background: var(--pk-anil) !important;
+  border: 1px solid var(--pk-anil) !important;
+  color: #F7F5F0 !important;
   border-radius: 12px !important;
   box-shadow: none !important;
   font-size: .9rem !important;
@@ -8485,8 +8459,8 @@ main:has(> .pk-collection--bold) {
   width: 100%;
 }
 .pk-product .pk-atc:hover:not(:disabled) {
-  background: #6246ee !important;
-  border-color: #6246ee !important;
+  background: var(--pk-anil-deep) !important;
+  border-color: var(--pk-anil-deep) !important;
   transform: translateY(-1px);
 }
 .pk-product .pk-atc:disabled { cursor: not-allowed; opacity: .58; }
@@ -9131,4 +9105,158 @@ main:has(> .pk-collection--bold) {
     -webkit-line-clamp: unset;
     overflow: visible;
   }
+}
+
+
+/* ==========================================================================
+   Añil pass — brand surfaces (August 2026)
+   Wordmark, indigo hero band, El Cerco frieze, torogoz racket bullets,
+   Blue Gold story band. One accent moment per view; frieze one color only.
+   ========================================================================== */
+
+.pk-logo__wordmark {
+  font-family: var(--pk-font-display);
+  font-weight: 700;
+  font-size: 24px;
+  letter-spacing: -0.02em;
+  color: var(--pk-anil);
+  line-height: 1;
+  white-space: nowrap;
+}
+.pk-logo__wordmark--footer {
+  color: #F7F5F0;
+  font-size: 20px;
+}
+
+.pk-campaign--home .pk-campaign-hero {
+  background: var(--pk-grad-hero);
+  border-radius: 18px;
+  color: #F7F5F0;
+  position: relative;
+  overflow: hidden;
+}
+.pk-campaign--home .pk-campaign-hero::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 14px;
+  height: 26px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='26' viewBox='0 0 120 26'%3E%3Cg fill='none' stroke='%23F7F5F0' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 22 L22 8 L28 8 L28 14 L34 14 L34 22'/%3E%3Cpath d='M52 22 A 12 12 0 0 1 76 22'/%3E%3Cline x1='98' y1='4' x2='98' y2='15'/%3E%3Ccircle cx='98' cy='20' r='2.6'/%3E%3C/g%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  opacity: 0.16;
+  pointer-events: none;
+}
+.pk-campaign--home .pk-campaign-hero h1,
+.pk-campaign--home .pk-campaign-hero .pk-campaign__eyebrow {
+  color: inherit;
+}
+.pk-campaign--home .pk-campaign-hero .pk-campaign__eyebrow {
+  color: #8FA6D9;
+}
+.pk-campaign--home .pk-campaign-hero p {
+  color: #D5DCEC;
+}
+.pk-campaign--home .pk-campaign-hero .pk-campaign-proof li {
+  color: #AAB8D8;
+}
+.pk-campaign-hero__interjection {
+  font-family: var(--pk-font-accent);
+  font-style: italic;
+  font-size: 20px;
+  color: #AAB8D8;
+  margin: 2px 0 0;
+}
+.pk-campaign--home .pk-campaign-btn--primary {
+  background: var(--pk-torogoz);
+  border-color: var(--pk-torogoz);
+  color: #0B1B33;
+}
+.pk-campaign--home .pk-campaign-btn--primary:hover {
+  background: #02998f;
+  border-color: #02998f;
+}
+.pk-campaign--home .pk-campaign-text-link {
+  color: #D5DCEC;
+}
+
+.pk-bluegold {
+  background: var(--pk-paper);
+  border: 1px solid var(--pk-line);
+  border-radius: 16px;
+  padding: clamp(28px, 4vw, 48px);
+  margin: 40px auto 56px;
+  max-width: 1120px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 220px);
+  gap: 40px;
+  align-items: center;
+}
+@media (max-width: 700px) {
+  .pk-bluegold { grid-template-columns: minmax(0, 1fr); }
+}
+.pk-bluegold__eyebrow {
+  font-family: var(--pk-font-display);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--pk-barro);
+  margin: 0 0 8px;
+}
+.pk-bluegold h2 {
+  font-family: var(--pk-font-display);
+  font-size: clamp(22px, 2.6vw, 30px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--pk-anil);
+  margin: 0 0 10px;
+  text-wrap: balance;
+}
+.pk-bluegold__copy p {
+  color: var(--pk-muted);
+  font-size: 15.5px;
+  line-height: 1.65;
+  max-width: 56ch;
+  margin: 0;
+}
+.pk-bluegold__dye {
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  overflow: hidden;
+  height: 200px;
+}
+.pk-bluegold__dye span { flex: 1; }
+.pk-bluegold__dye span:nth-child(1) { background: #1C2951; }
+.pk-bluegold__dye span:nth-child(2) { background: #0F47AF; }
+.pk-bluegold__dye span:nth-child(3) { background: #5C7CB8; }
+.pk-bluegold__dye span:nth-child(4) { background: #9FB4DB; }
+.pk-bluegold__dye span:nth-child(5) { background: #E8EDF6; }
+
+.pk-product__purchase-facts li {
+  list-style: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='16' viewBox='0 0 10 16'%3E%3Cg fill='none' stroke='%2300B2A9' stroke-width='1.6' stroke-linecap='round'%3E%3Cline x1='5' y1='1' x2='5' y2='9'/%3E%3Ccircle cx='5' cy='12.5' r='2.2'/%3E%3C/g%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 0 3px;
+  padding-left: 20px;
+}
+.pk-product__purchase-facts ul {
+  padding-left: 0;
+}
+
+.pk-footer {
+  position: relative;
+}
+.pk-footer::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 0;
+  right: 0;
+  height: 26px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='26' viewBox='0 0 120 26'%3E%3Cg fill='none' stroke='%23F7F5F0' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 22 L22 8 L28 8 L28 14 L34 14 L34 22'/%3E%3Cpath d='M52 22 A 12 12 0 0 1 76 22'/%3E%3Cline x1='98' y1='4' x2='98' y2='15'/%3E%3Ccircle cx='98' cy='20' r='2.6'/%3E%3C/g%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  opacity: 0.12;
+  pointer-events: none;
 }
