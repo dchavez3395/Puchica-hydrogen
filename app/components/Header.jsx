@@ -1,5 +1,5 @@
 import {Suspense, useEffect} from 'react';
-import {Await, useAsyncValue, useRouteLoaderData} from 'react-router';
+import {Await, useAsyncValue} from 'react-router';
 import {useAnalytics, useOptimisticCart} from '@shopify/hydrogen';
 import {
   LocalizedLink as Link,
@@ -39,38 +39,16 @@ export function HeaderMenu({viewport}) {
   const className = viewport === 'desktop' ? 'pk-nav' : 'pk-nav pk-nav--mobile';
   const {close} = useAside();
   const t = useT();
-  const rootData = useRouteLoaderData('root');
-  const market = rootData?.selectedLocale?.country || 'CA';
   const desktopNav = [
     {id: 'shop', title: t('nav_shop'), url: '/collections/all'},
     {id: 'about', title: t('nav_about'), url: '/pages/about'},
   ];
-  const productNav = [
-    ...desktopNav,
-    ...(market === 'CA'
-      ? [
-          {
-            id: 'packing-cubes',
-            title: t('megamenu_intent_packing_title'),
-            url: '/products/3-piece-packing-cube-set',
-          },
-        ]
-      : []),
-    ...(market === 'US'
-      ? [
-          {
-            id: 'toiletry-organizer',
-            title: t('megamenu_intent_toiletry_title'),
-            url: '/products/black-hanging-travel-toiletry-organizer',
-          },
-        ]
-      : []),
-    {
-      id: 'jewelry-case',
-      title: t('megamenu_intent_jewelry_title'),
-      url: '/products/white-semi-circular-travel-jewelry-case',
-    },
-  ];
+  // Per-market product shortcuts were removed 2026-08-31: all three handles
+  // (3-piece-packing-cube-set, black-hanging-travel-toiletry-organizer,
+  // white-semi-circular-travel-jewelry-case) were deleted from the catalog on
+  // 2026-08-28 and every one of them returned a 404 from the live nav.
+  // Re-add shortcuts only for handles verified to resolve.
+  const productNav = [...desktopNav];
   const mobileNav = [
     ...productNav,
     {id: 'contact', title: t('footer_contact'), url: '/pages/contact'},

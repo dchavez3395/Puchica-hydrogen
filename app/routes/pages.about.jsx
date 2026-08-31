@@ -63,26 +63,11 @@ export default function AboutPage() {
       body: t('about_how_3_body'),
     },
   ];
-  const destinations = [
-    {
-      url: '/products/black-hanging-travel-toiletry-organizer',
-      label: t('about_shop_travel_title'),
-      body: t('about_shop_travel_body'),
-      markets: ['CA', 'US'],
-    },
-    {
-      url: '/products/3-piece-packing-cube-set',
-      label: t('about_shop_home_title'),
-      body: t('about_shop_home_body'),
-      markets: ['CA'],
-    },
-    {
-      url: '/products/white-semi-circular-travel-jewelry-case',
-      label: t('about_shop_cable_title'),
-      body: t('about_shop_cable_body'),
-      markets: ['CA', 'US'],
-    },
-  ].filter(({markets}) => markets.includes(market));
+  // Emptied 2026-08-31. All three destination cards pointed at product handles
+  // deleted from the catalog on 2026-08-28, so every card was a 404. The
+  // section below is guarded on length and simply does not render while this
+  // is empty. Repopulate with handles verified to resolve.
+  const destinations = [].filter(({markets}) => markets.includes(market));
 
   return (
     <div className="pk-about-v3">
@@ -131,6 +116,7 @@ export default function AboutPage() {
             {t('about_shop_all')} <span aria-hidden="true">→</span>
           </Link>
         </div>
+        {destinations.length ? (
         <ul className="pk-about-v3__shop-grid">
           {destinations.map(({url, label, body}) => (
             <li key={`${url}-${label}`}>
@@ -148,6 +134,7 @@ export default function AboutPage() {
             </li>
           ))}
         </ul>
+        ) : null}
       </section>
 
       <section className="pk-about-v3__story">

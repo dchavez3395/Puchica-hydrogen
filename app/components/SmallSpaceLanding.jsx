@@ -72,7 +72,14 @@ export function SmallSpaceLanding(props) {
               {...{fetchpriority: 'high'}}
             />
           ) : (
-            <div className="pk-campaign-lifestyle" aria-hidden="true" />
+            /* With no catalogue this was a bare colour block filling the
+               largest slot on the page and reading as a broken image.
+               Reuses all_empty_title, already translated in every locale. */
+            <div className="pk-campaign-lifestyle pk-campaign-lifestyle--empty">
+              <span className="pk-campaign-lifestyle__note">
+                {t('all_empty_title')}
+              </span>
+            </div>
           )}
           {heroFeature ? (
             <Link
@@ -112,12 +119,26 @@ export function SmallSpaceLanding(props) {
 
         <div className="pk-campaign-hero__footer">
           <div className="pk-campaign-hero__actions">
-            <a
-              className="pk-campaign-btn pk-campaign-btn--primary"
-              href={`#${productSectionId}`}
-            >
-              {t('launch_home_shop_edit')}
-            </a>
+            {/* OrganizationProductSection returns null when there are no
+                products, so `#${productSectionId}` has no target and the
+                button silently does nothing. Fall back to the collection,
+                which always resolves. */}
+            {rankedProducts.length ? (
+              <a
+                className="pk-campaign-btn pk-campaign-btn--primary"
+                href={`#${productSectionId}`}
+              >
+                {t('launch_home_shop_edit')}
+              </a>
+            ) : (
+              <Link
+                className="pk-campaign-btn pk-campaign-btn--primary"
+                to="/collections/all"
+                prefetch="intent"
+              >
+                {t('launch_home_shop_edit')}
+              </Link>
+            )}
             <Link
               className="pk-campaign-text-link"
               to="/collections/all"
