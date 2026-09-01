@@ -128,6 +128,43 @@ test('campaign hero resists min-content overflow at a 320px viewport', async () 
   );
 });
 
+test('the error page search row cannot push its button off a 320px screen', async () => {
+  // Found by the browser gate on 2026-09-01, the first run that scanned a 404
+  // page at 320px: button.pk-btn--primary measured 285->384 in a 320px
+  // viewport. `flex: 1` leaves min-width at auto, so the input refused to
+  // shrink below its intrinsic width and shoved the submit button past the
+  // edge. Reproduced locally at both 320 and 390 before fixing.
+  const styles = await readSource('app/styles/app.css');
+  const start = styles.indexOf('.pk-route-error__search {');
+  assert.ok(start >= 0, 'the error search row must still be styled');
+  const block = styles.slice(start, start + 900);
+
+  assert.match(block, /\.pk-route-error__search\s*\{[\s\S]*?flex-wrap:\s*wrap;/);
+  assert.match(block, /\.pk-route-error__input\s*\{[\s\S]*?min-width:\s*0;/);
+  assert.doesNotMatch(
+    block,
+    /\.pk-route-error__input\s*\{[\s\S]*?flex:\s*1;/,
+    'a bare `flex: 1` is what allowed the overflow',
+  );
+});
+
+test('an error document still has a title, which <Meta /> cannot give it', async () => {
+  // React Router does not run a route's `meta` when the route throws, so on an
+  // error boundary <Meta /> emits nothing at all - no <title>. Every product
+  // 404 was served untitled until 2026-09-01, which axe reports as a serious
+  // document-title violation under WCAG 2.4.2.
+  const root = await readSource('app/root.jsx');
+  assert.match(root, /const routeError = useRouteError\(\);/);
+  assert.match(root, /routeError \? <ErrorDocumentTitle error=\{routeError\} \/> : null/);
+  assert.match(root, /<title>\{status === 404 \? t\('err_404_title'\) : t\('err_500_title'\)\}<\/title>/);
+
+  const dict = await readSource('app/lib/dictionaries.js');
+  for (const key of ['err_404_title', 'err_500_title']) {
+    const hits = dict.split(`${key}:`).length - 1;
+    assert.equal(hits, 4, `${key} must exist in all four locales, found ${hits}`);
+  }
+});
+
 test('product-card titles remain fully visible at narrow and zoomed widths', async () => {
   const styles = await readSource('app/styles/app.css');
   const contractStart = styles.indexOf('Product-card text-resize contract');

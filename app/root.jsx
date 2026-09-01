@@ -191,9 +191,27 @@ function loadDeferredData({context}) {
 /**
  * @param {{children?: React.ReactNode}}
  */
+/**
+ * The <title> for an error document. Split out so it can call useT() only on
+ * the error path - Layout renders on every request and should not take a
+ * dictionary dependency it does not need.
+ */
+function ErrorDocumentTitle({error}) {
+  const t = useT();
+  const status = isRouteErrorResponse(error) ? error.status : 500;
+  return <title>{status === 404 ? t('err_404_title') : t('err_500_title')}</title>;
+}
+
 export function Layout({children}) {
   const nonce = useNonce();
   const {pathname} = useLocation();
+  // React Router does not run a route's `meta` when that route throws, so on
+  // an error boundary <Meta /> emits NOTHING - including no <title>. Every
+  // product 404 was therefore served with no title at all, which axe reports
+  // as a serious document-title violation (WCAG 2.4.2) and which leaves a
+  // shopper who followed a dead link staring at an untitled tab. Caught by the
+  // browser gate on 2026-09-01 once it started scanning a 404 page.
+  const routeError = useRouteError();
   const rootData = useRouteLoaderData('root');
   const language = rootData?.selectedLocale?.language || 'EN';
   const country = rootData?.selectedLocale?.country || 'CA';
@@ -223,6 +241,7 @@ export function Layout({children}) {
           />
         ))}
         <Meta />
+        {routeError ? <ErrorDocumentTitle error={routeError} /> : null}
         <Links />
       </head>
       <body>

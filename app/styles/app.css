@@ -4183,11 +4183,18 @@ button:focus-visible,
 }
 .pk-route-error__search {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
   margin-bottom: 24px;
 }
 .pk-route-error__input {
-  flex: 1;
+  /* `flex: 1` alone leaves min-width at auto, so the input refuses to shrink
+     below its intrinsic width and pushes the submit button off-screen. At a
+     320px viewport the button measured 285->384 - 64px past the edge. The
+     basis plus min-width:0 lets it shrink, and the wrap above gives the
+     button its own line when there is genuinely no room. */
+  flex: 1 1 11rem;
+  min-width: 0;
   padding: 12px 14px;
   border-radius: 10px;
   border: 1px solid var(--pk-border, #D4C5AD);

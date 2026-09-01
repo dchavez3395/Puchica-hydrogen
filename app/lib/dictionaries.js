@@ -339,6 +339,8 @@ export const DICTIONARIES = {
     skip_to_content: 'Skip to main content',
 
     // ── Root ErrorBoundary / 404 / search in error UI ────────────
+    err_404_title: 'Page not found — Puchica',
+    err_500_title: 'Something went wrong — Puchica',
     err_404_h: "We couldn't find that page",
     err_500_h: 'Something went wrong on our end',
     err_404_body:
@@ -967,6 +969,8 @@ export const DICTIONARIES = {
     skip_to_content: 'Passer au contenu principal',
 
     // ── ErrorBoundary racine / 404 / recherche dans l’erreur ───
+    err_404_title: 'Page introuvable — Puchica',
+    err_500_title: 'Une erreur est survenue — Puchica',
     err_404_h: "Nous n'avons pas trouvé cette page",
     err_500_h: "Une erreur s'est produite de notre côté",
     err_404_body:
@@ -1617,6 +1621,8 @@ export const DICTIONARIES = {
     skip_to_content: 'Saltar al contenido principal',
 
     // ── ErrorBoundary raíz / 404 / búsqueda en error ──────────
+    err_404_title: 'Página no encontrada — Puchica',
+    err_500_title: 'Algo salió mal — Puchica',
     err_404_h: 'No pudimos encontrar esa página',
     err_500_h: 'Algo salió mal de nuestro lado',
     err_404_body:
@@ -2265,6 +2271,8 @@ export const DICTIONARIES = {
     skip_to_content: 'Pular para o conteúdo principal',
 
     // ── ErrorBoundary raiz / 404 / busca em erro ──────────────
+    err_404_title: 'Página não encontrada — Puchica',
+    err_500_title: 'Algo deu errado — Puchica',
     err_404_h: 'Não encontramos essa página',
     err_500_h: 'Algo deu errado do nosso lado',
     err_404_body:
