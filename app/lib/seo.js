@@ -26,8 +26,15 @@ import {parseLocaleFromPath, localizePath} from '~/lib/i18n';
  */
 export const SITE_URL = 'https://puchica.ca';
 
-/** Default OG image — the brand logo, served from the Shopify CDN. */
-export const DEFAULT_OG_IMAGE = STORE_LOGO_URL;
+/**
+ * Default OG image.
+ *
+ * Was STORE_LOGO_URL, which is an SVG. No social platform renders an SVG
+ * card image — Facebook, LinkedIn, Slack, X and iMessage all skip it — so
+ * every shared puchica.ca link previewed with no image at all. This is a
+ * real 1200x630 PNG, the size those platforms actually crop to.
+ */
+export const DEFAULT_OG_IMAGE = `${SITE_URL}/og-image.png`;
 
 /** Site name for OG/Twitter cards. */
 export const SITE_NAME = 'Puchica';
@@ -201,7 +208,10 @@ export function breadcrumbJsonLd(items, langKey) {
 export function organizationJsonLd({
   name = SITE_NAME,
   url = SITE_URL,
-  logo = DEFAULT_OG_IMAGE,
+  // The schema.org logo is the brand mark, and an SVG is fine there — this is
+  // structured data for search engines, not a social card. Keep it pointed at
+  // the real logo rather than following DEFAULT_OG_IMAGE to the OG banner.
+  logo = STORE_LOGO_URL,
   description = BRAND_DESCRIPTION,
   sameAs = SOCIAL_PROFILES,
 } = {}) {
