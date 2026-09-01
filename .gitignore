@@ -82,3 +82,14 @@ h2_deploy_log.json
 /reports/
 /playwright-report/
 /test-results/
+
+# ─── Token files at repo root ─────────────────────────────────
+# These sat untracked-but-unignored and would be swept up by
+# `git add -A`. They hold live Shopify Admin / Oxygen credentials.
+# Verified 2026-09-01: none of these are in git history.
+admin-token.json
+deploy-token.json
+*-token.json
+*.token
+oxygen-token*.bak
+.codex-auth/
