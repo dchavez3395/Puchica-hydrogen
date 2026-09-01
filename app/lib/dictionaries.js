@@ -233,9 +233,6 @@ export const DICTIONARIES = {
     card_choose_options: 'Choose options',
     nav_shop_all: 'Shop All',
     nav_about_short: 'About',
-    megamenu_intent_packing_title: 'Packing cubes',
-    megamenu_intent_toiletry_title: 'Toiletry organizer',
-    megamenu_intent_jewelry_title: 'Travel jewelry case',
     notfound_title: '¡Púchica! Wrong turn.',
     notfound_sub:
       'The link {path} doesn’t exist on Puchica. It may have been moved, renamed, or never existed. Try one of these instead:',
@@ -528,15 +525,6 @@ export const DICTIONARIES = {
       'A smaller catalog only works when the reason for each product is easy to explain.',
     about_shop_eye: 'The travel edit',
     about_shop_title: 'Start with the part of packing that slows you down.',
-    about_shop_home_title: 'Packing cubes',
-    about_shop_cable_title: 'Travel jewelry case',
-    about_shop_travel_title: 'Toiletry organizer',
-    about_shop_home_body:
-      'Separate clothing into Small, Medium, and Large zippered cubes.',
-    about_shop_cable_body:
-      'Keep rings, earrings, and small necklaces together while traveling.',
-    about_shop_travel_body:
-      'Give bottles, grooming tools, and cosmetics a dedicated place.',
     about_shop_all: 'Shop the complete travel edit',
     about_now_eye: 'Delivery, made clearer',
     about_now_title: 'See your delivery options before you pay.',
@@ -864,9 +852,6 @@ export const DICTIONARIES = {
     card_choose_options: 'Choisir les options',
     nav_shop_all: 'Tout magasiner',
     nav_about_short: 'À propos',
-    megamenu_intent_packing_title: 'Cubes de rangement',
-    megamenu_intent_toiletry_title: 'Trousse de toilette',
-    megamenu_intent_jewelry_title: 'Étui à bijoux de voyage',
     notfound_title: '¡Púchica! Mauvaise direction.',
     notfound_sub:
       "Le lien {path} n'existe pas sur Puchica. Il a peut-être été déplacé, renommé, ou n'a jamais existé. Essayez plutôt l'une de ces options :",
@@ -1168,14 +1153,6 @@ export const DICTIONARIES = {
       'Un petit catalogue ne fonctionne que si la raison d’être de chaque produit est claire.',
     about_shop_eye: 'La sélection voyage',
     about_shop_title: 'Commencez par la partie du rangement qui vous ralentit.',
-    about_shop_home_title: 'Cubes de rangement',
-    about_shop_cable_title: 'Étui à bijoux de voyage',
-    about_shop_travel_title: 'Trousse de toilette',
-    about_shop_home_body: 'Séparez les vêtements dans trois cubes zippés.',
-    about_shop_cable_body:
-      'Gardez bagues, boucles d’oreilles et petits colliers ensemble en voyage.',
-    about_shop_travel_body:
-      'Donnez une place aux flacons, outils de soin et cosmétiques.',
     about_shop_all: 'Voir toute la sélection voyage',
     about_now_eye: 'Une livraison plus claire',
     about_now_title: 'Voyez vos options de livraison avant de payer.',
@@ -1519,9 +1496,6 @@ export const DICTIONARIES = {
     card_choose_options: 'Elegir opciones',
     nav_shop_all: 'Comprar todo',
     nav_about_short: 'Nosotros',
-    megamenu_intent_packing_title: 'Cubos de embalaje',
-    megamenu_intent_toiletry_title: 'Organizador de aseo',
-    megamenu_intent_jewelry_title: 'Estuche de viaje para joyas',
     notfound_title: '¡Púchica! Ruta equivocada.',
     notfound_sub:
       'El enlace {path} no existe en Puchica. Puede haber sido movido, renombrado, o nunca existió. Prueba una de estas opciones:',
@@ -1823,14 +1797,6 @@ export const DICTIONARIES = {
       'Un catálogo pequeño solo funciona si la razón de cada producto es fácil de explicar.',
     about_shop_eye: 'La selección de viaje',
     about_shop_title: 'Empieza con la parte del empaque que más te retrasa.',
-    about_shop_home_title: 'Cubos de empaque',
-    about_shop_cable_title: 'Estuche de viaje para joyas',
-    about_shop_travel_title: 'Organizador de aseo',
-    about_shop_home_body: 'Separa la ropa en tres cubos con cierre.',
-    about_shop_cable_body:
-      'Mantén juntos anillos, aretes y collares pequeños durante el viaje.',
-    about_shop_travel_body:
-      'Dale un lugar a botellas, herramientas de cuidado y cosméticos.',
     about_shop_all: 'Ver toda la selección de viaje',
     about_now_eye: 'Entrega más clara',
     about_now_title: 'Consulta tus opciones de entrega antes de pagar.',
@@ -2172,9 +2138,6 @@ export const DICTIONARIES = {
     card_choose_options: 'Escolher opções',
     nav_shop_all: 'Comprar tudo',
     nav_about_short: 'Sobre',
-    megamenu_intent_packing_title: 'Cubos organizadores',
-    megamenu_intent_toiletry_title: 'Necessaire organizadora',
-    megamenu_intent_jewelry_title: 'Estojo de viagem para joias',
     notfound_title: '¡Púchica! Caminho errado.',
     notfound_sub:
       'O link {path} não existe na Puchica. Pode ter sido movido, renomeado, ou nunca existiu. Tente uma destas opções:',
@@ -2475,14 +2438,6 @@ export const DICTIONARIES = {
       'Um catálogo menor só funciona quando o motivo de cada produto é fácil de explicar.',
     about_shop_eye: 'A seleção de viagem',
     about_shop_title: 'Comece pela parte da arrumação que mais atrasa você.',
-    about_shop_home_title: 'Cubos organizadores',
-    about_shop_cable_title: 'Estojo de viagem para joias',
-    about_shop_travel_title: 'Necessaire organizadora',
-    about_shop_home_body: 'Separe as roupas em três cubos com zíper.',
-    about_shop_cable_body:
-      'Mantenha anéis, brincos e colares pequenos juntos durante a viagem.',
-    about_shop_travel_body:
-      'Dê um lugar a frascos, itens de cuidado e cosméticos.',
     about_shop_all: 'Ver toda a seleção de viagem',
     about_now_eye: 'Entrega mais clara',
     about_now_title: 'Veja suas opções de entrega antes de pagar.',

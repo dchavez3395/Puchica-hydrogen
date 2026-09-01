@@ -33,13 +33,23 @@ const notFoundRoute = await readFile(
   'utf8',
 );
 
-test('shop navigation links directly to the exact three-offer scope', () => {
+// Rewritten 2026-09-01. These previously asserted that the nav linked to three
+// specific product handles. Those products were deleted from the catalog on
+// 2026-08-28, so the assertions were pinning the nav to three 404s. The intent
+// was always "navigation stays inside the current assortment" - that is what is
+// asserted now. Restore direct product shortcuts only for handles verified to
+// resolve, and re-pin them here at the same time.
+test('shop navigation links to no retired product handles', () => {
   for (const handle of [
     '3-piece-packing-cube-set',
     'black-hanging-travel-toiletry-organizer',
     'white-semi-circular-travel-jewelry-case',
   ]) {
-    assert.match(header, new RegExp(`/products/${handle}`));
+    assert.doesNotMatch(
+      header,
+      new RegExp(`/products/${handle}`),
+      `header still links to retired handle ${handle}`,
+    );
   }
 
   assert.doesNotMatch(
@@ -48,16 +58,12 @@ test('shop navigation links directly to the exact three-offer scope', () => {
   );
 });
 
-test('mobile product navigation uses the localized intent labels', async () => {
+test('navigation labels come from the dictionary, never hardcoded strings', async () => {
   const source = await readFile(
     new URL('../app/components/Header.jsx', import.meta.url),
     'utf8',
   );
-  for (const key of [
-    'megamenu_intent_packing_title',
-    'megamenu_intent_toiletry_title',
-    'megamenu_intent_jewelry_title',
-  ]) {
+  for (const key of ['nav_shop', 'nav_about']) {
     assert.match(source, new RegExp(`title: t\\('${key}'\\)`));
   }
   assert.doesNotMatch(source, /title: '(Packing cubes|Toiletry organizer|Jewelry case)'/);
