@@ -250,8 +250,12 @@ function routeChecks() {
       expectedStatus: 404,
     },
     {
-      label: 'French localized PDP',
-      pathname: '/fr/products/white-semi-circular-travel-jewelry-case',
+      // Was a French PDP until the catalogue was deleted on 2026-08-28. There
+      // is no product page left to localize, so the locale prefix is proved on
+      // the collection route instead - same routing, same segment handling,
+      // and it does not go stale the next time a handle changes.
+      label: 'French localized collection',
+      pathname: '/fr/collections/all',
       expectedStatus: 200,
     },
     {

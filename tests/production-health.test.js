@@ -4,6 +4,7 @@ import {readFile} from 'node:fs/promises';
 
 import {
   APPROVED_PRODUCT_HANDLES_BY_MARKET,
+  ARCHIVED_CATALOG_OFFERS,
   DISCOVERABLE_PRODUCT_HANDLES,
   OPERATIONAL_HOLD_HANDLES,
   RETIRED_CATALOG_HANDLES,
@@ -19,21 +20,26 @@ import {
 } from '../scripts/check-production-health.mjs';
 
 test('production monitor shares the verified market cohorts', () => {
+  // The monitor must expect exactly what the gate approves - one shared
+  // object, never a second hand-maintained list that can drift from it. That
+  // identity is the assertion; the contents follow from the suspension table.
   assert.equal(EXPECTED_HANDLES_BY_MARKET, APPROVED_PRODUCT_HANDLES_BY_MARKET);
-  assert.deepEqual(EXPECTED_HANDLES_BY_MARKET.CA, [
-    '3-piece-packing-cube-set',
-    'white-semi-circular-travel-jewelry-case',
-    'black-hanging-travel-toiletry-organizer',
-    'travel-cable-organizer-case',
-    'black-travel-tech-case',
-    'the-carry-on-kit-toiletry-organizer-packing-cubes-cable-case',
-    'compression-packing-cube-set-5-piece',
-  ]);
-  // The United States is commercially suspended, so production monitoring must
-  // expect nothing sellable there. If a US product ever appears on the live
-  // storefront again while the suspension stands, the monitor should fail.
+
+  // Both markets are commercially suspended, so production monitoring expects
+  // nothing sellable anywhere. If a product appears on the live storefront
+  // while a suspension stands, the monitor fails - which is what caught the
+  // empty Canadian catalogue in the first place.
+  assert.deepEqual(EXPECTED_HANDLES_BY_MARKET.CA, []);
   assert.deepEqual(EXPECTED_HANDLES_BY_MARKET.US, []);
-  assert.equal(DISCOVERABLE_PRODUCT_HANDLES.length, 7);
+
+  // Nothing is discoverable either: the seven handles were deleted from
+  // Shopify on 2026-08-28 and verified 404 in production on 2026-09-01, so
+  // the monitor must not expect a live page, sitemap entry or feed item for
+  // any of them. Their evidence lives in ARCHIVED_CATALOG_OFFERS.
+  assert.deepEqual(DISCOVERABLE_PRODUCT_HANDLES, []);
+  assert.equal(ARCHIVED_CATALOG_OFFERS.length, 10);
+
+  // Retirement is a separate, still-active rail: those handles must 404.
   assert.equal(RETIRED_CATALOG_HANDLES.size, 5);
 });
 

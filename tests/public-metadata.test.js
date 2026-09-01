@@ -33,6 +33,27 @@ test('public metadata contract rejects bad canonical, noindex, or duplicate H1',
   assert.equal(metadataPass(documentFacts(html.replace('</body>', '<h1>Two</h1></body>')), expected), false);
 });
 
+test('a deliberately noindexed page must carry noindex, not lose it', () => {
+  // The collection route noindexes itself while the catalogue is empty, so the
+  // check has to expect that rather than fail on correct behaviour. The
+  // expectation inverts rather than relaxing: a page declared non-indexable
+  // that comes back indexable is a failure too, which is what would catch the
+  // empty shop page leaking into Google.
+  const expected = {
+    lang: 'fr',
+    canonical: 'https://puchica.ca/fr/page',
+    indexable: false,
+  };
+  assert.equal(metadataPass(documentFacts(html), expected), false);
+  assert.equal(
+    metadataPass(
+      documentFacts(html.replace('index,follow', 'noindex,follow')),
+      expected,
+    ),
+    true,
+  );
+});
+
 test('public metadata accepts a regional HTML language for its locale', () => {
   const expected = {lang: 'fr', canonical: 'https://puchica.ca/fr/page'};
   assert.equal(

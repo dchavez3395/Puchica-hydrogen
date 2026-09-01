@@ -85,7 +85,10 @@ export async function checkFirstOrderSignal({
   return evaluateOrderSignal(connection.nodes || [], {since: start});
 }
 
-export function evaluateOrderSignal(orders = [], {since = null} = {}) {
+export function evaluateOrderSignal(
+  orders = [],
+  {since = null, offers = APPROVED_CATALOG_OFFERS} = {},
+) {
   const ignored = [];
   const actionable = [];
 
@@ -95,7 +98,7 @@ export function evaluateOrderSignal(orders = [], {since = null} = {}) {
       ignored.push({name: order.name, reason: ignoreReason});
       continue;
     }
-    actionable.push(auditOrder(order));
+    actionable.push(auditOrder(order, offers));
   }
 
   if (!actionable.length) {
@@ -139,14 +142,14 @@ function ignoredOrderReason(order) {
   return null;
 }
 
-function auditOrder(order) {
+function auditOrder(order, offers = APPROVED_CATALOG_OFFERS) {
   const market = String(
     order?.shippingAddress?.countryCodeV2 || '',
   ).toUpperCase();
   const failures = [];
   const lines = (order?.lineItems?.nodes || [])
     .filter((line) => Number(line?.currentQuantity) > 0)
-    .map((line) => auditLine(line, market, failures));
+    .map((line) => auditLine(line, market, failures, offers));
 
   if (!['CA', 'US'].includes(market)) {
     failures.push(
@@ -173,10 +176,14 @@ function auditOrder(order) {
   };
 }
 
-function auditLine(line, market, failures) {
+// `offers` is injectable so the approval logic stays testable while the live
+// catalogue is empty. Production always passes APPROVED_CATALOG_OFFERS, so an
+// empty catalogue blocks every order line - which is the correct posture:
+// nothing may be sent to a supplier that the gate cannot vouch for.
+function auditLine(line, market, failures, offers = APPROVED_CATALOG_OFFERS) {
   const sku = String(line?.sku || '');
   const handle = String(line?.product?.handle || '');
-  const offer = APPROVED_CATALOG_OFFERS.find(
+  const offer = offers.find(
     (candidate) => candidate.sku === sku && candidate.handle === handle,
   );
 

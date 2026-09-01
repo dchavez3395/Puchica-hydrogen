@@ -11,6 +11,8 @@ import {
 } from '../app/lib/cart-safety.js';
 import {
   APPROVED_VARIANT_SKUS_BY_MARKET,
+  ARCHIVED_CATALOG_OFFERS,
+  isMarketSuspended,
   MARKET_ROUTE_EVIDENCE_TAGS,
   REQUIRED_CATALOG_EVIDENCE_TAGS,
 } from '../app/lib/launch-catalog.js';
@@ -169,8 +171,21 @@ function approvedVariant(sku, routeTag = MARKET_ROUTE_EVIDENCE_TAGS.CA) {
   };
 }
 
-test('existing Canada-only lines are rejected after switching to the US', async () => {
-  const packingSku = APPROVED_VARIANT_SKUS_BY_MARKET.CA[0];
+// A concrete SKU from the audited Canadian offer cohort. Read from the offer
+// list rather than APPROVED_VARIANT_SKUS_BY_MARKET, which a market suspension
+// empties - these tests need a real SKU to push through the gate, not whatever
+// the gate currently approves.
+const AUDITED_CA_SKU = ARCHIVED_CATALOG_OFFERS.find((offer) =>
+  offer.markets.includes('CA'),
+).sku;
+
+test('a suspended market rejects even its own formerly approved SKU', async () => {
+  // This asserted the CA-approved / US-rejected asymmetry until CA was
+  // suspended on 2026-09-01. The line below carries an SKU that was approved
+  // for Canada, and it must now be rejected in both markets: a suspended
+  // market has no approved SKUs at all, so a stale cart cannot survive a
+  // reload into checkout. That is the point of the suspension.
+  const packingSku = AUDITED_CA_SKU;
   const storefront = storefrontWithVariant(approvedVariant(packingSku));
   const cart = {
     lines: {
@@ -183,14 +198,23 @@ test('existing Canada-only lines are rejected after switching to the US', async 
     },
   };
 
-  assert.deepEqual(await rejectedCartLineIds(storefront, cart, 'CA'), []);
+  assert.equal(isMarketSuspended('CA'), true);
+  assert.equal(isMarketSuspended('US'), true);
+  assert.deepEqual(await rejectedCartLineIds(storefront, cart, 'CA'), [
+    'gid://shopify/CartLine/line-ca',
+  ]);
   assert.deepEqual(await rejectedCartLineIds(storefront, cart, 'US'), [
     'gid://shopify/CartLine/line-ca',
   ]);
+  assert.deepEqual(
+    APPROVED_VARIANT_SKUS_BY_MARKET.CA,
+    [],
+    'a suspended market exposes no approved SKUs',
+  );
 });
 
 test('market-safe cart sync purges invalid lines before checkout is exposed', async () => {
-  const packingSku = APPROVED_VARIANT_SKUS_BY_MARKET.CA[0];
+  const packingSku = AUDITED_CA_SKU;
   const storefront = storefrontWithVariant(approvedVariant(packingSku));
   const caLine = {
     id: 'gid://shopify/CartLine/line-ca',

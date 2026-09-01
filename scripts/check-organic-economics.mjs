@@ -5,6 +5,7 @@ import {fileURLToPath} from 'node:url';
 
 import {
   APPROVED_CATALOG_OFFERS,
+  ARCHIVED_CATALOG_OFFERS,
   isMarketSuspended,
 } from '../app/lib/launch-catalog.js';
 
@@ -17,6 +18,24 @@ try {
 } catch {
   // No dotenv available - rely on the ambient environment.
 }
+
+/**
+ * The cohort the cost/route baseline is audited against: every offer whose
+ * evidence the baseline file documents, live or archived. Cost and route
+ * readings are evidence about a supplier variant, not a function of whether
+ * the product is currently sellable - auditing against the live list alone
+ * would declare the whole baseline file "unexpected" the moment the catalogue
+ * empties, and the fix for that would be deleting the evidence.
+ */
+export const BASELINE_AUDIT_COHORT = Object.freeze([
+  ...APPROVED_CATALOG_OFFERS,
+  ...ARCHIVED_CATALOG_OFFERS.filter(
+    (archived) =>
+      !APPROVED_CATALOG_OFFERS.some(
+        (live) => live.handle === archived.handle && live.sku === archived.sku,
+      ),
+  ),
+]);
 
 const scriptPath = fileURLToPath(import.meta.url);
 const rootDir = path.resolve(path.dirname(scriptPath), '..');
@@ -186,7 +205,7 @@ export function auditBaseline(baseline, now = new Date()) {
     failures.push('Exact DSers baseline contains a duplicate offer/SKU row.');
   }
   const catalogKeys = new Set(
-    APPROVED_CATALOG_OFFERS.map(({handle, sku}) => `${handle}\n${sku}`),
+    BASELINE_AUDIT_COHORT.map(({handle, sku}) => `${handle}\n${sku}`),
   );
   for (const key of catalogKeys) {
     if (!baselineKeys.has(key))
@@ -199,7 +218,7 @@ export function auditBaseline(baseline, now = new Date()) {
       );
   }
 
-  for (const approved of APPROVED_CATALOG_OFFERS) {
+  for (const approved of BASELINE_AUDIT_COHORT) {
     const evidence = baseline.offers.find(
       ({handle, sku}) => handle === approved.handle && sku === approved.sku,
     );

@@ -17,6 +17,18 @@ import {
   auditBenchmark,
   runAcquisitionGate,
 } from '../scripts/check-acquisition-gate.mjs';
+import {
+  ARCHIVED_CATALOG_OFFERS,
+  isMarketSuspended,
+} from '../app/lib/launch-catalog.js';
+
+// The audited Canadian cohort, injected explicitly so these tests exercise the
+// gate's scoring logic rather than whatever the market's suspension state
+// happens to be. CA is suspended while the catalog is empty; the rail these
+// tests guard must still be provably working when it is switched back on.
+const CA_COHORT = ARCHIVED_CATALOG_OFFERS.filter((offer) =>
+  offer.markets.includes('CA'),
+);
 
 const baseOffer = {
   handle: 'test-offer',
@@ -226,8 +238,11 @@ test('price drift is detected in both directions and ignored when absent', () =>
 });
 
 test('the gate evaluates every approved Canadian offer', () => {
-  const result = runAcquisitionGate({now: new Date('2026-08-25T00:00:00Z')});
-  assert.ok(result.rows.length >= 5, 'expected the live Canadian cohort');
+  const result = runAcquisitionGate({
+    offers: CA_COHORT,
+    now: new Date('2026-08-25T00:00:00Z'),
+  });
+  assert.ok(result.rows.length >= 5, 'expected the audited Canadian cohort');
   assert.deepEqual(result.failures, [], 'evidence must read cleanly');
   for (const row of result.rows) {
     assert.ok(Number.isFinite(row.contribution));
@@ -237,6 +252,7 @@ test('the gate evaluates every approved Canadian offer', () => {
 
 test('the gate is advisory when paid acquisition is off', () => {
   const result = runAcquisitionGate({
+    offers: CA_COHORT,
     paidMode: false,
     now: new Date('2026-08-25T00:00:00Z'),
   });
@@ -249,6 +265,7 @@ test('the gate is advisory when paid acquisition is off', () => {
 
 test('the gate blocks an unfundable offer once paid acquisition is on', () => {
   const result = runAcquisitionGate({
+    offers: CA_COHORT,
     paidMode: true,
     now: new Date('2026-08-25T00:00:00Z'),
   });
@@ -263,7 +280,10 @@ test('the Carry-On Kit price drift is resolved, and the gate would catch a new o
   // The CA$69 vs CA$89 drift this test used to pin was closed on 2026-08-25
   // by restoring the documented price. The gate must now be clean for the
   // kit — and must still surface a drift if the live table diverges again.
-  const clean = runAcquisitionGate({now: new Date('2026-08-25T00:00:00Z')});
+  const clean = runAcquisitionGate({
+    offers: CA_COHORT,
+    now: new Date('2026-08-25T00:00:00Z'),
+  });
   assert.equal(
     clean.driftWarnings.find((row) => row.handle.startsWith('the-carry-on-kit')),
     undefined,
@@ -271,6 +291,7 @@ test('the Carry-On Kit price drift is resolved, and the gate would catch a new o
   );
 
   const drifted = runAcquisitionGate({
+    offers: CA_COHORT,
     now: new Date('2026-08-25T00:00:00Z'),
     retail: {
       'the-carry-on-kit-toiletry-organizer-packing-cubes-cable-case': 69,
@@ -281,6 +302,20 @@ test('the Carry-On Kit price drift is resolved, and the gate would catch a new o
   );
   assert.ok(drift, 'a diverging live price must surface as drift');
   assert.equal(drift.documentedPriceCad, 89);
+});
+
+test('a suspended market gives the gate nothing to score', () => {
+  // Suspension is a commerce kill switch, not a way to quiet the gate. With
+  // no injected cohort the gate reads the live market state, and CA is
+  // suspended, so there are no rows and nothing can block. The cohort-injected
+  // tests above prove the scoring itself still works.
+  const result = runAcquisitionGate({
+    paidMode: true,
+    now: new Date('2026-08-25T00:00:00Z'),
+  });
+  assert.equal(isMarketSuspended('CA'), true, 'CA is suspended while empty');
+  assert.deepEqual(result.rows, [], 'a suspended market has no sellable rows');
+  assert.deepEqual(result.blocking, [], 'nothing to sell cannot block a build');
 });
 
 test('a stale or unsourced benchmark fails the audit', () => {

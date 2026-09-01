@@ -42,13 +42,22 @@ export const MARKET_ROUTE_EVIDENCE_TAGS = Object.freeze({
 });
 
 /**
- * Exact supplier offers that passed the route, cost, copy, and imagery review.
- * Product-level approval is not permission to sell every colour or size in a
- * supplier listing. Keep the product handle and exact SKU together here so
- * storefront gates and production monitoring cannot drift into different
- * market cohorts.
+ * The 2026-08 travel cohort: exact supplier offers that passed the route,
+ * cost, copy, and imagery review. ARCHIVED, not live.
+ *
+ * Every handle below was deleted from Shopify on 2026-08-28. Verified against
+ * production on 2026-09-01: all seven return 404, the product sitemap carries
+ * zero <loc> entries and the Canadian feed zero <item> entries. Nothing here
+ * can be served, sold, indexed or advertised.
+ *
+ * It is kept because the evidence is expensive and still true - the DSers
+ * route readings, the exact per-colour SKUs, the bundle's component split, the
+ * per-market route findings. Recreating a product in Shopify restores its
+ * offer by moving the entry into APPROVED_CATALOG_OFFERS below and deleting
+ * the matching SUSPENDED_COMMERCE_MARKETS entry. Nothing needs re-auditing
+ * except the supplier route, which goes stale on its own.
  */
-export const APPROVED_CATALOG_OFFERS = Object.freeze([
+export const ARCHIVED_CATALOG_OFFERS = Object.freeze([
   Object.freeze({
     handle: '3-piece-packing-cube-set',
     sku: '14:1052#S3007 Black;5:200004186#3PCS L M S Set',
@@ -120,6 +129,25 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
 ]);
 
 /**
+ * Exact supplier offers the storefront may actually serve. Product-level
+ * approval is not permission to sell every colour or size in a supplier
+ * listing, so the handle and exact SKU stay together here and every storefront
+ * gate and production monitor derives its cohort from this one list.
+ *
+ * Empty since 2026-08-28. The catalogue was deleted from Shopify and no
+ * replacement product has been through the route, cost, copy and imagery
+ * review. An empty list is the honest state, and it is what makes the gates
+ * agree with the storefront: production monitoring asserts the live site
+ * serves exactly this set, and the live site serves nothing.
+ *
+ * Do not add an entry here to make a check pass. An entry means a real
+ * Shopify product exists at that handle with that exact SKU, with route and
+ * cost evidence recorded. ARCHIVED_CATALOG_OFFERS above holds the previous
+ * cohort's evidence for whichever of them come back.
+ */
+export const APPROVED_CATALOG_OFFERS = Object.freeze([]);
+
+/**
  * A bundle is one Shopify SKU fulfilled as several supplier orders, so it can
  * never carry `dsers-mapped`: DSers maps one storefront variant to one supplier
  * variant. Exempting the tag is only safe because the bundle must instead carry
@@ -127,9 +155,13 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
  * DSers-mapped and that the manual split is documented in the runbook.
  */
 export const BUNDLE_CATALOG_HANDLES = new Set(
-  APPROVED_CATALOG_OFFERS.filter((offer) => offer.bundle).map(
-    (offer) => offer.handle,
-  ),
+  // Derived from the archived cohort as well as the live one: which handles
+  // are bundles is an evidence fact about the product, not a function of
+  // whether it is currently sellable. Emptying the catalogue must not quietly
+  // drop the `dsers-mapped` exemption rule.
+  [...ARCHIVED_CATALOG_OFFERS, ...APPROVED_CATALOG_OFFERS]
+    .filter((offer) => offer.bundle)
+    .map((offer) => offer.handle),
 );
 
 export const BUNDLE_EXEMPT_EVIDENCE_TAGS = Object.freeze(['dsers-mapped']);
@@ -196,6 +228,15 @@ export const RETIRED_CATALOG_HANDLES = new Set([
  */
 export const SUSPENDED_COMMERCE_MARKETS = Object.freeze({
   US: 'us-de-minimis-repeal-2026: landed duty exceeds contribution',
+  // Added 2026-09-01. Every offer below names a handle deleted from Shopify on
+  // 2026-08-28, so there is nothing to sell into Canada. check-production-health
+  // asserts the storefront serves exactly the approved handle set and failed CI
+  // run #114 after a successful deploy, because the storefront correctly serves
+  // none of them. Suspending empties the gate through offersForMarket(), so the
+  // checks compare an empty set against an empty catalog. Remove this entry
+  // when real products are approved, and prune APPROVED_CATALOG_OFFERS to
+  // whatever actually ships at the same time.
+  CA: 'catalog-empty-2026-08-28: no approved offer resolves',
 });
 
 export function isMarketSuspended(market) {

@@ -13,8 +13,17 @@
  * constant, and the check follows automatically.
  */
 
-/** The PDP the TikTok profile bio sends people to. */
-export const TIKTOK_DESTINATION = '/products/travel-cable-organizer-case';
+/**
+ * Where the TikTok profile bio sends people.
+ *
+ * Was the cable-organizer PDP until 2026-08-28, when the catalogue was deleted
+ * from Shopify. Verified on 2026-09-01: that handle returns 404, so every bio
+ * click was landing on an error page. It points at the shop until there is a
+ * product worth pointing at - a live page that explains the restock beats a
+ * 404, and this route is the only thing standing between the TikTok profile
+ * and a dead link.
+ */
+export const TIKTOK_DESTINATION = '/collections/all';
 
 /**
  * Attribution stamped on every click from the TikTok bio.
@@ -27,7 +36,10 @@ export const TIKTOK_ATTRIBUTION = Object.freeze({
   utm_source: 'tiktok',
   utm_medium: 'organic_social',
   utm_campaign: 'organic_relaunch_2026_08',
-  utm_content: 'profile_bio_cable_case',
+  // Renamed with the destination on 2026-09-01. The old token measured clicks
+  // to a PDP that no longer exists; keeping it would silently blend two
+  // different destinations into one series.
+  utm_content: 'profile_bio_shop',
 });
 
 /**

@@ -21,17 +21,29 @@ export function documentFacts(html) {
   };
 }
 
+/**
+ * `expected.indexable` defaults to true. It is false only for a page the
+ * storefront deliberately noindexes, and then the check inverts: the page MUST
+ * carry noindex. The collection route is the live case - it noindexes itself
+ * when the catalogue is empty, so Google is never served a blank shop page.
+ * Asserting indexability unconditionally would make this check fail on a
+ * correctly behaving site, and a step that fails on correct behaviour gets
+ * ignored, then deleted.
+ */
 export function metadataPass(facts, expected) {
   const actualLang = facts.lang.toLowerCase();
   const expectedLang = expected.lang.toLowerCase();
   const languageMatches =
     actualLang === expectedLang || actualLang.startsWith(`${expectedLang}-`);
+  const noindexed = /noindex/i.test(facts.robots);
+  const indexingMatches =
+    expected.indexable === false ? noindexed : !noindexed;
   return (
     languageMatches &&
     facts.title.includes('Puchica') &&
     facts.canonical === expected.canonical &&
     facts.h1Count === 1 &&
-    !/noindex/i.test(facts.robots) &&
+    indexingMatches &&
     ['en', 'fr', 'es', 'pt-br', 'x-default'].every((lang) =>
       facts.hreflangs.includes(lang),
     )
@@ -44,13 +56,21 @@ const locales = [
   {prefix: '/es', lang: 'es'},
   {prefix: '/pt-br', lang: 'pt-BR'},
 ];
+/**
+ * The collection route noindexes itself while the catalogue is empty, so what
+ * this check expects is derived from the catalogue rather than hardcoded. When
+ * a product is approved again the expectation flips back on its own, and a
+ * collection page left stuck on noindex is caught instead of shipped.
+ */
+const CATALOGUE_IS_INDEXABLE = DISCOVERABLE_PRODUCT_HANDLES.length > 0;
+
 const staticPaths = [
-  '/',
-  '/collections/all',
-  '/pages/about',
-  '/pages/contact',
-  '/pages/faq',
-  '/pages/shipping',
+  {pathname: '/'},
+  {pathname: '/collections/all', indexable: CATALOGUE_IS_INDEXABLE},
+  {pathname: '/pages/about'},
+  {pathname: '/pages/contact'},
+  {pathname: '/pages/faq'},
+  {pathname: '/pages/shipping'},
 ];
 
 function localizedPath(prefix, pathname) {
@@ -72,7 +92,7 @@ async function fetchText(url, options = {}) {
   return {response, body: await response.text()};
 }
 
-async function inspectPage(prefix, lang, pathname) {
+async function inspectPage(prefix, lang, pathname, indexable = true) {
   const localized = localizedPath(prefix, pathname);
   const canonical = `${BASE_URL}${localized}`;
   try {
@@ -80,8 +100,10 @@ async function inspectPage(prefix, lang, pathname) {
     const facts = documentFacts(body);
     return {
       label: localized,
-      pass: response.status === 200 && metadataPass(facts, {lang, canonical}),
-      actual: `${response.status}; lang=${facts.lang || 'missing'}; h1=${facts.h1Count}; title=${facts.title || 'missing'}; canonical=${facts.canonical || 'missing'}`,
+      pass:
+        response.status === 200 &&
+        metadataPass(facts, {lang, canonical, indexable}),
+      actual: `${response.status}; lang=${facts.lang || 'missing'}; h1=${facts.h1Count}; title=${facts.title || 'missing'}; canonical=${facts.canonical || 'missing'}; robots=${facts.robots || 'none'} (expected ${indexable ? 'indexable' : 'noindex'})`,
     };
   } catch (error) {
     return {label: localized, pass: false, actual: String(error)};
@@ -108,8 +130,10 @@ async function redirectCheck(prefix, pathname) {
 export async function run() {
   const checks = [];
   for (const locale of locales) {
-    for (const pathname of staticPaths) {
-      checks.push(await inspectPage(locale.prefix, locale.lang, pathname));
+    for (const {pathname, indexable = true} of staticPaths) {
+      checks.push(
+        await inspectPage(locale.prefix, locale.lang, pathname, indexable),
+      );
     }
     for (const handle of DISCOVERABLE_PRODUCT_HANDLES) {
       checks.push(

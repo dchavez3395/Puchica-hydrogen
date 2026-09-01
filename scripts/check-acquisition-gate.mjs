@@ -74,6 +74,7 @@ export function runAcquisitionGate({
   paidMode = false,
   now = new Date(),
   retail = CA_RETAIL,
+  offers = null,
 } = {}) {
   // Resolve the newest baseline rather than naming one. This was pinned to the
   // 2026-08-21 file, so the gate kept costing offers against that evidence
@@ -91,8 +92,16 @@ export function runAcquisitionGate({
   const rows = [];
   const driftWarnings = [];
 
-  for (const approved of APPROVED_CATALOG_OFFERS) {
-    if (!approved.markets.includes('CA') || isMarketSuspended('CA')) continue;
+  // The cohort is the live Canadian offer set unless a caller injects one.
+  // A suspended market has no sellable cohort, so the gate has nothing to
+  // score and reports clean rather than inventing rows. Tests that exercise
+  // the scoring logic itself pass `offers` explicitly, so suspending a market
+  // never silently disables the safety rail they are asserting on.
+  const cohort =
+    offers ?? (isMarketSuspended('CA') ? [] : APPROVED_CATALOG_OFFERS);
+
+  for (const approved of cohort) {
+    if (!approved.markets.includes('CA')) continue;
 
     const evidence = baseline.offers.find(
       ({handle, sku}) => handle === approved.handle && sku === approved.sku,
@@ -148,7 +157,13 @@ export function runAcquisitionGate({
     rows.push({...economics, ...acquisition, bundle: Boolean(approved.bundle)});
   }
 
-  if (!rows.length) failures.push('No Canadian offer was evaluated.');
+  // An empty result is normally the gate failing to read its own inputs, and
+  // that must block. The one legitimate empty case is a suspended market: no
+  // cohort exists to score because nothing is sellable. Distinguish them, so
+  // suspension stays quiet while a genuinely broken gate still shouts.
+  if (!rows.length && !(cohort.length === 0 && isMarketSuspended('CA'))) {
+    failures.push('No Canadian offer was evaluated.');
+  }
 
   const unfundable = rows.filter((row) => row.verdict === 'FAIL');
   // Advisory until paid acquisition is switched on. Evidence problems block

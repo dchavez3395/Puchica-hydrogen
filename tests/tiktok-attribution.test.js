@@ -29,9 +29,13 @@ test('TikTok bio lands on the product that actually has TikTok creative', () => 
   // jewelry case, which has no TikTok creative, while the live bio and the
   // UGC pack promised the cable case. Deriving expectations from the constant
   // would let that drift back in silently.
-  assert.equal(TIKTOK_DESTINATION, '/products/travel-cable-organizer-case');
+  // Repointed 2026-09-01: the cable-organizer PDP was deleted from Shopify on
+  // 2026-08-28 and returns 404, so the bio link was sending every TikTok
+  // visitor to an error page. It must always name a route that exists.
+  assert.equal(TIKTOK_DESTINATION, '/collections/all');
   assert.equal(TIKTOK_ATTRIBUTION.utm_campaign, 'organic_relaunch_2026_08');
   assert.equal(TIKTOK_ATTRIBUTION.utm_medium, 'organic_social');
+  assert.equal(TIKTOK_ATTRIBUTION.utm_content, 'profile_bio_shop');
 });
 
 test('TikTok bio redirect is not cached or indexed', async () => {

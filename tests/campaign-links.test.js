@@ -10,14 +10,35 @@ import {
   validateDestination,
 } from '../scripts/build-campaign-links.mjs';
 import {
+  isMarketSuspended,
   OPERATIONAL_HOLD_HANDLES,
   RETIRED_CATALOG_HANDLES,
 } from '../app/lib/launch-catalog.js';
 
-test('every Stage 1 creative points at a sellable Canadian offer', () => {
+test('no Stage 1 creative can be linked while Canada is suspended', () => {
+  // This test used to assert every creative produced a link. Canada was
+  // suspended on 2026-09-01 because the approved handles were deleted from
+  // Shopify, so the honest assertion is the inverse: paid links must refuse
+  // to build at all. Spending on a link to a product that does not exist is
+  // the exact failure the destination gate is here to prevent.
+  assert.equal(isMarketSuspended('CA'), true, 'CA is suspended while empty');
+
   const result = buildCampaignLinks();
-  assert.deepEqual(result.failures, []);
-  assert.equal(result.links.length, STAGE_1_CREATIVES.length);
+  assert.equal(result.links.length, 0, 'a suspended market yields no ad links');
+  assert.ok(STAGE_1_CREATIVES.length > 0, 'the creative set is not empty');
+
+  for (const creative of STAGE_1_CREATIVES) {
+    assert.ok(
+      result.failures.includes(
+        `${creative.content}: CA is commercially suspended.`,
+      ),
+      `${creative.content} must be refused for suspension`,
+    );
+    // The creative-to-handle mapping itself is still sound - nothing here is
+    // retired or held. When CA reopens, only the approval list has to change.
+    assert.equal(RETIRED_CATALOG_HANDLES.has(creative.handle), false);
+    assert.equal(OPERATIONAL_HOLD_HANDLES.has(creative.handle), false);
+  }
 });
 
 test('a retired handle never gets a link', () => {
@@ -115,8 +136,18 @@ test('organic relaunch links all carry the one canonical campaign', async () => 
     '../scripts/build-campaign-links.mjs'
   );
   const result = buildOrganicLinks();
-  assert.deepEqual(result.failures, []);
-  assert.ok(result.links.length >= 9, 'the 7-day calendar has 9 posts');
+  // Product posts are refused while CA is suspended; the posts that point at
+  // the home page still build. Whatever survives must carry the one canonical
+  // campaign - that single value is what this test exists to protect, and it
+  // has to hold in both states.
+  assert.ok(result.links.length > 0, 'home-page posts still build');
+  for (const failure of result.failures) {
+    assert.match(
+      failure,
+      /commercially suspended|is not an approved/,
+      `only suspension may drop a post, got: ${failure}`,
+    );
+  }
   for (const link of result.links) {
     const url = new URL(link.url);
     assert.equal(url.searchParams.get('utm_campaign'), ORGANIC_CAMPAIGN);

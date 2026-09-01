@@ -6,6 +6,7 @@ import {formatProductOptionLabel} from '../app/lib/product-options.js';
 import {
   APPROVED_CATALOG_OFFERS,
   APPROVED_PRODUCT_HANDLES_BY_MARKET,
+  ARCHIVED_CATALOG_OFFERS,
   APPROVED_VARIANT_SKUS_BY_MARKET,
   buildApprovedProductOptions,
   DISCOVERABLE_PRODUCT_HANDLES,
@@ -29,6 +30,11 @@ import {
 
 const LEGACY_LAUNCH_READY_TAG = 'puchica-launch-ready';
 
+// A real SKU from the archived 2026-08 cohort. Fixtures need a concrete SKU
+// to push through the gate; whether the gate currently approves it is the
+// thing under test, so it cannot be read from the live approval lists.
+const AUDITED_SKU = ARCHIVED_CATALOG_OFFERS[0].sku;
+
 function approvedProduct(overrides = {}) {
   return {
     handle: 'verified-organizer',
@@ -37,7 +43,7 @@ function approvedProduct(overrides = {}) {
     variants: {
       nodes: [
         {
-          sku: APPROVED_VARIANT_SKUS_BY_MARKET.CA[0],
+          sku: AUDITED_SKU,
           availableForSale: true,
         },
       ],
@@ -229,37 +235,33 @@ test('released homepage is travel-focused and uses the catalog gate', async () =
   assert.doesNotMatch(landing, /Canada &amp; U\.S\. delivery routes/);
 });
 
-test('product market resolution preserves indexing without opening checkout', () => {
-  // The United States is commercially suspended, so a US visitor still gets an
-  // indexable page - which is the whole point of this resolver - but the
-  // commerce market falls back to Canada and the page must say so. This is the
-  // exact shape the resolver was built for; it is now finally being used.
-  assert.deepEqual(resolveApprovedProductMarket('3-piece-packing-cube-set', 'US'), {
-    availableMarkets: ['CA'],
-    commerceMarket: 'CA',
-    marketUnavailable: true,
-  });
-  assert.deepEqual(
-    resolveApprovedProductMarket(
-      'black-hanging-travel-toiletry-organizer',
-      'CA',
-    ),
-    {
-      availableMarkets: ['CA'],
-      commerceMarket: 'CA',
-      marketUnavailable: false,
-    },
-  );
+test('product market resolution fails closed on an empty catalogue', () => {
+  // The resolver used to fall back from a suspended US to an open CA, keeping
+  // the page indexable while checkout stayed shut. There is now nothing to
+  // resolve: the catalogue was deleted from Shopify on 2026-08-28 and both
+  // markets are suspended, so every handle resolves to null and no product
+  // route is advertised as indexable. Verified against production on
+  // 2026-09-01: all seven archived handles return 404.
+  assert.equal(isMarketSuspended('CA'), true);
+  assert.equal(isMarketSuspended('US'), true);
+  assert.deepEqual(DISCOVERABLE_PRODUCT_HANDLES, []);
+
+  for (const {handle} of ARCHIVED_CATALOG_OFFERS) {
+    assert.equal(
+      resolveApprovedProductMarket(handle, 'CA'),
+      null,
+      `${handle} must resolve to no open market`,
+    );
+    assert.equal(resolveApprovedProductMarket(handle, 'US'), null, handle);
+  }
   assert.equal(resolveApprovedProductMarket('retired-product', 'CA'), null);
-  assert.deepEqual(DISCOVERABLE_PRODUCT_HANDLES, [
-    '3-piece-packing-cube-set',
-    'white-semi-circular-travel-jewelry-case',
-    'black-hanging-travel-toiletry-organizer',
-    'travel-cable-organizer-case',
-    'black-travel-tech-case',
-    'the-carry-on-kit-toiletry-organizer-packing-cubes-cable-case',
-    'compression-packing-cube-set-5-piece',
-  ]);
+
+  // The evidence itself is intact - seven handles across ten exact offers -
+  // so restoring a product is a move between two lists, not a re-audit.
+  assert.equal(
+    new Set(ARCHIVED_CATALOG_OFFERS.map((offer) => offer.handle)).size,
+    7,
+  );
 });
 
 test('discovery includes every approved market without exposing retired products', () => {
@@ -267,7 +269,7 @@ test('discovery includes every approved market without exposing retired products
   // of its variants, so building one product per OFFER duplicated any handle
   // that has several approved SKUs - a shape the storefront never receives.
   const byHandle = new Map();
-  for (const offer of APPROVED_CATALOG_OFFERS) {
+  for (const offer of ARCHIVED_CATALOG_OFFERS) {
     const existing = byHandle.get(offer.handle);
     if (existing) {
       existing.skus.push(offer.sku);
@@ -294,9 +296,14 @@ test('discovery includes every approved market without exposing retired products
   );
   products.push(approvedProduct({handle: 'retired-product'}));
 
-  assert.deepEqual(
-    filterDiscoverableProducts(products).map((product) => product.handle),
-    DISCOVERABLE_PRODUCT_HANDLES,
+  // With every market suspended nothing is discoverable, and the retired
+  // product is excluded twice over. The grouping above is still what the
+  // storefront receives, so this asserts the filter closes on a realistic
+  // payload rather than on an empty one.
+  assert.deepEqual(filterDiscoverableProducts(products), []);
+  assert.ok(
+    products.length > DISCOVERABLE_PRODUCT_HANDLES.length,
+    'the payload carries the full cohort plus a retired handle',
   );
 });
 
@@ -429,15 +436,26 @@ test('launch tag cannot override an operational hold', () => {
 
 test('filter keeps only available, tagged, non-held products', () => {
   const safe = approvedProduct();
+  const payload = [
+    safe,
+    {...safe, handle: heldHandles[0]},
+    {...safe, handle: 'untagged', tags: []},
+    {...safe, handle: 'sold-out', availableForSale: false},
+  ];
+
+  // The evidence layer is unaffected by a market suspension: only the safe
+  // product carries every required tag, is available, and is neither retired
+  // nor held. Assert that directly, because filterLaunchProducts also requires
+  // an approved variant and a suspended market approves none.
   assert.deepEqual(
-    filterLaunchProducts([
-      safe,
-      {...safe, handle: heldHandles[0]},
-      {...safe, handle: 'untagged', tags: []},
-      {...safe, handle: 'sold-out', availableForSale: false},
-    ]),
+    payload.filter((product) => isLaunchReadyProduct(product, 'CA')),
     [safe],
   );
+
+  // The commerce layer is shut while CA is suspended, so nothing survives the
+  // full filter - not even the otherwise-perfect product.
+  assert.equal(isMarketSuspended('CA'), true);
+  assert.deepEqual(filterLaunchProducts(payload), []);
 });
 
 test('exact supplier variants are market-gated independently of products', () => {
@@ -455,16 +473,19 @@ test('exact supplier variants are market-gated independently of products', () =>
     );
   }
 
-  const sharedSku = APPROVED_VARIANT_SKUS_BY_MARKET.CA[0];
-  assert.equal(isApprovedVariantSku(sharedSku, 'CA'), true);
-  // Suspended: the route evidence is still true, the economics are not.
+  // Read the SKU from the offer cohort, not from the by-market list, which a
+  // suspension empties. Both markets are suspended, so an audited SKU is
+  // approved nowhere - the fail-closed state.
+  const sharedSku = AUDITED_SKU;
+  assert.equal(isApprovedVariantSku(sharedSku, 'CA'), false);
   assert.equal(isApprovedVariantSku(sharedSku, 'US'), false);
   assert.equal(isApprovedVariantSku('unreviewed-supplier-sku', 'CA'), false);
   assert.equal(isApprovedVariantSku('unreviewed-supplier-sku', 'US'), false);
 
   // An unrecognised market falls back to the Canadian cohort rather than
-  // opening everything, which is what keeps an unlisted country fail-closed.
-  assert.equal(isApprovedVariantSku(sharedSku, 'GB'), true);
+  // opening everything, which is what keeps an unlisted country fail-closed -
+  // and that cohort is empty, so GB is closed too.
+  assert.equal(isApprovedVariantSku(sharedSku, 'GB'), false);
   assert.equal(isApprovedVariantSku('unreviewed-supplier-sku', 'GB'), false);
 
   const product = {
@@ -475,7 +496,7 @@ test('exact supplier variants are market-gated independently of products', () =>
       ],
     },
   };
-  assert.equal(findApprovedVariant(product, 'CA')?.sku, sharedSku);
+  assert.equal(findApprovedVariant(product, 'CA'), undefined);
   assert.equal(findApprovedVariant(product, 'US'), undefined);
 });
 
@@ -484,20 +505,36 @@ test('a suspended market closes commerce without erasing route evidence', () => 
   // ships there and the parcel arrives. The suspension is economic, not
   // logistical, so `markets` still records US and reopening is one deletion in
   // SUSPENDED_COMMERCE_MARKETS rather than a re-verification exercise.
-  const usRouted = APPROVED_CATALOG_OFFERS.filter((offer) =>
+  const usRouted = ARCHIVED_CATALOG_OFFERS.filter((offer) =>
     offer.markets.includes('US'),
   );
   assert.equal(usRouted.length, 5);
 
   for (const offer of usRouted) {
-    assert.equal(isApprovedVariantSku(offer.sku, 'CA'), true, offer.sku);
+    // Suspended in both markets since 2026-09-01: nothing is sellable, but the
+    // offer still records its verified routes.
+    assert.equal(isApprovedVariantSku(offer.sku, 'CA'), false, offer.sku);
     assert.equal(isApprovedVariantSku(offer.sku, 'US'), false, offer.sku);
+    assert.ok(offer.markets.includes('US'), offer.sku);
   }
 
   assert.equal(isMarketSuspended('US'), true);
   assert.equal(isMarketSuspended('us'), true);
-  assert.equal(isMarketSuspended('CA'), false);
+  assert.equal(isMarketSuspended('CA'), true);
+  assert.equal(isMarketSuspended('ca'), true);
   assert.match(SUSPENDED_COMMERCE_MARKETS.US, /de-minimis/);
+  assert.match(SUSPENDED_COMMERCE_MARKETS.CA, /catalog-empty/);
+
+  // The evidence neither the suspension nor the emptying may erase. Ten exact
+  // offers across seven handles, each keeping its own market list, so
+  // restoring one is a move between two constants and a suspension deletion -
+  // not a re-audit of routes, costs, copy or imagery.
+  assert.equal(ARCHIVED_CATALOG_OFFERS.length, 10);
+  assert.equal(
+    new Set(ARCHIVED_CATALOG_OFFERS.map((offer) => offer.handle)).size,
+    7,
+  );
+  assert.deepEqual(DISCOVERABLE_PRODUCT_HANDLES, []);
 });
 
 test('approved handles and SKUs derive from one exact-offer cohort', () => {
@@ -517,13 +554,20 @@ test('approved handles and SKUs derive from one exact-offer cohort', () => {
     ]);
   }
 
-  // Ten SKUs across seven handles: the compression cube set contributes four
-  // colour SKUs under a single handle, so these two counts no longer match.
-  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.CA.length, 10);
-  assert.equal(APPROVED_PRODUCT_HANDLES_BY_MARKET.CA.length, 7);
-  // Suspended, so nothing is sellable into the United States at all.
+  // Both markets are suspended, so nothing is sellable anywhere. The cohort
+  // the lists derive FROM is untouched - ten SKUs across seven handles, the
+  // compression cube set contributing four colour SKUs under one handle - so
+  // deleting a suspension entry restores exactly that shape.
+  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.CA.length, 0);
+  assert.equal(APPROVED_PRODUCT_HANDLES_BY_MARKET.CA.length, 0);
   assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.US.length, 0);
   assert.equal(APPROVED_PRODUCT_HANDLES_BY_MARKET.US.length, 0);
+
+  const caCohort = ARCHIVED_CATALOG_OFFERS.filter((offer) =>
+    offer.markets.includes('CA'),
+  );
+  assert.equal(caCohort.length, 10);
+  assert.equal(new Set(caCohort.map((offer) => offer.handle)).size, 7);
 });
 
 test('approved PDP option builder exposes only its audited variants', () => {
@@ -556,14 +600,22 @@ test('approved PDP option builder exposes only its audited variants', () => {
     variants: {nodes: variants},
   };
 
-  const approved = findApprovedVariants(product, 'CA');
-  assert.deepEqual(
-    approved.map((variant) => variant.id),
-    ['white'],
-  );
+  // Suspended market: no SKU is approved, so no variant is offerable and the
+  // PDP exposes no option selector at all. Fail-closed by construction.
+  assert.equal(isMarketSuspended('CA'), true);
+  assert.deepEqual(findApprovedVariants(product, 'CA'), []);
+  assert.deepEqual(buildApprovedProductOptions(product, [], undefined), []);
 
-  const options = buildApprovedProductOptions(product, approved, approved[0]);
-  assert.deepEqual(options, []);
+  // The builder's own rule - it renders only the variants handed to it, never
+  // the product's full option matrix - is what keeps an unreviewed supplier
+  // colour off the page. Assert it against an explicit approved subset so the
+  // rule stays covered while the market is shut.
+  const white = variants[0];
+  assert.deepEqual(
+    buildApprovedProductOptions(product, [white], white),
+    [],
+    'one approved colour needs no selector, and Red must not appear',
+  );
   assert.equal(formatProductOptionLabel('White'), 'White');
 });
 

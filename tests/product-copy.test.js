@@ -5,7 +5,15 @@ import {
   presentLaunchProductCopy,
   presentProductTitle,
 } from '../app/lib/product-presentation.js';
-import {APPROVED_CATALOG_OFFERS} from '../app/lib/launch-catalog.js';
+import {
+  APPROVED_CATALOG_OFFERS,
+  ARCHIVED_CATALOG_OFFERS,
+} from '../app/lib/launch-catalog.js';
+
+// Copy coverage is audited against both cohorts. Translated copy is evidence
+// that outlives a catalogue emptying, and a handle that comes back must not
+// come back untranslated - so the archived offers keep being checked.
+const COPY_COHORT = [...ARCHIVED_CATALOG_OFFERS, ...APPROVED_CATALOG_OFFERS];
 import {DICTIONARIES} from '../app/lib/dictionaries.js';
 
 const LOCALES = ['en', 'fr', 'es', 'pt-br'];
@@ -19,8 +27,8 @@ test('every approved offer resolves title, summary and description in every loca
   // through to the raw Shopify title, which is English everywhere, and it does
   // so silently on the collection grid, in the cart, in search and in the
   // pairs-with rail. This is the test that would have caught the cable case.
-  assert.ok(APPROVED_CATALOG_OFFERS.length >= 6);
-  for (const {handle} of APPROVED_CATALOG_OFFERS) {
+  assert.ok(COPY_COHORT.length >= 6);
+  for (const {handle} of COPY_COHORT) {
     for (const locale of LOCALES) {
       const copy = presentLaunchProductCopy(handle, reader(locale));
       assert.ok(copy, `${locale}: ${handle} has no copy`);
@@ -39,7 +47,7 @@ test('no localized title is left in English', () => {
   // The failure this catches is a new product shipped with the English string
   // pasted into all four blocks, which looks translated until a French speaker
   // reads it.
-  for (const {handle} of APPROVED_CATALOG_OFFERS) {
+  for (const {handle} of COPY_COHORT) {
     const en = presentLaunchProductCopy(handle, reader('en'));
     for (const locale of TRANSLATED) {
       const other = presentLaunchProductCopy(handle, reader(locale));
@@ -105,7 +113,7 @@ test('no product copy claims free shipping', () => {
   // market-agnostic, so a claim here would be wrong the moment a market without
   // that threshold opens.
   const claims = /free shipping|livraison gratuite|env[íi]o gratis|frete gr[áa]tis/i;
-  for (const {handle} of APPROVED_CATALOG_OFFERS) {
+  for (const {handle} of COPY_COHORT) {
     for (const locale of LOCALES) {
       const copy = presentLaunchProductCopy(handle, reader(locale));
       const text = `${copy.title} ${copy.summary} ${copy.descriptionHtml}`;
@@ -119,7 +127,7 @@ test('no product copy claims the goods are handmade or Guatemalan', () => {
   // are not, and saying so would be a false origin claim.
   const banned =
     /handmade|hand-woven|handwoven|artisan|made in guatemala|fait main|artesanal|hecho a mano|feito à mão/i;
-  for (const {handle} of APPROVED_CATALOG_OFFERS) {
+  for (const {handle} of COPY_COHORT) {
     for (const locale of LOCALES) {
       const copy = presentLaunchProductCopy(handle, reader(locale));
       const text = `${copy.title} ${copy.summary} ${copy.descriptionHtml}`;
