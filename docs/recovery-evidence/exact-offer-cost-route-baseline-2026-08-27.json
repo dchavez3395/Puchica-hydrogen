@@ -11,6 +11,7 @@
   "sources": [
     "exact-offer-cost-route-baseline-2026-08-25.json: source of every pre-existing row below. Those six offers were NOT re-read on 2026-08-27 - they are carried forward unchanged, and supplierStockObservedOn still refers to them.",
     "DSers push dialog and Shopify variant read, 2026-08-27: source of the four compression-packing-cube-set-5-piece rows only. Canada route only; no US route was quoted for this supplier.",
+    "DSers My Products card, re-read 2026-08-27 after the first publish: quotes this product at USD 26.69-27.94 / CA$37.03-38.76. This is what corrected itemCostUsd from 27.69 to 27.94; see the per-row note.",
     "exact-offer-cost-route-baseline-2026-08-21.json: source of the United States route rows carried forward below. US routes were NOT re-read on 2026-08-25 - only Canada was requoted."
   ],
   "supplierStockObservedOn": "2026-08-25",
@@ -191,11 +192,11 @@
       "handle": "compression-packing-cube-set-5-piece",
       "sku": "14:691;200007763:201336100",
       "supplierItemId": "1005008575269485",
-      "itemCostUsd": 27.69,
+      "itemCostUsd": 27.94,
       "itemCostObservedOn": "2026-08-27",
       "stockOnSupplier": 974,
       "derivedFrom": {
-        "note": "Grey. Per-SKU cost was not read individually: DSers quoted the product as a CA$37.03-38.76 range, and every SKU here carries the TOP of that range (CA$38.76 at fx 1.4), which cannot understate cost. Stock is per-SKU and was read on 2026-08-27; the file-level supplierStockObservedOn refers to the carried-forward rows, not these."
+        "note": "Grey. Per-SKU cost was not read individually: the DSers product card quotes the whole product as USD 26.69-27.94 (shown alongside as CA$37.03-38.76), and every SKU here carries the TOP of the USD range. CORRECTED 2026-08-27: this row first carried 27.69, derived by dividing the CAD top by the 1.4 planning rate. That was wrong - the CAD figures are DSers own conversion at ~1.387, so back-converting them understated the supplier USD price by 0.25. The USD range is the primary figure and is now used directly. Stock is per-SKU and was read on 2026-08-27; the file-level supplierStockObservedOn refers to the carried-forward rows, not these."
       },
       "routes": {
         "CA": {
@@ -211,11 +212,11 @@
       "handle": "compression-packing-cube-set-5-piece",
       "sku": "14:1052;200007763:201336100",
       "supplierItemId": "1005008575269485",
-      "itemCostUsd": 27.69,
+      "itemCostUsd": 27.94,
       "itemCostObservedOn": "2026-08-27",
       "stockOnSupplier": 975,
       "derivedFrom": {
-        "note": "Pink. Per-SKU cost was not read individually: DSers quoted the product as a CA$37.03-38.76 range, and every SKU here carries the TOP of that range (CA$38.76 at fx 1.4), which cannot understate cost. Stock is per-SKU and was read on 2026-08-27; the file-level supplierStockObservedOn refers to the carried-forward rows, not these."
+        "note": "Pink. Per-SKU cost was not read individually: the DSers product card quotes the whole product as USD 26.69-27.94 (shown alongside as CA$37.03-38.76), and every SKU here carries the TOP of the USD range. CORRECTED 2026-08-27: this row first carried 27.69, derived by dividing the CAD top by the 1.4 planning rate. That was wrong - the CAD figures are DSers own conversion at ~1.387, so back-converting them understated the supplier USD price by 0.25. The USD range is the primary figure and is now used directly. Stock is per-SKU and was read on 2026-08-27; the file-level supplierStockObservedOn refers to the carried-forward rows, not these."
       },
       "routes": {
         "CA": {
@@ -231,11 +232,11 @@
       "handle": "compression-packing-cube-set-5-piece",
       "sku": "14:771;200007763:201336100",
       "supplierItemId": "1005008575269485",
-      "itemCostUsd": 27.69,
+      "itemCostUsd": 27.94,
       "itemCostObservedOn": "2026-08-27",
       "stockOnSupplier": 993,
       "derivedFrom": {
-        "note": "Beige. Per-SKU cost was not read individually: DSers quoted the product as a CA$37.03-38.76 range, and every SKU here carries the TOP of that range (CA$38.76 at fx 1.4), which cannot understate cost. Stock is per-SKU and was read on 2026-08-27; the file-level supplierStockObservedOn refers to the carried-forward rows, not these."
+        "note": "Beige. Per-SKU cost was not read individually: the DSers product card quotes the whole product as USD 26.69-27.94 (shown alongside as CA$37.03-38.76), and every SKU here carries the TOP of the USD range. CORRECTED 2026-08-27: this row first carried 27.69, derived by dividing the CAD top by the 1.4 planning rate. That was wrong - the CAD figures are DSers own conversion at ~1.387, so back-converting them understated the supplier USD price by 0.25. The USD range is the primary figure and is now used directly. Stock is per-SKU and was read on 2026-08-27; the file-level supplierStockObservedOn refers to the carried-forward rows, not these."
       },
       "routes": {
         "CA": {
@@ -251,11 +252,11 @@
       "handle": "compression-packing-cube-set-5-piece",
       "sku": "14:193;200007763:201336100",
       "supplierItemId": "1005008575269485",
-      "itemCostUsd": 27.69,
+      "itemCostUsd": 27.94,
       "itemCostObservedOn": "2026-08-27",
       "stockOnSupplier": 24,
       "derivedFrom": {
-        "note": "Black. Per-SKU cost was not read individually: DSers quoted the product as a CA$37.03-38.76 range, and every SKU here carries the TOP of that range (CA$38.76 at fx 1.4), which cannot understate cost. Stock is per-SKU and was read on 2026-08-27; the file-level supplierStockObservedOn refers to the carried-forward rows, not these."
+        "note": "Black. Per-SKU cost was not read individually: the DSers product card quotes the whole product as USD 26.69-27.94 (shown alongside as CA$37.03-38.76), and every SKU here carries the TOP of the USD range. CORRECTED 2026-08-27: this row first carried 27.69, derived by dividing the CAD top by the 1.4 planning rate. That was wrong - the CAD figures are DSers own conversion at ~1.387, so back-converting them understated the supplier USD price by 0.25. The USD range is the primary figure and is now used directly. Stock is per-SKU and was read on 2026-08-27; the file-level supplierStockObservedOn refers to the carried-forward rows, not these."
       },
       "routes": {
         "CA": {

@@ -86,7 +86,7 @@ const completeBaseline = {
     ].map((sku) => ({
       handle: 'compression-packing-cube-set-5-piece',
       sku,
-      itemCostUsd: 27.69,
+      itemCostUsd: 27.94,
       routes: {CA: {shippingUsd: 0, tracked: true}},
     })),
   ],
