@@ -30,6 +30,12 @@ const ROUTES = [
 ];
 
 const VIEWPORTS = [
+  // SC 1.4.10 (Reflow) is specified at 320 CSS px, and until 2026-09-01 the
+  // narrowest viewport here was 390 - so the one width the criterion actually
+  // names was the one width never exercised. Dry-run against production on
+  // 2026-09-01 before adding it: overflow, tap targets, image distortion and
+  // image resolution all came back clean on all four routes at 320.
+  {name: 'reflow320', width: 320, height: 800},
   {name: 'mobile', width: 390, height: 844},
   {name: 'tablet', width: 768, height: 1024},
   {name: 'desktop', width: 1440, height: 900},
