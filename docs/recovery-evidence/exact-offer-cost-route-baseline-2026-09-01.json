@@ -1,0 +1,450 @@
+{
+  "evidenceDate": "2026-09-01",
+  "planningFxCadPerUsd": 1.4,
+  "paymentPercentRate": 0.035,
+  "paymentFixedFee": 0.3,
+  "exceptionReserveRate": 0.05,
+  "singleItemCheckoutShipping": {
+    "CA": 5,
+    "US": 8
+  },
+  "sources": [
+    "exact-offer-cost-route-baseline-2026-08-27.json: source of the ten archived cn-direct rows below, carried forward unchanged. Those offers are not sellable - cn-direct into the US is a suspended fulfilment route and CA is a suspended market - so they are retained as evidence, not inventory.",
+    "2026-09-01 watch-roll cohort: eight cn-direct rows. Supplier cost and the US shipping quote read directly from the AliExpress listing with ship-to United States. Originally recorded as us-local in error and corrected the same day - see each row's route source.",
+    "exact-offer-cost-route-baseline-2026-08-25.json: source of every pre-existing row below. Those six offers were NOT re-read on 2026-08-27 - they are carried forward unchanged, and supplierStockObservedOn still refers to them.",
+    "DSers push dialog and Shopify variant read, 2026-08-27: source of the four compression-packing-cube-set-5-piece rows only. Canada route only; no US route was quoted for this supplier.",
+    "DSers My Products card, re-read 2026-08-27 after the first publish: quotes this product at USD 26.69-27.94 / CA$37.03-38.76. This is what corrected itemCostUsd from 27.69 to 27.94; see the per-row note.",
+    "exact-offer-cost-route-baseline-2026-08-21.json: source of the United States route rows carried forward below. US routes were NOT re-read on 2026-08-25 - only Canada was requoted."
+  ],
+  "supplierStockObservedOn": "2026-09-01",
+  "offers": [
+    {
+      "handle": "pu-leather-watch-roll-travel-case-3-or-6-watches",
+      "sku": "14:496#3 Slot Black Red",
+      "supplierItemId": "1005006898059534",
+      "itemCostUsd": 26.18,
+      "itemCostObservedOn": "2026-09-01",
+      "itemCostNote": "$26.18 is a Labor Day sale price ending 2026-09-07 against a $55.70 compare-at. Re-read after that date - if it reverts, recompute every margin before selling on.",
+      "stockOnSupplier": 11,
+      "stockOnStore": 11,
+      "routes": {
+        "US": {
+          "shippingUsd": 1.99,
+          "eta": "8-11 days (Sep 10-14)",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard",
+          "shipFrom": "CN",
+          "fulfilment": "cn-direct",
+          "observedOn": "2026-09-01",
+          "source": "Read from the AliExpress listing 2026-09-01 with ship-to United States, USD: method 'AliExpress Selection Standard', $1.99, delivery Sep 10-14, 84.6% of orders within 11 days (<=8d 23.4%, 9d 24.4%, 10d 21.9%, 11d 14.7%), couriers SpeedX / GOFO / USPS. USPS is final mile only - this is a CHINA-DIRECT consolidated line, not a US warehouse. The earlier us-local classification came from the search flag itemCardType=app_us_local_card, which marks US storefront merchandising rather than warehouse location. Corrected same day."
+        }
+      }
+    },
+    {
+      "handle": "pu-leather-watch-roll-travel-case-3-or-6-watches",
+      "sku": "14:865#3 Slot Green Gray",
+      "supplierItemId": "1005006898059534",
+      "itemCostUsd": 26.18,
+      "itemCostObservedOn": "2026-09-01",
+      "itemCostNote": "$26.18 is a Labor Day sale price ending 2026-09-07 against a $55.70 compare-at. Re-read after that date - if it reverts, recompute every margin before selling on.",
+      "stockOnSupplier": 11,
+      "stockOnStore": 11,
+      "routes": {
+        "US": {
+          "shippingUsd": 1.99,
+          "eta": "8-11 days (Sep 10-14)",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard",
+          "shipFrom": "CN",
+          "fulfilment": "cn-direct",
+          "observedOn": "2026-09-01",
+          "source": "Read from the AliExpress listing 2026-09-01 with ship-to United States, USD: method 'AliExpress Selection Standard', $1.99, delivery Sep 10-14, 84.6% of orders within 11 days (<=8d 23.4%, 9d 24.4%, 10d 21.9%, 11d 14.7%), couriers SpeedX / GOFO / USPS. USPS is final mile only - this is a CHINA-DIRECT consolidated line, not a US warehouse. The earlier us-local classification came from the search flag itemCardType=app_us_local_card, which marks US storefront merchandising rather than warehouse location. Corrected same day."
+        }
+      }
+    },
+    {
+      "handle": "pu-leather-watch-roll-travel-case-3-or-6-watches",
+      "sku": "14:193#3 Slot Brown",
+      "supplierItemId": "1005006898059534",
+      "itemCostUsd": 26.18,
+      "itemCostObservedOn": "2026-09-01",
+      "itemCostNote": "$26.18 is a Labor Day sale price ending 2026-09-07 against a $55.70 compare-at. Re-read after that date - if it reverts, recompute every margin before selling on.",
+      "stockOnSupplier": 7,
+      "stockOnStore": 7,
+      "routes": {
+        "US": {
+          "shippingUsd": 1.99,
+          "eta": "8-11 days (Sep 10-14)",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard",
+          "shipFrom": "CN",
+          "fulfilment": "cn-direct",
+          "observedOn": "2026-09-01",
+          "source": "Read from the AliExpress listing 2026-09-01 with ship-to United States, USD: method 'AliExpress Selection Standard', $1.99, delivery Sep 10-14, 84.6% of orders within 11 days (<=8d 23.4%, 9d 24.4%, 10d 21.9%, 11d 14.7%), couriers SpeedX / GOFO / USPS. USPS is final mile only - this is a CHINA-DIRECT consolidated line, not a US warehouse. The earlier us-local classification came from the search flag itemCardType=app_us_local_card, which marks US storefront merchandising rather than warehouse location. Corrected same day."
+        }
+      }
+    },
+    {
+      "handle": "pu-leather-watch-roll-travel-case-3-or-6-watches",
+      "sku": "14:173#6 Slot Brown",
+      "supplierItemId": "1005006898059534",
+      "itemCostUsd": 43.64,
+      "itemCostObservedOn": "2026-09-01",
+      "itemCostNote": "$26.18 is a Labor Day sale price ending 2026-09-07 against a $55.70 compare-at. Re-read after that date - if it reverts, recompute every margin before selling on.",
+      "stockOnSupplier": 9,
+      "stockOnStore": 9,
+      "routes": {
+        "US": {
+          "shippingUsd": 1.99,
+          "eta": "8-11 days (Sep 10-14)",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard",
+          "shipFrom": "CN",
+          "fulfilment": "cn-direct",
+          "observedOn": "2026-09-01",
+          "source": "Read from the AliExpress listing 2026-09-01 with ship-to United States, USD: method 'AliExpress Selection Standard', $1.99, delivery Sep 10-14, 84.6% of orders within 11 days (<=8d 23.4%, 9d 24.4%, 10d 21.9%, 11d 14.7%), couriers SpeedX / GOFO / USPS. USPS is final mile only - this is a CHINA-DIRECT consolidated line, not a US warehouse. The earlier us-local classification came from the search flag itemCardType=app_us_local_card, which marks US storefront merchandising rather than warehouse location. Corrected same day."
+        }
+      }
+    },
+    {
+      "handle": "pu-leather-watch-roll-travel-case-3-or-6-watches",
+      "sku": "14:350686#6 Slot Green Gray",
+      "supplierItemId": "1005006898059534",
+      "itemCostUsd": 43.64,
+      "itemCostObservedOn": "2026-09-01",
+      "itemCostNote": "$26.18 is a Labor Day sale price ending 2026-09-07 against a $55.70 compare-at. Re-read after that date - if it reverts, recompute every margin before selling on.",
+      "stockOnSupplier": 100,
+      "stockOnStore": 100,
+      "routes": {
+        "US": {
+          "shippingUsd": 1.99,
+          "eta": "8-11 days (Sep 10-14)",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard",
+          "shipFrom": "CN",
+          "fulfilment": "cn-direct",
+          "observedOn": "2026-09-01",
+          "source": "Read from the AliExpress listing 2026-09-01 with ship-to United States, USD: method 'AliExpress Selection Standard', $1.99, delivery Sep 10-14, 84.6% of orders within 11 days (<=8d 23.4%, 9d 24.4%, 10d 21.9%, 11d 14.7%), couriers SpeedX / GOFO / USPS. USPS is final mile only - this is a CHINA-DIRECT consolidated line, not a US warehouse. The earlier us-local classification came from the search flag itemCardType=app_us_local_card, which marks US storefront merchandising rather than warehouse location. Corrected same day."
+        }
+      }
+    },
+    {
+      "handle": "pu-leather-watch-roll-travel-case-3-or-6-watches",
+      "sku": "14:350850#6 Slot Black Red",
+      "supplierItemId": "1005006898059534",
+      "itemCostUsd": 43.64,
+      "itemCostObservedOn": "2026-09-01",
+      "itemCostNote": "$26.18 is a Labor Day sale price ending 2026-09-07 against a $55.70 compare-at. Re-read after that date - if it reverts, recompute every margin before selling on.",
+      "stockOnSupplier": 8,
+      "stockOnStore": 8,
+      "routes": {
+        "US": {
+          "shippingUsd": 1.99,
+          "eta": "8-11 days (Sep 10-14)",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard",
+          "shipFrom": "CN",
+          "fulfilment": "cn-direct",
+          "observedOn": "2026-09-01",
+          "source": "Read from the AliExpress listing 2026-09-01 with ship-to United States, USD: method 'AliExpress Selection Standard', $1.99, delivery Sep 10-14, 84.6% of orders within 11 days (<=8d 23.4%, 9d 24.4%, 10d 21.9%, 11d 14.7%), couriers SpeedX / GOFO / USPS. USPS is final mile only - this is a CHINA-DIRECT consolidated line, not a US warehouse. The earlier us-local classification came from the search flag itemCardType=app_us_local_card, which marks US storefront merchandising rather than warehouse location. Corrected same day."
+        }
+      }
+    },
+    {
+      "handle": "pu-leather-watch-roll-travel-case-4-watches",
+      "sku": "14:173#4 Slot Black Gray",
+      "supplierItemId": "1005008786368533",
+      "itemCostUsd": 30.52,
+      "itemCostObservedOn": "2026-09-01",
+      "itemCostNote": "$26.18 is a Labor Day sale price ending 2026-09-07 against a $55.70 compare-at. Re-read after that date - if it reverts, recompute every margin before selling on.",
+      "stockOnSupplier": 4,
+      "stockOnStore": 4,
+      "routes": {
+        "US": {
+          "shippingUsd": 1.99,
+          "eta": "8-11 days (Sep 10-14)",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard",
+          "shipFrom": "CN",
+          "fulfilment": "cn-direct",
+          "observedOn": "2026-09-01",
+          "source": "Read from the AliExpress listing 2026-09-01 with ship-to United States, USD: method 'AliExpress Selection Standard', $1.99, delivery Sep 10-14, 84.6% of orders within 11 days (<=8d 23.4%, 9d 24.4%, 10d 21.9%, 11d 14.7%), couriers SpeedX / GOFO / USPS. USPS is final mile only - this is a CHINA-DIRECT consolidated line, not a US warehouse. The earlier us-local classification came from the search flag itemCardType=app_us_local_card, which marks US storefront merchandising rather than warehouse location. Corrected same day."
+        }
+      }
+    },
+    {
+      "handle": "pu-leather-watch-roll-travel-case-4-watches",
+      "sku": "14:100013777#4 Slot Brown Black",
+      "supplierItemId": "1005008786368533",
+      "itemCostUsd": 30.52,
+      "itemCostObservedOn": "2026-09-01",
+      "itemCostNote": "$26.18 is a Labor Day sale price ending 2026-09-07 against a $55.70 compare-at. Re-read after that date - if it reverts, recompute every margin before selling on.",
+      "stockOnSupplier": 66,
+      "stockOnStore": 66,
+      "routes": {
+        "US": {
+          "shippingUsd": 1.99,
+          "eta": "8-11 days (Sep 10-14)",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard",
+          "shipFrom": "CN",
+          "fulfilment": "cn-direct",
+          "observedOn": "2026-09-01",
+          "source": "Read from the AliExpress listing 2026-09-01 with ship-to United States, USD: method 'AliExpress Selection Standard', $1.99, delivery Sep 10-14, 84.6% of orders within 11 days (<=8d 23.4%, 9d 24.4%, 10d 21.9%, 11d 14.7%), couriers SpeedX / GOFO / USPS. USPS is final mile only - this is a CHINA-DIRECT consolidated line, not a US warehouse. The earlier us-local classification came from the search flag itemCardType=app_us_local_card, which marks US storefront merchandising rather than warehouse location. Corrected same day."
+        }
+      }
+    },
+    {
+      "handle": "3-piece-packing-cube-set",
+      "sku": "14:1052#S3007 Black;5:200004186#3PCS L M S Set",
+      "supplierItemId": "1005005283270949",
+      "itemCostUsd": 12.01,
+      "itemCostObservedOn": "2026-08-25",
+      "stockOnSupplier": 289,
+      "stockOnStore": 291,
+      "routes": {
+        "CA": {
+          "shippingUsd": 1.99,
+          "eta": "7-15 days",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard",
+          "shipFrom": "CN",
+          "observedOn": "2026-08-25"
+        },
+        "US": {
+          "shippingUsd": 0.0,
+          "eta": "8-14 days",
+          "tracked": true,
+          "observedOn": "2026-08-21",
+          "source": "AliExpress listing page rather than DSers; carried forward unchanged from the 2026-08-21 baseline. Re-check in DSers before relying on the zero shipping figure for margin decisions - the route existing is what the us-route-verified tag asserts."
+        }
+      }
+    },
+    {
+      "handle": "white-semi-circular-travel-jewelry-case",
+      "sku": "14:29",
+      "supplierItemId": "1005009878640464",
+      "itemCostUsd": 4.3,
+      "itemCostObservedOn": "2026-08-25",
+      "stockOnSupplier": 959,
+      "stockOnStore": 960,
+      "routes": {
+        "CA": {
+          "shippingUsd": 2.17,
+          "eta": "8-15 days",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard",
+          "shipFrom": "CN",
+          "observedOn": "2026-08-25"
+        },
+        "US": {
+          "shippingUsd": 1.99,
+          "eta": "9-14 days",
+          "tracked": true,
+          "observedOn": "2026-08-21",
+          "source": "Carried forward unchanged from the 2026-08-21 baseline; not re-read on 2026-08-25."
+        }
+      }
+    },
+    {
+      "handle": "black-hanging-travel-toiletry-organizer",
+      "sku": "14:771#Black",
+      "supplierItemId": "1005006162747124",
+      "itemCostUsd": 8.31,
+      "itemCostObservedOn": "2026-08-25",
+      "stockOnSupplier": 48,
+      "stockOnStore": 48,
+      "routes": {
+        "CA": {
+          "shippingUsd": 2.17,
+          "eta": "7-15 days",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard",
+          "shipFrom": "CN",
+          "observedOn": "2026-08-25"
+        },
+        "US": {
+          "shippingUsd": 2.16,
+          "eta": "8-13 days",
+          "tracked": true,
+          "observedOn": "2026-08-21",
+          "source": "Carried forward unchanged from the 2026-08-21 baseline; not re-read on 2026-08-25."
+        }
+      }
+    },
+    {
+      "handle": "travel-cable-organizer-case",
+      "sku": "14:193#Double Layers",
+      "supplierItemId": "1005006797227273",
+      "itemCostUsd": 3.81,
+      "itemCostObservedOn": "2026-08-25",
+      "stockOnSupplier": 19,
+      "stockOnStore": 65,
+      "routes": {
+        "CA": {
+          "shippingUsd": 2.17,
+          "eta": "7-14 days",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard",
+          "shipFrom": "CN",
+          "observedOn": "2026-08-25"
+        },
+        "US": {
+          "shippingUsd": 1.99,
+          "eta": "8-14 days",
+          "tracked": true,
+          "observedOn": "2026-08-21",
+          "source": "Carried forward unchanged from the 2026-08-21 baseline; not re-read on 2026-08-25."
+        }
+      }
+    },
+    {
+      "handle": "black-travel-tech-case",
+      "sku": "14:29#Black",
+      "supplierItemId": "1005010044108059",
+      "itemCostUsd": 7.26,
+      "itemCostObservedOn": "2026-08-25",
+      "stockOnSupplier": 8,
+      "stockOnStore": 9933,
+      "routes": {
+        "CA": {
+          "shippingUsd": 2.17,
+          "eta": "7-15 days",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard",
+          "shipFrom": "CN",
+          "observedOn": "2026-08-25"
+        }
+      }
+    },
+    {
+      "handle": "the-carry-on-kit-toiletry-organizer-packing-cubes-cable-case",
+      "sku": "PUCHICA-KIT-CARRYON-01",
+      "supplierItemId": "1005005283270949+1005006162747124+1005006797227273",
+      "itemCostUsd": 24.13,
+      "itemCostObservedOn": "2026-08-25",
+      "stockOnSupplier": 19,
+      "derivedFrom": {
+        "note": "Bundle row. Not an independently quoted supplier offer: every figure is the sum of the three component rows in this same file, because the kit is fulfilled as three separate DSers orders. stockOnSupplier is the MINIMUM of the three components, not a sum - the kit cannot be assembled more times than its scarcest part allows, and on 2026-08-25 that part is the cable organizer case at 19 units. The US shipping figure is lower than the CA one because the packing cube set ships free to the United States. Re-derive whenever a component row changes.",
+        "components": [
+          {
+            "sku": "14:1052#S3007 Black;5:200004186#3PCS L M S Set",
+            "itemCostUsd": 12.01,
+            "caShippingUsd": 1.99,
+            "usShippingUsd": 0.0,
+            "stockOnSupplier": 289
+          },
+          {
+            "sku": "14:771#Black",
+            "itemCostUsd": 8.31,
+            "caShippingUsd": 2.17,
+            "usShippingUsd": 2.16,
+            "stockOnSupplier": 48
+          },
+          {
+            "sku": "14:193#Double Layers",
+            "itemCostUsd": 3.81,
+            "caShippingUsd": 2.17,
+            "usShippingUsd": 1.99,
+            "stockOnSupplier": 19
+          }
+        ]
+      },
+      "routes": {
+        "CA": {
+          "shippingUsd": 6.33,
+          "eta": "8-15 days",
+          "tracked": true,
+          "observedOn": "2026-08-25"
+        },
+        "US": {
+          "shippingUsd": 4.15,
+          "eta": "8-14 days",
+          "tracked": true,
+          "observedOn": "2026-08-21",
+          "source": "Derived from component US rows carried forward from the 2026-08-21 baseline; not re-read on 2026-08-25."
+        }
+      }
+    },
+    {
+      "handle": "compression-packing-cube-set-5-piece",
+      "sku": "14:691;200007763:201336100",
+      "supplierItemId": "1005008575269485",
+      "itemCostUsd": 27.94,
+      "itemCostObservedOn": "2026-08-27",
+      "stockOnSupplier": 974,
+      "derivedFrom": {
+        "note": "Grey. Per-SKU cost was not read individually: the DSers product card quotes the whole product as USD 26.69-27.94 (shown alongside as CA$37.03-38.76), and every SKU here carries the TOP of the USD range. CORRECTED 2026-08-27: this row first carried 27.69, derived by dividing the CAD top by the 1.4 planning rate. That was wrong - the CAD figures are DSers own conversion at ~1.387, so back-converting them understated the supplier USD price by 0.25. The USD range is the primary figure and is now used directly. Stock is per-SKU and was read on 2026-08-27; the file-level supplierStockObservedOn refers to the carried-forward rows, not these."
+      },
+      "routes": {
+        "CA": {
+          "shippingUsd": 0.0,
+          "eta": "8-16 days",
+          "tracked": true,
+          "observedOn": "2026-08-27",
+          "source": "DSers Shipping info, AliExpress Selection Standard from CN, ship-to Canada: Free Shipping."
+        }
+      }
+    },
+    {
+      "handle": "compression-packing-cube-set-5-piece",
+      "sku": "14:1052;200007763:201336100",
+      "supplierItemId": "1005008575269485",
+      "itemCostUsd": 27.94,
+      "itemCostObservedOn": "2026-08-27",
+      "stockOnSupplier": 975,
+      "derivedFrom": {
+        "note": "Pink. Per-SKU cost was not read individually: the DSers product card quotes the whole product as USD 26.69-27.94 (shown alongside as CA$37.03-38.76), and every SKU here carries the TOP of the USD range. CORRECTED 2026-08-27: this row first carried 27.69, derived by dividing the CAD top by the 1.4 planning rate. That was wrong - the CAD figures are DSers own conversion at ~1.387, so back-converting them understated the supplier USD price by 0.25. The USD range is the primary figure and is now used directly. Stock is per-SKU and was read on 2026-08-27; the file-level supplierStockObservedOn refers to the carried-forward rows, not these."
+      },
+      "routes": {
+        "CA": {
+          "shippingUsd": 0.0,
+          "eta": "8-16 days",
+          "tracked": true,
+          "observedOn": "2026-08-27",
+          "source": "DSers Shipping info, AliExpress Selection Standard from CN, ship-to Canada: Free Shipping."
+        }
+      }
+    },
+    {
+      "handle": "compression-packing-cube-set-5-piece",
+      "sku": "14:771;200007763:201336100",
+      "supplierItemId": "1005008575269485",
+      "itemCostUsd": 27.94,
+      "itemCostObservedOn": "2026-08-27",
+      "stockOnSupplier": 993,
+      "derivedFrom": {
+        "note": "Beige. Per-SKU cost was not read individually: the DSers product card quotes the whole product as USD 26.69-27.94 (shown alongside as CA$37.03-38.76), and every SKU here carries the TOP of the USD range. CORRECTED 2026-08-27: this row first carried 27.69, derived by dividing the CAD top by the 1.4 planning rate. That was wrong - the CAD figures are DSers own conversion at ~1.387, so back-converting them understated the supplier USD price by 0.25. The USD range is the primary figure and is now used directly. Stock is per-SKU and was read on 2026-08-27; the file-level supplierStockObservedOn refers to the carried-forward rows, not these."
+      },
+      "routes": {
+        "CA": {
+          "shippingUsd": 0.0,
+          "eta": "8-16 days",
+          "tracked": true,
+          "observedOn": "2026-08-27",
+          "source": "DSers Shipping info, AliExpress Selection Standard from CN, ship-to Canada: Free Shipping."
+        }
+      }
+    },
+    {
+      "handle": "compression-packing-cube-set-5-piece",
+      "sku": "14:193;200007763:201336100",
+      "supplierItemId": "1005008575269485",
+      "itemCostUsd": 27.94,
+      "itemCostObservedOn": "2026-08-27",
+      "stockOnSupplier": 24,
+      "derivedFrom": {
+        "note": "Black. Per-SKU cost was not read individually: the DSers product card quotes the whole product as USD 26.69-27.94 (shown alongside as CA$37.03-38.76), and every SKU here carries the TOP of the USD range. CORRECTED 2026-08-27: this row first carried 27.69, derived by dividing the CAD top by the 1.4 planning rate. That was wrong - the CAD figures are DSers own conversion at ~1.387, so back-converting them understated the supplier USD price by 0.25. The USD range is the primary figure and is now used directly. Stock is per-SKU and was read on 2026-08-27; the file-level supplierStockObservedOn refers to the carried-forward rows, not these."
+      },
+      "routes": {
+        "CA": {
+          "shippingUsd": 0.0,
+          "eta": "8-16 days",
+          "tracked": true,
+          "observedOn": "2026-08-27",
+          "source": "DSers Shipping info, AliExpress Selection Standard from CN, ship-to Canada: Free Shipping."
+        }
+      }
+    }
+  ]
+}

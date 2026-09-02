@@ -7,6 +7,7 @@ import {
   APPROVED_CATALOG_OFFERS,
   ARCHIVED_CATALOG_OFFERS,
   isMarketSuspended,
+  isOfferSellable,
 } from '../app/lib/launch-catalog.js';
 
 // dotenv is a convenience for local runs; the module must still load without
@@ -116,8 +117,17 @@ export async function checkOrganicEconomics({now = new Date()} = {}) {
   const rows = [];
 
   for (const offer of baseline.offers) {
+    // The baseline documents archived evidence as well as live offers, so an
+    // entry here is not by itself a claim that the storefront serves it. Only
+    // a live, sellable offer may be asserted against the storefront - opening
+    // a market must not start demanding products that were deleted from
+    // Shopify on 2026-08-28.
+    const live = APPROVED_CATALOG_OFFERS.find(
+      (candidate) =>
+        candidate.handle === offer.handle && candidate.sku === offer.sku,
+    );
     for (const [market, route] of Object.entries(offer.routes)) {
-      if (isMarketSuspended(market)) continue;
+      if (!live || !isOfferSellable(live, market)) continue;
       const product = marketProducts[market]?.find(
         ({handle}) => handle === offer.handle,
       );
@@ -223,7 +233,10 @@ export function auditBaseline(baseline, now = new Date()) {
       ({handle, sku}) => handle === approved.handle && sku === approved.sku,
     );
     for (const market of approved.markets) {
-      if (isMarketSuspended(market)) continue;
+      // Skip both a closed market and a suspended fulfilment route: neither
+      // can be sold, so demanding current route evidence for it would fail the
+      // gate on offers nobody can buy.
+      if (!isOfferSellable(approved, market)) continue;
       const route = evidence?.routes?.[market];
       if (!route?.tracked || !(Number(route.shippingUsd) >= 0)) {
         failures.push(

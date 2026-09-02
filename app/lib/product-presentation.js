@@ -16,6 +16,9 @@ const LAUNCH_COPY_PREFIX = {
   'the-carry-on-kit-toiletry-organizer-packing-cubes-cable-case':
     'product_copy_kit',
   'compression-packing-cube-set-5-piece': 'product_copy_compression',
+  'pu-leather-watch-roll-travel-case-3-or-6-watches':
+    'product_copy_watchroll36',
+  'pu-leather-watch-roll-travel-case-4-watches': 'product_copy_watchroll4',
 };
 
 function translated(source, key) {

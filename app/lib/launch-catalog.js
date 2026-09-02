@@ -42,6 +42,30 @@ export const MARKET_ROUTE_EVIDENCE_TAGS = Object.freeze({
 });
 
 /**
+ * How an offer physically reaches the customer.
+ *
+ * This is the axis the 2026 United States duty change actually moved. A parcel
+ * posted from China to a US customer now clears customs on every order; a
+ * parcel picked from a US warehouse for a US customer is a domestic shipment
+ * with no customs event at all, and its duty was paid once, upstream, on the
+ * importer's wholesale cost. Those are different economics for the same
+ * market, so the constraint belongs on the offer's route, not on the market.
+ *
+ * The default is deliberately `cn-direct`: an offer that does not say how it
+ * ships is treated as the expensive case and fails closed.
+ */
+export const FULFILMENT_ROUTES = Object.freeze({
+  CN_DIRECT: 'cn-direct',
+  US_LOCAL: 'us-local',
+});
+
+export const DEFAULT_FULFILMENT_ROUTE = FULFILMENT_ROUTES.CN_DIRECT;
+
+export function fulfilmentRouteFor(offer) {
+  return offer?.fulfilment || DEFAULT_FULFILMENT_ROUTE;
+}
+
+/**
  * The 2026-08 travel cohort: exact supplier offers that passed the route,
  * cost, copy, and imagery review. ARCHIVED, not live.
  *
@@ -145,7 +169,90 @@ export const ARCHIVED_CATALOG_OFFERS = Object.freeze([
  * cost evidence recorded. ARCHIVED_CATALOG_OFFERS above holds the previous
  * cohort's evidence for whichever of them come back.
  */
-export const APPROVED_CATALOG_OFFERS = Object.freeze([]);
+export const APPROVED_CATALOG_OFFERS = Object.freeze([
+  // 2026-09-01 watch-roll cohort. United States only, cn-direct fulfilment.
+  //
+  // CORRECTED the same day. These were first entered as us-local on the
+  // strength of the search field `itemCardType: app_us_local_card`. That was a
+  // misread: the flag means the item is MERCHANDISED in the US storefront, not
+  // that it ships from a US warehouse. The listing's own shipping panel, read
+  // with ship-to United States, says "AliExpress Selection Standard", $1.99,
+  // Sep 10-14, with a delivery spread of 8-11 days and USPS only as final mile.
+  // That is a China-direct consolidated line, so the de minimis duty stack
+  // applies in full and every offer here needs its own duty clearance.
+  //
+  // worstCaseDutyContributionUsd is scripts/us-duty-impact.mjs scenario D -
+  // duty assessed on the retail transaction value AND the carrier disbursement
+  // billed - at the retail price each SKU actually carries on the US price
+  // list. Item cost $26.18 (3 slot) / $30.52 (4 slot) / $43.64 (6 slot),
+  // supplier shipping $1.99, duty rate 0.38 for leather cases under 4202.
+  //
+  // WATCH THIS: $26.18 is a Labor Day sale price ending 2026-09-07 against a
+  // $55.70 compare-at. Re-read supplier cost after that date; if it reverts,
+  // every figure below has to be recomputed before these keep selling.
+  //
+  // CA is absent deliberately: the market is suspended and no Canadian route
+  // has been quoted for these supplier variants.
+  Object.freeze({
+    handle: 'pu-leather-watch-roll-travel-case-3-or-6-watches',
+    sku: '14:496#3 Slot Black Red',
+    markets: Object.freeze(['US']),
+    fulfilment: FULFILMENT_ROUTES.CN_DIRECT,
+    worstCaseDutyContributionUsd: 4.45,
+  }),
+  Object.freeze({
+    handle: 'pu-leather-watch-roll-travel-case-3-or-6-watches',
+    sku: '14:865#3 Slot Green Gray',
+    markets: Object.freeze(['US']),
+    fulfilment: FULFILMENT_ROUTES.CN_DIRECT,
+    worstCaseDutyContributionUsd: 4.45,
+  }),
+  // 7 units. Thinnest variant in the cohort - watch for oversell.
+  Object.freeze({
+    handle: 'pu-leather-watch-roll-travel-case-3-or-6-watches',
+    sku: '14:193#3 Slot Brown',
+    markets: Object.freeze(['US']),
+    fulfilment: FULFILMENT_ROUTES.CN_DIRECT,
+    worstCaseDutyContributionUsd: 4.45,
+  }),
+  Object.freeze({
+    handle: 'pu-leather-watch-roll-travel-case-3-or-6-watches',
+    sku: '14:173#6 Slot Brown',
+    markets: Object.freeze(['US']),
+    fulfilment: FULFILMENT_ROUTES.CN_DIRECT,
+    worstCaseDutyContributionUsd: 8.40,
+  }),
+  // 100 units. Deepest stock in the cohort.
+  Object.freeze({
+    handle: 'pu-leather-watch-roll-travel-case-3-or-6-watches',
+    sku: '14:350686#6 Slot Green Gray',
+    markets: Object.freeze(['US']),
+    fulfilment: FULFILMENT_ROUTES.CN_DIRECT,
+    worstCaseDutyContributionUsd: 8.40,
+  }),
+  Object.freeze({
+    handle: 'pu-leather-watch-roll-travel-case-3-or-6-watches',
+    sku: '14:350850#6 Slot Black Red',
+    markets: Object.freeze(['US']),
+    fulfilment: FULFILMENT_ROUTES.CN_DIRECT,
+    worstCaseDutyContributionUsd: 8.40,
+  }),
+  // 4 units.
+  Object.freeze({
+    handle: 'pu-leather-watch-roll-travel-case-4-watches',
+    sku: '14:173#4 Slot Black Gray',
+    markets: Object.freeze(['US']),
+    fulfilment: FULFILMENT_ROUTES.CN_DIRECT,
+    worstCaseDutyContributionUsd: 5.47,
+  }),
+  Object.freeze({
+    handle: 'pu-leather-watch-roll-travel-case-4-watches',
+    sku: '14:100013777#4 Slot Brown Black',
+    markets: Object.freeze(['US']),
+    fulfilment: FULFILMENT_ROUTES.CN_DIRECT,
+    worstCaseDutyContributionUsd: 5.47,
+  }),
+]);
 
 /**
  * A bundle is one Shopify SKU fulfilled as several supplier orders, so it can
@@ -198,36 +305,50 @@ export const RETIRED_CATALOG_HANDLES = new Set([
 ]);
 
 /**
- * Markets closed for commercial rather than evidence reasons.
+ * Commerce closures, at the two levels they actually occur.
  *
- * This is deliberately separate from the per-offer `markets` list and from the
- * route evidence tags. The United States route is still *verified* - the
- * supplier ships there and the parcels arrive. What changed is the landed cost,
- * not the logistics, so deleting the route evidence would record something
- * untrue and would have to be re-earned to reopen.
+ * A market is suspended when there is nothing to sell into it at all. A
+ * fulfilment route is suspended when the goods can be sold but not profitably
+ * delivered by that particular means - which is what the 2026 duty change did,
+ * and it did it to one route rather than to the whole United States market.
  *
  * The US $800 de minimis exemption is gone: suspended for all countries by
  * EO 14324, codified by CBP on 2026-06-24, upheld by the Court of International
  * Trade on 2026-08-13, and repealed by statute on 2027-07-01. The flat
  * per-parcel specific duty that used to cap the damage ceased on 2026-02-28,
- * so every parcel is now assessed ad valorem - roughly 38% on cases and cables,
- * roughly 55% on polyester travel goods - plus $2.69 MPF and a carrier
- * disbursement fee billed to the customer when duty was not prepaid.
+ * so every parcel entering the United States is now assessed ad valorem -
+ * roughly 38% on cases and cables, roughly 55% on polyester travel goods -
+ * plus $2.69 MPF and a carrier disbursement fee billed to the customer when
+ * duty was not prepaid.
  *
  * scripts/us-duty-impact.mjs models this against the exact cost baseline. Even
  * in the most favourable case, where the supplier prepays duty and the customer
  * never sees it, mean contribution falls from $17.60 to $8.26 and the Carry-On
  * Kit turns negative. In the case CBP is actually entitled to apply - duty on
  * the retail transaction value, because in a dropship the purchaser is the end
- * customer - every offer loses money.
+ * customer - every cn-direct offer loses money.
  *
- * Reopening requires a fulfilment change, not a price change: either AliExpress
- * Choice SKUs already stocked in a US warehouse, or bulk import into a US 3PL
- * where one customs entry is amortised across a shipment. Verify with a real
- * 10-20 parcel test before removing this entry.
+ * All of that is a fact about parcels CROSSING THE BORDER. It says nothing
+ * about a US-warehouse offer, whose duty was already paid upstream on the
+ * importer's wholesale cost and which never clears customs on the customer's
+ * order. The previous blanket `US` market suspension over-reached: it closed
+ * the market this store actually sells into on the strength of evidence that
+ * only ever applied to cn-direct fulfilment. The evidence is kept and still
+ * binding - on the route it was measured against.
+ *
+ * A us-local offer therefore needs no re-litigation of duty. What it does
+ * still need is its own route evidence tag and a real cost reading, exactly
+ * like any other offer.
  */
+export const SUSPENDED_FULFILMENT_ROUTES = Object.freeze({
+  US: Object.freeze({
+    [FULFILMENT_ROUTES.CN_DIRECT]:
+      'us-de-minimis-repeal-2026: per-parcel landed duty exceeds contribution',
+  }),
+  CA: Object.freeze({}),
+});
+
 export const SUSPENDED_COMMERCE_MARKETS = Object.freeze({
-  US: 'us-de-minimis-repeal-2026: landed duty exceeds contribution',
   // Added 2026-09-01. Every offer below names a handle deleted from Shopify on
   // 2026-08-28, so there is nothing to sell into Canada. check-production-health
   // asserts the storefront serves exactly the approved handle set and failed CI
@@ -239,6 +360,70 @@ export const SUSPENDED_COMMERCE_MARKETS = Object.freeze({
   CA: 'catalog-empty-2026-08-28: no approved offer resolves',
 });
 
+export function isFulfilmentRouteSuspended(market, route) {
+  const suspended =
+    SUSPENDED_FULFILMENT_ROUTES[String(market || '').toUpperCase()] || {};
+  return Object.prototype.hasOwnProperty.call(
+    suspended,
+    route || DEFAULT_FULFILMENT_ROUTE,
+  );
+}
+
+/**
+ * Markets this storefront can display a catalogue for, in preference order.
+ */
+export const DISCOVERY_MARKETS = Object.freeze(['US', 'CA']);
+
+/**
+ * The market whose cohort a discovery surface should DISPLAY.
+ *
+ * A commercially suspended market must not blank a shared page: Googlebot
+ * crawls from US IPs, so an empty cohort on the canonical /collections/all
+ * would noindex the catalogue for every market - the exact post-deploy
+ * metadata failure of 2026-08-21/22. This previously hard-coded 'CA' as the
+ * fallback, which was only correct while CA happened to be the open market.
+ * It is now the suspended one, so the fallback resolved a suspended market
+ * back to itself and quietly did nothing. Resolve to the first market that is
+ * actually open instead, and let the caller keep checkout closed regardless of
+ * what is displayed.
+ */
+export function resolveDiscoveryMarket(requestedMarket) {
+  const requested = String(requestedMarket || '').toUpperCase();
+  if (requested && !isMarketSuspended(requested)) return requested;
+  return (
+    DISCOVERY_MARKETS.find((market) => !isMarketSuspended(market)) || requested
+  );
+}
+
+/**
+ * An offer is sellable into a market when the market is open, the offer claims
+ * that market, and either its fulfilment route is open there or the offer
+ * carries its own duty clearance.
+ *
+ * The route suspension exists because a percentage duty destroys a thin
+ * margin. It is not a fact about the route in isolation - it is a fact about
+ * the route AT A PRICE POINT. scripts/us-duty-impact.mjs models the same
+ * parcel across four duty bases; the old cohort went negative at $15-52
+ * retail, and the same stack leaves a positive contribution at $89-129 - the
+ * real USD price list, not the CAD one, which runs to $149. A
+ * blanket route ban therefore closes offers that demonstrably work.
+ *
+ * `worstCaseDutyContributionUsd` is the contribution under the HARSHEST
+ * modelled basis - duty assessed on the retail transaction value AND the
+ * carrier disbursement billed - which is the case CBP is actually entitled to
+ * apply to a dropship. An offer may only override a suspended route with a
+ * figure above zero, and that figure must come from the model, not from
+ * optimism. Omitting it keeps the offer closed.
+ */
+export function isOfferSellable(offer, market) {
+  if (!offer || isMarketSuspended(market)) return false;
+  if (!offer.markets.includes(market)) return false;
+  if (!isFulfilmentRouteSuspended(market, fulfilmentRouteFor(offer))) {
+    return true;
+  }
+  return Number(offer.worstCaseDutyContributionUsd) > 0;
+}
+
 export function isMarketSuspended(market) {
   return Object.prototype.hasOwnProperty.call(
     SUSPENDED_COMMERCE_MARKETS,
@@ -249,7 +434,7 @@ export function isMarketSuspended(market) {
 function offersForMarket(market) {
   if (isMarketSuspended(market)) return [];
   return APPROVED_CATALOG_OFFERS.filter((offer) =>
-    offer.markets.includes(market),
+    isOfferSellable(offer, market),
   );
 }
 
@@ -347,10 +532,11 @@ export function resolveApprovedProductMarket(handle, requestedMarket = 'CA') {
   const availableMarkets = [
     ...new Set(
       APPROVED_CATALOG_OFFERS.filter((offer) => offer.handle === handle).flatMap(
-        (offer) => offer.markets,
+        (offer) =>
+          offer.markets.filter((market) => isOfferSellable(offer, market)),
       ),
     ),
-  ].filter((market) => !isMarketSuspended(market));
+  ];
   if (!availableMarkets.length) return null;
 
   const requested = String(requestedMarket || 'CA').toUpperCase();

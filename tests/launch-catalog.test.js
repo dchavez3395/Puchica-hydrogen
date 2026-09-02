@@ -17,6 +17,10 @@ import {
   isApprovedVariantSku,
   isLaunchReadyProduct,
   isMarketSuspended,
+  isFulfilmentRouteSuspended,
+  isOfferSellable,
+  SUSPENDED_FULFILMENT_ROUTES,
+  resolveDiscoveryMarket,
   resolveApprovedProductMarket,
   SUSPENDED_COMMERCE_MARKETS,
   CATALOG_APPROVAL_TAG,
@@ -243,8 +247,20 @@ test('product market resolution fails closed on an empty catalogue', () => {
   // route is advertised as indexable. Verified against production on
   // 2026-09-01: all seven archived handles return 404.
   assert.equal(isMarketSuspended('CA'), true);
-  assert.equal(isMarketSuspended('US'), true);
-  assert.deepEqual(DISCOVERABLE_PRODUCT_HANDLES, []);
+  // US is no longer suspended as a market - the de minimis evidence closes the
+  // cn-direct ROUTE into it, which is all that evidence ever measured. Every
+  // archived offer ships cn-direct, so none of them is sellable there either
+  // way, and the catalogue is empty regardless.
+  assert.equal(isMarketSuspended('US'), false);
+  assert.equal(isFulfilmentRouteSuspended('US', 'cn-direct'), true);
+  assert.equal(isFulfilmentRouteSuspended('US', 'us-local'), false);
+  // The 2026-09-01 watch-roll cohort is live and cn-direct, crossing the
+  // suspended route on its modelled duty contribution, so discovery is no
+  // longer empty. The archived cn-direct handles must still resolve to null.
+  assert.deepEqual(DISCOVERABLE_PRODUCT_HANDLES, [
+    'pu-leather-watch-roll-travel-case-3-or-6-watches',
+    'pu-leather-watch-roll-travel-case-4-watches',
+  ]);
 
   for (const {handle} of ARCHIVED_CATALOG_OFFERS) {
     assert.equal(
@@ -465,11 +481,9 @@ test('exact supplier variants are market-gated independently of products', () =>
   for (const market of ['CA', 'US']) {
     assert.deepEqual(
       APPROVED_VARIANT_SKUS_BY_MARKET[market],
-      isMarketSuspended(market)
-        ? []
-        : APPROVED_CATALOG_OFFERS.filter((offer) =>
-            offer.markets.includes(market),
-          ).map((offer) => offer.sku),
+      APPROVED_CATALOG_OFFERS.filter((offer) =>
+        isOfferSellable(offer, market),
+      ).map((offer) => offer.sku),
     );
   }
 
@@ -518,12 +532,63 @@ test('a suspended market closes commerce without erasing route evidence', () => 
     assert.ok(offer.markets.includes('US'), offer.sku);
   }
 
-  assert.equal(isMarketSuspended('US'), true);
-  assert.equal(isMarketSuspended('us'), true);
   assert.equal(isMarketSuspended('CA'), true);
   assert.equal(isMarketSuspended('ca'), true);
-  assert.match(SUSPENDED_COMMERCE_MARKETS.US, /de-minimis/);
   assert.match(SUSPENDED_COMMERCE_MARKETS.CA, /catalog-empty/);
+
+  // The duty evidence is preserved, scoped to the route it was measured
+  // against. A blanket US market suspension over-reached: it closed the market
+  // this store sells into on evidence that only ever applied to parcels
+  // crossing the border. cn-direct into the US stays shut; us-local does not.
+  assert.equal(isMarketSuspended('US'), false);
+  assert.match(SUSPENDED_FULFILMENT_ROUTES.US['cn-direct'], /de-minimis/);
+  assert.equal(SUSPENDED_FULFILMENT_ROUTES.US['us-local'], undefined);
+  // An offer that does not declare how it ships must fail closed.
+  assert.equal(
+    isOfferSellable({handle: 'h', sku: 's', markets: ['US']}, 'US'),
+    false,
+  );
+  assert.equal(
+    isOfferSellable(
+      {handle: 'h', sku: 's', markets: ['US'], fulfilment: 'us-local'},
+      'US',
+    ),
+    true,
+  );
+
+  // A cn-direct offer may cross the suspended route only by carrying a
+  // positive worst-case duty contribution from scripts/us-duty-impact.mjs.
+  // Zero, negative and absent all keep it closed - the override has to be
+  // earned by a modelled figure, not asserted.
+  const cnDirect = (extra) => ({
+    handle: 'h',
+    sku: 's',
+    markets: ['US'],
+    fulfilment: 'cn-direct',
+    ...extra,
+  });
+  assert.equal(isOfferSellable(cnDirect({}), 'US'), false);
+  assert.equal(
+    isOfferSellable(cnDirect({worstCaseDutyContributionUsd: 0}), 'US'),
+    false,
+  );
+  assert.equal(
+    isOfferSellable(cnDirect({worstCaseDutyContributionUsd: -4.32}), 'US'),
+    false,
+  );
+  assert.equal(
+    isOfferSellable(cnDirect({worstCaseDutyContributionUsd: 8.15}), 'US'),
+    true,
+  );
+  // Canada has no suspended route, so the clearance is irrelevant there - but
+  // the market itself is shut, which still wins.
+  assert.equal(
+    isOfferSellable(
+      {...cnDirect({worstCaseDutyContributionUsd: 8.15}), markets: ['CA']},
+      'CA',
+    ),
+    false,
+  );
 
   // The evidence neither the suspension nor the emptying may erase. Ten exact
   // offers across seven handles, each keeping its own market list, so
@@ -534,16 +599,25 @@ test('a suspended market closes commerce without erasing route evidence', () => 
     new Set(ARCHIVED_CATALOG_OFFERS.map((offer) => offer.handle)).size,
     7,
   );
-  assert.deepEqual(DISCOVERABLE_PRODUCT_HANDLES, []);
+  // Discovery now carries the live us-local cohort and nothing archived: the
+  // ten archived offers stay evidence, not inventory.
+  assert.deepEqual(DISCOVERABLE_PRODUCT_HANDLES, [
+    'pu-leather-watch-roll-travel-case-3-or-6-watches',
+    'pu-leather-watch-roll-travel-case-4-watches',
+  ]);
+  for (const archived of ARCHIVED_CATALOG_OFFERS) {
+    assert.ok(
+      !DISCOVERABLE_PRODUCT_HANDLES.includes(archived.handle),
+      archived.handle,
+    );
+  }
 });
 
 test('approved handles and SKUs derive from one exact-offer cohort', () => {
   for (const market of ['CA', 'US']) {
-    const offers = isMarketSuspended(market)
-      ? []
-      : APPROVED_CATALOG_OFFERS.filter((offer) =>
-          offer.markets.includes(market),
-        );
+    const offers = APPROVED_CATALOG_OFFERS.filter((offer) =>
+      isOfferSellable(offer, market),
+    );
 
     assert.deepEqual(
       APPROVED_VARIANT_SKUS_BY_MARKET[market],
@@ -558,10 +632,22 @@ test('approved handles and SKUs derive from one exact-offer cohort', () => {
   // the lists derive FROM is untouched - ten SKUs across seven handles, the
   // compression cube set contributing four colour SKUs under one handle - so
   // deleting a suspension entry restores exactly that shape.
+  // Canada stays shut - the market is suspended and these offers claim only
+  // US. The United States now carries eight exact variant SKUs across two
+  // handles: six colour/size SKUs on the 3-or-6 roll, two on the 4.
   assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.CA.length, 0);
   assert.equal(APPROVED_PRODUCT_HANDLES_BY_MARKET.CA.length, 0);
-  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.US.length, 0);
-  assert.equal(APPROVED_PRODUCT_HANDLES_BY_MARKET.US.length, 0);
+  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.US.length, 8);
+  assert.equal(APPROVED_PRODUCT_HANDLES_BY_MARKET.US.length, 2);
+  // The cohort is cn-direct - the AliExpress Selection Standard quote read on
+  // 2026-09-01 is a China-direct line, not a US warehouse - so every offer must
+  // carry a positive worst-case duty contribution or it cannot cross the
+  // suspended route.
+  for (const offer of APPROVED_CATALOG_OFFERS) {
+    assert.equal(offer.fulfilment, 'cn-direct', offer.sku);
+    assert.ok(Number(offer.worstCaseDutyContributionUsd) > 0, offer.sku);
+    assert.equal(isOfferSellable(offer, 'US'), true, offer.sku);
+  }
 
   const caCohort = ARCHIVED_CATALOG_OFFERS.filter((offer) =>
     offer.markets.includes('CA'),
@@ -630,7 +716,13 @@ test('collection catalogue falls back when the resolved market is suspended', as
     'utf8',
   );
 
-  assert.match(route, /isMarketSuspended\(resolvedCountry\) \? 'CA'/);
+  // The fallback used to hard-code 'CA', which was only correct while CA was
+  // the open market. It is now the suspended one, so a hard-coded fallback
+  // resolved a suspended market back to itself. The resolver picks whichever
+  // market is actually open.
+  assert.match(route, /resolveDiscoveryMarket\(resolvedCountry\)/);
+  assert.equal(isMarketSuspended(resolveDiscoveryMarket('CA')), false);
+  assert.equal(isMarketSuspended(resolveDiscoveryMarket('US')), false);
   assert.match(route, /filterLaunchProducts\(rawProducts\?\.nodes, country\)/);
   // The emptiness fail-safe itself must stay: a genuinely empty catalogue
   // should still noindex rather than serve Google a blank shop page.

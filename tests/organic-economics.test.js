@@ -75,6 +75,24 @@ const completeBaseline = {
         US: {shippingUsd: 4.15, tracked: true},
       },
     },
+    // The live 2026-09-01 watch-roll cohort: United States only, cn-direct,
+    // crossing the suspended route on a modelled duty contribution. Costs and
+    // the $1.99 supplier ship match the dated evidence file on disk.
+    ...[
+      ['pu-leather-watch-roll-travel-case-3-or-6-watches', '14:496#3 Slot Black Red', 26.18],
+      ['pu-leather-watch-roll-travel-case-3-or-6-watches', '14:865#3 Slot Green Gray', 26.18],
+      ['pu-leather-watch-roll-travel-case-3-or-6-watches', '14:193#3 Slot Brown', 26.18],
+      ['pu-leather-watch-roll-travel-case-3-or-6-watches', '14:173#6 Slot Brown', 43.64],
+      ['pu-leather-watch-roll-travel-case-3-or-6-watches', '14:350686#6 Slot Green Gray', 43.64],
+      ['pu-leather-watch-roll-travel-case-3-or-6-watches', '14:350850#6 Slot Black Red', 43.64],
+      ['pu-leather-watch-roll-travel-case-4-watches', '14:173#4 Slot Black Gray', 30.52],
+      ['pu-leather-watch-roll-travel-case-4-watches', '14:100013777#4 Slot Brown Black', 30.52],
+    ].map(([handle, sku, itemCostUsd]) => ({
+      handle,
+      sku,
+      itemCostUsd,
+      routes: {US: {shippingUsd: 1.99, tracked: true}},
+    })),
     // Canada only: no US route has been quoted for this supplier. Each colour
     // is its own row because the gate is per-SKU, and all four carry the same
     // cost because DSers quoted the product as a range rather than per-SKU.
@@ -222,18 +240,37 @@ test('an undated baseline filename fails closed', () => {
   );
 });
 
-test('a missing route for a commercially suspended market is not a failure', () => {
-  // The US is suspended (de minimis repeal). Route evidence for it is welcome
-  // history but must not be demanded: a fresh baseline read while the market
-  // is closed will simply not have US rows, and the gate should not force a
-  // DSers trip for a market the storefront refuses to sell into.
-  const withoutUsRoutes = structuredClone(completeBaseline);
-  for (const offer of withoutUsRoutes.offers) {
+test('route evidence is demanded only for what can actually be sold', () => {
+  // This asserted "the US market is suspended, so US routes are not demanded"
+  // until 2026-09-01, when the de minimis evidence was rescoped from the US
+  // MARKET to the cn-direct ROUTE into it. The principle it was protecting is
+  // unchanged: the gate must not force a DSers trip for something nobody can
+  // buy. What changed is which offers that covers. The archived cohort ships
+  // cn-direct with no duty override and Canada is suspended outright, so
+  // neither market may demand route evidence for them.
+  const trimmed = structuredClone(completeBaseline);
+  for (const offer of trimmed.offers) {
+    if (offer.handle.startsWith('pu-leather-watch-roll')) continue;
     delete offer.routes.US;
+    delete offer.routes.CA;
   }
-  const failures = auditBaseline(withoutUsRoutes, new Date('2026-08-15T00:00:00Z'));
+  const failures = auditBaseline(trimmed, new Date('2026-08-15T00:00:00Z'));
+  assert.deepEqual(
+    failures.filter((f) => /route/.test(f)),
+    [],
+    `unsellable offers must not demand route evidence: ${failures.join('; ')}`,
+  );
+
+  // The other half of the same rule, which the old test could not express
+  // while nothing was sellable: an offer that IS sellable must still produce
+  // its route evidence, or the skip above would be a hole rather than a rule.
+  const missing = structuredClone(completeBaseline);
+  delete missing.offers.find(({sku}) => sku === '14:496#3 Slot Black Red')
+    .routes.US;
   assert.ok(
-    !failures.some((f) => /US route/.test(f)),
-    `US routes must not be demanded while suspended: ${failures.join('; ')}`,
+    auditBaseline(missing, new Date('2026-08-15T00:00:00Z')).some((f) =>
+      /Missing tracked US route/.test(f),
+    ),
+    'a sellable offer must still be required to carry its route evidence',
   );
 });

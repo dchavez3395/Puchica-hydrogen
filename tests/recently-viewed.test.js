@@ -34,9 +34,18 @@ test('recently viewed fails closed by exact SKU and market', () => {
   // from before the suspension must not resurrect a purchasable rail in
   // either one. Browser storage outlives a deploy; this is the only thing
   // standing between it and a dead PDP.
+  // Canada is suspended outright. The United States reopened on 2026-09-01 but
+  // approves only the watch-roll cohort, so these archived entries are dropped
+  // there by the approval list rather than by the suspension - which is the
+  // stronger of the two guards, because it is the one that keeps working after
+  // a market comes back.
   assert.equal(isMarketSuspended('CA'), true);
-  assert.equal(isMarketSuspended('US'), true);
+  assert.equal(isMarketSuspended('US'), false);
   assert.deepEqual(APPROVED_VARIANT_SKUS_BY_MARKET.CA, []);
+  assert.ok(
+    !APPROVED_VARIANT_SKUS_BY_MARKET.US.includes(packingSku),
+    'the reopened US market must not approve an archived SKU',
+  );
   assert.deepEqual(filterRecentlyViewedForMarket(entries, 'CA'), []);
   assert.deepEqual(filterRecentlyViewedForMarket(entries, 'US'), []);
 

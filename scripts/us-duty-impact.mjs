@@ -43,6 +43,33 @@ const OFFERS = [
   ['the-carry-on-kit-toiletry-organizer-packing-cubes-cable-case', 52.0, 24.82, 4.15, 0.55],
 ];
 
+/**
+ * The live 2026-09-01 watch-roll cohort, kept as its own list so the archived
+ * mean above stays comparable to what was reported when the market closed.
+ *
+ * These are the rows behind `worstCaseDutyContributionUsd` in
+ * app/lib/launch-catalog.js: scenario D is the figure each offer carries, and
+ * it is the only thing that lets a cn-direct offer cross the suspended US
+ * route. Retail is the real USD price list read from Shopify
+ * contextualPricing(country: US) on 2026-09-02 - $89 / $99 / $129, NOT the CAD
+ * list, which runs to $149 and would flatter every line here. Duty rate 0.38
+ * is leather cases under HTS 4202.
+ *
+ * WATCH THIS: $26.18 / $30.52 / $43.64 are Labor Day sale prices ending
+ * 2026-09-07. If they revert toward the $55.70 compare-at, re-run this before
+ * these keep selling - at 5-6% contribution there is no room to absorb it.
+ */
+const LIVE_OFFERS = [
+  ['watch-roll 3 slot', 89.0, 26.18, 1.99, 0.38],
+  ['watch-roll 4 slot', 99.0, 30.52, 1.99, 0.38],
+  ['watch-roll 6 slot', 129.0, 43.64, 1.99, 0.38],
+];
+
+const COHORTS = [
+  ['Archived 2026-08 cohort', OFFERS],
+  ['Live 2026-09 watch-roll cohort', LIVE_OFFERS],
+];
+
 function contribution({retail, itemCost, supplierShip, dutyRate, basis, carrier}) {
   const collected = retail >= FREE_SHIP_OVER ? retail : retail + COLLECTED_SHIPPING;
   const landed = itemCost + supplierShip;
@@ -72,19 +99,22 @@ const SCENARIOS = [
 const pad = (s, n) => String(s).padEnd(n);
 const num = (v) => (v < 0 ? '-' : ' ') + '$' + Math.abs(v).toFixed(2).padStart(6);
 
-for (const [label, basis, carrier] of SCENARIOS) {
-  console.log('\n' + label);
-  console.log('-'.repeat(76));
-  let total = 0;
-  for (const [handle, retail, itemCost, supplierShip, dutyRate] of OFFERS) {
-    const c = contribution({retail, itemCost, supplierShip, dutyRate, basis, carrier});
-    total += c;
-    const flag = c < 0 ? '  LOSS' : '';
-    console.log(
-      `  ${pad(handle.slice(0, 44), 46)} ${pad('$' + retail.toFixed(2), 8)} ${num(c)}${flag}`,
-    );
+for (const [cohortLabel, cohort] of COHORTS) {
+  console.log('\n\n=== ' + cohortLabel + ' ===');
+  for (const [label, basis, carrier] of SCENARIOS) {
+    console.log('\n' + label);
+    console.log('-'.repeat(76));
+    let total = 0;
+    for (const [handle, retail, itemCost, supplierShip, dutyRate] of cohort) {
+      const c = contribution({retail, itemCost, supplierShip, dutyRate, basis, carrier});
+      total += c;
+      const flag = c < 0 ? '  LOSS' : '';
+      console.log(
+        `  ${pad(handle.slice(0, 44), 46)} ${pad('$' + retail.toFixed(2), 8)} ${num(c)}${flag}`,
+      );
+    }
+    console.log(`  ${pad('', 46)} ${pad('mean', 8)} ${num(total / cohort.length)}`);
   }
-  console.log(`  ${pad('', 46)} ${pad('mean', 8)} ${num(total / OFFERS.length)}`);
 }
 
 console.log(`

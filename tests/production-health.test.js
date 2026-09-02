@@ -25,18 +25,35 @@ test('production monitor shares the verified market cohorts', () => {
   // identity is the assertion; the contents follow from the suspension table.
   assert.equal(EXPECTED_HANDLES_BY_MARKET, APPROVED_PRODUCT_HANDLES_BY_MARKET);
 
-  // Both markets are commercially suspended, so production monitoring expects
-  // nothing sellable anywhere. If a product appears on the live storefront
-  // while a suspension stands, the monitor fails - which is what caught the
-  // empty Canadian catalogue in the first place.
+  // Canada stays empty: it is suspended outright because every handle it used
+  // to sell was deleted from Shopify on 2026-08-28. If a product appears on
+  // the live storefront while that suspension stands the monitor fails, which
+  // is what caught the empty Canadian catalogue in the first place.
   assert.deepEqual(EXPECTED_HANDLES_BY_MARKET.CA, []);
-  assert.deepEqual(EXPECTED_HANDLES_BY_MARKET.US, []);
 
-  // Nothing is discoverable either: the seven handles were deleted from
-  // Shopify on 2026-08-28 and verified 404 in production on 2026-09-01, so
-  // the monitor must not expect a live page, sitemap entry or feed item for
-  // any of them. Their evidence lives in ARCHIVED_CATALOG_OFFERS.
-  assert.deepEqual(DISCOVERABLE_PRODUCT_HANDLES, []);
+  // The United States is no longer empty. The 2026-09-01 watch-roll cohort
+  // crosses the suspended cn-direct route on a modelled duty contribution, so
+  // the monitor must now expect exactly those two handles to be live - and to
+  // fail if they 404, the same way it failed when Canada emptied.
+  assert.deepEqual(EXPECTED_HANDLES_BY_MARKET.US, [
+    'pu-leather-watch-roll-travel-case-3-or-6-watches',
+    'pu-leather-watch-roll-travel-case-4-watches',
+  ]);
+
+  // Discovery follows the live cohort. The seven previous handles were deleted
+  // from Shopify on 2026-08-28 and verified 404 in production on 2026-09-01,
+  // so the monitor must not expect a page, sitemap entry or feed item for any
+  // of them; their evidence lives in ARCHIVED_CATALOG_OFFERS.
+  assert.deepEqual(DISCOVERABLE_PRODUCT_HANDLES, [
+    'pu-leather-watch-roll-travel-case-3-or-6-watches',
+    'pu-leather-watch-roll-travel-case-4-watches',
+  ]);
+  for (const retired of RETIRED_CATALOG_HANDLES) {
+    assert.ok(
+      !DISCOVERABLE_PRODUCT_HANDLES.includes(retired),
+      `${retired} is retired and must not be discoverable`,
+    );
+  }
   assert.equal(ARCHIVED_CATALOG_OFFERS.length, 10);
 
   // Retirement is a separate, still-active rail: those handles must 404.

@@ -74,10 +74,30 @@ test('an unknown handle never gets a link', () => {
   assert.ok(result.failures.some((f) => /not an approved/.test(f)));
 });
 
-test('the suspended United States market yields no links', () => {
+test('the reopened United States market still yields no Stage 1 links', () => {
+  // The US stopped being a suspended MARKET on 2026-09-01: the de minimis
+  // evidence was rescoped to the cn-direct route into it. Paid links must
+  // still refuse to build, but for the reason that is actually true now -
+  // every Stage 1 creative was shot for black-travel-tech-case, which is
+  // archived and approved in neither market. Asserting the exact refusal is
+  // the point of the test: a link that builds, or that is refused for a stale
+  // reason, is ad spend pointed at a 404.
+  assert.equal(isMarketSuspended('US'), false, 'US reopened as a market');
+
   const result = buildCampaignLinks({market: 'US'});
-  assert.equal(result.links.length, 0, 'US is commercially suspended');
-  assert.ok(result.failures.some((f) => /suspended/.test(f)));
+  assert.equal(result.links.length, 0, 'no approved US creative exists yet');
+  for (const creative of STAGE_1_CREATIVES) {
+    assert.ok(
+      result.failures.includes(
+        `${creative.content}: ${creative.handle} is not an approved US offer.`,
+      ),
+      `${creative.content} must be refused as unapproved, not as suspended`,
+    );
+  }
+  assert.ok(
+    !result.failures.some((f) => /suspended/.test(f)),
+    'the market is open, so nothing may be refused for suspension',
+  );
 });
 
 test('links carry the full five-part UTM scheme', () => {

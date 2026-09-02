@@ -198,8 +198,14 @@ test('a suspended market rejects even its own formerly approved SKU', async () =
     },
   };
 
+  // Canada is suspended outright, so it approves nothing. The United States
+  // reopened on 2026-09-01 but approves only the watch-roll cohort, so this
+  // archived Canadian SKU is refused there too - by the approval list rather
+  // than by the suspension. Both refusals matter: a stale cart must not
+  // survive a reload into checkout in either market, and reopening a market
+  // must not resurrect the SKUs that were sellable before it closed.
   assert.equal(isMarketSuspended('CA'), true);
-  assert.equal(isMarketSuspended('US'), true);
+  assert.equal(isMarketSuspended('US'), false);
   assert.deepEqual(await rejectedCartLineIds(storefront, cart, 'CA'), [
     'gid://shopify/CartLine/line-ca',
   ]);
@@ -210,6 +216,10 @@ test('a suspended market rejects even its own formerly approved SKU', async () =
     APPROVED_VARIANT_SKUS_BY_MARKET.CA,
     [],
     'a suspended market exposes no approved SKUs',
+  );
+  assert.ok(
+    !APPROVED_VARIANT_SKUS_BY_MARKET.US.includes(packingSku),
+    'the reopened US market must not approve an archived Canadian SKU',
   );
 });
 

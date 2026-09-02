@@ -2,10 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 
 import {evaluateOrderSignal} from '../scripts/check-first-order-signal.mjs';
-import {
-  APPROVED_CATALOG_OFFERS,
-  ARCHIVED_CATALOG_OFFERS,
-} from '../app/lib/launch-catalog.js';
+import {ARCHIVED_CATALOG_OFFERS} from '../app/lib/launch-catalog.js';
 
 const money = (amount, currencyCode = 'CAD') => ({
   presentmentMoney: {amount: String(amount), currencyCode},
@@ -66,9 +63,13 @@ test('an empty catalogue blocks every order line', () => {
   // Nothing is approved for sale, so nothing may be routed to a supplier. If
   // an order arrives anyway it must stop here and be escalated by hand, not
   // fulfilled against evidence that no longer describes a live product.
-  assert.deepEqual(APPROVED_CATALOG_OFFERS, []);
-
-  const result = evaluateOrderSignal([order()]);
+  //
+  // The empty cohort is injected rather than read off the live catalogue. It
+  // used to assert APPROVED_CATALOG_OFFERS was itself empty, which stopped
+  // being true when the watch-roll cohort went live on 2026-09-01 - and that
+  // made this test a statement about the current catalogue rather than about
+  // the fail-closed behaviour it is here to protect.
+  const result = evaluateOrderSignal([order()], {offers: []});
   assert.equal(result.status, 'BLOCKED');
   assert.match(result.failures[0], /Unapproved order line/);
 });
