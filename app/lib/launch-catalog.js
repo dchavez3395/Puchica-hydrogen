@@ -181,15 +181,38 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
   // That is a China-direct consolidated line, so the de minimis duty stack
   // applies in full and every offer here needs its own duty clearance.
   //
-  // worstCaseDutyContributionUsd is scripts/us-duty-impact.mjs scenario D -
-  // duty assessed on the retail transaction value AND the carrier disbursement
-  // billed - at the retail price each SKU actually carries on the US price
-  // list. Item cost $26.18 (3 slot) / $30.52 (4 slot) / $43.64 (6 slot),
-  // supplier shipping $1.99, duty rate 0.38 for leather cases under 4202.
+  // REPRICED AND RE-SOURCED 2026-09-03, after the single-figure
+  // `worstCaseDutyContributionUsd` was replaced by the pair below. One number
+  // could not describe this cohort honestly, because the biggest input to it
+  // is unknown: see US_DUTY_INCIDENCE.
   //
-  // WATCH THIS: $26.18 is a Labor Day sale price ending 2026-09-07 against a
-  // $55.70 compare-at. Re-read supplier cost after that date; if it reverts,
-  // every figure below has to be recomputed before these keep selling.
+  //   dutyPrepaidContributionUsd  scenario E - the duty is already inside the
+  //                               price we pay AliExpress, so nothing further
+  //                               is owed and this is an ordinary margin.
+  //   dutyBilledContributionUsd   scenario D- - duty assessed at 55.1% on the
+  //                               retail transaction value, no carrier
+  //                               billback (the couriers on this line are
+  //                               domestic last-mile and cannot bill anyone).
+  //
+  // Both from scripts/us-duty-impact.mjs at the real USD price list read from
+  // Shopify contextualPricing(country: US). Costs are DSers, read 2026-09-03:
+  // $26.18 (3 slot) / $31.67 (4 slot, worst of a $31.24-31.67 quote) /
+  // $43.48 (6 slot). The earlier $30.52 and $43.64 came from the AliExpress
+  // listing rather than from DSers, which is what we are actually charged.
+  //
+  // The duty rate moved 0.38 -> 0.551: HTS 4202.92.97 at 17.6% MFN, plus 25%
+  // Section 301 List 3, plus the 12.5% forced-labour action effective
+  // 2026-07-24. The 0.38 was inherited and never sourced.
+  //
+  // ON THE SALE PRICE: $26.18 shows as a Labor Day price "ending 2026-09-07"
+  // against a $55.70 anchor. That end date is not worth planning around - the
+  // Korea FTC penalised AliExpress affiliates in 2025 for anchors on 7,400+
+  // listings the goods had never sold at, and AliExpress rolls Labor Day
+  // straight into Super September. Treat $26.18 as the price and watch tariff
+  // pass-through instead. Do re-read cost in DSers monthly.
+  //
+  // STOCK is thinner than Shopify believes: the listing showed 10 and 9 units
+  // on the two 3-slot colours where Shopify holds 11 of each.
   //
   // CA is absent deliberately: the market is suspended and no Canadian route
   // has been quoted for these supplier variants.
@@ -198,14 +221,16 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
     sku: '14:496#3 Slot Black Red',
     markets: Object.freeze(['US']),
     fulfilment: FULFILMENT_ROUTES.CN_DIRECT,
-    worstCaseDutyContributionUsd: 4.45,
+    dutyPrepaidContributionUsd: 48.52,
+    dutyBilledContributionUsd: -3.21,
   }),
   Object.freeze({
     handle: 'pu-leather-watch-roll-travel-case-3-or-6-watches',
     sku: '14:865#3 Slot Green Gray',
     markets: Object.freeze(['US']),
     fulfilment: FULFILMENT_ROUTES.CN_DIRECT,
-    worstCaseDutyContributionUsd: 4.45,
+    dutyPrepaidContributionUsd: 48.52,
+    dutyBilledContributionUsd: -3.21,
   }),
   // 7 units. Thinnest variant in the cohort - watch for oversell.
   Object.freeze({
@@ -213,14 +238,16 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
     sku: '14:193#3 Slot Brown',
     markets: Object.freeze(['US']),
     fulfilment: FULFILMENT_ROUTES.CN_DIRECT,
-    worstCaseDutyContributionUsd: 4.45,
+    dutyPrepaidContributionUsd: 48.52,
+    dutyBilledContributionUsd: -3.21,
   }),
   Object.freeze({
     handle: 'pu-leather-watch-roll-travel-case-3-or-6-watches',
     sku: '14:173#6 Slot Brown',
     markets: Object.freeze(['US']),
     fulfilment: FULFILMENT_ROUTES.CN_DIRECT,
-    worstCaseDutyContributionUsd: 8.40,
+    dutyPrepaidContributionUsd: 65.81,
+    dutyBilledContributionUsd: -7.95,
   }),
   // 100 units. Deepest stock in the cohort.
   Object.freeze({
@@ -228,14 +255,16 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
     sku: '14:350686#6 Slot Green Gray',
     markets: Object.freeze(['US']),
     fulfilment: FULFILMENT_ROUTES.CN_DIRECT,
-    worstCaseDutyContributionUsd: 8.40,
+    dutyPrepaidContributionUsd: 65.81,
+    dutyBilledContributionUsd: -7.95,
   }),
   Object.freeze({
     handle: 'pu-leather-watch-roll-travel-case-3-or-6-watches',
     sku: '14:350850#6 Slot Black Red',
     markets: Object.freeze(['US']),
     fulfilment: FULFILMENT_ROUTES.CN_DIRECT,
-    worstCaseDutyContributionUsd: 8.40,
+    dutyPrepaidContributionUsd: 65.81,
+    dutyBilledContributionUsd: -7.95,
   }),
   // 4 units.
   Object.freeze({
@@ -243,14 +272,16 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
     sku: '14:173#4 Slot Black Gray',
     markets: Object.freeze(['US']),
     fulfilment: FULFILMENT_ROUTES.CN_DIRECT,
-    worstCaseDutyContributionUsd: 5.47,
+    dutyPrepaidContributionUsd: 51.68,
+    dutyBilledContributionUsd: -5.56,
   }),
   Object.freeze({
     handle: 'pu-leather-watch-roll-travel-case-4-watches',
     sku: '14:100013777#4 Slot Brown Black',
     markets: Object.freeze(['US']),
     fulfilment: FULFILMENT_ROUTES.CN_DIRECT,
-    worstCaseDutyContributionUsd: 5.47,
+    dutyPrepaidContributionUsd: 51.68,
+    dutyBilledContributionUsd: -5.56,
   }),
 ]);
 
@@ -348,6 +379,47 @@ export const SUSPENDED_FULFILMENT_ROUTES = Object.freeze({
   CA: Object.freeze({}),
 });
 
+/**
+ * WHO ACTUALLY PAYS THE US IMPORT DUTY ON A CN-DIRECT PARCEL.
+ *
+ * This is the largest single unknown in the whole model - about $52 an order
+ * on a 3-slot at $89 - and it is deliberately recorded as a state rather than
+ * assumed, because assuming it either way has already gone wrong once.
+ *
+ *   'prepaid'    The duty is inside the price we pay AliExpress. Nothing
+ *                further is owed by us or by the customer, and the margin is
+ *                an ordinary dropship margin.
+ *   'billed'     The duty lands on top - on us, or on the customer at the
+ *                door. Every offer in this cohort is loss-making and the
+ *                cohort has to be pulled or re-sourced.
+ *   'unverified' We do not know.
+ *
+ * WHY 'unverified' STILL ALLOWS SELLING. Since 2026-07-24 the postal
+ * informal-entry process requires a bonded filer remitting to CBP in arrears
+ * through Pay.gov, and that process has no recipient-billing mechanism at all.
+ * On a consolidated Selection / Choice line there is literally nobody to hand
+ * the customer a bill, so the duty must be funded upstream - which points hard
+ * at 'prepaid'. That is an inference from the regulations, not a reading, so
+ * it does not get to be recorded as fact.
+ *
+ * WHAT MAKES THAT SAFE. No money moves on a guess. DSers shows a "Tax&Fee"
+ * line on the order card BEFORE payment is taken, so the first genuine US
+ * order settles this at zero risk: $0.00 there means 'prepaid'; anything else
+ * means 'billed', and the standing rule to requote before paying a supplier
+ * stops the order there. Set this constant from that reading and re-run
+ * scripts/us-duty-impact.mjs.
+ *
+ * It can also be settled sooner, from a signed-in AliExpress checkout with a
+ * US address: look for an "Import charges" line in the order summary.
+ */
+export const US_DUTY_INCIDENCE_STATES = Object.freeze({
+  PREPAID: 'prepaid',
+  BILLED: 'billed',
+  UNVERIFIED: 'unverified',
+});
+
+export const US_DUTY_INCIDENCE = US_DUTY_INCIDENCE_STATES.UNVERIFIED;
+
 export const SUSPENDED_COMMERCE_MARKETS = Object.freeze({
   // Added 2026-09-01. Every offer below names a handle deleted from Shopify on
   // 2026-08-28, so there is nothing to sell into Canada. check-production-health
@@ -402,18 +474,20 @@ export function resolveDiscoveryMarket(requestedMarket) {
  *
  * The route suspension exists because a percentage duty destroys a thin
  * margin. It is not a fact about the route in isolation - it is a fact about
- * the route AT A PRICE POINT. scripts/us-duty-impact.mjs models the same
- * parcel across four duty bases; the old cohort went negative at $15-52
- * retail, and the same stack leaves a positive contribution at $89-129 - the
- * real USD price list, not the CAD one, which runs to $149. A
- * blanket route ban therefore closes offers that demonstrably work.
+ * the route AT A PRICE POINT, and about who ends up paying the duty.
  *
- * `worstCaseDutyContributionUsd` is the contribution under the HARSHEST
- * modelled basis - duty assessed on the retail transaction value AND the
- * carrier disbursement billed - which is the case CBP is actually entitled to
- * apply to a dropship. An offer may only override a suspended route with a
- * figure above zero, and that figure must come from the model, not from
- * optimism. Omitting it keeps the offer closed.
+ * Which of the two per-offer figures binds is decided by US_DUTY_INCIDENCE:
+ *
+ *   'prepaid'     dutyPrepaidContributionUsd must be above zero.
+ *   'billed'      dutyBilledContributionUsd must be above zero. Nothing in
+ *                 the current cohort clears this, which is the point - if the
+ *                 reading comes back 'billed', the catalogue empties by
+ *                 itself and the storefront stops selling a loss.
+ *   'unverified'  the prepaid figure binds, and the per-order Tax&Fee check
+ *                 in DSers is what stands between that and paying a supplier.
+ *
+ * Both figures must come from scripts/us-duty-impact.mjs, not from optimism,
+ * and an offer that omits the one currently binding stays closed.
  */
 export function isOfferSellable(offer, market) {
   if (!offer || isMarketSuspended(market)) return false;
@@ -421,7 +495,11 @@ export function isOfferSellable(offer, market) {
   if (!isFulfilmentRouteSuspended(market, fulfilmentRouteFor(offer))) {
     return true;
   }
-  return Number(offer.worstCaseDutyContributionUsd) > 0;
+  const binding =
+    US_DUTY_INCIDENCE === US_DUTY_INCIDENCE_STATES.BILLED
+      ? offer.dutyBilledContributionUsd
+      : offer.dutyPrepaidContributionUsd;
+  return Number(binding) > 0;
 }
 
 export function isMarketSuspended(market) {

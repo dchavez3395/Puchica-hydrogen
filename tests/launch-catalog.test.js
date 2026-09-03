@@ -20,6 +20,8 @@ import {
   isFulfilmentRouteSuspended,
   isOfferSellable,
   SUSPENDED_FULFILMENT_ROUTES,
+  US_DUTY_INCIDENCE,
+  US_DUTY_INCIDENCE_STATES,
   resolveDiscoveryMarket,
   resolveApprovedProductMarket,
   SUSPENDED_COMMERCE_MARKETS,
@@ -557,9 +559,9 @@ test('a suspended market closes commerce without erasing route evidence', () => 
   );
 
   // A cn-direct offer may cross the suspended route only by carrying a
-  // positive worst-case duty contribution from scripts/us-duty-impact.mjs.
-  // Zero, negative and absent all keep it closed - the override has to be
-  // earned by a modelled figure, not asserted.
+  // positive contribution under whichever duty scenario US_DUTY_INCIDENCE
+  // currently makes binding. Zero, negative and absent all keep it closed -
+  // the override has to be earned by a modelled figure, not asserted.
   const cnDirect = (extra) => ({
     handle: 'h',
     sku: 's',
@@ -567,26 +569,36 @@ test('a suspended market closes commerce without erasing route evidence', () => 
     fulfilment: 'cn-direct',
     ...extra,
   });
+  const clearance = (value) =>
+    US_DUTY_INCIDENCE === US_DUTY_INCIDENCE_STATES.BILLED
+      ? {dutyBilledContributionUsd: value}
+      : {dutyPrepaidContributionUsd: value};
+
   assert.equal(isOfferSellable(cnDirect({}), 'US'), false);
-  assert.equal(
-    isOfferSellable(cnDirect({worstCaseDutyContributionUsd: 0}), 'US'),
-    false,
+  assert.equal(isOfferSellable(cnDirect(clearance(0)), 'US'), false);
+  assert.equal(isOfferSellable(cnDirect(clearance(-4.32)), 'US'), false);
+  assert.equal(isOfferSellable(cnDirect(clearance(8.15)), 'US'), true);
+
+  // The other scenario's figure must not be able to open the route on its own.
+  // This is the assertion that stops a healthy prepaid number quietly covering
+  // for a loss-making billed one once the incidence is actually known.
+  const otherOnly =
+    US_DUTY_INCIDENCE === US_DUTY_INCIDENCE_STATES.BILLED
+      ? {dutyPrepaidContributionUsd: 48.52}
+      : {dutyBilledContributionUsd: 48.52};
+  assert.equal(isOfferSellable(cnDirect(otherOnly), 'US'), false);
+
+  // The incidence is a recorded state, not an assumption. While it is
+  // unverified the prepaid figure binds, and the DSers Tax&Fee check before a
+  // supplier is paid is what makes that safe - see the constant's comment.
+  assert.ok(
+    Object.values(US_DUTY_INCIDENCE_STATES).includes(US_DUTY_INCIDENCE),
   );
-  assert.equal(
-    isOfferSellable(cnDirect({worstCaseDutyContributionUsd: -4.32}), 'US'),
-    false,
-  );
-  assert.equal(
-    isOfferSellable(cnDirect({worstCaseDutyContributionUsd: 8.15}), 'US'),
-    true,
-  );
+
   // Canada has no suspended route, so the clearance is irrelevant there - but
   // the market itself is shut, which still wins.
   assert.equal(
-    isOfferSellable(
-      {...cnDirect({worstCaseDutyContributionUsd: 8.15}), markets: ['CA']},
-      'CA',
-    ),
+    isOfferSellable({...cnDirect(clearance(8.15)), markets: ['CA']}, 'CA'),
     false,
   );
 
@@ -641,11 +653,19 @@ test('approved handles and SKUs derive from one exact-offer cohort', () => {
   assert.equal(APPROVED_PRODUCT_HANDLES_BY_MARKET.US.length, 2);
   // The cohort is cn-direct - the AliExpress Selection Standard quote read on
   // 2026-09-01 is a China-direct line, not a US warehouse - so every offer must
-  // carry a positive worst-case duty contribution or it cannot cross the
-  // suspended route.
+  // carry a positive contribution under the binding duty scenario or it cannot
+  // cross the suspended route.
   for (const offer of APPROVED_CATALOG_OFFERS) {
     assert.equal(offer.fulfilment, 'cn-direct', offer.sku);
-    assert.ok(Number(offer.worstCaseDutyContributionUsd) > 0, offer.sku);
+    // Both scenarios must be recorded, so switching US_DUTY_INCIDENCE is a
+    // one-line change rather than a re-modelling exercise.
+    assert.equal(typeof offer.dutyPrepaidContributionUsd, 'number', offer.sku);
+    assert.equal(typeof offer.dutyBilledContributionUsd, 'number', offer.sku);
+    assert.ok(Number(offer.dutyPrepaidContributionUsd) > 0, offer.sku);
+    // Every offer here is under water if the duty lands on us. That is the
+    // finding, not an oversight: it is why the incidence has to be read off a
+    // real order before a supplier is ever paid.
+    assert.ok(Number(offer.dutyBilledContributionUsd) < 0, offer.sku);
     assert.equal(isOfferSellable(offer, 'US'), true, offer.sku);
   }
 
