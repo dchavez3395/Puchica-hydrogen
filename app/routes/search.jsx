@@ -4,6 +4,7 @@ import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {SearchForm} from '~/components/SearchForm';
 import {SearchResults} from '~/components/SearchResults';
 import {getEmptyPredictiveSearchResult} from '~/lib/search';
+import {CATALOG_IS_EMPTY} from '~/lib/launch-catalog';
 import {puchicaMeta} from '~/lib/seo';
 import {utilityMetaCopy} from '~/lib/utility-meta';
 import {diversifyByVendor} from '~/lib/diversify';
@@ -134,21 +135,33 @@ export default function SearchPage() {
       )}
       {!hasResults ? (
         <div className="pk-search-zero">
-          <div className="pk-search-zero__label">
-            {t('search_trending_label')}
-          </div>
-          <div className="pk-search-zero__chips">
-            {suggestedSearches.map((term) => (
-              <Link
-                key={term}
-                to={`/search?q=${encodeURIComponent(term)}`}
-                className="pk-search-zero__chip"
-                prefetch="intent"
-              >
-                {term}
-              </Link>
-            ))}
-          </div>
+          {/*
+            Suppressed while the catalogue is empty. On 2026-09-08 these chips
+            read "watch roll", "3 slot watch case", "6 slot watch case" - the
+            retired cohort - and each one linked to a search returning zero
+            products that re-rendered the same three chips, so the page's only
+            content was a link back to itself. The hint below still renders,
+            because it is true either way.
+          */}
+          {!CATALOG_IS_EMPTY && (
+            <>
+              <div className="pk-search-zero__label">
+                {t('search_trending_label')}
+              </div>
+              <div className="pk-search-zero__chips">
+                {suggestedSearches.map((term) => (
+                  <Link
+                    key={term}
+                    to={`/search?q=${encodeURIComponent(term)}`}
+                    className="pk-search-zero__chip"
+                    prefetch="intent"
+                  >
+                    {term}
+                  </Link>
+                ))}
+              </div>
+            </>
+          )}
           <div className="pk-search-zero__hint">{t('search_zero_hint')}</div>
         </div>
       ) : (

@@ -11,6 +11,7 @@ import {getRecentlyViewed} from '~/lib/recentlyViewed';
 import {useAside} from './Aside';
 import {useT} from '~/lib/t';
 import {presentProductTitle} from '~/lib/product-presentation';
+import {CATALOG_IS_EMPTY} from '~/lib/launch-catalog';
 
 /**
  * Component that renders predictive search results
@@ -287,21 +288,27 @@ function SearchZeroState({closeSearch}) {
 
   return (
     <div className="pk-search__zero">
-      <div className="pk-search__zero-group">
-        <p className="pk-search__zero-label">{t('search_trending_label')}</p>
-        <div className="pk-search__trending">
-          {trending.map((term) => (
-            <Link
-              key={term}
-              to={`/search?q=${encodeURIComponent(term)}`}
-              onClick={closeSearch}
-              className="pk-chip"
-            >
-              {term}
-            </Link>
-          ))}
+      {/*
+        Suppressed while the catalogue is empty - same reason as the search
+        page: every chip led to a zero-result page that re-rendered the chips.
+      */}
+      {!CATALOG_IS_EMPTY && (
+        <div className="pk-search__zero-group">
+          <p className="pk-search__zero-label">{t('search_trending_label')}</p>
+          <div className="pk-search__trending">
+            {trending.map((term) => (
+              <Link
+                key={term}
+                to={`/search?q=${encodeURIComponent(term)}`}
+                onClick={closeSearch}
+                className="pk-chip"
+              >
+                {term}
+              </Link>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
       {recent.length > 0 ? (
         <div className="pk-search__zero-group">

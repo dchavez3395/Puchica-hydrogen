@@ -19,6 +19,7 @@ export const STOREFRONT_CONTAINMENT_ACTIVE = false;
  */
 export const CATALOG_APPROVAL_TAG = 'puchica-catalog-approved-v1';
 
+
 /**
  * Evidence required before a product can be discovered or purchased.
  *
@@ -356,6 +357,21 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
   // ARCHIVED_CATALOG_OFFERS above for why, and read that note before adding
   // anything here: the market check comes BEFORE the margin model, not after.
 ]);
+/**
+ * True when nothing is approved for sale anywhere.
+ *
+ * Used to suppress discovery affordances that would otherwise send a shopper
+ * to a guaranteed dead end. On 2026-09-08 the search page and the search
+ * drawer both rendered "Shop by need" chips reading `watch roll`,
+ * `3 slot watch case`, `6 slot watch case` - the retired cohort. Clicking one
+ * returned zero products and re-rendered the same three chips, so the only
+ * content on the page was a link back to itself.
+ *
+ * Deliberately derived from the catalogue rather than from
+ * STOREFRONT_CONTAINMENT_ACTIVE, which is `false`: containment is not on, the
+ * store is simply empty, and those are different states.
+ */
+export const CATALOG_IS_EMPTY = APPROVED_CATALOG_OFFERS.length === 0;
 
 /**
  * A bundle is one Shopify SKU fulfilled as several supplier orders, so it can

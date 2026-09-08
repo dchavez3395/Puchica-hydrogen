@@ -126,8 +126,10 @@ export const DICTIONARIES = {
     breadcrumb_aria: 'Breadcrumb',
     search_trending_label: 'Shop by need',
     search_recent_label: 'Recently viewed',
-    search_trending_terms:
-      'watch roll, 3 slot watch case, 6 slot watch case',
+    // Neutral by design. These render only when the catalogue is NOT empty
+    // (see CATALOG_IS_EMPTY), and naming a product here is what let the
+    // retired watch cohort stay on the live search page for days.
+    search_trending_terms: 'new arrivals, gifts, bestsellers',
     col_density_aria: 'Grid density',
     col_density_3_aria: 'Show 3 per row',
     col_density_4_aria: 'Show 4 per row',
@@ -756,8 +758,7 @@ export const DICTIONARIES = {
     breadcrumb_aria: "Fil d'Ariane",
     search_trending_label: 'Acheter selon vos besoins',
     search_recent_label: 'Vus récemment',
-    search_trending_terms:
-      'étui à montres, étui 3 montres, étui 6 montres',
+    search_trending_terms: 'nouveautés, cadeaux, meilleures ventes',
     col_density_aria: 'Densité de la grille',
     col_density_3_aria: 'Afficher 3 par rangée',
     col_density_4_aria: 'Afficher 4 par rangée',
@@ -1407,8 +1408,7 @@ export const DICTIONARIES = {
     breadcrumb_aria: 'Ruta de navegación',
     search_trending_label: 'Compra según tus necesidades',
     search_recent_label: 'Vistos recientemente',
-    search_trending_terms:
-      'estuche para relojes, estuche 3 relojes, estuche 6 relojes',
+    search_trending_terms: 'novedades, regalos, más vendidos',
     col_density_aria: 'Densidad de la cuadrícula',
     col_density_3_aria: 'Mostrar 3 por fila',
     col_density_4_aria: 'Mostrar 4 por fila',
@@ -2058,8 +2058,7 @@ export const DICTIONARIES = {
     breadcrumb_aria: 'Caminho de navegação',
     search_trending_label: 'Compre conforme sua necessidade',
     search_recent_label: 'Vistos recentemente',
-    search_trending_terms:
-      'estojo para relógios, estojo 3 relógios, estojo 6 relógios',
+    search_trending_terms: 'novidades, presentes, mais vendidos',
     col_density_aria: 'Densidade da grade',
     col_density_3_aria: 'Mostrar 3 por linha',
     col_density_4_aria: 'Mostrar 4 por linha',
