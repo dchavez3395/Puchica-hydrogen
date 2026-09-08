@@ -51,13 +51,18 @@ import {APPROVED_CATALOG_OFFERS, US_DUTY_INCIDENCE, US_DUTY_INCIDENCE_STATES}
 import {contribution, CHOICE_LINE_DISBURSEMENT} from './us-duty-impact.mjs';
 
 const DIR = fileURLToPath(new URL('../docs/undercut-evidence/', import.meta.url));
-const MAX_AGE_DAYS = 90;
-const MIN_COMPETITORS = 5;
-const BAND_TOLERANCE = 1.15;
-const MIN_CONTRIBUTION_USD = 12.0;
-const LOCKED_CATEGORY_REVIEWS = 5000;
 
-const median = (xs) => {
+// Exported so scripts/screen-candidates.mjs reports headroom against the same
+// numbers this gate enforces. A screener that carries its own copy of the
+// floor is a screener that quietly disagrees with CI, which is the whole
+// failure this file was written to stop.
+export const MAX_AGE_DAYS = 90;
+export const MIN_COMPETITORS = 5;
+export const BAND_TOLERANCE = 1.15;
+export const MIN_CONTRIBUTION_USD = 12.0;
+export const LOCKED_CATEGORY_REVIEWS = 5000;
+
+export const median = (xs) => {
   const s = [...xs].sort((a, b) => a - b);
   const m = Math.floor(s.length / 2);
   return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2;
