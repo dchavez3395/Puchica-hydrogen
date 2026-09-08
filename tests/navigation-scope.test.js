@@ -7,6 +7,7 @@ import {
   ARCHIVED_CATALOG_OFFERS,
   CATALOG_IS_EMPTY,
 } from '../app/lib/launch-catalog.js';
+import {LAUNCH_COPY_PREFIX} from '../app/lib/product-presentation.js';
 
 const predictiveSearch = await readFile(
   new URL('../app/components/SearchResultsPredictive.jsx', import.meta.url),
@@ -145,7 +146,7 @@ test('retired discovery hubs permanently redirect into the localized catalog', (
  * organizer, packing) and stays legal; a token in one or two identifies a
  * PRODUCT and does not.
  */
-test('trending search terms name no retired product, in any locale', () => {
+test('customer-facing chrome names no retired product, in any locale', () => {
   const handles = new Set(ARCHIVED_CATALOG_OFFERS.map((offer) => offer.handle));
   const frequency = new Map();
   for (const handle of handles) {
@@ -166,13 +167,112 @@ test('trending search terms name no retired product, in any locale', () => {
     'the category split moved: re-read it before trusting this test',
   );
 
+  /*
+   * Widened 2026-09-08, second pass. The first version of this test checked
+   * search_trending_terms ALONE, and while it was green the live
+   * /collections/all hero still read "THE WATCH EDIT / Watch cases that travel
+   * well / Roll cases in three, four and six slots" directly above "Nothing is
+   * listed right now", on a page with zero product cards. A guard that covers
+   * one key is a guard that moves the leak.
+   *
+   * Site-chrome keys only. product_copy_* is deliberately excluded: those are
+   * the retired products' own descriptions, and they SHOULD name the product
+   * they describe. They render only when that product is approved.
+   */
+  const CHROME_KEYS = [
+    'search_trending_terms',
+    'all_breadcrumb',
+    'all_eyebrow',
+    'all_title',
+    'all_sub',
+    'all_empty_title',
+    'all_empty_body',
+  ];
+
+  /*
+   * Widened again, third pass. The English word list above cannot see
+   * "Étuis à montres" or "LA SÉLECTION MONTRES", which is what /fr/collections/all
+   * actually served while this test was green. So each locale is also checked
+   * against words derived from ITS OWN archived product titles.
+   *
+   * Same frequency split, applied per locale: a token appearing in three or
+   * more archived titles is a category word - voyage, organisateur, viaje -
+   * and stays legal; a token in one or two identifies a product - montres,
+   * relojes, cuir - and does not.
+   */
+  const localeProductWords = (locale) => {
+    const titles = [];
+    for (const handle of new Set(ARCHIVED_CATALOG_OFFERS.map((o) => o.handle))) {
+      const prefix = LAUNCH_COPY_PREFIX[handle];
+      const title = prefix && DICTIONARIES[locale][`${prefix}_title`];
+      if (title) titles.push(title);
+    }
+    const frequency = new Map();
+    for (const title of titles) {
+      for (const token of new Set(
+        title
+          .toLowerCase()
+          .split(/[^\p{L}\p{N}]+/u)
+          .filter((w) => w.length >= 5),
+      )) {
+        frequency.set(token, (frequency.get(token) ?? 0) + 1);
+      }
+    }
+    /*
+     * Titles carry adjectives and filler that handles do not - the first cut of
+     * this derived "small" from an archived title and flagged the phrase "the
+     * small things that get lost in a bag". So a candidate is only a PRODUCT
+     * word if it is also absent from that locale's GENERAL vocabulary: every
+     * dictionary value that is neither product copy nor one of the chrome keys
+     * under test. "small" appears throughout ordinary copy and drops out;
+     * "montres" appears only in watch product copy and stays.
+     *
+     * Chrome keys are excluded from the evidence deliberately. Counting them
+     * would be circular - a bad string sitting in the hero would license the
+     * very word that makes it bad.
+     */
+    const general = new Set();
+    for (const [key, value] of Object.entries(DICTIONARIES[locale])) {
+      if (typeof value !== 'string') continue;
+      if (key.startsWith('product_copy_')) continue;
+      if (CHROME_KEYS.includes(key)) continue;
+      for (const token of value
+        .toLowerCase()
+        .split(/[^\p{L}\p{N}]+/u)
+        .filter((w) => w.length >= 5)) {
+        general.add(token);
+      }
+    }
+
+    return {
+      words: [...frequency]
+        .filter(([, n]) => n < 3)
+        .map(([w]) => w)
+        .filter((w) => !general.has(w)),
+      titleCount: titles.length,
+    };
+  };
+
   for (const [locale, dictionary] of Object.entries(DICTIONARIES)) {
-    for (const word of productWords) {
-      assert.doesNotMatch(
-        dictionary.search_trending_terms,
-        new RegExp(`\\b${word}`, 'i'),
-        `${locale}.search_trending_terms names retired product "${word}"`,
-      );
+    const {words: localeWords, titleCount} = localeProductWords(locale);
+    assert.ok(
+      titleCount >= 5,
+      `${locale}: only ${titleCount} archived titles resolved - the mapping moved`,
+    );
+    assert.ok(
+      localeWords.length > 0,
+      `${locale}: derived no product words, so this check is inert`,
+    );
+
+    for (const key of CHROME_KEYS) {
+      assert.ok(dictionary[key], `${locale} is missing ${key}`);
+      for (const word of [...productWords, ...localeWords]) {
+        assert.doesNotMatch(
+          dictionary[key],
+          new RegExp(`\\b${word}`, 'iu'),
+          `${locale}.${key} names retired product "${word}"`,
+        );
+      }
     }
   }
 });

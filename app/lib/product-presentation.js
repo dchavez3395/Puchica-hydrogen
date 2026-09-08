@@ -7,7 +7,13 @@
 // how `travel-cable-organizer-case` and the Carry-On Kit shipped untranslated
 // on the grid, in the cart, and in search. `tests/product-copy.test.js` walks
 // APPROVED_CATALOG_OFFERS and fails if any handle cannot resolve copy.
-const LAUNCH_COPY_PREFIX = {
+/**
+ * Exported for tests/navigation-scope.test.js, which derives per-locale banned
+ * words from each archived product's own localized title. Without the mapping
+ * that check can only ban English words, and the live /fr/collections/all hero
+ * read "LA SÉLECTION MONTRES" while an English-only guard was green.
+ */
+export const LAUNCH_COPY_PREFIX = {
   '3-piece-packing-cube-set': 'product_copy_packing',
   'white-semi-circular-travel-jewelry-case': 'product_copy_jewelry',
   'black-hanging-travel-toiletry-organizer': 'product_copy_toiletry',

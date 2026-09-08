@@ -143,11 +143,16 @@ export const DICTIONARIES = {
     col_sort_newest: 'Newest',
     col_sort_price_asc: 'Price: low to high',
     col_sort_price_desc: 'Price: high to low',
-    all_breadcrumb: 'Watch cases',
-    all_eyebrow: 'The watch edit',
-    all_title: 'Watch cases that travel well',
+    // Category level, deliberately. These named the retired watch cohort and
+    // rendered directly above "Nothing is listed right now" on a page with zero
+    // product cards. Wording matches the shop title restored in the metadata
+    // commit; whether a paused storefront should say so in the hero is a
+    // positioning call and is not made here.
+    all_breadcrumb: 'Travel organizers',
+    all_eyebrow: 'The travel edit',
+    all_title: 'Travel organizers for easier packing',
     all_sub:
-      'Roll cases in three, four and six slots, with a cushioned compartment for each watch and a flat base that does not roll.',
+      'A focused edit for clothing, toiletries and the small things that get lost in a bag.',
     all_empty_title: 'New finds are on the way',
     all_empty_body:
       'We are restocking. Nothing is listed right now — check back shortly.',
@@ -771,11 +776,11 @@ export const DICTIONARIES = {
     col_sort_newest: 'Plus récents',
     col_sort_price_asc: 'Prix : croissant',
     col_sort_price_desc: 'Prix : décroissant',
-    all_breadcrumb: 'Étuis à montres',
-    all_eyebrow: 'La sélection montres',
-    all_title: 'Des étuis à montres faits pour voyager',
+    all_breadcrumb: 'Organisateurs de voyage',
+    all_eyebrow: 'La sélection voyage',
+    all_title: 'Des organisateurs de voyage pour mieux préparer vos bagages',
     all_sub:
-      'Des étuis roulés à trois, quatre et six compartiments, chacun rembourré, sur une base plate qui ne roule pas.',
+      'Une sélection ciblée pour vêtements, articles de toilette et les petits objets qui se perdent dans un sac.',
     all_empty_title: 'De nouveaux articles arrivent',
     all_empty_body:
       'Réapprovisionnement en cours. Rien n’est en ligne pour le moment — revenez bientôt.',
@@ -1421,11 +1426,11 @@ export const DICTIONARIES = {
     col_sort_newest: 'Más recientes',
     col_sort_price_asc: 'Precio: menor a mayor',
     col_sort_price_desc: 'Precio: mayor a menor',
-    all_breadcrumb: 'Estuches para relojes',
-    all_eyebrow: 'La selección de relojes',
-    all_title: 'Estuches para relojes que viajan',
+    all_breadcrumb: 'Organizadores de viaje',
+    all_eyebrow: 'La selección de viaje',
+    all_title: 'Organizadores de viaje para empacar mejor',
     all_sub:
-      'Estuches enrollables de tres, cuatro y seis compartimentos, cada uno acolchado, sobre una base plana que no rueda.',
+      'Una selección enfocada para ropa, artículos de aseo y las cosas pequeñas que se pierden en un bolso.',
     all_empty_title: 'Próximos hallazgos en camino',
     all_empty_body:
       'Estamos reabasteciendo. No hay nada publicado ahora mismo — vuelve pronto.',
@@ -2071,11 +2076,11 @@ export const DICTIONARIES = {
     col_sort_newest: 'Mais recentes',
     col_sort_price_asc: 'Preço: menor para maior',
     col_sort_price_desc: 'Preço: maior para menor',
-    all_breadcrumb: 'Estojos para relógios',
-    all_eyebrow: 'A seleção de relógios',
-    all_title: 'Estojos para relógios que viajam',
+    all_breadcrumb: 'Organizadores de viagem',
+    all_eyebrow: 'A seleção de viagem',
+    all_title: 'Organizadores de viagem para arrumar melhor a mala',
     all_sub:
-      'Estojos enroláveis de três, quatro e seis compartimentos, cada um acolchoado, sobre uma base plana que não rola.',
+      'Uma seleção focada para roupas, itens de higiene e as coisas pequenas que se perdem na bolsa.',
     all_empty_title: 'Novos achados a caminho',
     all_empty_body:
       'Estamos repondo o estoque. Nada está listado no momento — volte em breve.',
