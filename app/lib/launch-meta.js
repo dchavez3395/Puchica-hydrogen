@@ -1,51 +1,81 @@
+/**
+ * Metadata for the two launch surfaces: the home page and /collections/all.
+ *
+ * 2026-09-08. The watch-roll cohort was retired and both markets suspended,
+ * which left this file describing products the store no longer sells. The
+ * rendered pages were already honest - the home page shows the containment
+ * hero ("Shopping is temporarily paused") and /collections/all shows the
+ * restocking empty state - but the title and description are what Google
+ * indexes and what a shared link previews as, and those still read
+ * "Shop Watch Roll Travel Cases" and "PU leather watch roll travel cases in
+ * three, four and six slots".
+ *
+ * What changed and what deliberately did not:
+ *
+ *   TITLES are back to their pre-2026-09-03 wording, which names the category
+ *   and no product. Whether a paused storefront should instead say so in the
+ *   title is a positioning call, not a correctness one, and it is not made
+ *   here.
+ *
+ *   DESCRIPTIONS are rewritten. These are the strings that made concrete
+ *   inventory claims - slot counts, materials - and there is no inventory.
+ *   They now say what the page says.
+ *
+ * `homeCa`/`homeUs` and `shopCa`/`shopUs` are kept even though each pair now
+ * holds the same string. Both markets are closed, so there is nothing to
+ * distinguish; the keys stay so reopening one market is an edit to a string
+ * rather than a change of shape. tests/launch-meta.test.js fails the moment a
+ * market reopens, which is what stops this holding copy from outliving the
+ * containment.
+ */
 const COPY = {
   en: {
     homeTitle: 'Puchica — Travel organizers for easier packing',
     homeCa:
-      'Puchica currently ships to the United States. The watch roll cases in this edit are not available for delivery in Canada.',
+      'Shopping is paused while we verify product and checkout details. Nothing is listed for sale right now. Questions? hello@puchica.ca',
     homeUs:
-      'PU leather watch roll travel cases in three, four and six slots, with cushioned compartments and shipping shown at checkout.',
-    shopTitle: 'Shop Watch Roll Travel Cases — Puchica',
+      'Shopping is paused while we verify product and checkout details. Nothing is listed for sale right now. Questions? hello@puchica.ca',
+    shopTitle: 'Shop Travel Organizers — Puchica',
     shopCa:
-      'These watch roll travel cases are not currently available for delivery in Canada.',
+      'We are restocking. Nothing is listed right now — check back shortly, or email hello@puchica.ca.',
     shopUs:
-      'Shop the PU leather watch roll travel cases currently supported for the United States.',
+      'We are restocking. Nothing is listed right now — check back shortly, or email hello@puchica.ca.',
   },
   fr: {
     homeTitle: 'Puchica — Des organisateurs de voyage pour mieux préparer vos bagages',
     homeCa:
-      'Puchica livre actuellement aux États-Unis. Les étuis à montres de cette sélection ne sont pas encore livrables au Canada.',
+      'Les achats sont en pause pendant que nous vérifions les détails des produits et du paiement. Rien n’est en vente pour le moment. Questions : hello@puchica.ca',
     homeUs:
-      'Des étuis à montres en cuir PU à trois, quatre et six compartiments rembourrés, avec la livraison affichée au paiement.',
-    shopTitle: 'Magasiner les étuis à montres — Puchica',
+      'Les achats sont en pause pendant que nous vérifions les détails des produits et du paiement. Rien n’est en vente pour le moment. Questions : hello@puchica.ca',
+    shopTitle: 'Magasiner les organisateurs de voyage — Puchica',
     shopCa:
-      'Ces étuis à montres de voyage ne sont pas encore livrables au Canada.',
+      'Nous réapprovisionnons. Rien n’est en ligne pour le moment — revenez bientôt ou écrivez à hello@puchica.ca.',
     shopUs:
-      'Magasinez les étuis à montres en cuir PU actuellement offerts aux États-Unis.',
+      'Nous réapprovisionnons. Rien n’est en ligne pour le moment — revenez bientôt ou écrivez à hello@puchica.ca.',
   },
   es: {
     homeTitle: 'Puchica — Organizadores de viaje para empacar mejor',
     homeCa:
-      'Puchica envía actualmente a Estados Unidos. Los estuches para relojes de esta selección todavía no se entregan en Canadá.',
+      'Las compras están en pausa mientras verificamos los detalles de los productos y del pago. Ahora mismo no hay nada a la venta. ¿Preguntas? hello@puchica.ca',
     homeUs:
-      'Estuches de viaje para relojes en cuero PU de tres, cuatro y seis compartimentos acolchados, con el envío visible al pagar.',
-    shopTitle: 'Compra estuches de viaje para relojes — Puchica',
+      'Las compras están en pausa mientras verificamos los detalles de los productos y del pago. Ahora mismo no hay nada a la venta. ¿Preguntas? hello@puchica.ca',
+    shopTitle: 'Compra organizadores de viaje — Puchica',
     shopCa:
-      'Estos estuches de viaje para relojes todavía no se entregan en Canadá.',
+      'Estamos reabasteciendo. Ahora mismo no hay nada publicado: vuelve pronto o escríbenos a hello@puchica.ca.',
     shopUs:
-      'Compra los estuches de viaje para relojes en cuero PU disponibles actualmente en Estados Unidos.',
+      'Estamos reabasteciendo. Ahora mismo no hay nada publicado: vuelve pronto o escríbenos a hello@puchica.ca.',
   },
   'pt-br': {
     homeTitle: 'Puchica — Organizadores de viagem para arrumar melhor a mala',
     homeCa:
-      'A Puchica envia atualmente para os Estados Unidos. Os estojos para relógios desta seleção ainda não são entregues no Canadá.',
+      'As compras estão pausadas enquanto verificamos os detalhes dos produtos e do checkout. No momento não há nada à venda. Dúvidas? hello@puchica.ca',
     homeUs:
-      'Estojos de viagem para relógios em couro PU de três, quatro e seis compartimentos acolchoados, com o frete exibido no checkout.',
-    shopTitle: 'Compre estojos de viagem para relógios — Puchica',
+      'As compras estão pausadas enquanto verificamos os detalhes dos produtos e do checkout. No momento não há nada à venda. Dúvidas? hello@puchica.ca',
+    shopTitle: 'Compre organizadores de viagem — Puchica',
     shopCa:
-      'Estes estojos de viagem para relógios ainda não são entregues no Canadá.',
+      'Estamos reabastecendo. No momento não há nada publicado — volte em breve ou escreva para hello@puchica.ca.',
     shopUs:
-      'Compre os estojos de viagem para relógios em couro PU disponíveis atualmente nos Estados Unidos.',
+      'Estamos reabastecendo. No momento não há nada publicado — volte em breve ou escreva para hello@puchica.ca.',
   },
 };
 
