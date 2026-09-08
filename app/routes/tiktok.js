@@ -1,8 +1,13 @@
 import {redirect} from 'react-router';
 
-// The cable-organizer PDP: the only product with published TikTok creative.
-// The live @puchica_canada bio and the UGC pack both promise this landing —
-// pointing the bio at a product with no TikTok creative wastes the click.
+// TIKTOK_DESTINATION is /collections/all, and that is now the right answer
+// for a different reason than the one this comment used to give. It used to
+// say "the cable-organizer PDP, the only product with published TikTok
+// creative" - that product was deleted on 2026-08-28 and the constant had
+// already been moved to the collection page. Today NEITHER live product has
+// any TikTok creative, because neither has a single second of video, so the
+// collection page is the only landing that does not promise a click something
+// it cannot deliver. See ORGANIC_ASSET_GAPS in scripts/build-campaign-links.mjs.
 //
 // The destination and its attribution live in app/lib/social-bio-links.js so
 // the production health check asserts the same values this route redirects to.

@@ -194,8 +194,24 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
   //                               billback (the couriers on this line are
   //                               domestic last-mile and cannot bill anyone).
   //
-  // Both from scripts/us-duty-impact.mjs at the real USD price list read from
-  // Shopify contextualPricing(country: US). Costs are DSers, read 2026-09-03:
+  // Both from scripts/us-duty-impact.mjs at $49 / $62 / $85 on the US price
+  // list, and they now include the CA$6.99 flat US shipping the delivery
+  // profile actually charges - about $4.99 collected on every US order, which
+  // the model previously threw away by applying Canada's free-over-$50 rule to
+  // the US zone.
+  //
+  // REPRICED 2026-09-03 from $89 / $99 / $129. Those were roughly double the
+  // market - PU three-slot rolls cluster at $30-40, the well-reviewed winners
+  // sit at or under $80, and the $89-129 band belongs to established brands.
+  // The old prices made the billed case look survivable (-$3.21 on a 3-slot)
+  // but only because nothing was selling. Holding a price nobody pays protects
+  // no margin; it guarantees no orders, and no orders means the duty incidence
+  // question can never be settled, because the DSers Tax&Fee reading only
+  // exists on a real order. The exposure if the reading comes back 'billed' is
+  // capped at ONE order: Tax&Fee is shown before the supplier is paid, so that
+  // order gets refunded rather than fulfilled at a loss.
+  //
+  // Costs are DSers, read 2026-09-03:
   // $26.18 (3 slot) / $31.67 (4 slot, worst of a $31.24-31.67 quote) /
   // $43.48 (6 slot). The earlier $30.52 and $43.64 came from the AliExpress
   // listing rather than from DSers, which is what we are actually charged.
@@ -221,16 +237,16 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
     sku: '14:496#3 Slot Black Red',
     markets: Object.freeze(['US']),
     fulfilment: FULFILMENT_ROUTES.CN_DIRECT,
-    dutyPrepaidContributionUsd: 48.52,
-    dutyBilledContributionUsd: -3.21,
+    dutyPrepaidContributionUsd: 18.23,
+    dutyBilledContributionUsd: -11.46,
   }),
   Object.freeze({
     handle: 'pu-leather-watch-roll-travel-case-3-or-6-watches',
     sku: '14:865#3 Slot Green Gray',
     markets: Object.freeze(['US']),
     fulfilment: FULFILMENT_ROUTES.CN_DIRECT,
-    dutyPrepaidContributionUsd: 48.52,
-    dutyBilledContributionUsd: -3.21,
+    dutyPrepaidContributionUsd: 18.23,
+    dutyBilledContributionUsd: -11.46,
   }),
   // 7 units. Thinnest variant in the cohort - watch for oversell.
   Object.freeze({
@@ -238,16 +254,16 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
     sku: '14:193#3 Slot Brown',
     markets: Object.freeze(['US']),
     fulfilment: FULFILMENT_ROUTES.CN_DIRECT,
-    dutyPrepaidContributionUsd: 48.52,
-    dutyBilledContributionUsd: -3.21,
+    dutyPrepaidContributionUsd: 18.23,
+    dutyBilledContributionUsd: -11.46,
   }),
   Object.freeze({
     handle: 'pu-leather-watch-roll-travel-case-3-or-6-watches',
     sku: '14:173#6 Slot Brown',
     markets: Object.freeze(['US']),
     fulfilment: FULFILMENT_ROUTES.CN_DIRECT,
-    dutyPrepaidContributionUsd: 65.81,
-    dutyBilledContributionUsd: -7.95,
+    dutyPrepaidContributionUsd: 32.07,
+    dutyBilledContributionUsd: -17.45,
   }),
   // 100 units. Deepest stock in the cohort.
   Object.freeze({
@@ -255,16 +271,16 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
     sku: '14:350686#6 Slot Green Gray',
     markets: Object.freeze(['US']),
     fulfilment: FULFILMENT_ROUTES.CN_DIRECT,
-    dutyPrepaidContributionUsd: 65.81,
-    dutyBilledContributionUsd: -7.95,
+    dutyPrepaidContributionUsd: 32.07,
+    dutyBilledContributionUsd: -17.45,
   }),
   Object.freeze({
     handle: 'pu-leather-watch-roll-travel-case-3-or-6-watches',
     sku: '14:350850#6 Slot Black Red',
     markets: Object.freeze(['US']),
     fulfilment: FULFILMENT_ROUTES.CN_DIRECT,
-    dutyPrepaidContributionUsd: 65.81,
-    dutyBilledContributionUsd: -7.95,
+    dutyPrepaidContributionUsd: 32.07,
+    dutyBilledContributionUsd: -17.45,
   }),
   // 4 units.
   Object.freeze({
@@ -272,16 +288,16 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
     sku: '14:173#4 Slot Black Gray',
     markets: Object.freeze(['US']),
     fulfilment: FULFILMENT_ROUTES.CN_DIRECT,
-    dutyPrepaidContributionUsd: 51.68,
-    dutyBilledContributionUsd: -5.56,
+    dutyPrepaidContributionUsd: 23.99,
+    dutyBilledContributionUsd: -12.86,
   }),
   Object.freeze({
     handle: 'pu-leather-watch-roll-travel-case-4-watches',
     sku: '14:100013777#4 Slot Brown Black',
     markets: Object.freeze(['US']),
     fulfilment: FULFILMENT_ROUTES.CN_DIRECT,
-    dutyPrepaidContributionUsd: 51.68,
-    dutyBilledContributionUsd: -5.56,
+    dutyPrepaidContributionUsd: 23.99,
+    dutyBilledContributionUsd: -12.86,
   }),
 ]);
 

@@ -156,10 +156,11 @@ test('organic relaunch links all carry the one canonical campaign', async () => 
     '../scripts/build-campaign-links.mjs'
   );
   const result = buildOrganicLinks();
-  // Product posts are refused while CA is suspended; the posts that point at
-  // the home page still build. Whatever survives must carry the one canonical
-  // campaign - that single value is what this test exists to protect, and it
-  // has to hold in both states.
+  // This held when every product post was refused (CA suspended, handles
+  // deleted) and it holds now that all three build against the live US
+  // cohort. The one canonical campaign value is what the test protects, and
+  // it has to survive both states - which is why the failure loop below is
+  // written to pass vacuously rather than to require failures.
   assert.ok(result.links.length > 0, 'home-page posts still build');
   for (const failure of result.failures) {
     assert.match(

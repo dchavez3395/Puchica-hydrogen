@@ -18,6 +18,13 @@
  *   payment fees     3.5%  ->  5.5% (cross-border 3.5% + 2% conversion)
  *   exception reserve 5%   ->  8%
  *
+ * A fifth was found on 2026-09-03 while repricing: the model charged the
+ * CANADIAN delivery profile to US orders - $8 collected below a $50 free
+ * threshold, nothing above it. The live US zone is a CA$6.99 flat rate with no
+ * conditions and no free tier, so a US order collects about $4.99 of shipping
+ * every time, including above $50 where the model collected nothing. That is
+ * roughly $4.30 of contribution per order the model was throwing away.
+ *
  * DUTY RATE. 0.38 was inherited, not sourced. For a PU/leather watch roll the
  * classification is HTS 4202.92.97 (cases with an outer surface of sheeting of
  * plastics or textile materials, other), and the stack on Chinese origin as of
@@ -69,8 +76,21 @@ const MPF = 2.69; // -> $2.77 on 2026-10-01
 const COURIER_DISBURSEMENT = 17.0; // UPS min, 2026-05-11. NOT on this line.
 const POSTAL_ENTRY_FEES = 16.74; // CBP $7.39 dutiable mail + USPS $9.35
 const CHOICE_LINE_DISBURSEMENT = 0.0; // SpeedX / GOFO / USPS are last-mile only
-const FREE_SHIP_OVER = 50.0;
-const COLLECTED_SHIPPING = 8.0;
+
+// What the CUSTOMER pays us for shipping, read from the live Shopify delivery
+// profile on 2026-09-03 rather than assumed:
+//   Canada zone        CA$5.00 under CA$50, free at CA$50 and over
+//   United States zone CA$6.99 flat, NO conditions and no free tier
+// The US rate is denominated in CAD because that is the store currency; at the
+// planning rate of 1.40 it collects about USD $4.99 on every US order.
+//
+// The previous model used a $50 free-shipping threshold with $8 collected
+// below it for BOTH markets. That describes the Canadian zone and nothing
+// else - it understated US collected revenue by roughly $5 on every order,
+// including the ones above $50 where it collected nothing at all.
+const CA_FREE_SHIP_OVER = 50.0;
+const CA_COLLECTED_SHIPPING = 5.0;
+const US_COLLECTED_SHIPPING = 6.99 / 1.4;
 
 // handle, US retail (USD), supplier item cost (USD), supplier ship to US (USD), duty rate
 //
@@ -92,6 +112,14 @@ const OFFERS = [
  * worst is carried), 6-slot $43.48. The baseline file recorded $30.52 and
  * $43.64 for the last two, both from the AliExpress listing rather than DSers.
  *
+ * REPRICED 2026-09-03 from $89 / $99 / $129 to $49 / $62 / $85. The old prices
+ * were about double the market: PU three-slot rolls cluster at $30-40 and the
+ * well-reviewed winners all sit at or under $80, with the $89-129 band holding
+ * only established brands (M Mirage, Barton, WOLF). Holding a price nobody
+ * pays does not protect the margin, it just guarantees no orders - and no
+ * orders means the duty incidence question can never be settled, because the
+ * DSers Tax&Fee reading only exists on a real order.
+ *
  * ON THE SALE PRICE. The listing shows "LABOR DAY SALE - ends Sep 7" at $26.18
  * against a $55.70 anchor. Do not plan around that end date. The Korea Fair
  * Trade Commission penalised AliExpress affiliates on 2025-08-31 for anchors
@@ -102,18 +130,23 @@ const OFFERS = [
  * here is tariff pass-through, not a promotion ending.
  */
 const LIVE_OFFERS = [
-  ['watch-roll 3 slot', 89.0, 26.18, 1.99, 0.551],
-  ['watch-roll 4 slot', 99.0, 31.67, 1.99, 0.551],
-  ['watch-roll 6 slot', 129.0, 43.48, 1.99, 0.551],
+  ['watch-roll 3 slot', 49.0, 26.18, 1.99, 0.551],
+  ['watch-roll 4 slot', 62.0, 31.67, 1.99, 0.551],
+  ['watch-roll 6 slot', 85.0, 43.48, 1.99, 0.551],
 ];
 
 const COHORTS = [
-  ['Archived 2026-08 cohort', OFFERS],
-  ['Live 2026-09 watch-roll cohort', LIVE_OFFERS],
+  ['Archived 2026-08 cohort', OFFERS, 'CA'],
+  ['Live 2026-09 watch-roll cohort', LIVE_OFFERS, 'US'],
 ];
 
-function contribution({retail, itemCost, supplierShip, dutyRate, basis, carrier}) {
-  const collected = retail >= FREE_SHIP_OVER ? retail : retail + COLLECTED_SHIPPING;
+function contribution({retail, itemCost, supplierShip, dutyRate, basis, carrier, market}) {
+  const collected =
+    market === 'US'
+      ? retail + US_COLLECTED_SHIPPING
+      : retail >= CA_FREE_SHIP_OVER
+        ? retail
+        : retail + CA_COLLECTED_SHIPPING;
   const landed = itemCost + supplierShip;
   const payment = collected * PAYMENT_RATE + PAYMENT_FIXED;
   const reserve = collected * RESERVE_RATE;
@@ -145,14 +178,14 @@ const SCENARIOS = [
 const pad = (s, n) => String(s).padEnd(n);
 const num = (v) => (v < 0 ? '-' : ' ') + '$' + Math.abs(v).toFixed(2).padStart(6);
 
-for (const [cohortLabel, cohort] of COHORTS) {
+for (const [cohortLabel, cohort, market] of COHORTS) {
   console.log('\n\n=== ' + cohortLabel + ' ===');
   for (const [label, basis, carrier] of SCENARIOS) {
     console.log('\n' + label);
     console.log('-'.repeat(76));
     let total = 0;
     for (const [handle, retail, itemCost, supplierShip, dutyRate] of cohort) {
-      const c = contribution({retail, itemCost, supplierShip, dutyRate, basis, carrier});
+      const c = contribution({retail, itemCost, supplierShip, dutyRate, basis, carrier, market});
       total += c;
       const flag = c < 0 ? '  LOSS' : '';
       console.log(

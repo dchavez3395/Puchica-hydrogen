@@ -127,7 +127,7 @@ export const DICTIONARIES = {
     search_trending_label: 'Shop by need',
     search_recent_label: 'Recently viewed',
     search_trending_terms:
-      'packing cubes, toiletry organizer, travel jewelry case',
+      'watch roll, 3 slot watch case, 6 slot watch case',
     col_density_aria: 'Grid density',
     col_density_3_aria: 'Show 3 per row',
     col_density_4_aria: 'Show 4 per row',
@@ -141,11 +141,11 @@ export const DICTIONARIES = {
     col_sort_newest: 'Newest',
     col_sort_price_asc: 'Price: low to high',
     col_sort_price_desc: 'Price: high to low',
-    all_breadcrumb: 'Travel organizers',
-    all_eyebrow: 'The travel edit',
-    all_title: 'Travel organization, kept simple',
+    all_breadcrumb: 'Watch cases',
+    all_eyebrow: 'The watch edit',
+    all_title: 'Watch cases that travel well',
     all_sub:
-      'A focused edit of practical organizers for packing, jewelry, and toiletries.',
+      'Roll cases in three, four and six slots, with a cushioned compartment for each watch and a flat base that does not roll.',
     all_empty_title: 'New finds are on the way',
     all_empty_body:
       'We are restocking. Nothing is listed right now — check back shortly.',
@@ -757,7 +757,7 @@ export const DICTIONARIES = {
     search_trending_label: 'Acheter selon vos besoins',
     search_recent_label: 'Vus récemment',
     search_trending_terms:
-      'cubes de rangement, trousse de toilette, étui à bijoux de voyage',
+      'étui à montres, étui 3 montres, étui 6 montres',
     col_density_aria: 'Densité de la grille',
     col_density_3_aria: 'Afficher 3 par rangée',
     col_density_4_aria: 'Afficher 4 par rangée',
@@ -770,11 +770,11 @@ export const DICTIONARIES = {
     col_sort_newest: 'Plus récents',
     col_sort_price_asc: 'Prix : croissant',
     col_sort_price_desc: 'Prix : décroissant',
-    all_breadcrumb: 'Toutes les trouvailles',
-    all_eyebrow: 'La boutique complète',
-    all_title: 'Magasiner les trouvailles',
+    all_breadcrumb: 'Étuis à montres',
+    all_eyebrow: 'La sélection montres',
+    all_title: 'Des étuis à montres faits pour voyager',
     all_sub:
-      'Une sélection ciblée d’organisateurs pratiques pour les bagages, les bijoux et les articles de toilette.',
+      'Des étuis roulés à trois, quatre et six compartiments, chacun rembourré, sur une base plate qui ne roule pas.',
     all_empty_title: 'De nouveaux articles arrivent',
     all_empty_body:
       'Réapprovisionnement en cours. Rien n’est en ligne pour le moment — revenez bientôt.',
@@ -1408,7 +1408,7 @@ export const DICTIONARIES = {
     search_trending_label: 'Compra según tus necesidades',
     search_recent_label: 'Vistos recientemente',
     search_trending_terms:
-      'cubos de embalaje, organizador de aseo, estuche de viaje para joyas',
+      'estuche para relojes, estuche 3 relojes, estuche 6 relojes',
     col_density_aria: 'Densidad de la cuadrícula',
     col_density_3_aria: 'Mostrar 3 por fila',
     col_density_4_aria: 'Mostrar 4 por fila',
@@ -1421,11 +1421,11 @@ export const DICTIONARIES = {
     col_sort_newest: 'Más recientes',
     col_sort_price_asc: 'Precio: menor a mayor',
     col_sort_price_desc: 'Precio: mayor a menor',
-    all_breadcrumb: 'Todos los hallazgos',
-    all_eyebrow: 'La tienda completa',
-    all_title: 'Ver hallazgos',
+    all_breadcrumb: 'Estuches para relojes',
+    all_eyebrow: 'La selección de relojes',
+    all_title: 'Estuches para relojes que viajan',
     all_sub:
-      'Una selección enfocada de organizadores prácticos para equipaje, joyas y artículos de aseo.',
+      'Estuches enrollables de tres, cuatro y seis compartimentos, cada uno acolchado, sobre una base plana que no rueda.',
     all_empty_title: 'Próximos hallazgos en camino',
     all_empty_body:
       'Estamos reabasteciendo. No hay nada publicado ahora mismo — vuelve pronto.',
@@ -2059,7 +2059,7 @@ export const DICTIONARIES = {
     search_trending_label: 'Compre conforme sua necessidade',
     search_recent_label: 'Vistos recentemente',
     search_trending_terms:
-      'cubos organizadores, necessaire de viagem, estojo de viagem para joias',
+      'estojo para relógios, estojo 3 relógios, estojo 6 relógios',
     col_density_aria: 'Densidade da grade',
     col_density_3_aria: 'Mostrar 3 por linha',
     col_density_4_aria: 'Mostrar 4 por linha',
@@ -2072,11 +2072,11 @@ export const DICTIONARIES = {
     col_sort_newest: 'Mais recentes',
     col_sort_price_asc: 'Preço: menor para maior',
     col_sort_price_desc: 'Preço: maior para menor',
-    all_breadcrumb: 'Todos os achados',
-    all_eyebrow: 'A loja completa',
-    all_title: 'Ver achados',
+    all_breadcrumb: 'Estojos para relógios',
+    all_eyebrow: 'A seleção de relógios',
+    all_title: 'Estojos para relógios que viajam',
     all_sub:
-      'Uma seleção focada de organizadores práticos para bagagem, joias e itens de higiene.',
+      'Estojos enroláveis de três, quatro e seis compartimentos, cada um acolchoado, sobre uma base plana que não rola.',
     all_empty_title: 'Novos achados a caminho',
     all_empty_body:
       'Estamos repondo o estoque. Nada está listado no momento — volte em breve.',

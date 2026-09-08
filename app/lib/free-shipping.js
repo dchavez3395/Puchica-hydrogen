@@ -5,17 +5,30 @@
  * is deliberately driven by one constant that mirrors the live Shopify
  * delivery profile rather than by anything inferred at runtime.
  *
- * Read from the live "General profile" on 2026-08-22:
+ * Read from the live "General profile", re-read 2026-09-03:
  *   Canada zone (CA only)
  *     - "Standard Shipping"        CA$5.00, TOTAL_PRICE 0.00 – 49.99, active
  *     - "Free Shipping Over $50"   CA$0.00, TOTAL_PRICE >= 50.00,     active
- * Shopify evaluates both against the merchandise subtotal, which is the same
- * figure the cart shows, so the two cannot drift apart within a single market.
+ *   United States zone (US only)
+ *     - "Standard Shipping"        CA$6.99, NO conditions,            active
+ * Shopify evaluates the Canadian pair against the merchandise subtotal, which
+ * is the same figure the cart shows, so the two cannot drift apart within a
+ * single market.
  *
- * Any market absent from this map gets no promise at all. That is the point:
- * the United States is commercially suspended and has no verified rate, so it
- * must fail closed rather than inherit Canada's threshold. If the delivery
- * profile changes, change this constant and the shipping policy page together.
+ * The United States is deliberately absent from this map, and the reason has
+ * changed. It used to be absent because the market was suspended and no US
+ * rate had been verified. Neither is true now: the US is the only market this
+ * store sells into, and it has a verified rate. It stays absent because that
+ * rate is FLAT - CA$6.99 on every order, with no free tier at any subtotal -
+ * so there is no threshold to promise and no progress to report. A US entry
+ * here would invent a free-shipping tier that the delivery profile does not
+ * offer.
+ *
+ * If a US free-shipping tier is ever added to the profile, add it here and to
+ * the shipping policy page in the same change. Note the US rate is denominated
+ * in CAD because that is the store currency, so the USD the customer sees
+ * moves with Shopify's conversion rate - about $4.99 at the 1.40 planning
+ * rate used in scripts/us-duty-impact.mjs.
  */
 export const FREE_SHIPPING_THRESHOLDS = Object.freeze({CA: 50});
 
