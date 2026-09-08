@@ -1,0 +1,25 @@
+{
+  "handle": "pu-leather-watch-roll-travel-case-3-or-6-watches",
+  "checkedOn": "2026-09-08",
+  "market": "US",
+  "note": "Retired on this evidence. Kept as the worked example for the gate: this is what the file should look like, and this is the shape of a product that must never reach APPROVED_CATALOG_OFFERS. Prices read from Amazon US search results in a US-priced view; the ships-to-Canada view shows CAD and hides US-only listings, so it is the wrong view for this check.",
+  "sources": ["amazon.com search: watch roll travel case 3 slot", "procase.com", "walmart.com watch rolls", "ebay.com"],
+  "ourRetailUsd": 49.0,
+  "ourLandedCostUsd": 26.18,
+  "costBasis": "DSers My Products, read 2026-09-03. Excludes the $1.99 supplier ship and all duty.",
+  "competitors": [
+    {"name": "AUKURA 3 slot", "priceUsd": 18.99, "reviews": 1, "boughtPerMonth": 300, "material": "PU"},
+    {"name": "Generic 3 slot", "priceUsd": 18.99, "reviews": 361, "boughtPerMonth": 100, "material": "PU"},
+    {"name": "HELMDY 3-slot", "priceUsd": 28.49, "reviews": 298, "boughtPerMonth": 50, "material": "PU"},
+    {"name": "Besforu", "priceUsd": 29.98, "reviews": 178, "material": "PU"},
+    {"name": "ROSELLE", "priceUsd": 29.99, "reviews": 626, "boughtPerMonth": 200, "material": "PU"},
+    {"name": "PexPix", "priceUsd": 29.99, "reviews": 13, "boughtPerMonth": 50, "material": "leather"},
+    {"name": "MR.OKAY", "priceUsd": 30.93, "reviews": 119, "boughtPerMonth": 50, "material": "leather"},
+    {"name": "CASE ELEGANCE", "priceUsd": 32.14, "reviews": 3, "boughtPerMonth": 100, "material": "vegan faux"},
+    {"name": "MR.OKAY classic", "priceUsd": 34.28, "reviews": 239, "boughtPerMonth": 200, "material": "leather"},
+    {"name": "ROTHWELL", "priceUsd": 49.95, "reviews": 134, "boughtPerMonth": 50, "material": "PU"},
+    {"name": "UPRESYE genuine", "priceUsd": 59.99, "reviews": 68, "material": "genuine leather"},
+    {"name": "ProCase (brand DTC)", "priceUsd": 31.99, "reviews": 0, "material": "PU"}
+  ],
+  "verdict": "FAIL on rule 1. Landed cost $26.18 sits above the $18.99 at which two competitors retail, and above the $29.99 median only once shipping and fees are added. Repricing to the band leaves $6.13 a unit in the BEST duty scenario with zero ad spend. Category is NOT locked: top review count 626."
+}
