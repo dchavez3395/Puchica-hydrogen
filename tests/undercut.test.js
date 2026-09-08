@@ -41,12 +41,34 @@ test('and it refuses the same product priced INTO the band, for the other reason
 
 test('an unsourced duty rate fails closed', () => {
   // How the 0.38 rate got inherited on the watch rolls and went unchallenged
-  // for weeks. The grinder is electrical with a lithium cell, so it is not the
-  // watch rolls' HTS code and must carry its own.
-  assert.equal(grinder.dutyRate, undefined, 'fixture must have no rate');
-  const {failures} = auditUndercut([grinder.handle], only(grinder), NOW);
+  // for weeks. The fixture is synthetic on purpose: this used to assert
+  // against the grinder file, which meant sourcing that product's rate broke
+  // the test. A rule about missing data must not depend on some real file
+  // staying incomplete.
+  const unsourced = {...grinder};
+  delete unsourced.dutyRate;
+  const {failures} = auditUndercut([unsourced.handle], only(unsourced), NOW);
   assert.equal(failures.length, 1);
   assert.match(failures[0], /no dutyRate recorded/);
+});
+
+test('the grinder now carries a sourced rate and clears both rules', () => {
+  // HTS 8509.40.00: 4.2% column 1 general + 12.5% Section 301 (9903.05.31) =
+  // 16.7%. NOT the 55.1% watch-roll stack - 8509.40 carries no List 1-3 layer.
+  assert.equal(grinder.dutyRate, 0.167);
+  const {failures} = auditUndercut([grinder.handle], only(grinder), NOW);
+  assert.deepEqual(failures, []);
+});
+
+test('the grinder fails if the duty lands on us, which is the open question', () => {
+  // $22.22/unit prepaid, $14.92 if the supplier prepays on wholesale, $11.18
+  // if CBP values on what the customer paid and it bills through to us. That
+  // last one is under the floor, so the incidence reading matters here exactly
+  // as much as it did on the watch rolls.
+  const billed = auditUndercut([grinder.handle], only(grinder), NOW, {basis: 'retail'});
+  assert.ok(billed.failures.some((f) => /RULE 1/.test(f)));
+  const wholesale = auditUndercut([grinder.handle], only(grinder), NOW, {basis: 'wholesale'});
+  assert.deepEqual(wholesale.failures, []);
 });
 
 test('missing evidence is a failure, not a skip', () => {
