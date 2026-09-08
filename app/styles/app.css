@@ -4218,9 +4218,36 @@ button:focus-visible,
   color: var(--pk-ink-soft, #4A4268);
   margin: 0;
 }
+/*
+  The support link on the route-error page measured 115x17 and failed SC 2.5.8's
+  24px minimum on seven consecutive CI runs. It surfaces on the PRODUCT route,
+  not the home page: that PDP now serves the route-error page because the cohort
+  was retired, so root.jsx renders .pk-route-error__contact and the failing test
+  is `mobile target sizes > product controls`.
+
+  The previous commit (fad0ce7) targeted the campaign hero's paragraph links,
+  a selector that appears zero times on that route. It is removed above; it
+  styled a page that was already passing.
+
+  This link does NOT qualify for SC 2.5.8's Inline exception, and
+  findSmallTargets is right to flag it. The exception covers a target whose size
+  is constrained by the prose around it. The paragraph reads "Need help? Email
+  hello@puchica.ca." - 34 characters, of which the link is 16. The probe
+  requires 20 characters of surrounding text before treating a <p> as running
+  prose rather than a bare wrapper, and 18 does not clear it.
+
+  Same treatment as .pk-breadcrumbs a and .pk-footer__address a: inline-flex so
+  min-height applies to an otherwise-inline element, and 24 rather than the 44
+  of SC 2.5.5 (Enhanced) because this is a text link in a sentence, not a
+  primary control. Colour, weight, underline and position are unchanged, and the
+  paragraph stays one line at 24px.
+*/
 .pk-route-error__contact a {
+  align-items: center;
   color: var(--pk-ember, #A83800);
+  display: inline-flex;
   font-weight: 600;
+  min-height: 24px;
   text-decoration: underline;
   text-underline-offset: 3px;
 }
@@ -7210,28 +7237,6 @@ main:has(> .pk-collection--bold) {
   font-size: clamp(17px, 1.2vw, 19px);
   font-weight: 550;
   line-height: 1.6;
-}
-/*
-  The containment hero's support link measured 115x18 and failed SC 2.5.8's
-  24px minimum on six consecutive CI runs.
-
-  It does NOT qualify for the Inline exception, and the probe is right to say
-  so. The exception covers a target whose size is constrained by the prose
-  around it; here the whole paragraph is "Questions? hello@puchica.ca", so the
-  link is 16 of its 27 characters. findSmallTargets() requires 20 characters of
-  surrounding text before it treats a <p> as running prose rather than a bare
-  wrapper, and 11 does not clear it. Padding this to 24px pushes nothing apart
-  because there is no second line to push.
-
-  Same treatment as .pk-breadcrumbs a and .pk-footer__address a: inline-flex so
-  min-height applies to an otherwise-inline element, and 24 rather than the 44
-  of SC 2.5.5 (Enhanced) because this is a text link in a sentence, not a
-  primary control. Type size and position are unchanged.
-*/
-.pk-campaign-hero__copy > p a {
-  align-items: center;
-  display: inline-flex;
-  min-height: 24px;
 }
 .pk-campaign-hero__actions {
   gap: 14px 20px;
