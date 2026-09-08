@@ -82,7 +82,10 @@ test('the reopened United States market still yields no Stage 1 links', () => {
   // archived and approved in neither market. Asserting the exact refusal is
   // the point of the test: a link that builds, or that is refused for a stale
   // reason, is ad spend pointed at a 404.
-  assert.equal(isMarketSuspended('US'), false, 'US reopened as a market');
+  // Suspended again 2026-09-08: the watch-roll cohort that reopened the US on
+  // 2026-09-01 was retired on the Amazon undercut test, so the market has
+  // nothing to sell. The ROUTE facts are unchanged and still asserted below.
+  assert.equal(isMarketSuspended('US'), true, 'US suspended: nothing to sell');
 
   const result = buildCampaignLinks({market: 'US'});
   assert.equal(result.links.length, 0, 'no approved US creative exists yet');
@@ -94,9 +97,13 @@ test('the reopened United States market still yields no Stage 1 links', () => {
       `${creative.content} must be refused as unapproved, not as suspended`,
     );
   }
+  // Both refusals are now true at once and both must be stated. The market is
+  // suspended AND the creative's handle is unapproved; if the suspension were
+  // lifted tomorrow the links must still refuse, so the unapproved reason
+  // asserted above is the one that has to survive on its own.
   assert.ok(
-    !result.failures.some((f) => /suspended/.test(f)),
-    'the market is open, so nothing may be refused for suspension',
+    result.failures.some((f) => /US is commercially suspended/.test(f)),
+    'a suspended market must say so',
   );
 });
 

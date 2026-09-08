@@ -150,26 +150,39 @@ export const ARCHIVED_CATALOG_OFFERS = Object.freeze([
     sku: '14:193;200007763:201336100', // Black - 24 units, watch for oversell
     markets: Object.freeze(['CA']),
   }),
-]);
 
-/**
- * Exact supplier offers the storefront may actually serve. Product-level
- * approval is not permission to sell every colour or size in a supplier
- * listing, so the handle and exact SKU stay together here and every storefront
- * gate and production monitor derives its cohort from this one list.
- *
- * Empty since 2026-08-28. The catalogue was deleted from Shopify and no
- * replacement product has been through the route, cost, copy and imagery
- * review. An empty list is the honest state, and it is what makes the gates
- * agree with the storefront: production monitoring asserts the live site
- * serves exactly this set, and the live site serves nothing.
- *
- * Do not add an entry here to make a check pass. An entry means a real
- * Shopify product exists at that handle with that exact SKU, with route and
- * cost evidence recorded. ARCHIVED_CATALOG_OFFERS above holds the previous
- * cohort's evidence for whichever of them come back.
- */
-export const APPROVED_CATALOG_OFFERS = Object.freeze([
+  // ===========================================================================
+  // 2026-09 watch-roll cohort. RETIRED 2026-09-08 after the Amazon US undercut
+  // test, which had never been run on it. Both Shopify products moved to DRAFT
+  // the same day.
+  //
+  // Amazon US, read in a US-priced view: the 3-slot volume tier is $18.99-34.28
+  // (ROSELLE $29.99 / 626 reviews / 200+ bought a month; MR.OKAY $34.28 / 239;
+  // AUKURA $18.99 / 300+ a month) against our $49. The 4-slot band is
+  // $22.49-49.99 against our $62. The 6-slot band is $12.99-64.99 - ProCase
+  // $18.69 with 406 reviews and 600+ bought a month, AUKURA $19.99 with 707 -
+  // against our $85, with UPRESYE full-grain GENUINE leather at $99.99 just
+  // above us.
+  //
+  // Repricing does not rescue it. At market-matching 32 / 40 / 50,
+  // scripts/us-duty-impact.mjs scenario E - the BEST case, duty already inside
+  // the supplier price, zero ad spend - returns $6.13 / $7.56 / -$2.52. Our
+  // 3-slot COST of $26.18 sits above the $18.99 at which competitors retail.
+  // Price for margin and we are above the market; price at the market and there
+  // is no margin.
+  //
+  // Worth keeping from the loss: this category is NOT brand-locked. The largest
+  // review count found anywhere across the three searches was 707, against
+  // Victor's 13,800 in pest control. Demand is real and steady. The supply
+  // price is the only thing that failed, which points at real wholesale rather
+  // than at a different product.
+  //
+  // Duty figures below are the corrected ones from the 2026-09-08 repricing and
+  // are kept for whichever offer comes back. US_DUTY_INCIDENCE was still
+  // 'unverified' when this was retired - no US order was ever placed, so the
+  // DSers Tax&Fee reading that would settle E vs D- has not been taken.
+  // ===========================================================================
+
   // 2026-09-01 watch-roll cohort. United States only, cn-direct fulfilment.
   //
   // CORRECTED the same day. These were first entered as us-local on the
@@ -322,6 +335,29 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
 ]);
 
 /**
+ * Exact supplier offers the storefront may actually serve. Product-level
+ * approval is not permission to sell every colour or size in a supplier
+ * listing, so the handle and exact SKU stay together here and every storefront
+ * gate and production monitor derives its cohort from this one list.
+ *
+ * Empty since 2026-08-28. The catalogue was deleted from Shopify and no
+ * replacement product has been through the route, cost, copy and imagery
+ * review. An empty list is the honest state, and it is what makes the gates
+ * agree with the storefront: production monitoring asserts the live site
+ * serves exactly this set, and the live site serves nothing.
+ *
+ * Do not add an entry here to make a check pass. An entry means a real
+ * Shopify product exists at that handle with that exact SKU, with route and
+ * cost evidence recorded. ARCHIVED_CATALOG_OFFERS above holds the previous
+ * cohort's evidence for whichever of them come back.
+ */
+export const APPROVED_CATALOG_OFFERS = Object.freeze([
+  // Empty since 2026-09-08. See the retired watch-roll cohort in
+  // ARCHIVED_CATALOG_OFFERS above for why, and read that note before adding
+  // anything here: the market check comes BEFORE the margin model, not after.
+]);
+
+/**
  * A bundle is one Shopify SKU fulfilled as several supplier orders, so it can
  * never carry `dsers-mapped`: DSers maps one storefront variant to one supplier
  * variant. Exempting the tag is only safe because the bundle must instead carry
@@ -466,6 +502,20 @@ export const SUSPENDED_COMMERCE_MARKETS = Object.freeze({
   // when real products are approved, and prune APPROVED_CATALOG_OFFERS to
   // whatever actually ships at the same time.
   CA: 'catalog-empty-2026-08-28: no approved offer resolves',
+  // Added 2026-09-08. The watch-roll cohort was the only thing keeping the US
+  // open, and it was retired the same day on the Amazon undercut test, so the
+  // US is now in exactly the position CA has been in since 2026-08-28: there
+  // is nothing to sell. check-storefront-release fails an OPEN market with an
+  // empty cohort, and it is right to - an open market with no offers is a
+  // storefront advertising a checkout it cannot honour.
+  //
+  // This is NOT the blanket US suspension that was reverted on 2026-09-01.
+  // That one was wrong because it closed the market on de-minimis evidence
+  // that only ever applied to the cn-direct ROUTE. This one says nothing about
+  // routes: SUSPENDED_FULFILMENT_ROUTES still carries the route facts, and
+  // us-local is still open there. Delete this line the moment a real offer
+  // lands in APPROVED_CATALOG_OFFERS.
+  US: 'catalog-empty-2026-09-08: watch-roll cohort retired on the undercut test',
 });
 
 export function isFulfilmentRouteSuspended(market, route) {
@@ -525,8 +575,20 @@ export function resolveDiscoveryMarket(requestedMarket) {
  * Both figures must come from scripts/us-duty-impact.mjs, not from optimism,
  * and an offer that omits the one currently binding stays closed.
  */
-export function isOfferSellable(offer, market) {
-  if (!offer || isMarketSuspended(market)) return false;
+export function isOfferSellable(offer, market, {suspendedMarkets} = {}) {
+  // `suspendedMarkets` exists for the gate-logic tests and nothing else.
+  // Market suspension short-circuits this function, so once every market is
+  // suspended - which is the honest state whenever the catalogue is empty -
+  // every route and duty assertion underneath collapses to `false` and the
+  // rail silently stops being tested. Injecting an empty table lets a test
+  // exercise the route and duty arithmetic on its own terms. Production never
+  // passes it, so behaviour is unchanged.
+  const suspensionTable = suspendedMarkets ?? SUSPENDED_COMMERCE_MARKETS;
+  const marketSuspended = Object.prototype.hasOwnProperty.call(
+    suspensionTable,
+    String(market || '').toUpperCase(),
+  );
+  if (!offer || marketSuspended) return false;
   if (!offer.markets.includes(market)) return false;
   if (!isFulfilmentRouteSuspended(market, fulfilmentRouteFor(offer))) {
     return true;

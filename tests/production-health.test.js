@@ -31,30 +31,26 @@ test('production monitor shares the verified market cohorts', () => {
   // is what caught the empty Canadian catalogue in the first place.
   assert.deepEqual(EXPECTED_HANDLES_BY_MARKET.CA, []);
 
-  // The United States is no longer empty. The 2026-09-01 watch-roll cohort
-  // crosses the suspended cn-direct route on a modelled duty contribution, so
-  // the monitor must now expect exactly those two handles to be live - and to
-  // fail if they 404, the same way it failed when Canada emptied.
-  assert.deepEqual(EXPECTED_HANDLES_BY_MARKET.US, [
-    'pu-leather-watch-roll-travel-case-3-or-6-watches',
-    'pu-leather-watch-roll-travel-case-4-watches',
-  ]);
+  // The United States is empty again as of 2026-09-08. The watch-roll cohort
+  // was retired on the Amazon US undercut test and both products are DRAFT in
+  // Shopify, so the monitor must expect no live US handle. Leaving them here
+  // fails the run post-deploy against a storefront correctly serving nothing -
+  // the exact shape of the 2026-09-01 failure.
+  assert.deepEqual(EXPECTED_HANDLES_BY_MARKET.US, []);
 
   // Discovery follows the live cohort. The seven previous handles were deleted
   // from Shopify on 2026-08-28 and verified 404 in production on 2026-09-01,
   // so the monitor must not expect a page, sitemap entry or feed item for any
   // of them; their evidence lives in ARCHIVED_CATALOG_OFFERS.
-  assert.deepEqual(DISCOVERABLE_PRODUCT_HANDLES, [
-    'pu-leather-watch-roll-travel-case-3-or-6-watches',
-    'pu-leather-watch-roll-travel-case-4-watches',
-  ]);
+  assert.deepEqual(DISCOVERABLE_PRODUCT_HANDLES, []);
   for (const retired of RETIRED_CATALOG_HANDLES) {
     assert.ok(
       !DISCOVERABLE_PRODUCT_HANDLES.includes(retired),
       `${retired} is retired and must not be discoverable`,
     );
   }
-  assert.equal(ARCHIVED_CATALOG_OFFERS.length, 10);
+  // 10 from the 2026-08 travel cohort plus the 8 retired watch-roll offers.
+  assert.equal(ARCHIVED_CATALOG_OFFERS.length, 18);
 
   // Retirement is a separate, still-active rail: those handles must 404.
   assert.equal(RETIRED_CATALOG_HANDLES.size, 5);

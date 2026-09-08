@@ -205,7 +205,10 @@ test('a suspended market rejects even its own formerly approved SKU', async () =
   // survive a reload into checkout in either market, and reopening a market
   // must not resurrect the SKUs that were sellable before it closed.
   assert.equal(isMarketSuspended('CA'), true);
-  assert.equal(isMarketSuspended('US'), false);
+  // Suspended again 2026-09-08: the watch-roll cohort that reopened the US on
+  // 2026-09-01 was retired on the Amazon undercut test, so the market has
+  // nothing to sell. The ROUTE facts are unchanged and still asserted below.
+  assert.equal(isMarketSuspended('US'), true);
   assert.deepEqual(await rejectedCartLineIds(storefront, cart, 'CA'), [
     'gid://shopify/CartLine/line-ca',
   ]);

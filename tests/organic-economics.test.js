@@ -10,6 +10,7 @@ import {
   computeEconomicsRow,
   resolveBaselinePath,
 } from '../scripts/check-organic-economics.mjs';
+import {APPROVED_CATALOG_OFFERS} from '../app/lib/launch-catalog.js';
 
 const completeBaseline = {
   evidenceDate: '2026-08-14',
@@ -248,9 +249,12 @@ test('route evidence is demanded only for what can actually be sold', () => {
   // buy. What changed is which offers that covers. The archived cohort ships
   // cn-direct with no duty override and Canada is suspended outright, so
   // neither market may demand route evidence for them.
+  // As of 2026-09-08 nothing is sellable in either market: CA is suspended,
+  // and US was suspended when the watch-roll cohort was retired on the Amazon
+  // undercut test. So route evidence may be demanded for NOTHING, and the
+  // watch-roll skip that used to sit here is gone with the cohort.
   const trimmed = structuredClone(completeBaseline);
   for (const offer of trimmed.offers) {
-    if (offer.handle.startsWith('pu-leather-watch-roll')) continue;
     delete offer.routes.US;
     delete offer.routes.CA;
   }
@@ -261,16 +265,20 @@ test('route evidence is demanded only for what can actually be sold', () => {
     `unsellable offers must not demand route evidence: ${failures.join('; ')}`,
   );
 
-  // The other half of the same rule, which the old test could not express
-  // while nothing was sellable: an offer that IS sellable must still produce
-  // its route evidence, or the skip above would be a hole rather than a rule.
-  const missing = structuredClone(completeBaseline);
-  delete missing.offers.find(({sku}) => sku === '14:496#3 Slot Black Red')
-    .routes.US;
-  assert.ok(
-    auditBaseline(missing, new Date('2026-08-15T00:00:00Z')).some((f) =>
-      /Missing tracked US route/.test(f),
-    ),
-    'a sellable offer must still be required to carry its route evidence',
+  // THE POSITIVE HALF OF THIS RULE HAS MOVED, it has not been dropped. An
+  // offer that IS sellable must still produce route evidence, and that can no
+  // longer be asserted here: auditBaseline reads sellability from the live
+  // suspension table, so with every market suspended there is no sellable
+  // offer to build the fixture from. Deleting the assertion outright would
+  // leave the skip above as a hole rather than a rule.
+  //
+  // It is asserted instead in tests/launch-catalog.test.js, in 'a suspended
+  // market closes commerce without erasing route evidence', which injects an
+  // empty suspension table to exercise the route and duty gate directly.
+  // Restore the fixture-based version here the moment a market reopens.
+  assert.equal(
+    APPROVED_CATALOG_OFFERS.length,
+    0,
+    'if this is non-zero a sellable offer exists and the assertion above must come back',
   );
 });

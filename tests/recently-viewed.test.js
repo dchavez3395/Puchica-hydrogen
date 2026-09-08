@@ -40,7 +40,10 @@ test('recently viewed fails closed by exact SKU and market', () => {
   // stronger of the two guards, because it is the one that keeps working after
   // a market comes back.
   assert.equal(isMarketSuspended('CA'), true);
-  assert.equal(isMarketSuspended('US'), false);
+  // Suspended again 2026-09-08: the watch-roll cohort that reopened the US on
+  // 2026-09-01 was retired on the Amazon undercut test, so the market has
+  // nothing to sell. The ROUTE facts are unchanged and still asserted below.
+  assert.equal(isMarketSuspended('US'), true);
   assert.deepEqual(APPROVED_VARIANT_SKUS_BY_MARKET.CA, []);
   assert.ok(
     !APPROVED_VARIANT_SKUS_BY_MARKET.US.includes(packingSku),
