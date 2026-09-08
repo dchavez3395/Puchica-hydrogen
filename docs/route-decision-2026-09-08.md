@@ -111,39 +111,94 @@ What it fixes, point by point:
 Existing capability this uses: image generation already runs through Antigravity
 with Nano Banana Pro on the PC.
 
-## The acquisition cost, corrected 2026-09-08
+## The acquisition cost, corrected TWICE on 2026-09-08
 
-This file and `sourcing-record-2026-09-08.md` were first written against an
-assumed customer acquisition cost of $20-28, inherited from
-`scripts/lib/sourcing-spec.mjs` with no campaign behind it. That figure is
-wrong, and it is wrong in the direction that matters.
+This file first assumed $20-28, inherited from `scripts/lib/sourcing-spec.mjs`
+with no campaign behind it. The first correction replaced it with $37.20 and a
+Home & Garden anchor of $47.93. **Most of that first correction was also wrong**
+and is superseded here.
 
-Measured category benchmarks for Meta, US:
+What was wrong with it. Three of the four figures came from a table (MHI,
+claiming 1,247 accounts and $87M of spend) that is derived arithmetic rather
+than measurement: every CPA in it reproduces to the cent from its own CPC
+divided by CVR, Home & Garden and Jewelry land within $0.12 across all three
+quantiles with the top-decile ordering inverted, and the publisher is agency
+lead-generation SEO. Those numbers are retired and a test now fails if they
+reappear.
 
-- Home & Garden CPA **$47.93**, conversion rate 1.24% (down 3.57% year over
-  year) while CPA rose 6.71%, category AOV $110.41 — Triple Whale, across
-  40,000+ brands, Aug 2025-Jul 2026.
-- Home & Garden CPA **$37.20 average, $26.84 top quartile, $20.37 top decile**
-  — MHI, across 1,247 accounts and $87M of spend.
+What survives, from Triple Whale, 40,000+ brands, Aug 2025-Jul 2026 - which
+publishes no Gifts, Jewelry or Personalized category at all:
 
-So the $20-28 previously used is roughly what the best 10% of advertisers
-achieve, not a norm. The real bar for a store with no audience is contribution
-of about **$45-70 per order**, not the $12 floor in `check-undercut.mjs` and not
-the $30-60 assumed when this file was written.
+| Industry | CPA | CVR | AOV |
+| --- | ---: | ---: | ---: |
+| Overall, 17 industries | $38.99 | 1.53% | $73.36 |
+| Home & Garden | $47.93 | 1.24% | $110.41 |
+| Toys, Art & Collectibles | $34.85 | 1.53% | $69.61 |
+| Lifestyle & Boutique | $31.16 | 1.62% | $64.87 |
 
-What that reprices, retroactively:
+Home & Garden was the wrong proxy in both directions: it carries the LOWEST
+conversion rate of all seventeen industries precisely because it is considered,
+high-ticket furniture, and the second-highest AOV. A $22 personalized ornament
+is the structural opposite. The defensible band for this kind of store is
+$31-39, and the all-industry median is the honest default.
 
-- The coffee grinder at $19.62 contribution was not short by $0.38. It was
-  short by roughly $18-28.
-- Nothing examined in this project has ever been within range, including the
-  two candidates called passes in the sourcing record.
-- The eleven product failures are one arithmetic error repeated, not eleven
-  separate sourcing misjudgements.
+Two caveats that matter more than the numbers:
 
-The $12 floor in the gate is deliberately NOT changed. It tests whether a unit
-makes money, which is a different and still-useful question. Acquisition is
-reported separately and stays advisory, because a category benchmark is not this
-store's measured CPA and never will be until a campaign runs.
+1. These are spend divided by ALL orders, not cost per NEW customer. The
+   identity ROAS = AOV / CPA holds exactly at the overall level, which proves
+   it. True new-customer CAC runs roughly 1.5-2.5x.
+2. **CPA is per ORDER, not per unit.** The earlier reading compared one unit's
+   contribution against a per-order CPA and concluded nothing could ever clear.
+   That was an error of about 3x.
+
+## What the operators actually do
+
+Ten stores running continuous Meta ads in personalized gifting were torn down.
+Every one that publishes a free-shipping threshold sets it at roughly three
+units of its own modal price:
+
+| Store | Free shipping over | Modal price | Units |
+| --- | ---: | ---: | ---: |
+| febworld | $59.00 | $21.96 | 2.7 |
+| trendingcustom | $70.00 | $24.99 | 2.8 |
+| barods | $69.99 | $21.99 | 3.2 |
+| happary | $79.00 | $21.99 | 3.6 |
+
+Nobody sets a $79 threshold on a $21.99 product by accident. It is calibrated
+so the shipping concession only pays out on a three-item cart - which turns a
+$22 ticket into a $66-70 order and makes a $31-39 CPA survivable. Supporting
+mechanics observed: size ladders that beat the discount codes (barods $21.99 /
+$25.29 / $29.69, +35% on one click, against a 10% multi-buy code), anchor
+prices at 1.5-2x so the discount costs no real margin, and on the one store
+with genuine independent volume (trendingcustom, 23,260 Trustpilot reviews) a
+full post-cart stack: gift box $4.99, gift wrap $2.99, greeting card, shipping
+protection, priority processing.
+
+None of them has a repeat-purchase mechanic. Gifting is episodic; these are
+one-shot acquisition businesses.
+
+This does NOT apply to every product. It is a property of multi-unit-natural
+goods - one ornament per grandchild. Nobody buys three coffee grinders. The
+screener prints the cart line as explicitly conditional for that reason.
+
+## Q4 runs the opposite way to the assumption
+
+CPMs spike - Cyber Monday 2024 ran 138% above the annualised average - but
+measured across 33,000 shops during BFCM 2025, CPA FELL to $34.06 against
+$38.99 full-year, and ROAS rose 20%. Conversion and basket size climb faster
+than media cost. For a gifting business Q4 is the cheapest acquisition window
+of the year, not the most expensive.
+
+## A caveat on the ad-longevity evidence
+
+Continuous ad presence is weaker evidence than it looks in this category.
+barods, febworld and happary share a theme AND the same typo in their shipping
+policy ("businiess days"); getnamenecklace, insgifts and joymemento share a
+shipping ladder and returns copy verbatim. These are clone networks with near
+zero marginal cost per storefront. barods has run 986 days with 68 Trustpilot
+reviews at 1.7 stars; trendingcustom has run 336 days with 23,260 reviews and
+the full offer stack. The stores that visibly have the AOV architecture are the
+ones with real volume - that correlation is the signal, not the day count.
 
 ## Honest risks
 

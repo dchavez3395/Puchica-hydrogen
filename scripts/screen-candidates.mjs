@@ -68,35 +68,82 @@ import {
 } from './check-undercut.mjs';
 import {contribution, CHOICE_LINE_DISBURSEMENT} from './us-duty-impact.mjs';
 /**
- * ACQUISITION BENCHMARKS, corrected 2026-09-08.
+ * ACQUISITION BENCHMARKS. Corrected twice on 2026-09-08 - read why.
  *
- * This advisory previously imported CPA_MODEL from ./lib/sourcing-spec.mjs -
- * a CA$28 floor or 40% of order value, with no campaign behind it. Measured
- * category data says that figure is roughly what the BEST DECILE of advertisers
- * achieves, not a norm, so every earlier reading of this gate was generous by
- * two to three times.
+ * FIRST correction: this advisory imported CPA_MODEL from ./lib/sourcing-spec.mjs,
+ * a CA$28 floor or 40% of order value with no campaign behind it.
  *
- * Meta, US, Home & Garden:
- *   $47.93 CPA, 1.24% conversion (down 3.57% YoY) while CPA rose 6.71%,
- *          category AOV $110.41 - Triple Whale, 40,000+ brands, Aug 25-Jul 26
- *   $37.20 average / $26.84 top quartile / $20.37 top decile
- *          - MHI, 1,247 accounts, $87M spend
+ * SECOND correction, same day: the numbers that replaced it were worse. Three
+ * of the four came from a table (MHI, claiming 1,247 accounts and $87M spend)
+ * that is DERIVED ARITHMETIC, not measurement - every CPA in it reproduces to
+ * the cent from its own CPC divided by CVR columns, Home & Garden and Jewelry
+ * land within $0.12 of each other across all three quantiles with the
+ * top-decile ordering inverted, and the site is agency lead-gen SEO. Those
+ * figures are gone. Do not reinstate them.
  *
- * These are CATEGORY benchmarks from third-party studies, not this store's
- * measured CPA, and they stay ADVISORY for the same reason as before: the
- * pass/fail verdict must remain identical to what CI enforces. A test asserts
- * the gate cannot see them.
+ * The remaining source is Triple Whale, 40,000+ brands, Aug 2025-Jul 2026,
+ * which publishes per-industry medians and no Gifts, Jewelry or Personalized
+ * category at all:
  *
- * The $12 contribution floor in check-undercut.mjs is deliberately unchanged.
- * It answers whether a unit makes money, which is a different question from
- * whether it can also buy the buyer.
+ *   Overall (17 industries)   $38.99 CPA, 1.53% CVR, AOV $73.36
+ *   Home & Garden             $47.93 CPA, 1.24% CVR, AOV $110.41
+ *   Toys, Art & Collectibles  $34.85 CPA, 1.53% CVR, AOV $69.61
+ *   Lifestyle & Boutique      $31.16 CPA, 1.62% CVR, AOV $64.87
+ *
+ * `average` below is the ALL-INDUSTRY median, which is the honest default for
+ * a store whose category nobody publishes. Home & Garden is kept only as the
+ * pessimistic bound and is the WRONG proxy for a low-ticket impulse gift: it
+ * carries the lowest CVR of all seventeen industries precisely because it is
+ * considered, high-ticket furniture.
+ *
+ * TWO CAVEATS THAT MATTER MORE THAN THE NUMBERS.
+ *
+ * These are spend divided by ALL orders, not cost per NEW customer - the
+ * identity ROAS = AOV / CPA holds exactly at the overall level, which proves
+ * it. True new-customer CAC runs roughly 1.5-2.5x these figures. A candidate
+ * that clears `average` has not necessarily paid for a new buyer.
+ *
+ * And CPA is measured per ORDER, not per unit. Every operator studied in this
+ * category engineers a multi-unit cart rather than a higher unit price - see
+ * AOV_THRESHOLD_MULTIPLE below. Comparing a single unit's contribution against
+ * a per-order CPA understates the business by roughly 3x, and that mistake is
+ * the whole reason this file previously reported nothing could ever clear.
+ *
+ * Still ADVISORY. The verdict stays identical to CI; a test asserts the gate
+ * cannot see any of this. The $12 floor in check-undercut.mjs is unchanged: it
+ * answers whether a UNIT makes money, which is a different question.
  */
 export const CPA_BENCHMARKS_USD = Object.freeze({
-  topDecile: 20.37,
-  topQuartile: 26.84,
-  average: 37.20,
+  lifestyleBoutique: 31.16,
+  toysArtCollectibles: 34.85,
+  average: 38.99,
   homeAndGarden: 47.93,
 });
+
+/**
+ * Observed offer architecture in this category, 2026-09-08. Ten stores running
+ * continuous Meta ads were torn down; every one that publishes a free-shipping
+ * threshold sets it at roughly THREE units of its own modal price:
+ *
+ *   febworld        $59.00 threshold / $21.96 modal = 2.7 units
+ *   trendingcustom  $70.00 / $24.99 = 2.8
+ *   barods          $69.99 / $21.99 = 3.2
+ *   happary         $79.00 / $21.99 = 3.6
+ *
+ * Nobody sets a $79 threshold on a $21.99 product by accident. It is
+ * calibrated so the shipping concession only pays out on a three-item cart,
+ * which is what turns a $22 ticket into a $66-70 order and makes a $31-39 CPA
+ * survivable. Size ladders do more work than the multi-buy codes: barods runs
+ * $21.99 / $25.29 / $29.69 by size, +35% on one click, against a 10% code.
+ *
+ * DO NOT APPLY THIS BLINDLY. It is a property of MULTI-UNIT-NATURAL goods -
+ * one ornament per grandchild, one keychain per teammate. Nobody buys three
+ * coffee grinders. The report prints the cart line as CONDITIONAL for exactly
+ * this reason: tripling a single-purchase durable is the same class of error
+ * as comparing a per-order CPA to a single unit, just pointing the other way.
+ * The condition is a judgement about the product and this file cannot make it.
+ */
+export const AOV_THRESHOLD_MULTIPLE = 3;
 
 
 
@@ -218,6 +265,7 @@ export function screen(rows, {now = new Date(), basis = bindingBasis()} = {}) {
       bandCeiling: null,
       contributionAtCeiling: null,
       cpaUsd: null,
+      cartContribution: null,
       profitAfterCpa: null,
       clearsCpa: null,
       maxItemCost: null,
@@ -239,9 +287,14 @@ export function screen(rows, {now = new Date(), basis = bindingBasis()} = {}) {
     // Dead at any price: the best a unit can do inside the band still misses.
     // Advisory only - never feeds row.passed.
     row.cpaUsd = CPA_BENCHMARKS_USD.average;
-    row.profitAfterCpa = row.contribution - row.cpaUsd;
+    // CPA is per ORDER. Comparing it to one unit's contribution understates
+    // the business by the cart multiple every operator in this category
+    // engineers deliberately. Both figures are reported; the tier check uses
+    // the cart, because that is what an order actually is.
+    row.cartContribution = row.contribution * AOV_THRESHOLD_MULTIPLE;
+    row.profitAfterCpa = row.cartContribution - row.cpaUsd;
     row.clearsCpa = Object.fromEntries(
-      Object.entries(CPA_BENCHMARKS_USD).map(([k, v]) => [k, row.contribution >= v]),
+      Object.entries(CPA_BENCHMARKS_USD).map(([k, v]) => [k, row.cartContribution >= v]),
     );
 
     row.contributionAtCeiling = evaluate(ev, basis, {retail: row.bandCeiling});
@@ -288,7 +341,8 @@ export function formatReport({basis, results}) {
   lines.push(`binding duty basis: '${basis}'   contribution floor: $${MIN_CONTRIBUTION_USD.toFixed(2)}`);
   lines.push(`${results.length} candidate(s)`);
   lines.push(`acquisition lines are ADVISORY - measured CATEGORY benchmarks, not this store's CPA:`);
-  lines.push(`  $${CPA_BENCHMARKS_USD.topDecile.toFixed(2)} top decile · $${CPA_BENCHMARKS_USD.topQuartile.toFixed(2)} top quartile · $${CPA_BENCHMARKS_USD.average.toFixed(2)} average · $${CPA_BENCHMARKS_USD.homeAndGarden.toFixed(2)} Home & Garden\n`);
+  lines.push(`  $${CPA_BENCHMARKS_USD.lifestyleBoutique.toFixed(2)} lifestyle · $${CPA_BENCHMARKS_USD.toysArtCollectibles.toFixed(2)} toys/art · $${CPA_BENCHMARKS_USD.average.toFixed(2)} all-industry · $${CPA_BENCHMARKS_USD.homeAndGarden.toFixed(2)} home & garden`);
+  lines.push(`  compared against a ${AOV_THRESHOLD_MULTIPLE}-unit cart, since CPA is per order; true new-customer CAC runs 1.5-2.5x these.\n`);
 
   const pass = results.filter((r) => r.passed);
   const fail = results.filter((r) => !r.passed);
@@ -305,9 +359,10 @@ export function formatReport({basis, results}) {
     if (r.profitAfterCpa != null) {
       const tiers = Object.entries(r.clearsCpa).filter(([, ok]) => ok).map(([k]) => k);
       lines.push(
-        tiers.length === 0
-          ? `    advisory: clears NO acquisition benchmark - ${money(r.contribution)} against ${money(CPA_BENCHMARKS_USD.topDecile)} at the very best`
-          : `    advisory: clears ${tiers.join(', ')} (${money(r.contribution)}/order); average benchmark leaves ${money(r.profitAfterCpa)}`,
+        `    advisory: ${money(r.contribution)}/unit clears no benchmark alone` +
+          (tiers.length === 0
+            ? `; even a ${AOV_THRESHOLD_MULTIPLE}-unit cart (${money(r.cartContribution)}) clears none.`
+            : `. IF this is a multi-unit-natural gift, a ${AOV_THRESHOLD_MULTIPLE}-unit cart is ${money(r.cartContribution)} and clears ${tiers.join(', ')}, leaving ${money(r.profitAfterCpa)} against the all-industry benchmark. If nobody buys three, ignore this line.`),
       );
     }
   }

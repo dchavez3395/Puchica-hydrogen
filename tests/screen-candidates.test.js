@@ -6,9 +6,10 @@ import {
   rowToEvidence,
   solveLinear,
   screen,
+  formatReport,
 } from '../scripts/screen-candidates.mjs';
 import {auditUndercut, MIN_CONTRIBUTION_USD} from '../scripts/check-undercut.mjs';
-import {CPA_BENCHMARKS_USD} from '../scripts/screen-candidates.mjs';
+import {CPA_BENCHMARKS_USD, AOV_THRESHOLD_MULTIPLE} from '../scripts/screen-candidates.mjs';
 import {contribution, CHOICE_LINE_DISBURSEMENT} from '../scripts/us-duty-impact.mjs';
 
 const NOW = new Date('2026-09-08T00:00:00Z');
@@ -160,24 +161,6 @@ test('results are ranked by headroom, with unscorable candidates last', () => {
   assert.deepEqual(results.map((r) => r.handle), ['fat', 'thin', 'unscorable']);
 });
 
-test('the acquisition line is advisory and never moves the verdict', () => {
-  const {results} = screen([row({handle: 'clears'})], {now: NOW});
-  const r = results[0];
-
-  assert.equal(r.passed, true, 'fixture should clear the margin gate');
-  assert.equal(r.cpaUsd, CPA_BENCHMARKS_USD.average);
-  assert.ok(
-    Math.abs(r.profitAfterCpa - (r.contribution - r.cpaUsd)) < 1e-9,
-    'profitAfterCpa must be contribution minus CPA and nothing else',
-  );
-
-  // The case that matters: clears the margin gate, cannot pay for the customer.
-  // If this stops being reachable the advisory has quietly become a rule.
-  assert.ok(r.profitAfterCpa < 0, 'fixture should clear margin but fail acquisition');
-
-  const gate = auditUndercut(['clears'], () => rowToEvidence(row({handle: 'clears'}), NOW), NOW);
-  assert.equal(gate.failures.length, 0, 'the gate must not see the CPA at all');
-});
 
 /**
  * Corrected 2026-09-08. The advisory previously used a CA$28 floor or 40% of
@@ -185,33 +168,61 @@ test('the acquisition line is advisory and never moves the verdict', () => {
  * Measured category data puts that at roughly the BEST DECILE rather than a
  * norm, so every earlier reading was generous by two to three times.
  */
-test('acquisition benchmarks are the measured ones, in the right order', () => {
-  const {topDecile, topQuartile, average, homeAndGarden} = CPA_BENCHMARKS_USD;
+/**
+ * Corrected twice on 2026-09-08. The first replacement pulled three of four
+ * figures from a table whose CPAs reproduce exactly from its own CPC/CVR
+ * columns - derived arithmetic presented as measurement. Only the Triple Whale
+ * medians survive.
+ */
+test('acquisition benchmarks are the surviving measured ones', () => {
+  const {lifestyleBoutique, toysArtCollectibles, average, homeAndGarden} = CPA_BENCHMARKS_USD;
   assert.ok(
-    topDecile < topQuartile && topQuartile < average && average < homeAndGarden,
+    lifestyleBoutique < toysArtCollectibles && toysArtCollectibles < average && average < homeAndGarden,
     'benchmark tiers are out of order',
   );
-  assert.ok(
-    topDecile > 20 && homeAndGarden < 60,
-    'benchmarks moved outside the range the sources support',
-  );
 
-  // The old placeholder sat at CA$28, about US$20 - i.e. the top decile. Guard
-  // against anyone reinstating it as though it were an average.
-  assert.ok(
-    average > 30,
-    'the average benchmark has drifted back toward the retired placeholder',
-  );
+  // The retired fabricated figures. If any reappears, the derived table has
+  // been reinstated.
+  const retired = [20.37, 26.84, 37.2];
+  for (const v of Object.values(CPA_BENCHMARKS_USD)) {
+    assert.ok(!retired.includes(v), `retired fabricated benchmark ${v} is back`);
+  }
+
+  // Home & Garden is the pessimistic bound, not the default. The default must
+  // be the all-industry median.
+  assert.equal(average, 38.99);
+  assert.equal(homeAndGarden, 47.93);
 });
 
-test('a candidate clearing no benchmark is reported as clearing none', () => {
-  const thin = row({handle: 'thin', itemCostUsd: '22.00'});
-  const {results} = screen([thin], {now: NOW});
+test('the cart line is computed per order, and never moves the verdict', () => {
+  const {results} = screen([row({handle: 'clears'})], {now: NOW});
   const r = results[0];
-  assert.ok(r.contribution < CPA_BENCHMARKS_USD.topDecile);
-  assert.deepEqual(
-    Object.values(r.clearsCpa).filter(Boolean),
-    [],
-    'a candidate under every benchmark must clear none of them',
+
+  assert.equal(r.passed, true, 'fixture should clear the margin gate');
+  assert.equal(r.cpaUsd, CPA_BENCHMARKS_USD.average);
+  assert.ok(
+    Math.abs(r.cartContribution - r.contribution * AOV_THRESHOLD_MULTIPLE) < 1e-9,
+    'cart contribution must be the unit contribution times the cart multiple',
   );
+  assert.ok(
+    Math.abs(r.profitAfterCpa - (r.cartContribution - r.cpaUsd)) < 1e-9,
+    'CPA is per order, so it must be subtracted from the cart, not the unit',
+  );
+
+  // The unit alone must still fail, or the advisory has stopped being a
+  // meaningful signal for single-purchase goods.
+  assert.ok(
+    r.contribution < CPA_BENCHMARKS_USD.lifestyleBoutique,
+    'fixture unit should not clear even the cheapest benchmark on its own',
+  );
+
+  const gate = auditUndercut(['clears'], () => rowToEvidence(row({handle: 'clears'}), NOW), NOW);
+  assert.equal(gate.failures.length, 0, 'the gate must not see the CPA at all');
+});
+
+test('the report states the cart line is conditional, not a verdict', () => {
+  const report = formatReport(screen([row({handle: 'clears'})], {now: NOW}));
+  assert.match(report, /IF this is a multi-unit-natural gift/);
+  assert.match(report, /If nobody buys three, ignore this line/);
+  assert.match(report, /clears no benchmark alone/);
 });
