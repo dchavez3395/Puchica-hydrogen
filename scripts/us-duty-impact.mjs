@@ -74,8 +74,8 @@ const PAYMENT_FIXED = 0.3;
 const RESERVE_RATE = 0.08; // ~12% return rate x ~32% loss per return, + chargebacks
 const MPF = 2.69; // -> $2.77 on 2026-10-01
 const COURIER_DISBURSEMENT = 17.0; // UPS min, 2026-05-11. NOT on this line.
-const POSTAL_ENTRY_FEES = 16.74; // CBP $7.39 dutiable mail + USPS $9.35
-const CHOICE_LINE_DISBURSEMENT = 0.0; // SpeedX / GOFO / USPS are last-mile only
+export const POSTAL_ENTRY_FEES = 16.74; // CBP $7.39 dutiable mail + USPS $9.35
+export const CHOICE_LINE_DISBURSEMENT = 0.0; // SpeedX / GOFO / USPS are last-mile only
 
 // What the CUSTOMER pays us for shipping, read from the live Shopify delivery
 // profile on 2026-09-03 rather than assumed:
@@ -147,7 +147,7 @@ const COHORTS = [
   ['Live 2026-09 watch-roll cohort', LIVE_OFFERS, 'US'],
 ];
 
-function contribution({retail, itemCost, supplierShip, dutyRate, basis, carrier, market}) {
+export function contribution({retail, itemCost, supplierShip, dutyRate, basis, carrier, market}) {
   const collected =
     market === 'US'
       ? retail + US_COLLECTED_SHIPPING
@@ -173,7 +173,7 @@ function contribution({retail, itemCost, supplierShip, dutyRate, basis, carrier,
   return collected - landed - payment - reserve - duty - fees;
 }
 
-const SCENARIOS = [
+export const SCENARIOS = [
   ['A. Pre-2025 model (no duty anywhere)', 'none', 0],
   ['B. Duty on declared supplier cost, DDP', 'wholesale', CHOICE_LINE_DISBURSEMENT],
   ['C. Duty on supplier cost, legacy mail entry billed at the door', 'wholesale', POSTAL_ENTRY_FEES],
@@ -185,6 +185,14 @@ const SCENARIOS = [
 const pad = (s, n) => String(s).padEnd(n);
 const num = (v) => (v < 0 ? '-' : ' ') + '$' + Math.abs(v).toFixed(2).padStart(6);
 
+// The report only runs as a CLI. scripts/check-undercut.mjs imports
+// contribution() from here so the gate computes the real per-unit number
+// instead of comparing prices as a proxy for it - without this guard, every
+// import would print the whole report.
+const IS_CLI =
+  process.argv[1] && process.argv[1].endsWith('us-duty-impact.mjs');
+
+if (IS_CLI) {
 for (const [cohortLabel, cohort, market] of COHORTS) {
   console.log('\n\n=== ' + cohortLabel + ' ===');
   for (const [label, basis, carrier] of SCENARIOS) {
@@ -203,7 +211,9 @@ for (const [cohortLabel, cohort, market] of COHORTS) {
   }
 }
 
-console.log(`
+}
+
+if (IS_CLI) console.log(`
 Reading this:
   A  is the pre-2025 world. Nothing enters on it any more; it is the yardstick.
   B  supplier prepays duty on the wholesale value and absorbs it into the line.

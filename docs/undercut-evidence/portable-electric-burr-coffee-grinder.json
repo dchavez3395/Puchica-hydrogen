@@ -1,0 +1,107 @@
+{
+  "handle": "portable-electric-burr-coffee-grinder",
+  "checkedOn": "2026-09-08",
+  "market": "US",
+  "note": "CANDIDATE, NOT APPROVED. Nothing imported, nothing in Shopify. Kept as the second worked example because it demonstrates the gate refusing to proceed on an UNSOURCED duty rate, which is exactly how the 0.38 rate got inherited on the watch rolls and went unchallenged for weeks.",
+  "sources": [
+    "DSers 1688 product detail 2026-09-08",
+    "amazon.com search: portable electric coffee grinder rechargeable"
+  ],
+  "ourRetailUsd": 49.99,
+  "itemCostUsd": 9.29,
+  "supplierShipUsd": 18.35,
+  "costSource": "1688 via DSers: 'Hand Brewed Italian Grinder Automatic Coffee Machine Rechargeable', item US$9.29, Standard shipping to US US$18.35, 9-12 days, tracking available, 59447 pieces available, 3880 orders on 1688. NOTE shipping is per-product on 1688 - the watch roll on the same platform quotes $23.55, so do not carry a shipping figure between products.",
+  "dutyRateBasis": "NOT SOURCED. This is an electrical item with a lithium cell, so it is NOT HTS 4202.92.97 and the 55.1% stack does not apply. It needs its own HTS classification plus a check on lithium-battery shipping restrictions. The gate fails closed until that is recorded - that is deliberate.",
+  "competitors": [
+    {
+      "name": "Portable Electric Burr w/3 settings",
+      "priceUsd": 19.99,
+      "reviews": 209,
+      "boughtPerMonth": 300
+    },
+    {
+      "name": "First Grind-While-Charging",
+      "priceUsd": 23.99,
+      "reviews": 67
+    },
+    {
+      "name": "Portable Electric Burr (variant)",
+      "priceUsd": 26.99,
+      "reviews": 209,
+      "boughtPerMonth": 200
+    },
+    {
+      "name": "LAMIDO Portable Electric Burr",
+      "priceUsd": 29.97,
+      "reviews": 176,
+      "boughtPerMonth": 300
+    },
+    {
+      "name": "Electric Coffee Grinder portable",
+      "priceUsd": 34.99,
+      "reviews": 9,
+      "boughtPerMonth": 100
+    },
+    {
+      "name": "CIRCLE JOY Rechargeable Burr",
+      "priceUsd": 37.99,
+      "reviews": 3,
+      "boughtPerMonth": 100
+    },
+    {
+      "name": "Electric Burr Coffee Grinder",
+      "priceUsd": 39.99,
+      "reviews": 2
+    },
+    {
+      "name": "CEVING Hands-Free Blade",
+      "priceUsd": 41.99,
+      "reviews": 65
+    },
+    {
+      "name": "Burr Coffee Grinder - Portable Espresso",
+      "priceUsd": 45.11,
+      "reviews": 390,
+      "boughtPerMonth": 300
+    },
+    {
+      "name": "Upgraded Faster Electric Grinder",
+      "priceUsd": 45.99,
+      "reviews": 31
+    },
+    {
+      "name": "MiiCoffee PT2 Portable Burr",
+      "priceUsd": 69.99,
+      "reviews": 92
+    },
+    {
+      "name": "FORLIM Portable Burr 80 settings",
+      "priceUsd": 85.99,
+      "reviews": 87,
+      "boughtPerMonth": 100
+    },
+    {
+      "name": "Portable Conical Burr Dual-M",
+      "priceUsd": 99.88,
+      "reviews": 42
+    },
+    {
+      "name": "Portable Electric 45 settings",
+      "priceUsd": 119.99,
+      "reviews": 7
+    },
+    {
+      "name": "FEMOBOOK-A2",
+      "priceUsd": 139.0,
+      "reviews": 64,
+      "boughtPerMonth": 100
+    },
+    {
+      "name": "OutIn Fino (category leader)",
+      "priceUsd": 199.99,
+      "reviews": 565,
+      "boughtPerMonth": 300
+    }
+  ],
+  "verdict": "BLOCKED pending the duty rate. Ignoring duty entirely it contributes about $22/unit at $49.99, and $49.99 sits just inside the band (median $43.55, ceiling $50.08) - the best-looking candidate in eight attempts. The category is wide and open: real volume at $45.11 (390 reviews, 300+/mo) and at $199.99 (565 reviews, 300+/mo), top review count 565. What it needs before it can be approved is its HTS code and the lithium-battery shipping rules."
+}
