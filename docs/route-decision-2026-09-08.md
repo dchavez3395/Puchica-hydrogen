@@ -25,8 +25,9 @@ because there is nothing to compare against.
 
 On an identical, findable item the premium is bounded — judgment, not a measured
 figure, but on the order of 10-25%. On a $50 product that is five to twelve
-dollars, which does not cover a customer. On a $250 product it is $40-60, which
-does. And price is not the only axis: Amazon also carries two-day delivery, free
+dollars. On a $250 product it is $40-60. Whether either covers a customer is
+answered in the CPA section below, and the answer is worse than this file
+originally said. And price is not the only axis: Amazon also carries two-day delivery, free
 returns and zero perceived risk. Better copy beats a higher price. It rarely
 beats price plus speed plus trust on the same object.
 
@@ -109,6 +110,40 @@ What it fixes, point by point:
 
 Existing capability this uses: image generation already runs through Antigravity
 with Nano Banana Pro on the PC.
+
+## The acquisition cost, corrected 2026-09-08
+
+This file and `sourcing-record-2026-09-08.md` were first written against an
+assumed customer acquisition cost of $20-28, inherited from
+`scripts/lib/sourcing-spec.mjs` with no campaign behind it. That figure is
+wrong, and it is wrong in the direction that matters.
+
+Measured category benchmarks for Meta, US:
+
+- Home & Garden CPA **$47.93**, conversion rate 1.24% (down 3.57% year over
+  year) while CPA rose 6.71%, category AOV $110.41 — Triple Whale, across
+  40,000+ brands, Aug 2025-Jul 2026.
+- Home & Garden CPA **$37.20 average, $26.84 top quartile, $20.37 top decile**
+  — MHI, across 1,247 accounts and $87M of spend.
+
+So the $20-28 previously used is roughly what the best 10% of advertisers
+achieve, not a norm. The real bar for a store with no audience is contribution
+of about **$45-70 per order**, not the $12 floor in `check-undercut.mjs` and not
+the $30-60 assumed when this file was written.
+
+What that reprices, retroactively:
+
+- The coffee grinder at $19.62 contribution was not short by $0.38. It was
+  short by roughly $18-28.
+- Nothing examined in this project has ever been within range, including the
+  two candidates called passes in the sourcing record.
+- The eleven product failures are one arithmetic error repeated, not eleven
+  separate sourcing misjudgements.
+
+The $12 floor in the gate is deliberately NOT changed. It tests whether a unit
+makes money, which is a different and still-useful question. Acquisition is
+reported separately and stays advisory, because a category benchmark is not this
+store's measured CPA and never will be until a campaign runs.
 
 ## Honest risks
 

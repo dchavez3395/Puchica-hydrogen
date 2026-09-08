@@ -67,33 +67,38 @@ import {
   BAND_TOLERANCE,
 } from './check-undercut.mjs';
 import {contribution, CHOICE_LINE_DISBURSEMENT} from './us-duty-impact.mjs';
-import {CPA_MODEL, estimateCpa} from './lib/sourcing-spec.mjs';
-
 /**
- * ACQUISITION, and why it is advisory rather than a rule.
+ * ACQUISITION BENCHMARKS, corrected 2026-09-08.
  *
- * scripts/check-product-candidate.mjs (`npm run sourcing-spec`) already asked a
- * question this screener does not: can a unit pay for the customer who bought
- * it. It answers no for the coffee grinder. At CA$69.99 it puts contribution at
- * CA$20.79 against a CA$28 minimum CPA, short by CA$19.21 of the CA$40 needed.
+ * This advisory previously imported CPA_MODEL from ./lib/sourcing-spec.mjs -
+ * a CA$28 floor or 40% of order value, with no campaign behind it. Measured
+ * category data says that figure is roughly what the BEST DECILE of advertisers
+ * achieves, not a norm, so every earlier reading of this gate was generous by
+ * two to three times.
  *
- * That tool's ECONOMICS are superseded - it is CAD-denominated, applies a flat
- * 11% duty instead of the per-product HTS rate, and collects Canada's
- * free-over-CA$50 shipping on a store that now sells only to the US, which is
- * the exact assumption corrected out of us-duty-impact.mjs on 2026-09-03. So
- * the contribution figure here comes from the corrected model, not from there.
+ * Meta, US, Home & Garden:
+ *   $47.93 CPA, 1.24% conversion (down 3.57% YoY) while CPA rose 6.71%,
+ *          category AOV $110.41 - Triple Whale, 40,000+ brands, Aug 25-Jul 26
+ *   $37.20 average / $26.84 top quartile / $20.37 top decile
+ *          - MHI, 1,247 accounts, $87M spend
  *
- * Its CPA MODEL is imported rather than copied, and it stays ADVISORY. The
- * pass/fail verdict must remain identical to what CI enforces; folding an
- * unmeasured marketing assumption into it would make the screener disagree
- * with the gate, which is the one thing this file must not do.
+ * These are CATEGORY benchmarks from third-party studies, not this store's
+ * measured CPA, and they stay ADVISORY for the same reason as before: the
+ * pass/fail verdict must remain identical to what CI enforces. A test asserts
+ * the gate cannot see them.
  *
- * And unmeasured is the word. CA$28 floor / 40% of order value has no campaign
- * behind it - no traffic channel has ever run - so treat it as the older
- * model's placeholder, not a measured cost. It is shown because a product that
- * clears the margin floor and cannot clear this one is still not a business.
+ * The $12 contribution floor in check-undercut.mjs is deliberately unchanged.
+ * It answers whether a unit makes money, which is a different question from
+ * whether it can also buy the buyer.
  */
-const CPA_FX_CAD_PER_USD = 1.4;
+export const CPA_BENCHMARKS_USD = Object.freeze({
+  topDecile: 20.37,
+  topQuartile: 26.84,
+  average: 37.20,
+  homeAndGarden: 47.93,
+});
+
+
 
 /** Tolerance for the linearity check, in dollars. */
 const LINEARITY_EPSILON = 1e-6;
@@ -214,6 +219,7 @@ export function screen(rows, {now = new Date(), basis = bindingBasis()} = {}) {
       contributionAtCeiling: null,
       cpaUsd: null,
       profitAfterCpa: null,
+      clearsCpa: null,
       maxItemCost: null,
       maxItemCostAtCeiling: null,
       minRetail: null,
@@ -232,8 +238,11 @@ export function screen(rows, {now = new Date(), basis = bindingBasis()} = {}) {
 
     // Dead at any price: the best a unit can do inside the band still misses.
     // Advisory only - never feeds row.passed.
-    row.cpaUsd = estimateCpa(ev.ourRetailUsd * CPA_FX_CAD_PER_USD, CPA_MODEL) / CPA_FX_CAD_PER_USD;
+    row.cpaUsd = CPA_BENCHMARKS_USD.average;
     row.profitAfterCpa = row.contribution - row.cpaUsd;
+    row.clearsCpa = Object.fromEntries(
+      Object.entries(CPA_BENCHMARKS_USD).map(([k, v]) => [k, row.contribution >= v]),
+    );
 
     row.contributionAtCeiling = evaluate(ev, basis, {retail: row.bandCeiling});
     row.deadAtAnyPrice = row.contributionAtCeiling < MIN_CONTRIBUTION_USD;
@@ -278,8 +287,8 @@ export function formatReport({basis, results}) {
   lines.push('========================');
   lines.push(`binding duty basis: '${basis}'   contribution floor: $${MIN_CONTRIBUTION_USD.toFixed(2)}`);
   lines.push(`${results.length} candidate(s)`);
-  lines.push(`acquisition lines are ADVISORY and unmeasured: CA$${CPA_MODEL.floorCad} floor or ${Math.round(CPA_MODEL.proportionOfAov * 100)}% of order value,`);
-  lines.push(`inherited from sourcing-spec. No campaign has ever run, so no CPA has ever been observed.\n`);
+  lines.push(`acquisition lines are ADVISORY - measured CATEGORY benchmarks, not this store's CPA:`);
+  lines.push(`  $${CPA_BENCHMARKS_USD.topDecile.toFixed(2)} top decile · $${CPA_BENCHMARKS_USD.topQuartile.toFixed(2)} top quartile · $${CPA_BENCHMARKS_USD.average.toFixed(2)} average · $${CPA_BENCHMARKS_USD.homeAndGarden.toFixed(2)} Home & Garden\n`);
 
   const pass = results.filter((r) => r.passed);
   const fail = results.filter((r) => !r.passed);
@@ -294,10 +303,11 @@ export function formatReport({basis, results}) {
       lines.push(`    dies if supplier cost passes ${money(r.maxItemCost)} (now ${money(r.itemCost)})`);
     }
     if (r.profitAfterCpa != null) {
+      const tiers = Object.entries(r.clearsCpa).filter(([, ok]) => ok).map(([k]) => k);
       lines.push(
-        r.profitAfterCpa >= 0
-          ? `    advisory: clears an assumed ${money(r.cpaUsd)} CPA by ${money(r.profitAfterCpa)}/order`
-          : `    advisory: does NOT cover an assumed ${money(r.cpaUsd)} CPA - short ${money(-r.profitAfterCpa)}/order`,
+        tiers.length === 0
+          ? `    advisory: clears NO acquisition benchmark - ${money(r.contribution)} against ${money(CPA_BENCHMARKS_USD.topDecile)} at the very best`
+          : `    advisory: clears ${tiers.join(', ')} (${money(r.contribution)}/order); average benchmark leaves ${money(r.profitAfterCpa)}`,
       );
     }
   }

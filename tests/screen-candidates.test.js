@@ -8,7 +8,7 @@ import {
   screen,
 } from '../scripts/screen-candidates.mjs';
 import {auditUndercut, MIN_CONTRIBUTION_USD} from '../scripts/check-undercut.mjs';
-import {CPA_MODEL} from '../scripts/lib/sourcing-spec.mjs';
+import {CPA_BENCHMARKS_USD} from '../scripts/screen-candidates.mjs';
 import {contribution, CHOICE_LINE_DISBURSEMENT} from '../scripts/us-duty-impact.mjs';
 
 const NOW = new Date('2026-09-08T00:00:00Z');
@@ -165,28 +165,53 @@ test('the acquisition line is advisory and never moves the verdict', () => {
   const r = results[0];
 
   assert.equal(r.passed, true, 'fixture should clear the margin gate');
-  assert.ok(r.cpaUsd > 0);
+  assert.equal(r.cpaUsd, CPA_BENCHMARKS_USD.average);
   assert.ok(
     Math.abs(r.profitAfterCpa - (r.contribution - r.cpaUsd)) < 1e-9,
     'profitAfterCpa must be contribution minus CPA and nothing else',
   );
 
-  // The case that matters: clears the gate, cannot pay for the customer. If
-  // this ever stops being reachable the advisory has quietly become a rule.
+  // The case that matters: clears the margin gate, cannot pay for the customer.
+  // If this stops being reachable the advisory has quietly become a rule.
   assert.ok(r.profitAfterCpa < 0, 'fixture should clear margin but fail acquisition');
 
   const gate = auditUndercut(['clears'], () => rowToEvidence(row({handle: 'clears'}), NOW), NOW);
   assert.equal(gate.failures.length, 0, 'the gate must not see the CPA at all');
 });
 
-test('the CPA model is imported, not a second copy of the numbers', () => {
-  assert.equal(CPA_MODEL.floorCad, 28);
-  assert.equal(CPA_MODEL.proportionOfAov, 0.4);
+/**
+ * Corrected 2026-09-08. The advisory previously used a CA$28 floor or 40% of
+ * order value inherited from sourcing-spec.mjs with no campaign behind it.
+ * Measured category data puts that at roughly the BEST DECILE rather than a
+ * norm, so every earlier reading was generous by two to three times.
+ */
+test('acquisition benchmarks are the measured ones, in the right order', () => {
+  const {topDecile, topQuartile, average, homeAndGarden} = CPA_BENCHMARKS_USD;
+  assert.ok(
+    topDecile < topQuartile && topQuartile < average && average < homeAndGarden,
+    'benchmark tiers are out of order',
+  );
+  assert.ok(
+    topDecile > 20 && homeAndGarden < 60,
+    'benchmarks moved outside the range the sources support',
+  );
 
-  // A candidate priced high enough that the proportional CPA beats the floor,
-  // proving the imported model drives the number rather than a constant here.
-  const dear = row({handle: 'dear', ourRetailUsd: '200.00', competitorPricesUsd: '180;190;200;210;220'});
-  const {results} = screen([dear], {now: NOW});
-  const expectedUsd = CPA_MODEL.proportionOfAov * 200;
-  assert.ok(Math.abs(results[0].cpaUsd - expectedUsd) < 0.01, `cpa ${results[0].cpaUsd} != ${expectedUsd}`);
+  // The old placeholder sat at CA$28, about US$20 - i.e. the top decile. Guard
+  // against anyone reinstating it as though it were an average.
+  assert.ok(
+    average > 30,
+    'the average benchmark has drifted back toward the retired placeholder',
+  );
+});
+
+test('a candidate clearing no benchmark is reported as clearing none', () => {
+  const thin = row({handle: 'thin', itemCostUsd: '22.00'});
+  const {results} = screen([thin], {now: NOW});
+  const r = results[0];
+  assert.ok(r.contribution < CPA_BENCHMARKS_USD.topDecile);
+  assert.deepEqual(
+    Object.values(r.clearsCpa).filter(Boolean),
+    [],
+    'a candidate under every benchmark must clear none of them',
+  );
 });
