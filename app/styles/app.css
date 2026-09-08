@@ -7211,6 +7211,28 @@ main:has(> .pk-collection--bold) {
   font-weight: 550;
   line-height: 1.6;
 }
+/*
+  The containment hero's support link measured 115x18 and failed SC 2.5.8's
+  24px minimum on six consecutive CI runs.
+
+  It does NOT qualify for the Inline exception, and the probe is right to say
+  so. The exception covers a target whose size is constrained by the prose
+  around it; here the whole paragraph is "Questions? hello@puchica.ca", so the
+  link is 16 of its 27 characters. findSmallTargets() requires 20 characters of
+  surrounding text before it treats a <p> as running prose rather than a bare
+  wrapper, and 11 does not clear it. Padding this to 24px pushes nothing apart
+  because there is no second line to push.
+
+  Same treatment as .pk-breadcrumbs a and .pk-footer__address a: inline-flex so
+  min-height applies to an otherwise-inline element, and 24 rather than the 44
+  of SC 2.5.5 (Enhanced) because this is a text link in a sentence, not a
+  primary control. Type size and position are unchanged.
+*/
+.pk-campaign-hero__copy > p a {
+  align-items: center;
+  display: inline-flex;
+  min-height: 24px;
+}
 .pk-campaign-hero__actions {
   gap: 14px 20px;
   align-items: center;
