@@ -59,8 +59,8 @@ are still unknown and it is the main gap in this record.
 
 | Category | Landed cost as % of Amazon retail | Verdict |
 | --- | ---: | --- |
-| Galvanized raised garden bed | 25-35% | PASS |
-| Garden hose reel cart | 40-44% | PASS at $139.99, fails at the $59 category floor |
+| Galvanized raised garden bed | 25-35% | passed on COST, superseded - see below |
+| Garden hose reel cart | 40-44% | passed on COST, superseded - see below |
 | Furniture-style dog crate | 54% like-for-like | MISS |
 | Cat litter box enclosure | 51-81%, most above 70% | MISS |
 | Makeup vanity desk | 85-102% | DEAD |
@@ -107,6 +107,36 @@ treat the two passes as unconfirmed.
 Both survivors are spring products. Raised garden beds and hose reel carts sell
 February through June, and the figures above are early-September, off-peak.
 Testing either one now means advertising a garden bed in October.
+
+## Both "passes" were superseded later the same day
+
+Read the two rows above as a COST result only. Neither survived what came after,
+and both failures were found by checking rather than by argument.
+
+**Supply.** Opened in a browser rather than a server-side fetch. The garden-bed
+listings showed anchor pricing - $22.78 struck against $70.44, $29.87 against
+$126.51 - while the honestly-priced ones were $282.99 and $122.64, at or above
+Amazon retail. Sold counts across the whole first page were 22, 13, 4, 3, 3, 3,
+2, 1, 1, 1. The hose cart's $62.63 does look like a real standing price against
+265 sales and 600+ cross-platform, but its listing reads **"Only 3 left."**
+AliExpress US-warehouse stock is somebody's leftover container, not a
+replenishing supply line, and that is structural to the channel rather than bad
+luck on two SKUs.
+
+**Acquisition.** The benchmarks this file was written against were wrong twice
+over, and the corrected version is in `route-decision-2026-09-08.md`. Against
+Triple Whale medians of $31-39 per ORDER, nothing examined in this project has
+been in range as a single unit. The one qualification worth keeping: CPA is per
+order, and every operator studied in personalized gifting engineers a
+roughly three-unit cart, so a multi-unit-natural product can clear on a cart
+where it cannot clear on a unit. Neither a garden bed nor a hose reel is
+multi-unit-natural. Nobody buys three hose carts.
+
+**Timing.** Both are spring products. Even had they survived, neither is
+sellable in September.
+
+The honest summary of this pass: the demand-first method worked and is worth
+repeating, and the two candidates it produced are closed.
 
 ## What this means
 
