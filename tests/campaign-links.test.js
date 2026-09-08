@@ -159,16 +159,24 @@ test('the creative count stays small enough to read', () => {
 });
 
 test('organic relaunch links all carry the one canonical campaign', async () => {
-  const {buildOrganicLinks, ORGANIC_CAMPAIGN} = await import(
+  const {buildOrganicLinks, ORGANIC_CAMPAIGN, ORGANIC_CALENDAR} = await import(
     '../scripts/build-campaign-links.mjs'
   );
   const result = buildOrganicLinks();
-  // This held when every product post was refused (CA suspended, handles
-  // deleted) and it holds now that all three build against the live US
-  // cohort. The one canonical campaign value is what the test protects, and
-  // it has to survive both states - which is why the failure loop below is
-  // written to pass vacuously rather than to require failures.
-  assert.ok(result.links.length > 0, 'home-page posts still build');
+  // This has now held in three states: every post refused (CA suspended, the
+  // 2026-08 handles deleted); all three building against the live US cohort;
+  // and, since the 2026-09-08 retirement, every post refused again because the
+  // calendar's only handles are the retired watch rolls. That last state is
+  // the gate working - refusing to schedule a post at a dead PDP is the whole
+  // point - so the link COUNT is deliberately not asserted.
+  //
+  // What is asserted instead is that the calendar is not empty. Without that,
+  // this test would pass vacuously the moment someone deleted its entries,
+  // which is the one way it could quietly stop protecting anything.
+  assert.ok(
+    ORGANIC_CALENDAR.length > 0,
+    'an empty calendar would make every assertion below vacuous',
+  );
   for (const failure of result.failures) {
     assert.match(
       failure,
