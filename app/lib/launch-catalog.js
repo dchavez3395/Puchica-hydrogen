@@ -194,6 +194,26 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
   //                               billback (the couriers on this line are
   //                               domestic last-mile and cannot bill anyone).
   //
+  // REPRICED AGAIN 2026-09-08. Both figures were computed against US retail of
+  // $89 / $99 / $129, which is NOT what the store charges. The `Puchica US USD`
+  // price list (PriceList/22620078330) holds explicit fixed USD overrides on all
+  // eight live variants at $49 / $62 / $85, read from the Admin API on
+  // 2026-09-08 and confirmed against contextualPricing(country: US) on the same
+  // day. They are deliberate entries rather than currency conversion - every
+  // other row in that list is still denominated in CAD.
+  //
+  // Why the two readings disagree is NOT known. Either the 2026-09-02 reading
+  // was wrong, or the prices were changed after it. The Admin API exposes no
+  // price-list history, so this is recorded as an open discrepancy rather than
+  // explained away. If $89 / $99 / $129 was the intended price list, the fix is
+  // to change the prices, not these constants.
+  //
+  // The repricing matters most in the MIDDLE scenario. At $89 the supplier
+  // prepaying duty on wholesale value (B) returned $30.30 / $30.44 / $38.07; at
+  // the real prices it returns $2.62 / -$1.57 / $0.01. B is an ordinary thing
+  // for AliExpress to do, so the cohort now has no margin at all in a scenario
+  // that is neither the best nor the worst case.
+  //
   // Both from scripts/us-duty-impact.mjs at $49 / $62 / $85 on the US price
   // list, and they now include the CA$6.99 flat US shipping the delivery
   // profile actually charges - about $4.99 collected on every US order, which

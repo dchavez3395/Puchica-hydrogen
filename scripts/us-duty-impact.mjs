@@ -130,6 +130,13 @@ const OFFERS = [
  * here is tariff pass-through, not a promotion ending.
  */
 const LIVE_OFFERS = [
+  // REPRICED 2026-09-08. Was 89.0 / 99.0 / 129.0, and those are not the prices
+  // the store charges. The `Puchica US USD` price list (PriceList/22620078330)
+  // carries explicit fixed USD overrides at 49 / 62 / 85 on all eight live
+  // variants, read from the Admin API and confirmed against
+  // contextualPricing(country: US) the same day. Why it disagrees with the
+  // 2026-09-02 reading is unexplained rather than resolved - see the note on
+  // APPROVED_CATALOG_OFFERS in app/lib/launch-catalog.js.
   ['watch-roll 3 slot', 49.0, 26.18, 1.99, 0.551],
   ['watch-roll 4 slot', 62.0, 31.67, 1.99, 0.551],
   ['watch-roll 6 slot', 85.0, 43.48, 1.99, 0.551],
@@ -211,7 +218,11 @@ Reading this:
      on our side, and the margin is the ordinary dropship margin.
 
   E and D- are the two live candidates. Everything turns on which is true, and
-  the difference on a 3-slot at $89 is about $52 an order.
+  the difference on a 3-slot at $49 is about $30 an order.
+
+  Watch B as closely as E and D-. At the real price list the supplier prepaying
+  duty on wholesale value returns $2.62 / -$1.57 / $0.01 - break-even. That is
+  an ordinary AliExpress arrangement, so the middle case is now the thin one.
 
   Read it off a real order: DSers shows "Tax&Fee" on the order card BEFORE
   payment is taken. $0.00 there on a US order means E. Anything else means the
