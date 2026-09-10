@@ -125,4 +125,6 @@ terms-currency-paragraph.txt
 /apply-*.ps1
 /cleanup-branches.ps1
 /gfurn-email.txt
+/docs/supply-structure-and-duty.md
+/docs/brand-foundation.md
 /.pipeline/
