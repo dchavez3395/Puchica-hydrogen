@@ -1,81 +1,78 @@
 /**
  * Metadata for the two launch surfaces: the home page and /collections/all.
  *
- * 2026-09-08. The watch-roll cohort was retired and both markets suspended,
- * which left this file describing products the store no longer sells. The
- * rendered pages were already honest - the home page shows the containment
- * hero ("Shopping is temporarily paused") and /collections/all shows the
- * restocking empty state - but the title and description are what Google
- * indexes and what a shared link previews as, and those still read
- * "Shop Watch Roll Travel Cases" and "PU leather watch roll travel cases in
- * three, four and six slots".
+ * 2026-09-09. The United States reopened with a two-offer bamboo lighting
+ * cohort; Canada stays suspended. That is the first time since 2026-08-21 that
+ * the two markets have had different things to say, so `homeCa`/`homeUs` and
+ * `shopCa`/`shopUs` finally hold different strings - which is the shape they
+ * were kept in for exactly this moment.
  *
- * What changed and what deliberately did not:
+ *   UNITED STATES copy describes what is actually listed: a woven bamboo
+ *   pendant and a plug-in bamboo wall sconce. Two products is not a range, and
+ *   the copy does not pretend otherwise - it names them rather than implying a
+ *   catalogue behind them.
  *
- *   TITLES are back to their pre-2026-09-03 wording, which names the category
- *   and no product. Whether a paused storefront should instead say so in the
- *   title is a positioning call, not a correctness one, and it is not made
- *   here.
+ *   CANADA copy is unchanged. The market is still suspended, the pages still
+ *   render the containment hero and the restocking empty state, and the
+ *   description still says so.
  *
- *   DESCRIPTIONS are rewritten. These are the strings that made concrete
- *   inventory claims - slot counts, materials - and there is no inventory.
- *   They now say what the page says.
+ *   TITLES name the category, which is now lighting rather than travel
+ *   organizers. They are shared across markets, so they must be true in a
+ *   market that is open and in one that is paused; naming the category and no
+ *   product is what keeps that true.
  *
- * `homeCa`/`homeUs` and `shopCa`/`shopUs` are kept even though each pair now
- * holds the same string. Both markets are closed, so there is nothing to
- * distinguish; the keys stay so reopening one market is an edit to a string
- * rather than a change of shape. tests/launch-meta.test.js fails the moment a
- * market reopens, which is what stops this holding copy from outliving the
- * containment.
+ * The seven 220 V offers held in VOLTAGE_HOLD_CATALOG_OFFERS are deliberately
+ * absent from this copy. Nothing here may describe a fixture the store is not
+ * prepared to ship.
  */
 const COPY = {
   en: {
-    homeTitle: 'Puchica — Travel organizers for easier packing',
+    homeTitle: 'Puchica — Woven bamboo lighting',
     homeCa:
       'Shopping is paused while we verify product and checkout details. Nothing is listed for sale right now. Questions? hello@puchica.ca',
     homeUs:
-      'Shopping is paused while we verify product and checkout details. Nothing is listed for sale right now. Questions? hello@puchica.ca',
-    shopTitle: 'Shop Travel Organizers — Puchica',
+      'Woven bamboo pendant and plug-in wall lighting, shipped to the United States. Two fixtures listed today. Questions? hello@puchica.ca',
+    shopTitle: 'Shop Woven Bamboo Lighting — Puchica',
     shopCa:
       'We are restocking. Nothing is listed right now — check back shortly, or email hello@puchica.ca.',
     shopUs:
-      'We are restocking. Nothing is listed right now — check back shortly, or email hello@puchica.ca.',
+      'A woven bamboo pendant light and a plug-in bamboo swing-arm sconce. Bulbs not included; delivery estimates shown at checkout.',
   },
   fr: {
-    homeTitle: 'Puchica — Des organisateurs de voyage pour mieux préparer vos bagages',
+    homeTitle: 'Puchica — Luminaires en bambou tressé',
     homeCa:
       'Les achats sont en pause pendant que nous vérifions les détails des produits et du paiement. Rien n’est en vente pour le moment. Questions : hello@puchica.ca',
     homeUs:
-      'Les achats sont en pause pendant que nous vérifions les détails des produits et du paiement. Rien n’est en vente pour le moment. Questions : hello@puchica.ca',
-    shopTitle: 'Magasiner les organisateurs de voyage — Puchica',
+      'Suspension en bambou tressé et applique à brancher, livrées aux États-Unis. Deux luminaires en ligne aujourd’hui. Questions : hello@puchica.ca',
+    shopTitle: 'Magasiner les luminaires en bambou tressé — Puchica',
     shopCa:
       'Nous réapprovisionnons. Rien n’est en ligne pour le moment — revenez bientôt ou écrivez à hello@puchica.ca.',
     shopUs:
-      'Nous réapprovisionnons. Rien n’est en ligne pour le moment — revenez bientôt ou écrivez à hello@puchica.ca.',
+      'Une suspension en bambou tressé et une applique en bambou à bras articulé, à brancher. Ampoules non fournies ; estimations de livraison affichées au paiement.',
   },
   es: {
-    homeTitle: 'Puchica — Organizadores de viaje para empacar mejor',
+    homeTitle: 'Puchica — Iluminación en bambú tejido',
     homeCa:
       'Las compras están en pausa mientras verificamos los detalles de los productos y del pago. Ahora mismo no hay nada a la venta. ¿Preguntas? hello@puchica.ca',
     homeUs:
-      'Las compras están en pausa mientras verificamos los detalles de los productos y del pago. Ahora mismo no hay nada a la venta. ¿Preguntas? hello@puchica.ca',
-    shopTitle: 'Compra organizadores de viaje — Puchica',
+      'Lámpara colgante de bambú tejido y aplique enchufable, con envío a Estados Unidos. Hoy hay dos luminarias publicadas. ¿Preguntas? hello@puchica.ca',
+    shopTitle: 'Compra iluminación en bambú tejido — Puchica',
     shopCa:
       'Estamos reabasteciendo. Ahora mismo no hay nada publicado: vuelve pronto o escríbenos a hello@puchica.ca.',
     shopUs:
-      'Estamos reabasteciendo. Ahora mismo no hay nada publicado: vuelve pronto o escríbenos a hello@puchica.ca.',
+      'Una lámpara colgante de bambú tejido y un aplique de bambú con brazo articulado, enchufable. Bombillas no incluidas; estimaciones de entrega al pagar.',
   },
   'pt-br': {
-    homeTitle: 'Puchica — Organizadores de viagem para arrumar melhor a mala',
+    homeTitle: 'Puchica — Iluminação em bambu tecido',
     homeCa:
       'As compras estão pausadas enquanto verificamos os detalhes dos produtos e do checkout. No momento não há nada à venda. Dúvidas? hello@puchica.ca',
     homeUs:
-      'As compras estão pausadas enquanto verificamos os detalhes dos produtos e do checkout. No momento não há nada à venda. Dúvidas? hello@puchica.ca',
-    shopTitle: 'Compre organizadores de viagem — Puchica',
+      'Pendente de bambu tecido e arandela de tomada, com envio para os Estados Unidos. Hoje há duas luminárias publicadas. Dúvidas? hello@puchica.ca',
+    shopTitle: 'Compre iluminação em bambu tecido — Puchica',
     shopCa:
       'Estamos reabastecendo. No momento não há nada publicado — volte em breve ou escreva para hello@puchica.ca.',
     shopUs:
-      'Estamos reabastecendo. No momento não há nada publicado — volte em breve ou escreva para hello@puchica.ca.',
+      'Um pendente de bambu tecido e uma arandela de bambu com braço articulado, de tomada. Lâmpadas não inclusas; estimativas de entrega no pagamento.',
   },
 };
 

@@ -1,0 +1,109 @@
+/* ============================================================================
+   Puchica — colour tokens, verified 2026-09-01
+   ----------------------------------------------------------------------------
+   Every value below was measured with the WCAG 2.x relative-luminance formula,
+   not eyeballed. The ratio in each comment is the one that constrains it: if
+   you change a value, re-measure that pair or the token stops being a promise.
+
+   Thresholds: 4.5:1 normal text · 3:1 large text (>=24px, or >=18.66px bold)
+   and UI component boundaries.
+   ============================================================================ */
+
+:root {
+  /* -- grounds ------------------------------------------------------------ */
+  --pk-paper:   #FAF8F3;   /* page */
+  --pk-surface: #FFFFFF;   /* cards, panels */
+  --pk-sunk:    #F2F0EA;   /* wells, empty states, table headers */
+
+  /* -- text --------------------------------------------------------------- */
+  --pk-ink:     #14161F;   /* 16.99 paper · 18.04 surface · 15.83 sunk */
+  --pk-ink-2:   #3A4055;   /*  9.68        · 10.27        ·  9.01      */
+  --pk-ink-3:   #666D83;   /*  4.85        ·  5.15        ·  4.52      */
+  /* --pk-ink-3 was #667291 in the first draft. That measures 4.51 on paper -
+     a hair over - and 4.20 on --pk-sunk, which is exactly where empty states
+     and table headers put muted text. Do not move it back. */
+
+  /* -- lines -------------------------------------------------------------- */
+  --pk-line:    #DFDCD3;   /* DECORATIVE ONLY. 1.29:1 - never a UI boundary,
+                              never the only thing separating two controls. */
+  --pk-line-ui: #7E869A;   /* 3.43 paper · 3.64 surface · 3.20 sunk.
+                              Form controls, card edges, anything SC 1.4.11
+                              treats as a component boundary. */
+
+  /* -- añil panel (dark ground) ------------------------------------------- */
+  --pk-panel:        #243560;
+  --pk-panel-ink:    #FFFFFF;   /* 11.98 on panel */
+  --pk-panel-ink-2:  #E8EDF6;   /* 10.20 */
+  --pk-panel-ink-3:  #9DB4EE;   /*  5.82 - panel ONLY, never over imagery */
+
+  /* -- the eight hues -----------------------------------------------------
+     Each hue has three roles and they are not interchangeable:
+       <hue>       text on a light ground, and the chip's own text colour
+       <hue>-fill  a filled ground; white text unless noted
+       <hue>-tint  a pale ground carrying <hue> as its text
+     The commented pair is text-on-tint, the tightest of the three.          */
+  --pk-anil:            #22347A;  --pk-anil-fill:#22347A;  --pk-anil-tint:#E8EDF6;  /* 9.71 */
+  --pk-cochinilla:      #B01B3F;  --pk-cochinilla-fill:#C21D45; --pk-cochinilla-tint:#F3DEDE; /* 5.31 */
+  --pk-quetzal:         #076B4D;  --pk-quetzal-fill:#0A7A58; --pk-quetzal-tint:#DDE9E0; /* 5.22 */
+  --pk-maiz:            #8E6405;  --pk-maiz-fill:#E8A020;  --pk-maiz-tint:#F8EDDA;  /* 4.56 */
+  --pk-caracol:         #7E2989;  --pk-caracol-fill:#8E2E9B; --pk-caracol-tint:#EDE0E8; /* 6.40 */
+  --pk-barro:           #93421D;  --pk-barro-fill:#A64B21;  --pk-barro-tint:#F0E3DA;  /* 5.50 */
+  --pk-tule:            #7D602D;  --pk-tule-fill:#8A6A32;   --pk-tule-tint:#EDE7DC;   /* 4.76 */
+  --pk-torogoz:         #00736E;  --pk-torogoz-fill:#00807A; --pk-torogoz-tint:#DCEAE4; /* 4.60 */
+
+  /* MAIZ IS THE EXCEPTION. White on --pk-maiz-fill is 2.22:1 and fails.
+     A maíz fill takes --pk-ink at 8.14:1. Every other fill takes white
+     (5.01 tule -> 11.41 añil). */
+  --pk-on-maiz-fill: #14161F;
+
+  /* -- commerce ----------------------------------------------------------- */
+  /* The primary button is a token PAIR, not a background borrowed from a hue.
+     In a dark theme the barro token becomes a light peach, and white on it is
+     2.40:1 - a real failure the first draft shipped with. */
+  --pk-btn-bg: #93421D;  --pk-btn-fg: #FFFFFF;   /* 6.91 */
+
+  /* -- focus -------------------------------------------------------------- */
+  --pk-focus: #1F5FA8;   /* 6.07 paper · 6.44 surface · 5.65 sunk */
+  /* 1.07:1 against --pk-btn-bg. The 3px outline-offset is what keeps the ring
+     on the page ground instead of on the button, so the offset is a
+     conformance requirement, not styling. Do not set it to 0. */
+
+  /* -- scrim: the contract for text over photography ----------------------
+     A ratio over an image depends on the image, so it is guaranteed by
+     construction instead. Under the worst case - a completely white photo -
+     this scrim composites to #66686D, and every permitted foreground is
+     measured against that.
+       #FFFFFF  5.58  body and headings
+       #E8EDF6  4.75  eyebrows and secondary
+       #9DB4EE  2.71  BARRED over imagery; panel only
+     0.60 was rejected: white passes at 4.73 but the secondary tint reaches
+     only 4.02. The floor is set by the weaker foreground so either can be
+     used without re-checking.                                              */
+  --pk-scrim: rgba(20, 22, 31, 0.65);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --pk-paper:#101219; --pk-surface:#171A23; --pk-sunk:#1E222D;
+    --pk-ink:#ECEAE4;   /* 15.55 · 14.44 · 13.21 */
+    --pk-ink-2:#B4B9C7; /*  9.54 ·  8.86 ·  8.10 */
+    --pk-ink-3:#98A0B4; /*  7.15 ·  6.64 ·  6.07 */
+    --pk-line:#2A2F3C; --pk-line-ui:#69718A;  /* 3.86 · 3.58 · 3.28 */
+    --pk-panel:#1C2951;
+
+    --pk-anil:#9DB4EE;       --pk-anil-tint:#1D2740;  /* 7.20 */
+    --pk-cochinilla:#F08CA5; --pk-cochinilla-tint:#331A22; /* 6.86 */
+    --pk-quetzal:#5FD9B0;    --pk-quetzal-tint:#16302A;    /* 8.08 */
+    --pk-maiz:#F5CE7A;       --pk-maiz-tint:#332816;       /* 9.61 */
+    --pk-caracol:#D291DA;    --pk-caracol-tint:#2B1B2F;    /* 6.77 */
+    --pk-barro:#E59468;      --pk-barro-tint:#33221A;      /* 6.33 */
+    --pk-tule:#D3B584;       --pk-tule-tint:#2C2519;       /* 7.73 */
+    --pk-torogoz:#5FD6D0;    --pk-torogoz-tint:#12302F;    /* 8.07 */
+
+    --pk-btn-bg:#E59468; --pk-btn-fg:#14161F;  /* 7.53 */
+    --pk-focus:#8AB4F8;  /* 8.88 · 8.25 · 7.54 */
+  }
+}
+/* Repeat the dark block verbatim under :root[data-theme="dark"] so an explicit
+   toggle wins in both directions. A colour whose only definition sits inside a
+   media query never applies in the un-stamped default state. */

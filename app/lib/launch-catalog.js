@@ -352,10 +352,155 @@ export const ARCHIVED_CATALOG_OFFERS = Object.freeze([
  * cost evidence recorded. ARCHIVED_CATALOG_OFFERS above holds the previous
  * cohort's evidence for whichever of them come back.
  */
+  // ===========================================================================
+  // 220 V HOLD, 2026-09-09. Seven offers that passed every commercial gate are
+  // NOT approved below, and the reason is electrical rather than commercial.
+  //
+  // All seven map to one AliExpress listing, 1005009170603754 (US id
+  // 3256808984289002, "Newest Bamboo Pendant Lamp ... Hand Knit Braiding",
+  // seller Lux Aurumpue Lighting Store, brand ZODOLAMP). Its own specification
+  // table, expanded and read on 2026-09-09, states:
+  //
+  //     Voltage        220 V
+  //     Base Type      E27
+  //     Power Source   AC
+  //     Is Include PCBA  N
+  //     Is Bulbs Included  No
+  //     Certification  CCC,ce,CQC,EMC,FCC,GS,LVD,pse,ROHS,SAA,UL,VDE,EAC
+  //
+  // United States mains is 120 V. The supplier does not state 120 V or a range
+  // that includes it. Compare the two offers that ARE approved below: listing
+  // 1005007626643748 and listing 1005010458579497 both read "Voltage 90-260V"
+  // in the same field, from the same kind of table - so on this supplier the
+  // field distinguishes wide-range parts from 220 V ones rather than being
+  // boilerplate everyone fills in identically.
+  //
+  // What is NOT established, and must not be assumed either way:
+  //   - Whether the fixture is a passive lamp holder and cord, in which case
+  //     120 V operation with a 120 V bulb would be unremarkable. "Is Include
+  //     PCBA: N" is consistent with that but does not establish it.
+  //   - Whether the UL entry in the certification list is a real UL listing for
+  //     this fixture. That field is a multi-select naming thirteen schemes at
+  //     once, including mutually regional ones, which is what a seller ticking
+  //     every box looks like.
+  //
+  // These are hardwired ceiling fixtures. Shipping one into a 120 V market on
+  // the strength of an inference about its internals is a decision with
+  // liability attached, and it is not one the code should make quietly. So the
+  // cohort is held here, intact, rather than deleted.
+  //
+  // TO RELEASE: get the supplier to confirm 110-120 V operation in writing, or
+  // source the same shapes from a listing that states a range covering 120 V.
+  // Then move SIX of these seven entries into APPROVED_CATALOG_OFFERS below and
+  // drop the voltage line from each product's copy caveat. Cost, route, duty and
+  // undercut evidence for all of them is on disk and current.
+  //
+  // SIX, NOT SEVEN. woven-bamboo-dome-pendant is blocked a second time, on
+  // stock, and answering the voltage question does not unblock it. Every SKU on
+  // this listing was clamp-tested on 2026-09-09 - select the variant, type 999
+  // into the quantity box, read the ceiling the page settles on - and the
+  // A-wood base SKU we mapped caps at ONE UNIT:
+  //
+  //     A-wood base   (dome)      $32.62      1   <- blocked
+  //     C-black base  (lantern)   $36.48    264
+  //     D-wood base   (column)    $37.10    256
+  //     style G       (mini)      $21.65    273
+  //     style K       (wave)      $54.58    270
+  //     style H       (drum)      $56.82    273
+  //     style E       (brim)      $46.64    263
+  //
+  // The clamp is the only per-SKU number worth trusting. The "Only N left"
+  // banner reports a different variant on some pages, and DSers' My Products
+  // Stock figure is the sum across every variant on the listing - it reads in
+  // the thousands for listings whose US SKU caps in single digits.
+  // ===========================================================================
+export const VOLTAGE_HOLD_CATALOG_OFFERS = Object.freeze([
+  Object.freeze({
+    handle: 'woven-bamboo-dome-pendant',
+    sku: '200000531:365458#A-wood base;136:200006153#NO light bulb',
+    markets: Object.freeze(['US']),
+    dutyPrepaidContributionUsd: 58.5,
+    dutyBilledContributionUsd: 13.17,
+  }),
+  Object.freeze({
+    handle: 'woven-bamboo-lantern-pendant-26cm',
+    sku: '200000531:1052#C-black base;136:200006153#NO light bulb',
+    markets: Object.freeze(['US']),
+    dutyPrepaidContributionUsd: 54.64,
+    dutyBilledContributionUsd: 9.31,
+  }),
+  Object.freeze({
+    handle: 'woven-bamboo-column-pendant-37cm',
+    sku: '200000531:29#D-wood base;136:200006153#NO light bulb',
+    markets: Object.freeze(['US']),
+    dutyPrepaidContributionUsd: 54.02,
+    dutyBilledContributionUsd: 8.69,
+  }),
+  Object.freeze({
+    handle: 'woven-bamboo-mini-pendant-18cm',
+    sku: '200000531:200002984#style G;136:200006153#NO light bulb',
+    markets: Object.freeze(['US']),
+    dutyPrepaidContributionUsd: 69.47,
+    dutyBilledContributionUsd: 24.14,
+  }),
+  Object.freeze({
+    handle: 'woven-bamboo-wave-chandelier-35cm',
+    sku: '200000531:200006154#style K;136:200006153#NO light bulb',
+    markets: Object.freeze(['US']),
+    dutyPrepaidContributionUsd: 75.46,
+    dutyBilledContributionUsd: 11.5,
+  }),
+  Object.freeze({
+    handle: 'woven-bamboo-drum-chandelier-30cm',
+    sku: '200000531:365016#style H;136:200006153#NO light bulb',
+    markets: Object.freeze(['US']),
+    dutyPrepaidContributionUsd: 73.22,
+    dutyBilledContributionUsd: 9.26,
+  }),
+  Object.freeze({
+    handle: 'woven-bamboo-wide-brim-chandelier-30cm',
+    sku: '200000531:366#style E;136:200006153#NO light bulb',
+    markets: Object.freeze(['US']),
+    dutyPrepaidContributionUsd: 83.4,
+    dutyBilledContributionUsd: 19.44,
+  }),
+]);
+
 export const APPROVED_CATALOG_OFFERS = Object.freeze([
-  // Empty since 2026-09-08. See the retired watch-roll cohort in
-  // ARCHIVED_CATALOG_OFFERS above for why, and read that note before adding
-  // anything here: the market check comes BEFORE the margin model, not after.
+  // Rattan/bamboo lighting cohort, approved 2026-09-09. Replaces the retired
+  // watch-roll cohort in ARCHIVED_CATALOG_OFFERS.
+  //
+  // Every entry below is US-only and cn-direct, so each one falls through
+  // isOfferSellable() to the per-offer duty test rather than passing on the
+  // route. US_DUTY_INCIDENCE is UNVERIFIED, so the binding figure is
+  // dutyPrepaidContributionUsd; all nine are positive. The billed figures are
+  // recorded too and all nine are ALSO positive, so the cohort survives either
+  // resolution of the incidence question - which is the difference between this
+  // cohort and the watch rolls.
+  //
+  // Evidence per entry: supplier cost and per-SKU stock read from the AliExpress
+  // SKU table (not the search card), DSers mapping confirmed against the exact
+  // skuAttr below, and the retail priced against the Amazon page-1 median for the
+  // category the product actually belongs to - chandeliers benchmarked as
+  // chandeliers, not as pendants.
+  //
+  // Contribution figures are contribution() from scripts/us-duty-impact.mjs at
+  // dutyRate 0.414 (HTS 9405.11.80 MFN 3.9% + Section 301 25% + forced-labour
+  // 12.5%), supplierShip 1.99, carrier 0.
+  Object.freeze({
+    handle: 'hand-woven-bamboo-pendant-light',
+    sku: '200000531:10#30cm-M;249:200006305#1pcs',
+    markets: Object.freeze(['US']),
+    dutyPrepaidContributionUsd: 56.85,
+    dutyBilledContributionUsd: 11.58,
+  }),
+  Object.freeze({
+    handle: 'plug-in-bamboo-sconce-swing-arm',
+    sku: '200000795:175#US PLUG-DIM switch;249:200006305#no light',
+    markets: Object.freeze(['US']),
+    dutyPrepaidContributionUsd: 40.52,
+    dutyBilledContributionUsd: 7.96,
+  }),
 ]);
 /**
  * True when nothing is approved for sale anywhere.
@@ -518,20 +663,11 @@ export const SUSPENDED_COMMERCE_MARKETS = Object.freeze({
   // when real products are approved, and prune APPROVED_CATALOG_OFFERS to
   // whatever actually ships at the same time.
   CA: 'catalog-empty-2026-08-28: no approved offer resolves',
-  // Added 2026-09-08. The watch-roll cohort was the only thing keeping the US
-  // open, and it was retired the same day on the Amazon undercut test, so the
-  // US is now in exactly the position CA has been in since 2026-08-28: there
-  // is nothing to sell. check-storefront-release fails an OPEN market with an
-  // empty cohort, and it is right to - an open market with no offers is a
-  // storefront advertising a checkout it cannot honour.
-  //
-  // This is NOT the blanket US suspension that was reverted on 2026-09-01.
-  // That one was wrong because it closed the market on de-minimis evidence
-  // that only ever applied to the cn-direct ROUTE. This one says nothing about
-  // routes: SUSPENDED_FULFILMENT_ROUTES still carries the route facts, and
-  // us-local is still open there. Delete this line the moment a real offer
-  // lands in APPROVED_CATALOG_OFFERS.
-  US: 'catalog-empty-2026-09-08: watch-roll cohort retired on the undercut test',
+  // US reopened 2026-09-09. The line that stood here said to delete it "the
+  // moment a real offer lands in APPROVED_CATALOG_OFFERS" - nine have. The
+  // route facts are unchanged and still live in SUSPENDED_FULFILMENT_ROUTES:
+  // cn-direct into the US remains suspended there, so every offer above still
+  // has to clear the per-offer duty test on its own contribution.
 });
 
 export function isFulfilmentRouteSuspended(market, route) {

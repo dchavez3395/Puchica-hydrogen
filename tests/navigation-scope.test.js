@@ -114,11 +114,14 @@ test('empty search prompts stay localized and inside the current assortment', ()
 });
 
 test('retired discovery hubs permanently redirect into the localized catalog', () => {
-  for (const source of [
-    collectionIndexRoute,
-    exploreRoute,
-    legacyCollectionRoute,
-  ]) {
+  // `collections.$handle` used to be in this list. It is now a real category
+  // template rather than a 301 — see the route's own header for why the
+  // redirect was actively harmful, not merely conservative: it swallowed the
+  // `?price=` filter that collections.all.jsx points at these URLs to apply.
+  //
+  // The index and explore hubs stay redirected. They advertised a department
+  // taxonomy, and nothing has refilled it.
+  for (const source of [collectionIndexRoute, exploreRoute]) {
     assert.match(source, /localizePath\(destination, params\?\.locale \|\| 'en'\)/);
     assert.match(source, /return redirect\([^;]+, 301\)/s);
     assert.match(source, /\/collections\/all/);
@@ -128,6 +131,23 @@ test('retired discovery hubs permanently redirect into the localized catalog', (
     exploreRoute,
     /phone-case|electronics-accessories|pet-supplies|PRODUCT_CATEGORIES/,
   );
+});
+
+test('the category template cannot advertise an empty or contained catalogue', () => {
+  // The reason the old redirect existed was that a category page with nothing
+  // in it is worse than no page: it gets crawled, indexed, and ranks the store
+  // for a department it cannot serve. Replacing the redirect is only safe while
+  // both of those escape hatches hold, so they are pinned here.
+  //
+  // 1. Containment still wins outright — during a storefront review the route
+  //    redirects home exactly as every other surface does.
+  // 2. An empty result set sets noindex rather than publishing a bare page.
+  // 3. Products are filtered through the launch gate, so a collection may list
+  //    whatever it likes in admin without putting an unapproved offer in front
+  //    of a customer.
+  assert.match(legacyCollectionRoute, /STOREFRONT_CONTAINMENT_ACTIVE/);
+  assert.match(legacyCollectionRoute, /noindex: !data\?\.products\?\.nodes\?\.length/);
+  assert.match(legacyCollectionRoute, /filterLaunchProducts\(/);
 });
 
 
@@ -283,8 +303,14 @@ test('customer-facing chrome names no retired product, in any locale', () => {
  * catalogue rather than on STOREFRONT_CONTAINMENT_ACTIVE, which is false - the
  * store is empty, not contained, and those are different states.
  */
-test('discovery chips are suppressed while the catalogue is empty', () => {
-  assert.equal(CATALOG_IS_EMPTY, true, 'fixture assumes an empty catalogue');
+test('discovery chips stay gated on the catalogue, empty or not', () => {
+  // CATALOG_IS_EMPTY went false on 2026-09-09 when the United States reopened
+  // with two offers. The gate is what this test is about, not the flag's
+  // current value: a route that stops importing CATALOG_IS_EMPTY works fine
+  // today and silently advertises trending searches over a dead catalogue the
+  // next time the store empties. Asserting the source still gates keeps the
+  // check alive in both states.
+  assert.equal(CATALOG_IS_EMPTY, false, 'the catalogue is no longer empty');
   for (const [name, source] of [
     ['search route', searchRoute],
     ['predictive search', predictiveSearch],

@@ -81,13 +81,53 @@ test('canonical operating scope matches the three-offer automated release', () =
   assert.doesNotMatch(readme, /Do not enable or assume automatic production deployment/);
 });
 
-test('retired broad-catalog homepage sections stay removed', () => {
+test('page sections carry no retired broad-catalog vocabulary', () => {
+  // This guardrail used to assert `app/sections` was EMPTY. That was the right
+  // shape while the directory's only history was the retired broad-catalog
+  // homepage — hardcoded departments for phone cases, pet supplies and
+  // electronics that the store no longer sells and could not fill.
+  //
+  // The directory now holds a metaobject-driven section system, which is the
+  // opposite thing: it hardcodes no departments at all, because every section's
+  // content is fetched from Shopify at request time and a section whose
+  // referenced collection disappears renders nothing. Banning the directory
+  // would ban the fix along with the problem.
+  //
+  // The assertion therefore moves to the property that actually mattered: no
+  // section component may name a retired department or embed a catalogue
+  // taxonomy of its own.
   const files = existsSync('app/sections')
     ? readdirSync('app/sections', {recursive: true}).filter((entry) =>
         /\.(?:js|jsx)$/.test(String(entry)),
       )
     : [];
-  assert.deepEqual(files, []);
+
+  for (const file of files) {
+    const source = readFileSync(`app/sections/${file}`, 'utf8');
+    assert.doesNotMatch(
+      source,
+      /phone-case|electronics-accessories|pet-supplies|PRODUCT_CATEGORIES/,
+      `${file} reintroduces retired broad-catalog vocabulary`,
+    );
+  }
+});
+
+test('the homepage falls back to its built-in layout when no sections exist', () => {
+  // Replacing a live homepage is only safe while it is reversible without a
+  // deploy. The route renders metaobject sections when a `page_layout` entry
+  // with handle `home` carries any, and the compiled-in landing otherwise, so
+  // deleting the entry in admin restores the old homepage immediately.
+  //
+  // The layout lookup also has to fail on its own. If an unreachable or
+  // misconfigured metaobject could reject the loader, a content system would be
+  // able to take the front door down, which is strictly worse than having no
+  // content system.
+  const route = readFileSync('app/routes/_index.jsx', 'utf8');
+
+  assert.match(route, /sections\.length \? \(/);
+  assert.match(route, /<SmallSpaceLanding products=\{products\} \/>/);
+  assert.match(route, /\.catch\(\(error\) => \{/);
+  assert.match(route, /handle: 'home'/);
 });
 
 test('legacy bulk Shopify tools fail closed unless writes are explicit', () => {

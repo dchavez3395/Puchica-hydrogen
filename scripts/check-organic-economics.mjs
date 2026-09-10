@@ -6,6 +6,7 @@ import {fileURLToPath} from 'node:url';
 import {
   APPROVED_CATALOG_OFFERS,
   ARCHIVED_CATALOG_OFFERS,
+  VOLTAGE_HOLD_CATALOG_OFFERS,
   isMarketSuspended,
   isOfferSellable,
 } from '../app/lib/launch-catalog.js';
@@ -30,13 +31,40 @@ try {
  */
 export const BASELINE_AUDIT_COHORT = Object.freeze([
   ...APPROVED_CATALOG_OFFERS,
-  ...ARCHIVED_CATALOG_OFFERS.filter(
-    (archived) =>
+  ...[...ARCHIVED_CATALOG_OFFERS, ...VOLTAGE_HOLD_CATALOG_OFFERS].filter(
+    (other) =>
       !APPROVED_CATALOG_OFFERS.some(
-        (live) => live.handle === archived.handle && live.sku === archived.sku,
+        (live) => live.handle === other.handle && live.sku === other.sku,
       ),
   ),
 ]);
+
+/**
+ * Which cohort members are actually for sale.
+ *
+ * `isOfferSellable` answers a narrower question than this one: it takes an
+ * offer at its word and asks whether its market and route are open. That is
+ * right for the storefront, where only APPROVED_CATALOG_OFFERS is ever passed
+ * to it, and wrong here, where the cohort deliberately also holds archived and
+ * held offers so their evidence survives.
+ *
+ * It went wrong on 2026-09-09, when reopening the United States made the eight
+ * RETIRED watch-roll offers look sellable again: they still record markets
+ * ['US'], cn-direct, and the positive duty contribution that let them cross
+ * the suspended route, and nothing in that shape says "the Amazon undercut
+ * test killed this on 2026-09-08". The gate then demanded fresh DSers route
+ * evidence for eight products nobody can buy - the exact failure the cohort
+ * comment above warns about, arriving from a direction it did not anticipate.
+ *
+ * Approval is the fact that decides it. An offer that is not in
+ * APPROVED_CATALOG_OFFERS cannot be bought whatever its own fields say.
+ */
+function isCohortMemberSellable(offer, market) {
+  const approved = APPROVED_CATALOG_OFFERS.some(
+    (live) => live.handle === offer.handle && live.sku === offer.sku,
+  );
+  return approved && isOfferSellable(offer, market);
+}
 
 const scriptPath = fileURLToPath(import.meta.url);
 const rootDir = path.resolve(path.dirname(scriptPath), '..');
@@ -233,10 +261,10 @@ export function auditBaseline(baseline, now = new Date()) {
       ({handle, sku}) => handle === approved.handle && sku === approved.sku,
     );
     for (const market of approved.markets) {
-      // Skip both a closed market and a suspended fulfilment route: neither
-      // can be sold, so demanding current route evidence for it would fail the
-      // gate on offers nobody can buy.
-      if (!isOfferSellable(approved, market)) continue;
+      // Skip a closed market, a suspended fulfilment route, and anything not
+      // on the approved list: none of them can be sold, so demanding current
+      // route evidence for one would fail the gate on offers nobody can buy.
+      if (!isCohortMemberSellable(approved, market)) continue;
       const route = evidence?.routes?.[market];
       if (!route?.tracked || !(Number(route.shippingUsd) >= 0)) {
         failures.push(

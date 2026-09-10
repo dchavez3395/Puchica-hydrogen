@@ -205,10 +205,13 @@ test('a suspended market rejects even its own formerly approved SKU', async () =
   // survive a reload into checkout in either market, and reopening a market
   // must not resurrect the SKUs that were sellable before it closed.
   assert.equal(isMarketSuspended('CA'), true);
-  // Suspended again 2026-09-08: the watch-roll cohort that reopened the US on
-  // 2026-09-01 was retired on the Amazon undercut test, so the market has
-  // nothing to sell. The ROUTE facts are unchanged and still asserted below.
-  assert.equal(isMarketSuspended('US'), true);
+  // Reopened 2026-09-09: the United States now approves the two bamboo lighting
+  // offers whose supplier listings state a 90-260 V range. The seven 220 V
+  // offers are held, not approved. An archived Canadian SKU must still be
+  // refused there, and now by the approval list alone - which is the guard
+  // that has to keep working once a market comes back, so this is the
+  // condition the test was really written for.
+  assert.equal(isMarketSuspended('US'), false);
   assert.deepEqual(await rejectedCartLineIds(storefront, cart, 'CA'), [
     'gid://shopify/CartLine/line-ca',
   ]);

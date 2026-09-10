@@ -4,6 +4,8 @@ import {
   SMALL_SPACE_QUERY,
   SmallSpaceLanding,
 } from '~/components/SmallSpaceLanding';
+import {SectionRenderer} from '~/sections/registry';
+import {PAGE_LAYOUT_QUERY} from '~/lib/sections';
 import {
   filterLaunchProducts,
   STOREFRONT_CONTAINMENT_ACTIVE,
@@ -35,7 +37,23 @@ export const meta = ({data, params}) => {
 export async function loader({context}) {
   const {country, language} = context.storefront.i18n;
 
-  if (STOREFRONT_CONTAINMENT_ACTIVE) return {country, products: []};
+  if (STOREFRONT_CONTAINMENT_ACTIVE) {
+    return {country, products: [], sections: []};
+  }
+
+  // The layout lookup is deliberately its own request with its own catch. If
+  // metaobjects are unreachable, misconfigured, or simply not created yet, the
+  // homepage must still render its product cohort — a content system that can
+  // take down the front door is worse than no content system.
+  const layout = context.storefront
+    .query(PAGE_LAYOUT_QUERY, {
+      variables: {handle: 'home', country, language},
+      cache: CacheNone(),
+    })
+    .catch((error) => {
+      logError('home page_layout query failed', error);
+      return null;
+    });
 
   try {
     const data = await context.storefront.query(SMALL_SPACE_QUERY, {
@@ -49,15 +67,20 @@ export async function loader({context}) {
         data?.launchProducts?.nodes ?? [],
         country,
       ),
+      sections: (await layout)?.metaobject?.sections?.references?.nodes ?? [],
     };
   } catch (error) {
     logError('home travel edit query failed', error);
-    return {country, products: []};
+    return {
+      country,
+      products: [],
+      sections: (await layout)?.metaobject?.sections?.references?.nodes ?? [],
+    };
   }
 }
 
 export default function Index() {
-  const {products} = useLoaderData();
+  const {products, sections} = useLoaderData();
 
   if (STOREFRONT_CONTAINMENT_ACTIVE) {
     return (
@@ -79,11 +102,22 @@ export default function Index() {
     );
   }
 
+  // Migration, not cutover. `SmallSpaceLanding` was written for the retired
+  // travel-organizer catalogue and still degrades badly on an empty cohort, but
+  // it is also the live front door, so it is not deleted on the way past. The
+  // moment a `page_layout` entry with handle `home` carries sections, those
+  // take over; delete the entry and the old landing comes straight back. That
+  // makes the switch reversible from Shopify admin with no deploy in either
+  // direction, which is the only sane way to replace a homepage.
   return (
     <div className="pk-home pk-campaign pk-campaign--home">
       <JsonLdScript data={organizationJsonLd({})} />
       <JsonLdScript data={websiteJsonLd({})} />
-      <SmallSpaceLanding products={products} />
+      {sections.length ? (
+        <SectionRenderer sections={sections} products={products} />
+      ) : (
+        <SmallSpaceLanding products={products} />
+      )}
     </div>
   );
 }

@@ -76,7 +76,41 @@ const completeBaseline = {
         US: {shippingUsd: 4.15, tracked: true},
       },
     },
-    // The live 2026-09-01 watch-roll cohort: United States only, cn-direct,
+    // The live 2026-09-09 cohort: the two bamboo lighting offers approved for
+    // the United States. Both cn-direct, both crossing the suspended route on
+    // a positive per-offer duty contribution. Costs and the $1.99 supplier
+    // ship match exact-offer-cost-route-baseline-2026-09-09.json on disk.
+    {
+      handle: 'hand-woven-bamboo-pendant-light',
+      sku: '200000531:10#30cm-M;249:200006305#1pcs',
+      itemCostUsd: 34.14,
+      routes: {US: {shippingUsd: 1.99, tracked: true}},
+    },
+    {
+      handle: 'plug-in-bamboo-sconce-swing-arm',
+      sku: '200000795:175#US PLUG-DIM switch;249:200006305#no light',
+      itemCostUsd: 23.91,
+      routes: {US: {shippingUsd: 1.99, tracked: true}},
+    },
+    // The seven offers held on the 220 V reading. They carry cost and route
+    // evidence so that releasing them needs a supplier confirmation rather
+    // than a re-audit; what auditBaseline must NOT do is demand anything fresh
+    // of them while they are held, which is asserted below.
+    ...[
+      ['woven-bamboo-dome-pendant', '200000531:365458#A-wood base;136:200006153#NO light bulb', 32.62],
+      ['woven-bamboo-lantern-pendant-26cm', '200000531:1052#C-black base;136:200006153#NO light bulb', 36.48],
+      ['woven-bamboo-column-pendant-37cm', '200000531:29#D-wood base;136:200006153#NO light bulb', 37.1],
+      ['woven-bamboo-mini-pendant-18cm', '200000531:200002984#style G;136:200006153#NO light bulb', 21.65],
+      ['woven-bamboo-wave-chandelier-35cm', '200000531:200006154#style K;136:200006153#NO light bulb', 54.58],
+      ['woven-bamboo-drum-chandelier-30cm', '200000531:365016#style H;136:200006153#NO light bulb', 56.82],
+      ['woven-bamboo-wide-brim-chandelier-30cm', '200000531:366#style E;136:200006153#NO light bulb', 47.3],
+    ].map(([handle, sku, itemCostUsd]) => ({
+      handle,
+      sku,
+      itemCostUsd,
+      routes: {US: {shippingUsd: 1.99, tracked: true}},
+    })),
+    // The retired 2026-09-01 watch-roll cohort: United States only, cn-direct,
     // crossing the suspended route on a modelled duty contribution. Costs and
     // the $1.99 supplier ship match the dated evidence file on disk.
     ...[
@@ -249,12 +283,21 @@ test('route evidence is demanded only for what can actually be sold', () => {
   // buy. What changed is which offers that covers. The archived cohort ships
   // cn-direct with no duty override and Canada is suspended outright, so
   // neither market may demand route evidence for them.
-  // As of 2026-09-08 nothing is sellable in either market: CA is suspended,
-  // and US was suspended when the watch-roll cohort was retired on the Amazon
-  // undercut test. So route evidence may be demanded for NOTHING, and the
-  // watch-roll skip that used to sit here is gone with the cohort.
+  // As of 2026-09-09 the United States is open with exactly two approved
+  // offers, so this test finally gets to assert BOTH halves of its rule in one
+  // place instead of one half here and the other in launch-catalog.test.js.
+  //
+  // NEGATIVE HALF: strip the routes from everything that is not approved -
+  // the archived cn-direct cohort, the Canada-only compression rows, the
+  // retired watch rolls, the seven offers on voltage hold - and the gate must
+  // ask nothing of any of them. Demanding a DSers trip for something nobody
+  // can buy is the failure this guards.
+  const approved = new Set(
+    APPROVED_CATALOG_OFFERS.map((offer) => `${offer.handle}\u0000${offer.sku}`),
+  );
   const trimmed = structuredClone(completeBaseline);
   for (const offer of trimmed.offers) {
+    if (approved.has(`${offer.handle}\u0000${offer.sku}`)) continue;
     delete offer.routes.US;
     delete offer.routes.CA;
   }
@@ -265,20 +308,29 @@ test('route evidence is demanded only for what can actually be sold', () => {
     `unsellable offers must not demand route evidence: ${failures.join('; ')}`,
   );
 
-  // THE POSITIVE HALF OF THIS RULE HAS MOVED, it has not been dropped. An
-  // offer that IS sellable must still produce route evidence, and that can no
-  // longer be asserted here: auditBaseline reads sellability from the live
-  // suspension table, so with every market suspended there is no sellable
-  // offer to build the fixture from. Deleting the assertion outright would
-  // leave the skip above as a hole rather than a rule.
-  //
-  // It is asserted instead in tests/launch-catalog.test.js, in 'a suspended
-  // market closes commerce without erasing route evidence', which injects an
-  // empty suspension table to exercise the route and duty gate directly.
-  // Restore the fixture-based version here the moment a market reopens.
-  assert.equal(
-    APPROVED_CATALOG_OFFERS.length,
-    0,
-    'if this is non-zero a sellable offer exists and the assertion above must come back',
+  // POSITIVE HALF: an offer that IS sellable must produce route evidence.
+  // Strip the route from an approved one and the gate has to notice.
+  const gutted = structuredClone(completeBaseline);
+  const live = gutted.offers.find((offer) =>
+    approved.has(`${offer.handle}\u0000${offer.sku}`),
+  );
+  assert.ok(live, 'fixture must contain an approved offer to gut');
+  delete live.routes.US;
+  const gapped = auditBaseline(gutted, new Date('2026-08-15T00:00:00Z'));
+  assert.ok(
+    gapped.some((f) => f.includes(`Missing tracked US route for ${live.handle}`)),
+    `a sellable offer with no route must fail: ${gapped.join('; ')}`,
+  );
+
+  // The positive half above was parked in tests/launch-catalog.test.js between
+  // 2026-09-08 and 2026-09-09, because with every market suspended there was
+  // no sellable offer to build a fixture from and the assertion here could
+  // only have been vacuous. The United States reopening brought it back, so
+  // this test asserts both halves again and the note is history rather than
+  // instruction. If the catalogue ever empties again, park it the same way and
+  // say so here - do not delete it, or the skip above becomes a hole.
+  assert.ok(
+    APPROVED_CATALOG_OFFERS.length > 0,
+    'the positive half above needs at least one sellable offer to be real',
   );
 });

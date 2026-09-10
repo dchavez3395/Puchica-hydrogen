@@ -20,9 +20,22 @@ export const STORE_LOGO_URL =
  * (`description` field) and anywhere else we need a static "what is
  * Puchica" line. Google's knowledge panel uses this; keeping it
  * consistent across surfaces avoids conflicting signals.
+ *
+ * 2026-09-10: this said "a focused edit of practical travel organizers" for
+ * weeks after that cohort was retired, which meant the ONE sentence Google
+ * builds its entity for the business from described a category the store no
+ * longer sells, while every page title said lighting. Conflicting signals is
+ * exactly what the note above warns against, so keep this in step with
+ * `launch-meta.js` whenever the category changes.
+ *
+ * Two claims are deliberately absent and must stay absent. The store does not
+ * say the goods are handmade, artisan or made to order — they are bought from
+ * suppliers and shipped direct, and `tests/product-copy.test.js` fails the
+ * build over that wording. And it does not describe itself by size or origin
+ * of manufacture. What is true is the assortment and who it ships to.
  */
 export const BRAND_DESCRIPTION =
-  'An independent Canadian online shop offering a focused edit of practical travel organizers.';
+  'An independent shop selling woven bamboo pendant and wall lighting, shipped direct to customers in the United States.';
 
 /**
  * Verified social profile URLs. The Organization JSON-LD's `sameAs`

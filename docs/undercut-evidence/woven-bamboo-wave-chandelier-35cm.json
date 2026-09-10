@@ -1,0 +1,259 @@
+{
+ "handle": "woven-bamboo-wave-chandelier-35cm",
+ "checkedOn": "2026-09-09",
+ "market": "US",
+ "note": "35 cm woven bamboo wave chandelier. Competitor set is every organic (non-sponsored) priced listing on Amazon page 1 for \"rattan chandelier\", captured 2026-09-09. Sponsored listings excluded. The category is the one the PRODUCT belongs to, not the one whose search happened to surface it - the chandeliers are benchmarked against chandeliers.",
+ "sources": [
+  "amazon.com search: rattan chandelier (page 1, organic only, 47 priced listings)",
+  "AliExpress SKU table read from the product page data blob, not the search card",
+  "DSers My Products mapped cost and per-SKU stock"
+ ],
+ "ourRetailUsd": 147.99,
+ "itemCostUsd": 54.58,
+ "supplierShipUsd": 1.99,
+ "costSource": "AliExpress per-SKU price read from window._d_c_ on the item page and cross-checked against the DSers My Products cost after mapping. Search-card prices are the listing minimum and were NOT used - on this supplier the cheap SKUs carry 2-8 units while the deep-stock SKUs cost more.",
+ "dutyRateBasis": "HTS 9405.11.80 (electric ceiling/wall lighting fittings, other, of base metal or other materials). Column 1 general 3.9% + Section 301 25% + 12.5% forced-labour action = 41.4%. NOT the 55.1% watch-roll stack (HTS 4202.92.97) - different chapter, different rate. VERIFY with a broker before a first commercial order.",
+ "competitors": [
+  {
+   "name": "rattan chandelier organic result 1",
+   "priceUsd": 219.99,
+   "reviews": 332
+  },
+  {
+   "name": "rattan chandelier organic result 2",
+   "priceUsd": 139.99,
+   "reviews": 158
+  },
+  {
+   "name": "rattan chandelier organic result 3",
+   "priceUsd": 109.99,
+   "reviews": 3
+  },
+  {
+   "name": "rattan chandelier organic result 4",
+   "priceUsd": 139.99,
+   "reviews": 332
+  },
+  {
+   "name": "rattan chandelier organic result 5",
+   "priceUsd": 149.99,
+   "reviews": 14
+  },
+  {
+   "name": "rattan chandelier organic result 6",
+   "priceUsd": 76.99,
+   "reviews": 97
+  },
+  {
+   "name": "rattan chandelier organic result 7",
+   "priceUsd": 49.99,
+   "reviews": 2
+  },
+  {
+   "name": "rattan chandelier organic result 8",
+   "priceUsd": 99.99,
+   "reviews": 252
+  },
+  {
+   "name": "rattan chandelier organic result 9",
+   "priceUsd": 64.99,
+   "reviews": 332
+  },
+  {
+   "name": "rattan chandelier organic result 10",
+   "priceUsd": 49.99,
+   "reviews": 15
+  },
+  {
+   "name": "rattan chandelier organic result 11",
+   "priceUsd": 149.99,
+   "reviews": 60
+  },
+  {
+   "name": "rattan chandelier organic result 12",
+   "priceUsd": 333.99,
+   "reviews": 92
+  },
+  {
+   "name": "rattan chandelier organic result 13",
+   "priceUsd": 128.79,
+   "reviews": 77
+  },
+  {
+   "name": "rattan chandelier organic result 14",
+   "priceUsd": 39.99,
+   "reviews": 617
+  },
+  {
+   "name": "rattan chandelier organic result 15",
+   "priceUsd": 89.99,
+   "reviews": 160
+  },
+  {
+   "name": "rattan chandelier organic result 16",
+   "priceUsd": 124.99,
+   "reviews": 658
+  },
+  {
+   "name": "rattan chandelier organic result 17",
+   "priceUsd": 119.99,
+   "reviews": 448
+  },
+  {
+   "name": "rattan chandelier organic result 18",
+   "priceUsd": 299.99,
+   "reviews": 43
+  },
+  {
+   "name": "rattan chandelier organic result 19",
+   "priceUsd": 113.04,
+   "reviews": 107
+  },
+  {
+   "name": "rattan chandelier organic result 20",
+   "priceUsd": 206.99,
+   "reviews": 75
+  },
+  {
+   "name": "rattan chandelier organic result 21",
+   "priceUsd": 119.99,
+   "reviews": 12
+  },
+  {
+   "name": "rattan chandelier organic result 22",
+   "priceUsd": 49.99,
+   "reviews": 545
+  },
+  {
+   "name": "rattan chandelier organic result 23",
+   "priceUsd": 119.99,
+   "reviews": 70
+  },
+  {
+   "name": "rattan chandelier organic result 24",
+   "priceUsd": 189.99,
+   "reviews": 16
+  },
+  {
+   "name": "rattan chandelier organic result 25",
+   "priceUsd": 59.99,
+   "reviews": 15
+  },
+  {
+   "name": "rattan chandelier organic result 26",
+   "priceUsd": 155.99,
+   "reviews": 145
+  },
+  {
+   "name": "rattan chandelier organic result 27",
+   "priceUsd": 158.99,
+   "reviews": 89
+  },
+  {
+   "name": "rattan chandelier organic result 28",
+   "priceUsd": 159.79,
+   "reviews": 59
+  },
+  {
+   "name": "rattan chandelier organic result 29",
+   "priceUsd": 159.99,
+   "reviews": 0
+  },
+  {
+   "name": "rattan chandelier organic result 30",
+   "priceUsd": 249.99,
+   "reviews": 45
+  },
+  {
+   "name": "rattan chandelier organic result 31",
+   "priceUsd": 169.99,
+   "reviews": 29
+  },
+  {
+   "name": "rattan chandelier organic result 32",
+   "priceUsd": 229.99,
+   "reviews": 120
+  },
+  {
+   "name": "rattan chandelier organic result 33",
+   "priceUsd": 93.99,
+   "reviews": 243
+  },
+  {
+   "name": "rattan chandelier organic result 34",
+   "priceUsd": 129.99,
+   "reviews": 56
+  },
+  {
+   "name": "rattan chandelier organic result 35",
+   "priceUsd": 239.99,
+   "reviews": 0
+  },
+  {
+   "name": "rattan chandelier organic result 36",
+   "priceUsd": 125.99,
+   "reviews": 26
+  },
+  {
+   "name": "rattan chandelier organic result 37",
+   "priceUsd": 94.99,
+   "reviews": 167
+  },
+  {
+   "name": "rattan chandelier organic result 38",
+   "priceUsd": 189.99,
+   "reviews": 51
+  },
+  {
+   "name": "rattan chandelier organic result 39",
+   "priceUsd": 181.99,
+   "reviews": 44
+  },
+  {
+   "name": "rattan chandelier organic result 40",
+   "priceUsd": 119.99,
+   "reviews": 56
+  },
+  {
+   "name": "rattan chandelier organic result 41",
+   "priceUsd": 109,
+   "reviews": 12
+  },
+  {
+   "name": "rattan chandelier organic result 42",
+   "priceUsd": 179.99,
+   "reviews": 99
+  },
+  {
+   "name": "rattan chandelier organic result 43",
+   "priceUsd": 59.99,
+   "reviews": 39
+  },
+  {
+   "name": "rattan chandelier organic result 44",
+   "priceUsd": 43.52,
+   "reviews": 9
+  },
+  {
+   "name": "rattan chandelier organic result 45",
+   "priceUsd": 169.9,
+   "reviews": 8
+  },
+  {
+   "name": "rattan chandelier organic result 46",
+   "priceUsd": 89.99,
+   "reviews": 1
+  },
+  {
+   "name": "rattan chandelier organic result 47",
+   "priceUsd": 252.29,
+   "reviews": 9
+  }
+ ],
+ "dutyRate": 0.414,
+ "verdict": "Priced at $147.99, just under the RULE 2 ceiling of $148.11 (median $128.79 x 1.15). Contributes $75.46/unit under the binding 'prepaid' basis, against a $12.00 floor. Top competitor review count 658 - category is not locked. CAUTION: this clears the gate, which is a floor, not a CPA test. Measured CPA benchmarks run $31.16-$47.93 per order, so a unit at this price covers acquisition only if CPA lands at the lower end.",
+ "supplierSku": "style K",
+ "supplierSkuUnitCap": 270,
+ "supplierSkuUnitCapObservedOn": "2026-09-09",
+ "supplierSkuUnitCapMethod": "Measured 2026-09-09 by the quantity-clamp test: select the exact SKU, type 999 into the quantity box and read the value the page settles on. That is the hard ceiling AliExpress checkout will sell. It is the only per-SKU number that can be trusted - the \"Only N left\" banner shows a different variant's figure on some pages (this listing displayed \"Only 7 left\" while the SKU we sell clamped at 888), and the Stock figure on the DSers My Products card is the sum across every variant (it read 9,284 for a listing whose US-plug SKU caps at 9 on other sellers)."
+}

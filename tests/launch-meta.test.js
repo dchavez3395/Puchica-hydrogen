@@ -56,25 +56,51 @@ test('launch metadata falls back to English', () => {
  * safe. Reopen a market and the first assertion fails, which forces whoever
  * reopens it to write real market copy instead of inheriting the holding text.
  */
-test('while every market is suspended, launch metadata promises nothing', () => {
-  const allSuspended = MARKETS.every((market) =>
-    Object.prototype.hasOwnProperty.call(SUSPENDED_COMMERCE_MARKETS, market),
-  );
-  assert.ok(
-    allSuspended,
-    'a market reopened: write market-specific launch copy and restore the distinctness check',
+test('an open market and a suspended one must not share launch copy', () => {
+  // This asserted the mirror of itself until 2026-09-09: while every market
+  // was suspended the two descriptions had to be IDENTICAL, because neither
+  // had anything to say. The United States reopened with the bamboo lighting
+  // cohort, so the requirement inverts - an open market that still serves the
+  // 'shopping is paused' description is a shared link previewing as closed
+  // over a storefront that is selling.
+  assert.equal(
+    Object.prototype.hasOwnProperty.call(SUSPENDED_COMMERCE_MARKETS, 'CA'),
+    true,
+    'CA suspended is the precondition for the distinctness required below',
   );
   assert.equal(
-    APPROVED_CATALOG_OFFERS.length,
-    0,
-    'offers were approved while every market is suspended: the catalogue and the market table disagree',
+    Object.prototype.hasOwnProperty.call(SUSPENDED_COMMERCE_MARKETS, 'US'),
+    false,
+    'US is open: if it closes again, restore the identical-copy assertion',
+  );
+  assert.ok(
+    APPROVED_CATALOG_OFFERS.length > 0,
+    'the US reopened with nothing approved: the catalogue and the market table disagree',
   );
 
   for (const locale of LOCALES) {
-    assert.deepEqual(
-      launchMetaCopy(locale, 'CA'),
-      launchMetaCopy(locale, 'US'),
-      `${locale}: markets are both closed, so their copy cannot differ`,
+    const ca = launchMetaCopy(locale, 'CA');
+    const us = launchMetaCopy(locale, 'US');
+    assert.notDeepEqual(
+      ca.home,
+      us.home,
+      `${locale}: one market is open and one is paused, so home copy must differ`,
+    );
+    assert.notDeepEqual(
+      ca.shop,
+      us.shop,
+      `${locale}: one market is open and one is paused, so shop copy must differ`,
+    );
+    // Titles are shared by design and must stay true in both. A title that
+    // named availability would be wrong in one market or the other.
+    assert.equal(ca.home.title, us.home.title, locale);
+    assert.equal(ca.shop.title, us.shop.title, locale);
+    // The open market must not be describing itself as closed.
+    assert.doesNotMatch(us.home.description, /paus|pausad|en pause/i, locale);
+    assert.doesNotMatch(
+      us.shop.description,
+      /restock|réapprovision|reabastec/i,
+      locale,
     );
   }
 });

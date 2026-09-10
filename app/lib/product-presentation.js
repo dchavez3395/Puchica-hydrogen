@@ -25,6 +25,15 @@ export const LAUNCH_COPY_PREFIX = {
   'pu-leather-watch-roll-travel-case-3-or-6-watches':
     'product_copy_watchroll36',
   'pu-leather-watch-roll-travel-case-4-watches': 'product_copy_watchroll4',
+  'hand-woven-bamboo-pendant-light': 'product_copy_bamboopendant30',
+  'woven-bamboo-dome-pendant': 'product_copy_bamboodome',
+  'woven-bamboo-lantern-pendant-26cm': 'product_copy_bamboolantern',
+  'woven-bamboo-column-pendant-37cm': 'product_copy_bamboocolumn',
+  'woven-bamboo-mini-pendant-18cm': 'product_copy_bamboomini',
+  'plug-in-bamboo-sconce-swing-arm': 'product_copy_bamboosconce',
+  'woven-bamboo-wave-chandelier-35cm': 'product_copy_bamboowave',
+  'woven-bamboo-drum-chandelier-30cm': 'product_copy_bamboodrum',
+  'woven-bamboo-wide-brim-chandelier-30cm': 'product_copy_bamboobrim',
 };
 
 function translated(source, key) {

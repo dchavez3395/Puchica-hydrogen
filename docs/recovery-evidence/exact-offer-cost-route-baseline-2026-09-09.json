@@ -1,0 +1,641 @@
+{
+  "evidenceDate": "2026-09-09",
+  "planningFxCadPerUsd": 1.4,
+  "paymentPercentRate": 0.055,
+  "paymentFixedFee": 0.3,
+  "exceptionReserveRate": 0.08,
+  "singleItemCheckoutShipping": {
+    "CA": 5,
+    "US": 4.99
+  },
+  "sources": [
+    "exact-offer-cost-route-baseline-2026-09-03.json: source of every row carried forward unchanged below (the ten archived cn-direct rows, the four compression rows, and the eight retired watch-roll rows). None of those were re-read today.",
+    "AliExpress item pages read 2026-09-09 on aliexpress.us in the US-priced view: three supplier listings back all nine bamboo lighting offers. 1005007626643748 (US id 3256807440328996), 1005009170603754 (US id 3256808984289002) and 1005010458579497 (US id 3256810272264745). Shipping method, cost, delivery window and arrival distribution read from each listing shipping dialog; voltage and base type read from each expanded specification table.",
+    "DSers My Products, read 2026-09-09: supplyProductId and the mapped cost range for each of the nine, taken from the mapping record rather than the storefront card."
+  ],
+  "supplierStockObservedOn": "2026-09-09",
+  "notes": {
+    "2026-09-09": "Nine bamboo lighting rows added. Only TWO of them are approved for the United States: hand-woven-bamboo-pendant-light and plug-in-bamboo-sconce-swing-arm, whose listings state Voltage 90-260V. The other seven all come off listing 1005009170603754, whose specification table states Voltage 220 V, and are held in VOLTAGE_HOLD_CATALOG_OFFERS rather than approved. Their cost and route rows are kept here so that releasing them needs a supplier confirmation rather than a fresh audit. See the hold comment in app/lib/launch-catalog.js.",
+    "2026-09-09-routes": "All three listings quote the same carrier and price into the United States: AliExpress Selection Standard at $1.99, CN-direct. The two delivery windows differ (Sep 15-20 at 84.0% within 10 days for 1005007626643748; Sep 16-21 at 87.5% within 12 days for the other two, which returned an identical distribution). tracked:true is carried from the carrier identity recorded in the 2026-09-01 baseline, NOT from a tracking number observed today - that needs a placed order.",
+    "2026-09-09-fx": "Fee rates, planning FX and checkout shipping carried forward from 2026-09-03 unchanged. Nothing about the Shopify delivery profile was re-read today."
+  },
+  "offers": [
+    {
+      "handle": "hand-woven-bamboo-pendant-light",
+      "sku": "200000531:10#30cm-M;249:200006305#1pcs",
+      "supplierItemId": "1005007626643748",
+      "itemCostUsd": 34.14,
+      "voltageNote": "Supplier specification table, expanded and read 2026-09-09: Voltage 90-260V, Base Type E27, Power Source AC, Is Bulbs Included No, Is Include PCBA N. 90-260V covers United States 120V mains.",
+      "routes": {
+        "US": {
+          "shippingUsd": 1.99,
+          "eta": "Sep 15-20 (84.0% <=10 days)",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard",
+          "shipFrom": "CN",
+          "fulfilment": "cn-direct",
+          "observedOn": "2026-09-09",
+          "source": "Read 2026-09-09 from the AliExpress listing shipping dialog on aliexpress.us (US-priced view, USD, US flag in the header selector, USPS among the couriers): method 'AliExpress Selection Standard', $1.99, delivery Sep 15-20. Arrival distribution as shown: <=6d 20.7%, 7d 18.2%, 8d 18.6%, 9d 15.4%, 10d 11.0%, 11d 7.1%, >11d 8.7% - 84.0% within 10 days. Couriers shown as logos with no alt text; GOFO and United States Postal Service were legible in the rendered panel. USPS is final mile only - this is a CN-direct consolidated line, not a US warehouse. 'tracked' is carried from the carrier identity, which is the same AliExpress Selection Standard line recorded as tracked in the 2026-09-01 baseline; a tracking number was NOT observed on this read because that needs a placed order."
+        }
+      },
+      "itemCostObservedOn": "2026-09-09",
+      "itemCostNote": "Per-SKU price read from the AliExpress SKU table on the item page, cross-checked against the DSers My Products mapped cost. DSers quotes supplier 1005007626643748 as a range ($14.72-62.09); the per-SKU figure here sits inside it. Search-card prices were NOT used - on this supplier the cheap SKUs carry 2-8 units."
+    },
+    {
+      "handle": "plug-in-bamboo-sconce-swing-arm",
+      "sku": "200000795:175#US PLUG-DIM switch;249:200006305#no light",
+      "supplierItemId": "1005010458579497",
+      "itemCostUsd": 23.91,
+      "voltageNote": "Supplier specification table, expanded and read 2026-09-09: Voltage 90-260V, Base Type E27, Power Source AC, Is Bulbs Included No, Is Include PCBA N. 90-260V covers United States 120V mains.",
+      "routes": {
+        "US": {
+          "shippingUsd": 1.99,
+          "eta": "Sep 16-21 (87.5% <=12 days)",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard",
+          "shipFrom": "CN",
+          "fulfilment": "cn-direct",
+          "observedOn": "2026-09-09",
+          "source": "Read 2026-09-09 from the AliExpress listing shipping dialog on aliexpress.us (US-priced view, USD): method 'AliExpress Selection Standard', $1.99, delivery Sep 16-21. Arrival distribution as shown: <=7d 11.8%, 8d 13.9%, 9d 18.0%, 10d 18.2%, 11d 15.1%, 12d 10.4%, >12d 12.4% - 87.5% within 12 days. Couriers shown as logos with no alt text; GOFO and United States Postal Service were legible in the rendered panel. CN-direct consolidated line. 'tracked' carried from carrier identity, not from an observed tracking number."
+        }
+      },
+      "itemCostObservedOn": "2026-09-09",
+      "itemCostNote": "Per-SKU price read from the AliExpress SKU table on the item page, cross-checked against the DSers My Products mapped cost. DSers quotes supplier 1005010458579497 as a range ($21.52-23.91); the per-SKU figure here sits inside it. Search-card prices were NOT used - on this supplier the cheap SKUs carry 2-8 units."
+    },
+    {
+      "handle": "woven-bamboo-dome-pendant",
+      "sku": "200000531:365458#A-wood base;136:200006153#NO light bulb",
+      "supplierItemId": "1005009170603754",
+      "itemCostUsd": 32.62,
+      "voltageNote": "Supplier specification table, expanded and read 2026-09-09: Voltage 220 V, Base Type E27, Power Source AC, Is Bulbs Included No, Is Include PCBA N. 220 V does NOT cover United States 120V mains and the supplier states no range that does. This offer is held in VOLTAGE_HOLD_CATALOG_OFFERS, not approved. Route and cost are recorded so that releasing it needs a supplier confirmation, not a re-audit.",
+      "routes": {
+        "US": {
+          "shippingUsd": 1.99,
+          "eta": "Sep 16-21 (87.5% <=12 days)",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard",
+          "shipFrom": "CN",
+          "fulfilment": "cn-direct",
+          "observedOn": "2026-09-09",
+          "source": "Read 2026-09-09 from the AliExpress listing shipping dialog on aliexpress.us (US-priced view, USD): method 'AliExpress Selection Standard', $1.99, delivery Sep 16-21. Arrival distribution as shown: <=7d 11.8%, 8d 13.9%, 9d 18.0%, 10d 18.2%, 11d 15.1%, 12d 10.4%, >12d 12.4% - 87.5% within 12 days. Couriers shown as logos with no alt text; GOFO and United States Postal Service were legible in the rendered panel. CN-direct consolidated line. 'tracked' carried from carrier identity, not from an observed tracking number."
+        }
+      },
+      "itemCostObservedOn": "2026-09-09",
+      "itemCostNote": "Per-SKU price read from the AliExpress SKU table on the item page, cross-checked against the DSers My Products mapped cost. DSers quotes supplier 1005009170603754 as a range ($21.65-56.82); the per-SKU figure here sits inside it. Search-card prices were NOT used - on this supplier the cheap SKUs carry 2-8 units."
+    },
+    {
+      "handle": "woven-bamboo-lantern-pendant-26cm",
+      "sku": "200000531:1052#C-black base;136:200006153#NO light bulb",
+      "supplierItemId": "1005009170603754",
+      "itemCostUsd": 36.48,
+      "voltageNote": "Supplier specification table, expanded and read 2026-09-09: Voltage 220 V, Base Type E27, Power Source AC, Is Bulbs Included No, Is Include PCBA N. 220 V does NOT cover United States 120V mains and the supplier states no range that does. This offer is held in VOLTAGE_HOLD_CATALOG_OFFERS, not approved. Route and cost are recorded so that releasing it needs a supplier confirmation, not a re-audit.",
+      "routes": {
+        "US": {
+          "shippingUsd": 1.99,
+          "eta": "Sep 16-21 (87.5% <=12 days)",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard",
+          "shipFrom": "CN",
+          "fulfilment": "cn-direct",
+          "observedOn": "2026-09-09",
+          "source": "Read 2026-09-09 from the AliExpress listing shipping dialog on aliexpress.us (US-priced view, USD): method 'AliExpress Selection Standard', $1.99, delivery Sep 16-21. Arrival distribution as shown: <=7d 11.8%, 8d 13.9%, 9d 18.0%, 10d 18.2%, 11d 15.1%, 12d 10.4%, >12d 12.4% - 87.5% within 12 days. Couriers shown as logos with no alt text; GOFO and United States Postal Service were legible in the rendered panel. CN-direct consolidated line. 'tracked' carried from carrier identity, not from an observed tracking number."
+        }
+      },
+      "itemCostObservedOn": "2026-09-09",
+      "itemCostNote": "Per-SKU price read from the AliExpress SKU table on the item page, cross-checked against the DSers My Products mapped cost. DSers quotes supplier 1005009170603754 as a range ($21.65-56.82); the per-SKU figure here sits inside it. Search-card prices were NOT used - on this supplier the cheap SKUs carry 2-8 units."
+    },
+    {
+      "handle": "woven-bamboo-column-pendant-37cm",
+      "sku": "200000531:29#D-wood base;136:200006153#NO light bulb",
+      "supplierItemId": "1005009170603754",
+      "itemCostUsd": 37.1,
+      "voltageNote": "Supplier specification table, expanded and read 2026-09-09: Voltage 220 V, Base Type E27, Power Source AC, Is Bulbs Included No, Is Include PCBA N. 220 V does NOT cover United States 120V mains and the supplier states no range that does. This offer is held in VOLTAGE_HOLD_CATALOG_OFFERS, not approved. Route and cost are recorded so that releasing it needs a supplier confirmation, not a re-audit.",
+      "routes": {
+        "US": {
+          "shippingUsd": 1.99,
+          "eta": "Sep 16-21 (87.5% <=12 days)",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard",
+          "shipFrom": "CN",
+          "fulfilment": "cn-direct",
+          "observedOn": "2026-09-09",
+          "source": "Read 2026-09-09 from the AliExpress listing shipping dialog on aliexpress.us (US-priced view, USD): method 'AliExpress Selection Standard', $1.99, delivery Sep 16-21. Arrival distribution as shown: <=7d 11.8%, 8d 13.9%, 9d 18.0%, 10d 18.2%, 11d 15.1%, 12d 10.4%, >12d 12.4% - 87.5% within 12 days. Couriers shown as logos with no alt text; GOFO and United States Postal Service were legible in the rendered panel. CN-direct consolidated line. 'tracked' carried from carrier identity, not from an observed tracking number."
+        }
+      },
+      "itemCostObservedOn": "2026-09-09",
+      "itemCostNote": "Per-SKU price read from the AliExpress SKU table on the item page, cross-checked against the DSers My Products mapped cost. DSers quotes supplier 1005009170603754 as a range ($21.65-56.82); the per-SKU figure here sits inside it. Search-card prices were NOT used - on this supplier the cheap SKUs carry 2-8 units."
+    },
+    {
+      "handle": "woven-bamboo-mini-pendant-18cm",
+      "sku": "200000531:200002984#style G;136:200006153#NO light bulb",
+      "supplierItemId": "1005009170603754",
+      "itemCostUsd": 21.65,
+      "voltageNote": "Supplier specification table, expanded and read 2026-09-09: Voltage 220 V, Base Type E27, Power Source AC, Is Bulbs Included No, Is Include PCBA N. 220 V does NOT cover United States 120V mains and the supplier states no range that does. This offer is held in VOLTAGE_HOLD_CATALOG_OFFERS, not approved. Route and cost are recorded so that releasing it needs a supplier confirmation, not a re-audit.",
+      "routes": {
+        "US": {
+          "shippingUsd": 1.99,
+          "eta": "Sep 16-21 (87.5% <=12 days)",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard",
+          "shipFrom": "CN",
+          "fulfilment": "cn-direct",
+          "observedOn": "2026-09-09",
+          "source": "Read 2026-09-09 from the AliExpress listing shipping dialog on aliexpress.us (US-priced view, USD): method 'AliExpress Selection Standard', $1.99, delivery Sep 16-21. Arrival distribution as shown: <=7d 11.8%, 8d 13.9%, 9d 18.0%, 10d 18.2%, 11d 15.1%, 12d 10.4%, >12d 12.4% - 87.5% within 12 days. Couriers shown as logos with no alt text; GOFO and United States Postal Service were legible in the rendered panel. CN-direct consolidated line. 'tracked' carried from carrier identity, not from an observed tracking number."
+        }
+      },
+      "itemCostObservedOn": "2026-09-09",
+      "itemCostNote": "Per-SKU price read from the AliExpress SKU table on the item page, cross-checked against the DSers My Products mapped cost. DSers quotes supplier 1005009170603754 as a range ($21.65-56.82); the per-SKU figure here sits inside it. Search-card prices were NOT used - on this supplier the cheap SKUs carry 2-8 units."
+    },
+    {
+      "handle": "woven-bamboo-wave-chandelier-35cm",
+      "sku": "200000531:200006154#style K;136:200006153#NO light bulb",
+      "supplierItemId": "1005009170603754",
+      "itemCostUsd": 54.58,
+      "voltageNote": "Supplier specification table, expanded and read 2026-09-09: Voltage 220 V, Base Type E27, Power Source AC, Is Bulbs Included No, Is Include PCBA N. 220 V does NOT cover United States 120V mains and the supplier states no range that does. This offer is held in VOLTAGE_HOLD_CATALOG_OFFERS, not approved. Route and cost are recorded so that releasing it needs a supplier confirmation, not a re-audit.",
+      "routes": {
+        "US": {
+          "shippingUsd": 1.99,
+          "eta": "Sep 16-21 (87.5% <=12 days)",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard",
+          "shipFrom": "CN",
+          "fulfilment": "cn-direct",
+          "observedOn": "2026-09-09",
+          "source": "Read 2026-09-09 from the AliExpress listing shipping dialog on aliexpress.us (US-priced view, USD): method 'AliExpress Selection Standard', $1.99, delivery Sep 16-21. Arrival distribution as shown: <=7d 11.8%, 8d 13.9%, 9d 18.0%, 10d 18.2%, 11d 15.1%, 12d 10.4%, >12d 12.4% - 87.5% within 12 days. Couriers shown as logos with no alt text; GOFO and United States Postal Service were legible in the rendered panel. CN-direct consolidated line. 'tracked' carried from carrier identity, not from an observed tracking number."
+        }
+      },
+      "itemCostObservedOn": "2026-09-09",
+      "itemCostNote": "Per-SKU price read from the AliExpress SKU table on the item page, cross-checked against the DSers My Products mapped cost. DSers quotes supplier 1005009170603754 as a range ($21.65-56.82); the per-SKU figure here sits inside it. Search-card prices were NOT used - on this supplier the cheap SKUs carry 2-8 units."
+    },
+    {
+      "handle": "woven-bamboo-drum-chandelier-30cm",
+      "sku": "200000531:365016#style H;136:200006153#NO light bulb",
+      "supplierItemId": "1005009170603754",
+      "itemCostUsd": 56.82,
+      "voltageNote": "Supplier specification table, expanded and read 2026-09-09: Voltage 220 V, Base Type E27, Power Source AC, Is Bulbs Included No, Is Include PCBA N. 220 V does NOT cover United States 120V mains and the supplier states no range that does. This offer is held in VOLTAGE_HOLD_CATALOG_OFFERS, not approved. Route and cost are recorded so that releasing it needs a supplier confirmation, not a re-audit.",
+      "routes": {
+        "US": {
+          "shippingUsd": 1.99,
+          "eta": "Sep 16-21 (87.5% <=12 days)",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard",
+          "shipFrom": "CN",
+          "fulfilment": "cn-direct",
+          "observedOn": "2026-09-09",
+          "source": "Read 2026-09-09 from the AliExpress listing shipping dialog on aliexpress.us (US-priced view, USD): method 'AliExpress Selection Standard', $1.99, delivery Sep 16-21. Arrival distribution as shown: <=7d 11.8%, 8d 13.9%, 9d 18.0%, 10d 18.2%, 11d 15.1%, 12d 10.4%, >12d 12.4% - 87.5% within 12 days. Couriers shown as logos with no alt text; GOFO and United States Postal Service were legible in the rendered panel. CN-direct consolidated line. 'tracked' carried from carrier identity, not from an observed tracking number."
+        }
+      },
+      "itemCostObservedOn": "2026-09-09",
+      "itemCostNote": "Per-SKU price read from the AliExpress SKU table on the item page, cross-checked against the DSers My Products mapped cost. DSers quotes supplier 1005009170603754 as a range ($21.65-56.82); the per-SKU figure here sits inside it. Search-card prices were NOT used - on this supplier the cheap SKUs carry 2-8 units."
+    },
+    {
+      "handle": "woven-bamboo-wide-brim-chandelier-30cm",
+      "sku": "200000531:366#style E;136:200006153#NO light bulb",
+      "supplierItemId": "1005009170603754",
+      "itemCostUsd": 47.3,
+      "voltageNote": "Supplier specification table, expanded and read 2026-09-09: Voltage 220 V, Base Type E27, Power Source AC, Is Bulbs Included No, Is Include PCBA N. 220 V does NOT cover United States 120V mains and the supplier states no range that does. This offer is held in VOLTAGE_HOLD_CATALOG_OFFERS, not approved. Route and cost are recorded so that releasing it needs a supplier confirmation, not a re-audit.",
+      "routes": {
+        "US": {
+          "shippingUsd": 1.99,
+          "eta": "Sep 16-21 (87.5% <=12 days)",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard",
+          "shipFrom": "CN",
+          "fulfilment": "cn-direct",
+          "observedOn": "2026-09-09",
+          "source": "Read 2026-09-09 from the AliExpress listing shipping dialog on aliexpress.us (US-priced view, USD): method 'AliExpress Selection Standard', $1.99, delivery Sep 16-21. Arrival distribution as shown: <=7d 11.8%, 8d 13.9%, 9d 18.0%, 10d 18.2%, 11d 15.1%, 12d 10.4%, >12d 12.4% - 87.5% within 12 days. Couriers shown as logos with no alt text; GOFO and United States Postal Service were legible in the rendered panel. CN-direct consolidated line. 'tracked' carried from carrier identity, not from an observed tracking number."
+        }
+      },
+      "itemCostObservedOn": "2026-09-09",
+      "itemCostNote": "Per-SKU price read from the AliExpress SKU table on the item page, cross-checked against the DSers My Products mapped cost. DSers quotes supplier 1005009170603754 as a range ($21.65-56.82); the per-SKU figure here sits inside it. Search-card prices were NOT used - on this supplier the cheap SKUs carry 2-8 units."
+    },
+    {
+      "handle": "pu-leather-watch-roll-travel-case-3-or-6-watches",
+      "sku": "14:496#3 Slot Black Red",
+      "supplierItemId": "1005006898059534",
+      "itemCostUsd": 26.18,
+      "itemCostObservedOn": "2026-09-01",
+      "itemCostNote": "$26.18 is a Labor Day sale price ending 2026-09-07 against a $55.70 compare-at. Re-read after that date - if it reverts, recompute every margin before selling on.",
+      "stockOnSupplier": 11,
+      "stockOnStore": 11,
+      "routes": {
+        "US": {
+          "shippingUsd": 1.99,
+          "eta": "8-11 days (Sep 10-14)",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard",
+          "shipFrom": "CN",
+          "fulfilment": "cn-direct",
+          "observedOn": "2026-09-01",
+          "source": "Read from the AliExpress listing 2026-09-01 with ship-to United States, USD: method 'AliExpress Selection Standard', $1.99, delivery Sep 10-14, 84.6% of orders within 11 days (<=8d 23.4%, 9d 24.4%, 10d 21.9%, 11d 14.7%), couriers SpeedX / GOFO / USPS. USPS is final mile only - this is a CHINA-DIRECT consolidated line, not a US warehouse. The earlier us-local classification came from the search flag itemCardType=app_us_local_card, which marks US storefront merchandising rather than warehouse location. Corrected same day."
+        }
+      }
+    },
+    {
+      "handle": "pu-leather-watch-roll-travel-case-3-or-6-watches",
+      "sku": "14:865#3 Slot Green Gray",
+      "supplierItemId": "1005006898059534",
+      "itemCostUsd": 26.18,
+      "itemCostObservedOn": "2026-09-01",
+      "itemCostNote": "$26.18 is a Labor Day sale price ending 2026-09-07 against a $55.70 compare-at. Re-read after that date - if it reverts, recompute every margin before selling on.",
+      "stockOnSupplier": 11,
+      "stockOnStore": 11,
+      "routes": {
+        "US": {
+          "shippingUsd": 1.99,
+          "eta": "8-11 days (Sep 10-14)",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard",
+          "shipFrom": "CN",
+          "fulfilment": "cn-direct",
+          "observedOn": "2026-09-01",
+          "source": "Read from the AliExpress listing 2026-09-01 with ship-to United States, USD: method 'AliExpress Selection Standard', $1.99, delivery Sep 10-14, 84.6% of orders within 11 days (<=8d 23.4%, 9d 24.4%, 10d 21.9%, 11d 14.7%), couriers SpeedX / GOFO / USPS. USPS is final mile only - this is a CHINA-DIRECT consolidated line, not a US warehouse. The earlier us-local classification came from the search flag itemCardType=app_us_local_card, which marks US storefront merchandising rather than warehouse location. Corrected same day."
+        }
+      }
+    },
+    {
+      "handle": "pu-leather-watch-roll-travel-case-3-or-6-watches",
+      "sku": "14:193#3 Slot Brown",
+      "supplierItemId": "1005006898059534",
+      "itemCostUsd": 26.18,
+      "itemCostObservedOn": "2026-09-01",
+      "itemCostNote": "$26.18 is a Labor Day sale price ending 2026-09-07 against a $55.70 compare-at. Re-read after that date - if it reverts, recompute every margin before selling on.",
+      "stockOnSupplier": 7,
+      "stockOnStore": 7,
+      "routes": {
+        "US": {
+          "shippingUsd": 1.99,
+          "eta": "8-11 days (Sep 10-14)",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard",
+          "shipFrom": "CN",
+          "fulfilment": "cn-direct",
+          "observedOn": "2026-09-01",
+          "source": "Read from the AliExpress listing 2026-09-01 with ship-to United States, USD: method 'AliExpress Selection Standard', $1.99, delivery Sep 10-14, 84.6% of orders within 11 days (<=8d 23.4%, 9d 24.4%, 10d 21.9%, 11d 14.7%), couriers SpeedX / GOFO / USPS. USPS is final mile only - this is a CHINA-DIRECT consolidated line, not a US warehouse. The earlier us-local classification came from the search flag itemCardType=app_us_local_card, which marks US storefront merchandising rather than warehouse location. Corrected same day."
+        }
+      }
+    },
+    {
+      "handle": "pu-leather-watch-roll-travel-case-3-or-6-watches",
+      "sku": "14:173#6 Slot Brown",
+      "supplierItemId": "1005006898059534",
+      "itemCostUsd": 43.48,
+      "itemCostObservedOn": "2026-09-01",
+      "itemCostNote": "$26.18 is a Labor Day sale price ending 2026-09-07 against a $55.70 compare-at. Re-read after that date - if it reverts, recompute every margin before selling on.",
+      "stockOnSupplier": 9,
+      "stockOnStore": 9,
+      "routes": {
+        "US": {
+          "shippingUsd": 1.99,
+          "eta": "8-11 days (Sep 10-14)",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard",
+          "shipFrom": "CN",
+          "fulfilment": "cn-direct",
+          "observedOn": "2026-09-01",
+          "source": "Read from the AliExpress listing 2026-09-01 with ship-to United States, USD: method 'AliExpress Selection Standard', $1.99, delivery Sep 10-14, 84.6% of orders within 11 days (<=8d 23.4%, 9d 24.4%, 10d 21.9%, 11d 14.7%), couriers SpeedX / GOFO / USPS. USPS is final mile only - this is a CHINA-DIRECT consolidated line, not a US warehouse. The earlier us-local classification came from the search flag itemCardType=app_us_local_card, which marks US storefront merchandising rather than warehouse location. Corrected same day."
+        }
+      }
+    },
+    {
+      "handle": "pu-leather-watch-roll-travel-case-3-or-6-watches",
+      "sku": "14:350686#6 Slot Green Gray",
+      "supplierItemId": "1005006898059534",
+      "itemCostUsd": 43.48,
+      "itemCostObservedOn": "2026-09-01",
+      "itemCostNote": "$26.18 is a Labor Day sale price ending 2026-09-07 against a $55.70 compare-at. Re-read after that date - if it reverts, recompute every margin before selling on.",
+      "stockOnSupplier": 100,
+      "stockOnStore": 100,
+      "routes": {
+        "US": {
+          "shippingUsd": 1.99,
+          "eta": "8-11 days (Sep 10-14)",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard",
+          "shipFrom": "CN",
+          "fulfilment": "cn-direct",
+          "observedOn": "2026-09-01",
+          "source": "Read from the AliExpress listing 2026-09-01 with ship-to United States, USD: method 'AliExpress Selection Standard', $1.99, delivery Sep 10-14, 84.6% of orders within 11 days (<=8d 23.4%, 9d 24.4%, 10d 21.9%, 11d 14.7%), couriers SpeedX / GOFO / USPS. USPS is final mile only - this is a CHINA-DIRECT consolidated line, not a US warehouse. The earlier us-local classification came from the search flag itemCardType=app_us_local_card, which marks US storefront merchandising rather than warehouse location. Corrected same day."
+        }
+      }
+    },
+    {
+      "handle": "pu-leather-watch-roll-travel-case-3-or-6-watches",
+      "sku": "14:350850#6 Slot Black Red",
+      "supplierItemId": "1005006898059534",
+      "itemCostUsd": 43.48,
+      "itemCostObservedOn": "2026-09-01",
+      "itemCostNote": "$26.18 is a Labor Day sale price ending 2026-09-07 against a $55.70 compare-at. Re-read after that date - if it reverts, recompute every margin before selling on.",
+      "stockOnSupplier": 8,
+      "stockOnStore": 8,
+      "routes": {
+        "US": {
+          "shippingUsd": 1.99,
+          "eta": "8-11 days (Sep 10-14)",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard",
+          "shipFrom": "CN",
+          "fulfilment": "cn-direct",
+          "observedOn": "2026-09-01",
+          "source": "Read from the AliExpress listing 2026-09-01 with ship-to United States, USD: method 'AliExpress Selection Standard', $1.99, delivery Sep 10-14, 84.6% of orders within 11 days (<=8d 23.4%, 9d 24.4%, 10d 21.9%, 11d 14.7%), couriers SpeedX / GOFO / USPS. USPS is final mile only - this is a CHINA-DIRECT consolidated line, not a US warehouse. The earlier us-local classification came from the search flag itemCardType=app_us_local_card, which marks US storefront merchandising rather than warehouse location. Corrected same day."
+        }
+      }
+    },
+    {
+      "handle": "pu-leather-watch-roll-travel-case-4-watches",
+      "sku": "14:173#4 Slot Black Gray",
+      "supplierItemId": "1005008786368533",
+      "itemCostUsd": 31.67,
+      "itemCostObservedOn": "2026-09-01",
+      "itemCostNote": "$26.18 is a Labor Day sale price ending 2026-09-07 against a $55.70 compare-at. Re-read after that date - if it reverts, recompute every margin before selling on.",
+      "stockOnSupplier": 4,
+      "stockOnStore": 4,
+      "routes": {
+        "US": {
+          "shippingUsd": 1.99,
+          "eta": "8-11 days (Sep 10-14)",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard",
+          "shipFrom": "CN",
+          "fulfilment": "cn-direct",
+          "observedOn": "2026-09-01",
+          "source": "Read from the AliExpress listing 2026-09-01 with ship-to United States, USD: method 'AliExpress Selection Standard', $1.99, delivery Sep 10-14, 84.6% of orders within 11 days (<=8d 23.4%, 9d 24.4%, 10d 21.9%, 11d 14.7%), couriers SpeedX / GOFO / USPS. USPS is final mile only - this is a CHINA-DIRECT consolidated line, not a US warehouse. The earlier us-local classification came from the search flag itemCardType=app_us_local_card, which marks US storefront merchandising rather than warehouse location. Corrected same day."
+        }
+      }
+    },
+    {
+      "handle": "pu-leather-watch-roll-travel-case-4-watches",
+      "sku": "14:100013777#4 Slot Brown Black",
+      "supplierItemId": "1005008786368533",
+      "itemCostUsd": 31.67,
+      "itemCostObservedOn": "2026-09-01",
+      "itemCostNote": "$26.18 is a Labor Day sale price ending 2026-09-07 against a $55.70 compare-at. Re-read after that date - if it reverts, recompute every margin before selling on.",
+      "stockOnSupplier": 66,
+      "stockOnStore": 66,
+      "routes": {
+        "US": {
+          "shippingUsd": 1.99,
+          "eta": "8-11 days (Sep 10-14)",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard",
+          "shipFrom": "CN",
+          "fulfilment": "cn-direct",
+          "observedOn": "2026-09-01",
+          "source": "Read from the AliExpress listing 2026-09-01 with ship-to United States, USD: method 'AliExpress Selection Standard', $1.99, delivery Sep 10-14, 84.6% of orders within 11 days (<=8d 23.4%, 9d 24.4%, 10d 21.9%, 11d 14.7%), couriers SpeedX / GOFO / USPS. USPS is final mile only - this is a CHINA-DIRECT consolidated line, not a US warehouse. The earlier us-local classification came from the search flag itemCardType=app_us_local_card, which marks US storefront merchandising rather than warehouse location. Corrected same day."
+        }
+      }
+    },
+    {
+      "handle": "3-piece-packing-cube-set",
+      "sku": "14:1052#S3007 Black;5:200004186#3PCS L M S Set",
+      "supplierItemId": "1005005283270949",
+      "itemCostUsd": 12.01,
+      "itemCostObservedOn": "2026-08-25",
+      "stockOnSupplier": 289,
+      "stockOnStore": 291,
+      "routes": {
+        "CA": {
+          "shippingUsd": 1.99,
+          "eta": "7-15 days",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard",
+          "shipFrom": "CN",
+          "observedOn": "2026-08-25"
+        },
+        "US": {
+          "shippingUsd": 0,
+          "eta": "8-14 days",
+          "tracked": true,
+          "observedOn": "2026-08-21",
+          "source": "AliExpress listing page rather than DSers; carried forward unchanged from the 2026-08-21 baseline. Re-check in DSers before relying on the zero shipping figure for margin decisions - the route existing is what the us-route-verified tag asserts."
+        }
+      }
+    },
+    {
+      "handle": "white-semi-circular-travel-jewelry-case",
+      "sku": "14:29",
+      "supplierItemId": "1005009878640464",
+      "itemCostUsd": 4.3,
+      "itemCostObservedOn": "2026-08-25",
+      "stockOnSupplier": 959,
+      "stockOnStore": 960,
+      "routes": {
+        "CA": {
+          "shippingUsd": 2.17,
+          "eta": "8-15 days",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard",
+          "shipFrom": "CN",
+          "observedOn": "2026-08-25"
+        },
+        "US": {
+          "shippingUsd": 1.99,
+          "eta": "9-14 days",
+          "tracked": true,
+          "observedOn": "2026-08-21",
+          "source": "Carried forward unchanged from the 2026-08-21 baseline; not re-read on 2026-08-25."
+        }
+      }
+    },
+    {
+      "handle": "black-hanging-travel-toiletry-organizer",
+      "sku": "14:771#Black",
+      "supplierItemId": "1005006162747124",
+      "itemCostUsd": 8.31,
+      "itemCostObservedOn": "2026-08-25",
+      "stockOnSupplier": 48,
+      "stockOnStore": 48,
+      "routes": {
+        "CA": {
+          "shippingUsd": 2.17,
+          "eta": "7-15 days",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard",
+          "shipFrom": "CN",
+          "observedOn": "2026-08-25"
+        },
+        "US": {
+          "shippingUsd": 2.16,
+          "eta": "8-13 days",
+          "tracked": true,
+          "observedOn": "2026-08-21",
+          "source": "Carried forward unchanged from the 2026-08-21 baseline; not re-read on 2026-08-25."
+        }
+      }
+    },
+    {
+      "handle": "travel-cable-organizer-case",
+      "sku": "14:193#Double Layers",
+      "supplierItemId": "1005006797227273",
+      "itemCostUsd": 3.81,
+      "itemCostObservedOn": "2026-08-25",
+      "stockOnSupplier": 19,
+      "stockOnStore": 65,
+      "routes": {
+        "CA": {
+          "shippingUsd": 2.17,
+          "eta": "7-14 days",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard",
+          "shipFrom": "CN",
+          "observedOn": "2026-08-25"
+        },
+        "US": {
+          "shippingUsd": 1.99,
+          "eta": "8-14 days",
+          "tracked": true,
+          "observedOn": "2026-08-21",
+          "source": "Carried forward unchanged from the 2026-08-21 baseline; not re-read on 2026-08-25."
+        }
+      }
+    },
+    {
+      "handle": "black-travel-tech-case",
+      "sku": "14:29#Black",
+      "supplierItemId": "1005010044108059",
+      "itemCostUsd": 7.26,
+      "itemCostObservedOn": "2026-08-25",
+      "stockOnSupplier": 8,
+      "stockOnStore": 9933,
+      "routes": {
+        "CA": {
+          "shippingUsd": 2.17,
+          "eta": "7-15 days",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard",
+          "shipFrom": "CN",
+          "observedOn": "2026-08-25"
+        }
+      }
+    },
+    {
+      "handle": "the-carry-on-kit-toiletry-organizer-packing-cubes-cable-case",
+      "sku": "PUCHICA-KIT-CARRYON-01",
+      "supplierItemId": "1005005283270949+1005006162747124+1005006797227273",
+      "itemCostUsd": 24.13,
+      "itemCostObservedOn": "2026-08-25",
+      "stockOnSupplier": 19,
+      "derivedFrom": {
+        "note": "Bundle row. Not an independently quoted supplier offer: every figure is the sum of the three component rows in this same file, because the kit is fulfilled as three separate DSers orders. stockOnSupplier is the MINIMUM of the three components, not a sum - the kit cannot be assembled more times than its scarcest part allows, and on 2026-08-25 that part is the cable organizer case at 19 units. The US shipping figure is lower than the CA one because the packing cube set ships free to the United States. Re-derive whenever a component row changes.",
+        "components": [
+          {
+            "sku": "14:1052#S3007 Black;5:200004186#3PCS L M S Set",
+            "itemCostUsd": 12.01,
+            "caShippingUsd": 1.99,
+            "usShippingUsd": 0,
+            "stockOnSupplier": 289
+          },
+          {
+            "sku": "14:771#Black",
+            "itemCostUsd": 8.31,
+            "caShippingUsd": 2.17,
+            "usShippingUsd": 2.16,
+            "stockOnSupplier": 48
+          },
+          {
+            "sku": "14:193#Double Layers",
+            "itemCostUsd": 3.81,
+            "caShippingUsd": 2.17,
+            "usShippingUsd": 1.99,
+            "stockOnSupplier": 19
+          }
+        ]
+      },
+      "routes": {
+        "CA": {
+          "shippingUsd": 6.33,
+          "eta": "8-15 days",
+          "tracked": true,
+          "observedOn": "2026-08-25"
+        },
+        "US": {
+          "shippingUsd": 4.15,
+          "eta": "8-14 days",
+          "tracked": true,
+          "observedOn": "2026-08-21",
+          "source": "Derived from component US rows carried forward from the 2026-08-21 baseline; not re-read on 2026-08-25."
+        }
+      }
+    },
+    {
+      "handle": "compression-packing-cube-set-5-piece",
+      "sku": "14:691;200007763:201336100",
+      "supplierItemId": "1005008575269485",
+      "itemCostUsd": 27.94,
+      "itemCostObservedOn": "2026-08-27",
+      "stockOnSupplier": 974,
+      "derivedFrom": {
+        "note": "Grey. Per-SKU cost was not read individually: the DSers product card quotes the whole product as USD 26.69-27.94 (shown alongside as CA$37.03-38.76), and every SKU here carries the TOP of the USD range. CORRECTED 2026-08-27: this row first carried 27.69, derived by dividing the CAD top by the 1.4 planning rate. That was wrong - the CAD figures are DSers own conversion at ~1.387, so back-converting them understated the supplier USD price by 0.25. The USD range is the primary figure and is now used directly. Stock is per-SKU and was read on 2026-08-27; the file-level supplierStockObservedOn refers to the carried-forward rows, not these."
+      },
+      "routes": {
+        "CA": {
+          "shippingUsd": 0,
+          "eta": "8-16 days",
+          "tracked": true,
+          "observedOn": "2026-08-27",
+          "source": "DSers Shipping info, AliExpress Selection Standard from CN, ship-to Canada: Free Shipping."
+        }
+      }
+    },
+    {
+      "handle": "compression-packing-cube-set-5-piece",
+      "sku": "14:1052;200007763:201336100",
+      "supplierItemId": "1005008575269485",
+      "itemCostUsd": 27.94,
+      "itemCostObservedOn": "2026-08-27",
+      "stockOnSupplier": 975,
+      "derivedFrom": {
+        "note": "Pink. Per-SKU cost was not read individually: the DSers product card quotes the whole product as USD 26.69-27.94 (shown alongside as CA$37.03-38.76), and every SKU here carries the TOP of the USD range. CORRECTED 2026-08-27: this row first carried 27.69, derived by dividing the CAD top by the 1.4 planning rate. That was wrong - the CAD figures are DSers own conversion at ~1.387, so back-converting them understated the supplier USD price by 0.25. The USD range is the primary figure and is now used directly. Stock is per-SKU and was read on 2026-08-27; the file-level supplierStockObservedOn refers to the carried-forward rows, not these."
+      },
+      "routes": {
+        "CA": {
+          "shippingUsd": 0,
+          "eta": "8-16 days",
+          "tracked": true,
+          "observedOn": "2026-08-27",
+          "source": "DSers Shipping info, AliExpress Selection Standard from CN, ship-to Canada: Free Shipping."
+        }
+      }
+    },
+    {
+      "handle": "compression-packing-cube-set-5-piece",
+      "sku": "14:771;200007763:201336100",
+      "supplierItemId": "1005008575269485",
+      "itemCostUsd": 27.94,
+      "itemCostObservedOn": "2026-08-27",
+      "stockOnSupplier": 993,
+      "derivedFrom": {
+        "note": "Beige. Per-SKU cost was not read individually: the DSers product card quotes the whole product as USD 26.69-27.94 (shown alongside as CA$37.03-38.76), and every SKU here carries the TOP of the USD range. CORRECTED 2026-08-27: this row first carried 27.69, derived by dividing the CAD top by the 1.4 planning rate. That was wrong - the CAD figures are DSers own conversion at ~1.387, so back-converting them understated the supplier USD price by 0.25. The USD range is the primary figure and is now used directly. Stock is per-SKU and was read on 2026-08-27; the file-level supplierStockObservedOn refers to the carried-forward rows, not these."
+      },
+      "routes": {
+        "CA": {
+          "shippingUsd": 0,
+          "eta": "8-16 days",
+          "tracked": true,
+          "observedOn": "2026-08-27",
+          "source": "DSers Shipping info, AliExpress Selection Standard from CN, ship-to Canada: Free Shipping."
+        }
+      }
+    },
+    {
+      "handle": "compression-packing-cube-set-5-piece",
+      "sku": "14:193;200007763:201336100",
+      "supplierItemId": "1005008575269485",
+      "itemCostUsd": 27.94,
+      "itemCostObservedOn": "2026-08-27",
+      "stockOnSupplier": 24,
+      "derivedFrom": {
+        "note": "Black. Per-SKU cost was not read individually: the DSers product card quotes the whole product as USD 26.69-27.94 (shown alongside as CA$37.03-38.76), and every SKU here carries the TOP of the USD range. CORRECTED 2026-08-27: this row first carried 27.69, derived by dividing the CAD top by the 1.4 planning rate. That was wrong - the CAD figures are DSers own conversion at ~1.387, so back-converting them understated the supplier USD price by 0.25. The USD range is the primary figure and is now used directly. Stock is per-SKU and was read on 2026-08-27; the file-level supplierStockObservedOn refers to the carried-forward rows, not these."
+      },
+      "routes": {
+        "CA": {
+          "shippingUsd": 0,
+          "eta": "8-16 days",
+          "tracked": true,
+          "observedOn": "2026-08-27",
+          "source": "DSers Shipping info, AliExpress Selection Standard from CN, ship-to Canada: Free Shipping."
+        }
+      }
+    }
+  ]
+}

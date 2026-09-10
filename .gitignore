@@ -117,3 +117,12 @@ ship.ps1
 ship-404fix.ps1
 apply-ci-green.ps1
 terms-currency-paragraph.txt
+
+# Local operator scripts and hand-off notes — not part of the storefront
+/*.patch
+/*-message.txt
+/ship-*.ps1
+/apply-*.ps1
+/cleanup-branches.ps1
+/gfurn-email.txt
+/.pipeline/

@@ -31,18 +31,26 @@ test('production monitor shares the verified market cohorts', () => {
   // is what caught the empty Canadian catalogue in the first place.
   assert.deepEqual(EXPECTED_HANDLES_BY_MARKET.CA, []);
 
-  // The United States is empty again as of 2026-09-08. The watch-roll cohort
-  // was retired on the Amazon US undercut test and both products are DRAFT in
-  // Shopify, so the monitor must expect no live US handle. Leaving them here
-  // fails the run post-deploy against a storefront correctly serving nothing -
-  // the exact shape of the 2026-09-01 failure.
-  assert.deepEqual(EXPECTED_HANDLES_BY_MARKET.US, []);
+  // The United States carries two handles as of 2026-09-09. The monitor will
+  // now fail post-deploy unless BOTH are live on the storefront, which is the
+  // point: the 2026-09-01 failure was the monitor expecting handles that were
+  // not live, and the mirror of it is a monitor expecting nothing while the
+  // storefront serves something. Publishing state and this list have to move
+  // together.
+  assert.deepEqual(EXPECTED_HANDLES_BY_MARKET.US, [
+    'hand-woven-bamboo-pendant-light',
+    'plug-in-bamboo-sconce-swing-arm',
+  ]);
 
   // Discovery follows the live cohort. The seven previous handles were deleted
   // from Shopify on 2026-08-28 and verified 404 in production on 2026-09-01,
   // so the monitor must not expect a page, sitemap entry or feed item for any
   // of them; their evidence lives in ARCHIVED_CATALOG_OFFERS.
-  assert.deepEqual(DISCOVERABLE_PRODUCT_HANDLES, []);
+  assert.deepEqual(
+    DISCOVERABLE_PRODUCT_HANDLES,
+    EXPECTED_HANDLES_BY_MARKET.US,
+    'discovery and the monitor must expect the same live handles',
+  );
   for (const retired of RETIRED_CATALOG_HANDLES) {
     assert.ok(
       !DISCOVERABLE_PRODUCT_HANDLES.includes(retired),

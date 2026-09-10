@@ -9318,3 +9318,242 @@ main:has(> .pk-collection--bold) {
   .pk-bluegold { margin-inline: 4px; }
   .pk-footer__tagline { font-size: 13px; line-height: 1.5; }
 }
+
+/* ==========================================================================
+   Metaobject-driven page sections
+   --------------------------------------------------------------------------
+   Styling for app/sections/*. Each block matches exactly one component; there
+   are no shared utility classes here on purpose, because stylesheet-usage
+   removes any selector that stops appearing in JSX and a shared helper would
+   survive long after its last real user.
+   ========================================================================== */
+
+.pk-collection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pk-s-8);
+  padding-bottom: var(--pk-s-9);
+}
+
+.pk-collection__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: var(--pk-s-5);
+  padding-inline: var(--pk-gutter);
+}
+
+.pk-collection__empty {
+  padding-inline: var(--pk-gutter);
+  color: var(--pk-muted);
+  font: var(--pk-type-body);
+}
+
+/* --- hero ---------------------------------------------------------------- */
+
+.pk-section-hero {
+  position: relative;
+  background: var(--pk-bg-soft);
+}
+
+.pk-section-hero--image {
+  min-height: 22rem;
+  display: grid;
+}
+
+.pk-section-hero--image > * {
+  grid-area: 1 / 1;
+}
+
+.pk-section-hero__media {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  object-fit: cover;
+}
+
+/*
+ * Fixed 0.65 wash. Text over a photograph cannot be contrast-checked by axe —
+ * it sees a transparent background and passes — so the backdrop is made
+ * deterministic instead. Against a pure white photo this composites to
+ * #66686D: white holds 5.58:1, the body tint 4.75:1. 0.60 was measured and
+ * rejected, the tint only reaching 4.02:1 there. Do not lighten this.
+ */
+.pk-section-hero__scrim {
+  display: flex;
+  align-items: flex-end;
+  background: rgba(20, 22, 31, 0.65);
+}
+
+.pk-section-hero__inner {
+  max-width: var(--pk-inner-max);
+  margin-inline: auto;
+  width: 100%;
+  padding: var(--pk-s-8) var(--pk-gutter);
+  display: flex;
+  flex-direction: column;
+  gap: var(--pk-s-3);
+}
+
+.pk-section-hero__heading {
+  font: var(--pk-type-h1);
+  margin: 0;
+  color: var(--pk-ink);
+}
+
+.pk-section-hero__body {
+  font: var(--pk-type-body);
+  margin: 0;
+  max-width: 46ch;
+  color: var(--pk-ink-soft);
+}
+
+.pk-section-hero--image .pk-section-hero__heading {
+  color: var(--pk-white);
+}
+
+.pk-section-hero--image .pk-section-hero__body {
+  color: var(--pk-a11y-subtle-on-dark);
+}
+
+/*
+ * Barro carries calls to action. The Anil pass originally held barro to a
+ * single accent and left buttons on cobalt, which read correctly and cold.
+ * Promoting it is a proportion change, not a new colour — no hex is introduced
+ * here that was not already in the palette.
+ */
+.pk-section-hero__cta {
+  align-self: flex-start;
+  min-height: var(--pk-control-height);
+  display: inline-flex;
+  align-items: center;
+  padding-inline: var(--pk-s-5);
+  border-radius: var(--pk-r-pill);
+  background: var(--pk-barro);
+  color: var(--pk-white);
+  font: var(--pk-type-label);
+  text-decoration: none;
+}
+
+.pk-section-hero__cta:hover {
+  background: color-mix(in srgb, var(--pk-barro) 84%, black);
+}
+
+/* --- prose --------------------------------------------------------------- */
+
+.pk-section-prose__inner {
+  max-width: var(--pk-inner-max);
+  margin-inline: auto;
+  padding-inline: var(--pk-gutter);
+  display: flex;
+  flex-direction: column;
+  gap: var(--pk-s-3);
+}
+
+.pk-section-prose__heading {
+  font: var(--pk-type-h2);
+  margin: 0;
+  color: var(--pk-ink);
+}
+
+.pk-section-prose__body {
+  font: var(--pk-type-body);
+  margin: 0;
+  max-width: 68ch;
+  color: var(--pk-ink-soft);
+}
+
+/* --- category tiles ------------------------------------------------------ */
+
+.pk-section-tiles__inner {
+  max-width: var(--pk-inner-max);
+  margin-inline: auto;
+  padding-inline: var(--pk-gutter);
+  display: flex;
+  flex-direction: column;
+  gap: var(--pk-s-4);
+}
+
+.pk-section-tiles__heading {
+  font: var(--pk-type-h2);
+  margin: 0;
+  color: var(--pk-ink);
+}
+
+.pk-section-tiles__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: var(--pk-s-4);
+}
+
+.pk-section-tiles__link {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pk-s-2);
+  text-decoration: none;
+  color: var(--pk-ink);
+}
+
+.pk-section-tiles__media {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--pk-r-lg);
+  background: var(--pk-muted-bg);
+}
+
+.pk-section-tiles__media--blank {
+  border: 1px solid var(--pk-line);
+}
+
+.pk-section-tiles__label {
+  font: var(--pk-type-label);
+}
+
+.pk-section-tiles__link:hover .pk-section-tiles__label {
+  text-decoration: underline;
+}
+
+/*
+ * Torogoz on section headings. The Anil pass reserved this hue for strokes and
+ * large glyphs and barred it from small text on light — both still hold. A 2px
+ * rule is a stroke, so this is the promoted use the direction calls for, not a
+ * relaxation of the contrast rule.
+ */
+.pk-section-prose__heading,
+.pk-section-tiles__heading,
+.pk-section-grid__heading {
+  padding-top: var(--pk-s-3);
+  border-top: 2px solid var(--pk-torogoz);
+}
+
+.pk-section-tiles__media--blank {
+  border-color: var(--pk-torogoz);
+}
+
+/* --- product grid section ------------------------------------------------ */
+
+.pk-section-grid__inner {
+  max-width: var(--pk-inner-max);
+  margin-inline: auto;
+  padding-inline: var(--pk-gutter);
+  display: flex;
+  flex-direction: column;
+  gap: var(--pk-s-5);
+}
+
+.pk-section-grid__heading {
+  font: var(--pk-type-h2);
+  margin: 0;
+  color: var(--pk-ink);
+}
+
+.pk-section-grid__items {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: var(--pk-s-5);
+}

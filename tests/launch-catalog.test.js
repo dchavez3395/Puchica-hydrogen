@@ -5,6 +5,7 @@ import {formatProductOptionLabel} from '../app/lib/product-options.js';
 
 import {
   APPROVED_CATALOG_OFFERS,
+  VOLTAGE_HOLD_CATALOG_OFFERS,
   APPROVED_PRODUCT_HANDLES_BY_MARKET,
   ARCHIVED_CATALOG_OFFERS,
   APPROVED_VARIANT_SKUS_BY_MARKET,
@@ -220,7 +221,16 @@ test('released homepage is travel-focused and uses the catalog gate', async () =
   assert.match(home, /filterLaunchProducts/);
   assert.match(home, /SMALL_SPACE_QUERY/);
   assert.match(home, /launchMetaCopy/);
-  assert.match(launchMeta, /Travel organizers for easier packing/);
+  // The launch title moved from travel organizers to woven bamboo lighting on
+  // 2026-09-09, because that is what the store now lists. The rest of this
+  // test still asserts a travel-framed homepage, and that gap is real: the
+  // hero copy, the SmallSpaceLanding title ordering below and brand.js all
+  // still describe a travel-organizer store while the only live products are
+  // two light fixtures. Repositioning the brand is a decision, not a fix, so
+  // it is flagged here rather than made here. What must not happen in the
+  // meantime is the metadata drifting back to describing goods we do not sell.
+  assert.match(launchMeta, /Woven bamboo lighting/);
+  assert.doesNotMatch(launchMeta, /Travel organizers for easier packing/);
   assert.doesNotMatch(home, /pk-hold/);
   assert.match(about, /'pt-br': \{/);
   assert.match(about, /\{copy\.artNote\}/);
@@ -249,21 +259,32 @@ test('product market resolution fails closed on an empty catalogue', () => {
   // route is advertised as indexable. Verified against production on
   // 2026-09-01: all seven archived handles return 404.
   assert.equal(isMarketSuspended('CA'), true);
-  // US is no longer suspended as a market - the de minimis evidence closes the
+  // US is not suspended as a market - the de minimis evidence closes the
   // cn-direct ROUTE into it, which is all that evidence ever measured. Every
-  // archived offer ships cn-direct, so none of them is sellable there either
-  // way, and the catalogue is empty regardless.
-  // Suspended again 2026-09-08: the watch-roll cohort that reopened the US on
-  // 2026-09-01 was retired on the Amazon undercut test, so the market has
-  // nothing to sell. The ROUTE facts are unchanged and still asserted below.
-  assert.equal(isMarketSuspended('US'), true);
+  // ARCHIVED offer ships cn-direct with no duty override, so none of them is
+  // sellable there whatever the market table says, which is what this test
+  // checks. The live bamboo cohort crosses that same suspended route on a
+  // positive per-offer duty contribution; it is asserted separately.
+  assert.equal(isMarketSuspended('US'), false);
   assert.equal(isFulfilmentRouteSuspended('US', 'cn-direct'), true);
   assert.equal(isFulfilmentRouteSuspended('US', 'us-local'), false);
-  // Discovery is empty again as of 2026-09-08. The watch-roll cohort was the
-  // only thing crossing the suspended cn-direct route, and it was retired on
-  // the Amazon US undercut test - our 3-slot COST of $26.18 sits above the
-  // $18.99 at which competitors retail. Both products are DRAFT in Shopify.
-  assert.deepEqual(DISCOVERABLE_PRODUCT_HANDLES, []);
+  // Discovery carries the two offers approved on 2026-09-09 and nothing else.
+  // Seven more bamboo offers cleared every commercial gate the same day and
+  // are NOT here: their supplier listing states 220 V and the United States
+  // runs at 120 V, so they sit in VOLTAGE_HOLD_CATALOG_OFFERS. A held offer
+  // that leaks into discovery is a product page for a fixture we will not
+  // ship, which is worse than one that never appeared.
+  assert.deepEqual(DISCOVERABLE_PRODUCT_HANDLES, [
+    'hand-woven-bamboo-pendant-light',
+    'plug-in-bamboo-sconce-swing-arm',
+  ]);
+  for (const offer of VOLTAGE_HOLD_CATALOG_OFFERS) {
+    assert.ok(
+      !DISCOVERABLE_PRODUCT_HANDLES.includes(offer.handle),
+      `${offer.handle} is on voltage hold and must not be discoverable`,
+    );
+    assert.equal(isApprovedVariantSku(offer.sku, 'US'), false, offer.sku);
+  }
 
   for (const {handle} of ARCHIVED_CATALOG_OFFERS) {
     assert.equal(
@@ -546,10 +567,10 @@ test('a suspended market closes commerce without erasing route evidence', () => 
   // against. A blanket US market suspension over-reached: it closed the market
   // this store sells into on evidence that only ever applied to parcels
   // crossing the border. cn-direct into the US stays shut; us-local does not.
-  // Suspended again 2026-09-08: the watch-roll cohort that reopened the US on
-  // 2026-09-01 was retired on the Amazon undercut test, so the market has
-  // nothing to sell. The ROUTE facts are unchanged and still asserted below.
-  assert.equal(isMarketSuspended('US'), true);
+  // Reopened 2026-09-09. The route facts below are unchanged by that and are
+  // the point of this test: reopening a MARKET must not quietly reopen a
+  // suspended ROUTE into it.
+  assert.equal(isMarketSuspended('US'), false);
   assert.match(SUSPENDED_FULFILMENT_ROUTES.US['cn-direct'], /de-minimis/);
   assert.equal(SUSPENDED_FULFILMENT_ROUTES.US['us-local'], undefined);
   // An offer that does not declare how it ships must fail closed. The us-local
@@ -557,6 +578,17 @@ test('a suspended market closes commerce without erasing route evidence', () => 
   // which stays true while the MARKET is shut for having nothing to sell.
   assert.equal(
     isOfferSellable({handle: 'h', sku: 's', markets: ['US']}, 'US'),
+    false,
+  );
+  // An offer on the default cn-direct route reaches the per-offer duty test
+  // rather than being refused by the route, and fails it with no contribution
+  // recorded. That is the gate the live cohort has to pass, so it must not be
+  // possible to pass it by omission.
+  assert.equal(
+    isOfferSellable(
+      {handle: 'h', sku: 's', markets: ['US'], fulfilment: 'cn-direct'},
+      'US',
+    ),
     false,
   );
   assert.equal(
@@ -567,11 +599,24 @@ test('a suspended market closes commerce without erasing route evidence', () => 
     ),
     true,
   );
-  // Same offer, real suspension table: shut, because the market is.
+  // Same offer, real suspension table. It is now OPEN, because the market
+  // reopened on 2026-09-09 and us-local was never the suspended route. The
+  // assertion is kept pointing at the real table rather than deleted: it is
+  // what tells us the injected-table case above is still measuring the route
+  // and not quietly agreeing with a market suspension that has gone.
   assert.equal(
     isOfferSellable(
       {handle: 'h', sku: 's', markets: ['US'], fulfilment: 'us-local'},
       'US',
+    ),
+    true,
+  );
+  // And the same offer in the market that IS suspended stays shut, so the
+  // market rail is still being exercised somewhere in this test.
+  assert.equal(
+    isOfferSellable(
+      {handle: 'h', sku: 's', markets: ['CA'], fulfilment: 'us-local'},
+      'CA',
     ),
     false,
   );
@@ -592,19 +637,35 @@ test('a suspended market closes commerce without erasing route evidence', () => 
       ? {dutyBilledContributionUsd: value}
       : {dutyPrepaidContributionUsd: value};
 
-  // These assert the ROUTE and DUTY rail, so they inject an empty suspension
-  // table. US is commercially suspended as of 2026-09-08, and market
-  // suspension short-circuits isOfferSellable - without the injection every
-  // line below would pass for the wrong reason and the rail would stop being
-  // tested the moment the catalogue emptied.
+  // These assert the ROUTE and DUTY rail. The injected empty suspension table
+  // is kept even though the US reopened on 2026-09-09: it pins the rail to the
+  // route and the duty figure, so these lines keep meaning the same thing
+  // whichever way the market table moves next.
   const open = {suspendedMarkets: {}};
   assert.equal(isOfferSellable(cnDirect({}), 'US', open), false);
   assert.equal(isOfferSellable(cnDirect(clearance(0)), 'US', open), false);
   assert.equal(isOfferSellable(cnDirect(clearance(-4.32)), 'US', open), false);
   assert.equal(isOfferSellable(cnDirect(clearance(8.15)), 'US', open), true);
-  // And the suspension still wins over a cleared route, which is the whole
-  // point of it being a separate rail.
-  assert.equal(isOfferSellable(cnDirect(clearance(8.15)), 'US'), false);
+  // With the real table the answers are now identical, because the US is open
+  // and the rail is the route rather than the market. Asserted so that the two
+  // stay in step: a divergence here means a market suspension crept back in
+  // and is quietly doing the route's job.
+  assert.equal(isOfferSellable(cnDirect(clearance(8.15)), 'US'), true);
+  assert.equal(isOfferSellable(cnDirect({}), 'US'), false);
+  // Canada is the suspended market, so it is where the suspension-wins-over-a-
+  // cleared-route assertion lives now. That rail must keep being tested.
+  assert.equal(
+    isOfferSellable(
+      {...cnDirect(clearance(8.15)), markets: ['CA']},
+      'CA',
+      {suspendedMarkets: {}},
+    ),
+    true,
+  );
+  assert.equal(
+    isOfferSellable({...cnDirect(clearance(8.15)), markets: ['CA']}, 'CA'),
+    false,
+  );
 
   // The other scenario's figure must not be able to open the route on its own.
   // This is the assertion that stops a healthy prepaid number quietly covering
@@ -638,9 +699,13 @@ test('a suspended market closes commerce without erasing route evidence', () => 
     new Set(ARCHIVED_CATALOG_OFFERS.map((offer) => offer.handle)).size,
     9,
   );
-  // Discovery carries nothing: the eighteen archived offers are evidence, not
-  // inventory.
-  assert.deepEqual(DISCOVERABLE_PRODUCT_HANDLES, []);
+  // Discovery carries only the live cohort. The eighteen archived offers are
+  // evidence, not inventory, and the loop below is the assertion that matters:
+  // none of them may appear no matter what else discovery is carrying.
+  assert.deepEqual(DISCOVERABLE_PRODUCT_HANDLES, [
+    'hand-woven-bamboo-pendant-light',
+    'plug-in-bamboo-sconce-swing-arm',
+  ]);
   for (const archived of ARCHIVED_CATALOG_OFFERS) {
     assert.ok(
       !DISCOVERABLE_PRODUCT_HANDLES.includes(archived.handle),
@@ -664,17 +729,41 @@ test('approved handles and SKUs derive from one exact-offer cohort', () => {
     ]);
   }
 
-  // Both markets are suspended, so nothing is sellable anywhere. The cohort
-  // the lists derive FROM is untouched - ten SKUs across seven handles, the
-  // compression cube set contributing four colour SKUs under one handle - so
-  // deleting a suspension entry restores exactly that shape.
-  // Both markets carry nothing as of 2026-09-08. Canada is suspended; the
-  // United States is empty because the cohort was retired on the undercut
-  // test, not because the market closed.
+  // Canada is still suspended and therefore still carries nothing. The United
+  // States carries the two offers approved on 2026-09-09 - one SKU each, so
+  // SKUs and handles are the same length here and a divergence would mean the
+  // derivation drifted.
   assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.CA.length, 0);
   assert.equal(APPROVED_PRODUCT_HANDLES_BY_MARKET.CA.length, 0);
-  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.US.length, 0);
-  assert.equal(APPROVED_PRODUCT_HANDLES_BY_MARKET.US.length, 0);
+  assert.deepEqual(APPROVED_PRODUCT_HANDLES_BY_MARKET.US, [
+    'hand-woven-bamboo-pendant-light',
+    'plug-in-bamboo-sconce-swing-arm',
+  ]);
+  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.US.length, 2);
+
+  // The live cohort crosses the suspended cn-direct route, so every approved
+  // offer must carry BOTH duty scenarios and both must be positive. The
+  // watch-roll cohort died because only the prepaid figure was; requiring both
+  // here is the rule that came out of that.
+  for (const offer of APPROVED_CATALOG_OFFERS) {
+    assert.equal(typeof offer.dutyPrepaidContributionUsd, 'number', offer.sku);
+    assert.equal(typeof offer.dutyBilledContributionUsd, 'number', offer.sku);
+    assert.ok(Number(offer.dutyPrepaidContributionUsd) > 0, offer.sku);
+    assert.ok(Number(offer.dutyBilledContributionUsd) > 0, offer.sku);
+  }
+
+  // The voltage hold is a separate rail and must not feed either list. It
+  // holds seven offers whose commercial evidence is complete - that is why
+  // they are held rather than deleted - so nothing but the hold itself keeps
+  // them out of the storefront.
+  assert.equal(VOLTAGE_HOLD_CATALOG_OFFERS.length, 7);
+  for (const held of VOLTAGE_HOLD_CATALOG_OFFERS) {
+    assert.ok(
+      !APPROVED_VARIANT_SKUS_BY_MARKET.US.includes(held.sku),
+      `${held.handle} is on voltage hold and must not be approved`,
+    );
+    assert.ok(Number(held.dutyPrepaidContributionUsd) > 0, held.sku);
+  }
   // The cohort is cn-direct - the AliExpress Selection Standard quote read on
   // 2026-09-01 is a China-direct line, not a US warehouse - so every offer must
   // carry a positive contribution under the binding duty scenario or it cannot
@@ -782,18 +871,16 @@ test('collection catalogue falls back when the resolved market is suspended', as
   // resolved a suspended market back to itself. The resolver picks whichever
   // market is actually open.
   assert.match(route, /resolveDiscoveryMarket\(resolvedCountry\)/);
-  // As of 2026-09-08 EVERY market is suspended, so there is no open market to
-  // resolve to and the resolver returns what it was asked for. That is the
-  // documented fallback, not a regression - and the deindexing risk the test
-  // was written against is gone with it: the catalogue really is empty in both
-  // markets now, so the emptiness noindex asserted below is the honest answer
-  // rather than a suspended market's emptiness leaking onto the canonical URL.
-  // Restore the stricter assertion the moment one market reopens.
-  assert.equal(resolveDiscoveryMarket('CA'), 'CA');
+  // The United States reopened on 2026-09-09, so the stricter assertion this
+  // test was written for is back: a request resolving to the suspended
+  // Canadian market must be answered with the open one, or Canada's
+  // emptiness-derived noindex lands on the canonical URL and deindexes the
+  // catalogue for everybody. That is the 2026-08-21/22 failure exactly.
+  assert.equal(resolveDiscoveryMarket('CA'), 'US');
   assert.equal(resolveDiscoveryMarket('US'), 'US');
   assert.ok(
-    Object.keys(SUSPENDED_COMMERCE_MARKETS).length >= 2,
-    'both markets suspended is the precondition for the fallback above',
+    !Object.prototype.hasOwnProperty.call(SUSPENDED_COMMERCE_MARKETS, 'US'),
+    'an open market is the precondition for the resolution above',
   );
   assert.match(route, /filterLaunchProducts\(rawProducts\?\.nodes, country\)/);
   // The emptiness fail-safe itself must stay: a genuinely empty catalogue

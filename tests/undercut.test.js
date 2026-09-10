@@ -1,6 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync} from 'node:fs';
+import {existsSync, readFileSync} from 'node:fs';
+import {fileURLToPath} from 'node:url';
+import path from 'node:path';
 import {auditUndercut, bindingBasis} from '../scripts/check-undercut.mjs';
 import {
   APPROVED_CATALOG_OFFERS,
@@ -154,7 +156,22 @@ test('a locked category is flagged but never fatal', () => {
 });
 
 test('every approved handle must carry evidence', () => {
-  // Empty today. When it is not, this is what stops a handle being added
-  // without the market check having been run at all.
-  assert.equal(APPROVED_CATALOG_OFFERS.length, 0);
+  // No longer vacuous. Until 2026-09-09 this asserted an empty catalogue,
+  // which meant the rule it names was never actually exercised. Now it walks
+  // the real cohort and fails if any approved handle is missing a current
+  // undercut evidence file - which is the thing eight dead products were
+  // supposed to have taught us.
+  assert.ok(APPROVED_CATALOG_OFFERS.length > 0);
+  const handles = [
+    ...new Set(APPROVED_CATALOG_OFFERS.map((offer) => offer.handle)),
+  ];
+  const dir = fileURLToPath(
+    new URL('../docs/undercut-evidence/', import.meta.url),
+  );
+  const load = (handle) => {
+    const p = path.join(dir, `${handle}.json`);
+    return existsSync(p) ? JSON.parse(readFileSync(p, 'utf8')) : null;
+  };
+  const {failures} = auditUndercut(handles, load, new Date('2026-09-09T12:00:00Z'));
+  assert.deepEqual(failures, []);
 });

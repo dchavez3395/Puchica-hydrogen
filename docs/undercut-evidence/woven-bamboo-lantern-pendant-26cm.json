@@ -1,0 +1,259 @@
+{
+ "handle": "woven-bamboo-lantern-pendant-26cm",
+ "checkedOn": "2026-09-09",
+ "market": "US",
+ "note": "26 cm woven bamboo lantern pendant, black base. Competitor set is every organic (non-sponsored) priced listing on Amazon page 1 for \"rattan pendant light\", captured 2026-09-09. Sponsored listings excluded. The category is the one the PRODUCT belongs to, not the one whose search happened to surface it - the chandeliers are benchmarked against chandeliers.",
+ "sources": [
+  "amazon.com search: rattan pendant light (page 1, organic only, 47 priced listings)",
+  "AliExpress SKU table read from the product page data blob, not the search card",
+  "DSers My Products mapped cost and per-SKU stock"
+ ],
+ "ourRetailUsd": 102.99,
+ "itemCostUsd": 36.48,
+ "supplierShipUsd": 1.99,
+ "costSource": "AliExpress per-SKU price read from window._d_c_ on the item page and cross-checked against the DSers My Products cost after mapping. Search-card prices are the listing minimum and were NOT used - on this supplier the cheap SKUs carry 2-8 units while the deep-stock SKUs cost more.",
+ "dutyRateBasis": "HTS 9405.11.80 (electric ceiling/wall lighting fittings, other, of base metal or other materials). Column 1 general 3.9% + Section 301 25% + 12.5% forced-labour action = 41.4%. NOT the 55.1% watch-roll stack (HTS 4202.92.97) - different chapter, different rate. VERIFY with a broker before a first commercial order.",
+ "competitors": [
+  {
+   "name": "rattan pendant light organic result 1",
+   "priceUsd": 149.99,
+   "reviews": 60
+  },
+  {
+   "name": "rattan pendant light organic result 2",
+   "priceUsd": 139.99,
+   "reviews": 158
+  },
+  {
+   "name": "rattan pendant light organic result 3",
+   "priceUsd": 138.99,
+   "reviews": 5
+  },
+  {
+   "name": "rattan pendant light organic result 4",
+   "priceUsd": 64.99,
+   "reviews": 332
+  },
+  {
+   "name": "rattan pendant light organic result 5",
+   "priceUsd": 39.99,
+   "reviews": 106
+  },
+  {
+   "name": "rattan pendant light organic result 6",
+   "priceUsd": 75.99,
+   "reviews": 4
+  },
+  {
+   "name": "rattan pendant light organic result 7",
+   "priceUsd": 119.99,
+   "reviews": 7
+  },
+  {
+   "name": "rattan pendant light organic result 8",
+   "priceUsd": 109.99,
+   "reviews": 68
+  },
+  {
+   "name": "rattan pendant light organic result 9",
+   "priceUsd": 89.98,
+   "reviews": 225
+  },
+  {
+   "name": "rattan pendant light organic result 10",
+   "priceUsd": 197.59,
+   "reviews": 14
+  },
+  {
+   "name": "rattan pendant light organic result 11",
+   "priceUsd": 62,
+   "reviews": 58
+  },
+  {
+   "name": "rattan pendant light organic result 12",
+   "priceUsd": 115.37,
+   "reviews": 25
+  },
+  {
+   "name": "rattan pendant light organic result 13",
+   "priceUsd": 148.11,
+   "reviews": 24
+  },
+  {
+   "name": "rattan pendant light organic result 14",
+   "priceUsd": 49.99,
+   "reviews": 545
+  },
+  {
+   "name": "rattan pendant light organic result 15",
+   "priceUsd": 129.99,
+   "reviews": 34
+  },
+  {
+   "name": "rattan pendant light organic result 16",
+   "priceUsd": 42.74,
+   "reviews": 152
+  },
+  {
+   "name": "rattan pendant light organic result 17",
+   "priceUsd": 76.99,
+   "reviews": 97
+  },
+  {
+   "name": "rattan pendant light organic result 18",
+   "priceUsd": 143.99,
+   "reviews": 8
+  },
+  {
+   "name": "rattan pendant light organic result 19",
+   "priceUsd": 47.99,
+   "reviews": 55
+  },
+  {
+   "name": "rattan pendant light organic result 20",
+   "priceUsd": 59.99,
+   "reviews": 132
+  },
+  {
+   "name": "rattan pendant light organic result 21",
+   "priceUsd": 124.99,
+   "reviews": 658
+  },
+  {
+   "name": "rattan pendant light organic result 22",
+   "priceUsd": 99.99,
+   "reviews": 252
+  },
+  {
+   "name": "rattan pendant light organic result 23",
+   "priceUsd": 29,
+   "reviews": 320
+  },
+  {
+   "name": "rattan pendant light organic result 24",
+   "priceUsd": 59.99,
+   "reviews": 33
+  },
+  {
+   "name": "rattan pendant light organic result 25",
+   "priceUsd": 129.99,
+   "reviews": 49
+  },
+  {
+   "name": "rattan pendant light organic result 26",
+   "priceUsd": 75.99,
+   "reviews": 921
+  },
+  {
+   "name": "rattan pendant light organic result 27",
+   "priceUsd": 39.99,
+   "reviews": 617
+  },
+  {
+   "name": "rattan pendant light organic result 28",
+   "priceUsd": 121.99,
+   "reviews": 12
+  },
+  {
+   "name": "rattan pendant light organic result 29",
+   "priceUsd": 66.4,
+   "reviews": 59
+  },
+  {
+   "name": "rattan pendant light organic result 30",
+   "priceUsd": 39.99,
+   "reviews": 137
+  },
+  {
+   "name": "rattan pendant light organic result 31",
+   "priceUsd": 116.99,
+   "reviews": 183
+  },
+  {
+   "name": "rattan pendant light organic result 32",
+   "priceUsd": 47.49,
+   "reviews": 489
+  },
+  {
+   "name": "rattan pendant light organic result 33",
+   "priceUsd": 32.99,
+   "reviews": 604
+  },
+  {
+   "name": "rattan pendant light organic result 34",
+   "priceUsd": 68.9,
+   "reviews": 8
+  },
+  {
+   "name": "rattan pendant light organic result 35",
+   "priceUsd": 139.99,
+   "reviews": 34
+  },
+  {
+   "name": "rattan pendant light organic result 36",
+   "priceUsd": 189.23,
+   "reviews": 7
+  },
+  {
+   "name": "rattan pendant light organic result 37",
+   "priceUsd": 147.99,
+   "reviews": 68
+  },
+  {
+   "name": "rattan pendant light organic result 38",
+   "priceUsd": 189.99,
+   "reviews": 70
+  },
+  {
+   "name": "rattan pendant light organic result 39",
+   "priceUsd": 199.19,
+   "reviews": 80
+  },
+  {
+   "name": "rattan pendant light organic result 40",
+   "priceUsd": 199.99,
+   "reviews": 13
+  },
+  {
+   "name": "rattan pendant light organic result 41",
+   "priceUsd": 39.98,
+   "reviews": 8
+  },
+  {
+   "name": "rattan pendant light organic result 42",
+   "priceUsd": 39.99,
+   "reviews": 202
+  },
+  {
+   "name": "rattan pendant light organic result 43",
+   "priceUsd": 249.99,
+   "reviews": 45
+  },
+  {
+   "name": "rattan pendant light organic result 44",
+   "priceUsd": 89.99,
+   "reviews": 94
+  },
+  {
+   "name": "rattan pendant light organic result 45",
+   "priceUsd": 49.99,
+   "reviews": 67
+  },
+  {
+   "name": "rattan pendant light organic result 46",
+   "priceUsd": 85.49,
+   "reviews": 70
+  },
+  {
+   "name": "rattan pendant light organic result 47",
+   "priceUsd": 91.92,
+   "reviews": 6
+  }
+ ],
+ "dutyRate": 0.414,
+ "verdict": "Priced at $102.99, just under the RULE 2 ceiling of $103.49 (median $89.99 x 1.15). Contributes $54.64/unit under the binding 'prepaid' basis, against a $12.00 floor. Top competitor review count 921 - category is not locked. CAUTION: this clears the gate, which is a floor, not a CPA test. Measured CPA benchmarks run $31.16-$47.93 per order, so a unit at this price covers acquisition only if CPA lands at the lower end.",
+ "supplierSku": "C-black base",
+ "supplierSkuUnitCap": 264,
+ "supplierSkuUnitCapObservedOn": "2026-09-09",
+ "supplierSkuUnitCapMethod": "Measured 2026-09-09 by the quantity-clamp test: select the exact SKU, type 999 into the quantity box and read the value the page settles on. That is the hard ceiling AliExpress checkout will sell. It is the only per-SKU number that can be trusted - the \"Only N left\" banner shows a different variant's figure on some pages (this listing displayed \"Only 7 left\" while the SKU we sell clamped at 888), and the Stock figure on the DSers My Products card is the sum across every variant (it read 9,284 for a listing whose US-plug SKU caps at 9 on other sellers)."
+}
