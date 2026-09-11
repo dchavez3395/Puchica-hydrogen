@@ -76,28 +76,35 @@ const completeBaseline = {
         US: {shippingUsd: 4.15, tracked: true},
       },
     },
-    // The live 2026-09-09 cohort: the two bamboo lighting offers approved for
-    // the United States. Both cn-direct, both crossing the suspended route on
-    // a positive per-offer duty contribution. Costs and the $1.99 supplier
-    // ship match exact-offer-cost-route-baseline-2026-09-09.json on disk.
-    {
-      handle: 'hand-woven-bamboo-pendant-light',
-      sku: '200000531:10#30cm-M;249:200006305#1pcs',
-      itemCostUsd: 34.14,
-      routes: {US: {shippingUsd: 1.99, tracked: true}},
-    },
-    {
-      handle: 'plug-in-bamboo-sconce-swing-arm',
-      sku: '200000795:175#US PLUG-DIM switch;249:200006305#no light',
-      itemCostUsd: 23.91,
-      routes: {US: {shippingUsd: 1.99, tracked: true}},
-    },
-    // The seven offers held on the 220 V reading. They carry cost and route
-    // evidence so that releasing them needs a supplier confirmation rather
-    // than a re-audit; what auditBaseline must NOT do is demand anything fresh
-    // of them while they are held, which is asserted below.
+    // The live cohort: five bamboo lighting offers approved for the United
+    // States. All cn-direct, all crossing the suspended route on a positive
+    // per-offer duty contribution. Costs and the $1.99 supplier ship match
+    // exact-offer-cost-route-baseline-2026-09-10.json on disk.
+    //
+    // Two of these rows changed on 2026-09-10 rather than being added. The
+    // 36cm pendant was re-mapped off a wide-brim hat shade its own photography
+    // never showed, which halved its cost; and the dome came off the voltage
+    // hold onto a 90-260V listing of the same shade. So a handle moving
+    // between the approved and held blocks here is expected, and the fixture
+    // has to move with it or auditBaseline reports the drift as missing rows.
     ...[
-      ['woven-bamboo-dome-pendant', '200000531:365458#A-wood base;136:200006153#NO light bulb', 32.62],
+      ['hand-woven-bamboo-pendant-light', '200000531:200004889#Style F - Wood Base;200007763:201336100;5:100014064#Ship with 24h', 23.49],
+      ['plug-in-bamboo-sconce-swing-arm', '200000795:175#US PLUG-DIM switch;249:200006305#no light', 23.91],
+      ['woven-bamboo-dome-pendant', '200000531:365458#Style F-Wood Base;5:361386#No bulb', 30.4],
+      ['slatted-bamboo-lantern-pendant-20cm', '200000531:350852#20x23cm', 13.38],
+      ['woven-rattan-petal-pendant-30cm', '200000531:175#30CM;136:200003939#Warm Light', 39.59],
+    ].map(([handle, sku, itemCostUsd, shippingUsd = 1.99]) => ({
+      handle,
+      sku,
+      itemCostUsd,
+      routes: {US: {shippingUsd, tracked: true}},
+    })),
+    // The six offers still held on the 220 V reading. They carry cost and
+    // route evidence so that releasing them needs a supplier confirmation
+    // rather than a re-audit; what auditBaseline must NOT do is demand
+    // anything fresh of them while they are held, which is asserted below.
+    // Seven until the dome moved up into the approved block above.
+    ...[
       ['woven-bamboo-lantern-pendant-26cm', '200000531:1052#C-black base;136:200006153#NO light bulb', 36.48],
       ['woven-bamboo-column-pendant-37cm', '200000531:29#D-wood base;136:200006153#NO light bulb', 37.1],
       ['woven-bamboo-mini-pendant-18cm', '200000531:200002984#style G;136:200006153#NO light bulb', 21.65],

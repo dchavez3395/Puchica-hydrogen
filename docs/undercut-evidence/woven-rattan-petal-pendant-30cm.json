@@ -1,18 +1,19 @@
 {
-  "handle": "hand-woven-bamboo-pendant-light",
-  "checkedOn": "2026-09-09",
+  "handle": "woven-rattan-petal-pendant-30cm",
+  "checkedOn": "2026-09-10",
   "market": "US",
-  "note": "36 cm woven bamboo WAVE SAUCER pendant, black base. RE-MAPPED 2026-09-10. The offer was previously mapped to `30cm-M` on listing 3256807440328996, which is a wide-brim hat 30 cm across and 28 cm tall on a wood base - not the saucer shown in every product photograph and in the dimensions diagram. The saucer is not made at 30 cm; it is 36 x 13 cm. Now sourced from 3256808453005175 as `Style B-Black Base`, the same 36 x 13 cm black-base saucer, at $18.12 with 604 units against the 2 units the 36 cm variants carry on the original listing. Competitor set captured 2026-09-09, organic only, sponsored excluded.",
+  "note": "30 x 20 cm woven rattan petal pendant, LINCCW, from listing 3256812550446681. 1,000+ sold, 90-260V, E27, shipping $1.99, Material: Wicker. Overlapping woven petals; the most sculptural shape in the range. UNLIKE the other offers this one INCLUDES an LED bulb (Is Bulbs Included: Yes) and the light colour is a variant axis - Warm Light is the SKU sold. Competitor set is every organic (non-sponsored) priced listing on Amazon page 1 for \"rattan pendant light\", captured 2026-09-09; sponsored excluded.",
   "sources": [
-    "amazon.com search: rattan pendant light (page 1, organic only, 47 priced listings)",
-    "AliExpress SKU table read from the product page data blob, not the search card",
-    "DSers My Products mapped cost and per-SKU stock",
-    "Shopify Admin API contextualPricing(context: {country: US}) on the mapped variant, read 2026-09-10."
+    "amazon.com search: rattan pendant light (page 1, organic only, 47 priced listings, captured 2026-09-09)",
+    "AliExpress SKU table read from window._d_c_ on item 3256812550446681 (2026-09-10)",
+    "DSers Import List, read 2026-09-10: stable cost $39.59 ~ 80.58 for destination United States, card rendered \"Price for US\" on import.",
+    "DSers Shipping info panel, SKU \"Warm Light-30CM\", ship-to United States, read 2026-09-10.",
+    "AliExpress listing page 3256812550446681 read 2026-09-10 in the US-priced view: \"Shipping: $1.99\", \"Delivery: Oct 13 - 21\", Choice / AliExpress commitment badge."
   ],
-  "ourRetailUsd": 107.0,
-  "itemCostUsd": 23.49,
+  "ourRetailUsd": 102.86,
+  "itemCostUsd": 39.59,
   "supplierShipUsd": 1.99,
-  "costSource": "AliExpress per-SKU price on listing 3256803906943198, Style F - Wood Base, $23.49. NO originalPrice field on any SKU of that listing and no discount string, so this is a standing price and not a promotion - which is the check that rejected the previous best candidate (3256806056268428, $32.52 against a $68.47 list) and the 38cm us-local dome. NOT yet cross-checked against DSers My Products.",
+  "costSource": "DSers Import List stable cost for destination United States, read 2026-09-10 after importing the listing via the Add To DSers button on the item page: $39.59 ~ 80.58. The minimum matches the listing page exactly, so RULE 2 IS CLOSED on this offer - there is no promo gap on the SKU we buy. (DSers Find Products search does NOT accept an AliExpress item id; it keyword-matches and returned auto parts. Import from the listing page.)",
   "dutyRateBasis": "HTS 9405.11.80 (electric ceiling/wall lighting fittings, other, of base metal or other materials). Column 1 general 3.9% + Section 301 25% + 12.5% forced-labour action = 41.4%. NOT the 55.1% watch-roll stack (HTS 4202.92.97) - different chapter, different rate. VERIFY with a broker before a first commercial order.",
   "competitors": [
     {
@@ -252,13 +253,19 @@
     }
   ],
   "dutyRate": 0.414,
-  "verdict": "Priced at CA$143.99, which converts to $102.85 at the 1.40 planning rate - under the RULE 2 ceiling of $103.49 (median $89.99 x 1.15). After the 2026-09-10 re-map it contributes $72.87/unit on the binding 'prepaid' basis and $27.60 on 'billed', against a $12.00 floor. The billed figure was $11.58 before the re-map, i.e. BELOW the floor; correcting the supplier variant is what moved it clear. Top competitor review count 921, so the category is not locked. The gate is a floor, not a CPA test - $72.87 clears all three measured CPA benchmarks ($31.16-$47.93) and $27.60 clears none of them.",
-  "retailNote": "CORRECTED 2026-09-10. Was 102.85, computed as the CAD list price divided by a 1.40 planning rate. Shopify does not use 1.40. Read from contextualPricing(country: US), which is what the customer is actually charged: $107.00. The conversion is ~1.352 with rounding to the nearest whole dollar. Ceiling for this category is $103.49, so this offer is OVER IT BY $3.51 and needs repricing.",
-  "supplierSku": "200000531:200004889#Style F - Wood Base;200007763:201336100;5:100014064#Ship with 24h",
-  "supplierSkuUnitCap": 100,
-  "supplierSkuUnitCapObservedOn": "2026-09-11",
-  "supplierSkuUnitCapMethod": "skuStock on the Style F - Wood Base path of listing 3256803906943198, read from window._d_c_ and joined on skuIdStr (NOT skuId - they differ by one and joining on skuId silently returns the neighbouring variant's price). Counts across that listing vary 1/2/2/95/96/97/98/99/99/100, a real counter rather than a seed.",
-  "resourcedOn": "2026-09-11",
-  "resourceNote": "RE-SOURCED. The previous path 200000531:29#Style B-Black Base;5:361386#No bulb on 3256808453005175 fell to 3 units (skuStock 3 and page text 'Only 3 left' agreeing; it read 602 earlier the same day). No re-map existed on that listing. SHAPE WAS CONFIRMED FROM THE SWATCH DRAWING, NOT THE VARIANT NAME: the new listing also has a 'Style B', and on the old supplier Style B IS this saucer, but here Style B is a tall tapered vessel and Style F is the saucer - the names are REVERSED between listings. Style F's swatch carries its own dimension drawing reading 36cm x 13cm with a 120cm adjustable cord, matching the live product. CUSTOMER-VISIBLE CHANGE: the ceiling cap is WOOD, not black; the black-cap version of the same shape on that listing holds 1 unit. Daniel approved 2026-09-11. Copy never stated a cap colour.",
-  "copyDefectFixed": "The copy sold this product as 30 cm across in all four locales, in the titles and in the body. The product is 36 cm - confirmed by the supplier swatch's dimension drawing. Corrected to 36 cm / about 14 in throughout on 2026-09-11."
+  "verdict": "HELD 2026-09-10 - transit, not economics. Cost, voltage, per-SKU stock, imagery and rule 2 all pass. The parcel does not: the SKU we sell ships on AliExpress Selection Shipping_OVERSIZED at 33-41 days to the United States, against 8-14 days on Selection Standard for every other approved offer. All of them quote the same $1.99, so freight cost concealed it. A US customer paying CA$144 and waiting five to six weeks is a refund and a dispute, and the product page does not disclose the window. See TRANSIT_HOLD_CATALOG_OFFERS in app/lib/launch-catalog.js.",
+  "supplierSku": "30CM / Warm Light",
+  "supplierSkuUnitCap": 166,
+  "supplierSkuUnitCapObservedOn": "2026-09-10",
+  "supplierSkuUnitCapMethod": "Read as skuStock from the SKU table in window._d_c_, joined per-variant to skuPriceInfoMap. 28 SKUs across ONE shape x 4 sizes x 4 light colours - the size/colour axes are not distinct shapes, which is why this listing passes rule 18 despite the SKU count.",
+  "transitToUs": {
+    "observedOn": "2026-09-10",
+    "sku": "Warm Light-30CM",
+    "carrierLine": "AliExpress Selection Shipping_Oversized",
+    "shippingUsd": 1.99,
+    "estimatedDeliveryDays": "33-41",
+    "trackingInformation": "Available",
+    "corroboration": "The listing page independently quoted \"Delivery: Oct 13 - 21\" against a read date of 2026-09-10, which is the same 33-41 days from a different surface.",
+    "contrast": "Same panel, same ship-to, other SKUs on the approved suppliers: Style B-Black Base 8-14 days, Style F-Wood Base 8-14 days, Style C 7-12 days, all on AliExpress Selection Standard at $1.99. Slatted lantern and sconce listing pages both read \"Delivery: Sep 17 - 23 (82.5% <= 12 days)\"."
+  }
 }

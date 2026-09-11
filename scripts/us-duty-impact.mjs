@@ -6,7 +6,10 @@
  * what we actually pay, and it does NOT always equal the AliExpress listing
  * price - the 4-slot quotes $31.24-31.67 in DSers against $30.02 on the
  * listing. Where they disagree, DSers wins here.
- * US retail: Shopify contextualPricing(country: US), read 2026-09-02.
+ * US retail: Shopify contextualPricing(country: US), read 2026-09-02 - and
+ * RE-READ 2026-09-10, which is when the FX error below was found. Always read
+ * this field rather than dividing the CAD price by a planning rate; the two do
+ * not agree and the field is what the customer is charged.
  *
  * ---------------------------------------------------------------------------
  * REVISED 2026-09-03. Four inputs in the previous version were wrong, and they
@@ -63,10 +66,64 @@
  * If it is already inside the price, scenarios B-D double-count it: we would
  * be charging ourselves duty we have already paid as part of item cost.
  *
- * This has NOT been confirmed. Confirming it needs a signed-in AliExpress
- * checkout with a US address, or the "Tax&Fee" line DSers shows on a real
- * order before payment is taken. See US_DUTY_INCIDENCE in
- * app/lib/launch-catalog.js for how the catalogue treats the uncertainty.
+ * This has NOT been confirmed.
+ *
+ * CORRECTION 2026-09-10. The second route named here was wrong and it was the
+ * one the whole plan rested on. The DSers "Tax&Fee" line does NOT measure US
+ * import duty. Its own tooltip, read in the DSers order card:
+ *
+ *     "Tax&Fee is showing estimated tax amount or service fee generated when
+ *      getting service from Tmall suppliers. 1. The estimated amount of tax
+ *      may vary when you make payment. Please refer to the actual payment.
+ *      2. Tmall products may have domestic shipping service fee included
+ *      here."
+ *
+ * It is a Tmall tax-and-service-fee field. Every supplier in this catalogue is
+ * an AliExpress marketplace seller, not Tmall, so the line would have read
+ * $0.00 on a real order and settled nothing - and $0.00 was the outcome the
+ * old note told us to read as 'prepaid'. That reading would have been a false
+ * confirmation of the more profitable scenario, which is the worst possible
+ * direction for an error like this. Corroborating detail already in the notes:
+ * DSers' "Tax/Import charges" preview column also reads $0.00 on an approved
+ * supplier. Neither field measures duty, which is why both are zero.
+ *
+ * WHAT THE PLATFORM ITSELF SAYS, read 2026-09-10 from the AliExpress Help
+ * Center article "Do I need to pay for customs duties and import taxes?"
+ * (Ordering & payment / Place Order, questionId 1061036456):
+ *
+ *   - "Duties and taxes are typically not included in the price of the item,
+ *      and might not be included in the overall shipping costs you pay to the
+ *      seller."
+ *   - "Please note: Customs duties and taxes are never covered by AliExpress."
+ *   - "Import duties, taxed or other customs-related charges are normally
+ *      collected by the shipping company upon delivery."
+ *   - the one stated exception is a seller shipping from a warehouse in the
+ *     buyer's own country, where "you won't be asked to pay for any additional
+ *     customs duties and taxes."
+ *
+ * The companion article "Tax Policy on United States" (questionId 1061037206)
+ * covers state sales tax, refunds and the Colorado Retail Delivery Fee and
+ * says nothing whatever about import duty.
+ *
+ * READ THAT CAREFULLY. It settles LIABILITY, not INCIDENCE. AliExpress states
+ * it does not cover the duty and that a courier normally collects it at the
+ * door. That is the legacy courier-brokerage model and it directly contradicts
+ * the regulatory position above, under which the carriers on this line are
+ * last-mile only and have no mechanism to bill anyone. Both can hold at once:
+ * AliExpress disclaims the cost, and in practice nobody presents a bill,
+ * meaning it is absorbed upstream by the seller or the consolidator. So the
+ * platform's terms rule out "AliExpress prepays it for us" but do not rule out
+ * "it is already inside the price we are quoted".
+ *
+ * The risk shape changed though. If a courier ever does collect, the bill
+ * lands at the CUSTOMER'S door, not ours - a refund and a bad review rather
+ * than a thin month.
+ *
+ * The only instrument that reads the actual number is the AliExpress
+ * order-confirmation page for a US address, signed in, BEFORE payment is
+ * authorised. No order is placed to see it. See US_DUTY_INCIDENCE in
+ * app/lib/launch-catalog.js for how the catalogue treats the uncertainty, and
+ * for the pricing rule that makes the answer stop mattering.
  */
 
 const PAYMENT_RATE = 0.055; // 3.5% cross-border + 2% currency conversion
@@ -90,7 +147,35 @@ export const CHOICE_LINE_DISBURSEMENT = 0.0; // SpeedX / GOFO / USPS are last-mi
 // including the ones above $50 where it collected nothing at all.
 const CA_FREE_SHIP_OVER = 50.0;
 const CA_COLLECTED_SHIPPING = 5.0;
-const US_COLLECTED_SHIPPING = 6.99 / 1.4;
+
+// CORRECTED 2026-09-10. This was 6.99 / 1.4, and 1.4 was never Shopify's rate -
+// it was a planning number inherited from the delivery-profile note. Measured
+// against what the store ACTUALLY serves, via contextualPricing(country: US) on
+// all four live variants:
+//
+//   CA$143.99 -> $107   CA$139.00 -> $103   CA$100.99 -> $75   CA$119.00 -> $88
+//
+// Those four imply 1.3457 / 1.3495 / 1.3465 / 1.3523. A single rate of ~1.352
+// with rounding to the NEAREST WHOLE DOLLAR reproduces all four exactly, so the
+// mechanism is: convert at the live market rate, then round to a whole dollar.
+//
+// Two consequences, and they point in opposite directions:
+//   1. Every recorded contribution figure was computed off CAD/1.4 and is
+//      therefore ~3.7% LOW on retail. The offers are slightly better than the
+//      file claimed - $1.29 to $3.59 per unit.
+//   2. RULE 2 WAS BREACHED IN THE MARKET THAT MATTERS and nobody saw it,
+//      because the ceiling was compared against a number the store never
+//      charged. At the real prices the 36cm pendant sells at $107 against a
+//      $103.49 ceiling and the sconce at $75 against $72.43.
+//
+// The rate DRIFTS, so a CAD price that clears the ceiling today can breach it
+// next month with no change on our side. The durable fix is an explicit fixed
+// USD price per variant in the `Puchica US USD` price list (PriceList/
+// 22620078330), whose eight existing fixed prices are all ARCHIVED products -
+// not one live variant is pinned. Until that is done, US retail is a function
+// of the foreign exchange market.
+const PLANNING_FX_CAD_PER_USD = 1.352;
+const US_COLLECTED_SHIPPING = 6.99 / PLANNING_FX_CAD_PER_USD;
 
 // handle, US retail (USD), supplier item cost (USD), supplier ship to US (USD), duty rate
 //
@@ -234,7 +319,18 @@ Reading this:
   duty on wholesale value returns $2.62 / -$1.57 / $0.01 - break-even. That is
   an ordinary AliExpress arrangement, so the middle case is now the thin one.
 
-  Read it off a real order: DSers shows "Tax&Fee" on the order card BEFORE
-  payment is taken. $0.00 there on a US order means E. Anything else means the
-  duty is landing on us and D- is the floor.
+  Do NOT try to read it off the DSers Tax&Fee line. That field is Tmall tax
+  and service fees, per its own tooltip - see the correction at the top of this
+  file. It reads $0.00 for every AliExpress marketplace supplier whatever the
+  duty does, so treating $0.00 as proof of E would have confirmed the
+  profitable scenario on no evidence at all.
+
+  The instrument that does read it is the AliExpress order-confirmation page
+  for a US address, signed in, before payment is authorised. Nothing is bought
+  to look at it.
+
+  Better still, stop needing the answer. An offer priced so that BOTH the
+  prepaid and the billed contribution clear the $12.00 undercut floor is true
+  under E and under D- alike, and US_DUTY_INCIDENCE can stay 'unverified'
+  forever without gating it. Three of the five live offers already do.
 `);

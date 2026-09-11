@@ -8,209 +8,11 @@
    the rest of the file can be migrated file-by-file. New
    code should use the canonical names below.
    ──────────────────────────────────────────────────────────── */
-:root {
-  /* ── Color: "Puchica vibrante" — warm base + festival accents ───
-   * v6 direction B. Warm espresso ink on a cream-paper base, with a
-   * terracotta primary and a marigold / jade / cobalt accent family
-   * drawn from Central American textiles. Terracotta stays the
-   * commerce color (sale / checkout); the three accents are for
-   * category tiles, badges, section fills, and editorial moments. */
-  --pk-ink:         #1E1712;   /* warm espresso black, primary text */
-  --pk-ink-hover:   #332818;   /* hover for ink-filled elements */
-  --pk-paper:       #FCF7EE;   /* warm cream page background */
-  --pk-cream:       #F4E7D0;   /* tile, well, hero panel fills */
-  --pk-line:        #E9D9BE;   /* warm tan borders, dividers */
-  --pk-muted:       #6E6353;   /* secondary text, warm brown-gray */
-  --pk-ember:       #BE451E;   /* terracotta — sale, badges, checkout */
-  --pk-ember-hover: #9E3915;
-  --pk-white:       #FFFFFF;
-  --pk-coral:       #FF5757;   /* alert, error */
-
-  /* ── Festival accents (decorative — tiles, badges, sections) ─── */
-  --pk-marigold:       #E8A020;   /* warm yellow */
-  --pk-marigold-hover: #CC8A10;
-  --pk-marigold-ink:   #6B4A00;   /* text on marigold fills */
-  --pk-jade:           #0E7C5B;   /* deep green */
-  --pk-jade-hover:     #0B6448;
-  --pk-jade-ink:       #0B6448;   /* AA text on pale jade / lavender fills */
-  --pk-jade-pale:      #E2F1EA;   /* jade-tinted fill */
-  --pk-cobalt:         #1F5FA8;   /* blue */
-  --pk-cobalt-hover:   #184C86;
-  --pk-cobalt-pale:    #E5EEF8;   /* cobalt-tinted fill */
-  --pk-rosa:           #C63B6E;   /* textile pink */
-  --pk-violet:         #1C2951;   /* añil (legacy name kept for compat) */
-
-  /* Error / success states (cart error, notify-back, etc.) */
-  --pk-error-bg:     #FFF1F1;
-  --pk-error-line:   #FFD6D6;
-  --pk-error-ink:    #8B1E1E;
-  --pk-ok-bg:        #EAF7EE;
-  --pk-ok-line:      #B7E0C0;
-  --pk-ok-ink:       #1E5F31;
-
-  /* ── Type: Outfit (single family, 4 weights) ────────── */
-  --pk-font:        'Instrument Sans', system-ui, -apple-system, sans-serif;
-  --pk-font-mono:   ui-monospace, SFMono-Regular, monospace;
-
-  /* ── Type scale (rem at 16px base) ──────────────────── */
-  --pk-fs-display: 52px; --pk-lh-display: 1.02;
-  --pk-fs-h1:      34px; --pk-lh-h1:      1.15;
-  --pk-fs-h2:      26px; --pk-lh-h2:      1.20;
-  --pk-fs-h3:      17px; --pk-lh-h3:      1.30;
-  --pk-fs-body:    15px; --pk-lh-body:    1.55;
-  --pk-fs-caption: 13px; --pk-lh-caption: 1.40;
-  --pk-fs-eyebrow: 12px;
-
-  /* ── 8pt spacing scale ──────────────────────────────── */
-  --pk-s-1:  8px;
-  --pk-s-2:  12px;
-  --pk-s-3:  16px;
-  --pk-s-4:  20px;
-  --pk-s-5:  24px;
-  --pk-s-6:  32px;
-  --pk-s-7:  48px;
-  --pk-s-8:  56px;
-  --pk-s-9:  72px;
-  --pk-s-10: 88px;
-
-  /* ── Radius ─────────────────────────────────────────── */
-  --pk-r-sm:   4px;
-  --pk-r-md:   6px;
-  --pk-r-lg:   8px;
-  --pk-r-xl:  10px;
-  --pk-r-2xl: 12px;
-  --pk-r-pill: 999px;
-
-  /* ── Elevation (warm-tinted, ink-based) ─────────────── */
-  --pk-sh-1: 0 1px 2px  rgba(23, 20, 16, 0.06);
-  --pk-sh-2: 0 2px 8px  rgba(23, 20, 16, 0.08);
-  --pk-sh-3: 0 8px 24px rgba(23, 20, 16, 0.12);
-  --pk-sh-4: 0 20px 48px rgba(23, 20, 16, 0.16);
-  --pk-sh-5: 0 32px 80px rgba(23, 20, 16, 0.22);
-
-  /* ── Motion ─────────────────────────────────────────── */
-  --pk-ease:        cubic-bezier(0.2, 0.6, 0.2, 1);
-  --pk-dur-fast:    180ms;
-  --pk-dur-base:    280ms;
-  --pk-dur-slow:    420ms;
-
-  /* ── Focus ──────────────────────────────────────────── */
-  --pk-focus-outline: 2px solid var(--pk-ink);
-  --pk-focus-offset:  2px;
-
-  /* ── Layout / chrome (preserved from pre-token era) ── */
-  --aside-width:                            min(420px, 100vw);
-  --cart-aside-summary-height-with-discount:340px;
-  --cart-aside-summary-height:              300px;
-  --grid-item-width:                        355px;
-  --header-height:                          68px;
-  /* Total sticky/page header area at the top of the viewport:
-   * the announcement bar (.pk-ann, ~32px) plus the page header
-   * (.pk-header, 68px). The aside drawer (cart/search/mobile)
-   * sits below this so the header floats above it. */
-  --pk-top-sticky:                          108px;
-  --color-dark:                             #000;
-  --color-light:                            #fff;
-  --page-gutter:                            20px;
-  --pk-inner-max:                           1280px;
-  --pk-gutter:                              24px;
-  --pk-radius:                              var(--pk-r-lg);
-
-  /* ── Backward-compat aliases (v4 → v5 redirect) ────────
-   * These existed in the v4 "Warm Black + Acid Lime + Cream"
-   * system. They now resolve to the new canonical colors so
-   * the rest of app.css can keep referencing them while we
-   * migrate file-by-file. New code must NOT use these. */
-  --pk-ink-soft:      #2A2118;   /* real value — was self-referencing (dropped to empty) */
-  --pk-ink-softer:    #3A2E1E;
-  --pk-cream-soft:    #EFE2C9;
-  --pk-cream-dark:    #E9D9BE;   /* == --pk-line */
-
-  --pk-bg:          var(--pk-paper);
-  --pk-off-white:   var(--pk-paper);
-  --pk-surface:     var(--pk-cream);
-  --pk-border:      var(--pk-line);
-  --pk-card-border: var(--pk-line);
-  /* Self-referencing vars are invalid in CSS — the browser drops them
-   * to `initial` (empty). That makes every `color: var(--pk-paper)` on
-   * the dark surfaces (announcement bar, footer) fall through to the
-   * inherited ink, producing 1.0:1 contrast on text like "Shop now",
-   * the h4 column headings, the secure-checkout line, etc. Mirror
-   * the v5 canonical paper here so the alias block re-establishes
-   * the token instead of nuking it. */
-  --pk-paper:       #FCF7EE;
-  --pk-paper-dark:  var(--pk-cream);
-  --pk-paper-warm:  var(--pk-cream);
-  --pk-bg-soft:     var(--pk-cream);
-  --pk-subtle:      var(--pk-cream);
-  --pk-muted-bg:    var(--pk-cream);
-
-  /* v4 gradients — kept as aliases for visual continuity.
-   * The hero/card gradients stay; the lime/forest/lavender/
-   * violet gradients that used acid-lime are now ink. */
-  --pk-grad-hero:    linear-gradient(135deg, #1E1712 0%, var(--pk-ink-soft) 50%, #1E1712 100%);
-  --pk-grad-lime:    linear-gradient(135deg, #1E1712 0%, #332818 100%);
-  --pk-grad-card:    linear-gradient(180deg, #FCF7EE 0%, #F4E7D0 100%);
-  --pk-grad-primary: var(--pk-grad-lime);
-  --pk-grad-forest:  var(--pk-grad-hero);
-  --pk-grad-ember:   var(--pk-grad-lime);
-  --pk-grad-warm:    var(--pk-grad-card);
-  --pk-grad-lavender:var(--pk-grad-card);
-  --pk-grad-violet:  var(--pk-grad-lime);
-
-  /* Lime → ink (the audit's "retire acid lime" mandate). */
-  --pk-lime:        var(--pk-ink);
-  --pk-lime-hover:  var(--pk-ink-hover);
-  --pk-lime-pale:   var(--pk-cream);
-  --pk-lime-dark:   var(--pk-ink);
-
-  /* Ember (legacy CTA red) → keep ember but route to ink for now.
-   * New code uses --pk-ember directly; this is the legacy alias. */
-  --pk-ember-pale:  var(--pk-cream);
-
-  /* Spark (legacy "on-dark accent") → ember for distinction. */
-  --pk-spark:       var(--pk-ember);
-  --pk-spark-hover: var(--pk-ember-hover);
-  --pk-spark-pale:  var(--pk-cream);
-
-  /* Grove (legacy forest green) → ink. */
-  --pk-grove:       var(--pk-ink);
-  --pk-grove-pale:  var(--pk-cream);
-
-  /* Violet (legacy indigo accent) → ink. */
-  --pk-violet:        var(--pk-ink);
-  --pk-violet-light:  var(--pk-ink);
-  --pk-violet-deep:   #4B3BCC;   /* brand mark color, KEEP — only used in the logo */
-  --pk-violet-pale:   var(--pk-cream);
-  --pk-violet-card:   var(--pk-cream);
-  --pk-violet-border: var(--pk-line);
-  --pk-violet-50:     var(--pk-cream);
-  --pk-violet-100:    var(--pk-cream);
-  --pk-violet-200:    var(--pk-cream);
-  --pk-violet-300:    var(--pk-ink);
-  --pk-violet-500:    var(--pk-ink);
-  --pk-violet-700:    var(--pk-ink);
-  --pk-violet-900:    var(--pk-ink);
-  --pk-purple:        var(--pk-ink);
-  --pk-purple-dark:   var(--pk-ink);
-  --pk-indigo-900:    var(--pk-ink);
-  --pk-indigo-800:    var(--pk-ink);
-
-  /* Legacy radii — keep as aliases of the new scale. */
-  --r-sm: 8px; --r-md: 12px; --r-lg: 16px; --r-xl: 24px; --r-2xl: 32px; --r-full: 9999px;
-
-  /* Legacy type tokens — keep for backward compat. */
-  --pk-font-display: 'Space Grotesk', 'Instrument Sans', system-ui, sans-serif;
-  --pk-font-body:    var(--pk-font);
-  --pk-font-accent:  'Fraunces', Georgia, serif;
-
-  /* Legacy shadows — re-keyed to ink. */
-  --pk-sh-sm:   var(--pk-sh-2);
-  --pk-sh-md:   var(--pk-sh-3);
-  --pk-sh-lg:   var(--pk-sh-4);
-  --pk-sh-xl:   var(--pk-sh-5);
-  --pk-sh-glow: var(--pk-sh-3);
-}
+/* Design tokens live in app/styles/tokens.css, loaded before this file.
+   They were extracted from six separate :root blocks that used to sit in
+   here and silently override one another. Do not reintroduce a top-level
+   :root block; add the token to tokens.css instead. Media-query :root
+   overrides below are intentional and stay. */
 
 @media (max-width: 700px) {
   /* The announcement bar's text wraps to 2 lines on narrow viewports,
@@ -5917,60 +5719,6 @@ button:focus-visible,
    brand's primary system, torogoz turquoise reserved for strokes and large
    glyphs (never small text on light), Barro as the sole warm note. Legacy
    token names are kept and remapped so every existing usage re-skins. */
-:root {
-  --pk-anil: #1C2951;
-  --pk-anil-deep: #16213F;
-  --pk-anil-panel: #243560;
-  --pk-tenido: #5C7CB8;
-  --pk-tint: #E8EDF6;
-  --pk-torogoz: #00B2A9;
-  --pk-barro: #A64B21;
-
-  --pk-ink: #191A1E;
-  --pk-ink-hover: #101114;
-  --pk-paper: #ffffff;
-  --pk-cream: #F1EEE7;
-  --pk-line: #E4E1D8;
-  --pk-muted: #5B6676;
-  --pk-ember: var(--pk-anil);
-  --pk-ember-hover: var(--pk-anil-deep);
-  --pk-marigold: var(--pk-anil);
-  --pk-jade: #0F766E;
-  --pk-cobalt: #0F47AF;
-  --pk-rosa: var(--pk-barro);
-  --pk-violet: var(--pk-anil);
-  --pk-bg: #F7F5F0;
-  --pk-off-white: #F7F5F0;
-  --pk-surface: var(--pk-cream);
-  --pk-border: var(--pk-line);
-  --pk-card-border: var(--pk-line);
-  --pk-cream-soft: #F1EEE7;
-  --pk-cream-dark: #D9D5CB;
-  --pk-bg-soft: #F7F5F0;
-  --pk-subtle: #F1EEE7;
-  --pk-muted-bg: #F1EEE7;
-  --pk-lime: var(--pk-anil);
-  --pk-lime-hover: var(--pk-anil-deep);
-  --pk-lime-pale: var(--pk-tint);
-  --pk-lime-dark: var(--pk-anil-deep);
-  --pk-spark: var(--pk-anil);
-  --pk-spark-hover: var(--pk-anil-deep);
-  --pk-spark-pale: var(--pk-tint);
-  --pk-violet-deep: var(--pk-anil-deep);
-  --pk-violet-pale: var(--pk-tint);
-  --pk-violet-card: #F1EEE7;
-  --pk-violet-border: #D9D5CB;
-  --pk-grad-hero: linear-gradient(135deg, #1C2951 0%, #243560 58%, #16213F 100%);
-  --pk-grad-card: linear-gradient(180deg, #ffffff 0%, #F7F5F0 100%);
-  --pk-focus-outline: 2px solid #0F47AF;
-
-  /* The cart drawer and free-shipping bar reference --pk-indigo-600/700/100,
-     which no :root ever defined — their purple fallback literals were what
-     actually rendered. Define them here so those surfaces join the system. */
-  --pk-indigo-700: var(--pk-anil);
-  --pk-indigo-600: var(--pk-cobalt);
-  --pk-indigo-100: var(--pk-tint);
-}
 
 html,
 body {
@@ -6207,17 +5955,6 @@ body > main {
    WCAG reference: 1.3.1, 1.4.3, 1.4.10–13, 2.1.1, 2.4.7, 2.5.8.
    -------------------------------------------------------------------------- */
 
-:root {
-  --pk-type-display: clamp(2.75rem, 5vw, 4.875rem);
-  --pk-type-h1: clamp(2.25rem, 3.8vw, 4rem);
-  --pk-type-h2: clamp(1.75rem, 2.7vw, 2.75rem);
-  --pk-type-h3: clamp(1.25rem, 1.8vw, 1.5rem);
-  --pk-type-body: 1rem;
-  --pk-type-small: 0.875rem;
-  --pk-type-label: 0.8125rem;
-  --pk-control-height: 48px;
-  --pk-control-radius: 10px;
-}
 
 html {
   -webkit-text-size-adjust: 100%;
@@ -6383,9 +6120,6 @@ main:has(> .pk-home) {
 /* Kill the hero. Make the first viewport a compact ecommerce store hub. */
 
 /* Width consistency: homepage, header, and footer use the same retail rail. */
-:root {
-  --pk-store-gutter: clamp(18px, 4vw, 72px);
-}
 
 .pk-header__inner,
 .pk-footer__inner,
@@ -6412,13 +6146,6 @@ main:has(> .pk-home) {
 /* Store hub composition: avoid the dead center gap on wide screens. */
 
 /* Accessibility sheet pass: WCAG 2.2 AA contrast and focus guardrails. */
-:root {
-  --pk-a11y-border: #667085;
-  --pk-a11y-border-soft: #98A2B3;
-  --pk-a11y-focus: #1F5FA8;
-  --pk-a11y-muted-on-dark: rgba(252, 247, 238, 0.78);
-  --pk-a11y-subtle-on-dark: rgba(252, 247, 238, 0.68);
-}
 
 :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
   outline: 3px solid var(--pk-a11y-focus) !important;
@@ -6781,18 +6508,6 @@ main:has(> .pk-collection--bold) {
 }
 
 /* Color system pass: richer store energy with WCAG-safe contrast. */
-:root {
-  --pk-color-violet: #1C2951;
-  --pk-color-cobalt: #0F47AF;
-  --pk-color-teal: #0F766E;
-  --pk-color-rose: #A64B21;
-  --pk-color-amber: #A64B21;
-  --pk-tint-violet: #E8EDF6;
-  --pk-tint-cobalt: #E8EDF6;
-  --pk-tint-teal: #E6F2F0;
-  --pk-tint-rose: #F6EBE3;
-  --pk-tint-amber: #F6EBE3;
-}
 
 /* Lifestyle destinations add discovery without repeating the same catalog in
  * another product rail. Generated scenes are intentionally atmospheric rather

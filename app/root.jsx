@@ -18,6 +18,10 @@ import {HEADER_QUERY} from '~/lib/fragments';
 import {resolveStorefrontLocale} from '~/lib/i18n';
 import {STOREFRONT_CONTAINMENT_ACTIVE} from '~/lib/launch-catalog';
 import resetStyles from '~/styles/reset.css?url';
+// Tokens MUST load before app.css: they are plain :root declarations and the
+// later stylesheet wins any collision. Media-query :root overrides still live
+// in app.css and correctly beat these.
+import tokenStyles from '~/styles/tokens.css?url';
 import appStyles from '~/styles/app.css?url';
 import {PageLayout} from './components/PageLayout';
 // SmoothScroll removed in Phase 1 — Lenis was passive scroll
@@ -231,6 +235,7 @@ export function Layout({children}) {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <link rel="stylesheet" href={resetStyles}></link>
+        <link rel="stylesheet" href={tokenStyles}></link>
         <link rel="stylesheet" href={appStyles}></link>
         {alternates.map((a) => (
           <link

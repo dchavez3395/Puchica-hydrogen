@@ -5,10 +5,29 @@ import test from 'node:test';
 const readSource = (path) =>
   readFile(new URL(`../${path}`, import.meta.url), 'utf8');
 
+/**
+ * The storefront stylesheet is TWO files as of 2026-09-10: design tokens were
+ * extracted out of six colliding `:root` blocks into app/styles/tokens.css,
+ * which loads first, and app.css keeps the rules.
+ *
+ * These contract tests grep the stylesheet as text, so they have to see the
+ * same thing the browser assembles. Concatenating in load order matters:
+ * tokens first means a `--pk-*` lookup finds the shared value before any
+ * component-level override further down app.css, which is exactly what the
+ * focus-ring test below relies on.
+ */
+const readStyles = async () => {
+  const [tokens, app] = await Promise.all([
+    readSource('app/styles/tokens.css'),
+    readSource('app/styles/app.css'),
+  ]);
+  return `${tokens}\n${app}`;
+};
+
 test('product title is one semantic H1 at every breakpoint', async () => {
   const [product, styles] = await Promise.all([
     readSource('app/routes/products.$handle.jsx'),
-    readSource('app/styles/app.css'),
+    readStyles(),
   ]);
 
   assert.equal(
@@ -60,7 +79,7 @@ test('skip link targets the keyboard-focusable main landmark', async () => {
 test('route errors keep a focusable main landmark and reflow inside the viewport', async () => {
   const [root, styles, dictionaries] = await Promise.all([
     readSource('app/root.jsx'),
-    readSource('app/styles/app.css'),
+    readStyles(),
     readSource('app/lib/dictionaries.js'),
   ]);
 
@@ -106,7 +125,7 @@ test('empty cart follows the heading hierarchy in each layout', async () => {
 });
 
 test('campaign hero resists min-content overflow at a 320px viewport', async () => {
-  const styles = await readSource('app/styles/app.css');
+  const styles = await readStyles();
   const contractStart = styles.indexOf('Campaign 320px reflow contract');
   const contractEnd = styles.indexOf(
     '/* Final authority: shared actions',
@@ -134,7 +153,7 @@ test('the error page search row cannot push its button off a 320px screen', asyn
   // viewport. `flex: 1` leaves min-width at auto, so the input refused to
   // shrink below its intrinsic width and shoved the submit button past the
   // edge. Reproduced locally at both 320 and 390 before fixing.
-  const styles = await readSource('app/styles/app.css');
+  const styles = await readStyles();
   const start = styles.indexOf('.pk-route-error__search {');
   assert.ok(start >= 0, 'the error search row must still be styled');
   const block = styles.slice(start, start + 900);
@@ -166,7 +185,7 @@ test('an error document still has a title, which <Meta /> cannot give it', async
 });
 
 test('product-card titles remain fully visible at narrow and zoomed widths', async () => {
-  const styles = await readSource('app/styles/app.css');
+  const styles = await readStyles();
   const contractStart = styles.indexOf('Product-card text-resize contract');
 
   assert.ok(contractStart >= 0);
@@ -180,7 +199,7 @@ test('product-card titles remain fully visible at narrow and zoomed widths', asy
 });
 
 test('reduced-motion preference neutralizes continuous storefront motion', async () => {
-  const styles = await readSource('app/styles/app.css');
+  const styles = await readStyles();
 
   assert.match(
     styles,
@@ -216,7 +235,7 @@ test('market and language menu supports Escape and restores trigger focus', asyn
 });
 
 test('the focus ring stays above 3:1 on the dark footer', async () => {
-  const styles = await readSource('app/styles/app.css');
+  const styles = await readStyles();
 
   // The shared indicator colour, and the override the footer re-points it to.
   const light = styles.match(/--pk-a11y-focus:\s*(#[0-9a-fA-F]{6})/)?.[1];
@@ -245,7 +264,7 @@ test('the focus ring stays above 3:1 on the dark footer', async () => {
 });
 
 test('the focus halo tracks the ring token rather than a hardcoded blue', async () => {
-  const styles = await readSource('app/styles/app.css');
+  const styles = await readStyles();
 
   assert.match(
     styles,

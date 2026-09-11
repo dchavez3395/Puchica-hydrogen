@@ -1,0 +1,200 @@
+/* ============================================================================
+   Puchica design tokens — the LIVE palette.
+   ----------------------------------------------------------------------------
+   Extracted 2026-09-10 from six separate `:root` blocks that had accumulated
+   through app.css. Those blocks layered on top of each other, so the value a
+   token actually resolved to was whichever block declared it LAST — which meant
+   reading a colour off the top of app.css told you the wrong answer. Every
+   value here is the flattened, effective one, and this file now loads BEFORE
+   app.css so it is the single place a token is defined.
+
+   The flattening is safe because CSS custom properties resolve at USE time, not
+   at declaration time: a token whose value is `var(--pk-other)` still picks up
+   whatever `--pk-other` finally resolves to, so keeping the raw declaration and
+   taking last-wins per token reproduces the previous cascade exactly.
+
+   Two things deliberately NOT moved here:
+     - `:root` blocks nested inside media queries. Those are conditional
+       overrides and still live in app.css, where they correctly win over this
+       file by coming later in the cascade.
+     - `app/styles/puchica-tokens.css`. That is the UNADOPTED 2026-09-01
+       accessibility proposal and carries DIFFERENT hexes (anil #22347A vs the
+       live #1C2951). Importing it would reskin the storefront. It is a separate
+       decision, not a wiring job.
+
+   The palette itself is the "Añil pass" — El Salvador's indigo as the primary
+   system, torogoz turquoise for strokes and large glyphs only (never small text
+   on light), barro as the sole warm note. See claude/brand-foundation.md.
+   ============================================================================ */
+
+:root {
+  --pk-ink: #191A1E;
+  --pk-ink-hover: #101114;
+  --pk-paper: #ffffff;
+  --pk-cream: #F1EEE7;
+  --pk-line: #E4E1D8;
+  --pk-muted: #5B6676;
+  --pk-ember: var(--pk-anil);
+  --pk-ember-hover: var(--pk-anil-deep);
+  --pk-white: #FFFFFF;
+  --pk-coral: #FF5757;
+  --pk-marigold: var(--pk-anil);
+  --pk-marigold-hover: #CC8A10;
+  --pk-marigold-ink: #6B4A00;
+  --pk-jade: #0F766E;
+  --pk-jade-hover: #0B6448;
+  --pk-jade-ink: #0B6448;
+  --pk-jade-pale: #E2F1EA;
+  --pk-cobalt: #0F47AF;
+  --pk-cobalt-hover: #184C86;
+  --pk-cobalt-pale: #E5EEF8;
+  --pk-rosa: var(--pk-barro);
+  --pk-violet: var(--pk-anil);
+  --pk-error-bg: #FFF1F1;
+  --pk-error-line: #FFD6D6;
+  --pk-error-ink: #8B1E1E;
+  --pk-ok-bg: #EAF7EE;
+  --pk-ok-line: #B7E0C0;
+  --pk-ok-ink: #1E5F31;
+  --pk-font: 'Instrument Sans', system-ui, -apple-system, sans-serif;
+  --pk-font-mono: ui-monospace, SFMono-Regular, monospace;
+  --pk-fs-display: 52px; --pk-lh-display: 1.02;
+  --pk-fs-h1: 34px; --pk-lh-h1:      1.15;
+  --pk-fs-h2: 26px; --pk-lh-h2:      1.20;
+  --pk-fs-h3: 17px; --pk-lh-h3:      1.30;
+  --pk-fs-body: 15px; --pk-lh-body:    1.55;
+  --pk-fs-caption: 13px; --pk-lh-caption: 1.40;
+  --pk-fs-eyebrow: 12px;
+  --pk-s-1: 8px;
+  --pk-s-2: 12px;
+  --pk-s-3: 16px;
+  --pk-s-4: 20px;
+  --pk-s-5: 24px;
+  --pk-s-6: 32px;
+  --pk-s-7: 48px;
+  --pk-s-8: 56px;
+  --pk-s-9: 72px;
+  --pk-s-10: 88px;
+  --pk-r-sm: 4px;
+  --pk-r-md: 6px;
+  --pk-r-lg: 8px;
+  --pk-r-xl: 10px;
+  --pk-r-2xl: 12px;
+  --pk-r-pill: 999px;
+  --pk-sh-1: 0 1px 2px  rgba(23, 20, 16, 0.06);
+  --pk-sh-2: 0 2px 8px  rgba(23, 20, 16, 0.08);
+  --pk-sh-3: 0 8px 24px rgba(23, 20, 16, 0.12);
+  --pk-sh-4: 0 20px 48px rgba(23, 20, 16, 0.16);
+  --pk-sh-5: 0 32px 80px rgba(23, 20, 16, 0.22);
+  --pk-ease: cubic-bezier(0.2, 0.6, 0.2, 1);
+  --pk-dur-fast: 180ms;
+  --pk-dur-base: 280ms;
+  --pk-dur-slow: 420ms;
+  --pk-focus-outline: 2px solid #0F47AF;
+  --pk-focus-offset: 2px;
+  --aside-width: min(420px, 100vw);
+  --cart-aside-summary-height-with-discount: 340px;
+  --cart-aside-summary-height: 300px;
+  --grid-item-width: 355px;
+  --header-height: 68px;
+  --pk-top-sticky: 108px;
+  --color-dark: #000;
+  --color-light: #fff;
+  --page-gutter: 20px;
+  --pk-inner-max: 1280px;
+  --pk-gutter: 24px;
+  --pk-radius: var(--pk-r-lg);
+  --pk-ink-soft: #2A2118;
+  --pk-ink-softer: #3A2E1E;
+  --pk-cream-soft: #F1EEE7;
+  --pk-cream-dark: #D9D5CB;
+  --pk-bg: #F7F5F0;
+  --pk-off-white: #F7F5F0;
+  --pk-surface: var(--pk-cream);
+  --pk-border: var(--pk-line);
+  --pk-card-border: var(--pk-line);
+  --pk-paper-dark: var(--pk-cream);
+  --pk-paper-warm: var(--pk-cream);
+  --pk-bg-soft: #F7F5F0;
+  --pk-subtle: #F1EEE7;
+  --pk-muted-bg: #F1EEE7;
+  --pk-grad-hero: linear-gradient(135deg, #1C2951 0%, #243560 58%, #16213F 100%);
+  --pk-grad-lime: linear-gradient(135deg, #1E1712 0%, #332818 100%);
+  --pk-grad-card: linear-gradient(180deg, #ffffff 0%, #F7F5F0 100%);
+  --pk-grad-primary: var(--pk-grad-lime);
+  --pk-grad-forest: var(--pk-grad-hero);
+  --pk-grad-ember: var(--pk-grad-lime);
+  --pk-grad-warm: var(--pk-grad-card);
+  --pk-grad-lavender: var(--pk-grad-card);
+  --pk-grad-violet: var(--pk-grad-lime);
+  --pk-lime: var(--pk-anil);
+  --pk-lime-hover: var(--pk-anil-deep);
+  --pk-lime-pale: var(--pk-tint);
+  --pk-lime-dark: var(--pk-anil-deep);
+  --pk-ember-pale: var(--pk-cream);
+  --pk-spark: var(--pk-anil);
+  --pk-spark-hover: var(--pk-anil-deep);
+  --pk-spark-pale: var(--pk-tint);
+  --pk-grove: var(--pk-ink);
+  --pk-grove-pale: var(--pk-cream);
+  --pk-violet-light: var(--pk-ink);
+  --pk-violet-deep: var(--pk-anil-deep);
+  --pk-violet-pale: var(--pk-tint);
+  --pk-violet-card: #F1EEE7;
+  --pk-violet-border: #D9D5CB;
+  --pk-violet-50: var(--pk-cream);
+  --pk-violet-100: var(--pk-cream);
+  --pk-violet-200: var(--pk-cream);
+  --pk-violet-300: var(--pk-ink);
+  --pk-violet-500: var(--pk-ink);
+  --pk-violet-700: var(--pk-ink);
+  --pk-violet-900: var(--pk-ink);
+  --pk-purple: var(--pk-ink);
+  --pk-purple-dark: var(--pk-ink);
+  --pk-indigo-900: var(--pk-ink);
+  --pk-indigo-800: var(--pk-ink);
+  --r-sm: 8px; --r-md: 12px; --r-lg: 16px; --r-xl: 24px; --r-2xl: 32px; --r-full: 9999px;
+  --pk-font-display: 'Space Grotesk', 'Instrument Sans', system-ui, sans-serif;
+  --pk-font-body: var(--pk-font);
+  --pk-font-accent: 'Fraunces', Georgia, serif;
+  --pk-sh-sm: var(--pk-sh-2);
+  --pk-sh-md: var(--pk-sh-3);
+  --pk-sh-lg: var(--pk-sh-4);
+  --pk-sh-xl: var(--pk-sh-5);
+  --pk-sh-glow: var(--pk-sh-3);
+  --pk-anil: #1C2951;
+  --pk-anil-deep: #16213F;
+  --pk-anil-panel: #243560;
+  --pk-tenido: #5C7CB8;
+  --pk-tint: #E8EDF6;
+  --pk-torogoz: #00B2A9;
+  --pk-barro: #A64B21;
+  --pk-indigo-700: var(--pk-anil);
+  --pk-indigo-600: var(--pk-cobalt);
+  --pk-indigo-100: var(--pk-tint);
+  --pk-type-display: clamp(2.75rem, 5vw, 4.875rem);
+  --pk-type-h1: clamp(2.25rem, 3.8vw, 4rem);
+  --pk-type-h2: clamp(1.75rem, 2.7vw, 2.75rem);
+  --pk-type-h3: clamp(1.25rem, 1.8vw, 1.5rem);
+  --pk-type-body: 1rem;
+  --pk-type-small: 0.875rem;
+  --pk-type-label: 0.8125rem;
+  --pk-control-height: 48px;
+  --pk-control-radius: 10px;
+  --pk-store-gutter: clamp(18px, 4vw, 72px);
+  --pk-a11y-border: #667085;
+  --pk-a11y-border-soft: #98A2B3;
+  --pk-a11y-focus: #1F5FA8;
+  --pk-a11y-muted-on-dark: rgba(252, 247, 238, 0.78);
+  --pk-a11y-subtle-on-dark: rgba(252, 247, 238, 0.68);
+  --pk-color-violet: #1C2951;
+  --pk-color-cobalt: #0F47AF;
+  --pk-color-teal: #0F766E;
+  --pk-color-rose: #A64B21;
+  --pk-color-amber: #A64B21;
+  --pk-tint-violet: #E8EDF6;
+  --pk-tint-cobalt: #E8EDF6;
+  --pk-tint-teal: #E6F2F0;
+  --pk-tint-rose: #F6EBE3;
+  --pk-tint-amber: #F6EBE3;
+}

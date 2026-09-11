@@ -180,8 +180,10 @@ export const ARCHIVED_CATALOG_OFFERS = Object.freeze([
   //
   // Duty figures below are the corrected ones from the 2026-09-08 repricing and
   // are kept for whichever offer comes back. US_DUTY_INCIDENCE was still
-  // 'unverified' when this was retired - no US order was ever placed, so the
-  // DSers Tax&Fee reading that would settle E vs D- has not been taken.
+  // 'unverified' when this was retired, and it remains so. The reading this
+  // note once pointed at - the DSers Tax&Fee line - turns out to measure Tmall
+  // tax and service fees, not import duty, so no order would have settled it.
+  // See US_DUTY_INCIDENCE below.
   // ===========================================================================
 
   // 2026-09-01 watch-roll cohort. United States only, cn-direct fulfilment.
@@ -239,11 +241,11 @@ export const ARCHIVED_CATALOG_OFFERS = Object.freeze([
   // sit at or under $80, and the $89-129 band belongs to established brands.
   // The old prices made the billed case look survivable (-$3.21 on a 3-slot)
   // but only because nothing was selling. Holding a price nobody pays protects
-  // no margin; it guarantees no orders, and no orders means the duty incidence
-  // question can never be settled, because the DSers Tax&Fee reading only
-  // exists on a real order. The exposure if the reading comes back 'billed' is
-  // capped at ONE order: Tax&Fee is shown before the supplier is paid, so that
-  // order gets refunded rather than fulfilled at a loss.
+  // no margin; it guarantees no orders. The rest of this note used to say that
+  // no orders means the incidence question can never be settled, because the
+  // DSers Tax&Fee reading only exists on a real order. Both halves were wrong:
+  // Tax&Fee is a Tmall tax-and-service-fee field, so an order settles nothing,
+  // and the question is answerable without one. See US_DUTY_INCIDENCE below.
   //
   // Costs are DSers, read 2026-09-03:
   // $26.18 (3 slot) / $31.67 (4 slot, worst of a $31.24-31.67 quote) /
@@ -416,13 +418,6 @@ export const ARCHIVED_CATALOG_OFFERS = Object.freeze([
   // ===========================================================================
 export const VOLTAGE_HOLD_CATALOG_OFFERS = Object.freeze([
   Object.freeze({
-    handle: 'woven-bamboo-dome-pendant',
-    sku: '200000531:365458#A-wood base;136:200006153#NO light bulb',
-    markets: Object.freeze(['US']),
-    dutyPrepaidContributionUsd: 58.5,
-    dutyBilledContributionUsd: 13.17,
-  }),
-  Object.freeze({
     handle: 'woven-bamboo-lantern-pendant-26cm',
     sku: '200000531:1052#C-black base;136:200006153#NO light bulb',
     markets: Object.freeze(['US']),
@@ -466,6 +461,51 @@ export const VOLTAGE_HOLD_CATALOG_OFFERS = Object.freeze([
   }),
 ]);
 
+/**
+ * TRANSIT HOLD - offers whose economics pass and whose PARCEL does not.
+ *
+ * Added 2026-09-10 for a failure mode nothing in the screen was looking at.
+ * Freight COST and transit TIME are separate facts and they do not move
+ * together. Every offer in this catalogue quotes $1.99 to the United States,
+ * which read as one uniform cheap line. It is not one line.
+ *
+ * Read from the DSers Shipping info panel, ship-to United States, per SKU:
+ *
+ *   Style B-Black Base-No bulb (36cm saucer) AliExpress Selection Standard   8-14 days
+ *   Style F-Wood Base-No bulb  (26cm dome)   AliExpress Selection Standard   8-14 days
+ *   Style C-No bulb            (same seller) AliExpress Selection Standard   7-12 days
+ *   Warm Light-30CM            (petal)       Selection Shipping_OVERSIZED   33-41 days
+ *
+ * All four cost $1.99. The petal is on a different line and takes roughly
+ * four times as long. Corroborated independently by the listing page itself,
+ * which quoted "Delivery: Oct 13 - 21" against a read date of 2026-09-10 -
+ * 33 to 41 days, the same number from a different surface. The slatted
+ * lantern and the sconce were checked on their listing pages and both read
+ * "Delivery: Sep 17 - 23 (82.5% <= 12 days)", so they stay approved.
+ *
+ * WHY THIS IS A HOLD AND NOT A REPRICE. A US customer paying CA$144 for a
+ * lamp and waiting five to six weeks is a refund, a dispute and a review, and
+ * no margin covers that. The product page does not disclose it either. This is
+ * the same class of defect as the wide-brim-hat mis-map: the page describes an
+ * experience the supply chain does not deliver.
+ *
+ * Releasing it needs one of: a different SKU on this listing that sits on the
+ * Standard line, a different supplier for the same shape, or a page that
+ * states the real window and a price that survives stating it. Cost, voltage,
+ * stock, imagery and rule 2 are all closed and recorded, so this is not a
+ * re-audit.
+ */
+export const TRANSIT_HOLD_CATALOG_OFFERS = Object.freeze([
+  Object.freeze({
+    handle: 'woven-rattan-petal-pendant-30cm',
+    sku: '200000531:175#30CM;136:200003939#Warm Light',
+    markets: Object.freeze(['US']),
+    dutyPrepaidContributionUsd: 51.41,
+    dutyBilledContributionUsd: 6.14,
+    transitHold: 'selection-shipping-oversized-33-41-days-observed-2026-09-10',
+  }),
+]);
+
 export const APPROVED_CATALOG_OFFERS = Object.freeze([
   // Rattan/bamboo lighting cohort, approved 2026-09-09. Replaces the retired
   // watch-roll cohort in ARCHIVED_CATALOG_OFFERS.
@@ -487,20 +527,156 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
   // Contribution figures are contribution() from scripts/us-duty-impact.mjs at
   // dutyRate 0.414 (HTS 9405.11.80 MFN 3.9% + Section 301 25% + forced-labour
   // 12.5%), supplierShip 1.99, carrier 0.
+  // RE-MAPPED 2026-09-10 to fix a defect that was live: the product was mapped to
+  // `30cm-M`, which on listing 3256807440328996 is a WIDE-BRIM HAT, 30 cm across
+  // and 28 cm TALL on a wood base. Every photograph on the product page, and its
+  // dimensions diagram, show the WAVE SAUCER - 36 x 13 cm on a black base. A
+  // customer would have seen one lamp and received a different one.
+  //
+  // The copy gave the error away: it read "13 cm deep", which is the saucer's
+  // depth, not the hat's 28 cm. The evidence file called it a "saucer pendant"
+  // too. The intent was always the saucer; the SKU picked the wrong variant.
+  //
+  // The saucer is not sold at 30 cm. On the original listing it exists only as
+  // 36cm-M and 36cm-H, at 2 units each. On 3256808453005175 the same 36 x 13 cm
+  // black-base saucer is `Style B-Black Base` at $18.12 with 604 units, so the
+  // re-map fixes the mis-ship AND halves the cost: $34.14 -> $18.12.
+  //
+  // Contribution moves 56.85 -> 72.87 prepaid and 11.58 -> 27.60 billed, which
+  // takes this offer over the $12.00 floor on the billed basis for the first
+  // time. Title and copy corrected to 36 cm in Shopify.
+  //
+  // NOTE the handle still reads `hand-woven-...`. That is a claim the brand
+  // forbids and tests/product-copy.test.js exists to catch, sitting in the URL.
+  // Left alone here because changing it needs a redirect and a catalogue edit;
+  // flagged rather than fixed.
   Object.freeze({
     handle: 'hand-woven-bamboo-pendant-light',
-    sku: '200000531:10#30cm-M;249:200006305#1pcs',
+    // RE-SOURCED 2026-09-11. The previous supplier path
+    // `200000531:29#Style B-Black Base;5:361386#No bulb` on 3256808453005175
+    // fell to THREE units (skuStock 3, page text "Only 3 left" - two
+    // independent readings agreeing, and it read 602 earlier the same day).
+    // No re-map existed on that listing: the only other 36cm saucer held 2
+    // units and every deep-stock variant there is a SLATTED shape that cannot
+    // carry this product's knitted copy or its dimensions.
+    //
+    // New supplier 3256803906943198. Style F - Wood Base, $23.49, 100 units,
+    // 90-260V, E27, Wicker, hand knitted, CCC/ce/CQC/ROHS, 2-year warranty.
+    // Freight $1.99, CAINIAO_FULFILLMENT_STD, shipFrom China, max 13 days.
+    // NO `originalPrice` on any SKU on that listing - these are standing
+    // prices, not a promotion - and NO `Max. N pcs/shopper` cap. Both of those
+    // are the free kills that rejected every other candidate screened today.
+    //
+    // SHAPE CONFIRMED FROM THE SWATCH ARTWORK, NOT THE VARIANT NAME, and that
+    // check earned its keep: this listing ALSO has a "Style B", and on the old
+    // supplier Style B IS the saucer. Here Style B is a tall tapered vessel and
+    // Style F is the saucer. The names are REVERSED between the two listings.
+    // Mapping by name would have shipped a different lamp - the same defect as
+    // the 2026-09-10 wide-brim-hat mis-ship. Style F's swatch carries its own
+    // dimension drawing: 36cm wide x 13cm tall, 120cm adjustable cord, which
+    // matches the live product exactly.
+    //
+    // THE ONE CHANGE A CUSTOMER SEES: the ceiling cap is WOOD, not black. The
+    // black-cap version of the identical shape is on the same listing at $16.53
+    // with ONE unit, so it is not usable. Daniel approved the switch 2026-09-11.
+    // The copy never stated a cap colour, so no copy change was needed for it.
+    //
+    // Cost rises $18.12 -> $23.49, so contribution falls 76.62/29.63 ->
+    // 71.25/24.26 at the live $107.00. Still incidence-immune with room, and
+    // $23.49 clears the $29.04 rule-23 buffered pendant ceiling by $5.55.
+    sku: '200000531:200004889#Style F - Wood Base;200007763:201336100;5:100014064#Ship with 24h',
     markets: Object.freeze(['US']),
-    dutyPrepaidContributionUsd: 56.85,
-    dutyBilledContributionUsd: 11.58,
+    dutyPrepaidContributionUsd: 71.25,
+    dutyBilledContributionUsd: 24.26,
   }),
   Object.freeze({
     handle: 'plug-in-bamboo-sconce-swing-arm',
     sku: '200000795:175#US PLUG-DIM switch;249:200006305#no light',
     markets: Object.freeze(['US']),
-    dutyPrepaidContributionUsd: 40.52,
-    dutyBilledContributionUsd: 7.96,
+    dutyPrepaidContributionUsd: 43.15,
+    dutyBilledContributionUsd: 9.41,
   }),
+  // Released from VOLTAGE_HOLD_CATALOG_OFFERS on 2026-09-10 by RE-SOURCING it,
+  // not by answering the voltage question. The hold note above was right on both
+  // counts and neither was fixable on the old listing: 3256808984289002 reads
+  // 220 V, and the A-wood base SKU we had mapped capped at ONE unit.
+  //
+  // The same dome is sold on 3256808453005175 (ZODOLAMP, 500+ sold, 4.7), which
+  // reads 90-260V and carries 586 units on the SKU below. Shipping $1.99. The
+  // DSers stable cost for US equals the listing price at both ends of the range
+  // ($14.82 / $37.23), so there is no promo gap on this listing.
+  //
+  // Confirmed the SAME PHYSICAL SHADE across the two listings from the swatch
+  // artwork, not from the value id. Both listings happen to use 365458 for the
+  // dome, but that is luck - 366 is a wide-brim hat on one and a flared bell on
+  // the other, and 365016 is a drum vs a cone. AliExpress reuses property value
+  // ids across listings and they do NOT denote the same object.
+  //
+  // Retail CA$139 = US$99.29 at the 1.40 planning rate, set against the Amazon
+  // `rattan pendant light` page-1 median of $99.99 (max reviews 921).
+  //
+  // NOTE THE BILLED FIGURE. At $13.72 this is the FIRST offer in the catalogue
+  // to clear the $12.00 undercut floor on the billed basis as well as the
+  // prepaid one. The two entries above do not ($11.58 and $7.96), so they still
+  // depend on US_DUTY_INCIDENCE resolving to prepaid. This one does not.
+  //
+  // The previous figures on the held entry (58.5 / 13.17) were modelled at the
+  // old supplier cost and are superseded.
+  Object.freeze({
+    handle: 'woven-bamboo-dome-pendant',
+    sku: '200000531:365458#Style F-Wood Base;5:361386#No bulb',
+    markets: Object.freeze(['US']),
+    dutyPrepaidContributionUsd: 60.88,
+    dutyBilledContributionUsd: 15.55,
+  }),
+  // Added 2026-09-10. Slatted vertical lantern - bamboo strips bound over rings
+  // rather than woven - from listing 3256804155598662. 90-260V, E27, $1.99
+  // shipping. The 20x23cm variant carries 5,771 units at $13.38.
+  //
+  // Found by rule 19: at a $34.01 max supplier cost for this category, a $13.38
+  // item leaves unusual headroom, and it shows - $62.17 prepaid and $24.29
+  // billed at CA$119, the widest margin in the catalogue on both bases.
+  //
+  // Priced BELOW the other two pendants deliberately. At 20 x 23 cm this is the
+  // small one, and the catalogue now reads as a ladder: $100 sconce, $119
+  // lantern, $139 dome, $144 saucer.
+  //
+  // CAUTION, and it is the one weak spot: the listing has **77 sold** against
+  // 500-1,000+ behind the other offers. Per-SKU depth is what carried it.
+  Object.freeze({
+    handle: 'slatted-bamboo-lantern-pendant-20cm',
+    sku: '200000531:350852#20x23cm',
+    markets: Object.freeze(['US']),
+    dutyPrepaidContributionUsd: 64.92,
+    dutyBilledContributionUsd: 25.80,
+  }),
+  // Added 2026-09-10, from listing 3256812550446681 (LINCCW, 1,000+ sold,
+  // 90-260V, $1.99 shipping). Woven rattan petal shade, the most sculptural
+  // piece in the range, and the ONLY offer that ships with a bulb - light
+  // colour is a variant axis and Warm Light is the SKU sold.
+  //
+  // Rule 18 passes despite 28 SKUs: they are one shape x 4 sizes x 4 light
+  // colours, not 28 shapes. The distinction that matters is DISTINCT SHAPES on
+  // the variant axis, never SKU count.
+  //
+  // ADMITTED BY A CORRECTION, and it is worth recording why. This was first
+  // rejected on a self-imposed "billed >= $12" filter. That is stricter than
+  // this repo actually requires: isOfferSellable() gates on billed > 0, and the
+  // $12.00 undercut floor applies to the BINDING basis, which is prepaid while
+  // US_DUTY_INCIDENCE is unverified. The live sconce at $7.96 billed is already
+  // approved on exactly that reading. Applying the stricter rule silently
+  // rejected products the catalogue's own gates would admit.
+  //
+  // THE EXPOSURE IS REAL THOUGH. At $6.14 billed this is the second-thinnest
+  // offer after the sconce. If the incidence resolves to billed, this one and
+  // the sconce fall under the floor; the saucer ($27.60), slatted lantern
+  // ($24.29) and dome ($13.72) do not.
+  //
+  // REMOVED 2026-09-10 and moved to TRANSIT_HOLD_CATALOG_OFFERS below. Rule 2
+  // closed clean on it - the DSers stable cost for the United States reads
+  // $39.59, identical to the listing page, so there was no promo gap. It came
+  // off the catalogue for a different reason, found in the same sitting: its
+  // carrier line is AliExpress Selection Shipping_Oversized at 33-41 days.
 ]);
 /**
  * True when nothing is approved for sale anywhere.
@@ -635,15 +811,66 @@ export const SUSPENDED_FULFILMENT_ROUTES = Object.freeze({
  * at 'prepaid'. That is an inference from the regulations, not a reading, so
  * it does not get to be recorded as fact.
  *
- * WHAT MAKES THAT SAFE. No money moves on a guess. DSers shows a "Tax&Fee"
- * line on the order card BEFORE payment is taken, so the first genuine US
- * order settles this at zero risk: $0.00 there means 'prepaid'; anything else
- * means 'billed', and the standing rule to requote before paying a supplier
- * stops the order there. Set this constant from that reading and re-run
- * scripts/us-duty-impact.mjs.
+ * CORRECTION 2026-09-10 - THE PLAN TO SETTLE THIS WAS BUILT ON A FIELD THAT
+ * MEASURES SOMETHING ELSE. This block used to say that the first genuine US
+ * order settles the question at zero risk, because DSers shows a "Tax&Fee"
+ * line before payment is taken: $0.00 meaning 'prepaid', anything else
+ * meaning 'billed'. The field's own tooltip says otherwise -
  *
- * It can also be settled sooner, from a signed-in AliExpress checkout with a
- * US address: look for an "Import charges" line in the order summary.
+ *     "Tax&Fee is showing estimated tax amount or service fee generated when
+ *      getting service from Tmall suppliers."
+ *
+ * - so it is Tmall tax and service fees. Every supplier here is an AliExpress
+ * marketplace seller. The line would have read $0.00 regardless of what the
+ * duty did, and the old instruction was to read $0.00 as 'prepaid'. That is a
+ * false confirmation of the profitable scenario, arrived at by spending money.
+ * The DSers "Tax/Import charges" preview column reads $0.00 for the same
+ * reason. Neither field is evidence about duty in either direction.
+ *
+ * WHAT ALIEXPRESS PUBLISHES, read 2026-09-10 from its Help Center article
+ * "Do I need to pay for customs duties and import taxes?" (questionId
+ * 1061036456): duties "are typically not included in the price of the item",
+ * "Customs duties and taxes are never covered by AliExpress", and they are
+ * "normally collected by the shipping company upon delivery" - with the one
+ * exception of a seller shipping from a warehouse in the buyer's own country.
+ * The US-specific article "Tax Policy on United States" (1061037206) covers
+ * state sales tax and the Colorado Retail Delivery Fee only, and is silent on
+ * import duty.
+ *
+ * That is a statement of LIABILITY, not of INCIDENCE, and it does not settle
+ * this constant. It rules out "AliExpress absorbs it on our behalf". It does
+ * not rule out "it is already inside the quoted price", because the carriers
+ * on this line are last-mile only and have no mechanism to present a bill -
+ * the regulatory point above still stands. What it does change is the shape of
+ * the downside: on AliExpress's own account the collector is the courier at
+ * the door, so a wrong guess lands on the CUSTOMER, as a refund and a review,
+ * not merely on our margin.
+ *
+ * HOW IT ACTUALLY GETS SETTLED, without buying anything. The AliExpress
+ * order-confirmation page for a US shipping address, signed in, shows the full
+ * order summary before payment is authorised. An "Import charges" line there,
+ * or its absence, is the reading. This needs Daniel's login and nothing else;
+ * Claude does not sign in to accounts.
+ *
+ * BETTER: MAKE THE ANSWER STOP MATTERING. An offer priced so that BOTH
+ * dutyPrepaidContributionUsd AND dutyBilledContributionUsd clear the $12.00
+ * undercut floor is approvable under either resolution, and does not care what
+ * this constant ever becomes. Measured 2026-09-10 across the five live offers:
+ *
+ *   woven-bamboo-pendant-light-36cm     prepaid $72.87  billed $27.60   immune
+ *   woven-bamboo-dome-pendant-26cm      prepaid $57.51  billed $13.72   immune
+ *   slatted-bamboo-lantern-pendant-20cm prepaid $62.17  billed $24.29   immune
+ *   plug-in-bamboo-sconce-swing-arm     prepaid $40.52  billed  $7.96   exposed
+ *
+ * UPDATED later the same day. The petal (prepaid $51.41 / billed $6.14) was
+ * the second exposed offer and is no longer approved - it went to
+ * TRANSIT_HOLD_CATALOG_OFFERS on a 33-41 day carrier line. So the catalogue's
+ * entire exposure to this constant is now ONE product, the sconce.
+ *
+ * The sconce cannot be repriced into immunity: it would need US$81.09 against
+ * a rule-2 ceiling of $72.43, and it already sits at the ceiling. The only
+ * route is supplier cost - $4.04 off it, $23.91 -> $19.87. That is the whole
+ * remaining dependency on how the duty question resolves.
  */
 export const US_DUTY_INCIDENCE_STATES = Object.freeze({
   PREPAID: 'prepaid',
@@ -652,6 +879,42 @@ export const US_DUTY_INCIDENCE_STATES = Object.freeze({
 });
 
 export const US_DUTY_INCIDENCE = US_DUTY_INCIDENCE_STATES.UNVERIFIED;
+
+/**
+ * The $12.00 undercut floor, mirrored from scripts/check-undercut.mjs, which
+ * cannot be imported here without a cycle. If that number moves, move this one
+ * and the test in tests/launch-catalog.test.js will say so.
+ */
+export const INCIDENCE_IMMUNITY_FLOOR_USD = 12.0;
+
+/**
+ * An offer is INCIDENCE-IMMUNE when it clears the undercut floor on both duty
+ * bases at once, so its approval does not depend on how US_DUTY_INCIDENCE ever
+ * resolves. This is the cheap way out of the largest unknown in the model: not
+ * answering it, but pricing and sourcing so the answer cannot change anything.
+ *
+ * Use it to read the catalogue's real exposure. Every offer this returns false
+ * for is an offer that stops being sellable the day the reading comes back
+ * 'billed', and those are the ones to reprice or re-source first.
+ */
+export function isIncidenceImmune(offer, floor = INCIDENCE_IMMUNITY_FLOOR_USD) {
+  const prepaid = Number(offer?.dutyPrepaidContributionUsd);
+  const billed = Number(offer?.dutyBilledContributionUsd);
+  if (!Number.isFinite(prepaid) || !Number.isFinite(billed)) return false;
+  return prepaid >= floor && billed >= floor;
+}
+
+/**
+ * Approved offers split by whether they care about US_DUTY_INCIDENCE.
+ */
+export function incidenceExposure(offers = APPROVED_CATALOG_OFFERS) {
+  const immune = [];
+  const exposed = [];
+  for (const offer of offers) {
+    (isIncidenceImmune(offer) ? immune : exposed).push(offer);
+  }
+  return {immune, exposed};
+}
 
 export const SUSPENDED_COMMERCE_MARKETS = Object.freeze({
   // Added 2026-09-01. Every offer below names a handle deleted from Shopify on

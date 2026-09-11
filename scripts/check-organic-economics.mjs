@@ -7,6 +7,7 @@ import {
   APPROVED_CATALOG_OFFERS,
   ARCHIVED_CATALOG_OFFERS,
   VOLTAGE_HOLD_CATALOG_OFFERS,
+  TRANSIT_HOLD_CATALOG_OFFERS,
   isMarketSuspended,
   isOfferSellable,
 } from '../app/lib/launch-catalog.js';
@@ -28,10 +29,20 @@ try {
  * the product is currently sellable - auditing against the live list alone
  * would declare the whole baseline file "unexpected" the moment the catalogue
  * empties, and the fix for that would be deleting the evidence.
+ *
+ * Every hold list has to appear here for the same reason. TRANSIT_HOLD was
+ * added 2026-09-10 and the omission announced itself immediately: moving one
+ * offer onto it made the audit report its own cost and route rows as
+ * "Unexpected", which is the file telling you evidence was about to be thrown
+ * away to make a check pass.
  */
 export const BASELINE_AUDIT_COHORT = Object.freeze([
   ...APPROVED_CATALOG_OFFERS,
-  ...[...ARCHIVED_CATALOG_OFFERS, ...VOLTAGE_HOLD_CATALOG_OFFERS].filter(
+  ...[
+    ...ARCHIVED_CATALOG_OFFERS,
+    ...VOLTAGE_HOLD_CATALOG_OFFERS,
+    ...TRANSIT_HOLD_CATALOG_OFFERS,
+  ].filter(
     (other) =>
       !APPROVED_CATALOG_OFFERS.some(
         (live) => live.handle === other.handle && live.sku === other.sku,

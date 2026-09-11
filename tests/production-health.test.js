@@ -40,6 +40,8 @@ test('production monitor shares the verified market cohorts', () => {
   assert.deepEqual(EXPECTED_HANDLES_BY_MARKET.US, [
     'hand-woven-bamboo-pendant-light',
     'plug-in-bamboo-sconce-swing-arm',
+    'woven-bamboo-dome-pendant',
+    'slatted-bamboo-lantern-pendant-20cm',
   ]);
 
   // Discovery follows the live cohort. The seven previous handles were deleted

@@ -269,14 +269,19 @@ test('product market resolution fails closed on an empty catalogue', () => {
   assert.equal(isFulfilmentRouteSuspended('US', 'cn-direct'), true);
   assert.equal(isFulfilmentRouteSuspended('US', 'us-local'), false);
   // Discovery carries the two offers approved on 2026-09-09 and nothing else.
-  // Seven more bamboo offers cleared every commercial gate the same day and
-  // are NOT here: their supplier listing states 220 V and the United States
-  // runs at 120 V, so they sit in VOLTAGE_HOLD_CATALOG_OFFERS. A held offer
+  // Six more bamboo offers cleared every commercial gate and are NOT here:
+  // their supplier listing states 220 V and the United States runs at 120 V,
+  // so they sit in VOLTAGE_HOLD_CATALOG_OFFERS. It was seven until the dome
+  // was released on 2026-09-10 - not by answering its voltage question but by
+  // finding the same shade on a 90-260V listing, which is the pattern to reach
+  // for on the remaining six. A held offer
   // that leaks into discovery is a product page for a fixture we will not
   // ship, which is worse than one that never appeared.
   assert.deepEqual(DISCOVERABLE_PRODUCT_HANDLES, [
     'hand-woven-bamboo-pendant-light',
     'plug-in-bamboo-sconce-swing-arm',
+    'woven-bamboo-dome-pendant',
+    'slatted-bamboo-lantern-pendant-20cm',
   ]);
   for (const offer of VOLTAGE_HOLD_CATALOG_OFFERS) {
     assert.ok(
@@ -705,6 +710,8 @@ test('a suspended market closes commerce without erasing route evidence', () => 
   assert.deepEqual(DISCOVERABLE_PRODUCT_HANDLES, [
     'hand-woven-bamboo-pendant-light',
     'plug-in-bamboo-sconce-swing-arm',
+    'woven-bamboo-dome-pendant',
+    'slatted-bamboo-lantern-pendant-20cm',
   ]);
   for (const archived of ARCHIVED_CATALOG_OFFERS) {
     assert.ok(
@@ -730,16 +737,18 @@ test('approved handles and SKUs derive from one exact-offer cohort', () => {
   }
 
   // Canada is still suspended and therefore still carries nothing. The United
-  // States carries the two offers approved on 2026-09-09 - one SKU each, so
-  // SKUs and handles are the same length here and a divergence would mean the
-  // derivation drifted.
+  // States carries the five approved offers - one SKU each, so SKUs and
+  // handles are the same length here and a divergence would mean the
+  // derivation drifted. Two were approved 2026-09-09 and three on 2026-09-10.
   assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.CA.length, 0);
   assert.equal(APPROVED_PRODUCT_HANDLES_BY_MARKET.CA.length, 0);
   assert.deepEqual(APPROVED_PRODUCT_HANDLES_BY_MARKET.US, [
     'hand-woven-bamboo-pendant-light',
     'plug-in-bamboo-sconce-swing-arm',
+    'woven-bamboo-dome-pendant',
+    'slatted-bamboo-lantern-pendant-20cm',
   ]);
-  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.US.length, 2);
+  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.US.length, 4);
 
   // The live cohort crosses the suspended cn-direct route, so every approved
   // offer must carry BOTH duty scenarios and both must be positive. The
@@ -753,10 +762,11 @@ test('approved handles and SKUs derive from one exact-offer cohort', () => {
   }
 
   // The voltage hold is a separate rail and must not feed either list. It
-  // holds seven offers whose commercial evidence is complete - that is why
-  // they are held rather than deleted - so nothing but the hold itself keeps
-  // them out of the storefront.
-  assert.equal(VOLTAGE_HOLD_CATALOG_OFFERS.length, 7);
+  // holds six offers whose commercial evidence is complete - that is why they
+  // are held rather than deleted - so nothing but the hold itself keeps them
+  // out of the storefront. Seven until 2026-09-10, when the dome came off the
+  // hold via a different listing of the same shade at 90-260V.
+  assert.equal(VOLTAGE_HOLD_CATALOG_OFFERS.length, 6);
   for (const held of VOLTAGE_HOLD_CATALOG_OFFERS) {
     assert.ok(
       !APPROVED_VARIANT_SKUS_BY_MARKET.US.includes(held.sku),
@@ -886,4 +896,138 @@ test('collection catalogue falls back when the resolved market is suspended', as
   // The emptiness fail-safe itself must stay: a genuinely empty catalogue
   // should still noindex rather than serve Google a blank shop page.
   assert.match(route, /noindex: !data\?\.products\?\.nodes\?\.length/);
+});
+
+// ---------------------------------------------------------------------------
+// Incidence immunity. Added 2026-09-10 after the route that was supposed to
+// settle US_DUTY_INCIDENCE turned out to measure Tmall service fees. An offer
+// that clears the undercut floor on BOTH duty bases does not care how the
+// constant resolves, and the point of these tests is that the catalogue's
+// exposure stays a number somebody looked at rather than a footnote.
+
+test('the incidence-immunity floor still matches the undercut floor', async () => {
+  const {MIN_CONTRIBUTION_USD} = await import('../scripts/check-undercut.mjs');
+  const {INCIDENCE_IMMUNITY_FLOOR_USD} = await import(
+    '../app/lib/launch-catalog.js'
+  );
+  assert.equal(
+    INCIDENCE_IMMUNITY_FLOOR_USD,
+    MIN_CONTRIBUTION_USD,
+    'launch-catalog mirrors the floor by hand to avoid an import cycle; they drifted',
+  );
+});
+
+test('isIncidenceImmune needs BOTH bases over the floor', async () => {
+  const {isIncidenceImmune} = await import('../app/lib/launch-catalog.js');
+  assert.equal(
+    isIncidenceImmune({
+      dutyPrepaidContributionUsd: 57.51,
+      dutyBilledContributionUsd: 13.72,
+    }),
+    true,
+  );
+  // The live sconce: comfortable on prepaid, under the floor on billed. This
+  // is exactly the offer shape that silently depends on the unknown.
+  assert.equal(
+    isIncidenceImmune({
+      dutyPrepaidContributionUsd: 40.52,
+      dutyBilledContributionUsd: 7.96,
+    }),
+    false,
+  );
+  // A missing figure is exposure, never immunity.
+  assert.equal(
+    isIncidenceImmune({dutyPrepaidContributionUsd: 99.0}),
+    false,
+  );
+  assert.equal(isIncidenceImmune(undefined), false);
+});
+
+test('every approved offer carries both duty figures so exposure is computable', () => {
+  for (const offer of APPROVED_CATALOG_OFFERS) {
+    assert.equal(
+      typeof offer.dutyPrepaidContributionUsd,
+      'number',
+      `${offer.handle} has no prepaid contribution`,
+    );
+    assert.equal(
+      typeof offer.dutyBilledContributionUsd,
+      'number',
+      `${offer.handle} has no billed contribution`,
+    );
+  }
+});
+
+test('incidenceExposure partitions the approved catalogue with nothing lost', async () => {
+  const {incidenceExposure} = await import('../app/lib/launch-catalog.js');
+  const {immune, exposed} = incidenceExposure();
+  assert.equal(
+    immune.length + exposed.length,
+    APPROVED_CATALOG_OFFERS.length,
+  );
+  const seen = new Set([...immune, ...exposed].map((o) => o.handle));
+  assert.equal(seen.size, APPROVED_CATALOG_OFFERS.length);
+  // Not an assertion about which offers are immune - that changes with every
+  // reprice. It is an assertion that at least one is, because a catalogue with
+  // zero immune offers is a catalogue betting the whole store on one unknown.
+  assert.ok(
+    immune.length > 0,
+    'no approved offer survives the billed basis: the catalogue is fully exposed to US_DUTY_INCIDENCE',
+  );
+});
+
+// ---------------------------------------------------------------------------
+// The transit hold. Added 2026-09-10 after the petal pendant was found sitting
+// on AliExpress Selection Shipping_Oversized at 33-41 days to the United
+// States while quoting the same $1.99 freight as every other offer. Freight
+// cost and transit time are separate facts; nothing in the screen was reading
+// the second one.
+
+test('a transit-held offer is not approved and not discoverable', async () => {
+  const {TRANSIT_HOLD_CATALOG_OFFERS} = await import(
+    '../app/lib/launch-catalog.js'
+  );
+  assert.ok(TRANSIT_HOLD_CATALOG_OFFERS.length >= 1);
+  for (const held of TRANSIT_HOLD_CATALOG_OFFERS) {
+    assert.ok(
+      !APPROVED_CATALOG_OFFERS.some((o) => o.handle === held.handle),
+      `${held.handle} is transit-held and must not be approved`,
+    );
+    assert.ok(
+      !DISCOVERABLE_PRODUCT_HANDLES.includes(held.handle),
+      `${held.handle} is transit-held and must not be discoverable`,
+    );
+    assert.equal(isApprovedVariantSku(held.sku, 'US'), false, held.sku);
+  }
+});
+
+test('a transit-held offer keeps its economics so releasing it is not a re-audit', async () => {
+  const {TRANSIT_HOLD_CATALOG_OFFERS} = await import(
+    '../app/lib/launch-catalog.js'
+  );
+  for (const held of TRANSIT_HOLD_CATALOG_OFFERS) {
+    // The whole point of a hold rather than a deletion: the numbers that were
+    // measured stay measured. The petal's cost, voltage, stock, imagery and
+    // rule 2 all passed - only the parcel failed.
+    assert.equal(typeof held.dutyPrepaidContributionUsd, 'number', held.handle);
+    assert.equal(typeof held.dutyBilledContributionUsd, 'number', held.handle);
+    assert.match(
+      String(held.transitHold || ''),
+      /\d/,
+      `${held.handle} must record WHY it is held, with the observed figure`,
+    );
+  }
+});
+
+test('the hold lists do not overlap each other', async () => {
+  const {TRANSIT_HOLD_CATALOG_OFFERS} = await import(
+    '../app/lib/launch-catalog.js'
+  );
+  const voltage = new Set(VOLTAGE_HOLD_CATALOG_OFFERS.map((o) => o.handle));
+  for (const held of TRANSIT_HOLD_CATALOG_OFFERS) {
+    assert.ok(
+      !voltage.has(held.handle),
+      `${held.handle} is on two hold lists; releasing one would look sufficient`,
+    );
+  }
 });
