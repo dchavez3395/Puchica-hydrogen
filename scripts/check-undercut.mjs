@@ -46,8 +46,13 @@
 import {readFileSync, existsSync, readdirSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
-import {APPROVED_CATALOG_OFFERS, US_DUTY_INCIDENCE, US_DUTY_INCIDENCE_STATES}
-  from '../app/lib/launch-catalog.js';
+import {
+  APPROVED_CATALOG_OFFERS,
+  US_DUTY_INCIDENCE,
+  US_DUTY_INCIDENCE_STATES,
+  incidenceExposure,
+  INCIDENCE_IMMUNITY_FLOOR_USD,
+} from '../app/lib/launch-catalog.js';
 import {contribution, CHOICE_LINE_DISBURSEMENT} from './us-duty-impact.mjs';
 
 const DIR = fileURLToPath(new URL('../docs/undercut-evidence/', import.meta.url));
@@ -155,6 +160,49 @@ export function auditUndercut(handles, load, now = new Date(), opts = {}) {
   return {failures, notes};
 }
 
+/**
+ * WHICH OFFERS SURVIVE THE DUTY QUESTION, AND WHICH ONLY SURVIVE ONE ANSWER TO IT.
+ *
+ * This gate's RULE 1 scores every offer on the BINDING basis, which is whichever
+ * one US_DUTY_INCIDENCE currently points at. That is the right test for "may we
+ * sell this today". It is the wrong test for "what happens if the incidence
+ * question resolves the other way", and that second question is the one that
+ * has actually cost this catalogue products.
+ *
+ * incidenceExposure() partitions the cohort on BOTH bases at once: an offer is
+ * immune when it clears the floor whether the duty is prepaid inside the
+ * supplier price or billed on top. Anything else is carrying a bet on an
+ * unverified fact.
+ *
+ * Printed as advisory notes, never as a failure. An exposed offer is not an
+ * illegal offer - the live sconce has been one for the whole life of this
+ * cohort - it is an offer whose margin depends on an answer nobody has checked.
+ * Turning that into a hard failure would block the store on a question the gate
+ * cannot itself settle.
+ */
+export function reportIncidenceExposure(offers = APPROVED_CATALOG_OFFERS) {
+  const {immune, exposed} = incidenceExposure(offers);
+  console.log('');
+  console.log(
+    `incidence exposure (floor $${INCIDENCE_IMMUNITY_FLOOR_USD.toFixed(2)} on BOTH bases): ` +
+      `${immune.length} immune, ${exposed.length} exposed`,
+  );
+  for (const o of exposed) {
+    const prepaid = Number(o.dutyPrepaidContributionUsd);
+    const billed = Number(o.dutyBilledContributionUsd);
+    const worst = Math.min(prepaid, billed);
+    console.log(
+      `  EXPOSED: ${o.handle} - $${worst.toFixed(2)} on the weaker basis ` +
+        `(prepaid $${prepaid.toFixed(2)} / billed $${billed.toFixed(2)}). ` +
+        'Price is not the lever here; cost is. Re-source or accept the bet.',
+    );
+  }
+  if (!exposed.length) {
+    console.log('  every approved offer clears the floor on both bases.');
+  }
+  return {immune, exposed};
+}
+
 const loadFromDisk = (handle) => {
   const p = path.join(DIR, `${handle}.json`);
   return existsSync(p) ? JSON.parse(readFileSync(p, 'utf8')) : null;
@@ -179,5 +227,6 @@ if (process.argv[1] && process.argv[1].endsWith('check-undercut.mjs')) {
     console.log(`\n${failures.length} handle-level failure(s). This gate exists because eight products died of exactly this.`);
     process.exit(1);
   }
+  reportIncidenceExposure();
   console.log('PASS: every approved handle carries current undercut evidence.');
 }

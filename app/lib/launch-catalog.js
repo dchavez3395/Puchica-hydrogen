@@ -586,15 +586,22 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
     // $23.49 clears the $29.04 rule-23 buffered pendant ceiling by $5.55.
     sku: '200000531:200004889#Style F - Wood Base;200007763:201336100;5:100014064#Ship with 24h',
     markets: Object.freeze(['US']),
-    dutyPrepaidContributionUsd: 71.25,
-    dutyBilledContributionUsd: 24.26,
+    // Repriced live 2026-09-11: CA$143.99 -> CA$136.00, which Shopify serves as
+    // $101.00 (read back from contextualPricing, not computed). Clears the
+    // $103.49 rule-2 ceiling with $2.49 of room rather than the $0.49 CA$138.00
+    // would have left.
+    dutyPrepaidContributionUsd: 66.06,
+    dutyBilledContributionUsd: 21.55,
   }),
   Object.freeze({
     handle: 'plug-in-bamboo-sconce-swing-arm',
     sku: '200000795:175#US PLUG-DIM switch;249:200006305#no light',
     markets: Object.freeze(['US']),
-    dutyPrepaidContributionUsd: 43.15,
-    dutyBilledContributionUsd: 9.41,
+    // Repriced live 2026-09-11: CA$100.99 -> CA$97.00 = $72.00, inside the
+    // $72.43 ceiling. STILL THE ONE EXPOSED OFFER at $8.05 billed, under the
+    // $12.00 floor - the price is now correct and the COST is the problem.
+    dutyPrepaidContributionUsd: 40.55,
+    dutyBilledContributionUsd: 8.05,
   }),
   // Released from VOLTAGE_HOLD_CATALOG_OFFERS on 2026-09-10 by RE-SOURCING it,
   // not by answering the voltage question. The hold note above was right on both

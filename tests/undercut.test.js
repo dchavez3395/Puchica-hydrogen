@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {existsSync, readFileSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
-import {auditUndercut, bindingBasis} from '../scripts/check-undercut.mjs';
+import {auditUndercut, bindingBasis, reportIncidenceExposure} from '../scripts/check-undercut.mjs';
 import {
   APPROVED_CATALOG_OFFERS,
   US_DUTY_INCIDENCE,
@@ -190,13 +190,55 @@ test('every approved handle must carry evidence', () => {
   // breach, or either of these getting worse, still fails. Delete each line as
   // its reprice lands; when both are gone this returns to asserting an empty
   // list, which is the state it should end in.
-  const KNOWN_RULE_2_BREACHES = [
-    'hand-woven-bamboo-pendant-light: RULE 2 - retail $107.00 is over the band (median $89.99, ceiling $103.49).',
-    'plug-in-bamboo-sconce-swing-arm: RULE 2 - retail $75.00 is over the band (median $62.98, ceiling $72.43).',
-  ];
+  // CLEARED 2026-09-11. Both entries that used to sit here were real live
+  // breaches - the pendant at $107.00 against a $103.49 ceiling and the sconce
+  // at $75.00 against $72.43 - and they were repriced in Shopify to CA$136.00
+  // and CA$97.00, which contextualPricing now serves as $101.00 and $72.00.
+  //
+  // The list is deliberately left in place rather than deleted. It is empty,
+  // so ANY breach at all now fails this test, which is the state we want and
+  // the state the catalogue has never actually been in before today. Do not
+  // repopulate it to make a red run go green: a breach appearing here means a
+  // price drifted above its band, and eight products have already died of that.
+  const KNOWN_RULE_2_BREACHES = [];
   assert.deepEqual(
     failures,
     KNOWN_RULE_2_BREACHES,
     'undercut failures changed: reprice landed, or a NEW breach appeared - read the diff, do not just update this list',
+  );
+});
+
+
+test('incidence exposure is reported, and it partitions on BOTH bases', () => {
+  // Written 2026-09-11. incidenceExposure() existed for a day as an export that
+  // nothing outside the tests called, which check-export-usage.mjs correctly
+  // flagged and which blocked the deploy. It is now wired into the gate's CLI
+  // output, and this test pins the behaviour that made it worth wiring: an
+  // offer is only immune when it clears the floor on the prepaid basis AND the
+  // billed one. Clearing just the binding basis is the weaker test the gate's
+  // RULE 1 already does.
+  const lines = [];
+  const realLog = console.log;
+  console.log = (...a) => lines.push(a.join(' '));
+  let result;
+  try {
+    result = reportIncidenceExposure([
+      {handle: 'immune-both', dutyPrepaidContributionUsd: 40, dutyBilledContributionUsd: 20},
+      {handle: 'prepaid-only', dutyPrepaidContributionUsd: 40, dutyBilledContributionUsd: 8.05},
+    ]);
+  } finally {
+    console.log = realLog;
+  }
+
+  assert.deepEqual(result.immune.map((o) => o.handle), ['immune-both']);
+  assert.deepEqual(result.exposed.map((o) => o.handle), ['prepaid-only']);
+
+  const out = lines.join('\n');
+  assert.match(out, /1 immune, 1 exposed/);
+  // it must name the WEAKER figure, not the flattering one
+  assert.match(out, /prepaid-only - \$8\.05 on the weaker basis/);
+  assert.ok(
+    !/prepaid-only - \$40/.test(out),
+    'must not headline the prepaid figure for an offer that fails on billed',
   );
 });

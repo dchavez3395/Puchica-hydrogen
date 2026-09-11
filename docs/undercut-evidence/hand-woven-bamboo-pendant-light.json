@@ -9,7 +9,7 @@
     "DSers My Products mapped cost and per-SKU stock",
     "Shopify Admin API contextualPricing(context: {country: US}) on the mapped variant, read 2026-09-10."
   ],
-  "ourRetailUsd": 107.0,
+  "ourRetailUsd": 101.0,
   "itemCostUsd": 23.49,
   "supplierShipUsd": 1.99,
   "costSource": "AliExpress per-SKU price on listing 3256803906943198, Style F - Wood Base, $23.49. NO originalPrice field on any SKU of that listing and no discount string, so this is a standing price and not a promotion - which is the check that rejected the previous best candidate (3256806056268428, $32.52 against a $68.47 list) and the 38cm us-local dome. NOT yet cross-checked against DSers My Products.",
@@ -253,7 +253,7 @@
   ],
   "dutyRate": 0.414,
   "verdict": "Priced at CA$143.99, which converts to $102.85 at the 1.40 planning rate - under the RULE 2 ceiling of $103.49 (median $89.99 x 1.15). After the 2026-09-10 re-map it contributes $72.87/unit on the binding 'prepaid' basis and $27.60 on 'billed', against a $12.00 floor. The billed figure was $11.58 before the re-map, i.e. BELOW the floor; correcting the supplier variant is what moved it clear. Top competitor review count 921, so the category is not locked. The gate is a floor, not a CPA test - $72.87 clears all three measured CPA benchmarks ($31.16-$47.93) and $27.60 clears none of them.",
-  "retailNote": "CORRECTED 2026-09-10. Was 102.85, computed as the CAD list price divided by a 1.40 planning rate. Shopify does not use 1.40. Read from contextualPricing(country: US), which is what the customer is actually charged: $107.00. The conversion is ~1.352 with rounding to the nearest whole dollar. Ceiling for this category is $103.49, so this offer is OVER IT BY $3.51 and needs repricing.",
+  "retailNote": "CA$136.00 -> $101.00 USD. REPRICED LIVE 2026-09-11 to clear the RULE 2 breach. Read back from productVariant.contextualPricing(context:{country:US}) after the change, not computed from a planning rate.",
   "supplierSku": "200000531:200004889#Style F - Wood Base;200007763:201336100;5:100014064#Ship with 24h",
   "supplierSkuUnitCap": 100,
   "supplierSkuUnitCapObservedOn": "2026-09-11",
