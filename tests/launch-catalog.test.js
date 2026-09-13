@@ -283,6 +283,7 @@ test('product market resolution fails closed on an empty catalogue', () => {
   assert.deepEqual(DISCOVERABLE_PRODUCT_HANDLES, [
     'hand-woven-bamboo-pendant-light',
     'woven-bamboo-dome-pendant',
+    'slatted-bamboo-lantern-pendant-20cm',
   ]);
   for (const offer of VOLTAGE_HOLD_CATALOG_OFFERS) {
     assert.ok(
@@ -731,6 +732,7 @@ test('a suspended market closes commerce without erasing route evidence', () => 
   assert.deepEqual(DISCOVERABLE_PRODUCT_HANDLES, [
     'hand-woven-bamboo-pendant-light',
     'woven-bamboo-dome-pendant',
+    'slatted-bamboo-lantern-pendant-20cm',
   ]);
   for (const archived of ARCHIVED_CATALOG_OFFERS) {
     assert.ok(
@@ -777,8 +779,9 @@ test('approved handles and SKUs derive from one exact-offer cohort', () => {
   assert.deepEqual(APPROVED_PRODUCT_HANDLES_BY_MARKET.CA, [
     'hand-woven-bamboo-pendant-light',
     'woven-bamboo-dome-pendant',
+    'slatted-bamboo-lantern-pendant-20cm',
   ]);
-  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.CA.length, 2);
+  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.CA.length, 3);
 
   // A US offer crosses the suspended cn-direct route, so it must carry BOTH
   // duty scenarios and both must be positive - the watch-roll cohort died
@@ -1123,6 +1126,7 @@ test('every offer records the supplier an order would actually reach', () => {
   const expected = {
     'hand-woven-bamboo-pendant-light': '1005004093257950',
     'woven-bamboo-dome-pendant': '1005008639319927',
+    'slatted-bamboo-lantern-pendant-20cm': '1005004341913414',
   };
   for (const offer of APPROVED_CATALOG_OFFERS) {
     assert.ok(
@@ -1156,13 +1160,10 @@ test('a fulfilment-held offer is not approved, not discoverable, and records why
   const {FULFILMENT_HOLD_CATALOG_OFFERS} = await import(
     '../app/lib/launch-catalog.js'
   );
-  // The lantern: DRAFT in Shopify since 2026-09-13 because DSers has no
-  // mapping for it and no way to adopt a product it did not create.
-  assert.ok(
-    FULFILMENT_HOLD_CATALOG_OFFERS.some(
-      (o) => o.handle === 'slatted-bamboo-lantern-pendant-20cm',
-    ),
-  );
+  // Empty since the lantern was mapped in DSers on 2026-09-13, and expected
+  // to stay empty - the assertions below are the contract for the next
+  // offer that lands here, not a description of the current one.
+  assert.equal(FULFILMENT_HOLD_CATALOG_OFFERS.length, 0);
   for (const held of FULFILMENT_HOLD_CATALOG_OFFERS) {
     assert.ok(
       !APPROVED_CATALOG_OFFERS.some((o) => o.handle === held.handle),

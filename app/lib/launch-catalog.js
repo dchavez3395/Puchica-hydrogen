@@ -573,60 +573,24 @@ export const COST_HOLD_CATALOG_OFFERS = Object.freeze([
 
 /**
  * FULFILMENT HOLD - approved, priced and evidenced, but no supplier can
- * receive the order.
+ * receive the order. Empty since 2026-09-13; kept because the failure mode
+ * is real and the list is where it goes when it recurs.
  *
- * slatted-bamboo-lantern-pendant-20cm was set to DRAFT in Shopify on
- * 2026-09-13 when the DSers cross-check (see the block above
- * APPROVED_CATALOG_OFFERS) found it was never present in DSers at all: no
- * supplier, no mapping, and DSers offers no way to adopt a Shopify product it
- * did not create. Its `dsers-mapped` tag was removed in Shopify the same day.
+ * slatted-bamboo-lantern-pendant-20cm sat here for a few hours on
+ * 2026-09-13. The DSers cross-check found it was never in DSers at all, and
+ * the first reading was that DSers offers no way to adopt a Shopify product
+ * it did not create. That reading was wrong: My Products -> IMPORT PRODUCTS
+ * FROM SHOPIFY lists every store product DSers has not seen, pulls one in
+ * without touching its Shopify variants, and the card's mapping button then
+ * offers Basic Mapping against a pasted AliExpress link. (Import List ->
+ * Push to Store is the path that duplicates; it is not the only path.)
+ * The lantern was mapped that way and moved back to APPROVED_CATALOG_OFFERS.
  *
- * It was still listed in APPROVED_CATALOG_OFFERS after that, which made the
- * repo claim a live Canadian product page that production serves as a 404 -
- * check-production-health would have failed on the first deploy. An approved
- * offer with `supplierProductId: null` is the fulfilment-path equivalent of a
- * product missing its `dsers-mapped` tag, and the catalogue treats them the
- * same way: not sellable, not discoverable, held with its economics intact.
- *
- * Release path, one of two, chosen deliberately rather than by drift:
- *   1. DSers gains a way to map an existing Shopify product to listing
- *      3256804155598662 (1005-form 1005004341913414) - record the id, restore
- *      the tag, set ACTIVE, move the entry back to APPROVED_CATALOG_OFFERS.
- *   2. Manual fulfilment is accepted for this one SKU - say so in this
- *      comment, with who places the order and how, before moving it back.
- * Either way, launch-meta's "Two fixtures" count goes to three in the same
- * edit.
+ * An entry here carries `supplierProductId: null`, a `fulfilmentHold` reason
+ * with the observed date, and its `contributionCad` so a release is not a
+ * re-audit. It is not sellable and not discoverable while held.
  */
 export const FULFILMENT_HOLD_CATALOG_OFFERS = Object.freeze([
-  // Added 2026-09-10. Slatted vertical lantern - bamboo strips bound over rings
-  // rather than woven - from listing 3256804155598662. 90-260V, E27, $1.99
-  // shipping. The 20x23cm variant carries 5,771 units at $13.38.
-  //
-  // Found by rule 19: at a $34.01 max supplier cost for this category, a $13.38
-  // item leaves unusual headroom, and it shows - $62.17 prepaid and $24.29
-  // billed at CA$119, the widest margin in the catalogue on both bases.
-  //
-  // Priced BELOW the other two pendants deliberately. At 20 x 23 cm this is the
-  // small one, and the catalogue now reads as a ladder: $100 sconce, $119
-  // lantern, $139 dome, $144 saucer.
-  //
-  // CAUTION, and it is the one weak spot: the listing has **77 sold** against
-  // 500-1,000+ behind the other offers. Per-SKU depth is what carried it.
-  Object.freeze({
-    handle: 'slatted-bamboo-lantern-pendant-20cm',
-    sku: '200000531:350852#20x23cm',
-    supplierProductId: null, // NOT MAPPED IN DSers - see the block above
-    fulfilmentHold:
-      'not-present-in-dsers-observed-2026-09-13: 0 supplier mappings, product DRAFT since 2026-09-13',
-    markets: Object.freeze(['CA']),
-    // CANADIAN CONTRIBUTION, 2026-09-13. One figure, not a pair: CBSA assesses
-    // 7% MFN on value for duty (the supplier price), so there is no second
-    // basis to be uncertain between. Derived from this offer's undercut
-    // evidence by scripts/check-contribution-derivation.mjs (RULE 26), which
-    // fails on more than a cent of drift - so if the price or the cost moves,
-    // this number must move in the same edit.
-    contributionCad: 40.06,
-  }),
 ]);
 /**
  * `supplierProductId` — WHICH SUPPLIER AN ORDER ACTUALLY REACHES.
@@ -855,6 +819,38 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
     // fails on more than a cent of drift - so if the price or the cost moves,
     // this number must move in the same edit.
     contributionCad: 26.80,
+  }),
+  // Added 2026-09-10. Slatted vertical lantern - bamboo strips bound over rings
+  // rather than woven - from listing 3256804155598662. 90-260V, E27, $1.99
+  // shipping. The 20x23cm variant carries 5,771 units at $13.38.
+  //
+  // Found by rule 19: at a $34.01 max supplier cost for this category, a $13.38
+  // item leaves unusual headroom, and it shows - $62.17 prepaid and $24.29
+  // billed at CA$119, the widest margin in the catalogue on both bases.
+  //
+  // Priced BELOW the other two pendants deliberately. At 20 x 23 cm this is the
+  // small one, and the catalogue now reads as a ladder: $100 sconce, $119
+  // lantern, $139 dome, $144 saucer.
+  //
+  // CAUTION, and it is the one weak spot: the listing has **77 sold** against
+  // 500-1,000+ behind the other offers. Per-SKU depth is what carried it.
+  Object.freeze({
+    handle: 'slatted-bamboo-lantern-pendant-20cm',
+    sku: '200000531:350852#20x23cm',
+    // Mapped in DSers 2026-09-13 via My Products -> Import Products From
+    // Shopify (the adopt path that DOES exist - see the hold comment above),
+    // Basic Mapping, Default Title -> 200000531:350852#20x23cm. Verified from
+    // the detail endpoint: supply.50272315080954.sku = that variant, $13.38,
+    // stock 5,771 - the same figures as the undercut evidence.
+    supplierProductId: '1005004341913414',
+    markets: Object.freeze(['CA']),
+    // CANADIAN CONTRIBUTION, 2026-09-13. One figure, not a pair: CBSA assesses
+    // 7% MFN on value for duty (the supplier price), so there is no second
+    // basis to be uncertain between. Derived from this offer's undercut
+    // evidence by scripts/check-contribution-derivation.mjs (RULE 26), which
+    // fails on more than a cent of drift - so if the price or the cost moves,
+    // this number must move in the same edit.
+    contributionCad: 40.06,
   }),
   // Added 2026-09-10, from listing 3256812550446681 (LINCCW, 1,000+ sold,
   // 90-260V, $1.99 shipping). Woven rattan petal shade, the most sculptural

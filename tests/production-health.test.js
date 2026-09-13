@@ -37,19 +37,17 @@ test('production monitor shares the verified market cohorts', () => {
   // not live, and the mirror of it is a monitor expecting nothing while the
   // storefront serves something. Publishing state and this list move together.
   //
-  // Two, not three. The lantern is DRAFT in Shopify because it has no DSers
-  // mapping and DSers offers no way to adopt a product it did not create. It
-  // was briefly APPROVED here while DRAFT there, which would have had the
-  // monitor expecting a page production serves as a 404. Resolved 2026-09-13
-  // by moving it to FULFILMENT_HOLD_CATALOG_OFFERS - the hold-list fix, not
-  // a quietly shortened array - so this list and the storefront agree again.
+  // Three again. The lantern spent 2026-09-13 on FULFILMENT_HOLD while it
+  // had no DSers mapping (DRAFT in Shopify, so the monitor rightly expected a
+  // 404). It was mapped the same day through My Products -> Import Products
+  // From Shopify, tagged dsers-mapped and set ACTIVE, and came back here.
+  // This list and the live storefront must agree; if the lantern ever drops
+  // out of Shopify again, move it to a hold list rather than editing this.
   assert.deepEqual(EXPECTED_HANDLES_BY_MARKET.CA, [
     'hand-woven-bamboo-pendant-light',
     'woven-bamboo-dome-pendant',
+    'slatted-bamboo-lantern-pendant-20cm',
   ]);
-  assert.ok(
-    !EXPECTED_HANDLES_BY_MARKET.CA.includes('slatted-bamboo-lantern-pendant-20cm'),
-  );
 
   // Discovery follows the live cohort. The seven previous handles were deleted
   // from Shopify on 2026-08-28 and verified 404 in production on 2026-09-01,
