@@ -1,0 +1,312 @@
+{
+  "handle": "slatted-bamboo-pear-pendant-20cm",
+  "checkedOn": "2026-09-13",
+  "market": "CA",
+  "note": "20 x 20 cm slatted bamboo pear pendant, white ceiling base and white wire. Vertical bamboo strips bound over rings into a bulbous teardrop rather than the straight column of slatted-bamboo-lantern-pendant-20cm, which is the rule 18 distinction that admitted it - Style D on the same listing (16 x 30 cm straight cylinder) was rejected as a second straight lantern. Sourced 2026-09-13 from listing 1005008652215677 (3256-form 3256808465900925, seller JOYINLED), Style E, 90-260V, E27, no bulb, 21 sold. Competitor set is the amazon.ca bamboo/rattan pendant category reading taken 2026-09-13 for the dome and lantern; it is category-level and applies to any pendant in the range, so it is reused here verbatim rather than re-read.",
+  "sources": [
+    "AliExpress .com gateway per-SKU price (salePriceString / originalPrice from PRICE.skuPriceInfoMap) and per-SKU stock (SKU.skuPaths[].skuStock) read from window._d_c_ on listing 1005008652215677 on 2026-09-13 with a Canadian destination.",
+    "AliExpress .com gateway SHIPPING.deliveryLayoutInfo[0].bizData for the same listing, read 2026-09-13: ship from China, freight free above the C$10 threshold, deliveryDayMax 19.",
+    "amazon.ca page-1 organic, 8-keyword pendant basket, read 2026-09-13 (run 24). Category-level reading shared with woven-bamboo-dome-pendant and slatted-bamboo-lantern-pendant-20cm.",
+    "scripts/check-contribution-derivation.mjs deriveContributions() at ourRetailCad 74.99 / itemCostCad 28.21 / supplierShipCad 0 / dutyRate 0.07 -> CA$31.69 (RULE 26)."
+  ],
+  "costSource": "AliExpress Canadian-gateway per-SKU price from window._d_c_ PRICE.skuPriceInfoMap on listing 1005008652215677, SKU 200000531:350852#E;249:200006305#Without Bulb: salePriceString C$28.21 against originalPrice C$28.60. That is a 1.4% gap, which is inside rule 22 - a standing price with rounding, not a promotion - so the sale figure is the cost basis. Contrast the tiered pendant, whose 38% gap makes the LIST price the basis. Not yet cross-checked against a DSers stable cost: the product does not exist in Shopify or DSers yet, and the DSers reading is the mapping step, not the sourcing step.",
+  "dutyRateBasis": "Canada HS 9405.11.00 (electric lighting fittings designed for LED) / 9405.19.00 (other), MFN column, 7%. Canada applies no Section 301 equivalent to these goods - its surtaxes on Chinese imports cover electric vehicles, steel and aluminium - so MFN is the entire stack. The deeper difference from the US is the BASE: this 7% is charged on VALUE FOR DUTY, which is the supplier price, where the US charges its 41.4% (HTS 9405.11.80) on retail. About CA$2.04 a unit against US$40.57.",
+  "competitors": [
+    {
+      "name": "bamboo pendant light organic result 1",
+      "priceCad": 108.98,
+      "reviews": 46
+    },
+    {
+      "name": "bamboo pendant light organic result 2",
+      "priceCad": 80.96,
+      "reviews": 0
+    },
+    {
+      "name": "bamboo pendant light organic result 3",
+      "priceCad": 58.98,
+      "reviews": 60
+    },
+    {
+      "name": "bamboo pendant light organic result 4",
+      "priceCad": 54.99,
+      "reviews": 72
+    },
+    {
+      "name": "bamboo pendant light organic result 5",
+      "priceCad": 94.29,
+      "reviews": 24
+    },
+    {
+      "name": "bamboo pendant light organic result 6",
+      "priceCad": 65.98,
+      "reviews": 132
+    },
+    {
+      "name": "bamboo pendant light organic result 7",
+      "priceCad": 45.99,
+      "reviews": 235
+    },
+    {
+      "name": "bamboo pendant light organic result 8",
+      "priceCad": 89.99,
+      "reviews": 10
+    },
+    {
+      "name": "bamboo pendant light organic result 9",
+      "priceCad": 59.99,
+      "reviews": 3
+    },
+    {
+      "name": "bamboo pendant light organic result 10",
+      "priceCad": 59.39,
+      "reviews": 179
+    },
+    {
+      "name": "bamboo pendant light organic result 11",
+      "priceCad": 51.43,
+      "reviews": 20
+    },
+    {
+      "name": "bamboo pendant light organic result 12",
+      "priceCad": 139,
+      "reviews": 3
+    },
+    {
+      "name": "bamboo pendant light organic result 13",
+      "priceCad": 155.99,
+      "reviews": 5
+    },
+    {
+      "name": "bamboo pendant light organic result 14",
+      "priceCad": 156.99,
+      "reviews": 27
+    },
+    {
+      "name": "bamboo pendant light organic result 15",
+      "priceCad": 55.99,
+      "reviews": 36
+    },
+    {
+      "name": "bamboo pendant light organic result 16",
+      "priceCad": 59.99,
+      "reviews": 20
+    },
+    {
+      "name": "bamboo pendant light organic result 17",
+      "priceCad": 159.99,
+      "reviews": 22
+    },
+    {
+      "name": "bamboo pendant light organic result 18",
+      "priceCad": 162.99,
+      "reviews": 13
+    },
+    {
+      "name": "bamboo pendant light organic result 19",
+      "priceCad": 155.99,
+      "reviews": 22
+    },
+    {
+      "name": "bamboo pendant light organic result 20",
+      "priceCad": 59.99,
+      "reviews": 37
+    },
+    {
+      "name": "bamboo pendant light organic result 21",
+      "priceCad": 55.94,
+      "reviews": 84
+    },
+    {
+      "name": "bamboo pendant light organic result 22",
+      "priceCad": 156.59,
+      "reviews": 82
+    },
+    {
+      "name": "bamboo pendant light organic result 23",
+      "priceCad": 99.99,
+      "reviews": 88
+    },
+    {
+      "name": "bamboo pendant light organic result 24",
+      "priceCad": 145.99,
+      "reviews": 8
+    },
+    {
+      "name": "bamboo pendant light organic result 25",
+      "priceCad": 155.99,
+      "reviews": 27
+    },
+    {
+      "name": "bamboo pendant light organic result 26",
+      "priceCad": 76.88,
+      "reviews": 0
+    },
+    {
+      "name": "bamboo pendant light organic result 27",
+      "priceCad": 152.14,
+      "reviews": 3
+    },
+    {
+      "name": "bamboo pendant light organic result 28",
+      "priceCad": 79.79,
+      "reviews": 57
+    },
+    {
+      "name": "bamboo pendant light organic result 29",
+      "priceCad": 69.71,
+      "reviews": 255
+    },
+    {
+      "name": "bamboo pendant light organic result 30",
+      "priceCad": 56.99,
+      "reviews": 9
+    },
+    {
+      "name": "bamboo pendant light organic result 31",
+      "priceCad": 155.99,
+      "reviews": 14
+    },
+    {
+      "name": "bamboo pendant light organic result 32",
+      "priceCad": 215.52,
+      "reviews": 26
+    },
+    {
+      "name": "bamboo pendant light organic result 33",
+      "priceCad": 158.99,
+      "reviews": 20
+    },
+    {
+      "name": "bamboo pendant light organic result 34",
+      "priceCad": 67.8,
+      "reviews": 1
+    },
+    {
+      "name": "bamboo pendant light organic result 35",
+      "priceCad": 90,
+      "reviews": 2
+    },
+    {
+      "name": "bamboo pendant light organic result 36",
+      "priceCad": 155,
+      "reviews": 2
+    },
+    {
+      "name": "bamboo pendant light organic result 37",
+      "priceCad": 167.99,
+      "reviews": 2
+    },
+    {
+      "name": "bamboo pendant light organic result 38",
+      "priceCad": 96.71,
+      "reviews": 76
+    },
+    {
+      "name": "bamboo pendant light organic result 39",
+      "priceCad": 278.68,
+      "reviews": 7
+    },
+    {
+      "name": "bamboo pendant light organic result 40",
+      "priceCad": 66.71,
+      "reviews": 14
+    },
+    {
+      "name": "bamboo pendant light organic result 41",
+      "priceCad": 62.39,
+      "reviews": 8
+    },
+    {
+      "name": "bamboo pendant light organic result 42",
+      "priceCad": 149.99,
+      "reviews": 12
+    },
+    {
+      "name": "bamboo pendant light organic result 43",
+      "priceCad": 73.22,
+      "reviews": 6
+    },
+    {
+      "name": "bamboo pendant light organic result 44",
+      "priceCad": 153.05,
+      "reviews": 1
+    },
+    {
+      "name": "bamboo pendant light organic result 45",
+      "priceCad": 43.99,
+      "reviews": 0
+    }
+  ],
+  "dutyRate": 0.07,
+  "verdict": "Priced at CA$74.99, just under the CA$75.42 amazon.ca band median and CA$11.74 under the CA$86.73 RULE 2 ceiling. Contributes CA$31.69/unit on the wholesale basis (7% MFN on value for duty) against the CA$16.23 floor - clears by CA$15.46, the second-widest margin in the Canadian catalogue after the lantern. Supplier cost C$28.21 with a 1.4% list gap, so rule 22 is clear. Per-SKU stock 50 clears rule 4 (>= 25). Top competitor review count 255 in this basket, so the category is not locked. CAUTION: 21 sold on the listing, thinner than the 500-1,000+ behind the dome and saucer; per-SKU depth at 50 is what carried it, and 50 is not 5,771 - re-read stock before any paid push.",
+  "supplierSku": "E",
+  "supplierSkuUnitCap": 50,
+  "supplierSkuUnitCapObservedOn": "2026-09-13",
+  "supplierSkuUnitCapMethod": "Read as skuStock from window._d_c_ lifeCycleEventList[0].data.SKU.skuPaths[] on listing 1005008652215677, joined per-variant to PRICE.skuPriceInfoMap. Per-SKU, not the listing total. Not clamp-tested via the quantity box; skuStock is the same field the lantern and dome caps were read from.",
+  "retailNote": "Priced 2026-09-13 at CA$74.99, in line with the three live pendants - just under the CA$75.42 amazon.ca band median rather than at the CA$86.73 ceiling. Same reasoning as the 2026-09-13 reprice of the live cohort: a store with no reviews facing listings that carry 255+ in this basket is better off inside the band than at the top of it, and at C$28.21 cost the offer does not need the ceiling to clear the floor. At 20 x 20 cm this sits beside the 20 x 23 cm lantern, so pricing them apart would invite the wrong one to be picked on price alone.",
+  "bandMedian": {
+    "basket": "bamboo/rattan pendant, amazon.ca",
+    "medianCad": 75.42,
+    "ceilingCad": 86.73,
+    "rule23": "medianCad is the LOWER of the readings below. The gate re-derives this and fails if it is not the minimum.",
+    "readings": [
+      {
+        "on": "2026-09-13",
+        "medianCad": 75.42,
+        "source": "run 23, amazon.ca basket read earlier the same day. PROVENANCE CAVEAT: this reading was taken before the 8-keyword method below was written down, so its basket composition is not certain to have matched. It is kept because rule 23 takes the LOWER reading and this is the lower one - i.e. including it can only tighten the ceiling, never loosen it. Replace it with a next-day run-24-method reading when one exists."
+      },
+      {
+        "on": "2026-09-13",
+        "medianCad": 77.14,
+        "source": "run 24, amazon.ca page-1 organic, 8 keywords, live DOM read"
+      }
+    ],
+    "method": "amazon.ca page-1 organic per keyword, sponsored rows dropped, prices outside CA$11-CA$540 dropped (the US $8-$400 window scaled at ~1.35); median per keyword, then median of those medians.",
+    "keywords": [
+      {
+        "keyword": "mini bamboo pendant light",
+        "n": 46,
+        "medianCad": 60.98
+      },
+      {
+        "keyword": "rattan globe pendant light",
+        "n": 44,
+        "medianCad": 65.25
+      },
+      {
+        "keyword": "boho rattan pendant light",
+        "n": 46,
+        "medianCad": 69.99
+      },
+      {
+        "keyword": "wicker pendant light",
+        "n": 46,
+        "medianCad": 72.59
+      },
+      {
+        "keyword": "rattan pendant light",
+        "n": 45,
+        "medianCad": 81.69
+      },
+      {
+        "keyword": "woven pendant light",
+        "n": 46,
+        "medianCad": 83.28
+      },
+      {
+        "keyword": "bamboo pendant light",
+        "n": 45,
+        "medianCad": 90
+      },
+      {
+        "keyword": "bamboo lantern pendant light",
+        "n": 47,
+        "medianCad": 91.8
+      }
+    ]
+  },
+  "ourRetailCad": 74.99,
+  "itemCostCad": 28.21,
+  "supplierShipCad": 0
+}

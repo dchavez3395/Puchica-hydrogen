@@ -28,7 +28,8 @@
     "2026-09-10-transit": "FREIGHT COST AND TRANSIT TIME ARE SEPARATE FACTS. Every offer here quotes $1.99 to the United States, which read as one uniform cheap line for weeks. It is not one line. Read per SKU from the DSers Shipping info panel: Style B-Black Base and Style F-Wood Base are AliExpress Selection Standard at 8-14 days; Style C on the same listing is 7-12; the petal's Warm Light-30CM is AliExpress Selection Shipping_OVERSIZED at 33-41 days. Same price, four times the wait. The petal is now held on that reading. Read the LINE and the DAYS, per SKU, not just the cost.",
     "2026-09-13": "THE MARKET SWITCHED TO CANADA. Daniel: \"Canada. i feel like we just complicated things by doing US.\" Every lighting row now carries a routes.CA block read on the day, and its itemCost is a Canadian reading rather than a US one. The US rows are left exactly as they were - the US route evidence is still true, it is the commercial decision above it that changed, and re-entering that market must not require re-reading any of it.",
     "2026-09-13-duty": "Duty on this route is HS 9405.11.00 / 9405.19.00 at 7% MFN on VALUE FOR DUTY, which is the supplier price, against 41.4% on RETAIL for the United States. About CA$2.04 a unit against US$40.57. That gap is the entire reason for the switch: it lifts the maximum supplier cost that still clears the floor from about US$17 to about US$38.",
-    "2026-09-13-not-fixed": "WHAT THE SWITCH DOES NOT FIX, stated so nobody re-derives it hopefully. Canada runs at 120 V with the same plugs as the United States, so all six 220 V fixtures on VOLTAGE_HOLD stay held. The sconce's promotion dependence is a supplier fact rather than a duty one, so COST_HOLD stays: at its C$78.14 list cost its contribution at the banded ceiling is NEGATIVE. And 33-41 day transit is 33-41 days in any market, so TRANSIT_HOLD stays."
+    "2026-09-13-not-fixed": "WHAT THE SWITCH DOES NOT FIX, stated so nobody re-derives it hopefully. Canada runs at 120 V with the same plugs as the United States, so all six 220 V fixtures on VOLTAGE_HOLD stay held. The sconce's promotion dependence is a supplier fact rather than a duty one, so COST_HOLD stays: at its C$78.14 list cost its contribution at the banded ceiling is NEGATIVE. And 33-41 day transit is 33-41 days in any market, so TRANSIT_HOLD stays.",
+    "2026-09-13-sweep": "TWO offers added from the Canadian-gateway sourcing sweep later the same day: slatted-bamboo-pear-pendant-20cm (listing 1005008652215677, Style E, C$28.21 with a 1.4% list gap, stock 50) and tiered-bamboo-pendant-30cm (listing 1005008081008680, 30CM China-mainland SKU, C$47.38 LIST against a C$29.57 sale - a 38% promotion, so rule 22 files the list price and the offer is priced at CA$84.99 to clear the floor at it). Both rows are Canadian-only from the start and carry no US route. Neither product exists in Shopify or DSers yet: these rows are the sourcing reading, and the DSers stable-cost cross-check happens at the mapping step. A third sweep candidate, a woven bamboo table lamp, is NOT here - it is a new category with no amazon.ca band and is not approved."
   },
   "offers": [
     {
@@ -187,6 +188,60 @@
       "itemCostObservedOn": "2026-09-13",
       "itemCostNote": "CANADIAN-GATEWAY price read 2026-09-13: C$20.39. The CAD figure is the reading; the USD figure is DERIVED from it at the 1.4 planning rate for schema compatibility, which is the reverse of every row above. The Canadian gateway is materially cheaper for the same SKU - the dome reads C$32.78 = US$23.41 against US$30.40 on aliexpress.us. Lantern, 20x23cm, 5,771 units. 0 of 11 SKUs carry an originalPrice - standing price, not a promotion.",
       "itemCostCad": 20.39
+    },
+    {
+      "handle": "slatted-bamboo-pear-pendant-20cm",
+      "sku": "200000531:350852#E;249:200006305#Without Bulb",
+      "supplierItemId": "1005008652215677",
+      "supplierItemIdUs": "3256808465900925",
+      "itemCostUsd": 20.15,
+      "voltageNote": "Supplier specification read 2026-09-13: 90-260V, E27, bulb not included.",
+      "routes": {
+        "CA": {
+          "shippingUsd": 0,
+          "shippingCad": 0,
+          "freightListCad": 2.82,
+          "freeOverCad": 10,
+          "eta": "19 days",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard",
+          "shipFrom": "CN",
+          "fulfilment": "cn-direct",
+          "observedOn": "2026-09-13",
+          "source": "Read 2026-09-13 from SHIPPING.deliveryLayoutInfo[0].bizData of listing 1005008652215677 on the .com gateway with a Canadian destination: ship from China, freight free above the C$10 threshold, deliveryDayMax 19. Canadian-only from the start - no US route was read for this offer and none is claimed. tracked:true is carried from the carrier identity, NOT from a tracking number; that needs a placed order."
+        }
+      },
+      "itemCostObservedOn": "2026-09-13",
+      "itemCostNote": "CANADIAN-GATEWAY per-SKU price read 2026-09-13 from PRICE.skuPriceInfoMap: C$28.21 sale against C$28.60 originalPrice, a 1.4% gap, which is rounding rather than a promotion (rule 22 clear). The USD figure is DERIVED at the 1.4 planning rate for schema compatibility. Style E, 20 x 20 cm slatted pear, white base / white wire, skuStock 50 (per-SKU, rule 4), 21 sold on the listing. Sourced from the 2026-09-13 Canadian-gateway sweep; NOT yet in Shopify or DSers, so no DSers stable-cost cross-check exists yet.",
+      "itemCostCad": 28.21
+    },
+    {
+      "handle": "tiered-bamboo-pendant-30cm",
+      "sku": "200000531:193#30CM;200007763:201336100;136:200003939#No Bulb",
+      "supplierItemId": "1005008081008680",
+      "supplierItemIdUs": "3256807894494928",
+      "itemCostUsd": 33.84,
+      "voltageNote": "Supplier specification read 2026-09-13: 90-260V, E27, bulb not included.",
+      "routes": {
+        "CA": {
+          "shippingUsd": 0,
+          "shippingCad": 0,
+          "freightListCad": 2.82,
+          "freeOverCad": 10,
+          "eta": "22 days",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard",
+          "shipFrom": "CN",
+          "fulfilment": "cn-direct",
+          "observedOn": "2026-09-13",
+          "source": "Read 2026-09-13 from SHIPPING.deliveryLayoutInfo[0].bizData of listing 1005008081008680 on the .com gateway with a Canadian destination, China-mainland ship-from SKU: freight free above the C$10 threshold, deliveryDayMax 22. Canadian-only from the start - no US route was read for this offer and none is claimed. tracked:true is carried from the carrier identity, NOT from a tracking number; that needs a placed order."
+        }
+      },
+      "itemCostObservedOn": "2026-09-13",
+      "itemCostNote": "CANADIAN-GATEWAY per-SKU price read 2026-09-13 from PRICE.skuPriceInfoMap: the page SELLS at C$29.57 against a C$47.38 originalPrice, a 38% promotion. RULE 22 makes the LIST price the cost basis, so itemCostCad is 47.38 and the USD figure is DERIVED from it at the 1.4 planning rate. This is the same test that put the sconce on COST_HOLD; the offer survives it because at CA$84.99 it still clears the CA$16.23 floor at the list cost (CA$19.83). 30CM China-mainland ship-from SKU, skuStock 45 (per-SKU, rule 4; the DE/PL ship-from siblings at 48 / 53 are different SKUs and are not summed), 12 sold on the listing. NOT yet in Shopify or DSers, so no DSers stable-cost cross-check exists yet.",
+      "itemCostOriginalCad": 47.38,
+      "itemCostSaleCad": 29.57,
+      "itemCostCad": 47.38
     },
     {
       "handle": "woven-rattan-petal-pendant-30cm",

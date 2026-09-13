@@ -73,6 +73,14 @@ const CA_RETAIL = {
   'hand-woven-bamboo-pendant-light': 74.99,
   'woven-bamboo-dome-pendant': 74.99,
   'slatted-bamboo-lantern-pendant-20cm': 74.99,
+  // The two 2026-09-13 sweep offers. Neither is in Shopify yet, so these are
+  // the prices the evidence files were derived at and the prices to SET on
+  // import, not readings from the Admin API. The pear takes the shared
+  // CA$74.99. The tiered pendant cannot: at CA$74.99 its rule-22 list-cost
+  // contribution is CA$11.18 against the CA$16.23 floor, so it is priced at
+  // CA$84.99, the highest x.99 under the CA$86.73 banded ceiling.
+  'slatted-bamboo-pear-pendant-20cm': 74.99,
+  'tiered-bamboo-pendant-30cm': 84.99,
 };
 
 if (path.resolve(process.argv[1] || '') === scriptPath) {

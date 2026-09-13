@@ -852,6 +852,79 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
     // this number must move in the same edit.
     contributionCad: 40.06,
   }),
+  // Added 2026-09-13 from listing 3256808465900925 (JOYINLED, 21 sold), the
+  // first of two offers from the Canadian-gateway sourcing sweep. Style E:
+  // 20 x 20 cm slatted PEAR - bamboo strips bound over rings into a bulbous
+  // teardrop - on a white base with a white wire. 90-260V, E27, no bulb.
+  // Ship from China, freight free over the C$10 threshold, deliveryDayMax 19.
+  //
+  // RULE 18 is the whole reason this is the variant. The listing also sells
+  // Style D, a 16 x 30 cm straight cylinder, which is the same silhouette as
+  // slatted-bamboo-lantern-pendant-20cm two entries up and was rejected as a
+  // second straight lantern. The pear is a different shape on the wall, not a
+  // different size of the same one.
+  //
+  // RULE 22 clear: C$28.21 sale against C$28.60 list is a 1.4% gap, which is
+  // rounding rather than a promotion, so the sale price is the cost basis.
+  // Per-SKU stock 50 clears rule 4 (>= 25), and it is the per-SKU skuStock
+  // figure, not the listing total.
+  Object.freeze({
+    handle: 'slatted-bamboo-pear-pendant-20cm',
+    sku: '200000531:350852#E;249:200006305#Without Bulb',
+    // NOT YET MAPPED IN DSERS. The product does not exist in Shopify yet; this
+    // is the listing the order must reach when it does. Verify per the method
+    // above once the Shopify product is imported and mapped.
+    supplierProductId: '1005008652215677',
+    markets: Object.freeze(['CA']),
+    // CANADIAN CONTRIBUTION, 2026-09-13. One figure, not a pair: CBSA assesses
+    // 7% MFN on value for duty (the supplier price), so there is no second
+    // basis to be uncertain between. Derived from this offer's undercut
+    // evidence by scripts/check-contribution-derivation.mjs (RULE 26), which
+    // fails on more than a cent of drift - so if the price or the cost moves,
+    // this number must move in the same edit.
+    contributionCad: 31.69,
+  }),
+  // Added 2026-09-13 from listing 3256807894494928 (12 sold), the second offer
+  // from the same sweep. 30 x 30 cm three-tier stepped woven drum, the largest
+  // piece in the Canadian range and a shape nothing live shares (rule 18):
+  // saucer, dome, straight lantern, pear, and now a stepped drum. 90-260V,
+  // E27, no bulb. China-mainland ship-from SKU, deliveryDayMax 22.
+  //
+  // RULE 22 IS THE STORY HERE, AND THE OFFER SURVIVES IT. The page sells this
+  // SKU at C$29.57 against a C$47.38 originalPrice - a 38% promotion. That is
+  // the same test that put the sconce on COST_HOLD (52% off a C$78.14 list),
+  // and it is applied the same way: the LIST price is the cost basis, so the
+  // evidence files itemCostCad 47.38 and the contribution below derives from
+  // it. The difference from the sconce is only that this one still clears the
+  // CA$16.23 floor at list. The promotion, if it holds on a real order, is
+  // upside the model does not count.
+  //
+  // PRICED AT CA$84.99, NOT THE CA$74.99 THE OTHER PENDANTS CARRY. At CA$74.99
+  // the list-cost contribution is CA$11.18, CA$5.05 under the floor, so the
+  // shared price is not available to it. CA$84.99 is the highest x.99 under
+  // the CA$86.73 banded ceiling and files CA$19.83 - thin, and the thinnest in
+  // the catalogue. If the list price moves up by more than about C$3.90 this
+  // comes off; re-read cost before any paid push.
+  //
+  // Per-SKU stock 45 on the China-mainland SKU (rule 4). The DE and PL
+  // ship-from siblings read 48 and 53 and are different SKUs - do not sum them.
+  Object.freeze({
+    handle: 'tiered-bamboo-pendant-30cm',
+    sku: '200000531:193#30CM;200007763:201336100;136:200003939#No Bulb',
+    // NOT YET MAPPED IN DSERS. The product does not exist in Shopify yet; this
+    // is the listing the order must reach when it does. Verify per the method
+    // above once the Shopify product is imported and mapped.
+    supplierProductId: '1005008081008680',
+    markets: Object.freeze(['CA']),
+    // CANADIAN CONTRIBUTION, 2026-09-13. One figure, not a pair: CBSA assesses
+    // 7% MFN on value for duty (the supplier price), so there is no second
+    // basis to be uncertain between. Derived from this offer's undercut
+    // evidence by scripts/check-contribution-derivation.mjs (RULE 26), which
+    // fails on more than a cent of drift - so if the price or the cost moves,
+    // this number must move in the same edit. Derived at the LIST cost of
+    // C$47.38 (rule 22), not the C$29.57 promotional price.
+    contributionCad: 19.83,
+  }),
   // Added 2026-09-10, from listing 3256812550446681 (LINCCW, 1,000+ sold,
   // 90-260V, $1.99 shipping). Woven rattan petal shade, the most sculptural
   // piece in the range, and the ONLY offer that ships with a bulb - light

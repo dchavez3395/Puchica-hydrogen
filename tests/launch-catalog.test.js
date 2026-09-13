@@ -280,10 +280,16 @@ test('product market resolution fails closed on an empty catalogue', () => {
   // for on the remaining six. A held offer
   // that leaks into discovery is a product page for a fixture we will not
   // ship, which is worse than one that never appeared.
+  //
+  // Five from 2026-09-13: the pear and the tiered pendant were approved from
+  // the Canadian-gateway sourcing sweep. Neither exists in Shopify yet, so
+  // discovery expecting them is the contract for the import, not a reading.
   assert.deepEqual(DISCOVERABLE_PRODUCT_HANDLES, [
     'hand-woven-bamboo-pendant-light',
     'woven-bamboo-dome-pendant',
     'slatted-bamboo-lantern-pendant-20cm',
+    'slatted-bamboo-pear-pendant-20cm',
+    'tiered-bamboo-pendant-30cm',
   ]);
   for (const offer of VOLTAGE_HOLD_CATALOG_OFFERS) {
     assert.ok(
@@ -733,6 +739,8 @@ test('a suspended market closes commerce without erasing route evidence', () => 
     'hand-woven-bamboo-pendant-light',
     'woven-bamboo-dome-pendant',
     'slatted-bamboo-lantern-pendant-20cm',
+    'slatted-bamboo-pear-pendant-20cm',
+    'tiered-bamboo-pendant-30cm',
   ]);
   for (const archived of ARCHIVED_CATALOG_OFFERS) {
     assert.ok(
@@ -757,9 +765,11 @@ test('approved handles and SKUs derive from one exact-offer cohort', () => {
     ]);
   }
 
-  // THE MARKET FLIPPED ON 2026-09-13. Canada now carries the three approved
-  // offers and the United States carries nothing. Daniel's words: "Canada. i
-  // feel like we just complicated things by doing US."
+  // THE MARKET FLIPPED ON 2026-09-13. Canada now carries the approved offers
+  // - three at the switch, five by the end of the day once the pear and the
+  // tiered pendant cleared the Canadian-gateway sourcing sweep - and the
+  // United States carries nothing. Daniel's words: "Canada. i feel like we
+  // just complicated things by doing US."
   //
   // The reason is the duty stack, and it is not a close call. The US route is
   // 41.4% assessed on RETAIL (HTS 9405.11.80: 3.9% + 25% Section 301 + 12.5%
@@ -780,8 +790,10 @@ test('approved handles and SKUs derive from one exact-offer cohort', () => {
     'hand-woven-bamboo-pendant-light',
     'woven-bamboo-dome-pendant',
     'slatted-bamboo-lantern-pendant-20cm',
+    'slatted-bamboo-pear-pendant-20cm',
+    'tiered-bamboo-pendant-30cm',
   ]);
-  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.CA.length, 3);
+  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.CA.length, 5);
 
   // A US offer crosses the suspended cn-direct route, so it must carry BOTH
   // duty scenarios and both must be positive - the watch-roll cohort died
@@ -1127,6 +1139,12 @@ test('every offer records the supplier an order would actually reach', () => {
     'hand-woven-bamboo-pendant-light': '1005004093257950',
     'woven-bamboo-dome-pendant': '1005008639319927',
     'slatted-bamboo-lantern-pendant-20cm': '1005004341913414',
+    // The two 2026-09-13 sweep offers. These are the listings the evidence
+    // was read from, NOT yet a DSers reading: neither product exists in
+    // Shopify, so there is no mapping to verify. Re-verify against the
+    // detail endpoint once each is imported and mapped.
+    'slatted-bamboo-pear-pendant-20cm': '1005008652215677',
+    'tiered-bamboo-pendant-30cm': '1005008081008680',
   };
   for (const offer of APPROVED_CATALOG_OFFERS) {
     assert.ok(

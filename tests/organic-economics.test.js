@@ -76,7 +76,7 @@ const completeBaseline = {
         US: {shippingUsd: 4.15, tracked: true},
       },
     },
-    // The live cohort: five bamboo lighting offers, evidenced for CANADA as of
+    // The live cohort: seven bamboo lighting offers, evidenced for CANADA as of
     // 2026-09-13. Costs are the Canadian-gateway readings converted at the
     // 1.352 planning rate and match exact-offer-cost-route-baseline-2026-09-13
     // on disk; supplier shipping is 0 because Canadian freight is free above
@@ -98,6 +98,11 @@ const completeBaseline = {
       ['plug-in-bamboo-sconce-swing-arm', '200000795:175#US PLUG-DIM switch;249:200006305#no light', 25.5],
       ['woven-bamboo-dome-pendant', '200000531:365458#Style F-Wood Base;5:361386#No bulb', 24.24],
       ['slatted-bamboo-lantern-pendant-20cm', '200000531:350852#20x23cm', 15.08],
+      // The two 2026-09-13 sweep offers. The tiered pendant's cost is the
+      // C$47.38 LIST price (rule 22: the page sells at a 38% promotion), not
+      // the C$29.57 it happens to sell at.
+      ['slatted-bamboo-pear-pendant-20cm', '200000531:350852#E;249:200006305#Without Bulb', 20.87],
+      ['tiered-bamboo-pendant-30cm', '200000531:193#30CM;200007763:201336100;136:200003939#No Bulb', 35.04],
       ['woven-rattan-petal-pendant-30cm', '200000531:175#30CM;136:200003939#Warm Light', 39.59],
     ].map(([handle, sku, itemCostUsd, shippingUsd = 0]) => ({
       handle,

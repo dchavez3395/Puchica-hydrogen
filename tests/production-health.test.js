@@ -43,10 +43,19 @@ test('production monitor shares the verified market cohorts', () => {
   // From Shopify, tagged dsers-mapped and set ACTIVE, and came back here.
   // This list and the live storefront must agree; if the lantern ever drops
   // out of Shopify again, move it to a hold list rather than editing this.
+  //
+  // Five, later on 2026-09-13. The pear and the tiered pendant were approved
+  // from the Canadian-gateway sourcing sweep and are NOT yet in Shopify, so
+  // the monitor WILL fail post-deploy until both are imported, mapped in
+  // DSers, tagged and set ACTIVE. That is the intended order: the repo states
+  // the cohort first and the storefront is brought up to it, exactly as the
+  // lantern was earlier the same day.
   assert.deepEqual(EXPECTED_HANDLES_BY_MARKET.CA, [
     'hand-woven-bamboo-pendant-light',
     'woven-bamboo-dome-pendant',
     'slatted-bamboo-lantern-pendant-20cm',
+    'slatted-bamboo-pear-pendant-20cm',
+    'tiered-bamboo-pendant-30cm',
   ]);
 
   // Discovery follows the live cohort. The seven previous handles were deleted

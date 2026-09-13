@@ -35,6 +35,8 @@ export const LAUNCH_COPY_PREFIX = {
   'woven-bamboo-drum-chandelier-30cm': 'product_copy_bamboodrum',
   'woven-bamboo-wide-brim-chandelier-30cm': 'product_copy_bamboobrim',
   'slatted-bamboo-lantern-pendant-20cm': 'product_copy_slattedlantern20',
+  'slatted-bamboo-pear-pendant-20cm': 'product_copy_slattedpear20',
+  'tiered-bamboo-pendant-30cm': 'product_copy_tieredpendant30',
   'woven-rattan-petal-pendant-30cm': 'product_copy_rattanpetal30',
 };
 

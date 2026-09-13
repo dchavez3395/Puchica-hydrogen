@@ -322,12 +322,19 @@ test('the open Canadian market is scored, and it blocks paid spend', () => {
     now: new Date('2026-09-13T00:00:00Z'),
   });
   assert.equal(isMarketSuspended('CA'), false, 'CA is the open market');
-  assert.equal(result.rows.length, 3, 'the three approved offers are scored');
+  // Five from later on 2026-09-13: the pear (CA$74.99) and the tiered pendant
+  // (CA$84.99, the first offer priced near the ceiling rather than the
+  // median, because at CA$74.99 its list-cost contribution sits under the
+  // floor) joined the three. Both still block: the tiered pendant at list
+  // cost is the thinnest row in the table.
+  assert.equal(result.rows.length, 5, 'the five approved offers are scored');
   assert.deepEqual(
     result.rows.map((row) => row.handle).sort(),
     [
       'hand-woven-bamboo-pendant-light',
       'slatted-bamboo-lantern-pendant-20cm',
+      'slatted-bamboo-pear-pendant-20cm',
+      'tiered-bamboo-pendant-30cm',
       'woven-bamboo-dome-pendant',
     ],
     'exactly the approved cohort, so a held offer cannot be scored into paid spend',
@@ -335,7 +342,7 @@ test('the open Canadian market is scored, and it blocks paid spend', () => {
   assert.deepEqual(result.failures, [], 'the gate read its inputs cleanly');
   assert.equal(
     result.blocking.length,
-    3,
+    5,
     'every offer is short of the target CPA and must block a paid build',
   );
   for (const row of result.rows) {
