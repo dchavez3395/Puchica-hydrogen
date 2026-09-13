@@ -57,17 +57,41 @@ export const loadEvidence = (handle) => {
  * order and the Canadian free-over rule otherwise.
  */
 export function deriveContributions(ev) {
-  const retail = Number(ev.ourRetailUsd);
-  const itemCost = Number(ev.itemCostUsd);
-  const supplierShip = Number(ev.supplierShipUsd);
-  const dutyRate = Number(ev.dutyRate);
-  const market = ev.market;
-  const base = {retail, itemCost, supplierShip, dutyRate, market};
+  const market = String(ev.market || '').toUpperCase();
+  const cur = market === 'CA' ? 'Cad' : 'Usd';
+  const base = {
+    retail: Number(ev[`ourRetail${cur}`]),
+    itemCost: Number(ev[`itemCost${cur}`]),
+    supplierShip: Number(ev[`supplierShip${cur}`]),
+    dutyRate: Number(ev.dutyRate),
+    market,
+  };
+
+  // CANADA HAS ONE BASIS, NOT TWO. Added 2026-09-13. The prepaid/billed pair
+  // exists only because nobody can say whether the US duty is inside the
+  // supplier price or lands on top - an unresolved fact, filed as two numbers
+  // so the weaker one can bind. CBSA assesses 7% MFN on value for duty, which
+  // IS the supplier price, so there is nothing to be uncertain between.
+  // Deriving a second Canadian figure would be inventing a question.
+  if (market === 'CA') {
+    return {
+      wholesale: contribution({...base, basis: 'wholesale', carrier: 0}),
+    };
+  }
   return {
     prepaid: contribution({...base, basis: 'prepaid', carrier: 0}),
     billed: contribution({...base, basis: 'retail', carrier: CHOICE_LINE_DISBURSEMENT}),
   };
 }
+
+/** Which filed field(s) a market's offers must carry, and what to call them. */
+export const FILED_FIELDS = Object.freeze({
+  CA: Object.freeze([['wholesale', 'contributionCad', 'CA$']]),
+  US: Object.freeze([
+    ['prepaid', 'dutyPrepaidContributionUsd', '$'],
+    ['billed', 'dutyBilledContributionUsd', '$'],
+  ]),
+});
 
 export function auditDerivation(offers = APPROVED_CATALOG_OFFERS, load = loadEvidence) {
   const failures = [];
@@ -81,40 +105,49 @@ export function auditDerivation(offers = APPROVED_CATALOG_OFFERS, load = loadEvi
       continue;
     }
 
-    const required = ['ourRetailUsd', 'itemCostUsd', 'supplierShipUsd', 'dutyRate'];
-    const missing = required.filter((k) => !Number.isFinite(Number(ev[k])));
-    if (missing.length) {
-      failures.push(`${handle}: evidence is missing ${missing.join(', ')} - cannot derive the contribution pair.`);
+    if (!ev.market) {
+      failures.push(`${handle}: evidence has no market. contribution() collects different shipping per market, so omitting it silently changes every figure.`);
       continue;
     }
-    if (!ev.market) {
-      failures.push(`${handle}: evidence has no market. contribution() collects different shipping per market, so omitting it silently changes both figures.`);
+    const market = String(ev.market).toUpperCase();
+    const spec = FILED_FIELDS[market];
+    if (!spec) {
+      failures.push(`${handle}: evidence names market ${market}, which this gate has no filed-field mapping for.`);
+      continue;
+    }
+    const cur = market === 'CA' ? 'Cad' : 'Usd';
+    const sym = market === 'CA' ? 'CA$' : '$';
+
+    const required = [`ourRetail${cur}`, `itemCost${cur}`, `supplierShip${cur}`, 'dutyRate'];
+    const missing = required.filter((k) => !Number.isFinite(Number(ev[k])));
+    if (missing.length) {
+      failures.push(`${handle}: evidence is missing ${missing.join(', ')} - cannot derive the contribution for market ${market}.`);
       continue;
     }
 
     const derived = deriveContributions(ev);
-    const filed = {
-      prepaid: Number(offer.dutyPrepaidContributionUsd),
-      billed: Number(offer.dutyBilledContributionUsd),
-    };
 
-    for (const basis of ['prepaid', 'billed']) {
-      if (!Number.isFinite(filed[basis])) {
-        failures.push(`${handle}: duty${basis === 'prepaid' ? 'Prepaid' : 'Billed'}ContributionUsd is not a number.`);
+    for (const [basis, field] of spec) {
+      const filed = Number(offer[field]);
+      if (!Number.isFinite(filed)) {
+        failures.push(`${handle}: ${field} is not a number, and market ${market} requires it.`);
         continue;
       }
-      const drift = Math.abs(filed[basis] - derived[basis]);
+      const drift = Math.abs(filed - derived[basis]);
       if (drift > DERIVATION_TOLERANCE_USD) {
         failures.push(
-          `${handle}: ${basis} contribution is filed as $${filed[basis].toFixed(2)} but derives to $${derived[basis].toFixed(2)} from the evidence ` +
-            `(retail $${Number(ev.ourRetailUsd).toFixed(2)}, cost $${Number(ev.itemCostUsd).toFixed(2)}). ` +
-            `A price moved and the pair did not move with it - fix the pair in the same edit, do not widen the tolerance.`,
+          `${handle}: ${basis} contribution is filed as ${sym}${filed.toFixed(2)} but derives to ${sym}${derived[basis].toFixed(2)} from the evidence ` +
+            `(retail ${sym}${Number(ev[`ourRetail${cur}`]).toFixed(2)}, cost ${sym}${Number(ev[`itemCost${cur}`]).toFixed(2)}). ` +
+            `A price moved and the filed figure did not move with it - fix it in the same edit, do not widen the tolerance.`,
         );
       }
     }
 
     if (!failures.some((f) => f.startsWith(`${handle}:`))) {
-      notes.push(`${handle}: prepaid $${derived.prepaid.toFixed(2)} / billed $${derived.billed.toFixed(2)} at $${Number(ev.ourRetailUsd).toFixed(2)} - matches the catalogue.`);
+      const shown = spec
+        .map(([basis]) => `${basis} ${sym}${derived[basis].toFixed(2)}`)
+        .join(' / ');
+      notes.push(`${handle}: ${shown} at ${sym}${Number(ev[`ourRetail${cur}`]).toFixed(2)} - matches the catalogue.`);
     }
   }
 

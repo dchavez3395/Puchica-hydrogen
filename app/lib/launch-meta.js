@@ -26,53 +26,68 @@
  * prepared to ship.
  */
 const COPY = {
+  // MARKET COPY, rewritten 2026-09-13 when the store moved to Canada. The CA
+  // and US halves swapped roles: Canada now describes an open shop and the
+  // United States describes a closed one.
+  //
+  // Two things were corrected rather than swapped. The old US copy named "a
+  // plug-in bamboo swing-arm sconce" - that fixture has been on COST_HOLD and
+  // DRAFT throughout, so the shop description has been naming a product nobody
+  // could buy. And the closed-market copy now says the market is closed rather
+  // than that we are "restocking", because nothing is being restocked and a
+  // shared link previewing a false reason is worse than one previewing none.
+  //
+  // "Two fixtures" is the live ACTIVE count: the saucer and the dome. The
+  // lantern sits in FULFILMENT_HOLD_CATALOG_OFFERS (DRAFT, no DSers mapping),
+  // so it is deliberately not counted here. Update this number when it goes
+  // live.
   en: {
     homeTitle: 'Puchica — Woven bamboo lighting',
     homeCa:
-      'Shopping is paused while we verify product and checkout details. Nothing is listed for sale right now. Questions? hello@puchica.ca',
+      'Woven bamboo pendant lighting, shipped across Canada. Two fixtures listed today. Questions? hello@puchica.ca',
     homeUs:
-      'Woven bamboo pendant and plug-in wall lighting, shipped to the United States. Two fixtures listed today. Questions? hello@puchica.ca',
+      'We are not shipping to the United States at the moment, so nothing is listed for sale there. Questions? hello@puchica.ca',
     shopTitle: 'Shop Woven Bamboo Lighting — Puchica',
     shopCa:
-      'We are restocking. Nothing is listed right now — check back shortly, or email hello@puchica.ca.',
+      'Woven bamboo pendant lights, hand-knitted over wooden ceiling bases. Bulbs not included; delivery estimates shown at checkout.',
     shopUs:
-      'A woven bamboo pendant light and a plug-in bamboo swing-arm sconce. Bulbs not included; delivery estimates shown at checkout.',
+      'Not currently available in the United States. Email hello@puchica.ca if you would like to know when that changes.',
   },
   fr: {
     homeTitle: 'Puchica — Luminaires en bambou tressé',
     homeCa:
-      'Les achats sont en pause pendant que nous vérifions les détails des produits et du paiement. Rien n’est en vente pour le moment. Questions : hello@puchica.ca',
+      'Suspensions en bambou tressé, livrées partout au Canada. Deux luminaires en ligne aujourd’hui. Questions : hello@puchica.ca',
     homeUs:
-      'Suspension en bambou tressé et applique à brancher, livrées aux États-Unis. Deux luminaires en ligne aujourd’hui. Questions : hello@puchica.ca',
+      'Nous ne livrons pas aux États-Unis pour le moment ; rien n’y est donc en vente. Questions : hello@puchica.ca',
     shopTitle: 'Magasiner les luminaires en bambou tressé — Puchica',
     shopCa:
-      'Nous réapprovisionnons. Rien n’est en ligne pour le moment — revenez bientôt ou écrivez à hello@puchica.ca.',
+      'Des suspensions en bambou tressé, tricotées à la main sur des bases de plafond en bois. Ampoules non fournies ; estimations de livraison affichées au paiement.',
     shopUs:
-      'Une suspension en bambou tressé et une applique en bambou à bras articulé, à brancher. Ampoules non fournies ; estimations de livraison affichées au paiement.',
+      'Non disponible aux États-Unis pour le moment. Écrivez à hello@puchica.ca pour savoir quand cela changera.',
   },
   es: {
     homeTitle: 'Puchica — Iluminación en bambú tejido',
     homeCa:
-      'Las compras están en pausa mientras verificamos los detalles de los productos y del pago. Ahora mismo no hay nada a la venta. ¿Preguntas? hello@puchica.ca',
+      'Lámparas colgantes de bambú tejido, con envío a todo Canadá. Hoy hay dos luminarias publicadas. ¿Preguntas? hello@puchica.ca',
     homeUs:
-      'Lámpara colgante de bambú tejido y aplique enchufable, con envío a Estados Unidos. Hoy hay dos luminarias publicadas. ¿Preguntas? hello@puchica.ca',
+      'Por ahora no enviamos a Estados Unidos, así que no hay nada a la venta allí. ¿Preguntas? hello@puchica.ca',
     shopTitle: 'Compra iluminación en bambú tejido — Puchica',
     shopCa:
-      'Estamos reabasteciendo. Ahora mismo no hay nada publicado: vuelve pronto o escríbenos a hello@puchica.ca.',
+      'Lámparas colgantes de bambú tejido, tejidas a mano sobre bases de techo de madera. Bombillas no incluidas; estimaciones de entrega al pagar.',
     shopUs:
-      'Una lámpara colgante de bambú tejido y un aplique de bambú con brazo articulado, enchufable. Bombillas no incluidas; estimaciones de entrega al pagar.',
+      'No disponible en Estados Unidos por ahora. Escríbenos a hello@puchica.ca si quieres saber cuándo cambie.',
   },
   'pt-br': {
     homeTitle: 'Puchica — Iluminação em bambu tecido',
     homeCa:
-      'As compras estão pausadas enquanto verificamos os detalhes dos produtos e do checkout. No momento não há nada à venda. Dúvidas? hello@puchica.ca',
+      'Pendentes de bambu tecido, com envio para todo o Canadá. Hoje há duas luminárias publicadas. Dúvidas? hello@puchica.ca',
     homeUs:
-      'Pendente de bambu tecido e arandela de tomada, com envio para os Estados Unidos. Hoje há duas luminárias publicadas. Dúvidas? hello@puchica.ca',
+      'No momento não enviamos para os Estados Unidos, portanto não há nada à venda lá. Dúvidas? hello@puchica.ca',
     shopTitle: 'Compre iluminação em bambu tecido — Puchica',
     shopCa:
-      'Estamos reabastecendo. No momento não há nada publicado — volte em breve ou escreva para hello@puchica.ca.',
+      'Pendentes de bambu tecido, tecidos à mão sobre bases de teto em madeira. Lâmpadas não inclusas; estimativas de entrega no pagamento.',
     shopUs:
-      'Um pendente de bambu tecido e uma arandela de bambu com braço articulado, de tomada. Lâmpadas não inclusas; estimativas de entrega no pagamento.',
+      'Indisponível nos Estados Unidos no momento. Escreva para hello@puchica.ca para saber quando isso mudar.',
   },
 };
 

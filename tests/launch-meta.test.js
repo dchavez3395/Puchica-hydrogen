@@ -57,25 +57,23 @@ test('launch metadata falls back to English', () => {
  * reopens it to write real market copy instead of inheriting the holding text.
  */
 test('an open market and a suspended one must not share launch copy', () => {
-  // This asserted the mirror of itself until 2026-09-09: while every market
-  // was suspended the two descriptions had to be IDENTICAL, because neither
-  // had anything to say. The United States reopened with the bamboo lighting
-  // cohort, so the requirement inverts - an open market that still serves the
-  // 'shopping is paused' description is a shared link previewing as closed
-  // over a storefront that is selling.
-  assert.equal(
-    Object.prototype.hasOwnProperty.call(SUSPENDED_COMMERCE_MARKETS, 'CA'),
-    true,
-    'CA suspended is the precondition for the distinctness required below',
+  // The rule is symmetric and has outlived three reversals of which market is
+  // which: whichever market is OPEN must not serve the 'shopping is paused'
+  // description, because a shared link would preview as closed over a
+  // storefront that is selling. On 2026-09-13 the pair swapped again, CA open
+  // and US shut, which is why the assertions below name neither country - they
+  // read the market table and derive the rest.
+  const open = ['CA', 'US'].filter(
+    (m) => !Object.prototype.hasOwnProperty.call(SUSPENDED_COMMERCE_MARKETS, m),
   );
-  assert.equal(
-    Object.prototype.hasOwnProperty.call(SUSPENDED_COMMERCE_MARKETS, 'US'),
-    false,
-    'US is open: if it closes again, restore the identical-copy assertion',
+  const shut = ['CA', 'US'].filter((m) =>
+    Object.prototype.hasOwnProperty.call(SUSPENDED_COMMERCE_MARKETS, m),
   );
+  assert.deepEqual(open, ['CA'], 'CA is the open market as of 2026-09-13');
+  assert.deepEqual(shut, ['US'], 'US is the suspended market as of 2026-09-13');
   assert.ok(
     APPROVED_CATALOG_OFFERS.length > 0,
-    'the US reopened with nothing approved: the catalogue and the market table disagree',
+    'an open market with nothing approved means the catalogue and the market table disagree',
   );
 
   for (const locale of LOCALES) {
@@ -95,10 +93,17 @@ test('an open market and a suspended one must not share launch copy', () => {
     // named availability would be wrong in one market or the other.
     assert.equal(ca.home.title, us.home.title, locale);
     assert.equal(ca.shop.title, us.shop.title, locale);
-    // The open market must not be describing itself as closed.
-    assert.doesNotMatch(us.home.description, /paus|pausad|en pause/i, locale);
+    // The open market must not be describing itself as closed. Resolved from
+    // the market table rather than written down, so this keeps testing the
+    // right country the next time the pair swaps.
+    const openCopy = open[0] === 'CA' ? ca : us;
     assert.doesNotMatch(
-      us.shop.description,
+      openCopy.home.description,
+      /paus|pausad|en pause/i,
+      locale,
+    );
+    assert.doesNotMatch(
+      openCopy.shop.description,
       /restock|réapprovision|reabastec/i,
       locale,
     );

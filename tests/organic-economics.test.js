@@ -76,28 +76,34 @@ const completeBaseline = {
         US: {shippingUsd: 4.15, tracked: true},
       },
     },
-    // The live cohort: five bamboo lighting offers evidenced for the United
-    // States. All cn-direct, all crossing the suspended route on a positive
-    // per-offer duty contribution. Costs and the $1.99 supplier ship match
-    // exact-offer-cost-route-baseline-2026-09-10.json on disk.
+    // The live cohort: five bamboo lighting offers, evidenced for CANADA as of
+    // 2026-09-13. Costs are the Canadian-gateway readings converted at the
+    // 1.352 planning rate and match exact-offer-cost-route-baseline-2026-09-13
+    // on disk; supplier shipping is 0 because Canadian freight is free above
+    // C$10 and every one of these clears it.
     //
-    // Two of these rows changed on 2026-09-10 rather than being added. The
+    // The route key is the part that matters here. It was US until 2026-09-13,
+    // and auditBaseline demands a route for the market an offer is approved in
+    // and rejects routes for markets it is not - so a fixture left on US does
+    // not merely go stale, it reports the live cohort as unevidenced. Moving
+    // the market means moving this fixture in the same commit.
+    //
+    // Two of these rows changed on 2026-09-10 rather than being added: the
     // 36cm pendant was re-mapped off a wide-brim hat shade its own photography
-    // never showed, which halved its cost; and the dome came off the voltage
-    // hold onto a 90-260V listing of the same shade. So a handle moving
-    // between the approved and held blocks here is expected, and the fixture
-    // has to move with it or auditBaseline reports the drift as missing rows.
+    // never showed, and the dome came off the voltage hold onto a 90-260V
+    // listing of the same shade. A handle moving between the approved and held
+    // blocks is expected, and the fixture has to move with it.
     ...[
-      ['hand-woven-bamboo-pendant-light', '200000531:200004889#Style F - Wood Base;200007763:201336100;5:100014064#Ship with 24h', 23.49],
-      ['plug-in-bamboo-sconce-swing-arm', '200000795:175#US PLUG-DIM switch;249:200006305#no light', 23.91],
-      ['woven-bamboo-dome-pendant', '200000531:365458#Style F-Wood Base;5:361386#No bulb', 30.4],
-      ['slatted-bamboo-lantern-pendant-20cm', '200000531:350852#20x23cm', 13.38],
+      ['hand-woven-bamboo-pendant-light', '200000531:200004889#Style F - Wood Base;200007763:201336100;5:100014064#Ship with 24h', 21.58],
+      ['plug-in-bamboo-sconce-swing-arm', '200000795:175#US PLUG-DIM switch;249:200006305#no light', 25.5],
+      ['woven-bamboo-dome-pendant', '200000531:365458#Style F-Wood Base;5:361386#No bulb', 24.24],
+      ['slatted-bamboo-lantern-pendant-20cm', '200000531:350852#20x23cm', 15.08],
       ['woven-rattan-petal-pendant-30cm', '200000531:175#30CM;136:200003939#Warm Light', 39.59],
-    ].map(([handle, sku, itemCostUsd, shippingUsd = 1.99]) => ({
+    ].map(([handle, sku, itemCostUsd, shippingUsd = 0]) => ({
       handle,
       sku,
       itemCostUsd,
-      routes: {US: {shippingUsd, tracked: true}},
+      routes: {CA: {shippingUsd, tracked: true}},
     })),
     // The six offers still held on the 220 V reading. They carry cost and
     // route evidence so that releasing them needs a supplier confirmation
@@ -115,7 +121,13 @@ const completeBaseline = {
       handle,
       sku,
       itemCostUsd,
-      routes: {US: {shippingUsd: 1.99, tracked: true}},
+      // CA since 2026-09-13, like the approved block. Their costs are still
+      // the US-gateway readings because nobody re-read a held offer, and that
+      // is correct: a held offer's evidence is frozen at the moment it was
+      // held, and re-reading it would imply it is a candidate again. Canada
+      // runs at 120 V exactly like the United States, so the 220 V reading
+      // that holds all six is not affected by the market change at all.
+      routes: {CA: {shippingUsd: 1.99, tracked: true}},
     })),
     // The retired 2026-09-01 watch-roll cohort: United States only, cn-direct,
     // crossing the suspended route on a modelled duty contribution. Costs and
@@ -247,7 +259,17 @@ test('the newest dated baseline on disk is the one that gets read', () => {
 test('an evidence directory with no baseline throws rather than passing', () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'puchica-baseline-empty-'));
 
-  assert.throws(() => resolveBaselinePath(dir), /No exact cost\/route baseline/);
+  assert.throws(() => resolveBaselinePath(dir), /No dated evidence file found/);
+
+  // The resolver took a `prefix` argument on 2026-09-13 so the acquisition
+  // gate could stop naming its benchmark file outright. A second caller means
+  // a second way to get this wrong, so assert the missing-file path fails
+  // loudly for a non-default prefix too rather than resolving to whatever
+  // happens to sort last.
+  assert.throws(
+    () => resolveBaselinePath(dir, 'acquisition-benchmark-'),
+    /acquisition-benchmark-YYYY-MM-DD\.json/,
+  );
 });
 
 test('a baseline filename that disagrees with its evidenceDate fails closed', () => {
@@ -283,16 +305,13 @@ test('an undated baseline filename fails closed', () => {
 });
 
 test('route evidence is demanded only for what can actually be sold', () => {
-  // This asserted "the US market is suspended, so US routes are not demanded"
-  // until 2026-09-01, when the de minimis evidence was rescoped from the US
-  // MARKET to the cn-direct ROUTE into it. The principle it was protecting is
-  // unchanged: the gate must not force a DSers trip for something nobody can
-  // buy. What changed is which offers that covers. The archived cohort ships
-  // cn-direct with no duty override and Canada is suspended outright, so
-  // neither market may demand route evidence for them.
-  // As of 2026-09-09 the United States is open with exactly two approved
-  // offers, so this test finally gets to assert BOTH halves of its rule in one
-  // place instead of one half here and the other in launch-catalog.test.js.
+  // The principle has survived three market reversals now - CA open, then US
+  // open, then CA again on 2026-09-13 - without changing once: the gate must
+  // not force a DSers trip for something nobody can buy, and must always force
+  // one for something they can. Only the cast changes. That is the argument
+  // for asserting it against APPROVED_CATALOG_OFFERS rather than against a
+  // named market, which is what this test does and why it has needed no
+  // rewriting through any of those reversals, only a fixture that keeps up.
   //
   // NEGATIVE HALF: strip the routes from everything that is not approved -
   // the archived cn-direct cohort, the Canada-only compression rows, the
@@ -322,20 +341,30 @@ test('route evidence is demanded only for what can actually be sold', () => {
     approved.has(`${offer.handle}\u0000${offer.sku}`),
   );
   assert.ok(live, 'fixture must contain an approved offer to gut');
-  delete live.routes.US;
+  // Delete every route rather than a named one. Naming 'US' here is what broke
+  // this test on 2026-09-13: the approved offers moved to CA, so deleting a US
+  // route removed nothing, the offer kept its evidence, and the positive half
+  // of the rule silently stopped being tested while still reporting green.
+  live.routes = {};
   const gapped = auditBaseline(gutted, new Date('2026-08-15T00:00:00Z'));
+  // Match on the handle and the shape of the complaint, not on a market name.
+  // A hard-coded 'US' here passed for months and then quietly stopped meaning
+  // anything the day the cohort moved to Canada - the gate was still right,
+  // the assertion had just gone looking for a sentence nobody was saying.
   assert.ok(
-    gapped.some((f) => f.includes(`Missing tracked US route for ${live.handle}`)),
+    gapped.some((f) =>
+      new RegExp(`Missing tracked [A-Z]{2} route for ${live.handle}`).test(f),
+    ),
     `a sellable offer with no route must fail: ${gapped.join('; ')}`,
   );
 
   // The positive half above was parked in tests/launch-catalog.test.js between
   // 2026-09-08 and 2026-09-09, because with every market suspended there was
   // no sellable offer to build a fixture from and the assertion here could
-  // only have been vacuous. The United States reopening brought it back, so
-  // this test asserts both halves again and the note is history rather than
-  // instruction. If the catalogue ever empties again, park it the same way and
-  // say so here - do not delete it, or the skip above becomes a hole.
+  // only have been vacuous. It has been back since, through the US reopening
+  // and the 2026-09-13 switch to Canada. If the catalogue ever empties again,
+  // park it the same way and say so here - do not delete it, or the skip above
+  // becomes a hole.
   assert.ok(
     APPROVED_CATALOG_OFFERS.length > 0,
     'the positive half above needs at least one sellable offer to be real',

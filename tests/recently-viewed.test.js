@@ -30,27 +30,26 @@ test('recently viewed fails closed by exact SKU and market', () => {
     {handle: 'legacy-without-proof'},
   ];
 
-  // Both markets are commercially suspended, so a stale browser-stored entry
-  // from before the suspension must not resurrect a purchasable rail in
-  // either one. Browser storage outlives a deploy; this is the only thing
-  // standing between it and a dead PDP.
-  // Canada is suspended outright. The United States reopened on 2026-09-01 but
-  // approves only the watch-roll cohort, so these archived entries are dropped
-  // there by the approval list rather than by the suspension - which is the
-  // stronger of the two guards, because it is the one that keeps working after
-  // a market comes back.
-  assert.equal(isMarketSuspended('CA'), true);
-  // Reopened 2026-09-09: the United States now approves the two bamboo lighting
-  // offers whose supplier listings state a 90-260 V range. The seven 220 V
-  // offers are held, not approved. An archived Canadian SKU must still be
-  // refused there, and now by the approval list alone - which is the guard
-  // that has to keep working once a market comes back, so this is the
-  // condition the test was really written for.
-  assert.equal(isMarketSuspended('US'), false);
-  assert.deepEqual(APPROVED_VARIANT_SKUS_BY_MARKET.CA, []);
+  // Browser storage outlives a deploy, and it outlives a market change too.
+  // These entries were written while the travel cohort was live in Canada;
+  // neither market may resurrect them, and the two markets reject them for
+  // different reasons, which is what makes asserting both worthwhile:
+  //
+  //   CA is OPEN as of 2026-09-13 and rejects them by the APPROVAL LIST. That
+  //   is the stronger guard, because it is the one that has to keep working
+  //   after a market comes back - a suspension does the job for free and stops
+  //   proving anything the moment it is lifted.
+  //   US is SHUT as of 2026-09-13 and rejects them by SUSPENSION.
+  assert.equal(isMarketSuspended('CA'), false);
+  assert.equal(isMarketSuspended('US'), true);
+  assert.deepEqual(APPROVED_VARIANT_SKUS_BY_MARKET.US, []);
   assert.ok(
-    !APPROVED_VARIANT_SKUS_BY_MARKET.US.includes(packingSku),
-    'the reopened US market must not approve an archived SKU',
+    APPROVED_VARIANT_SKUS_BY_MARKET.CA.length > 0,
+    'the open market must have a non-empty list, or the check below is vacuous',
+  );
+  assert.ok(
+    !APPROVED_VARIANT_SKUS_BY_MARKET.CA.includes(packingSku),
+    'the open CA market must not approve an archived SKU',
   );
   assert.deepEqual(filterRecentlyViewedForMarket(entries, 'CA'), []);
   assert.deepEqual(filterRecentlyViewedForMarket(entries, 'US'), []);

@@ -26,17 +26,65 @@ test('the live catalogue derives cleanly from its own evidence', () => {
  * function instead of the diff.
  */
 test('a stale pair after a reprice fails, and the message names both figures', () => {
+  // The evidence is INLINE rather than loaded from disk. It was loaded until
+  // 2026-09-13, when the live file became Canadian and this regression - which
+  // is a US-market one - stopped being reproducible from it. Pinning the
+  // fixture here is the better arrangement regardless: a sourcing correction
+  // must not be able to quietly rewrite what a regression test expects, which
+  // is exactly how the 0.38 duty rate survived as long as it did.
+  const usEvidence = Object.freeze({
+    market: 'US',
+    ourRetailUsd: 98.0,
+    itemCostUsd: 23.49,
+    supplierShipUsd: 1.99,
+    dutyRate: 0.414,
+  });
   const stale = [
     Object.freeze({
       handle: 'hand-woven-bamboo-pendant-light',
+      markets: Object.freeze(['US']),
       dutyPrepaidContributionUsd: 66.06, // computed at the old $101.00
       dutyBilledContributionUsd: 21.55,
     }),
   ];
-  const {failures} = auditDerivation(stale);
+  const {failures} = auditDerivation(stale, () => usEvidence);
   assert.equal(failures.length, 2);
   assert.ok(failures.some((f) => f.includes('66.06') && f.includes('63.46')), failures.join('\n'));
   assert.ok(failures.some((f) => f.includes('21.55') && f.includes('20.20')), failures.join('\n'));
+});
+
+test('the Canadian cohort derives one figure, and a stale one fails', () => {
+  // The same rule on the market the store actually sells into. One figure, not
+  // a pair: 7% MFN on value for duty has no second reading to be uncertain
+  // between, so filing a prepaid/billed pair here would be inventing a
+  // question Canada does not ask.
+  const caEvidence = Object.freeze({
+    market: 'CA',
+    ourRetailCad: 74.99,
+    itemCostCad: 29.18,
+    supplierShipCad: 0,
+    dutyRate: 0.07,
+  });
+  const good = [
+    Object.freeze({
+      handle: 'hand-woven-bamboo-pendant-light',
+      markets: Object.freeze(['CA']),
+      contributionCad: 30.65,
+    }),
+  ];
+  assert.deepEqual(auditDerivation(good, () => caEvidence).failures, []);
+
+  const stale = [
+    Object.freeze({
+      handle: 'hand-woven-bamboo-pendant-light',
+      markets: Object.freeze(['CA']),
+      contributionCad: 40.17, // the figure from the CA$85.99 ceiling price
+    }),
+  ];
+  const {failures} = auditDerivation(stale, () => caEvidence);
+  assert.equal(failures.length, 1);
+  assert.ok(failures[0].includes('40.17') && failures[0].includes('30.65'), failures[0]);
+  assert.ok(failures[0].includes('CA$'), 'the message must name the currency it is arguing about');
 });
 
 test('missing evidence is a failure, never a skip', () => {
@@ -67,8 +115,7 @@ test('the tolerance is a cent, and it is not a place to hide a real drift', () =
   const ev = loadEvidence('hand-woven-bamboo-pendant-light');
   const derived = deriveContributions(ev);
   const live = APPROVED_CATALOG_OFFERS.find((o) => o.handle === 'hand-woven-bamboo-pendant-light');
-  assert.ok(Math.abs(derived.prepaid - live.dutyPrepaidContributionUsd) <= DERIVATION_TOLERANCE_USD);
-  assert.ok(Math.abs(derived.billed - live.dutyBilledContributionUsd) <= DERIVATION_TOLERANCE_USD);
+  assert.ok(Math.abs(derived.wholesale - live.contributionCad) <= DERIVATION_TOLERANCE_USD);
   // A half-dollar drift must NOT pass.
   const {failures} = auditDerivation(
     [Object.freeze({

@@ -36,7 +36,10 @@ import {
   computeCanadianOffer,
   evaluateAcquisition,
 } from './lib/acquisition-economics.mjs';
-import {resolveBaselinePath} from './check-organic-economics.mjs';
+import {
+  EVIDENCE_DIR,
+  resolveBaselinePath,
+} from './check-organic-economics.mjs';
 
 const scriptPath = fileURLToPath(import.meta.url);
 const rootDir = path.resolve(path.dirname(scriptPath), '..');
@@ -59,6 +62,17 @@ const CA_RETAIL = {
   // The first offer priced above the CA$70 CPA crossover, and so the first
   // that paid acquisition can fund rather than subsidise.
   'compression-packing-cube-set-5-piece': 139.0,
+  // The lighting cohort, priced for Canada on 2026-09-13. These were CA$133,
+  // CA$139 and CA$119 - set against the AMERICAN band, whose medians run
+  // US$87-107 (about CA$118-145). The amazon.ca band sits at CA$75.42, so all
+  // three were breaching rule 22 by CA$32-52 the whole time they were live.
+  // CA$74.99 is just under that median rather than at the 1.15x ceiling:
+  // contribution is CA$26.80-40.06 either way, and a store with no reviews
+  // competing against listings carrying 600+ is better off inside the band
+  // than at the top of it.
+  'hand-woven-bamboo-pendant-light': 74.99,
+  'woven-bamboo-dome-pendant': 74.99,
+  'slatted-bamboo-lantern-pendant-20cm': 74.99,
 };
 
 if (path.resolve(process.argv[1] || '') === scriptPath) {
@@ -82,10 +96,17 @@ export function runAcquisitionGate({
   // resolveBaselinePath exists to prevent. It throws on a missing or
   // unparseable file rather than defaulting to something permissive.
   const baseline = JSON.parse(fs.readFileSync(resolveBaselinePath(), 'utf8'));
-  const benchmark = readJson(
-    'docs',
-    'recovery-evidence',
-    'acquisition-benchmark-2026-08-24.json',
+  // Resolve the newest benchmark rather than naming one. This was pinned to
+  // acquisition-benchmark-2026-08-24.json, which is the identical mistake the
+  // baseline above already made and already fixed: a pinned filename means a
+  // newer measurement can sit in the directory being ignored, and nothing
+  // fails - the gate just keeps scoring against stale evidence. Same resolver,
+  // same fail-loud-on-missing behaviour.
+  const benchmark = JSON.parse(
+    fs.readFileSync(
+      resolveBaselinePath(EVIDENCE_DIR, 'acquisition-benchmark-'),
+      'utf8',
+    ),
   );
 
   const failures = auditBenchmark(benchmark, now);

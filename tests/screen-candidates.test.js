@@ -21,6 +21,7 @@ const NOW = new Date('2026-09-08T00:00:00Z');
  */
 const row = (over = {}) => ({
   handle: 'fixture',
+  market: 'US',
   ourRetailUsd: '49.99',
   itemCostUsd: '9.29',
   supplierShipUsd: '18.35',

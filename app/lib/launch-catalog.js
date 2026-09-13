@@ -420,42 +420,42 @@ export const VOLTAGE_HOLD_CATALOG_OFFERS = Object.freeze([
   Object.freeze({
     handle: 'woven-bamboo-lantern-pendant-26cm',
     sku: '200000531:1052#C-black base;136:200006153#NO light bulb',
-    markets: Object.freeze(['US']),
+    markets: Object.freeze(['CA']),
     dutyPrepaidContributionUsd: 54.64,
     dutyBilledContributionUsd: 9.31,
   }),
   Object.freeze({
     handle: 'woven-bamboo-column-pendant-37cm',
     sku: '200000531:29#D-wood base;136:200006153#NO light bulb',
-    markets: Object.freeze(['US']),
+    markets: Object.freeze(['CA']),
     dutyPrepaidContributionUsd: 54.02,
     dutyBilledContributionUsd: 8.69,
   }),
   Object.freeze({
     handle: 'woven-bamboo-mini-pendant-18cm',
     sku: '200000531:200002984#style G;136:200006153#NO light bulb',
-    markets: Object.freeze(['US']),
+    markets: Object.freeze(['CA']),
     dutyPrepaidContributionUsd: 69.47,
     dutyBilledContributionUsd: 24.14,
   }),
   Object.freeze({
     handle: 'woven-bamboo-wave-chandelier-35cm',
     sku: '200000531:200006154#style K;136:200006153#NO light bulb',
-    markets: Object.freeze(['US']),
+    markets: Object.freeze(['CA']),
     dutyPrepaidContributionUsd: 75.46,
     dutyBilledContributionUsd: 11.5,
   }),
   Object.freeze({
     handle: 'woven-bamboo-drum-chandelier-30cm',
     sku: '200000531:365016#style H;136:200006153#NO light bulb',
-    markets: Object.freeze(['US']),
+    markets: Object.freeze(['CA']),
     dutyPrepaidContributionUsd: 73.22,
     dutyBilledContributionUsd: 9.26,
   }),
   Object.freeze({
     handle: 'woven-bamboo-wide-brim-chandelier-30cm',
     sku: '200000531:366#style E;136:200006153#NO light bulb',
-    markets: Object.freeze(['US']),
+    markets: Object.freeze(['CA']),
     dutyPrepaidContributionUsd: 83.4,
     dutyBilledContributionUsd: 19.44,
   }),
@@ -499,7 +499,7 @@ export const TRANSIT_HOLD_CATALOG_OFFERS = Object.freeze([
   Object.freeze({
     handle: 'woven-rattan-petal-pendant-30cm',
     sku: '200000531:175#30CM;136:200003939#Warm Light',
-    markets: Object.freeze(['US']),
+    markets: Object.freeze(['CA']),
     dutyPrepaidContributionUsd: 51.41,
     dutyBilledContributionUsd: 6.14,
     transitHold: 'selection-shipping-oversized-33-41-days-observed-2026-09-10',
@@ -561,7 +561,8 @@ export const COST_HOLD_CATALOG_OFFERS = Object.freeze([
   Object.freeze({
     handle: 'plug-in-bamboo-sconce-swing-arm',
     sku: '200000795:175#US PLUG-DIM switch;249:200006305#no light',
-    markets: Object.freeze(['US']),
+    supplierProductId: '1005010458579497',
+    markets: Object.freeze(['CA']),
     dutyPrepaidContributionUsd: 40.55,
     dutyBilledContributionUsd: 8.05,
     costHold: 'supplier-cost-is-52pct-promo-against-49.81-list-observed-2026-09-11; also breaches rule 2 by $6.47 against the $65.53 banded ceiling (run 13)',
@@ -569,6 +570,111 @@ export const COST_HOLD_CATALOG_OFFERS = Object.freeze([
 ]);
 
 
+
+/**
+ * FULFILMENT HOLD - approved, priced and evidenced, but no supplier can
+ * receive the order.
+ *
+ * slatted-bamboo-lantern-pendant-20cm was set to DRAFT in Shopify on
+ * 2026-09-13 when the DSers cross-check (see the block above
+ * APPROVED_CATALOG_OFFERS) found it was never present in DSers at all: no
+ * supplier, no mapping, and DSers offers no way to adopt a Shopify product it
+ * did not create. Its `dsers-mapped` tag was removed in Shopify the same day.
+ *
+ * It was still listed in APPROVED_CATALOG_OFFERS after that, which made the
+ * repo claim a live Canadian product page that production serves as a 404 -
+ * check-production-health would have failed on the first deploy. An approved
+ * offer with `supplierProductId: null` is the fulfilment-path equivalent of a
+ * product missing its `dsers-mapped` tag, and the catalogue treats them the
+ * same way: not sellable, not discoverable, held with its economics intact.
+ *
+ * Release path, one of two, chosen deliberately rather than by drift:
+ *   1. DSers gains a way to map an existing Shopify product to listing
+ *      3256804155598662 (1005-form 1005004341913414) - record the id, restore
+ *      the tag, set ACTIVE, move the entry back to APPROVED_CATALOG_OFFERS.
+ *   2. Manual fulfilment is accepted for this one SKU - say so in this
+ *      comment, with who places the order and how, before moving it back.
+ * Either way, launch-meta's "Two fixtures" count goes to three in the same
+ * edit.
+ */
+export const FULFILMENT_HOLD_CATALOG_OFFERS = Object.freeze([
+  // Added 2026-09-10. Slatted vertical lantern - bamboo strips bound over rings
+  // rather than woven - from listing 3256804155598662. 90-260V, E27, $1.99
+  // shipping. The 20x23cm variant carries 5,771 units at $13.38.
+  //
+  // Found by rule 19: at a $34.01 max supplier cost for this category, a $13.38
+  // item leaves unusual headroom, and it shows - $62.17 prepaid and $24.29
+  // billed at CA$119, the widest margin in the catalogue on both bases.
+  //
+  // Priced BELOW the other two pendants deliberately. At 20 x 23 cm this is the
+  // small one, and the catalogue now reads as a ladder: $100 sconce, $119
+  // lantern, $139 dome, $144 saucer.
+  //
+  // CAUTION, and it is the one weak spot: the listing has **77 sold** against
+  // 500-1,000+ behind the other offers. Per-SKU depth is what carried it.
+  Object.freeze({
+    handle: 'slatted-bamboo-lantern-pendant-20cm',
+    sku: '200000531:350852#20x23cm',
+    supplierProductId: null, // NOT MAPPED IN DSers - see the block above
+    fulfilmentHold:
+      'not-present-in-dsers-observed-2026-09-13: 0 supplier mappings, product DRAFT since 2026-09-13',
+    markets: Object.freeze(['CA']),
+    // CANADIAN CONTRIBUTION, 2026-09-13. One figure, not a pair: CBSA assesses
+    // 7% MFN on value for duty (the supplier price), so there is no second
+    // basis to be uncertain between. Derived from this offer's undercut
+    // evidence by scripts/check-contribution-derivation.mjs (RULE 26), which
+    // fails on more than a cent of drift - so if the price or the cost moves,
+    // this number must move in the same edit.
+    contributionCad: 40.06,
+  }),
+]);
+/**
+ * `supplierProductId` — WHICH SUPPLIER AN ORDER ACTUALLY REACHES.
+ *
+ * Added 2026-09-13 after the first DSers cross-check since run 2 found that
+ * EVERY live product was mis-fulfilled:
+ *
+ *   saucer  -> mapped to 1005007626643748, variant `30cm-M` at $34.12.
+ *             That listing is the WIDE-BRIM HAT this offer was re-sourced away
+ *             from. A buyer would have received a different lamp.
+ *   dome    -> mapped to 1005009170603754, the 220 V listing with a one-unit
+ *             cap that the dome was released FROM. A 220 V lamp, to a US
+ *             customer, from a supplier that cannot supply two.
+ *   lantern -> not present in DSers at all. No supplier, no mapping.
+ *   sconce  -> correct. The only right one was the one already on hold.
+ *
+ * All three re-sources are recorded in this file as completed work. They were
+ * completed in the repo and in Shopify. They were never completed in the
+ * fulfilment path, and every gate stayed green throughout, because nothing in
+ * this repo knew what DSers pointed at. These constants are that knowledge.
+ *
+ * WHY IT HID FOR 21 RUNS. The SKU string DSers shows in its variant drawer is
+ * the SHOPIFY variant's `sku` field, which this project writes by hand. It
+ * matches even when the mapping is wrong, and it did. Do not read it as
+ * evidence of anything.
+ *
+ * HOW TO VERIFY — the UI will not tell you, so read the API:
+ *   1. On www.dsers.com, wrap `window.fetch` to capture responses.
+ *   2. Open the product's Check details -> Variants pane.
+ *   3. Read `supplyProductId` out of the captured
+ *      `POST api-gw.dsers.com/dsers-ct-bff/full` body, and compare it here.
+ * The 3256-form id used elsewhere in this file is `supplyProductId` plus
+ * 2251799813685248.
+ *
+ * REMAPPING COSTS MORE THAN IT LOOKS. DSers' only path for an existing product
+ * is My Products -> Replace Product, and its warning means exactly what it
+ * says: it replaces the SHOPIFY variants with the supplier's. The saucer went
+ * from 1 variant to 20, at supplier-derived prices, with inventory tracking
+ * switched on and the product flipped back to ACTIVE. Repair is: delete the
+ * extra variants, restore the price, set `tracked: false`, and rebuild the
+ * option structure. Set the NEW title field to the ORIGIN value first;
+ * description and images default to "keep the original" and can be left alone.
+ *
+ * THE LANTERN HAS NO FIX OF THIS SHAPE. DSers exposes no way to adopt a Shopify
+ * product it did not create — Import List only offers PUSH TO STORE, which
+ * makes a duplicate. It stays DRAFT until either that changes or manual
+ * fulfilment is accepted deliberately.
+ */
 export const APPROVED_CATALOG_OFFERS = Object.freeze([
   // Rattan/bamboo lighting cohort, approved 2026-09-09. Replaces the retired
   // watch-roll cohort in ARCHIVED_CATALOG_OFFERS.
@@ -615,6 +721,7 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
   // flagged rather than fixed.
   Object.freeze({
     handle: 'hand-woven-bamboo-pendant-light',
+    supplierProductId: '1005004093257950',
     // RE-SOURCED 2026-09-11. The previous supplier path
     // `200000531:29#Style B-Black Base;5:361386#No bulb` on 3256808453005175
     // fell to THREE units (skuStock 3, page text "Only 3 left" - two
@@ -648,7 +755,7 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
     // 71.25/24.26 at the live $107.00. Still incidence-immune with room, and
     // $23.49 clears the $29.04 rule-23 buffered pendant ceiling by $5.55.
     sku: '200000531:200004889#Style F - Wood Base;200007763:201336100;5:100014064#Ship with 24h',
-    markets: Object.freeze(['US']),
+    markets: Object.freeze(['CA']),
     // Repriced TWICE on 2026-09-11. CA$143.99 -> CA$136.00 ($101.00), then
     // CA$136.00 -> CA$133.00, which Shopify serves as $98.00 - both read back
     // from contextualPricing(context:{country:US}), not computed.
@@ -665,8 +772,13 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
     // 383 tests and both gate scripts. They sat stale at the $101.00 values
     // (66.06 / 21.55) between the reprice and run 14 catching it by hand.
     // Recomputed with contribution(), landed $25.48:
-    dutyPrepaidContributionUsd: 63.46,
-    dutyBilledContributionUsd: 20.20,
+    // CANADIAN CONTRIBUTION, 2026-09-13. One figure, not a pair: CBSA assesses
+    // 7% MFN on value for duty (the supplier price), so there is no second
+    // basis to be uncertain between. Derived from this offer's undercut
+    // evidence by scripts/check-contribution-derivation.mjs (RULE 26), which
+    // fails on more than a cent of drift - so if the price or the cost moves,
+    // this number must move in the same edit.
+    contributionCad: 30.65,
   }),
   // Released from VOLTAGE_HOLD_CATALOG_OFFERS on 2026-09-10 by RE-SOURCING it,
   // not by answering the voltage question. The hold note above was right on both
@@ -692,6 +804,17 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
   // than a market display artifact - the saucer and lantern were read on the
   // same browser in the same market minutes apart and returned originalPrice
   // undefined on every SKU.
+  //
+  // AND THE PROMOTION HAS SINCE ENDED. Run 21, 2026-09-13: 0 of 10 SKUs carry
+  // an originalPrice, mapped SKU $30.40 flat, stock 585 against run 14's 586.
+  // Page fully rendered at 57,808 chars, so the absence is a reading and not a
+  // race against the renderer.
+  //
+  // THAT is the durable point, and it is worth more than either reading. This
+  // listing moved into and out of promotion inside 48 hours. A both-prices
+  // check is therefore a PER-RUN check on every live offer, not a fact
+  // established once at approval. Neither "it is on promotion" nor "it is not"
+  // survives being written down as settled - only the habit of re-reading does.
   //
   // The offer SURVIVES rule 22 at the list price, which is the test that
   // matters: landed rises about $32.39 -> $33.91, giving roughly prepaid $59.36
@@ -723,30 +846,15 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
   Object.freeze({
     handle: 'woven-bamboo-dome-pendant',
     sku: '200000531:365458#Style F-Wood Base;5:361386#No bulb',
-    markets: Object.freeze(['US']),
-    dutyPrepaidContributionUsd: 60.88,
-    dutyBilledContributionUsd: 15.55,
-  }),
-  // Added 2026-09-10. Slatted vertical lantern - bamboo strips bound over rings
-  // rather than woven - from listing 3256804155598662. 90-260V, E27, $1.99
-  // shipping. The 20x23cm variant carries 5,771 units at $13.38.
-  //
-  // Found by rule 19: at a $34.01 max supplier cost for this category, a $13.38
-  // item leaves unusual headroom, and it shows - $62.17 prepaid and $24.29
-  // billed at CA$119, the widest margin in the catalogue on both bases.
-  //
-  // Priced BELOW the other two pendants deliberately. At 20 x 23 cm this is the
-  // small one, and the catalogue now reads as a ladder: $100 sconce, $119
-  // lantern, $139 dome, $144 saucer.
-  //
-  // CAUTION, and it is the one weak spot: the listing has **77 sold** against
-  // 500-1,000+ behind the other offers. Per-SKU depth is what carried it.
-  Object.freeze({
-    handle: 'slatted-bamboo-lantern-pendant-20cm',
-    sku: '200000531:350852#20x23cm',
-    markets: Object.freeze(['US']),
-    dutyPrepaidContributionUsd: 64.92,
-    dutyBilledContributionUsd: 25.80,
+    supplierProductId: '1005008639319927',
+    markets: Object.freeze(['CA']),
+    // CANADIAN CONTRIBUTION, 2026-09-13. One figure, not a pair: CBSA assesses
+    // 7% MFN on value for duty (the supplier price), so there is no second
+    // basis to be uncertain between. Derived from this offer's undercut
+    // evidence by scripts/check-contribution-derivation.mjs (RULE 26), which
+    // fails on more than a cent of drift - so if the price or the cost moves,
+    // this number must move in the same edit.
+    contributionCad: 26.80,
   }),
   // Added 2026-09-10, from listing 3256812550446681 (LINCCW, 1,000+ sold,
   // 90-260V, $1.99 shipping). Woven rattan petal shade, the most sculptural
@@ -1011,29 +1119,56 @@ export function isIncidenceImmune(offer, floor = INCIDENCE_IMMUNITY_FLOOR_USD) {
  * Approved offers split by whether they care about US_DUTY_INCIDENCE.
  */
 export function incidenceExposure(offers = APPROVED_CATALOG_OFFERS) {
+  // SCOPED TO US OFFERS 2026-09-13. US_DUTY_INCIDENCE asks whether a
+  // 41.4%-of-retail charge sits inside the supplier price or lands on top of
+  // it. That question does not exist on the Canadian route - CBSA assesses 7%
+  // MFN on value for duty, full stop - so a Canadian offer is neither immune
+  // nor exposed to it, it is simply not a party to it.
+  //
+  // Partitioning them anyway would have been quietly wrong in the worse
+  // direction: a CA offer carries no dutyPrepaid/Billed pair, isIncidenceImmune
+  // returns false on absent figures, and every Canadian offer would have been
+  // reported as EXPOSED to a question it cannot be exposed to. A false alarm
+  // every run is how a real one stops being read.
   const immune = [];
   const exposed = [];
   for (const offer of offers) {
+    if (!(offer?.markets || []).includes('US')) continue;
     (isIncidenceImmune(offer) ? immune : exposed).push(offer);
   }
   return {immune, exposed};
 }
 
 export const SUSPENDED_COMMERCE_MARKETS = Object.freeze({
-  // Added 2026-09-01. Every offer below names a handle deleted from Shopify on
-  // 2026-08-28, so there is nothing to sell into Canada. check-production-health
-  // asserts the storefront serves exactly the approved handle set and failed CI
-  // run #114 after a successful deploy, because the storefront correctly serves
-  // none of them. Suspending empties the gate through offersForMarket(), so the
-  // checks compare an empty set against an empty catalog. Remove this entry
-  // when real products are approved, and prune APPROVED_CATALOG_OFFERS to
-  // whatever actually ships at the same time.
-  CA: 'catalog-empty-2026-08-28: no approved offer resolves',
-  // US reopened 2026-09-09. The line that stood here said to delete it "the
-  // moment a real offer lands in APPROVED_CATALOG_OFFERS" - nine have. The
-  // route facts are unchanged and still live in SUSPENDED_FULFILMENT_ROUTES:
-  // cn-direct into the US remains suspended there, so every offer above still
-  // has to clear the per-offer duty test on its own contribution.
+  // CA reopened 2026-09-13. The entry that stood here was added 2026-09-01
+  // because every Canadian offer named a handle deleted from Shopify on
+  // 2026-08-28 - it was recording an EMPTY CATALOGUE, never a judgement about
+  // Canada - and it said in as many words to remove it "when real products are
+  // approved". Three now resolve: the saucer, the dome and the lantern, each
+  // carrying ca-route-verified from the 2026-09-13 shipping reads.
+  //
+  // US suspended 2026-09-13, the same day and for the opposite reason. This is
+  // a commercial decision, not an evidence gap. Daniel: "Canada. i feel like we
+  // just complicated things by doing US." The US route charges 41.4% on RETAIL
+  // (HTS 9405.11.80) against Canada's 7% MFN on VALUE FOR DUTY, which is about
+  // CA$2.04 a unit against US$40.57, and the gap is what kept the US cost
+  // ceiling too low to source against - roughly US$17 landed where Canada
+  // allows about US$38.
+  //
+  // WHAT DOES NOT COME BACK WITH THE MARKET CHANGE, because it is worth being
+  // explicit that this buys cost headroom and nothing else:
+  //   - VOLTAGE_HOLD stays exactly as it is. CANADA IS 120 V, the same as the
+  //     United States, with the same plugs. All six held fixtures are supplier-
+  //     rated 220 V and are no more sellable here than there.
+  //   - COST_HOLD stays. The sconce reads C$34.48 against a C$78.14 list on the
+  //     Canadian gateway - still a 56% promotion, which was the hold's reason.
+  //     At the list cost its contribution at the banded ceiling is NEGATIVE.
+  //   - TRANSIT_HOLD stays; 33-41 days is 33-41 days in any market.
+  //
+  // The route facts are unchanged and still live in SUSPENDED_FULFILMENT_ROUTES:
+  // cn-direct into the US remains suspended there. CA has no route suspension,
+  // because the duty that suspended the US route does not exist on this one.
+  US: 'market-switched-to-ca-2026-09-13: 41.4%-on-retail duty stack abandoned',
 });
 
 export function isFulfilmentRouteSuspended(market, route) {

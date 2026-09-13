@@ -179,12 +179,17 @@ const AUDITED_CA_SKU = ARCHIVED_CATALOG_OFFERS.find((offer) =>
   offer.markets.includes('CA'),
 ).sku;
 
-test('a suspended market rejects even its own formerly approved SKU', async () => {
-  // This asserted the CA-approved / US-rejected asymmetry until CA was
-  // suspended on 2026-09-01. The line below carries an SKU that was approved
-  // for Canada, and it must now be rejected in both markets: a suspended
-  // market has no approved SKUs at all, so a stale cart cannot survive a
-  // reload into checkout. That is the point of the suspension.
+test('a formerly approved SKU is rejected in the open market and the shut one', async () => {
+  // The SKU below was approved for Canada in the 2026-08 travel cohort, then
+  // archived. It must be refused in BOTH markets, and the two refusals come
+  // from different rails, which is the whole value of asserting them together:
+  //
+  //   CA is OPEN as of 2026-09-13 and refuses it by the APPROVAL LIST - the
+  //   guard that has to keep working when a market comes back, so that
+  //   reopening never resurrects the SKUs that were sellable before it closed.
+  //   US is SHUT as of 2026-09-13 and refuses it by SUSPENSION.
+  //
+  // A stale cart must not survive a reload into checkout under either.
   const packingSku = AUDITED_CA_SKU;
   const storefront = storefrontWithVariant(approvedVariant(packingSku));
   const cart = {
@@ -198,20 +203,8 @@ test('a suspended market rejects even its own formerly approved SKU', async () =
     },
   };
 
-  // Canada is suspended outright, so it approves nothing. The United States
-  // reopened on 2026-09-01 but approves only the watch-roll cohort, so this
-  // archived Canadian SKU is refused there too - by the approval list rather
-  // than by the suspension. Both refusals matter: a stale cart must not
-  // survive a reload into checkout in either market, and reopening a market
-  // must not resurrect the SKUs that were sellable before it closed.
-  assert.equal(isMarketSuspended('CA'), true);
-  // Reopened 2026-09-09: the United States now approves the two bamboo lighting
-  // offers whose supplier listings state a 90-260 V range. The seven 220 V
-  // offers are held, not approved. An archived Canadian SKU must still be
-  // refused there, and now by the approval list alone - which is the guard
-  // that has to keep working once a market comes back, so this is the
-  // condition the test was really written for.
-  assert.equal(isMarketSuspended('US'), false);
+  assert.equal(isMarketSuspended('CA'), false);
+  assert.equal(isMarketSuspended('US'), true);
   assert.deepEqual(await rejectedCartLineIds(storefront, cart, 'CA'), [
     'gid://shopify/CartLine/line-ca',
   ]);
@@ -219,13 +212,17 @@ test('a suspended market rejects even its own formerly approved SKU', async () =
     'gid://shopify/CartLine/line-ca',
   ]);
   assert.deepEqual(
-    APPROVED_VARIANT_SKUS_BY_MARKET.CA,
+    APPROVED_VARIANT_SKUS_BY_MARKET.US,
     [],
     'a suspended market exposes no approved SKUs',
   );
   assert.ok(
-    !APPROVED_VARIANT_SKUS_BY_MARKET.US.includes(packingSku),
-    'the reopened US market must not approve an archived Canadian SKU',
+    !APPROVED_VARIANT_SKUS_BY_MARKET.CA.includes(packingSku),
+    'the reopened CA market must not approve an archived CA SKU',
+  );
+  assert.ok(
+    APPROVED_VARIANT_SKUS_BY_MARKET.CA.length > 0,
+    'the assertion above is only meaningful against a non-empty approval list',
   );
 });
 

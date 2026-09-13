@@ -9,6 +9,7 @@ import {
   VOLTAGE_HOLD_CATALOG_OFFERS,
   TRANSIT_HOLD_CATALOG_OFFERS,
   COST_HOLD_CATALOG_OFFERS,
+  FULFILMENT_HOLD_CATALOG_OFFERS,
   isMarketSuspended,
   isOfferSellable,
 } from '../app/lib/launch-catalog.js';
@@ -49,6 +50,7 @@ export const BASELINE_AUDIT_COHORT = Object.freeze([
     ...VOLTAGE_HOLD_CATALOG_OFFERS,
     ...TRANSIT_HOLD_CATALOG_OFFERS,
     ...COST_HOLD_CATALOG_OFFERS,
+    ...FULFILMENT_HOLD_CATALOG_OFFERS,
   ].filter(
     (other) =>
       !APPROVED_CATALOG_OFFERS.some(
@@ -86,7 +88,7 @@ function isCohortMemberSellable(offer, market) {
 
 const scriptPath = fileURLToPath(import.meta.url);
 const rootDir = path.resolve(path.dirname(scriptPath), '..');
-const EVIDENCE_DIR = path.join(rootDir, 'docs', 'recovery-evidence');
+export const EVIDENCE_DIR = path.join(rootDir, 'docs', 'recovery-evidence');
 const BASELINE_PREFIX = 'exact-offer-cost-route-baseline-';
 const BASELINE_PATH = resolveBaselinePath();
 
@@ -101,16 +103,25 @@ const BASELINE_PATH = resolveBaselinePath();
  * that manual step, and an unparseable or missing file still throws rather
  * than defaulting to something permissive.
  */
-export function resolveBaselinePath(dir = EVIDENCE_DIR) {
+/**
+ * Newest dated evidence file for a given prefix.
+ *
+ * The `prefix` parameter was added 2026-09-13. It is the same resolver, made
+ * reusable, because check-acquisition-gate had independently repeated the
+ * exact mistake this function was written to fix: it named
+ * `acquisition-benchmark-2026-08-24.json` outright, so a newer benchmark
+ * beside it would have been ignored silently. Naming a dated file is always
+ * that bug waiting to happen - the date in the name is precisely the part that
+ * goes stale.
+ */
+export function resolveBaselinePath(dir = EVIDENCE_DIR, prefix = BASELINE_PREFIX) {
   const candidates = fs
     .readdirSync(dir)
-    .filter(
-      (name) => name.startsWith(BASELINE_PREFIX) && name.endsWith('.json'),
-    )
+    .filter((name) => name.startsWith(prefix) && name.endsWith('.json'))
     .sort();
   if (!candidates.length) {
     throw new Error(
-      `No exact cost/route baseline found in ${dir} (expected ${BASELINE_PREFIX}YYYY-MM-DD.json).`,
+      `No dated evidence file found in ${dir} (expected ${prefix}YYYY-MM-DD.json).`,
     );
   }
   return path.join(dir, candidates[candidates.length - 1]);

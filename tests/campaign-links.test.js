@@ -15,30 +15,42 @@ import {
   RETIRED_CATALOG_HANDLES,
 } from '../app/lib/launch-catalog.js';
 
-test('no Stage 1 creative can be linked while Canada is suspended', () => {
-  // This test used to assert every creative produced a link. Canada was
-  // suspended on 2026-09-01 because the approved handles were deleted from
-  // Shopify, so the honest assertion is the inverse: paid links must refuse
-  // to build at all. Spending on a link to a product that does not exist is
-  // the exact failure the destination gate is here to prevent.
-  assert.equal(isMarketSuspended('CA'), true, 'CA is suspended while empty');
+test('no Stage 1 creative can be linked into the open Canadian market', () => {
+  // Canada reopened on 2026-09-13 and this test got STRONGER, in exactly the
+  // way its US counterpart below did when the US reopened. While CA was
+  // suspended, "no links build" was true for a reason that had nothing to do
+  // with the creatives. Now the market is open and they STILL must not build,
+  // and only one reason is left: every Stage 1 creative was shot for
+  // black-travel-tech-case, which is archived and approved in no market.
+  //
+  // Asserting the exact refusal is the whole point. A link that builds, or one
+  // refused for a stale reason, is ad spend pointed at a 404.
+  assert.equal(isMarketSuspended('CA'), false, 'CA reopened 2026-09-13');
 
   const result = buildCampaignLinks();
-  assert.equal(result.links.length, 0, 'a suspended market yields no ad links');
+  assert.equal(result.links.length, 0, 'no approved CA creative exists yet');
   assert.ok(STAGE_1_CREATIVES.length > 0, 'the creative set is not empty');
 
   for (const creative of STAGE_1_CREATIVES) {
     assert.ok(
       result.failures.includes(
-        `${creative.content}: CA is commercially suspended.`,
+        `${creative.content}: ${creative.handle} is not an approved CA offer.`,
       ),
-      `${creative.content} must be refused for suspension`,
+      `${creative.content} must be refused as unapproved, not as suspended`,
     );
     // The creative-to-handle mapping itself is still sound - nothing here is
-    // retired or held. When CA reopens, only the approval list has to change.
+    // retired or held. What is missing is creative shot for the lighting
+    // cohort, which is a production job and not a code one.
     assert.equal(RETIRED_CATALOG_HANDLES.has(creative.handle), false);
     assert.equal(OPERATIONAL_HOLD_HANDLES.has(creative.handle), false);
   }
+
+  // And the suspension reason must be ABSENT now, or a fixed problem goes on
+  // looking unfixed.
+  assert.ok(
+    !result.failures.some((f) => /CA is commercially suspended/.test(f)),
+    'CA is open: no refusal may still blame the suspension',
+  );
 });
 
 test('a retired handle never gets a link', () => {
@@ -74,40 +86,27 @@ test('an unknown handle never gets a link', () => {
   assert.ok(result.failures.some((f) => /not an approved/.test(f)));
 });
 
-test('the reopened United States market still yields no Stage 1 links', () => {
-  // The US stopped being a suspended MARKET on 2026-09-01: the de minimis
-  // evidence was rescoped to the cn-direct route into it. Paid links must
-  // still refuse to build, but for the reason that is actually true now -
-  // every Stage 1 creative was shot for black-travel-tech-case, which is
-  // archived and approved in neither market. Asserting the exact refusal is
-  // the point of the test: a link that builds, or that is refused for a stale
-  // reason, is ad spend pointed at a 404.
-  // Reopened 2026-09-09 with the bamboo lighting cohort. That removes the
-  // suspension reason entirely, which makes this test stronger rather than
-  // weaker: the links must still refuse, and now there is only ONE reason left
-  // for them to refuse with. A creative shot for an archived handle is ad
-  // spend pointed at a 404 whether or not the market is open, and that is the
-  // failure this test exists to catch.
-  assert.equal(isMarketSuspended('US'), false, 'US reopened 2026-09-09');
+test('the suspended United States market yields no Stage 1 links', () => {
+  // The mirror of the Canadian test above, and between them they cover both
+  // refusal reasons at once: CA refuses on approval, US refuses on suspension.
+  //
+  // The US was suspended as a MARKET on 2026-09-13 when the store moved to
+  // Canada. That is a commercial decision and it sits ON TOP of the older,
+  // measured cn-direct route suspension, which is unchanged. Either one alone
+  // would refuse these links; asserting the market reason here is what keeps
+  // the two rails distinguishable.
+  assert.equal(isMarketSuspended('US'), true, 'US suspended 2026-09-13');
 
   const result = buildCampaignLinks({market: 'US'});
-  assert.equal(result.links.length, 0, 'no approved US creative exists yet');
+  assert.equal(result.links.length, 0, 'a suspended market yields no ad links');
   for (const creative of STAGE_1_CREATIVES) {
     assert.ok(
       result.failures.includes(
-        `${creative.content}: ${creative.handle} is not an approved US offer.`,
+        `${creative.content}: US is commercially suspended.`,
       ),
-      `${creative.content} must be refused as unapproved, not as suspended`,
+      `${creative.content} must be refused for suspension`,
     );
   }
-  // The suspension reason must now be ABSENT. It was true until 2026-09-09 and
-  // is not any more, and a refusal that cites a stale reason is how a fixed
-  // problem goes on looking unfixed - the case the comment above was written
-  // for, arriving from the other direction.
-  assert.ok(
-    !result.failures.some((f) => /US is commercially suspended/.test(f)),
-    'US is open: no refusal may still blame the suspension',
-  );
 });
 
 test('links carry the full five-part UTM scheme', () => {

@@ -103,6 +103,15 @@ export function blendedCanadianTaxRate(table = CA_TAX_BY_PROVINCE) {
 export const CA_MODELLED_DUTY_RATES = Object.freeze({
   textileTravelGoods: 0.11,
   smallAccessories: 0.0,
+  // Added 2026-09-13 with the switch to Canada. Electric lighting fittings,
+  // HS 9405.11.00 (designed for LED) and 9405.19.00 (other), MFN column, 7%.
+  // Canada applies no Section 301 equivalent to these goods - its surtaxes on
+  // Chinese imports cover electric vehicles, steel and aluminium - so the MFN
+  // rate is the whole stack. The comparable US figure is 41.4% (HTS 9405.11.80:
+  // 3.9% MFN + 25% Section 301 + 12.5% forced-labour action), and the deeper
+  // difference is the BASE: Canada charges this on value for duty, which is the
+  // supplier price, where the US charges its rate on retail.
+  lighting: 0.07,
 });
 
 /**

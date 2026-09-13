@@ -107,6 +107,10 @@ test('landed cost alone is not enough to run the model', () => {
 const GOOD = {
   handle: 'hypothetical',
   checkedOn: '2026-09-01',
+  // `market` became required on 2026-09-13 (RULE 27) because it decides both
+  // the currency of every field below and the duty basis. A fixture without it
+  // is refused rather than defaulted, which is the behaviour this keeps honest.
+  market: 'US',
   ourRetailUsd: 49.99,
   itemCostUsd: 9.29,
   supplierShipUsd: 5.0,
@@ -222,9 +226,13 @@ test('incidence exposure is reported, and it partitions on BOTH bases', () => {
   console.log = (...a) => lines.push(a.join(' '));
   let result;
   try {
+    // `markets: ['US']` became load-bearing on 2026-09-13: the report is scoped
+    // to US offers, because a Canadian offer is not a party to the incidence
+    // question at all and reporting it as EXPOSED would be a false alarm on
+    // every run.
     result = reportIncidenceExposure([
-      {handle: 'immune-both', dutyPrepaidContributionUsd: 40, dutyBilledContributionUsd: 20},
-      {handle: 'prepaid-only', dutyPrepaidContributionUsd: 40, dutyBilledContributionUsd: 8.05},
+      {handle: 'immune-both', markets: ['US'], dutyPrepaidContributionUsd: 40, dutyBilledContributionUsd: 20},
+      {handle: 'prepaid-only', markets: ['US'], dutyPrepaidContributionUsd: 40, dutyBilledContributionUsd: 8.05},
     ]);
   } finally {
     console.log = realLog;
@@ -241,4 +249,27 @@ test('incidence exposure is reported, and it partitions on BOTH bases', () => {
     !/prepaid-only - \$40/.test(out),
     'must not headline the prepaid figure for an offer that fails on billed',
   );
+});
+
+test('a Canadian cohort is reported as not applicable, not as exposed', () => {
+  // Added 2026-09-13. A CA offer carries no prepaid/billed pair, so the old
+  // unscoped report would have called every one of them EXPOSED to a question
+  // Canada does not ask. A false alarm on every run is how a real one stops
+  // being read, so the report has to say "not applicable" instead.
+  const lines = [];
+  const realLog = console.log;
+  console.log = (...a) => lines.push(a.join(' '));
+  let result;
+  try {
+    result = reportIncidenceExposure([
+      {handle: 'ca-only', markets: ['CA'], contributionCad: 30.65},
+    ]);
+  } finally {
+    console.log = realLog;
+  }
+  assert.deepEqual(result.immune, []);
+  assert.deepEqual(result.exposed, []);
+  const out = lines.join('\n');
+  assert.match(out, /NOT APPLICABLE/);
+  assert.ok(!/EXPOSED/.test(out), 'a Canadian offer must never be reported as exposed');
 });

@@ -304,18 +304,45 @@ test('the Carry-On Kit price drift is resolved, and the gate would catch a new o
   assert.equal(drift.documentedPriceCad, 89);
 });
 
-test('a suspended market gives the gate nothing to score', () => {
-  // Suspension is a commerce kill switch, not a way to quiet the gate. With
-  // no injected cohort the gate reads the live market state, and CA is
-  // suspended, so there are no rows and nothing can block. The cohort-injected
-  // tests above prove the scoring itself still works.
+test('the open Canadian market is scored, and it blocks paid spend', () => {
+  // REWRITTEN 2026-09-13. This test used to assert that a suspended CA gave
+  // the gate nothing to score. CA is the OPEN market now, so the gate reads a
+  // real cohort and the assertion available here is a far more useful one:
+  // that the gate actually scores the live offers, and that it BLOCKS.
+  //
+  // It blocks because the lighting cohort at CA$74.99 contributes roughly
+  // CA$23.71-37.03 against a CA$42.00 target CPA needing a 30% profit share on
+  // top. That is the gate doing its job, not a defect: at mid-band pricing
+  // these offers cannot fund paid acquisition, and the honest consequence is
+  // that they are an organic-traffic catalogue until either the price or the
+  // CPA moves. Note the CPA itself was measured on the TRAVEL-GOODS cohort in
+  // August and has never been re-measured for lighting.
   const result = runAcquisitionGate({
     paidMode: true,
-    now: new Date('2026-08-25T00:00:00Z'),
+    now: new Date('2026-09-13T00:00:00Z'),
   });
-  assert.equal(isMarketSuspended('CA'), true, 'CA is suspended while empty');
-  assert.deepEqual(result.rows, [], 'a suspended market has no sellable rows');
-  assert.deepEqual(result.blocking, [], 'nothing to sell cannot block a build');
+  assert.equal(isMarketSuspended('CA'), false, 'CA is the open market');
+  assert.equal(result.rows.length, 2, 'the two approved offers are scored');
+  assert.deepEqual(
+    result.rows.map((row) => row.handle).sort(),
+    [
+      'hand-woven-bamboo-pendant-light',
+      'woven-bamboo-dome-pendant',
+    ],
+    'exactly the approved cohort, so a held offer cannot be scored into paid spend',
+  );
+  assert.deepEqual(result.failures, [], 'the gate read its inputs cleanly');
+  assert.equal(
+    result.blocking.length,
+    2,
+    'every offer is short of the target CPA and must block a paid build',
+  );
+  for (const row of result.rows) {
+    assert.ok(
+      row.contribution > 0,
+      `${row.handle} must still be profitable organically`,
+    );
+  }
 });
 
 test('a stale or unsourced benchmark fails the audit', () => {

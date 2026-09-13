@@ -25,23 +25,31 @@ test('production monitor shares the verified market cohorts', () => {
   // identity is the assertion; the contents follow from the suspension table.
   assert.equal(EXPECTED_HANDLES_BY_MARKET, APPROVED_PRODUCT_HANDLES_BY_MARKET);
 
-  // Canada stays empty: it is suspended outright because every handle it used
-  // to sell was deleted from Shopify on 2026-08-28. If a product appears on
-  // the live storefront while that suspension stands the monitor fails, which
-  // is what caught the empty Canadian catalogue in the first place.
-  assert.deepEqual(EXPECTED_HANDLES_BY_MARKET.CA, []);
+  // The United States is empty from 2026-09-13: the store moved to Canada, so
+  // the US market is suspended and the monitor must expect nothing there. If a
+  // product appears on the live storefront for a suspended market the monitor
+  // fails, which is what caught the empty Canadian catalogue on 2026-09-01.
+  assert.deepEqual(EXPECTED_HANDLES_BY_MARKET.US, []);
 
-  // The United States carries three handles as of 2026-09-11. The monitor will
-  // now fail post-deploy unless BOTH are live on the storefront, which is the
+  // Canada carries three handles as of 2026-09-13. The monitor will now fail
+  // post-deploy unless all three are live on the storefront, and that is the
   // point: the 2026-09-01 failure was the monitor expecting handles that were
   // not live, and the mirror of it is a monitor expecting nothing while the
-  // storefront serves something. Publishing state and this list have to move
-  // together.
-  assert.deepEqual(EXPECTED_HANDLES_BY_MARKET.US, [
+  // storefront serves something. Publishing state and this list move together.
+  //
+  // Two, not three. The lantern is DRAFT in Shopify because it has no DSers
+  // mapping and DSers offers no way to adopt a product it did not create. It
+  // was briefly APPROVED here while DRAFT there, which would have had the
+  // monitor expecting a page production serves as a 404. Resolved 2026-09-13
+  // by moving it to FULFILMENT_HOLD_CATALOG_OFFERS - the hold-list fix, not
+  // a quietly shortened array - so this list and the storefront agree again.
+  assert.deepEqual(EXPECTED_HANDLES_BY_MARKET.CA, [
     'hand-woven-bamboo-pendant-light',
     'woven-bamboo-dome-pendant',
-    'slatted-bamboo-lantern-pendant-20cm',
   ]);
+  assert.ok(
+    !EXPECTED_HANDLES_BY_MARKET.CA.includes('slatted-bamboo-lantern-pendant-20cm'),
+  );
 
   // Discovery follows the live cohort. The seven previous handles were deleted
   // from Shopify on 2026-08-28 and verified 404 in production on 2026-09-01,
@@ -49,7 +57,7 @@ test('production monitor shares the verified market cohorts', () => {
   // of them; their evidence lives in ARCHIVED_CATALOG_OFFERS.
   assert.deepEqual(
     DISCOVERABLE_PRODUCT_HANDLES,
-    EXPECTED_HANDLES_BY_MARKET.US,
+    EXPECTED_HANDLES_BY_MARKET.CA,
     'discovery and the monitor must expect the same live handles',
   );
   for (const retired of RETIRED_CATALOG_HANDLES) {

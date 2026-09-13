@@ -199,6 +199,12 @@ export function rowToEvidence(row, today = new Date()) {
   return {
     handle: row.handle,
     checkedOn: row.checkedOn || today.toISOString().slice(0, 10),
+    // `market` decides the currency and the duty basis downstream (RULE 27).
+    // It defaults to CA because that is the market the store sells into as of
+    // 2026-09-13 - a screener that silently scores candidates for a market we
+    // do not sell in is worse than one that refuses, because it produces
+    // confident numbers nobody can act on. Put `market` in the CSV to override.
+    market: String(row.market || 'CA').toUpperCase(),
     ourRetailUsd: Number(row.ourRetailUsd),
     itemCostUsd: Number(row.itemCostUsd),
     supplierShipUsd: Number(row.supplierShipUsd),
@@ -222,7 +228,7 @@ const evaluate = (ev, basis, overrides = {}) =>
     dutyRate: ev.dutyRate,
     basis,
     carrier: CHOICE_LINE_DISBURSEMENT,
-    market: 'US',
+    market: ev.market || 'CA',
   });
 
 /**
