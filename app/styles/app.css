@@ -4433,7 +4433,17 @@ button:focus-visible,
   font-weight: 700;
   letter-spacing: 0.08em;
   color: var(--pk-ember);
-  opacity: 0.5;
+  /*
+   * 0.5 measured 3.02:1 against --pk-paper on the live site and needs 4.5:1.
+   * 18px/700 just misses WCAG's large-text threshold, which starts at 18.66px
+   * for bold - so the 3:1 allowance does not apply and this is a real
+   * SC 1.4.3 failure, not a rounding argument.
+   *
+   * 0.64 is the first value that clears 4.5 (at 4.51, no margin). 0.75 gives
+   * 6.37 and still reads as muted, so the ratio survives a small change to
+   * either token.
+   */
+  opacity: 0.75;
 }
 
 

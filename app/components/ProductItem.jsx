@@ -154,8 +154,24 @@ export function ProductItem({product, loading, dark = false}) {
     : (availableVariants[0] ?? {availableForSale: false, selectedOptions: []});
   // Market approval is variant-specific. Product-level gallery covers and
   // hover images can depict colours or configurations that are not offered in
-  // the active market, so discovery cards use only the approved variant image.
-  const featured = variant?.image ?? null;
+  // the active market, so discovery cards PREFER the approved variant image.
+  //
+  // But a Shopify variant image is OPTIONAL, and every variant in this
+  // catalogue has image: null - the photography is attached to the product,
+  // never to a variant. Preferring the variant image therefore rendered the
+  // placeholder on every card: /collections/all served 3 cards, 3 placeholders
+  // and 0 images, measured on the live site 2026-09-13. That is what CI #132
+  // and #133's browser check was looking at.
+  //
+  // The product cover is safe to substitute only when the product has exactly
+  // ONE variant, because then there is no other configuration for the cover to
+  // be depicting and the concern above cannot arise. A multi-variant product
+  // keeps the strict behaviour and shows the placeholder rather than risk
+  // advertising a colour this market cannot buy.
+  const isSingleVariantProduct = (product.variants?.nodes ?? []).length === 1;
+  const featured =
+    variant?.image ??
+    (isSingleVariantProduct ? (product.featuredImage ?? null) : null);
   const hoverImage = null;
   const priceRange = resolveAvailablePriceRange(product, availableVariants);
   const compareAtPrice = resolveAvailableCompareAtPrice(availableVariants);
