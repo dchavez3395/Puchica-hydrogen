@@ -54,6 +54,19 @@
       src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAKCAIAAABJ+IsHAAAAGklEQVR4nGM4oaExIIhh1OJRi0ctHrWYXAQAKt+1kE/CszQAAAAASUVORK5CYII="
     />
 
+    <!-- A lazy image the browser has not fetched. Its `src` still carries a
+         small width=, and currentSrc is empty, so a resolution probe that does
+         not check load state reports a file that was never delivered. This one
+         points at a path that does not exist, which lands in the same state:
+         naturalWidth 0. It must NOT be reported as underserved. -->
+    <img
+      class="pending"
+      alt="not yet loaded"
+      loading="lazy"
+      style="width: 200px; height: 200px"
+      src="./no-such-image.png?width=100"
+    />
+
     <!-- SC 2.5.8 "Inline" exception: a link inside running prose is exempt,
          because its height is constrained by the line-height around it. This
          one is 18px tall and must NOT be reported. -->

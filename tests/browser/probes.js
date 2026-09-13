@@ -170,6 +170,32 @@ export function findUnderservedImages(floor = 0.9) {
   const out = [];
   for (const img of document.querySelectorAll('img')) {
     if (!img.clientWidth) continue;
+
+    /*
+     * An image that has not loaded has no delivered resolution to judge.
+     *
+     * `currentSrc` is EMPTY until the browser fetches the image, so the line
+     * below falls back to the `src` attribute - and Hydrogen's `src` is the
+     * smallest candidate it generates. On a lazy card image that has not been
+     * fetched yet, that reads as a tiny file serving a large box.
+     *
+     * Measured on the live collection page 2026-09-13: the third card, the
+     * only one marked loading="lazy", reported 100 delivered against 402
+     * needed - a 0.25 ratio and a hard failure - while naturalWidth was 0 and
+     * currentSrc was empty. Forced to load, the same element reported 800
+     * against 402, a ratio of 1.99. Nothing was ever underserved.
+     *
+     * This is the same class of mistake the comment above records: reading a
+     * number that does not mean what it looks like, and the answer it gives is
+     * "re-shoot the catalogue".
+     *
+     * NOTE what this does NOT catch: an image that never loads at all. That is
+     * a real defect and a different one, and calling it "delivered 100 vs
+     * needed 402" would be a misleading diagnosis of it. It wants its own
+     * probe rather than a wrong answer from this one.
+     */
+    if (!img.complete || !img.naturalWidth) continue;
+
     const src = img.currentSrc || img.src;
     if (/\.svg(\?|$)/.test(src)) continue;
     const m = src.match(/[?&]width=(\d+)/);

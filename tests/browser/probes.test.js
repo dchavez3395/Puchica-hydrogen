@@ -195,6 +195,38 @@ test('the resolution probe ignores images with no width parameter', {skip}, asyn
   assert.deepEqual(found, []);
 });
 
+test('the resolution probe ignores an image that has not loaded', {skip}, async () => {
+  // The fixture carries an image whose src has `?width=100` on a 200px box -
+  // a 0.25 ratio if you believe it. It never loads, so there is no delivered
+  // resolution to judge and it must not be reported.
+  //
+  // This is not hypothetical: the live collection page produced exactly this
+  // reading on 2026-09-13 for its one loading="lazy" card, and the same
+  // element measured 1.99 once forced to load.
+  const found = await onFixture(findUnderservedImages);
+  assert.deepEqual(
+    found.filter((f) => String(f.src).includes('no-such-image')),
+    [],
+  );
+  assert.deepEqual(found, []);
+});
+
+test('the load-state guard runs BEFORE the width is parsed', {skip: false}, async () => {
+  // Order matters. If the guard sat after the `width=` parse it would still
+  // report the offender, and if it were folded into the ratio it would divide
+  // by a resolution that does not exist.
+  const source = await import('node:fs/promises').then((fs) =>
+    fs.readFile(new URL('./probes.js', import.meta.url), 'utf8'),
+  );
+  const body = source.slice(source.indexOf('export function findUnderservedImages'));
+  const fn = body.slice(0, body.indexOf('\n}'));
+  const guard = fn.indexOf('img.naturalWidth');
+  const parse = fn.indexOf('width=(');
+  assert.ok(guard > -1, 'the probe must check load state');
+  assert.ok(parse > -1, 'the probe must still parse the delivered width');
+  assert.ok(guard < parse, 'the load-state guard must come first');
+});
+
 test('the resolution probe reads the delivered width, not naturalWidth', {skip}, async () => {
   // Guarding the exact mistake that produced a wrong diagnosis: on a srcset
   // image `naturalWidth` is density-corrected, so it reports the CSS-pixel
