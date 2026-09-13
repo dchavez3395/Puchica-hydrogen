@@ -76,7 +76,7 @@ const completeBaseline = {
         US: {shippingUsd: 4.15, tracked: true},
       },
     },
-    // The live cohort: five bamboo lighting offers approved for the United
+    // The live cohort: five bamboo lighting offers evidenced for the United
     // States. All cn-direct, all crossing the suspended route on a positive
     // per-offer duty contribution. Costs and the $1.99 supplier ship match
     // exact-offer-cost-route-baseline-2026-09-10.json on disk.

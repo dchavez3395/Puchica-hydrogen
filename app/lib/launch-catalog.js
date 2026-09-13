@@ -506,6 +506,69 @@ export const TRANSIT_HOLD_CATALOG_OFFERS = Object.freeze([
   }),
 ]);
 
+/**
+ * COST HOLD - the supplier price is a promotion, not a price.
+ *
+ * plug-in-bamboo-sconce-swing-arm was unpublished on 2026-09-11 (Shopify status
+ * DRAFT, and the puchica-catalog-approved-v1 / cost-verified / margin-verified
+ * tags removed, because they stopped being true). It is held here rather than
+ * deleted: the Shopify product, the four-locale copy and the evidence file are
+ * all intact, so releasing it is a move between two constants.
+ *
+ * THREE separate reasons, only one of which is the duty question. Run 10.
+ *
+ * 1. The mapped supplier listing 3256810272264745 carries a non-null
+ *    originalPrice on EVERY variant at roughly half the sale price - our $23.91
+ *    is 52% off a $49.81 list. That fails the same both-prices rule that killed
+ *    the 38 cm us-local dome in run 9. At $49.81 the offer is underwater at any
+ *    price the category supports, so $8.05 is the BEST case, not the floor.
+ * 2. $8.05 on the billed basis against a $12.00 floor. Clearing it needs a
+ *    supplier cost of $19.96 or less china-direct, computed with the real
+ *    contribution() rather than a collapsed formula. Three sweeps of the
+ *    previously untried 'wall lamp' / 'wall light' vocabulary (32 cards,
+ *    china-direct and US pool) produced nothing under it.
+ * 3. RULE 2. Run 13 measured the honest 6-keyword sconce band at $56.98, so the
+ *    ceiling is $65.53 and the live $72.00 breaches it by $6.47. This retires
+ *    the $72.43 ceiling the offer used to be defended with, which came from a
+ *    single keyword. The sconce was over its band for its whole published life,
+ *    independently of reasons 1 and 2.
+ *
+ * ON THE PER-SHOPPER CAP - READ THIS BEFORE TREATING IT AS A FOURTH REASON.
+ *
+ * Run 14 read `Max. 10 pcs/shopper` on this listing and recorded it as an
+ * absolute kill. Re-read 90 minutes later on a fully rendered page (57,920
+ * chars, Quantity control present, all four SKUs priced) the cap text was
+ * ABSENT. It is transient, and a reading that comes and goes within the hour
+ * describes a promotion mechanic, not a property of the supply.
+ *
+ * The runbook's absolute-kill rule was written for `Max. 1 pcs/shopper`, where
+ * the cap makes a listing unfulfillable by DSers at any price. `Max. 10` is a
+ * different magnitude and does not have that consequence - a dropship order is
+ * one unit. Do not carry the Max-1 rule across to it unexamined; if a cap
+ * reappears here, read the NUMBER and decide against rule 4's 25-unit floor
+ * rather than reaching for the absolute kill.
+ *
+ * So the count stands at THREE, not four, and cost is still the binding
+ * problem, which is why this list is still named COST_HOLD.
+ *
+ * Releasing it needs EITHER a supplier at <= $19.96 china-direct or <= $51.31
+ * us-local (both computed at the live $72.00), OR US_DUTY_INCIDENCE settling to
+ * prepaid - which makes $40.55 the binding figure and retires reason 2 alone.
+ * Reasons 1 and 3 would survive that and still want answering, and reason 3 now
+ * needs a price cut rather than a supplier.
+ */
+export const COST_HOLD_CATALOG_OFFERS = Object.freeze([
+  Object.freeze({
+    handle: 'plug-in-bamboo-sconce-swing-arm',
+    sku: '200000795:175#US PLUG-DIM switch;249:200006305#no light',
+    markets: Object.freeze(['US']),
+    dutyPrepaidContributionUsd: 40.55,
+    dutyBilledContributionUsd: 8.05,
+    costHold: 'supplier-cost-is-52pct-promo-against-49.81-list-observed-2026-09-11; also breaches rule 2 by $6.47 against the $65.53 banded ceiling (run 13)',
+  }),
+]);
+
+
 export const APPROVED_CATALOG_OFFERS = Object.freeze([
   // Rattan/bamboo lighting cohort, approved 2026-09-09. Replaces the retired
   // watch-roll cohort in ARCHIVED_CATALOG_OFFERS.
@@ -513,8 +576,8 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
   // Every entry below is US-only and cn-direct, so each one falls through
   // isOfferSellable() to the per-offer duty test rather than passing on the
   // route. US_DUTY_INCIDENCE is UNVERIFIED, so the binding figure is
-  // dutyPrepaidContributionUsd; all nine are positive. The billed figures are
-  // recorded too and all nine are ALSO positive, so the cohort survives either
+  // dutyPrepaidContributionUsd; all three are positive. The billed figures are
+  // recorded too and all three are ALSO positive, so the cohort survives either
   // resolution of the incidence question - which is the difference between this
   // cohort and the watch rolls.
   //
@@ -586,22 +649,24 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
     // $23.49 clears the $29.04 rule-23 buffered pendant ceiling by $5.55.
     sku: '200000531:200004889#Style F - Wood Base;200007763:201336100;5:100014064#Ship with 24h',
     markets: Object.freeze(['US']),
-    // Repriced live 2026-09-11: CA$143.99 -> CA$136.00, which Shopify serves as
-    // $101.00 (read back from contextualPricing, not computed). Clears the
-    // $103.49 rule-2 ceiling with $2.49 of room rather than the $0.49 CA$138.00
-    // would have left.
-    dutyPrepaidContributionUsd: 66.06,
-    dutyBilledContributionUsd: 21.55,
-  }),
-  Object.freeze({
-    handle: 'plug-in-bamboo-sconce-swing-arm',
-    sku: '200000795:175#US PLUG-DIM switch;249:200006305#no light',
-    markets: Object.freeze(['US']),
-    // Repriced live 2026-09-11: CA$100.99 -> CA$97.00 = $72.00, inside the
-    // $72.43 ceiling. STILL THE ONE EXPOSED OFFER at $8.05 billed, under the
-    // $12.00 floor - the price is now correct and the COST is the problem.
-    dutyPrepaidContributionUsd: 40.55,
-    dutyBilledContributionUsd: 8.05,
+    // Repriced TWICE on 2026-09-11. CA$143.99 -> CA$136.00 ($101.00), then
+    // CA$136.00 -> CA$133.00, which Shopify serves as $98.00 - both read back
+    // from contextualPricing(context:{country:US}), not computed.
+    //
+    // The second move was forced by RULE 25: the honest 8-keyword band puts the
+    // ceiling at $100.37, not the $103.49 a single keyword gave, so $101.00 was
+    // a live breach. $98.00 clears by $2.37. CA$135.00 would have served $100
+    // and cleared by $0.37 - inside the 3.1% intraday drift run 12 measured on
+    // this very basket, which is why CA$133.00 was taken instead.
+    //
+    // THESE TWO NUMBERS MOVE WITH THE PRICE, IN THE SAME EDIT. Nothing in the
+    // repo derives them: check-undercut.mjs reads them as trusted input and the
+    // tests only assert they are positive, so a stale pair is invisible to all
+    // 383 tests and both gate scripts. They sat stale at the $101.00 values
+    // (66.06 / 21.55) between the reprice and run 14 catching it by hand.
+    // Recomputed with contribution(), landed $25.48:
+    dutyPrepaidContributionUsd: 63.46,
+    dutyBilledContributionUsd: 20.20,
   }),
   // Released from VOLTAGE_HOLD_CATALOG_OFFERS on 2026-09-10 by RE-SOURCING it,
   // not by answering the voltage question. The hold note above was right on both
@@ -611,7 +676,33 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
   // The same dome is sold on 3256808453005175 (ZODOLAMP, 500+ sold, 4.7), which
   // reads 90-260V and carries 586 units on the SKU below. Shipping $1.99. The
   // DSers stable cost for US equals the listing price at both ends of the range
-  // ($14.82 / $37.23), so there is no promo gap on this listing.
+  // ($14.82 / $37.23).
+  //
+  // READ THAT RANGE CAREFULLY. $14.82 IS THE CHEAPEST VARIANT ON THE LISTING,
+  // NOT OUR COST. The mapped SKU below costs $30.40, which is what the evidence
+  // file records and what the filed contribution pair derives from. Deriving at
+  // $14.82 gives 76.46 / 31.13 against the correct 60.88 / 15.55 - a $15.58
+  // error on both bases, and it looks entirely plausible. Run 16 caught it.
+  // Quoting a range next to an offer invites the wrong end of it to be picked
+  // up; the single figure that matters is $30.40.
+  //
+  // THAT NO LONGER MEANS "no promo gap", AND THE CLAIM THAT USED TO STAND HERE
+  // IS FALSE. Run 14 read all 10 SKUs carrying an originalPrice: the mapped one
+  // at C$32.78 against C$34.51, a 5.01% discount. It is listing-specific rather
+  // than a market display artifact - the saucer and lantern were read on the
+  // same browser in the same market minutes apart and returned originalPrice
+  // undefined on every SKU.
+  //
+  // The offer SURVIVES rule 22 at the list price, which is the test that
+  // matters: landed rises about $32.39 -> $33.91, giving roughly prepaid $59.36
+  // and billed $14.03 at the live $103.00. Both still clear the $12.00 floor,
+  // billed by $2.03 instead of $3.55. No action on the offer; the correction is
+  // to the claim.
+  //
+  // A single stable DSers figure means NO VARIANT RANGE. It says nothing about
+  // a time-based promotion, and reasoning from it is what put this sentence
+  // here. The DSers cross-check outstanding since run 2 is what actually
+  // settles the cost basis - the page price is not rule 2's input.
   //
   // Confirmed the SAME PHYSICAL SHADE across the two listings from the swatch
   // artwork, not from the value id. Both listings happen to use 365458 for the
@@ -869,15 +960,20 @@ export const SUSPENDED_FULFILMENT_ROUTES = Object.freeze({
  *   slatted-bamboo-lantern-pendant-20cm prepaid $62.17  billed $24.29   immune
  *   plug-in-bamboo-sconce-swing-arm     prepaid $40.52  billed  $7.96   exposed
  *
- * UPDATED later the same day. The petal (prepaid $51.41 / billed $6.14) was
- * the second exposed offer and is no longer approved - it went to
- * TRANSIT_HOLD_CATALOG_OFFERS on a 33-41 day carrier line. So the catalogue's
- * entire exposure to this constant is now ONE product, the sconce.
+ * RESOLVED 2026-09-11. Both exposed offers left APPROVED_CATALOG_OFFERS. The
+ * petal (prepaid $51.41 / billed $6.14) went to TRANSIT_HOLD_CATALOG_OFFERS on
+ * a 33-41 day carrier line; the sconce (prepaid $40.55 / billed $8.05) went to
+ * COST_HOLD_CATALOG_OFFERS after run 10 found its supplier cost is a 52%-off
+ * promotion and three sweeps produced no replacement under the $19.96 ceiling.
  *
- * The sconce cannot be repriced into immunity: it would need US$81.09 against
- * a rule-2 ceiling of $72.43, and it already sits at the ceiling. The only
- * route is supplier cost - $4.04 off it, $23.91 -> $19.87. That is the whole
- * remaining dependency on how the duty question resolves.
+ * So the approved catalogue's exposure to this constant is now ZERO. Every
+ * approved offer clears $12.00 on BOTH bases, and incidenceExposure() reports
+ * 3 immune / 0 exposed. How the duty question resolves no longer changes
+ * whether anything in the catalogue is sellable.
+ *
+ * That is not a reason to leave it UNVERIFIED. It still costs about $12 of
+ * headroom on every china-direct cost ceiling, which is why nothing new passes
+ * - and it is one order-confirmation page away from being settled.
  */
 export const US_DUTY_INCIDENCE_STATES = Object.freeze({
   PREPAID: 'prepaid',

@@ -1,6 +1,6 @@
 {
   "handle": "woven-bamboo-dome-pendant",
-  "checkedOn": "2026-09-09",
+  "checkedOn": "2026-09-11",
   "market": "US",
   "note": "26 cm woven bamboo dome pendant, wood base. RE-SOURCED 2026-09-10 from listing 3256808453005175 (ZODOLAMP, 90-260V, 500+ sold) after the original listing 3256808984289002 was found to be 220 V with the mapped SKU capping at 1 unit. Dimension corrected from 36 cm to 26 cm: the product's own dimension artwork reads 26 cm on both listings, and the previous body copy's 36 cm was an error. Competitor set is every organic (non-sponsored) priced listing on Amazon page 1 for \"rattan pendant light\", captured 2026-09-09; sponsored excluded. The category is the one the PRODUCT belongs to.",
   "sources": [
@@ -257,5 +257,56 @@
   "supplierSkuUnitCap": 586,
   "supplierSkuUnitCapObservedOn": "2026-09-10",
   "supplierSkuUnitCapMethod": "Read as skuStock from the SKU table in window._d_c_ on the item page, joined per-variant to skuPriceInfoMap. Cross-validated against the DSers card total: the per-variant stocks on this listing sum to the 3,108 DSers reports listing-wide. The DSers card figure is that SUM and must never be read as per-SKU depth.",
-  "retailNote": "CORRECTED 2026-09-10. Was 99.29, computed as the CAD list price divided by a 1.40 planning rate. Shopify does not use 1.40. Read from contextualPricing(country: US), which is what the customer is actually charged: $103.00. The conversion is ~1.352 with rounding to the nearest whole dollar. Ceiling for this category is $103.49, so this offer is INSIDE it."
+  "retailNote": "CORRECTED 2026-09-10. Was 99.29, computed as the CAD list price divided by a 1.40 planning rate. Shopify does not use 1.40. Read from contextualPricing(country: US), which is what the customer is actually charged: $103.00. The conversion is ~1.352 with rounding to the nearest whole dollar. Ceiling for this category is $103.49, so this offer is INSIDE it.",
+  "bandMedian": {
+    "basket": "dome pendant",
+    "medianUsd": 107.49,
+    "ceilingUsd": 123.61,
+    "rule23": "medianUsd is the LOWER of the readings below, per rule 23. The gate re-derives this and fails if it is not the minimum.",
+    "readings": [
+      {
+        "on": "2026-09-11",
+        "medianUsd": 107.49,
+        "source": "run 12"
+      },
+      {
+        "on": "2026-09-11",
+        "medianUsd": 116.92,
+        "source": "run 13, Amazon page-1 organic, same-origin fetch"
+      }
+    ],
+    "method": "Amazon page-1 organic per keyword, sponsored rows dropped, prices outside $8-$400 dropped; median per keyword, then median of those medians.",
+    "keywords": [
+      {
+        "keyword": "dome pendant light",
+        "n": 46,
+        "medianUsd": 113.86
+      },
+      {
+        "keyword": "rattan dome pendant light",
+        "n": 48,
+        "medianUsd": 125.99
+      },
+      {
+        "keyword": "bamboo dome pendant light",
+        "n": 48,
+        "medianUsd": 99.49
+      },
+      {
+        "keyword": "woven dome pendant light",
+        "n": 47,
+        "medianUsd": 121.9
+      },
+      {
+        "keyword": "boho dome pendant light",
+        "n": 47,
+        "medianUsd": 75.99
+      },
+      {
+        "keyword": "wicker dome pendant light",
+        "n": 47,
+        "medianUsd": 119.99
+      }
+    ]
+  }
 }

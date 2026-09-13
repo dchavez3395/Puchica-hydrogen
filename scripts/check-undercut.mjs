@@ -64,6 +64,11 @@ const DIR = fileURLToPath(new URL('../docs/undercut-evidence/', import.meta.url)
 export const MAX_AGE_DAYS = 90;
 export const MIN_COMPETITORS = 5;
 export const BAND_TOLERANCE = 1.15;
+// RULE 25. A single search term is one slice of a category, not the category.
+// Run 11 measured the pendant band eight ways and the medians ran $55 to $105 -
+// so which keyword you happened to type decided whether an offer passed. Three
+// is the floor for calling a spread a band.
+export const MIN_BAND_KEYWORDS = 3;
 export const MIN_CONTRIBUTION_USD = 12.0;
 export const LOCKED_CATEGORY_REVIEWS = 5000;
 
@@ -72,6 +77,75 @@ export const median = (xs) => {
   const m = Math.floor(s.length / 2);
   return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2;
 };
+
+/**
+ * RULE 25 - RESOLVE THE BAND FROM A BASKET OF KEYWORDS, NOT FROM ONE SEARCH.
+ *
+ * `bandMedian` is a NEW field and deliberately does NOT replace `competitors`.
+ * Rule 9 reads per-listing review counts off that same array to decide whether
+ * a category is locked; swapping 47 listing prices for 8 keyword medians would
+ * throw the review evidence away and make every category read "open" at 0
+ * reviews. The two fields answer different questions and both are needed.
+ *
+ * RULE 23 is enforced here rather than trusted: `medianUsd` must equal the
+ * LOWEST of the recorded `readings`, so an evidence file cannot quietly adopt
+ * the day the basket happened to read high. Run 12 watched the pendant basket
+ * move 3.1% within a single day, and taking the looser reading would have made
+ * a live breach disappear.
+ *
+ * Every failure below is a HARD failure. A malformed or too-thin bandMedian
+ * must never fall back to the single-keyword median - that would make the
+ * looser test the reward for writing bad evidence.
+ */
+export function resolveBand(handle, ev, prices) {
+  const raw = ev.bandMedian;
+  if (raw === undefined || raw === null) {
+    return {
+      medianUsd: median(prices),
+      how: 'SINGLE KEYWORD - no bandMedian on file',
+      keywordCount: 0,
+    };
+  }
+  if (typeof raw !== 'object' || Array.isArray(raw)) {
+    return {error: `${handle}: bandMedian must be an object. Rule 25 needs the keywords and their medians, not a bare number.`};
+  }
+
+  const kws = Array.isArray(raw.keywords) ? raw.keywords : null;
+  if (!kws) {
+    return {error: `${handle}: bandMedian.keywords must be an array.`};
+  }
+  if (kws.length < MIN_BAND_KEYWORDS) {
+    return {error: `${handle}: bandMedian carries ${kws.length} keyword(s), needs ${MIN_BAND_KEYWORDS}. One search term is a slice, not a band.`};
+  }
+  const kwMedians = kws.map((k) => Number(k && k.medianUsd));
+  if (kwMedians.some((n) => !(n > 0))) {
+    return {error: `${handle}: every bandMedian.keywords entry needs a positive medianUsd.`};
+  }
+
+  const readings = Array.isArray(raw.readings) ? raw.readings : null;
+  if (!readings || readings.length < 2) {
+    return {error: `${handle}: bandMedian.readings needs at least 2 dated measurements - rule 23 is the LOWER of two different readings, which one reading cannot establish.`};
+  }
+  const readingMedians = readings.map((r) => Number(r && r.medianUsd));
+  if (readingMedians.some((n) => !(n > 0))) {
+    return {error: `${handle}: every bandMedian.readings entry needs a positive medianUsd.`};
+  }
+
+  const declared = Number(raw.medianUsd);
+  if (!(declared > 0)) {
+    return {error: `${handle}: bandMedian.medianUsd must be a positive number.`};
+  }
+  const lowest = Math.min(...readingMedians);
+  if (Math.abs(declared - lowest) > 0.005) {
+    return {error: `${handle}: bandMedian.medianUsd is $${declared.toFixed(2)} but the lowest recorded reading is $${lowest.toFixed(2)}. RULE 23 takes the LOWER - do not adopt the day the basket read high.`};
+  }
+
+  return {
+    medianUsd: declared,
+    how: `basket of ${kws.length} keywords, lowest of ${readings.length} readings`,
+    keywordCount: kws.length,
+  };
+}
 
 /**
  * Which duty scenario binds follows US_DUTY_INCIDENCE, exactly as
@@ -142,12 +216,22 @@ export function auditUndercut(handles, load, now = new Date(), opts = {}) {
       notes.push(`${handle}: contributes $${perUnit.toFixed(2)}/unit at $${retail.toFixed(2)} ('${basis}' basis).`);
     }
 
-    // RULE 2
-    const mid = median(prices);
-    if (retail > mid * BAND_TOLERANCE) {
-      failures.push(
-        `${handle}: RULE 2 - retail $${retail.toFixed(2)} is over the band (median $${mid.toFixed(2)}, ceiling $${(mid * BAND_TOLERANCE).toFixed(2)}).`,
-      );
+    // RULE 2, banded by RULE 25
+    const band = resolveBand(handle, ev, prices);
+    if (band.error) {
+      failures.push(band.error);
+    } else {
+      const mid = band.medianUsd;
+      const ceiling = mid * BAND_TOLERANCE;
+      if (retail > ceiling) {
+        failures.push(
+          `${handle}: RULE 2 - retail $${retail.toFixed(2)} is over the band (median $${mid.toFixed(2)}, ceiling $${ceiling.toFixed(2)}, ${band.how}).`,
+        );
+      } else {
+        notes.push(
+          `${handle}: RULE 2 - retail $${retail.toFixed(2)} is inside the band (median $${mid.toFixed(2)}, ceiling $${ceiling.toFixed(2)}, ${band.how}).`,
+        );
+      }
     }
 
     const topReviews = Math.max(0, ...(ev.competitors || []).map((c) => Number(c.reviews) || 0));

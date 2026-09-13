@@ -31,7 +31,7 @@ test('production monitor shares the verified market cohorts', () => {
   // is what caught the empty Canadian catalogue in the first place.
   assert.deepEqual(EXPECTED_HANDLES_BY_MARKET.CA, []);
 
-  // The United States carries two handles as of 2026-09-09. The monitor will
+  // The United States carries three handles as of 2026-09-11. The monitor will
   // now fail post-deploy unless BOTH are live on the storefront, which is the
   // point: the 2026-09-01 failure was the monitor expecting handles that were
   // not live, and the mirror of it is a monitor expecting nothing while the
@@ -39,7 +39,6 @@ test('production monitor shares the verified market cohorts', () => {
   // together.
   assert.deepEqual(EXPECTED_HANDLES_BY_MARKET.US, [
     'hand-woven-bamboo-pendant-light',
-    'plug-in-bamboo-sconce-swing-arm',
     'woven-bamboo-dome-pendant',
     'slatted-bamboo-lantern-pendant-20cm',
   ]);

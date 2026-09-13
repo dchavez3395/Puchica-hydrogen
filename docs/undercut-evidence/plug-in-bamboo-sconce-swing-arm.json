@@ -1,6 +1,6 @@
 {
   "handle": "plug-in-bamboo-sconce-swing-arm",
-  "checkedOn": "2026-09-09",
+  "checkedOn": "2026-09-11",
   "market": "US",
   "note": "Plug-in bamboo swing-arm wall sconce, E26, 110-120V. Competitor set is every organic (non-sponsored) priced listing on Amazon page 1 for \"rattan wall sconce\", captured 2026-09-09. Sponsored listings excluded. The category is the one the PRODUCT belongs to, not the one whose search happened to surface it - the chandeliers are benchmarked against chandeliers.",
   "sources": [
@@ -262,5 +262,66 @@
   "supplierSku": "US PLUG-DIM / no light",
   "supplierSkuUnitCap": 999,
   "supplierSkuUnitCapObservedOn": "2026-09-09",
-  "supplierSkuUnitCapMethod": "Measured 2026-09-09 by the quantity-clamp test: select the exact SKU, type 999 into the quantity box and read the value the page settles on. That is the hard ceiling AliExpress checkout will sell. It is the only per-SKU number that can be trusted - the \"Only N left\" banner shows a different variant's figure on some pages (this listing displayed \"Only 7 left\" while the SKU we sell clamped at 888), and the Stock figure on the DSers My Products card is the sum across every variant (it read 9,284 for a listing whose US-plug SKU caps at 9 on other sellers)."
+  "supplierSkuUnitCapMethod": "Measured 2026-09-09 by the quantity-clamp test: select the exact SKU, type 999 into the quantity box and read the value the page settles on. That is the hard ceiling AliExpress checkout will sell. It is the only per-SKU number that can be trusted - the \"Only N left\" banner shows a different variant's figure on some pages (this listing displayed \"Only 7 left\" while the SKU we sell clamped at 888), and the Stock figure on the DSers My Products card is the sum across every variant (it read 9,284 for a listing whose US-plug SKU caps at 9 on other sellers).",
+  "costHold": "unpublished-2026-09-11-run10",
+  "costHoldReason": "The $23.91 itemCostUsd above is a 52% promotional price, not a list price. Listing 3256810272264745 carries a non-null originalPrice on every variant: the mapped SKU reads $23.91 against a $49.81 list, and the other three read $23.78/$49.55, $21.52/$44.84 and $21.70/$44.28. Under step 1 of the gate sequence a discounted listing passes only if it clears at BOTH prices, and this one does not clear at $49.81 at any price the category supports.",
+  "costHoldCeilings": {
+    "note": "Max supplier cost to clear the $12.00 floor at the live $72.00, from contribution() in scripts/us-duty-impact.mjs - not a collapsed formula. Verified by reproducing the catalogue figures 40.55/8.05 exactly at itemCost 23.91, supplierShip 1.84, dutyRate 0.414.",
+    "chinaDirectMaxItemCostUsd": 19.96,
+    "usLocalMaxItemCostUsd": 51.31,
+    "usLocalFreightAssumedUsd": 2.99
+  },
+  "costHoldPriceNote": "Separately: $72.00 is for a SINGLE sconce, against an Amazon page-1 median of $59.99 for a PAIR (six keywords, 47-48 organic results each, measured 2026-09-11). Sconces sell in pairs in this category, so there is no 2-pack premium to capture and rule 2 ceiling of $72.43 is worth re-deriving against that basket before this offer is released.",
+  "costHoldSearch": "Run 10 swept the previously untried wall lamp / wall light vocabulary: rattan wall lamp china-direct (12 cards), rattan wall lamp US pool (8 cards), bamboo wall lamp china-direct (12 cards). Zero passes. Best china-direct candidate 3256812232895826 at $15.84 died on skuStock 2 and a 48% promo; best US candidate 3256812131337830 at $44.67 died on Max. 1 pcs/shopper.",
+  "bandMedian": {
+    "basket": "rattan wall sconce",
+    "medianUsd": 56.98,
+    "ceilingUsd": 65.53,
+    "rule23": "medianUsd is the LOWER of the readings below, per rule 23. The gate re-derives this and fails if it is not the minimum.",
+    "readings": [
+      {
+        "on": "2026-09-11",
+        "medianUsd": 57.48,
+        "source": "run 12"
+      },
+      {
+        "on": "2026-09-11",
+        "medianUsd": 56.98,
+        "source": "run 13, Amazon page-1 organic, same-origin fetch"
+      }
+    ],
+    "method": "Amazon page-1 organic per keyword, sponsored rows dropped, prices outside $8-$400 dropped; median per keyword, then median of those medians.",
+    "keywords": [
+      {
+        "keyword": "rattan wall sconce",
+        "n": 48,
+        "medianUsd": 59.93
+      },
+      {
+        "keyword": "bamboo wall sconce",
+        "n": 48,
+        "medianUsd": 55.52
+      },
+      {
+        "keyword": "woven wall sconce",
+        "n": 47,
+        "medianUsd": 62.99
+      },
+      {
+        "keyword": "boho wall sconce",
+        "n": 48,
+        "medianUsd": 49.99
+      },
+      {
+        "keyword": "wicker wall sconce",
+        "n": 48,
+        "medianUsd": 58.44
+      },
+      {
+        "keyword": "plug in rattan wall sconce",
+        "n": 45,
+        "medianUsd": 54.99
+      }
+    ]
+  }
 }

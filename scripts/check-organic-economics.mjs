@@ -8,6 +8,7 @@ import {
   ARCHIVED_CATALOG_OFFERS,
   VOLTAGE_HOLD_CATALOG_OFFERS,
   TRANSIT_HOLD_CATALOG_OFFERS,
+  COST_HOLD_CATALOG_OFFERS,
   isMarketSuspended,
   isOfferSellable,
 } from '../app/lib/launch-catalog.js';
@@ -35,6 +36,11 @@ try {
  * offer onto it made the audit report its own cost and route rows as
  * "Unexpected", which is the file telling you evidence was about to be thrown
  * away to make a check pass.
+ *
+ * COST_HOLD was added 2026-09-11 for the same reason, before it could bite:
+ * the sconce's cost and route evidence stays in the baseline while the offer
+ * is held, because a 52%-off supplier price is exactly the kind of reading a
+ * later run needs to compare against.
  */
 export const BASELINE_AUDIT_COHORT = Object.freeze([
   ...APPROVED_CATALOG_OFFERS,
@@ -42,6 +48,7 @@ export const BASELINE_AUDIT_COHORT = Object.freeze([
     ...ARCHIVED_CATALOG_OFFERS,
     ...VOLTAGE_HOLD_CATALOG_OFFERS,
     ...TRANSIT_HOLD_CATALOG_OFFERS,
+    ...COST_HOLD_CATALOG_OFFERS,
   ].filter(
     (other) =>
       !APPROVED_CATALOG_OFFERS.some(

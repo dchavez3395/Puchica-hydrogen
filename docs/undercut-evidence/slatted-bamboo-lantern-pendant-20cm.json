@@ -1,6 +1,6 @@
 {
   "handle": "slatted-bamboo-lantern-pendant-20cm",
-  "checkedOn": "2026-09-10",
+  "checkedOn": "2026-09-11",
   "market": "US",
   "note": "20 x 23 cm slatted bamboo lantern pendant, wooden ceiling base. Vertical bamboo strips bound over rings rather than a weave. Sourced from listing 3256804155598662, 90-260V, E27, shipping $1.99. Competitor set is every organic (non-sponsored) priced listing on Amazon page 1 for \"rattan pendant light\", captured 2026-09-09; sponsored excluded. Benchmarked as a pendant, which is what it is.",
   "sources": [
@@ -257,5 +257,66 @@
   "supplierSkuUnitCap": 5771,
   "supplierSkuUnitCapObservedOn": "2026-09-10",
   "supplierSkuUnitCapMethod": "Read as skuStock from the SKU table in window._d_c_ on item 3256804155598662, joined per-variant to skuPriceInfoMap. The DSers card figure of 22,774 is the SUM across all variants on that listing and must never be read as per-SKU depth.",
-  "retailNote": "CORRECTED 2026-09-10. Was 85.0, computed as the CAD list price divided by a 1.40 planning rate. Shopify does not use 1.40. Read from contextualPricing(country: US), which is what the customer is actually charged: $88.00. The conversion is ~1.352 with rounding to the nearest whole dollar. Ceiling for this category is $103.49, so this offer is INSIDE it."
+  "retailNote": "CORRECTED 2026-09-10. Was 85.0, computed as the CAD list price divided by a 1.40 planning rate. Shopify does not use 1.40. Read from contextualPricing(country: US), which is what the customer is actually charged: $88.00. The conversion is ~1.352 with rounding to the nearest whole dollar. Ceiling for this category is $103.49, so this offer is INSIDE it.",
+  "bandMedian": {
+    "basket": "bamboo/rattan pendant",
+    "medianUsd": 87.28,
+    "ceilingUsd": 100.37,
+    "rule23": "medianUsd is the LOWER of the readings below, per rule 23. The gate re-derives this and fails if it is not the minimum.",
+    "readings": [
+      {
+        "on": "2026-09-11",
+        "medianUsd": 87.28,
+        "source": "run 11"
+      },
+      {
+        "on": "2026-09-11",
+        "medianUsd": 89.98,
+        "source": "run 13, Amazon page-1 organic, same-origin fetch"
+      }
+    ],
+    "method": "Amazon page-1 organic per keyword, sponsored rows dropped, prices outside $8-$400 dropped; median per keyword, then median of those medians.",
+    "keywords": [
+      {
+        "keyword": "mini bamboo pendant light",
+        "n": 48,
+        "medianUsd": 57.99
+      },
+      {
+        "keyword": "boho rattan pendant light",
+        "n": 48,
+        "medianUsd": 61.0
+      },
+      {
+        "keyword": "wicker pendant light",
+        "n": 48,
+        "medianUsd": 71.24
+      },
+      {
+        "keyword": "bamboo pendant light",
+        "n": 47,
+        "medianUsd": 89.98
+      },
+      {
+        "keyword": "bamboo lantern pendant light",
+        "n": 48,
+        "medianUsd": 89.98
+      },
+      {
+        "keyword": "woven pendant light",
+        "n": 48,
+        "medianUsd": 89.98
+      },
+      {
+        "keyword": "rattan globe pendant light",
+        "n": 48,
+        "medianUsd": 104.5
+      },
+      {
+        "keyword": "rattan pendant light",
+        "n": 48,
+        "medianUsd": 97.99
+      }
+    ]
+  }
 }

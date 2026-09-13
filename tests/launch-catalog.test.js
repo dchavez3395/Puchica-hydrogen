@@ -279,7 +279,6 @@ test('product market resolution fails closed on an empty catalogue', () => {
   // ship, which is worse than one that never appeared.
   assert.deepEqual(DISCOVERABLE_PRODUCT_HANDLES, [
     'hand-woven-bamboo-pendant-light',
-    'plug-in-bamboo-sconce-swing-arm',
     'woven-bamboo-dome-pendant',
     'slatted-bamboo-lantern-pendant-20cm',
   ]);
@@ -709,7 +708,6 @@ test('a suspended market closes commerce without erasing route evidence', () => 
   // none of them may appear no matter what else discovery is carrying.
   assert.deepEqual(DISCOVERABLE_PRODUCT_HANDLES, [
     'hand-woven-bamboo-pendant-light',
-    'plug-in-bamboo-sconce-swing-arm',
     'woven-bamboo-dome-pendant',
     'slatted-bamboo-lantern-pendant-20cm',
   ]);
@@ -737,18 +735,19 @@ test('approved handles and SKUs derive from one exact-offer cohort', () => {
   }
 
   // Canada is still suspended and therefore still carries nothing. The United
-  // States carries the five approved offers - one SKU each, so SKUs and
+  // States carries the three approved offers - one SKU each, so SKUs and
   // handles are the same length here and a divergence would mean the
-  // derivation drifted. Two were approved 2026-09-09 and three on 2026-09-10.
+  // derivation drifted. It was five until 2026-09-11, when the petal went to
+  // TRANSIT_HOLD and the sconce to COST_HOLD. Every remaining offer clears the
+  // $12.00 floor on BOTH duty bases, so the list is incidence-immune entire.
   assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.CA.length, 0);
   assert.equal(APPROVED_PRODUCT_HANDLES_BY_MARKET.CA.length, 0);
   assert.deepEqual(APPROVED_PRODUCT_HANDLES_BY_MARKET.US, [
     'hand-woven-bamboo-pendant-light',
-    'plug-in-bamboo-sconce-swing-arm',
     'woven-bamboo-dome-pendant',
     'slatted-bamboo-lantern-pendant-20cm',
   ]);
-  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.US.length, 4);
+  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.US.length, 3);
 
   // The live cohort crosses the suspended cn-direct route, so every approved
   // offer must carry BOTH duty scenarios and both must be positive. The
