@@ -9282,3 +9282,34 @@ main:has(> .pk-collection--bold) {
   grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
   gap: var(--pk-s-5);
 }
+
+/*
+ * WIDE-VIEWPORT CAP ON THE HERO VISUAL — because the photograph cannot grow.
+ *
+ * Every product image in this catalogue is 800x800 in Shopify. They are
+ * supplier assets, so the CDN has nothing larger to serve however the `sizes`
+ * attribute is written, and there is no bigger original to re-upload.
+ *
+ * The hero's later layout rule drops the 1480px cap (`max-width: none`) and
+ * runs full-bleed, so at 1920 the visual column resolves to 969px and the
+ * browser upscales an 800px file into it. CI #134 measured exactly that:
+ * delivered 800, needed 967, ratio 0.83 against the probe's 0.9 floor - the
+ * single failure among 84 browser checks, and not an accessibility problem at
+ * all. Reproduced here at 969 in Chromium at 1920x1080, dpr 1.
+ *
+ * Capping the COLUMN rather than the <img> keeps the hero full-bleed and lets
+ * the copy take the slack. Capping the image alone would leave a bare strip
+ * inside the visual and read as a broken layout.
+ *
+ * 780 rather than 800 leaves margin, since the ratio is scored against the
+ * laid-out box and a scrollbar shifts it by a pixel or two. Measured after:
+ * 1920 -> 780 (1.03), 1600 -> 780 (1.03), 1440 -> 714 (1.12), 1280 -> 635.
+ *
+ * Raise this only when the source assets get bigger. Widening the probe's
+ * floor instead would be switching off the thing that noticed.
+ */
+@media (min-width: 1500px) {
+  .pk-campaign-hero {
+    grid-template-columns: minmax(0, 1fr) minmax(460px, 780px);
+  }
+}

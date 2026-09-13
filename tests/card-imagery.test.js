@@ -101,3 +101,20 @@ test('the placeholder text clears WCAG SC 1.4.3 against the card ground', () => 
     `placeholder text is ${ratio.toFixed(2)}:1 at opacity ${opacity}, needs ${required}:1 (${size}px/${weight}). It measured 3.02:1 live and failed CI.`,
   );
 });
+
+test('the hero visual is capped to what the source assets can serve', () => {
+  // Every product image in Shopify is 800x800 and they are supplier assets, so
+  // there is nothing larger to serve. Uncapped, the hero column resolves to
+  // 969px at 1920 and the browser upscales - CI #134's only failure, at a 0.83
+  // ratio against the probe's 0.9 floor.
+  const SOURCE_WIDTH = 800;
+  const m = css.match(
+    /@media \(min-width:\s*\d+px\)\s*\{\s*\.pk-campaign-hero\s*\{[^}]*minmax\(\s*\d+px\s*,\s*(\d+)px\s*\)/,
+  );
+  assert.ok(m, 'no wide-viewport cap on .pk-campaign-hero grid-template-columns');
+  const cap = Number(m[1]);
+  assert.ok(
+    cap <= SOURCE_WIDTH,
+    `hero visual column caps at ${cap}px but the source images are ${SOURCE_WIDTH}px wide, so anything above that upscales`,
+  );
+});
