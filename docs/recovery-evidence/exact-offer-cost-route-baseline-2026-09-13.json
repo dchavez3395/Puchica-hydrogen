@@ -29,7 +29,8 @@
     "2026-09-13": "THE MARKET SWITCHED TO CANADA. Daniel: \"Canada. i feel like we just complicated things by doing US.\" Every lighting row now carries a routes.CA block read on the day, and its itemCost is a Canadian reading rather than a US one. The US rows are left exactly as they were - the US route evidence is still true, it is the commercial decision above it that changed, and re-entering that market must not require re-reading any of it.",
     "2026-09-13-duty": "Duty on this route is HS 9405.11.00 / 9405.19.00 at 7% MFN on VALUE FOR DUTY, which is the supplier price, against 41.4% on RETAIL for the United States. About CA$2.04 a unit against US$40.57. That gap is the entire reason for the switch: it lifts the maximum supplier cost that still clears the floor from about US$17 to about US$38.",
     "2026-09-13-not-fixed": "WHAT THE SWITCH DOES NOT FIX, stated so nobody re-derives it hopefully. Canada runs at 120 V with the same plugs as the United States, so all six 220 V fixtures on VOLTAGE_HOLD stay held. The sconce's promotion dependence is a supplier fact rather than a duty one, so COST_HOLD stays: at its C$78.14 list cost its contribution at the banded ceiling is NEGATIVE. And 33-41 day transit is 33-41 days in any market, so TRANSIT_HOLD stays.",
-    "2026-09-13-sweep": "TWO offers added from the Canadian-gateway sourcing sweep later the same day: slatted-bamboo-pear-pendant-20cm (listing 1005008652215677, Style E, C$28.21 with a 1.4% list gap, stock 50) and tiered-bamboo-pendant-30cm (listing 1005008081008680, 30CM China-mainland SKU, C$47.38 LIST against a C$29.57 sale - a 38% promotion, so rule 22 files the list price and the offer is priced at CA$84.99 to clear the floor at it). Both rows are Canadian-only from the start and carry no US route. Neither product exists in Shopify or DSers yet: these rows are the sourcing reading, and the DSers stable-cost cross-check happens at the mapping step. A third sweep candidate, a woven bamboo table lamp, is NOT here - it is a new category with no amazon.ca band and is not approved."
+    "2026-09-13-sweep": "TWO offers added from the Canadian-gateway sourcing sweep later the same day: slatted-bamboo-pear-pendant-20cm (listing 1005008652215677, Style E, C$28.21 with a 1.4% list gap, stock 50) and tiered-bamboo-pendant-30cm (listing 1005008081008680, 30CM China-mainland SKU, C$47.38 LIST against a C$29.57 sale - a 38% promotion, so rule 22 files the list price and the offer is priced at CA$84.99 to clear the floor at it). Both rows are Canadian-only from the start and carry no US route. Neither product exists in Shopify or DSers yet: these rows are the sourcing reading, and the DSers stable-cost cross-check happens at the mapping step. A third sweep candidate, a woven bamboo table lamp, is NOT here - it is a new category with no amazon.ca band and is not approved.",
+    "2026-09-13-batch2": "SIX more offers added later the same day, all from ONE listing, 1005007626643748 (3256-form 3256807439328996, ZODOLAMP, 4.2 stars / 83 reviews / 78 sold, 459 orders in DSers) - the listing the saucer was once mis-mapped to. THIS listing's spec table reads Voltage 90-260V, unlike the 220 V held cohort from the same seller family. woven-bamboo-gourd-pendant-23cm (32cm-M, C$36.32 list), woven-bamboo-egg-pendant-15cm (Burgundy, C$21.16), woven-bamboo-bell-pendant-26cm (Clear, C$32.18), woven-bamboo-nest-pendant-30cm (Dark Khaki, C$43.77, priced CA$84.99 because CA$74.99 files 15.04 under the 16.23 floor), bamboo-slat-pumpkin-pendant-18cm (SKY BLUE, C$34.87) and woven-bamboo-globe-pendant-25cm (Chocolate, C$30.26). The swatch names in brackets are the seller's variant labels and describe nothing about the product; they are recorded so a human can find the row in DSers. Every SKU sells about 6% under its originalPrice, so rule 22 files the LIST price on all six. Per-SKU stock 876-888; the \"Max. 20 pcs/shopper\" on each SKU is a per-order cap, not stock. Rule 18: gourd / egg / bell / nest / segmented pumpkin / globe, none a live shape; three other deep-stock SKUs on the listing were rejected (a 16x33 straight cylinder = lantern, a 23x24 slatted onion = pear, a 29x22 wide-brim hat = saucer). All six rows are Canadian-only and carry no US route. None exists in Shopify or DSers yet."
   },
   "offers": [
     {
@@ -242,6 +243,168 @@
       "itemCostOriginalCad": 47.38,
       "itemCostSaleCad": 29.57,
       "itemCostCad": 47.38
+    },
+    {
+      "handle": "woven-bamboo-gourd-pendant-23cm",
+      "sku": "200000531:1052#32cm-M;249:200006305#1pcs",
+      "supplierItemId": "1005007626643748",
+      "supplierItemIdUs": "3256807439328996",
+      "itemCostUsd": 25.94,
+      "voltageNote": "Supplier specification read 2026-09-13: Voltage 90-260V, Base Type E27, Is Bulbs Included No, Is Include PCBA N, Power Source AC.",
+      "routes": {
+        "CA": {
+          "shippingUsd": 0,
+          "shippingCad": 0,
+          "freeOverCad": 10,
+          "eta": "16 days",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard",
+          "shipFrom": "CN",
+          "fulfilment": "cn-direct",
+          "observedOn": "2026-09-13",
+          "source": "Read 2026-09-13 from SHIPPING.deliveryLayoutInfo[0].bizData of listing 1005007626643748 on the .com gateway with a Canadian destination: ship from China, freight free above the C$10 threshold (discount 100), deliveryDayMax 16. Canadian-only from the start - no US route was read for this offer and none is claimed. tracked:true is carried from the carrier identity, NOT from a tracking number; that needs a placed order."
+        }
+      },
+      "itemCostObservedOn": "2026-09-13",
+      "itemCostNote": "CANADIAN-GATEWAY per-SKU price read 2026-09-13 from PRICE.skuPriceInfoMap: the page SELLS at C$34.14 against a C$36.32 originalPrice, a 6% promotion (every SKU on this listing sits about 6% under its list). RULE 22 makes the LIST price the cost basis, so itemCostCad is 36.32 and the USD figure is DERIVED from it at the 1.4 planning rate. Seller variant label 32cm-M (the seller label; the shade is 23 x 26 cm). 23 x 26 cm close-weave gourd, wood ceiling cap, 120 cm cord, skuStock 876 (per-SKU, rule 4); the listing shows \"Max. 20 pcs/shopper\" on every SKU, which is a per-order cap and not stock. Contribution at CA$74.99 is CA$23.01. Sourced from the 2026-09-13 Canadian-gateway sweep; NOT yet in Shopify or DSers, so no DSers stable-cost cross-check exists yet.",
+      "itemCostOriginalCad": 36.32,
+      "itemCostSaleCad": 34.14,
+      "itemCostCad": 36.32
+    },
+    {
+      "handle": "woven-bamboo-egg-pendant-15cm",
+      "sku": "200000531:200002984;249:200006305#1pcs",
+      "supplierItemId": "1005007626643748",
+      "supplierItemIdUs": "3256807439328996",
+      "itemCostUsd": 15.11,
+      "voltageNote": "Supplier specification read 2026-09-13: Voltage 90-260V, Base Type E27, Is Bulbs Included No, Is Include PCBA N, Power Source AC.",
+      "routes": {
+        "CA": {
+          "shippingUsd": 0,
+          "shippingCad": 0,
+          "freeOverCad": 10,
+          "eta": "16 days",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard",
+          "shipFrom": "CN",
+          "fulfilment": "cn-direct",
+          "observedOn": "2026-09-13",
+          "source": "Read 2026-09-13 from SHIPPING.deliveryLayoutInfo[0].bizData of listing 1005007626643748 on the .com gateway with a Canadian destination: ship from China, freight free above the C$10 threshold (discount 100), deliveryDayMax 16. Canadian-only from the start - no US route was read for this offer and none is claimed. tracked:true is carried from the carrier identity, NOT from a tracking number; that needs a placed order."
+        }
+      },
+      "itemCostObservedOn": "2026-09-13",
+      "itemCostNote": "CANADIAN-GATEWAY per-SKU price read 2026-09-13 from PRICE.skuPriceInfoMap: the page SELLS at C$19.89 against a C$21.16 originalPrice, a 6% promotion (every SKU on this listing sits about 6% under its list). RULE 22 makes the LIST price the cost basis, so itemCostCad is 21.16 and the USD figure is DERIVED from it at the 1.4 planning rate. Seller variant label Burgundy (a swatch colour name, not a description). 15 x 18 cm close-weave egg, black 10 cm canopy, 120 cm cord, skuStock 887 (per-SKU, rule 4); the listing shows \"Max. 20 pcs/shopper\" on every SKU, which is a per-order cap and not stock. Contribution at CA$74.99 is CA$39.24. Sourced from the 2026-09-13 Canadian-gateway sweep; NOT yet in Shopify or DSers, so no DSers stable-cost cross-check exists yet.",
+      "itemCostOriginalCad": 21.16,
+      "itemCostSaleCad": 19.89,
+      "itemCostCad": 21.16
+    },
+    {
+      "handle": "woven-bamboo-bell-pendant-26cm",
+      "sku": "200000531:100018786;249:200006305#1pcs",
+      "supplierItemId": "1005007626643748",
+      "supplierItemIdUs": "3256807439328996",
+      "itemCostUsd": 22.99,
+      "voltageNote": "Supplier specification read 2026-09-13: Voltage 90-260V, Base Type E27, Is Bulbs Included No, Is Include PCBA N, Power Source AC.",
+      "routes": {
+        "CA": {
+          "shippingUsd": 0,
+          "shippingCad": 0,
+          "freeOverCad": 10,
+          "eta": "16 days",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard",
+          "shipFrom": "CN",
+          "fulfilment": "cn-direct",
+          "observedOn": "2026-09-13",
+          "source": "Read 2026-09-13 from SHIPPING.deliveryLayoutInfo[0].bizData of listing 1005007626643748 on the .com gateway with a Canadian destination: ship from China, freight free above the C$10 threshold (discount 100), deliveryDayMax 16. Canadian-only from the start - no US route was read for this offer and none is claimed. tracked:true is carried from the carrier identity, NOT from a tracking number; that needs a placed order."
+        }
+      },
+      "itemCostObservedOn": "2026-09-13",
+      "itemCostNote": "CANADIAN-GATEWAY per-SKU price read 2026-09-13 from PRICE.skuPriceInfoMap: the page SELLS at C$30.25 against a C$32.18 originalPrice, a 6% promotion (every SKU on this listing sits about 6% under its list). RULE 22 makes the LIST price the cost basis, so itemCostCad is 32.18 and the USD figure is DERIVED from it at the 1.4 planning rate. Seller variant label Clear (a swatch colour name, not a description). 26 x 26 cm woven bell, black canopy, 150 cm cord, skuStock 888 (per-SKU, rule 4); the listing shows \"Max. 20 pcs/shopper\" on every SKU, which is a per-order cap and not stock. Contribution at CA$74.99 is CA$27.44. Sourced from the 2026-09-13 Canadian-gateway sweep; NOT yet in Shopify or DSers, so no DSers stable-cost cross-check exists yet.",
+      "itemCostOriginalCad": 32.18,
+      "itemCostSaleCad": 30.25,
+      "itemCostCad": 32.18
+    },
+    {
+      "handle": "woven-bamboo-nest-pendant-30cm",
+      "sku": "200000531:200006154;249:200006305#1pcs",
+      "supplierItemId": "1005007626643748",
+      "supplierItemIdUs": "3256807439328996",
+      "itemCostUsd": 31.26,
+      "voltageNote": "Supplier specification read 2026-09-13: Voltage 90-260V, Base Type E27, Is Bulbs Included No, Is Include PCBA N, Power Source AC.",
+      "routes": {
+        "CA": {
+          "shippingUsd": 0,
+          "shippingCad": 0,
+          "freeOverCad": 10,
+          "eta": "16 days",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard",
+          "shipFrom": "CN",
+          "fulfilment": "cn-direct",
+          "observedOn": "2026-09-13",
+          "source": "Read 2026-09-13 from SHIPPING.deliveryLayoutInfo[0].bizData of listing 1005007626643748 on the .com gateway with a Canadian destination: ship from China, freight free above the C$10 threshold (discount 100), deliveryDayMax 16. Canadian-only from the start - no US route was read for this offer and none is claimed. tracked:true is carried from the carrier identity, NOT from a tracking number; that needs a placed order."
+        }
+      },
+      "itemCostObservedOn": "2026-09-13",
+      "itemCostNote": "CANADIAN-GATEWAY per-SKU price read 2026-09-13 from PRICE.skuPriceInfoMap: the page SELLS at C$41.14 against a C$43.77 originalPrice, a 6% promotion (every SKU on this listing sits about 6% under its list). RULE 22 makes the LIST price the cost basis, so itemCostCad is 43.77 and the USD figure is DERIVED from it at the 1.4 planning rate. Seller variant label Dark Khaki (a swatch colour name, not a description). 30 x 18 cm loose-woven nest, black 10 cm canopy, 120 cm cord, skuStock 887 (per-SKU, rule 4); the listing shows \"Max. 20 pcs/shopper\" on every SKU, which is a per-order cap and not stock. Contribution at CA$84.99 is CA$23.69. Priced at CA$84.99 rather than the shared CA$74.99 because at CA$74.99 the list-cost contribution is CA$15.04, under the CA$16.23 floor; CA$84.99 files CA$23.69. Sourced from the 2026-09-13 Canadian-gateway sweep; NOT yet in Shopify or DSers, so no DSers stable-cost cross-check exists yet.",
+      "itemCostOriginalCad": 43.77,
+      "itemCostSaleCad": 41.14,
+      "itemCostCad": 43.77
+    },
+    {
+      "handle": "bamboo-slat-pumpkin-pendant-18cm",
+      "sku": "200000531:1254;249:200006305#1pcs",
+      "supplierItemId": "1005007626643748",
+      "supplierItemIdUs": "3256807439328996",
+      "itemCostUsd": 24.91,
+      "voltageNote": "Supplier specification read 2026-09-13: Voltage 90-260V, Base Type E27, Is Bulbs Included No, Is Include PCBA N, Power Source AC.",
+      "routes": {
+        "CA": {
+          "shippingUsd": 0,
+          "shippingCad": 0,
+          "freeOverCad": 10,
+          "eta": "16 days",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard",
+          "shipFrom": "CN",
+          "fulfilment": "cn-direct",
+          "observedOn": "2026-09-13",
+          "source": "Read 2026-09-13 from SHIPPING.deliveryLayoutInfo[0].bizData of listing 1005007626643748 on the .com gateway with a Canadian destination: ship from China, freight free above the C$10 threshold (discount 100), deliveryDayMax 16. Canadian-only from the start - no US route was read for this offer and none is claimed. tracked:true is carried from the carrier identity, NOT from a tracking number; that needs a placed order."
+        }
+      },
+      "itemCostObservedOn": "2026-09-13",
+      "itemCostNote": "CANADIAN-GATEWAY per-SKU price read 2026-09-13 from PRICE.skuPriceInfoMap: the page SELLS at C$32.78 against a C$34.87 originalPrice, a 6% promotion (every SKU on this listing sits about 6% under its list). RULE 22 makes the LIST price the cost basis, so itemCostCad is 34.87 and the USD figure is DERIVED from it at the 1.4 planning rate. Seller variant label SKY BLUE (a swatch colour name, not a description). 18 x 12 cm segmented slat pumpkin, wood ceiling cap, cord length not stated on the swatch, skuStock 888 (per-SKU, rule 4); the listing shows \"Max. 20 pcs/shopper\" on every SKU, which is a per-order cap and not stock. Contribution at CA$74.99 is CA$24.57. Sourced from the 2026-09-13 Canadian-gateway sweep; NOT yet in Shopify or DSers, so no DSers stable-cost cross-check exists yet.",
+      "itemCostOriginalCad": 34.87,
+      "itemCostSaleCad": 32.78,
+      "itemCostCad": 34.87
+    },
+    {
+      "handle": "woven-bamboo-globe-pendant-25cm",
+      "sku": "200000531:200000195;249:200006305#1pcs",
+      "supplierItemId": "1005007626643748",
+      "supplierItemIdUs": "3256807439328996",
+      "itemCostUsd": 21.61,
+      "voltageNote": "Supplier specification read 2026-09-13: Voltage 90-260V, Base Type E27, Is Bulbs Included No, Is Include PCBA N, Power Source AC.",
+      "routes": {
+        "CA": {
+          "shippingUsd": 0,
+          "shippingCad": 0,
+          "freeOverCad": 10,
+          "eta": "16 days",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard",
+          "shipFrom": "CN",
+          "fulfilment": "cn-direct",
+          "observedOn": "2026-09-13",
+          "source": "Read 2026-09-13 from SHIPPING.deliveryLayoutInfo[0].bizData of listing 1005007626643748 on the .com gateway with a Canadian destination: ship from China, freight free above the C$10 threshold (discount 100), deliveryDayMax 16. Canadian-only from the start - no US route was read for this offer and none is claimed. tracked:true is carried from the carrier identity, NOT from a tracking number; that needs a placed order."
+        }
+      },
+      "itemCostObservedOn": "2026-09-13",
+      "itemCostNote": "CANADIAN-GATEWAY per-SKU price read 2026-09-13 from PRICE.skuPriceInfoMap: the page SELLS at C$28.44 against a C$30.26 originalPrice, a 6% promotion (every SKU on this listing sits about 6% under its list). RULE 22 makes the LIST price the cost basis, so itemCostCad is 30.26 and the USD figure is DERIVED from it at the 1.4 planning rate. Seller variant label Chocolate (a swatch colour name, not a description). 25 x 25 cm open-weave globe, black 10 cm canopy, 150 cm cord, skuStock 888 (per-SKU, rule 4); the listing shows \"Max. 20 pcs/shopper\" on every SKU, which is a per-order cap and not stock. Contribution at CA$74.99 is CA$29.50. Sourced from the 2026-09-13 Canadian-gateway sweep; NOT yet in Shopify or DSers, so no DSers stable-cost cross-check exists yet.",
+      "itemCostOriginalCad": 30.26,
+      "itemCostSaleCad": 28.44,
+      "itemCostCad": 30.26
     },
     {
       "handle": "woven-rattan-petal-pendant-30cm",

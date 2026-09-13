@@ -871,9 +871,9 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
   Object.freeze({
     handle: 'slatted-bamboo-pear-pendant-20cm',
     sku: '200000531:350852#E;249:200006305#Without Bulb',
-    // NOT YET MAPPED IN DSERS. The product does not exist in Shopify yet; this
-    // is the listing the order must reach when it does. Verify per the method
-    // above once the Shopify product is imported and mapped.
+    // VERIFIED IN DSERS 2026-09-13 (my-product/v2/search supplier[].supplyProductId
+    // and my-product/detail supply.<variant>.sku): Shopify variant 50322698895610 is
+    // basic-mapped to this listing at exactly the SKU above.
     supplierProductId: '1005008652215677',
     markets: Object.freeze(['CA']),
     // CANADIAN CONTRIBUTION, 2026-09-13. One figure, not a pair: CBSA assesses
@@ -911,9 +911,9 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
   Object.freeze({
     handle: 'tiered-bamboo-pendant-30cm',
     sku: '200000531:193#30CM;200007763:201336100;136:200003939#No Bulb',
-    // NOT YET MAPPED IN DSERS. The product does not exist in Shopify yet; this
-    // is the listing the order must reach when it does. Verify per the method
-    // above once the Shopify product is imported and mapped.
+    // VERIFIED IN DSERS 2026-09-13 (my-product/v2/search supplier[].supplyProductId
+    // and my-product/detail supply.<variant>.sku): Shopify variant 50322750865658 is
+    // basic-mapped to this listing at exactly the SKU above.
     supplierProductId: '1005008081008680',
     markets: Object.freeze(['CA']),
     // CANADIAN CONTRIBUTION, 2026-09-13. One figure, not a pair: CBSA assesses
@@ -924,6 +924,182 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
     // this number must move in the same edit. Derived at the LIST cost of
     // C$47.38 (rule 22), not the C$29.57 promotional price.
     contributionCad: 19.83,
+  }),
+  // SIX OFFERS ADDED 2026-09-13 FROM ONE LISTING, 1005007626643748 (3256-form
+  // 3256807439328996, ZODOLAMP, 4.2 stars / 83 reviews / 78 sold on the page,
+  // 459 orders in DSers). This is the listing the saucer was once mis-mapped
+  // to (its 30cm-M wide-brim hat, see the supplierProductId note above); the
+  // listing was never the problem, the mapping was. THIS listing's spec table
+  // reads Voltage 90-260V, E27, bulbs not included - not the 220 V of the held
+  // cohort from the same seller family. Ship from China, freight free over
+  // the C$10 threshold, deliveryDayMax 16.
+  //
+  // Everything below shares four facts, stated once:
+  //   RULE 22. Every SKU on the listing sells about 6% under its
+  //   originalPrice. That is a promotion, not rounding, so the LIST price is
+  //   the cost basis on all six and each contribution derives from it.
+  //   RULE 4. Per-SKU stock reads 876-888 on every one of these - the
+  //   deepest in the catalogue. The "Max. 20 pcs/shopper" on each SKU is a
+  //   PER-ORDER cap, not stock, and not the one-unit cap that killed the old
+  //   dome listing.
+  //   RULE 18. Six shapes - gourd, egg, bell, nest, segmented pumpkin, globe -
+  //   and none is the live saucer (wide brim), dome, straight lantern column,
+  //   slatted pear or stepped drum. Three other deep-stock SKUs on the same
+  //   listing were REJECTED on rule 18: a 16 x 33 straight slatted cylinder
+  //   (= the lantern), a 23 x 24 slatted onion (= the pear) and a 29 x 22
+  //   wide-brim hat (= the saucer).
+  //   IMAGERY. The listing gallery is the wave/saucer shape, so each of these
+  //   has exactly ONE honest image: its swatch dimension shot, cropped to
+  //   remove a "Gift 12W LED" overlay that contradicts the spec.
+  //
+  // The supplierSku swatch names (Burgundy, Clear, Dark Khaki, SKY BLUE,
+  // Chocolate) are the seller's variant labels and describe NOTHING about the
+  // product; they are recorded in the evidence files so a human can find the
+  // row in DSers, and nowhere else.
+  //
+  // 23 x 26 cm close-weave GOURD on a wood ceiling cap, 120 cm adjustable
+  // cord. Seller label 32cm-M (the shade is 23 cm, not 32). C$36.32 list
+  // (C$34.14 sale), stock 876. Rule 18: a rounded belly narrowing to a flat
+  // shoulder - not the pear, which is strips over rings bulging the other way.
+  Object.freeze({
+    handle: 'woven-bamboo-gourd-pendant-23cm',
+    sku: '200000531:1052#32cm-M;249:200006305#1pcs',
+    // VERIFIED IN DSERS 2026-09-13 (my-product/v2/search supplier[].supplyProductId
+    // and my-product/detail supply.<variant>.sku): Shopify variant 50338193539322 is
+    // basic-mapped to this listing at exactly the SKU above.
+    supplierProductId: '1005007626643748',
+    markets: Object.freeze(['CA']),
+    // CANADIAN CONTRIBUTION, 2026-09-13. One figure, not a pair: CBSA assesses
+    // 7% MFN on value for duty (the supplier price), so there is no second
+    // basis to be uncertain between. Derived from this offer's undercut
+    // evidence by scripts/check-contribution-derivation.mjs (RULE 26), which
+    // fails on more than a cent of drift - so if the price or the cost moves,
+    // this number must move in the same edit. Derived at the LIST cost of
+    // C$36.32 (rule 22), not the C$34.14 sale price.
+    contributionCad: 23.01,
+  }),
+  // 15 x 18 cm close-weave EGG on a black 10 cm canopy, 120 cm adjustable
+  // cord. The smallest piece in the range. Seller label "Burgundy" (a swatch
+  // name; the shade is natural bamboo). C$21.16 list (C$19.89 sale), stock
+  // 887 - the cheapest cost and the widest margin in the Canadian catalogue.
+  // Rule 18: a closed oval taller than it is wide - not the dome (open
+  // underneath, wider than tall) and not the pear.
+  Object.freeze({
+    handle: 'woven-bamboo-egg-pendant-15cm',
+    sku: '200000531:200002984;249:200006305#1pcs',
+    // VERIFIED IN DSERS 2026-09-13 (my-product/v2/search supplier[].supplyProductId
+    // and my-product/detail supply.<variant>.sku): Shopify variant 50345622667514 is
+    // basic-mapped to this listing at exactly the SKU above.
+    supplierProductId: '1005007626643748',
+    markets: Object.freeze(['CA']),
+    // CANADIAN CONTRIBUTION, 2026-09-13. One figure, not a pair: CBSA assesses
+    // 7% MFN on value for duty (the supplier price), so there is no second
+    // basis to be uncertain between. Derived from this offer's undercut
+    // evidence by scripts/check-contribution-derivation.mjs (RULE 26), which
+    // fails on more than a cent of drift - so if the price or the cost moves,
+    // this number must move in the same edit. Derived at the LIST cost of
+    // C$21.16 (rule 22), not the C$19.89 sale price.
+    contributionCad: 39.24,
+  }),
+  // 26 x 26 cm woven BELL - narrow neck flaring to a wide open mouth - on a
+  // black canopy, 150 cm adjustable cord. Seller label "Clear" (a swatch
+  // name). C$32.18 list (C$30.25 sale), stock 888. Rule 18: a bell is not the
+  // saucer's shallow wide brim and not the dome's half-sphere; the 29 x 22
+  // wide-brim hat on this same listing WAS rejected as a second saucer.
+  Object.freeze({
+    handle: 'woven-bamboo-bell-pendant-26cm',
+    sku: '200000531:100018786;249:200006305#1pcs',
+    // VERIFIED IN DSERS 2026-09-13 (my-product/v2/search supplier[].supplyProductId
+    // and my-product/detail supply.<variant>.sku): Shopify variant 50345397158138 is
+    // basic-mapped to this listing at exactly the SKU above.
+    supplierProductId: '1005007626643748',
+    markets: Object.freeze(['CA']),
+    // CANADIAN CONTRIBUTION, 2026-09-13. One figure, not a pair: CBSA assesses
+    // 7% MFN on value for duty (the supplier price), so there is no second
+    // basis to be uncertain between. Derived from this offer's undercut
+    // evidence by scripts/check-contribution-derivation.mjs (RULE 26), which
+    // fails on more than a cent of drift - so if the price or the cost moves,
+    // this number must move in the same edit. Derived at the LIST cost of
+    // C$32.18 (rule 22), not the C$30.25 sale price.
+    contributionCad: 27.44,
+  }),
+  // 30 x 18 cm loose-woven NEST - random bamboo sticks built up into a
+  // shallow open bowl - on a black 10 cm canopy, 120 cm adjustable cord.
+  // Seller label "Dark Khaki" (a swatch name). C$43.77 list (C$41.14 sale),
+  // stock 887. Rule 18: the weave itself is the distinction - every other
+  // piece in the range is an even lattice or straight slats, and a nest
+  // wider than it is tall is not the dome's close-weave half-sphere.
+  //
+  // PRICED AT CA$84.99, NOT THE CA$74.99 THE OTHER FIVE CARRY, for the same
+  // arithmetic reason as the tiered pendant above. At CA$74.99 the list-cost
+  // contribution is CA$15.04, CA$1.19 under the CA$16.23 floor, so the shared
+  // price is not available to it. CA$84.99 is the highest x.99 under the
+  // CA$86.73 banded ceiling and files CA$23.69. It is as wide as the tiered
+  // pendant (30 cm) and the widest of the six, so the price sits where the
+  // size does. If the list price moves up by more than about C$7.60 this
+  // comes off; re-read cost before any paid push.
+  Object.freeze({
+    handle: 'woven-bamboo-nest-pendant-30cm',
+    sku: '200000531:200006154;249:200006305#1pcs',
+    // VERIFIED IN DSERS 2026-09-13 (my-product/v2/search supplier[].supplyProductId
+    // and my-product/detail supply.<variant>.sku): Shopify variant 50345202811130 is
+    // basic-mapped to this listing at exactly the SKU above.
+    supplierProductId: '1005007626643748',
+    markets: Object.freeze(['CA']),
+    // CANADIAN CONTRIBUTION, 2026-09-13. One figure, not a pair: CBSA assesses
+    // 7% MFN on value for duty (the supplier price), so there is no second
+    // basis to be uncertain between. Derived from this offer's undercut
+    // evidence by scripts/check-contribution-derivation.mjs (RULE 26), which
+    // fails on more than a cent of drift - so if the price or the cost moves,
+    // this number must move in the same edit. Derived at the LIST cost of
+    // C$43.77 (rule 22), not the C$41.14 sale price, and at CA$84.99.
+    contributionCad: 23.69,
+  }),
+  // 18 x 12 cm segmented slat PUMPKIN - flat slats set radially into a squat
+  // open dome - on a wood ceiling cap. The swatch image does NOT state the
+  // cord length, and the copy says so rather than inventing one. Seller
+  // label "SKY BLUE" (a swatch name; the shade is natural wood). C$34.87
+  // list (C$32.78 sale), stock 888. Rule 18: it shares slats with the lantern
+  // and the pear, but they run radially and the shape is a squat dome, not a
+  // column or a teardrop.
+  Object.freeze({
+    handle: 'bamboo-slat-pumpkin-pendant-18cm',
+    sku: '200000531:1254;249:200006305#1pcs',
+    // VERIFIED IN DSERS 2026-09-13 (my-product/v2/search supplier[].supplyProductId
+    // and my-product/detail supply.<variant>.sku): Shopify variant 50345012986106 is
+    // basic-mapped to this listing at exactly the SKU above.
+    supplierProductId: '1005007626643748',
+    markets: Object.freeze(['CA']),
+    // CANADIAN CONTRIBUTION, 2026-09-13. One figure, not a pair: CBSA assesses
+    // 7% MFN on value for duty (the supplier price), so there is no second
+    // basis to be uncertain between. Derived from this offer's undercut
+    // evidence by scripts/check-contribution-derivation.mjs (RULE 26), which
+    // fails on more than a cent of drift - so if the price or the cost moves,
+    // this number must move in the same edit. Derived at the LIST cost of
+    // C$34.87 (rule 22), not the C$32.78 sale price.
+    contributionCad: 24.57,
+  }),
+  // 25 x 25 cm open-weave GLOBE - strands wound into an irregular ball with
+  // the bulb visible through the gaps - on a black 10 cm canopy, 150 cm
+  // adjustable cord. Seller label "Chocolate" (a swatch name). C$30.26 list
+  // (C$28.44 sale), stock 888. Rule 18: a full closed sphere, not the dome's
+  // half-sphere bowl, and in a wound weave nothing else in the range uses.
+  Object.freeze({
+    handle: 'woven-bamboo-globe-pendant-25cm',
+    sku: '200000531:200000195;249:200006305#1pcs',
+    // VERIFIED IN DSERS 2026-09-13 (my-product/v2/search supplier[].supplyProductId
+    // and my-product/detail supply.<variant>.sku): Shopify variant 50345861251322 is
+    // basic-mapped to this listing at exactly the SKU above.
+    supplierProductId: '1005007626643748',
+    markets: Object.freeze(['CA']),
+    // CANADIAN CONTRIBUTION, 2026-09-13. One figure, not a pair: CBSA assesses
+    // 7% MFN on value for duty (the supplier price), so there is no second
+    // basis to be uncertain between. Derived from this offer's undercut
+    // evidence by scripts/check-contribution-derivation.mjs (RULE 26), which
+    // fails on more than a cent of drift - so if the price or the cost moves,
+    // this number must move in the same edit. Derived at the LIST cost of
+    // C$30.26 (rule 22), not the C$28.44 sale price.
+    contributionCad: 29.5,
   }),
   // Added 2026-09-10, from listing 3256812550446681 (LINCCW, 1,000+ sold,
   // 90-260V, $1.99 shipping). Woven rattan petal shade, the most sculptural

@@ -327,22 +327,33 @@ test('the open Canadian market is scored, and it blocks paid spend', () => {
   // median, because at CA$74.99 its list-cost contribution sits under the
   // floor) joined the three. Both still block: the tiered pendant at list
   // cost is the thinnest row in the table.
-  assert.equal(result.rows.length, 5, 'the five approved offers are scored');
+  //
+  // Eleven, later still: six shapes from listing 1005007626643748 (gourd,
+  // egg, bell, nest at CA$84.99, segmented pumpkin, globe), all at the rule
+  // 22 list cost. All six block too - the widest of them, the egg at
+  // CA$39.24, is still short of the target CPA.
+  assert.equal(result.rows.length, 11, 'the eleven approved offers are scored');
   assert.deepEqual(
     result.rows.map((row) => row.handle).sort(),
     [
+      'bamboo-slat-pumpkin-pendant-18cm',
       'hand-woven-bamboo-pendant-light',
       'slatted-bamboo-lantern-pendant-20cm',
       'slatted-bamboo-pear-pendant-20cm',
       'tiered-bamboo-pendant-30cm',
+      'woven-bamboo-bell-pendant-26cm',
       'woven-bamboo-dome-pendant',
+      'woven-bamboo-egg-pendant-15cm',
+      'woven-bamboo-globe-pendant-25cm',
+      'woven-bamboo-gourd-pendant-23cm',
+      'woven-bamboo-nest-pendant-30cm',
     ],
     'exactly the approved cohort, so a held offer cannot be scored into paid spend',
   );
   assert.deepEqual(result.failures, [], 'the gate read its inputs cleanly');
   assert.equal(
     result.blocking.length,
-    5,
+    11,
     'every offer is short of the target CPA and must block a paid build',
   );
   for (const row of result.rows) {

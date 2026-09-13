@@ -81,6 +81,17 @@ const CA_RETAIL = {
   // CA$84.99, the highest x.99 under the CA$86.73 banded ceiling.
   'slatted-bamboo-pear-pendant-20cm': 74.99,
   'tiered-bamboo-pendant-30cm': 84.99,
+  // The six 2026-09-13 offers from listing 1005007626643748. Same status as
+  // the two above: prices to SET on import, not Admin API readings. Five
+  // take the shared CA$74.99. The nest cannot: at CA$74.99 its rule-22
+  // list-cost contribution is CA$15.04 against the CA$16.23 floor, so it is
+  // priced at CA$84.99 like the tiered pendant.
+  'woven-bamboo-gourd-pendant-23cm': 74.99,
+  'woven-bamboo-egg-pendant-15cm': 74.99,
+  'woven-bamboo-bell-pendant-26cm': 74.99,
+  'woven-bamboo-nest-pendant-30cm': 84.99,
+  'bamboo-slat-pumpkin-pendant-18cm': 74.99,
+  'woven-bamboo-globe-pendant-25cm': 74.99,
 };
 
 if (path.resolve(process.argv[1] || '') === scriptPath) {

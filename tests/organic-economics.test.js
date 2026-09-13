@@ -76,7 +76,7 @@ const completeBaseline = {
         US: {shippingUsd: 4.15, tracked: true},
       },
     },
-    // The live cohort: seven bamboo lighting offers, evidenced for CANADA as of
+    // The live cohort: thirteen bamboo lighting offers, evidenced for CANADA as of
     // 2026-09-13. Costs are the Canadian-gateway readings converted at the
     // 1.352 planning rate and match exact-offer-cost-route-baseline-2026-09-13
     // on disk; supplier shipping is 0 because Canadian freight is free above
@@ -103,6 +103,15 @@ const completeBaseline = {
       // the C$29.57 it happens to sell at.
       ['slatted-bamboo-pear-pendant-20cm', '200000531:350852#E;249:200006305#Without Bulb', 20.87],
       ['tiered-bamboo-pendant-30cm', '200000531:193#30CM;200007763:201336100;136:200003939#No Bulb', 35.04],
+      // The six 2026-09-13 offers from listing 1005007626643748. Every cost
+      // is the LIST price (rule 22: each SKU sells about 6% under it), CAD
+      // list / 1.352.
+      ['woven-bamboo-gourd-pendant-23cm', '200000531:1052#32cm-M;249:200006305#1pcs', 26.86],
+      ['woven-bamboo-egg-pendant-15cm', '200000531:200002984;249:200006305#1pcs', 15.65],
+      ['woven-bamboo-bell-pendant-26cm', '200000531:100018786;249:200006305#1pcs', 23.8],
+      ['woven-bamboo-nest-pendant-30cm', '200000531:200006154;249:200006305#1pcs', 32.37],
+      ['bamboo-slat-pumpkin-pendant-18cm', '200000531:1254;249:200006305#1pcs', 25.79],
+      ['woven-bamboo-globe-pendant-25cm', '200000531:200000195;249:200006305#1pcs', 22.38],
       ['woven-rattan-petal-pendant-30cm', '200000531:175#30CM;136:200003939#Warm Light', 39.59],
     ].map(([handle, sku, itemCostUsd, shippingUsd = 0]) => ({
       handle,

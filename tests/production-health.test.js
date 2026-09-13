@@ -50,12 +50,23 @@ test('production monitor shares the verified market cohorts', () => {
   // DSers, tagged and set ACTIVE. That is the intended order: the repo states
   // the cohort first and the storefront is brought up to it, exactly as the
   // lantern was earlier the same day.
+  //
+  // Eleven, later still on 2026-09-13: six shapes from listing
+  // 1005007626643748 (gourd, egg, bell, nest, segmented pumpkin, globe), all
+  // approved on the same reading and all NOT yet in Shopify. The monitor
+  // stays red until all eleven are imported, mapped, tagged and ACTIVE.
   assert.deepEqual(EXPECTED_HANDLES_BY_MARKET.CA, [
     'hand-woven-bamboo-pendant-light',
     'woven-bamboo-dome-pendant',
     'slatted-bamboo-lantern-pendant-20cm',
     'slatted-bamboo-pear-pendant-20cm',
     'tiered-bamboo-pendant-30cm',
+    'woven-bamboo-gourd-pendant-23cm',
+    'woven-bamboo-egg-pendant-15cm',
+    'woven-bamboo-bell-pendant-26cm',
+    'woven-bamboo-nest-pendant-30cm',
+    'bamboo-slat-pumpkin-pendant-18cm',
+    'woven-bamboo-globe-pendant-25cm',
   ]);
 
   // Discovery follows the live cohort. The seven previous handles were deleted

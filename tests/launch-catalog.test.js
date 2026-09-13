@@ -284,12 +284,23 @@ test('product market resolution fails closed on an empty catalogue', () => {
   // Five from 2026-09-13: the pear and the tiered pendant were approved from
   // the Canadian-gateway sourcing sweep. Neither exists in Shopify yet, so
   // discovery expecting them is the contract for the import, not a reading.
+  //
+  // Eleven, later still on 2026-09-13: six shapes from one listing
+  // (1005007626643748 - gourd, egg, bell, nest, segmented pumpkin, globe),
+  // every one 90-260 V with per-SKU stock in the high 800s. Same contract:
+  // none exists in Shopify yet.
   assert.deepEqual(DISCOVERABLE_PRODUCT_HANDLES, [
     'hand-woven-bamboo-pendant-light',
     'woven-bamboo-dome-pendant',
     'slatted-bamboo-lantern-pendant-20cm',
     'slatted-bamboo-pear-pendant-20cm',
     'tiered-bamboo-pendant-30cm',
+    'woven-bamboo-gourd-pendant-23cm',
+    'woven-bamboo-egg-pendant-15cm',
+    'woven-bamboo-bell-pendant-26cm',
+    'woven-bamboo-nest-pendant-30cm',
+    'bamboo-slat-pumpkin-pendant-18cm',
+    'woven-bamboo-globe-pendant-25cm',
   ]);
   for (const offer of VOLTAGE_HOLD_CATALOG_OFFERS) {
     assert.ok(
@@ -355,9 +366,15 @@ test('discovery includes every approved market without exposing retired products
   // storefront receives, so this asserts the filter closes on a realistic
   // payload rather than on an empty one.
   assert.deepEqual(filterDiscoverableProducts(products), []);
-  assert.ok(
-    products.length > DISCOVERABLE_PRODUCT_HANDLES.length,
-    'the payload carries the full cohort plus a retired handle',
+  // The payload is built from the ARCHIVED cohort above, so that is what it
+  // is measured against. It was compared to DISCOVERABLE_PRODUCT_HANDLES
+  // while the two were the same list; the approved cohort passed the
+  // archived one in size on 2026-09-13 (eleven against nine handles), which
+  // made that comparison assert the wrong thing.
+  assert.equal(
+    products.length,
+    byHandle.size + 1,
+    'the payload carries the full archived cohort plus a retired handle',
   );
 });
 
@@ -741,6 +758,12 @@ test('a suspended market closes commerce without erasing route evidence', () => 
     'slatted-bamboo-lantern-pendant-20cm',
     'slatted-bamboo-pear-pendant-20cm',
     'tiered-bamboo-pendant-30cm',
+    'woven-bamboo-gourd-pendant-23cm',
+    'woven-bamboo-egg-pendant-15cm',
+    'woven-bamboo-bell-pendant-26cm',
+    'woven-bamboo-nest-pendant-30cm',
+    'bamboo-slat-pumpkin-pendant-18cm',
+    'woven-bamboo-globe-pendant-25cm',
   ]);
   for (const archived of ARCHIVED_CATALOG_OFFERS) {
     assert.ok(
@@ -766,9 +789,10 @@ test('approved handles and SKUs derive from one exact-offer cohort', () => {
   }
 
   // THE MARKET FLIPPED ON 2026-09-13. Canada now carries the approved offers
-  // - three at the switch, five by the end of the day once the pear and the
-  // tiered pendant cleared the Canadian-gateway sourcing sweep - and the
-  // United States carries nothing. Daniel's words: "Canada. i feel like we
+  // - three at the switch, five once the pear and the tiered pendant cleared
+  // the Canadian-gateway sourcing sweep, eleven once six shapes from listing
+  // 1005007626643748 followed them the same day - and the United States
+  // carries nothing. Daniel's words: "Canada. i feel like we
   // just complicated things by doing US."
   //
   // The reason is the duty stack, and it is not a close call. The US route is
@@ -792,8 +816,14 @@ test('approved handles and SKUs derive from one exact-offer cohort', () => {
     'slatted-bamboo-lantern-pendant-20cm',
     'slatted-bamboo-pear-pendant-20cm',
     'tiered-bamboo-pendant-30cm',
+    'woven-bamboo-gourd-pendant-23cm',
+    'woven-bamboo-egg-pendant-15cm',
+    'woven-bamboo-bell-pendant-26cm',
+    'woven-bamboo-nest-pendant-30cm',
+    'bamboo-slat-pumpkin-pendant-18cm',
+    'woven-bamboo-globe-pendant-25cm',
   ]);
-  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.CA.length, 5);
+  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.CA.length, 11);
 
   // A US offer crosses the suspended cn-direct route, so it must carry BOTH
   // duty scenarios and both must be positive - the watch-roll cohort died
@@ -1145,6 +1175,17 @@ test('every offer records the supplier an order would actually reach', () => {
     // detail endpoint once each is imported and mapped.
     'slatted-bamboo-pear-pendant-20cm': '1005008652215677',
     'tiered-bamboo-pendant-30cm': '1005008081008680',
+    // The six 2026-09-13 offers from listing 1005007626643748, the listing
+    // the saucer was once mis-mapped to (its wide-brim hat SKU). Same
+    // status as the two above: the listing the evidence was read from, not
+    // a DSers reading. Six handles, one supplierProductId, six different SKU
+    // strings - the SKU is what tells them apart at the mapping step.
+    'woven-bamboo-gourd-pendant-23cm': '1005007626643748',
+    'woven-bamboo-egg-pendant-15cm': '1005007626643748',
+    'woven-bamboo-bell-pendant-26cm': '1005007626643748',
+    'woven-bamboo-nest-pendant-30cm': '1005007626643748',
+    'bamboo-slat-pumpkin-pendant-18cm': '1005007626643748',
+    'woven-bamboo-globe-pendant-25cm': '1005007626643748',
   };
   for (const offer of APPROVED_CATALOG_OFFERS) {
     assert.ok(

@@ -37,6 +37,12 @@ export const LAUNCH_COPY_PREFIX = {
   'slatted-bamboo-lantern-pendant-20cm': 'product_copy_slattedlantern20',
   'slatted-bamboo-pear-pendant-20cm': 'product_copy_slattedpear20',
   'tiered-bamboo-pendant-30cm': 'product_copy_tieredpendant30',
+  'woven-bamboo-gourd-pendant-23cm': 'product_copy_wovengourd23',
+  'woven-bamboo-egg-pendant-15cm': 'product_copy_wovenegg15',
+  'woven-bamboo-bell-pendant-26cm': 'product_copy_wovenbell26',
+  'woven-bamboo-nest-pendant-30cm': 'product_copy_wovennest30',
+  'bamboo-slat-pumpkin-pendant-18cm': 'product_copy_slatpumpkin18',
+  'woven-bamboo-globe-pendant-25cm': 'product_copy_wovenglobe25',
   'woven-rattan-petal-pendant-30cm': 'product_copy_rattanpetal30',
 };
 
