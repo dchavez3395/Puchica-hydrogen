@@ -238,6 +238,31 @@ test('a route outside the approved market cohort fails closed', () => {
   );
 });
 
+test('a retained route for a suspended market is evidence, not a failure', () => {
+  // The US market was suspended on 2026-09-13 and every live lighting offer
+  // became Canadian-only, but the baseline file kept its US route rows on
+  // purpose: the reads are still true, only the commercial decision changed.
+  // The audit must tolerate those rows - otherwise the only way to make it
+  // pass is to delete evidence - while still refusing a route for a market
+  // the catalogue has never approved, which the GB case above pins.
+  const retainedRouteBaseline = structuredClone(completeBaseline);
+  const saucer = retainedRouteBaseline.offers.find(
+    ({handle}) => handle === 'hand-woven-bamboo-pendant-light',
+  );
+  assert.ok(saucer, 'the fixture carries the saucer');
+  saucer.routes.US = {shippingUsd: 1.99, tracked: true};
+
+  const failures = auditBaseline(
+    retainedRouteBaseline,
+    new Date('2026-08-15T12:00:00Z'),
+  );
+
+  assert.equal(
+    failures.some((failure) => failure.includes('Unexpected US route')),
+    false,
+    failures.join(', '),
+  );
+});
 test('a duplicate exact offer/SKU baseline row fails closed', () => {
   const duplicateBaseline = structuredClone(completeBaseline);
   duplicateBaseline.offers.push(structuredClone(completeBaseline.offers[1]));

@@ -302,7 +302,16 @@ export function auditBaseline(baseline, now = new Date()) {
       }
     }
     for (const market of Object.keys(evidence?.routes || {})) {
-      if (!approved.markets.includes(market)) {
+      // A route for a market the offer is not approved in must not quietly
+      // imply permission to sell there - unless that market is commercially
+      // suspended, in which case nobody can buy there whatever the file says
+      // and the row is retained evidence, not a permission. The US rows were
+      // left in place on 2026-09-13 for exactly this reason (see the
+      // baseline's 2026-09-13 note): the route reads are still true, only the
+      // decision above them changed, and re-entering that market must not
+      // require re-reading any of them. Flagging them here would have made
+      // deleting evidence the way to turn the check green.
+      if (!approved.markets.includes(market) && !isMarketSuspended(market)) {
         failures.push(
           `Unexpected ${market} route for ${approved.handle} / ${approved.sku}.`,
         );
