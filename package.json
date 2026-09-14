@@ -30,6 +30,7 @@
     "organic-release-check": "node scripts/manage-organic-release.mjs",
     "canada-duty-impact": "node scripts/canada-duty-impact.mjs",
     "acquisition-gate": "node scripts/check-acquisition-gate.mjs",
+    "cost-drift": "node scripts/check-cost-drift.mjs",
     "measurement-readiness": "node scripts/check-measurement-readiness.mjs",
     "campaign-links": "node scripts/build-campaign-links.mjs",
     "compare-models": "node scripts/compare-business-models.mjs",

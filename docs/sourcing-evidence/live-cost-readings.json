@@ -1,0 +1,175 @@
+{
+  "note": "Live per-SKU readings for scripts/check-cost-drift.mjs. Collected with scripts/browser/collect-live-costs.js on an AliExpress item page with a Canadian destination; listCad is originalPrice (rule 22), shipCad is the shipping panel's charge. Replace rows when re-read; the gate fails on rows older than seven days.",
+  "readings": [
+    {
+      "supplierProductId": "1005004093257950",
+      "sku": "200000531:200004889#Style F - Wood Base;200007763:201336100;5:100014064#Ship with 24h",
+      "listCad": 20.87,
+      "saleCad": 19.62,
+      "stock": 100,
+      "shipCad": 0,
+      "readOn": "2026-09-14",
+      "source": "window._d_c_ PRICE.skuPriceInfoMap / SKU.skuPaths, CA destination, CAD; late 2026-09-13 / early 2026-09-14 session"
+    },
+    {
+      "supplierProductId": "1005008639319927",
+      "sku": "200000531:365458#Style F-Wood Base;5:361386#No bulb",
+      "listCad": 34.59,
+      "saleCad": 31.86,
+      "stock": 585,
+      "shipCad": 0,
+      "readOn": "2026-09-14",
+      "source": "window._d_c_ PRICE.skuPriceInfoMap / SKU.skuPaths, CA destination, CAD; late 2026-09-13 / early 2026-09-14 session"
+    },
+    {
+      "supplierProductId": "1005004341913414",
+      "sku": "200000531:350852#20x23cm",
+      "listCad": 20.38,
+      "saleCad": 20.38,
+      "stock": 5771,
+      "shipCad": 0,
+      "readOn": "2026-09-14",
+      "source": "window._d_c_ PRICE.skuPriceInfoMap / SKU.skuPaths, CA destination, CAD; late 2026-09-13 / early 2026-09-14 session"
+    },
+    {
+      "supplierProductId": "1005008652215677",
+      "sku": "200000531:350852#E;249:200006305#Without Bulb",
+      "listCad": 28.82,
+      "saleCad": 27.46,
+      "stock": 50,
+      "shipCad": 0,
+      "readOn": "2026-09-14",
+      "source": "window._d_c_ PRICE.skuPriceInfoMap / SKU.skuPaths, CA destination, CAD; late 2026-09-13 / early 2026-09-14 session"
+    },
+    {
+      "supplierProductId": "1005008081008680",
+      "sku": "200000531:193#30CM;200007763:201336100;136:200003939#No Bulb",
+      "listCad": 47.51,
+      "saleCad": 25.56,
+      "stock": 45,
+      "shipCad": 0,
+      "readOn": "2026-09-14",
+      "source": "window._d_c_ PRICE.skuPriceInfoMap / SKU.skuPaths, CA destination, CAD; late 2026-09-13 / early 2026-09-14 session"
+    },
+    {
+      "supplierProductId": "1005007626643748",
+      "sku": "200000531:1052#32cm-M;249:200006305#1pcs",
+      "listCad": 65.9,
+      "saleCad": 61.95,
+      "stock": 876,
+      "shipCad": 0,
+      "readOn": "2026-09-14",
+      "source": "window._d_c_ PRICE.skuPriceInfoMap / SKU.skuPaths, CA destination, CAD; late 2026-09-13 / early 2026-09-14 session"
+    },
+    {
+      "supplierProductId": "1005007626643748",
+      "sku": "200000531:200002984;249:200006305#1pcs",
+      "listCad": 32.27,
+      "saleCad": 30.33,
+      "stock": 887,
+      "shipCad": 0,
+      "readOn": "2026-09-14",
+      "source": "window._d_c_ PRICE.skuPriceInfoMap / SKU.skuPaths, CA destination, CAD; late 2026-09-13 / early 2026-09-14 session"
+    },
+    {
+      "supplierProductId": "1005007626643748",
+      "sku": "200000531:100018786;249:200006305#1pcs",
+      "listCad": 32.27,
+      "saleCad": 30.33,
+      "stock": 888,
+      "shipCad": 0,
+      "readOn": "2026-09-14",
+      "source": "window._d_c_ PRICE.skuPriceInfoMap / SKU.skuPaths, CA destination, CAD; late 2026-09-13 / early 2026-09-14 session"
+    },
+    {
+      "supplierProductId": "1005007626643748",
+      "sku": "200000531:200006154;249:200006305#1pcs",
+      "listCad": 34.97,
+      "saleCad": 32.87,
+      "stock": 887,
+      "shipCad": 0,
+      "readOn": "2026-09-14",
+      "source": "window._d_c_ PRICE.skuPriceInfoMap / SKU.skuPaths, CA destination, CAD; late 2026-09-13 / early 2026-09-14 session"
+    },
+    {
+      "supplierProductId": "1005007626643748",
+      "sku": "200000531:1254;249:200006305#1pcs",
+      "listCad": 34.97,
+      "saleCad": 32.87,
+      "stock": 888,
+      "shipCad": 0,
+      "readOn": "2026-09-14",
+      "source": "window._d_c_ PRICE.skuPriceInfoMap / SKU.skuPaths, CA destination, CAD; late 2026-09-13 / early 2026-09-14 session"
+    },
+    {
+      "supplierProductId": "1005007626643748",
+      "sku": "200000531:200000195;249:200006305#1pcs",
+      "listCad": 30.34,
+      "saleCad": 28.52,
+      "stock": 888,
+      "shipCad": 0,
+      "readOn": "2026-09-14",
+      "source": "window._d_c_ PRICE.skuPriceInfoMap / SKU.skuPaths, CA destination, CAD; late 2026-09-13 / early 2026-09-14 session"
+    },
+    {
+      "supplierProductId": "1005008679122325",
+      "sku": "200000795:29#wood;180:200002571#Excluding light bulb",
+      "listCad": 24.74,
+      "saleCad": 16.08,
+      "stock": 992,
+      "shipCad": 26.06,
+      "readOn": "2026-09-14",
+      "source": "window._d_c_ PRICE.skuPriceInfoMap / SKU.skuPaths, CA destination, CAD; late 2026-09-13 / early 2026-09-14 session"
+    },
+    {
+      "supplierProductId": "1005005768310960",
+      "sku": "200000531:100018786#18x37.5cm;5:361386#Wood Base;136:200002572#3 light colors",
+      "listCad": 40.81,
+      "saleCad": 38.36,
+      "stock": 4986,
+      "shipCad": 2.82,
+      "readOn": "2026-09-14",
+      "source": "window._d_c_ PRICE.skuPriceInfoMap / SKU.skuPaths, CA destination, CAD; late 2026-09-13 / early 2026-09-14 session"
+    },
+    {
+      "supplierProductId": "1005007802917011",
+      "sku": "200000531:173#B Style;136:200003939#no bulb",
+      "listCad": 36.36,
+      "saleCad": 26.18,
+      "stock": 182,
+      "shipCad": 0,
+      "readOn": "2026-09-14",
+      "source": "window._d_c_ PRICE.skuPriceInfoMap / SKU.skuPaths, CA destination, CAD; late 2026-09-13 / early 2026-09-14 session"
+    },
+    {
+      "supplierProductId": "1005005768310960",
+      "sku": "200000531:10#30x28cm;5:361386#Wood Base;136:200002572#3 light colors",
+      "listCad": 42.96,
+      "saleCad": 40.38,
+      "stock": 5000,
+      "shipCad": 2.82,
+      "readOn": "2026-09-14",
+      "source": "window._d_c_ PRICE.skuPriceInfoMap / SKU.skuPaths, CA destination, CAD; late 2026-09-13 / early 2026-09-14 session"
+    },
+    {
+      "supplierProductId": "1005005768310960",
+      "sku": "200000531:350852#30x20cm;5:361386#Wood Base;136:200002572#3 light colors",
+      "listCad": 42.57,
+      "saleCad": 40.02,
+      "stock": 5000,
+      "shipCad": 2.82,
+      "readOn": "2026-09-14",
+      "source": "window._d_c_ PRICE.skuPriceInfoMap / SKU.skuPaths, CA destination, CAD; late 2026-09-13 / early 2026-09-14 session"
+    },
+    {
+      "supplierProductId": "1005005768310960",
+      "sku": "200000531:200006154#29.5x22cm;5:361386#Wood Base;136:200002572#3 light colors",
+      "listCad": 24.77,
+      "saleCad": 23.28,
+      "stock": 4998,
+      "shipCad": 2.82,
+      "readOn": "2026-09-14",
+      "source": "window._d_c_ PRICE.skuPriceInfoMap / SKU.skuPaths, CA destination, CAD; late 2026-09-13 / early 2026-09-14 session"
+    }
+  ]
+}
