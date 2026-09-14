@@ -170,6 +170,16 @@
       "shipCad": 2.82,
       "readOn": "2026-09-14",
       "source": "window._d_c_ PRICE.skuPriceInfoMap / SKU.skuPaths, CA destination, CAD; late 2026-09-13 / early 2026-09-14 session"
+    },
+    {
+      "supplierProductId": "1005004341913414",
+      "sku": "200000531:366#DD-HEI",
+      "listCad": 32.58,
+      "saleCad": 32.58,
+      "stock": 1000,
+      "shipCad": 0,
+      "readOn": "2026-09-14",
+      "source": "window._d_c_ PRICE.skuPriceInfoMap / SKU.skuPaths, CA destination, CAD; 2026-09-14 morning session"
     }
   ]
 }

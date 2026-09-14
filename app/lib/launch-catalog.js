@@ -553,26 +553,6 @@ export const COST_HOLD_CATALOG_OFFERS = Object.freeze([
     dutyBilledContributionUsd: 8.05,
     costHold: 'supplier-cost-is-52pct-promo-against-49.81-list-observed-2026-09-11; also breaches rule 2 by $6.47 against the $65.53 banded ceiling (run 13)',
   }),
-  // MOVED HERE 2026-09-13 (late) FROM APPROVED. The gourd went live earlier
-  // the same day at CA$74.99 on a C$36.32 list cost (contribution 23.01). A
-  // re-read of the listing that evening found the seller had repriced the
-  // 32cm-M variant to C$65.90 list (C$61.95 sale) - per-variant, not
-  // listing-wide; the egg rose, the nest fell, the rest moved by cents. At
-  // CA$74.99 that is CA$-8.64 a unit and at CA$89.99 still 4.34, under the
-  // 16.23 floor, so it came off the storefront the same night: DRAFT in
-  // Shopify (the connector refuses publishableUnpublish; DRAFT alone takes
-  // it off every channel), mapping left in place in DSers. Release needs
-  // the variant back under about C$41 list, or a second source for the
-  // same 23 x 26 cm gourd. Its evidence file keeps the earlier verdict
-  // underneath the new one so a release is not a re-audit.
-  Object.freeze({
-    handle: 'woven-bamboo-gourd-pendant-23cm',
-    sku: '200000531:1052#32cm-M;249:200006305#1pcs',
-    supplierProductId: '1005007626643748',
-    markets: Object.freeze(['CA']),
-    contributionCad: -8.64,
-    costHold: 'supplier-repriced-32cm-M-variant-from-36.32-to-65.90-list-observed-2026-09-13-late; -8.64 at CA$74.99 and 4.34 at CA$89.99 against the 16.23 floor',
-  }),
 ]);
 
 
@@ -948,8 +928,9 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
   //   deepest in the catalogue. The "Max. 20 pcs/shopper" on each SKU is a
   //   PER-ORDER cap, not stock, and not the one-unit cap that killed the old
   //   dome listing.
-  //   RULE 18. Six shapes - gourd (on COST_HOLD since the late re-read of
-  //   2026-09-13), egg, bell, nest, segmented pumpkin, globe -
+  //   RULE 18. Six shapes - gourd (re-sourced 2026-09-14 onto the lantern's
+  //   listing after this seller repriced it), egg, bell, nest, segmented
+  //   pumpkin, globe -
   //   and none is the live saucer (wide brim), dome, straight lantern column,
   //   slatted pear or stepped drum. Three other deep-stock SKUs on the same
   //   listing were REJECTED on rule 18: a 16 x 33 straight slatted cylinder
@@ -1267,6 +1248,32 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
     // this number must move in the same edit. Derived at the LIST cost of
     // C$24.77 (rule 22) plus C$2.82 freight, at CA$74.99.
     contributionCad: 32.36,
+  }),
+  // BACK FROM COST_HOLD 2026-09-14, re-sourced. Went live 2026-09-13 on
+  // 1005007626643748 (32cm-M, wood cap, C$36.32 list); that seller repriced
+  // the variant to C$65.90 the same day and it came off. The lantern's
+  // listing 1005004341913414 (Shop910337080 Store - the honest family behind
+  // the column, brim, drum and hat-nest) carries the same 23 x 26 cm gourd
+  // as DD-HEI: C$32.58 with no promo gap, stock 1000, free freight, black
+  // canopy instead of wood. Copy and image updated for the canopy. The hold
+  // note asked for exactly this - a second source for the same shape.
+  Object.freeze({
+    handle: 'woven-bamboo-gourd-pendant-23cm',
+    sku: '200000531:366#DD-HEI',
+    // VERIFIED IN DSERS 2026-09-14 (my-product/v2/search supplier[].supplyProductId
+    // and my-product/detail supply.<variant>.sku): Shopify variant 50338193539322 is
+    // basic-mapped to this listing at exactly the SKU above, re-mapped from
+    // 1005007626643748 through the Manage Suppliers drawer.
+    supplierProductId: '1005004341913414',
+    markets: Object.freeze(['CA']),
+    // CANADIAN CONTRIBUTION, 2026-09-14. One figure, not a pair: CBSA assesses
+    // 7% MFN on value for duty (the supplier price), so there is no second
+    // basis to be uncertain between. Derived from this offer's undercut
+    // evidence by scripts/check-contribution-derivation.mjs (RULE 26), which
+    // fails on more than a cent of drift - so if the price or the cost moves,
+    // this number must move in the same edit. Derived at C$32.58 (no gap,
+    // rule 22 has nothing to file) with free freight, at CA$74.99.
+    contributionCad: 27.02,
   }),
   // Added 2026-09-10, from listing 3256812550446681 (LINCCW, 1,000+ sold,
   // 90-260V, $1.99 shipping). Woven rattan petal shade, the most sculptural

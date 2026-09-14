@@ -312,6 +312,7 @@ test('product market resolution fails closed on an empty catalogue', () => {
     'woven-bamboo-wide-brim-chandelier-30cm',
     'bamboo-slat-drum-pendant-30cm',
     'bamboo-hat-nest-pendant-30cm',
+    'woven-bamboo-gourd-pendant-23cm',
   ]);
   for (const offer of VOLTAGE_HOLD_CATALOG_OFFERS) {
     assert.ok(
@@ -780,6 +781,7 @@ test('a suspended market closes commerce without erasing route evidence', () => 
     'woven-bamboo-wide-brim-chandelier-30cm',
     'bamboo-slat-drum-pendant-30cm',
     'bamboo-hat-nest-pendant-30cm',
+    'woven-bamboo-gourd-pendant-23cm',
   ]);
   for (const archived of ARCHIVED_CATALOG_OFFERS) {
     assert.ok(
@@ -843,8 +845,9 @@ test('approved handles and SKUs derive from one exact-offer cohort', () => {
     'woven-bamboo-wide-brim-chandelier-30cm',
     'bamboo-slat-drum-pendant-30cm',
     'bamboo-hat-nest-pendant-30cm',
+    'woven-bamboo-gourd-pendant-23cm',
   ]);
-  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.CA.length, 16);
+  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.CA.length, 17);
 
   // A US offer crosses the suspended cn-direct route, so it must carry BOTH
   // duty scenarios and both must be positive - the watch-roll cohort died
@@ -1202,7 +1205,9 @@ test('every offer records the supplier an order would actually reach', () => {
     // status as the two above: the listing the evidence was read from, not
     // a DSers reading. Six handles, one supplierProductId, six different SKU
     // strings - the SKU is what tells them apart at the mapping step.
-    'woven-bamboo-gourd-pendant-23cm': '1005007626643748',
+    // Re-sourced 2026-09-14 onto the lantern's listing after the first
+    // seller repriced the variant.
+    'woven-bamboo-gourd-pendant-23cm': '1005004341913414',
     'woven-bamboo-egg-pendant-15cm': '1005007626643748',
     'woven-bamboo-bell-pendant-26cm': '1005007626643748',
     'woven-bamboo-nest-pendant-30cm': '1005007626643748',

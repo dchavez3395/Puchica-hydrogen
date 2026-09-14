@@ -35,7 +35,8 @@
     "2026-09-13-column": "The column came off VOLTAGE_HOLD later the same night, the way the dome did: the same 18 x 37.5 cm shape on a 90-260 V listing (1005005768310960, 8% gap, list C$40.72, freight C$2.82, 9-16 days, bulb included). Its 220 V row (1005009170603754 D-wood base) is replaced by this one, as the dome's was. Found through the AliExpress 'ship from United States' filter, which surfaces the honest-priced seller families; the DSers 1688 and Alibaba tabs returned nothing for this category.",
     "2026-09-13-cage": "The iron cage pendant (1005007802917011, ZEGEL Store) is the first product outside the bamboo/rattan niche, admitted after Daniel widened the brief the same night. 28% timed promo, rule 22 files the C$36.36 list; free freight, 10-18 days; 90-260 V, E27, no bulb; per-SKU stock 182. Benchmarked against its own amazon.ca cage/industrial pendant basket (run 27, median 64.49 on two identical readings, ceiling 74.16), which sits UNDER the bamboo pendants' band - so it takes CA$69.99, a new price point, not the shared CA$74.99 that would breach its ceiling. Clears the floor by C$2.42 - the thinnest live offer.",
     "2026-09-13-listing-1005005768310960": "Three more shapes came off the column's listing later the same night, the way six came off 1005007626643748: the wide-brim hat (30x28cm, released from VOLTAGE_HOLD like the column - its 220 V style-E row is replaced by this one), a bamboo-slat drum (30x20cm, new) and a hat-nest (29.5x22cm, new). All three are 90-260 V with the 12 W three-colour bulb in the box, 5-6% gaps so rule 22 files the list, C$2.82 freight, seller-set 5000 stock. The brim and the drum take CA$84.99 like the column; the hat-nest clears at the shared CA$74.99. The listing's other shapes are duplicates of live products (dome, saucer/wave, nest, lantern, gourd, bell, globe, egg) and its 21x38cm cone lists at C$66.55, over what CA$84.99 can carry.",
-    "2026-09-13-late-reread-1005007626643748": "A late re-read of listing 1005007626643748 the same evening found the gourd's 32cm-M variant repriced from C$36.32 to C$65.90 list (under the floor at any price the class carries - moved to COST_HOLD and unpublished), the egg up from C$21.16 to C$32.27, the nest down from C$43.77 to C$34.97, and the bell, pumpkin and globe moved by cents. Per-variant repricing on a live listing within a day is the cost risk the runbook's 're-read before any paid push' line was written for; the six rows carry the later reading."
+    "2026-09-13-late-reread-1005007626643748": "A late re-read of listing 1005007626643748 the same evening found the gourd's 32cm-M variant repriced from C$36.32 to C$65.90 list (under the floor at any price the class carries - moved to COST_HOLD and unpublished), the egg up from C$21.16 to C$32.27, the nest down from C$43.77 to C$34.97, and the bell, pumpkin and globe moved by cents. Per-variant repricing on a live listing within a day is the cost risk the runbook's 're-read before any paid push' line was written for; the six rows carry the later reading.",
+    "2026-09-14-gourd-resourced": "The gourd came back off COST_HOLD the next morning: the lantern's listing (1005004341913414, Shop910337080 Store) carries the same 23 x 26 cm gourd as DD-HEI at C$32.58 with no promo gap, stock 1000, free freight, on a black canopy. Copy updated from wood cap to black canopy in four locales; the Shopify product's image swapped to the DD-HEI dimension drawing."
   },
   "offers": [
     {
@@ -248,33 +249,6 @@
       "itemCostOriginalCad": 47.38,
       "itemCostSaleCad": 29.57,
       "itemCostCad": 47.38
-    },
-    {
-      "handle": "woven-bamboo-gourd-pendant-23cm",
-      "sku": "200000531:1052#32cm-M;249:200006305#1pcs",
-      "supplierItemId": "1005007626643748",
-      "supplierItemIdUs": "3256807439328996",
-      "itemCostUsd": 47.07,
-      "voltageNote": "Supplier specification read 2026-09-13: Voltage 90-260V, Base Type E27, Is Bulbs Included No, Is Include PCBA N, Power Source AC.",
-      "routes": {
-        "CA": {
-          "shippingUsd": 0,
-          "shippingCad": 0,
-          "freeOverCad": 10,
-          "eta": "16 days",
-          "tracked": true,
-          "carrier": "AliExpress Selection Standard",
-          "shipFrom": "CN",
-          "fulfilment": "cn-direct",
-          "observedOn": "2026-09-13",
-          "source": "Read 2026-09-13 from SHIPPING.deliveryLayoutInfo[0].bizData of listing 1005007626643748 on the .com gateway with a Canadian destination: ship from China, freight free above the C$10 threshold (discount 100), deliveryDayMax 16. Canadian-only from the start - no US route was read for this offer and none is claimed. tracked:true is carried from the carrier identity, NOT from a tracking number; that needs a placed order."
-        }
-      },
-      "itemCostObservedOn": "2026-09-13",
-      "itemCostNote": "CANADIAN-GATEWAY per-SKU price read 2026-09-13 from PRICE.skuPriceInfoMap: the page SELLS at C$34.14 against a C$36.32 originalPrice, a 6% promotion (every SKU on this listing sits about 6% under its list). RULE 22 makes the LIST price the cost basis, so itemCostCad is 36.32 and the USD figure is DERIVED from it at the 1.4 planning rate. Seller variant label 32cm-M (the seller label; the shade is 23 x 26 cm). 23 x 26 cm close-weave gourd, wood ceiling cap, 120 cm cord, skuStock 876 (per-SKU, rule 4); the listing shows \"Max. 20 pcs/shopper\" on every SKU, which is a per-order cap and not stock. Contribution at CA$74.99 is CA$23.01. Sourced from the 2026-09-13 Canadian-gateway sweep; NOT yet in Shopify or DSers, so no DSers stable-cost cross-check exists yet. RE-READ 2026-09-13 (late): list C$65.9, sale C$61.95; contribution at CA$74.99 is CA$-8.64. Under the floor - moved to COST_HOLD.",
-      "itemCostOriginalCad": 65.9,
-      "itemCostSaleCad": 61.95,
-      "itemCostCad": 65.9
     },
     {
       "handle": "woven-bamboo-egg-pendant-15cm",
@@ -1108,6 +1082,46 @@
       "itemCostOriginalCad": 24.77,
       "itemCostSaleCad": 23.28,
       "itemCostCad": 24.77
+    },
+    {
+      "handle": "woven-bamboo-gourd-pendant-23cm",
+      "sku": "200000531:366#DD-HEI",
+      "supplierItemId": "1005004341913414",
+      "supplierItemIdUs": "3256804155598662",
+      "itemCostUsd": 23.27,
+      "voltageNote": "Same listing and spec table as the live lantern (90-260 V, E27); the first source's spec was the same.",
+      "routes": {
+        "US": {
+          "shippingUsd": 1.99,
+          "eta": "Sep 16-21 (87.5% <=12 days)",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard",
+          "shipFrom": "CN",
+          "fulfilment": "cn-direct",
+          "observedOn": "2026-09-10",
+          "source": "Read 2026-09-10 from the AliExpress listing page on aliexpress.us in the US-priced view (region=US, currency USD, confirmed from the page's own SHIPPING.deliveryLayoutInfo bizData: shipToCode US, displayCurrency USD): 'Shipping: $1.99', 'Delivery: Sep 16 - 21 (87.5% <= 12 days)'. Seller commitment block reads 'AliExpress commitment'. tracked:true is carried from the carrier identity recorded in the 2026-09-01 baseline, NOT from a tracking number - that needs a placed order. NOTE: the whole page and its underlying data blob were searched structurally for tax|duty|tariff|import|customs|de minimis|DDP and returned ZERO matches, so this listing makes no duty disclosure of any kind to a US shopper.",
+          "transitDays": "7-13",
+          "transitSource": "Listing page read 2026-09-10 in the US-priced view: \"Shipping: $1.99\", \"Delivery: Sep 17 - 23 (82.5% <= 12 days)\". NOT read per SKU in the DSers panel - the DSers modal refused to reopen after three attempts. The listing default variant was selected, so treat this as listing-level rather than SKU-level."
+        },
+        "CA": {
+          "shippingUsd": 0,
+          "shippingCad": 0,
+          "freightListCad": 2.82,
+          "freeOverCad": 10,
+          "eta": "14 days",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard",
+          "shipFrom": "CN",
+          "fulfilment": "cn-direct",
+          "observedOn": "2026-09-13",
+          "source": "Read 2026-09-13 from the SHIPPING node of the listing on the .com gateway with a Canadian destination. Freight lists at CA$2.82 but is FREE above C$10 and every offer here clears that, so shippingUsd is 0. Read on .com rather than .us deliberately, so the US locale the previous cohort depends on was left untouched."
+        }
+      },
+      "itemCostObservedOn": "2026-09-14",
+      "itemCostNote": "CANADIAN-GATEWAY per-SKU price read 2026-09-14 from PRICE.skuPriceInfoMap on the lantern's listing: DD-HEI sells at C$32.58 with no originalPrice, so there is no promo gap and the USD figure is DERIVED at the 1.4 planning rate. 23 x 26 cm gourd, black canopy, 120 cm cord, no bulb; skuStock 1000. Contribution at CA$74.99 is CA$27.02. Replaces the 1005007626643748 32cm-M row, whose seller repriced the variant to C$65.90 on 2026-09-13. Re-mapped in DSers at the mapping step.",
+      "itemCostCad": 32.58,
+      "itemCostOriginalCad": 32.58,
+      "itemCostSaleCad": 32.58
     }
   ]
 }

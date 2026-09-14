@@ -96,9 +96,6 @@ const completeBaseline = {
     ...[
       ['hand-woven-bamboo-pendant-light', '200000531:200004889#Style F - Wood Base;200007763:201336100;5:100014064#Ship with 24h', 21.58],
       ['plug-in-bamboo-sconce-swing-arm', '200000795:175#US PLUG-DIM switch;249:200006305#no light', 25.5],
-      // The gourd, on COST_HOLD since the late 2026-09-13 re-read: C$65.90 LIST
-      // (the seller repriced the variant within the day) / 1.352.
-      ['woven-bamboo-gourd-pendant-23cm', '200000531:1052#32cm-M;249:200006305#1pcs', 48.74],
       ['woven-bamboo-dome-pendant', '200000531:365458#Style F-Wood Base;5:361386#No bulb', 24.24],
       ['slatted-bamboo-lantern-pendant-20cm', '200000531:350852#20x23cm', 15.08],
       // The two 2026-09-13 sweep offers. The tiered pendant's cost is the
@@ -130,6 +127,9 @@ const completeBaseline = {
       ['woven-bamboo-wide-brim-chandelier-30cm', '200000531:10#30x28cm;5:361386#Wood Base;136:200002572#3 light colors', 31.78, 2.09],
       ['bamboo-slat-drum-pendant-30cm', '200000531:350852#30x20cm;5:361386#Wood Base;136:200002572#3 light colors', 31.49, 2.09],
       ['bamboo-hat-nest-pendant-30cm', '200000531:200006154#29.5x22cm;5:361386#Wood Base;136:200002572#3 light colors', 18.32, 2.09],
+      // The gourd, re-sourced 2026-09-14 onto the lantern's listing: C$32.58,
+      // no promo gap, / 1.352.
+      ['woven-bamboo-gourd-pendant-23cm', '200000531:366#DD-HEI', 24.1],
       ['woven-rattan-petal-pendant-30cm', '200000531:175#30CM;136:200003939#Warm Light', 39.59],
     ].map(([handle, sku, itemCostUsd, shippingUsd = 0]) => ({
       handle,
