@@ -33,7 +33,8 @@
     "2026-09-13-batch2": "SIX more offers added later the same day, all from ONE listing, 1005007626643748 (3256-form 3256807439328996, ZODOLAMP, 4.2 stars / 83 reviews / 78 sold, 459 orders in DSers) - the listing the saucer was once mis-mapped to. THIS listing's spec table reads Voltage 90-260V, unlike the 220 V held cohort from the same seller family. woven-bamboo-gourd-pendant-23cm (32cm-M, C$36.32 list), woven-bamboo-egg-pendant-15cm (Burgundy, C$21.16), woven-bamboo-bell-pendant-26cm (Clear, C$32.18), woven-bamboo-nest-pendant-30cm (Dark Khaki, C$43.77, priced CA$84.99 because CA$74.99 files 15.04 under the 16.23 floor), bamboo-slat-pumpkin-pendant-18cm (SKY BLUE, C$34.87) and woven-bamboo-globe-pendant-25cm (Chocolate, C$30.26). The swatch names in brackets are the seller's variant labels and describe nothing about the product; they are recorded so a human can find the row in DSers. Every SKU sells about 6% under its originalPrice, so rule 22 files the LIST price on all six. Per-SKU stock 876-888; the \"Max. 20 pcs/shopper\" on each SKU is a per-order cap, not stock. Rule 18: gourd / egg / bell / nest / segmented pumpkin / globe, none a live shape; three other deep-stock SKUs on the listing were rejected (a 16x33 straight cylinder = lantern, a 23x24 slatted onion = pear, a 29x22 wide-brim hat = saucer). All six rows are Canadian-only and carry no US route. None exists in Shopify or DSers yet.",
     "2026-09-13-sconce": "ONE offer added from the widened lighting sweep later the same day - the only survivor of seven clamped candidates across the sconce, floor-lamp and chandelier classes (three died on 220 V, two on price, one was a USB table lamp): rattan-cone-wall-sconce-15cm (listing 1005008679122325, ZY Lighting Store, SKU 'wood / Excluding light bulb', C$24.60 LIST against a C$15.99 sale - a 35% promotion, so rule 22 files the list price; per-SKU stock 992; 90-260 V, E27). THE FIRST OFFER WHOSE FREIGHT IS NOT FREE: AliExpress standard shipping charges C$25.99 to Canada, 10-18 days, so freight is half the landed cost and the offer is priced at CA$89.99 (contribution 20.72) because CA$84.99 clears the floor by only 17 cents. Benchmarked against its own amazon.ca wall-sconce basket (median 85.375 on the lower of two same-day readings), not the pendant band. Canadian-only and carries no US route. Not yet in Shopify or DSers: this row is the sourcing reading.",
     "2026-09-13-column": "The column came off VOLTAGE_HOLD later the same night, the way the dome did: the same 18 x 37.5 cm shape on a 90-260 V listing (1005005768310960, 8% gap, list C$40.72, freight C$2.82, 9-16 days, bulb included). Its 220 V row (1005009170603754 D-wood base) is replaced by this one, as the dome's was. Found through the AliExpress 'ship from United States' filter, which surfaces the honest-priced seller families; the DSers 1688 and Alibaba tabs returned nothing for this category.",
-    "2026-09-13-cage": "The iron cage pendant (1005007802917011, ZEGEL Store) is the first product outside the bamboo/rattan niche, admitted after Daniel widened the brief the same night. 28% timed promo, rule 22 files the C$36.36 list; free freight, 10-18 days; 90-260 V, E27, no bulb; per-SKU stock 182. Benchmarked against its own amazon.ca cage/industrial pendant basket (run 27, median 64.49 on two identical readings, ceiling 74.16), which sits UNDER the bamboo pendants' band - so it takes CA$69.99, a new price point, not the shared CA$74.99 that would breach its ceiling. Clears the floor by C$2.42 - the thinnest live offer."
+    "2026-09-13-cage": "The iron cage pendant (1005007802917011, ZEGEL Store) is the first product outside the bamboo/rattan niche, admitted after Daniel widened the brief the same night. 28% timed promo, rule 22 files the C$36.36 list; free freight, 10-18 days; 90-260 V, E27, no bulb; per-SKU stock 182. Benchmarked against its own amazon.ca cage/industrial pendant basket (run 27, median 64.49 on two identical readings, ceiling 74.16), which sits UNDER the bamboo pendants' band - so it takes CA$69.99, a new price point, not the shared CA$74.99 that would breach its ceiling. Clears the floor by C$2.42 - the thinnest live offer.",
+    "2026-09-13-listing-1005005768310960": "Three more shapes came off the column's listing later the same night, the way six came off 1005007626643748: the wide-brim hat (30x28cm, released from VOLTAGE_HOLD like the column - its 220 V style-E row is replaced by this one), a bamboo-slat drum (30x20cm, new) and a hat-nest (29.5x22cm, new). All three are 90-260 V with the 12 W three-colour bulb in the box, 5-6% gaps so rule 22 files the list, C$2.82 freight, seller-set 5000 stock. The brim and the drum take CA$84.99 like the column; the hat-nest clears at the shared CA$74.99. The listing's other shapes are duplicates of live products (dome, saucer/wave, nest, lantern, gourd, bell, globe, egg) and its 21x38cm cone lists at C$66.55, over what CA$84.99 can carry."
   },
   "offers": [
     {
@@ -572,27 +573,6 @@
       "itemCostNote": "Per-SKU price read from the AliExpress SKU table on the item page, cross-checked against the DSers My Products mapped cost. DSers quotes supplier 1005009170603754 as a range ($21.65-56.82); the per-SKU figure here sits inside it. Search-card prices were NOT used - on this supplier the cheap SKUs carry 2-8 units."
     },
     {
-      "handle": "woven-bamboo-wide-brim-chandelier-30cm",
-      "sku": "200000531:366#style E;136:200006153#NO light bulb",
-      "supplierItemId": "1005009170603754",
-      "itemCostUsd": 47.3,
-      "voltageNote": "Supplier specification table, expanded and read 2026-09-09: Voltage 220 V, Base Type E27, Power Source AC, Is Bulbs Included No, Is Include PCBA N. 220 V does NOT cover United States 120V mains and the supplier states no range that does. This offer is held in VOLTAGE_HOLD_CATALOG_OFFERS, not approved. Route and cost are recorded so that releasing it needs a supplier confirmation, not a re-audit.",
-      "routes": {
-        "US": {
-          "shippingUsd": 1.99,
-          "eta": "Sep 16-21 (87.5% <=12 days)",
-          "tracked": true,
-          "carrier": "AliExpress Selection Standard",
-          "shipFrom": "CN",
-          "fulfilment": "cn-direct",
-          "observedOn": "2026-09-09",
-          "source": "Read 2026-09-09 from the AliExpress listing shipping dialog on aliexpress.us (US-priced view, USD): method 'AliExpress Selection Standard', $1.99, delivery Sep 16-21. Arrival distribution as shown: <=7d 11.8%, 8d 13.9%, 9d 18.0%, 10d 18.2%, 11d 15.1%, 12d 10.4%, >12d 12.4% - 87.5% within 12 days. Couriers shown as logos with no alt text; GOFO and United States Postal Service were legible in the rendered panel. CN-direct consolidated line. 'tracked' carried from carrier identity, not from an observed tracking number."
-        }
-      },
-      "itemCostObservedOn": "2026-09-09",
-      "itemCostNote": "Per-SKU price read from the AliExpress SKU table on the item page, cross-checked against the DSers My Products mapped cost. DSers quotes supplier 1005009170603754 as a range ($21.65-56.82); the per-SKU figure here sits inside it. Search-card prices were NOT used - on this supplier the cheap SKUs carry 2-8 units."
-    },
-    {
       "handle": "pu-leather-watch-roll-travel-case-3-or-6-watches",
       "sku": "14:496#3 Slot Black Red",
       "supplierItemId": "1005006898059534",
@@ -1046,6 +1026,87 @@
       "itemCostOriginalCad": 36.36,
       "itemCostSaleCad": 26.18,
       "itemCostCad": 36.36
+    },
+    {
+      "handle": "woven-bamboo-wide-brim-chandelier-30cm",
+      "sku": "200000531:10#30x28cm;5:361386#Wood Base;136:200002572#3 light colors",
+      "supplierItemId": "1005005768310960",
+      "supplierItemIdUs": "3256805581996208",
+      "itemCostUsd": 30.69,
+      "voltageNote": "Supplier specification read 2026-09-13: Voltage 90-260V, Base Type E27, Is Include PCBA N, Power Source AC, Is Bulbs Included Yes (12 W three-colour E27 LED). This is the listing that released the wide-brim from VOLTAGE_HOLD; the 220 V row it replaces was listing 1005009170603754, style E, US$47.30.",
+      "routes": {
+        "CA": {
+          "shippingUsd": 2.01,
+          "shippingCad": 2.82,
+          "freeOverCad": null,
+          "eta": "16 days",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard (CAINIAO_FULFILLMENT_STD)",
+          "shipFrom": "CN",
+          "fulfilment": "cn-direct",
+          "observedOn": "2026-09-13",
+          "source": "Read 2026-09-13 from SHIPPING.deliveryLayoutInfo[0].bizData of listing 1005005768310960 on the .com gateway with a Canadian destination: C$2.82, deliveryDayMin 9 / deliveryDayMax 16 (an earlier read the same evening showed 12-19), displayed Sep 22 - Sep 29. Canadian-only - no US route was read for this source and none is claimed. tracked:true is carried from the carrier identity, NOT from a tracking number."
+        }
+      },
+      "itemCostObservedOn": "2026-09-13",
+      "itemCostNote": "CANADIAN-GATEWAY per-SKU price read 2026-09-13 from PRICE.skuPriceInfoMap: the page SELLS at C$40.38 against a C$42.96 originalPrice, a 6% promotion. RULE 22 makes the LIST price the cost basis, so itemCostCad is 42.96 and the USD figure is DERIVED from it at the 1.4 planning rate. 30 cm wavy wide-brim woven bamboo hat pendant on a 10 cm round wood ceiling cap, 28 cm tall to the top of the cone, 120 cm adjustable cord, bulb included; skuStock 5000 (seller-set, every SKU on the listing reads 4979-5000). Contribution at CA$84.99 is CA$21.54. Re-mapped in DSers at the mapping step; no DSers stable-cost cross-check yet.",
+      "itemCostOriginalCad": 42.96,
+      "itemCostSaleCad": 40.38,
+      "itemCostCad": 42.96
+    },
+    {
+      "handle": "bamboo-slat-drum-pendant-30cm",
+      "sku": "200000531:350852#30x20cm;5:361386#Wood Base;136:200002572#3 light colors",
+      "supplierItemId": "1005005768310960",
+      "supplierItemIdUs": "3256805581996208",
+      "itemCostUsd": 30.41,
+      "voltageNote": "Supplier specification read 2026-09-13: Voltage 90-260V, Base Type E27, Is Include PCBA N, Power Source AC, Is Bulbs Included Yes (12 W three-colour E27 LED). Same listing and spec table as the column; a new shape, not a release.",
+      "routes": {
+        "CA": {
+          "shippingUsd": 2.01,
+          "shippingCad": 2.82,
+          "freeOverCad": null,
+          "eta": "16 days",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard (CAINIAO_FULFILLMENT_STD)",
+          "shipFrom": "CN",
+          "fulfilment": "cn-direct",
+          "observedOn": "2026-09-13",
+          "source": "Read 2026-09-13 from SHIPPING.deliveryLayoutInfo[0].bizData of listing 1005005768310960 on the .com gateway with a Canadian destination: C$2.82, deliveryDayMin 9 / deliveryDayMax 16 (an earlier read the same evening showed 12-19), displayed Sep 22 - Sep 29. Canadian-only - no US route was read for this source and none is claimed. tracked:true is carried from the carrier identity, NOT from a tracking number."
+        }
+      },
+      "itemCostObservedOn": "2026-09-13",
+      "itemCostNote": "CANADIAN-GATEWAY per-SKU price read 2026-09-13 from PRICE.skuPriceInfoMap: the page SELLS at C$40.02 against a C$42.57 originalPrice, a 6% promotion. RULE 22 makes the LIST price the cost basis, so itemCostCad is 42.57 and the USD figure is DERIVED from it at the 1.4 planning rate. 30 x 20 cm bamboo-slat drum pendant, a wide cylinder of vertical slats under a rounded slatted crown, on a 10 cm round wood ceiling cap, 120 cm adjustable cord, bulb included; skuStock 5000 (seller-set, every SKU on the listing reads 4979-5000). Contribution at CA$84.99 is CA$21.96. Pushed from the DSers Import List at the mapping step; no DSers stable-cost cross-check yet.",
+      "itemCostOriginalCad": 42.57,
+      "itemCostSaleCad": 40.02,
+      "itemCostCad": 42.57
+    },
+    {
+      "handle": "bamboo-hat-nest-pendant-30cm",
+      "sku": "200000531:200006154#29.5x22cm;5:361386#Wood Base;136:200002572#3 light colors",
+      "supplierItemId": "1005005768310960",
+      "supplierItemIdUs": "3256805581996208",
+      "itemCostUsd": 17.69,
+      "voltageNote": "Supplier specification read 2026-09-13: Voltage 90-260V, Base Type E27, Is Include PCBA N, Power Source AC, Is Bulbs Included Yes (12 W three-colour E27 LED). Same listing and spec table as the column; a new shape, not a release.",
+      "routes": {
+        "CA": {
+          "shippingUsd": 2.01,
+          "shippingCad": 2.82,
+          "freeOverCad": null,
+          "eta": "16 days",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard (CAINIAO_FULFILLMENT_STD)",
+          "shipFrom": "CN",
+          "fulfilment": "cn-direct",
+          "observedOn": "2026-09-13",
+          "source": "Read 2026-09-13 from SHIPPING.deliveryLayoutInfo[0].bizData of listing 1005005768310960 on the .com gateway with a Canadian destination: C$2.82, deliveryDayMin 9 / deliveryDayMax 16 (an earlier read the same evening showed 12-19), displayed Sep 22 - Sep 29. Canadian-only - no US route was read for this source and none is claimed. tracked:true is carried from the carrier identity, NOT from a tracking number."
+        }
+      },
+      "itemCostObservedOn": "2026-09-13",
+      "itemCostNote": "CANADIAN-GATEWAY per-SKU price read 2026-09-13 from PRICE.skuPriceInfoMap: the page SELLS at C$23.28 against a C$24.77 originalPrice, a 6% promotion. RULE 22 makes the LIST price the cost basis, so itemCostCad is 24.77 and the USD figure is DERIVED from it at the 1.4 planning rate. 29.5 x 22 cm bamboo hat-nest pendant, a conical woven hat sitting over a loose rattan nest ball, on a 10 cm round wood ceiling cap, 120 cm adjustable cord, bulb included; skuStock 4998 (seller-set, every SKU on the listing reads 4979-5000). Contribution at CA$74.99 is CA$32.36. Pushed from the DSers Import List at the mapping step; no DSers stable-cost cross-check yet.",
+      "itemCostOriginalCad": 24.77,
+      "itemCostSaleCad": 23.28,
+      "itemCostCad": 24.77
     }
   ]
 }

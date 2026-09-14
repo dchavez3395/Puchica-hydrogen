@@ -445,13 +445,6 @@ export const VOLTAGE_HOLD_CATALOG_OFFERS = Object.freeze([
     dutyPrepaidContributionUsd: 73.22,
     dutyBilledContributionUsd: 9.26,
   }),
-  Object.freeze({
-    handle: 'woven-bamboo-wide-brim-chandelier-30cm',
-    sku: '200000531:366#style E;136:200006153#NO light bulb',
-    markets: Object.freeze(['CA']),
-    dutyPrepaidContributionUsd: 83.4,
-    dutyBilledContributionUsd: 19.44,
-  }),
 ]);
 
 /**
@@ -1200,6 +1193,80 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
     // this number must move in the same edit. Derived at the LIST cost of
     // C$36.36 (rule 22) with free freight, at CA$69.99.
     contributionCad: 18.65,
+  }),
+  // RELEASED FROM VOLTAGE_HOLD 2026-09-13, later the same night as the column
+  // and by the same route: the 30 cm wavy wide-brim hat is the 30x28cm
+  // variant of listing 1005005768310960 (90-260 V, E27, PCBA N, 12 W
+  // three-colour bulb included). Its 220 V listing (1005009170603754,
+  // style E) stays held by the rule; this offer no longer depends on it.
+  // 6% gap, rule 22 files the C$42.96 list; C$2.82 freight; seller-set
+  // stock 5000. Under the floor at CA$74.99, so it takes CA$84.99.
+  Object.freeze({
+    handle: 'woven-bamboo-wide-brim-chandelier-30cm',
+    sku: '200000531:10#30x28cm;5:361386#Wood Base;136:200002572#3 light colors',
+    // VERIFIED IN DSERS 2026-09-13 (my-product/v2/search supplier[].supplyProductId
+    // and my-product/detail supply.<variant>.sku): Shopify variant 50263301030138 is
+    // basic-mapped to this listing at exactly the SKU above (DSers lists the three
+    // components in a different order).
+    supplierProductId: '1005005768310960',
+    markets: Object.freeze(['CA']),
+    // CANADIAN CONTRIBUTION, 2026-09-13. One figure, not a pair: CBSA assesses
+    // 7% MFN on value for duty (the supplier price), so there is no second
+    // basis to be uncertain between. Derived from this offer's undercut
+    // evidence by scripts/check-contribution-derivation.mjs (RULE 26), which
+    // fails on more than a cent of drift - so if the price or the cost moves,
+    // this number must move in the same edit. Derived at the LIST cost of
+    // C$42.96 (rule 22) plus C$2.82 freight, at CA$84.99.
+    contributionCad: 21.54,
+  }),
+  // Added 2026-09-13 from the same listing: a 30 x 20 cm bamboo-SLAT drum, a
+  // wide cylinder of vertical slats under a rounded slatted crown. NOT the
+  // archived "drum chandelier" on VOLTAGE_HOLD, which is a hemp-rope ring on
+  // a black metal frame from the 220 V listing - a different object that
+  // keeps its own handle and its hold. Rule 18: the only wide drum in the
+  // range (the slat pumpkin is a segmented sphere; the slatted pear and
+  // lantern are tall and narrow). 6% gap, rule 22 files the C$42.57 list;
+  // C$2.82 freight; bulb included. Takes CA$84.99 like the brim.
+  Object.freeze({
+    handle: 'bamboo-slat-drum-pendant-30cm',
+    sku: '200000531:350852#30x20cm;5:361386#Wood Base;136:200002572#3 light colors',
+    // VERIFIED IN DSERS 2026-09-13 (my-product/v2/search supplier[].supplyProductId
+    // and my-product/detail supply.<variant>.sku): Shopify variant 50370778366202 is
+    // basic-mapped to this listing at exactly the SKU above (DSers lists the three
+    // components in a different order).
+    supplierProductId: '1005005768310960',
+    markets: Object.freeze(['CA']),
+    // CANADIAN CONTRIBUTION, 2026-09-13. One figure, not a pair: CBSA assesses
+    // 7% MFN on value for duty (the supplier price), so there is no second
+    // basis to be uncertain between. Derived from this offer's undercut
+    // evidence by scripts/check-contribution-derivation.mjs (RULE 26), which
+    // fails on more than a cent of drift - so if the price or the cost moves,
+    // this number must move in the same edit. Derived at the LIST cost of
+    // C$42.57 (rule 22) plus C$2.82 freight, at CA$84.99.
+    contributionCad: 21.96,
+  }),
+  // Added 2026-09-13 from the same listing: a 29.5 x 22 cm hat-nest, a
+  // conical woven hat sitting over a loose rattan nest ball - the only
+  // two-part silhouette in the range. 6% gap, rule 22 files the C$24.77
+  // list; C$2.82 freight; bulb included. At the shared CA$74.99 it is the
+  // widest-margin pendant in the catalogue.
+  Object.freeze({
+    handle: 'bamboo-hat-nest-pendant-30cm',
+    sku: '200000531:200006154#29.5x22cm;5:361386#Wood Base;136:200002572#3 light colors',
+    // VERIFIED IN DSERS 2026-09-13 (my-product/v2/search supplier[].supplyProductId
+    // and my-product/detail supply.<variant>.sku): Shopify variant 50370943385850 is
+    // basic-mapped to this listing at exactly the SKU above (DSers lists the three
+    // components in a different order).
+    supplierProductId: '1005005768310960',
+    markets: Object.freeze(['CA']),
+    // CANADIAN CONTRIBUTION, 2026-09-13. One figure, not a pair: CBSA assesses
+    // 7% MFN on value for duty (the supplier price), so there is no second
+    // basis to be uncertain between. Derived from this offer's undercut
+    // evidence by scripts/check-contribution-derivation.mjs (RULE 26), which
+    // fails on more than a cent of drift - so if the price or the cost moves,
+    // this number must move in the same edit. Derived at the LIST cost of
+    // C$24.77 (rule 22) plus C$2.82 freight, at CA$74.99.
+    contributionCad: 32.36,
   }),
   // Added 2026-09-10, from listing 3256812550446681 (LINCCW, 1,000+ sold,
   // 90-260V, $1.99 shipping). Woven rattan petal shade, the most sculptural

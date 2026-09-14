@@ -123,6 +123,11 @@ const completeBaseline = {
       // The iron cage pendant, 2026-09-13: C$36.36 LIST (rule 22, a 28% timed
       // promo) / 1.352, free freight.
       ['iron-cage-pendant-15cm', '200000531:173#B Style;136:200003939#no bulb', 26.89],
+      // Three more shapes off the column's listing, 2026-09-13: LIST / 1.352,
+      // freight C$2.82 likewise.
+      ['woven-bamboo-wide-brim-chandelier-30cm', '200000531:10#30x28cm;5:361386#Wood Base;136:200002572#3 light colors', 31.78, 2.09],
+      ['bamboo-slat-drum-pendant-30cm', '200000531:350852#30x20cm;5:361386#Wood Base;136:200002572#3 light colors', 31.49, 2.09],
+      ['bamboo-hat-nest-pendant-30cm', '200000531:200006154#29.5x22cm;5:361386#Wood Base;136:200002572#3 light colors', 18.32, 2.09],
       ['woven-rattan-petal-pendant-30cm', '200000531:175#30CM;136:200003939#Warm Light', 39.59],
     ].map(([handle, sku, itemCostUsd, shippingUsd = 0]) => ({
       handle,
@@ -135,13 +140,13 @@ const completeBaseline = {
     // rather than a re-audit; what auditBaseline must NOT do is demand
     // anything fresh of them while they are held, which is asserted below.
     // Seven until the dome moved up into the approved block above, six until
-    // the column followed it on 2026-09-13; five now.
+    // the column followed it on 2026-09-13; five, then four once the
+    // wide-brim followed the column later that night.
     ...[
       ['woven-bamboo-lantern-pendant-26cm', '200000531:1052#C-black base;136:200006153#NO light bulb', 36.48],
       ['woven-bamboo-mini-pendant-18cm', '200000531:200002984#style G;136:200006153#NO light bulb', 21.65],
       ['woven-bamboo-wave-chandelier-35cm', '200000531:200006154#style K;136:200006153#NO light bulb', 54.58],
       ['woven-bamboo-drum-chandelier-30cm', '200000531:365016#style H;136:200006153#NO light bulb', 56.82],
-      ['woven-bamboo-wide-brim-chandelier-30cm', '200000531:366#style E;136:200006153#NO light bulb', 47.3],
     ].map(([handle, sku, itemCostUsd]) => ({
       handle,
       sku,

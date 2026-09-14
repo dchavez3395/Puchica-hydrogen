@@ -104,6 +104,12 @@ const CA_RETAIL = {
   // amazon.ca band ceiling is CA$74.16, under the pendants' shared CA$74.99,
   // so it takes CA$69.99 (contribution 18.65).
   'iron-cage-pendant-15cm': 69.99,
+  // Three more shapes off the column's listing, 2026-09-13: the wide-brim
+  // (released from VOLTAGE_HOLD) and the slat drum at CA$84.99, the hat-nest
+  // at the shared CA$74.99.
+  'woven-bamboo-wide-brim-chandelier-30cm': 84.99,
+  'bamboo-slat-drum-pendant-30cm': 84.99,
+  'bamboo-hat-nest-pendant-30cm': 74.99,
 };
 
 if (path.resolve(process.argv[1] || '') === scriptPath) {

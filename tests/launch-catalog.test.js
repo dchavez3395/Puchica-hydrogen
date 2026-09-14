@@ -310,6 +310,9 @@ test('product market resolution fails closed on an empty catalogue', () => {
     // Fourteen: the iron cage pendant, the first metal fixture, after the
     // brief was widened past the bamboo niche on 2026-09-13.
     'iron-cage-pendant-15cm',
+    'woven-bamboo-wide-brim-chandelier-30cm',
+    'bamboo-slat-drum-pendant-30cm',
+    'bamboo-hat-nest-pendant-30cm',
   ]);
   for (const offer of VOLTAGE_HOLD_CATALOG_OFFERS) {
     assert.ok(
@@ -776,6 +779,9 @@ test('a suspended market closes commerce without erasing route evidence', () => 
     'rattan-cone-wall-sconce-15cm',
     'woven-bamboo-column-pendant-37cm',
     'iron-cage-pendant-15cm',
+    'woven-bamboo-wide-brim-chandelier-30cm',
+    'bamboo-slat-drum-pendant-30cm',
+    'bamboo-hat-nest-pendant-30cm',
   ]);
   for (const archived of ARCHIVED_CATALOG_OFFERS) {
     assert.ok(
@@ -837,8 +843,11 @@ test('approved handles and SKUs derive from one exact-offer cohort', () => {
     'rattan-cone-wall-sconce-15cm',
     'woven-bamboo-column-pendant-37cm',
     'iron-cage-pendant-15cm',
+    'woven-bamboo-wide-brim-chandelier-30cm',
+    'bamboo-slat-drum-pendant-30cm',
+    'bamboo-hat-nest-pendant-30cm',
   ]);
-  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.CA.length, 14);
+  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.CA.length, 17);
 
   // A US offer crosses the suspended cn-direct route, so it must carry BOTH
   // duty scenarios and both must be positive - the watch-roll cohort died
@@ -864,7 +873,7 @@ test('approved handles and SKUs derive from one exact-offer cohort', () => {
   // out of the storefront. Seven until 2026-09-10, when the dome came off the
   // hold via a different listing of the same shade at 90-260V. Six until
   // 2026-09-13, when the column did the same. Five now.
-  assert.equal(VOLTAGE_HOLD_CATALOG_OFFERS.length, 5);
+  assert.equal(VOLTAGE_HOLD_CATALOG_OFFERS.length, 4);
   for (const held of VOLTAGE_HOLD_CATALOG_OFFERS) {
     assert.ok(
       !APPROVED_VARIANT_SKUS_BY_MARKET.CA.includes(held.sku),
@@ -1209,6 +1218,10 @@ test('every offer records the supplier an order would actually reach', () => {
     'woven-bamboo-column-pendant-37cm': '1005005768310960',
     // The iron cage, a different seller and class from everything above.
     'iron-cage-pendant-15cm': '1005007802917011',
+    // Three more shapes off the column's listing, the same night.
+    'woven-bamboo-wide-brim-chandelier-30cm': '1005005768310960',
+    'bamboo-slat-drum-pendant-30cm': '1005005768310960',
+    'bamboo-hat-nest-pendant-30cm': '1005005768310960',
   };
   for (const offer of APPROVED_CATALOG_OFFERS) {
     assert.ok(

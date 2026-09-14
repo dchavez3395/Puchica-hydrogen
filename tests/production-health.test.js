@@ -71,6 +71,9 @@ test('production monitor shares the verified market cohorts', () => {
     'rattan-cone-wall-sconce-15cm',
     'woven-bamboo-column-pendant-37cm',
     'iron-cage-pendant-15cm',
+    'woven-bamboo-wide-brim-chandelier-30cm',
+    'bamboo-slat-drum-pendant-30cm',
+    'bamboo-hat-nest-pendant-30cm',
   ]);
 
   // Discovery follows the live cohort. The seven previous handles were deleted
