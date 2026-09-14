@@ -96,6 +96,10 @@ const CA_RETAIL = {
   // half its landed cost, so CA$84.99 clears the floor by seventeen cents
   // and it takes CA$89.99 (contribution 20.72).
   'rattan-cone-wall-sconce-15cm': 89.99,
+  // The column, off VOLTAGE_HOLD 2026-09-13 onto a 90-260 V listing. List
+  // C$40.72 plus C$2.82 freight files under the floor at CA$74.99, so it
+  // takes CA$84.99.
+  'woven-bamboo-column-pendant-37cm': 84.99,
 };
 
 if (path.resolve(process.argv[1] || '') === scriptPath) {

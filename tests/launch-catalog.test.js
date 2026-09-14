@@ -304,6 +304,9 @@ test('product market resolution fails closed on an empty catalogue', () => {
     // Twelve: the rattan cone wall sconce from the widened 2026-09-13 sweep,
     // the first non-pendant and the first offer that pays freight.
     'rattan-cone-wall-sconce-15cm',
+    // Thirteen: the column, released from VOLTAGE_HOLD 2026-09-13 onto a
+    // 90-260 V listing - the dome's path.
+    'woven-bamboo-column-pendant-37cm',
   ]);
   for (const offer of VOLTAGE_HOLD_CATALOG_OFFERS) {
     assert.ok(
@@ -768,6 +771,7 @@ test('a suspended market closes commerce without erasing route evidence', () => 
     'bamboo-slat-pumpkin-pendant-18cm',
     'woven-bamboo-globe-pendant-25cm',
     'rattan-cone-wall-sconce-15cm',
+    'woven-bamboo-column-pendant-37cm',
   ]);
   for (const archived of ARCHIVED_CATALOG_OFFERS) {
     assert.ok(
@@ -827,8 +831,9 @@ test('approved handles and SKUs derive from one exact-offer cohort', () => {
     'bamboo-slat-pumpkin-pendant-18cm',
     'woven-bamboo-globe-pendant-25cm',
     'rattan-cone-wall-sconce-15cm',
+    'woven-bamboo-column-pendant-37cm',
   ]);
-  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.CA.length, 12);
+  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.CA.length, 13);
 
   // A US offer crosses the suspended cn-direct route, so it must carry BOTH
   // duty scenarios and both must be positive - the watch-roll cohort died
@@ -852,8 +857,9 @@ test('approved handles and SKUs derive from one exact-offer cohort', () => {
   // holds six offers whose commercial evidence is complete - that is why they
   // are held rather than deleted - so nothing but the hold itself keeps them
   // out of the storefront. Seven until 2026-09-10, when the dome came off the
-  // hold via a different listing of the same shade at 90-260V.
-  assert.equal(VOLTAGE_HOLD_CATALOG_OFFERS.length, 6);
+  // hold via a different listing of the same shade at 90-260V. Six until
+  // 2026-09-13, when the column did the same. Five now.
+  assert.equal(VOLTAGE_HOLD_CATALOG_OFFERS.length, 5);
   for (const held of VOLTAGE_HOLD_CATALOG_OFFERS) {
     assert.ok(
       !APPROVED_VARIANT_SKUS_BY_MARKET.CA.includes(held.sku),
@@ -1194,6 +1200,8 @@ test('every offer records the supplier an order would actually reach', () => {
     // The wall sconce from the widened 2026-09-13 sweep, a different seller
     // and a different listing from everything above.
     'rattan-cone-wall-sconce-15cm': '1005008679122325',
+    // The column's 90-260 V source, replacing the 220 V listing it was held on.
+    'woven-bamboo-column-pendant-37cm': '1005005768310960',
   };
   for (const offer of APPROVED_CATALOG_OFFERS) {
     assert.ok(

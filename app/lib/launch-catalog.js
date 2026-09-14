@@ -425,13 +425,6 @@ export const VOLTAGE_HOLD_CATALOG_OFFERS = Object.freeze([
     dutyBilledContributionUsd: 9.31,
   }),
   Object.freeze({
-    handle: 'woven-bamboo-column-pendant-37cm',
-    sku: '200000531:29#D-wood base;136:200006153#NO light bulb',
-    markets: Object.freeze(['CA']),
-    dutyPrepaidContributionUsd: 54.02,
-    dutyBilledContributionUsd: 8.69,
-  }),
-  Object.freeze({
     handle: 'woven-bamboo-mini-pendant-18cm',
     sku: '200000531:200002984#style G;136:200006153#NO light bulb',
     markets: Object.freeze(['CA']),
@@ -1142,6 +1135,37 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
     // this number must move in the same edit. Derived at the LIST cost of
     // C$24.60 (rule 22) plus C$25.99 freight, at CA$89.99.
     contributionCad: 20.72,
+  }),
+  // RELEASED FROM VOLTAGE_HOLD 2026-09-13, the way the dome was: the same
+  // 18 x 37.5 cm column on a wood cap turned up on listing 1005005768310960
+  // (Shop910337080 Store) whose spec table reads 90-260 V, E27, PCBA N. The
+  // 220 V listing it was held on (1005009170603754, D-wood base) stays held
+  // by the rule; this offer no longer depends on it. 8% gap, rule 22 files
+  // the C$40.72 list; C$2.82 freight; 9-16 days. Ships WITH a 12 W E27 LED
+  // (three colour temperatures from the wall switch) - the second offer in
+  // the catalogue to include a bulb, after the petal. Per-SKU stock 4986,
+  // a seller-set figure recorded as read.
+  //
+  // At CA$74.99 the list cost files under the floor, so it takes CA$84.99
+  // like the tiered pendant and the nest.
+  Object.freeze({
+    handle: 'woven-bamboo-column-pendant-37cm',
+    sku: '200000531:100018786#18x37.5cm;5:361386#Wood Base;136:200002572#3 light colors',
+    // VERIFIED IN DSERS 2026-09-13 (my-product/v2/search supplier[].supplyProductId
+    // and my-product/detail supply.<variant>.sku): Shopify variant 50262951526650 is
+    // basic-mapped to this listing at exactly the SKU above (DSers lists the three
+    // components in a different order). Re-mapped from the 220 V listing
+    // 1005009170603754 via the card's Manage Suppliers drawer, not Replace Product.
+    supplierProductId: '1005005768310960',
+    markets: Object.freeze(['CA']),
+    // CANADIAN CONTRIBUTION, 2026-09-13. One figure, not a pair: CBSA assesses
+    // 7% MFN on value for duty (the supplier price), so there is no second
+    // basis to be uncertain between. Derived from this offer's undercut
+    // evidence by scripts/check-contribution-derivation.mjs (RULE 26), which
+    // fails on more than a cent of drift - so if the price or the cost moves,
+    // this number must move in the same edit. Derived at the LIST cost of
+    // C$40.72 (rule 22) plus C$2.82 freight, at CA$84.99.
+    contributionCad: 23.94,
   }),
   // Added 2026-09-10, from listing 3256812550446681 (LINCCW, 1,000+ sold,
   // 90-260V, $1.99 shipping). Woven rattan petal shade, the most sculptural
