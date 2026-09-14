@@ -1,0 +1,325 @@
+{
+  "handle": "iron-cage-pendant-15cm",
+  "checkedOn": "2026-09-13",
+  "market": "CA",
+  "note": "15.5 x 18 cm black iron diamond-cage pendant on a natural wood socket cover, 10 cm round ceiling cap, 100 cm cord. The first METAL fixture in the catalogue, admitted 2026-09-13 after Daniel widened the brief past the bamboo/rattan niche ('we dont need to just stay in the lamp niche'). Sourced from listing 1005007802917011 (ZEGEL Store; 4.7 from 22 reviews, 167 sold), SKU 200000531:173#B Style;136:200003939#no bulb - the B style is the cord-hung black single; A/C are flush mounts, D is the white single, E-H are photographs of A-D, I-L are three-head clusters at C$88.03 list. Rule 18: nothing else in the catalogue is a wire cage, a metal shade or a diamond silhouette. Benchmarked against its OWN amazon.ca 8-keyword cage/industrial pendant basket (run 27, read twice), not the bamboo pendant band: the class is different and its band sits lower (C$64.49 against C$75.42).",
+  "sources": [
+    "AliExpress .com gateway per-SKU price (salePriceString / originalPrice from PRICE.skuPriceInfoMap) and per-SKU stock (SKU.skuPaths[].skuStock) read from window._d_c_ on listing 1005007802917011 on 2026-09-13 with a Canadian destination.",
+    "AliExpress .com gateway shipping panel for the same listing, read 2026-09-13 from the rendered page (the bizData read was blocked by the browser tool's classifier this time): 'Standard: Free shipping', 'via AliExpress standard shipping: 0.00', 'Delivery: Sep. 23 - Oct. 01', i.e. 10-18 days.",
+    "AliExpress spec table for the same listing, read 2026-09-13: Voltage 90-260V, Base Type E27, Is Bulbs Included No, Is Include PCBA N, Material Metal, Finish Polished Chrome, Number of light sources 1, Installation Type Cord Pendant, Certification NONE.",
+    "amazon.ca page-1 organic, 8-keyword cage/industrial pendant basket, read twice on 2026-09-13 (run 27a and 27b, method identical to the pendant basket's run 24 and the sconce basket's run 25/26).",
+    "scripts/check-contribution-derivation.mjs deriveContributions() at ourRetailCad 69.99, itemCostCad 36.36, supplierShipCad 0, dutyRate 0.07 -> wholesale 18.65."
+  ],
+  "costSource": "AliExpress Canadian-gateway per-SKU price from window._d_c_ PRICE.skuPriceInfoMap on listing 1005007802917011, SKU 200000531:173#B Style;136:200003939#no bulb, read 2026-09-13: salePriceString C$26.18 against originalPrice C$36.36, with the page's sale banner reading 'Ends: Sep 20'. That is a 28% gap - a promotion, not rounding - so RULE 22 makes the LIST price the cost basis and itemCostCad is 36.36, NOT 26.18. Every single-head style on the listing (A-H) carries the same pair; the three-head styles (I-L) read C$63.38 against C$88.03. Not yet cross-checked against a DSers stable cost: the product does not exist in Shopify or DSers yet, and the DSers reading is the mapping step, not the sourcing step.",
+  "dutyRateBasis": "Canada HS 9405.11.00 (electric lighting fittings designed for LED) / 9405.19.00 (other), MFN column, 7%. Canada applies no Section 301 equivalent to these goods - its surtaxes on Chinese imports cover electric vehicles, steel and aluminium - so MFN is the entire stack. The 7% is charged on VALUE FOR DUTY, which is the supplier price.",
+  "competitors": [
+    {
+      "name": "cage pendant light organic result 1",
+      "priceCad": 98.99,
+      "reviews": 29
+    },
+    {
+      "name": "cage pendant light organic result 2",
+      "priceCad": 28.99,
+      "reviews": 640
+    },
+    {
+      "name": "cage pendant light organic result 3",
+      "priceCad": 39.99,
+      "reviews": 66
+    },
+    {
+      "name": "cage pendant light organic result 4",
+      "priceCad": 47.99,
+      "reviews": 640
+    },
+    {
+      "name": "cage pendant light organic result 5",
+      "priceCad": 32.99,
+      "reviews": 1681
+    },
+    {
+      "name": "cage pendant light organic result 6",
+      "priceCad": 54.99,
+      "reviews": 640
+    },
+    {
+      "name": "cage pendant light organic result 7",
+      "priceCad": 44.32,
+      "reviews": 7
+    },
+    {
+      "name": "cage pendant light organic result 8",
+      "priceCad": 67.99,
+      "reviews": 1378
+    },
+    {
+      "name": "cage pendant light organic result 9",
+      "priceCad": 99.99,
+      "reviews": 408
+    },
+    {
+      "name": "cage pendant light organic result 10",
+      "priceCad": 45.07,
+      "reviews": 292
+    },
+    {
+      "name": "cage pendant light organic result 11",
+      "priceCad": 41.99,
+      "reviews": 1559
+    },
+    {
+      "name": "cage pendant light organic result 12",
+      "priceCad": 52.99,
+      "reviews": 29
+    },
+    {
+      "name": "cage pendant light organic result 13",
+      "priceCad": 54.98,
+      "reviews": 30
+    },
+    {
+      "name": "cage pendant light organic result 14",
+      "priceCad": 58.99,
+      "reviews": 36
+    },
+    {
+      "name": "cage pendant light organic result 15",
+      "priceCad": 27.99,
+      "reviews": 1559
+    },
+    {
+      "name": "cage pendant light organic result 16",
+      "priceCad": 99.99,
+      "reviews": 408
+    },
+    {
+      "name": "cage pendant light organic result 17",
+      "priceCad": 49.99,
+      "reviews": 844
+    },
+    {
+      "name": "cage pendant light organic result 18",
+      "priceCad": 79.99,
+      "reviews": 71
+    },
+    {
+      "name": "cage pendant light organic result 19",
+      "priceCad": 46.55,
+      "reviews": 226
+    },
+    {
+      "name": "cage pendant light organic result 20",
+      "priceCad": 134.99,
+      "reviews": 7
+    },
+    {
+      "name": "cage pendant light organic result 21",
+      "priceCad": 39.99,
+      "reviews": 575
+    },
+    {
+      "name": "cage pendant light organic result 22",
+      "priceCad": 54.54,
+      "reviews": 89
+    },
+    {
+      "name": "cage pendant light organic result 23",
+      "priceCad": 102.98,
+      "reviews": 23
+    },
+    {
+      "name": "cage pendant light organic result 24",
+      "priceCad": 65.11,
+      "reviews": 3
+    },
+    {
+      "name": "cage pendant light organic result 25",
+      "priceCad": 89.99,
+      "reviews": 16
+    },
+    {
+      "name": "cage pendant light organic result 26",
+      "priceCad": 43.99,
+      "reviews": 354
+    },
+    {
+      "name": "cage pendant light organic result 27",
+      "priceCad": 69.99,
+      "reviews": 407
+    },
+    {
+      "name": "cage pendant light organic result 28",
+      "priceCad": 42.99,
+      "reviews": 374
+    },
+    {
+      "name": "cage pendant light organic result 29",
+      "priceCad": 64.95,
+      "reviews": 72
+    },
+    {
+      "name": "cage pendant light organic result 30",
+      "priceCad": 39.99,
+      "reviews": 102
+    },
+    {
+      "name": "cage pendant light organic result 31",
+      "priceCad": 123.49,
+      "reviews": 263
+    },
+    {
+      "name": "cage pendant light organic result 32",
+      "priceCad": 69.99,
+      "reviews": 115
+    },
+    {
+      "name": "cage pendant light organic result 33",
+      "priceCad": 65.68,
+      "reviews": 54
+    },
+    {
+      "name": "cage pendant light organic result 34",
+      "priceCad": 65.98,
+      "reviews": 84
+    },
+    {
+      "name": "cage pendant light organic result 35",
+      "priceCad": 50.99,
+      "reviews": 30
+    },
+    {
+      "name": "cage pendant light organic result 36",
+      "priceCad": 53.99,
+      "reviews": 80
+    },
+    {
+      "name": "cage pendant light organic result 37",
+      "priceCad": 80.3,
+      "reviews": 735
+    },
+    {
+      "name": "cage pendant light organic result 38",
+      "priceCad": 48.03,
+      "reviews": 675
+    },
+    {
+      "name": "cage pendant light organic result 39",
+      "priceCad": 75.99,
+      "reviews": 150
+    },
+    {
+      "name": "cage pendant light organic result 40",
+      "priceCad": 59.44,
+      "reviews": 73
+    },
+    {
+      "name": "cage pendant light organic result 41",
+      "priceCad": 59.99,
+      "reviews": 306
+    },
+    {
+      "name": "cage pendant light organic result 42",
+      "priceCad": 97.06,
+      "reviews": 27
+    },
+    {
+      "name": "cage pendant light organic result 43",
+      "priceCad": 24.28,
+      "reviews": 278
+    },
+    {
+      "name": "cage pendant light organic result 44",
+      "priceCad": 67.99,
+      "reviews": 101
+    },
+    {
+      "name": "cage pendant light organic result 45",
+      "priceCad": 49.99,
+      "reviews": 16
+    },
+    {
+      "name": "cage pendant light organic result 46",
+      "priceCad": 90.99,
+      "reviews": 204
+    },
+    {
+      "name": "cage pendant light organic result 47",
+      "priceCad": 199.99,
+      "reviews": 27
+    }
+  ],
+  "dutyRate": 0.07,
+  "verdict": "Priced at CA$69.99, CA$5.50 over the CA$64.49 amazon.ca cage/industrial pendant band median and CA$4.17 under the CA$74.16 RULE 2 ceiling. Contributes CA$18.65/unit on the wholesale basis (7% MFN on value for duty) at the LIST cost of C$36.36 with free freight, against the CA$16.23 floor - clears by CA$2.42. This class's band is lower than the bamboo pendants' (median 64.49 against 75.42, ceiling 74.16 against 86.73), so the shared CA$74.99 is OVER this ceiling and cannot be used; CA$64.99 files 14.32, under the floor; CA$69.99 is the only x.99 that clears both the floor and the ceiling. Rule 22: the page sells at C$26.18 under a timed banner, a 28% gap under the C$36.36 originalPrice, so the list price is the cost basis. Per-SKU stock 182 clears rule 4 (>= 25). Voltage 90-260 V, E27, no bulb. Rule 18: the only wire cage, metal shade and diamond silhouette in the catalogue. Thin: a C$2.42 cushion means a freight charge of more than about C$2.25 or a list-price rise of more than about C$2.25 takes it under the floor - re-read cost and shipping before any paid push.",
+  "supplierSku": "B Style / no bulb",
+  "supplierSkuNote": "The seller's style letter and bulb label. B Style is the cord-hung black single-head cage with the wood socket cover and 10 cm cap; the underlying propertyValueName the gateway carries for it is 'Blue', a leftover of the seller's colour template, and means nothing. Recorded so a human can find the row in DSers.",
+  "supplierSkuUnitCap": 182,
+  "supplierSkuUnitCapObservedOn": "2026-09-13",
+  "supplierSkuUnitCapMethod": "Read as skuStock from window._d_c_ lifeCycleEventList[0].data.SKU.skuPaths[] on listing 1005007802917011, joined per-variant to PRICE.skuPriceInfoMap. Per-SKU, not the listing total (the page shows 171 available for the D style it opens on; B reads 182). Not clamp-tested via the quantity box.",
+  "retailNote": "Priced 2026-09-13 at CA$69.99, a new price point below the pendants' shared CA$74.99 because this class's amazon.ca band is lower and CA$74.99 would breach its CA$74.16 ceiling. Above the CA$64.49 median by CA$5.50 because CA$64.99 cannot clear the floor at the C$36.36 list cost; under the ceiling by CA$4.17.",
+  "bandMedian": {
+    "basket": "cage / industrial pendant, amazon.ca",
+    "medianCad": 64.49,
+    "ceilingCad": 74.16,
+    "rule23": "medianCad is the LOWER of the readings below. The gate re-derives this and fails if it is not the minimum.",
+    "readings": [
+      {
+        "on": "2026-09-13",
+        "medianCad": 64.49,
+        "source": "run 27a, amazon.ca page-1 organic, 8 keywords, live DOM read (docs/sourcing-evidence/amazon-ca-bands-2026-09-13-run27.json)"
+      },
+      {
+        "on": "2026-09-13",
+        "medianCad": 64.49,
+        "source": "run 27b, same method, re-read later the same evening; every keyword median came back identical, so the two readings coincide"
+      }
+    ],
+    "method": "amazon.ca page-1 organic per keyword, sponsored rows dropped, prices outside CA$11-CA$540 dropped (the US $8-$400 window scaled at ~1.35); median per keyword, then median of those medians.",
+    "keywords": [
+      {
+        "keyword": "cage pendant light",
+        "n": 47,
+        "medianCad": 58.99
+      },
+      {
+        "keyword": "industrial pendant light",
+        "n": 48,
+        "medianCad": 69.99
+      },
+      {
+        "keyword": "wood cage pendant light",
+        "n": 47,
+        "medianCad": 98.99
+      },
+      {
+        "keyword": "wire cage pendant light",
+        "n": 43,
+        "medianCad": 34.77
+      },
+      {
+        "keyword": "metal cage pendant light",
+        "n": 47,
+        "medianCad": 48.82
+      },
+      {
+        "keyword": "vintage cage pendant light",
+        "n": 47,
+        "medianCad": 47.99
+      },
+      {
+        "keyword": "geometric pendant light",
+        "n": 47,
+        "medianCad": 94.87
+      },
+      {
+        "keyword": "farmhouse pendant light",
+        "n": 48,
+        "medianCad": 74.99
+      }
+    ]
+  },
+  "ourRetailCad": 69.99,
+  "itemCostCad": 36.36,
+  "itemCostSaleCad": 26.18,
+  "supplierShipCad": 0
+}

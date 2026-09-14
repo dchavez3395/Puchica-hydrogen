@@ -70,6 +70,7 @@ test('production monitor shares the verified market cohorts', () => {
     // Twelve: the rattan cone wall sconce, first non-pendant, 2026-09-13.
     'rattan-cone-wall-sconce-15cm',
     'woven-bamboo-column-pendant-37cm',
+    'iron-cage-pendant-15cm',
   ]);
 
   // Discovery follows the live cohort. The seven previous handles were deleted

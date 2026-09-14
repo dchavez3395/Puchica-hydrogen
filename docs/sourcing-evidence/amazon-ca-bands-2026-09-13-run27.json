@@ -1,0 +1,53 @@
+{
+  "readOn": "2026-09-13",
+  "run": 27,
+  "method": "amazon.ca page-1 organic per keyword, sponsored rows dropped (sp-sponsored-result / puis-sponsored-label-text / 'Sponsored' text), prices outside CA$11-CA$540 dropped; median per keyword, then median of those medians. Same method as runs 24-26. Read twice the same evening (27a, 27b); every keyword median was identical on the second read.",
+  "baskets": {
+    "cage / industrial pendant": {
+      "medianCad": 64.49,
+      "ceilingCad": 74.16,
+      "keywords": [
+        {
+          "keyword": "cage pendant light",
+          "n": 47,
+          "medianCad": 58.99
+        },
+        {
+          "keyword": "industrial pendant light",
+          "n": 48,
+          "medianCad": 69.99
+        },
+        {
+          "keyword": "wood cage pendant light",
+          "n": 47,
+          "medianCad": 98.99
+        },
+        {
+          "keyword": "wire cage pendant light",
+          "n": 43,
+          "medianCad": 34.77
+        },
+        {
+          "keyword": "metal cage pendant light",
+          "n": 47,
+          "medianCad": 48.82
+        },
+        {
+          "keyword": "vintage cage pendant light",
+          "n": 47,
+          "medianCad": 47.99
+        },
+        {
+          "keyword": "geometric pendant light",
+          "n": 47,
+          "medianCad": 94.87
+        },
+        {
+          "keyword": "farmhouse pendant light",
+          "n": 48,
+          "medianCad": 74.99
+        }
+      ]
+    }
+  }
+}

@@ -120,6 +120,9 @@ const completeBaseline = {
       // (90-260 V): C$40.72 LIST (rule 22, an 8% gap) / 1.352, freight C$2.82
       // likewise.
       ['woven-bamboo-column-pendant-37cm', '200000531:100018786#18x37.5cm;5:361386#Wood Base;136:200002572#3 light colors', 30.12, 2.09],
+      // The iron cage pendant, 2026-09-13: C$36.36 LIST (rule 22, a 28% timed
+      // promo) / 1.352, free freight.
+      ['iron-cage-pendant-15cm', '200000531:173#B Style;136:200003939#no bulb', 26.89],
       ['woven-rattan-petal-pendant-30cm', '200000531:175#30CM;136:200003939#Warm Light', 39.59],
     ].map(([handle, sku, itemCostUsd, shippingUsd = 0]) => ({
       handle,

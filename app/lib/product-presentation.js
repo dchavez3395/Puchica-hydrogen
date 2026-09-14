@@ -29,6 +29,7 @@ export const LAUNCH_COPY_PREFIX = {
   'woven-bamboo-dome-pendant': 'product_copy_bamboodome',
   'woven-bamboo-lantern-pendant-26cm': 'product_copy_bamboolantern',
   'woven-bamboo-column-pendant-37cm': 'product_copy_bamboocolumn',
+  'iron-cage-pendant-15cm': 'product_copy_ironcage15',
   'woven-bamboo-mini-pendant-18cm': 'product_copy_bamboomini',
   'plug-in-bamboo-sconce-swing-arm': 'product_copy_bamboosconce',
   'woven-bamboo-wave-chandelier-35cm': 'product_copy_bamboowave',

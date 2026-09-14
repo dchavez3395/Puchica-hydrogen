@@ -307,6 +307,9 @@ test('product market resolution fails closed on an empty catalogue', () => {
     // Thirteen: the column, released from VOLTAGE_HOLD 2026-09-13 onto a
     // 90-260 V listing - the dome's path.
     'woven-bamboo-column-pendant-37cm',
+    // Fourteen: the iron cage pendant, the first metal fixture, after the
+    // brief was widened past the bamboo niche on 2026-09-13.
+    'iron-cage-pendant-15cm',
   ]);
   for (const offer of VOLTAGE_HOLD_CATALOG_OFFERS) {
     assert.ok(
@@ -772,6 +775,7 @@ test('a suspended market closes commerce without erasing route evidence', () => 
     'woven-bamboo-globe-pendant-25cm',
     'rattan-cone-wall-sconce-15cm',
     'woven-bamboo-column-pendant-37cm',
+    'iron-cage-pendant-15cm',
   ]);
   for (const archived of ARCHIVED_CATALOG_OFFERS) {
     assert.ok(
@@ -832,8 +836,9 @@ test('approved handles and SKUs derive from one exact-offer cohort', () => {
     'woven-bamboo-globe-pendant-25cm',
     'rattan-cone-wall-sconce-15cm',
     'woven-bamboo-column-pendant-37cm',
+    'iron-cage-pendant-15cm',
   ]);
-  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.CA.length, 13);
+  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.CA.length, 14);
 
   // A US offer crosses the suspended cn-direct route, so it must carry BOTH
   // duty scenarios and both must be positive - the watch-roll cohort died
@@ -1202,6 +1207,8 @@ test('every offer records the supplier an order would actually reach', () => {
     'rattan-cone-wall-sconce-15cm': '1005008679122325',
     // The column's 90-260 V source, replacing the 220 V listing it was held on.
     'woven-bamboo-column-pendant-37cm': '1005005768310960',
+    // The iron cage, a different seller and class from everything above.
+    'iron-cage-pendant-15cm': '1005007802917011',
   };
   for (const offer of APPROVED_CATALOG_OFFERS) {
     assert.ok(

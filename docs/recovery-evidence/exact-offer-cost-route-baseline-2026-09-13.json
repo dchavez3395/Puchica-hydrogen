@@ -32,7 +32,8 @@
     "2026-09-13-sweep": "TWO offers added from the Canadian-gateway sourcing sweep later the same day: slatted-bamboo-pear-pendant-20cm (listing 1005008652215677, Style E, C$28.21 with a 1.4% list gap, stock 50) and tiered-bamboo-pendant-30cm (listing 1005008081008680, 30CM China-mainland SKU, C$47.38 LIST against a C$29.57 sale - a 38% promotion, so rule 22 files the list price and the offer is priced at CA$84.99 to clear the floor at it). Both rows are Canadian-only from the start and carry no US route. Neither product exists in Shopify or DSers yet: these rows are the sourcing reading, and the DSers stable-cost cross-check happens at the mapping step. A third sweep candidate, a woven bamboo table lamp, is NOT here - it is a new category with no amazon.ca band and is not approved.",
     "2026-09-13-batch2": "SIX more offers added later the same day, all from ONE listing, 1005007626643748 (3256-form 3256807439328996, ZODOLAMP, 4.2 stars / 83 reviews / 78 sold, 459 orders in DSers) - the listing the saucer was once mis-mapped to. THIS listing's spec table reads Voltage 90-260V, unlike the 220 V held cohort from the same seller family. woven-bamboo-gourd-pendant-23cm (32cm-M, C$36.32 list), woven-bamboo-egg-pendant-15cm (Burgundy, C$21.16), woven-bamboo-bell-pendant-26cm (Clear, C$32.18), woven-bamboo-nest-pendant-30cm (Dark Khaki, C$43.77, priced CA$84.99 because CA$74.99 files 15.04 under the 16.23 floor), bamboo-slat-pumpkin-pendant-18cm (SKY BLUE, C$34.87) and woven-bamboo-globe-pendant-25cm (Chocolate, C$30.26). The swatch names in brackets are the seller's variant labels and describe nothing about the product; they are recorded so a human can find the row in DSers. Every SKU sells about 6% under its originalPrice, so rule 22 files the LIST price on all six. Per-SKU stock 876-888; the \"Max. 20 pcs/shopper\" on each SKU is a per-order cap, not stock. Rule 18: gourd / egg / bell / nest / segmented pumpkin / globe, none a live shape; three other deep-stock SKUs on the listing were rejected (a 16x33 straight cylinder = lantern, a 23x24 slatted onion = pear, a 29x22 wide-brim hat = saucer). All six rows are Canadian-only and carry no US route. None exists in Shopify or DSers yet.",
     "2026-09-13-sconce": "ONE offer added from the widened lighting sweep later the same day - the only survivor of seven clamped candidates across the sconce, floor-lamp and chandelier classes (three died on 220 V, two on price, one was a USB table lamp): rattan-cone-wall-sconce-15cm (listing 1005008679122325, ZY Lighting Store, SKU 'wood / Excluding light bulb', C$24.60 LIST against a C$15.99 sale - a 35% promotion, so rule 22 files the list price; per-SKU stock 992; 90-260 V, E27). THE FIRST OFFER WHOSE FREIGHT IS NOT FREE: AliExpress standard shipping charges C$25.99 to Canada, 10-18 days, so freight is half the landed cost and the offer is priced at CA$89.99 (contribution 20.72) because CA$84.99 clears the floor by only 17 cents. Benchmarked against its own amazon.ca wall-sconce basket (median 85.375 on the lower of two same-day readings), not the pendant band. Canadian-only and carries no US route. Not yet in Shopify or DSers: this row is the sourcing reading.",
-    "2026-09-13-column": "The column came off VOLTAGE_HOLD later the same night, the way the dome did: the same 18 x 37.5 cm shape on a 90-260 V listing (1005005768310960, 8% gap, list C$40.72, freight C$2.82, 9-16 days, bulb included). Its 220 V row (1005009170603754 D-wood base) is replaced by this one, as the dome's was. Found through the AliExpress 'ship from United States' filter, which surfaces the honest-priced seller families; the DSers 1688 and Alibaba tabs returned nothing for this category."
+    "2026-09-13-column": "The column came off VOLTAGE_HOLD later the same night, the way the dome did: the same 18 x 37.5 cm shape on a 90-260 V listing (1005005768310960, 8% gap, list C$40.72, freight C$2.82, 9-16 days, bulb included). Its 220 V row (1005009170603754 D-wood base) is replaced by this one, as the dome's was. Found through the AliExpress 'ship from United States' filter, which surfaces the honest-priced seller families; the DSers 1688 and Alibaba tabs returned nothing for this category.",
+    "2026-09-13-cage": "The iron cage pendant (1005007802917011, ZEGEL Store) is the first product outside the bamboo/rattan niche, admitted after Daniel widened the brief the same night. 28% timed promo, rule 22 files the C$36.36 list; free freight, 10-18 days; 90-260 V, E27, no bulb; per-SKU stock 182. Benchmarked against its own amazon.ca cage/industrial pendant basket (run 27, median 64.49 on two identical readings, ceiling 74.16), which sits UNDER the bamboo pendants' band - so it takes CA$69.99, a new price point, not the shared CA$74.99 that would breach its ceiling. Clears the floor by C$2.42 - the thinnest live offer."
   },
   "offers": [
     {
@@ -1018,6 +1019,33 @@
           "source": "DSers Shipping info, AliExpress Selection Standard from CN, ship-to Canada: Free Shipping."
         }
       }
+    },
+    {
+      "handle": "iron-cage-pendant-15cm",
+      "sku": "200000531:173#B Style;136:200003939#no bulb",
+      "supplierItemId": "1005007802917011",
+      "supplierItemIdUs": "3256807616602259",
+      "itemCostUsd": 25.97,
+      "voltageNote": "Supplier specification read 2026-09-13: Voltage 90-260V, Base Type E27, Is Include PCBA N, Power Source AC, Is Bulbs Included No, Material Metal, Certification NONE. The first metal fixture in the catalogue.",
+      "routes": {
+        "CA": {
+          "shippingUsd": 0,
+          "shippingCad": 0,
+          "freeOverCad": null,
+          "eta": "18 days",
+          "tracked": true,
+          "carrier": "AliExpress standard shipping",
+          "shipFrom": "CN",
+          "fulfilment": "cn-direct",
+          "observedOn": "2026-09-13",
+          "source": "Read 2026-09-13 from the rendered shipping panel of listing 1005007802917011 on the .com gateway with a Canadian destination: 'Standard: Free shipping', 'via AliExpress standard shipping: 0.00', 'Delivery: Sep. 23 - Oct. 01' (10-18 days). The bizData object could not be read on this listing because the browser tool's classifier blocked the call; the panel text is the same data rendered. Canadian-only - no US route was read for this source and none is claimed. tracked:true is carried from the carrier identity, NOT from a tracking number."
+        }
+      },
+      "itemCostObservedOn": "2026-09-13",
+      "itemCostNote": "CANADIAN-GATEWAY per-SKU price read 2026-09-13 from PRICE.skuPriceInfoMap: the page SELLS at C$26.18 against a C$36.36 originalPrice under a banner reading 'Ends: Sep 20', a 28% promotion. RULE 22 makes the LIST price the cost basis, so itemCostCad is 36.36 and the USD figure is DERIVED from it at the 1.4 planning rate. 15.5 x 18 cm black iron diamond cage on a wood socket cover, 10 cm cap, 100 cm cord, no bulb; skuStock 182. Contribution at CA$69.99 is CA$18.65 - thin, a C$2.42 cushion. Not yet in Shopify or DSers: this row is the sourcing reading.",
+      "itemCostOriginalCad": 36.36,
+      "itemCostSaleCad": 26.18,
+      "itemCostCad": 36.36
     }
   ]
 }

@@ -1167,6 +1167,40 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
     // C$40.72 (rule 22) plus C$2.82 freight, at CA$84.99.
     contributionCad: 23.94,
   }),
+  // Added 2026-09-13, the first product outside the bamboo/rattan niche:
+  // Daniel widened the brief the same night ("we dont need to just stay in
+  // the lamp niche"). A 15.5 x 18 cm black iron diamond cage on a natural
+  // wood socket cover, 10 cm cap, 100 cm cord, from listing 1005007802917011
+  // (ZEGEL Store, 4.7 from 22 reviews, 167 sold). 90-260 V, E27, PCBA N, no
+  // bulb. 28% timed promo, so rule 22 files the C$36.36 list; free freight,
+  // 10-18 days; per-SKU stock 182. Rule 18: the only wire cage, metal shade
+  // and diamond silhouette in the range.
+  //
+  // PRICED OFF ITS OWN BAND, NOT THE PENDANTS'. The amazon.ca cage/industrial
+  // pendant basket (run 27, two identical readings) sits at C$64.49, ceiling
+  // 74.16 - UNDER the bamboo pendants' band - so the shared CA$74.99 would
+  // breach rule 2 here. CA$64.99 files under the floor; CA$69.99 is the only
+  // x.99 that clears both, and it clears the floor by C$2.42 - the thinnest
+  // live offer. A freight charge or list rise of more than about C$2.25
+  // takes it under; re-read before any paid push.
+  Object.freeze({
+    handle: 'iron-cage-pendant-15cm',
+    sku: '200000531:173#B Style;136:200003939#no bulb',
+    // VERIFIED IN DSERS 2026-09-13 (my-product/v2/search supplier[].supplyProductId
+    // and my-product/detail supply.<variant>.sku): Shopify variant 50366519148794 is
+    // basic-mapped to this listing at exactly the SKU above (DSers lists the two
+    // components in the other order).
+    supplierProductId: '1005007802917011',
+    markets: Object.freeze(['CA']),
+    // CANADIAN CONTRIBUTION, 2026-09-13. One figure, not a pair: CBSA assesses
+    // 7% MFN on value for duty (the supplier price), so there is no second
+    // basis to be uncertain between. Derived from this offer's undercut
+    // evidence by scripts/check-contribution-derivation.mjs (RULE 26), which
+    // fails on more than a cent of drift - so if the price or the cost moves,
+    // this number must move in the same edit. Derived at the LIST cost of
+    // C$36.36 (rule 22) with free freight, at CA$69.99.
+    contributionCad: 18.65,
+  }),
   // Added 2026-09-10, from listing 3256812550446681 (LINCCW, 1,000+ sold,
   // 90-260V, $1.99 shipping). Woven rattan petal shade, the most sculptural
   // piece in the range, and the ONLY offer that ships with a bulb - light

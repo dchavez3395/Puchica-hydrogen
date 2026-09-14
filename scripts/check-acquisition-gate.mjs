@@ -100,6 +100,10 @@ const CA_RETAIL = {
   // C$40.72 plus C$2.82 freight files under the floor at CA$74.99, so it
   // takes CA$84.99.
   'woven-bamboo-column-pendant-37cm': 84.99,
+  // The iron cage pendant, 2026-09-13, the first metal fixture. Its own
+  // amazon.ca band ceiling is CA$74.16, under the pendants' shared CA$74.99,
+  // so it takes CA$69.99 (contribution 18.65).
+  'iron-cage-pendant-15cm': 69.99,
 };
 
 if (path.resolve(process.argv[1] || '') === scriptPath) {
