@@ -30,7 +30,8 @@
     "2026-09-13-duty": "Duty on this route is HS 9405.11.00 / 9405.19.00 at 7% MFN on VALUE FOR DUTY, which is the supplier price, against 41.4% on RETAIL for the United States. About CA$2.04 a unit against US$40.57. That gap is the entire reason for the switch: it lifts the maximum supplier cost that still clears the floor from about US$17 to about US$38.",
     "2026-09-13-not-fixed": "WHAT THE SWITCH DOES NOT FIX, stated so nobody re-derives it hopefully. Canada runs at 120 V with the same plugs as the United States, so all six 220 V fixtures on VOLTAGE_HOLD stay held. The sconce's promotion dependence is a supplier fact rather than a duty one, so COST_HOLD stays: at its C$78.14 list cost its contribution at the banded ceiling is NEGATIVE. And 33-41 day transit is 33-41 days in any market, so TRANSIT_HOLD stays.",
     "2026-09-13-sweep": "TWO offers added from the Canadian-gateway sourcing sweep later the same day: slatted-bamboo-pear-pendant-20cm (listing 1005008652215677, Style E, C$28.21 with a 1.4% list gap, stock 50) and tiered-bamboo-pendant-30cm (listing 1005008081008680, 30CM China-mainland SKU, C$47.38 LIST against a C$29.57 sale - a 38% promotion, so rule 22 files the list price and the offer is priced at CA$84.99 to clear the floor at it). Both rows are Canadian-only from the start and carry no US route. Neither product exists in Shopify or DSers yet: these rows are the sourcing reading, and the DSers stable-cost cross-check happens at the mapping step. A third sweep candidate, a woven bamboo table lamp, is NOT here - it is a new category with no amazon.ca band and is not approved.",
-    "2026-09-13-batch2": "SIX more offers added later the same day, all from ONE listing, 1005007626643748 (3256-form 3256807439328996, ZODOLAMP, 4.2 stars / 83 reviews / 78 sold, 459 orders in DSers) - the listing the saucer was once mis-mapped to. THIS listing's spec table reads Voltage 90-260V, unlike the 220 V held cohort from the same seller family. woven-bamboo-gourd-pendant-23cm (32cm-M, C$36.32 list), woven-bamboo-egg-pendant-15cm (Burgundy, C$21.16), woven-bamboo-bell-pendant-26cm (Clear, C$32.18), woven-bamboo-nest-pendant-30cm (Dark Khaki, C$43.77, priced CA$84.99 because CA$74.99 files 15.04 under the 16.23 floor), bamboo-slat-pumpkin-pendant-18cm (SKY BLUE, C$34.87) and woven-bamboo-globe-pendant-25cm (Chocolate, C$30.26). The swatch names in brackets are the seller's variant labels and describe nothing about the product; they are recorded so a human can find the row in DSers. Every SKU sells about 6% under its originalPrice, so rule 22 files the LIST price on all six. Per-SKU stock 876-888; the \"Max. 20 pcs/shopper\" on each SKU is a per-order cap, not stock. Rule 18: gourd / egg / bell / nest / segmented pumpkin / globe, none a live shape; three other deep-stock SKUs on the listing were rejected (a 16x33 straight cylinder = lantern, a 23x24 slatted onion = pear, a 29x22 wide-brim hat = saucer). All six rows are Canadian-only and carry no US route. None exists in Shopify or DSers yet."
+    "2026-09-13-batch2": "SIX more offers added later the same day, all from ONE listing, 1005007626643748 (3256-form 3256807439328996, ZODOLAMP, 4.2 stars / 83 reviews / 78 sold, 459 orders in DSers) - the listing the saucer was once mis-mapped to. THIS listing's spec table reads Voltage 90-260V, unlike the 220 V held cohort from the same seller family. woven-bamboo-gourd-pendant-23cm (32cm-M, C$36.32 list), woven-bamboo-egg-pendant-15cm (Burgundy, C$21.16), woven-bamboo-bell-pendant-26cm (Clear, C$32.18), woven-bamboo-nest-pendant-30cm (Dark Khaki, C$43.77, priced CA$84.99 because CA$74.99 files 15.04 under the 16.23 floor), bamboo-slat-pumpkin-pendant-18cm (SKY BLUE, C$34.87) and woven-bamboo-globe-pendant-25cm (Chocolate, C$30.26). The swatch names in brackets are the seller's variant labels and describe nothing about the product; they are recorded so a human can find the row in DSers. Every SKU sells about 6% under its originalPrice, so rule 22 files the LIST price on all six. Per-SKU stock 876-888; the \"Max. 20 pcs/shopper\" on each SKU is a per-order cap, not stock. Rule 18: gourd / egg / bell / nest / segmented pumpkin / globe, none a live shape; three other deep-stock SKUs on the listing were rejected (a 16x33 straight cylinder = lantern, a 23x24 slatted onion = pear, a 29x22 wide-brim hat = saucer). All six rows are Canadian-only and carry no US route. None exists in Shopify or DSers yet.",
+    "2026-09-13-sconce": "ONE offer added from the widened lighting sweep later the same day - the only survivor of seven clamped candidates across the sconce, floor-lamp and chandelier classes (three died on 220 V, two on price, one was a USB table lamp): rattan-cone-wall-sconce-15cm (listing 1005008679122325, ZY Lighting Store, SKU 'wood / Excluding light bulb', C$24.60 LIST against a C$15.99 sale - a 35% promotion, so rule 22 files the list price; per-SKU stock 992; 90-260 V, E27). THE FIRST OFFER WHOSE FREIGHT IS NOT FREE: AliExpress standard shipping charges C$25.99 to Canada, 10-18 days, so freight is half the landed cost and the offer is priced at CA$89.99 (contribution 20.72) because CA$84.99 clears the floor by only 17 cents. Benchmarked against its own amazon.ca wall-sconce basket (median 85.375 on the lower of two same-day readings), not the pendant band. Canadian-only and carries no US route. Not yet in Shopify or DSers: this row is the sourcing reading."
   },
   "offers": [
     {
@@ -405,6 +406,33 @@
       "itemCostOriginalCad": 30.26,
       "itemCostSaleCad": 28.44,
       "itemCostCad": 30.26
+    },
+    {
+      "handle": "rattan-cone-wall-sconce-15cm",
+      "sku": "200000795:29#wood;180:200002571#Excluding light bulb",
+      "supplierItemId": "1005008679122325",
+      "supplierItemIdUs": "3256808492807573",
+      "itemCostUsd": 17.57,
+      "voltageNote": "Supplier specification read 2026-09-13: Voltage 90-260V, Base Type E27, Power Source AC, Is Include PCBA N, Installation Type Wall Mounted, Shade Direction Up & Down. The spec table says 'Is Bulbs Included: Yes' but the SKU sold is the 'Excluding light bulb' variant at the same price.",
+      "routes": {
+        "CA": {
+          "shippingUsd": 18.56,
+          "shippingCad": 25.99,
+          "freeOverCad": null,
+          "eta": "18 days",
+          "tracked": true,
+          "carrier": "AliExpress standard shipping (CAINIAO_STANDARD)",
+          "shipFrom": "CN",
+          "fulfilment": "cn-direct",
+          "observedOn": "2026-09-13",
+          "source": "Read 2026-09-13 from SHIPPING.deliveryLayoutInfo[0].bizData of listing 1005008679122325 on the .com gateway with a Canadian destination: shippingFee 'charge', displayAmount C$25.99, deliveryDayMin 10 / deliveryDayMax 18, displayed Sep 23 - Oct 1, tracking visible. NOT FREE - the first Canadian route in this file with a real freight charge; shippingUsd is the CAD figure at the 1.4 planning rate (the DSers card showed US$18.45). Canadian-only from the start - no US route was read and none is claimed. tracked:true is carried from the carrier identity, NOT from a tracking number; that needs a placed order."
+        }
+      },
+      "itemCostObservedOn": "2026-09-13",
+      "itemCostNote": "CANADIAN-GATEWAY per-SKU price read 2026-09-13 from PRICE.skuPriceInfoMap: the page SELLS at C$15.99 against a C$24.60 originalPrice, a 35% promotion. RULE 22 makes the LIST price the cost basis, so itemCostCad is 24.60 and the USD figure is DERIVED from it at the 1.4 planning rate. Hardwired 14.5 cm rattan cone shade on a round wood backplate, 26 cm projection, 16.5 cm tall, shade rotates 360 degrees; skuStock 992 (per-SKU, rule 4). Contribution at CA$89.99 is CA$20.72 including the C$25.99 freight. Sourced from the 2026-09-13 widened lighting sweep; NOT yet in Shopify or DSers, so no DSers stable-cost cross-check exists yet.",
+      "itemCostOriginalCad": 24.6,
+      "itemCostSaleCad": 15.99,
+      "itemCostCad": 24.6
     },
     {
       "handle": "woven-rattan-petal-pendant-30cm",

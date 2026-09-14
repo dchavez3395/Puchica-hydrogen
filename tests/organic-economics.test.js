@@ -112,6 +112,10 @@ const completeBaseline = {
       ['woven-bamboo-nest-pendant-30cm', '200000531:200006154;249:200006305#1pcs', 32.37],
       ['bamboo-slat-pumpkin-pendant-18cm', '200000531:1254;249:200006305#1pcs', 25.79],
       ['woven-bamboo-globe-pendant-25cm', '200000531:200000195;249:200006305#1pcs', 22.38],
+      // The wall sconce from the widened 2026-09-13 sweep: C$24.60 LIST
+      // (rule 22, a 35% promo) / 1.352, and the first row that PAYS freight -
+      // C$25.99 to Canada, likewise / 1.352.
+      ['rattan-cone-wall-sconce-15cm', '200000795:29#wood;180:200002571#Excluding light bulb', 18.2, 19.22],
       ['woven-rattan-petal-pendant-30cm', '200000531:175#30CM;136:200003939#Warm Light', 39.59],
     ].map(([handle, sku, itemCostUsd, shippingUsd = 0]) => ({
       handle,

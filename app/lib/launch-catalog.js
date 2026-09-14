@@ -1101,6 +1101,48 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
     // C$30.26 (rule 22), not the C$28.44 sale price.
     contributionCad: 29.5,
   }),
+  // ADDED 2026-09-13 FROM THE WIDENED LIGHTING SWEEP - the only survivor of
+  // seven clamped candidates across the sconce, floor-lamp and chandelier
+  // classes (three died on 220 V, two on price, one was a USB table lamp).
+  // Listing 1005008679122325, ZY Lighting Store: 5.0 from 2 reviews, 24 sold,
+  // spec table 90-260 V, E27, per-SKU stock 992, AliExpress standard shipping
+  // 10-18 days. A hardwired 14.5 cm rattan cone shade on a round wood
+  // backplate, 26 cm projection, the shade turning 360 degrees on a fixed
+  // metal arm.
+  //
+  // THE FIRST NON-PENDANT, so it is benchmarked against its OWN amazon.ca
+  // 8-keyword wall-sconce basket (median C$85.375 on the lower of two
+  // same-day readings, ceiling 98.18), not the pendant band. See
+  // docs/sourcing-evidence/amazon-ca-bands-2026-09-13-run25.json.
+  //
+  // RULE 22: sells at C$15.99 against a C$24.60 originalPrice, a 35% promo,
+  // so the LIST price is the cost basis. FREIGHT IS NOT FREE - C$25.99 to
+  // Canada, the first offer where shipping is half the landed cost. At the
+  // pendants' CA$74.99 this files 7.75 and at CA$84.99 it clears the 16.23
+  // floor by seventeen cents, so it takes CA$89.99 (contribution 20.72),
+  // inside the band. If the freight charge rises by more than about C$4.50
+  // the offer comes off; re-read shipping before any paid push.
+  //
+  // Rule 18: the catalogue's only other sconce, the plug-in swing-arm on
+  // COST_HOLD, is a different fitting in a different install.
+  Object.freeze({
+    handle: 'rattan-cone-wall-sconce-15cm',
+    sku: '200000795:29#wood;180:200002571#Excluding light bulb',
+    // VERIFIED IN DSERS 2026-09-13 (my-product/v2/search supplier[].supplyProductId
+    // and my-product/detail supply.<variant>.sku): Shopify variant 50353729405178 is
+    // basic-mapped to this listing at exactly the SKU above (DSers renders the two
+    // option segments in the other order; same variant).
+    supplierProductId: '1005008679122325',
+    markets: Object.freeze(['CA']),
+    // CANADIAN CONTRIBUTION, 2026-09-13. One figure, not a pair: CBSA assesses
+    // 7% MFN on value for duty (the supplier price), so there is no second
+    // basis to be uncertain between. Derived from this offer's undercut
+    // evidence by scripts/check-contribution-derivation.mjs (RULE 26), which
+    // fails on more than a cent of drift - so if the price or the cost moves,
+    // this number must move in the same edit. Derived at the LIST cost of
+    // C$24.60 (rule 22) plus C$25.99 freight, at CA$89.99.
+    contributionCad: 20.72,
+  }),
   // Added 2026-09-10, from listing 3256812550446681 (LINCCW, 1,000+ sold,
   // 90-260V, $1.99 shipping). Woven rattan petal shade, the most sculptural
   // piece in the range, and the ONLY offer that ships with a bulb - light

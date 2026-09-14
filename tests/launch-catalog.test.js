@@ -301,6 +301,9 @@ test('product market resolution fails closed on an empty catalogue', () => {
     'woven-bamboo-nest-pendant-30cm',
     'bamboo-slat-pumpkin-pendant-18cm',
     'woven-bamboo-globe-pendant-25cm',
+    // Twelve: the rattan cone wall sconce from the widened 2026-09-13 sweep,
+    // the first non-pendant and the first offer that pays freight.
+    'rattan-cone-wall-sconce-15cm',
   ]);
   for (const offer of VOLTAGE_HOLD_CATALOG_OFFERS) {
     assert.ok(
@@ -764,6 +767,7 @@ test('a suspended market closes commerce without erasing route evidence', () => 
     'woven-bamboo-nest-pendant-30cm',
     'bamboo-slat-pumpkin-pendant-18cm',
     'woven-bamboo-globe-pendant-25cm',
+    'rattan-cone-wall-sconce-15cm',
   ]);
   for (const archived of ARCHIVED_CATALOG_OFFERS) {
     assert.ok(
@@ -822,8 +826,9 @@ test('approved handles and SKUs derive from one exact-offer cohort', () => {
     'woven-bamboo-nest-pendant-30cm',
     'bamboo-slat-pumpkin-pendant-18cm',
     'woven-bamboo-globe-pendant-25cm',
+    'rattan-cone-wall-sconce-15cm',
   ]);
-  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.CA.length, 11);
+  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.CA.length, 12);
 
   // A US offer crosses the suspended cn-direct route, so it must carry BOTH
   // duty scenarios and both must be positive - the watch-roll cohort died
@@ -1186,6 +1191,9 @@ test('every offer records the supplier an order would actually reach', () => {
     'woven-bamboo-nest-pendant-30cm': '1005007626643748',
     'bamboo-slat-pumpkin-pendant-18cm': '1005007626643748',
     'woven-bamboo-globe-pendant-25cm': '1005007626643748',
+    // The wall sconce from the widened 2026-09-13 sweep, a different seller
+    // and a different listing from everything above.
+    'rattan-cone-wall-sconce-15cm': '1005008679122325',
   };
   for (const offer of APPROVED_CATALOG_OFFERS) {
     assert.ok(

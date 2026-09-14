@@ -1,0 +1,53 @@
+{
+  "readOn": "2026-09-13",
+  "run": 25,
+  "method": "amazon.ca page-1 organic per keyword, sponsored rows dropped (sp-sponsored-result / puis-sponsored-label-text / 'Sponsored' text), prices outside CA$11-CA$540 dropped; median per keyword, then median of those medians. Same method as run 24 (pendant basket).",
+  "baskets": {
+    "wall sconce": {
+      "medianCad": 85.76,
+      "keywords": [
+        {"keyword": "rattan wall sconce", "n": 45, "medianCad": 72.99, "prices": [33.6,37.69,38.79,45.59,49.99,49.99,50.84,58.99,59,59.9,59.99,64.99,67.75,67.75,67.75,67.99,67.99,68.78,69.9,69.99,69.99,71.89,72.99,79.99,87.48,87.99,88.98,89.99,89.99,99.99,99.99,99.99,99.99,100.7,107.7,109.99,109.99,110.21,112.99,116.78,119.29,119.83,119.99,125.47,152.61]},
+        {"keyword": "bamboo wall sconce", "n": 47, "medianCad": 86.53},
+        {"keyword": "boho wall sconce", "n": 45, "medianCad": 87.99},
+        {"keyword": "wicker wall light", "n": 45, "medianCad": 84.99},
+        {"keyword": "woven wall sconce", "n": 44, "medianCad": 89.485},
+        {"keyword": "rattan wall lamp", "n": 45, "medianCad": 69.99},
+        {"keyword": "plug in rattan wall sconce", "n": 44, "medianCad": 106.12},
+        {"keyword": "bamboo wall lamp", "n": 48, "medianCad": 68.73}
+      ]
+    },
+    "floor lamp": {
+      "medianCad": 89.99,
+      "keywords": [
+        {"keyword": "rattan floor lamp", "n": 46, "medianCad": 89.99},
+        {"keyword": "bamboo floor lamp", "n": 48, "medianCad": 85.74},
+        {"keyword": "boho floor lamp", "n": 48, "medianCad": 89.99},
+        {"keyword": "wicker floor lamp", "n": 46, "medianCad": 89.99},
+        {"keyword": "woven floor lamp", "n": 48, "medianCad": 89.99},
+        {"keyword": "rattan standing lamp", "n": 46, "medianCad": 89.99},
+        {"keyword": "bamboo standing lamp", "n": 48, "medianCad": 89.99},
+        {"keyword": "natural rattan floor lamp", "n": 47, "medianCad": 83.89}
+      ]
+    },
+    "chandelier": {
+      "medianCad": 110.79,
+      "keywords": [
+        {"keyword": "rattan chandelier", "n": 46, "medianCad": 127.87},
+        {"keyword": "bamboo chandelier", "n": 46, "medianCad": 109.485},
+        {"keyword": "boho chandelier", "n": 46, "medianCad": 109.99},
+        {"keyword": "wicker chandelier", "n": 46, "medianCad": 110.79},
+        {"keyword": "woven chandelier", "n": 47, "medianCad": 129.98},
+        {"keyword": "rattan pendant chandelier", "n": 47, "medianCad": 109.99},
+        {"keyword": "boho rattan chandelier", "n": 46, "medianCad": 110.79},
+        {"keyword": "bamboo hanging chandelier", "n": 46, "medianCad": 130.11}
+      ]
+    },
+    "flush ceiling light (partial, 3 keywords, not a band)": {
+      "keywords": [
+        {"keyword": "rattan ceiling light", "n": 47, "medianCad": 59.99},
+        {"keyword": "bamboo ceiling light", "n": 46, "medianCad": 72.49},
+        {"keyword": "boho ceiling light", "n": 47, "medianCad": 59.99}
+      ]
+    }
+  }
+}

@@ -92,6 +92,10 @@ const CA_RETAIL = {
   'woven-bamboo-nest-pendant-30cm': 84.99,
   'bamboo-slat-pumpkin-pendant-18cm': 74.99,
   'woven-bamboo-globe-pendant-25cm': 74.99,
+  // The 2026-09-13 wall sconce from the widened sweep. Freight is C$25.99,
+  // half its landed cost, so CA$84.99 clears the floor by seventeen cents
+  // and it takes CA$89.99 (contribution 20.72).
+  'rattan-cone-wall-sconce-15cm': 89.99,
 };
 
 if (path.resolve(process.argv[1] || '') === scriptPath) {

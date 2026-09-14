@@ -332,12 +332,16 @@ test('the open Canadian market is scored, and it blocks paid spend', () => {
   // egg, bell, nest at CA$84.99, segmented pumpkin, globe), all at the rule
   // 22 list cost. All six block too - the widest of them, the egg at
   // CA$39.24, is still short of the target CPA.
-  assert.equal(result.rows.length, 11, 'the eleven approved offers are scored');
+  //
+  // Twelve, later still on 2026-09-13: the rattan cone wall sconce from the
+  // widened sweep, the first non-pendant. It blocks like the rest.
+  assert.equal(result.rows.length, 12, 'the twelve approved offers are scored');
   assert.deepEqual(
     result.rows.map((row) => row.handle).sort(),
     [
       'bamboo-slat-pumpkin-pendant-18cm',
       'hand-woven-bamboo-pendant-light',
+      'rattan-cone-wall-sconce-15cm',
       'slatted-bamboo-lantern-pendant-20cm',
       'slatted-bamboo-pear-pendant-20cm',
       'tiered-bamboo-pendant-30cm',
@@ -353,7 +357,7 @@ test('the open Canadian market is scored, and it blocks paid spend', () => {
   assert.deepEqual(result.failures, [], 'the gate read its inputs cleanly');
   assert.equal(
     result.blocking.length,
-    11,
+    12,
     'every offer is short of the target CPA and must block a paid build',
   );
   for (const row of result.rows) {

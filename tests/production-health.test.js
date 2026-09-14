@@ -67,6 +67,8 @@ test('production monitor shares the verified market cohorts', () => {
     'woven-bamboo-nest-pendant-30cm',
     'bamboo-slat-pumpkin-pendant-18cm',
     'woven-bamboo-globe-pendant-25cm',
+    // Twelve: the rattan cone wall sconce, first non-pendant, 2026-09-13.
+    'rattan-cone-wall-sconce-15cm',
   ]);
 
   // Discovery follows the live cohort. The seven previous handles were deleted
