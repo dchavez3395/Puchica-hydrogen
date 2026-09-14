@@ -68,6 +68,9 @@ test('production monitor shares the verified market cohorts', () => {
     'woven-bamboo-globe-pendant-25cm',
     // Twelve: the rattan cone wall sconce, first non-pendant, 2026-09-13.
     'rattan-cone-wall-sconce-15cm',
+    'bamboo-cage-wall-sconce-20cm',
+    'bamboo-teardrop-wall-sconce-18cm',
+    'bamboo-lattice-wall-sconce-15cm',
     'woven-bamboo-column-pendant-37cm',
     'iron-cage-pendant-15cm',
     'woven-bamboo-wide-brim-chandelier-30cm',

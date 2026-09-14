@@ -303,6 +303,9 @@ test('product market resolution fails closed on an empty catalogue', () => {
     // Twelve: the rattan cone wall sconce from the widened 2026-09-13 sweep,
     // the first non-pendant and the first offer that pays freight.
     'rattan-cone-wall-sconce-15cm',
+    'bamboo-cage-wall-sconce-20cm',
+    'bamboo-teardrop-wall-sconce-18cm',
+    'bamboo-lattice-wall-sconce-15cm',
     // Thirteen: the column, released from VOLTAGE_HOLD 2026-09-13 onto a
     // 90-260 V listing - the dome's path.
     'woven-bamboo-column-pendant-37cm',
@@ -776,6 +779,9 @@ test('a suspended market closes commerce without erasing route evidence', () => 
     'bamboo-slat-pumpkin-pendant-18cm',
     'woven-bamboo-globe-pendant-25cm',
     'rattan-cone-wall-sconce-15cm',
+    'bamboo-cage-wall-sconce-20cm',
+    'bamboo-teardrop-wall-sconce-18cm',
+    'bamboo-lattice-wall-sconce-15cm',
     'woven-bamboo-column-pendant-37cm',
     'iron-cage-pendant-15cm',
     'woven-bamboo-wide-brim-chandelier-30cm',
@@ -840,6 +846,9 @@ test('approved handles and SKUs derive from one exact-offer cohort', () => {
     'bamboo-slat-pumpkin-pendant-18cm',
     'woven-bamboo-globe-pendant-25cm',
     'rattan-cone-wall-sconce-15cm',
+    'bamboo-cage-wall-sconce-20cm',
+    'bamboo-teardrop-wall-sconce-18cm',
+    'bamboo-lattice-wall-sconce-15cm',
     'woven-bamboo-column-pendant-37cm',
     'iron-cage-pendant-15cm',
     'woven-bamboo-wide-brim-chandelier-30cm',
@@ -847,7 +856,7 @@ test('approved handles and SKUs derive from one exact-offer cohort', () => {
     'bamboo-hat-nest-pendant-30cm',
     'woven-bamboo-gourd-pendant-23cm',
   ]);
-  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.CA.length, 17);
+  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.CA.length, 20);
 
   // A US offer crosses the suspended cn-direct route, so it must carry BOTH
   // duty scenarios and both must be positive - the watch-roll cohort died
@@ -1216,6 +1225,10 @@ test('every offer records the supplier an order would actually reach', () => {
     // The wall sconce from the widened 2026-09-13 sweep, a different seller
     // and a different listing from everything above.
     'rattan-cone-wall-sconce-15cm': '1005008679122325',
+    // The three arm sconces, one listing, three SKUs (2026-09-14).
+    'bamboo-cage-wall-sconce-20cm': '1005006439147774',
+    'bamboo-teardrop-wall-sconce-18cm': '1005006439147774',
+    'bamboo-lattice-wall-sconce-15cm': '1005006439147774',
     // The column's 90-260 V source, replacing the 220 V listing it was held on.
     'woven-bamboo-column-pendant-37cm': '1005005768310960',
     // The iron cage, a different seller and class from everything above.

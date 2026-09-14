@@ -1,5 +1,5 @@
 {
-  "note": "Live per-SKU readings for scripts/check-cost-drift.mjs. Collected with scripts/browser/collect-live-costs.js on an AliExpress item page with a Canadian destination; listCad is originalPrice (rule 22), shipCad is the shipping panel's charge. Replace rows when re-read; the gate fails on rows older than seven days.",
+  "note": "Live per-SKU readings for scripts/check-cost-drift.mjs. Collected with scripts/browser/collect-live-costs.js on an AliExpress item page with a Canadian destination; listCad is originalPrice (rule 22), shipCad is the shipping panel's charge. Replace rows when re-read; the gate fails on rows older than seven days. RE-READ 2026-09-14 WITH skuIdStr. The late 2026-09-13 re-read of this listing keyed PRICE.skuPriceInfoMap by String(skuId), a JS number that cannot hold these 17-digit ids, so adjacent ids collapsed and the reader returned a NEIGHBOUR's price: the egg was filed at the bell's C$32.27, the nest at the pumpkin's C$34.97, and the gourd's 32cm-M at another SKU's C$65.90 (it actually reads C$36.43). Keyed by skuIdStr the listing reads egg 21.22 / bell 32.27 / nest 43.89 / pumpkin 34.97 / globe 30.34 list (sale 19.95 / 30.33 / 41.26 / 32.87 / 28.52), all stock 887-888 - i.e. within cents of the 2026-09-13 morning read. scripts/browser/collect-live-costs.js now keys by skuIdStr first.",
   "readings": [
     {
       "supplierProductId": "1005004093257950",
@@ -54,22 +54,22 @@
     {
       "supplierProductId": "1005007626643748",
       "sku": "200000531:1052#32cm-M;249:200006305#1pcs",
-      "listCad": 65.9,
-      "saleCad": 61.95,
+      "listCad": 36.43,
+      "saleCad": 34.24,
       "stock": 876,
       "shipCad": 0,
       "readOn": "2026-09-14",
-      "source": "window._d_c_ PRICE.skuPriceInfoMap / SKU.skuPaths, CA destination, CAD; late 2026-09-13 / early 2026-09-14 session"
+      "source": "window._d_c_ PRICE.skuPriceInfoMap keyed by skuIdStr / SKU.skuPaths, CA destination, CAD; 2026-09-14 afternoon session (corrects the String(skuId) collision reads)"
     },
     {
       "supplierProductId": "1005007626643748",
       "sku": "200000531:200002984;249:200006305#1pcs",
-      "listCad": 32.27,
-      "saleCad": 30.33,
+      "listCad": 21.22,
+      "saleCad": 19.95,
       "stock": 887,
       "shipCad": 0,
       "readOn": "2026-09-14",
-      "source": "window._d_c_ PRICE.skuPriceInfoMap / SKU.skuPaths, CA destination, CAD; late 2026-09-13 / early 2026-09-14 session"
+      "source": "window._d_c_ PRICE.skuPriceInfoMap keyed by skuIdStr / SKU.skuPaths, CA destination, CAD; 2026-09-14 afternoon session (corrects the String(skuId) collision reads)"
     },
     {
       "supplierProductId": "1005007626643748",
@@ -84,12 +84,12 @@
     {
       "supplierProductId": "1005007626643748",
       "sku": "200000531:200006154;249:200006305#1pcs",
-      "listCad": 34.97,
-      "saleCad": 32.87,
+      "listCad": 43.89,
+      "saleCad": 41.26,
       "stock": 887,
       "shipCad": 0,
       "readOn": "2026-09-14",
-      "source": "window._d_c_ PRICE.skuPriceInfoMap / SKU.skuPaths, CA destination, CAD; late 2026-09-13 / early 2026-09-14 session"
+      "source": "window._d_c_ PRICE.skuPriceInfoMap keyed by skuIdStr / SKU.skuPaths, CA destination, CAD; 2026-09-14 afternoon session (corrects the String(skuId) collision reads)"
     },
     {
       "supplierProductId": "1005007626643748",
@@ -180,6 +180,36 @@
       "shipCad": 0,
       "readOn": "2026-09-14",
       "source": "window._d_c_ PRICE.skuPriceInfoMap / SKU.skuPaths, CA destination, CAD; 2026-09-14 morning session"
+    },
+    {
+      "supplierProductId": "1005006439147774",
+      "sku": "200000795:193#B;249:200006305#No light bulb",
+      "listCad": 44.33,
+      "saleCad": 41.52,
+      "stock": 199,
+      "shipCad": 0,
+      "readOn": "2026-09-14",
+      "source": "window._d_c_ PRICE.skuPriceInfoMap keyed by skuIdStr / SKU.skuPaths, CA destination, CAD; 2026-09-14 afternoon session (corrects the String(skuId) collision reads)"
+    },
+    {
+      "supplierProductId": "1005006439147774",
+      "sku": "200000795:175#C;249:200006305#No light bulb",
+      "listCad": 43.96,
+      "saleCad": 41.17,
+      "stock": 200,
+      "shipCad": 0,
+      "readOn": "2026-09-14",
+      "source": "window._d_c_ PRICE.skuPriceInfoMap / SKU.skuPaths, CA destination, CAD; 2026-09-14 afternoon session"
+    },
+    {
+      "supplierProductId": "1005006439147774",
+      "sku": "200000795:10#D;249:200006305#No light bulb",
+      "listCad": 55.24,
+      "saleCad": 51.7,
+      "stock": 200,
+      "shipCad": 0,
+      "readOn": "2026-09-14",
+      "source": "window._d_c_ PRICE.skuPriceInfoMap keyed by skuIdStr / SKU.skuPaths, CA destination, CAD; 2026-09-14 afternoon session (corrects the String(skuId) collision reads)"
     }
   ]
 }

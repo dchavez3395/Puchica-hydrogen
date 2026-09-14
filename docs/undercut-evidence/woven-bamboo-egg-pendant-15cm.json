@@ -1,6 +1,6 @@
 {
   "handle": "woven-bamboo-egg-pendant-15cm",
-  "checkedOn": "2026-09-13",
+  "checkedOn": "2026-09-14",
   "market": "CA",
   "note": "15 x 18 cm woven bamboo egg pendant, 15 cm wide and 18 cm tall. Close-weave bamboo egg, taller than it is wide with a small woven crown at the top, on a black 10 cm ceiling canopy with a 120 cm adjustable cord. The smallest piece in the range. Sourced 2026-09-13 from listing 1005007626643748 (3256-form 3256807439328996, ZODOLAMP), whose spec table reads Voltage 90-260V, E27, bulbs not included, PCBA not included; 4.2 stars, 83 reviews, 78 sold on the page (DSers counts 459 orders). This is the listing the saucer was once mis-mapped to (its 30cm-M wide-brim hat); the listing itself is fine, the mapping was wrong. Rule 18: an egg - a closed oval, taller than wide - is not the saucer, the dome (open underneath, wider than tall), the straight lantern, the slatted pear (strips over rings, widest low) or the stepped drum. Competitor set is the amazon.ca bamboo/rattan pendant category reading taken 2026-09-13 for the dome and lantern; it is category-level and applies to any pendant in the range, so it is reused here verbatim rather than re-read.",
   "sources": [
@@ -9,7 +9,7 @@
     "amazon.ca page-1 organic, 8-keyword pendant basket, read 2026-09-13 (run 24). Category-level reading shared with woven-bamboo-dome-pendant and slatted-bamboo-lantern-pendant-20cm.",
     "scripts/check-contribution-derivation.mjs deriveContributions() at ourRetailCad 74.99, itemCostCad 32.27, supplierShipCad 0, dutyRate 0.07 -> wholesale 27.35."
   ],
-  "costSource": "AliExpress Canadian-gateway per-SKU price from window._d_c_ PRICE.skuPriceInfoMap on listing 1005007626643748, SKU 200000531:200002984;249:200006305#1pcs, read 2026-09-13: salePriceString C$19.89 against originalPrice C$21.16. That is a 6% gap - every SKU on this listing sits about 6% under its list - which is a promotion rather than rounding, so RULE 22 makes the LIST price the cost basis and itemCostCad is 21.16, NOT 19.89. Contrast the pear, whose 1.4% gap was inside rule 22 and filed the sale figure. Not yet cross-checked against a DSers stable cost: the product does not exist in Shopify or DSers yet, and the DSers reading is the mapping step, not the sourcing step. RE-READ 2026-09-13 (late, same evening) from the same window._d_c_ PRICE.skuPriceInfoMap on listing 1005007626643748: salePriceString C$30.33 against originalPrice C$32.27, a 6% gap, so rule 22 files C$32.27. The earlier reading the same day was C$21.16 list / C$19.89 sale; the seller moved the price in between, and this file now carries the later reading.",
+  "costSource": "AliExpress Canadian-gateway per-SKU price from window._d_c_ PRICE.skuPriceInfoMap keyed by skuIdStr on listing 1005007626643748, read 2026-09-14: salePriceString C$19.95 against originalPrice C$21.22, a 6% gap, so RULE 22 makes the LIST price the cost basis and itemCostCad is 21.22. RE-READ 2026-09-14 WITH skuIdStr. The late 2026-09-13 re-read of this listing keyed PRICE.skuPriceInfoMap by String(skuId), a JS number that cannot hold these 17-digit ids, so adjacent ids collapsed and the reader returned a NEIGHBOUR's price: the egg was filed at the bell's C$32.27, the nest at the pumpkin's C$34.97, and the gourd's 32cm-M at another SKU's C$65.90 (it actually reads C$36.43). Keyed by skuIdStr the listing reads egg 21.22 / bell 32.27 / nest 43.89 / pumpkin 34.97 / globe 30.34 list (sale 19.95 / 30.33 / 41.26 / 32.87 / 28.52), all stock 887-888 - i.e. within cents of the 2026-09-13 morning read. scripts/browser/collect-live-costs.js now keys by skuIdStr first.",
   "dutyRateBasis": "Canada HS 9405.11.00 (electric lighting fittings designed for LED) / 9405.19.00 (other), MFN column, 7%. Canada applies no Section 301 equivalent to these goods - its surtaxes on Chinese imports cover electric vehicles, steel and aluminium - so MFN is the entire stack. The deeper difference from the US is the BASE: this 7% is charged on VALUE FOR DUTY, which is the supplier price, where the US charges its 41.4% (HTS 9405.11.80) on retail. About CA$2.04 a unit against US$40.57.",
   "competitors": [
     {
@@ -310,7 +310,8 @@
     ]
   },
   "ourRetailCad": 74.99,
-  "itemCostCad": 32.27,
-  "itemCostSaleCad": 30.33,
-  "supplierShipCad": 0
+  "itemCostCad": 21.22,
+  "itemCostSaleCad": 19.95,
+  "supplierShipCad": 0,
+  "reReadNote2026-09-14": "RE-READ 2026-09-14 WITH skuIdStr. The late 2026-09-13 re-read of this listing keyed PRICE.skuPriceInfoMap by String(skuId), a JS number that cannot hold these 17-digit ids, so adjacent ids collapsed and the reader returned a NEIGHBOUR's price: the egg was filed at the bell's C$32.27, the nest at the pumpkin's C$34.97, and the gourd's 32cm-M at another SKU's C$65.90 (it actually reads C$36.43). Keyed by skuIdStr the listing reads egg 21.22 / bell 32.27 / nest 43.89 / pumpkin 34.97 / globe 30.34 list (sale 19.95 / 30.33 / 41.26 / 32.87 / 28.52), all stock 887-888 - i.e. within cents of the 2026-09-13 morning read. scripts/browser/collect-live-costs.js now keys by skuIdStr first."
 }

@@ -397,6 +397,21 @@ export const ARCHIVED_CATALOG_OFFERS = Object.freeze([
   // drop the voltage line from each product's copy caveat. Cost, route, duty and
   // undercut evidence for all of them is on disk and current.
   //
+  // 2026-09-14: THE VOLTAGE REASON IS LIFTED. Approved by Daniel in the
+  // 2026-09-14 session, on the reading the widened sweep put to him: every
+  // fixture that died on this rule is a bare E27/E26 lamp holder and cord
+  // with "Is Include PCBA: N" - there is no driver to be rated, and a 120 V
+  // bulb in a passive socket is the ordinary case. The first offers built on
+  // that basis are the three arm sconces from 1005006439147774 below, whose
+  // seller also prints 110-120 V on its own product sheet.
+  //
+  // The four offers on this list STAY here for a different reason: their
+  // evidence is the 2026-09-09 US-market read (USD band, US route) and their
+  // shapes now overlap live products - a 35 cm wave against the 36 cm wave
+  // saucer, a woven drum against the slat drum, a 26 cm lantern against the
+  // 20 cm lantern and the column. Releasing any of them is a Canadian
+  // re-audit plus rule 18, not a voltage question any more.
+  //
   // SIX, NOT SEVEN. woven-bamboo-dome-pendant is blocked a second time, on
   // stock, and answering the voltage question does not unblock it. Every SKU on
   // this listing was clamp-tested on 2026-09-09 - select the variant, type 999
@@ -929,7 +944,7 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
   //   PER-ORDER cap, not stock, and not the one-unit cap that killed the old
   //   dome listing.
   //   RULE 18. Six shapes - gourd (re-sourced 2026-09-14 onto the lantern's
-  //   listing after this seller repriced it), egg, bell, nest, segmented
+  //   listing, cheaper and deeper; see its entry), egg, bell, nest, segmented
   //   pumpkin, globe -
   //   and none is the live saucer (wide brim), dome, straight lantern column,
   //   slatted pear or stepped drum. Three other deep-stock SKUs on the same
@@ -965,8 +980,11 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
     // evidence by scripts/check-contribution-derivation.mjs (RULE 26), which
     // fails on more than a cent of drift - so if the price or the cost moves,
     // this number must move in the same edit. Derived at the LIST cost of
-    // C$21.16 (rule 22), not the C$19.89 sale price.
-    contributionCad: 27.35,
+    // C$21.22 (rule 22; re-read 2026-09-14 keyed by skuIdStr - the late
+    // 2026-09-13 re-read had filed the BELL's C$32.27 here through the
+    // String(skuId) collision described in the baseline notes), not the
+    // C$19.95 sale price.
+    contributionCad: 39.17,
   }),
   // 26 x 26 cm woven BELL - narrow neck flaring to a wide open mouth - on a
   // black canopy, 150 cm adjustable cord. Seller label "Clear" (a swatch
@@ -1019,8 +1037,11 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
     // evidence by scripts/check-contribution-derivation.mjs (RULE 26), which
     // fails on more than a cent of drift - so if the price or the cost moves,
     // this number must move in the same edit. Derived at the LIST cost of
-    // C$43.77 (rule 22), not the C$41.14 sale price, and at CA$84.99.
-    contributionCad: 33.11,
+    // C$43.89 (rule 22; re-read 2026-09-14 keyed by skuIdStr - the late
+    // 2026-09-13 re-read had filed the PUMPKIN's C$34.97 here through the
+    // String(skuId) collision described in the baseline notes), not the
+    // C$41.26 sale price, and at CA$84.99.
+    contributionCad: 23.56,
   }),
   // 18 x 12 cm segmented slat PUMPKIN - flat slats set radially into a squat
   // open dome - on a wood ceiling cap. The swatch image does NOT state the
@@ -1109,6 +1130,79 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
     // this number must move in the same edit. Derived at the LIST cost of
     // C$24.60 (rule 22) plus C$25.99 freight, at CA$89.99.
     contributionCad: 20.72,
+  }),
+  // THREE ARM SCONCES FROM ONE LISTING, 1005006439147774 (Eternal Light
+  // Store, 4.6 stars / 11 reviews / 193 sold), added 2026-09-14. A straight
+  // solid-wood arm on a ~12 cm square wood backplate, the shade hung from the
+  // arm on a cord, E26. The spec table's Voltage field reads 220 V and the
+  // fixture is a bare socket and cord with PCBA N - the case the 220 V hold
+  // note above was reopened for on 2026-09-14. On THIS listing the seller's
+  // own gallery goes further and prints "E26 Socket, Max 60W, 110-120V", so
+  // the copy states 110-120 V from the seller's sheet, not from inference.
+  //
+  // Shared facts, stated once:
+  //   RULE 22. Every SKU sells about 6% under its originalPrice (B C$44.33,
+  //   C C$43.96, D C$55.24 list), so the LIST price is the cost basis on all
+  //   three. Read keyed by skuIdStr - this listing's ids are adjacent
+  //   (...587/588/589) and String(skuId) collapses them to one price.
+  //   RULE 4. Per-SKU stock 199-200 on B, C and D. Shade A (the woven globe
+  //   in the hero image) reads 3 and is NOT built.
+  //   RULE 18. Three shades - a cage over a printed liner, a teardrop over a
+  //   plain liner, a square lattice - and none is the cone sconce or any
+  //   pendant shape. Benchmarked on the wall-sconce band with the cone.
+  //   FREIGHT. Free over C$10 (AliExpress Selection Standard, 7-15 days).
+  //   PRICE. CA$89.99 with the cone for B and C (27.42 / 27.81). D's list
+  //   cost files 15.74 at CA$89.99, under the floor, so it takes CA$94.99
+  //   (20.07), still under the 98.18 ceiling.
+  //
+  // 20 x 23 cm rounded bamboo-strip cage over a blue-and-white printed fabric
+  // liner. Seller swatch "B", stock 199.
+  Object.freeze({
+    handle: 'bamboo-cage-wall-sconce-20cm',
+    sku: '200000795:193#B;249:200006305#No light bulb',
+    // PUSHED 2026-09-14 from DSers Import List (one variant per push, three
+    // pushes off one import). Shopify variant 50397103325434; DSers Manage Suppliers
+    // shows Basic Mapping to this listing as default supplier. The per-variant
+    // SKU read (my-product/detail) was not repeated this session.
+    supplierProductId: '1005006439147774',
+    markets: Object.freeze(['CA']),
+    // CANADIAN CONTRIBUTION, 2026-09-14. One figure: CBSA assesses 7% MFN on
+    // value for duty (the supplier price). Derived from this offer's undercut
+    // evidence by scripts/check-contribution-derivation.mjs (RULE 26), which
+    // fails on more than a cent of drift. Derived at the LIST cost of C$44.33
+    // (rule 22) with free freight, at CA$89.99.
+    contributionCad: 27.42,
+  }),
+  // 18 x 23 cm bamboo-strip teardrop over a plain slate-blue fabric liner.
+  // Seller swatch "C", stock 200.
+  Object.freeze({
+    handle: 'bamboo-teardrop-wall-sconce-18cm',
+    sku: '200000795:175#C;249:200006305#No light bulb',
+    // PUSHED 2026-09-14 from DSers Import List (one variant per push, three
+    // pushes off one import). Shopify variant 50397510664442; DSers Manage Suppliers
+    // shows Basic Mapping to this listing as default supplier. The per-variant
+    // SKU read (my-product/detail) was not repeated this session.
+    supplierProductId: '1005006439147774',
+    markets: Object.freeze(['CA']),
+    // CANADIAN CONTRIBUTION, 2026-09-14. Same derivation as the cage: LIST
+    // cost C$43.96, free freight, CA$89.99.
+    contributionCad: 27.81,
+  }),
+  // 15 x 25 cm square shoji-style bamboo lattice over white panels, open at
+  // the top and bottom. Seller swatch "D", stock 200.
+  Object.freeze({
+    handle: 'bamboo-lattice-wall-sconce-15cm',
+    sku: '200000795:10#D;249:200006305#No light bulb',
+    // PUSHED 2026-09-14 from DSers Import List (one variant per push, three
+    // pushes off one import). Shopify variant 50397772546298; DSers Manage Suppliers
+    // shows Basic Mapping to this listing as default supplier. The per-variant
+    // SKU read (my-product/detail) was not repeated this session.
+    supplierProductId: '1005006439147774',
+    markets: Object.freeze(['CA']),
+    // CANADIAN CONTRIBUTION, 2026-09-14. The dear one: LIST cost C$55.24
+    // files 15.74 at CA$89.99, under the 16.23 floor, so it takes CA$94.99
+    // (free freight), the highest x.99 that leaves the 98.18 ceiling clear.
+    contributionCad: 20.07,
   }),
   // RELEASED FROM VOLTAGE_HOLD 2026-09-13, the way the dome was: the same
   // 18 x 37.5 cm column on a wood cap turned up on listing 1005005768310960
@@ -1250,8 +1344,12 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
     contributionCad: 32.36,
   }),
   // BACK FROM COST_HOLD 2026-09-14, re-sourced. Went live 2026-09-13 on
-  // 1005007626643748 (32cm-M, wood cap, C$36.32 list); that seller repriced
-  // the variant to C$65.90 the same day and it came off. The lantern's
+  // 1005007626643748 (32cm-M, wood cap, C$36.32 list); a late re-read that
+  // night filed the variant at C$65.90 and it came off. THAT READ WAS WRONG:
+  // it keyed the price map by String(skuId), a float that cannot hold the
+  // listing's adjacent 17-digit ids, and returned another SKU's price - keyed
+  // by skuIdStr on 2026-09-14 the variant reads C$36.43, within cents of the
+  // morning. The move stands on its own merits, not on a repricing. The lantern's
   // listing 1005004341913414 (Shop910337080 Store - the honest family behind
   // the column, brim, drum and hat-nest) carries the same 23 x 26 cm gourd
   // as DD-HEI: C$32.58 with no promo gap, stock 1000, free freight, black

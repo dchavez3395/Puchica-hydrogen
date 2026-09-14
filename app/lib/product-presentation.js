@@ -47,6 +47,9 @@ export const LAUNCH_COPY_PREFIX = {
   'bamboo-slat-pumpkin-pendant-18cm': 'product_copy_slatpumpkin18',
   'woven-bamboo-globe-pendant-25cm': 'product_copy_wovenglobe25',
   'rattan-cone-wall-sconce-15cm': 'product_copy_rattanconesconce15',
+  'bamboo-cage-wall-sconce-20cm': 'product_copy_bamboocagesconce20',
+  'bamboo-teardrop-wall-sconce-18cm': 'product_copy_bambooteardropsconce18',
+  'bamboo-lattice-wall-sconce-15cm': 'product_copy_bamboolatticesconce15',
   'woven-rattan-petal-pendant-30cm': 'product_copy_rattanpetal30',
 };
 

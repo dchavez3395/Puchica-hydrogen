@@ -37,20 +37,22 @@ const COPY = {
   // than that we are "restocking", because nothing is being restocked and a
   // shared link previewing a false reason is worse than one previewing none.
   //
-  // "Seventeen fixtures" is the live ACTIVE count: the saucer, the dome, the
+  // "Twenty fixtures" is the live ACTIVE count: the saucer, the dome, the
   // lantern, the slatted pear pendant and the tiered pendant, and from later
   // on 2026-09-13 the six shapes from listing 1005007626643748 (gourd, egg,
   // bell, nest, slat pumpkin, globe), the rattan cone wall sconce (the first
   // non-pendant), the woven bamboo column re-sourced onto a 90-260 V
   // listing, the iron cage pendant (the first metal fixture), and three more
   // shapes off the column's listing: the wide-brim (released from hold), the
-  // slat drum and the hat-nest. The gourd went to COST_HOLD that night when
-  // its supplier repriced the variant and came back on 2026-09-14 from a
-  // second source. Update this number when the ACTIVE count changes.
+  // slat drum and the hat-nest. The gourd went to COST_HOLD that night on a
+  // mis-keyed price read and came back on 2026-09-14 from a second, cheaper
+  // source. Three arm sconces from listing 1005006439147774 (cage,
+  // teardrop, lattice) followed on 2026-09-14. Update this number when the
+  // ACTIVE count changes.
   en: {
     homeTitle: 'Puchica — Woven bamboo lighting',
     homeCa:
-      'Woven bamboo pendant lighting, shipped across Canada. Seventeen fixtures listed today. Questions? hello@puchica.ca',
+      'Woven bamboo pendant lighting, shipped across Canada. Twenty fixtures listed today. Questions? hello@puchica.ca',
     homeUs:
       'We are not shipping to the United States at the moment, so nothing is listed for sale there. Questions? hello@puchica.ca',
     shopTitle: 'Shop Woven Bamboo Lighting — Puchica',
@@ -62,7 +64,7 @@ const COPY = {
   fr: {
     homeTitle: 'Puchica — Luminaires en bambou tressé',
     homeCa:
-      'Suspensions en bambou tressé, livrées partout au Canada. Dix-sept luminaires en ligne aujourd’hui. Questions : hello@puchica.ca',
+      'Suspensions en bambou tressé, livrées partout au Canada. Vingt luminaires en ligne aujourd’hui. Questions : hello@puchica.ca',
     homeUs:
       'Nous ne livrons pas aux États-Unis pour le moment ; rien n’y est donc en vente. Questions : hello@puchica.ca',
     shopTitle: 'Magasiner les luminaires en bambou tressé — Puchica',
@@ -74,7 +76,7 @@ const COPY = {
   es: {
     homeTitle: 'Puchica — Iluminación en bambú tejido',
     homeCa:
-      'Lámparas colgantes de bambú tejido, con envío a todo Canadá. Hoy hay diecisiete luminarias publicadas. ¿Preguntas? hello@puchica.ca',
+      'Lámparas colgantes de bambú tejido, con envío a todo Canadá. Hoy hay veinte luminarias publicadas. ¿Preguntas? hello@puchica.ca',
     homeUs:
       'Por ahora no enviamos a Estados Unidos, así que no hay nada a la venta allí. ¿Preguntas? hello@puchica.ca',
     shopTitle: 'Compra iluminación en bambú tejido — Puchica',
@@ -86,7 +88,7 @@ const COPY = {
   'pt-br': {
     homeTitle: 'Puchica — Iluminação em bambu tecido',
     homeCa:
-      'Pendentes de bambu tecido, com envio para todo o Canadá. Hoje há dezassete luminárias publicadas. Dúvidas? hello@puchica.ca',
+      'Pendentes de bambu tecido, com envio para todo o Canadá. Hoje há vinte luminárias publicadas. Dúvidas? hello@puchica.ca',
     homeUs:
       'No momento não enviamos para os Estados Unidos, portanto não há nada à venda lá. Dúvidas? hello@puchica.ca',
     shopTitle: 'Compre iluminação em bambu tecido — Puchica',

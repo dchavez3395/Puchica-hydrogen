@@ -1,0 +1,314 @@
+{
+  "handle": "bamboo-lattice-wall-sconce-15cm",
+  "checkedOn": "2026-09-14",
+  "market": "CA",
+  "note": "Bamboo wall sconce, hardwired: a 15 x 25 cm square shoji-style lattice of bamboo sticks over white panels, open at the top and bottom, hung on a cord from a solid-wood wall arm, E26. Sourced 2026-09-14 from listing 1005006439147774 (seller Eternal Light Store; 4.6 from 11 reviews, 193 sold), whose spec table reads Voltage 220 V, Base Type E26, Power Source AC, Is Include PCBA N, Is Bulbs Included No, Body Material BAMBOO, Material Wood - and whose own gallery sheet prints \"E26 Socket, Max 60W, 110-120V\" with \"Recommend Bulbs, E26 Base\". Straight solid-wood arm on a square wood backplate (about 12 cm; arm about 18 cm), the shade hung from the arm on a cord. Four shades on the listing (A woven globe stock 3 - NOT built, rule 4; B, C, D stock 199-200). Competitor set is the amazon.ca wall-sconce basket read 2026-09-13 for the cone sconce; it is category-level and applies to any wall sconce in the range, so it is reused here verbatim rather than re-read. Rule 18: straight lines where every other fixture in the range is round - a square lattice box is not the cone, the cage (B) or the teardrop (C), and nothing in the pendant range is square.",
+  "sources": [
+    "AliExpress .com gateway per-SKU price (salePriceString / originalPrice from PRICE.skuPriceInfoMap) and per-SKU stock (SKU.skuPaths[].skuStock) read from window._d_c_ on listing 1005006439147774 on 2026-09-14 with a Canadian destination.",
+    "AliExpress .com gateway SHIPPING.deliveryLayoutInfo[0].bizData for the same listing, read 2026-09-14: AliExpress Selection Standard (CAINIAO_FULFILLMENT_STD) from China, shippingFee 'free' (choiceFreeShipping, free over C$10), deliveryDayMin 7 / deliveryDayMax 15.",
+    "amazon.ca page-1 organic, 8-keyword wall-sconce basket, read 2026-09-13 (runs 25 and 26). Category-level reading shared with rattan-cone-wall-sconce-15cm.",
+    "scripts/check-contribution-derivation.mjs deriveContributions() at ourRetailCad 94.99, itemCostCad 55.24 (LIST, rule 22), supplierShipCad 0, dutyRate 0.07 - the 'wholesale' basis, the only Canadian basis."
+  ],
+  "costSource": "AliExpress Canadian-gateway per-SKU price from window._d_c_ PRICE.skuPriceInfoMap on listing 1005006439147774, SKU 200000795:10#D;249:200006305#No light bulb, read 2026-09-14: salePriceString C$51.70 against originalPrice C$55.24. That is a 6% gap - a promotion, not rounding - so RULE 22 makes the LIST price the cost basis and itemCostCad is 55.24, NOT 51.70. Not yet cross-checked against a DSers stable cost: the product does not exist in Shopify or DSers yet, and the DSers reading is the mapping step, not the sourcing step. Read keyed by skuIdStr: this listing's SKU ids are adjacent (...587/588/589) and String(skuId) collapses them to one float, which is how the first pass read all three shades at C$43.96. The lattice is the dear shade on the listing: C$11 over the cage and the teardrop.",
+  "dutyRateBasis": "Canada HS 9405.11.00 (electric lighting fittings designed for LED) / 9405.19.00 (other), MFN column, 7%. Canada applies no Section 301 equivalent to these goods - its surtaxes on Chinese imports cover electric vehicles, steel and aluminium - so MFN is the entire stack. The 7% is charged on VALUE FOR DUTY, which is the supplier price.",
+  "competitors": [
+    {
+      "name": "rattan wall sconce organic result 1",
+      "priceCad": 33.6,
+      "reviews": 1
+    },
+    {
+      "name": "rattan wall sconce organic result 2",
+      "priceCad": 109.99,
+      "reviews": 62
+    },
+    {
+      "name": "rattan wall sconce organic result 3",
+      "priceCad": 59.99,
+      "reviews": 25
+    },
+    {
+      "name": "rattan wall sconce organic result 4",
+      "priceCad": 119.83,
+      "reviews": 12
+    },
+    {
+      "name": "rattan wall sconce organic result 5",
+      "priceCad": 69.99,
+      "reviews": 95
+    },
+    {
+      "name": "rattan wall sconce organic result 6",
+      "priceCad": 88.98,
+      "reviews": 62
+    },
+    {
+      "name": "rattan wall sconce organic result 7",
+      "priceCad": 79.99,
+      "reviews": 20
+    },
+    {
+      "name": "rattan wall sconce organic result 8",
+      "priceCad": 110.21,
+      "reviews": 23
+    },
+    {
+      "name": "rattan wall sconce organic result 9",
+      "priceCad": 116.78,
+      "reviews": 23
+    },
+    {
+      "name": "rattan wall sconce organic result 10",
+      "priceCad": 99.99,
+      "reviews": 70
+    },
+    {
+      "name": "rattan wall sconce organic result 11",
+      "priceCad": 45.59,
+      "reviews": 178
+    },
+    {
+      "name": "rattan wall sconce organic result 12",
+      "priceCad": 112.99,
+      "reviews": 5
+    },
+    {
+      "name": "rattan wall sconce organic result 13",
+      "priceCad": 49.99,
+      "reviews": 18
+    },
+    {
+      "name": "rattan wall sconce organic result 14",
+      "priceCad": 89.99,
+      "reviews": 10
+    },
+    {
+      "name": "rattan wall sconce organic result 15",
+      "priceCad": 67.75,
+      "reviews": 32
+    },
+    {
+      "name": "rattan wall sconce organic result 16",
+      "priceCad": 67.75,
+      "reviews": 25
+    },
+    {
+      "name": "rattan wall sconce organic result 17",
+      "priceCad": 49.99,
+      "reviews": 6
+    },
+    {
+      "name": "rattan wall sconce organic result 18",
+      "priceCad": 37.69,
+      "reviews": 2
+    },
+    {
+      "name": "rattan wall sconce organic result 19",
+      "priceCad": 59.9,
+      "reviews": 36
+    },
+    {
+      "name": "rattan wall sconce organic result 20",
+      "priceCad": 109.99,
+      "reviews": 7
+    },
+    {
+      "name": "rattan wall sconce organic result 21",
+      "priceCad": 38.79,
+      "reviews": 0
+    },
+    {
+      "name": "rattan wall sconce organic result 22",
+      "priceCad": 67.75,
+      "reviews": 20
+    },
+    {
+      "name": "rattan wall sconce organic result 23",
+      "priceCad": 119.29,
+      "reviews": 19
+    },
+    {
+      "name": "rattan wall sconce organic result 24",
+      "priceCad": 71.89,
+      "reviews": 53
+    },
+    {
+      "name": "rattan wall sconce organic result 25",
+      "priceCad": 87.48,
+      "reviews": 94
+    },
+    {
+      "name": "rattan wall sconce organic result 26",
+      "priceCad": 72.99,
+      "reviews": 80
+    },
+    {
+      "name": "rattan wall sconce organic result 27",
+      "priceCad": 99.99,
+      "reviews": 12
+    },
+    {
+      "name": "rattan wall sconce organic result 28",
+      "priceCad": 59,
+      "reviews": 3
+    },
+    {
+      "name": "rattan wall sconce organic result 29",
+      "priceCad": 119.99,
+      "reviews": 5
+    },
+    {
+      "name": "rattan wall sconce organic result 30",
+      "priceCad": 50.84,
+      "reviews": 10
+    },
+    {
+      "name": "rattan wall sconce organic result 31",
+      "priceCad": 125.47,
+      "reviews": 180
+    },
+    {
+      "name": "rattan wall sconce organic result 32",
+      "priceCad": 68.78,
+      "reviews": 7
+    },
+    {
+      "name": "rattan wall sconce organic result 33",
+      "priceCad": 67.99,
+      "reviews": 1
+    },
+    {
+      "name": "rattan wall sconce organic result 34",
+      "priceCad": 152.61,
+      "reviews": 7
+    },
+    {
+      "name": "rattan wall sconce organic result 35",
+      "priceCad": 89.99,
+      "reviews": 5
+    },
+    {
+      "name": "rattan wall sconce organic result 36",
+      "priceCad": 58.99,
+      "reviews": 2
+    },
+    {
+      "name": "rattan wall sconce organic result 37",
+      "priceCad": 69.9,
+      "reviews": 8
+    },
+    {
+      "name": "rattan wall sconce organic result 38",
+      "priceCad": 69.99,
+      "reviews": 9
+    },
+    {
+      "name": "rattan wall sconce organic result 39",
+      "priceCad": 87.99,
+      "reviews": 1
+    },
+    {
+      "name": "rattan wall sconce organic result 40",
+      "priceCad": 99.99,
+      "reviews": 0
+    },
+    {
+      "name": "rattan wall sconce organic result 41",
+      "priceCad": 64.99,
+      "reviews": 87
+    },
+    {
+      "name": "rattan wall sconce organic result 42",
+      "priceCad": 99.99,
+      "reviews": 14
+    },
+    {
+      "name": "rattan wall sconce organic result 43",
+      "priceCad": 67.99,
+      "reviews": 0
+    },
+    {
+      "name": "rattan wall sconce organic result 44",
+      "priceCad": 107.7,
+      "reviews": 8
+    },
+    {
+      "name": "rattan wall sconce organic result 45",
+      "priceCad": 100.7,
+      "reviews": 0
+    }
+  ],
+  "dutyRate": 0.07,
+  "verdict": "Priced at CA$94.99, CA$9.62 over the CA$85.375 amazon.ca wall-sconce band median and CA$3.19 under the CA$98.18 RULE 2 ceiling. Contributes CA$20.07/unit on the wholesale basis (7% MFN on value for duty) at the LIST cost of C$55.24 with free freight, against the CA$16.23 floor - clears by CA$3.84. It cannot take the cage and teardrop's CA$89.99: at that price the list cost files 15.74, CA$0.49 under the floor, so it takes the next x.99 up, still inside the band. Rule 22: the page sells at C$51.70, a 6% gap under the C$55.24 originalPrice, so the LIST price is the cost basis and the sale price is upside the model does not count. Per-SKU stock 200 clears rule 4 (>= 25). straight lines where every other fixture in the range is round - a square lattice box is not the cone, the cage (B) or the teardrop (C), and nothing in the pendant range is square. VOLTAGE: the spec table's Voltage field reads 220 V; the fixture is a bare E26 socket and cord with PCBA N, which is the case the 220 V hold was lifted for on 2026-09-14, and this seller's own gallery sheet prints 110-120 V, so the copy states 110-120 V from the seller's sheet.",
+  "supplierSku": "D / No light bulb",
+  "supplierSkuNote": "'D' is the seller's lampshade-colour swatch letter and describes nothing about the product - the shade is a 15 x 25 cm square shoji-style lattice of bamboo sticks over white panels, open at the top and bottom. Recorded so a human can find the row in DSers.",
+  "supplierSkuUnitCap": 200,
+  "supplierSkuUnitCapObservedOn": "2026-09-14",
+  "supplierSkuUnitCapMethod": "Read as skuStock from window._d_c_ lifeCycleEventList[0].data.SKU.skuPaths[] on listing 1005006439147774, joined per-variant to PRICE.skuPriceInfoMap. Per-SKU, not the listing total. Not clamp-tested via the quantity box; skuStock is the same field every other Canadian offer's cap was read from.",
+  "retailNote": "Priced 2026-09-14 at CA$94.99, the only one of the three arm sconces not at the cone's CA$89.99: its C$55.24 list cost files 15.74 there, under the 16.23 floor. CA$94.99 is the lowest x.99 that clears (20.07) and sits CA$3.19 under the 98.18 ceiling. If the list price rises by more than about C$3.60 this comes off; re-read cost before any paid push.",
+  "bandMedian": {
+    "basket": "rattan/bamboo wall sconce, amazon.ca",
+    "medianCad": 85.375,
+    "ceilingCad": 98.18,
+    "rule23": "medianCad is the LOWER of the readings below. The gate re-derives this and fails if it is not the minimum.",
+    "readings": [
+      {
+        "on": "2026-09-13",
+        "medianCad": 85.76,
+        "source": "run 25, amazon.ca page-1 organic, 8 keywords, live DOM read (docs/sourcing-evidence/amazon-ca-bands-2026-09-13-run25.json)"
+      },
+      {
+        "on": "2026-09-13",
+        "medianCad": 85.375,
+        "source": "run 26, same method, re-read later the same day; the keyword medians below are this reading"
+      }
+    ],
+    "method": "amazon.ca page-1 organic per keyword, sponsored rows dropped, prices outside CA$11-CA$540 dropped (the US $8-$400 window scaled at ~1.35); median per keyword, then median of those medians.",
+    "keywords": [
+      {
+        "keyword": "rattan wall sconce",
+        "n": 45,
+        "medianCad": 72.99
+      },
+      {
+        "keyword": "bamboo wall sconce",
+        "n": 46,
+        "medianCad": 85.76
+      },
+      {
+        "keyword": "boho wall sconce",
+        "n": 45,
+        "medianCad": 85.99
+      },
+      {
+        "keyword": "wicker wall light",
+        "n": 45,
+        "medianCad": 84.99
+      },
+      {
+        "keyword": "woven wall sconce",
+        "n": 43,
+        "medianCad": 89.99
+      },
+      {
+        "keyword": "rattan wall lamp",
+        "n": 45,
+        "medianCad": 69.99
+      },
+      {
+        "keyword": "plug in rattan wall sconce",
+        "n": 44,
+        "medianCad": 106.12
+      },
+      {
+        "keyword": "bamboo wall lamp",
+        "n": 47,
+        "medianCad": 67.75
+      }
+    ]
+  },
+  "ourRetailCad": 94.99,
+  "itemCostCad": 55.24,
+  "itemCostSaleCad": 51.7,
+  "supplierShipCad": 0
+}

@@ -96,6 +96,12 @@ const CA_RETAIL = {
   // half its landed cost, so CA$84.99 clears the floor by seventeen cents
   // and it takes CA$89.99 (contribution 20.72).
   'rattan-cone-wall-sconce-15cm': 89.99,
+  // The three arm sconces from listing 1005006439147774 (2026-09-14): same
+  // wall-sconce band as the cone; the cage and teardrop at CA$89.99.
+  'bamboo-cage-wall-sconce-20cm': 89.99,
+  'bamboo-teardrop-wall-sconce-18cm': 89.99,
+  // The lattice's list cost (C$55.24) files under the floor at CA$89.99.
+  'bamboo-lattice-wall-sconce-15cm': 94.99,
   // The column, off VOLTAGE_HOLD 2026-09-13 onto a 90-260 V listing. List
   // C$40.72 plus C$2.82 freight files under the floor at CA$74.99, so it
   // takes CA$84.99.

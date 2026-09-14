@@ -16,7 +16,12 @@
   const id = (location.pathname.match(/item\/(\d+)\.html/) || [])[1];
   const readOn = new Date().toISOString().slice(0, 10);
   return d.SKU.skuPaths.map((p) => {
-    const pr = m[String(p.skuId)] || m[p.skuIdStr] || {};
+    // skuIdStr FIRST. skuId is a JS number and AliExpress SKU ids exceed
+    // 2^53, so adjacent ids (…587, …588, …589 on 1005006439147774) collapse
+    // to one float and String(p.skuId) returns a NEIGHBOUR's price without
+    // error. Found 2026-09-14: three shades read as C$43.96 when one was
+    // C$55.24. skuId stays only as a fallback for listings without skuIdStr.
+    const pr = m[p.skuIdStr] || m[String(p.skuId)] || {};
     return {
       supplierProductId: id,
       sku: p.skuAttr,

@@ -36,7 +36,9 @@
     "2026-09-13-cage": "The iron cage pendant (1005007802917011, ZEGEL Store) is the first product outside the bamboo/rattan niche, admitted after Daniel widened the brief the same night. 28% timed promo, rule 22 files the C$36.36 list; free freight, 10-18 days; 90-260 V, E27, no bulb; per-SKU stock 182. Benchmarked against its own amazon.ca cage/industrial pendant basket (run 27, median 64.49 on two identical readings, ceiling 74.16), which sits UNDER the bamboo pendants' band - so it takes CA$69.99, a new price point, not the shared CA$74.99 that would breach its ceiling. Clears the floor by C$2.42 - the thinnest live offer.",
     "2026-09-13-listing-1005005768310960": "Three more shapes came off the column's listing later the same night, the way six came off 1005007626643748: the wide-brim hat (30x28cm, released from VOLTAGE_HOLD like the column - its 220 V style-E row is replaced by this one), a bamboo-slat drum (30x20cm, new) and a hat-nest (29.5x22cm, new). All three are 90-260 V with the 12 W three-colour bulb in the box, 5-6% gaps so rule 22 files the list, C$2.82 freight, seller-set 5000 stock. The brim and the drum take CA$84.99 like the column; the hat-nest clears at the shared CA$74.99. The listing's other shapes are duplicates of live products (dome, saucer/wave, nest, lantern, gourd, bell, globe, egg) and its 21x38cm cone lists at C$66.55, over what CA$84.99 can carry.",
     "2026-09-13-late-reread-1005007626643748": "A late re-read of listing 1005007626643748 the same evening found the gourd's 32cm-M variant repriced from C$36.32 to C$65.90 list (under the floor at any price the class carries - moved to COST_HOLD and unpublished), the egg up from C$21.16 to C$32.27, the nest down from C$43.77 to C$34.97, and the bell, pumpkin and globe moved by cents. Per-variant repricing on a live listing within a day is the cost risk the runbook's 're-read before any paid push' line was written for; the six rows carry the later reading.",
-    "2026-09-14-gourd-resourced": "The gourd came back off COST_HOLD the next morning: the lantern's listing (1005004341913414, Shop910337080 Store) carries the same 23 x 26 cm gourd as DD-HEI at C$32.58 with no promo gap, stock 1000, free freight, on a black canopy. Copy updated from wood cap to black canopy in four locales; the Shopify product's image swapped to the DD-HEI dimension drawing."
+    "2026-09-14-gourd-resourced": "The gourd came back off COST_HOLD the next morning: the lantern's listing (1005004341913414, Shop910337080 Store) carries the same 23 x 26 cm gourd as DD-HEI at C$32.58 with no promo gap, stock 1000, free freight, on a black canopy. Copy updated from wood cap to black canopy in four locales; the Shopify product's image swapped to the DD-HEI dimension drawing.",
+    "2026-09-14-arm-sconces": "THREE offers added 2026-09-14 from one listing, 1005006439147774 (Eternal Light Store): bamboo-cage-wall-sconce-20cm (swatch B), bamboo-teardrop-wall-sconce-18cm (C), bamboo-lattice-wall-sconce-15cm (D), each a shade hung on a cord from a solid-wood wall arm. LIST C$44.33 (B), C$43.96 (C) and C$55.24 (D) against sales about 6% under (rule 22 files the list; keyed by skuIdStr), stock 199-200, free freight, 7-15 days. The spec table reads 220 V and the gallery sheet reads 110-120 V / E26 / max 60 W; these are the first offers built after the 220 V hold was lifted for bare lamp holders on 2026-09-14. All three are Canadian-only and carry no US route. None exists in Shopify or DSers yet.",
+    "2026-09-14-skuid-collision": "RE-READ 2026-09-14 WITH skuIdStr. The late 2026-09-13 re-read of this listing keyed PRICE.skuPriceInfoMap by String(skuId), a JS number that cannot hold these 17-digit ids, so adjacent ids collapsed and the reader returned a NEIGHBOUR's price: the egg was filed at the bell's C$32.27, the nest at the pumpkin's C$34.97, and the gourd's 32cm-M at another SKU's C$65.90 (it actually reads C$36.43). Keyed by skuIdStr the listing reads egg 21.22 / bell 32.27 / nest 43.89 / pumpkin 34.97 / globe 30.34 list (sale 19.95 / 30.33 / 41.26 / 32.87 / 28.52), all stock 887-888 - i.e. within cents of the 2026-09-13 morning read. scripts/browser/collect-live-costs.js now keys by skuIdStr first. The gourd's move to the lantern's listing stands on its own merits (C$32.58, stock 1000, free freight) - the 'repricing' that prompted it did not happen."
   },
   "offers": [
     {
@@ -255,7 +257,7 @@
       "sku": "200000531:200002984;249:200006305#1pcs",
       "supplierItemId": "1005007626643748",
       "supplierItemIdUs": "3256807439328996",
-      "itemCostUsd": 23.05,
+      "itemCostUsd": 15.16,
       "voltageNote": "Supplier specification read 2026-09-13: Voltage 90-260V, Base Type E27, Is Bulbs Included No, Is Include PCBA N, Power Source AC.",
       "routes": {
         "CA": {
@@ -271,11 +273,11 @@
           "source": "Read 2026-09-13 from SHIPPING.deliveryLayoutInfo[0].bizData of listing 1005007626643748 on the .com gateway with a Canadian destination: ship from China, freight free above the C$10 threshold (discount 100), deliveryDayMax 16. Canadian-only from the start - no US route was read for this offer and none is claimed. tracked:true is carried from the carrier identity, NOT from a tracking number; that needs a placed order."
         }
       },
-      "itemCostObservedOn": "2026-09-13",
-      "itemCostNote": "CANADIAN-GATEWAY per-SKU price read 2026-09-13 from PRICE.skuPriceInfoMap: the page SELLS at C$19.89 against a C$21.16 originalPrice, a 6% promotion (every SKU on this listing sits about 6% under its list). RULE 22 makes the LIST price the cost basis, so itemCostCad is 21.16 and the USD figure is DERIVED from it at the 1.4 planning rate. Seller variant label Burgundy (a swatch colour name, not a description). 15 x 18 cm close-weave egg, black 10 cm canopy, 120 cm cord, skuStock 887 (per-SKU, rule 4); the listing shows \"Max. 20 pcs/shopper\" on every SKU, which is a per-order cap and not stock. Contribution at CA$74.99 is CA$39.24. Sourced from the 2026-09-13 Canadian-gateway sweep; NOT yet in Shopify or DSers, so no DSers stable-cost cross-check exists yet. RE-READ 2026-09-13 (late): list C$32.27, sale C$30.33; contribution at CA$74.99 is CA$27.35.",
-      "itemCostOriginalCad": 32.27,
-      "itemCostSaleCad": 30.33,
-      "itemCostCad": 32.27
+      "itemCostObservedOn": "2026-09-14",
+      "itemCostNote": "CANADIAN-GATEWAY per-SKU price read 2026-09-13 from PRICE.skuPriceInfoMap: the page SELLS at C$19.89 against a C$21.16 originalPrice, a 6% promotion (every SKU on this listing sits about 6% under its list). RULE 22 makes the LIST price the cost basis, so itemCostCad is 21.16 and the USD figure is DERIVED from it at the 1.4 planning rate. Seller variant label Burgundy (a swatch colour name, not a description). 15 x 18 cm close-weave egg, black 10 cm canopy, 120 cm cord, skuStock 887 (per-SKU, rule 4); the listing shows \"Max. 20 pcs/shopper\" on every SKU, which is a per-order cap and not stock. Contribution at CA$74.99 is CA$39.24. Sourced from the 2026-09-13 Canadian-gateway sweep; NOT yet in Shopify or DSers, so no DSers stable-cost cross-check exists yet. RE-READ 2026-09-13 (late): list C$32.27, sale C$30.33; contribution at CA$74.99 is CA$27.35. RE-READ 2026-09-14 WITH skuIdStr. The late 2026-09-13 re-read of this listing keyed PRICE.skuPriceInfoMap by String(skuId), a JS number that cannot hold these 17-digit ids, so adjacent ids collapsed and the reader returned a NEIGHBOUR's price: the egg was filed at the bell's C$32.27, the nest at the pumpkin's C$34.97, and the gourd's 32cm-M at another SKU's C$65.90 (it actually reads C$36.43). Keyed by skuIdStr the listing reads egg 21.22 / bell 32.27 / nest 43.89 / pumpkin 34.97 / globe 30.34 list (sale 19.95 / 30.33 / 41.26 / 32.87 / 28.52), all stock 887-888 - i.e. within cents of the 2026-09-13 morning read. scripts/browser/collect-live-costs.js now keys by skuIdStr first.",
+      "itemCostOriginalCad": 21.22,
+      "itemCostSaleCad": 19.95,
+      "itemCostCad": 21.22
     },
     {
       "handle": "woven-bamboo-bell-pendant-26cm",
@@ -309,7 +311,7 @@
       "sku": "200000531:200006154;249:200006305#1pcs",
       "supplierItemId": "1005007626643748",
       "supplierItemIdUs": "3256807439328996",
-      "itemCostUsd": 24.98,
+      "itemCostUsd": 31.35,
       "voltageNote": "Supplier specification read 2026-09-13: Voltage 90-260V, Base Type E27, Is Bulbs Included No, Is Include PCBA N, Power Source AC.",
       "routes": {
         "CA": {
@@ -325,11 +327,11 @@
           "source": "Read 2026-09-13 from SHIPPING.deliveryLayoutInfo[0].bizData of listing 1005007626643748 on the .com gateway with a Canadian destination: ship from China, freight free above the C$10 threshold (discount 100), deliveryDayMax 16. Canadian-only from the start - no US route was read for this offer and none is claimed. tracked:true is carried from the carrier identity, NOT from a tracking number; that needs a placed order."
         }
       },
-      "itemCostObservedOn": "2026-09-13",
-      "itemCostNote": "CANADIAN-GATEWAY per-SKU price read 2026-09-13 from PRICE.skuPriceInfoMap: the page SELLS at C$41.14 against a C$43.77 originalPrice, a 6% promotion (every SKU on this listing sits about 6% under its list). RULE 22 makes the LIST price the cost basis, so itemCostCad is 43.77 and the USD figure is DERIVED from it at the 1.4 planning rate. Seller variant label Dark Khaki (a swatch colour name, not a description). 30 x 18 cm loose-woven nest, black 10 cm canopy, 120 cm cord, skuStock 887 (per-SKU, rule 4); the listing shows \"Max. 20 pcs/shopper\" on every SKU, which is a per-order cap and not stock. Contribution at CA$84.99 is CA$23.69. Priced at CA$84.99 rather than the shared CA$74.99 because at CA$74.99 the list-cost contribution is CA$15.04, under the CA$16.23 floor; CA$84.99 files CA$23.69. Sourced from the 2026-09-13 Canadian-gateway sweep; NOT yet in Shopify or DSers, so no DSers stable-cost cross-check exists yet. RE-READ 2026-09-13 (late): list C$34.97, sale C$32.87; contribution at CA$84.99 is CA$33.11.",
-      "itemCostOriginalCad": 34.97,
-      "itemCostSaleCad": 32.87,
-      "itemCostCad": 34.97
+      "itemCostObservedOn": "2026-09-14",
+      "itemCostNote": "CANADIAN-GATEWAY per-SKU price read 2026-09-13 from PRICE.skuPriceInfoMap: the page SELLS at C$41.14 against a C$43.77 originalPrice, a 6% promotion (every SKU on this listing sits about 6% under its list). RULE 22 makes the LIST price the cost basis, so itemCostCad is 43.77 and the USD figure is DERIVED from it at the 1.4 planning rate. Seller variant label Dark Khaki (a swatch colour name, not a description). 30 x 18 cm loose-woven nest, black 10 cm canopy, 120 cm cord, skuStock 887 (per-SKU, rule 4); the listing shows \"Max. 20 pcs/shopper\" on every SKU, which is a per-order cap and not stock. Contribution at CA$84.99 is CA$23.69. Priced at CA$84.99 rather than the shared CA$74.99 because at CA$74.99 the list-cost contribution is CA$15.04, under the CA$16.23 floor; CA$84.99 files CA$23.69. Sourced from the 2026-09-13 Canadian-gateway sweep; NOT yet in Shopify or DSers, so no DSers stable-cost cross-check exists yet. RE-READ 2026-09-13 (late): list C$34.97, sale C$32.87; contribution at CA$84.99 is CA$33.11. RE-READ 2026-09-14 WITH skuIdStr. The late 2026-09-13 re-read of this listing keyed PRICE.skuPriceInfoMap by String(skuId), a JS number that cannot hold these 17-digit ids, so adjacent ids collapsed and the reader returned a NEIGHBOUR's price: the egg was filed at the bell's C$32.27, the nest at the pumpkin's C$34.97, and the gourd's 32cm-M at another SKU's C$65.90 (it actually reads C$36.43). Keyed by skuIdStr the listing reads egg 21.22 / bell 32.27 / nest 43.89 / pumpkin 34.97 / globe 30.34 list (sale 19.95 / 30.33 / 41.26 / 32.87 / 28.52), all stock 887-888 - i.e. within cents of the 2026-09-13 morning read. scripts/browser/collect-live-costs.js now keys by skuIdStr first.",
+      "itemCostOriginalCad": 43.89,
+      "itemCostSaleCad": 41.26,
+      "itemCostCad": 43.89
     },
     {
       "handle": "bamboo-slat-pumpkin-pendant-18cm",
@@ -1122,6 +1124,87 @@
       "itemCostCad": 32.58,
       "itemCostOriginalCad": 32.58,
       "itemCostSaleCad": 32.58
+    },
+    {
+      "handle": "bamboo-cage-wall-sconce-20cm",
+      "sku": "200000795:193#B;249:200006305#No light bulb",
+      "supplierItemId": "1005006439147774",
+      "supplierItemIdUs": "3256806252833022",
+      "itemCostUsd": 31.66,
+      "voltageNote": "Supplier specification read 2026-09-14: Voltage 220 V, Base Type E26, Power Source AC, Is Include PCBA N, Is Bulbs Included No, Body Material BAMBOO. The seller's own gallery sheet prints 'E26 Socket, Max 60W, 110-120V'. Built under the 2026-09-14 lifting of the 220 V hold for bare lamp holders (see app/lib/launch-catalog.js).",
+      "routes": {
+        "CA": {
+          "shippingUsd": 0,
+          "shippingCad": 0,
+          "freeOverCad": 10,
+          "eta": "15 days",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard (CAINIAO_FULFILLMENT_STD)",
+          "shipFrom": "CN",
+          "fulfilment": "cn-direct",
+          "observedOn": "2026-09-14",
+          "source": "Read 2026-09-14 from SHIPPING.deliveryLayoutInfo[0].bizData of listing 1005006439147774 on the .com gateway with a Canadian destination: shippingFee 'free', choiceFreeShipping, free over C$10, deliveryDayMin 7 / deliveryDayMax 15, displayed Sep 29. Canadian-only from the start - no US route was read and none is claimed. tracked:true is carried from the carrier identity, NOT from a tracking number; that needs a placed order."
+        }
+      },
+      "itemCostObservedOn": "2026-09-14",
+      "itemCostNote": "CANADIAN-GATEWAY per-SKU price read 2026-09-14 from PRICE.skuPriceInfoMap: the page SELLS at C$41.52 against a C$44.33 originalPrice, a 6% gap. RULE 22 makes the LIST price the cost basis, so itemCostCad is 44.33 and the USD figure is DERIVED from it at the 1.4 planning rate. 20 x 23 cm rounded cage of flat bamboo strips over a blue-and-white printed fabric liner on a solid-wood wall arm, E26; skuStock 199 (per-SKU, rule 4). Contribution at CA$89.99 is CA$27.42 with free freight. NOT yet in Shopify or DSers, so no DSers stable-cost cross-check exists yet. Read keyed by skuIdStr: this listing's SKU ids are adjacent (...587/588/589) and String(skuId) collapses them to one float, which is how the first pass read all three shades at C$43.96.",
+      "itemCostOriginalCad": 44.33,
+      "itemCostSaleCad": 41.52,
+      "itemCostCad": 44.33
+    },
+    {
+      "handle": "bamboo-teardrop-wall-sconce-18cm",
+      "sku": "200000795:175#C;249:200006305#No light bulb",
+      "supplierItemId": "1005006439147774",
+      "supplierItemIdUs": "3256806252833022",
+      "itemCostUsd": 31.4,
+      "voltageNote": "Supplier specification read 2026-09-14: Voltage 220 V, Base Type E26, Power Source AC, Is Include PCBA N, Is Bulbs Included No, Body Material BAMBOO. The seller's own gallery sheet prints 'E26 Socket, Max 60W, 110-120V'. Built under the 2026-09-14 lifting of the 220 V hold for bare lamp holders (see app/lib/launch-catalog.js).",
+      "routes": {
+        "CA": {
+          "shippingUsd": 0,
+          "shippingCad": 0,
+          "freeOverCad": 10,
+          "eta": "15 days",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard (CAINIAO_FULFILLMENT_STD)",
+          "shipFrom": "CN",
+          "fulfilment": "cn-direct",
+          "observedOn": "2026-09-14",
+          "source": "Read 2026-09-14 from SHIPPING.deliveryLayoutInfo[0].bizData of listing 1005006439147774 on the .com gateway with a Canadian destination: shippingFee 'free', choiceFreeShipping, free over C$10, deliveryDayMin 7 / deliveryDayMax 15, displayed Sep 29. Canadian-only from the start - no US route was read and none is claimed. tracked:true is carried from the carrier identity, NOT from a tracking number; that needs a placed order."
+        }
+      },
+      "itemCostObservedOn": "2026-09-14",
+      "itemCostNote": "CANADIAN-GATEWAY per-SKU price read 2026-09-14 from PRICE.skuPriceInfoMap: the page SELLS at C$41.17 against a C$43.96 originalPrice, a 6% gap. RULE 22 makes the LIST price the cost basis, so itemCostCad is 43.96 and the USD figure is DERIVED from it at the 1.4 planning rate. 18 x 23 cm teardrop of flat bamboo strips, widest below the middle, over a plain slate-blue fabric liner on a solid-wood wall arm, E26; skuStock 200 (per-SKU, rule 4). Contribution at CA$89.99 is CA$27.81 with free freight. NOT yet in Shopify or DSers, so no DSers stable-cost cross-check exists yet.",
+      "itemCostOriginalCad": 43.96,
+      "itemCostSaleCad": 41.17,
+      "itemCostCad": 43.96
+    },
+    {
+      "handle": "bamboo-lattice-wall-sconce-15cm",
+      "sku": "200000795:10#D;249:200006305#No light bulb",
+      "supplierItemId": "1005006439147774",
+      "supplierItemIdUs": "3256806252833022",
+      "itemCostUsd": 39.46,
+      "voltageNote": "Supplier specification read 2026-09-14: Voltage 220 V, Base Type E26, Power Source AC, Is Include PCBA N, Is Bulbs Included No, Body Material BAMBOO. The seller's own gallery sheet prints 'E26 Socket, Max 60W, 110-120V'. Built under the 2026-09-14 lifting of the 220 V hold for bare lamp holders (see app/lib/launch-catalog.js).",
+      "routes": {
+        "CA": {
+          "shippingUsd": 0,
+          "shippingCad": 0,
+          "freeOverCad": 10,
+          "eta": "15 days",
+          "tracked": true,
+          "carrier": "AliExpress Selection Standard (CAINIAO_FULFILLMENT_STD)",
+          "shipFrom": "CN",
+          "fulfilment": "cn-direct",
+          "observedOn": "2026-09-14",
+          "source": "Read 2026-09-14 from SHIPPING.deliveryLayoutInfo[0].bizData of listing 1005006439147774 on the .com gateway with a Canadian destination: shippingFee 'free', choiceFreeShipping, free over C$10, deliveryDayMin 7 / deliveryDayMax 15, displayed Sep 29. Canadian-only from the start - no US route was read and none is claimed. tracked:true is carried from the carrier identity, NOT from a tracking number; that needs a placed order."
+        }
+      },
+      "itemCostObservedOn": "2026-09-14",
+      "itemCostNote": "CANADIAN-GATEWAY per-SKU price read 2026-09-14 from PRICE.skuPriceInfoMap: the page SELLS at C$51.70 against a C$55.24 originalPrice, a 6% gap. RULE 22 makes the LIST price the cost basis, so itemCostCad is 55.24 and the USD figure is DERIVED from it at the 1.4 planning rate. 15 x 25 cm square shoji-style lattice of bamboo sticks over white panels, open at the top and bottom on a solid-wood wall arm, E26; skuStock 200 (per-SKU, rule 4). Contribution at CA$94.99 is CA$20.07 (15.74 at CA$89.99, under the floor) with free freight. NOT yet in Shopify or DSers, so no DSers stable-cost cross-check exists yet. Read keyed by skuIdStr: this listing's SKU ids are adjacent (...587/588/589) and String(skuId) collapses them to one float, which is how the first pass read all three shades at C$43.96.",
+      "itemCostOriginalCad": 55.24,
+      "itemCostSaleCad": 51.7,
+      "itemCostCad": 55.24
     }
   ]
 }

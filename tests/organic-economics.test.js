@@ -115,6 +115,11 @@ const completeBaseline = {
       // (rule 22, a 35% promo) / 1.352, and the first row that PAYS freight -
       // C$25.99 to Canada, likewise / 1.352.
       ['rattan-cone-wall-sconce-15cm', '200000795:29#wood;180:200002571#Excluding light bulb', 18.2, 19.22],
+      // The three arm sconces from listing 1005006439147774 (2026-09-14): LIST
+      // C$44.33 / 43.96 / 55.24 (rule 22, ~6% gaps; keyed by skuIdStr) / 1.352, free freight.
+      ['bamboo-cage-wall-sconce-20cm', '200000795:193#B;249:200006305#No light bulb', 32.79],
+      ['bamboo-teardrop-wall-sconce-18cm', '200000795:175#C;249:200006305#No light bulb', 32.51],
+      ['bamboo-lattice-wall-sconce-15cm', '200000795:10#D;249:200006305#No light bulb', 40.86],
       // The column, off VOLTAGE_HOLD 2026-09-13 onto listing 1005005768310960
       // (90-260 V): C$40.72 LIST (rule 22, an 8% gap) / 1.352, freight C$2.82
       // likewise.
