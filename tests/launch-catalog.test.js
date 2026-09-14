@@ -295,7 +295,6 @@ test('product market resolution fails closed on an empty catalogue', () => {
     'slatted-bamboo-lantern-pendant-20cm',
     'slatted-bamboo-pear-pendant-20cm',
     'tiered-bamboo-pendant-30cm',
-    'woven-bamboo-gourd-pendant-23cm',
     'woven-bamboo-egg-pendant-15cm',
     'woven-bamboo-bell-pendant-26cm',
     'woven-bamboo-nest-pendant-30cm',
@@ -770,7 +769,6 @@ test('a suspended market closes commerce without erasing route evidence', () => 
     'slatted-bamboo-lantern-pendant-20cm',
     'slatted-bamboo-pear-pendant-20cm',
     'tiered-bamboo-pendant-30cm',
-    'woven-bamboo-gourd-pendant-23cm',
     'woven-bamboo-egg-pendant-15cm',
     'woven-bamboo-bell-pendant-26cm',
     'woven-bamboo-nest-pendant-30cm',
@@ -834,7 +832,6 @@ test('approved handles and SKUs derive from one exact-offer cohort', () => {
     'slatted-bamboo-lantern-pendant-20cm',
     'slatted-bamboo-pear-pendant-20cm',
     'tiered-bamboo-pendant-30cm',
-    'woven-bamboo-gourd-pendant-23cm',
     'woven-bamboo-egg-pendant-15cm',
     'woven-bamboo-bell-pendant-26cm',
     'woven-bamboo-nest-pendant-30cm',
@@ -847,7 +844,7 @@ test('approved handles and SKUs derive from one exact-offer cohort', () => {
     'bamboo-slat-drum-pendant-30cm',
     'bamboo-hat-nest-pendant-30cm',
   ]);
-  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.CA.length, 17);
+  assert.equal(APPROVED_VARIANT_SKUS_BY_MARKET.CA.length, 16);
 
   // A US offer crosses the suspended cn-direct route, so it must carry BOTH
   // duty scenarios and both must be positive - the watch-roll cohort died

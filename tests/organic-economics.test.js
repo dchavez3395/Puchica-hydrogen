@@ -96,6 +96,9 @@ const completeBaseline = {
     ...[
       ['hand-woven-bamboo-pendant-light', '200000531:200004889#Style F - Wood Base;200007763:201336100;5:100014064#Ship with 24h', 21.58],
       ['plug-in-bamboo-sconce-swing-arm', '200000795:175#US PLUG-DIM switch;249:200006305#no light', 25.5],
+      // The gourd, on COST_HOLD since the late 2026-09-13 re-read: C$65.90 LIST
+      // (the seller repriced the variant within the day) / 1.352.
+      ['woven-bamboo-gourd-pendant-23cm', '200000531:1052#32cm-M;249:200006305#1pcs', 48.74],
       ['woven-bamboo-dome-pendant', '200000531:365458#Style F-Wood Base;5:361386#No bulb', 24.24],
       ['slatted-bamboo-lantern-pendant-20cm', '200000531:350852#20x23cm', 15.08],
       // The two 2026-09-13 sweep offers. The tiered pendant's cost is the
@@ -106,12 +109,11 @@ const completeBaseline = {
       // The six 2026-09-13 offers from listing 1005007626643748. Every cost
       // is the LIST price (rule 22: each SKU sells about 6% under it), CAD
       // list / 1.352.
-      ['woven-bamboo-gourd-pendant-23cm', '200000531:1052#32cm-M;249:200006305#1pcs', 26.86],
-      ['woven-bamboo-egg-pendant-15cm', '200000531:200002984;249:200006305#1pcs', 15.65],
-      ['woven-bamboo-bell-pendant-26cm', '200000531:100018786;249:200006305#1pcs', 23.8],
-      ['woven-bamboo-nest-pendant-30cm', '200000531:200006154;249:200006305#1pcs', 32.37],
-      ['bamboo-slat-pumpkin-pendant-18cm', '200000531:1254;249:200006305#1pcs', 25.79],
-      ['woven-bamboo-globe-pendant-25cm', '200000531:200000195;249:200006305#1pcs', 22.38],
+      ['woven-bamboo-egg-pendant-15cm', '200000531:200002984;249:200006305#1pcs', 23.87],
+      ['woven-bamboo-bell-pendant-26cm', '200000531:100018786;249:200006305#1pcs', 23.87],
+      ['woven-bamboo-nest-pendant-30cm', '200000531:200006154;249:200006305#1pcs', 25.87],
+      ['bamboo-slat-pumpkin-pendant-18cm', '200000531:1254;249:200006305#1pcs', 25.87],
+      ['woven-bamboo-globe-pendant-25cm', '200000531:200000195;249:200006305#1pcs', 22.44],
       // The wall sconce from the widened 2026-09-13 sweep: C$24.60 LIST
       // (rule 22, a 35% promo) / 1.352, and the first row that PAYS freight -
       // C$25.99 to Canada, likewise / 1.352.

@@ -553,6 +553,26 @@ export const COST_HOLD_CATALOG_OFFERS = Object.freeze([
     dutyBilledContributionUsd: 8.05,
     costHold: 'supplier-cost-is-52pct-promo-against-49.81-list-observed-2026-09-11; also breaches rule 2 by $6.47 against the $65.53 banded ceiling (run 13)',
   }),
+  // MOVED HERE 2026-09-13 (late) FROM APPROVED. The gourd went live earlier
+  // the same day at CA$74.99 on a C$36.32 list cost (contribution 23.01). A
+  // re-read of the listing that evening found the seller had repriced the
+  // 32cm-M variant to C$65.90 list (C$61.95 sale) - per-variant, not
+  // listing-wide; the egg rose, the nest fell, the rest moved by cents. At
+  // CA$74.99 that is CA$-8.64 a unit and at CA$89.99 still 4.34, under the
+  // 16.23 floor, so it came off the storefront the same night: DRAFT in
+  // Shopify (the connector refuses publishableUnpublish; DRAFT alone takes
+  // it off every channel), mapping left in place in DSers. Release needs
+  // the variant back under about C$41 list, or a second source for the
+  // same 23 x 26 cm gourd. Its evidence file keeps the earlier verdict
+  // underneath the new one so a release is not a re-audit.
+  Object.freeze({
+    handle: 'woven-bamboo-gourd-pendant-23cm',
+    sku: '200000531:1052#32cm-M;249:200006305#1pcs',
+    supplierProductId: '1005007626643748',
+    markets: Object.freeze(['CA']),
+    contributionCad: -8.64,
+    costHold: 'supplier-repriced-32cm-M-variant-from-36.32-to-65.90-list-observed-2026-09-13-late; -8.64 at CA$74.99 and 4.34 at CA$89.99 against the 16.23 floor',
+  }),
 ]);
 
 
@@ -928,7 +948,8 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
   //   deepest in the catalogue. The "Max. 20 pcs/shopper" on each SKU is a
   //   PER-ORDER cap, not stock, and not the one-unit cap that killed the old
   //   dome listing.
-  //   RULE 18. Six shapes - gourd, egg, bell, nest, segmented pumpkin, globe -
+  //   RULE 18. Six shapes - gourd (on COST_HOLD since the late re-read of
+  //   2026-09-13), egg, bell, nest, segmented pumpkin, globe -
   //   and none is the live saucer (wide brim), dome, straight lantern column,
   //   slatted pear or stepped drum. Three other deep-stock SKUs on the same
   //   listing were REJECTED on rule 18: a 16 x 33 straight slatted cylinder
@@ -943,27 +964,6 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
   // product; they are recorded in the evidence files so a human can find the
   // row in DSers, and nowhere else.
   //
-  // 23 x 26 cm close-weave GOURD on a wood ceiling cap, 120 cm adjustable
-  // cord. Seller label 32cm-M (the shade is 23 cm, not 32). C$36.32 list
-  // (C$34.14 sale), stock 876. Rule 18: a rounded belly narrowing to a flat
-  // shoulder - not the pear, which is strips over rings bulging the other way.
-  Object.freeze({
-    handle: 'woven-bamboo-gourd-pendant-23cm',
-    sku: '200000531:1052#32cm-M;249:200006305#1pcs',
-    // VERIFIED IN DSERS 2026-09-13 (my-product/v2/search supplier[].supplyProductId
-    // and my-product/detail supply.<variant>.sku): Shopify variant 50338193539322 is
-    // basic-mapped to this listing at exactly the SKU above.
-    supplierProductId: '1005007626643748',
-    markets: Object.freeze(['CA']),
-    // CANADIAN CONTRIBUTION, 2026-09-13. One figure, not a pair: CBSA assesses
-    // 7% MFN on value for duty (the supplier price), so there is no second
-    // basis to be uncertain between. Derived from this offer's undercut
-    // evidence by scripts/check-contribution-derivation.mjs (RULE 26), which
-    // fails on more than a cent of drift - so if the price or the cost moves,
-    // this number must move in the same edit. Derived at the LIST cost of
-    // C$36.32 (rule 22), not the C$34.14 sale price.
-    contributionCad: 23.01,
-  }),
   // 15 x 18 cm close-weave EGG on a black 10 cm canopy, 120 cm adjustable
   // cord. The smallest piece in the range. Seller label "Burgundy" (a swatch
   // name; the shade is natural bamboo). C$21.16 list (C$19.89 sale), stock
@@ -985,7 +985,7 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
     // fails on more than a cent of drift - so if the price or the cost moves,
     // this number must move in the same edit. Derived at the LIST cost of
     // C$21.16 (rule 22), not the C$19.89 sale price.
-    contributionCad: 39.24,
+    contributionCad: 27.35,
   }),
   // 26 x 26 cm woven BELL - narrow neck flaring to a wide open mouth - on a
   // black canopy, 150 cm adjustable cord. Seller label "Clear" (a swatch
@@ -1007,7 +1007,7 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
     // fails on more than a cent of drift - so if the price or the cost moves,
     // this number must move in the same edit. Derived at the LIST cost of
     // C$32.18 (rule 22), not the C$30.25 sale price.
-    contributionCad: 27.44,
+    contributionCad: 27.35,
   }),
   // 30 x 18 cm loose-woven NEST - random bamboo sticks built up into a
   // shallow open bowl - on a black 10 cm canopy, 120 cm adjustable cord.
@@ -1039,7 +1039,7 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
     // fails on more than a cent of drift - so if the price or the cost moves,
     // this number must move in the same edit. Derived at the LIST cost of
     // C$43.77 (rule 22), not the C$41.14 sale price, and at CA$84.99.
-    contributionCad: 23.69,
+    contributionCad: 33.11,
   }),
   // 18 x 12 cm segmented slat PUMPKIN - flat slats set radially into a squat
   // open dome - on a wood ceiling cap. The swatch image does NOT state the
@@ -1063,7 +1063,7 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
     // fails on more than a cent of drift - so if the price or the cost moves,
     // this number must move in the same edit. Derived at the LIST cost of
     // C$34.87 (rule 22), not the C$32.78 sale price.
-    contributionCad: 24.57,
+    contributionCad: 24.46,
   }),
   // 25 x 25 cm open-weave GLOBE - strands wound into an irregular ball with
   // the bulb visible through the gaps - on a black 10 cm canopy, 150 cm
@@ -1085,7 +1085,7 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
     // fails on more than a cent of drift - so if the price or the cost moves,
     // this number must move in the same edit. Derived at the LIST cost of
     // C$30.26 (rule 22), not the C$28.44 sale price.
-    contributionCad: 29.5,
+    contributionCad: 29.41,
   }),
   // ADDED 2026-09-13 FROM THE WIDENED LIGHTING SWEEP - the only survivor of
   // seven clamped candidates across the sconce, floor-lamp and chandelier

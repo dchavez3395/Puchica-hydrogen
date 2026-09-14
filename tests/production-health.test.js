@@ -61,7 +61,6 @@ test('production monitor shares the verified market cohorts', () => {
     'slatted-bamboo-lantern-pendant-20cm',
     'slatted-bamboo-pear-pendant-20cm',
     'tiered-bamboo-pendant-30cm',
-    'woven-bamboo-gourd-pendant-23cm',
     'woven-bamboo-egg-pendant-15cm',
     'woven-bamboo-bell-pendant-26cm',
     'woven-bamboo-nest-pendant-30cm',
