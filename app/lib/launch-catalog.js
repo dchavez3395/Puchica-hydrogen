@@ -1162,8 +1162,10 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
     sku: '200000795:193#B;249:200006305#No light bulb',
     // PUSHED 2026-09-14 from DSers Import List (one variant per push, three
     // pushes off one import). Shopify variant 50397103325434; DSers Manage Suppliers
-    // shows Basic Mapping to this listing as default supplier. The per-variant
-    // SKU read (my-product/detail) was not repeated this session.
+    // shows Basic Mapping to this listing as default supplier and renders the
+    // supplier variant's swatch image in the mapping row - checked 2026-09-14:
+    // each of the three products shows ONLY its own swatch (B / C / D), none
+    // of the others. The API-level SKU read (my-product/detail) was not run.
     supplierProductId: '1005006439147774',
     markets: Object.freeze(['CA']),
     // CANADIAN CONTRIBUTION, 2026-09-14. One figure: CBSA assesses 7% MFN on
@@ -1180,8 +1182,10 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
     sku: '200000795:175#C;249:200006305#No light bulb',
     // PUSHED 2026-09-14 from DSers Import List (one variant per push, three
     // pushes off one import). Shopify variant 50397510664442; DSers Manage Suppliers
-    // shows Basic Mapping to this listing as default supplier. The per-variant
-    // SKU read (my-product/detail) was not repeated this session.
+    // shows Basic Mapping to this listing as default supplier and renders the
+    // supplier variant's swatch image in the mapping row - checked 2026-09-14:
+    // each of the three products shows ONLY its own swatch (B / C / D), none
+    // of the others. The API-level SKU read (my-product/detail) was not run.
     supplierProductId: '1005006439147774',
     markets: Object.freeze(['CA']),
     // CANADIAN CONTRIBUTION, 2026-09-14. Same derivation as the cage: LIST
@@ -1195,8 +1199,10 @@ export const APPROVED_CATALOG_OFFERS = Object.freeze([
     sku: '200000795:10#D;249:200006305#No light bulb',
     // PUSHED 2026-09-14 from DSers Import List (one variant per push, three
     // pushes off one import). Shopify variant 50397772546298; DSers Manage Suppliers
-    // shows Basic Mapping to this listing as default supplier. The per-variant
-    // SKU read (my-product/detail) was not repeated this session.
+    // shows Basic Mapping to this listing as default supplier and renders the
+    // supplier variant's swatch image in the mapping row - checked 2026-09-14:
+    // each of the three products shows ONLY its own swatch (B / C / D), none
+    // of the others. The API-level SKU read (my-product/detail) was not run.
     supplierProductId: '1005006439147774',
     markets: Object.freeze(['CA']),
     // CANADIAN CONTRIBUTION, 2026-09-14. The dear one: LIST cost C$55.24
