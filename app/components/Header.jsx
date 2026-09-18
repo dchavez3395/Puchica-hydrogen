@@ -183,8 +183,8 @@ function CartBadge({count}) {
 
   return (
     <Link
-      data-focus-return="cart"
       to="/cart"
+      data-focus-return="cart"
       className={'pk-icon-btn pk-cart-btn' + (isOpen ? ' is-active' : '')}
       aria-label={
         (isOpen ? t('header_cart_close') : t('header_cart_open')) +
