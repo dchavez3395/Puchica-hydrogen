@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
 
 import {
   auditMeasurement,
@@ -120,5 +121,24 @@ test('media assumptions stay within plausible bounds', () => {
   assert.ok(
     MEDIA_ASSUMPTIONS.clickToSessionRate > 0.5 &&
       MEDIA_ASSUMPTIONS.clickToSessionRate <= 1,
+  );
+});
+
+test('Shopify analytics never counts a headless browser as a session', async () => {
+  // Analytics.Provider's default canTrack consults only the consent API, so
+  // the CI WCAG suite (105 Playwright page loads per deploy, fresh context
+  // each) was ~90% of "direct" sessions in Admin from 2026-06 to 2026-09.
+  // GA4 and Meta were already gated on isBotClient(); this keeps the Shopify
+  // side gated the same way, with the consent half preserved verbatim.
+  const root = await readFile(
+    new URL('../app/root.jsx', import.meta.url),
+    'utf8',
+  );
+  assert.match(root, /import \{isBotClient\} from '~\/lib\/bot-detection'/);
+  assert.match(root, /canTrack=\{canTrackShopifyAnalytics\}/);
+  assert.match(root, /if \(isBotClient\(\)\) return false;/);
+  assert.match(
+    root,
+    /customerPrivacy\?\.analyticsProcessingAllowed\?\.\(\) \?\? false/,
   );
 });

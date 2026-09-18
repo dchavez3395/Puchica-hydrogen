@@ -23,6 +23,7 @@ import resetStyles from '~/styles/reset.css?url';
 // in app.css and correctly beat these.
 import tokenStyles from '~/styles/tokens.css?url';
 import appStyles from '~/styles/app.css?url';
+import {isBotClient} from '~/lib/bot-detection';
 // The 2026-09-18 "warm room" retheme. Loads LAST on purpose: it overrides the
 // travel-era chrome (navy panels, teal CTAs, glyph tickers) with the lighting
 // store's look and carries the new home/PDP component classes.
@@ -95,6 +96,26 @@ export function links() {
     },
     {rel: 'icon', type: 'image/svg+xml', href: favicon},
   ];
+}
+
+/**
+ * Shopify's own analytics (the "sessions" and "conversion rate" in Admin) go
+ * through Analytics.Provider, whose default canTrack only consults the
+ * customer-privacy consent API. GA4 and the Meta pixel were already gated on
+ * isBotClient(); this never was, so every Playwright page load - the CI
+ * WCAG suite runs 105 checks with a fresh context each, plus retries, after
+ * every deploy - counted as a human "direct" session. Between 2026-06 and
+ * 2026-09 that was ~15,000 of 17,000 sessions, which made conversion rate
+ * unreadable. Headless browsers set navigator.webdriver, which isBotClient()
+ * catches. The consent half is exactly Hydrogen's default.
+ */
+function canTrackShopifyAnalytics() {
+  if (isBotClient()) return false;
+  try {
+    return window.Shopify?.customerPrivacy?.analyticsProcessingAllowed?.() ?? false;
+  } catch {
+    return false;
+  }
 }
 
 /**
@@ -276,6 +297,7 @@ export default function App() {
       cart={data.cart}
       shop={data.shop}
       consent={data.consent}
+      canTrack={canTrackShopifyAnalytics}
     >
       <MetaPixel pixelId={data.metaPixelId} />
       <GoogleAnalytics4 measurementId={data.ga4MeasurementId} />
