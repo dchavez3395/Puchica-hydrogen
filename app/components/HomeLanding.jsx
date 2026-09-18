@@ -50,17 +50,23 @@ export function HomeLanding({products = []}) {
   return (
     <div className="wr-home">
       <section className="wr-hero" aria-labelledby="home-title">
-        {heroImage ? (
-          <Image
-            className="wr-hero__img"
-            data={heroImage}
-            alt={heroImage.altText || heroTitle}
-            sizes="100vw"
-            loading="eager"
-            {...{fetchpriority: 'high'}}
-          />
-        ) : null}
-        <div className="wr-hero__shade" aria-hidden="true"></div>
+        {/* The photo is capped at its 1024px source width and anchored right;
+            the copy sits on solid ink to its left, and the shade fades one
+            into the other. Stretching a 1024px file across 1920px fails the
+            CI resolution probe and looks soft besides. */}
+        <div className="wr-hero__visual" aria-hidden="true">
+          {heroImage ? (
+            <Image
+              className="wr-hero__img"
+              data={heroImage}
+              alt=""
+              sizes="(min-width: 1024px) 1024px, 100vw"
+              loading="eager"
+              {...{fetchpriority: 'high'}}
+            />
+          ) : null}
+          <div className="wr-hero__shade"></div>
+        </div>
         <div className="wr-hero__copy">
           <p className="wr-eyebrow">{t('home_hero_eyebrow')}</p>
           <h1 id="home-title">{t('launch_home_title')}</h1>

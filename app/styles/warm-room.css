@@ -168,8 +168,9 @@ h1, h2, h3, .pk-product__title, .pk-col-hero h1, .pk-col-hero__title {
   display: flex;
   align-items: center;
 }
-.wr-hero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 62% 50%; }
-.wr-hero__shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(38,34,29,0.80) 0%, rgba(38,34,29,0.50) 42%, rgba(38,34,29,0.05) 72%); }
+.wr-hero__visual { position: absolute; top: 0; bottom: 0; right: 0; width: min(100%, 1024px); }
+.wr-hero__img { position: absolute; inset: 0; width: 100% !important; height: 100% !important; object-fit: cover; object-position: 62% 50%; }
+.wr-hero__shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(38,34,29,1) 0%, rgba(38,34,29,0.55) 30%, rgba(38,34,29,0.05) 62%); }
 .wr-hero__copy { position: relative; padding: 64px var(--pk-store-gutter); max-width: 680px; display: flex; flex-direction: column; gap: 22px; }
 .wr-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--pk-honey-ink); }
 /* Honey (#B8893A) is 2.69:1 on paper - fine for icons and chip fills, never for small text. On the dark hero, band and footer it is 5:1 and stays. */
@@ -201,6 +202,7 @@ h1, h2, h3, .pk-product__title, .pk-col-hero h1, .pk-col-hero__title {
 .wr-hero__pictured span { color: var(--pk-muted); }
 @media (max-width: 760px) {
   .wr-hero { min-height: 560px; align-items: flex-end; }
+  .wr-hero__visual { width: 100%; }
   .wr-hero__img { object-position: 60% 40%; }
   .wr-hero__shade { background: linear-gradient(180deg, rgba(38,34,29,0) 28%, rgba(38,34,29,0.86) 100%); }
   .wr-hero__copy { padding: 24px var(--pk-store-gutter) 28px; gap: 14px; }
