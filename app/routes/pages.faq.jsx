@@ -61,6 +61,8 @@ export default function FaqPage() {
         {q: t('faq_products_1_q'), a: t('faq_products_1_a')},
         {q: t('faq_products_2_q'), a: t('faq_products_2_a')},
         {q: t('faq_products_3_q'), a: t('faq_products_3_a')},
+        {q: t('faq_products_4_q'), a: t('faq_products_4_a')},
+        {q: t('faq_products_5_q'), a: t('faq_products_5_a')},
       ],
     },
     {

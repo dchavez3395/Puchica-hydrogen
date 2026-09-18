@@ -748,7 +748,7 @@ export const DICTIONARIES = {
     faq_cat_account: 'Account',
     faq_orders_1_q: 'How long does shipping take?',
     faq_orders_1_a:
-      'Processing and delivery timing vary by product. Checkout shows the available shipping option and cost, but an estimated delivery date may not appear. Tracking updates are sent when available.',
+      'Fixtures ship tracked from our supplier’s warehouse overseas, and shipping is free across Canada. Most orders reach Canadian addresses in two to three weeks; checkout shows the estimate for your address, and the tracking number arrives by email the day it ships.',
     faq_orders_2_q: 'Do you ship internationally?',
     faq_orders_2_a:
       'Canada and the United States are selectable storefront markets. A market selection does not guarantee every item can be delivered; checkout confirms the selected cart and address before payment.',
@@ -776,6 +776,10 @@ export const DICTIONARIES = {
     faq_products_3_q: 'How do I choose the right option?',
     faq_products_3_a:
       'Check the selected size, color, quantity, and set before adding the item to your cart.',
+    faq_products_4_q: 'Which bulb do I need?',
+    faq_products_4_a: 'Every fixture has a standard screw-base socket (E26 in Canada; the supplier labels it E27, the same thread) rated 90–260 V, so a normal Canadian LED bulb threads straight in. No bulb is included. A warm 2700 K LED filament bulb shows the weave best; a cool white flattens it. Use LED only — bamboo and rattan are dry, warm-sensitive materials — and stay within the wattage printed on the socket.',
+    faq_products_5_q: 'How high should a pendant hang?',
+    faq_products_5_a: 'Cords are 100–150 cm and are shortened at installation, so the drop is set on site. A common starting point is 75–85 cm (30–34 in) between a table top and the bottom of the shade; over a kitchen island go a little higher so nobody knocks it; in a hallway or over a landing keep the bottom above head height. Hanging two or three, stagger the drops by 15–20 cm and space them about the width of one shade apart.',
     faq_account_1_q: 'How do I access my account?',
     faq_account_1_a:
       'Choose Account, enter your email, and follow the sign-in steps. From your account, you can view orders and manage saved details.',
@@ -1518,7 +1522,7 @@ export const DICTIONARIES = {
     faq_cat_account: 'Compte',
     faq_orders_1_q: 'Combien de temps prend la livraison ?',
     faq_orders_1_a:
-      'Les délais de traitement et de livraison varient selon le produit. Entrez votre adresse au paiement pour consulter l’estimation disponible avant de payer.',
+      'Les luminaires sont expédiés avec suivi depuis l’entrepôt de notre fournisseur à l’étranger, et la livraison est gratuite partout au Canada. La plupart des commandes arrivent au Canada en deux à trois semaines ; le paiement affiche l’estimation pour votre adresse et le numéro de suivi vous parvient par courriel le jour de l’expédition.',
     faq_orders_2_q: 'Livrez-vous à l’international ?',
     faq_orders_2_a:
       'Le Canada et les États-Unis sont des marchés sélectionnables. Ce choix ne garantit pas la livraison de chaque article; le paiement confirme le panier et l’adresse avant le règlement.',
@@ -1546,6 +1550,10 @@ export const DICTIONARIES = {
     faq_products_3_q: 'Comment choisir la bonne option ?',
     faq_products_3_a:
       'Vérifiez la taille, la couleur, la quantité et l’ensemble sélectionnés avant d’ajouter l’article au panier.',
+    faq_products_4_q: 'Quelle ampoule faut-il ?',
+    faq_products_4_a: 'Chaque luminaire a une douille à vis standard (E26 au Canada ; le fournisseur l’indique E27, même filetage) prévue pour 90 à 260 V : une ampoule DEL canadienne ordinaire se visse directement. Aucune ampoule n’est fournie. Une DEL à filament chaude de 2700 K met le tressage en valeur ; un blanc froid l’aplatit. DEL seulement — le bambou et le rotin sont des matières sèches sensibles à la chaleur — et restez sous la puissance inscrite sur la douille.',
+    faq_products_5_q: 'À quelle hauteur suspendre une suspension ?',
+    faq_products_5_a: 'Les câbles font 100 à 150 cm et se raccourcissent à l’installation : la hauteur se règle sur place. Un bon point de départ est 75 à 85 cm entre le dessus de la table et le bas de l’abat-jour ; au-dessus d’un îlot, un peu plus haut pour ne pas se cogner ; dans un couloir ou au-dessus d’un palier, gardez le bas au-dessus de la tête. Pour deux ou trois, décalez les hauteurs de 15 à 20 cm et espacez-les d’environ la largeur d’un abat-jour.',
     faq_account_1_q: 'Comment accéder à mon compte ?',
     faq_account_1_a:
       'Choisissez Compte, entrez votre courriel et suivez les étapes de connexion. Vous pourrez consulter vos commandes et gérer les renseignements enregistrés.',
@@ -2302,7 +2310,7 @@ export const DICTIONARIES = {
     faq_cat_account: 'Cuenta',
     faq_orders_1_q: '¿Cuánto tarda el envío?',
     faq_orders_1_a:
-      'Los tiempos de procesamiento y entrega varían según el producto. Introduce tu dirección al pagar para consultar la estimación disponible antes del pago.',
+      'Las luminarias se envían con seguimiento desde el depósito de nuestro proveedor en el extranjero, y el envío es gratis a todo Canadá. La mayoría de los pedidos llegan a Canadá en dos a tres semanas; el pago muestra la estimación para tu dirección y el número de seguimiento llega por correo el día del envío.',
     faq_orders_2_q: '¿Envían a nivel internacional?',
     faq_orders_2_a:
       'Canadá y Estados Unidos son mercados seleccionables. La selección no garantiza que todos los artículos puedan entregarse; el checkout confirma el carrito y la dirección antes del pago.',
@@ -2330,6 +2338,10 @@ export const DICTIONARIES = {
     faq_products_3_q: '¿Cómo elijo la opción correcta?',
     faq_products_3_a:
       'Revisa la talla, el color, la cantidad y el conjunto seleccionados antes de agregar el artículo al carrito.',
+    faq_products_4_q: '¿Qué bombilla necesito?',
+    faq_products_4_a: 'Cada luminaria tiene un portalámparas de rosca estándar (E26 en Canadá; el proveedor lo marca E27, la misma rosca) para 90–260 V, así que una LED canadiense común entra directamente. No incluye bombilla. Una LED de filamento cálida de 2700 K luce mejor el tejido; una luz fría lo aplana. Solo LED — el bambú y el ratán son materiales secos sensibles al calor — y no supere la potencia impresa en el portalámparas.',
+    faq_products_5_q: '¿A qué altura cuelgo un colgante?',
+    faq_products_5_a: 'Los cables miden 100–150 cm y se acortan al instalar, así que la caída se ajusta en el lugar. Un buen punto de partida son 75–85 cm entre la mesa y la base de la pantalla; sobre una isla de cocina, un poco más alto para no golpearla; en un pasillo o sobre un descanso, mantené la base por encima de la cabeza. Con dos o tres, escaloná las caídas 15–20 cm y separalos más o menos el ancho de una pantalla.',
     faq_account_1_q: '¿Cómo accedo a mi cuenta?',
     faq_account_1_a:
       'Elige Cuenta, ingresa tu correo y sigue los pasos de inicio de sesión. Desde tu cuenta puedes ver pedidos y administrar los datos guardados.',
@@ -3082,7 +3094,7 @@ export const DICTIONARIES = {
     faq_cat_account: 'Conta',
     faq_orders_1_q: 'Quanto tempo leva o envio?',
     faq_orders_1_a:
-      'Os prazos de processamento e entrega variam conforme o produto. Informe seu endereço no checkout para consultar a estimativa disponível antes do pagamento.',
+      'As luminárias são enviadas com rastreio do depósito do nosso fornecedor no exterior, e o frete é grátis para todo o Canadá. A maioria dos pedidos chega ao Canadá em duas a três semanas; o pagamento mostra a estimativa para o seu endereço e o código de rastreio chega por e-mail no dia do envio.',
     faq_orders_2_q: 'Vocês enviam internacionalmente?',
     faq_orders_2_a:
       'Canadá e Estados Unidos são mercados selecionáveis. A seleção não garante a entrega de todos os itens; o checkout confirma o carrinho e o endereço antes do pagamento.',
@@ -3110,6 +3122,10 @@ export const DICTIONARIES = {
     faq_products_3_q: 'Como escolho a opção correta?',
     faq_products_3_a:
       'Confira o tamanho, a cor, a quantidade e o conjunto selecionados antes de adicionar o item ao carrinho.',
+    faq_products_4_q: 'Qual lâmpada eu preciso?',
+    faq_products_4_a: 'Toda luminária tem soquete de rosca padrão (E26 no Canadá; o fornecedor marca E27, a mesma rosca) para 90–260 V, então uma LED canadense comum encaixa direto. Não inclui lâmpada. Uma LED de filamento quente de 2700 K valoriza o trançado; um branco frio o achata. Só LED — bambu e rattan são materiais secos e sensíveis ao calor — e respeite a potência impressa no soquete.',
+    faq_products_5_q: 'Em que altura pendurar um pendente?',
+    faq_products_5_a: 'Os cabos têm 100–150 cm e são encurtados na instalação, então a altura é definida no local. Um bom ponto de partida são 75–85 cm entre o tampo da mesa e a base da cúpula; sobre uma ilha de cozinha, um pouco mais alto para ninguém esbarrar; em corredor ou sobre um patamar, mantenha a base acima da cabeça. Com dois ou três, escalone as alturas em 15–20 cm e afaste-os mais ou menos a largura de uma cúpula.',
     faq_account_1_q: 'Como acesso minha conta?',
     faq_account_1_a:
       'Escolha Conta, digite seu e-mail e siga as etapas de acesso. Na conta, você pode ver pedidos e gerenciar os dados salvos.',
