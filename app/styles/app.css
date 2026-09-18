@@ -9047,13 +9047,6 @@ main:has(> .pk-collection--bold) {
   padding-bottom: var(--pk-s-9);
 }
 
-.pk-collection__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
-  gap: var(--pk-s-5);
-  padding-inline: var(--pk-gutter);
-}
-
 .pk-collection__empty {
   padding-inline: var(--pk-gutter);
   color: var(--pk-muted);
