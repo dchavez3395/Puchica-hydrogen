@@ -82,17 +82,25 @@ export function Aside({children, heading, type}) {
       // it silently lands on <body> (keyboard walk-through, 2026-09-18).
       // Fall back to the live element carrying the same data-focus-return
       // marker, then to the header's cart control.
+      // The saved element is often useless: <body> when the add-to-cart form
+      // re-mounted before the drawer opened, or a detached node. Prefer it
+      // only when it is a real, connected element; otherwise return focus to
+      // this drawer's own trigger - the PDP add-to-cart button for the cart
+      // drawer when one is on the page, else the header control that opens
+      // this drawer type (data-focus-return on each in Header.jsx).
       const saved = previouslyFocused.current;
+      const usable = saved && saved !== document.body && saved.isConnected;
       const marker = saved?.getAttribute?.('data-focus-return');
-      const target = saved?.isConnected
-        ? saved
-        : (marker && document.querySelector(`[data-focus-return="${marker}"]`)) ||
-          document.querySelector('.pk-header a[href$="/cart"], .pk-header a[href*="/cart"]');
+      const target =
+        (usable && saved) ||
+        (marker && document.querySelector(`[data-focus-return="${marker}"]`)) ||
+        (type === 'cart' && document.querySelector('[data-focus-return="add-to-cart"]')) ||
+        document.querySelector(`.pk-header [data-focus-return="${type}"]`);
       target?.focus();
       previouslyFocused.current = null;
     }
     return () => abortController.abort();
-  }, [close, expanded]);
+  }, [close, expanded, type]);
 
   return (
     <div

@@ -136,6 +136,7 @@ function HeaderMenuMobileToggle() {
   return (
     <button
       className={'pk-icon-btn pk-header__burger' + (isOpen ? ' is-active' : '')}
+      data-focus-return="mobile"
       aria-label={isOpen ? t('header_menu_close') : t('header_menu_open')}
       aria-expanded={isOpen}
       onClick={(event) => {
@@ -158,6 +159,7 @@ function SearchToggle() {
   return (
     <button
       className={'pk-icon-btn' + (isOpen ? ' is-active' : '')}
+      data-focus-return="search"
       aria-label={isOpen ? t('header_search_close') : t('header_search_open')}
       aria-expanded={isOpen}
       onClick={(event) => {
@@ -181,6 +183,7 @@ function CartBadge({count}) {
 
   return (
     <Link
+      data-focus-return="cart"
       to="/cart"
       className={'pk-icon-btn pk-cart-btn' + (isOpen ? ' is-active' : '')}
       aria-label={
