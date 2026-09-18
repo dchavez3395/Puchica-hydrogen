@@ -14,24 +14,24 @@ export const meta = ({params}) =>
 
 const ABOUT_META = {
   en: {
-    title: 'About Puchica | A focused Canadian travel shop',
+    title: 'About Puchica | A small Canadian lighting shop',
     description:
-      'Meet Puchica, an independent Canadian shop focused on practical travel organization and clear product details.',
+      'Meet Puchica, an independent Canadian shop selling woven bamboo and rattan pendants and wall sconces, with clear sizes and free shipping across Canada.',
   },
   fr: {
-    title: 'À propos de Puchica | Une boutique canadienne de voyage',
+    title: 'À propos de Puchica | Une petite boutique canadienne de luminaires',
     description:
-      'Découvrez Puchica, une boutique canadienne indépendante axée sur l’organisation pratique des voyages.',
+      'Découvrez Puchica, une boutique canadienne indépendante de suspensions et d’appliques en bambou et rotin tressés, livrées gratuitement partout au Canada.',
   },
   es: {
-    title: 'Sobre Puchica | Una tienda canadiense de viaje',
+    title: 'Sobre Puchica | Una tienda canadiense de iluminación',
     description:
-      'Conoce Puchica, una tienda canadiense independiente centrada en la organización práctica de viajes.',
+      'Conoce Puchica, una tienda canadiense independiente de colgantes y apliques de bambú y ratán tejidos, con envío gratis a todo Canadá.',
   },
   'pt-br': {
-    title: 'Sobre a Puchica | Uma loja canadense de viagem',
+    title: 'Sobre a Puchica | Uma loja canadense de iluminação',
     description:
-      'Conheça a Puchica, uma loja canadense independente focada em organização prática para viagens.',
+      'Conheça a Puchica, uma loja canadense independente de pendentes e arandelas de bambu e rattan trançados, com frete grátis para todo o Canadá.',
   },
 };
 

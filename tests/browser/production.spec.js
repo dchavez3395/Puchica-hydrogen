@@ -22,10 +22,16 @@ import {
 const require = createRequire(import.meta.url);
 const AXE_SOURCE = readFileSync(require.resolve('axe-core/axe.min.js'), 'utf8');
 
+// The product route MUST name a live handle. From 2026-08-28 to 2026-09-18 it
+// pointed at travel-cable-organizer-case, deleted on 2026-08-28, so every
+// "product" check in CI was auditing the 404 page while the real PDP had no
+// coverage at all. Pick the homepage lead product and keep it in step with
+// HOMEPAGE_LEAD_HANDLES in SmallSpaceLanding.jsx.
 const ROUTES = [
   {name: 'home', path: '/'},
   {name: 'collection', path: '/collections/all'},
-  {name: 'product', path: '/products/travel-cable-organizer-case'},
+  {name: 'product', path: '/products/woven-bamboo-globe-pendant-25cm'},
+  {name: 'about', path: '/pages/about'},
   {name: 'cart', path: '/cart'},
 ];
 

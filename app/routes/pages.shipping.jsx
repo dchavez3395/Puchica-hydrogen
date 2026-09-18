@@ -95,7 +95,7 @@ export default function ShippingPage() {
             <StarGlyph /> {t('ship_hero_eyebrow')}
           </span>
           <h1 className="pk-shipping-hero__title">
-            {t('ship_hero_title_main')}
+            {t('ship_hero_title_main')}{' '}
             <br />
             <span className="pk-shipping-hero__em">{t('ship_hero_title_em')}</span>
           </h1>
