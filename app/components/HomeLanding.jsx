@@ -258,12 +258,10 @@ export function HomeLanding({products = []}) {
       </section>
 
       <section className="wr-about" aria-labelledby="about-title">
-        <div className="wr-about__photo">{t('home_about_photo_placeholder')}</div>
         <div className="wr-about__copy">
           <p className="wr-eyebrow">{t('home_about_eyebrow')}</p>
           <h2 id="about-title">{t('home_about_title')}</h2>
           <p>{t('home_about_body')}</p>
-          <p className="wr-about__sig">{t('home_about_sig')}</p>
           <div>
             <Link className="wr-btn wr-btn--outline" to="/pages/about" prefetch="intent">
               {t('nav_about')}
