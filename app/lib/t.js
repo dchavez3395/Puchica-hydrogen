@@ -10,12 +10,20 @@ function interpolate(template, params) {
   if (!params) return template;
   // Split on {key} so non-string values flow through as React children.
   const parts = template.split(/(\{[^}]+\})/g);
-  return parts.map((part) => {
+  const out = parts.map((part) => {
     const m = part.match(/^\{([^}]+)\}$/);
     if (!m) return part;
     const value = params[m[1]];
     return value === undefined ? part : value;
   });
+  // When every value is plain text, return one string. An array reaches
+  // React attributes as its comma-joined form, so aria-label={t('View image
+  // {n} of {total}', ...)} read "View image ,1, of ,2," to a screen reader
+  // on every gallery thumbnail and product card (found 2026-09-18 by the
+  // keyboard walk-through). Only a JSX value needs the array form.
+  return out.every((v) => typeof v === 'string' || typeof v === 'number')
+    ? out.join('')
+    : out;
 }
 
 /**

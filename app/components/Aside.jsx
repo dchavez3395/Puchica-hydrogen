@@ -76,8 +76,19 @@ export function Aside({children, heading, type}) {
         {signal: abortController.signal},
       );
     } else if (previouslyFocused.current) {
-      // Restore focus to the element that opened the drawer
-      previouslyFocused.current.focus();
+      // Restore focus to the element that opened the drawer. The add-to-cart
+      // button re-renders into its "Added" state while the drawer opens, so
+      // the saved node can be detached by the time it closes and focus() on
+      // it silently lands on <body> (keyboard walk-through, 2026-09-18).
+      // Fall back to the live element carrying the same data-focus-return
+      // marker, then to the header's cart control.
+      const saved = previouslyFocused.current;
+      const marker = saved?.getAttribute?.('data-focus-return');
+      const target = saved?.isConnected
+        ? saved
+        : (marker && document.querySelector(`[data-focus-return="${marker}"]`)) ||
+          document.querySelector('.pk-header a[href$="/cart"], .pk-header a[href*="/cart"]');
+      target?.focus();
       previouslyFocused.current = null;
     }
     return () => abortController.abort();

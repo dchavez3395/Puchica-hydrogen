@@ -160,6 +160,7 @@ function AddToCartSubmitButton({
         onClick={onClick}
         disabled={isDisabled}
         aria-busy={isSubmitting}
+        data-focus-return="add-to-cart"
         className={
           'pk-atc' +
           (isSubmitting ? ' pk-atc--loading' : '') +
