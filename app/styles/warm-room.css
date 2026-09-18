@@ -66,7 +66,8 @@ h1, h2, h3, .pk-product__title, .pk-col-hero h1, .pk-col-hero__title {
 .pk-card__media .pk-card__image { aspect-ratio: 4 / 5; object-fit: cover; }
 .pk-card__body { padding: 12px 2px 0 !important; gap: 6px; }
 .pk-card__vendor { display: none !important; }
-.pk-card__title { font-family: var(--pk-font); font-size: 16px; font-weight: 500; color: var(--pk-ink); }
+/* One-line titles (the size suffix moved to the chip) collapsed the link box to 18px; SC 2.5.8 wants 24. */
+.pk-card__title { display: inline-block; min-height: 24px; line-height: 24px; font-family: var(--pk-font); font-size: 16px; font-weight: 500; color: var(--pk-ink); }
 .pk-card__price { font-size: 15px; font-variant-numeric: tabular-nums; color: var(--pk-ink); }
 .pk-card__cart, .pk-card__viewbtn { display: none !important; }
 .wr-size {
