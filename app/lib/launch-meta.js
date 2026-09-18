@@ -57,7 +57,7 @@ const COPY = {
       'We are not shipping to the United States at the moment, so nothing is listed for sale there. Questions? hello@puchica.ca',
     shopTitle: 'Shop Woven Bamboo Lighting — Puchica',
     shopCa:
-      'Woven bamboo pendant lights, hand-knitted over wooden ceiling bases. Bulbs not included; delivery estimates shown at checkout.',
+      'Woven bamboo pendants and wall sconces on wooden bases. Free shipping across Canada; bulbs not included.',
     shopUs:
       'Not currently available in the United States. Email hello@puchica.ca if you would like to know when that changes.',
   },
@@ -69,7 +69,7 @@ const COPY = {
       'Nous ne livrons pas aux États-Unis pour le moment ; rien n’y est donc en vente. Questions : hello@puchica.ca',
     shopTitle: 'Magasiner les luminaires en bambou tressé — Puchica',
     shopCa:
-      'Des suspensions en bambou tressé, tricotées à la main sur des bases de plafond en bois. Ampoules non fournies ; estimations de livraison affichées au paiement.',
+      'Suspensions et appliques en bambou tressé sur bases en bois. Livraison gratuite partout au Canada ; ampoules non fournies.',
     shopUs:
       'Non disponible aux États-Unis pour le moment. Écrivez à hello@puchica.ca pour savoir quand cela changera.',
   },
@@ -81,7 +81,7 @@ const COPY = {
       'Por ahora no enviamos a Estados Unidos, así que no hay nada a la venta allí. ¿Preguntas? hello@puchica.ca',
     shopTitle: 'Compra iluminación en bambú tejido — Puchica',
     shopCa:
-      'Lámparas colgantes de bambú tejido, tejidas a mano sobre bases de techo de madera. Bombillas no incluidas; estimaciones de entrega al pagar.',
+      'Colgantes y apliques de bambú tejido sobre bases de madera. Envío gratis a todo Canadá; bombillas no incluidas.',
     shopUs:
       'No disponible en Estados Unidos por ahora. Escríbenos a hello@puchica.ca si quieres saber cuándo cambie.',
   },
@@ -93,7 +93,7 @@ const COPY = {
       'No momento não enviamos para os Estados Unidos, portanto não há nada à venda lá. Dúvidas? hello@puchica.ca',
     shopTitle: 'Compre iluminação em bambu tecido — Puchica',
     shopCa:
-      'Pendentes de bambu tecido, tecidos à mão sobre bases de teto em madeira. Lâmpadas não inclusas; estimativas de entrega no pagamento.',
+      'Pendentes e arandelas de bambu trançado sobre bases de madeira. Frete grátis para todo o Canadá; lâmpadas não inclusas.',
     shopUs:
       'Indisponível nos Estados Unidos no momento. Escreva para hello@puchica.ca para saber quando isso mudar.',
   },

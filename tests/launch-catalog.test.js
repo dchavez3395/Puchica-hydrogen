@@ -222,33 +222,23 @@ test('released homepage is travel-focused and uses the catalog gate', async () =
   assert.match(home, /filterLaunchProducts/);
   assert.match(home, /SMALL_SPACE_QUERY/);
   assert.match(home, /launchMetaCopy/);
-  // The launch title moved from travel organizers to woven bamboo lighting on
-  // 2026-09-09, because that is what the store now lists. The rest of this
-  // test still asserts a travel-framed homepage, and that gap is real: the
-  // hero copy, the SmallSpaceLanding title ordering below and brand.js all
-  // still describe a travel-organizer store while the only live products are
-  // two light fixtures. Repositioning the brand is a decision, not a fix, so
-  // it is flagged here rather than made here. What must not happen in the
-  // meantime is the metadata drifting back to describing goods we do not sell.
+  // 2026-09-17: the brand repositioned to woven bamboo lighting across the
+  // whole storefront (hero, About, shipping, collection, cart, search chrome
+  // in all four locales). The homepage now leads with the fixtures whose
+  // featured image is a lit room, because the hero reuses the first
+  // product's image. What must not happen is any surface drifting back to
+  // describing goods we do not sell.
   assert.match(launchMeta, /Woven bamboo lighting/);
   assert.doesNotMatch(launchMeta, /Travel organizers for easier packing/);
+  assert.doesNotMatch(launchMeta, /hand-knitted|tricotées à la main|tejidas a mano|tecidos à mão/);
   assert.doesNotMatch(home, /pk-hold/);
   assert.match(about, /'pt-br': \{/);
   assert.match(about, /\{copy\.artNote\}/);
   assert.doesNotMatch(brand, /organization and travel|space-saving/i);
   assert.match(landing, /const heroFeature = heroPrimary/);
-  assert.match(
-    landing,
-    /if \(\/travel toiletry organizer\/i\.test\(title\)\) return 0/,
-  );
-  assert.match(
-    landing,
-    /if \(\/3-piece packing cube\/i\.test\(title\)\) return 1/,
-  );
-  assert.match(
-    landing,
-    /if \(\/travel jewelry case\/i\.test\(title\)\) return 2/,
-  );
+  assert.match(landing, /HOMEPAGE_LEAD_HANDLES\.indexOf\(product\?\.handle\)/);
+  assert.match(landing, /'woven-bamboo-globe-pendant-25cm',/);
+  assert.doesNotMatch(landing, /travel toiletry organizer|packing cube|jewelry case/i);
   assert.doesNotMatch(landing, /Canada &amp; U\.S\. delivery routes/);
 });
 

@@ -52,33 +52,33 @@ export const DICTIONARIES = {
     mobile_customer_care: 'Customer Care',
     mobile_contact_us: 'Contact us',
     mobile_all_policies: 'All policies',
-    launch_home_eyebrow: 'The Puchica travel edit',
-    launch_home_title: 'Pack with less rummaging.',
+    launch_home_eyebrow: 'Woven bamboo lighting',
+    launch_home_title: 'Light that leaves a pattern.',
     launch_home_hero_body_full:
-      'A focused edit of practical organizers for clothing, toiletries, and small jewelry—without an endless catalog.',
+      'Woven bamboo and rattan pendants and wall sconces, chosen one shape at a time and shipped free across Canada.',
     launch_home_hero_body_single:
-      'One practical travel organizer with clear product details and shipping options shown for your market at checkout.',
+      'One woven bamboo fixture, with its size, cord length and fitting spelled out before you pay.',
     launch_home_hero_body_focused:
-      'A focused set of practical travel organizers with clear product details and shipping options shown at checkout.',
+      'A small range of woven bamboo fixtures, each with its size, cord length and fitting spelled out before you pay.',
     launch_home_shop_product: 'Shop {title}',
-    launch_home_featured: 'Featured in the travel edit',
-    launch_home_view_organizer: 'View organizer',
-    launch_home_shop_edit: 'Shop the travel edit',
+    launch_home_featured: 'Featured fixture',
+    launch_home_view_organizer: 'View fixture',
+    launch_home_shop_edit: 'Shop the range',
     launch_home_browse_collection: 'Browse the collection',
     launch_home_assurances_aria: 'Shopping assurances',
     launch_home_assurance_checkout: 'Secure Shopify checkout',
-    launch_home_assurance_details: 'Clear product details',
-    launch_home_assurance_shipping: 'Delivery options shown at checkout',
-    launch_home_section_eyebrow_full: 'Three ways to pack smarter',
-    launch_home_section_eyebrow_focused: 'Travel organization',
-    launch_home_section_title_full: 'A small travel system that works together',
+    launch_home_assurance_details: 'Sizes in cm and inches',
+    launch_home_assurance_shipping: 'Free shipping across Canada',
+    launch_home_section_eyebrow_full: 'Pendants and wall sconces',
+    launch_home_section_eyebrow_focused: 'Woven lighting',
+    launch_home_section_title_full: 'Pick the shape, then the room.',
     launch_home_section_title_focused:
-      'Practical organization for your next trip',
+      'Woven bamboo fixtures for the home',
     launch_home_section_body_full:
-      'Separate clothing, give toiletries a dedicated place, and keep small jewelry together. Start with the piece that solves your biggest packing headache.',
+      'Globes and lanterns for over a table, small pendants to hang two or three in a cluster, and sconces for beside the bed. Every listing gives the size, the cord and the fitting so you know what arrives.',
     launch_home_section_body_focused:
-      'Shop the travel organizers currently supported for your selected market.',
-    launch_home_view_all: 'View all travel organizers',
+      'Shop the woven fixtures currently available for your selected market.',
+    launch_home_view_all: 'View all fixtures',
     launch_home_view_product: 'View {title}',
 
     // ── Ticker / Marquee ──────────────────────────────────────────
@@ -86,14 +86,14 @@ export const DICTIONARIES = {
     ship_hero_eyebrow: 'Shipping & Delivery',
     ship_hero_title_main: 'Shipping &',
     ship_hero_title_em: 'Delivery.',
-    ship_hero_cta: 'Shop the travel edit',
+    ship_hero_cta: 'Shop the range',
     ship_launch_hero_sub:
-      'A Canadian storefront. Shipping options and delivery availability are shown at checkout.',
+      'A Canadian storefront. Every fixture ships free and tracked; the delivery estimate for your address is shown at checkout.',
     ship_jump: 'See how shipping is shown',
     ship_launch_regions_eye: 'Where we ship',
     ship_launch_regions_title: 'Shipping across Canada.',
     ship_launch_regions_sub:
-      'We ship within Canada, in Canadian dollars. Delivery still depends on the selected items and address.',
+      'We ship within Canada, in Canadian dollars. Shipping is free on orders over $50, which is every fixture we list.',
     ship_launch_rates_eye: 'Before you pay',
     ship_launch_rates_title: 'Check delivery before payment',
     ship_launch_rates_sub:
@@ -104,8 +104,8 @@ export const DICTIONARIES = {
     ship_check_destination_eta: 'Availability shown before payment',
     ship_check_items_title: 'Check the items in your cart',
     ship_check_items_body:
-      'Shipping options can differ by product, variant, and destination. The checkout result applies to your selected order.',
-    ship_check_items_eta: 'No delivery promise until checkout confirms it',
+      'Fixtures ship tracked from our supplier’s warehouse overseas. Most orders reach Canadian addresses in two to three weeks; checkout shows the estimate for your order.',
+    ship_check_items_eta: 'Typically 2–3 weeks, tracked door to door',
     ship_check_tracking_title: 'Follow your order',
     ship_check_tracking_body:
       'When a tracked service is available, tracking details are sent after the order has shipped.',
@@ -119,8 +119,8 @@ export const DICTIONARIES = {
     ship_check_duties_eta_prepaid: 'Included in the price — nothing to pay on delivery',
     ship_cta_title: 'Ready to order?',
     ship_cta_sub:
-      'Shop the travel edit and confirm shipping for your address at checkout.',
-    ship_cta_browse: 'Shop all travel organizers',
+      'Shop the range and confirm delivery for your address at checkout.',
+    ship_cta_browse: 'Shop all fixtures',
 
     // ── Matchmaker ────────────────────────────────────────────────
     breadcrumb_aria: 'Breadcrumb',
@@ -148,16 +148,16 @@ export const DICTIONARIES = {
     // product cards. Wording matches the shop title restored in the metadata
     // commit; whether a paused storefront should say so in the hero is a
     // positioning call and is not made here.
-    all_breadcrumb: 'Travel organizers',
-    all_eyebrow: 'The travel edit',
-    all_title: 'Travel organizers for easier packing',
+    all_breadcrumb: 'Lighting',
+    all_eyebrow: 'Woven bamboo lighting',
+    all_title: 'Pendants and wall sconces in woven bamboo',
     all_sub:
-      'A focused edit for clothing, toiletries and the small things that get lost in a bag.',
+      'Bamboo, rattan and iron. Free shipping across Canada; bulbs not included.',
     all_empty_title: 'New finds are on the way',
     all_empty_body:
       'We are restocking. Nothing is listed right now — check back shortly.',
-    product_trust_shipping: 'Delivery options shown at checkout',
-    product_trust_shipping_sub: 'supplier estimate · cost shown at checkout',
+    product_trust_shipping: 'Free shipping across Canada',
+    product_trust_shipping_sub: 'tracked · typically 2–3 weeks',
     product_trust_returns: '30-day return window',
     product_trust_returns_sub: 'see policy for eligibility',
     product_trust_secure: 'Secure checkout',
@@ -172,7 +172,7 @@ export const DICTIONARIES = {
     product_badge_sold_out: 'Sold out',
     product_badge_save: 'Save {pct}%',
     product_story_title: 'Why it earns its space.',
-    product_department_travel: 'Travel accessories',
+    product_department_travel: 'Lighting',
     product_copy_packing_title: '3-Piece Packing Cube Set — Small, Medium & Large',
     product_copy_packing_summary: 'Pack by category—not by pile.',
     product_copy_packing_html: '<h2>Pack by category—not by pile.</h2><p>This charcoal three-piece packing cube set keeps clothing separated and easier to find inside a suitcase, weekender, or carry-on. Each soft-sided polyester cube closes with a zipper and has a carry handle for quick unpacking.</p><h3>What you get</h3><ul><li><strong>Small:</strong> approximately 20 × 30 cm (7.9 × 11.8 in)</li><li><strong>Medium:</strong> approximately 25 × 35 cm (9.8 × 13.8 in)</li><li><strong>Large:</strong> approximately 30 × 40 cm (11.8 × 15.7 in)</li></ul><h3>Why it works</h3><ul><li>Separate tops, bottoms, undergarments, or accessories</li><li>Rectangular shapes fit neatly beside each other</li><li>Foldable design stores flat between trips</li><li>Neutral charcoal colour works across shared luggage</li></ul><h3>Before you buy</h3><p>This is a set of standard zippered packing cubes, not a vacuum bag or mechanical compression system. Avoid overfilling and keep sharp objects away from the fabric. Clothing and accessories shown are not included.</p><p>Shipping options and delivery estimates are shown at checkout. Returns are subject to our published return policy.</p>',
@@ -304,9 +304,9 @@ export const DICTIONARIES = {
     card_options_summary: 'Multiple options available',
     footer_glossary: 'Púchica (poo-CHEE-kah) — Salvadoran for “wow.” What we hope you say when you open the box.',
     hero_interjection: '— ¡púchica!, that was easy.',
-    home_bluegold_eyebrow: 'Blue gold',
-    home_bluegold_h: 'For two centuries, El Salvador dyed the world indigo.',
-    home_bluegold_body: 'Añil — “blue gold” — was Central America’s treasure long before coffee. Our gear is made by trusted manufacturing partners; the color, the name, and the soul are Salvadoran.',
+    home_bluegold_eyebrow: 'Why woven',
+    home_bluegold_h: 'A lamp you notice when it is off, too.',
+    home_bluegold_body: 'Lit, woven bamboo throws its pattern across the ceiling and the walls. Unlit, it reads as a sculptural object rather than a fitting. Every fixture takes a standard screw-base bulb, and every listing spells out its size, cord length and fitting before you pay.',
     atc_add_failed: "Couldn't add. Try again.",
     atc_adding: 'Adding…',
 
@@ -343,15 +343,15 @@ export const DICTIONARIES = {
     cart_recovery_cta: 'Complete your order',
     cart_recovery_dismiss: 'Dismiss cart reminder',
     cart_empty_title: 'Nothing in your cart yet.',
-    cart_empty_body: 'Start with one practical organizer for your next trip.',
-    cart_empty_cta_shop: 'Shop the travel edit',
+    cart_empty_body: 'Start with one fixture: a pendant over the table, or a sconce beside the bed.',
+    cart_empty_cta_shop: 'Shop the range',
     cart_empty_perks_aria: 'Why shop with us',
-    cart_empty_perk_shipping: 'Shipping options shown at checkout',
+    cart_empty_perk_shipping: 'Free shipping across Canada',
     cart_freeship_away: 'Add {amount} more for free shipping',
     cart_freeship_qualified: 'Free shipping unlocked',
     cart_freeship_aria: 'Progress toward free shipping',
     pairs_title: 'Pairs with',
-    pairs_sub: 'Other organizers in the travel edit.',
+    pairs_sub: 'Hang two or three at different heights, or match a sconce to the pendant.',
     cart_empty_perk_returns: '30-day returns',
     cart_ghost_notice:
       "These items aren't available in your region right now. Remove them to clear your cart.",
@@ -472,10 +472,10 @@ export const DICTIONARIES = {
     pred_collections: 'Collections',
     pred_pages: 'Pages',
     pred_products: 'Finds',
-    pred_empty_body: 'Try packing cubes, toiletry organizer, or jewelry case.',
+    pred_empty_body: 'Try pendant, sconce, globe or lantern.',
     pred_no_results_h: 'No finds matched “{term}”.',
     pred_no_results_body:
-      'Try packing cubes, toiletry organizer, or jewelry case.',
+      'Try pendant, sconce, globe or lantern.',
 
     // ── Cart page h1 ──────────────────────────────────────────────
     cart_page_h: 'Cart',
@@ -579,46 +579,46 @@ export const DICTIONARIES = {
 
     // ── About page ────────────────────────────────────────────────
     about_hero_eyebrow: 'About Puchica',
-    about_hero_title_main: 'A smaller travel shop',
+    about_hero_title_main: 'A small lighting shop',
     about_hero_title_em: 'with clearer reasons to buy.',
     about_hero_sub:
-      'Puchica is an independent Canadian shop starting with three practical travel organizers for clothing, toiletries, and small jewelry. We keep the catalog small so the product details, options, and delivery information stay clear.',
-    about_hero_cta: 'Shop the travel edit →',
+      'Puchica is an independent Canadian shop selling woven bamboo and rattan pendants and wall sconces. We keep the range small so each shape has a reason to be here and its details stay clear.',
+    about_hero_cta: 'Shop the range →',
     about_mission_eye: 'Why we started',
     about_mission_title:
       'The problem wasn’t finding more products. It was finding the right one.',
     about_mission_body_1:
       'Online shopping can turn a simple problem into hours of scrolling through near-identical products, vague descriptions, and options that are hard to compare.',
     about_mission_body_2:
-      'Puchica takes the opposite approach. Our first edit focuses on one job: making a packed bag easier to use. Every product must have a clear purpose, understandable options, and delivery information shown before payment.',
+      'Puchica takes the opposite approach. We list a handful of woven fixtures we would hang ourselves, and every one has a clear size, a clear fitting and delivery shown before payment.',
     about_mission_card_text:
       'Useful first. Clear before checkout. Worth the space it takes.',
     about_how_eye: 'How we choose',
     about_how_title: 'A product needs a reason to be here.',
-    about_how_1_title: 'Solves a specific problem',
+    about_how_1_title: 'Earns its place in a room',
     about_how_1_body:
-      'We start with a clear job: separate clothing, keep toiletries easier to find, or protect small jewelry in transit.',
-    about_how_2_title: 'Fits the same travel system',
+      'We start with a job: a pendant that patterns the ceiling over a table, a small shape to cluster over a counter, a sconce that lights a page beside the bed.',
+    about_how_2_title: 'Works with the others',
     about_how_2_body:
-      'The three launch products work together in a suitcase, weekender, gym bag, or carry-on without creating another crowded catalog.',
+      'The pendants and sconces share materials and finishes, so two or three hung together read as one idea rather than a crowded catalogue.',
     about_how_3_title: 'Easy to understand before buying',
     about_how_3_body:
-      'We aim to show the purpose, available dimensions, materials, and options clearly. Shipping availability, options, and cost are shown at checkout.',
+      'Every listing gives the size in centimetres and inches, the cord length, the fitting and what is not in the box. Delivery is shown at checkout.',
     about_roots_eyebrow: 'Where the name comes from',
     about_roots_heading: 'Puchica starts with a feeling of useful surprise.',
     about_roots_body:
-      '“Puchica” is a familiar Central American expression of surprise—the kind of reaction an unexpectedly clever solution can earn. That spirit shapes the brand: practical finds that solve an everyday annoyance without adding more clutter.',
+      '“Puchica” is a familiar Central American expression of surprise—the kind of reaction a room can earn when the light goes on. That spirit shapes the brand: a few well-chosen pieces, honestly described, without adding clutter.',
     about_roots_signature: 'Canadian owned. Starting small and staying useful.',
-    about_hero_caption: 'Built around the things people reach for on the road.',
+    about_hero_caption: 'Built around the light a room actually needs.',
     about_hero_image_alt:
-      'Clothing and everyday travel essentials laid out for packing',
+      'A woven bamboo globe pendant lit over a wooden dining table',
     about_roots_image_alt:
       'Colorful woven textile and a painted ceramic vessel',
     about_standards_intro:
-      'A smaller catalog only works when the reason for each product is easy to explain.',
-    about_shop_eye: 'The travel edit',
-    about_shop_title: 'Start with the part of packing that slows you down.',
-    about_shop_all: 'Shop the complete travel edit',
+      'A small range only works when the reason for each fixture is easy to explain.',
+    about_shop_eye: 'The range',
+    about_shop_title: 'Start with the room that needs the light.',
+    about_shop_all: 'Shop all fixtures',
     about_now_eye: 'Delivery, made clearer',
     about_now_title: 'See your delivery options before you pay.',
     about_now_body:
@@ -766,47 +766,47 @@ export const DICTIONARIES = {
     header_cart_open: 'Ouvrir le panier',
     header_cart_close: 'Fermer le panier',
 
-    launch_home_eyebrow: 'La sélection voyage Puchica',
-    launch_home_title: 'Fouillez moins dans vos bagages.',
+    launch_home_eyebrow: 'Luminaires en bambou tressé',
+    launch_home_title: 'Une lumière qui laisse un motif.',
     launch_home_hero_body_full:
-      'Une sélection ciblée d’organisateurs pratiques pour les vêtements, les articles de toilette et les petits bijoux—sans catalogue interminable.',
+      'Suspensions et appliques en bambou et rotin tressés, choisies une forme à la fois et livrées gratuitement partout au Canada.',
     launch_home_hero_body_single:
-      'Un organisateur de voyage pratique, avec des détails clairs et les options de livraison affichées au paiement pour votre marché.',
+      'Un luminaire en bambou tressé, avec ses dimensions, la longueur du câble et le type de douille précisés avant le paiement.',
     launch_home_hero_body_focused:
-      'Une sélection ciblée d’organisateurs de voyage pratiques, avec des détails clairs et les options de livraison affichées au paiement.',
+      'Une petite gamme de luminaires en bambou tressé, chacun avec ses dimensions, la longueur du câble et la douille précisées avant le paiement.',
     launch_home_shop_product: 'Magasiner {title}',
-    launch_home_featured: 'En vedette dans la sélection voyage',
-    launch_home_view_organizer: 'Voir l’organisateur',
-    launch_home_shop_edit: 'Magasiner la sélection voyage',
+    launch_home_featured: 'Luminaire en vedette',
+    launch_home_view_organizer: 'Voir le luminaire',
+    launch_home_shop_edit: 'Magasiner la gamme',
     launch_home_browse_collection: 'Parcourir la collection',
     launch_home_assurances_aria: 'Garanties d’achat',
     launch_home_assurance_checkout: 'Paiement Shopify sécurisé',
-    launch_home_assurance_details: 'Détails de produit clairs',
-    launch_home_assurance_shipping: 'Options de livraison affichées au paiement',
-    launch_home_section_eyebrow_full: 'Trois façons de mieux organiser vos bagages',
-    launch_home_section_eyebrow_focused: 'Organisation de voyage',
-    launch_home_section_title_full: 'Un petit système de voyage bien pensé',
+    launch_home_assurance_details: 'Dimensions en cm et en pouces',
+    launch_home_assurance_shipping: 'Livraison gratuite partout au Canada',
+    launch_home_section_eyebrow_full: 'Suspensions et appliques',
+    launch_home_section_eyebrow_focused: 'Luminaires tressés',
+    launch_home_section_title_full: 'Choisissez la forme, puis la pièce.',
     launch_home_section_title_focused:
-      'Une organisation pratique pour votre prochain voyage',
+      'Des luminaires en bambou tressé pour la maison',
     launch_home_section_body_full:
-      'Séparez les vêtements, réservez une place aux articles de toilette et gardez les petits bijoux ensemble. Commencez par la pièce qui règle votre principal casse-tête d’emballage.',
+      'Des globes et des lanternes au-dessus d’une table, de petites suspensions à regrouper par deux ou trois, et des appliques pour le chevet. Chaque fiche indique les dimensions, le câble et la douille : vous savez ce qui arrive.',
     launch_home_section_body_focused:
-      'Découvrez les organisateurs de voyage actuellement offerts dans le marché sélectionné.',
-    launch_home_view_all: 'Voir tous les organisateurs de voyage',
+      'Magasinez les luminaires tressés offerts pour le marché sélectionné.',
+    launch_home_view_all: 'Voir tous les luminaires',
     launch_home_view_product: 'Voir {title}',
 
     ship_section_aria: 'Destinations de livraison',
     ship_hero_eyebrow: 'Livraison & Expédition',
     ship_hero_title_main: 'Livraison &',
     ship_hero_title_em: 'Expédition.',
-    ship_hero_cta: 'Voir la sélection voyage',
+    ship_hero_cta: 'Magasiner la gamme',
     ship_launch_hero_sub:
-      'Une boutique canadienne. Les options de livraison sont confirmées au paiement.',
+      'Une boutique canadienne. Chaque luminaire est livré gratuitement avec suivi ; l’estimation de livraison pour votre adresse s’affiche au paiement.',
     ship_jump: 'Voir comment la livraison est confirmée',
     ship_launch_regions_eye: 'Où nous livrons',
     ship_launch_regions_title: 'Livraison partout au Canada.',
     ship_launch_regions_sub:
-      'Nous livrons au Canada, en dollars canadiens. La livraison dépend toujours des articles et de l’adresse.',
+      'Nous livrons au Canada, en dollars canadiens. La livraison est gratuite dès 50 $, soit pour chaque luminaire que nous offrons.',
     ship_launch_rates_eye: 'Avant de payer',
     ship_launch_rates_title: 'Vérifiez la livraison avant le paiement',
     ship_launch_rates_sub:
@@ -817,8 +817,8 @@ export const DICTIONARIES = {
     ship_check_destination_eta: 'Disponibilité affichée avant le paiement',
     ship_check_items_title: 'Vérifiez les articles du panier',
     ship_check_items_body:
-      'Les options peuvent varier selon le produit, la variante et la destination.',
-    ship_check_items_eta: 'Le paiement confirme les options de la commande',
+      'Les luminaires sont expédiés avec suivi depuis l’entrepôt de notre fournisseur à l’étranger. La plupart des commandes arrivent au Canada en deux à trois semaines ; le paiement affiche l’estimation pour votre commande.',
+    ship_check_items_eta: 'Généralement 2 à 3 semaines, avec suivi jusqu’à la porte',
     ship_check_tracking_title: 'Suivez votre commande',
     ship_check_tracking_body:
       'Lorsqu’un service suivi est disponible, les détails sont envoyés après l’expédition.',
@@ -835,8 +835,8 @@ export const DICTIONARIES = {
       'Inclus dans le prix — rien à payer à la livraison',
     ship_cta_title: 'Prêt à commander ?',
     ship_cta_sub:
-      'Magasinez les trouvailles et confirmez la livraison pour votre adresse au paiement.',
-    ship_cta_browse: 'Tout voir',
+      'Magasinez la gamme et confirmez la livraison pour votre adresse au paiement.',
+    ship_cta_browse: 'Voir tous les luminaires',
 
     breadcrumb_aria: "Fil d'Ariane",
     search_trending_label: 'Acheter selon vos besoins',
@@ -854,16 +854,16 @@ export const DICTIONARIES = {
     col_sort_newest: 'Plus récents',
     col_sort_price_asc: 'Prix : croissant',
     col_sort_price_desc: 'Prix : décroissant',
-    all_breadcrumb: 'Organisateurs de voyage',
-    all_eyebrow: 'La sélection voyage',
-    all_title: 'Des organisateurs de voyage pour mieux préparer vos bagages',
+    all_breadcrumb: 'Luminaires',
+    all_eyebrow: 'Luminaires en bambou tressé',
+    all_title: 'Suspensions et appliques en bambou tressé',
     all_sub:
-      'Une sélection ciblée pour vêtements, articles de toilette et les petits objets qui se perdent dans un sac.',
+      'Bambou, rotin et fer. Livraison gratuite partout au Canada ; ampoules non fournies.',
     all_empty_title: 'De nouveaux articles arrivent',
     all_empty_body:
       'Réapprovisionnement en cours. Rien n’est en ligne pour le moment — revenez bientôt.',
-    product_trust_shipping: 'Options de livraison affichées au paiement',
-    product_trust_shipping_sub: 'estimation du fournisseur · frais affichés au paiement',
+    product_trust_shipping: 'Livraison gratuite partout au Canada',
+    product_trust_shipping_sub: 'avec suivi · généralement 2 à 3 semaines',
     product_trust_returns: 'Délai de retour de 30 jours',
     product_trust_secure: 'Paiement sécurisé',
     product_trust_returns_sub: 'voir la politique pour l’admissibilité',
@@ -879,7 +879,7 @@ export const DICTIONARIES = {
     product_badge_sold_out: 'Rupture de stock',
     product_badge_save: 'Économisez {pct}%',
     product_story_title: 'Pourquoi il mérite sa place.',
-    product_department_travel: 'Accessoires de voyage',
+    product_department_travel: 'Luminaires',
     product_copy_packing_title: 'Ensemble de 3 cubes de rangement — petit, moyen et grand',
     product_copy_packing_summary: 'Rangez par catégorie, pas en vrac.',
     product_copy_packing_html: '<h2>Rangez par catégorie, pas en vrac.</h2><p>Cet ensemble anthracite de trois cubes de rangement garde les vêtements séparés et faciles à trouver dans une valise, un sac de voyage ou un bagage à main. Chaque cube souple en polyester se ferme par glissière et possède une poignée pour faciliter le déballage.</p><h3>Ce que vous recevez</h3><ul><li><strong>Petit :</strong> environ 20 × 30 cm (7,9 × 11,8 po)</li><li><strong>Moyen :</strong> environ 25 × 35 cm (9,8 × 13,8 po)</li><li><strong>Grand :</strong> environ 30 × 40 cm (11,8 × 15,7 po)</li></ul><h3>Pourquoi ils sont pratiques</h3><ul><li>Séparez hauts, bas, sous-vêtements ou accessoires</li><li>Les formes rectangulaires se placent facilement côte à côte</li><li>Le modèle pliable se range à plat entre les voyages</li><li>La couleur anthracite neutre convient aux bagages partagés</li></ul><h3>Avant d’acheter</h3><p>Il s’agit de cubes de rangement standards à glissière, et non de sacs sous vide ni d’un système de compression mécanique. Évitez de trop les remplir et gardez les objets pointus loin du tissu. Les vêtements et accessoires illustrés ne sont pas inclus.</p><p>Les options et estimations de livraison sont affichées au paiement. Les retours sont assujettis à notre politique publiée.</p>',
@@ -1011,9 +1011,9 @@ export const DICTIONARIES = {
     card_options_summary: 'Plusieurs options offertes',
     footer_glossary: '« Púchica » (pou-TCHI-ka) — expression salvadorienne pour « wow ». Ce qu’on espère vous entendre dire en ouvrant la boîte.',
     hero_interjection: '— ¡púchica!, c’était facile.',
-    home_bluegold_eyebrow: 'L’or bleu',
-    home_bluegold_h: 'Pendant deux siècles, le Salvador a teint le monde en indigo.',
-    home_bluegold_body: 'L’añil — « l’or bleu » — fut le trésor de l’Amérique centrale bien avant le café. Nos articles sont fabriqués par des partenaires de confiance ; la couleur, le nom et l’âme sont salvadoriens.',
+    home_bluegold_eyebrow: 'Pourquoi le tressé',
+    home_bluegold_h: 'Une lampe qu’on remarque même éteinte.',
+    home_bluegold_body: 'Allumé, le bambou tressé projette son motif au plafond et sur les murs. Éteint, il se lit comme un objet sculptural plutôt qu’un simple luminaire. Chaque modèle accepte une ampoule à culot à vis standard, et chaque fiche précise les dimensions, la longueur du câble et la douille avant le paiement.',
     atc_add_failed: "Impossible d’ajouter l’article. Réessayez.",
     atc_adding: 'Ajout…',
 
@@ -1049,15 +1049,15 @@ export const DICTIONARIES = {
     cart_recovery_dismiss: 'Fermer le rappel du panier',
     cart_empty_title: 'Votre panier est vide.',
     cart_empty_body:
-      'Commencez par un organiseur pratique pour votre prochain voyage.',
-    cart_empty_cta_shop: 'Voir les trouvailles',
+      'Commencez par un luminaire : une suspension au-dessus de la table, ou une applique au chevet.',
+    cart_empty_cta_shop: 'Magasiner la gamme',
     cart_empty_perks_aria: 'Pourquoi magasiner avec nous',
-    cart_empty_perk_shipping: 'Options de livraison affichées au paiement',
+    cart_empty_perk_shipping: 'Livraison gratuite partout au Canada',
     cart_freeship_away: 'Ajoutez {amount} pour la livraison gratuite',
     cart_freeship_qualified: 'Livraison gratuite débloquée',
     cart_freeship_aria: 'Progression vers la livraison gratuite',
     pairs_title: 'À associer avec',
-    pairs_sub: 'D’autres rangements de la sélection voyage.',
+    pairs_sub: 'Suspendez-en deux ou trois à des hauteurs différentes, ou assortissez une applique à la suspension.',
     cart_empty_perk_returns: 'Retours sous 30 jours',
     cart_ghost_notice:
       'Ces articles ne sont pas disponibles dans votre région pour le moment. Retirez-les pour vider votre panier.',
@@ -1183,10 +1183,10 @@ export const DICTIONARIES = {
     pred_pages: 'Pages',
     pred_products: 'Trouvailles',
     pred_empty_body:
-      'Essayez cubes de rangement, trousse de toilette ou étui à bijoux.',
+      'Essayez suspension, applique, globe ou lanterne.',
     pred_no_results_h: 'Aucun résultat pour « {term} ».',
     pred_no_results_body:
-      'Essayez cubes de rangement, trousse de toilette ou étui à bijoux.',
+      'Essayez suspension, applique, globe ou lanterne.',
 
     // ── H1 de la page Panier ────────────────────────────────────
     cart_page_h: 'Panier',
@@ -1291,47 +1291,47 @@ export const DICTIONARIES = {
 
     // ── Page À propos ──────────────────────────────────────────────
     about_hero_eyebrow: 'Notre histoire',
-    about_hero_title_main: 'Une petite boutique de voyage',
+    about_hero_title_main: 'Une petite boutique de luminaires',
     about_hero_title_em: 'avec de meilleures raisons d’acheter.',
     about_hero_sub:
-      'Puchica est une boutique canadienne indépendante qui commence avec trois organisateurs de voyage pratiques pour les vêtements, les articles de toilette et les petits bijoux.',
-    about_hero_cta: 'Voir la sélection voyage →',
+      'Puchica est une boutique canadienne indépendante qui vend des suspensions et des appliques en bambou et rotin tressés. Nous gardons la gamme restreinte pour que chaque forme ait sa raison d’être et que ses détails restent clairs.',
+    about_hero_cta: 'Magasiner la gamme →',
     about_mission_eye: 'Pourquoi nous existons',
     about_mission_title:
       'Dans un petit espace, chaque objet mal rangé prend plus de place.',
     about_mission_body_1:
       'Un tiroir encombré, un câble emmêlé ou un sac trop rempli peut compliquer une journée ordinaire. Puchica aide à résoudre ces petits problèmes récurrents.',
     about_mission_body_2:
-      'Puchica prend l’approche inverse. Notre première sélection vise un seul objectif : rendre un sac plus facile à utiliser. Chaque produit doit avoir un rôle clair et des options compréhensibles.',
+      'Puchica prend le contre-pied. Nous offrons une poignée de luminaires tressés que nous accrocherions chez nous, chacun avec des dimensions claires, une douille claire et la livraison affichée avant le paiement.',
     about_mission_card_text:
-      'Utile d’abord. Clair avant le paiement. À la hauteur de l’espace occupé.',
+      'Utile d’abord. Clair avant le paiement. Digne de la place qu’il occupe.',
     about_how_eye: 'Ce qui mérite une place',
     about_how_title: 'Chaque produit doit justifier l’espace qu’il occupe.',
-    about_how_1_title: 'Résout un problème précis',
+    about_how_1_title: 'Mérite sa place dans la pièce',
     about_how_1_body:
-      'Nous partons d’une fonction claire : séparer les vêtements, garder les articles de toilette faciles à trouver ou protéger les petits bijoux en voyage.',
-    about_how_2_title: 'Fait partie du même système de voyage',
+      'Nous partons d’un besoin : une suspension qui dessine le plafond au-dessus d’une table, une petite forme à regrouper au-dessus d’un comptoir, une applique qui éclaire une page au chevet.',
+    about_how_2_title: 'S’accorde avec les autres',
     about_how_2_body:
-      'Les trois produits fonctionnent ensemble dans une valise, un sac de week-end, un sac de sport ou un bagage à main.',
+      'Les suspensions et les appliques partagent matières et finitions : deux ou trois pièces ensemble forment une seule idée plutôt qu’un catalogue encombré.',
     about_how_3_title: 'Clair avant l’achat',
     about_how_3_body:
-      'Le produit doit avoir un usage, des détails et des options compréhensibles. La disponibilité, le coût et le délai de livraison sont confirmés au paiement.',
+      'Chaque fiche donne les dimensions en centimètres et en pouces, la longueur du câble, la douille et ce qui n’est pas dans la boîte. La livraison s’affiche au paiement.',
     about_roots_eyebrow: 'L’origine du nom',
     about_roots_heading: 'Puchica commence par un sentiment de surprise utile.',
     about_roots_body:
-      '« Puchica » est une expression centroaméricaine familière de surprise, comme la réaction que peut provoquer une solution étonnamment astucieuse. Cet esprit guide la marque : des objets pratiques qui règlent un irritant quotidien sans ajouter de désordre.',
+      '« Puchica » est une expression centraméricaine familière de surprise — la réaction qu’une pièce peut susciter quand la lumière s’allume. Cet esprit façonne la marque : quelques pièces bien choisies, décrites honnêtement, sans encombrer.',
     about_roots_signature:
       'Entreprise canadienne. Petite sélection, vraie utilité.',
-    about_hero_caption: 'Pensé autour des choses utiles sur la route.',
+    about_hero_caption: 'Pensé autour de la lumière dont une pièce a vraiment besoin.',
     about_hero_image_alt:
-      'Vêtements et essentiels de voyage disposés avant le rangement',
+      'Une suspension globe en bambou tressé allumée au-dessus d’une table en bois',
     about_roots_image_alt:
       'Un textile tissé coloré et un récipient en céramique peinte',
     about_standards_intro:
-      'Un petit catalogue ne fonctionne que si la raison d’être de chaque produit est claire.',
-    about_shop_eye: 'La sélection voyage',
-    about_shop_title: 'Commencez par la partie du rangement qui vous ralentit.',
-    about_shop_all: 'Voir toute la sélection voyage',
+      'Une petite gamme ne fonctionne que si la raison d’être de chaque luminaire est facile à expliquer.',
+    about_shop_eye: 'La gamme',
+    about_shop_title: 'Commencez par la pièce qui manque de lumière.',
+    about_shop_all: 'Voir tous les luminaires',
     about_now_eye: 'Une livraison plus claire',
     about_now_title: 'Voyez vos options de livraison avant de payer.',
     about_now_body:
@@ -1494,47 +1494,47 @@ export const DICTIONARIES = {
     header_cart_open: 'Abrir carrito',
     header_cart_close: 'Cerrar carrito',
 
-    launch_home_eyebrow: 'La selección de viaje de Puchica',
-    launch_home_title: 'Encuentra todo sin revolver la maleta.',
+    launch_home_eyebrow: 'Iluminación en bambú tejido',
+    launch_home_title: 'Luz que deja un patrón.',
     launch_home_hero_body_full:
-      'Una selección enfocada de organizadores prácticos para ropa, artículos de aseo y joyas pequeñas, sin un catálogo interminable.',
+      'Lámparas colgantes y apliques de bambú y ratán tejidos, elegidos forma por forma y con envío gratis a todo Canadá.',
     launch_home_hero_body_single:
-      'Un organizador de viaje práctico, con detalles claros y opciones de envío para tu mercado visibles al pagar.',
+      'Una luminaria de bambú tejido, con sus medidas, el largo del cable y el tipo de portalámparas indicados antes de pagar.',
     launch_home_hero_body_focused:
-      'Una selección enfocada de organizadores de viaje prácticos, con detalles claros y opciones de envío visibles al pagar.',
+      'Una gama pequeña de luminarias de bambú tejido, cada una con sus medidas, el largo del cable y el portalámparas indicados antes de pagar.',
     launch_home_shop_product: 'Comprar {title}',
-    launch_home_featured: 'Destacado en la selección de viaje',
-    launch_home_view_organizer: 'Ver organizador',
-    launch_home_shop_edit: 'Comprar la selección de viaje',
+    launch_home_featured: 'Luminaria destacada',
+    launch_home_view_organizer: 'Ver luminaria',
+    launch_home_shop_edit: 'Ver la gama',
     launch_home_browse_collection: 'Explorar la colección',
     launch_home_assurances_aria: 'Garantías de compra',
     launch_home_assurance_checkout: 'Pago seguro con Shopify',
-    launch_home_assurance_details: 'Detalles claros del producto',
-    launch_home_assurance_shipping: 'Opciones de envío mostradas al pagar',
-    launch_home_section_eyebrow_full: 'Tres formas de empacar mejor',
-    launch_home_section_eyebrow_focused: 'Organización de viaje',
-    launch_home_section_title_full: 'Un pequeño sistema de viaje que funciona en conjunto',
+    launch_home_assurance_details: 'Medidas en cm y pulgadas',
+    launch_home_assurance_shipping: 'Envío gratis a todo Canadá',
+    launch_home_section_eyebrow_full: 'Colgantes y apliques',
+    launch_home_section_eyebrow_focused: 'Iluminación tejida',
+    launch_home_section_title_full: 'Elegí la forma y después la habitación.',
     launch_home_section_title_focused:
-      'Organización práctica para tu próximo viaje',
+      'Luminarias de bambú tejido para la casa',
     launch_home_section_body_full:
-      'Separa la ropa, dedica un espacio a los artículos de aseo y mantén juntas las joyas pequeñas. Empieza por la pieza que resuelva tu mayor problema al empacar.',
+      'Globos y faroles para sobre la mesa, colgantes pequeños para agrupar de a dos o tres, y apliques para junto a la cama. Cada ficha indica la medida, el cable y el portalámparas: sabés qué llega.',
     launch_home_section_body_focused:
-      'Compra los organizadores de viaje disponibles actualmente en el mercado seleccionado.',
-    launch_home_view_all: 'Ver todos los organizadores de viaje',
+      'Comprá las luminarias tejidas disponibles para el mercado seleccionado.',
+    launch_home_view_all: 'Ver todas las luminarias',
     launch_home_view_product: 'Ver {title}',
 
     ship_section_aria: 'Destinos de envío',
     ship_hero_eyebrow: 'Envío y Entrega',
     ship_hero_title_main: 'Envío y',
     ship_hero_title_em: 'Entrega.',
-    ship_hero_cta: 'Ver la selección de viaje',
+    ship_hero_cta: 'Ver la gama',
     ship_launch_hero_sub:
-      'Una tienda canadiense. Las opciones de entrega se confirman al pagar.',
+      'Una tienda canadiense. Cada luminaria se envía gratis y con seguimiento; la estimación de entrega para tu dirección aparece al pagar.',
     ship_jump: 'Ver cómo se confirma la entrega',
     ship_launch_regions_eye: 'A dónde enviamos',
     ship_launch_regions_title: 'Envíos a todo Canadá.',
     ship_launch_regions_sub:
-      'Enviamos dentro de Canadá, en dólares canadienses. La entrega aún depende de los artículos y la dirección.',
+      'Enviamos dentro de Canadá, en dólares canadienses. El envío es gratis en pedidos de más de $50, es decir, en cada luminaria que ofrecemos.',
     ship_launch_rates_eye: 'Antes de pagar',
     ship_launch_rates_title: 'Comprueba la entrega antes del pago',
     ship_launch_rates_sub:
@@ -1545,8 +1545,8 @@ export const DICTIONARIES = {
     ship_check_destination_eta: 'Disponibilidad visible antes del pago',
     ship_check_items_title: 'Revisa los artículos del carrito',
     ship_check_items_body:
-      'Las opciones pueden variar según el producto, la variante y el destino.',
-    ship_check_items_eta: 'El pago confirma las opciones del pedido',
+      'Las luminarias se envían con seguimiento desde el depósito de nuestro proveedor en el extranjero. La mayoría de los pedidos llegan a Canadá en dos a tres semanas; el pago muestra la estimación para tu pedido.',
+    ship_check_items_eta: 'Normalmente de 2 a 3 semanas, con seguimiento hasta la puerta',
     ship_check_tracking_title: 'Sigue tu pedido',
     ship_check_tracking_body:
       'Cuando haya un servicio con seguimiento, recibirás los detalles después del envío.',
@@ -1563,8 +1563,8 @@ export const DICTIONARIES = {
       'Incluido en el precio — nada que pagar en la entrega',
     ship_cta_title: '¿Listo para pedir?',
     ship_cta_sub:
-      'Compra hallazgos y confirma el envío para tu dirección al pagar.',
-    ship_cta_browse: 'Ver todo',
+      'Mirá la gama y confirmá la entrega para tu dirección al pagar.',
+    ship_cta_browse: 'Ver todas las luminarias',
 
     breadcrumb_aria: 'Ruta de navegación',
     search_trending_label: 'Compra según tus necesidades',
@@ -1582,16 +1582,16 @@ export const DICTIONARIES = {
     col_sort_newest: 'Más recientes',
     col_sort_price_asc: 'Precio: menor a mayor',
     col_sort_price_desc: 'Precio: mayor a menor',
-    all_breadcrumb: 'Organizadores de viaje',
-    all_eyebrow: 'La selección de viaje',
-    all_title: 'Organizadores de viaje para empacar mejor',
+    all_breadcrumb: 'Iluminación',
+    all_eyebrow: 'Iluminación en bambú tejido',
+    all_title: 'Colgantes y apliques de bambú tejido',
     all_sub:
-      'Una selección enfocada para ropa, artículos de aseo y las cosas pequeñas que se pierden en un bolso.',
+      'Bambú, ratán y hierro. Envío gratis a todo Canadá; bombillas no incluidas.',
     all_empty_title: 'Próximos hallazgos en camino',
     all_empty_body:
       'Estamos reabasteciendo. No hay nada publicado ahora mismo — vuelve pronto.',
-    product_trust_shipping: 'Opciones de envío mostradas al pagar',
-    product_trust_shipping_sub: 'estimación del proveedor · costo mostrado al pagar',
+    product_trust_shipping: 'Envío gratis a todo Canadá',
+    product_trust_shipping_sub: 'con seguimiento · normalmente 2 a 3 semanas',
     product_trust_returns: 'Plazo de devolución de 30 días',
     product_trust_returns_sub:
       'consulta la política para conocer la elegibilidad',
@@ -1608,7 +1608,7 @@ export const DICTIONARIES = {
     product_badge_sold_out: 'Agotado',
     product_badge_save: 'Ahorra {pct}%',
     product_story_title: 'Por qué merece su espacio.',
-    product_department_travel: 'Accesorios de viaje',
+    product_department_travel: 'Iluminación',
     product_copy_packing_title: 'Juego de 3 cubos de embalaje — pequeño, mediano y grande',
     product_copy_packing_summary: 'Organiza por categoría, no en montones.',
     product_copy_packing_html: '<h2>Organiza por categoría, no en montones.</h2><p>Este juego color carbón de tres cubos de embalaje mantiene la ropa separada y fácil de encontrar dentro de una maleta, bolso de fin de semana o equipaje de mano. Cada cubo flexible de poliéster se cierra con cremallera y tiene un asa para desempacar con rapidez.</p><h3>Qué recibes</h3><ul><li><strong>Pequeño:</strong> aproximadamente 20 × 30 cm (7,9 × 11,8 pulg.)</li><li><strong>Mediano:</strong> aproximadamente 25 × 35 cm (9,8 × 13,8 pulg.)</li><li><strong>Grande:</strong> aproximadamente 30 × 40 cm (11,8 × 15,7 pulg.)</li></ul><h3>Por qué funciona</h3><ul><li>Separa camisetas, pantalones, ropa interior o accesorios</li><li>Las formas rectangulares caben ordenadamente una al lado de la otra</li><li>El diseño plegable se guarda plano entre viajes</li><li>El tono carbón neutro funciona en equipaje compartido</li></ul><h3>Antes de comprar</h3><p>Es un juego de cubos de embalaje estándar con cremallera, no una bolsa al vacío ni un sistema de compresión mecánica. Evita llenarlos en exceso y mantén los objetos afilados lejos de la tela. La ropa y los accesorios de las imágenes no están incluidos.</p><p>Las opciones y estimaciones de entrega se muestran al pagar. Las devoluciones están sujetas a nuestra política publicada.</p>',
@@ -1740,9 +1740,9 @@ export const DICTIONARIES = {
     card_options_summary: 'Varias opciones disponibles',
     footer_glossary: '«Púchica» — expresión salvadoreña de asombro. Lo que esperamos que digás al abrir la caja.',
     hero_interjection: '— ¡púchica!, qué fácil.',
-    home_bluegold_eyebrow: 'Oro azul',
-    home_bluegold_h: 'Durante dos siglos, El Salvador tiñó el mundo de añil.',
-    home_bluegold_body: 'El añil — el «oro azul» — fue el tesoro de Centroamérica mucho antes que el café. Nuestros productos los fabrican socios de confianza; el color, el nombre y el alma son salvadoreños.',
+    home_bluegold_eyebrow: 'Por qué tejido',
+    home_bluegold_h: 'Una lámpara que se nota incluso apagada.',
+    home_bluegold_body: 'Encendido, el bambú tejido proyecta su patrón en el techo y las paredes. Apagado, se lee como un objeto escultórico y no como un simple artefacto. Cada modelo acepta una bombilla de rosca estándar, y cada ficha indica la medida, el largo del cable y el portalámparas antes de pagar.',
     atc_add_failed: 'No se pudo agregar. Inténtalo de nuevo.',
     atc_adding: 'Agregando…',
 
@@ -1778,15 +1778,15 @@ export const DICTIONARIES = {
     cart_recovery_dismiss: 'Cerrar el recordatorio del carrito',
     cart_empty_title: 'Tu carrito está vacío.',
     cart_empty_body:
-      'Empieza con un organizador práctico para tu próximo viaje.',
-    cart_empty_cta_shop: 'Ver hallazgos',
+      'Empezá con una luminaria: un colgante sobre la mesa o un aplique junto a la cama.',
+    cart_empty_cta_shop: 'Ver la gama',
     cart_empty_perks_aria: 'Por qué comprar con nosotros',
-    cart_empty_perk_shipping: 'Opciones de envío mostradas al pagar',
+    cart_empty_perk_shipping: 'Envío gratis a todo Canadá',
     cart_freeship_away: 'Añade {amount} más para el envío gratis',
     cart_freeship_qualified: 'Envío gratis desbloqueado',
     cart_freeship_aria: 'Progreso hacia el envío gratis',
     pairs_title: 'Combina con',
-    pairs_sub: 'Otros organizadores de la selección de viaje.',
+    pairs_sub: 'Colgá dos o tres a distintas alturas, o combiná un aplique con el colgante.',
     cart_empty_perk_returns: 'Devoluciones en 30 días',
     cart_ghost_notice:
       'Estos artículos no están disponibles en tu región ahora. Quítalos para vaciar tu carrito.',
@@ -1912,10 +1912,10 @@ export const DICTIONARIES = {
     pred_pages: 'Páginas',
     pred_products: 'Hallazgos',
     pred_empty_body:
-      'Prueba cubos de embalaje, organizador de aseo o estuche para joyas.',
+      'Probá con colgante, aplique, globo o farol.',
     pred_no_results_h: 'Ningún resultado para «{term}».',
     pred_no_results_body:
-      'Prueba cubos de embalaje, organizador de aseo o estuche para joyas.',
+      'Probá con colgante, aplique, globo o farol.',
 
     // ── H1 de la página del carrito ─────────────────────────────
     cart_page_h: 'Carrito',
@@ -2020,47 +2020,47 @@ export const DICTIONARIES = {
 
     // ── Página Nosotros ───────────────────────────────────────────
     about_hero_eyebrow: 'Nuestra historia',
-    about_hero_title_main: 'Una tienda de viaje más pequeña',
+    about_hero_title_main: 'Una tienda pequeña de iluminación',
     about_hero_title_em: 'con mejores razones para comprar.',
     about_hero_sub:
-      'Puchica es una tienda canadiense independiente que empieza con tres organizadores de viaje prácticos para ropa, artículos de aseo y joyas pequeñas.',
-    about_hero_cta: 'Ver la selección de viaje →',
+      'Puchica es una tienda canadiense independiente que vende colgantes y apliques de bambú y ratán tejidos. Mantenemos la gama corta para que cada forma tenga una razón de estar y sus detalles sigan claros.',
+    about_hero_cta: 'Ver la gama →',
     about_mission_eye: 'Por qué existimos',
     about_mission_title:
       'En un espacio pequeño, cada cosa fuera de lugar se siente más grande.',
     about_mission_body_1:
       'Un cajón lleno, un cable enredado o una maleta sobrecargada puede complicar un día normal. Puchica ayuda a resolver esos pequeños problemas repetidos.',
     about_mission_body_2:
-      'Puchica toma el enfoque opuesto. Nuestra primera selección tiene un solo objetivo: hacer que una maleta sea más fácil de usar. Cada producto debe tener una función clara y opciones comprensibles.',
+      'Puchica hace lo contrario. Ofrecemos un puñado de luminarias tejidas que colgaríamos en casa, cada una con medidas claras, portalámparas claro y la entrega mostrada antes de pagar.',
     about_mission_card_text:
-      'Útil primero. Claro antes del pago. Vale el espacio que ocupa.',
+      'Útil primero. Claro antes de pagar. Vale el espacio que ocupa.',
     about_how_eye: 'Qué merece un lugar',
     about_how_title: 'Cada producto debe justificar el espacio que ocupa.',
-    about_how_1_title: 'Resuelve un problema específico',
+    about_how_1_title: 'Se gana su lugar en la habitación',
     about_how_1_body:
-      'Partimos de una función clara: separar la ropa, mantener los artículos de aseo fáciles de encontrar o proteger joyas pequeñas durante el viaje.',
-    about_how_2_title: 'Forma parte del mismo sistema de viaje',
+      'Partimos de una necesidad: un colgante que dibuja el techo sobre una mesa, una forma pequeña para agrupar sobre una barra, un aplique que ilumina una página junto a la cama.',
+    about_how_2_title: 'Combina con las demás',
     about_how_2_body:
-      'Los tres productos funcionan juntos en una maleta, bolsa de fin de semana, bolsa de gimnasio o equipaje de mano.',
+      'Los colgantes y apliques comparten materiales y acabados, así que dos o tres juntos se leen como una sola idea y no como un catálogo abarrotado.',
     about_how_3_title: 'Fácil de entender antes de comprar',
     about_how_3_body:
-      'El producto debe tener un propósito, detalles y opciones claros. La disponibilidad, el costo y el plazo de entrega se confirman al pagar.',
+      'Cada ficha da la medida en centímetros y pulgadas, el largo del cable, el portalámparas y lo que no viene en la caja. La entrega se muestra al pagar.',
     about_roots_eyebrow: 'De dónde viene el nombre',
     about_roots_heading: 'Puchica empieza con una sensación de sorpresa útil.',
     about_roots_body:
-      '“Puchica” es una expresión centroamericana familiar de sorpresa, como la reacción que puede provocar una solución inesperadamente ingeniosa. Ese espíritu guía la marca: objetos prácticos que resuelven una molestia cotidiana sin añadir más desorden.',
+      '«Puchica» es una expresión centroamericana de sorpresa, la reacción que una habitación puede provocar cuando se enciende la luz. Ese espíritu define la marca: pocas piezas bien elegidas, descritas con honestidad, sin sumar desorden.',
     about_roots_signature:
       'Empresa canadiense. Pocos productos, utilidad clara.',
     about_hero_caption:
-      'Pensado alrededor de lo que necesitas durante el viaje.',
-    about_hero_image_alt: 'Ropa y artículos esenciales preparados para empacar',
+      'Pensado alrededor de la luz que una habitación necesita de verdad.',
+    about_hero_image_alt: 'Un colgante globo de bambú tejido encendido sobre una mesa de madera',
     about_roots_image_alt:
       'Un tejido colorido y una vasija de cerámica pintada',
     about_standards_intro:
-      'Un catálogo pequeño solo funciona si la razón de cada producto es fácil de explicar.',
-    about_shop_eye: 'La selección de viaje',
-    about_shop_title: 'Empieza con la parte del empaque que más te retrasa.',
-    about_shop_all: 'Ver toda la selección de viaje',
+      'Una gama pequeña solo funciona si la razón de cada luminaria es fácil de explicar.',
+    about_shop_eye: 'La gama',
+    about_shop_title: 'Empezá por la habitación que necesita luz.',
+    about_shop_all: 'Ver todas las luminarias',
     about_now_eye: 'Entrega más clara',
     about_now_title: 'Consulta tus opciones de entrega antes de pagar.',
     about_now_body:
@@ -2223,47 +2223,47 @@ export const DICTIONARIES = {
     header_cart_open: 'Abrir carrinho',
     header_cart_close: 'Fechar carrinho',
 
-    launch_home_eyebrow: 'A seleção de viagem da Puchica',
-    launch_home_title: 'Encontre tudo sem revirar a mala.',
+    launch_home_eyebrow: 'Iluminação em bambu trançado',
+    launch_home_title: 'Luz que deixa um desenho.',
     launch_home_hero_body_full:
-      'Uma seleção enxuta de organizadores práticos para roupas, itens de higiene e pequenas joias, sem um catálogo interminável.',
+      'Pendentes e arandelas de bambu e rattan trançados, escolhidos forma a forma e com frete grátis para todo o Canadá.',
     launch_home_hero_body_single:
-      'Um organizador de viagem prático, com detalhes claros e opções de frete para o seu mercado exibidas no checkout.',
+      'Uma luminária de bambu trançado, com medidas, comprimento do cabo e tipo de soquete informados antes do pagamento.',
     launch_home_hero_body_focused:
-      'Uma seleção enxuta de organizadores de viagem práticos, com detalhes claros e opções de frete exibidas no checkout.',
+      'Uma linha pequena de luminárias de bambu trançado, cada uma com medidas, comprimento do cabo e soquete informados antes do pagamento.',
     launch_home_shop_product: 'Comprar {title}',
-    launch_home_featured: 'Destaque da seleção de viagem',
-    launch_home_view_organizer: 'Ver organizador',
-    launch_home_shop_edit: 'Comprar a seleção de viagem',
+    launch_home_featured: 'Luminária em destaque',
+    launch_home_view_organizer: 'Ver luminária',
+    launch_home_shop_edit: 'Ver a linha',
     launch_home_browse_collection: 'Explorar a coleção',
     launch_home_assurances_aria: 'Garantias de compra',
     launch_home_assurance_checkout: 'Checkout seguro da Shopify',
-    launch_home_assurance_details: 'Detalhes claros do produto',
-    launch_home_assurance_shipping: 'Opções de entrega exibidas no checkout',
-    launch_home_section_eyebrow_full: 'Três formas de organizar melhor a mala',
-    launch_home_section_eyebrow_focused: 'Organização de viagem',
-    launch_home_section_title_full: 'Um pequeno sistema de viagem que funciona em conjunto',
+    launch_home_assurance_details: 'Medidas em cm e polegadas',
+    launch_home_assurance_shipping: 'Frete grátis para todo o Canadá',
+    launch_home_section_eyebrow_full: 'Pendentes e arandelas',
+    launch_home_section_eyebrow_focused: 'Iluminação trançada',
+    launch_home_section_title_full: 'Escolha a forma, depois o cômodo.',
     launch_home_section_title_focused:
-      'Organização prática para sua próxima viagem',
+      'Luminárias de bambu trançado para a casa',
     launch_home_section_body_full:
-      'Separe as roupas, reserve um lugar para os itens de higiene e mantenha as pequenas joias juntas. Comece pela peça que resolve seu maior problema ao arrumar a mala.',
+      'Globos e lanternas para sobre a mesa, pendentes pequenos para agrupar em dois ou três, e arandelas para ao lado da cama. Cada anúncio informa a medida, o cabo e o soquete: você sabe o que chega.',
     launch_home_section_body_focused:
-      'Compre os organizadores de viagem disponíveis atualmente no mercado selecionado.',
-    launch_home_view_all: 'Ver todos os organizadores de viagem',
+      'Compre as luminárias trançadas disponíveis para o mercado selecionado.',
+    launch_home_view_all: 'Ver todas as luminárias',
     launch_home_view_product: 'Ver {title}',
 
     ship_section_aria: 'Destinos de envio',
     ship_hero_eyebrow: 'Envio e Entrega',
     ship_hero_title_main: 'Envio e',
     ship_hero_title_em: 'Entrega.',
-    ship_hero_cta: 'Ver a seleção de viagem',
+    ship_hero_cta: 'Ver a linha',
     ship_launch_hero_sub:
-      'Uma loja canadense. As opções de entrega são confirmadas no checkout.',
+      'Uma loja canadense. Toda luminária vai com frete grátis e rastreio; a estimativa de entrega para o seu endereço aparece no pagamento.',
     ship_jump: 'Veja como a entrega é confirmada',
     ship_launch_regions_eye: 'Para onde enviamos',
     ship_launch_regions_title: 'Entregas em todo o Canadá.',
     ship_launch_regions_sub:
-      'Enviamos dentro do Canadá, em dólares canadenses. A entrega ainda depende dos itens e do endereço.',
+      'Enviamos dentro do Canadá, em dólares canadenses. O frete é grátis em pedidos acima de $50, ou seja, em toda luminária que oferecemos.',
     ship_launch_rates_eye: 'Antes de pagar',
     ship_launch_rates_title: 'Confira a entrega antes do pagamento',
     ship_launch_rates_sub:
@@ -2274,8 +2274,8 @@ export const DICTIONARIES = {
     ship_check_destination_eta: 'Disponibilidade exibida antes do pagamento',
     ship_check_items_title: 'Confira os itens do carrinho',
     ship_check_items_body:
-      'As opções podem variar conforme o produto, a variante e o destino.',
-    ship_check_items_eta: 'O checkout confirma as opções do pedido',
+      'As luminárias são enviadas com rastreio do depósito do nosso fornecedor no exterior. A maioria dos pedidos chega ao Canadá em duas a três semanas; o pagamento mostra a estimativa para o seu pedido.',
+    ship_check_items_eta: 'Normalmente de 2 a 3 semanas, rastreado até a porta',
     ship_check_tracking_title: 'Acompanhe seu pedido',
     ship_check_tracking_body:
       'Quando houver serviço com rastreio, os detalhes serão enviados após o despacho.',
@@ -2291,8 +2291,8 @@ export const DICTIONARIES = {
       'Incluído no preço — nada a pagar na entrega',
     ship_cta_title: 'Pronto para pedir?',
     ship_cta_sub:
-      'Compre achados e confirme o frete para seu endereço no checkout.',
-    ship_cta_browse: 'Ver tudo',
+      'Veja a linha e confirme a entrega para o seu endereço no pagamento.',
+    ship_cta_browse: 'Ver todas as luminárias',
 
     breadcrumb_aria: 'Caminho de navegação',
     search_trending_label: 'Compre conforme sua necessidade',
@@ -2310,16 +2310,16 @@ export const DICTIONARIES = {
     col_sort_newest: 'Mais recentes',
     col_sort_price_asc: 'Preço: menor para maior',
     col_sort_price_desc: 'Preço: maior para menor',
-    all_breadcrumb: 'Organizadores de viagem',
-    all_eyebrow: 'A seleção de viagem',
-    all_title: 'Organizadores de viagem para arrumar melhor a mala',
+    all_breadcrumb: 'Iluminação',
+    all_eyebrow: 'Iluminação em bambu trançado',
+    all_title: 'Pendentes e arandelas de bambu trançado',
     all_sub:
-      'Uma seleção focada para roupas, itens de higiene e as coisas pequenas que se perdem na bolsa.',
+      'Bambu, rattan e ferro. Frete grátis para todo o Canadá; lâmpadas não incluídas.',
     all_empty_title: 'Novos achados a caminho',
     all_empty_body:
       'Estamos repondo o estoque. Nada está listado no momento — volte em breve.',
-    product_trust_shipping: 'Opções de entrega exibidas no checkout',
-    product_trust_shipping_sub: 'estimativa do fornecedor · custo exibido no checkout',
+    product_trust_shipping: 'Frete grátis para todo o Canadá',
+    product_trust_shipping_sub: 'rastreado · normalmente 2 a 3 semanas',
     product_trust_returns: 'Janela de devolução de 30 dias',
     product_trust_returns_sub: 'consulte a política para elegibilidade',
     product_trust_secure: 'Checkout seguro',
@@ -2335,7 +2335,7 @@ export const DICTIONARIES = {
     product_badge_sold_out: 'Esgotado',
     product_badge_save: 'Economize {pct}%',
     product_story_title: 'Por que merece seu espaço.',
-    product_department_travel: 'Acessórios de viagem',
+    product_department_travel: 'Iluminação',
     product_copy_packing_title: 'Conjunto de 3 cubos organizadores — pequeno, médio e grande',
     product_copy_packing_summary: 'Organize por categoria, não em pilhas.',
     product_copy_packing_html: '<h2>Organize por categoria, não em pilhas.</h2><p>Este conjunto grafite de três cubos organizadores mantém as roupas separadas e fáceis de encontrar dentro da mala, bolsa de viagem ou bagagem de mão. Cada cubo flexível de poliéster fecha com zíper e tem uma alça para facilitar a retirada da mala.</p><h3>O que você recebe</h3><ul><li><strong>Pequeno:</strong> aproximadamente 20 × 30 cm (7,9 × 11,8 pol.)</li><li><strong>Médio:</strong> aproximadamente 25 × 35 cm (9,8 × 13,8 pol.)</li><li><strong>Grande:</strong> aproximadamente 30 × 40 cm (11,8 × 15,7 pol.)</li></ul><h3>Por que funciona</h3><ul><li>Separe blusas, calças, roupas íntimas ou acessórios</li><li>Os formatos retangulares ficam bem organizados lado a lado</li><li>O design dobrável fica plano entre as viagens</li><li>A cor grafite neutra combina com malas compartilhadas</li></ul><h3>Antes de comprar</h3><p>Este é um conjunto de cubos organizadores comuns com zíper, e não um saco a vácuo ou sistema de compressão mecânica. Evite encher demais e mantenha objetos pontiagudos longe do tecido. As roupas e os acessórios das imagens não estão incluídos.</p><p>As opções e estimativas de entrega aparecem no checkout. As devoluções estão sujeitas à nossa política publicada.</p>',
@@ -2467,9 +2467,9 @@ export const DICTIONARIES = {
     card_options_summary: 'Várias opções disponíveis',
     footer_glossary: '“Púchica” (pu-TCHI-ka) — expressão salvadorenha para “uau”. O que esperamos que você diga ao abrir a caixa.',
     hero_interjection: '— ¡púchica!, que fácil.',
-    home_bluegold_eyebrow: 'Ouro azul',
-    home_bluegold_h: 'Por dois séculos, El Salvador tingiu o mundo de anil.',
-    home_bluegold_body: 'O anil — o “ouro azul” — foi o tesouro da América Central muito antes do café. Nossos produtos são feitos por parceiros de confiança; a cor, o nome e a alma são salvadorenhos.',
+    home_bluegold_eyebrow: 'Por que trançado',
+    home_bluegold_h: 'Uma luminária que se nota até apagada.',
+    home_bluegold_body: 'Acesa, o bambu trançado projeta seu desenho no teto e nas paredes. Apagada, lê-se como um objeto escultural, não como um simples ponto de luz. Todo modelo aceita lâmpada de rosca padrão, e todo anúncio informa a medida, o comprimento do cabo e o soquete antes do pagamento.',
     atc_add_failed: 'Não foi possível adicionar. Tente novamente.',
     atc_adding: 'Adicionando…',
 
@@ -2505,15 +2505,15 @@ export const DICTIONARIES = {
     cart_recovery_dismiss: 'Fechar o lembrete do carrinho',
     cart_empty_title: 'Seu carrinho está vazio.',
     cart_empty_body:
-      'Comece com um organizador prático para a sua próxima viagem.',
-    cart_empty_cta_shop: 'Ver achados',
+      'Comece com uma luminária: um pendente sobre a mesa ou uma arandela ao lado da cama.',
+    cart_empty_cta_shop: 'Ver a linha',
     cart_empty_perks_aria: 'Por que comprar com a gente',
-    cart_empty_perk_shipping: 'Opções de entrega exibidas no checkout',
+    cart_empty_perk_shipping: 'Frete grátis para todo o Canadá',
     cart_freeship_away: 'Adicione mais {amount} para frete grátis',
     cart_freeship_qualified: 'Frete grátis desbloqueado',
     cart_freeship_aria: 'Progresso para o frete grátis',
     pairs_title: 'Combina com',
-    pairs_sub: 'Outros organizadores da seleção de viagem.',
+    pairs_sub: 'Pendure dois ou três em alturas diferentes, ou combine uma arandela com o pendente.',
     cart_empty_perk_returns: 'Devoluções em 30 dias',
     cart_ghost_notice:
       'Estes itens não estão disponíveis na sua região agora. Remova-os para esvaziar o carrinho.',
@@ -2639,10 +2639,10 @@ export const DICTIONARIES = {
     pred_pages: 'Páginas',
     pred_products: 'Achados',
     pred_empty_body:
-      'Tente cubos organizadores, necessaire ou estojo para joias.',
+      'Tente pendente, arandela, globo ou lanterna.',
     pred_no_results_h: 'Nenhum resultado para «{term}».',
     pred_no_results_body:
-      'Tente cubos organizadores, necessaire ou estojo para joias.',
+      'Tente pendente, arandela, globo ou lanterna.',
 
     // ── H1 da página do carrinho ────────────────────────────────
     cart_page_h: 'Carrinho',
@@ -2746,47 +2746,47 @@ export const DICTIONARIES = {
 
     // ── Página Sobre ──────────────────────────────────────────────
     about_hero_eyebrow: 'Nossa história',
-    about_hero_title_main: 'Uma loja de viagem menor',
+    about_hero_title_main: 'Uma loja pequena de iluminação',
     about_hero_title_em: 'com motivos melhores para comprar.',
     about_hero_sub:
-      'A Puchica é uma loja canadense independente que começa com três organizadores de viagem práticos para roupas, itens de higiene e joias pequenas.',
-    about_hero_cta: 'Ver a seleção de viagem →',
+      'A Puchica é uma loja canadense independente que vende pendentes e arandelas de bambu e rattan trançados. Mantemos a linha curta para que cada forma tenha motivo para estar aqui e seus detalhes fiquem claros.',
+    about_hero_cta: 'Ver a linha →',
     about_mission_eye: 'Por que existimos',
     about_mission_title:
       'Em um espaço pequeno, cada coisa fora do lugar parece maior.',
     about_mission_body_1:
       'Uma gaveta cheia, um cabo enrolado ou uma mala lotada pode complicar um dia comum. A Puchica ajuda a resolver esses pequenos problemas recorrentes.',
     about_mission_body_2:
-      'A Puchica adota a abordagem oposta. Nossa primeira seleção tem um objetivo: deixar uma mala mais fácil de usar. Cada produto deve ter uma função clara e opções compreensíveis.',
+      'A Puchica faz o oposto. Oferecemos um punhado de luminárias trançadas que penduraríamos em casa, cada uma com medidas claras, soquete claro e a entrega mostrada antes do pagamento.',
     about_mission_card_text:
-      'Útil primeiro. Claro antes do pagamento. Vale o espaço que ocupa.',
+      'Útil primeiro. Claro antes de pagar. Vale o espaço que ocupa.',
     about_how_eye: 'O que merece um lugar',
     about_how_title: 'Cada produto deve justificar o espaço que ocupa.',
-    about_how_1_title: 'Resolve um problema específico',
+    about_how_1_title: 'Merece o lugar no cômodo',
     about_how_1_body:
-      'Começamos com uma função clara: separar roupas, manter itens de higiene fáceis de encontrar ou proteger joias pequenas durante a viagem.',
-    about_how_2_title: 'Faz parte do mesmo sistema de viagem',
+      'Partimos de uma necessidade: um pendente que desenha o teto sobre a mesa, uma forma pequena para agrupar sobre a bancada, uma arandela que ilumina a página ao lado da cama.',
+    about_how_2_title: 'Combina com as outras',
     about_how_2_body:
-      'Os três produtos funcionam juntos em uma mala, bolsa de fim de semana, bolsa de academia ou bagagem de mão.',
+      'Pendentes e arandelas compartilham materiais e acabamentos, então dois ou três juntos se leem como uma ideia só, não como um catálogo lotado.',
     about_how_3_title: 'Fácil de entender antes da compra',
     about_how_3_body:
-      'O produto precisa ter um propósito, detalhes e opções claros. A disponibilidade, o custo e o prazo de entrega são confirmados no checkout.',
+      'Cada anúncio traz a medida em centímetros e polegadas, o comprimento do cabo, o soquete e o que não vem na caixa. A entrega aparece no pagamento.',
     about_roots_eyebrow: 'De onde vem o nome',
     about_roots_heading: 'Puchica começa com uma sensação de surpresa útil.',
     about_roots_body:
-      '“Puchica” é uma expressão centro-americana familiar de surpresa, como a reação que uma solução inesperadamente inteligente pode provocar. Esse espírito orienta a marca: itens práticos que resolvem um incômodo cotidiano sem criar mais bagunça.',
+      '“Puchica” é uma expressão centro-americana de surpresa, a reação que um cômodo pode provocar quando a luz acende. Esse espírito define a marca: poucas peças bem escolhidas, descritas com honestidade, sem acumular bagunça.',
     about_roots_signature:
       'Empresa canadense. Poucos produtos, utilidade clara.',
-    about_hero_caption: 'Pensado em torno do que você usa durante a viagem.',
+    about_hero_caption: 'Pensado em torno da luz de que um cômodo realmente precisa.',
     about_hero_image_alt:
-      'Roupas e itens essenciais preparados para arrumar a mala',
+      'Um pendente globo de bambu trançado aceso sobre uma mesa de madeira',
     about_roots_image_alt:
       'Um tecido colorido e um recipiente de cerâmica pintada',
     about_standards_intro:
-      'Um catálogo menor só funciona quando o motivo de cada produto é fácil de explicar.',
-    about_shop_eye: 'A seleção de viagem',
-    about_shop_title: 'Comece pela parte da arrumação que mais atrasa você.',
-    about_shop_all: 'Ver toda a seleção de viagem',
+      'Uma linha pequena só funciona quando o motivo de cada luminária é fácil de explicar.',
+    about_shop_eye: 'A linha',
+    about_shop_title: 'Comece pelo cômodo que precisa de luz.',
+    about_shop_all: 'Ver todas as luminárias',
     about_now_eye: 'Entrega mais clara',
     about_now_title: 'Veja suas opções de entrega antes de pagar.',
     about_now_body:

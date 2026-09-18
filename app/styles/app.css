@@ -8992,20 +8992,6 @@ main:has(> .pk-collection--bold) {
   max-width: 56ch;
   margin: 0;
 }
-.pk-bluegold__dye {
-  display: flex;
-  flex-direction: column;
-  border-radius: 12px;
-  overflow: hidden;
-  height: 200px;
-}
-.pk-bluegold__dye span { flex: 1; }
-.pk-bluegold__dye span:nth-child(1) { background: #1C2951; }
-.pk-bluegold__dye span:nth-child(2) { background: #0F47AF; }
-.pk-bluegold__dye span:nth-child(3) { background: #5C7CB8; }
-.pk-bluegold__dye span:nth-child(4) { background: #9FB4DB; }
-.pk-bluegold__dye span:nth-child(5) { background: #E8EDF6; }
-
 .pk-product__purchase-facts li {
   list-style: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='16' viewBox='0 0 10 16'%3E%3Cg fill='none' stroke='%2300B2A9' stroke-width='1.6' stroke-linecap='round'%3E%3Cline x1='5' y1='1' x2='5' y2='9'/%3E%3Ccircle cx='5' cy='12.5' r='2.2'/%3E%3C/g%3E%3C/svg%3E");

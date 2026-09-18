@@ -10,7 +10,7 @@ import {useRouteLoaderData} from 'react-router';
 import {findApprovedVariant} from '~/lib/launch-catalog';
 
 /**
- * Focused landing experience for Puchica's travel-organization launch.
+ * Focused landing experience for Puchica's woven-lighting range.
  * Products are launch-filtered in each route loader before they reach here.
  *
  * @param {{products?: Array<Record<string, any>>, campaign?: boolean}} props
@@ -38,7 +38,7 @@ export function SmallSpaceLanding(props) {
   // The latter can show colours or configurations that are not offered in the
   // selected market and made the hero/card pairing look like two products.
   const heroImage = heroFeatureVariant?.image || heroPrimary?.featuredImage;
-  const productSectionId = campaign ? 'shop-travel-organizers' : 'travel-edit';
+  const productSectionId = campaign ? 'shop-fixtures' : 'the-range';
   const isFullEdit = rankedProducts.length >= 3;
   const heroDescription = isFullEdit
     ? t('launch_home_hero_body_full')
@@ -197,9 +197,6 @@ export function SmallSpaceLanding(props) {
           <h2 id="bluegold-title">{t('home_bluegold_h')}</h2>
           <p>{t('home_bluegold_body')}</p>
         </div>
-        <div className="pk-bluegold__dye" aria-hidden="true">
-          <span></span><span></span><span></span><span></span><span></span>
-        </div>
       </section>
     </>
   );
@@ -243,7 +240,7 @@ function OrganizationProductSection({
         </Link>
       </div>
       <div className="pk-campaign-editorial-grid">
-        {products.slice(0, 3).map((product, index) => {
+        {products.slice(0, 6).map((product, index) => {
           const variant = findApprovedVariant(product, market);
           const image = variant?.image || product.featuredImage;
           const displayTitle = presentProductTitle(
@@ -302,15 +299,22 @@ function OrganizationProductSection({
 
 /** @param {Record<string, any>} product */
 function launchPriority(product) {
-  const title = product?.title ?? '';
-  // Keep the homepage aligned with the current three-product organic launch
-  // cohort. These are the supplier-screened products we can support with the
-  // simplest one-person fulfillment routine.
-  if (/travel toiletry organizer/i.test(title)) return 0;
-  if (/3-piece packing cube/i.test(title)) return 1;
-  if (/travel jewelry case/i.test(title)) return 2;
-  return 10;
+  // Lead with the fixtures whose featured image is a lit room rather than a
+  // supplier dimension diagram; the hero reuses the first product's image, so
+  // this order decides what the front door looks like. Everything else keeps
+  // its collection order behind them.
+  const index = HOMEPAGE_LEAD_HANDLES.indexOf(product?.handle);
+  return index === -1 ? HOMEPAGE_LEAD_HANDLES.length : index;
 }
+
+const HOMEPAGE_LEAD_HANDLES = [
+  'woven-bamboo-globe-pendant-25cm',
+  'tiered-bamboo-pendant-30cm',
+  'hand-woven-bamboo-pendant-light',
+  'woven-bamboo-dome-pendant',
+  'rattan-cone-wall-sconce-15cm',
+  'woven-bamboo-gourd-pendant-23cm',
+];
 
 /** @param {Record<string, any>} a @param {Record<string, any>} b */
 function compareLaunchPriority(a, b) {

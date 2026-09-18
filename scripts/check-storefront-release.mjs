@@ -98,10 +98,13 @@ requireMatch(
   /t\(['"]launch_home_title['"]\)/,
 );
 requireMatch(
-  'English homepage is not positioned around the travel edit.',
+  'English homepage is not positioned around the woven lighting range.',
   dictionaries,
-  /launch_home_title:\s*['"]Pack with less rummaging\./,
+  /launch_home_title:\s*['"]Light that leaves a pattern\./,
 );
+if (/launch_home_title:\s*['"]Pack with less rummaging/.test(dictionaries)) {
+  failures.push('Homepage headline drifted back to the retired travel edit.');
+}
 for (const handle of [
   '3-piece-packing-cube-set',
   'black-hanging-travel-toiletry-organizer',
@@ -134,7 +137,7 @@ for (const commerceControl of ['SearchToggle', 'CartToggle', '/account']) {
   }
 }
 
-console.log('Puchica travel storefront release readiness');
+console.log('Puchica storefront release readiness');
 console.log('============================================');
 
 if (failures.length) {
