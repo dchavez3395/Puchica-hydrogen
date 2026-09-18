@@ -168,9 +168,14 @@ export function LocaleSwitcher() {
           role="menu"
           aria-label={t('locale_change_aria')}
         >
+          {/* A market the shop does not sell into is not offered at all.
+              When only one market is left (Canada, since the U.S market was
+              disabled on 2026-09-18) the group disappears rather than
+              showing a single pre-selected radio. */}
+          {MARKET_ORDER.filter((c) => availableMarkets.has(c)).length > 1 ? (
           <div className="pk-locale__group">
             <p className="pk-locale__label">{t('locale_market_label')}</p>
-            {MARKET_ORDER.map((country) => {
+            {MARKET_ORDER.filter((c) => availableMarkets.has(c)).map((country) => {
               const market = availableMarkets.get(country);
               const isAvailable = Boolean(market);
               return (
@@ -195,6 +200,7 @@ export function LocaleSwitcher() {
               );
             })}
           </div>
+          ) : null}
           <div className="pk-locale__group">
             <p className="pk-locale__label">{t('locale_language_label')}</p>
             {ORDER.map((key) => (
