@@ -3,27 +3,29 @@ import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {DICTIONARIES} from '../app/lib/dictionaries.js';
 
+// markets: Canada is the only open market since 2026-09-18 (US market draft,
+// US shipping zone removed); the FAQ must say so instead of naming two markets.
 const EXPECTED_COPY = {
   en: {
-    markets: /Canada.*United States/,
+    markets: /Canadian addresses only/,
     response: /two business days/i,
     returnHold: /Do not mail/i,
     returnResponsibility: /Return-shipping responsibility/i,
   },
   fr: {
-    markets: /Canada.*États-Unis/,
+    markets: /uniquement à des adresses au Canada/,
     response: /deux jours ouvrables/i,
     returnHold: /N’expédiez rien/i,
     returnResponsibility: /responsabilité des frais/i,
   },
   es: {
-    markets: /Canadá.*Estados Unidos/,
+    markets: /solo a direcciones en Canadá/,
     response: /dos días hábiles/i,
     returnHold: /No envíes nada/i,
     returnResponsibility: /responsabilidad del envío/i,
   },
   'pt-br': {
-    markets: /Canadá.*Estados Unidos/,
+    markets: /apenas para endereços no Canadá/,
     response: /dois dias úteis/i,
     returnHold: /Não envie nada/i,
     returnResponsibility: /responsabilidade pelo frete/i,
@@ -122,10 +124,17 @@ test('terms policy corrects CAD-only wording before Admin policy HTML', async ()
   assert.match(source, /isTermsPolicy/);
 
   for (const [locale, dictionary] of Object.entries(DICTIONARIES)) {
+    // Canada is the only open market (US market set to draft 2026-09-18),
+    // so the summary names CAD alone and must not promise USD pricing.
     assert.match(
       dictionary.terms_currency_summary_body,
-      /CAD.*USD/,
-      `${locale} terms summary must name both market currencies`,
+      /CAD/,
+      `${locale} terms summary must name the checkout currency`,
+    );
+    assert.doesNotMatch(
+      dictionary.terms_currency_summary_body,
+      /USD/,
+      `${locale} terms summary must not advertise a USD market`,
     );
   }
 });

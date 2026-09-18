@@ -231,7 +231,7 @@ export function organizationJsonLd({
       '@type': 'MerchantReturnPolicy',
       '@id': canonical('/policies/refund-policy#merchant-return-policy'),
       merchantReturnLink: canonical('/policies/refund-policy'),
-      applicableCountry: ['CA', 'US'],
+      applicableCountry: ['CA'],
       returnPolicyCategory:
         'https://schema.org/MerchantReturnFiniteReturnWindow',
       merchantReturnDays: 30,

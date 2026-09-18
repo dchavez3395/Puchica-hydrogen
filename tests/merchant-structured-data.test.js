@@ -9,7 +9,7 @@ test('organization schema publishes the actual shared return policy', async () =
   );
 
   assert.match(source, /hasMerchantReturnPolicy/);
-  assert.match(source, /applicableCountry:\s*\['CA', 'US'\]/);
+  assert.match(source, /applicableCountry:\s*\['CA'\]/);
   assert.match(source, /merchantReturnDays:\s*30/);
   assert.match(source, /https:\/\/schema\.org\/ReturnByMail/);
   assert.match(source, /ReturnFeesCustomerResponsibility/);

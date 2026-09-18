@@ -35,7 +35,7 @@ export const STORE_LOGO_URL =
  * of manufacture. What is true is the assortment and who it ships to.
  */
 export const BRAND_DESCRIPTION =
-  'An independent shop selling woven bamboo pendant and wall lighting, shipped direct to customers in the United States.';
+  'An independent shop selling woven bamboo pendant and wall lighting, shipped free to customers across Canada.';
 
 /**
  * Verified social profile URLs. The Organization JSON-LD's `sameAs`
