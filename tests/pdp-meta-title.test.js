@@ -14,9 +14,14 @@ test('English PDP titles come from the Shopify SEO field when one is set', () =>
 test('translated PDP titles never fall back to the English SEO field', () => {
   // seo.title holds a single English string. Using it in fr/es/pt-br would
   // replace localized copy with English and undo the i18n work.
-  assert.match(
-    productRoute,
-    /: `\$\{productTitle\}\$\{dict\.pdp_meta_title_suffix\}`/,
-  );
+  assert.match(productRoute, /: `\$\{productTitle\}\$\{suffix\}`/);
   assert.doesNotMatch(productRoute, /const title = seo\.title/);
+});
+
+test('an English SEO title without the brand still gets the Puchica suffix', () => {
+  // The 2026-09-18 SEO titles follow "[Name] - keywords" with no brand;
+  // metadata-health requires "Puchica" in every <title>, so the suffix is
+  // appended unless the stored title already carries it.
+  assert.match(productRoute, /\/puchica\/i\.test\(storedTitle\)/);
+  assert.match(productRoute, /: `\$\{storedTitle\}\$\{suffix\}`/);
 });

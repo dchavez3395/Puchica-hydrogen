@@ -70,11 +70,18 @@ export const meta = ({data, matches, params}) => {
   // silently replace localized copy with English. Every other locale builds
   // "<localized product> – Puchica" from the locale's own title suffix; the
   // suffix is shared in all 4 locales because the brand is global.
+  // The SEO titles written 2026-09-18 follow the optimization workflow's
+  // "[Name] - keywords" shape and carry no brand, so the suffix is appended
+  // here too unless the stored title already names Puchica (metadata-health
+  // requires the brand in every <title>).
   const storedTitle = typeof seo.title === 'string' ? seo.title.trim() : '';
+  const suffix = dict.pdp_meta_title_suffix || ' – Puchica';
   const title =
     langKey === 'en' && storedTitle
-      ? storedTitle
-      : `${productTitle}${dict.pdp_meta_title_suffix}`;
+      ? /puchica/i.test(storedTitle)
+        ? storedTitle
+        : `${storedTitle}${suffix}`
+      : `${productTitle}${suffix}`;
   // Market-safe metadata: strip old U.S.-only shipping language so the shared
   // Canada/U.S. storefront never advertises a route that depends on stale copy.
   const description =
