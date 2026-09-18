@@ -39,7 +39,7 @@ export function PageLayout({
       />
       {header && (
         <>
-        <div className="wr-announce">
+        <div className="wr-announce" role="region" aria-label={t('announce_aria')}>
           <span>{t('announce_shipping')}</span>
           <span aria-hidden="true">·</span>
           <span>{t('announce_returns')}</span>

@@ -2,6 +2,7 @@ import {redirect, useLoaderData} from 'react-router';
 import {CacheNone, getPaginationVariables} from '@shopify/hydrogen';
 import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
 import {ProductItem} from '~/components/ProductItem';
+import {CollectionHero} from '~/components/CollectionChrome';
 import {SectionRenderer} from '~/sections/registry';
 import {COLLECTION_ITEM_FRAGMENT} from '~/lib/fragments';
 import {SECTION_FRAGMENT} from '~/lib/sections';
@@ -119,14 +120,21 @@ export default function CollectionRoute() {
   const nodes = products?.nodes ?? [];
 
   return (
-    <div className="pk-collection">
+    <div className="pk-collection pk-collection--bold">
+      <CollectionHero
+        crumb={collection?.title}
+        eyebrow={t('all_eyebrow')}
+        title={collection?.title}
+        sub={collection?.description || t('all_sub')}
+      />
       <SectionRenderer sections={sections} />
 
       {nodes.length ? (
+        <div className="pk-col-main">
         <PaginatedResourceSection
           connection={products}
           ariaLabel={collection?.title}
-          resourcesClassName="pk-collection__grid"
+          resourcesClassName="pk-prod-grid"
         >
           {({node, index}) => (
             <ProductItem
@@ -136,6 +144,7 @@ export default function CollectionRoute() {
             />
           )}
         </PaginatedResourceSection>
+        </div>
       ) : (
         <p className="pk-collection__empty">{t('all_empty_title')}</p>
       )}

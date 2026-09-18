@@ -1,11 +1,11 @@
 import {useEffect, useState} from 'react';
 import {redirect, useLoaderData, useSearchParams} from 'react-router';
-import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {CacheNone, getPaginationVariables} from '@shopify/hydrogen';
 import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
 import {puchicaMeta} from '~/lib/seo';
 import {launchMetaCopy} from '~/lib/launch-meta';
 import {ProductItem} from '~/components/ProductItem';
+import {CollectionHero} from '~/components/CollectionChrome';
 import {useT} from '~/lib/t';
 import {diversifyByVendor} from '~/lib/diversify';
 import {COLLECTION_ITEM_FRAGMENT} from '~/lib/fragments';
@@ -171,25 +171,12 @@ export default function Collection() {
 
   return (
     <div className="pk-collection pk-collection--bold">
-      <header className="pk-col-hero pk-col-hero--bold">
-        <div className="pk-collection__inner">
-          <nav className="pk-breadcrumbs" aria-label={t('breadcrumb_aria')}>
-            <Link to="/">{t('breadcrumb_home')}</Link>
-            <span className="pk-breadcrumbs__sep">/</span>
-            <span className="pk-breadcrumbs__current">
-              {viewCopy?.title || t('all_breadcrumb')}
-            </span>
-          </nav>
-
-          <span className="pk-col-hero__eyebrow">
-            {viewCopy?.eyebrow || t('all_eyebrow')}
-          </span>
-          <h1 className="pk-col-hero__title">
-            {viewCopy?.title || t('all_title')}
-          </h1>
-          <p className="pk-col-hero__sub">{viewCopy?.sub || t('all_sub')}</p>
-        </div>
-      </header>
+      <CollectionHero
+        crumb={viewCopy?.title || t('all_breadcrumb')}
+        eyebrow={viewCopy?.eyebrow || t('all_eyebrow')}
+        title={viewCopy?.title || t('all_title')}
+        sub={viewCopy?.sub || t('all_sub')}
+      />
 
       {count === 0 ? (
         <div className="pk-empty pk-empty--bold">

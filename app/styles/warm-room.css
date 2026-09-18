@@ -89,7 +89,7 @@ h1, h2, h3, .pk-product__title, .pk-col-hero h1, .pk-col-hero__title {
 /* ── Collection page ───────────────────────────────────────────────────── */
 .pk-col-hero, .pk-col-hero--bold { background: transparent !important; border: 0 !important; padding: 12px 0 8px !important; margin: 0 0 8px !important; color: var(--pk-ink) !important; }
 .pk-col-hero h1 { font-size: clamp(36px, 4vw, 56px); line-height: 1.02; }
-.pk-col-hero__eyebrow, .pk-col-hero .pk-eyebrow { color: var(--pk-honey) !important; background: transparent !important; border: 0 !important; padding: 0 !important; letter-spacing: 0.14em; }
+.pk-col-hero__eyebrow, .pk-col-hero .pk-eyebrow { color: var(--pk-honey-ink) !important; background: transparent !important; border: 0 !important; padding: 0 !important; letter-spacing: 0.14em; }
 .wr-chips { display: flex; gap: 8px; flex-wrap: wrap; padding: 16px 0; border-top: 1px solid var(--pk-line); border-bottom: 1px solid var(--pk-line); margin: 20px 0 8px; }
 .wr-chip { display: inline-flex; align-items: center; min-height: 40px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--pk-line); color: var(--pk-ink); font-size: 14px; font-weight: 500; text-decoration: none; background: transparent; }
 .wr-chip:hover { border-color: var(--pk-ink); color: var(--pk-ink); }
@@ -110,7 +110,7 @@ h1, h2, h3, .pk-product__title, .pk-col-hero h1, .pk-col-hero__title {
 
 /* ── PDP ───────────────────────────────────────────────────────────────── */
 .pk-product__hero-band { background: var(--pk-cream) !important; }
-.pk-product__category { color: var(--pk-honey) !important; letter-spacing: 0.14em; font-weight: 600; }
+.pk-product__category { color: var(--pk-honey-ink) !important; letter-spacing: 0.14em; font-weight: 600; }
 .pk-product__title { font-size: clamp(32px, 3.4vw, 48px); line-height: 1.05; }
 .pk-product__lede { color: var(--pk-muted); font-size: 17px; }
 .pk-product__details-visual, .pk-product__description-card, .pk-gallery, .pk-product__gallery { box-shadow: none !important; }
@@ -171,7 +171,9 @@ h1, h2, h3, .pk-product__title, .pk-col-hero h1, .pk-col-hero__title {
 .wr-hero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 62% 50%; }
 .wr-hero__shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(38,34,29,0.80) 0%, rgba(38,34,29,0.50) 42%, rgba(38,34,29,0.05) 72%); }
 .wr-hero__copy { position: relative; padding: 64px var(--pk-store-gutter); max-width: 680px; display: flex; flex-direction: column; gap: 22px; }
-.wr-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--pk-honey); }
+.wr-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--pk-honey-ink); }
+/* Honey (#B8893A) is 2.69:1 on paper - fine for icons and chip fills, never for small text. On the dark hero, band and footer it is 5:1 and stays. */
+.wr-hero .wr-eyebrow, .wr-cluster-band .wr-eyebrow { color: var(--pk-honey); }
 .wr-hero h1 { margin: 0; font-size: clamp(44px, 5.6vw, 78px); line-height: 1.0; letter-spacing: -0.02em; color: var(--pk-cream); }
 .wr-hero__sub { margin: 0; font-size: clamp(16px, 1.3vw, 19px); line-height: 1.5; max-width: 42ch; color: #E9E1D3; }
 .wr-hero__actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 6px; }
