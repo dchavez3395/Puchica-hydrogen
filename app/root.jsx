@@ -23,6 +23,10 @@ import resetStyles from '~/styles/reset.css?url';
 // in app.css and correctly beat these.
 import tokenStyles from '~/styles/tokens.css?url';
 import appStyles from '~/styles/app.css?url';
+// The 2026-09-18 "warm room" retheme. Loads LAST on purpose: it overrides the
+// travel-era chrome (navy panels, teal CTAs, glyph tickers) with the lighting
+// store's look and carries the new home/PDP component classes.
+import warmRoomStyles from '~/styles/warm-room.css?url';
 import {PageLayout} from './components/PageLayout';
 // SmoothScroll removed in Phase 1 — Lenis was passive scroll
 // enhancement with no callers; native scroll is fine.
@@ -87,7 +91,7 @@ export function links() {
     },
     {
       rel: 'stylesheet',
-      href: 'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,500&display=swap',
+      href: 'https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap',
     },
     {rel: 'icon', type: 'image/svg+xml', href: favicon},
   ];
@@ -237,6 +241,7 @@ export function Layout({children}) {
         <link rel="stylesheet" href={resetStyles}></link>
         <link rel="stylesheet" href={tokenStyles}></link>
         <link rel="stylesheet" href={appStyles}></link>
+        <link rel="stylesheet" href={warmRoomStyles}></link>
         {alternates.map((a) => (
           <link
             key={a.hreflang}

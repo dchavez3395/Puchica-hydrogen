@@ -125,7 +125,7 @@ test('the homepage falls back to its built-in layout when no sections exist', ()
   const route = readFileSync('app/routes/_index.jsx', 'utf8');
 
   assert.match(route, /sections\.length \? \(/);
-  assert.match(route, /<SmallSpaceLanding products=\{products\} \/>/);
+  assert.match(route, /<HomeLanding products=\{products\} \/>/);
   assert.match(route, /\.catch\(\(error\) => \{/);
   assert.match(route, /handle: 'home'/);
 });

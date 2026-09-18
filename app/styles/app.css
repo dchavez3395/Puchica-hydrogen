@@ -6169,14 +6169,15 @@ main:has(> .pk-home) {
 }
 
 /* SC 1.4.11 (non-text contrast) applies to the focus indicator itself.
-   #1F5FA8 measures 6.44:1 against the light page but only 2.76:1 against the
-   #101828 footer, so on the one dark surface that holds focusable elements the
-   ring was effectively invisible - 15 links on every page of the site.
-   Dark surfaces re-point the token instead of overriding the :focus-visible
-   rule above, so ring width, offset and geometry stay identical everywhere and
-   only the colour adapts. #8AB4F8 measures 8.42:1 on #101828. */
+   The clay ring (#9A4E2E, warm-room pass 2026-09-18) measures 5.6:1 against
+   the paper page but only 2.4:1 against the #26221D footer, so on the one
+   dark surface that holds focusable elements the ring would be invisible -
+   15 links on every page of the site. Dark surfaces re-point the token instead
+   of overriding the :focus-visible rule above, so ring width, offset and
+   geometry stay identical everywhere and only the colour adapts. Light honey
+   #D2AC55 measures 7.5:1 on #26221D. */
 .pk-footer {
-  --pk-a11y-focus: #8ab4f8;
+  --pk-a11y-focus: #d2ac55;
 }
 
 /* Keep focused elements and anchor targets clear of the sticky header

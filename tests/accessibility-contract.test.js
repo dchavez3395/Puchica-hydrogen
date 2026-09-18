@@ -243,13 +243,14 @@ test('the focus ring stays above 3:1 on the dark footer', async () => {
     /\.pk-footer\s*\{[^}]*--pk-a11y-focus:\s*(#[0-9a-fA-F]{6})[^}]*\}/,
   );
 
-  assert.equal(light, '#1F5FA8');
+  // Warm-room pass (2026-09-18): the shared ring is clay on paper.
+  assert.equal(light, '#9A4E2E');
   assert.ok(
     footerBlock,
-    '.pk-footer must re-point --pk-a11y-focus; the shared blue is 2.76:1 on #101828',
+    '.pk-footer must re-point --pk-a11y-focus; the shared clay is 2.4:1 on #26221D',
   );
 
-  const FOOTER_BG = '#101828';
+  const FOOTER_BG = '#26221D';
   assert.ok(
     contrastRatio(light, FOOTER_BG) < 3,
     'guard assumes the shared ring fails on the footer; if it now passes, drop the override',

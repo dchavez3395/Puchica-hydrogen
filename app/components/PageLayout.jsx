@@ -38,12 +38,21 @@ export function PageLayout({
         publicStoreDomain={publicStoreDomain}
       />
       {header && (
+        <>
+        <div className="wr-announce">
+          <span>{t('announce_shipping')}</span>
+          <span aria-hidden="true">·</span>
+          <span>{t('announce_returns')}</span>
+          <span aria-hidden="true" className="wr-announce__hide-sm">·</span>
+          <span className="wr-announce__hide-sm">{t('announce_bulb')}</span>
+        </div>
         <Header
           header={header}
           cart={cart}
           isLoggedIn={isLoggedIn}
           publicStoreDomain={publicStoreDomain}
         />
+        </>
       )}
       <main id="main-content" tabIndex={-1}>
         {children}

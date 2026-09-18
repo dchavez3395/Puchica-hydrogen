@@ -42,6 +42,7 @@ import {
   presentProductTitle,
 } from '~/lib/product-presentation';
 import {buildApprovedGallery} from '~/lib/product-gallery';
+import {extractProductFacts} from '~/lib/product-facts';
 
 /** @type {Route.MetaFunction} */
 export const meta = ({data, matches, params}) => {
@@ -257,6 +258,10 @@ export default function Product() {
   const summary = localizedCopy?.summary || productSummary(product.description);
   const displayDescriptionHtml =
     localizedCopy?.descriptionHtml || product.descriptionHtml;
+  // Buy-box facts (size, cord, fitting, bulb) come from the same copy the
+  // description renders, so the two can never disagree.
+  const facts = extractProductFacts(displayDescriptionHtml);
+  const isPendant = /pendant/i.test(product.productType || '');
   const galleryImages = buildApprovedGallery(product, selectedVariant).map(
     (image) =>
       langKey === 'en' ? image : {...image, altText: displayTitle},
@@ -364,8 +369,24 @@ export default function Product() {
                       {t('product_badge_sold_out')}
                     </span>
                   )}
+                  <span className="wr-price-note">{t('pdp_price_note')}</span>
                 </div>
               </div>
+              {facts.length ? (
+                <dl className="wr-facts" aria-label={t('pdp_facts_aria')}>
+                  {facts.map((fact) => (
+                    <div key={fact.label}>
+                      <dt>{fact.label}</dt>
+                      <dd>{fact.value}</dd>
+                    </div>
+                  ))}
+                </dl>
+              ) : null}
+              <ul className="wr-tags" aria-label={t('pdp_tags_aria')}>
+                <li>{t('pdp_tag_bulb')}</li>
+                <li>{t(isPendant ? 'pdp_tag_hardwired' : 'pdp_tag_wall')}</li>
+                <li>{t('pdp_tag_dry')}</li>
+              </ul>
             </div>
             <ProductImage
               images={galleryImages}
@@ -399,6 +420,30 @@ export default function Product() {
                   />
                 )}
               </div>
+
+              {isPendant ? (
+                <Link
+                  className="wr-cluster"
+                  to="/collections/pendant-lights"
+                  prefetch="intent"
+                >
+                  {product.featuredImage ? (
+                    <span className="wr-cluster__thumb">
+                      <Image
+                        data={product.featuredImage}
+                        alt=""
+                        aspectRatio="1/1"
+                        sizes="44px"
+                      />
+                    </span>
+                  ) : null}
+                  <span className="wr-cluster__body">
+                    <strong>{t('pdp_cluster_title')}</strong>
+                    <span>{t('pdp_cluster_sub')}</span>
+                  </span>
+                  <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M3 10h14" /><path d="M11 4l6 6-6 6" /></svg>
+                </Link>
+              ) : null}
 
               {/* ── Trust block: 4 rows of promise, neutral hairline chips. */}
               {purchaseFacts ? (

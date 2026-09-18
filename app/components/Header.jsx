@@ -39,7 +39,12 @@ export function HeaderMenu({viewport}) {
   const className = viewport === 'desktop' ? 'pk-nav' : 'pk-nav pk-nav--mobile';
   const {close} = useAside();
   const t = useT();
+  // The two smart collections were created 2026-09-18 (by product type) and
+  // published to the storefront; /collections/all stays as "Shop" for the
+  // full range.
   const desktopNav = [
+    {id: 'pendants', title: t('nav_pendants'), url: '/collections/pendant-lights'},
+    {id: 'sconces', title: t('nav_sconces'), url: '/collections/wall-sconces'},
     {id: 'shop', title: t('nav_shop'), url: '/collections/all'},
     {id: 'about', title: t('nav_about'), url: '/pages/about'},
   ];

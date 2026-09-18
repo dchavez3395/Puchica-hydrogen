@@ -1,9 +1,7 @@
 import {CacheNone} from '@shopify/hydrogen';
 import {useLoaderData} from 'react-router';
-import {
-  SMALL_SPACE_QUERY,
-  SmallSpaceLanding,
-} from '~/components/SmallSpaceLanding';
+import {SMALL_SPACE_QUERY} from '~/components/SmallSpaceLanding';
+import {HomeLanding} from '~/components/HomeLanding';
 import {SectionRenderer} from '~/sections/registry';
 import {PAGE_LAYOUT_QUERY} from '~/lib/sections';
 import {
@@ -102,13 +100,11 @@ export default function Index() {
     );
   }
 
-  // Migration, not cutover. `SmallSpaceLanding` was written for the retired
-  // travel-organizer catalogue and still degrades badly on an empty cohort, but
-  // it is also the live front door, so it is not deleted on the way past. The
-  // moment a `page_layout` entry with handle `home` carries sections, those
-  // take over; delete the entry and the old landing comes straight back. That
-  // makes the switch reversible from Shopify admin with no deploy in either
-  // direction, which is the only sane way to replace a homepage.
+  // `HomeLanding` is the woven-lighting front door (2026-09-18). It still
+  // reads the launch-filtered cohort from SMALL_SPACE_QUERY, so the catalogue
+  // gate is unchanged. A `page_layout` entry with handle `home` carrying
+  // sections still takes over, and deleting it brings this landing straight
+  // back - reversible from Shopify admin with no deploy in either direction.
   return (
     <div className="pk-home pk-campaign pk-campaign--home">
       <JsonLdScript data={organizationJsonLd({})} />
@@ -116,7 +112,7 @@ export default function Index() {
       {sections.length ? (
         <SectionRenderer sections={sections} products={products} />
       ) : (
-        <SmallSpaceLanding products={products} />
+        <HomeLanding products={products} />
       )}
     </div>
   );

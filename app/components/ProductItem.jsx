@@ -5,6 +5,7 @@ import {useVariantUrl} from '~/lib/variants';
 import {AddToCartButton} from '~/components/AddToCartButton';
 import {useAside} from '~/components/Aside';
 import {useT} from '~/lib/t';
+import {cardTitle, sizeChipFor} from '~/lib/size-chip';
 import {
   presentProductDepartment,
   presentProductTitle,
@@ -246,9 +247,14 @@ export function ProductItem({product, loading, dark = false}) {
       </Link>
       <div className="pk-card__body">
         <Link to={variantUrl} className="pk-card__title" prefetch="intent">
-          {displayTitle}
+          {cardTitle(displayTitle)}
         </Link>
         <span className="pk-card__vendor">{department}</span>
+        {sizeChipFor(product) ? (
+          <span>
+            <span className="wr-size">{sizeChipFor(product)}</span>
+          </span>
+        ) : null}
         {optionSummary ? (
           <span className="pk-card__option-summary">{optionSummary}</span>
         ) : null}
