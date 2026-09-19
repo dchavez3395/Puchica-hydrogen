@@ -6,6 +6,7 @@ import {
 } from '~/components/Icons';
 import {SOCIAL_PROFILES} from '~/lib/brand';
 import {useT} from '~/lib/t';
+import {NewsletterForm} from '~/components/NewsletterForm';
 
 // Footer loader prefers `shop.brand.logo.image.url` from the Storefront
 // API when set under Settings > Brand, otherwise falls back to
@@ -100,6 +101,10 @@ export function Footer() {
             {t('footer_shipping_policy')}
           </Link>
           <Link to="/policies/terms-of-service">{t('footer_terms')}</Link>
+        </div>
+
+        <div className="pk-footer__col pk-footer__col--news">
+          <NewsletterForm />
         </div>
       </div>
 

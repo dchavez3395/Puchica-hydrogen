@@ -274,3 +274,24 @@ h1, h2, h3, .pk-product__title, .pk-col-hero h1, .pk-col-hero__title {
 @media (max-width: 760px) { .wr-signup { grid-template-columns: 1fr; } .wr-signup form { flex-direction: column; } }
 
 .wr-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ── Footer newsletter (first-party, no Klaviyo script) ──────────────── */
+.pk-footer__col--news { min-width: 0; }
+.wr-news__title { font-family: var(--pk-font); font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--pk-honey) !important; margin: 0 0 14px; }
+.wr-news__body { color: #CFC6B8; font-size: 14px; line-height: 1.6; margin: 0 0 14px; max-width: 34ch; }
+.wr-news__label { display: block; color: var(--pk-cream); font-size: 13px; font-weight: 600; margin: 0 0 6px; }
+.wr-news__row { display: flex; gap: 8px; flex-wrap: wrap; }
+.wr-news__input { flex: 1 1 180px; min-width: 0; min-height: 44px; padding: 0 12px; border-radius: 8px; border: 1px solid rgba(242, 235, 218, 0.28); background: var(--pk-paper); color: var(--pk-ink); font: inherit; font-size: 15px; }
+.wr-news__input::placeholder { color: var(--pk-muted); }
+.wr-news__btn { min-height: 44px; padding: 0 18px; border-radius: 8px; border: 0; background: var(--pk-honey); color: var(--pk-ink); font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; }
+.wr-news__btn:hover { background: #D2AC55; }
+.wr-news__btn:disabled { opacity: 0.7; cursor: progress; }
+.wr-news__consent { color: #CFC6B8; font-size: 12px; line-height: 1.5; margin: 10px 0 0; max-width: 36ch; }
+.wr-news__status { margin: 10px 0 0; font-size: 14px; line-height: 1.5; color: var(--pk-cream); min-height: 0; }
+.wr-news__status:empty { margin: 0; }
+.wr-news__status.is-ok { color: #D2AC55; }
+.wr-news__status.is-err { color: #F2B8A8; }
+.wr-news__status:focus { outline: 2px solid #D2AC55; outline-offset: 4px; }
+.wr-news__hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+@media (max-width: 900px) { .pk-footer__inner { grid-template-columns: 1fr 1fr; } .pk-footer__col--news { grid-column: 1 / -1; } }
+@media (max-width: 560px) { .pk-footer__inner { grid-template-columns: 1fr; } }
