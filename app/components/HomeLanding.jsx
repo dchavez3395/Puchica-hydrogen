@@ -6,6 +6,13 @@ import {findApprovedVariant} from '~/lib/launch-catalog';
 import {presentProductTitle} from '~/lib/product-presentation';
 import {cardTitle, sizeChipFor} from '~/lib/size-chip';
 import {useT} from '~/lib/t';
+import {
+  HERO_MOBILE_MEDIA,
+  HERO_SIZES,
+  heroCropUrl,
+  heroPortraitSrcSet,
+  heroSquareSrcSet,
+} from '~/lib/hero-image';
 
 /**
  * The woven-lighting home page ("Warm room", 2026-09-18).
@@ -56,14 +63,28 @@ export function HomeLanding({products = []}) {
             CI resolution probe and looks soft besides. */}
         <div className="wr-hero__visual" aria-hidden="true">
           {heroImage ? (
-            <Image
-              className="wr-hero__img"
-              data={heroImage}
-              alt=""
-              sizes="(min-width: 1024px) 1024px, 100vw"
-              loading="eager"
-              {...{fetchpriority: 'high'}}
-            />
+            // Art-directed: a 3:4 crop for the phone window, squares above.
+            // Candidates come from app/lib/hero-image.js so the preload in
+            // routes/_index.jsx meta() names exactly the same files.
+            <picture>
+              <source
+                media={HERO_MOBILE_MEDIA}
+                srcSet={heroPortraitSrcSet(heroImage.url)}
+                sizes="100vw"
+              />
+              <img
+                className="wr-hero__img"
+                src={heroCropUrl(heroImage.url, 1024, 1024)}
+                srcSet={heroSquareSrcSet(heroImage.url)}
+                sizes={HERO_SIZES}
+                width={1024}
+                height={1024}
+                alt=""
+                loading="eager"
+                decoding="async"
+                {...{fetchpriority: 'high'}}
+              />
+            </picture>
           ) : null}
           <div className="wr-hero__shade"></div>
         </div>
@@ -282,7 +303,7 @@ export function HomeLanding({products = []}) {
 
 const PENDANTS = '/collections/pendant-lights';
 const SCONCES = '/collections/wall-sconces';
-const HERO_HANDLE = 'woven-bamboo-globe-pendant-25cm';
+export const HERO_HANDLE = 'woven-bamboo-globe-pendant-25cm';
 const CLUSTER_HANDLE = 'bamboo-slat-pumpkin-pendant-18cm';
 
 const ROOMS = [

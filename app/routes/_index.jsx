@@ -1,7 +1,9 @@
 import {CacheNone} from '@shopify/hydrogen';
 import {useLoaderData} from 'react-router';
 import {SMALL_SPACE_QUERY} from '~/components/SmallSpaceLanding';
-import {HomeLanding} from '~/components/HomeLanding';
+import {HERO_HANDLE, HomeLanding} from '~/components/HomeLanding';
+import {findApprovedVariant} from '~/lib/launch-catalog';
+import {heroPreloadLinks} from '~/lib/hero-image';
 import {SectionRenderer} from '~/sections/registry';
 import {PAGE_LAYOUT_QUERY} from '~/lib/sections';
 import {
@@ -19,7 +21,15 @@ import {
 
 export const meta = ({data, params}) => {
   const copy = launchMetaCopy(params?.locale, data?.country);
-  return puchicaMeta({
+  // Preload the hero (the home LCP element) from the same candidate lists
+  // HomeLanding renders, so the fetch starts with the HTML rather than after
+  // CSS and hydration. meta() sees loader data; a static links() would not.
+  const hero = (data?.products || []).find((p) => p.handle === HERO_HANDLE);
+  const heroVariant = findApprovedVariant(hero, data?.country);
+  const heroUrl = (heroVariant?.image || hero?.featuredImage)?.url;
+  return [
+    ...heroPreloadLinks(heroUrl),
+    ...puchicaMeta({
     title: STOREFRONT_CONTAINMENT_ACTIVE
       ? 'Puchica — Store review in progress'
       : copy.home.title,
@@ -29,7 +39,8 @@ export const meta = ({data, params}) => {
         : copy.home.description,
     pathname: '/',
     langKey: params?.locale,
-  });
+    }),
+  ];
 };
 
 export async function loader({context}) {
