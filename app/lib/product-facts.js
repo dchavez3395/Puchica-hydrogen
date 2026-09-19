@@ -19,10 +19,14 @@ export function extractProductFacts(html) {
   while ((m = re.exec(html))) {
     pairs.push({label: m[1].trim(), value: m[2].replace(/\s+/g, ' ').trim()});
   }
+  // Slot 2 is "how it attaches": the cord for a pendant, the backplate and
+  // arm for a sconce. Slot 3 must know Spanish "casquillo" as well as
+  // Portuguese "casquilho" - six Spanish PDPs showed two facts instead of
+  // three until 2026-09-19 because it did not.
   const pickers = [
     /^(size|dimensions?|taille|dimensions|tama[ñn]o|tamanho|medidas?)$/i,
-    /(cord|c[âa]ble|cabo|base and cord|base et c[âa]ble)/i,
-    /^(fitting|socket|douille|portal[áa]mparas|soquete|casquilho)$/i,
+    /(cord|c[âa]ble|cabo|base and cord|base et c[âa]ble|backplate|platine|placa|\bmount\b|mounting|montaje|montagem|fixation|fixação)/i,
+    /^(fitting|socket|douille|portal[áa]mparas|soquete|casquilho|casquillo)$/i,
     /^(bulb|ampoule|bombilla|l[âa]mpada)$/i,
   ];
   const out = [];
