@@ -22,7 +22,11 @@ import {presentProductTitle} from '~/lib/product-presentation';
 export function CartLineItem({layout, line, childrenMap}) {
   const t = useT();
   const {id, merchandise, quantity} = line;
-  const {product, title, image, selectedOptions} = merchandise;
+  const {product, title, selectedOptions} = merchandise;
+  // A variant with no image of its own (15 of 20 lights had none until the
+  // 2026-09-18 rebinding) rendered an empty box here and in checkout; fall
+  // back to the product's featured image so a cart line is never blank.
+  const image = merchandise.image || product.featuredImage || null;
   const displayTitle = presentProductTitle(
     product.title,
     merchandise,
