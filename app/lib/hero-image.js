@@ -11,7 +11,9 @@
  * The same candidates feed the <picture> in HomeLanding and the preload
  * <link> the home route's meta() emits, so the browser fetches exactly one.
  */
-export const HERO_PORTRAIT_WIDTHS = [412, 640, 824];
+// Capped at 640: on a 412px phone that is 1.55x, plenty for a photo behind a
+// gradient shade, and 20 KB lighter than the 824 crop a DPR-3 screen would pick.
+export const HERO_PORTRAIT_WIDTHS = [412, 640];
 export const HERO_SQUARE_WIDTHS = [600, 800, 1024];
 export const HERO_MOBILE_MEDIA = '(max-width: 767px)';
 export const HERO_DESKTOP_MEDIA = '(min-width: 768px)';

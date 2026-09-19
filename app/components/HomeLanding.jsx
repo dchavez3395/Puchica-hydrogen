@@ -181,7 +181,7 @@ export function HomeLanding({products = []}) {
             </Link>
           </div>
           <div className="wr-grid">
-            {grid.map((product, index) => {
+            {grid.map((product) => {
               const variant = findApprovedVariant(product, market);
               const image = variant?.image || product.featuredImage;
               const title = presentProductTitle(
@@ -205,7 +205,11 @@ export function HomeLanding({products = []}) {
                         data={image}
                         alt={image.altText || title}
                         sizes="(min-width: 900px) 25vw, 50vw"
-                        loading={index < 4 ? 'eager' : 'lazy'}
+                        // The grid sits below the hero and the room tiles on
+                        // every viewport; eager thumbnails were sharing the
+                        // first-paint bandwidth with app.css (Lighthouse
+                        // 2026-09-19: four 25 KB requests at 790 ms).
+                        loading="lazy"
                       />
                     ) : null}
                     {tag ? <span className="wr-card__tag">{t(tag)}</span> : null}

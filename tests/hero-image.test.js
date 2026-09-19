@@ -17,7 +17,8 @@ test('hero crops keep the cache key and ask the CDN for exact sizes', () => {
     `${BASE}&width=640&height=853&crop=center`,
   );
   assert.match(heroPortraitSrcSet(BASE), /width=412&height=549&crop=center 412w/);
-  assert.match(heroPortraitSrcSet(BASE), /width=824&height=1099&crop=center 824w/);
+  assert.match(heroPortraitSrcSet(BASE), /width=640&height=853&crop=center 640w/);
+  assert.doesNotMatch(heroPortraitSrcSet(BASE), /824w/);
   // The CI resolution probe needs a 1024 candidate for the 1024px desktop box.
   assert.match(heroSquareSrcSet(BASE), /width=1024&height=1024&crop=center 1024w/);
 });
