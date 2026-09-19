@@ -73,6 +73,13 @@ test('the signup form is first-party and accessible by construction', () => {
   assert.match(form, /aria-live="polite"/);
   assert.match(form, /statusRef\.current\.focus\(\)/);
   assert.match(form, /name="website"[\s\S]*tabIndex=\{-1\}/);
+  // The honeypot must be clipped in place, not parked off-screen: the
+  // production reflow probe counts anything left of the viewport as overflow
+  // (CI run 35425935794 failed 25 checks on left:-10000px).
+  const css = readFileSync('app/styles/warm-room.css', 'utf8');
+  const hp = css.match(/\.wr-news__hp \{([^}]*)\}/)?.[1] || '';
+  assert.doesNotMatch(hp, /left:\s*-\d/);
+  assert.match(hp, /clip(-path)?:/);
 });
 
 test('readSignup normalises the email and reads the honeypot', () => {

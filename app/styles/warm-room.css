@@ -292,6 +292,8 @@ h1, h2, h3, .pk-product__title, .pk-col-hero h1, .pk-col-hero__title {
 .wr-news__status.is-ok { color: #D2AC55; }
 .wr-news__status.is-err { color: #F2B8A8; }
 .wr-news__status:focus { outline: 2px solid #D2AC55; outline-offset: 4px; }
-.wr-news__hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+/* Honeypot: clipped in place, not parked off-screen — the reflow probe counts anything left of the viewport as overflow. */
+.wr-news__hp { position: absolute; top: 0; left: 0; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); opacity: 0; pointer-events: none; white-space: nowrap; }
+.wr-news { position: relative; }
 @media (max-width: 900px) { .pk-footer__inner { grid-template-columns: 1fr 1fr; } .pk-footer__col--news { grid-column: 1 / -1; } }
 @media (max-width: 560px) { .pk-footer__inner { grid-template-columns: 1fr; } }
