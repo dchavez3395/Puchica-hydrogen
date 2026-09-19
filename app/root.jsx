@@ -18,6 +18,7 @@ import {HEADER_QUERY} from '~/lib/fragments';
 import {resolveStorefrontLocale} from '~/lib/i18n';
 import {STOREFRONT_CONTAINMENT_ACTIVE} from '~/lib/launch-catalog';
 import resetStyles from '~/styles/reset.css?url';
+import fontStyles from '~/styles/fonts.css?url';
 // Tokens MUST load before app.css: they are plain :root declarations and the
 // later stylesheet wins any collision. Media-query :root overrides still live
 // in app.css and correctly beat these.
@@ -84,15 +85,23 @@ export function links() {
       rel: 'preconnect',
       href: 'https://shop.app',
     },
-    {rel: 'preconnect', href: 'https://fonts.googleapis.com'},
+    // Fonts are self-hosted (app/styles/fonts.css + public/fonts) since
+    // 2026-09-18: the fonts.googleapis.com stylesheet was render-blocking and
+    // cost ~0.9 s of mobile LCP. Preload the two upright latin files so the
+    // display face is ready by first paint; italics load on demand.
     {
-      rel: 'preconnect',
-      href: 'https://fonts.gstatic.com',
+      rel: 'preload',
+      as: 'font',
+      type: 'font/woff2',
+      href: '/fonts/fraunces-normal-latin.woff2',
       crossOrigin: 'anonymous',
     },
     {
-      rel: 'stylesheet',
-      href: 'https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap',
+      rel: 'preload',
+      as: 'font',
+      type: 'font/woff2',
+      href: '/fonts/instrument-sans-normal-latin.woff2',
+      crossOrigin: 'anonymous',
     },
     {rel: 'icon', type: 'image/svg+xml', href: favicon},
   ];
@@ -260,6 +269,7 @@ export function Layout({children}) {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <link rel="stylesheet" href={resetStyles}></link>
+        <link rel="stylesheet" href={fontStyles}></link>
         <link rel="stylesheet" href={tokenStyles}></link>
         <link rel="stylesheet" href={appStyles}></link>
         <link rel="stylesheet" href={warmRoomStyles}></link>
