@@ -3,6 +3,7 @@ import {useEffect, useRef, useState} from 'react';
 import {useRevalidator} from 'react-router';
 import {useAside} from '~/components/Aside';
 import {useT} from '~/lib/t';
+import {useAnnouncer} from '~/components/LiveAnnouncer';
 import {
   captureCartSubmission,
   isFeedbackForCurrentSelection,
@@ -144,6 +145,17 @@ function AddToCartSubmitButton({
 
   const resolvedAddedLabel =
     addedLabel !== undefined ? addedLabel : t('atc_added');
+  const announce = useAnnouncer();
+  const statusText = showError
+    ? t('atc_add_failed')
+    : showAdded
+      ? resolvedAddedLabel || ''
+      : isSubmitting
+        ? t('atc_adding')
+        : '';
+  useEffect(() => {
+    if (statusText) announce(statusText);
+  }, [statusText, announce]);
   const label = showError
     ? t('atc_add_failed')
     : showAdded
@@ -170,17 +182,10 @@ function AddToCartSubmitButton({
       >
         {label}
       </button>
-      {/* Live region kept outside the (disabled) button — live text inside
-          disabled controls is unreliably announced across screen readers. */}
-      <span className="sr-only" role="status" aria-live="polite">
-        {showError
-          ? t('atc_add_failed')
-          : showAdded
-            ? resolvedAddedLabel || ''
-            : isSubmitting
-              ? t('atc_adding')
-              : ''}
-      </span>
+      {/* Status is announced through the page's single live region
+          (LiveAnnouncer in PageLayout): live text inside a disabled control is
+          unreliably announced, and one region per product card meant 22
+          status regions on the collection page. */}
     </>
   );
 }

@@ -7,6 +7,7 @@ import {Header, HeaderMenu} from '~/components/Header';
 import {CartMain} from '~/components/CartMain';
 import {IconSearch} from '~/components/Icons';
 import {useT} from '~/lib/t';
+import {LiveAnnouncer} from '~/components/LiveAnnouncer';
 import {LocaleSwitcher} from '~/components/LocaleSwitcher';
 import {
   getSearchHref,
@@ -28,6 +29,7 @@ export function PageLayout({
   const t = useT();
   return (
     <Aside.Provider>
+      <LiveAnnouncer>
       <a href="#main-content" className="pk-skip-link">
         {t('skip_to_content')}
       </a>
@@ -61,6 +63,7 @@ export function PageLayout({
         header={header}
         publicStoreDomain={publicStoreDomain}
       />
+      </LiveAnnouncer>
     </Aside.Provider>
   );
 }
