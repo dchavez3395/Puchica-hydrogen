@@ -227,22 +227,63 @@ export function organizationJsonLd({
       url: logo,
     },
     sameAs: sameAs.filter(Boolean),
-    hasMerchantReturnPolicy: {
-      '@type': 'MerchantReturnPolicy',
-      '@id': canonical('/policies/refund-policy#merchant-return-policy'),
-      merchantReturnLink: canonical('/policies/refund-policy'),
-      applicableCountry: ['CA'],
-      returnPolicyCategory:
-        'https://schema.org/MerchantReturnFiniteReturnWindow',
-      merchantReturnDays: 30,
-      returnMethod: 'https://schema.org/ReturnByMail',
-      itemCondition: [
-        'https://schema.org/NewCondition',
-        'https://schema.org/DamagedCondition',
-      ],
-      customerRemorseReturnFees:
-        'https://schema.org/ReturnFeesCustomerResponsibility',
-      itemDefectReturnFees: 'https://schema.org/FreeReturn',
+    hasMerchantReturnPolicy: merchantReturnPolicyJsonLd(),
+  };
+}
+
+/**
+ * The store's return policy as a MerchantReturnPolicy node. Inlined on the
+ * Organization AND on every product Offer: an `@id`-only reference from a
+ * product page pointed at a node that only the homepage carries, so Google's
+ * Merchant listings saw no return policy on any PDP (schema audit 2026-09-19).
+ */
+export function merchantReturnPolicyJsonLd() {
+  return {
+    '@type': 'MerchantReturnPolicy',
+    '@id': canonical('/policies/refund-policy#merchant-return-policy'),
+    merchantReturnLink: canonical('/policies/refund-policy'),
+    applicableCountry: ['CA'],
+    returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
+    merchantReturnDays: 30,
+    returnMethod: 'https://schema.org/ReturnByMail',
+    itemCondition: [
+      'https://schema.org/NewCondition',
+      'https://schema.org/DamagedCondition',
+    ],
+    customerRemorseReturnFees:
+      'https://schema.org/ReturnFeesCustomerResponsibility',
+    itemDefectReturnFees: 'https://schema.org/FreeReturn',
+  };
+}
+
+/**
+ * Shipping terms for every approved product as an OfferShippingDetails node.
+ * Canada only; free (every listing is above the CA$50 threshold in the
+ * General profile); 1-3 business days to hand over to the carrier and 10-21
+ * business days in transit, which is the "two to three weeks" the FAQ states.
+ * This is what Google reads for the free-shipping annotation on Shopping
+ * listings; it was absent on all 20 PDPs before 2026-09-19.
+ */
+export function shippingDetailsJsonLd() {
+  return {
+    '@type': 'OfferShippingDetails',
+    '@id': canonical('/pages/shipping#shipping-details'),
+    shippingRate: {'@type': 'MonetaryAmount', value: '0.00', currency: 'CAD'},
+    shippingDestination: {'@type': 'DefinedRegion', addressCountry: 'CA'},
+    deliveryTime: {
+      '@type': 'ShippingDeliveryTime',
+      handlingTime: {
+        '@type': 'QuantitativeValue',
+        minValue: 1,
+        maxValue: 3,
+        unitCode: 'DAY',
+      },
+      transitTime: {
+        '@type': 'QuantitativeValue',
+        minValue: 10,
+        maxValue: 21,
+        unitCode: 'DAY',
+      },
     },
   };
 }

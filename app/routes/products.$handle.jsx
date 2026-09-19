@@ -19,6 +19,9 @@ import {
   SITE_URL,
   breadcrumbJsonLd,
   JsonLdScript,
+  merchantReturnPolicyJsonLd,
+  organizationJsonLd,
+  shippingDetailsJsonLd,
 } from '~/lib/seo';
 import {parseJudgemeReviewData} from '~/lib/judgeme';
 import {dutyCopyKey} from '~/lib/duty-posture';
@@ -328,6 +331,9 @@ export default function Product() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{__html: JSON.stringify(jsonLd)}}
       />
+      {/* Organization on the PDP too, so the seller, logo and return policy
+          resolve on the page Google actually indexes for Shopping. */}
+      <JsonLdScript data={organizationJsonLd({})} />
       <JsonLdScript
         data={breadcrumbJsonLd(
           buildBreadcrumbItems(product, displayTitle, t),
@@ -866,11 +872,8 @@ function buildJsonLd(
             '@type': 'Country',
             name: countryCode,
           })),
-          hasMerchantReturnPolicy: {
-            '@id': canonical(
-              '/policies/refund-policy#merchant-return-policy',
-            ),
-          },
+          shippingDetails: shippingDetailsJsonLd(),
+          hasMerchantReturnPolicy: merchantReturnPolicyJsonLd(),
         }
       : undefined,
   };
