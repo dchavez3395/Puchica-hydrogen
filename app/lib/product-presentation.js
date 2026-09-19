@@ -63,10 +63,11 @@ export function presentLaunchProductCopy(handle, source) {
   if (!prefix) return null;
   const title = translated(source, `${prefix}_title`);
   const summary = translated(source, `${prefix}_summary`);
+  // The request dictionary no longer carries product_copy_*_html (only the
+  // product route merges its own back in), so a card or meta caller gets the
+  // localized title and summary with descriptionHtml empty.
   const descriptionHtml = translated(source, `${prefix}_html`);
-  return title && summary && descriptionHtml
-    ? {title, summary, descriptionHtml}
-    : null;
+  return title && summary ? {title, summary, descriptionHtml} : null;
 }
 
 export function presentProductTitle(title, variant, handle, source) {

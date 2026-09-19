@@ -2,7 +2,11 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 
-import {getRequestDictionary} from '../app/lib/dictionaries.server.js';
+import {
+  getProductCopyHtml,
+  getRequestDictionary,
+} from '../app/lib/dictionaries.server.js';
+import {presentLaunchProductCopy} from '../app/lib/product-presentation.js';
 
 test('server selects one complete request dictionary with English fallback', () => {
   const french = getRequestDictionary('FR');
@@ -17,9 +21,36 @@ test('client translation helper does not bundle all locale dictionaries', () => 
   const rootRoute = readFileSync('app/root.jsx', 'utf8');
 
   assert.doesNotMatch(helper, /lib\/dictionaries/);
-  assert.doesNotMatch(productRoute, /lib\/dictionaries/);
+  // The product route may import the .server module (loader-only, stripped
+  // from the client bundle) but never the dictionaries themselves.
+  assert.doesNotMatch(productRoute, /lib\/dictionaries(?!\.server)/);
+  assert.match(productRoute, /getProductCopyHtml\(/);
   assert.match(rootRoute, /lib\/dictionaries\.server/);
   assert.match(rootRoute, /dictionary: getRequestDictionary/);
+});
+
+test('the request dictionary omits product description HTML; the product route adds its own', () => {
+  // product_copy_*_html was ~70 KB per locale on every page (2026-09-18
+  // Lighthouse: a 148 KB inline payload). Only one PDP needs one of them.
+  for (const language of ['EN', 'FR', 'ES', 'PT_BR']) {
+    const dictionary = getRequestDictionary(language);
+    const htmlKeys = Object.keys(dictionary).filter(
+      (k) => k.startsWith('product_copy_') && k.endsWith('_html'),
+    );
+    assert.deepEqual(htmlKeys, [], `${language} still ships ${htmlKeys.length} html keys`);
+    // Localized card titles must survive the slimming.
+    assert.ok(dictionary.product_copy_wovenglobe25_title);
+    const copy = getProductCopyHtml(language, 'woven-bamboo-globe-pendant-25cm');
+    assert.deepEqual(Object.keys(copy), ['product_copy_wovenglobe25_html']);
+    assert.match(copy.product_copy_wovenglobe25_html, /<h2>/);
+  }
+  assert.deepEqual(getProductCopyHtml('EN', 'not-a-launch-handle'), {});
+  const titleOnly = presentLaunchProductCopy(
+    'woven-bamboo-globe-pendant-25cm',
+    getRequestDictionary('FR'),
+  );
+  assert.ok(titleOnly?.title, 'card title must resolve without the html key');
+  assert.equal(titleOnly.descriptionHtml, '');
 });
 
 test('focused launch homepage is translated in every supported language', () => {

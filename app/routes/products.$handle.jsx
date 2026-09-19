@@ -42,6 +42,7 @@ import {
   presentProductTitle,
 } from '~/lib/product-presentation';
 import {buildApprovedGallery} from '~/lib/product-gallery';
+import {getProductCopyHtml} from '~/lib/dictionaries.server';
 import {extractProductFacts} from '~/lib/product-facts';
 
 /** @type {Route.MetaFunction} */
@@ -59,7 +60,7 @@ export const meta = ({data, matches, params}) => {
     .toLowerCase()
     .replace(/_/g, '-');
   const langKey = ['fr', 'es', 'pt-br'].includes(langCode) ? langCode : 'en';
-  const dict = root?.data?.dictionary || {};
+  const dict = {...(root?.data?.dictionary || {}), ...(data.copyHtml || {})};
   const seo = data.product.seo || {};
   const localizedCopy = presentLaunchProductCopy(data.product.handle, dict);
   const productTitle =
@@ -119,7 +120,13 @@ export async function loader(args) {
   }
   const {product, reviews, pairs, marketAvailability} =
     await loadCriticalData(args);
-  return {product, reviews, pairs, ...marketAvailability};
+  // This product's localized description HTML, which the root dictionary
+  // deliberately omits (see dictionaries.server.js).
+  const copyHtml = getProductCopyHtml(
+    args.context.storefront.i18n.language,
+    product.handle,
+  );
+  return {product, reviews, pairs, copyHtml, ...marketAvailability};
 }
 
 // React Router does not automatically promote route loader/error headers to
@@ -243,15 +250,19 @@ function productNotFoundResponse() {
 }
 
 export default function Product() {
+  const loaderData = useLoaderData();
   const {product, reviews, pairs, marketUnavailable, availableMarkets} =
-    useLoaderData();
+    loaderData;
   const rootData = useRouteLoaderData('root');
   const market = rootData?.selectedLocale?.country || 'CA';
   const language = String(rootData?.selectedLocale?.language || 'en')
     .toLowerCase()
     .replace(/_/g, '-');
   const langKey = ['fr', 'es', 'pt-br'].includes(language) ? language : 'en';
-  const t = useT();
+  const tRoot = useT();
+  const copyHtml = loaderData.copyHtml || {};
+  const t = (key, params) =>
+    key in copyHtml ? copyHtml[key] : tRoot(key, params);
   const need = getProductNeed(product, t);
   const purchaseFacts = getPurchaseFacts(product.handle, t);
 
