@@ -63,9 +63,14 @@ that campaigns optimise on).
    - GA4 Realtime showed the full chain for the session: view_item → add_to_cart →
      add_shipping_info → **purchase** (key event, 1 purchaser), plus the "Checkout - Receipt"
      page view. Google side verified end to end.
-   - Meta: overview lags and its range stops at the previous day; Purchase not yet readable —
-     re-check the overview later and note it here. Storefront ViewContent/AddToCart now show
-     as Browser • Server on the overview (the CSP + _fbp fixes, confirmed on live data).
+   - Meta (overview re-read ~1 h later): the same checkout produced InitiateCheckout
+     (Browser • Server) and **AddPaymentInfo (Server)** on pixel 996669459615534, so
+     Shopify's Meta integration is live on the right dataset — but **no Purchase row
+     appeared**. Shopify does not forward test-mode orders as Purchase (and the browser copy
+     could not fire from Daniel's Chrome, which blocks fbevents.js). Purchase on Meta is
+     therefore verified only by inference: same integration, same pixel, every other checkout
+     event present. The first real order settles it; look for a Purchase row within an hour
+     of it. Storefront ViewContent/AddToCart now show as Browser • Server on the overview.
    - Side finding, matters for the FIRST REAL ORDER: DSers picked the order up automatically
      into "Awaiting order" and flagged the line "Variant deleted or value-changed on Shopify —
      click Mapping" and "No shipping method selected". The product is mapped in My Products
