@@ -60,3 +60,18 @@ test('Meta relay handles malformed attribution cookies defensively', () => {
   assert.match(route, /catch \{[\s\S]*malformed optional attribution cookie/);
 });
 
+
+test('the browser guarantees an _fbp cookie before mirroring an event to CAPI', () => {
+  // Test events 2026-09-20: Meta processed a server ViewContent that carried
+  // _fbp and silently dropped the identical one without it. Page-load events
+  // fire before fbevents.js has set the cookie, so the storefront sets one in
+  // Meta's own format first; the pixel reuses an existing cookie.
+  const pixel = readFileSync('app/components/MetaPixel.jsx', 'utf8');
+  assert.match(pixel, /const ensureFbpCookie = \(\) => \{/);
+  assert.match(pixel, /`fb\.1\.\$\{Date\.now\(\)\}\.\$\{Math\.floor\(Math\.random\(\) \* 1e10\)\}`/);
+  assert.match(pixel, /_fbp=\$\{value\}; path=\/; max-age=7776000; SameSite=Lax/);
+  const forward = pixel.indexOf('const forwardToCapi');
+  const call = pixel.indexOf('ensureFbpCookie();', forward);
+  const send = pixel.indexOf('sendBeacon', forward);
+  assert.ok(call > forward && call < send, 'cookie is ensured before the beacon is sent');
+});

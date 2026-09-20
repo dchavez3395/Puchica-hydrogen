@@ -101,6 +101,7 @@ export function MetaPixel({pixelId}) {
     const forwardToCapi = (eventName, payload, eventId) => {
       if (typeof window === 'undefined') return;
       try {
+        ensureFbpCookie();
         const body = JSON.stringify({
           event_name: eventName,
           event_id: eventId,
@@ -125,6 +126,21 @@ export function MetaPixel({pixelId}) {
       } catch {
         /* never let CAPI relay break the page */
       }
+    };
+
+    /**
+     * Meta drops website events whose user_data is only IP + user agent
+     * (Test events 2026-09-20: a ViewContent with `_fbp` was processed, the
+     * same event without it never appeared). The pixel writes `_fbp` after
+     * fbevents.js loads, which is after the PageView/ViewContent beacons at
+     * page load, and never when the script is blocked. Meta's CAPI docs allow
+     * generating it in the pixel's own format; the pixel reuses an existing
+     * cookie, so browser and server events keep the same id.
+     */
+    const ensureFbpCookie = () => {
+      if (/(^|;\s*)_fbp=/.test(document.cookie)) return;
+      const value = `fb.1.${Date.now()}.${Math.floor(Math.random() * 1e10)}`;
+      document.cookie = `_fbp=${value}; path=/; max-age=7776000; SameSite=Lax`;
     };
 
     const track = (event, payload = {}, opts = {}) => {
