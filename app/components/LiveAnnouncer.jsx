@@ -15,7 +15,10 @@ export function LiveAnnouncer({children}) {
   const [message, setMessage] = useState('');
   const timer = useRef(null);
   const announce = useCallback((text) => {
-    const next = String(text || '');
+    // Screen readers read inverted punctuation literally ("inverted
+    // exclamation point púchica!" for the Added label), so drop it from
+    // what is announced; the visible label keeps it.
+    const next = String(text || '').replace(/[¡¿]/g, '');
     if (timer.current) clearTimeout(timer.current);
     setMessage('');
     // Clearing then setting on the next tick makes repeated identical

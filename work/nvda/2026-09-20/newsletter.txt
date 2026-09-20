@@ -1,0 +1,6 @@
+Decrease quantity, button, unavailable
+Quantity, grouping, Increase quantity, button
+form, ADDED — inverted exclamation point PÚCHICA!, button
+main landmark, Why it earns its space., region, Shipping and Returns, button, collapsed
+Email address, edit, required
+content info landmark, form, You agree to receive emails from Puchica (Brandon, Manitoba). We confirm by email first, and every letter has an unsubscribe link., Sign up, button

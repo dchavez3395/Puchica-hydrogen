@@ -9,10 +9,12 @@ import {useAside} from '~/components/Aside';
 import {IconSearch} from '~/components/Icons';
 import {LocaleSwitcher} from '~/components/LocaleSwitcher';
 import {useT} from '~/lib/t';
+import {SITE_NAME} from '~/lib/seo';
 
 /** @param {Pick<HeaderProps, 'isLoggedIn' | 'cart'>} props */
 export function Header({isLoggedIn, cart}) {
   const {close} = useAside();
+  const t = useT();
 
   return (
     <header className="pk-header" id="pk-header">
@@ -24,6 +26,10 @@ export function Header({isLoggedIn, cart}) {
           className="pk-logo"
           end
           onClick={close}
+          // The wordmark's inverted exclamation mark is read out literally
+          // ("inverted exclamation point púchica!") by NVDA; give the link a
+          // plain accessible name instead. Same label as the cart brand link.
+          aria-label={`${SITE_NAME} — ${t('breadcrumb_home')}`}
         >
           <span className="pk-logo__wordmark">&iexcl;p&uacute;chica!</span>
         </NavLink>

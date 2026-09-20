@@ -6,6 +6,7 @@ import {
 } from '~/components/Icons';
 import {SOCIAL_PROFILES} from '~/lib/brand';
 import {useT} from '~/lib/t';
+import {SITE_NAME} from '~/lib/seo';
 import {NewsletterForm} from '~/components/NewsletterForm';
 
 // Footer loader prefers `shop.brand.logo.image.url` from the Storefront
@@ -53,7 +54,11 @@ export function Footer() {
     <footer className="pk-footer">
       <div className="pk-footer__inner">
         <div className="pk-footer__brand">
-          <Link to="/" className="pk-footer__logo">
+          <Link
+            to="/"
+            className="pk-footer__logo"
+            aria-label={`${SITE_NAME} — ${t('breadcrumb_home')}`}
+          >
             <span className="pk-logo__wordmark pk-logo__wordmark--footer">
               &iexcl;p&uacute;chica!
             </span>
