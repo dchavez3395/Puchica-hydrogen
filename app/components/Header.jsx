@@ -31,7 +31,9 @@ export function Header({isLoggedIn, cart}) {
           // plain accessible name instead. Same label as the cart brand link.
           aria-label={`${SITE_NAME} — ${t('breadcrumb_home')}`}
         >
-          <span className="pk-logo__wordmark">&iexcl;p&uacute;chica!</span>
+          <span className="pk-logo__wordmark">
+            <span aria-hidden="true">&iexcl;</span>p&uacute;chica!
+          </span>
         </NavLink>
         <HeaderMenu viewport="desktop" />
         <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />

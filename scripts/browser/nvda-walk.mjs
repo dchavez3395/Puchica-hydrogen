@@ -10,9 +10,10 @@
 //
 // Needs a desktop session (NVDA cannot run headless) and the guidepup NVDA
 // build: npx @guidepup/setup install && npx @guidepup/setup setup. NVDA reads
-// whichever window is in front, so the script keeps re-raising the browser;
-// if a transcript line is clearly another app, that is focus drift, not the
-// site.
+// whichever window is in front, so run it with the desktop idle (no typing in
+// another window for ~4 minutes); the script re-raises the browser, but a
+// transcript line that is clearly another app is focus drift, not the site,
+// and the run should be repeated.
 //
 //   node scripts/browser/nvda-walk.mjs [base]
 import {chromium} from '@playwright/test';
@@ -57,7 +58,10 @@ async function readPage(label) {
   const phrases = [];
   for (let i = 0; i < MAX_ITEMS; i++) {
     if (i % 10 === 0) await page.bringToFront();
-    await nvda.next();
+    // capture: true waits for NVDA to finish the item; the default "initial"
+    // returns on the first speech message and truncates items NVDA sends in
+    // two parts ("button, collapsed" + its label).
+    await nvda.next({capture: true});
     const p = clean(await nvda.lastSpokenPhrase());
     if (!p) continue;
     phrases.push(p);
@@ -68,7 +72,9 @@ async function readPage(label) {
   return phrases;
 }
 
-await nvda.start();
+// Screen layout off: one element per line, so a heading is never split
+// across two phrases by the visual line width.
+await nvda.start({settings: {virtualBuffers: {useScreenLayout: false}}});
 try {
   await page.waitForTimeout(1500);
   await page.bringToFront();
@@ -105,7 +111,7 @@ try {
   await nvda.clearSpokenPhraseLog();
   let focusedAtc = false;
   for (let i = 0; i < 60; i++) {
-    await nvda.press('Tab');
+    await nvda.press('Tab', {capture: true});
     const p = clean(await nvda.lastSpokenPhrase());
     if (/add to cart/i.test(p) && /button/i.test(p)) { focusedAtc = true; break; }
   }
@@ -146,7 +152,7 @@ try {
   await nvda.clearSpokenPhraseLog();
   const formLog = [];
   for (let i = 0; i < 6; i++) {
-    await nvda.press('Shift+f');
+    await nvda.press('Shift+f', {capture: true});
     formLog.unshift(clean(await nvda.lastSpokenPhrase()));
   }
   save('newsletter.txt', formLog);

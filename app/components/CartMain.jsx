@@ -203,7 +203,9 @@ function CartBrandHeader() {
         className="cart-brand__logo"
         aria-label={`${SITE_NAME} — ${t('breadcrumb_home')}`}
       >
-        <span className="pk-logo__wordmark">&iexcl;p&uacute;chica!</span>
+        <span className="pk-logo__wordmark">
+          <span aria-hidden="true">&iexcl;</span>p&uacute;chica!
+        </span>
       </Link>
     </div>
   );

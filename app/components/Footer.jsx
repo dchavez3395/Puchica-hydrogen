@@ -60,7 +60,7 @@ export function Footer() {
             aria-label={`${SITE_NAME} — ${t('breadcrumb_home')}`}
           >
             <span className="pk-logo__wordmark pk-logo__wordmark--footer">
-              &iexcl;p&uacute;chica!
+              <span aria-hidden="true">&iexcl;</span>p&uacute;chica!
             </span>
           </Link>
           <p className="pk-footer__tagline">{t('footer_glossary')}</p>
