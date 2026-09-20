@@ -4,4 +4,4 @@ complementary landmark
 complementary landmark, Close, button
 CART, dialog
 button, Close
-Added — inverted exclamation point púchica!
+Added — púchica!

@@ -1,5 +1,5 @@
 Store notices, region, Free tracked shipping across Canada 30-day returns Every listing names the bulb it takes
-out of region, banner landmark, link, inverted exclamation point púchica!
+out of region, banner landmark, link, Puchica — Home
 Explore, navigation landmark, link, Pendants
 link, Wall sconces
 link, Shop
@@ -18,7 +18,8 @@ current page, Woven Bamboo Globe Pendant — 25cm
 LIGHTING
 heading, level 1, Woven Bamboo Globe Pendant — 25cm
 An open-wound globe that lets the bulb show through, so the light is dappled rather than boxed in.
-Price, grouping, CA$74.99, CAD
+Price, grouping, CA$74.99
+CAD
 out of grouping, Free tracked shipping 30-day returns
 Size and fitting, list, with 8 items, SIZE
 25 cm (about 10 in) across, 25 cm (about 10 in) tall
@@ -87,13 +88,16 @@ Hang two or three at different heights, or match a sconce to the pendant.
 link, Iron Cage Pendant — 15cm
 link, Iron Cage Pendant
 Ø 15 cm
-CA$69.99, CAD
+CA$69.99
+CAD
 link, Bamboo Hat Nest Pendant — 30cm
 link, Bamboo Hat Nest Pendant
 Ø 30 cm
-CA$74.99, CAD
+CA$74.99
+CAD
 link, Bamboo Slat Pumpkin Pendant — 18cm
 link, Bamboo Slat Pumpkin Pendant
 Ø 18 cm
-CA$74.99, CAD
-out of region, content info landmark, link, inverted exclamation point púchica!
+CA$74.99
+CAD
+out of region, content info landmark, link, Puchica — Home
