@@ -14,8 +14,9 @@ test('web fonts are self-hosted, not a render-blocking Google Fonts stylesheet',
   assert.match(root, /fonts\.css\?raw/);
   assert.match(root, /dangerouslySetInnerHTML=\{\{__html: fontFaceCss\}\}/);
   assert.doesNotMatch(root, /fonts\.css\?url/);
-  assert.match(root, /href: '\/fonts\/fraunces-normal-latin\.woff2'/);
-  assert.match(root, /href: '\/fonts\/instrument-sans-normal-latin\.woff2'/);
+  // No font preloads: they competed with the hero image on a throttled phone
+  // (home LCP 3.4 s → 2.0 s without them, work/lighthouse/hero-variants.mjs).
+  assert.doesNotMatch(root, /as: 'font'/);
 });
 
 test('every @font-face points at a file that exists and declares the variable weight range', () => {

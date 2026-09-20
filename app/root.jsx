@@ -89,24 +89,14 @@ export function links() {
       rel: 'preconnect',
       href: 'https://shop.app',
     },
-    // Fonts are self-hosted (app/styles/fonts.css + public/fonts) since
-    // 2026-09-18: the fonts.googleapis.com stylesheet was render-blocking and
-    // cost ~0.9 s of mobile LCP. Preload the two upright latin files so the
-    // display face is ready by first paint; italics load on demand.
-    {
-      rel: 'preload',
-      as: 'font',
-      type: 'font/woff2',
-      href: '/fonts/fraunces-normal-latin.woff2',
-      crossOrigin: 'anonymous',
-    },
-    {
-      rel: 'preload',
-      as: 'font',
-      type: 'font/woff2',
-      href: '/fonts/instrument-sans-normal-latin.woff2',
-      crossOrigin: 'anonymous',
-    },
+    // Fonts are self-hosted (app/styles/fonts.css inlined in the head +
+    // public/fonts) since 2026-09-18; the fonts.googleapis.com stylesheet was
+    // render-blocking and cost ~0.9 s of mobile LCP. They are deliberately NOT
+    // preloaded: on a throttled phone the two upright files (~100 KB) fought
+    // the hero image for the link and the home LCP sat at 3.2–3.5 s; without
+    // the preloads it is ~2.0 s (work/lighthouse/hero-variants.mjs, 2026-09-20)
+    // and CLS stays 0 because the fallbacks' metrics are close. font-display:
+    // swap means a brief fallback-font flash on a cold load; accepted.
     {rel: 'icon', type: 'image/svg+xml', href: favicon},
   ];
 }
