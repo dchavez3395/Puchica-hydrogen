@@ -57,9 +57,43 @@ that campaigns optimise on).
    event id. `InitiateCheckout`/`Purchase` remain Shopify checkout's. Note there is a second,
    empty dataset "Puchica Storefront" (1616698610095354); everything uses 996669459615534.
    Re-check after any CSP change: open a PDP in a normal browser with the Test events tab open.
-2. **Google: confirm Google & YouTube channel → GA4 property G-KTMM6KWWT6** and that its
-   conversion tracking is on (Settings → Conversion tracking). Storefront view_item/add_to_cart
-   and checkout begin_checkout/purchase must land in the same property or attribution breaks.
+
+   **Test order 2026-09-20 (#1003, Shopify Payments test mode, CAD 74.99 on the 4242 card,
+   no money moved, mode switched off again straight after):**
+   - GA4 Realtime showed the full chain for the session: view_item → add_to_cart →
+     add_shipping_info → **purchase** (key event, 1 purchaser), plus the "Checkout - Receipt"
+     page view. Google side verified end to end.
+   - Meta: overview lags and its range stops at the previous day; Purchase not yet readable —
+     re-check the overview later and note it here. Storefront ViewContent/AddToCart now show
+     as Browser • Server on the overview (the CSP + _fbp fixes, confirmed on live data).
+   - Side finding, matters for the FIRST REAL ORDER: DSers picked the order up automatically
+     into "Awaiting order" and flagged the line "Variant deleted or value-changed on Shopify —
+     click Mapping" and "No shipping method selected". The product is mapped in My Products
+     (supplier attached, cost $21.52); the flag is DSers noticing the option value rename from
+     the 17th–18th. When a real order lands: open it in DSers → Mapping → confirm the supplier
+     variant → choose the shipping method → then Order. DSers never orders on its own.
+   - Housekeeping: fulfilment-cancellation requested from DSers with a "test order, do not
+     order" note; Shopify hides "Cancel order" until DSers releases the fulfilment. Archive if
+     it never does — test orders are excluded from analytics.
+2. **Google: audited 2026-09-20.** GA4 G-KTMM6KWWT6 is correct: the test order's session
+   showed view_item → add_to_cart → add_shipping_info → purchase (key event) in one property, so
+   storefront and checkout land together. **Merchant Center (account 5811543280) is the
+   problem: an account-level "Misrepresentation" issue, all 20 products Not approved in
+   Canada, no free listings and no Shopping ads possible.** Root cause found: Merchant
+   Center's claimed store is checkout.puchica.ca (the Online Store domain) and Shopify's
+   Google channel emits `https://checkout.puchica.ca/products/<handle>` as every product link
+   (`Product.onlineStoreUrl`). The live Online Store theme ("Radiant") serves a stub on every
+   path that canonical/meta-refresh/JS-redirects to the puchica.ca **homepage**, so Google's
+   landing-page check sees product links that don't land on the product. Fix prepared but not
+   applied (theme writes are gated): theme copy "Radiant — path redirect to puchica.ca
+   (2026-09-20)" (gid 167501922554) exists; its layout/theme.liquid needs the else-branch that
+   redirects to `https://puchica.ca{{ request.path }}` (canonical + meta refresh + JS,
+   `noindex, follow`), then publish the copy. All standard paths exist on puchica.ca
+   (/products/*, /collections/*, /policies/*, /pages/contact, /pages/about). After publishing:
+   Merchant Center → Business info → also add/verify puchica.ca as the online store, then
+   "Request review" on the Misrepresentation issue (one request per ~7 days; be sure the site
+   shows business address + contact + return/shipping policies in the footer first — it does).
+   Google Ads: no account linked; not needed until Shopping/PMax is on the table.
 3. **Google Ads conversion action**: none exists yet (no Google Ads account linked). Needed before
    any Google campaign: link Ads ↔ GA4, import `purchase` as the primary conversion,
    `add_to_cart` as secondary.
