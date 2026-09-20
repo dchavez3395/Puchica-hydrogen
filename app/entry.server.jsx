@@ -32,7 +32,12 @@ export default async function handleRequest(
       'https://fonts.googleapis.com',
       'https://cdn.judge.me',
     ],
-    fontSrc: ["'self'", 'https://fonts.gstatic.com', 'data:'],
+    // Oxygen serves built stylesheets from cdn.shopify.com, so a url(/fonts/…)
+    // inside one resolves to the CDN; keep the CDN allowed even though the
+    // @font-face block is inlined in root.jsx (2026-09-20: every self-hosted
+    // font was CSP-blocked in production and the site fell back to system
+    // fonts).
+    fontSrc: ["'self'", 'https://cdn.shopify.com', 'https://fonts.gstatic.com', 'data:'],
     // Judge.me reviews widget — its script/API/images were being blocked by the
     // CSP (default-src had no judge.me entry), so reviews never rendered.
     // createContentSecurityPolicy merges these with Hydrogen's secure defaults
@@ -65,7 +70,10 @@ export default async function handleRequest(
       'https://www.facebook.com',
       'https://www.google-analytics.com',
     ],
-    frameSrc: ["'self'", 'https://cdn.judge.me'],
+    // Meta's pixel (fbevents 2.9.4xx) delivers events through a hidden
+    // www.facebook.com frame; without this the storefront never sent a single
+    // browser event (2026-09-20 Events Manager: PageView from checkout only).
+    frameSrc: ["'self'", 'https://cdn.judge.me', 'https://www.facebook.com'],
     // The storefront does not embed legacy plugin content. Explicitly disable
     // <object>, <embed>, and <applet> loads instead of relying on default-src.
     objectSrc: ["'none'"],

@@ -18,7 +18,11 @@ import {HEADER_QUERY} from '~/lib/fragments';
 import {resolveStorefrontLocale} from '~/lib/i18n';
 import {STOREFRONT_CONTAINMENT_ACTIVE} from '~/lib/launch-catalog';
 import resetStyles from '~/styles/reset.css?url';
-import fontStyles from '~/styles/fonts.css?url';
+// Inlined, not linked: the built stylesheet lives on cdn.shopify.com, so its
+// url(/fonts/…) resolved to the CDN, which font-src blocked, and the /fonts
+// preloads below fetched files nothing referenced. Inline @font-face resolves
+// against the document, matches the preloads, and is one request fewer.
+import fontFaceCss from '~/styles/fonts.css?raw';
 // Tokens MUST load before app.css: they are plain :root declarations and the
 // later stylesheet wins any collision. Media-query :root overrides still live
 // in app.css and correctly beat these.
@@ -269,7 +273,7 @@ export function Layout({children}) {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <link rel="stylesheet" href={resetStyles}></link>
-        <link rel="stylesheet" href={fontStyles}></link>
+        <style dangerouslySetInnerHTML={{__html: fontFaceCss}} />
         <link rel="stylesheet" href={tokenStyles}></link>
         <link rel="stylesheet" href={appStyles}></link>
         <link rel="stylesheet" href={warmRoomStyles}></link>

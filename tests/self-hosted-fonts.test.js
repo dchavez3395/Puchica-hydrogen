@@ -9,7 +9,11 @@ test('web fonts are self-hosted, not a render-blocking Google Fonts stylesheet',
   // Lighthouse mobile 2026-09-18: the fonts.googleapis.com stylesheet blocked
   // first paint for ~0.9 s and the text LCP re-fired when Fraunces swapped in.
   assert.doesNotMatch(root, /fonts\.googleapis\.com\/css/);
-  assert.match(root, /fonts\.css\?url/);
+  // Inlined (?raw) so url(/fonts/…) resolves against the document, not the
+  // cdn.shopify.com stylesheet URL that font-src blocked (2026-09-20).
+  assert.match(root, /fonts\.css\?raw/);
+  assert.match(root, /dangerouslySetInnerHTML=\{\{__html: fontFaceCss\}\}/);
+  assert.doesNotMatch(root, /fonts\.css\?url/);
   assert.match(root, /href: '\/fonts\/fraunces-normal-latin\.woff2'/);
   assert.match(root, /href: '\/fonts\/instrument-sans-normal-latin\.woff2'/);
 });
@@ -20,4 +24,10 @@ test('every @font-face points at a file that exists and declares the variable we
   for (const f of files) assert.ok(existsSync(`public/fonts/${f}`), `missing public/fonts/${f}`);
   assert.equal((fonts.match(/font-weight: 400 700;/g) || []).length, files.length);
   assert.doesNotMatch(fonts, /font-display: (block|auto)/);
+});
+
+test('CSP lets the pixel frame and CDN-resolved fonts through', () => {
+  const entry = readFileSync('app/entry.server.jsx', 'utf8');
+  assert.match(entry, /frameSrc: \[[^\]]*'https:\/\/www\.facebook\.com'/);
+  assert.match(entry, /fontSrc: \[[^\]]*'https:\/\/cdn\.shopify\.com'/);
 });
