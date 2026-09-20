@@ -69,7 +69,8 @@ test('the browser guarantees an _fbp cookie before mirroring an event to CAPI', 
   const pixel = readFileSync('app/components/MetaPixel.jsx', 'utf8');
   assert.match(pixel, /const ensureFbpCookie = \(\) => \{/);
   assert.match(pixel, /`fb\.1\.\$\{Date\.now\(\)\}\.\$\{Math\.floor\(Math\.random\(\) \* 1e10\)\}`/);
-  assert.match(pixel, /_fbp=\$\{value\}; path=\/; max-age=7776000; SameSite=Lax/);
+  assert.match(pixel, /_fbp=\$\{value\}; path=\/; max-age=7776000; SameSite=Lax\$\{domain\}/);
+  assert.match(pixel, /domain=\.\$\{parts\.slice\(-2\)\.join\('\.'\)\}/);
   const forward = pixel.indexOf('const forwardToCapi');
   const call = pixel.indexOf('ensureFbpCookie();', forward);
   const send = pixel.indexOf('sendBeacon', forward);

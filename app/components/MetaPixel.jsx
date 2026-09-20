@@ -140,7 +140,14 @@ export function MetaPixel({pixelId}) {
     const ensureFbpCookie = () => {
       if (/(^|;\s*)_fbp=/.test(document.cookie)) return;
       const value = `fb.1.${Date.now()}.${Math.floor(Math.random() * 1e10)}`;
-      document.cookie = `_fbp=${value}; path=/; max-age=7776000; SameSite=Lax`;
+      // Same scope as the pixel's own cookie (.puchica.ca), otherwise it
+      // writes a second host-only one and the two ids drift apart.
+      const parts = window.location.hostname.split('.');
+      const domain =
+        parts.length >= 2 && !/^\d+$/.test(parts[parts.length - 1])
+          ? `; domain=.${parts.slice(-2).join('.')}`
+          : '';
+      document.cookie = `_fbp=${value}; path=/; max-age=7776000; SameSite=Lax${domain}`;
     };
 
     const track = (event, payload = {}, opts = {}) => {
