@@ -1,7 +1,10 @@
 import {ServerRouter} from 'react-router';
 import {renderToReadableStream} from 'react-dom/server';
 import {createContentSecurityPolicy} from '@shopify/hydrogen';
-import {placeTrailingRouterChunksInsideBody} from '~/lib/html-stream';
+import {
+  dropModulePreloadLinks,
+  placeTrailingRouterChunksInsideBody,
+} from '~/lib/html-stream';
 
 /**
  * @param {Request} request
@@ -103,8 +106,8 @@ export default async function handleRequest(
   // storefront loads. This small launch catalog favors a stable hydrated
   // document over a marginal streaming gain.
   await body.allReady;
-  const html = placeTrailingRouterChunksInsideBody(
-    await new Response(body).text(),
+  const html = dropModulePreloadLinks(
+    placeTrailingRouterChunksInsideBody(await new Response(body).text()),
   );
 
   responseHeaders.set('Content-Type', 'text/html');

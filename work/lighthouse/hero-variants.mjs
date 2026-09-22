@@ -9,8 +9,12 @@ const URL = 'https://puchica.ca/';
 const RUNS = 3;
 const VARIANTS = {
   'as-is': (html) => html,
-  'no Fraunces preload': (html) => html.replace(/<link[^>]+fraunces-normal-latin\.woff2[^>]*>/, ''),
-  'no font preloads': (html) => html.replace(/<link[^>]+\/fonts\/[^>]*\.woff2[^>]*>/g, ''),
+  // Six modulepreload links fetch the client bundle at high priority while the
+  // hero image is still downloading.
+  'no modulepreload': (html) => html.replace(/<link rel="modulepreload"[^>]*>/g, ''),
+  // The phone preload offers 412w and 640w; at DPR 3 the browser takes 640w
+  // (73 KB) for a 360 px-wide box behind a gradient.
+  'hero 412 only': (html) => html.replace(/width=640&amp;height=853&crop=center 640w|,\s*https:\/\/[^"\s]+width=640&amp;height=853[^"\s]*\s640w/g, ''),
 };
 
 const browser = await chromium.launch();
@@ -34,7 +38,13 @@ async function measure(rewrite) {
   });
   await page.goto(URL, {waitUntil: 'networkidle'});
   await page.waitForTimeout(1500);
-  const r = await page.evaluate(() => ({lcp: window.__lcp.at(-1), fcp: Math.round(performance.getEntriesByName('first-contentful-paint')[0]?.startTime || 0), cls: Math.round(window.__cls * 1000) / 1000}));
+  const r = await page.evaluate(() => {
+    // When the client bundle finished arriving: the cost side of removing the
+    // module preloads. Hydration cannot start before this.
+    const js = performance.getEntriesByType('resource').filter((e) => /\.js(\?|$)/.test(e.name));
+    const jsDone = js.length ? Math.round(Math.max(...js.map((e) => e.responseEnd))) : 0;
+    return {lcp: window.__lcp.at(-1), fcp: Math.round(performance.getEntriesByName('first-contentful-paint')[0]?.startTime || 0), cls: Math.round(window.__cls * 1000) / 1000, jsDone};
+  });
   await ctx.close();
   return r;
 }
@@ -44,6 +54,7 @@ for (const [name, rewrite] of Object.entries(VARIANTS)) {
   for (let i = 0; i < RUNS; i++) rs.push(await measure(rewrite));
   const lcps = rs.map((r) => r.lcp?.t || 0).sort((a, b) => a - b);
   const fcps = rs.map((r) => r.fcp).sort((a, b) => a - b);
-  console.log(`${name.padEnd(22)} LCP median ${lcps[1]} ms (${lcps.join('/')})  FCP median ${fcps[1]} ms  CLS ${rs.map((r) => r.cls).join('/')}  LCP el ${rs[0].lcp?.tag} ${rs[0].lcp?.url}`);
+  const jsd = rs.map((r) => r.jsDone).sort((a, b) => a - b);
+  console.log(`${name.padEnd(22)} LCP median ${lcps[1]} ms (${lcps.join('/')})  FCP ${fcps[1]} ms  JS done ${jsd[1]} ms  CLS ${rs.map((r) => r.cls).join('/')}`);
 }
 await browser.close();
