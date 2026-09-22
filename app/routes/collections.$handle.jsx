@@ -6,7 +6,7 @@ import {CollectionHero} from '~/components/CollectionChrome';
 import {SectionRenderer} from '~/sections/registry';
 import {COLLECTION_ITEM_FRAGMENT} from '~/lib/fragments';
 import {SECTION_FRAGMENT} from '~/lib/sections';
-import {puchicaMeta} from '~/lib/seo';
+import {puchicaMeta, SITE_NAME} from '~/lib/seo';
 import {useT} from '~/lib/t';
 import {
   filterLaunchProducts,
@@ -34,8 +34,16 @@ import {
 export const meta = ({data, params}) => {
   const collection = data?.collection;
   const handle = params?.handle || '';
+  // The smart collections were created in the admin without an SEO title, so
+  // they went out as bare two-word <title>s ("Pendant Lights") while
+  // /collections/all carried the brand. Same fix as the PDP route: append the
+  // brand unless the stored title already names it (2026-09-22 indexing audit).
+  const storedTitle = (collection?.seo?.title || collection?.title || handle || '').trim();
+  const title = /puchica/i.test(storedTitle)
+    ? storedTitle
+    : `${storedTitle} — ${SITE_NAME}`;
   return puchicaMeta({
-    title: collection?.seo?.title || collection?.title || handle,
+    title,
     description:
       collection?.seo?.description || collection?.description || undefined,
     type: 'website',

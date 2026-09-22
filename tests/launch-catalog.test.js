@@ -1286,3 +1286,36 @@ test('a fulfilment-held offer is not approved, not discoverable, and records why
     );
   }
 });
+
+test('the sitemap lists every navigable collection, not just /collections/all', async () => {
+  // 2026-09-22 indexing audit: /collections/pendant-lights and
+  // /collections/wall-sconces are live, linked from the header and the
+  // collection chrome, and returned 200 — but neither was in the sitemap, so
+  // the category pages most likely to rank were never advertised to Google.
+  const sitemap = await readFile(
+    new URL('../app/routes/sitemap.$type.$page[.xml].jsx', import.meta.url),
+    'utf8',
+  );
+  const chrome = await readFile(
+    new URL('../app/components/CollectionChrome.jsx', import.meta.url),
+    'utf8',
+  );
+  const navCollections = [...chrome.matchAll(/to: '(\/collections\/[a-z0-9-]+)'/g)].map((m) => m[1]);
+  assert.ok(navCollections.length >= 2, 'collection chrome links at least two collections');
+  for (const path of navCollections) {
+    assert.ok(sitemap.includes(`'${path}'`), `${path} is in LAUNCH_STATIC_PATHS`);
+  }
+});
+
+test('collection pages carry the brand in the title', async () => {
+  // 2026-09-22: /collections/pendant-lights and /collections/wall-sconces went
+  // out as "Pendant Lights" / "Wall Sconces" — no brand, two words, weak in a
+  // result list — because the smart collections have no SEO title in the admin.
+  const route = await readFile(
+    new URL('../app/routes/collections.$handle.jsx', import.meta.url),
+    'utf8',
+  );
+  assert.match(route, /\/puchica\/i\.test\(storedTitle\)/);
+  assert.match(route, /\$\{storedTitle\} — \$\{SITE_NAME\}/);
+  assert.match(route, /import \{puchicaMeta, SITE_NAME\}/);
+});

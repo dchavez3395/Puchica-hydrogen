@@ -102,6 +102,12 @@ ${xDefault}
 const LAUNCH_STATIC_PATHS = [
   '/',
   '/collections/all',
+  // The two smart collections are the category landing pages — they are in the
+  // header nav and the collection chrome, and they are what a "bamboo pendant
+  // light" search should land on. They were missing here until 2026-09-22, so
+  // the only collection Google was told about was /collections/all.
+  '/collections/pendant-lights',
+  '/collections/wall-sconces',
   '/pages/about',
   '/pages/contact',
   '/pages/faq',

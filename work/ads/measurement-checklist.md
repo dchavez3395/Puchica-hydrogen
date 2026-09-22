@@ -39,6 +39,35 @@ that campaigns optimise on).
   do not run Lighthouse in CI without `--extra-headers` + a UA containing "lighthouse", or
   those runs will pollute conversion baselines.
 
+## Search / indexing — audited 2026-09-22
+
+3. **Nobody has ever told Google this site exists.** Search Console shows the *welcome*
+   screen for Daniel's account: **no verified property**, for puchica.ca or any other domain.
+   So the sitemap has never been submitted, there is no coverage or enhancement reporting,
+   no "why isn't this indexed" answer, and no Rich Results feedback on the Product schema
+   that is already correct on all 20 PDPs. Fix (about 3 minutes, needs Daniel):
+   Search Console → *Add property* → **Domain** → `puchica.ca` → it prints a TXT record →
+   add it at GoDaddy DNS (same place as the Klaviyo and DMARC records) → Verify → then
+   Sitemaps → submit `sitemap.xml`. Domain properties cover www, apex and every subdomain,
+   including checkout.puchica.ca, which is what Merchant Center claims.
+   *Not done by me on purpose: this loop's audit was read-only, and adding a property plus a
+   DNS record is a change to his Google account and his DNS.*
+
+   What the audit could verify without Search Console:
+   - **Googlebot sees real HTML.** Fetched with the Googlebot UA, `/`, a collection and a PDP
+     all return server-rendered titles, an `<h1>`, and (on the PDP) complete Product JSON-LD
+     with `"price":"74.99"`. Hydrogen's SSR is not the problem.
+   - **robots.txt** is sane: it allows products and collections, blocks cart/account/search
+     and faceted collection URLs, and points at `https://puchica.ca/sitemap.xml`.
+   - **sitemap.xml** indexes products (20 URLs, each with 4 hreflang alternates plus
+     x-default) and pages.
+   - **Two defects found and fixed in the repo** (2026-09-22):
+     `/collections/pendant-lights` and `/collections/wall-sconces` were live and in the header
+     nav but **missing from the sitemap** — the only collection advertised to Google was
+     `/collections/all`; and both went out with bare titles ("Pendant Lights") because the
+     smart collections have no SEO title in the admin, while `/collections/all` was branded.
+     Both are now covered by tests that tie the sitemap to the nav.
+
 ## Missing before paid traffic
 1. **Meta: DONE 2026-09-20, and it found three defects.** Events Manager for pixel
    996669459615534 showed only `PageView` and `InitiateCheckout` in 28 days, both from
