@@ -34,3 +34,27 @@ the same night before the change; `home-no-font-preload.json`). Cost: `font-disp
 now shows Georgia / system sans for a moment on a cold load. Next lever if needed is the
 hero's 640w rendition (~74 KB) or app.css (24.5 KB gz, render-blocking); TBT is gtag +
 fbevents after LCP and does not move the score much.
+
+## 2026-09-22 — home LCP under the 2.5 s threshold
+
+A/B with `hero-variants.mjs` (route-intercepted HTML, 1.6 Mbps / 150 ms / 4× CPU, 3 runs, now
+also reporting when the client bundle finishes arriving):
+
+| variant | LCP median | JS done | CLS |
+|---|---|---|---|
+| as-is | 2032 ms | 5113 ms | 0 |
+| **no modulepreload** | **1092 ms** | 6411 ms | 0 |
+| hero 412w only | 1836 ms | 5053 ms | 0 |
+
+Shipped the first (a878123): React Router's six `<link rel="modulepreload">` were pulling
+~110 KB of bundle at high priority while the 73 KB hero — the LCP element — downloaded.
+Vite's `build.modulePreload` is not the lever (React Router emits them itself), so it is a
+stream transform in `app/lib/html-stream.js` next to the existing one.
+
+Live afterwards (`--throttling-method=devtools`, two runs): **perf 77–78 · LCP 2.15 s / 2.20 s ·
+CLS 0**, from 2.78 s. TBT rose 540→740–810 ms, which is the other side of the same coin: the
+bundle arrives later and executes in a tighter window. TBT is a lab proxy, not a Core Web Vital,
+and the score held — but if INP ever looks bad in field data, this is the first thing to revisit.
+
+Not shipped: capping the phone hero at 412w (−200 ms). CI's `findUnderservedImages` check would
+reject it, correctly — a 412 px file on a DPR-3 phone is a soft image.
