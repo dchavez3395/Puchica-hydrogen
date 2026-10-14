@@ -1,10 +1,19 @@
-import {useNavigate} from 'react-router';
+import {useNavigate, useSearchParams} from 'react-router';
 import {LocalizedLink as Link} from '~/components/LocalizedLink';
 import {useState, useEffect} from 'react';
 import {AddToCartButton} from './AddToCartButton';
+import {CurrencyMoney} from './CurrencyMoney';
 import {useT} from '~/lib/t';
 import {IconMinus, IconPlus} from '~/components/Icons';
 import {formatProductOptionLabel} from '~/lib/product-options';
+import {initialSetQuantity, setTotal} from '~/lib/set-quantity';
+
+// Literal keys so scripts/check-dictionary-usage.mjs can see them.
+const SET_LABEL_KEYS = {
+  1: 'product_set_1',
+  2: 'product_set_2',
+  3: 'product_set_3',
+};
 
 /**
  * @param {{
@@ -12,6 +21,8 @@ import {formatProductOptionLabel} from '~/lib/product-options';
  *   selectedVariant: ProductFragment['selectedOrFirstAvailableVariant'];
  *   product?: {handle: string, title: string, featuredImage?: {url: string}};
  *   onAddStart?: () => void;
+ *   setSizes?: number[];
+ *   setHintKey?: string;
  * }}
  */
 export function ProductForm({
@@ -19,17 +30,26 @@ export function ProductForm({
   selectedVariant,
   product,
   onAddStart,
+  setSizes = [],
+  setHintKey,
 }) {
   const navigate = useNavigate();
   const t = useT();
-  const [qty, setQty] = useState(1);
+  const [searchParams] = useSearchParams();
+  // `?qty=2` lets a pair/trio ad land on the pair/trio already chosen. Read
+  // during render (not in an effect) so the server-rendered cart form posts
+  // the same quantity before hydration.
+  const startQty = initialSetQuantity(searchParams.get('qty'), setSizes);
+  const [qty, setQty] = useState(startQty);
   // This property is intentionally absent from the launch catalog. A product
   // can only expose the control after a real provider has been integrated.
   const backInStockIsConfigured = product?.backInStockProvider === 'klaviyo';
 
   // Reset qty when variant changes
   useEffect(() => {
-    setQty(1);
+    setQty(startQty);
+    // startQty only changes with the URL, which also changes the variant.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedVariant?.id]);
 
   const stock = selectedVariant?.quantityAvailable;
@@ -109,6 +129,33 @@ export function ProductForm({
           </fieldset>
         );
       })}
+
+      {/* Pairs and trios: same price per lamp, the total shown up front.
+          Radios set the same quantity the stepper below controls. */}
+      {setSizes.length > 1 && selectedVariant?.price ? (
+        <fieldset className="wr-sets">
+          <legend className="wr-sets__legend">{t('product_set_legend')}</legend>
+          <div className="wr-sets__opts">
+            {setSizes.map((n) => (
+              <label className="wr-sets__opt" key={n}>
+                <input
+                  type="radio"
+                  name="wr-set-size"
+                  value={n}
+                  checked={qty === n}
+                  onChange={() => setQty(n)}
+                />
+                <span className="wr-sets__name">{t(SET_LABEL_KEYS[n])}</span>
+                <CurrencyMoney
+                  className="wr-sets__price"
+                  data={setTotal(selectedVariant.price, n)}
+                />
+              </label>
+            ))}
+          </div>
+          {setHintKey ? <p className="wr-sets__hint">{t(setHintKey)}</p> : null}
+        </fieldset>
+      ) : null}
 
       {/* Quantity + ATC row */}
       <div className="pk-qty-row">

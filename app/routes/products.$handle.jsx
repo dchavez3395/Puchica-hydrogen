@@ -47,6 +47,7 @@ import {
 import {buildApprovedGallery} from '~/lib/product-gallery';
 import {getProductCopyHtml} from '~/lib/dictionaries.server';
 import {extractProductFacts} from '~/lib/product-facts';
+import {setSizesFor} from '~/lib/set-quantity';
 
 /** @type {Route.MetaFunction} */
 export const meta = ({data, matches, params}) => {
@@ -441,6 +442,12 @@ export default function Product() {
                       title: displayTitle,
                       featuredImage: product.featuredImage,
                     }}
+                    setSizes={setSizesFor(isPendant)}
+                    setHintKey={
+                      isPendant
+                        ? 'product_set_hint_pendant'
+                        : 'product_set_hint_sconce'
+                    }
                   />
                 )}
               </div>

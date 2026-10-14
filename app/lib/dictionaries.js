@@ -470,6 +470,12 @@ export const DICTIONARIES = {
     product_qty_aria: 'Quantity',
     product_qty_dec_aria: 'Decrease quantity',
     product_qty_inc_aria: 'Increase quantity',
+    product_set_legend: 'How many?',
+    product_set_1: 'One',
+    product_set_2: 'A pair',
+    product_set_3: 'Three',
+    product_set_hint_pendant: 'Two over a table, three over an island. Same price per lamp.',
+    product_set_hint_sconce: 'One either side of the bed. Same price per lamp.',
     product_stock_phrase: 'Only {stock} left',
 
     // ── Embla / carousels ─────────────────────────────────────────
@@ -1246,6 +1252,12 @@ export const DICTIONARIES = {
     product_qty_aria: 'Quantité',
     product_qty_dec_aria: 'Diminuer la quantité',
     product_qty_inc_aria: 'Augmenter la quantité',
+    product_set_legend: 'Combien ?',
+    product_set_1: 'Une',
+    product_set_2: 'Une paire',
+    product_set_3: 'Trois',
+    product_set_hint_pendant: 'Deux au-dessus d’une table, trois au-dessus d’un îlot. Même prix par lampe.',
+    product_set_hint_sconce: 'Une de chaque côté du lit. Même prix par lampe.',
     product_stock_phrase: 'Plus que {stock} en stock',
 
     // ── Embla / carrousels ──────────────────────────────────────
@@ -2044,6 +2056,12 @@ export const DICTIONARIES = {
     product_qty_aria: 'Cantidad',
     product_qty_dec_aria: 'Disminuir cantidad',
     product_qty_inc_aria: 'Aumentar cantidad',
+    product_set_legend: '¿Cuántas?',
+    product_set_1: 'Una',
+    product_set_2: 'Un par',
+    product_set_3: 'Tres',
+    product_set_hint_pendant: 'Dos sobre una mesa, tres sobre una isla. Mismo precio por lámpara.',
+    product_set_hint_sconce: 'Una a cada lado de la cama. Mismo precio por lámpara.',
     product_stock_phrase: 'Solo quedan {stock}',
 
     // ── Embla / carrusels ───────────────────────────────────────
@@ -2840,6 +2858,12 @@ export const DICTIONARIES = {
     product_qty_aria: 'Quantidade',
     product_qty_dec_aria: 'Diminuir quantidade',
     product_qty_inc_aria: 'Aumentar quantidade',
+    product_set_legend: 'Quantas?',
+    product_set_1: 'Uma',
+    product_set_2: 'Um par',
+    product_set_3: 'Três',
+    product_set_hint_pendant: 'Duas sobre uma mesa, três sobre uma ilha. Mesmo preço por luminária.',
+    product_set_hint_sconce: 'Uma de cada lado da cama. Mesmo preço por luminária.',
     product_stock_phrase: 'Restam apenas {stock}',
 
     // ── Embla / carrosséis ──────────────────────────────────────
